@@ -58,6 +58,7 @@
   <string name="requestAComputerAnalysis">Iarr anailís an ríomhaire</string>
   <string name="computerAnalysis">Anailís an ríomhaire</string>
   <string name="computerAnalysisAvailable">Anailís an ríomhaire ar fáil</string>
+  <string name="computerAnalysisDisabled">Anailís ríomhaireachta díchumasaithe</string>
   <string name="analysis">Clár anailíse</string>
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>

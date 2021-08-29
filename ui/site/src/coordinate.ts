@@ -36,6 +36,7 @@ lichess.load.then(() => {
       if (!ground)
         ground = window.Chessground($board[0], {
           coordinates: false,
+          blockTouchScroll: true,
           drawable: { enabled: false },
           movable: {
             free: false,

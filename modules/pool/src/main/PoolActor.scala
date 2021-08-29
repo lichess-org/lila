@@ -19,6 +19,8 @@ final private class PoolActor(
 
   var members = Vector.empty[PoolMember]
 
+  private var lastPairedUserIds = Set.empty[User.ID]
+
   var nextWave: Cancellable = _
 
   implicit def ec = context.dispatcher
@@ -33,6 +35,9 @@ final private class PoolActor(
   scheduleWave()
 
   def receive = {
+
+    case Join(joiner, _) if lastPairedUserIds(joiner.userId) =>
+    // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner, rageSit) =>
       members.find(joiner.is) match {
@@ -91,6 +96,8 @@ final private class PoolActor(
       pairings.foreach { p =>
         monitor.ratingDiff(monId).record(p.ratingDiff)
       }
+
+      lastPairedUserIds = pairedMembers.view.map(_.userId).toSet
 
       scheduleWave()
 

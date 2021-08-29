@@ -1,4 +1,5 @@
-import { bind, titleNameToId, onInsert } from '../util';
+import { bind, onInsert } from 'common/snabbdom';
+import { titleNameToId } from '../util';
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';

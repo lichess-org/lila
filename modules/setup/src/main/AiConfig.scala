@@ -1,7 +1,9 @@
 package lila.setup
 
 import chess.format.FEN
-import lila.game.{ Game, Player, Pov, Source }
+import scala.concurrent.ExecutionContext
+
+import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
 
@@ -21,7 +23,7 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  def game(user: Option[User]) =
+  private def game(user: Option[User])(implicit idGenerator: IdGenerator): Fu[Game] =
     fenGame { chessGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         chess.Speed(chessGame.clock.map(_.config)),
@@ -44,10 +46,10 @@ case class AiConfig(
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
-        .sloppy
-    } start
+        .withUniqueId
+    }.dmap(_.start)
 
-  def pov(user: Option[User]) = Pov(game(user), creatorColor)
+  def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def timeControlFromPosition = variant != chess.variant.FromPosition || time >= 1
 }

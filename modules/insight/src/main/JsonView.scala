@@ -17,7 +17,7 @@ final class JsonView {
       "key"         -> D.Opening.key,
       "name"        -> D.Opening.name,
       "position"    -> D.Opening.position,
-      "description" -> D.Opening.description.render,
+      "description" -> D.Opening.description,
       "values" -> Dimension
         .valuesOf(D.Opening)
         .filter { o =>
@@ -135,7 +135,7 @@ final class JsonView {
           "key"         -> d.key,
           "name"        -> d.name,
           "position"    -> d.position,
-          "description" -> d.description.render,
+          "description" -> d.description,
           "values"      -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
         )
       }
@@ -144,7 +144,7 @@ final class JsonView {
       Json.obj(
         "key"         -> m.key,
         "name"        -> m.name,
-        "description" -> m.description.render,
+        "description" -> m.description,
         "position"    -> m.position
       )
     }

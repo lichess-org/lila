@@ -34,7 +34,7 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
   <string name="joinTheGame">Start spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
-  <string name="blackPlays">Sort til at spille</string>
+  <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din modstander har forladt spillet. Du kan kræve sejr om %s sekund.</item>
     <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
@@ -43,7 +43,7 @@
   <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
   <string name="forceDraw">Fremtving remis</string>
-  <string name="talkInChat">Hold en venlig tone i chatten!</string>
+  <string name="talkInChat">Husk den gode tone i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander</string>
   <string name="whiteResigned">Hvid har givet op</string>
   <string name="blackResigned">Sort har givet op</string>
@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse klar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiveret</string>
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis efter fælles aftale</string>
+  <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
     <item quantity="one">Se %s parti</item>
@@ -433,7 +436,7 @@
   <string name="movesPlayed">Spillede træk</string>
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
-  <string name="draws">Remis</string>
+  <string name="draws">Remiser</string>
   <string name="nextXTournament">Næste %s turnering:</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
@@ -523,7 +526,7 @@
   <string name="newPasswordStrength">Adgangskodens styrke</string>
   <string name="clockInitialTime">Indledende tid på ur</string>
   <string name="clockIncrement">Ur-forøgelse</string>
-  <string name="privacy">Privat</string>
+  <string name="privacy">Privatliv</string>
   <string name="privacyPolicy">Privatlivspolitik</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
@@ -613,7 +616,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Om</string>
   <string name="aboutX">Om %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), libre, annoncefri, open source skak-server.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), uafhængig, reklamefri, open source skak-server.</string>
   <string name="really">virkelig</string>
   <string name="contribute">Bidrag</string>
   <string name="termsOfService">Servicevilkår</string>
@@ -678,7 +681,7 @@
   <string name="downloadRaw">Download rå</string>
   <string name="downloadImported">Download importeret</string>
   <string name="printFriendlyPDF">Print-venlig PDF</string>
-  <string name="crosstable">Korstabel</string>
+  <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
@@ -690,7 +693,7 @@
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
-  <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér hvis du vil beskytte dine børn eller skoleelever fra at kunne kommunikere med andre internetbrugere.</string>
+  <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér dette for dine børn eller skoleelever for at beskytte dem mod andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
@@ -911,8 +914,14 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="showHelpDialog">Vis denne hjælpedialog</string>
   <string name="reopenYourAccount">Genåbn din konto</string>
   <string name="closedAccountChangedMind">Hvis du har lukket din konto, men siden ombestemt dig, har du én chance for at få din konto tilbage.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Det vil kun fungere én gang.</string>
+  <string name="onlyWorksOnce">Det vil kun fungere én gang.</string>
   <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
   <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
+  <string name="tournamentEntryCode">Turneringadgangskode</string>
+  <string name="hangOn">Vent lidt!</string>
+  <string name="gameInProgress">Du har et parti i gang med %s.</string>
+  <string name="abortTheGame">Afbryd partiet</string>
+  <string name="resignTheGame">Giv op i partiet</string>
+  <string name="youCantStartNewGame">Du kan ikke starte et nyt parti, før dette er afsluttet.</string>
 </resources>

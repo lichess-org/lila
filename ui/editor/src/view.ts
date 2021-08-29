@@ -13,6 +13,8 @@ function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, rev
   const input = h('input', {
     attrs: {
       type: 'checkbox',
+    },
+    props: {
       checked: ctrl.castlingToggles[id],
     },
     on: {
@@ -163,14 +165,17 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
               },
             },
+            props: {
+              value: ctrl.turn,
+            },
           },
           ['whitePlays', 'blackPlays'].map(function (key) {
             return h(
               'option',
               {
                 attrs: {
-                  value: key[0] == 'w' ? 'white' : 'black',
-                  selected: ctrl.turn[0] === key[0],
+                  value: key[0] === 'w' ? 'white' : 'black',
+                  selected: key[0] === ctrl.turn[0],
                 },
               },
               ctrl.trans(key)
@@ -234,7 +239,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           h('div.actions', [
             h(
-              'a.button.button-empty.text',
+              'button.button.button-empty.text',
               {
                 attrs: { 'data-icon': '' },
                 on: {
@@ -246,7 +251,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               ctrl.trans.noarg('clearBoard')
             ),
             h(
-              'a.button.button-empty.text',
+              'button.button.button-empty.text',
               {
                 attrs: { 'data-icon': '' },
                 on: {
@@ -276,7 +281,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               ctrl.trans.noarg('analysis')
             ),
             h(
-              'a',
+              'button',
               {
                 class: {
                   button: true,

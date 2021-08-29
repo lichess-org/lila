@@ -50,4 +50,5 @@
   <string name="history">Boshqotirma tarixi</string>
   <string name="solved">yechildi</string>
   <string name="failed">xatolik</string>
+  <string name="fromXGamesFound">%2$s ta o‘yin ichidan %1$s boshqotirmalar topildi</string>
 </resources>

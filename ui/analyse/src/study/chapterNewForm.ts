@@ -1,16 +1,18 @@
-import * as xhr from 'common/xhr';
-import AnalyseCtrl from '../ctrl';
-import { bind, bindSubmit, spinner, option, onInsert } from '../util';
-import { chapter as chapterTour } from './studyTour';
-import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { defined, prop, Prop } from 'common';
-import { h, VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
-import { Redraw } from '../interfaces';
+import { defined, prop, Prop } from 'common';
 import { snabModal } from 'common/modal';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { storedProp, StoredProp } from 'common/storage';
+import * as xhr from 'common/xhr';
+import { h, VNode } from 'snabbdom';
+import AnalyseCtrl from '../ctrl';
+import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
-import { variants as xhrVariants, importPgn } from './studyXhr';
+import spinner from 'common/spinner';
+import { option } from '../util';
+import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
+import { chapter as chapterTour } from './studyTour';
+import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -50,7 +52,7 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-  const multiPgnMax = 20;
+  const multiPgnMax = 32;
 
   const vm = {
     variants: [],
@@ -212,19 +214,19 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   hook: {
                     insert(vnode) {
-                      Promise.all([
-                        lichess.loadModule('editor'),
-                        xhr.json(xhr.url('/editor.json', { fen: ctrl.root.node.fen })),
-                      ]).then(([_, data]) => {
-                        data.embed = true;
-                        data.options = {
-                          inlineCastling: true,
-                          orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorFen,
-                        };
-                        ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
-                      });
+                      Promise.all([lichess.loadModule('editor'), xhr.json('/editor.json')]).then(
+                        ([_, data]: [unknown, Editor.Config]) => {
+                          data.fen = ctrl.root.node.fen;
+                          data.embed = true;
+                          data.options = {
+                            inlineCastling: true,
+                            orientation: currentChapter.setup.orientation,
+                            onChange: ctrl.vm.editorFen,
+                          };
+                          ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
+                          ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                        }
+                      );
                     },
                     destroy: _ => {
                       ctrl.vm.editor = null;
@@ -244,7 +246,27 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')
                 ),
                 h('textarea#chapter-game.form-control', {
-                  attrs: { placeholder: noarg('urlOfTheGame') },
+                  attrs: {
+                    placeholder: noarg('urlOfTheGame'),
+                  },
+                  hook: onInsert((el: HTMLTextAreaElement) => {
+                    el.addEventListener('change', () => el.reportValidity());
+                    el.addEventListener('input', _ => {
+                      const ok = el.value
+                        .trim()
+                        .split('\n')
+                        .every(line =>
+                          line
+                            .trim()
+                            .match(
+                              new RegExp(
+                                `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`
+                              )
+                            )
+                        );
+                      el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
+                    });
+                  }),
                 }),
               ])
             : null,

@@ -19,7 +19,8 @@ final case class ApiConfig(
     color: Color,
     position: Option[FEN] = None,
     acceptByToken: Option[String] = None,
-    message: Option[Template]
+    message: Option[Template],
+    keepAliveStream: Boolean
 ) {
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
@@ -52,7 +53,8 @@ object ApiConfig extends BaseHumanConfig {
       c: Option[String],
       pos: Option[FEN],
       tok: Option[String],
-      msg: Option[String]
+      msg: Option[String],
+      keepAliveStream: Option[Boolean]
   ) =
     new ApiConfig(
       variant = chess.variant.Variant.orDefault(~v),
@@ -62,7 +64,8 @@ object ApiConfig extends BaseHumanConfig {
       color = Color.orDefault(~c),
       position = pos,
       acceptByToken = tok,
-      message = msg map Template
+      message = msg map Template,
+      keepAliveStream = ~keepAliveStream
     ).autoVariant
 
   def validFen(variant: Variant, fen: Option[FEN]) =

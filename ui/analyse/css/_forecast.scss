@@ -43,25 +43,30 @@
 
     .del {
       @extend %button-shadow;
+      @extend %button-none;
 
       position: absolute;
-      right: 5px;
-      top: 8px;
+      right: 8px;
       width: 1.5em;
       height: 1.5em;
-      line-height: 0.8em;
-      text-align: center;
-      display: block;
-      font-size: 0.9em;
+      line-height: 1;
       opacity: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-right: 0.5px;
 
       @include transition;
 
       background: $c-bad;
       color: $c-bad-over;
-      padding: 0.25em;
       border-radius: 50%;
       z-index: 1;
+
+      &::before {
+        font-size: 1em;
+      }
     }
 
     &:hover .del {

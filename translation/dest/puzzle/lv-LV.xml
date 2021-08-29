@@ -73,4 +73,19 @@
   <string name="fromMyGamesNone">Jums nav nevienas puzles datu bāzē.
 Spēlējiet ātrās vai klasiskajās spēlēs, lai paaugstinātu varbūtību, ka tiks pievienota jūsu puzle!</string>
   <string name="fromXGamesFound">Atrastas %1$s puzles no %2$s spēlēm</string>
+  <string name="puzzleDashboardDescription">Trenēties, izpētīt un uzlabot prasmes</string>
+  <plurals name="nbPlayed">
+    <item quantity="zero">%s izspēlētas</item>
+    <item quantity="one">%s izspēlēta</item>
+    <item quantity="other">%s izspēlētas</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="zero">%s jāatkārto</item>
+    <item quantity="one">%s jāatkārto</item>
+    <item quantity="other">%s jāatkārto</item>
+  </plurals>
+  <string name="percentSolved">%s atrisinātas</string>
+  <string name="noPuzzlesToShow">Nav ko parādīt; vispirms izspēlējiet kādu puzli!</string>
+  <string name="improvementAreasDescription">Apgūstiet šīs tēmas, lai ātrāk uzlabotu prasmes!</string>
+  <string name="strengthDescription">Vislabāk jums padodas šīs prasmes</string>
 </resources>

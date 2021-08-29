@@ -536,7 +536,7 @@ final class ReportApi(
   object inquiries {
 
     private val workQueue =
-      new lila.hub.DuctSequencer(
+      new lila.hub.AsyncActorSequencer(
         maxSize = 32,
         timeout = 20 seconds,
         name = "report.inquiries"

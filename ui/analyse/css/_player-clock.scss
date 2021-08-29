@@ -1,26 +1,42 @@
+@import '../../common/css/component/material';
+
 $clock-height: 20px;
+
+.analyse__player_strip {
+  position: absolute;
+  right: 0;
+  display: flex;
+
+  &.top {
+    top: #{-$clock-height};
+  }
+
+  &.bottom {
+    top: var(--cg-height, 100%);
+    z-index: 1; // over the board coords
+  }
+
+  /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
+  @include breakpoint($mq-col1) {
+    display: none;
+  }
+}
 
 .analyse__clock {
   @extend %metal, %box-shadow;
 
-  position: absolute;
-  right: 0;
   padding: 0 0.5em;
+  margin-left: 12px;
   height: $clock-height;
   font-weight: bold;
   text-align: center;
 
   &.top {
     @extend %box-radius-top;
-
-    top: #{-$clock-height};
   }
 
   &.bottom {
     @extend %box-radius-bottom;
-
-    top: var(--cg-height, 100%);
-    z-index: 1; // over the board coords
   }
 
   &.active {
@@ -30,9 +46,28 @@ $clock-height: 20px;
   tenths {
     font-size: 80%;
   }
+}
 
-  /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
-  @include breakpoint($mq-col1) {
-    display: none;
+.material {
+  padding-right: 1px;
+
+  mpiece {
+    width: 20px;
+    height: 20px;
+
+    &.pawn {
+      margin-left: -10px;
+    }
   }
+  score {
+    margin-top: -2px;
+  }
+}
+
+.material-top {
+  margin-top: -1px;
+}
+
+.material-bottom {
+  margin-top: 1px;
 }

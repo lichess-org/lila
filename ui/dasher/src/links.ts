@@ -56,26 +56,27 @@ export default function (ctrl: DasherCtrl): VNode {
       : null;
   }
 
-  const langs = h('a.sub', modeCfg(ctrl, 'langs'), noarg('language'));
+  const langs = h('button.sub', modeCfg(ctrl, 'langs'), noarg('language'));
 
-  const sound = h('a.sub', modeCfg(ctrl, 'sound'), noarg('sound'));
+  const sound = h('button.sub', modeCfg(ctrl, 'sound'), noarg('sound'));
 
-  const background = h('a.sub', modeCfg(ctrl, 'background'), noarg('background'));
+  const background = h('button.sub', modeCfg(ctrl, 'background'), noarg('background'));
 
-  const board = h('a.sub', modeCfg(ctrl, 'board'), noarg('boardGeometry'));
+  const board = h('button.sub', modeCfg(ctrl, 'board'), noarg('boardGeometry'));
 
-  const theme = h('a.sub', modeCfg(ctrl, 'theme'), noarg('boardTheme'));
+  const theme = h('button.sub', modeCfg(ctrl, 'theme'), noarg('boardTheme'));
 
-  const piece = h('a.sub', modeCfg(ctrl, 'piece'), noarg('pieceSet'));
+  const piece = h('button.sub', modeCfg(ctrl, 'piece'), noarg('pieceSet'));
 
   const zenToggle = ctrl.opts.playing
     ? h('div.zen.selector', [
         h(
-          'a.text',
+          'button.text',
           {
             attrs: {
               'data-icon': '',
               title: 'Keyboard: z',
+              type: 'button',
             },
             hook: bind('click', () => lichess.pubsub.emit('zen')),
           },
@@ -102,6 +103,6 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: { 'data-icon': '' },
+    attrs: { 'data-icon': '', type: 'button' },
   };
 }

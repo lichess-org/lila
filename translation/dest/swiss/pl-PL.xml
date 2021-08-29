@@ -60,7 +60,7 @@ Liczba punktów pomocniczych danego uczestnika składa się z sumy punktów koń
   <string name="pairingsQ">Jak ustalane są pary?</string>
   <string name="dutchSystem">systemu holenderskiego</string>
   <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
-  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
+  <string name="pairingsA">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Co się stanie, jeśli turniej ma więcej rund niż graczy?</string>
   <string name="moreRoundsThanPlayersA">Po rozegraniu wszystkich możliwych par, turniej zakończy się i zostanie ogłoszony zwycięzca.</string>
   <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
@@ -69,7 +69,7 @@ Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż
   <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może otrzymać uczestnik?</string>
   <string name="numberOfByesA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
 Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju po jego rozpoczęciu.</string>
-  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli gracz nie rozpocznie partii?</string>
+  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli uczestnik nie rozpocznie partii?</string>
   <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
 Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.
 Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
@@ -88,7 +88,7 @@ Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajca
   <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków tego klubu.
 %1$s, aby zacząć grać systemem szwajcarskim.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
-  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">W toku</string>
+  <string name="nowPlaying">W toku</string>
   <string name="startingSoon">Rozpoczną się wkrótce</string>
   <string name="comparison">Porównanie</string>
   <string name="tournDuration">Czas trwania turnieju</string>

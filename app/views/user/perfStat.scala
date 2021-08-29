@@ -41,17 +41,19 @@ object perfStat {
         st.aside(cls := "page-menu__menu")(show.side(user, ranks, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           div(cls := "box__top")(
-            h1(
-              a(href := routes.User.show(user.username))(user.username),
-              span(perfStats(perfType.trans))
+            div(cls := "box__top__title")(
+              bits.perfTrophies(user, ranks.view.filterKeys(perfType.==).toMap),
+              h1(
+                a(href := routes.User.show(user.username))(user.username),
+                span(perfStats(perfType.trans))
+              )
             ),
             div(cls := "box__top__actions")(
               user.perfs(perfType).nb > 0 option a(
                 cls := "button button-empty text",
                 dataIcon := perfType.iconChar,
                 href := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
-              )(viewTheGames()),
-              bits.perfTrophies(user, ranks.view.filterKeys(perfType.==).toMap)
+              )(viewTheGames())
             )
           ),
           ratingChart.isDefined option div(cls := "rating-history")(spinner),
@@ -69,7 +71,7 @@ object perfStat {
     }
   }
 
-  private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
+  private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit
       ctx: Context

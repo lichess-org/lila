@@ -33,7 +33,7 @@ export interface CevalOpts {
   multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
-  standardMaterial: boolean;
+  initialFen: string | undefined;
   emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
   redraw: () => void;
@@ -64,6 +64,7 @@ export interface CevalCtrl {
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;
+  analysable: boolean;
   isComputing(): boolean;
   engineName(): string | undefined;
   variant: Variant;

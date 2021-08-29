@@ -5,7 +5,7 @@ import lila.common.Bus
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
-import RoundDuct.TakebackSituation
+import RoundAsyncActor.TakebackSituation
 
 final private class Takebacker(
     messenger: Messenger,
@@ -28,16 +28,19 @@ final private class Takebacker(
                 .fromPly(pov.opponent.proposeTakebackAt)
             ) single(game)
             else double(game)
-          } dmap (_ -> situation.reset)
-        case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
-        case Pov(game, _) if pov.opponent.isAi     => double(game) dmap (_ -> situation)
+          } >>- publishTakeback(pov) dmap (_ -> situation.reset)
+        case Pov(game, _) if pov.game.playableByAi =>
+          single(game) >>- publishTakeback(pov) dmap (_ -> situation)
+        case Pov(game, _) if pov.opponent.isAi =>
+          double(game) >>- publishTakeback(pov) dmap (_ -> situation)
         case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
           {
             messenger.system(game, trans.takebackPropositionSent.txt())
             val progress = Progress(game) map { g =>
               g.updatePlayer(color, _ proposeTakeback g.turns)
             }
-            proxy.save(progress) >>- publishTakebackOffer(pov) inject
+            proxy.save(progress) >>-
+              publishTakebackOffer(progress.game) inject
               List(Event.TakebackOffers(color.white, color.black))
           } dmap (_ -> situation)
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
@@ -47,23 +50,21 @@ final private class Takebacker(
   def no(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     pov match {
       case Pov(game, color) if pov.player.isProposingTakeback =>
-        proxy.save {
-          messenger.system(game, trans.takebackPropositionCanceled.txt())
-          Progress(game) map { g =>
-            g.updatePlayer(color, _.removeTakebackProposition)
-          }
-        } inject {
-          List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
+        messenger.system(game, trans.takebackPropositionCanceled.txt())
+        val progress = Progress(game) map { g =>
+          g.updatePlayer(color, _.removeTakebackProposition)
         }
+        proxy.save(progress) >>-
+          publishTakebackOffer(progress.game) inject
+          List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
-        proxy.save {
-          messenger.system(game, trans.takebackPropositionDeclined.txt())
-          Progress(game) map { g =>
-            g.updatePlayer(!color, _.removeTakebackProposition)
-          }
-        } inject {
-          List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
+        messenger.system(game, trans.takebackPropositionDeclined.txt())
+        val progress = Progress(game) map { g =>
+          g.updatePlayer(!color, _.removeTakebackProposition)
         }
+        proxy.save(progress) >>-
+          publishTakebackOffer(progress.game) inject
+          List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
     }
 
@@ -81,13 +82,6 @@ final private class Takebacker(
           p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
         }
       }
-
-  private def publishTakebackOffer(pov: Pov): Unit =
-    if (pov.game.isCorrespondence && pov.game.nonAi && pov.player.hasUser)
-      Bus.publish(
-        lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
-        "offerEventCorres"
-      )
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
     if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
@@ -122,4 +116,25 @@ final private class Takebacker(
     messenger.system(p2.game, trans.takebackPropositionAccepted.txt())
     proxy.save(p2) inject p2.events
   }
+
+  private def publishTakebackOffer(game: Game): Unit =
+    if (lila.game.Game.isBoardCompatible(game))
+      Bus.publish(
+        lila.game.actorApi.BoardDrawOffer(game),
+        lila.game.actorApi.BoardDrawOffer makeChan game.id
+      )
+
+  private def publishTakeback(prevPov: Pov)(implicit proxy: GameProxy): Unit =
+    if (lila.game.Game.isBoardCompatible(prevPov.game))
+      proxy
+        .withPov(prevPov.color) { p =>
+          fuccess(
+            Bus.publish(
+              lila.game.actorApi.BoardTakeback(p.game),
+              lila.game.actorApi.BoardTakeback makeChan prevPov.gameId
+            )
+          )
+        }
+        .unit
+
 }

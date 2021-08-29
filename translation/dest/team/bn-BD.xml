@@ -43,8 +43,5 @@
   <string name="leadersChat">দলনেতাদের কথোপকথন</string>
   <string name="closeTeam">দল বাতিল করুন</string>
   <string name="closeTeamDescription">সারাজীবনের জন্য দল বন্ধ করুন.</string>
-  <string name="teamPassword">দলের পাসওয়ার্ড</string>
-  <string name="teamPasswordDescriptionForLeader">(বাধ্যতামূলক নয়) পাসওয়ার্ড দিন যা ছাড়া নতুন সদস্য আপনার দলে প্রবেশ করতে পারবে না.</string>
-  <string name="incorrectTeamPassword">দলের পাসওয়ার্ড ভুল দিয়েছেন.</string>
   <string name="teamAlreadyExists">এই নামে আরেকটি দল রয়েছে.</string>
 </resources>

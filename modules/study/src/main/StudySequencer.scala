@@ -3,7 +3,7 @@ package lila.study
 import ornicar.scalalib.Zero
 import scala.concurrent.duration._
 
-import lila.hub.DuctSequencers
+import lila.hub.AsyncActorSequencers
 
 final private class StudySequencer(
     studyRepo: StudyRepo,
@@ -15,7 +15,7 @@ final private class StudySequencer(
 ) {
 
   private val workQueue =
-    new DuctSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
+    new AsyncActorSequencers(maxSize = 64, expiration = 1 minute, timeout = 10 seconds, name = "study")
 
   def sequenceStudy[A: Zero](studyId: Study.Id)(f: Study => Fu[A]): Fu[A] =
     workQueue(studyId.value) {

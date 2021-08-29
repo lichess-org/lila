@@ -27,18 +27,55 @@ lichess.load.then(() => {
       return false;
     });
 
+  $('.forum-post__message').each(function (this: HTMLElement) {
+    if (this.innerText.match(/(^|\n)>/)) {
+      const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
+      let result = '';
+      let quote = [];
+      for (const line of this.innerHTML.split('<br>')) {
+        if (line.startsWith('&gt;')) quote.push(hiddenQuotes + line.substring(4).trim());
+        else {
+          if (quote.length > 0) {
+            result += `<blockquote>${quote.join('<br>')}</blockquote>`;
+            quote = [];
+          }
+          result += line + '<br>';
+        }
+      }
+      if (quote.length > 0) result += `<blockquote>${quote.join('<br>')}</blockquote>`;
+      this.innerHTML = result;
+    }
+  });
+
   $('.edit.button')
     .add('.edit-post-cancel')
     .on('click', function (this: HTMLButtonElement, e) {
       e.preventDefault();
 
-      const post = $(this).closest('.forum-post'),
-        message = post.find('.message').toggle(),
-        form = post.find('form.edit-post-form').toggle();
+      const $post = $(this).closest('.forum-post'),
+        $form = $post.find('form.edit-post-form').toggle();
 
-      (form[0] as HTMLFormElement).reset();
-      form.find('textarea').height(message.height());
+      ($form[0] as HTMLFormElement).reset();
     });
+
+  $('.quote.button').on('click', function (this: HTMLButtonElement) {
+    const $post = $(this).closest('.forum-post'),
+      authorUsername = $post.find('.author').attr('href')?.substring(3),
+      author = authorUsername ? '@' + authorUsername : $post.find('.author').text(),
+      anchor = $post.find('.anchor').text(),
+      message = $post.find('.forum-post__message')[0] as HTMLElement,
+      response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
+
+    let quote = message.innerText
+      .replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
+      .trim()
+      .split('\n')
+      .map(line => '> ' + line)
+      .join('\n');
+    quote = `${author} said in ${anchor}:\n${quote}\n`;
+    response.value =
+      response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+  });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
     const textarea = this,
@@ -108,5 +145,26 @@ lichess.load.then(() => {
         }
       );
     }
+  });
+
+  const replyStorage = lichess.tempStorage.make('forum.reply' + location.pathname);
+  const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
+  let submittingReply = false;
+
+  window.addEventListener('pageshow', () => {
+    const storedReply = replyStorage.get();
+    if (replyEl && storedReply) replyEl.value = storedReply;
+  });
+
+  window.addEventListener('pagehide', () => {
+    if (!submittingReply) {
+      if (replyEl?.value) replyStorage.set(replyEl.value);
+      else replyStorage.remove();
+    }
+  });
+
+  $('form.reply').on('submit', () => {
+    replyStorage.remove();
+    submittingReply = true;
   });
 });

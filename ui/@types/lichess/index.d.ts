@@ -1,5 +1,3 @@
-/// <reference types="highcharts" />
-
 interface Lichess {
   load: Promise<void>; // window.onload promise
   info: any;
@@ -206,7 +204,7 @@ interface LichessEditor {
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
-    fen: string;
+    fen?: string;
     options?: Editor.Options;
     is3d: boolean;
     animation: {
@@ -244,7 +242,6 @@ interface Window {
   moment: any;
   Mousetrap: any;
   Chessground: any;
-  Highcharts: Highcharts.Static;
   InfiniteScroll(selector: string): void;
   lichessReplayMusic: () => {
     jump(node: Tree.Node): void;
@@ -486,10 +483,6 @@ declare namespace PowerTip {
     openEvents?: string[];
     closeEvents?: string[];
   }
-}
-
-interface HighchartsHTMLElement extends HTMLElement {
-  highcharts: Highcharts.ChartObject;
 }
 
 declare namespace Prefs {

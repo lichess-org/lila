@@ -43,23 +43,19 @@ final class TeamApi(
   def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] = {
-    val s      = setup.trim
-    val bestId = Team.nameToId(s.name)
+    val bestId = Team.nameToId(setup.name)
     chatApi.exists(bestId) map {
       case true  => Team.randomId()
       case false => bestId
     } flatMap { id =>
       val team = Team.make(
         id = id,
-        name = s.name,
-        location = s.location,
-        password = s.password,
-        description = s.description,
-        descPrivate = s.descPrivate,
-        open = s.isOpen,
-        createdBy = me,
-        hideMembers = Some(s.hideMembers),
-        hideForum = Some(s.hideForum)
+        name = setup.name,
+        password = setup.password,
+        description = setup.description,
+        descPrivate = setup.descPrivate.filter(_.nonEmpty),
+        open = setup.isOpen,
+        createdBy = me
       )
       teamRepo.coll.insert.one(team) >>
         memberRepo.add(team.id, me.id) >>- {
@@ -74,23 +70,20 @@ final class TeamApi(
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit =
-    edit.trim pipe { e =>
-      team.copy(
-        location = e.location,
-        password = e.password,
-        description = e.description,
-        descPrivate = e.descPrivate,
-        open = e.isOpen,
-        chat = e.chat,
-        hideMembers = Some(e.hideMembers),
-        hideForum = Some(e.hideForum)
-      ) pipe { team =>
-        teamRepo.coll.update.one($id(team.id), team).void >>
-          !team.leaders(me.id) ?? {
-            modLog.teamEdit(me.id, team.createdBy, team.name)
-          } >>-
-          (indexer ! InsertTeam(team))
-      }
+    team.copy(
+      password = edit.password,
+      description = edit.description,
+      descPrivate = edit.descPrivate,
+      open = edit.isOpen,
+      chat = edit.chat,
+      forum = edit.forum,
+      hideMembers = Some(edit.hideMembers)
+    ) pipe { team =>
+      teamRepo.coll.update.one($id(team.id), team).void >>
+        !team.leaders(me.id) ?? {
+          modLog.teamEdit(me.id, team.createdBy, team.name)
+        } >>-
+        (indexer ! InsertTeam(team))
     }
 
   def mine(me: User): Fu[List[Team]] =
@@ -225,6 +218,16 @@ final class TeamApi(
         cached.invalidateTeamIds(userId) inject teamIds
     }
 
+  def searchMembers(teamId: Team.ID, term: String, nb: Int): Fu[List[User.ID]] =
+    User.validateId(term) ?? { valid =>
+      memberRepo.coll.primitive[User.ID](
+        selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith valid),
+        sort = $sort desc "user",
+        nb = nb,
+        field = "user"
+      )
+    }
+
   def kick(team: Team, userId: User.ID, me: User): Funit =
     doQuit(team, userId) >>
       (!team.leaders(me.id)).?? {
@@ -232,25 +235,35 @@ final class TeamApi(
       } >>-
       Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
 
+  def kickMembers(team: Team, json: String, me: User) =
+    parseTagifyInput(json) map (kick(team, _, me))
+
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
 
-  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
-    val leaders: Set[User.ID] = Try {
-      json.trim.nonEmpty ?? {
-        Json.parse(json).validate[List[TagifyUser]] match {
-          case JsSuccess(users, _) =>
-            users
-              .map(_.value.toLowerCase.trim)
-              .filter(User.lichessId !=)
-              .toSet take 30
-          case _ => Set.empty[User.ID]
-        }
+  private def parseTagifyInput(json: String) = Try {
+    json.trim.nonEmpty ?? {
+      Json.parse(json).validate[List[TagifyUser]] match {
+        case JsSuccess(users, _) =>
+          users
+            .map(_.value.toLowerCase.trim)
+            .filter(User.lichessId !=)
+            .toSet
+        case _ => Set.empty[User.ID]
       }
-    } getOrElse Set.empty
-    memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
-      ids.nonEmpty ?? {
-        if (ids(team.createdBy) || !team.leaders(team.createdBy) || by.id == team.createdBy || byMod) {
+    }
+  } getOrElse Set.empty
+
+  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
+    val leaders: Set[User.ID] = parseTagifyInput(json) take 30
+    for {
+      allIds               <- memberRepo.filterUserIdsInTeam(team.id, leaders)
+      ids                  <- userRepo.filterNotKid(allIds.toSeq)
+      previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
+      _ <- ids.nonEmpty ?? {
+        if (
+          ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod
+        ) {
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
@@ -259,7 +272,7 @@ final class TeamApi(
           funit
         }
       }
-    }
+    } yield ()
   }
 
   def isLeaderOf(leader: User.ID, member: User.ID) =

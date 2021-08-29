@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Зіграно недостатньо рейтингових ігор для встановлення точного рейтингу.</string>
   <string name="progressOverLastXGames">Прогрес за останні %s ігор:</string>
   <string name="ratingDeviation">Відхилення рейтингу: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Менше значення означає, що рейтинг більш стабільний. Вище %1$s, рейтинг вважається тимчасовим. Для включення до рейтингу це значення має бути нижче %2$s (стандартні шахи) або %3$s (варіанти).</string>
   <string name="totalGames">Всього партій</string>
   <string name="ratedGames">Рейтингові партії</string>
   <string name="tournamentGames">Турнірні партії</string>

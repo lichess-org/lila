@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
+  <string name="computerAnalysisDisabled">컴퓨터 분석 꺼짐</string>
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s명의 플레이어</item>
   </plurals>
+  <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
+  <string name="fiftyMovesWithoutProgress">진전이 없이 50수 소모</string>
   <string name="currentGames">진행 중인 게임</string>
   <plurals name="nbGames">
     <item quantity="other">%s개의 게임</item>
@@ -157,7 +160,7 @@
   <string name="today">오늘</string>
   <string name="yesterday">어제</string>
   <string name="minutesPerSide">주어진 시간(분)</string>
-  <string name="variant">변형게임</string>
+  <string name="variant">게임 종류</string>
   <string name="variants">변형</string>
   <string name="timeControl">시간 제한</string>
   <string name="realTime">짧은 대국</string>
@@ -875,4 +878,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="cantDoThisTwice">계정을 두 번째로 폐쇄했다면 복구할 방법이 없습니다.</string>
   <string name="emailAssociatedToaccount">계정에 등록된 이메일 주소</string>
   <string name="sentEmailWithLink">링크가 포함된 이메일을 보냈습니다.</string>
+  <string name="tournamentEntryCode">토너먼트 입장 코드</string>
 </resources>

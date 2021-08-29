@@ -21,7 +21,7 @@ object userAnalysisI18n {
       } ++ {
         withForecast ?? forecastTranslations
       } ++ {
-        withAdvantageChart ?? advantageChartTranslations
+        withAdvantageChart ?? advantageTranslations
       }
     )
 
@@ -46,6 +46,9 @@ object userAnalysisI18n {
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding,
+    trans.drawByMutualAgreement,
+    trans.fiftyMovesWithoutProgress,
+    trans.insufficientMaterial,
     trans.whitePlays,
     trans.blackPlays,
     trans.gameOver,
@@ -100,7 +103,7 @@ object userAnalysisI18n {
     trans.puzzle.findTheBestMoveForBlack
   ).map(_.key)
 
-  private val cevalTranslations: Vector[MessageKey] = Vector(
+  val cevalWidget: Vector[MessageKey] = Vector(
     // also uses gameOver
     trans.depthX,
     trans.usingServerAnalysis,
@@ -109,7 +112,10 @@ object userAnalysisI18n {
     trans.goDeeper,
     trans.showThreat,
     trans.inLocalBrowser,
-    trans.toggleLocalEvaluation,
+    trans.toggleLocalEvaluation
+  ).map(_.key)
+
+  private val cevalTranslations: Vector[MessageKey] = cevalWidget ++ Vector(
     // ceval menu
     trans.computerAnalysis,
     trans.enable,
@@ -119,10 +125,11 @@ object userAnalysisI18n {
     trans.removesTheDepthLimit,
     trans.multipleLines,
     trans.cpus,
-    trans.memory
+    trans.memory,
+    trans.computerAnalysisDisabled
   ).map(_.key)
 
-  private val explorerTranslations: Vector[MessageKey] = Vector(
+  val explorerTranslations: Vector[MessageKey] = Vector(
     // also uses gameOver, checkmate, stalemate, draw, variantEnding
     trans.openingExplorerAndTablebase,
     trans.openingExplorer,
@@ -165,13 +172,19 @@ object userAnalysisI18n {
     trans.andSaveNbPremoveLines
   ).map(_.key)
 
-  private val advantageChartTranslations: Vector[MessageKey] = Vector(
-    trans.nbInaccuracies,
-    trans.nbMistakes,
-    trans.nbBlunders,
+  val advantageChartTranslations = Vector(
     trans.advantage,
+    trans.nbSeconds,
     trans.opening,
     trans.middlegame,
     trans.endgame
   ).map(_.key)
+
+  private val advantageTranslations: Vector[MessageKey] =
+    advantageChartTranslations ++
+      Vector(
+        trans.nbInaccuracies,
+        trans.nbMistakes,
+        trans.nbBlunders
+      ).map(_.key)
 }

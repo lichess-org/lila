@@ -59,14 +59,70 @@
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
   <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
+  <string name="swissVsArenaQ">متى تستخدم البطولا السويسرية عوضاً عن البطولات العادية؟</string>
+  <string name="swissVsArenaA">في نظام البطولات السويسرية، يمكن للمشاركين اللعب ضد أحدهم الآخر مرة واحدة فقط، ويلعب الجميع نفس العدد من المباريات.
+يمكن أن يكون نظام البطولات السويسرية خياراً جيداً للنوادي أو البطولات الرسمية.</string>
   <string name="pointsCalculationQ">كيف يتم احتساب النقاط؟</string>
+  <string name="pointsCalculationA">فالفوز يستحق نقطة واحدة، والخسارة هي نصف نقطة، والخسارة هي صفر نقاط.
+عندما لا يمكن الاقتران بين اللاعب خلال جولة ، فإنه يحصل على بايت بقيمة نقطة واحدة.</string>
+  <string name="tiebreaksCalculationQ">كيف يتم حساب كسر التعادل؟</string>
+  <string name="sonnebornBergerScore">نقاط سونيبورن - بيرغر</string>
+  <string name="tiebreaksCalculationA">مع %s
+يتم إضافة نقطة لكل خصم يهزمه اللاعب و نصف نقطة لكل خصم يتعادل معه اللاعب.</string>
+  <string name="pairingsQ">كيف يتم تحديد اقتران الاعبين؟</string>
   <string name="dutchSystem">النظام الألماني</string>
   <string name="FIDEHandbook">دليل الاتحاد الدولي للشطرنج</string>
+  <string name="pairingsA">مع%1$s،التي تنفذها%2$s، وفقا ل%3$s.</string>
+  <string name="moreRoundsThanPlayersQ">ماذا يحدث إذا كانت البطولة تحتوي على جولات أكثر من اللاعبين؟</string>
+  <string name="moreRoundsThanPlayersA">عندما ينتهي كل المتنافسين من اللعب ستنتهي البطولة و يتم إعلان الفائز.</string>
+  <string name="restrictedToTeamsQ">لماذا هو حصري للفرق فقط؟</string>
+  <string name="restrictedToTeamsA">لم تكن البطولات السويسرية مصممة للشطرنج على الانترنت، بل تتطلب دقة المواعيد والتفاني والصبر من اللاعبين.
+نعتقد أنه من المرجح أن يتم الوفاء بهذه الشروط في إطار فريق أكثر منها في البطولات العالمية.</string>
+  <string name="numberOfByesQ">كم من البايت يستطيع اللاعب الحصول عليها؟</string>
+  <string name="numberOfByesA">اللاعب يحصل على نقطة واحدة في كل مرة لا يستطيع فيها نظام الإقران العثور على إقران لهم.
+بالإضافة إلى ذلك، يتم منحهم نصف نقطة عندما ينضم لاعب متأخر إلى البطولة.</string>
+  <string name="whatIfOneDoesntPlayQ">ماذا يحدث إذا لم يلعب اللاعب المباراة؟</string>
+  <string name="whatIfOneDoesntPlayA">سيمر وقتهم ويخسرون بسبب الوقت.
+وعندها سيقوم النظام بإخراجهم من البطولة لكي لا يخسروا مزيداً من الجولات.
+يمكنهم إعادة الانضمام للبطولة متى ما شاؤوا.</string>
+  <string name="lateJoinQ">هل يمكن للاعب الانضمام متأخراً؟</string>
+  <string name="lateJoinA">نعم، إلى أن يبدأ أكثر من نصف المباريات؛ على سبيل المثال في إحدى عشرة جولة يمكن للاعبين أن ينضموا قبل أن تبدأ الجولة السادسة وفي 12 جولة قبل بدء الجولة السابعة.
+الانضمام المتأخر يحصل على جزء واحد، حتى لو فاتهم عدة جولات.</string>
+  <string name="willSwissReplaceArenasQ">هل ستحل البطولات السويسرية محل البطولات العادية؟</string>
+  <string name="willSwissReplaceArenasA">لا، هذه ميزات تكميلية.</string>
+  <string name="roundRobinQ">ماذا عن جولة روبين؟</string>
+  <string name="roundRobinA">نود أن نضيفه، لكن لسوء الحظ أن جولة روبين لا تعمل على الإنترنت.
+السبب هو أنه ليس لديها طريقة عادلة للتعامل مع الأشخاص الذين يغادرون المسابقة مبكرا. لا يمكننا أن نتوقع أن يلعب جميع اللاعبين كل ألعابهم في حدث على الانترنت. لن يحدث ذلك فقط، ونتيجة لذلك فإن معظم بطولات روبين ستكون معيبة وغير عادلة.
+أقرب ما يمكنك الوصول إلى جولة روبن على الإنترنت هو لعب بطولة سويسرية بعدد كبير جدا من الجولات. ثم سيتم تشغيل جميع الأزواج الممكنة قبل انتهاء البطولة.</string>
+  <string name="otherSystemsQ">ماذا عن أنظمة البطولة الأخرى؟</string>
+  <string name="otherSystemsA">نحن لا نخطط لإضافة المزيد من أنظمة البطولة إلى ليشيس في الوقت الحالي.</string>
+  <string name="swissDescription">في بطولة سويسرية %1$s، لا يلعب كل منافس بالضرورة جميع الاعبين الآخرين. يلتقي المنافسون الواحد تلو الآخر في كل جولة من الجولات ويقترنون باستخدام مجموعة من القواعد المصممة لضمان أن يلعب كل منافس معارضين بنفس الدرجة من التشغيل. ولكن ليس نفس الخصم أكثر من مرة. الفائز هو المنافس ذو أعلى مجموع النقاط المكتسبة في جميع الجولات. كل المنافسين يلعبون في كل جولة ما لم يكن هناك عدد فردي من اللاعبين.\"</string>
+  <string name="teamOnly">لا يمكن إنشاء البطولات السويسرية إلا من قبل قادة الفريق، ولا يمكن لعبها إلا من قبل أعضاء الفريق.           
+%1$s لبدء اللعب في البطولات.</string>
   <string name="joinOrCreateTeam">انضم أو أنشأ فريق</string>
   <string name="nowPlaying">الملعوبة حالياً</string>
   <string name="startingSoon">ستبدأ قريباً</string>
   <string name="comparison">المقارنة</string>
   <string name="tournDuration">مدة المسابقة</string>
+  <string name="predefinedDuration">مدة محددة مسبقاً في دقائق</string>
+  <string name="durationUnknown">الحد الأقصى للجولات المحددة مسبقاً، ولكن المدة غير معروفة</string>
   <string name="numberOfGames">عدد المباريات</string>
+  <string name="numberOfGamesAsManyAsPossible">أكبر عدد ممكن من اللعب في الفترة المخصصة</string>
+  <string name="numberOfGamesPreDefined">تقرر مسبقاً، نفس الشيء لجميع اللاعبين</string>
+  <string name="pairingSystem">نظام الاقتران</string>
+  <string name="pairingSystemArena">أي خصم متاح حيث يكون الخصم مقارب بالتصنيف</string>
+  <string name="pairingSystemSwiss">افضل ربط بين اللاعبين اعتماداً على النقاط و نتيجة كسر التعادل</string>
   <string name="pairingWaitTime">وقت انتظار الاقتران</string>
+  <string name="pairingWaitTimeFast">سريع: لا ينتظر جميع اللاعبين</string>
+  <string name="pairingWaitTimeSlow">بطيء: ينتظر جميع اللاعبين</string>
+  <string name="identicalPairing">الاقتران المتطابق</string>
+  <string name="possibleButNotConsecutive">ممكن ولكن ليس على التوالي</string>
+  <string name="identicalForbidden">محظور</string>
+  <string name="lateJoin">الانضمام المتأخر</string>
+  <string name="lateJoinUntil">ممكن في حال لم يمضي اكثر من نصف الجولات</string>
+  <string name="pause">الايقاف المؤقت</string>
+  <string name="pauseSwiss">ممكن و لكن من الممكن أن يقلل عدد الجولات</string>
+  <string name="streaksAndBerserk">الفوز المتتالي و تحدي نصف الوقت</string>
+  <string name="similarToOTB">مشابه للبطولات التي تقام على الرقعة</string>
+  <string name="unlimitedAndFree">غير محدود و مجاني</string>
 </resources>

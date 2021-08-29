@@ -125,6 +125,5 @@
   <string name="clearChat">Limpiar lo chat</string>
   <string name="deleteTheStudyChatHistory">Quiers borrar de verdat lo historial de chat? Esta acción no se puede desfer!</string>
   <string name="deleteStudy">Borrar estudio</string>
-  <string name="deleteTheEntireStudy">Quiers borrar de verdat tot lo estudio? Esta acción no se puede desfer!</string>
   <string name="whereDoYouWantToStudyThat">Án quiers estudiar ixo?</string>
 </resources>

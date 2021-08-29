@@ -45,9 +45,9 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="leadersChat">Chatt for gruppeleiarar</string>
   <string name="closeTeam">Steng ned laget</string>
   <string name="closeTeamDescription">Steng laget for all framtid.</string>
-  <string name="teamPassword">Laget sitt passord</string>
-  <string name="teamPasswordDescriptionForLeader">(Valfritt) Eit passord som nye medlemar må kjenne for å bli med i dette laget.</string>
-  <string name="incorrectTeamPassword">Feil lag-passord.</string>
+  <string name="entryCode">Lagtilgangskode</string>
+  <string name="entryCodeDescriptionForLeader">(Valfritt) Ein tilgangskode som nye medlemar må kjenne til for å bli med på dette laget.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Feil tilgangskode.</string>
   <string name="teamAlreadyExists">Dette laget finst allereie.</string>
   <string name="upcomingTourns">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>

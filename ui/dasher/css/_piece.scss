@@ -21,6 +21,8 @@
     }
 
     .no-square {
+      @extend %button-none;
+
       width: 75px;
       height: 75px;
       position: relative;

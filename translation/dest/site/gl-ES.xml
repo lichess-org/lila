@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Solicitar unha análise por computador</string>
   <string name="computerAnalysis">Análise por computador</string>
   <string name="computerAnalysisAvailable">Análise de ordenador dispoñible</string>
+  <string name="computerAnalysisDisabled">Análise de ordenador deshabilitada</string>
   <string name="analysis">Taboleiro de análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s xogadores</item>
     <item quantity="other">%s xogadores</item>
   </plurals>
+  <string name="drawByMutualAgreement">Táboas de mutuo acordo</string>
+  <string name="fiftyMovesWithoutProgress">Cincuenta movementos sen progreso</string>
   <string name="currentGames">Partidas en curso</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partidas</item>
@@ -915,4 +918,10 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="cantDoThisTwice">Se pechas a túa conta de novo, non haberá maneira de recuperala.</string>
   <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada á conta</string>
   <string name="sentEmailWithLink">Enviámosche un correo electrónico cunha ligazón.</string>
+  <string name="tournamentEntryCode">Código de participación no torneo</string>
+  <string name="hangOn">Agarda!</string>
+  <string name="gameInProgress">Estás xogando unha partida con %s.</string>
+  <string name="abortTheGame">Abortar partida</string>
+  <string name="resignTheGame">Abandoar partida</string>
+  <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
 </resources>

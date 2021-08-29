@@ -4,7 +4,7 @@ import AnalyseCtrl from './ctrl';
 import { findTag } from './study/studyChapters';
 import * as game from 'game';
 import { defined } from 'common';
-import { bind, dataIcon } from './util';
+import { bind, dataIcon } from 'common/snabbdom';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 

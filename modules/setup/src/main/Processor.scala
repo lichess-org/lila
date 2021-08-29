@@ -2,34 +2,32 @@ package lila.setup
 
 import lila.common.Bus
 import lila.common.config.Max
-import lila.game.Pov
+import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
 import lila.user.{ User, UserContext }
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: GameRepo,
     maxPlaying: Max,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, idGenerator: IdGenerator) {
 
-  def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
-    val pov = config pov ctx.me
-    (gameRepo insertDenormalized pov.game) >>-
-      onStart(pov.gameId) >> {
-        pov.game.player.isAi ?? fishnetPlayer(pov.game)
-      } inject pov
-  }
+  def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = for {
+    pov <- config pov ctx.me
+    _   <- gameRepo insertDenormalized pov.game
+    _ = onStart(pov.gameId)
+    _ <- pov.game.player.isAi ?? fishnetPlayer(pov.game)
+  } yield pov
 
-  def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = {
-    val pov = config pov me.some
-    (gameRepo insertDenormalized pov.game) >>-
-      onStart(pov.gameId) >> {
-        pov.game.player.isAi ?? fishnetPlayer(pov.game)
-      } inject pov
-  }
+  def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = for {
+    pov <- config pov me.some
+    _   <- gameRepo insertDenormalized pov.game
+    _ = onStart(pov.gameId)
+    _ <- pov.game.player.isAi ?? fishnetPlayer(pov.game)
+  } yield pov
 
   def hook(
       configBase: HookConfig,

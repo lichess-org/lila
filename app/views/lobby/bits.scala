@@ -132,14 +132,14 @@ object bits {
       )
     )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame) =
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) =
     nopeInfo(
-      h1("Hang on!"),
-      p("You have a game in progress with ", strong(current.opponent), "."),
+      h1(trans.hangOn()),
+      p(trans.gameInProgress(strong(current.opponent))),
       br,
       br,
       a(cls := "text button button-fat", dataIcon := "", href := routes.Round.player(current.pov.fullId))(
-        "Join the game"
+        trans.joinTheGame()
       ),
       br,
       br,
@@ -148,12 +148,11 @@ object bits {
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
         button(cls := "text button button-red", dataIcon := "")(
-          if (current.pov.game.abortable) "Abort" else "Resign",
-          " the game"
+          if (current.pov.game.abortable) trans.abortTheGame() else trans.resignTheGame()
         )
       ),
       br,
-      p("You can't start a new game until this one is finished.")
+      p(trans.youCantStartNewGame())
     )
 
   def nopeInfo(content: Modifier*) =

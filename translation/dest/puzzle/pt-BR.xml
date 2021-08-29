@@ -25,7 +25,7 @@
   <string name="keepGoing">Continue…</string>
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Quebra-cabeças concluído!</string>
-  <string name="notTheMove">O movimento não é esse!</string>
+  <string name="notTheMove">O movimento não é este!</string>
   <string name="trySomethingElse">Tente algo diferente.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">oculto</string>
@@ -52,7 +52,7 @@
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Adicionar um outro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir para o próximo problema automaticamente</string>
-  <string name="puzzleDashboard">Painel do quebra-cabeça</string>
+  <string name="puzzleDashboard">Painel do quebra-cabeças</string>
   <string name="improvementAreas">Áreas de aprimoramento</string>
   <string name="strengths">Pontos fortes</string>
   <string name="history">Histórico de quebra-cabeças</string>
@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o Lichess ainda te ama muito.
 Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafio seu adicionado!</string>
   <string name="fromXGamesFound">%1$s quebra-cabeças encontrados em %2$s partidas</string>
+  <string name="puzzleDashboardDescription">Treine, analise, melhore</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s jogado</item>
+    <item quantity="other">%s jogados</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s a ser repetido</item>
+    <item quantity="other">%s a serem repetidos</item>
+  </plurals>
+  <string name="percentSolved">%s resolvido</string>
+  <string name="noPuzzlesToShow">Não há nada para mostrar aqui, jogue alguns quebra-cabeças primeiro!</string>
+  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
+  <string name="strengthDescription">Sua perfomance é melhor nesses temas</string>
 </resources>

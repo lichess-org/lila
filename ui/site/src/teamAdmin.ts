@@ -3,16 +3,24 @@ import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
 lichess.load.then(() => {
-  const input = document.getElementById('form3-leaders') as HTMLInputElement;
+  $('#form3-leaders').each(function (this: HTMLInputElement) {
+    initTagify(this, 10);
+  });
+  $('#form3-members').each(function (this: HTMLInputElement) {
+    initTagify(this, 100);
+  });
+});
 
+function initTagify(input: HTMLInputElement, maxTags: number) {
+  const team = input.dataset['rel'];
   const tagify = new Tagify(input, {
     pattern: /.{3,}/,
-    maxTags: 10,
+    maxTags,
     enforceWhitelist: true,
     whitelist: input.value.trim().split(/\s*,\s*/),
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
-    (term: string) => xhr.json(xhr.url('/player/autocomplete', { term, names: 1 })),
+    (term: string) => xhr.json(xhr.url('/player/autocomplete', { term, names: 1, team })),
     300
   );
   tagify.on('input', e => {
@@ -26,4 +34,4 @@ lichess.load.then(() => {
       tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
     });
   });
-});
+}

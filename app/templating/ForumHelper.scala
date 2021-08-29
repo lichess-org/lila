@@ -24,9 +24,8 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
   def authorLink(
       post: Post,
       cssClass: Option[String] = None,
-      withOnline: Boolean = true,
-      modIcon: Boolean = false
+      withOnline: Boolean = true
   )(implicit lang: Lang): Frag =
     if (post.erased) span(cls := "author")("<erased>")
-    else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
+    else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)
 }

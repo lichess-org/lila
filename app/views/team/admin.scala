@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import play.api.data.Field
 import play.api.data.Form
 
 import lila.api.Context
@@ -26,9 +27,7 @@ object admin {
             "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
           ),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
-            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(
-              form3.textarea(_)(rows := 2)
-            ),
+            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t)),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())
@@ -39,29 +38,33 @@ object admin {
     }
   }
 
-  def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
+  def kick(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
 
     val title = s"${t.name} • ${kickSomeone.txt()}"
 
-    bits.layout(title = title) {
+    views.html.base.layout(
+      title = title,
+      moreCss = frag(cssTag("team"), cssTag("tagify")),
+      moreJs = jsModule("team.admin")
+    ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p(whoToKick()),
-          br,
-          br,
-          postForm(cls := "kick", action := routes.Team.kick(t.id))(
-            userIds.toList.sorted.map { userId =>
-              button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
-                usernameOrId(userId)
-              )
-            }
+          postForm(action := routes.Team.kick(t.id))(
+            form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
+            form3.actions(
+              a(href := routes.Team.show(t.id))(trans.cancel()),
+              form3.submit(trans.save())
+            )
           )
         )
       )
     }
   }
+
+  private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
+    form3.textarea(field)(rows := 2, dataRel := team.id)
 
   def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(implicit
       ctx: Context
@@ -104,7 +107,11 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
             br
           ),
           postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
-            form3.group(form("message"), trans.message())(form3.textarea(_)(rows := 10)),
+            form3.group(
+              form("message"),
+              trans.message(),
+              help = raw("You can send up to 7 team messages per week.").some
+            )(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
               form3.submit(trans.send())

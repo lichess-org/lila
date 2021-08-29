@@ -70,6 +70,7 @@ final private class MsgSecurity(
           case false => fuccess(Block)
           case _ =>
             isLimited(contacts, isNew, unlimited) orElse
+              isFakeTeamMessage(rawText, unlimited) orElse
               isSpam(text) orElse
               isTroll(contacts) orElse
               isDirt(contacts.orig, text, isNew) getOrElse
@@ -109,6 +110,10 @@ final private class MsgSecurity(
         fuccess {
           ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
         }
+
+    private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
+      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
+        fuccess(FakeTeamMessage.some)
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
       spam.detect(text) ?? fuccess(Spam.some)
@@ -157,7 +162,7 @@ final private class MsgSecurity(
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       if (!isNew || !contacts.hasKid) fuTrue
       else
-        (contacts.orig.kidId, contacts.dest.kidId) match {
+        (contacts.orig.clasId, contacts.dest.clasId) match {
           case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
           case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
           case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
@@ -165,10 +170,10 @@ final private class MsgSecurity(
         }
   }
 
-  private def isTeacherOf(contacts: User.Contacts) =
-    Bus.ask[Boolean]("clas") { IsTeacherOf(contacts.orig.id, contacts.dest.id, _) }
+  private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
+    isTeacherOf(contacts.orig.id, contacts.dest.id)
 
-  private def isTeacherOf(teacher: User.ID, student: User.ID) =
+  private def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
     Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =
@@ -182,11 +187,12 @@ private object MsgSecurity {
   sealed abstract class Send(val mute: Boolean) extends Verdict
   sealed abstract class Mute                    extends Send(true)
 
-  case object Ok      extends Send(false)
-  case object Troll   extends Mute
-  case object Spam    extends Mute
-  case object Dirt    extends Mute
-  case object Block   extends Reject
-  case object Limit   extends Reject
-  case object Invalid extends Reject
+  case object Ok              extends Send(false)
+  case object Troll           extends Mute
+  case object Spam            extends Mute
+  case object Dirt            extends Mute
+  case object FakeTeamMessage extends Reject
+  case object Block           extends Reject
+  case object Limit           extends Reject
+  case object Invalid         extends Reject
 }

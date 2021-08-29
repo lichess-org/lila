@@ -31,6 +31,7 @@ GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
+GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey: String, gameId: String, exclude: List[String])
 GET   /api/tv/channels                 controllers.Tv.channels
 GET   /api/tv/feed                     controllers.Tv.feed
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey: String)
@@ -38,6 +39,8 @@ GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey: S
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
+POST  /api/rel/follow/:userId          controllers.Relation.apiFollow(userId: String)
+POST  /api/rel/unfollow/:userId        controllers.Relation.apiUnfollow(userId: String)
 POST  /rel/block/:userId               controllers.Relation.block(userId: String)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: String)
 GET   /@/:username/following           controllers.Relation.following(username: String, page: Int ?= 1)
@@ -138,6 +141,7 @@ POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
+GET   /study/staff-picks               controllers.Study.staffPicks
 GET   /study/all/:order                controllers.Study.all(order: String, page: Int ?= 1)
 GET   /study/mine/:order               controllers.Study.mine(order: String, page: Int ?= 1)
 GET   /study/member/:order             controllers.Study.mineMember(order: String, page: Int ?= 1)
@@ -335,7 +339,7 @@ GET   /team/all                               controllers.Team.all(page: Int ?= 
 GET   /team/requests                          controllers.Team.requests
 GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /team/autocomplete                      controllers.Team.autocomplete
-GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
+GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1, mod: Boolean ?= false)
 POST  /team/:id/join                          controllers.Team.join(id: String)
 POST  /team/:id/quit                          controllers.Team.quit(id: String)
 GET   /team/:id/request/new                   controllers.Team.requestForm(id: String)
@@ -638,6 +642,7 @@ POST  /api/tournament/:id/join         controllers.Tournament.apiJoin(id: String
 POST  /api/tournament/:id/terminate    controllers.Tournament.apiTerminate(id: String)
 POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id: String)
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
+POST  /api/swiss/:id/join              controllers.Swiss.apiJoin(id: String)
 POST  /api/swiss/:id/terminate         controllers.Swiss.apiTerminate(id: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
 GET   /api/swiss/:id/results           controllers.Api.swissResults(id: String)
@@ -654,6 +659,7 @@ GET   /api/account/email               controllers.Account.apiEmail
 GET   /api/account/kid                 controllers.Account.apiKid
 POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
+GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
@@ -680,12 +686,14 @@ GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id: Str
 POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/bot/*cmd                    controllers.PlayApi.botCommand(cmd: String)
 GET   /player/bots                     controllers.PlayApi.botOnline
+GET   /api/bot/online                  controllers.PlayApi.botOnlineApi
 
 # Board API
 GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id: String)
 POST  /api/board/game/:id/move/:uci     controllers.PlayApi.boardMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/board/seek                   controllers.Setup.boardApiHook
-POST  /api/board/*cmd                   controllers.PlayApi.boardCommand(cmd: String)
+POST  /api/board/*cmd                   controllers.PlayApi.boardCommandPost(cmd: String)
+GET   /api/board/*cmd                   controllers.PlayApi.boardCommandGet(cmd: String)
 
 # Account
 GET   /account/passwd                  controllers.Account.passwd
@@ -805,4 +813,4 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
-GET   /$username<\w{2,30}>             controllers.User.redirect(username: String)
+GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: String)

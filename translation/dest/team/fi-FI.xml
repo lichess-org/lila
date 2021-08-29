@@ -45,9 +45,9 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="leadersChat">Johtajien keskustelu</string>
   <string name="closeTeam">Sulje joukkue</string>
   <string name="closeTeamDescription">Sulkee joukkueen pysyvästi.</string>
-  <string name="teamPassword">Joukkueen salasana</string>
-  <string name="teamPasswordDescriptionForLeader">(Valinnainen) Salasana, joka uusien jäsenten on tunnettava voidakseen liittyä joukkueeseen.</string>
-  <string name="incorrectTeamPassword">Virheellinen joukkuesalasana.</string>
+  <string name="entryCode">Joukkueen sisäänpääsykoodi</string>
+  <string name="entryCodeDescriptionForLeader">(Valinnainen) Sisäänpääsykoodi, joka uusien jäsenten on tiedettävä voidakseen liittyä joukkueeseen.</string>
+  <string name="incorrectEntryCode">Virheellinen sisäänpääsykoodi.</string>
   <string name="teamAlreadyExists">Tämä joukkue on jo olemassa.</string>
   <string name="upcomingTourns">Tulevat turnaukset</string>
   <string name="completedTourns">Päättyneet turnaukset</string>

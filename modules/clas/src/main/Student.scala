@@ -46,6 +46,11 @@ object Student {
 
   case class WithUser(student: Student, user: User)
 
+  case class WithUserAndManagingClas(withUser: WithUser, managingClas: Option[Clas]) {
+    def student = withUser.student
+    def user    = withUser.user
+  }
+
   case class WithPassword(student: Student, password: User.ClearPassword)
 
   case class ManagedInfo(createdBy: User, clas: Clas)

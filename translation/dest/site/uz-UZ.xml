@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Kompyuter tahlili uchun so\'rov</string>
   <string name="computerAnalysis">Kompyuter tahlili</string>
   <string name="computerAnalysisAvailable">Kompyuter tahlili mavjud</string>
+  <string name="computerAnalysisDisabled">Kompyuter tahlili o‘chirilgan</string>
   <string name="analysis">Tahlil doskasi</string>
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qo\'llanilayabdi</string>
@@ -117,6 +118,18 @@
   <string name="blunder">Qo\'pol xato</string>
   <string name="mistake">Xato</string>
   <string name="inaccuracy">Noaniqlik</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s qo\'pol xato</item>
+    <item quantity="other">%s qo\'pol xatolar</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s xato</item>
+    <item quantity="other">%s xatolar</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s noaniqlik</item>
+    <item quantity="other">%s noaniqliklar</item>
+  </plurals>
   <string name="moveTimes">Yurishlar soni</string>
   <string name="flipBoard">Taxtani o\'girmoq</string>
   <string name="threefoldRepetition">Uch marta takrorlanish</string>

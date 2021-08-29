@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Tiefe: %s</string>
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s Spieler</item>
     <item quantity="other">%s Spieler</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis durch Einigung</string>
+  <string name="fiftyMovesWithoutProgress">50 Züge ohne Spiel-Fortschritt</string>
   <string name="currentGames">Laufende Partien</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
@@ -909,10 +912,16 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="analysisOptions">Analyseoptionen</string>
   <string name="focusChat">Chateingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
-  <string name="reopenYourAccount">Wiedereröffnen deines Kontos</string>
+  <string name="reopenYourAccount">Wiedereröffnung deines Kontos</string>
   <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Das funktioniert nur ein einziges mal.</string>
+  <string name="onlyWorksOnce">Das funktioniert nur ein einziges mal.</string>
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
   <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
+  <string name="tournamentEntryCode">Turnierbeitrittscode</string>
+  <string name="hangOn">Moment mal!</string>
+  <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
+  <string name="abortTheGame">Partie abbrechen</string>
+  <string name="resignTheGame">Partie aufgeben</string>
+  <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
 </resources>

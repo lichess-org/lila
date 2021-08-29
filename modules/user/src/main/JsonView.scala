@@ -27,7 +27,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .add("seenAt" -> u.seenAt)
       .add("patron" -> u.isPatron)
       .add("playTime" -> u.playTime)
-      .add("language" -> u.lang)
       .add("title" -> u.title)
 
   def minimal(u: User, onlyPerf: Option[PerfType]) =
@@ -41,7 +40,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .add("title" -> u.title)
       .add("disabled" -> u.disabled)
       .add("tosViolation" -> u.lame)
-      .add("language" -> u.lang)
       .add("profile" -> u.profile.flatMap(_.country).map { country =>
         Json.obj("country" -> country)
       })

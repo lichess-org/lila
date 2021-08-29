@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Verzoek een computeranalyse</string>
   <string name="computerAnalysis">Analyse door de computer</string>
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse uitgeschakeld</string>
   <string name="analysis">Analyse</string>
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Met serveranalyse</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remise overeengekomen</string>
+  <string name="fiftyMovesWithoutProgress">Vijftig zetten zonder voortgang</string>
   <string name="currentGames">Lopende partijen</string>
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
@@ -514,7 +517,7 @@
   <string name="typePrivateNotesHere">Type privénotities hier</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
-  <string name="invalidAuthenticationCode">Ongeldige authenticatie</string>
+  <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -911,8 +914,14 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="showHelpDialog">Help-dialoogvenster weergeven</string>
   <string name="reopenYourAccount">Account heropenen</string>
   <string name="closedAccountChangedMind">Als je je account had gesloten, maar sindsdien van gedachten veranderd bent, krijg je één kans om je account te herstellen.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Dit werkt maar eenmaal.</string>
+  <string name="onlyWorksOnce">Dit werkt maar eenmaal.</string>
   <string name="cantDoThisTwice">Als je je account voor de tweede keer sluit, is er geen manier om deze te herstellen.</string>
   <string name="emailAssociatedToaccount">E-mailadres gekoppeld aan het account</string>
   <string name="sentEmailWithLink">We hebben je een e-mail gestuurd met een link.</string>
+  <string name="tournamentEntryCode">Toernooi toegangscode</string>
+  <string name="hangOn">Wacht even!</string>
+  <string name="gameInProgress">Je speelt nog een partij tegen %s.</string>
+  <string name="abortTheGame">Partij afbreken</string>
+  <string name="resignTheGame">Partij opgeven</string>
+  <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
 </resources>

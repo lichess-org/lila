@@ -1,7 +1,8 @@
 package controllers
 
-import play.api.mvc._
 import play.api.i18n.Lang
+import play.api.mvc._
+import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.app._
@@ -12,6 +13,8 @@ import lila.user.{ User => UserModel }
 final class PlayApi(
     env: Env,
     apiC: => Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
@@ -63,7 +66,7 @@ final class PlayApi(
       }
     }
 
-  def boardCommand(cmd: String) =
+  def boardCommandPost(cmd: String) =
     ScopedBody(_.Board.Play) { implicit req => me =>
       impl.command(me, cmd)(WithPovAsBoard)
     }
@@ -104,9 +107,28 @@ final class PlayApi(
           as(id, me) { pov =>
             fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))) pipe toResult
           }
+        case Array("game", id, "takeback", bool) =>
+          as(id, me) { pov =>
+            fuccess(env.bot.player.setTakeback(pov, lila.common.Form.trueish(bool))) pipe toResult
+          }
+        case Array("game", id, "claim-victory") =>
+          as(id, me) { pov =>
+            env.bot.player.claimVictory(pov) pipe toResult
+          }
         case _ => notFoundJson("No such command")
       }
   }
+
+  def boardCommandGet(cmd: String) =
+    ScopedBody(_.Board.Play) { implicit req => me =>
+      cmd.split('/') match {
+        case Array("game", id, "chat") =>
+          WithPovAsBoard(id, me) { pov =>
+            env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map
+              lila.chat.JsonView.boardApi map JsonOk
+          }
+      }
+    }
 
   // utils
 
@@ -151,6 +173,17 @@ final class PlayApi(
     Open { implicit ctx =>
       env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
         Ok(views.html.user.bots(users))
+      }
+    }
+
+  def botOnlineApi =
+    Action { implicit req =>
+      apiC.jsonStream {
+        env.user.repo
+          .botsByIdsCursor(env.bot.onlineApiUsers.get)
+          .documentSource(getInt("nb", req) | Int.MaxValue)
+          .throttle(50, 1 second)
+          .map { env.user.jsonView(_) }
       }
     }
 }

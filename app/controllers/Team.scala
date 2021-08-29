@@ -40,10 +40,10 @@ final class Team(
       }
     }
 
-  def show(id: String, page: Int) =
+  def show(id: String, page: Int, mod: Boolean) =
     Open { implicit ctx =>
       Reasonable(page) {
-        OptionFuOk(api team id) { renderTeam(_, page) }
+        OptionFuOk(api team id) { renderTeam(_, page, mod) }
       }
     }
 
@@ -56,11 +56,13 @@ final class Team(
       }
     }
 
-  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
+  private def renderTeam(team: TeamModel, page: Int = 1, requestModView: Boolean = false)(implicit
+      ctx: Context
+  ) =
     for {
-      info    <- env.teamInfo(team, ctx.me)
+      info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
       members <- paginator.teamMembers(team, page)
-      hasChat = canHaveChat(team, info)
+      hasChat = canHaveChat(team, info, requestModView)
       chat <-
         hasChat ?? env.chat.api.userChat.cached
           .findMine(lila.chat.Chat.Id(team.id), ctx.me)
@@ -69,13 +71,24 @@ final class Team(
         info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield html.team.show(team, members, info, chat, version)
+    } yield html.team.show(team, members, info, chat, version, requestModView)
 
-  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
+  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
+      implicit ctx: Context
+  ): Boolean =
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
-      isGranted(_.ChatTimeout)
+      (isGranted(_.ChatTimeout) && requestModView)
+    }
+
+  private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(implicit
+      ctx: Context
+  ): Boolean =
+    team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
+      (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
+      (team.isForumFor(_.MEMBERS) && isMember) ||
+      (isGranted(_.ModerateForum) && requestModView)
     }
 
   def users(teamId: String) =
@@ -140,11 +153,9 @@ final class Team(
     }
 
   def kickForm(id: String) =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
-        env.team.memberRepo userIdsByTeam team.id map { userIds =>
-          html.team.admin.kick(team, userIds.filter(me.id !=))
-        }
+        Ok(html.team.admin.kick(team, forms.members)).fuccess
       }
     }
 
@@ -152,8 +163,8 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
-          routes.Team.kickForm(team.id)
+        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).sequenceFu } inject Redirect(
+          routes.Team.show(team.id)
         ).flashSuccess
       }
     }
@@ -450,13 +461,13 @@ final class Team(
                   .map { tours =>
                     BadRequest(html.team.admin.pmAll(team, err, tours))
                   },
-              res =>
+              _ map { res =>
                 Redirect(routes.Team.show(team.id))
                   .flashing(res match {
                     case RateLimit.Through => "success" -> ""
                     case RateLimit.Limited => "failure" -> rateLimitedMsg
                   })
-                  .fuccess
+              }
             )
           },
       scoped = implicit req =>
@@ -465,9 +476,9 @@ final class Team(
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)(reqLang)).fuccess,
-                {
-                  case RateLimit.Through => jsonOkResult.fuccess
-                  case RateLimit.Limited => rateLimitedJson.fuccess
+                _ map {
+                  case RateLimit.Through => jsonOkResult
+                  case RateLimit.Limited => rateLimitedJson
                 }
               )
             }
@@ -529,15 +540,14 @@ final class Team(
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit
       req: Request[_]
-  ): Either[Form[_], RateLimit.Result] =
+  ): Either[Form[_], Fu[RateLimit.Result]] =
     forms.pmAll
       .bindFromRequest()
       .fold(
         err => Left(err),
         msg =>
           Right {
-            val cost = if (me.isVerifiedOrAdmin) 1 else pmAllCost
-            PmAllLimitPerUser[RateLimit.Result](me.id, cost) {
+            PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
               val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
@@ -547,16 +557,17 @@ You received this because you are subscribed to messages of the team $url."""
                 .addEffect { nb =>
                   lila.mon.msg.teamBulk(team.id).record(nb).unit
                 }
-              RateLimit.Through // we don't wait for the stream to complete, it would make lichess time out
+              // we don't wait for the stream to complete, it would make lichess time out
+              fuccess(RateLimit.Through)
             }(RateLimit.Limited)
           }
       )
 
   private val pmAllCost = 5
-  private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 6 * pmAllCost,
-    duration = 20 hours,
-    key = "team.pm.all"
+  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.Team.ID](
+    "team.pm.all",
+    credits = 7 * pmAllCost,
+    duration = 7.days
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =

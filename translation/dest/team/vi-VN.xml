@@ -40,8 +40,5 @@ Những người chơi không muốn nhận tin nhắn của bạn có thể s�
   <string name="leadersChat">Trò chuyện của những đội trưởng</string>
   <string name="closeTeam">Giải tán đội</string>
   <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
-  <string name="teamPassword">Mật khẩu đội</string>
-  <string name="teamPasswordDescriptionForLeader">(Tùy chọn) Mật khẩu mà các thành viên mới phải biết để tham gia nhóm này.</string>
-  <string name="incorrectTeamPassword">Sai mật khẩu đội.</string>
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
 </resources>

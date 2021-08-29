@@ -81,6 +81,19 @@ object bits {
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
     }
 
+  def homepageSpotlight(s: Swiss)(implicit ctx: Context) =
+    a(href := routes.Swiss.show(s.id.value), cls := "tour-spotlight little")(
+      iconTag(iconChar(s))(cls := "img icon"),
+      span(cls := "content")(
+        span(cls := "name")(s.name, " Swiss"),
+        span(cls := "more")(
+          trans.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
+          " • ",
+          trans.join()
+        )
+      )
+    )
+
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
@@ -99,7 +112,7 @@ object bits {
     trans.standByX,
     trans.averageOpponent,
     trans.tournamentComplete,
-    trans.password,
+    trans.tournamentEntryCode,
     trans.swiss.viewAllXRounds,
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,

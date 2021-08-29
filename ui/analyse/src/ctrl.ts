@@ -17,13 +17,13 @@ import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { ActionMenuCtrl } from './actionMenu';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { ExplorerCtrl } from './explorer/interfaces';
 import { ForecastCtrl } from './forecast/interfaces';
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { make as makeForecast } from './forecast/forecastCtrl';
 import { make as makeFork, ForkCtrl } from './fork';
@@ -32,8 +32,7 @@ import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, Socket } from './socket';
 import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { COLORS, Outcome, isNormal } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
+import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
@@ -112,7 +111,7 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
-  pvUciQueue: Uci[];
+  pvUciQueue: Uci[] = [];
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -619,37 +618,22 @@ export default class AnalyseCtrl {
 
   private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
-    const cfg: CevalOpts = {
+    this.ceval = cevalCtrl({
       variant: this.data.game.variant,
-      standardMaterial:
-        !this.data.game.initialFen ||
-        parseFen(this.data.game.initialFen).unwrap(
-          setup =>
-            COLORS.every(color => {
-              const board = setup.board;
-              const pieces = board[color];
-              const promotedPieces =
-                Math.max(board.queen.intersect(pieces).size() - 1, 0) +
-                Math.max(board.rook.intersect(pieces).size() - 2, 0) +
-                Math.max(board.knight.intersect(pieces).size() - 2, 0) +
-                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
-                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.darkSquares()).size() - 1, 0);
-              return board.pawn.intersect(pieces).size() + promotedPieces <= 8;
-            }),
-          _ => false
-        ),
+      initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
       emit: (ev: Tree.ClientEval, work: CevalWork) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
-    };
-    if (this.opts.study && this.opts.practice) {
-      cfg.storageKeyPrefix = 'practice';
-      cfg.multiPvDefault = 1;
-    }
-    this.ceval = cevalCtrl(cfg);
+      ...(this.opts.study && this.opts.practice
+        ? {
+            storageKeyPrefix: 'practice',
+            multiPvDefault: 1,
+          }
+        : {}),
+    });
   }
 
   getCeval() {
@@ -665,7 +649,7 @@ export default class AnalyseCtrl {
 
   position(node: Tree.Node): Result<Position, PositionError> {
     const setup = parseFen(node.fen).unwrap();
-    return setupPosition(lichessVariantRules(this.data.game.variant.key), setup);
+    return setupPosition(lichessRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {
@@ -722,6 +706,7 @@ export default class AnalyseCtrl {
   cevalSetMultiPv = (v: number): void => {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
+    this.evalCache.clear();
     this.cevalReset();
   };
 

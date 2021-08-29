@@ -20,7 +20,8 @@ object show {
       members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: Option[lila.socket.Socket.SocketVersion]
+      socketVersion: Option[lila.socket.Socket.SocketVersion],
+      requestedModView: Boolean = false
   )(implicit
       ctx: Context
   ) =
@@ -52,7 +53,8 @@ object show {
         )})""")
       )
     ) {
-      val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
+      val manageTeamEnabled = isGranted(_.ManageTeam) && requestedModView
+      val enabledOrLeader   = t.enabled || info.ledByMe || manageTeamEnabled
       main(
         cls := "team-show box",
         socketVersion.map { v =>
@@ -154,12 +156,18 @@ object show {
                   )
                 )
               ),
-              ((t.enabled && info.ledByMe) || isGranted(_.Admin)) option
+              ((t.enabled && info.ledByMe) || manageTeamEnabled) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
-                )
+                ),
+              ((isGranted(_.ManageTeam) || isGranted(_.ChatTimeout)) && !requestedModView) option a(
+                href := routes.Team.show(t.id, 1, mod = true),
+                cls := "button button-red"
+              )(
+                "View team as Mod"
+              )
             ),
-            t.enabled && (t.publicMembers || info.mine || isGranted(_.ManageTeam)) option div(
+            t.enabled && (t.publicMembers || info.mine || manageTeamEnabled) option div(
               cls := "team-show__members"
             )(
               st.section(cls := "recent-members")(
@@ -178,9 +186,6 @@ object show {
             st.section(cls := "team-show__desc")(
               markdown {
                 t.descPrivate.ifTrue(info.mine) | t.description
-              },
-              t.location.map { loc =>
-                frag(br, trans.location(), ": ", richText(loc))
               }
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
@@ -204,10 +209,10 @@ object show {
                   )
                 )
               ),
-              t.enabled && (t.publicForum || info.mine || isGranted(_.ManageTeam)) && ctx.noKid option
+              info.forum map { forumPosts =>
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
-                  info.forumPosts.take(10).map { post =>
+                  forumPosts.take(10).map { post =>
                     a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
                       div(cls := "meta")(
                         strong(post.topicName),
@@ -222,6 +227,7 @@ object show {
                   },
                   a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
                 )
+              }
             )
           )
         )

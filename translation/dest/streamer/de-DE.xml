@@ -18,6 +18,8 @@
   <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein und verwende die Kategorie \"Chess\", wenn du auf Lichess streamst.</string>
   <string name="rule2">Entferne das Stichwort, wenn du gerade nicht Lichess-bezogen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lies unsere %s, um Fairplay für alle während deines Streams zu gewährleisten.</string>
+  <string name="streamingFairplayFAQ">Streaming Fairplay FAQ</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
   <string name="perk1">Erhalte ein flammendes Streamer-Symbol auf deinem Lichess-Profil.</string>
   <string name="perk2">Werde an die Spitze der Streamerliste gesetzt.</string>

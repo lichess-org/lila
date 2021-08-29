@@ -45,9 +45,9 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="leadersChat">Holdleder-chat</string>
   <string name="closeTeam">Luk hold</string>
   <string name="closeTeamDescription">Luk holdet for evigt.</string>
-  <string name="teamPassword">Hold-adgangskode</string>
-  <string name="teamPasswordDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at slutte sig til dette hold.</string>
-  <string name="incorrectTeamPassword">Forkert hold-adgangskode.</string>
+  <string name="entryCode">Holdadgangskode</string>
+  <string name="entryCodeDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at melde sig til dette hold.</string>
+  <string name="incorrectEntryCode">Forkert adgangskode.</string>
   <string name="teamAlreadyExists">Dette hold findes allerede.</string>
   <string name="upcomingTourns">Kommende turneringer</string>
   <string name="completedTourns">Afsluttede turneringer</string>

@@ -161,6 +161,8 @@ to speed things up!</string>
 प्यादा = 1
 राजा अनमोल है! इसे खोने का मतलब है खेल को खोना।</string>
   <string name="queenOverBishop">उच्च मूल्य वाले मोहरे को लेवे रानी &gt; ऊंट</string>
+  <string name="pieceValueExchange">उच्चतम मूल्य के साथ मोहर ले लो! एक कम मूल्यवान के लिए एक उच्च मूल्यवान मोहर विनिमय न करें।</string>
+  <string name="pieceValueLegal">उच्चतम मूल्य के साथ वाला मोहर ले लो! सुनिश्चित करें कि आपका कदम कानूनी है!</string>
   <string name="takeThePieceWithTheHighestValue">उच्च मूल्य वाले मोहरे को लेवे!</string>
   <string name="pieceValueComplete">बधाई हो! आप मोहरों का मूल्य जानते हैं!
 रानी = 9

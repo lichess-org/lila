@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Torneios Arena</string>
+  <string name="arenaTournaments">Torneios de arena</string>
   <string name="isItRated">Valendo pontos?</string>
   <string name="willBeNotified">Você será notificado quando o torneio começar, portanto, é seguro jogar em outra aba enquanto espera.</string>
   <string name="isRated">Este torneio vale pontos e afetará o seu rating.</string>

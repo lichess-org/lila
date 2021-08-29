@@ -5,11 +5,14 @@
     padding-left: 0px;
     padding-right: 0px;
 
+    .user-link {
+      @extend %flex-center-nowrap;
+    }
+
     .name {
       @extend %nowrap-ellipsis;
 
       display: inline-block;
-      vertical-align: middle;
       padding-right: 5px;
       max-width: 140px;
     }
@@ -71,8 +74,6 @@
   }
 
   td.rank {
-    @extend %roboto;
-
     padding: 1em 0.5em 1em 10px;
     width: 1px;
 

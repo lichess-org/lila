@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Nodiad symbolau</string>
   <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Ffocysu</string>
-  <string name="displayBoardResizeHandle">Dangos trin ailfeintio\'r bwrdd</string>
+  <string name="displayBoardResizeHandle">Dolen newid maint y bwrdd</string>
   <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>

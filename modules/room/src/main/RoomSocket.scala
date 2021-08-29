@@ -2,7 +2,7 @@ package lila.room
 
 import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
-import lila.hub.{ Trouper, TrouperMap }
+import lila.hub.{ SyncActor, SyncActorMap }
 import lila.log.Logger
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
@@ -22,11 +22,11 @@ object RoomSocket {
 
   final class RoomState(roomId: RoomId, send: Send)(implicit
       ec: ExecutionContext
-  ) extends Trouper {
+  ) extends SyncActor {
 
     private var version = SocketVersion(0)
 
-    val process: Trouper.Receive = {
+    val process: SyncActor.Receive = {
       case GetVersion(promise) => promise success version
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[_] =>
@@ -48,8 +48,8 @@ object RoomSocket {
       ec: ExecutionContext,
       mode: play.api.Mode
   ) =
-    new TrouperMap(
-      mkTrouper = roomId =>
+    new SyncActorMap(
+      mkActor = roomId =>
         new RoomState(
           RoomId(roomId),
           send
@@ -58,7 +58,7 @@ object RoomSocket {
     )
 
   def roomHandler(
-      rooms: TrouperMap[RoomState],
+      rooms: SyncActorMap[RoomState],
       chat: ChatApi,
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
@@ -93,7 +93,7 @@ object RoomSocket {
         }
     }: Handler) orElse minRoomHandler(rooms, logger)
 
-  def minRoomHandler(rooms: TrouperMap[RoomState], logger: Logger): Handler = {
+  def minRoomHandler(rooms: SyncActorMap[RoomState], logger: Logger): Handler = {
     case Protocol.In.KeepAlives(roomIds) =>
       roomIds foreach { roomId =>
         rooms touchOrMake roomId.value
@@ -109,7 +109,7 @@ object RoomSocket {
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: TrouperMap[RoomState], busChan: BusChan.Select) = {
+  def subscribeChat(rooms: SyncActorMap[RoomState], busChan: BusChan.Select) = {
     import lila.chat.actorApi._
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan) {
       case ChatLine(id, line: UserLine) =>

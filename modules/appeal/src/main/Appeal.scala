@@ -69,6 +69,8 @@ object Appeal {
     def apply(key: String) = all.find(_.key == key)
   }
 
+  case class WithUser(appeal: Appeal, user: User)
+
   val maxLength = 1000
 
   import play.api.data._

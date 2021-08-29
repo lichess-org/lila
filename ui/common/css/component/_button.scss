@@ -13,7 +13,8 @@
   @include transition;
 
   &,
-  &:visited {
+  &:visited,
+  &:focus {
     color: $c-primary-over;
   }
 

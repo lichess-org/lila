@@ -84,7 +84,7 @@ final class Env(
 
   private lazy val proxyDependencies =
     new GameProxy.Dependencies(gameRepo, scheduler)
-  private lazy val roundDependencies = wire[RoundDuct.Dependencies]
+  private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
@@ -159,7 +159,7 @@ final class Env(
   lazy val getSocketStatus = (game: Game) => roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
-    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundDuct.HasUserId(userId, _))
+    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundAsyncActor.HasUserId(userId, _))
 
   lazy val jsonView = wire[JsonView]
 
@@ -173,7 +173,7 @@ final class Env(
 
   private lazy val takebacker = wire[Takebacker]
 
-  private lazy val moretimer = wire[Moretimer]
+  lazy val moretimer = wire[Moretimer]
 
   val playing = wire[PlayingUsers]
 

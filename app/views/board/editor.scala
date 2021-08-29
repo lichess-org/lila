@@ -1,6 +1,5 @@
 package views.html.board
 
-import chess.format.FEN
 import controllers.routes
 
 import lila.api.Context
@@ -11,8 +10,7 @@ import lila.common.String.html.safeJsonValue
 object editor {
 
   def apply(
-      sit: chess.Situation,
-      fen: FEN,
+      fen: Option[String],
       positionsJson: String,
       endgamePositionsJson: String
   )(implicit ctx: Context) =
@@ -21,7 +19,7 @@ object editor {
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafeLoadThen(
-          s"""const data=${safeJsonValue(bits.jsData(sit, fen))};data.positions=$positionsJson;
+          s"""const data=${safeJsonValue(bits.jsData(fen))};data.positions=$positionsJson;
 data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),

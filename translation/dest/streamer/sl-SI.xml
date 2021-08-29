@@ -18,6 +18,8 @@
   <string name="rule1">Vključite ključno besedo \"lichess.org\" v vaš naslov oddaje, ko prenašate na Lichess-u.</string>
   <string name="rule2">Odstranite ključno besedo, ko prenašate dogodke, ki niso povezani z Lichess-om.</string>
   <string name="rule3">Lichess bo samodejno zaznal vaš prenos in omogočil naslednje prednosti:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Preberite naš %s, da zagotovite pošteno igro za vse med pretočnim predvajanjem.</string>
+  <string name="streamingFairplayFAQ">pogosta vprašnja o prenosu poštene igre</string>
   <string name="perks">Prednosti prenosa s klučno besedo</string>
   <string name="perk1">Pridobite gorečo ikono voditelja prenosa v svojem profilu Lichess.</string>
   <string name="perk2">Skočite na vrh seznama voditeljev oddaj.</string>

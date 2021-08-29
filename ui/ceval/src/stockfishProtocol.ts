@@ -1,4 +1,4 @@
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { ProtocolOpts, Work } from './types';
 import { Deferred, defer } from 'common/defer';
 import { Sync, sync } from 'common/sync';
@@ -40,7 +40,7 @@ export default class Protocol {
     // Handle variants ("giveaway" is antichess in old asmjs fallback).
     this.setOption('UCI_Chess960', 'true');
     if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway');
-    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
+    else this.setOption('UCI_Variant', lichessRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
@@ -81,9 +81,7 @@ export default class Protocol {
     const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
-    // The exception is for multiPV, sometimes non-primary PVs
-    // only have an upperbound.
-    // See: https://github.com/ddugovic/Stockfish/issues/228
+    // However non-primary pvs may only have an upperbound.
     if (evalType && multiPv === 1) return;
 
     const pvData = {
@@ -112,6 +110,14 @@ export default class Protocol {
 
     if (multiPv === this.expectedPvs && this.currentEval) {
       this.work.emit(this.currentEval);
+
+      // Depth limits are nice in the user interface, but in clearly decided
+      // positions the usual depth limits are reached very quickly due to
+      // pruning. Therefore not using `go depth ${this.work.maxDepth}` and
+      // manually ensuring Stockfish gets to spend a minimum amount of
+      // time/nodes on each position.
+      if (depth >= this.work.maxDepth && elapsedMs > 8000 && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
+        this.stop();
     }
   }
 
@@ -138,9 +144,12 @@ export default class Protocol {
         }
         this.setOption('MultiPV', this.work.multiPv);
 
-        this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-        if (this.work.maxDepth >= 99) this.send('go depth 99');
-        else this.send('go movetime 90000 depth ' + this.work.maxDepth);
+        this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
+        this.send(
+          this.work.maxDepth >= 99
+            ? 'go depth 245' // 'go infinite' would not finish even if entire tree search completed
+            : 'go movetime 90000'
+        );
       }
     }
   }

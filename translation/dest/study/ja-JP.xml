@@ -122,7 +122,7 @@
   <string name="clearChat">チャットを消去</string>
   <string name="deleteTheStudyChatHistory">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="deleteStudy">研究を削除</string>
-  <string name="deleteTheEntireStudy">ほんとうに削除しますか？　戻せませんよ！</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">研究全体を削除しますか？　戻せませんよ！　削除なら研究の名称を入力： %s</string>
   <string name="whereDoYouWantToStudyThat">どこで研究しますか？</string>
   <string name="goodMove">好手</string>
   <string name="mistake">悪手</string>

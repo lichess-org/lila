@@ -52,7 +52,7 @@ final class Pref(env: Env) extends LilaController(env) {
   def set(name: String) =
     OpenBody { implicit ctx =>
       if (name == "zoom") {
-        Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+        Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).fuccess
       } else {
         implicit val req = ctx.body
         (setters get name) ?? { case (form, fn) =>

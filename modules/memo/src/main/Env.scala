@@ -27,4 +27,6 @@ final class Env(
   lazy val cacheApi = wire[CacheApi]
 
   lazy val mongoCacheApi = wire[MongoCache.Api]
+
+  lazy val mongoRateLimitApi = wire[MongoRateLimitApi]
 }

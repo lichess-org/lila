@@ -5,4 +5,9 @@
   <string name="example">Enghraifft</string>
   <string name="history">Hanes Posau</string>
   <string name="failed">colli</string>
+  <string name="puzzleDashboardDescription">Ymarfer, adolygu, gwella</string>
+  <string name="percentSolved">%s wedi\'i datrys</string>
+  <string name="noPuzzlesToShow">Dim i\'w ddangos, ewch i chwarae rhai posau yn gyntaf!</string>
+  <string name="improvementAreasDescription">Ymarferwch rhein i optimeiddio eich cynnydd!</string>
+  <string name="strengthDescription">Rydych yn perfformio orau yn y themau yma</string>
 </resources>

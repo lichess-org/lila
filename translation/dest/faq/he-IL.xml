@@ -64,10 +64,21 @@
   <string name="threefoldRepetition">חזרה משולשת</string>
   <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
+  <string name="notRepeatedMoves">לא חזרנו על מהלכים, מדוע המשחק הסתיים בתיקו ע\"י חזרתיות?</string>
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
+  <string name="accounts">חשבונות</string>
+  <string name="titlesAvailableOnLichess">איזה תארים יש בLichess?</string>
+  <string name="verificationForm">טופס אימות</string>
   <string name="noUpperCaseDot">לא.</string>
+  <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
+  <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
+  <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
+  <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
+  <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
+  <string name="howToThreeDots">כיצד...</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.

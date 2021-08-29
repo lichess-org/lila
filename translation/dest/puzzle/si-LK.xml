@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ප්‍රහේලිකා</string>
+  <string name="puzzleThemes">ප්‍රහෙලිකා තේමාවන්</string>
+  <string name="recommended">නිර්දේශිත</string>
+</resources>

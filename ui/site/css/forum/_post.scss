@@ -1,12 +1,10 @@
 .forum-post {
   font-size: 1.1em;
   border-top: $border;
-  padding: 2rem 0 0.5rem 0;
+  padding: 0.5rem 0 0.5rem 0;
 
   &__metas {
     @extend %flex-between;
-
-    margin-bottom: 1.5rem;
 
     > div {
       @extend %flex-center;
@@ -26,9 +24,12 @@
       font-weight: bold;
     }
 
+    time {
+      margin-right: 1em;
+    }
+
     .delete {
       color: $c-font;
-      margin-left: 1em;
       &:hover {
         color: $c-bad;
       }
@@ -44,6 +45,11 @@
     color: $c-font;
     &:hover {
       color: $c-bad;
+
+      &.quote,
+      &.edit {
+        color: $c-primary;
+      }
     }
 
     &.postip {
@@ -64,7 +70,6 @@
 
   &:last-child {
     border-bottom: $border;
-    margin-bottom: 3rem;
   }
 
   &.erased {
@@ -83,16 +88,33 @@
   &__message {
     @extend %break-word, %zalgoverflow;
 
-    margin-bottom: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 
     .embed:not(img) {
       @extend %video;
 
       margin: $block-gap auto;
+
+      &.embed--game {
+        @extend %game-embed;
+      }
+    }
+
+    .hidden-quotes {
+      color: transparent;
+      display: inline-block;
+      width: 0;
     }
 
     img {
       max-width: 100%;
+    }
+
+    blockquote {
+      padding-left: 0.5em;
+      border-left: 0.3em solid;
+      margin: 0.3em;
     }
   }
 

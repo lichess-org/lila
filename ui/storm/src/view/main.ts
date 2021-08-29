@@ -31,7 +31,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
         ctrl.ground(
           Chessground(
             vnode.elm as HTMLElement,
-            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove)
+            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove)
           )
         ),
     },

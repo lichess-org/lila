@@ -18,6 +18,8 @@
   <string name="rule1">Sisällytä avainsana \"lichess.org\" striimisi otsikkoon kun striimaat Lichess-sisältöä.</string>
   <string name="rule2">Poista avainsana, kun striimaat Lichessiin liittymätöntä sisältöä.</string>
   <string name="rule3">Lichess havaitsee striimisi automaattisesti ja tarjoaa etuja:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lue meidän %s:mme taataksesi striimisi aikana reilun pelin kaikille.</string>
+  <string name="streamingFairplayFAQ">striimien reilun pelin FAQ</string>
   <string name="perks">Avainsanalla striimaamisen hyödyt</string>
   <string name="perk1">Lichess-profiiliisi ilmestyy liekehtivä striimausikoni.</string>
   <string name="perk2">Nouset striimaajalistauksen keulille.</string>

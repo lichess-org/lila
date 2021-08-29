@@ -16,6 +16,7 @@ final private[api] class Cli(
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
+    video: lila.video.Env,
     email: lila.mailer.AutomaticEmail
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
@@ -79,5 +80,6 @@ final private[api] class Cli(
       evalCache.cli.process orElse
       plan.cli.process orElse
       msg.cli.process orElse
+      video.cli.process orElse
       process
 }

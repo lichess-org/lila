@@ -6,7 +6,7 @@ import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
 import scala.concurrent.duration.FiniteDuration
 
-final private class Moretimer(
+final class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -26,7 +26,7 @@ final private class Moretimer(
     }
 
   def isAllowedIn(game: Game): Fu[Boolean] =
-    if (game.isMandatory) fuFalse
+    if (game.isMandatory || !game.playable) fuFalse
     else isAllowedByPrefs(game)
 
   private[round] def give(game: Game, colors: List[Color], duration: FiniteDuration): Progress =

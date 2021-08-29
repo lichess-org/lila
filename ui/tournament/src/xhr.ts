@@ -9,6 +9,7 @@ export const join = throttle(1000, (ctrl: TournamentController, password?: strin
   xhr
     .textRaw('/tournament/' + ctrl.data.id + '/join', {
       method: 'POST',
+      // must use JSON body for app compat
       body: JSON.stringify({
         p: password || null,
         team: team || null,
@@ -32,9 +33,10 @@ export const withdraw = throttle(1000, (ctrl: TournamentController) =>
     .catch(onFail)
 );
 
-export const loadPage = throttle(1000, (ctrl: TournamentController, p: number) =>
+export const loadPage = throttle(1000, (ctrl: TournamentController, p: number, callback?: () => void) =>
   xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
+    callback?.();
     ctrl.redraw();
   }, onFail)
 );

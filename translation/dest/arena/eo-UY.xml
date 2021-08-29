@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena turniroj</string>
+  <string name="arenaTournaments">Arenaj turniroj</string>
   <string name="isItRated">Ĉu ĝi estas taksita?</string>
   <string name="willBeNotified">Vi estos sciigita kiam la turniro komenciĝas, do ĝi estas sekura ludi en alia langeto dum ĝi atendas.</string>
   <string name="isRated">Ĉi tiu turniro rangas kaj influos vian rangon.</string>
@@ -13,7 +13,7 @@ La sekvaj ludoj daŭre valoras duoble punktojn ĝis vi ne gajnos ludon.
 Tio estas, venko valoras 4 punktojn, remizo: 2 poentoj, kaj perdo restos valora sen punktoj.
 
 Ekzemple, du venkoj sekvataj de remizo valoras 6 poentoj: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Areno Berserk</string>
+  <string name="berserk">Arena Berserko</string>
   <string name="berserkAnswer">Kiam ludanto klakas la butonon Berserk ĉe la komenco de la ludo, ili perdas duonon de sia horloĝo, sed la venko valoras unu ekstran punkton de turniro.
 
 Iri Berserk en tempo kontroloj kun pliigo ankaŭ nuligas la kreskon. (1 + 2 estas escepto, ĝi donas 1 + 0)
@@ -22,7 +22,7 @@ Berserk ne estas disponebla por ludoj kun nulo komenca tempo (0 + 1, 0 + 2).
 
 Berserk nur donas ekstran punkton se vi ludas almenaŭ 7 movojn en la ludo.</string>
   <string name="howIsTheWinnerDecided">Kiel decidas la venkanto?</string>
-  <string name="howIsTheWinnerDecidedAnswer">La ludanto(j) kun plej multaj punktoj ĉe la konkludo de la tempo de la turniro de la turniro estos anoncita venkanto(j).</string>
+  <string name="howIsTheWinnerDecidedAnswer">La ludanto(j) kun plej multaj poentoj ĉe la konkludo de la tempo de la turniro de la turniro estos anoncita venkanto(j).</string>
   <string name="howDoesPairingWork">Kiel funkcias la kuniĝo?</string>
   <string name="howDoesPairingWorkAnswer">Al la komenco de la turniro, ludantoj estas parigitaj laŭ ilia rango.
 Tuj kiam vi finos ludon, revenu al la turniro de la turniro: vi tiam parolos kun ludanto proksima al via ranking. Ĉi tio certigas minimuman atendi tempon, tamen vi eble ne alfrontos ĉiujn aliajn ludantojn en la turniro.
@@ -39,4 +39,7 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   <string name="shareUrl">Kunhavigu ĉi tiun URLon por lasi homojn aliĝi: %s</string>
   <string name="drawStreak">Remizaj strekoj: Kiam ludanto havas sinsekvajn remizojn en arena, nur la unua remizo rezultigos punkton, aŭ remizojn daŭrantajn pli ol %s movoj. La streĉa streĉo povas esti rompita nur per venko, ne perdo aŭ remizo.</string>
   <string name="history">Historia Areno</string>
+  <string name="newTeamBattle">Nova teama batalo</string>
+  <string name="allowBerserk">Permesi uzi la Berserkon</string>
+  <string name="allowChatHelp">Permesi uzi la turniran babilejon</string>
 </resources>

@@ -30,6 +30,13 @@ object JsonView {
       "writeable" -> writeable
     )
 
+  def boardApi(chat: UserChat) = JsArray {
+    chat.lines collect {
+      case UserLine(name, _, _, text, troll, del) if !troll && !del =>
+        Json.obj("text" -> text, "user" -> name)
+    }
+  }
+
   object writers {
 
     implicit val chatIdWrites: Writes[Chat.Id] = stringIsoWriter(Chat.chatIdIso)

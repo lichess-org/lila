@@ -13,15 +13,21 @@
   <string name="opponentName">Emri i kundërshtarit</string>
   <string name="loser">Humbës</string>
   <string name="from">Nga</string>
-  <string name="to">Për</string>
+  <string name="to">Deri më</string>
   <string name="humanOrComputer">Nëse kundërshtari i lojtarit ishte njeri ose kompjuter</string>
   <string name="aiLevel">Niveli i A.I</string>
   <string name="source">Burimi</string>
   <string name="nbTurns">Numri i radhëve</string>
-  <string name="result">Rezultati</string>
+  <string name="result">Përfundim</string>
   <string name="winnerColor">Ngjyra e fituesit</string>
   <string name="date">Data</string>
-  <string name="sortBy">Rendit sipas</string>
-  <string name="analysis">Analiza</string>
-  <string name="onlyAnalysed">Vetëm lojët ku analiza e kompjuterit është në dispozicion</string>
+  <string name="sortBy">Renditi sipas</string>
+  <string name="analysis">Analizë</string>
+  <string name="onlyAnalysed">Vetëm lojërat për të cilat ka analizim nga kompjuteri</string>
+  <string name="color">Ngjyrë</string>
+  <string name="evaluation">Vlerësim</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Numër maksimum</string>
+  <string name="maxNumberExplanation">Numri maksimum i lojërave si përgjigje</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Përfshi</string>
+  <string name="generateURL">Prodho URL</string>
 </resources>

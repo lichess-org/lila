@@ -10,12 +10,15 @@ import lila.oauth.OAuthServer
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    idGenerator: lila.game.IdGenerator,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     oauthServer: OAuthServer
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer,
+    idGenerator: lila.game.IdGenerator
+) {
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 

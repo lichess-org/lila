@@ -318,7 +318,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   if (lowered == 'c' || lowered == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
   else if (lowered == 'l' || lowered == 'last') notify($('.lastMove').text());
   else if (lowered == 'abort') $('.nvui button.abort').trigger('click');
-  else if (lowered == 'resign') $('.nvui button.resign-confirm').trigger('click');
+  else if (lowered == 'resign') $('.nvui button.resign').trigger('click');
   else if (lowered == 'draw') $('.nvui button.draw-yes').trigger('click');
   else if (lowered == 'takeback') $('.nvui button.takeback-yes').trigger('click');
   else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));

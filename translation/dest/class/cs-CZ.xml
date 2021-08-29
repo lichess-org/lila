@@ -69,6 +69,9 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="releaseDesc1">Uvolněný účet nemůže být znovu spravován. Student bude schopen přepnout režim dětských oprávnění a sám obnovit heslo.</string>
   <string name="releaseDesc2">Student zůstane ve třídě poté, co bude uvolněn jeho účet.</string>
   <string name="realUniqueEmail">Skutečná, jedinečná e-mailová adresa studenta. Pošleme na ni potvrzovací e-mail s odkazem na vytvoření účtu.</string>
+  <string name="closeStudent">Zrušit účet</string>
+  <string name="closeTheAccount">Trvale zrušit účet studenta.</string>
+  <string name="closeDesc1">Váš student se k tomuto účtu již nikdy nebude moc přihlásit. Uzavření účtu je konečné, proto se ujistěte, že student ví a souhlasí se zrušením účtu.</string>
   <string name="teachers">Učitelé</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učitel</item>

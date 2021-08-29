@@ -16,7 +16,7 @@ trait CursorExt { self: dsl =>
     def gather[M[_]](upTo: Int = Int.MaxValue)(implicit cbf: Factory[A, M[A]]): Fu[M[A]] =
       c.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
-    def list(limit: Option[Int]): Fu[List[A]] = gather[List](limit | Int.MaxValue)
+    private def list(limit: Option[Int]): Fu[List[A]] = gather[List](limit | Int.MaxValue)
 
     def list(limit: Int): Fu[List[A]] = list(limit.some)
 

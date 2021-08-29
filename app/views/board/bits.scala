@@ -32,24 +32,15 @@ object bits {
   def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "") =
     mini(fen, color, lastMove)(span)
 
-  def jsData(
-      sit: chess.Situation,
-      fen: FEN
-  )(implicit ctx: Context) =
-    Json.obj(
-      "fen"     -> fen.value.split(" ").take(4).mkString(" "),
-      "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
-      "color"   -> sit.color.letter.toString,
-      "castles" -> Json.obj(
-        "K" -> (sit canCastle chess.White on chess.KingSide),
-        "Q" -> (sit canCastle chess.White on chess.QueenSide),
-        "k" -> (sit canCastle chess.Black on chess.KingSide),
-        "q" -> (sit canCastle chess.Black on chess.QueenSide)
-      ),
-      "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
-      "is3d"      -> ctx.pref.is3d,
-      "i18n"      -> i18nJsObject(i18nKeyes)
-    )
+  def jsData(fen: Option[String] = None)(implicit ctx: Context) =
+    Json
+      .obj(
+        "baseUrl"   -> s"$netBaseUrl${routes.Editor.load("")}",
+        "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
+        "is3d"      -> ctx.pref.is3d,
+        "i18n"      -> i18nJsObject(i18nKeyes)
+      )
+      .add("fen" -> fen)
 
   private val i18nKeyes = List(
     trans.setTheBoard,

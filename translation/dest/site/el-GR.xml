@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Ζητήστε ανάλυση υπολογιστή</string>
   <string name="computerAnalysis">Ανάλυση υπολογιστή</string>
   <string name="computerAnalysisAvailable">Ανάλυση υπολογιστή διαθέσιμη</string>
+  <string name="computerAnalysisDisabled">Η ανάλυση υπολογιστή απενεργοποιήθηκε</string>
   <string name="analysis">Σκακιέρα ανάλυσης</string>
   <string name="depthX">%s βάθος</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s παίκτης</item>
     <item quantity="other">%s παίκτες</item>
   </plurals>
+  <string name="drawByMutualAgreement">Ισοπαλία κατόπιν συμφωνίας</string>
+  <string name="fiftyMovesWithoutProgress">Πενήντα κινήσεις χωρίς πρόοδο</string>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
   <plurals name="nbGames">
     <item quantity="one">%s παιχνίδι</item>
@@ -916,4 +919,5 @@
   <string name="cantDoThisTwice">Αν κλείσετε το λογαριασμό σας για δεύτερη φορά, δε θα υπάρχει τρόπος να τον ανοίξετε ξανά.</string>
   <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
+  <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
 </resources>

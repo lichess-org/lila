@@ -19,7 +19,7 @@ export interface BoardData {
 export type PublishZoom = (v: number) => void;
 
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
-  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
+  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
 
   const saveZoom = debounce(
     () =>
@@ -44,7 +44,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     },
     readZoom,
     setZoom(v: number) {
-      document.body.setAttribute('style', '--zoom:' + (v - 100));
+      document.body.setAttribute('style', '--zoom:' + v);
       window.dispatchEvent(new Event('resize'));
       redraw();
       saveZoom();
@@ -60,19 +60,19 @@ export function view(ctrl: BoardCtrl): VNode {
     header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
     h('div.selector.large', [
       h(
-        'a.text',
+        'button.text',
         {
           class: { active: !ctrl.data.is3d },
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': '', type: 'button' },
           hook: bind('click', () => ctrl.setIs3d(false)),
         },
         '2D'
       ),
       h(
-        'a.text',
+        'button.text',
         {
           class: { active: ctrl.data.is3d },
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': '', type: 'button' },
           hook: bind('click', () => ctrl.setIs3d(true)),
         },
         '3D'
@@ -83,7 +83,7 @@ export function view(ctrl: BoardCtrl): VNode {
       isNaN(domZoom)
         ? [h('p', 'No board to zoom here!')]
         : [
-            h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom - 100, '%']),
+            h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom, '%']),
             h('input.range', {
               attrs: {
                 type: 'range',

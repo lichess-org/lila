@@ -47,8 +47,5 @@ Igrači koji ne vole primiti vaše poruke bi mogli napustiti tim.</string>
   <string name="leadersChat">Chat voditelja</string>
   <string name="closeTeam">Raspusti tim</string>
   <string name="closeTeamDescription">Trajno raspusti tim.</string>
-  <string name="teamPassword">Timska lozinka</string>
-  <string name="teamPasswordDescriptionForLeader">(Neobvezno) Lozinka koju novi članovi moraju znati kako bi pristupili ovom timu.</string>
-  <string name="incorrectTeamPassword">Netočna timska lozinka.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
 </resources>

@@ -113,6 +113,19 @@ object list {
       )
     }
 
+  def staffPicks(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = ~doc.getText("doc.title"),
+      moreCss = frag(cssTag("study.index"), cssTag("page"))
+    ) {
+      main(cls := "page-menu")(
+        menu("staffPicks", Order.Mine, Nil),
+        main(cls := "page-menu__content box box-pad page")(
+          views.html.site.page.pageContent(doc, resolver)
+        )
+      )
+    }
+
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
     if (pager.currentPageResults.isEmpty)
       div(cls := "nostudies")(
@@ -140,6 +153,7 @@ object list {
           topic.value
         )
       },
+      a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
         trans.study.whatAreStudies()
       )

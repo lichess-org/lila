@@ -1,5 +1,7 @@
 package lila.challenge
 
+import cats.data.Validated
+import cats.data.Validated.{ Invalid, Valid }
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.{ Color, Mode, Situation }
@@ -14,14 +16,16 @@ final private class ChallengeJoiner(
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(c: Challenge, destUser: Option[User], color: Option[Color]): Fu[Option[Pov]] =
+  def apply(c: Challenge, destUser: Option[User], color: Option[Color]): Fu[Validated[String, Pov]] =
     gameRepo exists c.id flatMap {
-      case true                                                           => fuccess(None)
-      case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) => fuccess(None)
+      case true => fuccess(Invalid("The challenge has already been accepted"))
+      case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) =>
+        fuccess(Invalid("This color has already been chosen"))
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser, color)
-          (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
+          (gameRepo insertDenormalized game) >>- onStart(game.id) inject
+            Valid(Pov(game, !c.finalColor))
         }
     }
 }

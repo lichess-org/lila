@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Thibitisha akaunti yako ya lichess.org, %s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Sehemu ya barua pepe ya uthibitisho wakati wa kusajili hazina ya Lichess:</string>
+  <string name="emailConfirm_ignore">Iwapo haukujisajili na Lichess unaweza kuupuuza ujumbe huu kwa niaba ya usalama.</string>
 </resources>

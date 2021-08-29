@@ -18,6 +18,8 @@
   <string name="rule1">Inkluder nøgleordet \"lichess.org\" i den streamtitel, når du streamer på Lichess.</string>
   <string name="rule2">Fjern nøgleordet, når du streamer ikke-Lichess ting.</string>
   <string name="rule3">Lichess vil automatisk detektere din stream og aktivere følgende frynsegode:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Læs vores %s for at sikre fair play for alle under din stream.</string>
+  <string name="streamingFairplayFAQ">streaming Fairplay FAQ</string>
   <string name="perks">Fordele ved streaming med nøgleordet</string>
   <string name="perk1">Få et flammende streamer-ikon på din Lichess-profil.</string>
   <string name="perk2">Stryg til tops på streamer-listen.</string>

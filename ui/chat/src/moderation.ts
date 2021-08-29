@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
 import { numberFormat } from 'common/number';
-import { userLink, bind } from './util';
+import { userLink } from './util';
 import { userModInfo } from './xhr';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {

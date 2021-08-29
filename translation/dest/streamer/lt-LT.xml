@@ -18,6 +18,8 @@
   <string name="rule1">Transliuodami Lichess transliacijos pavadinime įterpkite \"lichess.org\" ir naudokite kategoriją \"Šachmatai\" (Chess).</string>
   <string name="rule2">Pašalinkite raktinį žodį kai transliuojate ne Lichess dalykus.</string>
   <string name="rule3">Lichess jūsų transliaciją aptiks automatiškai ir suteiks jums šiuos privalumus:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Perskaitykite %s norėdami užtikrinti sąžiningą žaidimą visiems žaidėjams savo transliacijoje.</string>
+  <string name="streamingFairplayFAQ">transliacijų sąžiningumo DUK</string>
   <string name="perks">Pranašumai transliuojant su raktiniu žodžiu</string>
   <string name="perk1">Gaukite degančią transliuotojo piktogramą savo Lichess profilį.</string>
   <string name="perk2">Patekite į transliuotojų sąrašo viršų.</string>

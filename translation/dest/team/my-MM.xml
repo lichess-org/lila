@@ -12,4 +12,6 @@
   <string name="leadersChat">ခေါင်းဆောင်တို့ စကားပြောရန်</string>
   <string name="closeTeam">အသင်းကို ဖျက်ပါ</string>
   <string name="closeTeamDescription">အသင်းကို ထာဝရ ဖျက်သည်။</string>
+  <string name="entryCode">အသင်းသို့ ဝင်ရန် စကားဝှက်။</string>
+  <string name="incorrectEntryCode">စကားဝှက် မမှန်ပါ။</string>
 </resources>

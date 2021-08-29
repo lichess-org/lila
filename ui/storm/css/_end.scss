@@ -96,7 +96,11 @@
     align-items: center;
     background: $c-good;
     color: $c-good-over;
-    padding: 1em 3em;
+    padding: 1em 0;
+
+    @include breakpoint($mq-xx-small) {
+      padding: 1em 3em;
+    }
 
     &__number {
       font-family: 'storm';

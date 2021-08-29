@@ -114,6 +114,7 @@
   border: none;
   outline: none;
   color: $c-font;
+  align-items: normal;
 }
 
 %checkbox {
@@ -203,6 +204,12 @@
     @extend %abs-100;
 
     border: none;
+  }
+}
+
+%game-embed {
+  @include breakpoint($mq-not-xx-small) {
+    padding-bottom: 160%;
   }
 }
 

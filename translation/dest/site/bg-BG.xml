@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Поискайте компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
   <string name="computerAnalysisAvailable">Компютърният анализ е наличен</string>
+  <string name="computerAnalysisDisabled">Компютърният анализ е изключен</string>
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s играч</item>
     <item quantity="other">%s играчи</item>
   </plurals>
+  <string name="drawByMutualAgreement">Реми по взаимно съгласие</string>
+  <string name="fiftyMovesWithoutProgress">Петдесет хода без напредък</string>
   <string name="currentGames">Текущи игри</string>
   <plurals name="nbGames">
     <item quantity="one">%s Партия</item>
@@ -516,7 +519,7 @@
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
   <string name="incorrectPassword">Неправилна парола</string>
   <string name="invalidAuthenticationCode">Не валиден код за удостоверяване</string>
-  <string name="emailMeALink">Изпрати ми препратка на ел. поща</string>
+  <string name="emailMeALink">Изпрати ми препратка на имейла</string>
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
   <string name="newPasswordAgain">Нова парола (повтори)</string>
@@ -589,10 +592,10 @@
   <string name="allowAnalytics">Разреши анонимна статистика</string>
   <string name="shareGameURL">Сподели URL на играта</string>
   <string name="error.required">Това поле е задължително</string>
-  <string name="error.email">Адресът на ел. поща е невалиден</string>
-  <string name="error.email_acceptable">Адресът на ел. поща е недопустим</string>
-  <string name="error.email_unique">Тази ел. поща е вече заета</string>
-  <string name="error.email_different">Това е текущият ви имейл адрес</string>
+  <string name="error.email">Този имейл е невалиден</string>
+  <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
+  <string name="error.email_unique">Този имейл не е валиден или е вече взет</string>
+  <string name="error.email_different">Това е текущият Ви имейл адрес</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
@@ -668,9 +671,9 @@
   <string name="cumulative">С натрупване</string>
   <string name="glicko2Rating">Рейтинг по Glicko-2</string>
   <string name="checkYourEmail">Проверете имейла си</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви писмо. Натиснете върху връзката в писмото, за да задействате регистрацията си.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
-  <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да промените паролата на вашата регистрация.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви имейл. Натиснете върху връзката в имейла, за да задействате регистрацията си.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате имейла, проверете и на другите места където може бъде, като например кошче, спам, социални или други папки.</string>
+  <string name="weHaveSentYouAnEmailTo">Изпратихме имейл на %s. Натиснете връзката в имейла, за да промените паролата на Вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
   <string name="readAboutOur">Прочетете за нашата %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежово забавяне между вас и lichess</string>
@@ -689,7 +692,7 @@
   <string name="withNobody">С никой</string>
   <string name="withFriends">С приятели</string>
   <string name="withEverybody">С всеки</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Вече сте записали ел. поща: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Вече сте регистрирали имейла: %s</string>
   <string name="kidMode">Детски режим</string>
   <string name="kidModeExplanation">В името на безопасността. В детския режим цялата комуникация в сайта е изключена. Включете детския режим, за да защитите вашите деца и ученици от другите потребители.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детския режим логото на Lichess става %s, за да сте сигурни в безопасността на своите деца.</string>
@@ -829,12 +832,12 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Промени</string>
-  <string name="rapid">Бърз</string>
+  <string name="rapid">Ускорен</string>
   <string name="classical">Класически</string>
   <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
   <string name="bulletDesc">Много бързи игри: под 3 минути</string>
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
-  <string name="rapidDesc">Бързи игри: 8 до 25 минути</string>
+  <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
   <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
@@ -899,9 +902,24 @@
   <string name="noChat">Без чат</string>
   <string name="onlyTeamLeaders">Само организаторите на отбора</string>
   <string name="onlyTeamMembers">Само членовете на отбора</string>
+  <string name="navigateMoveTree">Навигирайте листа на ходовете</string>
+  <string name="mouseTricks">Миши трик</string>
   <string name="toggleLocalAnalysis">Включи/изключи локалния компютърен анализ</string>
   <string name="toggleAllAnalysis">Включи/изключи целия компютърен анализ</string>
   <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
   <string name="analysisOptions">Параметри на анализа</string>
   <string name="focusChat">Фокусирай текста</string>
+  <string name="showHelpDialog">Показване на този диалогов прозорец за помощ</string>
+  <string name="reopenYourAccount">Отворете отново акаунта Ви</string>
+  <string name="closedAccountChangedMind">Ако сте затворили акаунта Ви, но си промените решението, получавате един шанс да си върнете акаунта.</string>
+  <string name="onlyWorksOnce">Това ще работи само един път.</string>
+  <string name="cantDoThisTwice">Ако затворите акаунта Ви за втори път, няма как да го възстановите.</string>
+  <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
+  <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
+  <string name="tournamentEntryCode">Код за участие в турнира</string>
+  <string name="hangOn">Внимание!</string>
+  <string name="gameInProgress">Имате текуща игра с %s.</string>
+  <string name="abortTheGame">Прекъсване на играта</string>
+  <string name="resignTheGame">Предаване</string>
+  <string name="youCantStartNewGame">Не можете да започнете нова игра преди тази да е приключила.</string>
 </resources>

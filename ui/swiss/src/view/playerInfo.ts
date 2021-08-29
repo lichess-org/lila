@@ -1,5 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { spinner, bind, userName, dataIcon, player as renderPlayer, numberRow } from './util';
+import spinner from 'common/spinner';
+import { bind, dataIcon } from 'common/snabbdom';
+import { userName, player as renderPlayer, numberRow } from './util';
 import { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';

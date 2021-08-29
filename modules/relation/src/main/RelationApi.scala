@@ -201,14 +201,14 @@ final class RelationApi(
   def unfollow(u1: ID, u2: ID): Funit =
     (u1 != u2) ?? {
       fetchFollows(u1, u2) flatMap {
-        case true =>
+        _ ?? {
           repo.unfollow(u1, u2) >>- {
             countFollowersCache.update(u2, _ - 1)
             countFollowingCache.update(u1, _ - 1)
             Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
             lila.mon.relation.unfollow.increment().unit
           }
-        case _ => funit
+        }
       }
     }
 

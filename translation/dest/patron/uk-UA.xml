@@ -22,6 +22,7 @@
   <string name="onetime">Одноразовий</string>
   <string name="singleDonation">Один внесок, який дасть Вам крила Покровителя на один місяць.</string>
   <string name="otherAmount">Інше</string>
+  <string name="pleaseEnterAmountInX">Будь ласка, введіть суму в %s</string>
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ми невелика команда, тому Ваша підтримка має велике значення!</string>
@@ -72,4 +73,5 @@
   <string name="nowLifetime">Тепер Ви - пожиттєвий Покровитель Lichess!</string>
   <string name="nowOneMonth">Тепер Ви Покровитель Lichess на один місяць!</string>
   <string name="downgradeNextMonth">Через один місяць з Вас НЕ буде списано кошти знову, а Ваш обліковий запис Lichess буде повернено до звичайного.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Змінити валюту</string>
 </resources>

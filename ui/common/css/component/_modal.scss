@@ -10,7 +10,6 @@
 
     background: $c-bg-box;
     position: relative;
-    padding: 2rem;
     text-align: center;
     max-width: 100vw;
     max-height: 96vh;
@@ -18,13 +17,14 @@
     > div {
       overflow: hidden;
       overflow-y: auto;
+      padding: 2rem;
     }
 
     .close {
       color: $c-font;
       position: absolute;
       font-size: 16px;
-      line-height: 27px;
+      line-height: 28px;
       width: 32px;
       height: 32px;
       cursor: pointer;

@@ -140,6 +140,8 @@
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadors</item>
   </plurals>
+  <string name="drawByMutualAgreement">Taules per mutu acord</string>
+  <string name="fiftyMovesWithoutProgress">Cinquanta moviments sense progressar</string>
   <string name="currentGames">Partides en joc</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
@@ -872,4 +874,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="onlyMembersOfTeam">Només membres de l\'equip</string>
   <string name="noRestriction">Sense restriccions</string>
   <string name="onlyTitledHelp">Es necessita un títol oficial per entrar en el torneig</string>
+  <string name="gameInProgress">Tens una partida començada amb %s.</string>
 </resources>

@@ -1,5 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { spinner, dataIcon, bind, onInsert, numberRow } from './util';
+import spinner from 'common/spinner';
+import { dataIcon, bind, onInsert } from 'common/snabbdom';
+import { numberRow } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
 import { MaybeVNodes, SwissData, Pager } from '../interfaces';
@@ -164,7 +166,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
               'click',
               _ => {
                 if (d.password) {
-                  const p = prompt(ctrl.trans.noarg('password'));
+                  const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },

@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 import LobbyController from '../../ctrl';
-import { bind, tds, perfNames } from '../util';
+import { bind } from 'common/snabbdom';
+import { tds, perfNames } from '../util';
 import perfIcons from 'common/perfIcons';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';

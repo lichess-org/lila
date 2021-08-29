@@ -49,7 +49,7 @@ export interface ExplorerData {
   tablebase?: true;
 }
 
-export interface OpeningData extends ExplorerData {
+export interface OpeningData extends ExplorerData, Partial<OpeningMoveStats> {
   moves: OpeningMoveStats[];
   topGames?: OpeningGame[];
   recentGames?: OpeningGame[];

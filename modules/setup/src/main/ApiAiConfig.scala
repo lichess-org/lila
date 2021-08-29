@@ -4,7 +4,7 @@ import chess.Clock
 import chess.format.FEN
 import chess.variant.{ FromPosition, Variant }
 
-import lila.game.{ Game, Player, Pov, Source }
+import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
 
@@ -28,7 +28,7 @@ final case class ApiAiConfig(
     else if (daysO.isDefined) TimeMode.Correspondence
     else TimeMode.Unlimited
 
-  def game(user: Option[User]) =
+  private def game(user: Option[User])(implicit idGenerator: IdGenerator): Fu[Game] =
     fenGame { chessGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         chess.Speed(chessGame.clock.map(_.config)),
@@ -51,10 +51,10 @@ final case class ApiAiConfig(
           daysPerTurn = makeDaysPerTurn,
           pgnImport = None
         )
-        .sloppy
-    } start
+        .withUniqueId
+    }.dmap(_.start)
 
-  def pov(user: Option[User]) = Pov(game(user), creatorColor)
+  def pov(user: Option[User])(implicit idGenerator: IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
 
   def autoVariant =
     if (variant.standard && fen.exists(!_.initial)) copy(variant = FromPosition)

@@ -21,6 +21,9 @@
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
+  <string name="capturingDefenderDescription">Memakan bidak yang sangat penting untuk menjaga bidak lain, memungkinkan bagian yang sekarang tidak terlindungi untuk ditangkap pada langkah berikut.</string>
+  <string name="crushing">Hancurkan</string>
+  <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Skak gajah ganda</string>
   <string name="equality">Kesetaraan</string>
   <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
@@ -37,6 +40,7 @@
   <string name="endgame">Akhir permainan</string>
   <string name="fork">Fork</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
+  <string name="master">Permainan master</string>
   <string name="mate">Skakmat</string>
   <string name="mateDescription">Menangkan game dengan bergaya.</string>
   <string name="mateIn1">Mati dalam 1 Langkah</string>
@@ -74,4 +78,7 @@
   <string name="zugzwangDescription">Musuh dibatasi gerakan yang dapat mereka lakukan, dan semua gerakan memperburuk posisi mereka.</string>
   <string name="healthyMix">Campuran baik</string>
   <string name="healthyMixDescription">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
+  <string name="playerGames">Permainan pemain</string>
+  <string name="playerGamesDescription">Mengambil taktik yang dihasilkan dari permainan anda, atau pemain lain.</string>
+  <string name="puzzleDownloadInformation">Taktik-taktik ini ada di domain publik, dan dapat di download dari %s.</string>
 </resources>

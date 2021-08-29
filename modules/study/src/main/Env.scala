@@ -25,6 +25,8 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
+    analyser: lila.analyse.Analyser,
+    annotator: lila.analyse.Annotator,
     mongo: lila.db.Env,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi

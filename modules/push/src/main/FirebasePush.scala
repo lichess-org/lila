@@ -22,7 +22,7 @@ final private class FirebasePush(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencer(maxSize = 512, timeout = 10 seconds, name = "firebasePush")
+    new lila.hub.AsyncActorSequencer(maxSize = 512, timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: User.ID, data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>

@@ -1,7 +1,9 @@
 package lila.common
 
 import java.text.Normalizer
+import java.util.stream.Collectors
 import play.api.libs.json._
+import scala.jdk.CollectionConverters._
 import scalatags.Text.all._
 
 import lila.base.RawHtml
@@ -20,6 +22,43 @@ object String {
     val normalized   = Normalizer.normalize(singleDashes, Normalizer.Form.NFD)
     val slug         = slugR.replaceAllIn(normalized, "")
     slug.toLowerCase
+  }
+
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
+
+  def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
+
+  def distinctGarbageChars(str: String): Set[Char] =
+    str
+      .chars()
+      .filter(isGarbageChar)
+      .boxed()
+      .iterator()
+      .asScala
+      .map((i: Integer) => i.toChar)
+      .toSet
+
+  def isGarbageChar(c: Int) =
+    // invisible chars https://www.compart.com/en/unicode/block/U+2000
+    (c >= '\u2000' && c <= '\u200F') ||
+      // weird stuff https://www.compart.com/en/unicode/block/U+2000
+      (c >= '\u2028' && c <= '\u202F') ||
+      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+      (c >= '\u2100' && c <= '\u2C5F') ||
+      // decorative chars ꧁ ꧂
+      (c == '\ua9c1' || c == '\ua9c2') ||
+      // pretty quranic chars ஜ۩۞۩ஜ
+      (c >= '\u06d6' && c <= '\u06ff')
+
+  object normalize {
+
+    private val degreeRegex = "[°º]".r
+
+    // convert weird chars into letters when possible
+    // but preserve °
+    def apply(str: String): String = Normalizer
+      .normalize(degreeRegex.replaceAllIn(str, '\u0001'.toString), Normalizer.Form.NFKC)
+      .replace('\u0001', '°')
   }
 
   def decodeUriPath(input: String): Option[String] = {

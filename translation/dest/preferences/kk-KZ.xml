@@ -5,7 +5,7 @@
   <string name="pieceAnimation">Тастар анимациясы</string>
   <string name="materialDifference">Тас мөлшерінің айырмашылығы</string>
   <string name="boardHighlights">Жүріс ізін көрсету (кейінгі жүріс пен шах)</string>
-  <string name="pieceDestinations">Тастың жолын көрсету (жүріс пен алдын-ала жүріс)</string>
+  <string name="pieceDestinations">Тастың бағытын көрсету (заңды, алдын-ала жүрістер)</string>
   <string name="boardCoordinates">Тақта координаттары (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Ойын кезіндегі жүрістер тізімі</string>
   <string name="pgnPieceNotation">Жүрісті жазу тәртібі</string>

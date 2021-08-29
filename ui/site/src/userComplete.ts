@@ -64,6 +64,6 @@ export default function (opts: Opts): void {
     },
     populate: opts.populate || (r => r.name),
     onSelect: opts.onSelect,
-    regex: /^[a-z0-9][\w-]{2,29}$/i,
+    regex: /^[a-z][\w-]{2,29}$/i,
   });
 }

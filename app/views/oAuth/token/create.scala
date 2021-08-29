@@ -63,6 +63,8 @@ object create {
             form3.submit(trans.apply())
           ),
           br,
+          br,
+          br,
           div {
             val url =
               s"${netBaseUrl}${routes.OAuthToken.create}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"

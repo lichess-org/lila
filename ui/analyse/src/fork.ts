@@ -1,9 +1,9 @@
-import { h } from 'snabbdom';
-import { renderIndexAndMove } from './moveView';
 import { defined } from 'common';
-import { ConcealOf } from './interfaces';
-import { onInsert } from './util';
+import { onInsert } from 'common/snabbdom';
+import { h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
+import { ConcealOf } from './interfaces';
+import { renderIndexAndMove } from './moveView';
 
 export interface ForkCtrl {
   state(): {

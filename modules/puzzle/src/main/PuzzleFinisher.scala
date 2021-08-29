@@ -22,7 +22,7 @@ final private[puzzle] class PuzzleFinisher(
   import BsonHandlers._
 
   private val sequencer =
-    new lila.hub.DuctSequencers(
+    new lila.hub.AsyncActorSequencers(
       maxSize = 64,
       expiration = 5 minutes,
       timeout = 5 seconds,

@@ -1,18 +1,6 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h } from 'snabbdom';
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';
-
-export function onInsert(f: (element: HTMLElement) => void): Hooks {
-  return {
-    insert(vnode: VNode) {
-      f(vnode.elm as HTMLElement);
-    },
-  };
-}
-
-export function bind(eventName: string, f: (e: Event) => void): Hooks {
-  return onInsert(el => el.addEventListener(eventName, f));
-}
 
 export function player(p: Player) {
   return h(

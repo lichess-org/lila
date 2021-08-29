@@ -19,7 +19,8 @@ final class Analyser(
     analysis.studyId match {
       case None =>
         gameRepo game analysis.id flatMap {
-          _ ?? { game =>
+          _ ?? { prev =>
+            val game = prev.setAnalysed
             gameRepo.setAnalysed(game.id)
             analysisRepo.save(analysis) >>
               sendAnalysisProgress(analysis, complete = true) >>- {

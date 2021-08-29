@@ -1,6 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
-import { dataIcon, innerHTML } from '../../util';
+import { dataIcon } from 'common/snabbdom';
+import { innerHTML } from '../../util';
 import { h, VNode } from 'snabbdom';
 import { RelayRound } from './interfaces';
 import { StudyCtrl } from '../interfaces';
@@ -66,7 +67,7 @@ function roundsTable(relay: RelayCtrl): VNode {
               )
             ),
             h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
-            h('td', roundStateIcon(round)),
+            h('td', roundStateIcon(round) || (round.startsAt ? lichess.timeago(round.startsAt) : undefined)),
           ])
         )
       )

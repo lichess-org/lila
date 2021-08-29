@@ -4,7 +4,8 @@ import { parseFen } from 'chessops/fen';
 
 export const getNow = (): number => Math.round(performance.now());
 
-export const uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+export const uciToLastMove = (uci: string | undefined): [Key, Key] | undefined =>
+  uci ? [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key] : undefined;
 
 export const puzzlePov = (puzzle: Puzzle) => opposite(parseFen(puzzle.fen).unwrap().turn);
 

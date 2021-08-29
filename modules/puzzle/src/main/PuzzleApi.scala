@@ -60,7 +60,7 @@ final class PuzzleApi(
   object vote {
 
     private val sequencer =
-      new lila.hub.DuctSequencers(
+      new lila.hub.AsyncActorSequencers(
         maxSize = 16,
         expiration = 5 minutes,
         timeout = 3 seconds,

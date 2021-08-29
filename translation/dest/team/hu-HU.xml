@@ -45,9 +45,9 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="leadersChat">Vezetői csevegő</string>
   <string name="closeTeam">Csapat megszüntetése</string>
   <string name="closeTeamDescription">Véglegesen megszünteti a csapatot.</string>
-  <string name="teamPassword">Csapatjelszó</string>
-  <string name="teamPasswordDescriptionForLeader">(Nem kötelező) Olyan jelszó, amit az új tagoknak ismerniük kell a csatlakozáshoz.</string>
-  <string name="incorrectTeamPassword">Helytelen csapatjelszó.</string>
+  <string name="entryCode">Belépési kód</string>
+  <string name="entryCodeDescriptionForLeader">(Nem kötelező) Egyszeri kód amit az új tagoknak ismerniük kell a csapathoz való csatlakozáshoz.</string>
+  <string name="incorrectEntryCode">Érvénytelen belépési kód.</string>
   <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
   <string name="upcomingTourns">Közelgő versenyek</string>
   <string name="completedTourns">Véget ért versenyek</string>

@@ -18,7 +18,15 @@ final class SwissFeature(
 
   import BsonHandlers._
 
-  private val lichessTeamId = "lichess-swiss"
+  val onHomepage = cacheApi.unit[Option[Swiss]] {
+    _.refreshAfterWrite(1 minute)
+      .buildAsyncFuture { _ =>
+        colls.swiss
+          .find($doc("teamId" -> lichessTeamId, "startsAt" $gt DateTime.now.minusMinutes(10)))
+          .sort($sort asc "startsAt")
+          .one[Swiss]
+      }
+  }
 
   def get(teams: Seq[TeamID]) =
     cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { case (cached, teamed) =>

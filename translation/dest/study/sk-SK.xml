@@ -133,6 +133,5 @@
   <string name="clearChat">Vymazať čet</string>
   <string name="deleteTheStudyChatHistory">Chcete vymazať históriu četu k tomuto učivu? Táto akcia sa nedá vrátit späť!</string>
   <string name="deleteStudy">Vymazať učivo</string>
-  <string name="deleteTheEntireStudy">Chcete vymazať toto celé učivo? Táto akcia sa nedá vratit späť!</string>
   <string name="whereDoYouWantToStudyThat">Kde to chcete študovať?</string>
 </resources>

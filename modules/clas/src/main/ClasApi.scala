@@ -89,40 +89,33 @@ final class ClasApi(
         }
 
     def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
-      fuccess(studentCache.isStudent(student)) >>&
-        colls.student
-          .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-            import framework._
-            Match($doc("userId" -> student)) -> List(
-              Project($doc("clasId" -> true)),
-              PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from" -> colls.clas.name,
-                    "let"  -> $doc("c" -> "$clasId"),
-                    "pipeline" -> $arr(
-                      $doc(
-                        "$match" -> $doc(
-                          "$expr" -> $doc(
-                            "$and" -> $arr(
-                              $doc("$eq" -> $arr("$_id", "$$c")),
-                              $doc("$in" -> $arr(teacher, "$teachers"))
-                            )
-                          )
-                        )
-                      ),
-                      $doc("$limit"   -> 1),
-                      $doc("$project" -> $id(true))
-                    ),
-                    "as" -> "clas"
-                  )
+      studentCache.isStudent(student) ?? colls.student
+        .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+          import framework._
+          Match($doc("userId" -> student)) -> List(
+            Project($doc("clasId" -> true)),
+            PipelineOperator(
+              $lookup.pipeline(
+                from = colls.clas,
+                as = "clas",
+                local = "clasId",
+                foreign = "_id",
+                pipeline = List(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc("$in" -> $arr(teacher, "$teachers"))
+                    )
+                  ),
+                  $doc("$limit"   -> 1),
+                  $doc("$project" -> $id(true))
                 )
-              ),
-              Match("clas" $ne $arr()),
-              Limit(1),
-              Project($id(true))
-            )
-          }
+              )
+            ),
+            Match("clas" $ne $arr()),
+            Limit(1),
+            Project($id(true))
+          )
+        }
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update
@@ -149,13 +142,11 @@ final class ClasApi(
           import framework._
           Match($doc("clasId" -> clas.id) ++ selector) -> List(
             PipelineOperator(
-              $doc(
-                "$lookup" -> $doc(
-                  "from"         -> userRepo.coll.name,
-                  "as"           -> "user",
-                  "localField"   -> "userId",
-                  "foreignField" -> "_id"
-                )
+              $lookup.simple(
+                from = userRepo.coll,
+                as = "user",
+                local = "userId",
+                foreign = "_id"
               )
             ),
             UnwindField("user")
@@ -205,6 +196,29 @@ final class ClasApi(
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id) map2 { Student.WithUser(_, user) }
+
+    def withManagingClas(s: Student.WithUser, clas: Clas): Fu[Student.WithUserAndManagingClas] = {
+      if (s.student.managed) fuccess(clas.some)
+      else
+        colls.student
+          .aggregateOne(ReadPreference.secondaryPreferred) { framework =>
+            import framework._
+            Match($doc("userId" -> s.user.id, "managed" -> true)) -> List(
+              PipelineOperator(
+                $lookup.simple(
+                  from = colls.clas,
+                  as = "clas",
+                  local = "clasId",
+                  foreign = "_id"
+                )
+              ),
+              UnwindField("clas")
+            )
+          }
+          .map {
+            _.flatMap(_.getAsOpt[Clas]("clas"))
+          }
+    } map { Student.WithUserAndManagingClas(s, _) }
 
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] = {
       val student = data update from

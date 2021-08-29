@@ -20,7 +20,8 @@ import views._
 final class Study(
     env: Env,
     userAnalysisC: => UserAnalysis,
-    apiC: => Api
+    apiC: => Api,
+    prismicC: Prismic
 ) extends LilaController(env) {
 
   def search(text: String, page: Int) =
@@ -465,17 +466,18 @@ final class Study(
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
             lila.mon.export.pgn.studyChapter.increment()
-            Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
-              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
-              .as(pgnContentType)
-              .fuccess
+            env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
+              Ok(pgn.toString)
+                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+                .as(pgnContentType)
+            }
           }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }
     }
 
   def export(username: String) =
-    OpenOrScoped()(
+    OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)
     )
@@ -496,7 +498,6 @@ final class Study(
           .withAttributes(
             akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
           )
-          .throttle(30, 1 second)
       } { source =>
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))
@@ -567,6 +568,13 @@ final class Study(
               Redirect(routes.Study.topics)
         )
     }
+
+  def staffPicks = Open { implicit ctx =>
+    pageHit
+    OptionOk(prismicC getBookmark "studies-staff-picks") { case (doc, resolver) =>
+      html.study.list.staffPicks(doc, resolver)
+    }
+  }
 
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(implicit ctx: lila.api.Context) =

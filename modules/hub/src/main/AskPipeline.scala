@@ -11,11 +11,11 @@ import scala.concurrent.{ ExecutionContext, Promise }
 final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(implicit
     system: akka.actor.ActorSystem,
     ec: scala.concurrent.ExecutionContext
-) extends Trouper {
+) extends SyncActor {
 
   private var state: State = Idle
 
-  protected val process: Trouper.Receive = {
+  protected val process: SyncActor.Receive = {
 
     case Get(promise) =>
       state match {

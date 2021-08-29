@@ -1,5 +1,9 @@
 $(function () {
   const noteStore = lichess.storage.make('inquiry-note');
+  const usernameNoteStore = lichess.storage.make('inquiry-note-user');
+  const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
+  if (username != usernameNoteStore.get()) noteStore.remove();
+  usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0];
 
   $('#inquiry .notes').on('mouseenter', () => {
@@ -36,5 +40,16 @@ $(function () {
         .html()
         .replaceAll(/(?:https:\/\/)?lichess\.org\/([\w\/]+)/g, '<a href="/$1">lichess.org/$1</a>')
     );
+  });
+
+  $('#communication').on('click', '.line.author, .post.author', function () {
+    // Need to take username from the communcation page so that when being in inquiry for user A and checking communication of user B
+    // the notes cannot be mistakenly attributed to user A.
+    const username = $('#communication').find('.title').text().split(' ')[0];
+    const message = $(this).find('.message').text();
+    const storedNote = noteStore.get();
+    noteStore.set((storedNote ? storedNote + '\n' : '') + `${username}: "${message}"`);
+    const notes = $('#inquiry .notes span').addClass('flash');
+    setTimeout(() => notes.removeClass('flash'), 100);
   });
 });

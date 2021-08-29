@@ -9,6 +9,7 @@ export interface PuzPrefs {
   rookCastle: boolean;
   moveEvent: number;
   highlight: boolean;
+  animation: number;
 }
 
 export type UserMove = (orig: Key, dest: Key) => void;

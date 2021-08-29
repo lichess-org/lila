@@ -57,7 +57,7 @@ class FormTest extends Specification {
         .bind(Map("t" -> s"  $str  ")) must beLeft
 
       single("t" -> cleanText)
-        .bind(Map("t" -> s"  $str  ")) must beRight
+        .bind(Map("t" -> s"  $str  ")) must beLeft
     }
   }
 

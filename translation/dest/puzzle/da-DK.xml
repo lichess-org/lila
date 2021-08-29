@@ -58,7 +58,7 @@
   <string name="history">Opgavehistorik</string>
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
-  <string name="streakDescription">Løs gradvist sværere opgaver og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe et træk over per session.</string>
+  <string name="streakDescription">Løs opgaver af stigende sværhedsgrad og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe ét træk over per session.</string>
   <string name="yourStreakX">Din stime: %s</string>
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
   <string name="continueTheStreak">Fortsæt stimen</string>
@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Du har ingen opgaver i databasen, men Lichess elsker dig alligevel.
 Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne for at en af dine opgave tilføjes!</string>
   <string name="fromXGamesFound">%1$s opgaver fundet i %2$s partier</string>
+  <string name="puzzleDashboardDescription">Træn, analysér, forbedr</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s spillet</item>
+    <item quantity="other">%s spillede</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s at spille igen</item>
+    <item quantity="other">%s at spille igen</item>
+  </plurals>
+  <string name="percentSolved">%s løst</string>
+  <string name="noPuzzlesToShow">Intet at vise, løs først nogle opgaver!</string>
+  <string name="improvementAreasDescription">Træn disse for at optimere dine fremskridt!</string>
+  <string name="strengthDescription">Du klarer dig bedst i disse temaer</string>
 </resources>

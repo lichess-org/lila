@@ -35,12 +35,18 @@
   <string name="forbiddenPairings">Забранени съчетавания</string>
   <string name="forbiddenPairingsHelp">Имена на играчите които не трябва да играят един срещу друг (например роднини). Въведете по две имена на линия, разделени с интервал.</string>
   <string name="newSwiss">Нов швейцарски турнир</string>
+  <string name="swissVsArenaQ">Кога да използваме швейцарски турнири вместо арени?</string>
   <string name="swissVsArenaA">В швейцарски турнир всички участници играят еднакъв брой игри и могат да играят един срещу друг само веднъж.
 Това е добър избор за клубове и официални турнири.</string>
   <string name="pointsCalculationQ">Как се изчисляват точките?</string>
   <string name="dutchSystem">Холандската система</string>
   <string name="FIDEHandbook">Правилника на ФИДЕ</string>
-  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">По %1$s, осъществена чрез %2$s, според %3$s.</string>
+  <string name="pairingsA">По %1$s, осъществена чрез %2$s, според %3$s.</string>
+  <string name="restrictedToTeamsA">Швейцарските турнири не са подходящи за онлайн шах. Те изискват точност, отдаденост и търпение от играчите.
+Смятаме, че тези условия е по-вероятно да бъдат изпълнени в отборни турнири, отколкото в глобални турнири.</string>
+  <string name="lateJoinA">Да, докато не са започнали повече от половината рундове; например в 11-рундов швейцарски турнир играчи могат да се присъединят преди началото на рунд 6, а в 12-рундов, преди началото на рунд 7.
+Късно присъединяващите се получават един bye, дори ако са пропуснали няколко рунда.</string>
+  <string name="roundRobinA">Бихме искали да го добавим, но за съжаление Round Robin не работи онлайн. Причината е, че няма справедлив начин да се справи с хората, които напускат турнира по-рано. Не можем да очакваме, че всички играчи ще изиграят всичките си игри в дадено онлайн събитие. Това е просто невъзможно и в резултат повечето турнири от Round Robin биха били несправедливи, което е противно на самата им причина да съществуват. Най-близкото до Round Robin турнир онлайн е швейцарски турнир с много голям брой рундове. Тогава всички възможни сдвоявания ще бъдат изиграни преди края на турнира.</string>
   <string name="startingSoon">Скоро започва</string>
   <string name="comparison">Сравнение</string>
   <string name="tournDuration">Продължителност на турнира</string>

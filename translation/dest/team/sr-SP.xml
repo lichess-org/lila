@@ -46,8 +46,5 @@
   <string name="leadersChat">Ћаскање за вође</string>
   <string name="closeTeam">Распусти тим</string>
   <string name="closeTeamDescription">Заувек распушта тим.</string>
-  <string name="teamPassword">Тимска лозинка</string>
-  <string name="teamPasswordDescriptionForLeader">(Опционално) Лозинка коју нови чланови морају знати да би се придружили овом тиму.</string>
-  <string name="incorrectTeamPassword">Нетачна тимска лозинка.</string>
   <string name="teamAlreadyExists">Овај тим већ постоји.</string>
 </resources>

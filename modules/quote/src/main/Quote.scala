@@ -302,7 +302,6 @@ object Quote {
       "Benjamin Franklin"
     ),
     new Quote("Winning isn’t everything... but losing is nothing.", "Mednis"),
-    new Quote("Only sissies castle.", "Rob Sillars"),
     new Quote(
       "Look at Garry Kasparov. After he loses, invariably he wins the next game. He just kills the next guy. That’s something that we have to learn to be able to do.",
       "Maurice Ashley"
@@ -579,7 +578,6 @@ object Quote {
       "It began to feel as though you were playing against chess itself --on playing against Robert Fischer.",
       "Walter Shipman"
     ),
-    new Quote("Checkers is for tramps.", "Paul Morphy"),
     new Quote(
       "When you play Bobby, it is not a question if you win or lose.  It is a question if you survive.",
       "Boris Spassky"

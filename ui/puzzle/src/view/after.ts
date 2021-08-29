@@ -1,4 +1,4 @@
-import { bind, dataIcon } from '../util';
+import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNodes } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 
@@ -76,7 +76,7 @@ export default function (ctrl: Controller): VNode {
                 rel: 'noopener',
               },
             }),
-            data.user
+            data.user && !ctrl.autoNexting()
               ? h(
                   'a',
                   {

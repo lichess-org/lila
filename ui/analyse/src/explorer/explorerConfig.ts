@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { prop } from 'common';
+import { bind, dataIcon } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp } from 'common/storage';
-import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
 

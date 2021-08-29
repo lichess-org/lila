@@ -50,13 +50,7 @@ object insight {
       ),
       moreCss = cssTag("insight")
     )(
-      frag(
-        main(id := "insight"),
-        stale option div(cls := "insight-stale none")(
-          p("There are new games to learn from!"),
-          refreshForm(u, "Update insights")
-        )
-      )
+      frag(main(id := "insight"))
     )
 
   def empty(u: User)(implicit ctx: Context) =

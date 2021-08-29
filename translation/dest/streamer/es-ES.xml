@@ -6,7 +6,7 @@
   <string name="offline">DESCONECTADO</string>
   <string name="currentlyStreaming">Transmitiendo ahora: %s</string>
   <string name="lastStream">Última transmisión %s</string>
-  <string name="becomeStreamer">Conviértete en un presentador de Lichess</string>
+  <string name="becomeStreamer">Hazte presentador de Lichess</string>
   <string name="doYouHaveStream">¿Tienes un canal de Twitch o YouTube?</string>
   <string name="hereWeGo">¡Allá vamos!</string>
   <string name="allStreamers">Todos los presentadores</string>
@@ -18,6 +18,8 @@
   <string name="rule1">Incluye la palabra clave \"lichess.org\" en el título de tu transmisión y usa la categoría \"Chess\" cuando transmitas en Lichess.</string>
   <string name="rule2">Elimina la palabra clave cuando transmitas contenido que no esté relacionado a Lichess.</string>
   <string name="rule3">Lichess detectará tu transmisión automáticamente y habilitará los siguientes beneficios:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lee las %s para garantizar que todos los participantes actúen con deportividad durante la transmisión.</string>
+  <string name="streamingFairplayFAQ">Preguntas frecuentes sobre juego limpio en transmisiones</string>
   <string name="perks">Beneficios de transmitir con la palabra clave</string>
   <string name="perk1">Obtén un llameante icono de presentador en tu perfil de Lichess.</string>
   <string name="perk2">Sube a la cima de la lista de presentadores.</string>
@@ -42,7 +44,7 @@ Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de
   </plurals>
   <string name="visibility">Visible en la página de presentadores</string>
   <string name="whenApproved">Cuando lo aprueben los moderadores</string>
-  <string name="headline">Encabezado</string>
+  <string name="headline">Título</string>
   <string name="tellUsAboutTheStream">En una frase, cuéntanos sobre tu transmisión</string>
   <string name="longDescription">Descripción larga</string>
   <string name="xStreamerPicture">Imagen de presentador %s</string>

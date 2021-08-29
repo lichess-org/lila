@@ -56,6 +56,7 @@
   <string name="requestAComputerAnalysis">Pieprasīt datoranalīzi</string>
   <string name="computerAnalysis">Datoranalīze</string>
   <string name="computerAnalysisAvailable">Pieejama datoranalīze</string>
+  <string name="computerAnalysisDisabled">Datora analīze atspējota</string>
   <string name="analysis">Analīze</string>
   <string name="depthX">Dziļums %s</string>
   <string name="usingServerAnalysis">Izmanto servera analīzi</string>
@@ -148,6 +149,8 @@
     <item quantity="one">%s spēlētājs</item>
     <item quantity="other">%s spēlētāji</item>
   </plurals>
+  <string name="drawByMutualAgreement">Spēlētāji vienojās par neizšķirtu</string>
+  <string name="fiftyMovesWithoutProgress">Piecdesmit gājieni bez attīstības</string>
   <string name="currentGames">Pašreizējās spēles</string>
   <plurals name="nbGames">
     <item quantity="zero">%s spēles</item>
@@ -954,4 +957,10 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="cantDoThisTwice">Ja slēgsiet kontu otrreiz, nebūs iespēju to atgūt.</string>
   <string name="emailAssociatedToaccount">Ar kontu saistītais epasts</string>
   <string name="sentEmailWithLink">Esam jums nosūtījuši epastu ar saiti.</string>
+  <string name="tournamentEntryCode">Turnīra pievienošanās kods</string>
+  <string name="hangOn">Uzmanību!</string>
+  <string name="gameInProgress">Jums ir nepageigta spēle ar %s.</string>
+  <string name="abortTheGame">Atcelt spēli</string>
+  <string name="resignTheGame">Padoties</string>
+  <string name="youCantStartNewGame">Kamēr neesat pabeidzis šo spēli, nevarat sākt jaunu partiju.</string>
 </resources>

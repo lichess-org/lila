@@ -19,6 +19,7 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
 }
 
 export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: DrawModifiers): DrawShape[] {
+  if (uci === 'Current Position') return [];
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];

@@ -75,4 +75,5 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="nowLifetime">You are now a lifetime Lichess Patron!</string>
   <string name="nowOneMonth">You are now a Lichess Patron for one month!</string>
   <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will be downgraded to free.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Change currency</string>
 </resources>

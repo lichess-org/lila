@@ -78,7 +78,7 @@ final private[forum] class TopicApi(
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = me.id,
+        userId = me.id.some,
         troll = me.marks.troll,
         hidden = topic.hidden,
         text = spam.replace(data.post.text),
@@ -123,7 +123,7 @@ final private[forum] class TopicApi(
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = User.lichessId,
+      userId = User.lichessId.some,
       troll = false,
       hidden = false,
       text = s"Comments on $url",

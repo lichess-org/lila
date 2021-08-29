@@ -46,17 +46,17 @@ object theme {
                   cat.key == "puzzle:origin" option
                     a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
                       span(
-                        h3("Player games"),
-                        span("Lookup puzzles generated from your games, or from another player's games.")
+                        h3(trans.puzzleTheme.playerGames()),
+                        span(trans.puzzleTheme.playerGamesDescription())
                       )
                     )
                 )
               )
             },
             p(cls := "puzzle-themes__db text", dataIcon := "")(
-              "These puzzles are in the public domain, and can be downloaded from ",
-              a(href := "https://database.lichess.org/")("database.lichess.org"),
-              "."
+              trans.puzzleTheme.puzzleDownloadInformation(
+                a(href := "https://database.lichess.org/")("database.lichess.org")
+              )
             )
           )
         )

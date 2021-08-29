@@ -924,4 +924,9 @@
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="streamerManager">Správca streamov</string>
+  <string name="hangOn">Počkaj!</string>
+  <string name="gameInProgress">Máte rozohranú partiu s %s.</string>
+  <string name="abortTheGame">Zrušiť partiu</string>
+  <string name="resignTheGame">Vzdať partiu</string>
+  <string name="youCantStartNewGame">Kým neukončíte túto partiu, nemôžete začať novú.</string>
 </resources>

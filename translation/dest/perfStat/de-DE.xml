@@ -12,7 +12,7 @@
   <string name="tournamentGames">Turnierspiele</string>
   <string name="berserkedGames">Berserker-Spiele</string>
   <string name="timeSpentPlaying">Gesamtspielzeit</string>
-  <string name="averageOpponent">Durschnittliche Gegnerwertung</string>
+  <string name="averageOpponent">Durchschnittliche Gegnerwertung</string>
   <string name="victories">Siege</string>
   <string name="defeats">Niederlagen</string>
   <string name="disconnections">Verbindungsabbrüche</string>

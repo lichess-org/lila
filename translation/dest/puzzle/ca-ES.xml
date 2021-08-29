@@ -62,4 +62,5 @@
   <string name="fromMyGamesNone">No hi ha problemes teus a la base de dates, però Lichess t\'estima molt igualment.
 Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'hi afegeixi algun!</string>
   <string name="fromXGamesFound">%1$s problemes trobats en %2$s partides</string>
+  <string name="puzzleDashboardDescription">Entrena, analitza, millora</string>
 </resources>

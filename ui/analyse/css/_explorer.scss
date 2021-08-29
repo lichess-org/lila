@@ -6,7 +6,7 @@
   @include transition;
 
   transition-delay: 0.3s;
-  overflow-y: scroll;
+  overflow-y: auto;
   font-size: 0.9em;
 
   &.reduced {
@@ -87,12 +87,30 @@
     padding-right: 7px;
   }
 
+  .moves tbody tr.expl-uci- {
+    /* sum row */
+    background: mix($c-primary, $c-bg-box, 25%);
+    font-weight: bold;
+
+    @include breakpoint($mq-col2) {
+      @include breakpoint($mq-x-short) {
+        position: sticky;
+        bottom: 0;
+      }
+    }
+
+    td {
+      cursor: default;
+    }
+  }
+
   .bar span {
     text-align: center;
     display: inline-block;
     overflow: hidden;
     vertical-align: middle;
-    border: 0 solid $c-border;
+    background-clip: padding-box;
+    border: 0 solid fade-out($c-font, 0.83);
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;

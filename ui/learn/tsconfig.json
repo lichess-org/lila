@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "chessground": ["@types/chessground"]
+    },
+    "types": ["lichess", "cash"]
+  },
+  "extends": "../tsconfig.base.json"
+}

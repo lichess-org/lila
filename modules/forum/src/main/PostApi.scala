@@ -35,17 +35,20 @@ final class PostApi(
       me: User
   ): Fu[Post] =
     detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
+      val publicMod = MasterGranter(_.PublicMod)(me)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
+      val anonMod   = modIcon && !publicMod
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = me.id,
+        userId = !anonMod option me.id,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
         hidden = topic.hidden,
         categId = categ.id,
-        modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        modIcon = modIcon option true
       )
       env.postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
@@ -62,7 +65,8 @@ final class PostApi(
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
-              if (!post.troll && !categ.quiet && !topic.isTooBig)
+              if (anonMod) logAnonPost(me.id, post, edit = false)
+              else if (!post.troll && !categ.quiet && !topic.isTooBig)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
                 }
@@ -76,14 +80,16 @@ final class PostApi(
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
       post.fold[Fu[Post]](fufail("Post no longer exists.")) {
-        case (_, post) if !post.canBeEditedBy(user.id) =>
+        case (_, post) if !post.canBeEditedBy(user) =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(DateTime.now, spam replace newText)
           (newPost.text != post.text).?? {
-            env.postRepo.coll.update.one($id(post.id), newPost).void
+            env.postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+              logAnonPost(user.id, newPost, edit = true)
+            }
           } inject newPost
       }
     }
@@ -98,7 +104,7 @@ final class PostApi(
       }
     }
 
-  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] =
+  def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
@@ -109,22 +115,22 @@ final class PostApi(
       case _ => fuccess(none)
     }
 
-  def get(postId: String): Fu[Option[(Topic, Post)]] =
+  def get(postId: Post.ID): Fu[Option[(Topic, Post)]] =
     getPost(postId) flatMap {
       _ ?? { post =>
-        env.topicRepo.coll.byId[Topic](post.topicId) dmap2 { _ -> post }
+        env.topicRepo.byId(post.topicId) dmap2 { _ -> post }
       }
     }
 
-  def getPost(postId: String): Fu[Option[Post]] =
+  def getPost(postId: Post.ID): Fu[Option[Post]] =
     env.postRepo.coll.byId[Post](postId)
 
-  def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+  def react(postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
       env.postRepo.coll.ext
         .findAndUpdate[Post](
-          selector = $id(postId),
+          selector = $id(postId) ++ $doc("userId" $ne me.id),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
             else $pull(s"reactions.$reaction"       -> me.id)
@@ -243,5 +249,17 @@ final class PostApi(
       _ ?? { post =>
         env.categRepo.coll.primitiveOne[TeamID]($id(post.categId), "team")
       }
+    }
+
+  private def logAnonPost(userId: User.ID, post: Post, edit: Boolean): Funit =
+    env.topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
+      modLog.postOrEditAsAnonMod(
+        userId,
+        post.categId,
+        topic.slug,
+        post.id,
+        post.text,
+        edit
+      )
     }
 }

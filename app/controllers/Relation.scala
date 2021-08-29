@@ -65,11 +65,32 @@ final class Relation(
       }(rateLimitedFu)
     }
 
+  def apiFollow(userId: String) =
+    Scoped(_.Follow.Write) { _ => me =>
+      FollowLimitPerUser[Fu[Api.ApiResult]](me.id) {
+        api.reachedMaxFollowing(me.id) flatMap {
+          case true =>
+            fuccess(
+              Api.ClientError(lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value).text)
+            )
+          case _ =>
+            api.follow(me.id, UserModel normalize userId).nevermind inject Api.Done
+        }
+      }(fuccess(Api.Limited)) map apiC.toHttp
+    }
+
   def unfollow(userId: String) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
         api.unfollow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
       }(rateLimitedFu)
+    }
+
+  def apiUnfollow(userId: String) =
+    Scoped(_.Follow.Write) { _ => me =>
+      FollowLimitPerUser[Fu[Api.ApiResult]](me.id) {
+        api.unfollow(me.id, UserModel normalize userId) inject Api.Done
+      }(fuccess(Api.Limited)) map apiC.toHttp
     }
 
   def block(userId: String) =

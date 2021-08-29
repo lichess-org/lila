@@ -45,7 +45,7 @@ object UserSearch {
 
   val form = Form(
     mapping(
-      "q"  -> nonEmptyText,
+      "q"  -> lila.common.Form.trim(nonEmptyText),
       "as" -> optional(nonEmptyText.verifying(asValues contains _))
     )(Query.apply)(Query.unapply)
   )

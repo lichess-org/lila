@@ -8,7 +8,7 @@ nodever="$(node --version)"
 echo "node: $nodever"
 echo "yarn: $(yarn --version)"
 
-[[ "$nodever" =~ ^v1[0-5]\.[0-9]+\.[0-9]+$ ]] || { echo "Node version >=10 and <16 required. Found: $nodever"; exit 1; }
+[[ "$nodever" =~ ^(v12\.[2-9][0-9]\.[0-9]+)|(v14\.1[3-9]\.[0-9]+)|(v1[5-6]\.[0-9]+\.[0-9]+)$ ]] || { echo "Node version >=12.20 or >=14.13 and <=16 required. Found: $nodever"; exit 1; }
 
 cd "$(git rev-parse --show-toplevel)"
 
@@ -18,7 +18,7 @@ apps1="common"
 apps2="chess"
 apps3="ceval game tree chat nvui puz"
 apps4="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker dgt storm racer modGoal"
-site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity"
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity tvGames"
 round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
 puzzle_plugins="nvui dashboard"

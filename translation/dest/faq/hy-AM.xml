@@ -2,7 +2,10 @@
 <resources>
   <string name="faqAbbreviation">ՀՏՀ</string>
   <string name="frequentlyAskedQuestions">Հաճախ տրվող հարցեր</string>
+  <string name="whyIsLichessCalledLichess">Ինչո՞ւ է Lichess-ը կոչվում Lichess։</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess-ը live/light/libre և chess բառերի համադրությունից է` կենդանի, թեթև և ազատ շախմատ։ Lichess-ն արտասանվում է %1$s։</string>
   <string name="leechess">լի֊չես</string>
+  <string name="hearItPronouncedBySpecialist">Լսեք մասնագետի կատարմամբ։</string>
   <string name="fairPlay">Արդար խաղ</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>
   <string name="threefoldRepetitionLowerCase">եռակի կրկնություն</string>

@@ -4,7 +4,7 @@
 @import 'clock';
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
 
   @include breakpoint($mq-col2) {
     --main-max-width: auto;

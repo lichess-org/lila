@@ -6,7 +6,7 @@ import chessground from './chessground';
 import feedbackView from './feedback';
 import { Controller } from '../interfaces';
 import { h, VNode } from 'snabbdom';
-import { onInsert, bind, bindMobileMousedown } from '../util';
+import { onInsert, bindMobileMousedown, bindNonPassive } from 'common/snabbdom';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 
@@ -112,7 +112,7 @@ export default function (ctrl: Controller): VNode {
           hook:
             'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
               ? undefined
-              : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
+              : bindNonPassive('wheel', e => wheel(ctrl, e as WheelEvent)),
         },
         [chessground(ctrl), ctrl.promotion.view()]
       ),

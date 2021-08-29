@@ -49,8 +49,5 @@ Hráči, ktorí nemajú radi prijímanie vašich správ, môžu opustiť váš t
   <string name="leadersChat">Čet lídrov</string>
   <string name="closeTeam">Rozpustiť tím</string>
   <string name="closeTeamDescription">Nevratne rozpustí tím.</string>
-  <string name="teamPassword">Tímové heslo</string>
-  <string name="teamPasswordDescriptionForLeader">(Voliteľné) Heslo, ktoré musia noví členovia vedieť, aby sa mohli pripojiť do tímu.</string>
-  <string name="incorrectTeamPassword">Nesprávne tímové heslo.</string>
   <string name="teamAlreadyExists">Tento tím už existuje.</string>
 </resources>

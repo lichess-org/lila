@@ -45,9 +45,9 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="leadersChat">Chat des chefs de l\'équipe</string>
   <string name="closeTeam">Fermer l\'équipe</string>
   <string name="closeTeamDescription">Ferme l\'équipe définitivement.</string>
-  <string name="teamPassword">Mot de passe de l\'équipe</string>
-  <string name="teamPasswordDescriptionForLeader">(Optionnel) Un mot de passe que les nouveaux membres doivent connaître pour rejoindre cette équipe.</string>
-  <string name="incorrectTeamPassword">Mot de passe d\'équipe incorrect.</string>
+  <string name="entryCode">Mot de passe de l’équipe</string>
+  <string name="entryCodeDescriptionForLeader">(Optionnel) Mot de passe que les nouveaux membres doivent connaître pour se joindre à l\'équipe.</string>
+  <string name="incorrectEntryCode">Mot de passe incorrect.</string>
   <string name="teamAlreadyExists">Cette équipe existe déjà.</string>
   <string name="upcomingTourns">Tournois à venir</string>
   <string name="completedTourns">Tournois terminés</string>

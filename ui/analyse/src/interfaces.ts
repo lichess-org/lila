@@ -58,6 +58,7 @@ export interface AnalysePref {
   rookCastle?: boolean;
   destination?: boolean;
   highlight?: boolean;
+  showCaptured?: boolean;
   animationDuration?: number;
 }
 
@@ -82,6 +83,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
+  fen: Fen;
   startedAtTurn: number;
   source: Source;
   speed: Speed;

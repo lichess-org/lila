@@ -5,7 +5,9 @@ $top-height: 3.2rem;
 
 .study-index {
   .box__top {
-    @extend %flex-center;
+    @extend %flex-wrap;
+
+    align-items: start;
 
     /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
     margin: 0 0 -1em -1em;

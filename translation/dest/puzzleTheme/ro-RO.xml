@@ -61,10 +61,10 @@
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
   <string name="long">Puzzle lung</string>
   <string name="longDescription">Trei mutări pentru a câștiga.</string>
-  <string name="master">Partidele maeştrilor</string>
-  <string name="masterDescription">Puzzle-uri din meciurile jucate de jucători care au primit titluri FIDE.</string>
+  <string name="master">Partidele maeștrilor</string>
+  <string name="masterDescription">Puzzle-uri din partidele jucate de jucători care au primit titluri FIDE.</string>
   <string name="masterVsMaster">Partide maestru vs maestru</string>
-  <string name="masterVsMasterDescription">Puzzle-uri din meciurile între doi jucători care au primit titluri FIDE.</string>
+  <string name="masterVsMasterDescription">Puzzle-uri din partidele jucate între doi jucători care au primit titluri FIDE.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Câștigă jocul cu stil.</string>
   <string name="mateIn1">Mat din 1</string>
@@ -107,8 +107,8 @@
   <string name="skewerDescription">Un motiv care implică atacarea unei piese de mare valoare, mutarea înafara traseului, și permițând capturarea sau atacarea unei piese cu valoare inferioară în spatele ei, inversul unui pin.</string>
   <string name="smotheredMate">Mat sufocat</string>
   <string name="smotheredMateDescription">Un șah mat livrat de un cal în care regele împerechiat este incapabil să se miște deoarece este înconjurat (sau sufocat) de piesele lui aliate.</string>
-  <string name="superGM">Jocuri Super GM</string>
-  <string name="superGMDescription">Puzzle-uri din jocurile jucate de cei mai buni jucători din lume.</string>
+  <string name="superGM">Partidele Super GM</string>
+  <string name="superGMDescription">Puzzle-uri din partidele jucate de cei mai buni jucători din lume.</string>
   <string name="trappedPiece">Piesa blocată</string>
   <string name="trappedPieceDescription">O piesa este incapabilă de a scăpa din capturarea deoarece are mutări limitate.</string>
   <string name="underPromotion">Subpromovare</string>
@@ -121,4 +121,6 @@
   <string name="zugzwangDescription">Adversarul este limitat în mișcările pe care le poate face, iar toate mișcările îi înrăutățesc poziția.</string>
   <string name="healthyMix">Amestec sănătos</string>
   <string name="healthyMixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
+  <string name="playerGames">Partide jucători</string>
+  <string name="playerGamesDescription">Caută puzzle-uri generate din partidele tale sau din partidele unui alt jucător.</string>
 </resources>

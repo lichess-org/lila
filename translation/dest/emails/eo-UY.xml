@@ -12,11 +12,11 @@
   <string name="welcome_subject">Bonvenon al lichess.org, %s</string>
   <string name="welcome_text">Vi sukcese kreis vian konton ĉe https://lichess.org.
 
-Jen via profilo: %1$s. Vi povas redakti ĝin %2$s.
+Jen via profilo: %1$s. Vi povas redakti ĝin ĉe %2$s.
 
-Amuziĝu, kaj espereble viaj pecoj ĉiam trovos siajn vojojn al la reĝo de via kontraŭulo!</string>
+Amuziĝu, kaj viaj pecoj ĉiam trovu siajn vojojn al la kontraŭa reĝo!</string>
   <string name="logInToLichess">Ensalutu al lichess.org, %s</string>
-  <string name="common_orPaste">(Alklakante ne funkcias? Provu pasti ĝin en vian retumilon!)</string>
+  <string name="common_orPaste">(Ĉu alklaki ne funkcias? Provu elpoŝigi ĝin en vian retumilon!)</string>
   <string name="common_note">Ĉi tiu estas serva retpoŝto rilate al via uzo de %s.</string>
   <string name="common_contact">Por kontakti nin, bonvolu uzi %s.</string>
 </resources>

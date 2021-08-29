@@ -15,7 +15,7 @@ sealed abstract class Dimension[A: BSONHandler](
     val name: String,
     val dbKey: String,
     val position: Position,
-    val description: Frag
+    val description: String
 ) {
 
   def bson = implicitly[BSONHandler[A]]
@@ -37,7 +37,7 @@ object Dimension {
         "Date",
         F.date,
         Game,
-        raw("The date at which the game was played")
+        "The date at which the game was played"
       )
 
   case object Date
@@ -46,7 +46,7 @@ object Dimension {
         "Date",
         F.date,
         Game,
-        raw("The date at which the game was played")
+        "The date at which the game was played"
       )
 
   case object Perf
@@ -55,7 +55,7 @@ object Dimension {
         "Variant",
         F.perf,
         Game,
-        raw("The rating category of the game, like Bullet, Blitz, or Chess960.")
+        "The rating category of the game, like Bullet, Blitz, or Chess960."
       )
 
   case object Phase
@@ -64,7 +64,7 @@ object Dimension {
         "Game phase",
         F.moves("p"),
         Move,
-        raw("The portion of the game: Opening, Middlegame, or Endgame.")
+        "The portion of the game: Opening, Middlegame, or Endgame."
       )
 
   case object Result
@@ -73,7 +73,7 @@ object Dimension {
         "Game result",
         F.result,
         Game,
-        raw("Whether you won, lost, or drew the game.")
+        "Whether you won, lost, or drew the game."
       )
 
   case object Termination
@@ -82,7 +82,7 @@ object Dimension {
         "Game termination",
         F.termination,
         Game,
-        raw("The way that the game ended, like Checkmate or Resignation.")
+        "The way that the game ended, like Checkmate or Resignation."
       )
 
   case object Color
@@ -91,7 +91,7 @@ object Dimension {
         "Color",
         F.color,
         Game,
-        raw("The side you are playing: White or Black.")
+        "The side you are playing: White or Black."
       )
 
   case object Opening
@@ -100,7 +100,7 @@ object Dimension {
         "Opening",
         F.eco,
         Game,
-        raw("ECO identification of the initial moves, like \"A58 Benko Gambit\".")
+        "ECO identification of the initial moves, like \"A58 Benko Gambit\"."
       )
 
   case object OpponentStrength
@@ -109,9 +109,7 @@ object Dimension {
         "Opponent strength",
         F.opponentStrength,
         Game,
-        raw(
-          "Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200."
-        )
+        "Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200."
       )
 
   case object PieceRole
@@ -120,7 +118,7 @@ object Dimension {
         "Piece moved",
         F.moves("r"),
         Move,
-        raw("The type of piece you move.")
+        "The type of piece you move."
       )
 
   case object MovetimeRange
@@ -129,7 +127,7 @@ object Dimension {
         "Move time",
         F.moves("t"),
         Move,
-        raw("The amount of time you spend thinking on each move, in seconds.")
+        "The amount of time you spend thinking on each move, in seconds."
       )
 
   case object MyCastling
@@ -138,7 +136,7 @@ object Dimension {
         "My castling side",
         F.myCastling,
         Game,
-        raw("The side you castled on during the game: kingside, queenside, or none.")
+        "The side you castled on during the game: kingside, queenside, or none."
       )
 
   case object OpCastling
@@ -147,7 +145,7 @@ object Dimension {
         "Opponent castling side",
         F.opponentCastling,
         Game,
-        raw("The side your opponent castled on during the game: kingside, queenside, or none.")
+        "The side your opponent castled on during the game: kingside, queenside, or none."
       )
 
   case object QueenTrade
@@ -156,7 +154,7 @@ object Dimension {
         "Queen trade",
         F.queenTrade,
         Game,
-        raw("Whether queens were traded before the endgame or not.")
+        "Whether queens were traded before the endgame or not."
       )
 
   case object MaterialRange
@@ -165,7 +163,7 @@ object Dimension {
         "Material imbalance",
         F.moves("i"),
         Move,
-        raw("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
+        "Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9."
       )
 
   case object Blur
@@ -174,7 +172,7 @@ object Dimension {
         "Move blur",
         F.moves("b"),
         Move,
-        raw("Whether a window blur happened before that move or not.")
+        "Whether a window blur happened before that move or not."
       )
 
   case object TimeVariance
@@ -183,9 +181,7 @@ object Dimension {
         "Time variance",
         F.moves("v"),
         Move,
-        raw(
-          "Move time variance. Very consistent: < 0.25, Consistent: < 0.4, Medium, Variable: > 0.6, Very variable > 0.75."
-        )
+        "Move time variance. Very consistent: < 0.25, Consistent: < 0.4, Medium, Variable: > 0.6, Very variable > 0.75."
       )
 
   case object CplRange
@@ -194,7 +190,7 @@ object Dimension {
         "Centipawn loss",
         F.moves("c"),
         Move,
-        raw("Centipawns lost by each move, according to Stockfish evaluation.")
+        "Centipawns lost by each move, according to Stockfish evaluation."
       )
 
   case object EvalRange
@@ -203,7 +199,7 @@ object Dimension {
         "Evaluation",
         F.moves("e"),
         Move,
-        raw("Stockfish evaluation of the position, relative to the player, in centipawns.")
+        "Stockfish evaluation of the position, relative to the player, in centipawns."
       )
 
   def requiresStableRating(d: Dimension[_]) =
