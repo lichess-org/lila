@@ -62,6 +62,7 @@ Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více ko
   <string name="lateJoinUntil">Ano, dokud nezačne více než polovina kol</string>
   <string name="pause">Pauza</string>
   <string name="pauseSwiss">Ano, ale může snížit počet kol</string>
+  <string name="streaksAndBerserk">Série a Berserk</string>
   <string name="similarToOTB">Podobné OTB turnajům</string>
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
 </resources>
