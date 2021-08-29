@@ -22,6 +22,8 @@ case class UblogPost(
     val s = lila.common.String slugify title
     if (s.isEmpty) "-" else s
   }
+
+  def isBy(u: User) = user == u.id
 }
 
 object UblogPost {

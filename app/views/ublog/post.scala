@@ -6,7 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.ublog.UblogForm
+import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.UblogPost
 import lila.user.User
 
@@ -19,12 +19,15 @@ object post {
     ) {
       main(cls := "box box-pad page ublog-post")(
         h1(cls := "ublog-post__title")(post.title),
+        ctx.is(user) option div(
+          a(href := routes.Ublog.edit(user.username, post.id.value))("Edit your blog post")
+        ),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup")(markup)
       )
     }
 
-  def form(user: User, f: Form[UblogForm.UblogPostData])(implicit ctx: Context) =
+  def create(user: User, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       title = s"${user.username} blog • New post"
@@ -35,7 +38,18 @@ object post {
       )
     }
 
-  private def innerForm(user: User, form: Form[UblogForm.UblogPostData], post: Option[UblogPost])(implicit
+  def edit(user: User, post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = frag(cssTag("ublog")),
+      title = s"${user.username} blog • ${post.title}"
+    ) {
+      main(cls := "box box-pad page ublog-post-form")(
+        h1("Edit your blog post"),
+        innerForm(user, f, post.some)
+      )
+    }
+
+  private def innerForm(user: User, form: Form[UblogPostData], post: Option[UblogPost])(implicit
       ctx: Context
   ) =
     postForm(
