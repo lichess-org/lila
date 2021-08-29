@@ -8,7 +8,7 @@ final class UblogForm {
 
   import UblogForm._
 
-  val form = Form(
+  val post = Form(
     mapping(
       "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 100),
       "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 2_000),

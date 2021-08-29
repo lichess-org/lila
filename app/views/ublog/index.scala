@@ -18,9 +18,10 @@ object index {
     ) {
       main(cls := "box box-pad page ublog-index")(
         h1(s"${user.username} blog"),
+        ctx.is(user) option a(href := routes.Ublog.form(user.username))("Write a new blog post"),
         div(cls := "ublog-index__posts")(
           div(cls := "infinite-scroll")(
-            posts.currentPageResults map views.html.ublog.post.mini,
+            posts.currentPageResults map views.html.ublog.bits.mini,
             pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
           )
         )

@@ -20,7 +20,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     OptionFuResult(env.user.repo named username) { user =>
       env.ublog.api.find(UblogPost.Id(id)) map {
         _ ?? { post =>
-          if (!user.is(post.user) || slug != post.slug) Redirect(html.ublog.post.url(post))
+          if (!user.is(post.user) || slug != post.slug) Redirect(html.ublog.bits.url(post))
           else {
             val markup = scalatags.Text.all.raw(env.ublog.markup(post.markdown))
             Ok(html.ublog.post(user, post, markup))
@@ -28,5 +28,18 @@ final class Ublog(env: Env) extends LilaController(env) {
         }
       }
     }
+  }
+
+  def form(username: String) = Auth { implicit ctx => me =>
+    if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
+    else Ok(html.ublog.post.form(me, env.ublog.form.post)).fuccess
+  }
+
+  def create(username: String) = AuthBody { implicit ctx => me =>
+    ???
+  }
+
+  def update(username: String, id: String) = AuthBody { implicit ctx => me =>
+    ???
   }
 }

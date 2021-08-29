@@ -16,4 +16,6 @@ final class Env(
   val api = wire[UblogApi]
 
   val markup = wire[UblogMarkup]
+
+  val form = wire[UblogForm]
 }
