@@ -180,7 +180,7 @@ final class RemoteSocket(
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second)
       .addFailureEffect(e => logger.error("lila-ws stop", e))
-      .nevermind
+      .recoverDefault
   }
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>

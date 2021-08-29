@@ -42,7 +42,7 @@ final class GarbageCollector(
               retries = 5,
               logger = none
             )
-            .nevermind >> apply(applyData)
+            .recoverDefault >> apply(applyData)
           ()
         }
         .unit

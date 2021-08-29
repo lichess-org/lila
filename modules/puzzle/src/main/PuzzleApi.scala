@@ -85,7 +85,7 @@ final class PuzzleApi(
               }
             }
           }
-      }.logFailure(logger, _ => s"puzzle.vote $id").nevermind
+      }.logFailure(logger, _ => s"puzzle.vote $id").recoverDefault
 
     private def updatePuzzle(puzzleId: Puzzle.Id, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle { coll =>
