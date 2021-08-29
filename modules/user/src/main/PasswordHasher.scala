@@ -90,7 +90,7 @@ object PasswordHasher {
   )
 
   private lazy val rateLimitGlobal = new RateLimit[String](
-    credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
+    credits = 6 * 10 * 60, // max out 6 cores for 60 seconds
     duration = 1 minute,
     key = "password.hashes.global"
   )
