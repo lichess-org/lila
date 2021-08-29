@@ -10,9 +10,13 @@ case class UblogPost(
     title: String,
     intro: String,
     markdown: String,
+    live: Boolean,
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
+    liveAt: Option[DateTime]
 ) {
+
+  def id = _id
 
   lazy val slug = {
     val s = lila.common.String slugify title
@@ -29,8 +33,10 @@ object UblogPost {
       title = title,
       intro = intro,
       markdown = markdown,
+      live = false,
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
+      liveAt = none
     )
 
   case class Id(value: String) extends AnyVal with StringValue

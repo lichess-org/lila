@@ -14,4 +14,6 @@ final class Env(
   private val postColl = db(CollName("ublog_post"))
 
   val api = wire[UblogApi]
+
+  val markup = wire[UblogMarkup]
 }
