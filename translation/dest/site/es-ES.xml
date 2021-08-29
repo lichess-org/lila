@@ -870,7 +870,7 @@
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
   <string name="clickToRevealEmailAddress">[Haz clic para mostrar el correo electrónico]</string>
   <string name="download">Descargar</string>
-  <string name="welcome">¡Bienvenidos!</string>
+  <string name="welcome">¡Bienvenido!</string>
   <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="coachManager">Gestor de entrenador</string>
@@ -912,9 +912,9 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="analysisOptions">Opciones de análisis</string>
   <string name="focusChat">Foco en el chat</string>
   <string name="showHelpDialog">Mostrar este cuadro de diálogo de ayuda</string>
-  <string name="reopenYourAccount">Recupera tu cuenta</string>
+  <string name="reopenYourAccount">Reactivar tu cuenta</string>
   <string name="closedAccountChangedMind">Si cerraste tu cuenta y has cambiado de opinión, aún tienes una oportunidad de recuperarla.</string>
-  <string name="onlyWorksOnce">Esto solo funcionará una vez.</string>
+  <string name="onlyWorksOnce">Esto solo se puede hacer una vez.</string>
   <string name="cantDoThisTwice">Si vuelves a cerrar tu cuenta, no podrás recuperarla.</string>
   <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada a la cuenta</string>
   <string name="sentEmailWithLink">Te hemos enviado un correo electrónico con un enlace.</string>
@@ -923,5 +923,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="gameInProgress">Estás jugando una partida con %s.</string>
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
-  <string name="youCantStartNewGame">No puedes empezar una nueva partida hasta que ésta haya terminado.</string>
+  <string name="youCantStartNewGame">No puedes empezar otra partida hasta que termines ésta.</string>
 </resources>
