@@ -2,6 +2,7 @@ package lila.timeline
 
 import akka.actor._
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.common.config.Max
 import lila.hub.actorApi.timeline.propagation._
@@ -9,7 +10,7 @@ import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
 import lila.user.{ User, UserRepo }
 
-final private[timeline] class Push(
+final private[timeline] class TimelinePush(
     relationApi: lila.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
@@ -18,8 +19,10 @@ final private[timeline] class Push(
 
   implicit def ec = context.dispatcher
 
+  private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
+
   def receive = { case Propagate(data, propagations) =>
-    propagate(propagations) flatMap { users =>
+    if (dedup(data)) propagate(propagations) flatMap { users =>
       unsubApi.filterUnsub(data.channel, users)
     } foreach { users =>
       if (users.nonEmpty)
