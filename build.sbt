@@ -38,7 +38,8 @@ lazy val modules = Seq(
   playban, insight, perfStat, irc, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
-  activity, relay, streamer, bot, clas, swiss, storm, racer
+  activity, relay, streamer, bot, clas, swiss, storm, racer,
+  ublog
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -109,6 +110,11 @@ lazy val coordinate = smallModule("coordinate",
 lazy val blog = module("blog",
   Seq(common, memo, timeline),
   Seq(prismic, specs2) ++ reactivemongo.bundle
+)
+
+lazy val ublog = module("ublog",
+  Seq(common, memo, timeline),
+  Seq(specs2) ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
