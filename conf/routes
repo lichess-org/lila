@@ -57,6 +57,10 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
 
+# User blog
+GET   /@/:username/blog                controllers.Ublog.index(username: String, page: Int ?= 1)
+GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
+
 # User
 GET   /api/stream/:username/mod        controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
