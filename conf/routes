@@ -61,6 +61,7 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 GET   /@/:username/blog                controllers.Ublog.index(username: String, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username: String)
 POST  /@/:username/blog/new            controllers.Ublog.create(username: String)
+GET   /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.edit(username: String, id: String)
 POST  /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.update(username: String, id: String)
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
 
