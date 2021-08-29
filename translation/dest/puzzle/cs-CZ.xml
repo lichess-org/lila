@@ -52,7 +52,7 @@
   <string name="history">Historie řešení úloh</string>
   <string name="solved">vyřešeno</string>
   <string name="failed">nezdařilo se</string>
-  <string name="streakDescription">Vyřešte postupně těžší hádanky a vytvořte vítěznou sérii. Není tu žádný limit, takže si dejte na na čas. Jeden špatný tah a je to hra skončí! Můžete ale přeskočit jeden tah za běh.</string>
+  <string name="streakDescription">Vyřešte postupně těžší hádanky a vytvořte vítěznou sérii. Není tu žádný limit, takže si dejte na na čas. Jeden špatný tah a je to, hra skončí! Můžete ale přeskočit jeden tah za běh.</string>
   <string name="yourStreakX">Vaše série: %s</string>
   <string name="streakSkipExplanation">Přeskočit tento krok pro zachování své série! Funguje pouze jednou za běh.</string>
   <string name="continueTheStreak">Pokračovat v sérii</string>
