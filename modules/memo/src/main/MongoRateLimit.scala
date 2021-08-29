@@ -53,7 +53,7 @@ final class MongoRateLimit[K](
     }
 }
 
-final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig)(implicit ec: ExecutionContext) {
+final class MongoRateLimitApi(db: lila.db.Db, config: MemoConfig) {
 
   private val coll = db(config.cacheColl)
 
