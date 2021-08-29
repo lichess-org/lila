@@ -115,7 +115,7 @@
   <string name="underPromotionDescription">Promoción a caballo, alfil o torre.</string>
   <string name="veryLong">Ejercicio muy largo</string>
   <string name="veryLongDescription">Cuatro movimientos o más para ganar.</string>
-  <string name="xRayAttack">Ataque de rayos X</string>
+  <string name="xRayAttack">Ataque por rayos X</string>
   <string name="xRayAttackDescription">Una pieza ataca o defiende una casilla, a través de una pieza del oponente.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
