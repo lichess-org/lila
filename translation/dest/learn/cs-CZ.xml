@@ -34,7 +34,7 @@
   <string name="theKnight">Jezdec</string>
   <string name="itMovesInAnLShape">Pohybuje se ve tvaru písmene „L”</string>
   <string name="knightIntro">A nyní výzva pro vás. Jezdec je... velmi obtížná figura.</string>
-  <string name="knightsHaveAFancyWay">Jezdci mají bláznivé cesty na skákání okolo!</string>
+  <string name="knightsHaveAFancyWay">Jezdci bláznivě skáčkou okolo!</string>
   <string name="knightsCanJumpOverObstacles">Jezdci mohou skákat přes překážky! Utečte z pasti a dobyjte hvězdy!</string>
   <string name="knightComplete">Gratulace! Zvládáte manipulovat s jezdcem.</string>
   <string name="thePawn">Pěšec</string>
