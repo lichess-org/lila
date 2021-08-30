@@ -7,9 +7,10 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
+import lila.memo.PicfitApi
 import lila.user.User
 
-final class UblogApi(coll: Coll)(implicit ec: ExecutionContext) {
+final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 
@@ -33,6 +34,11 @@ final class UblogApi(coll: Coll)(implicit ec: ExecutionContext) {
 
   def draftByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
     paginatorByUser(user, false, page)
+
+  def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded) =
+    picfitApi.upload("ublog", picture, userId = post.user).flatMap { image =>
+      coll.update.one($id(post.id), $set("image" -> image.id)).void
+    }
 
   private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost]] =
     Paginator(
