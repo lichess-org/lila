@@ -121,9 +121,12 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
   if (key === 'transp') {
     const bgData = document.getElementById('bg-data');
+    const proxy = 'https://lishogi-proxy.vercel.app/api/?url=';
     bgData
-      ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
-      : $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>');
+      ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + proxy + data.image + ');}')
+      : $('head').append(
+          '<style id="bg-data">body.transp::before{background-image:url(' + proxy + data.image + ');}</style>'
+        );
   }
 }
 

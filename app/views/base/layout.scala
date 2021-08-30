@@ -158,6 +158,8 @@ object layout {
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")
 
+  val transpBgProxy             = "https://lishogi-proxy.vercel.app/api/?url="
+
   def apply(
       title: String,
       fullTitle: Option[String] = None,
@@ -210,7 +212,7 @@ object layout {
           ),
           ctx.transpBgImg map { img =>
             raw(
-              s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
+              s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$transpBgProxy$img');}</style>"""
             )
           },
           fontPreload,
