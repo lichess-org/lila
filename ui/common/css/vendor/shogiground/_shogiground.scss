@@ -38,7 +38,6 @@ square {
     background-color: rgba(0, 155, 199, 0.41);
   }
   &.last-move {
-    will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
   }
   &.check {
