@@ -920,4 +920,9 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="emailAssociatedToaccount">Endereço de email associado à conta</string>
   <string name="sentEmailWithLink">Enviámos-lhe um e-mail com um link.</string>
   <string name="tournamentEntryCode">Código de entrada do torneio</string>
+  <string name="hangOn">Aguarde!</string>
+  <string name="gameInProgress">Tem um jogo em curso com %s.</string>
+  <string name="abortTheGame">Cancelar o jogo</string>
+  <string name="resignTheGame">Abandonar o jogo</string>
+  <string name="youCantStartNewGame">Não pode iniciar um novo jogo antes de este estar terminado.</string>
 </resources>
