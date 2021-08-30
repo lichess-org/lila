@@ -39,7 +39,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       turnNumber: Option[Int],
       san: String,
       comments: List[String],
-      timeSpend: Option[Centis] = None,
+      timeSpent: Option[Centis] = None,
       timeTotal: Option[Centis] = None
   )
 
@@ -101,20 +101,26 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       startDest: Option[Pos] = None,
       startNum: Int = 1
   ): Valid[Sans] = {
+    // No need to store 0s that mean nothing
+    val uselessTimes = strMoves.forall(m => m.timeSpent.fold(true)(_ == Centis(0)) && m.timeTotal.fold(true)(_ == Centis(0)))
+    
     var lastDest: Option[Pos] = startDest
     var bMoveNumber           = startNum
     var res: List[Valid[San]] = List()
 
     for (StrMove(moveNumber, san, comments, timeSpent, timeTotal) <- strMoves) {
       val move: Valid[San] = MoveParser(san, lastDest, variant) map { m =>
-        m withComments comments withVariations {
+        val m1 = m withComments comments withVariations {
           variations
             .filter(_.variationStart == moveNumber.getOrElse(bMoveNumber))
             .map { v =>
               objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) | Sans.empty
             }
             .filter(_.value.nonEmpty)
-        } withTimeSpent timeSpent withTimeTotal timeTotal
+        }
+        if(uselessTimes) m1
+        else 
+          m1 withTimeSpent timeSpent withTimeTotal timeTotal
       }
       move map { m: San =>
         lastDest = m.getDest.some

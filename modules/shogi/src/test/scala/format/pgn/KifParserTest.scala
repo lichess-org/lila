@@ -163,10 +163,10 @@ class KifParserTest extends ShogiTest {
         }
       }
     }
-    "empty tag" in {
+    "empty tag is ignored" in {
       parser("""後手：""") must beSuccess.like { case a =>
-        a.tags.value must contain { (tag: Tag) =>
-          tag.name == Tag.Gote && tag.value == """"""
+        a.tags.value must not contain { (tag: Tag) =>
+          tag.name == Tag.Gote
         }
       }
     }
@@ -217,10 +217,16 @@ class KifParserTest extends ShogiTest {
         san.metas.timeTotal must_== None
       }
     }
-    "+ at the end" in {
+    "ignore + at the end?" in {
       parser("""29 ４八玉(59) (2:25/0:8:23)+""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
         san.metas.timeSpent must_== Some(Centis(14500))
         san.metas.timeTotal must_== Some(Centis(50300))
+      }
+    }
+    "ignore zero times" in {
+      parser("""29 ４八玉(59) (0:00/0:0:00)""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
+        san.metas.timeSpent must_== None
+        san.metas.timeTotal must_== None
       }
     }
   }
@@ -236,12 +242,9 @@ class KifParserTest extends ShogiTest {
       1 ７六歩(77) (00:00/00:00:00)
       まで122手で中断
     """) must beSuccess.like { case a =>
-      a.tags.value.length must_== 2
+      a.tags.value.length must_== 1
       a.tags.value must contain { (tag: Tag) =>
         tag.name == Tag.Sente && tag.value == "先手"
-      }
-      a.tags.value must contain { (tag: Tag) =>
-        tag.name == Tag.Gote && tag.value == ""
       }
     }
   }
@@ -265,15 +268,15 @@ class KifParserTest extends ShogiTest {
       先手：先手
       先手の持駒：なし
     """) must beSuccess.like { case a =>
-      a.tags.value.length must_== 3
+      a.tags.value.length must_== 2
       a.tags.value must contain { (tag: Tag) =>
         tag.name == Tag.FEN && tag.value == "3n5/kBp+B5/9/N2p5/+pn2p4/2R1+s4/pN7/1L7/1s2+R4 b 4g2s3l13p"
       }
       a.tags.value must contain { (tag: Tag) =>
         tag.name == Tag.Sente && tag.value == "先手"
       }
-      a.tags.value must contain { (tag: Tag) =>
-        tag.name == Tag.Gote && tag.value == ""
+      a.tags.value must not contain { (tag: Tag) =>
+        tag.name == Tag.Gote
       }
     }
   }
