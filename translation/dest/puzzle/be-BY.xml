@@ -89,4 +89,8 @@
     <item quantity="many">%s перарашаць</item>
     <item quantity="other">%s перарашаць</item>
   </plurals>
+  <string name="percentSolved">%s вырашана правільна</string>
+  <string name="noPuzzlesToShow">Нічога няма, вырашыце некалькі задач спачатку!</string>
+  <string name="improvementAreasDescription">Трэніруйце гэта, каб атрымаць лепшы прагрэс!</string>
+  <string name="strengthDescription">Найбольш атрымоўваюцца гэтыя тэмы</string>
 </resources>
