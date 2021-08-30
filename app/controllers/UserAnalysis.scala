@@ -13,6 +13,8 @@ import lila.app._
 import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
 import lila.round.JsonView.WithFlags
+import lila.tree.Node.partitionTreeJsonWriter
+import lila.study.JsonView.{pgnTagWrites, pgnTagsWrites}
 import views._
 
 final class UserAnalysis(
@@ -25,12 +27,10 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match {
-      //case Array(key) => load("", Variant orDefault key)
       case Array(key) => load("", Standard)
       case Array(key, fen) =>
         Variant.byKey get key match {
-          //case Some(variant)                   => load(fen, variant)
-          case Some(variant)                   => load(fen, Standard)
+          //case Some(variant)                 => load(fen, variant)
           case _ if fen == Standard.initialFen => load(arg, Standard)
           case _                               => load(arg, FromPosition)
         }
@@ -52,14 +52,14 @@ final class UserAnalysis(
       }
     }
 
-  private[controllers] def makePov(fen: Option[FEN], variant: Variant): Pov =
-    makePov {
-      fen.filter(_.value.nonEmpty).flatMap { f =>
+  private[controllers] def makePov(fen: Option[FEN], variant: Variant, imported: Boolean = false): Pov = {
+    val sitFrom = fen.filter(_.value.nonEmpty).flatMap { f =>
         Forsyth.<<<@(variant, f.value)
       } | SituationPlus(Situation(variant), 1)
-    }
+    makePov(sitFrom , imported)
+  }
 
-  private[controllers] def makePov(from: SituationPlus): Pov =
+  private[controllers] def makePov(from: SituationPlus, imported: Boolean): Pov =
     Pov(
       lila.game.Game
         .make(
@@ -70,7 +70,7 @@ final class UserAnalysis(
           sentePlayer = lila.game.Player.make(shogi.Sente, none),
           gotePlayer = lila.game.Player.make(shogi.Gote, none),
           mode = shogi.Mode.Casual,
-          source = lila.game.Source.Api,
+          source = if (imported) lila.game.Source.Import else lila.game.Source.Api,
           pgnImport = None
         )
         .withId("synthetic"),
@@ -131,7 +131,7 @@ final class UserAnalysis(
     }
 
   // XHR only
-  def pgn =
+  def kif =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
       env.importer.forms.importForm
@@ -139,22 +139,29 @@ final class UserAnalysis(
         .fold(
           jsonFormError,
           data =>
-            env.importer.importer
-              .inMemory(data)
+            lila.study.PgnImport
+              .userAnalysis(data.kif)
               .fold(
                 err => BadRequest(jsonError(err.toString)).fuccess,
-                { case (game, fen) =>
+                { case (game, initialFen, root, tags) =>
                   val pov = Pov(game, shogi.Sente)
-                  env.api.roundApi.userAnalysisJson(
-                    pov,
-                    ctx.pref,
-                    initialFen = fen,
-                    pov.color,
-                    owner = false,
-                    me = ctx.me
-                  ) map { data =>
-                    Ok(data)
-                  }
+                  val baseData = env.round.jsonView
+                    .userAnalysisJson(
+                      pov,
+                      ctx.pref,
+                      initialFen,
+                      pov.color,
+                      owner = false,
+                      me = ctx.me
+                    )
+                  Ok(
+                    baseData ++ Json.obj(
+                      "treeParts" -> partitionTreeJsonWriter.writes {
+                        lila.study.TreeBuilder(root, pov.game.variant)
+                      },
+                      "tags" -> tags
+                    )
+                  ).fuccess
                 }
               )
         )

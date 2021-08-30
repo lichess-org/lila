@@ -2,11 +2,14 @@ package lila.study
 
 import shogi.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
 import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
+import shogi.Replay
 
 import shogi.Centis
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
+
+import lila.game.Game
 
 object PgnImport {
 
@@ -71,6 +74,28 @@ object PgnImport {
         }
     }
 
+  def userAnalysis(kif: String): Valid[(Game, Option[FEN], Node.Root, Tags)] =
+    ImportData(kif, analyse = none).preprocess(user = none).map {
+      case Preprocessed(game, replay, initialFen, parsedPgn) =>
+        val root = Node.Root(
+          ply = replay.setup.turns,
+          fen = initialFen | FEN(game.variant.initialFen),
+          check = replay.setup.situation.check,
+          glyphs = Glyphs.empty,
+          clock = parsedPgn.tags.clockConfig.map(_.limit),
+          crazyData = replay.setup.situation.board.crazyData,
+          children = Node.Children {
+            val variations = makeVariations(parsedPgn.sans.value, replay.setup, None)
+            makeNode(
+              prev = replay.setup,
+              sans = parsedPgn.sans.value,
+              annotator = None
+            ).fold(variations)(_ :: variations).toVector
+          }
+        )
+        (game withId "synthetic", initialFen, root, parsedPgn.tags)
+    }
+
   private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
@@ -107,7 +132,7 @@ object PgnImport {
             (str.trim match {
               case "" => comments
               case com =>
-                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lishogi)
+                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Unknown)
             })
           )
       }
@@ -136,8 +161,10 @@ object PgnImport {
                     comments = comments,
                     glyphs = san.metas.glyphs,
                     crazyData = game.situation.board.crazyData,
-                    // we should show time left, not total time spent, but we can't be sure we have init time
-                    clock = san.metas.timeTotal,
+                    // Normally we store time remaining after turn,
+                    // which is actually pretty useless with byo...
+                    // for imports we are gonna store time spent on this move
+                    clock = san.metas.timeSpent,
                     children = removeDuplicatedChildrenFirstNode {
                       val variations = makeVariations(rest, game, annotator)
                       Node.Children {
@@ -152,7 +179,7 @@ object PgnImport {
       }
     } catch {
       case _: StackOverflowError =>
-        logger.warn(s"study PgnImport.makeNode StackOverflowError")
+        logger.warn(s"study KifImport.makeNode StackOverflowError")
         None
     }
 

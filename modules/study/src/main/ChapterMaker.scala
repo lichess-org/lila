@@ -23,21 +23,21 @@ final private class ChapterMaker(
     data.game.??(parseGame) flatMap {
       case None =>
         data.game ?? pgnFetch.fromUrl flatMap {
-          case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
-          case _         => fromFenOrPgnOrBlank(study, data, order, userId)
+          case Some(pgn) => fromFenOrKifOrBlank(study, data.copy(pgn = pgn.some), order, userId)
+          case _         => fromFenOrKifOrBlank(study, data, order, userId)
         }
       case Some(game) => fromGame(study, game, data, order, userId)
     } map { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  def fromFenOrKifOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.pgn.filter(_.trim.nonEmpty) match {
-      case Some(pgn) => fromPgn(study, pgn, data, order, userId)
+      case Some(pgn) => fromKif(study, pgn, data, order, userId)
       case None      => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  private def fromKif(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
       parsed <- PgnImport(pgn, contributors.flatten).future recoverWith { case e: Exception =>
@@ -58,7 +58,8 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         parsed.variant,
-        data.realOrientation
+        data.realOrientation,
+        fromKif = true.some
       ),
       root = parsed.root,
       tags = parsed.tags,

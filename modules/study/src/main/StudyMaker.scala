@@ -22,7 +22,7 @@ final private class StudyMaker(
 
   private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
-    chapterMaker.fromFenOrPgnOrBlank(
+    chapterMaker.fromFenOrKifOrBlank(
       study,
       ChapterMaker.Data(
         game = none,

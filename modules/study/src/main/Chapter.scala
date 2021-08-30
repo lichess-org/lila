@@ -115,9 +115,11 @@ object Chapter {
       gameId: Option[lila.game.Game.ID],
       variant: Variant,
       orientation: Color,
-      fromFen: Option[Boolean] = None
+      fromFen: Option[Boolean] = None,
+      fromKif: Option[Boolean] = None
   ) {
     def isFromFen = ~fromFen
+    def isFromKif = ~fromKif
   }
 
   case class Relay(

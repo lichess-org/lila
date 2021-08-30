@@ -229,17 +229,20 @@ final class JsonView(
             "fen"        -> fen,
             "turns"      -> game.turns,
             "player"     -> game.turnColor.name,
-            "status"     -> game.status
+            "status"     -> game.status,
+            "source"     -> game.source
           )
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
         "player" -> Json.obj(
           "id"    -> owner.option(pov.playerId),
-          "color" -> color.name
+          "color" -> color.name,
+          "name"  -> player.name
         ),
         "opponent" -> Json.obj(
           "color" -> opponent.color.name,
-          "ai"    -> opponent.aiLevel
+          "ai"    -> opponent.aiLevel,
+          "name"  -> opponent.name
         ),
         "orientation" -> orientation.name,
         "pref" -> Json

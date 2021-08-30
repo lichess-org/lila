@@ -203,7 +203,7 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
-      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
+      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant, chapter.setup.isFromKif)
       analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData = env.round.jsonView.userAnalysisJson(
@@ -421,7 +421,7 @@ final class Study(
     key = "export.study.pgn.ip"
   )
 
-  def pgn(id: String) =
+  def kif(id: String) =
     Open { implicit ctx =>
       PgnRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
         OptionFuResult(env.study.api byId id) { study =>
@@ -439,7 +439,7 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  def chapterPgn(id: String, chapterId: String) =
+  def chapterKif(id: String, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
