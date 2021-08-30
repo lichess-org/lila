@@ -8,7 +8,7 @@ import lila.ublog.UblogPost
 
 final class Ublog(env: Env) extends LilaController(env) {
 
-  import views.html.ublog.bits.{ url => urlOf }
+  import views.html.ublog.bits.urlOf
 
   def index(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(env.user.repo named username) { user =>
@@ -18,11 +18,19 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def drafts(username: String, page: Int) = Auth { implicit ctx => me =>
+    if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).fuccess
+    else
+      env.ublog.api.draftByUser(me, page) map { posts =>
+        Ok(html.ublog.index.drafts(me, posts))
+      }
+  }
+
   def post(username: String, slug: String, id: String) = Open { implicit ctx =>
     OptionFuResult(env.user.repo named username) { user =>
-      env.ublog.api.find(UblogPost.Id(id)) map {
+      env.ublog.api.findByAuthor(UblogPost.Id(id), user) map {
         _ ?? { post =>
-          if (!user.is(post.user) || slug != post.slug) Redirect(urlOf(post))
+          if (slug != post.slug) Redirect(urlOf(post))
           else {
             val markup = scalatags.Text.all.raw(env.ublog.markup(post.markdown))
             Ok(html.ublog.post(user, post, markup))
@@ -37,14 +45,14 @@ final class Ublog(env: Env) extends LilaController(env) {
     else Ok(html.ublog.post.create(me, env.ublog.form.create)).fuccess
   }
 
-  def create(username: String) = AuthBody { implicit ctx => me =>
+  def create(unusedUsername: String) = AuthBody { implicit ctx => me =>
     env.ublog.form.create
       .bindFromRequest()(ctx.body, formBinding)
       .fold(
         err => BadRequest(html.ublog.post.create(me, err)).fuccess,
         data =>
           env.ublog.api.create(data, me) map { post =>
-            Redirect(urlOf(post))
+            Redirect(urlOf(post)).flashSuccess
           }
       )
   }
@@ -55,7 +63,20 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def update(username: String, id: String) = AuthBody { implicit ctx => me =>
-    ???
+  def update(unusedUsername: String, id: String) = AuthBody { implicit ctx => me =>
+    env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
+      _ ?? { prev =>
+        env.ublog.form
+          .edit(prev)
+          .bindFromRequest()(ctx.body, formBinding)
+          .fold(
+            err => BadRequest(html.ublog.post.edit(me, prev, err)).fuccess,
+            data =>
+              env.ublog.api.update(data, prev) map { post =>
+                Redirect(urlOf(post)).flashSuccess
+              }
+          )
+      }
+    }
   }
 }

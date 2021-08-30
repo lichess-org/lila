@@ -12,6 +12,8 @@ import lila.user.User
 
 object post {
 
+  import views.html.ublog.bits
+
   def apply(user: User, post: UblogPost, markup: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
@@ -20,7 +22,8 @@ object post {
       main(cls := "box box-pad page ublog-post")(
         h1(cls := "ublog-post__title")(post.title),
         ctx.is(user) option div(
-          a(href := routes.Ublog.edit(user.username, post.id.value))("Edit your blog post")
+          standardFlash(),
+          a(href := bits.editUrlOf(post))("Edit your blog post")
         ),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup")(markup)
@@ -45,6 +48,9 @@ object post {
     ) {
       main(cls := "box box-pad page ublog-post-form")(
         h1("Edit your blog post"),
+        div(cls := "ublog-post-form__publish")(
+          p(if (post.live) "This post is published" else "This is a draft")
+        ),
         innerForm(user, f, post.some)
       )
     }
@@ -66,8 +72,12 @@ object post {
         "Post body",
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 30)),
+      form3.checkbox(
+        form("live"),
+        raw("Publish this post on your blog")
+      ),
       form3.actions(
-        a(href := post.fold(routes.Ublog.index(user.username))(bits.url))(trans.cancel()),
+        a(href := post.fold(routes.Ublog.index(user.username))(bits.urlOf))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )
