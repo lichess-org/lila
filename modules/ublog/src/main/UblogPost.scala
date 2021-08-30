@@ -28,18 +28,5 @@ case class UblogPost(
 
 object UblogPost {
 
-  def make(user: User, title: String, intro: String, markdown: String) =
-    UblogPost(
-      _id = Id(lila.common.ThreadLocalRandom nextString 8),
-      user = user.id,
-      title = title,
-      intro = intro,
-      markdown = markdown,
-      live = false,
-      createdAt = DateTime.now,
-      updatedAt = DateTime.now,
-      liveAt = none
-    )
-
   case class Id(value: String) extends AnyVal with StringValue
 }

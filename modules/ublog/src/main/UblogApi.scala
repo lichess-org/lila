@@ -14,11 +14,19 @@ final class UblogApi(coll: Coll)(implicit ec: ExecutionContext) {
   import UblogBsonHandlers._
 
   def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] = {
-    val post = UblogPost.make(user, data.title, data.intro, data.markdown)
+    val post = data.create(user)
     coll.insert.one(post) inject post
   }
 
+  def update(data: UblogForm.UblogPostData, prev: UblogPost): Fu[UblogPost] = {
+    val post = data.update(prev)
+    coll.update.one($id(prev.id), post) inject post
+  }
+
   def find(id: UblogPost.Id): Fu[Option[UblogPost]] = coll.byId[UblogPost](id.value)
+
+  def findByAuthor(id: UblogPost.Id, author: User): Fu[Option[UblogPost]] =
+    coll.one[UblogPost]($id(id) ++ $doc("user" -> author.id))
 
   def liveByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
     paginatorByUser(user, true, page)
