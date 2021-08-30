@@ -48,7 +48,7 @@ object form {
     )(
       form3.split(
         div(cls := "form-group form-half")(
-          postView.imageOf(post)
+          postView.imageOf(post, height = 300)
         ),
         div(cls := "form-group form-half")(
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),

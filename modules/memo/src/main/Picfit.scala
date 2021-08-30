@@ -91,3 +91,33 @@ object PicfitApi {
     }
   }
 }
+
+final class PicfitUrl(endpoint: String, id: PicfitImage.Id) {
+
+  // This operation will able you to resize the image to the specified width and height.
+  // Preserves the aspect ratio
+  def resize(
+      size: Either[Int, Int], // either the width or the height! the other one will be preserved
+      upscale: Boolean = true
+  ) = display(id, "resize")(
+    width = ~size.left.toOption,
+    height = ~size.toOption,
+    upscale = upscale
+  )
+
+  // Thumbnail scales the image up or down using the specified resample filter,
+  // crops it to the specified width and height and returns the transformed image.
+  // Preserves the aspect ratio
+  def thumbnail(
+      width: Int,
+      height: Int,
+      upscale: Boolean = true
+  ) = display(id, "thumbnail")(width, height, upscale)
+
+  private def display(id: PicfitImage.Id, operation: String)(
+      width: Int,
+      height: Int,
+      upscale: Boolean
+  ) =
+    s"$endpoint/display?path=$id&op=$operation&w=$width&h=$height&upscale=${upscale ?? 1}"
+}

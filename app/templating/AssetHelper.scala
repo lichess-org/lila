@@ -26,6 +26,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
+  def picfitUrl(id: lila.memo.PicfitImage.Id) = new lila.memo.PicfitUrl(env.net.picfitEndpoint, id)
+
   def cssTag(name: String)(implicit ctx: Context): Frag =
     cssTagWithTheme(name, ctx.currentBg)
 
