@@ -52,7 +52,7 @@ object replay {
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
       ),*/
-      game.variant == shogi.variant.Standard option a(
+      a(
         dataIcon := "x",
         cls := "text",
         href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}",
@@ -156,7 +156,7 @@ object replay {
                     strong("Kifu"),
                     pgnLinks
                   ),
-                  game.variant == shogi.variant.Standard option div(cls := "pgn")(kifu)
+                  div(cls := "pgn")(kifu)
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(
@@ -184,7 +184,7 @@ object replay {
         ),
         if (ctx.blind)
           div(cls := "blind-content none")(
-            h2("PGN downloads"),
+            h2("KIF downloads"),
             pgnLinks
           )
       )

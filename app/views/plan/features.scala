@@ -73,9 +73,9 @@ object features {
             //    "7-piece endgame tablebase"
             //  )
             //),
-            //tr(check)(
-            //  "Download/Upload any game as PGN"
-            //),
+            tr(check)(
+              "Download/Upload any game as KIF"
+            ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),
               " through more than 400 thousand Lishogi games"

@@ -98,7 +98,7 @@ object widgets {
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
           g.pgnImport.flatMap(_.user).map { user =>
-            div(cls := "metadata")("PGN import by ", userIdLink(user.some))
+            div(cls := "metadata")("KIF import by ", userIdLink(user.some))
           }
         )
       )

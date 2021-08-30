@@ -179,7 +179,13 @@ object Tag {
         val init =
           if (c.limit.roundSeconds % 60 == 0) s"${c.limit.roundSeconds / 60}分"
           else s"${c.limit.roundSeconds}秒"
-        s"${init}|${c.byoyomi.roundSeconds}秒(${c.periods})+${c.increment.roundSeconds}秒"
+        val periods =
+          if (c.periods > 1) s"(${c.periods})"
+          else ""
+        val inc =
+          if(c.hasIncrement) s"+${c.increment.roundSeconds}秒"
+          else ""
+        s"${init}+${c.byoyomi.roundSeconds}秒$periods$inc"
       }
     )
 }

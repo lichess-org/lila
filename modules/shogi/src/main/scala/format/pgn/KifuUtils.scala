@@ -15,78 +15,6 @@ object KifUtils {
     Tag.Opening     -> "戦型"
   )
 
-  val tagIndex = (List(
-    Tag.Event,
-    Tag.Site,
-    Tag.TimeControl,
-    Tag.Handicap,
-    Tag.Sente,
-    Tag.Gote,
-    Tag.Opening
-  ) map { _.name }).zipWithIndex.toMap
-
-  val destSymbols = Map(
-    "9" -> "一",
-    "8" -> "二",
-    "7" -> "三",
-    "6" -> "四",
-    "5" -> "五",
-    "4" -> "六",
-    "3" -> "七",
-    "2" -> "八",
-    "1" -> "九",
-    "a" -> "９",
-    "b" -> "８",
-    "c" -> "７",
-    "d" -> "６",
-    "e" -> "５",
-    "f" -> "４",
-    "g" -> "３",
-    "h" -> "２",
-    "i" -> "１"
-  )
-  val origSymbols = Map(
-    "9" -> "1",
-    "8" -> "2",
-    "7" -> "3",
-    "6" -> "4",
-    "5" -> "5",
-    "4" -> "6",
-    "3" -> "7",
-    "2" -> "8",
-    "1" -> "9",
-    "a" -> "9",
-    "b" -> "8",
-    "c" -> "7",
-    "d" -> "6",
-    "e" -> "5",
-    "f" -> "4",
-    "g" -> "3",
-    "h" -> "2",
-    "i" -> "1"
-  )
-  val pieceSymbols = Map(
-    "P" -> "歩",
-    "L" -> "香",
-    "N" -> "桂",
-    "S" -> "銀",
-    "B" -> "角",
-    "R" -> "飛",
-    "G" -> "金",
-    "U" -> "成香",
-    "M" -> "成桂",
-    "A" -> "成銀",
-    "T" -> "と",
-    "H" -> "馬",
-    "D" -> "龍",
-    "K" -> "玉"
-  )
-  val kifuSymbols = Map(
-    "+"    -> "成",
-    "same" -> "同　",
-    "*"    -> "打"
-  )
-
   def toDigit(c: Char): Char = {
     c match {
       case '１' | '一' | 'a' =>
@@ -112,6 +40,31 @@ object KifUtils {
     }
   }
 
+  def toKanjiDigit(c: Char): Char = {
+    c match {
+      case '1' =>
+        return '一'
+      case '2' =>
+        return '二'
+      case '3' =>
+        return '三'
+      case '4' =>
+        return '四'
+      case '5' =>
+        return '五'
+      case '6' =>
+        return '六'
+      case '7' =>
+        return '七'
+      case '8' =>
+        return '八'
+      case '9' =>
+        return '九'
+      case _ =>
+        return c
+    }
+  }
+
   // supporting max 999
   def kanjiToInt(str: String): Int = {
     def orderHelper(ord: String): Int = {
@@ -123,6 +76,15 @@ object KifUtils {
     str.split("""(?<=(百|十))""").foldLeft(0) { (acc, cur) =>
       acc + orderHelper(cur)
     }
+  }
+
+  // supporting max 999
+  def intToKanji(num: Int): String = {
+    if(num >= 200) intToKanji(num / 100) + "百" + intToKanji(num % 100)
+    else if(num >= 100) "百" + intToKanji(num % 100)
+    else if(num >= 20) intToKanji(num / 10) + "十" + intToKanji(num % 10)
+    else if(num >= 10) "十" + intToKanji(num % 10)
+    else num.toString.map(toKanjiDigit _)
   }
 
   // 後手の持駒:金四 銀二 香三 歩十三
@@ -199,6 +161,54 @@ object KifUtils {
     Tag(_.FEN, sfen).some
   }
 
+  def writeKifSituation(fen: FEN): String = {
+    val kifBoard   = new scala.collection.mutable.StringBuilder(256)
+    val specialKifs: Map[Role, String] = Map( // one char versions
+      PromotedSilver -> "全",
+      PromotedKnight -> "圭",
+      PromotedLance -> "杏"
+    )
+    Forsyth << fen.value match {
+      case Some(sit) => {
+        for (y <- 9 to 1 by -1) {
+          kifBoard append "|"
+          for (x <- 1 to 9) {
+            sit.board(x, y) match {
+              case None => kifBoard append " ・"
+              case Some(piece) =>
+                val color = if(piece.color == Gote) 'v' else ' '
+                kifBoard append s"$color${specialKifs.getOrElse(piece.role, piece.role.kif)}"
+            }
+          }
+          kifBoard append s"|${intToKanji(10 - y)}"
+          if (y > 1) kifBoard append '\n'
+        }
+        List(
+          sit.board.crazyData.fold("")(hs => "後手の持駒：" + writeHand(hs(Gote)).trim),
+          "+---------------------------+",
+          kifBoard.toString,
+          "+---------------------------+",
+          sit.board.crazyData.fold("")(hs => "先手の持駒：" + writeHand(hs(Sente)).trim),
+          if (sit.color == Gote) "後手番" else ""
+        ).filter(_.nonEmpty).mkString("\n")
+      }
+      case _ => s"SFEN: $fen"
+    }
+  }
+
+  def writeHand(hand: Hand): String = {
+    if(hand.size == 0) "なし"
+    else Role.handRoles.map { r =>
+      val cnt = hand(r)
+      if (cnt == 1) r.kif
+      else if (cnt > 1) r.kif + intToKanji(cnt)
+      else ""
+    } mkString " "
+  }
+
+  def getHandicapName(fen: FEN): Option[String] =
+    StartingPosition.searchHandicapByFen(fen.some).map(t => t.eco)
+  
   def createResult(tags: Tags, color: Color): Option[Tag] = {
     tags(_.Termination).map(_.toLowerCase) match {
       case Some("投了") | Some("反則負け") | Some("切れ負け") | Some("Time-up") =>
@@ -209,55 +219,71 @@ object KifUtils {
     }
   }
 
-  def tagsAsKifu(tags: Tags): Vector[String] = {
-    val tagsWithHc = tags + Tag(Tag.Handicap, "平手")
-    val preprocessedTags = Tags(value = tagsWithHc.value sortBy { tag =>
-      tagIndex.getOrElse(tag.name.name, 9999)
-    })
-    preprocessedTags.value.toVector map { tag =>
-      tagParse.get(tag.name).fold("") { x: String =>
-        val timeControlPattern = "(\\d+)\\+(\\d+)\\+(\\d+)\\((\\d+)\\)".r
+  // in this order
+  val kifTags = List(
+    Tag.Event,
+    Tag.Site,
+    Tag.TimeControl,
+    Tag.Handicap,
+    Tag.Sente,
+    Tag.Gote,
+    Tag.Opening
+  )
 
-        val preprocessedValue = tag.name match {
-          case Tag.TimeControl =>
-            tag.value match {
-              case timeControlPattern(init, inc, byo, periods) => {
-                val realInit = if (init.toInt % 60 == 0) s"${init.toInt / 60}分" else s"${init}秒"
-                s"$realInit+${byo}秒 # $init seconds initial time, $inc seconds increment, $byo seconds byoyomi with $periods periods"
-              }
-              case _ => "-"
-            }
-          case _ => tag.value
+  def kifHeader(tags: Tags): String =
+    kifTags.map { kt => 
+      tagParse.get(kt).fold("") { kifTagName =>
+        // we need these even empty
+        if (kt == Tag.Sente || kt == Tag.Gote) {
+          val playername = tags(kt.name).getOrElse("")
+          s"${kifTagName}：$playername"
         }
-        if (tag.value != "?") x + "：" + preprocessedValue else ""
-      }
-    } filter { _ != "" }
-  }
-
-  def movesAsKifu(uciPgn: Vector[(String, String)]): Vector[String] = {
-    uciPgn.foldLeft(Vector[String]()) { (prev, t) =>
-      // t is a tuple of (uci, pgn)
-      val movePattern = "([a-i])([1-9])([a-i])([1-9])(\\+?)".r
-      val dropPattern = "([A-Z])\\*([a-i])([1-9])".r
-      val pgnPattern  = "([A-Z]).*".r
-      val kifuMove = t match {
-        case (movePattern(o1, o2, d1, d2, pro), pgnPattern(piece)) => {
-          val lastMovePattern = s"(.*)${origSymbols(o1)}${origSymbols(o2)}".r
-          (prev.lastOption match {
-            // check if 同 is needed
-            case Some(lastMovePattern(_)) => kifuSymbols("same")
-            // else use dest coords
-            case _ => destSymbols(d1) + destSymbols(d2)
-          }) + pieceSymbols(piece) + (if (pro == "+") kifuSymbols("+") else "") + "(" + origSymbols(
-            o1
-          ) + origSymbols(o2) + ")"
+        else if (kt == Tag.Handicap) {
+          tags.fen.fold(s"${kifTagName}：平手") { fen =>
+            getHandicapName(fen).fold(writeKifSituation(fen))(hc => s"${kifTagName}：$hc")
+          }
         }
-        case (dropPattern(piece, d1, d2), _) =>
-          destSymbols(d1) + destSymbols(d2) + pieceSymbols(piece) + kifuSymbols("*")
-        case _ => "UCI/PGN parse error"
-      }
-      prev :+ kifuMove
+        else {
+          tags(kt.name).fold("")(tagValue => {
+            if(tagValue != "?") s"${kifTagName}：$tagValue"
+            else ""
+          })
+        }
     }
+  }.filter(_.nonEmpty).mkString("\n")
+
+  def makeDestSquare(sq: Pos): String = 
+    s"${((10 - sq.x) + 48 + 65248).toChar}${intToKanji(10 - sq.y)}"
+
+  def makeOrigSquare(sq: Pos): String =
+    sq.usiKey.map(toDigit _)
+
+  def moveKif(uci: String, san: String, lastDest: Option[Pos]): String =
+    Uci(uci) match {
+      case Some(Uci.Drop(role, pos)) =>
+        s"${makeDestSquare(pos)}${role.kif}打"
+      case Some(Uci.Move(orig, dest, prom)) => {
+        val destStr = if (lastDest.fold(false)(_ == dest)) "同　" else makeDestSquare(dest)
+        val promStr = if (prom) "成" else ""
+        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $uci, $san"){ r =>
+          s"$destStr${r.kif}$promStr(${makeOrigSquare(orig)})"
+        }
+      }
+      case _ => s"parse error - $uci, $san"
+    }
+
+  // Use kifmodel instead
+  def movesAsKifu(uciPgn: Vector[(String, String)]): Vector[String] = {
+    uciPgn.foldLeft((Vector[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
+      // t is a tuple of (uci, pgn)
+      val kifMove = cur match {
+        case (uci, san) => moveKif(uci, san, lastDest)
+      }
+      val prevDest = cur match {
+        case (uci, _) => Uci(uci).map(_.origDest._2)
+      }
+      (acc :+ kifMove, prevDest)
+    }._1
   }
 }
 //Result & Termination <-> saigo no te

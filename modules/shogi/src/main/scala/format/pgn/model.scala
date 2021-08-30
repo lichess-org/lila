@@ -50,13 +50,13 @@ case class Pgn(
   def renderAsKifu(uciPgn: scala.collection.IndexedSeq[(String, String)], gameCreatedAt: DateTime) = {
     val fmt            = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss")
     val gameCreatedTag = "開始日時：" + fmt.print(gameCreatedAt) + "\n"
-    val tagsStr        = KifUtils tagsAsKifu tags mkString "\n"
+    val tagsStr        = KifUtils kifHeader tags
     val movesHeader    = """
 手数----指手---------消費時間--
 """
     val uciPgnAsVector = uciPgn.foldLeft(Vector[(String, String)]()) { _ :+ _ }
     val movesVector    = KifUtils.movesAsKifu(uciPgnAsVector)
-    val movesStr       = movesVector.zipWithIndex map { move => s"${move._2 + 1} ${move._1}" } mkString "\n"
+    val movesStr       = movesVector.zipWithIndex map { move => s"   ${move._2 + 1} ${move._1}" } mkString "\n"
 
     val endMoveStr = ""
     s"$gameCreatedTag$tagsStr$movesHeader$movesStr\n$endMoveStr"
@@ -134,7 +134,7 @@ case class Move(
   def isLong = comments.nonEmpty || variations.nonEmpty
 
   private def clockString: Option[String] =
-    secondsLeft.map(seconds => "[%clk " + Move.formatPgnSeconds(seconds) + "]")
+    secondsLeft.map(seconds => "(" + Move.formatPgnSeconds(seconds) + "/)") // todo change to time spent
 
   override def toString = {
     val glyphStr = glyphs.toList
