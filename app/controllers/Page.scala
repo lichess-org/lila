@@ -23,6 +23,7 @@ final class Page(
   val storm   = explanation("storm")
   val impasse = explanation("impasse")
   val tsume   = explanation("tsume")
+  val kif     = explanation("kif")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>

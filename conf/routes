@@ -682,6 +682,7 @@ GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: S
 GET   /explanation/impasse             controllers.Page.impasse
 GET   /explanation/storm               controllers.Page.storm
 GET   /explanation/tsume               controllers.Page.tsume
+GET   /explanation/kif                 controllers.Page.kif
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
