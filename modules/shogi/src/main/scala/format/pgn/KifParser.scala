@@ -378,7 +378,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     def apply(kif: String): Valid[Tags] =
       parseAll(all, kif) match {
         case f: Failure       => "Cannot parse kif tags: %s\n%s".format(f.toString, kif).failureNel
-        case Success(tags, _) => succezz(Tags(tags))
+        case Success(tags, _) => succezz(Tags(tags.filter(_.value.nonEmpty)))
         case err              => "Cannot parse kif tags: %s\n%s".format(err.toString, kif).failureNel
       }
 
