@@ -12,6 +12,8 @@ import lila.user.User
 
 object form {
 
+  import views.html.ublog.{ post => postView }
+
   def create(user: User, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
@@ -33,9 +35,28 @@ object form {
         div(cls := "ublog-post-form__publish")(
           p(if (post.live) "This post is published" else "This is a draft")
         ),
+        imageForm(user, post),
         inner(user, f, post.some)
       )
     }
+
+  private def imageForm(user: User, post: UblogPost)(implicit ctx: Context) =
+    postForm(
+      cls := "ublog-post-form__image",
+      action := routes.Ublog.image(user.username, post.id.value),
+      enctype := "multipart/form-data"
+    )(
+      form3.split(
+        div(cls := "form-group form-half")(
+          postView.imageOf(post)
+        ),
+        div(cls := "form-group form-half")(
+          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+          form3.file.image("image"),
+          submitButton(cls := "button")(trans.streamer.uploadPicture())
+        )
+      )
+    )
 
   private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost])(implicit
       ctx: Context

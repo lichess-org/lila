@@ -1,10 +1,12 @@
 package lila.memo
 
-import java.nio.file.Path
+import akka.stream.scaladsl.{ FileIO, Source }
+import akka.util.ByteString
 import org.joda.time.DateTime
+import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.Macros
 import scala.concurrent.ExecutionContext
-import play.api.libs.ws.StandaloneWSClient
 
 import lila.db.dsl._
 
@@ -38,8 +40,9 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
     if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
+      import WSBodyWritables._
       val image = PicfitImage(
-        _id = PicfitImage.Id(lila.common.ThreadLocalRandom nextString 8),
+        _id = PicfitImage.Id(lila.common.ThreadLocalRandom nextString 10),
         user = userId,
         scope = scope,
         name = sanitizeName(uploaded.filename),
@@ -47,23 +50,20 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
         size = uploaded.fileSize.toInt,
         createdAt = DateTime.now
       )
-      // ws.url(s"$endpoint/upload")
-      //   .post(
-      //     Source(
-      //       FilePart(
-      //         "File",
-      //         fileName,
-      //         Option("application/pdf"),
-      //         FileIO.fromPath(Paths.get(pathToFile))
-      //       ) :: List()
-      //     )
-      //   )
-      //   .post(body(source)) flatMap {
-      //   case res if res.status != 200 =>
-      //     fufail(res.statusText)
-      //   case res => funit
-      // } >>
-      coll.insert.one(image) inject image
+      type Part = MultipartFormData.FilePart[Source[ByteString, _]]
+      val part: Part = MultipartFormData.FilePart(
+        key = "data",
+        filename = image.id.value,
+        contentType = uploaded.contentType,
+        ref = FileIO.fromPath(uploaded.ref.path),
+        fileSize = uploaded.fileSize
+      )
+      val source: Source[Part, _] = Source(part :: List())
+      ws.url(s"$endpoint/upload").post(source).flatMap {
+        case res if res.status != 200 => fufail(res.statusText)
+        case _                        => funit
+      } >>
+        coll.insert.one(image) inject image
     }
 
   private def sanitizeName(name: String) = {
@@ -77,4 +77,17 @@ object PicfitApi {
   val uploadMaxMb = 4
 
   type Uploaded = play.api.mvc.MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+
+// from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
+  object WSBodyWritables {
+    import play.api.libs.ws.BodyWritable
+    import play.api.libs.ws.SourceBody
+    import play.core.formatters.Multipart
+    implicit val bodyWritableOf_Multipart
+        : BodyWritable[Source[MultipartFormData.Part[Source[ByteString, _]], _]] = {
+      val boundary    = Multipart.randomBoundary()
+      val contentType = s"multipart/form-data; boundary=$boundary"
+      BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
+    }
+  }
 }
