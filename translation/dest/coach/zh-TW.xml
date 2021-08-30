@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiCoaches">Lishogi coaches</string>
-	<string name="lishogiCoach">Lishogi coach</string>
+	<string name="lishogiCoaches">Lichess 的教練們</string>
+	<string name="lishogiCoach">Lishogi的教練</string>
 	<string name="areYouCoach">Are you a great shogi coach with a %s?</string>
 	<string name="becomeACoach">Are you a great shogi coach with experience and do you want to be featured on lishogi?</string>
-	<string name="nmOrFideTitle">title</string>
+	<string name="nmOrFideTitle">標題</string>
 	<string name="confirmTitle">Confirm your title here and we will review your application.</string>
-	<string name="sendApplication">Send us an email at %s and we will review your application.</string>
+	<string name="sendApplication">請把電子郵件寄在%s，我們會審核您的申請資格。</string>
 	<string name="location">所在地</string>
 	<string name="languages">語言</string>
 	<string name="rating">評分</string>
 	<string name="hourlyRate">每小時費用：</string>
 	<string name="availability">Availability</string>
-	<string name="accepting">Accepting students</string>
-	<string name="notAccepting">Not accepting students at the moment</string>
-	<string name="xCoachesStudents">%s coaches shogi students</string>
-	<string name="viewXProfile">View %s Lishogi profile</string>
-	<string name="sendPM">Send a private message</string>
+	<string name="accepting">接受學生</string>
+	<string name="notAccepting">目前不接受新學生</string>
+	<string name="xCoachesStudents">%s訓練新學生</string>
+	<string name="viewXProfile">查看%s的Lishogi帳號資料</string>
+	<string name="sendPM">發送私人訊息</string>
 	<string name="aboutMe">關於我</string>
 	<string name="playingExperience">奕棋經驗</string>
 	<string name="teachingExperience">教學經驗</string>
 	<string name="otherExperiences">其他經驗</string>
-	<string name="bestSkills">Best skills</string>
+	<string name="bestSkills">最佳技術</string>
 	<string name="teachingMethod">Teaching methodology</string>
 	<string name="publicStudies">公開研究</string>
 	<string name="youtubeVideos">在 Youtube 上的影片</string>
 	<plurals name="studentReviews">
 		<item quantity="other">%s student reviews</item>
 	</plurals>
-	<string name="thankYouForReview">Thank you for the review!</string>
+	<string name="thankYouForReview">謝謝您的評論！</string>
 	<string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
-	<string name="reviewCoach">Review this coach</string>
-	<string name="describeExperienceWith">Describe your coaching experience with %s</string>
+	<string name="reviewCoach">給這個教練評論</string>
+	<string name="describeExperienceWith">描述您接受%s訓練的經驗</string>
 </resources>

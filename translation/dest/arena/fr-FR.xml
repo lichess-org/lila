@@ -31,8 +31,8 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="otherRules">Autres règles importantes</string>
   <string name="thereIsACountdown">Il y a un compte à rebours pour votre premier coup. Si vous ne jouez aucun coup durant ce laps de temps, votre adversaire sera déclaré vainqueur.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Annuler la partie au premier coup ne rapportera aucun point aux deux joueurs.</item>
-    <item quantity="other">Annuler la partie au cours des %s premiers coups ne rapportera aucun point aux deux joueurs.</item>
+    <item quantity="one">Faire la nulle dans les %s premiers coups ne rapportera aucun point aux deux joueurs.</item>
+    <item quantity="other">Faire la nulle dans les %s premiers coups ne rapportera aucun point aux deux joueurs.</item>
   </plurals>
   <string name="thisIsPrivate">Ce tournoi est privé</string>
   <string name="shareUrl">Partagez cette URL pour permettre aux personnes de rejoindre : %s</string>

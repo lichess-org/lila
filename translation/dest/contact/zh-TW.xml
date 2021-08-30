@@ -28,7 +28,7 @@
   <string name="cantClearHistory">我們無法將您的下棋歷史、解題歷史和評分消除</string>
   <string name="wantReport">我想要舉報一位玩家</string>
   <string name="cheating">作弊</string>
-  <string name="sandbagging">通過輸掉比賽來降低其評分</string>
+  <string name="sandbagging">刻意降低評分</string>
   <string name="trolling">trolling</string>
   <string name="insults">侮辱</string>
   <string name="otherReason">其他原因</string>

@@ -7,10 +7,10 @@
   <string name="motifs">王手手法</string>
   <string name="advanced">進階</string>
   <string name="lengths">手數</string>
-  <string name="mates">Mates</string>
-  <string name="goals">Goals</string>
+  <string name="mates">王手</string>
+  <string name="goals">目標</string>
   <string name="origin">來源</string>
-  <string name="specialMoves">Special moves</string>
+  <string name="specialMoves">特殊移動</string>
   <string name="didYouLikeThisPuzzle">您喜歡這個題目嗎？</string>
   <string name="voteToLoadNextOne">請投票以跳至下一題！</string>
   <string name="yourPuzzleRatingX">您的解題等級：%s</string>
@@ -28,7 +28,7 @@
   <string name="notTheMove">不是這步！</string>
   <string name="trySomethingElse">試試別步。</string>
   <string name="ratingX">等級：%s</string>
-  <string name="hidden">隱藏</string>
+  <string name="hidden">已被隱藏</string>
   <plurals name="playedXTimes">
     <item quantity="other">已被嘗試%s次</item>
   </plurals>
@@ -48,9 +48,9 @@
   <string name="addAnotherTheme">新增其他訓練主題</string>
   <string name="jumpToNextPuzzleImmediately">立即跳到下一個題目</string>
   <string name="puzzleDashboard">訓練成績紀錄</string>
-  <string name="improvementAreas">弱項主題</string>
-  <string name="strengths">強項主題</string>
+  <string name="improvementAreas">弱項</string>
+  <string name="strengths">強項</string>
   <string name="history">解題紀錄</string>
-  <string name="solved">解決</string>
+  <string name="solved">已解決</string>
   <string name="failed">失敗</string>
 </resources>

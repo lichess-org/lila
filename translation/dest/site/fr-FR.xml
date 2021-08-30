@@ -600,7 +600,7 @@
 	<string name="error.email">Cette adresse email est invalide</string>
 	<string name="error.email_acceptable">Cette adresse courriel n\'est pas valable</string>
 	<string name="error.email_unique">Cette adresse email est déjà utilisée</string>
-	<string name="error.email_different">C’est déjà votre adresse e-mail</string>
+	<string name="error.email_different">C\'est déjà votre adresse e-mail</string>
 	<string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
 	<string name="onlyFriends">Seulement les amis</string>
 	<string name="menu">Menu</string>
@@ -638,14 +638,14 @@
 	<string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui joue sente. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
 	<string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
 	<string name="create">Créer</string>
-	<string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
+	<string name="whenCreateSimul">Lorsque vous créez une simultanée, vous affrontez plusieurs adversaires à la fois.</string>
 	<string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
 	<string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
 	<string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
 	<string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
 	<string name="numberOfByoyomiPeriods">Nombre de périodes byoyomi</string>
 	<string name="hostColorForEachGame">Côté d\'hôte pour chaque partie</string>
-	<string name="onlyMembersOfTeam">Seulement les membres de l\'equipe</string>
+	<string name="onlyMembersOfTeam">Seulement les membres de l\'équipe</string>
 	<string name="simulDescription">Description de la simultanée</string>
 	<string name="anythingTellParticipants">Vous voulez dire quelque chose aux participants ?</string>
 	<string name="lishogiTournaments">Tournois Lishogi</string>
@@ -667,7 +667,7 @@
 	<string name="returnToTournamentsHomepage">Retour à la page des tournois</string>
 	<string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des cotes en %s</string>
 	<plurals name="nbPerfTypePlayersThisWeek">
-		<item quantity="one">Un joueur de %2$s cette semaine.</item>
+		<item quantity="one">%1$s joueur de %2$s cette semaine.</item>
 		<item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
 	</plurals>
 	<string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>

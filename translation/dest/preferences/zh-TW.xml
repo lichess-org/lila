@@ -9,7 +9,7 @@
 	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
 	<string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
 	<string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
-	<string name="pgnPieceNotation">Move notation</string>
+	<string name="pgnPieceNotation">棋譜記法</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
 	<string name="zenMode">禪意模式</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>
@@ -25,7 +25,7 @@
 	<string name="howDoYouMovePieces">How do you move pieces?</string>
 	<string name="clickTwoSquares">Click two squares</string>
 	<string name="dragPiece">Drag a piece</string>
-	<string name="bothClicksAndDrag">Either</string>
+	<string name="bothClicksAndDrag">兩者都行</string>
 	<string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
 	<string name="takebacksWithOpponentApproval">悔棋（经过对手同意）</string>
 	<string name="inCasualGamesOnly">仅限非正式游戏</string>
@@ -37,8 +37,8 @@
 	<string name="correspondenceAndUnlimited">通信和无限</string>
 	<string name="confirmResignationAndDrawOffers">Confirm resignation and draw offers</string>
 	<string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
-	<string name="westernNotation">Western notation</string>
-	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="westernNotation">西式記法</string>
+	<string name="japaneseNotation">日本記法</string>
+	<string name="kitaoKawasakiNotation">北島-川崎記法</string>
 	<string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
 </resources>

@@ -12,7 +12,7 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">A résolu %s problème tactique</item>
-    <item quantity="other">A résolu %s problème(s) tactique(s)</item>
+    <item quantity="other">A résolu %s problèmes tactiques</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">A joué %1$s partie de %2$s</item>
@@ -47,7 +47,7 @@
     <item quantity="other">A hébergé %s simultanées</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">A participé à %s simultanée(s)</item>
+    <item quantity="one">A participé à %s simultanée</item>
     <item quantity="other">A participé à %s simultanées</item>
   </plurals>
   <plurals name="createdNbStudies">

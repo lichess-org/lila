@@ -47,7 +47,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
 	</plurals>
 	<string name="youSupportWith">你贊助lishogi.org每個月 %s美元</string>
 	<string name="tyvm">Thank you very much for your help. You rock!</string>
-	<string name="currentStatus">Current status</string>
+	<string name="currentStatus">目前狀態</string>
 	<string name="nextPayment">Next payment</string>
 	<string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
 	<string name="makeAdditionalDonation">Make an additional donation now</string>

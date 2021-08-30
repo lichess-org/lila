@@ -30,8 +30,8 @@
 	<string name="gameplay">Règles du jeu et jouabilité</string>
 	<string name="howBulletBlitzEtcDecided">Comment sont décidés les bullet, blitz et autres cadences ?</string>
 	<string name="basedOnGameDuration">Les contrôles de temps de lishogi sont basés sur la durée estimée du jeu = %1$s
-Par exemple, la durée estimée d\'un jeu 5+3 est de 5 × 60 + 40 × 3 = 420 secondes.</string>
-	<string name="durationFormula">(temps initial de l\'horloge) + 40 × (incrément de l\'horloge)</string>
+Par exemple, la durée estimée d\'un jeu 5+3|4 est de 60 x 5 + 60 × 3 + 25 x 4 = 580 secondes.</string>
+	<string name="durationFormula">60 x (temps initial de l\'horloge) + 60 × (incrément de l\'horloge) + 25 x (byoyomi en secondes)</string>
 	<string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lishogi ?</string>

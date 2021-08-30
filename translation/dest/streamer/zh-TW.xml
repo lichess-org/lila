@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xStreamsShogi">%s streams shogi</string>
-  <string name="lishogiStreamers">Lishogi streamers</string>
-  <string name="lishogiStreamer">Lishogi streamer</string>
-  <string name="live">LIVE!</string>
-  <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Currently streaming: %s</string>
-  <string name="lastStream">Last stream %s</string>
-  <string name="becomeStreamer">Become a Lishogi streamer</string>
-  <string name="doYouHaveStream">Do you have a Twitch or YouTube channel?</string>
-  <string name="hereWeGo">Here we go!</string>
-  <string name="allStreamers">All streamers</string>
-  <string name="editPage">Edit streamer page</string>
-  <string name="yourPage">Your streamer page</string>
-  <string name="downloadKit">Download streamer kit</string>
-  <string name="xIsStreaming">%s is streaming</string>
-  <string name="rules">Streaming rules</string>
-  <string name="rule1">Include the keyword \"lishogi.org\" in your stream title and use the category \"Shogi\" when you stream on Lishogi.</string>
-  <string name="rule2">Remove the keyword when you stream non-Lishogi stuff.</string>
-  <string name="rule3">Lishogi will detect your stream automatically and enable the following perks:</string>
-  <string name="perks">Benefits of streaming with the keyword</string>
-  <string name="perk1">Get a flaming streamer icon on your Lishogi profile.</string>
-  <string name="perk2">Get bumped up to the top of the streamers list.</string>
-  <string name="perk3">Notify your Lishogi followers.</string>
-  <string name="perk4">Show your stream in your games, tournaments and studies.</string>
+  <string name="xStreamsShogi">%s直播將棋</string>
+  <string name="lishogiStreamers">Lishogi實況主</string>
+  <string name="lishogiStreamer">Lishogi實況主</string>
+  <string name="live">直播中</string>
+  <string name="offline">離線</string>
+  <string name="currentlyStreaming">正在直播: %s</string>
+  <string name="lastStream">上次直播 %s</string>
+  <string name="becomeStreamer">成為Lishogi實況主</string>
+  <string name="doYouHaveStream">您有Twitch或是Youtube的頻道嗎?</string>
+  <string name="hereWeGo">讓我們開始吧 ！</string>
+  <string name="allStreamers">所有的實況主</string>
+  <string name="editPage">編輯實況頁面</string>
+  <string name="yourPage">您的實況頁面</string>
+  <string name="downloadKit">下載實況工具</string>
+  <string name="xIsStreaming">%s正在實況</string>
+  <string name="rules">實況規則</string>
+  <string name="rule1">當您在Lishogi直播時,請在您的直播關鍵詞上標記\"Lishogi\"和分類\"將棋\"</string>
+  <string name="rule2">當您在直播與Lishogi不相關的東西時,請移除這些關鍵詞</string>
+  <string name="rule3">Lishogi將會自動檢測您的直播並啟用以下特權：</string>
+  <string name="perks">使用關鍵詞直播的好處</string>
+  <string name="perk1">在您的Lishogi個人資料頁面上獲得一個燃燒的實況主圖示</string>
+  <string name="perk2">快速到達實況主列表頂部</string>
+  <string name="perk3">通知您的Lishogi追蹤者</string>
+  <string name="perk4">在您的對局, 比賽與研究中顯示直播</string>
   <string name="youHaveBeenSelectedFrontpage">You have been selected for frontpage featuring!</string>
-  <string name="noteThatOnlyLimited">Note that we can only show a limited number of streams on the homepage, </string>
-  <string name="soYoursMayNotAlwaysAppear">so yours may not always appear.</string>
-  <string name="approved">Your stream is approved.</string>
-  <string name="pendingReview">Your stream is being reviewed by moderators.</string>
-  <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
-  <string name="whenReady">When you are ready to be listed as a Lishogi streamer, %s</string>
-  <string name="requestReview">request a moderator review</string>
+  <string name="noteThatOnlyLimited">注意: 我們在首頁中顯示的直播主數量有限, </string>
+  <string name="soYoursMayNotAlwaysAppear">所以您的不總是會顯示</string>
+  <string name="approved">您已通過直播審核</string>
+  <string name="pendingReview">您的直播正在被版主審核</string>
+  <string name="pleaseFillIn">請填入您的直播資訊並上傳一張圖片</string>
+  <string name="whenReady">當您準備好要成為Lishogi實況主時,%s</string>
+  <string name="requestReview">請由版主複審</string>
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
 Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
@@ -39,26 +39,24 @@ If your stream is in English, there is no need to include a language tag.
 
 Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
  </string>
-  <string name="twitchUsername">Your Twitch username or URL</string>
-  <string name="optionalOrEmpty">Optional. Leave empty if none</string>
-  <string name="youtubeChannel">Your YouTube channel ID or URL</string>
-  <string name="streamerName">Your streamer name on Lishogi</string>
+  <string name="twitchUsername">您的Twitch用戶名或是網址</string>
+  <string name="optionalOrEmpty">可選，如果沒有，請留空</string>
+  <string name="youtubeChannel">你的YouTube頻道名稱或網址</string>
+  <string name="streamerName">您在Lishogi上的直播名稱</string>
   <plurals name="keepItShort">
-    <item quantity="other">Keep it short: %s characters max</item>
+    <item quantity="other">請保持簡短: 最多%s個字</item>
   </plurals>
-  <string name="visibility">Visible on the streamers page</string>
-  <string name="whenApproved">When approved by moderators</string>
-  <string name="headline">Headline</string>
-  <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
-  <string name="longDescription">Long description</string>
-  <string name="xStreamerPicture">%s streamer picture</string>
-  <string name="changePicture">Change/delete your picture</string>
-  <string name="uploadPicture">Upload a picture</string>
-  <string name="deletePicture">Delete picture</string>
-  <string name="maxSize">Max size: %s</string>
-  <string name="installBlocker">Install a malware blocker!</string>
-  <string name="beSafe">Be safe from ads and trackers
-infesting Twitch and YouTube.
-Lishogi recommends uBlock Origin
-which is free and open-source.</string>
+  <string name="visibility">可見於實況主頁面上</string>
+  <string name="whenApproved">當通過版主審核時</string>
+  <string name="headline">大標題</string>
+  <string name="tellUsAboutTheStream">請用一句話形容您的直播</string>
+  <string name="longDescription">詳細說明</string>
+  <string name="xStreamerPicture">%s實況主圖片</string>
+  <string name="changePicture">更換/刪除您的圖片</string>
+  <string name="uploadPicture">上傳一張圖片</string>
+  <string name="deletePicture">删除圖片</string>
+  <string name="maxSize">檔案大小限制：%s</string>
+  <string name="installBlocker">安裝惡意軟件攔截器！</string>
+  <string name="beSafe">遠離Twitch和Youtube上廣告和追踪器的騷擾
+Lishogi 推薦免費且開放的 uBlock Origin</string>
 </resources>
