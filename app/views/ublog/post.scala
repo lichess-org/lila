@@ -57,4 +57,24 @@ object post {
   def urlOf(post: UblogPost) = routes.Ublog.post(usernameOrId(post.user), post.slug, post.id.value)
 
   def editUrlOf(post: UblogPost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
+
+  def imageOf(post: UblogPost, size: Int = 300) =
+    post.image match {
+      // case Some(image) =>
+      //   img(
+      //     width := size,
+      //     height := size,
+      //     cls := "picture",
+      //     src := dbImageUrl(path.value),
+      //     alt := s"${u.titleUsername} Lichess streamer picture"
+      //   )
+      case _ =>
+        img(
+          width := size,
+          height := size,
+          cls := "default image",
+          src := assetUrl("images/placeholder.png"),
+          alt := "Default blog post image"
+        )
+    }
 }

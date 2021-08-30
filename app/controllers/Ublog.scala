@@ -8,7 +8,7 @@ import lila.ublog.UblogPost
 
 final class Ublog(env: Env) extends LilaController(env) {
 
-  import views.html.ublog.post.urlOf
+  import views.html.ublog.post.{ editUrlOf, urlOf }
 
   def index(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(env.user.repo named username) { user =>
@@ -80,43 +80,17 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  // private val handleFilePartAsFile: play.core.parsers.Multipart.FilePartHandler[java.io.File] = {
-  //   case Multipart.FileInfo(partName, filename, contentType, dispositionType) =>
-  //     val perms       = java.util.EnumSet.of(OWNER_READ, OWNER_WRITE)
-  //     val attr        = PosixFilePermissions.asFileAttribute(perms)
-  //     val path        = JFiles.createTempFile("multipartBody", "tempFile", attr)
-  //     val file        = path.toFile
-  //     val fileSink    = FileIO.toPath(path)
-  //     val accumulator = Accumulator(fileSink)
-  //     accumulator.map { case IOResult(count, status) =>
-  //       FilePart(partName, filename, contentType, file, count, dispositionType)
-  //     }(ec)
-  // }
-  import play.api.mvc.BodyParser
-  import akka.stream.scaladsl.Source
-  import akka.util.ByteString
-  import play.api.libs.streams.Accumulator
-  def verbatimBodyParser: BodyParser[Source[ByteString, _]] = BodyParser { _ =>
-    // Return the source directly. We need to return
-    // an Accumulator[Either[Result, T]], so if we were
-    // handling any errors we could map to something like
-    // a Left(BadRequest("error")). Since we're not
-    // we just wrap the source in a Right(...)
-    Accumulator.source[ByteString].map(Right.apply)
-  }
-
   def image(unusedUsername: String, id: String) =
-    AuthBody(parse.multipartFormData(handleFilePartAsFile)) { implicit ctx => me =>
+    AuthBody(parse.multipartFormData) { implicit ctx => me =>
       env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
         _ ?? { post =>
           ctx.body.body.file("image") match {
-            case FilePart(key, filename, contentType, file, fileSize, dispositionType) =>
             case Some(image) =>
               env.ublog.api.uploadImage(post, image) recover { case e: Exception =>
                 BadRequest(html.ublog.form.edit(me, post, env.ublog.form.edit(post)))
                   .flashFailure(e.getMessage)
-              } inject Redirect(routes.Streamer.edit)
-            case None => fuccess(Redirect(routes.Streamer.edit))
+              } inject Redirect(editUrlOf(post))
+            case None => fuccess(Redirect(editUrlOf(post)))
           }
         }
       }
