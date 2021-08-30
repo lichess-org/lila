@@ -10,7 +10,8 @@ final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
     @ConfigName("collection.config") val configColl: CollName,
     @ConfigName("picfit.collection") val picfitColl: CollName,
-    @ConfigName("picfit.endpoint") val picfitEndpoint: String
+    @ConfigName("picfit.endpointGet") val picfitEndpointGet: String,
+    @ConfigName("picfit.endpointPost") val picfitEndpointPost: String
 )
 
 @Module
@@ -33,5 +34,5 @@ final class Env(
 
   lazy val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  lazy val picfitApi = new PicfitApi(db(config.picfitColl), ws, endpoint = config.picfitEndpoint)
+  lazy val picfitApi = new PicfitApi(db(config.picfitColl), ws, endpoint = config.picfitEndpointPost)
 }
