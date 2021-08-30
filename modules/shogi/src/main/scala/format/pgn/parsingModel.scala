@@ -1,8 +1,6 @@
 package shogi
 package format.pgn
 
-import scalaz.Validation.FlatMap._
-
 case class ParsedPgn(
     initialPosition: InitialPosition,
     tags: Tags,

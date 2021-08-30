@@ -17,7 +17,7 @@ sealed trait Role {
 }
 
 case object King extends Role {
-  val kif                      = "王"
+  val kif                      = "玉"
   val forsyth                  = 'k'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = Rook.dirs ::: Bishop.dirs
@@ -222,10 +222,8 @@ object Role {
     (r.name, r)
   } toMap
 
-  val allByKif: Map[String, Role] = (all map { r =>
-    (r.kif, r)
-  } toMap) ++ Map(
-    "玉" -> King,
+  val singleKifs = Map( // and others
+    "王" -> King,
     "竜" -> Dragon,
     "全" -> PromotedSilver,
     "圭" -> PromotedKnight,
@@ -234,6 +232,11 @@ object Role {
     "仝" -> PromotedLance,
     "个" -> Tokin
   )
+
+  val allByKif: Map[String, Role] = (all map { r =>
+    (r.kif, r)
+  } toMap) ++ singleKifs
+
 
   val allByFullForsyth: Map[String, Role] = (all map { r =>
     (r.forsythFull, r)

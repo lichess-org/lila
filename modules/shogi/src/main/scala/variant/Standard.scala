@@ -1,8 +1,6 @@
 package shogi
 package variant
 
-import scalaz.Validation.FlatMap._
-
 case object Standard
     extends Variant(
       id = 1,

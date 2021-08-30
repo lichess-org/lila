@@ -182,7 +182,7 @@ object Replay {
     else {
 
       // we don't want to compare the full move number, to match transpositions
-      def truncateFen(fen: String) = fen.split(' ').take(4) mkString " "
+      def truncateFen(fen: String) = fen.split(' ').take(3) mkString " "
       val atFenTruncated           = truncateFen(atFen)
       def compareFen(fen: String)  = truncateFen(fen) == atFenTruncated
 

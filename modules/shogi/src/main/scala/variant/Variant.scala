@@ -2,7 +2,6 @@ package shogi
 package variant
 
 import scala.annotation.nowarn
-import scalaz.Validation.failureNel
 import scalaz.Validation.FlatMap._
 
 import Pos.posAt

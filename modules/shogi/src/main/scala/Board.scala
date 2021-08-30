@@ -1,9 +1,7 @@
 package shogi
 
 import Pos.posAt
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.{ failureNel, success }
-import variant.{ Standard, Variant }
+import variant.Variant
 
 case class Board(
     pieces: PieceMap,
@@ -11,8 +9,6 @@ case class Board(
     variant: Variant,
     crazyData: Option[Hands] = None
 ) {
-
-  import implicitFailures._
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
