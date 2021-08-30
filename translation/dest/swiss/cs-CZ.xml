@@ -41,6 +41,7 @@ Do turnaje se mohou připojit kdykoliv.</string>
 Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více kol.</string>
   <string name="willSwissReplaceArenasQ">Nahradí švýcarské turnaje arény?</string>
   <string name="roundRobinQ">Co systém každý s každým?</string>
+  <string name="otherSystemsQ">A co ostatní systémy turnajů?</string>
   <string name="joinOrCreateTeam">Připojit se k týmu nebo vytvořit tým</string>
   <string name="nowPlaying">Právě se hraje</string>
   <string name="startingSoon">Brzy začne</string>
@@ -49,12 +50,19 @@ Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více ko
   <string name="predefinedDuration">Předpokládaná doba trvání</string>
   <string name="durationUnknown">Předem daný počet kol, ale neznámá doba trvání</string>
   <string name="numberOfGames">Počet her</string>
+  <string name="numberOfGamesPreDefined">Stanoveno předem, stejné pro všechny hráče</string>
   <string name="pairingSystem">Losovací systém</string>
+  <string name="pairingSystemArena">Jakýkoli soupeř s podobným hodnocením</string>
+  <string name="pairingSystemSwiss">Nejlepší párování založené na bodech a remízách</string>
+  <string name="pairingWaitTime">Čekání na spárování</string>
   <string name="pairingWaitTimeFast">Rychle: nečeká se na všechny hráče</string>
   <string name="pairingWaitTimeSlow">Pomalu: čeká se ns všechny hráče</string>
   <string name="identicalForbidden">Zakázané</string>
   <string name="lateJoin">Pozdní připojení</string>
+  <string name="lateJoinUntil">Ano, dokud nezačne více než polovina kol</string>
   <string name="pause">Pauza</string>
+  <string name="pauseSwiss">Ano, ale může snížit počet kol</string>
+  <string name="streaksAndBerserk">Série a Berserk</string>
   <string name="similarToOTB">Podobné OTB turnajům</string>
   <string name="unlimitedAndFree">Neomezené a zdarma</string>
 </resources>

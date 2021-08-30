@@ -49,4 +49,8 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="newTeamBattle">Nová týmová bitva</string>
   <string name="customStartDate">Vlastní datum zahájení</string>
   <string name="allowBerserk">Povolit Berserk</string>
+  <string name="allowBerserkHelp">Umožní hráčům snížit čas na polovinu a získat bod navíc</string>
+  <string name="allowChatHelp">Nechat hráče diskutovat v chatu</string>
+  <string name="arenaStreaks">Série v aréně</string>
+  <string name="arenaStreaksHelp">Po dvou výhrách, další po sobě jdoucí výhry udělují 4 body místo 2.</string>
 </resources>

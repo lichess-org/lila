@@ -39,6 +39,7 @@
   <string name="teamBattleOverview">Souboj více týmů, každý hráč získává body pro svůj tým</string>
   <string name="teamTournament">Týmový turnaj</string>
   <string name="teamTournamentOverview">Arena turnaj, ke kterému se mohou přidat pouze členová vašeho týmu</string>
+  <string name="swissTournamentOverview">Švýcarský turnaj, ke kterému se mohou připojit pouze členové vašeho týmu</string>
   <string name="messageAllMembers">Zpráva všem členům</string>
   <string name="messageAllMembersOverview">Poslat soukromou zprávu každému členovi týmu</string>
   <string name="messageAllMembersLongDescription">Poslat soukromou zprávu VŠEM členům týmu.

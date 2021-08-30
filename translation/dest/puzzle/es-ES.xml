@@ -57,7 +57,7 @@
   <string name="strengths">Puntos fuertes</string>
   <string name="history">Historial de ejercicios</string>
   <string name="solved">resuelto</string>
-  <string name="failed">error</string>
+  <string name="failed">fallido</string>
   <string name="streakDescription">Resuelve ejercicios cada vez más difíciles para conseguir la racha más larga posible. No hay tiempo, así que tómatelo con calma. Un movimiento erróneo y ¡se acabó!, aunque puedes omitir un movimiento en cada sesión.</string>
   <string name="yourStreakX">Aciertos seguidos: %s</string>
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
@@ -72,15 +72,15 @@
   <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
   <string name="puzzleDashboardDescription">Entrena, analiza, mejora</string>
   <plurals name="nbPlayed">
-    <item quantity="one">%s completado</item>
-    <item quantity="other">%s completados</item>
+    <item quantity="one">%s ejercicio</item>
+    <item quantity="other">%s ejercicios</item>
   </plurals>
   <plurals name="nbToReplay">
     <item quantity="one">%s a repetir</item>
     <item quantity="other">%s a repetir</item>
   </plurals>
-  <string name="percentSolved">%s solucionados</string>
-  <string name="noPuzzlesToShow">Nada que mostrar, ¡primero resuelve algunos ejercicios!</string>
-  <string name="improvementAreasDescription">¡Entrena estas áreas para mejorar tu progreso!</string>
-  <string name="strengthDescription">Tienes el mejor rendimiento en estos temas</string>
+  <string name="percentSolved">%s correctos</string>
+  <string name="noPuzzlesToShow">Aún no hay nada que mostrar aquí. ¡Ve y haz algunos ejercicios!</string>
+  <string name="improvementAreasDescription">¡Entrena estas áreas para progresar!</string>
+  <string name="strengthDescription">Estas son las áreas en las que eres más fuerte</string>
 </resources>

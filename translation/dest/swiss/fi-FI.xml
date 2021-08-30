@@ -9,6 +9,10 @@
     <item quantity="one">%s kierrosta</item>
     <item quantity="other">%s kierrosta</item>
   </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Yksi kierros päivässä</item>
+    <item quantity="other">Yksi kierros %s päivän välein</item>
+  </plurals>
   <string name="roundsAreStartedManually">Kierrokset aloitetaan käsin</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s sekuntia kierrosten välillä</item>
@@ -20,6 +24,10 @@
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Turnauksen alkuun on</string>
   <string name="nextRound">Seuraava kierros</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Meneillään oleva peli</item>
+    <item quantity="other">Meneillään olevat pelit</item>
+  </plurals>
   <string name="tournStartDate">Turnauksen alkamisaika</string>
   <string name="numberOfRounds">Kierrosten määrä</string>
   <string name="numberOfRoundsHelp">Parittomalla kierrosten määrällä värit jakautuvat tasapainoisimmin.</string>
