@@ -107,12 +107,11 @@ object Form {
         Constraints minLength minLength,
         Constraints maxLength maxLength,
         Constraints.pattern(
-          regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
+          regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
           error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
         ),
         mustNotContainLichess(verifiedUser)
       )
-
   }
 
   object mustNotContainLichess {

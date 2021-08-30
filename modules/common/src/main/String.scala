@@ -52,13 +52,22 @@ object String {
 
   object normalize {
 
-    private val degreeRegex = "[°º]".r
+    private val ordinalRegex = "[ºª]".r
 
     // convert weird chars into letters when possible
     // but preserve °
     def apply(str: String): String = Normalizer
-      .normalize(degreeRegex.replaceAllIn(str, '\u0001'.toString), Normalizer.Form.NFKC)
-      .replace('\u0001', '°')
+      .normalize(
+        ordinalRegex.replaceAllIn(
+          str,
+          _.group(0)(0) match {
+            case 'º' => "°"
+            case 'ª' => '\u0001'.toString
+          }
+        ),
+        Normalizer.Form.NFKC
+      )
+      .replace('\u0001', 'ª')
   }
 
   def decodeUriPath(input: String): Option[String] = {
