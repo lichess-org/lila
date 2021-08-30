@@ -152,7 +152,7 @@ lazy val db = smallModule("db",
 
 lazy val memo = smallModule("memo",
   Seq(common, db),
-  Seq(scaffeine, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle
+  Seq(scaffeine, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle ++ playWs.bundle
 )
 
 lazy val search = smallModule("search",

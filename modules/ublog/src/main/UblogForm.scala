@@ -38,6 +38,7 @@ object UblogForm {
         title = title,
         intro = intro,
         markdown = markdown,
+        image = none,
         live = false,
         createdAt = now,
         updatedAt = now,

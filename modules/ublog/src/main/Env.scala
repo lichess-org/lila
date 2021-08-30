@@ -7,10 +7,12 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo
+    userRepo: lila.user.UserRepo,
+    picfit: lila.memo.PicfitApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
+
   private val postColl = db(CollName("ublog_post"))
 
   val api = wire[UblogApi]

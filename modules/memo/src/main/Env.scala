@@ -8,14 +8,17 @@ import lila.common.config._
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
-    @ConfigName("collection.config") val configColl: CollName
+    @ConfigName("collection.config") val configColl: CollName,
+    @ConfigName("picfit.collection") val picfitColl: CollName,
+    @ConfigName("picfit.endpoint") val picfitEndpoint: String
 )
 
 @Module
 final class Env(
     appConfig: Configuration,
     mode: play.api.Mode,
-    db: lila.db.Db
+    db: lila.db.Db,
+    ws: play.api.libs.ws.StandaloneWSClient
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
@@ -29,4 +32,6 @@ final class Env(
   lazy val mongoCacheApi = wire[MongoCache.Api]
 
   lazy val mongoRateLimitApi = wire[MongoRateLimitApi]
+
+  lazy val picfitApi = new PicfitApi(db(config.picfitColl), ws, endpoint = config.picfitEndpoint)
 }

@@ -2,6 +2,7 @@ package lila.ublog
 
 import org.joda.time.DateTime
 
+import lila.memo.PicfitImage
 import lila.user.User
 
 case class UblogPost(
@@ -10,6 +11,7 @@ case class UblogPost(
     title: String,
     intro: String,
     markdown: String,
+    image: Option[PicfitImage.Id],
     live: Boolean,
     createdAt: DateTime,
     updatedAt: DateTime,
