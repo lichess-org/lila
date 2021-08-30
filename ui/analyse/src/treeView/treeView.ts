@@ -22,6 +22,7 @@ export interface Ctx {
   showEval: boolean;
   truncateComments: boolean;
   currentPath: Tree.Path | undefined;
+  offset: number;
 }
 
 export interface Opts {

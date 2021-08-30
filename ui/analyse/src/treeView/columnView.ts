@@ -37,7 +37,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (opts.isMainline) {
     const commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
     if (!cs[1] && empty(commentTags) && !main.forceVariation)
-      return ([moveView.renderIndex(main.ply, false)] as MaybeVNodes).concat(
+      return ([moveView.renderIndex(main.ply, ctx.ctrl.data.game.startedAtTurn, false)] as MaybeVNodes).concat(
         renderMoveAndChildrenOf(ctx, main, {
           parentPath: opts.parentPath,
           isMainline: true,
@@ -56,7 +56,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
       isMainline: !main.forceVariation,
       conceal,
     };
-    return ([moveView.renderIndex(main.ply, false)] as MaybeVNodes)
+    return ([moveView.renderIndex(main.ply, ctx.ctrl.data.game.startedAtTurn, false)] as MaybeVNodes)
       .concat(main.forceVariation ? [] : [renderMoveOf(ctx, main, passOpts)])
       .concat([
         h(
@@ -136,7 +136,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
     content: MaybeVNodes = [
-      moveView.renderIndex(node.ply, true),
+      moveView.renderIndex(node.ply, ctx.ctrl.data.game.startedAtTurn, true),
       notationStyle(ctx.ctrl.data.pref.pieceNotation)({
         san: node.san!,
         uci: node.uci!,
@@ -231,6 +231,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     notation: ctrl.data.pref.pieceNotation,
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
+    offset: ctrl.data.game.startedAtTurn,
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
   return h(

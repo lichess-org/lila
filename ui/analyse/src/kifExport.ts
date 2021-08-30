@@ -40,7 +40,7 @@ function pad(str: string, size: number): string {
   return str + ' ';
 }
 
-function renderKifNodes(node: Tree.Node): string[] {
+function renderKifNodes(node: Tree.Node, offset: number): string[] {
   const res: string[] = [];
 
   const mainline = treeOps.mainlineNodeList(node);
@@ -55,7 +55,7 @@ function renderKifNodes(node: Tree.Node): string[] {
       if (defined(move) && defined(role)) {
         const kifMove = renderKifMove(move, role, lastDest === move.to);
         const kifTime = defined(m.clock) ? renderKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '';
-        res.push(pad(m.ply.toString(), padding + 1) + kifMove + kifTime);
+        res.push(pad((m.ply - offset).toString(), padding + 1) + kifMove + kifTime);
         if (defined(m.comments)) {
           for (const c of m.comments) {
             res.push('* ' + c.text);
@@ -69,7 +69,7 @@ function renderKifNodes(node: Tree.Node): string[] {
   for (const m of mainline.reverse()) {
     if (m.children.length > 1) {
       res.push('\n変化：' + m.children[1].ply + '手');
-      res.push(...renderKifNodes(m.children[1]));
+      res.push(...renderKifNodes(m.children[1], offset));
     }
   }
 
@@ -80,8 +80,9 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   console.log(ctrl);
   const g = ctrl.data.game;
   const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
+  const offset = ctrl.data.game.startedAtTurn % 2;
 
-  const txt = renderKifNodes(ctrl.tree.root).join('\n');
+  const txt = renderKifNodes(ctrl.tree.root, offset % 2).join('\n');
 
   const senteName = game.getPlayer(ctrl.data, 'sente').name;
   const goteName = game.getPlayer(ctrl.data, 'gote').name;

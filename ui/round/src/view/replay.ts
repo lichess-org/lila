@@ -101,7 +101,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   for (let i = 1; i < steps.length; i++) move.push(steps[i]);
 
   for (let i = 0; i < move.length; i++) {
-    els.push(h('index', i + firstPly + 1 + ''));
+    els.push(h('index', i + firstPly + 1 - ((ctrl.data.game.startedAtTurn ?? 0) % 2) + ''));
     els.push(renderMove(move[i], curPly, true, i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
@@ -227,7 +227,7 @@ export function render(ctrl: RoundController): VNode | undefined {
               if (node.tagName !== moveTag.toUpperCase()) return;
               while ((node = node.previousSibling as HTMLElement)) {
                 if (node.tagName === 'INDEX') {
-                  ctrl.userJump(parseInt(node.textContent || ''));
+                  ctrl.userJump(parseInt(node.textContent || '') + ((ctrl.data.game.startedAtTurn ?? 0) % 2));
                   ctrl.redraw();
                   break;
                 }

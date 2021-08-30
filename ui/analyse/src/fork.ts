@@ -94,6 +94,7 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
               withDots: true,
               showEval: root.showComputer(),
               showGlyphs: root.showComputer(),
+              offset: root.data.game.startedAtTurn,
             },
             node
           )!

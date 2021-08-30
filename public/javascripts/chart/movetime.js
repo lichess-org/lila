@@ -18,6 +18,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
             var tree = data.treeParts;
             var ply = 0;
             var max = 0;
+            var startedAtTurn = data.game.startedAtTurn ? data.game.startedAtTurn % 2 : 0;
 
             var logC = Math.pow(Math.log(3), 2);
 
@@ -35,7 +36,7 @@ lishogi.movetimeChart = function (data, trans, notation) {
               max = Math.max(y, max);
 
               var point = {
-                name: ply + '. ' + san,
+                name: ply - startedAtTurn + '. ' + san,
                 x: i,
                 y: color ? y : -y,
               };

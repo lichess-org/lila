@@ -114,7 +114,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
     content: MaybeVNodes = [
-      opts.withIndex || node.ply ? moveView.renderIndex(node.ply, true) : null,
+      opts.withIndex || node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.data.game.startedAtTurn, true) : null,
       notationStyle(ctx.ctrl.data.pref.pieceNotation)({
         san: node.san!,
         uci: node.uci!,
@@ -141,6 +141,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     notation: ctrl.data.pref.pieceNotation,
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
+    offset: ctrl.data.game.startedAtTurn,
   };
   return h(
     'div.tview2.tview2-inline',

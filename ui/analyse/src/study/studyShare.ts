@@ -14,6 +14,7 @@ interface StudyShareCtrl {
   relay: boolean;
   cloneable: boolean;
   notation: number;
+  startedAtTurn: number;
   redraw: () => void;
   trans: Trans;
 }
@@ -24,6 +25,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
       notation: ctrl.notation,
       withDots: true,
       showEval: false,
+      offset: ctrl.startedAtTurn,
     },
     ctrl.currentNode()
   );
@@ -54,6 +56,7 @@ export function ctrl(
   relay: boolean,
   redraw: () => void,
   notation: number,
+  startedAtTurn: number,
   trans: Trans
 ): StudyShareCtrl {
   const withPly = prop(false);
@@ -70,6 +73,7 @@ export function ctrl(
     notation: notation,
     redraw,
     trans,
+    startedAtTurn,
   };
 }
 

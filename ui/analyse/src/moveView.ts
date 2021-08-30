@@ -10,6 +10,7 @@ export interface Ctx {
   withDots?: boolean;
   showEval: boolean;
   showGlyphs?: boolean;
+  offset?: number; // mainly to show handicaps starting at move 1
 }
 
 export function plyToTurn(ply: Ply): number {
@@ -32,12 +33,12 @@ function renderEval(e): VNode {
   return h('eval', e);
 }
 
-export function renderIndexText(ply: Ply, withDots?: boolean): string {
-  return ply + (withDots ? '.' : '');
+export function renderIndexText(ply: Ply, offset?: number, withDots?: boolean): string {
+  return ply - ((offset ?? 0) % 2) + (withDots ? '.' : '');
 }
 
-export function renderIndex(ply: Ply, withDots?: boolean): VNode {
-  return h('index', renderIndexText(ply, withDots));
+export function renderIndex(ply: Ply, offset?: number, withDots?: boolean): VNode {
+  return h('index', renderIndexText(ply, offset, withDots));
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] {
@@ -67,5 +68,5 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
 
 export function renderIndexAndMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] | undefined {
   if (!node.san) return; // initial position
-  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node, moveTime)];
+  return [renderIndex(node.ply, ctx.offset, ctx.withDots), ...renderMove(ctx, node, moveTime)];
 }
