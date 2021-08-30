@@ -8,7 +8,7 @@ import lila.ublog.UblogPost
 
 final class Ublog(env: Env) extends LilaController(env) {
 
-  import views.html.ublog.bits.urlOf
+  import views.html.ublog.post.urlOf
 
   def index(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(env.user.repo named username) { user =>
@@ -42,14 +42,14 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def form(username: String) = Auth { implicit ctx => me =>
     if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
-    else Ok(html.ublog.post.create(me, env.ublog.form.create)).fuccess
+    else Ok(html.ublog.form.create(me, env.ublog.form.create)).fuccess
   }
 
   def create(unusedUsername: String) = AuthBody { implicit ctx => me =>
     env.ublog.form.create
       .bindFromRequest()(ctx.body, formBinding)
       .fold(
-        err => BadRequest(html.ublog.post.create(me, err)).fuccess,
+        err => BadRequest(html.ublog.form.create(me, err)).fuccess,
         data =>
           env.ublog.api.create(data, me) map { post =>
             Redirect(urlOf(post)).flashSuccess
@@ -59,7 +59,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def edit(username: String, id: String) = AuthBody { implicit ctx => me =>
     OptionOk(env.ublog.api.find(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
-      html.ublog.post.edit(me, post, env.ublog.form.edit(post))
+      html.ublog.form.edit(me, post, env.ublog.form.edit(post))
     }
   }
 
@@ -70,7 +70,7 @@ final class Ublog(env: Env) extends LilaController(env) {
           .edit(prev)
           .bindFromRequest()(ctx.body, formBinding)
           .fold(
-            err => BadRequest(html.ublog.post.edit(me, prev, err)).fuccess,
+            err => BadRequest(html.ublog.form.edit(me, prev, err)).fuccess,
             data =>
               env.ublog.api.update(data, prev) map { post =>
                 Redirect(urlOf(post)).flashSuccess
