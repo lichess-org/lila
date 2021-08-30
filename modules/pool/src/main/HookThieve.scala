@@ -15,7 +15,7 @@ final private class HookThieve()(implicit
     Bus
       .ask[PoolHooks]("lobbyTrouper")(GetCandidates(clock, _))
       .logFailure(logger)
-      .nevermind(PoolHooks(Vector.empty))
+      .recoverDefault(PoolHooks(Vector.empty))
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) = {
     lila.mon.lobby.pool.thieve.stolen(monId).record(poolHooks.size)

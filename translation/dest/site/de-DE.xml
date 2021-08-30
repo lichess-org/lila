@@ -916,10 +916,10 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>
   <string name="onlyWorksOnce">Das funktioniert nur ein einziges mal.</string>
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
-  <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
+  <string name="emailAssociatedToaccount">E-Mail-Adresse deines Kontos</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
   <string name="tournamentEntryCode">Turnierbeitrittscode</string>
-  <string name="hangOn">Moment mal!</string>
+  <string name="hangOn">Einen Moment!</string>
   <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
   <string name="abortTheGame">Partie abbrechen</string>
   <string name="resignTheGame">Partie aufgeben</string>

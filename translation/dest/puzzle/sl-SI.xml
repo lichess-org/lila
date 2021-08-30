@@ -76,4 +76,21 @@
   <string name="fromMyGamesNone">V bazi podatkov nimate ugank, vendar vas ima Lichess še vedno zelo rad.
 Igrajte hitre in klasične igre, da povečate možnosti za dodajanje svoje uganke!</string>
   <string name="fromXGamesFound">Najdenih %1$s ugank v %2$s igrah</string>
+  <string name="puzzleDashboardDescription">Trenirajte, analizirajte, izboljšajte</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s igrana</item>
+    <item quantity="two">%s igrani</item>
+    <item quantity="few">%s igrani</item>
+    <item quantity="other">%s igranih</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s za predvajanje</item>
+    <item quantity="two">%s za predvajanje</item>
+    <item quantity="few">%s za predvajanje</item>
+    <item quantity="other">%s za predvajanje</item>
+  </plurals>
+  <string name="percentSolved">%s rešenih</string>
+  <string name="noPuzzlesToShow">Nič za pokazati, najprej pojdite igrati uganke!</string>
+  <string name="improvementAreasDescription">Trenirajte jih, da optimizirate svoj napredek!</string>
+  <string name="strengthDescription">V teh temah se najbolje odrežete</string>
 </resources>

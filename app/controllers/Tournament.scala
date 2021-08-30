@@ -512,7 +512,7 @@ final class Tournament(
       negotiate(
         html = notFound,
         api = _ =>
-          env.tournament.cached.onHomepage.getUnit.nevermind map {
+          env.tournament.cached.onHomepage.getUnit.recoverDefault map {
             lila.tournament.Spotlight.select(_, ctx.me, 4)
           } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
       )

@@ -68,7 +68,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
           }
           .monSuccess(_.irc.zulip.say(msg.stream))
           .logFailure(lila.log("zulip"))
-          .nevermind
+          .recoverDefault
 
     }(fuccess(None))
 }

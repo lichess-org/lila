@@ -47,7 +47,7 @@ ${trans.common_orPaste.txt()}
     tokener read token dmap (_.flatten) flatMap {
       _ ?? { case TokenPayload(userId, email) =>
         userRepo.email(userId) flatMap { previous =>
-          (userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId))
+          (userRepo.setEmail(userId, email).recoverDefault >> userRepo.byId(userId))
             .map2(_ -> previous)
         }
       }

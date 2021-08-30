@@ -89,4 +89,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="veryLong">Zelo dolga uganka</string>
   <string name="zugzwang">Nujnica</string>
   <string name="healthyMixDescription">Vsega po malo. Ne veste, kaj pričakovati, zato bodite pripravljeni na vse! Kot pri resničnih partijah.</string>
+  <string name="playerGames">Igralske igre</string>
+  <string name="playerGamesDescription">Iskanje ugank, ustvarjenih iz vaših iger ali iz iger drugega igralca.</string>
+  <string name="puzzleDownloadInformation">Te uganke so v javni lasti in jih je mogoče prenesti s spletnega mesta %s.</string>
 </resources>

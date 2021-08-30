@@ -62,7 +62,7 @@ final class PuzzleApi(
     private val sequencer =
       new lila.hub.AsyncActorSequencers(
         maxSize = 16,
-        expiration = 5 minutes,
+        expiration = 1 minute,
         timeout = 3 seconds,
         name = "puzzle.vote"
       )
@@ -85,7 +85,7 @@ final class PuzzleApi(
               }
             }
           }
-      }
+      }.logFailure(logger, _ => s"puzzle.vote $id").recoverDefault
 
     private def updatePuzzle(puzzleId: Puzzle.Id, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle { coll =>

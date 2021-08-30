@@ -168,14 +168,14 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def logTime(name: String)                               = chronometer pp name
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
 
-  def nevermind(implicit z: Zero[A], ec: EC): Fu[A] = nevermind(z.zero)
+  def recoverDefault(implicit z: Zero[A], ec: EC): Fu[A] = recoverDefault(z.zero)
 
-  def nevermind(default: => A)(implicit ec: EC): Fu[A] =
+  def recoverDefault(default: => A)(implicit ec: EC): Fu[A] =
     fua recover {
       case _: LilaException                         => default
       case _: java.util.concurrent.TimeoutException => default
       case e: Exception =>
-        lila.log("common").warn("Future.nevermind", e)
+        lila.log("common").warn("Future.recoverDefault", e)
         default
     }
 }

@@ -41,7 +41,9 @@ final class CoachApi(
     }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) ?? user.enabled ?? user.marks.clean ?? coachColl.exists($id(user.id))
+    Granter(_.Coach)(user) ?? user.enabled ?? user.marks.clean ?? coachColl.exists(
+      $id(user.id) ++ $doc("listed" -> true)
+    )
 
   def setSeenAt(user: User): Funit =
     Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> DateTime.now)).void
