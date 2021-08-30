@@ -64,12 +64,12 @@ const feedback = {
                 'move',
                 renderIndexAndMove(
                   {
+                    notation: ctrl.notation,
                     withDots: true,
                     showGlyphs: true,
                     showEval: false,
                   },
-                  ctrl.current().fault.node,
-                  ctrl.notation
+                  ctrl.current().fault.node
                 )!
               )
             )
@@ -137,11 +137,11 @@ const feedback = {
                   'strong',
                   renderIndexAndMove(
                     {
+                      notation: ctrl.notation,
                       withDots: true,
                       showEval: false,
                     },
-                    ctrl.current().solution.node,
-                    0
+                    ctrl.current().solution.node
                   )!
                 )
               )

@@ -129,7 +129,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       attrs: { p: path },
       class: classes,
     },
-    moveView.renderMove(ctx, node, ctx.ctrl.data.pref.pieceNotation)
+    moveView.renderMove(ctx, node, ctx.ctrl.getMovetime(node))
   );
 }
 
@@ -228,6 +228,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
+    notation: ctrl.data.pref.pieceNotation,
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
   };

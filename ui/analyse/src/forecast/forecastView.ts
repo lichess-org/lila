@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
-import { renderNodesHtml } from '../pgnExport';
+import { renderNodesHtml } from '../kifExport';
 import { bind, dataIcon, spinner } from '../util';
 import { notationStyle } from 'common/notation';
 

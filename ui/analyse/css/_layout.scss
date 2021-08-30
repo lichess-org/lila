@@ -81,7 +81,7 @@ body {
     }
 
     &__underboard {
-      margin-top: $block-gap;
+      margin-top: #{$block-gap + 1};
     }
 
     .eval-gauge {

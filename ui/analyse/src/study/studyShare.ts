@@ -21,11 +21,11 @@ interface StudyShareCtrl {
 function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove(
     {
+      notation: ctrl.notation,
       withDots: true,
       showEval: false,
     },
-    ctrl.currentNode(),
-    ctrl.notation
+    ctrl.currentNode()
   );
   return h(
     'div.ply-wrap',
@@ -173,23 +173,23 @@ export function view(ctrl: StudyShareCtrl): VNode {
         'a.button.text',
         {
           attrs: {
-            'data-icon': '',
-            href: `/study/${studyId}.pgn`,
+            'data-icon': 'x',
+            href: `/study/${studyId}.kif`,
             download: true,
           },
         },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')
+        ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyKif')
       ),
       h(
         'a.button.text',
         {
           attrs: {
-            'data-icon': '',
-            href: `/study/${studyId}/${chapter.id}.pgn`,
+            'data-icon': 'x',
+            href: `/study/${studyId}/${chapter.id}.kif`,
             download: true,
           },
         },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')
+        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterKif')
       ),
       h(
         'a.button.text',

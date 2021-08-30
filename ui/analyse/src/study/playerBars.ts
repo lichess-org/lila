@@ -21,7 +21,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       gote: findTag(tags, 'gote')!,
     };
   if (!playerNames.sente && !playerNames.gote && !treeOps.findInMainline(ctrl.tree.root, n => defined(n.clock))) return;
-  const clocks = renderClocks(ctrl),
+  const clocks = renderClocks(ctrl, false),
     ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
   return (['sente', 'gote'] as Color[]).map(color =>
     renderPlayer(tags, clocks, playerNames, color, ticking === color, ctrl.bottomColor() !== color)

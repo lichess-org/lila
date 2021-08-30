@@ -1,5 +1,6 @@
 /* free analysis on /analysis */
 @import 'analyse.base';
+@import 'player-clock';
 
 .copyables {
   .pair {
@@ -29,7 +30,7 @@
   .pgn {
     margin: 1em 0;
     textarea {
-      min-height: 6em;
+      min-height: 10em;
       white-space: pre-wrap;
       overflow-x: hidden;
     }

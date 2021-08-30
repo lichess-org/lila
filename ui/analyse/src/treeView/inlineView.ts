@@ -138,6 +138,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     truncateComments: false,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
+    notation: ctrl.data.pref.pieceNotation,
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
   };

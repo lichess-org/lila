@@ -90,12 +90,12 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
           },
           renderIndexAndMove(
             {
+              notation: root.data.pref.pieceNotation,
               withDots: true,
               showEval: root.showComputer(),
               showGlyphs: root.showComputer(),
             },
-            node,
-            root.data.pref.pieceNotation
+            node
           )!
         );
       return undefined;

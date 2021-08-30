@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode';
 import { parseFen } from 'shogiops/fen';
 import * as shogiground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
-//import { bind, onInsert, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
 import { getPlayer, playable } from 'game';
@@ -15,7 +14,7 @@ import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
 import renderClocks from './clocks';
-import * as pgnExport from './pgnExport';
+import * as kifExport from './kifExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
@@ -150,13 +149,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             ...onInsert(el => {
               (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
                 ? ctrl.pgnInput
-                : pgnExport.renderFullTxt(ctrl);
+                : kifExport.renderFullTxt(ctrl);
               el.addEventListener('input', e => (ctrl.pgnInput = (e.target as HTMLTextAreaElement).value));
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
                 ? ctrl.pgnInput
-                : pgnExport.renderFullTxt(ctrl);
+                : kifExport.renderFullTxt(ctrl);
             },
           },
         }),
@@ -167,8 +166,8 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             hook: bind(
               'click',
               _ => {
-                const pgn = $('.copyables .pgn textarea').val();
-                if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
+                const kif = $('.copyables .pgn textarea').val();
+                if (kif !== kifExport.renderFullTxt(ctrl)) ctrl.changeKif(kif);
               },
               ctrl.redraw
             ),
@@ -317,7 +316,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     playerBars = renderPlayerBars(ctrl),
-    clocks = !playerBars && renderClocks(ctrl),
+    clocks = !playerBars && renderClocks(ctrl, true),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);

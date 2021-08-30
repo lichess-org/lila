@@ -42,7 +42,8 @@
   move:not(.empty):hover {
     &,
     index,
-    eval {
+    eval,
+    movetime {
       background: $c-primary;
       color: $c-primary-over;
     }
@@ -84,16 +85,23 @@
     font-size: 1.185em;
     line-height: 1.75em;
     padding: 0 0.3em 0 0.5em;
+    justify-content: space-between;
   }
   &-column > index + move {
     border-right: $c-border;
   }
-  eval {
+  eval,
+  movetime {
     @extend %roboto;
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.8em;
     color: $c-font-dim;
+    max-width: 3rem;
+  }
+  movetime {
+    margin-right: 0.5rem;
+    margin-left: auto;
   }
   glyph {
     @extend %base-font;

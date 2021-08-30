@@ -86,6 +86,7 @@ export default class AnalyseCtrl {
   redirecting: boolean = false;
   onMainline: boolean = true;
   synthetic: boolean; // false if coming from a real game
+  imported: boolean; // true if coming from kif
   ongoing: boolean; // true if real game is ongoing
 
   // display flags
@@ -192,6 +193,7 @@ export default class AnalyseCtrl {
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
+    this.imported = data.game.source === 'import';
     this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
@@ -444,12 +446,12 @@ export default class AnalyseCtrl {
     this.cgVersion.js++;
   }
 
-  changePgn(pgn: string): void {
+  changeKif(kif: string): void {
     this.redirecting = true;
     $.ajax({
-      url: '/analysis/pgn',
+      url: '/analysis/kif',
       method: 'post',
-      data: { pgn },
+      data: { kif },
       success: (data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
@@ -457,6 +459,7 @@ export default class AnalyseCtrl {
       },
       error: error => {
         console.log(error);
+        alert('Invalid KIF');
         this.redirecting = false;
         this.redraw();
       },
@@ -895,6 +898,19 @@ export default class AnalyseCtrl {
   };
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
+
+  // Ideally we would just use node.clock
+  // but we store remaining times for lishogi games as node.clock
+  // for imports we store movetime as node.clock, because
+  // that's what's provided next to each move
+  getMovetime = (node: Tree.Node): number | undefined => {
+    const offset = this.mainline[0].ply;
+    if (defined(node.clock) && !this.study) {
+      if (defined(this.data.game.moveCentis)) return this.data.game.moveCentis[node.ply - 1 - offset];
+      if (this.imported) return node.clock;
+    }
+    return;
+  };
 
   withCg<A>(f: (cg: ShogigroundApi) => A): A | undefined {
     if (this.shogiground && this.cgVersion.js === this.cgVersion.dom) return f(this.shogiground);

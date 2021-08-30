@@ -8,7 +8,7 @@ import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
 import { bind, dataIcon } from './util';
-import * as pgnExport from './pgnExport';
+import * as kifExport from './kifExport';
 
 interface AutoplaySpeed {
   name: string;
@@ -129,8 +129,8 @@ function studyButton(ctrl: AnalyseCtrl) {
         action: '/study/as',
       },
       hook: bind('submit', e => {
-        const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+        const kifInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
+        if (kifInput) kifInput.value = kifExport.renderFullTxt(ctrl);
       }),
     },
     [

@@ -173,6 +173,7 @@ interface StudyChapterSetup {
   };
   orientation: Color;
   fromFen?: string;
+  fromKif?: string;
 }
 
 interface StudyChapterFeatures {

@@ -18,6 +18,7 @@ export interface Ctx {
   ctrl: AnalyseCtrl;
   showComputer: boolean;
   showGlyphs: boolean;
+  notation: number;
   showEval: boolean;
   truncateComments: boolean;
   currentPath: Tree.Path | undefined;

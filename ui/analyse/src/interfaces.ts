@@ -38,6 +38,7 @@ export interface AnalyseData {
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
   clock?: Clock;
+  tags?: String[][];
   pref: any;
   url: {
     socket: string;

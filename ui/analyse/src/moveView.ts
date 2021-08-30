@@ -3,8 +3,10 @@ import { VNode } from 'snabbdom/vnode';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 import { notationStyle } from 'common/notation';
+import { renderTime } from './clocks';
 
 export interface Ctx {
+  notation: number;
   withDots?: boolean;
   showEval: boolean;
   showGlyphs?: boolean;
@@ -38,12 +40,12 @@ export function renderIndex(ply: Ply, withDots?: boolean): VNode {
   return h('index', renderIndexText(ply, withDots));
 }
 
-export function renderMove(ctx: Ctx, node: Tree.Node, notation: number): VNode[] {
+export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] {
   const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
   return [
     h(
       'san',
-      notationStyle(notation)({
+      notationStyle(ctx.notation)({
         san: node.san!,
         uci: node.uci!,
         fen: node.fen,
@@ -51,6 +53,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node, notation: number): VNode[]
     ),
   ]
     .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
+    .concat(defined(moveTime) ? [h('movetime', renderTime(moveTime, false))] : [])
     .concat(
       ctx.showEval
         ? defined(ev.cp)
@@ -62,7 +65,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node, notation: number): VNode[]
     );
 }
 
-export function renderIndexAndMove(ctx: Ctx, node: Tree.Node, notation: number): VNode[] | undefined {
+export function renderIndexAndMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] | undefined {
   if (!node.san) return; // initial position
-  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node, notation)];
+  return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node, moveTime)];
 }
