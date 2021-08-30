@@ -6,6 +6,8 @@ import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.base.LilaInvalid
+
 final class GifExport(
     ws: StandaloneWSClient,
     url: String
@@ -32,10 +34,11 @@ final class GifExport(
         )
       )
       .stream() flatMap {
-      case res if res.status != 200 =>
+      case res if res.status == 200 => fuccess(res.bodyAsSource)
+      case res if res.status == 400 => fufail(LilaInvalid(res.body))
+      case res =>
         logger.warn(s"GifExport study ${chapter.studyId}/${chapter._id} ${res.status}")
         fufail(res.statusText)
-      case res => fuccess(res.bodyAsSource)
     }
 
   @annotation.tailrec

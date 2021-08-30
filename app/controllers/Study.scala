@@ -522,6 +522,8 @@ final class Study(
               Ok.chunked(stream)
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")
+            } recover { case lila.base.LilaInvalid(msg) =>
+              BadRequest(msg)
             }
           }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }

@@ -66,7 +66,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   // check root position
   const setup = opts.initialFen ? parseFen(opts.initialFen).unwrap() : undefined;
   const rules = lichessRules(opts.variant.key);
-  const analysable = setup ? setupPosition(rules, setup).isOk : true;
+  const analysable = setup ? setupPosition(rules, setup).isOk || true : true;
   const standardMaterial = setup
     ? COLORS.every(color => {
         const board = setup.board;
