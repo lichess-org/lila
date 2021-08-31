@@ -13,7 +13,7 @@ import lila.db.dsl._
 case class PicfitImage(
     _id: PicfitImage.Id,
     user: String,
-    scope: String, // like blog, streamer, coach, ...
+    rel: String, // reverse reference like blog:id, streamer:id, coach:id, ...
     name: String,
     contentType: Option[String],
     size: Int, // in bytes
@@ -36,7 +36,7 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
   import PicfitApi._
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
-  def upload(scope: String, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
+  def upload(rel: String, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
     if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
@@ -44,7 +44,7 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
       val image = PicfitImage(
         _id = PicfitImage.Id(lila.common.ThreadLocalRandom nextString 10),
         user = userId,
-        scope = scope,
+        rel = rel,
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
         size = uploaded.fileSize.toInt,
