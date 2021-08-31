@@ -1,8 +1,10 @@
 package lila.ublog
 
 import reactivemongo.api._
+import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
+import lila.common.Bus
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
@@ -21,13 +23,17 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost): Fu[UblogPost] = {
     val post = data.update(prev)
-    coll.update.one($id(prev.id), post) inject post
+    coll.update.one($id(prev.id), post) >>- {
+      if (post.live && prev.liveAt.isEmpty) Bus.publish(UblogPost.Create(post), "ublogPost")
+    } inject post
   }
 
   def find(id: UblogPost.Id): Fu[Option[UblogPost]] = coll.byId[UblogPost](id.value)
 
   def findByAuthor(id: UblogPost.Id, author: User): Fu[Option[UblogPost]] =
     coll.one[UblogPost]($id(id) ++ $doc("user" -> author.id))
+
+  def countLiveByUser(user: User): Fu[Int] = coll.countSel($doc("user" -> user.id, "live" -> true))
 
   def liveByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
     paginatorByUser(user, true, page)

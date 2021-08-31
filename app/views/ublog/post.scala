@@ -45,7 +45,10 @@ object post {
           imageOf(post, 500)(cls := "ublog-post__image")
         ),
         strong(cls := "ublog-post__intro")(post.intro),
-        div(cls := "ublog-post__markup")(markup)
+        div(cls := "ublog-post__markup")(markup),
+        div(cls := "ublog-post__footer")(
+          a(href := routes.Ublog.index(user.username))("View more blog posts by ", user.username)
+        )
       )
     }
 

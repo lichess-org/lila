@@ -13,9 +13,9 @@ object Permission {
 
   type Selector = Permission.type => Permission
 
-  case object ViewBlurs     extends Permission("VIEW_BLURS", "View blurs")
-  case object ModerateForum extends Permission("MODERATE_FORUM", "Moderate forum")
-
+  case object ViewBlurs             extends Permission("VIEW_BLURS", "View blurs")
+  case object ModerateForum         extends Permission("MODERATE_FORUM", "Moderate forum")
+  case object ModerateBlog          extends Permission("MODERATE_BLOG", "Moderate blog")
   case object ChatTimeout           extends Permission("CHAT_TIMEOUT", "Chat timeout")
   case object PublicChatView        extends Permission("VIEW_PUBLIC_CHAT", "See public chat page")
   case object GamifyView            extends Permission("GAMIFY_VIEW", "See mod leaderboard")
@@ -122,6 +122,7 @@ object Permission {
           Shadowban,
           SetKidMode,
           ModerateForum,
+          ModerateBlog,
           ReportBan,
           ModMessage,
           SeeReport,
@@ -184,6 +185,7 @@ object Permission {
       ChatTimeout,
       PublicChatView,
       ModerateForum,
+      ModerateBlog,
       ReportBan,
       ModMessage,
       DisapproveCoachReview

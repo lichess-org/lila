@@ -15,7 +15,8 @@ final class ActivityReadApi(
     coll: Coll,
     gameRepo: lila.game.GameRepo,
     practiceApi: lila.practice.PracticeApi,
-    postApi: lila.forum.PostApi,
+    forumPostApi: lila.forum.PostApi,
+    ublogApi: lila.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
@@ -49,10 +50,16 @@ final class ActivityReadApi(
 
   private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
     for {
-      posts <- a.posts ?? { p =>
-        postApi
+      forumPosts <- a.forumPosts ?? { p =>
+        forumPostApi
           .liteViewsByIds(p.value.map(_.value))
           .mon(_.user segment "activity.posts") dmap some
+      }
+      ublogPosts <- a.ublogPosts ?? { p =>
+        fuccess(none)
+      // ublogApi
+      //   .liteViewsByIds(p.value.map(_.value))
+      //   .mon(_.user segment "activity.ublogs") dmap some
       }
       practice = (for {
         p      <- a.practice
@@ -60,7 +67,7 @@ final class ActivityReadApi(
       } yield p.value flatMap { case (studyId, nb) =>
         struct study studyId map (_ -> nb)
       } toMap)
-      postView = posts.map { p =>
+      postView = forumPosts.map { p =>
         p.groupBy(_.topic)
           .view
           .mapValues { posts =>

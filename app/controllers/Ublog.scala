@@ -5,14 +5,16 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.ublog.UblogPost
+import lila.user.{ User => UserModel }
 
 final class Ublog(env: Env) extends LilaController(env) {
 
   import views.html.ublog.post.{ editUrlOf, urlOf }
+  import lila.common.paginator.Paginator.zero
 
   def index(username: String, page: Int) = Open { implicit ctx =>
     OptionFuOk(env.user.repo named username) { user =>
-      env.ublog.api.liveByUser(user, page) map { posts =>
+      (canViewBlogOf(user) ?? env.ublog.api.liveByUser(user, page)) map { posts =>
         html.ublog.index(user, posts)
       }
     }
@@ -28,7 +30,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def post(username: String, slug: String, id: String) = Open { implicit ctx =>
     OptionFuResult(env.user.repo named username) { user =>
-      env.ublog.api.findByAuthor(UblogPost.Id(id), user) map {
+      (canViewBlogOf(user) ?? env.ublog.api.findByAuthor(UblogPost.Id(id), user)) map {
         _ ?? { post =>
           if (slug != post.slug) Redirect(urlOf(post))
           else {
@@ -96,4 +98,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         }
       }
     }
+
+  private def canViewBlogOf(user: UserModel)(implicit ctx: Context) =
+    ctx.is(user) || isGranted(_.ModerateBlog) || !user.marks.troll
 }

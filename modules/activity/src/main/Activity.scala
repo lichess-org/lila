@@ -9,7 +9,8 @@ import lila.user.User
 case class Activity(
     id: Activity.Id,
     games: Option[Games] = None,
-    posts: Option[Posts] = None,
+    forumPosts: Option[ForumPosts] = None,
+    ublogPosts: Option[UblogPosts] = None,
     puzzles: Option[Puzzles] = None,
     storm: Option[Storm] = None,
     racer: Option[Racer] = None,
@@ -33,7 +34,7 @@ case class Activity(
   def isEmpty =
     !stream && List(
       games,
-      posts,
+      forumPosts,
       puzzles,
       storm,
       racer,

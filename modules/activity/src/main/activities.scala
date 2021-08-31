@@ -21,11 +21,17 @@ object activities {
   }
   implicit val GamesZero = Zero.instance(Games(Map.empty))
 
-  case class Posts(value: List[PostId]) extends AnyVal {
-    def +(postId: PostId) = Posts(postId :: value)
+  case class ForumPosts(value: List[ForumPostId]) extends AnyVal {
+    def +(postId: ForumPostId) = ForumPosts(postId :: value)
   }
-  case class PostId(value: String) extends AnyVal
-  implicit val PostsZero = Zero.instance(Posts(Nil))
+  case class ForumPostId(value: String) extends AnyVal
+  implicit val ForumPostsZero = Zero.instance(ForumPosts(Nil))
+
+  case class UblogPosts(value: List[UblogPostId]) extends AnyVal {
+    def +(postId: UblogPostId) = UblogPosts(postId :: value)
+  }
+  case class UblogPostId(value: String) extends AnyVal
+  implicit val UblogPostsZero = Zero.instance(UblogPosts(Nil))
 
   case class Puzzles(score: Score) {
     def +(s: Score) = Puzzles(score = score add s)

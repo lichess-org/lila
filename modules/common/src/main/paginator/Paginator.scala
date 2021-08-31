@@ -72,6 +72,8 @@ object Paginator {
 
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
 
+  implicit def zero[A] = ornicar.scalalib.Zero.instance(empty[A])
+
   def fromResults[A](
       currentPageResults: Seq[A],
       nbResults: Int,

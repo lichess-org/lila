@@ -65,7 +65,13 @@ object header {
             cls := "nm-item",
             href := ctx.noKid option routes.ForumPost.search("user:" + u.username, 1).url
           )(
-            splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
+            splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
+          ),
+          info.nbUblogPosts > 0 option a(
+            cls := "nm-item",
+            href := routes.Ublog.index(u.username)
+          )(
+            splitNumber(s"${info.nbUblogPosts} blog posts")
           ),
           (ctx.isAuth && !ctx.is(u)) option
             a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes"))

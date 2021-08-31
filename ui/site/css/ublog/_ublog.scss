@@ -7,6 +7,11 @@
     .box__top__actions {
       @extend %flex-center;
     }
+    h1 {
+      .user-link {
+        color: $c-link;
+      }
+    }
   }
   &-post {
     @include fluid-size('--box-padding', 25px, 100px);
@@ -37,6 +42,10 @@
       font-size: 1.2em;
       margin-bottom: 4vh;
       display: block;
+    }
+    &__footer {
+      text-align: center;
+      margin: 5vh 0 0 0;
     }
   }
 }
