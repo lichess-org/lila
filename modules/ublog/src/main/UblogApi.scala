@@ -36,7 +36,7 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
     paginatorByUser(user, false, page)
 
   def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded) =
-    picfitApi.upload("ublog", picture, userId = post.user).flatMap { image =>
+    picfitApi.upload(s"ublog:${post.id}", picture, userId = post.user).flatMap { image =>
       coll.update.one($id(post.id), $set("image" -> image.id)).void
     }
 
