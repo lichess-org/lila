@@ -698,6 +698,10 @@ object mon {
       )
     def timeout(name: String) = counter("workQueue.timeout").withTag("name", name)
   }
+  object picfit {
+    def uploadTime(user: String) = future("picfit.upload.time", Map("user" -> user))
+    def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
+  }
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
 
