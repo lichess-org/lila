@@ -35,9 +35,9 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
   def draftByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
     paginatorByUser(user, false, page)
 
-  def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded) =
+  def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] =
     picfitApi.upload(s"ublog:${post.id}", picture, userId = post.user).flatMap { image =>
-      coll.update.one($id(post.id), $set("image" -> image.id)).void
+      coll.update.one($id(post.id), $set("image" -> image.id)) inject post.copy(image = image.id.some)
     }
 
   private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost]] =

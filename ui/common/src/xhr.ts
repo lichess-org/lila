@@ -16,6 +16,7 @@ export const xhrHeader = {
 function ensureOk(res: Response): Response {
   if (res.ok) return res;
   if (res.status == 429) throw new Error('Too many requests');
+  if (res.status == 413) throw new Error('The uploaded file is too large');
   throw new Error(`Error ${res.status}`);
 }
 

@@ -227,4 +227,8 @@ export default rollupProject({
     input: 'src/tvGames.ts',
     output: 'tvGames',
   },
+  ublog: {
+    input: 'src/ublog.ts',
+    output: 'ublog',
+  },
 });
