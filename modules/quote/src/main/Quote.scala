@@ -512,7 +512,7 @@ object Quote {
       "It is not a move, even the best move that you must seek, but a realizable plan.",
       "Eugene Znosko-Borovsky"
     ),
-    new Quote("Those who say they understand chess, understand nothing.", "Robert Hubner"),
+    new Quote("Those who say they understand chess, understand nothing.", "Robert Hübner"),
     new Quote("Good offense and good defense both begin with good development.", "Bruce A. Moon"),
     new Quote(
       "Botvinnik tried to take the mystery out of chess, always relating it to situations in ordinary life. He used to call chess a typical inexact problem similar to those which people are always having to solve in everyday life.",
