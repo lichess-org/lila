@@ -33,9 +33,6 @@ object form {
     ) {
       main(cls := "box box-pad page ublog-post-form")(
         h1("Edit your blog post"),
-        div(cls := "ublog-post-form__publish")(
-          p(if (post.live) "This post is published" else "This is a draft")
-        ),
         imageForm(user, post),
         inner(user, f, post.some)
       )
@@ -68,6 +65,13 @@ object form {
       )
     )(
       form3.globalError(form),
+      post.isDefined option form3.checkbox(
+        form("live"),
+        raw("Publish on your blog"),
+        help = raw(
+          "If checked, the post will be listed on your blog. If not, it will be private, in your draft posts"
+        ).some
+      ),
       form3.group(form("title"), "Post title")(form3.input(_)(autofocus)),
       form3.group(form("intro"), "Post intro")(form3.input(_)(autofocus)),
       form3.group(
@@ -75,10 +79,6 @@ object form {
         "Post body",
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 30)),
-      form3.checkbox(
-        form("live"),
-        raw("Publish this post on your blog")
-      ),
       form3.actions(
         a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOf))(trans.cancel()),
         form3.submit(trans.apply())

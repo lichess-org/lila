@@ -52,7 +52,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         err => BadRequest(html.ublog.form.create(me, err)).fuccess,
         data =>
           env.ublog.api.create(data, me) map { post =>
-            Redirect(urlOf(post)).flashSuccess
+            Redirect(editUrlOf(post)).flashSuccess
           }
       )
   }
