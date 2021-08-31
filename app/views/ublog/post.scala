@@ -38,7 +38,7 @@ object post {
             span(cls := "ublog-post__meta__date")(semanticDate(date))
           }
         ),
-        div(cls := "ublog-post__image"),
+        imageOf(post)(cls := "ublog-post__image"),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup")(markup)
       )
@@ -59,41 +59,28 @@ object post {
   def editUrlOf(post: UblogPost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
 
   def thumbnailOf(post: UblogPost) = {
-    val (w, h) = (400, 200)
+    val (w, h) = (600, 200)
     post.image match {
       case Some(image) =>
-        img(
-          width := w,
-          height := h,
-          cls := "ublog-post-image",
-          src := picfitUrl(image).thumbnail(w, h)
-        )
+        baseImg(src := picfitUrl(image).thumbnail(w, h))
       case _ =>
-        img(
-          width := w,
-          height := h,
-          cls := "default image",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default blog post image"
-        )
+        div(cls := "ublog-post-image-default")
     }
   }
 
-  def imageOf(post: UblogPost, height: Int = 300) =
+  def imageOf(post: UblogPost, height: Int = 400) =
     post.image match {
       case Some(image) =>
-        img(
-          attr("height") := height,
-          cls := "ublog-post-image",
+        baseImg(
+          heightA := height,
           src := picfitUrl(image).resize(Right(height))
         )
       case _ =>
-        img(
-          attr("height") := height,
-          cls := "default image",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default blog post image"
+        baseImg(
+          heightA := height,
+          src := assetUrl("images/placeholder.png")
         )
     }
 
+  private val baseImg = img(cls := "ublog-post-image")
 }

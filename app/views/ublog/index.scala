@@ -27,7 +27,7 @@ object index {
               newPostLink
             )
         ),
-        div(cls := "ublog-index__posts infinite-scroll")(
+        div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
           posts.currentPageResults map { postView.card(_) },
           pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
         )
@@ -47,7 +47,7 @@ object index {
             newPostLink
           )
         ),
-        div(cls := "ublog-index__posts ublog-index__posts--drafts infinite-scroll")(
+        div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
           posts.currentPageResults map { postView.card(_, postView.editUrlOf) },
           pagerNext(posts, np => s"${routes.Ublog.drafts(user.username, np).url}")
         )
