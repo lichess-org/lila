@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
+  <string name="computerAnalysisDisabled">Phân tích máy tính không có sẵn</string>
   <string name="analysis">Bảng phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Phân tích bằng máy chủ</string>
@@ -866,6 +867,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở 
   <string name="toggleLocalAnalysis">Bật/tắt đánh giá máy tính</string>
   <string name="playComputerMove">Chơi nước máy tính tốt nhất</string>
   <string name="analysisOptions">Tùy chọn phân tích</string>
+  <string name="focusChat">Nói chuyện tập trung</string>
   <string name="showHelpDialog">Hiển thị giao diện trợ giúp này</string>
   <string name="reopenYourAccount">Mở lại tài khoản</string>
   <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
