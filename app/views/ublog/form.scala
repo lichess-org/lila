@@ -16,7 +16,7 @@ object form {
 
   def create(user: User, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = frag(cssTag("ublog")),
+      moreCss = cssTag("ublog"),
       title = s"${user.username} blog • New post"
     ) {
       main(cls := "box box-pad page ublog-post-form")(
@@ -27,7 +27,8 @@ object form {
 
   def edit(user: User, post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = frag(cssTag("ublog")),
+      moreCss = cssTag("ublog"),
+      moreJs = jsModule("ublog"),
       title = s"${user.username} blog • ${post.title}"
     ) {
       main(cls := "box box-pad page ublog-post-form")(
@@ -47,16 +48,15 @@ object form {
       enctype := "multipart/form-data"
     )(
       form3.split(
-        div(cls := "form-group form-half")(
-          postView.imageOf(post, height = 300)
-        ),
+        div(cls := "form-group form-half")(formImage(post)),
         div(cls := "form-group form-half")(
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-          form3.file.image("image"),
-          submitButton(cls := "button")(trans.streamer.uploadPicture())
+          form3.file.image("image")
         )
       )
     )
+
+  def formImage(post: UblogPost) = postView.imageOf(post, height = 300)
 
   private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost])(implicit
       ctx: Context

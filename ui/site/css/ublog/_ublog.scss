@@ -23,10 +23,13 @@
       }
     }
     &__image {
-      width: 100%;
+      max-width: 100%;
       height: 30vh;
       background: #888;
-      margin-bottom: 6vh;
+      margin: 0 auto 6vh auto;
+      &-wrap {
+        text-align: center;
+      }
     }
     &__intro {
       font-size: 1.2em;

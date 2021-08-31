@@ -29,7 +29,7 @@
     }
 
     &__image {
-      height: 200px;
+      width: 100%;
       &.ublog-post-image-default {
         background-image: img-url('placeholder-margin.png');
         background-size: cover;

@@ -86,11 +86,12 @@ final class Ublog(env: Env) extends LilaController(env) {
         _ ?? { post =>
           ctx.body.body.file("image") match {
             case Some(image) =>
-              env.ublog.api.uploadImage(post, image) recover { case e: Exception =>
-                BadRequest(html.ublog.form.edit(me, post, env.ublog.form.edit(post)))
-                  .flashFailure(e.getMessage)
-              } inject Redirect(editUrlOf(post))
-            case None => fuccess(Redirect(editUrlOf(post)))
+              env.ublog.api.uploadImage(post, image) map { newPost =>
+                Ok(html.ublog.form.formImage(newPost))
+              } recover { case e: Exception =>
+                BadRequest(e.getMessage)
+              }
+            case None => BadRequest("Missing image").fuccess
           }
         }
       }

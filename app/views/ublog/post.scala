@@ -38,7 +38,9 @@ object post {
             span(cls := "ublog-post__meta__date")(semanticDate(date))
           }
         ),
-        imageOf(post)(cls := "ublog-post__image"),
+        div(cls := "ublog-post__image-wrap")(
+          imageOf(post, 400)(cls := "ublog-post__image", heightA := 400)
+        ),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup")(markup)
       )
@@ -59,7 +61,7 @@ object post {
   def editUrlOf(post: UblogPost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
 
   def thumbnailOf(post: UblogPost) = {
-    val (w, h) = (600, 200)
+    val (w, h) = (600, 300)
     post.image match {
       case Some(image) =>
         baseImg(src := picfitUrl(image).thumbnail(w, h))
@@ -68,11 +70,10 @@ object post {
     }
   }
 
-  def imageOf(post: UblogPost, height: Int = 400) =
+  def imageOf(post: UblogPost, height: Int) =
     post.image match {
       case Some(image) =>
         baseImg(
-          heightA := height,
           src := picfitUrl(image).resize(Right(height))
         )
       case _ =>
