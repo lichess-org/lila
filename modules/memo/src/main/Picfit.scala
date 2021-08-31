@@ -11,10 +11,11 @@ import scala.concurrent.ExecutionContext
 import lila.db.dsl._
 
 case class PicfitImage(
-    // unique reference like blog:id, streamer:id, coach:id, ...
-    // posting a new image will delete the previous ones with same id
     _id: PicfitImage.Id,
     user: String,
+    // reverse reference like blog:id, streamer:id, coach:id, ...
+    // unique: a new image will delete the previous ones with same rel
+    rel: String,
     name: String,
     contentType: Option[String],
     size: Int, // in bytes
@@ -37,26 +38,27 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
   import PicfitApi._
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
-  def upload(id: PicfitImage.Id, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
+  def upload(rel: String, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
     if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
       val image = PicfitImage(
-        _id = id,
+        _id = PicfitImage.Id(lila.common.ThreadLocalRandom nextString 10),
         user = userId,
+        rel = rel,
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
         size = uploaded.fileSize.toInt,
         createdAt = DateTime.now
       )
-      deletePrevious(image) >>
-        picfitServer.store(image, uploaded) >>
+      picfitServer.store(image, uploaded) >>
+        deletePrevious(image) >>
         coll.insert.one(image) inject image
     }
 
   private def deletePrevious(image: PicfitImage): Funit =
     coll
-      .findAndRemove($id(image.id))
+      .findAndRemove($doc("rel" -> image.rel, "_id" $ne image.id))
       .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
       .void
 
