@@ -1,5 +1,6 @@
 @import 'card';
 @import 'form';
+@import 'markup';
 
 .ublog {
   &-index {
@@ -8,6 +9,7 @@
     }
   }
   &-post {
+    @include fluid-size('--box-padding', 25px, 100px);
     &__header {
       @extend %flex-between;
     }
@@ -18,13 +20,13 @@
     &__meta {
       text-align: center;
       margin-bottom: 6vh;
-      &__date {
-        margin-left: 3em;
+      > * {
+        margin: 0 1em;
       }
     }
     &__image {
       max-width: 100%;
-      height: 30vh;
+      max-height: 80vh;
       background: #888;
       margin: 0 auto 6vh auto;
       &-wrap {
@@ -35,9 +37,6 @@
       font-size: 1.2em;
       margin-bottom: 4vh;
       display: block;
-    }
-    &__markup {
-      font-size: 1.2em;
     }
   }
 }

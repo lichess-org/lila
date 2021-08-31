@@ -1,0 +1,73 @@
+.ublog-post__markup {
+  @extend %break-word;
+  font-size: 1.2em;
+  cursor: initial;
+  line-height: 1.8;
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  .block-img {
+    text-align: center;
+  }
+
+  .block-img + p > em:first-child {
+    margin-top: -20px;
+    display: block;
+    font-size: 0.8em;
+    text-align: center;
+  }
+
+  ol,
+  ul {
+    margin: 25px;
+  }
+
+  li {
+    list-style: disc outside;
+  }
+
+  h2 {
+    border-bottom: 1px solid $c-border;
+    margin: 1.6em 0 1em 0;
+  }
+
+  h3 {
+    @include fluid-size('font-size', 18px, 30px);
+
+    font-weight: bold;
+    margin: 1.6em 0 1em 0;
+  }
+
+  h4 {
+    font-size: 1.4em;
+  }
+
+  img {
+    padding: 5px;
+    border: 1px solid $c-border;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    line-height: 1.2;
+    border: 1px solid $c-border;
+    padding: 1em;
+  }
+
+  .embed {
+    @extend %video;
+
+    &--game {
+      @extend %game-embed;
+    }
+
+    margin: $block-gap auto;
+  }
+}
