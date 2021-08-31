@@ -13,7 +13,9 @@ import lila.db.dsl._
 case class PicfitImage(
     _id: PicfitImage.Id,
     user: String,
-    rel: String, // reverse reference like blog:id, streamer:id, coach:id, ...
+    // reverse reference like blog:id, streamer:id, coach:id, ...
+    // unique: a new image will delete the previous ones with same rel
+    rel: String,
     name: String,
     contentType: Option[String],
     size: Int, // in bytes
@@ -40,7 +42,6 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
     if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
-      import WSBodyWritables._
       val image = PicfitImage(
         _id = PicfitImage.Id(lila.common.ThreadLocalRandom nextString 10),
         user = userId,
@@ -50,25 +51,50 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
         size = uploaded.fileSize.toInt,
         createdAt = DateTime.now
       )
+      picfitServer.store(image, uploaded) >>
+        deletePrevious(image) >>
+        coll.insert.one(image) inject image
+    }
+
+  private def deletePrevious(image: PicfitImage): Funit =
+    coll
+      .findAndRemove($doc("rel" -> image.rel, "_id" $ne image.id))
+      .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
+      .void
+
+  private def sanitizeName(name: String) = {
+    // the char `^` breaks play, even URL encoded
+    java.net.URLEncoder.encode(name, "UTF-8").replaceIf('%', "")
+  }
+
+  private object picfitServer {
+
+    def store(image: PicfitImage, from: Uploaded): Funit = {
       type Part = MultipartFormData.FilePart[Source[ByteString, _]]
+      import WSBodyWritables._
       val part: Part = MultipartFormData.FilePart(
         key = "data",
         filename = image.id.value,
-        contentType = uploaded.contentType,
-        ref = FileIO.fromPath(uploaded.ref.path),
-        fileSize = uploaded.fileSize
+        contentType = from.contentType,
+        ref = FileIO.fromPath(from.ref.path),
+        fileSize = from.fileSize
       )
       val source: Source[Part, _] = Source(part :: List())
       ws.url(s"$endpoint/upload").post(source).flatMap {
         case res if res.status != 200 => fufail(res.statusText)
         case _                        => funit
-      } >>
-        coll.insert.one(image) inject image
+      }
     }
 
-  private def sanitizeName(name: String) = {
-    // the char `^` breaks play, even URL encoded
-    java.net.URLEncoder.encode(name, "UTF-8").replaceIf('%', "")
+    def delete(image: PicfitImage): Funit =
+      ws.url(s"$endpoint/${image.id}").delete().flatMap {
+        case res if res.status != 200 =>
+          logger
+            .branch("picfit")
+            .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body take 200}")
+          funit
+        case _ => funit
+      }
   }
 }
 
