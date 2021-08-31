@@ -1,0 +1,58 @@
+.ublog-post {
+  &-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+    grid-gap: 3vmin;
+  }
+  &-card {
+    @extend %box-neat-force;
+
+    @include transition;
+
+    background: $c-bg-zebra;
+    color: $c-font;
+    position: relative;
+
+    &:hover {
+      box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;
+    }
+
+    time {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0.2em 0.5em;
+      background: #111;
+      color: #ddd;
+      border-radius: 0 0 $box-radius-size 0;
+      opacity: 1;
+    }
+
+    &__image {
+      height: 200px;
+      &.ublog-post-image-default {
+        background-image: img-url('placeholder-margin.png');
+        background-size: cover;
+        background-position: center;
+      }
+    }
+
+    &__content {
+      padding: 2vmin;
+      display: block;
+    }
+
+    &__title {
+      font-size: 1.3em;
+      color: $c-font-clear;
+      display: block;
+    }
+
+    &__intro {
+      @extend %roboto;
+
+      margin-top: 2vmin;
+      display: block;
+    }
+  }
+}
