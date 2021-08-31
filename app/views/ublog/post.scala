@@ -21,13 +21,6 @@ object post {
         header(cls := "ublog-post__header")(
           a(href := routes.Ublog.index(user.username))(
             s"${user.username}' Blog"
-          ),
-          ctx.is(user) option a(
-            href := editUrlOf(post),
-            cls := "button button-empty text",
-            dataIcon := ""
-          )(
-            "Edit your blog post"
           )
         ),
         ctx.is(user) option standardFlash(),
@@ -36,10 +29,20 @@ object post {
           span(cls := "ublog-post__meta__author")("by ", userLink(user)),
           post.liveAt map { date =>
             span(cls := "ublog-post__meta__date")(semanticDate(date))
-          }
+          },
+          ctx.is(user) option frag(
+            (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
+              if (post.live) "This post is published" else "This is a draft"
+            ),
+            a(
+              href := editUrlOf(post),
+              cls := "button button-empty text",
+              dataIcon := ""
+            )("Edit")
+          )
         ),
         div(cls := "ublog-post__image-wrap")(
-          imageOf(post, 400)(cls := "ublog-post__image", heightA := 400)
+          imageOf(post, 500)(cls := "ublog-post__image")
         ),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup")(markup)
