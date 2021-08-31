@@ -80,10 +80,15 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
         fileSize = from.fileSize
       )
       val source: Source[Part, _] = Source(part :: List())
-      ws.url(s"$endpoint/upload").post(source).flatMap {
-        case res if res.status != 200 => fufail(res.statusText)
-        case _                        => funit
-      }
+      ws.url(s"$endpoint/upload")
+        .post(source)
+        .flatMap {
+          case res if res.status != 200 => fufail(res.statusText)
+          case _ =>
+            lila.mon.picfit.uploadSize(image.user).record(image.size)
+            funit
+        }
+        .monSuccess(_.picfit.uploadTime(image.user))
     }
 
     def delete(image: PicfitImage): Funit =
