@@ -46,11 +46,22 @@ final class ActivityWriteApi(
         coll.update
           .one(
             $id(a.id),
-            $set(ActivityFields.posts -> (~a.posts + PostId(post.id))),
+            $set(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id))),
             upsert = true
           )
           .void
       }
+    }
+
+  def ublogPost(post: lila.ublog.UblogPost): Funit =
+    getOrCreate(post.user) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.ublogPosts -> (~a.ublogPosts + UblogPostId(post.id.value))),
+          upsert = true
+        )
+        .void
     }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit =

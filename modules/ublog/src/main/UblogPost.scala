@@ -31,4 +31,6 @@ case class UblogPost(
 object UblogPost {
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  case class Create(post: UblogPost) extends AnyVal
 }

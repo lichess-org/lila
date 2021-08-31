@@ -74,8 +74,13 @@ private object BSONHandlers {
 
   implicit private lazy val gameIdHandler = BSONStringHandler.as[GameId](GameId.apply, _.value)
 
-  implicit private lazy val postIdHandler = BSONStringHandler.as[PostId](PostId.apply, _.value)
-  implicit lazy val postsHandler          = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
+  implicit private lazy val forumPostIdHandler = BSONStringHandler.as[ForumPostId](ForumPostId.apply, _.value)
+  implicit lazy val forumPostsHandler =
+    isoHandler[ForumPosts, List[ForumPostId]]((p: ForumPosts) => p.value, ForumPosts.apply _)
+
+  implicit private lazy val ublogPostIdHandler = BSONStringHandler.as[UblogPostId](UblogPostId.apply, _.value)
+  implicit lazy val ublogPostsHandler =
+    isoHandler[UblogPosts, List[UblogPostId]]((p: UblogPosts) => p.value, UblogPosts.apply _)
 
   implicit lazy val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
 
@@ -137,23 +142,24 @@ private object BSONHandlers {
     isoHandler[Swisses, List[SwissRank]]((s: Swisses) => s.value, Swisses.apply _)
 
   object ActivityFields {
-    val id       = "_id"
-    val games    = "g"
-    val posts    = "p"
-    val puzzles  = "z"
-    val storm    = "m"
-    val racer    = "c"
-    val streak   = "k"
-    val learn    = "l"
-    val practice = "r"
-    val simuls   = "s"
-    val corres   = "o"
-    val patron   = "a"
-    val follows  = "f"
-    val studies  = "t"
-    val teams    = "e"
-    val swisses  = "w"
-    val stream   = "st"
+    val id         = "_id"
+    val games      = "g"
+    val forumPosts = "p"
+    val ublogPosts = "u"
+    val puzzles    = "z"
+    val storm      = "m"
+    val racer      = "c"
+    val streak     = "k"
+    val learn      = "l"
+    val practice   = "r"
+    val simuls     = "s"
+    val corres     = "o"
+    val patron     = "a"
+    val follows    = "f"
+    val studies    = "t"
+    val teams      = "e"
+    val swisses    = "w"
+    val stream     = "st"
   }
 
   implicit lazy val activityHandler = new lila.db.BSON[Activity] {
@@ -164,7 +170,7 @@ private object BSONHandlers {
       Activity(
         id = r.get[Id](id),
         games = r.getO[Games](games),
-        posts = r.getO[Posts](posts),
+        forumPosts = r.getO[ForumPosts](forumPosts),
         puzzles = r.getO[Puzzles](puzzles),
         storm = r.getO[Storm](storm),
         racer = r.getO[Racer](racer),
@@ -183,23 +189,23 @@ private object BSONHandlers {
 
     def writes(w: lila.db.BSON.Writer, o: Activity) =
       BSONDocument(
-        id       -> o.id,
-        games    -> o.games,
-        posts    -> o.posts,
-        puzzles  -> o.puzzles,
-        storm    -> o.storm,
-        racer    -> o.racer,
-        streak   -> o.streak,
-        learn    -> o.learn,
-        practice -> o.practice,
-        simuls   -> o.simuls,
-        corres   -> o.corres,
-        patron   -> o.patron,
-        follows  -> o.follows,
-        studies  -> o.studies,
-        teams    -> o.teams,
-        swisses  -> o.swisses,
-        stream   -> o.stream.option(true)
+        id         -> o.id,
+        games      -> o.games,
+        forumPosts -> o.forumPosts,
+        puzzles    -> o.puzzles,
+        storm      -> o.storm,
+        racer      -> o.racer,
+        streak     -> o.streak,
+        learn      -> o.learn,
+        practice   -> o.practice,
+        simuls     -> o.simuls,
+        corres     -> o.corres,
+        patron     -> o.patron,
+        follows    -> o.follows,
+        studies    -> o.studies,
+        teams      -> o.teams,
+        swisses    -> o.swisses,
+        stream     -> o.stream.option(true)
       )
   }
 }
