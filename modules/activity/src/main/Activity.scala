@@ -35,6 +35,7 @@ case class Activity(
     !stream && List(
       games,
       forumPosts,
+      ublogPosts,
       puzzles,
       storm,
       racer,

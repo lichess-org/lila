@@ -134,7 +134,7 @@ final class JsonView(
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)
         .add("teams" -> a.teams)
-        .add("posts" -> a.posts.map(_ map { case (topic, posts) =>
+        .add("posts" -> a.forumPosts.map(_ map { case (topic, posts) =>
           Json.obj(
             "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,

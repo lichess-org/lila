@@ -2248,4 +2248,8 @@ val `xRuns` = new I18nKey("storm:xRuns")
 val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
 }
 
+object ublog {
+val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
+}
+
 }

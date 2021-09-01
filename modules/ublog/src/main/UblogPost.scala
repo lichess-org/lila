@@ -20,10 +20,7 @@ case class UblogPost(
 
   def id = _id
 
-  lazy val slug = {
-    val s = lila.common.String slugify title
-    if (s.isEmpty) "-" else s
-  }
+  lazy val slug = UblogPost slug title
 
   def isBy(u: User) = user == u.id
 }
@@ -33,4 +30,14 @@ object UblogPost {
   case class Id(value: String) extends AnyVal with StringValue
 
   case class Create(post: UblogPost) extends AnyVal
+
+  case class LightPost(_id: UblogPost.Id, title: String) {
+    def id   = _id
+    def slug = UblogPost slug title
+  }
+
+  def slug(title: String) = {
+    val s = lila.common.String slugify title
+    if (s.isEmpty) "-" else s
+  }
 }
