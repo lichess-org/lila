@@ -187,8 +187,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       .recover(badStripeApiCall)
 
   private val StripeRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    key = "stripe.checkout.ip",
-    enforce = env.net.rateLimit.value
+    key = "stripe.checkout.ip"
   )(
     ("fast", 8, 10.minute),
     ("slow", 40, 1.day)
