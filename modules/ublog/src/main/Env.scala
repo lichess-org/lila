@@ -8,6 +8,7 @@ import lila.common.config._
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    timeline: lila.hub.actors.Timeline,
     picfit: lila.memo.PicfitApi
 )(implicit
     ec: scala.concurrent.ExecutionContext

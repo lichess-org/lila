@@ -84,7 +84,7 @@ final class Ublog(env: Env) extends LilaController(env) {
           .fold(
             err => BadRequest(html.ublog.form.edit(me, prev, err)).fuccess,
             data =>
-              env.ublog.api.update(data, prev) map { post =>
+              env.ublog.api.update(data, prev, me) map { post =>
                 Redirect(urlOf(post)).flashSuccess
               }
           )

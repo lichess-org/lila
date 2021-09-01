@@ -11,8 +11,11 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.memo.PicfitApi
 import lila.user.User
+import lila.hub.actorApi.timeline.Propagate
 
-final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionContext) {
+final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors.Timeline)(implicit
+    ec: ExecutionContext
+) {
 
   import UblogBsonHandlers._
 
@@ -21,10 +24,18 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
     coll.insert.one(post) inject post
   }
 
-  def update(data: UblogForm.UblogPostData, prev: UblogPost): Fu[UblogPost] = {
+  def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] = {
     val post = data.update(prev)
     coll.update.one($id(prev.id), post) >>- {
-      if (post.live && prev.liveAt.isEmpty) Bus.publish(UblogPost.Create(post), "ublogPost")
+      if (post.live && prev.liveAt.isEmpty) {
+        Bus.publish(UblogPost.Create(post), "ublogPost")
+        if (!user.marks.troll)
+          timeline ! {
+            Propagate(
+              lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
+            ) toFollowersOf user.id
+          }
+      }
     } inject post
   }
 
@@ -49,9 +60,9 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
       }
       .logFailure(logger branch "upload")
 
-  def litesByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
+  def lightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     coll
-      .find($inIds(ids))
+      .find($inIds(ids), $doc("title" -> true).some)
       .cursor[UblogPost.LightPost]()
       .list()
 

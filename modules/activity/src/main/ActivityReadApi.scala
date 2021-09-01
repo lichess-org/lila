@@ -58,7 +58,7 @@ final class ActivityReadApi(
       }
       ublogPosts <- a.ublogPosts ?? { p =>
         ublogApi
-          .litesByIds(p.value.map(_.value).map(UblogPost.Id))
+          .lightsByIds(p.value.map(_.value).map(UblogPost.Id))
           .mon(_.user segment "activity.ublogs") dmap some
       }
       practice = (for {

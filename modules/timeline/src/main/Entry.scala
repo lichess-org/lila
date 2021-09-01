@@ -31,6 +31,7 @@ case class Entry(
     case "team-join"    => teamJoinHandler.readTry(data).get
     case "team-create"  => teamCreateHandler.readTry(data).get
     case "forum-post"   => forumPostHandler.readTry(data).get
+    case "ublog-post"   => ublogPostHandler.readTry(data).get
     case "tour-join"    => tourJoinHandler.readTry(data).get
     case "game-end"     => gameEndHandler.readTry(data).get
     case "simul-create" => simulCreateHandler.readTry(data).get
@@ -67,6 +68,7 @@ object Entry {
       case d: TeamJoin    => "team-join"    -> toBson(d)
       case d: TeamCreate  => "team-create"  -> toBson(d)
       case d: ForumPost   => "forum-post"   -> toBson(d)
+      case d: UblogPost   => "ublog-post"   -> toBson(d)
       case d: TourJoin    => "tour-join"    -> toBson(d)
       case d: GameEnd     => "game-end"     -> toBson(d)
       case d: SimulCreate => "simul-create" -> toBson(d)
@@ -87,6 +89,7 @@ object Entry {
     implicit val teamJoinHandler    = Macros.handler[TeamJoin]
     implicit val teamCreateHandler  = Macros.handler[TeamCreate]
     implicit val forumPostHandler   = Macros.handler[ForumPost]
+    implicit val ublogPostHandler   = Macros.handler[UblogPost]
     implicit val tourJoinHandler    = Macros.handler[TourJoin]
     implicit val gameEndHandler     = Macros.handler[GameEnd]
     implicit val simulCreateHandler = Macros.handler[SimulCreate]
@@ -103,6 +106,7 @@ object Entry {
     implicit val teamJoinWrite    = Json.writes[TeamJoin]
     implicit val teamCreateWrite  = Json.writes[TeamCreate]
     implicit val forumPostWrite   = Json.writes[ForumPost]
+    implicit val ublogPostWrite   = Json.writes[UblogPost]
     implicit val tourJoinWrite    = Json.writes[TourJoin]
     implicit val gameEndWrite     = Json.writes[GameEnd]
     implicit val simulCreateWrite = Json.writes[SimulCreate]
@@ -117,6 +121,7 @@ object Entry {
       case d: TeamJoin    => teamJoinWrite writes d
       case d: TeamCreate  => teamCreateWrite writes d
       case d: ForumPost   => forumPostWrite writes d
+      case d: UblogPost   => ublogPostWrite writes d
       case d: TourJoin    => tourJoinWrite writes d
       case d: GameEnd     => gameEndWrite writes d
       case d: SimulCreate => simulCreateWrite writes d

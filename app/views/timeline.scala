@@ -64,6 +64,13 @@ object timeline {
               title := topicName
             )(shorten(topicName, 30))
           )
+        case UblogPost(userId, id, slug, title) =>
+          trans.ublog.xPublishedY(
+            userLink(userId),
+            a(
+              href := routes.Ublog.post(usernameOrId(userId), slug, id)
+            )(shorten(title, 40))
+          )
         case TourJoin(userId, tourId, tourName) =>
           trans.xCompetesInY(
             userLink(userId),

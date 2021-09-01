@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import spinner from './component/spinner';
 
 lichess.load.then(() => {
   $('.ublog-post-form__image').each(function (this: HTMLFormElement) {
@@ -6,7 +7,13 @@ lichess.load.then(() => {
     $(form)
       .find('input[name="image"]')
       .on('change', () => {
-        xhr.formToXhr(form).then(html => $(form).find('img.ublog-post-image').replaceWith(html), alert);
+        const replace = (html: string) => $(form).find('.ublog-post-image').replaceWith(html);
+        const wrap = (html: string) => '<div class="ublog-post-image">' + html + '</div>';
+        replace(wrap(spinner));
+        xhr.formToXhr(form).then(
+          html => replace(html),
+          err => replace(wrap(`<bad>${err}</bad>`))
+        );
       });
   });
 });

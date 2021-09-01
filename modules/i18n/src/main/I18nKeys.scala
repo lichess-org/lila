@@ -2249,6 +2249,7 @@ val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
 }
 
 object ublog {
+val `xPublishedY` = new I18nKey("ublog:xPublishedY")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 }
 
