@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">Lietotāja %s blogs</string>
+  <string name="xBlog">Lietotāja %s blogs</string>
   <string name="newPost">Jauns ieraksts</string>
   <string name="editYourBlogPost">Rediģēt savu bloga ierakstu</string>
-  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Nosaukums</string>
-  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Ievads</string>
-  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Ieraksta teksts</string>
-  <string name="drafts" comment="drafts&#10;Relates to blogs only">Melnraksti</string>
-  <string name="published" comment="published&#10;Confirmation a post has been published.">Publicēts</string>
-  <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Publicēt savā blogā</string>
+  <string name="postTitle">Nosaukums</string>
+  <string name="postIntro">Ievads</string>
+  <string name="postBody">Ieraksta teksts</string>
+  <string name="drafts">Melnraksti</string>
+  <string name="published">Publicēts</string>
+  <string name="publishOnYourBlog">Publicēt savā blogā</string>
   <string name="publishHelp">Ieraksts tiks parādīts blogā tikai, ja šis lauciņš būs atzīmēts. Pretējā gadījumā tas paliks privāts jūsu melnrakstos</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="zero">Publicēja %s bloga ierakstu</item>
     <item quantity="one">Publicēja %s bloga ierakstu</item>
     <item quantity="other">Publicēja %s bloga ierakstus</item>
   </plurals>
-  <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s publicēja \"%2$s\"</string>
-  <string name="thisPostIsPublished" comment="thisPostIsPublished&#10;&#10;Confirms that a post has already been published i.e. it is not a draft.">Šis ieraksts ir publicēts</string>
+  <string name="xPublishedY">%1$s publicēja \"%2$s\"</string>
+  <string name="thisPostIsPublished">Šis ieraksts ir publicēts</string>
   <string name="thisIsADraft">Šis ir melnraksts</string>
-  <string name="moreBlogPostsBy" comment="moreBlogPostsBy&#10;&#10;%s is the author of the blog post.">Skatīt citus lietotāja %s bloga ierakstus</string>
+  <string name="moreBlogPostsBy">Skatīt citus lietotāja %s bloga ierakstus</string>
 </resources>
