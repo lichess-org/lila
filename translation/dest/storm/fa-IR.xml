@@ -7,6 +7,9 @@
   <string name="newDailyHighscore">رکورد جدید روزانه!</string>
   <string name="newWeeklyHighscore">رکورد جدید هفتگی!</string>
   <string name="newMonthlyHighscore">رکورد جدید ماهانه!</string>
+  <string name="newAllTimeHighscore">بالاترین امتیاز در طول زمان!</string>
+  <string name="previousHighscoreWasX">بالاترین امتیاز قبلی %s بود</string>
+  <string name="playAgain">دوباره بازی کن</string>
   <string name="raceComplete">مسابقه تمام به اتمام رسید!</string>
   <string name="startTheRace">شروع مسابقه</string>
   <string name="nextRace">مسابقه بعدی</string>
