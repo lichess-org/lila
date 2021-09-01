@@ -38,7 +38,7 @@ object LangList {
     // Lang("gl", "ES")  -> "Galego",
     // Lang("gu", "IN")  -> "ગુજરાતી",
     Lang("he", "IL") -> "עִבְרִית",
-    // Lang("hi", "IN")  -> "हिन्दी, हिंदी",
+    Lang("hi", "IN")  -> "हिन्दी, हिंदी",
     // Lang("hr", "HR")  -> "hrvatski",
     Lang("hu", "HU") -> "Magyar",
     // Lang("hy", "AM")  -> "Հայերեն",
