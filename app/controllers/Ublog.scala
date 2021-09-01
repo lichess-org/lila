@@ -1,9 +1,11 @@
 package controllers
 
+import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.ublog.UblogPost
 import lila.user.{ User => UserModel }
 
@@ -47,15 +49,23 @@ final class Ublog(env: Env) extends LilaController(env) {
     else Ok(html.ublog.form.create(me, env.ublog.form.create)).fuccess
   }
 
+  private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
+    credits = 10 * 3,
+    duration = 24.hour,
+    key = "ublog.create.user"
+  )
+
   def create(unusedUsername: String) = AuthBody { implicit ctx => me =>
     env.ublog.form.create
       .bindFromRequest()(ctx.body, formBinding)
       .fold(
         err => BadRequest(html.ublog.form.create(me, err)).fuccess,
         data =>
-          env.ublog.api.create(data, me) map { post =>
-            Redirect(editUrlOf(post)).flashSuccess
-          }
+          CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
+            env.ublog.api.create(data, me) map { post =>
+              Redirect(editUrlOf(post)).flashSuccess
+            }
+          }(rateLimitedFu)
       )
   }
 
@@ -82,17 +92,26 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "ublog.image.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
   def image(unusedUsername: String, id: String) =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
       env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
         _ ?? { post =>
           ctx.body.body.file("image") match {
             case Some(image) =>
-              env.ublog.api.uploadImage(post, image) map { newPost =>
-                Ok(html.ublog.form.formImage(newPost))
-              } recover { case e: Exception =>
-                BadRequest(e.getMessage)
-              }
+              ImageRateLimitPerIp(HTTPRequest ipAddress ctx.req) {
+                env.ublog.api.uploadImage(post, image) map { newPost =>
+                  Ok(html.ublog.form.formImage(newPost))
+                } recover { case e: Exception =>
+                  BadRequest(e.getMessage)
+                }
+              }(rateLimitedFu)
             case None => BadRequest("Missing image").fuccess
           }
         }

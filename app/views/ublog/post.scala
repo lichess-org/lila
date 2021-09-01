@@ -15,7 +15,17 @@ object post {
   def apply(user: User, post: UblogPost, markup: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      title = s"${user.username} blog • ${post.title}"
+      moreJs = jsModule("expandText"),
+      title = s"${user.username} blog • ${post.title}",
+      openGraph = lila.app.ui
+        .OpenGraph(
+          `type` = "article",
+          image = imageUrlOf(post),
+          title = post.title,
+          url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id.value)}",
+          description = post.intro
+        )
+        .some
     ) {
       main(cls := "box box-pad page page-small ublog-post")(
         header(cls := "ublog-post__header")(
@@ -42,10 +52,10 @@ object post {
           )
         ),
         div(cls := "ublog-post__image-wrap")(
-          imageOf(post, 500)(cls := "ublog-post__image")
+          imageOf(post)(cls := "ublog-post__image")
         ),
         strong(cls := "ublog-post__intro")(post.intro),
-        div(cls := "ublog-post__markup")(markup),
+        div(cls := "ublog-post__markup expand-text")(markup),
         div(cls := "ublog-post__footer")(
           a(href := routes.Ublog.index(user.username))("View more blog posts by ", user.username)
         )
@@ -76,18 +86,21 @@ object post {
     }
   }
 
-  def imageOf(post: UblogPost, height: Int) =
-    post.image match {
-      case Some(image) =>
-        baseImg(
-          src := picfitUrl(image).resize(Right(height))
-        )
+  private val defaultImageHeight = 500
+
+  def imageOf(post: UblogPost, height: Int = defaultImageHeight) =
+    imageUrlOf(post) match {
+      case Some(url) => baseImg(src := url)
       case _ =>
         baseImg(
           heightA := height,
           src := assetUrl("images/placeholder.png")
         )
     }
+
+  def imageUrlOf(post: UblogPost, height: Int = defaultImageHeight) = post.image map { i =>
+    picfitUrl(i).resize(Right(height))
+  }
 
   private val baseImg = img(cls := "ublog-post-image")
 }
