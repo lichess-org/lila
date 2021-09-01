@@ -163,6 +163,8 @@
     <item quantity="many">%s imreoir</item>
     <item quantity="other">%s imreoir</item>
   </plurals>
+  <string name="drawByMutualAgreement">Cluiche cothrom trí chomhaontú frithpháirteach</string>
+  <string name="fiftyMovesWithoutProgress">Caoga beart gan dul chun cinn</string>
   <string name="currentGames">Cluichí reatha</string>
   <plurals name="nbGames">
     <item quantity="one">%s cluiche</item>
@@ -1037,4 +1039,10 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="cantDoThisTwice">Má dhúnann tú do chuntas an dara huair, ní bheidh aon bhealach ann é a athshlánú.</string>
   <string name="emailAssociatedToaccount">Seoladh ríomhphoist a bhaineann leis an gcuntas</string>
   <string name="sentEmailWithLink">Tá ríomhphost seolta againn le nasc.</string>
+  <string name="tournamentEntryCode">Cód iontrála an chomórtais</string>
+  <string name="hangOn">Fan!</string>
+  <string name="gameInProgress">Tá cluiche idir lámha agat le %s.</string>
+  <string name="abortTheGame">Giorraigh an cluiche</string>
+  <string name="resignTheGame">Éirigh as</string>
+  <string name="youCantStartNewGame">Ní féidir leat cluiche nua a thosú go dtí go mbeidh an ceann seo críochnaithe.</string>
 </resources>
