@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s publicou %2$s</string>
+</resources>
