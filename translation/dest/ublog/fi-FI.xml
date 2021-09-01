@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Käyttäjän %s blogi</string>
+  <string name="newPost">Uusi kirjoitus</string>
+  <string name="editYourBlogPost">Muokkaa blogikirjoitustasi</string>
+  <string name="postTitle">Otsikko</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Julkaisi blogikirjoituksen</item>
+    <item quantity="other">Julkaisi %s blogikirjoitusta</item>
+  </plurals>
+  <string name="xPublishedY">%1$s julkaisi kirjoituksen %2$s</string>
+</resources>
