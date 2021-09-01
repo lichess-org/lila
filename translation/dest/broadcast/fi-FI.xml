@@ -19,6 +19,7 @@
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="credits">Mainitse lähde</string>
+  <string name="resetRound">Nollaa tämä kierros</string>
   <string name="deleteRound">Poista tämä kierros</string>
   <string name="broadcastUrl">Lähetyksen URL</string>
   <string name="currentRoundUrl">Tämän kierroksen URL</string>
