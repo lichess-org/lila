@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">Blog de %s</string>
+  <string name="newPost">Nova publicação</string>
+  <string name="editYourBlogPost">Modificar a sua publicação</string>
+  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Titulo da publicação</string>
+  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Introdução à publicação</string>
+  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Corpo da publicação</string>
+  <string name="drafts" comment="drafts&#10;Relates to blogs only">Rascunhos</string>
+  <string name="published" comment="published&#10;Confirmation a post has been published.">Publicado</string>
+  <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Publicar no seu blog</string>
+  <string name="publishHelp">Se for marcada, a publicação será listada no seu blog. Se não, ficará privada nos seus rascunhos de publicações</string>
   <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s publicou %2$s</string>
+  <string name="thisPostIsPublished" comment="thisPostIsPublished&#10;&#10;Confirms that a post has already been published i.e. it is not a draft.">Esta publicação foi publicada</string>
+  <string name="thisIsADraft">Isto é um rascunho</string>
+  <string name="moreBlogPostsBy" comment="moreBlogPostsBy&#10;&#10;%s is the author of the blog post.">Ver mais publicações de %s</string>
 </resources>
