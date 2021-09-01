@@ -46,20 +46,27 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
   def upload(rel: String, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
     if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
-    else {
-      val image = PicfitImage(
-        _id = PicfitImage.Id(lila.common.ThreadLocalRandom nextString 10),
-        user = userId,
-        rel = rel,
-        name = sanitizeName(uploaded.filename),
-        contentType = uploaded.contentType,
-        size = uploaded.fileSize.toInt,
-        createdAt = DateTime.now
-      )
-      picfitServer.store(image, uploaded) >>
-        deletePrevious(image) >>
-        coll.insert.one(image) inject image
-    }
+    else
+      uploaded.contentType collect {
+        case "image/png"  => "png"
+        case "image/jpeg" => "jpg"
+      } match {
+        case None => fufail(s"Invalid file type: ${uploaded.contentType | "unknown"}")
+        case Some(extension) => {
+          val image = PicfitImage(
+            _id = PicfitImage.Id(s"${lila.common.ThreadLocalRandom nextString 10}.$extension"),
+            user = userId,
+            rel = rel,
+            name = sanitizeName(uploaded.filename),
+            contentType = uploaded.contentType,
+            size = uploaded.fileSize.toInt,
+            createdAt = DateTime.now
+          )
+          picfitServer.store(image, uploaded) >>
+            deletePrevious(image) >>
+            coll.insert.one(image) inject image
+        }
+      }
 
   private def deletePrevious(image: PicfitImage): Funit =
     coll
@@ -74,32 +81,26 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
 
   private object picfitServer {
 
-    def store(image: PicfitImage, from: Uploaded): Funit = from.contentType collect {
-      case "image/png"  => "png"
-      case "image/jpeg" => "jpg"
-    } match {
-      case None => fufail(s"Invalid file type: ${from.contentType | "unknown"}")
-      case Some(extension) => {
-        type Part = MultipartFormData.FilePart[Source[ByteString, _]]
-        import WSBodyWritables._
-        val part: Part = MultipartFormData.FilePart(
-          key = "data",
-          filename = s"${image.id.value}.$extension",
-          contentType = from.contentType,
-          ref = FileIO.fromPath(from.ref.path),
-          fileSize = from.fileSize
-        )
-        val source: Source[Part, _] = Source(part :: List())
-        ws.url(s"${config.endpointPost}/upload")
-          .post(source)
-          .flatMap {
-            case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
-            case _ =>
-              lila.mon.picfit.uploadSize(image.user).record(image.size)
-              funit
-          }
-          .monSuccess(_.picfit.uploadTime(image.user))
-      }
+    def store(image: PicfitImage, from: Uploaded): Funit = {
+      type Part = MultipartFormData.FilePart[Source[ByteString, _]]
+      import WSBodyWritables._
+      val part: Part = MultipartFormData.FilePart(
+        key = "data",
+        filename = image.id.value,
+        contentType = from.contentType,
+        ref = FileIO.fromPath(from.ref.path),
+        fileSize = from.fileSize
+      )
+      val source: Source[Part, _] = Source(part :: List())
+      ws.url(s"${config.endpointPost}/upload")
+        .post(source)
+        .flatMap {
+          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
+          case _ =>
+            lila.mon.picfit.uploadSize(image.user).record(image.size)
+            funit
+        }
+        .monSuccess(_.picfit.uploadTime(image.user))
     }
 
     def delete(image: PicfitImage): Funit =
