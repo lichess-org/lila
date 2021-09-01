@@ -46,6 +46,12 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
       coll.update.one($id(post.id), $set("image" -> image.id)) inject post.copy(image = image.id.some)
     }
 
+  def litesByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
+    coll
+      .find($inIds(ids))
+      .cursor[UblogPost.LightPost]()
+      .list()
+
   private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost]] =
     Paginator(
       adapter = new Adapter[UblogPost](

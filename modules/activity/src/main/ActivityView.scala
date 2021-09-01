@@ -1,16 +1,16 @@
 package lila.activity
 
+import activities._
+import model._
 import org.joda.time.Interval
 
 import lila.game.LightPov
 import lila.practice.PracticeStudy
 import lila.simul.Simul
 import lila.study.Study
-import lila.tournament.LeaderboardApi.{ Entry => TourEntry }
-
-import activities._
-import model._
 import lila.swiss.Swiss
+import lila.tournament.LeaderboardApi.{ Entry => TourEntry }
+import lila.ublog.UblogPost
 
 case class ActivityView(
     interval: Interval,
@@ -22,7 +22,8 @@ case class ActivityView(
     practice: Option[Map[PracticeStudy, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
-    posts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]] = None,
+    forumPosts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]] = None,
+    ublogPosts: Option[List[UblogPost.LightPost]] = None,
     corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,
     follows: Option[Follows] = None,

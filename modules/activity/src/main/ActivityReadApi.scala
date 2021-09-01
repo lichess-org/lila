@@ -7,9 +7,10 @@ import lila.common.Heapsort
 import lila.db.dsl._
 import lila.game.LightPov
 import lila.practice.PracticeStructure
-import lila.user.User
-import lila.tournament.LeaderboardApi
 import lila.swiss.Swiss
+import lila.tournament.LeaderboardApi
+import lila.ublog.UblogPost
+import lila.user.User
 
 final class ActivityReadApi(
     coll: Coll,
@@ -56,10 +57,9 @@ final class ActivityReadApi(
           .mon(_.user segment "activity.posts") dmap some
       }
       ublogPosts <- a.ublogPosts ?? { p =>
-        fuccess(none)
-      // ublogApi
-      //   .liteViewsByIds(p.value.map(_.value))
-      //   .mon(_.user segment "activity.ublogs") dmap some
+        ublogApi
+          .litesByIds(p.value.map(_.value).map(UblogPost.Id))
+          .mon(_.user segment "activity.ublogs") dmap some
       }
       practice = (for {
         p      <- a.practice
@@ -67,7 +67,7 @@ final class ActivityReadApi(
       } yield p.value flatMap { case (studyId, nb) =>
         struct study studyId map (_ -> nb)
       } toMap)
-      postView = forumPosts.map { p =>
+      forumPostView = forumPosts.map { p =>
         p.groupBy(_.topic)
           .view
           .mapValues { posts =>
@@ -129,7 +129,8 @@ final class ActivityReadApi(
       racer = a.racer,
       streak = a.streak,
       practice = practice,
-      posts = postView,
+      forumPosts = forumPostView,
+      ublogPosts = ublogPosts,
       simuls = simuls,
       patron = a.patron,
       corresMoves = corresMoves,

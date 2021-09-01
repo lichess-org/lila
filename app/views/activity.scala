@@ -25,7 +25,8 @@ object activity {
             a.racer map renderRacer,
             a.streak map renderStreak,
             a.games map renderGames,
-            a.posts map renderPosts,
+            a.forumPosts map renderForumPosts,
+            a.ublogPosts map renderUblogPosts(u),
             a.corresMoves map { case (nb, povs) =>
               renderCorresMoves(nb, povs)
             },
@@ -133,15 +134,18 @@ object activity {
       )
     }
 
-  private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
+  private def renderForumPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
     ctx.noKid option entryTag(
       iconTag(""),
       div(
         posts.toSeq.map { case (topic, posts) =>
-          val url = routes.ForumTopic.show(topic.categId, topic.slug)
           frag(
             trans.activity.postedNbMessages
-              .plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
+              .plural(
+                posts.size,
+                posts.size,
+                a(href := routes.ForumTopic.show(topic.categId, topic.slug))(shorten(topic.name, 70))
+              ),
             subTag(
               posts.map { post =>
                 div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
@@ -149,6 +153,21 @@ object activity {
             )
           )
         }
+      )
+    )
+
+  private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(implicit
+      ctx: Context
+  ) =
+    entryTag(
+      iconTag(""),
+      div(
+        trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
+        subTag(posts.map { post =>
+          div(
+            a(href := routes.Ublog.post(user.username, post.slug, post.id.value))(shorten(post.title, 120))
+          )
+        })
       )
     )
 
