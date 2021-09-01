@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publicada unha entrada de blogue</item>
+    <item quantity="other">Publicadas %s entradas de blogue</item>
+  </plurals>
+</resources>
