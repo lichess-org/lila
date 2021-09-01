@@ -920,4 +920,5 @@
   <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
   <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
+  <string name="gameInProgress">Έχετε μία παρτίδα σε εξέλιξη με τον/την %s.</string>
 </resources>
