@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="zero">Publicēja %s bloga ierakstu</item>
+    <item quantity="one">Publicēja %s bloga ierakstu</item>
+    <item quantity="other">Publicēja %s bloga ierakstus</item>
+  </plurals>
+</resources>
