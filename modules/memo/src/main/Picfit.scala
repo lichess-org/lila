@@ -88,7 +88,7 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
       ws.url(s"${config.endpointPost}/upload")
         .post(source)
         .flatMap {
-          case res if res.status != 200 => fufail(res.statusText)
+          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
           case _ =>
             lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
