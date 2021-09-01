@@ -18,4 +18,6 @@
   <string name="thisPostIsPublished">Cet article a été publié</string>
   <string name="thisIsADraft">Ceci est un brouillon</string>
   <string name="moreBlogPostsBy">Voir plus d’articles de %s</string>
+  <string name="noPostsInThisBlogYet">Pas encore d’article dans ce blog.</string>
+  <string name="noDrafts">Aucun brouillon à afficher.</string>
 </resources>
