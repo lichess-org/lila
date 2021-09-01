@@ -62,7 +62,7 @@ object bits {
             " ",
             s.study.likes.value,
             " • ",
-            usernameOrId(s.study.ownerId),
+            titleNameOrId(s.study.ownerId),
             " • ",
             momentFromNow(s.study.createdAt)
           )
@@ -78,7 +78,7 @@ object bits {
           s.study.members.members.values
             .take(4)
             .map { m =>
-              li(cls := "text", dataIcon := (if (m.canContribute) "" else ""))(usernameOrId(m.id))
+              li(cls := "text", dataIcon := (if (m.canContribute) "" else ""))(titleNameOrId(m.id))
             }
             .toList
         )

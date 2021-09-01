@@ -49,7 +49,7 @@ object message {
 
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
-      title = s"${usernameOrId(study.ownerId)}'s study",
+      title = s"${titleNameOrId(study.ownerId)}'s study",
       back = routes.Study.allDefault(1).url.some
     )(
       "Sorry! This study is private, you cannot access it.",

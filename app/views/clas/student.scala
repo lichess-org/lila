@@ -134,7 +134,7 @@ object student {
             ),
             p(trans.clas.makeSureToCopy()),
             pre(
-              trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
+              trans.clas.studentCredentials(student.realName, titleNameOrId(student.userId), password.value)
             )
           )
         )
@@ -229,7 +229,7 @@ object student {
               created map { case Student.WithPassword(student, password) =>
                 tr(
                   td(student.realName),
-                  td(usernameOrId(student.userId)),
+                  td(titleNameOrId(student.userId)),
                   td(password.value)
                 )
               }

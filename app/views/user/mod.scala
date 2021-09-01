@@ -601,7 +601,7 @@ object mod {
                 td(dataSort := userNotes.size)(
                   a(href := s"${routes.User.show(o.username)}?notes")(
                     notesText(
-                      title := s"Notes from ${userNotes.map(_.from).map(usernameOrId).mkString(", ")}",
+                      title := s"Notes from ${userNotes.map(_.from).map(titleNameOrId).mkString(", ")}",
                       cls := "is-green"
                     ),
                     userNotes.size

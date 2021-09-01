@@ -131,7 +131,7 @@ object communication {
                   ),
                   title := pov.game.fromFriend.option("Friend game")
                 )(
-                  usernameOrAnon(pov.opponent.userId),
+                  titleNameOrAnon(pov.opponent.userId),
                   " – ",
                   momentFromNowOnce(pov.game.movedAt)
                 ),

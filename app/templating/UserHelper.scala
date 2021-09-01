@@ -79,8 +79,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def lightUser = env.user.lightUserSync
 
-  def usernameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
-  def usernameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
+  def usernameOrId(userId: String)            = lightUser(userId).fold(userId)(_.name)
+  def titleNameOrId(userId: String)           = lightUser(userId).fold(userId)(_.titleName)
+  def titleNameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
   def isOnline(userId: String) = env.socket isOnline userId
 

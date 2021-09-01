@@ -65,7 +65,7 @@ object show {
             s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +
               s.winnerId.fold("Winner is not yet decided.") { winnerId =>
-                s"${usernameOrId(winnerId)} takes the prize home!"
+                s"${titleNameOrId(winnerId)} takes the prize home!"
               }
         )
         .some
