@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">Блог %s</string>
+  <string name="xBlog">Блог %s</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Опубликована запись в блоге</item>
     <item quantity="few">Опубликованы %s записи в блоге</item>
