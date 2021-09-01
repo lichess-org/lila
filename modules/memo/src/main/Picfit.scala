@@ -20,7 +20,6 @@ case class PicfitImage(
     // unique: a new image will delete the previous ones with same rel
     rel: String,
     name: String,
-    contentType: Option[String],
     size: Int, // in bytes
     createdAt: DateTime
 ) {
@@ -57,8 +56,7 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
             _id = PicfitImage.Id(s"${lila.common.ThreadLocalRandom nextString 10}.$extension"),
             user = userId,
             rel = rel,
-            name = sanitizeName(uploaded.filename),
-            contentType = uploaded.contentType,
+            name = uploaded.filename,
             size = uploaded.fileSize.toInt,
             createdAt = DateTime.now
           )
@@ -73,11 +71,6 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
       .findAndRemove($doc("rel" -> image.rel, "_id" $ne image.id))
       .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
       .void
-
-  private def sanitizeName(name: String) = {
-    // the char `^` breaks play, even URL encoded
-    java.net.URLEncoder.encode(name, "UTF-8").replaceIf('%', "")
-  }
 
   private object picfitServer {
 
