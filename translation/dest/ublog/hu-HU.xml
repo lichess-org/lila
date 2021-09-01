@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">%s\' Blogja</string>
+  <string name="newPost">Új bejegyzés</string>
+  <string name="editYourBlogPost">Saját poszt módosítása</string>
+  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Bejegyzés címe</string>
+  <string name="drafts" comment="drafts&#10;Relates to blogs only">Piszkozatok</string>
+  <string name="published" comment="published&#10;Confirmation a post has been published.">Közzétett</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blogbejegyzést tett közzé</item>
     <item quantity="other">Blogbejegyzést tett közzé</item>
