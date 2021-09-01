@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">%s\' blog</string>
+  <string name="xBlog">%s\' blog</string>
   <string name="newPost">Nyt indlæg</string>
   <string name="editYourBlogPost">Rediger dit blogindlæg</string>
-  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Indlægstitel</string>
-  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Indlægsintro</string>
-  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Indlæggets hovedtekst</string>
-  <string name="drafts" comment="drafts&#10;Relates to blogs only">Udkast</string>
-  <string name="published" comment="published&#10;Confirmation a post has been published.">Publiceret</string>
-  <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Publicér på din blog</string>
+  <string name="postTitle">Indlægstitel</string>
+  <string name="postIntro">Indlægsintro</string>
+  <string name="postBody">Indlæggets hovedtekst</string>
+  <string name="drafts">Udkast</string>
+  <string name="published">Publiceret</string>
+  <string name="publishOnYourBlog">Publicér på din blog</string>
   <string name="publishHelp">Hvis markeret, vil indlægget blive vist på din blog. Hvis ikke, vil det være privat i dine udkast</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicerede et blogindlæg</item>
     <item quantity="other">Publicerede %s blogindlæg</item>
   </plurals>
-  <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s publicerede %2$s</string>
-  <string name="thisPostIsPublished" comment="thisPostIsPublished&#10;&#10;Confirms that a post has already been published i.e. it is not a draft.">Dette indlæg er publiceret</string>
+  <string name="xPublishedY">%1$s publicerede %2$s</string>
+  <string name="thisPostIsPublished">Dette indlæg er publiceret</string>
   <string name="thisIsADraft">Dette er et udkast</string>
-  <string name="moreBlogPostsBy" comment="moreBlogPostsBy&#10;&#10;%s is the author of the blog post.">Se flere blogindlæg af %s</string>
+  <string name="moreBlogPostsBy">Se flere blogindlæg af %s</string>
 </resources>
