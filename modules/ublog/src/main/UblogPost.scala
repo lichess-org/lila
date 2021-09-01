@@ -36,6 +36,17 @@ object UblogPost {
     def slug = UblogPost slug title
   }
 
+  // case class PreviewPost(
+  //     _id: UblogPost.Id,
+  //     title: String,
+  //     intro: String,
+  //     image: Option[PicfitImage.Id],
+  //     liveAt: DateTime
+  // ) {
+  //   def id   = _id
+  //   def slug = UblogPost slug title
+  // }
+
   def slug(title: String) = {
     val s = lila.common.String slugify title
     if (s.isEmpty) "-" else s
