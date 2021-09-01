@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">%s\' Blogja</string>
+  <string name="xBlog">%s\' Blogja</string>
   <string name="newPost">Új bejegyzés</string>
   <string name="editYourBlogPost">Saját poszt módosítása</string>
-  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Bejegyzés címe</string>
-  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Bejegyzés felvezetése</string>
-  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Bejegyzés törzse</string>
-  <string name="drafts" comment="drafts&#10;Relates to blogs only">Piszkozatok</string>
-  <string name="published" comment="published&#10;Confirmation a post has been published.">Közzétett</string>
-  <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Közzététel a saját blogomon</string>
+  <string name="postTitle">Bejegyzés címe</string>
+  <string name="postIntro">Bejegyzés felvezetése</string>
+  <string name="postBody">Bejegyzés törzse</string>
+  <string name="drafts">Piszkozatok</string>
+  <string name="published">Közzétett</string>
+  <string name="publishOnYourBlog">Közzététel a saját blogomon</string>
   <string name="publishHelp">Ha bejelölöd a bejegyzés nyilvános lesz. Ha nem jelölöd be, akkor privát poszt marad és a vázlatok között megtalálható lesz</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blogbejegyzést tett közzé</item>
     <item quantity="other">Blogbejegyzést tett közzé</item>
   </plurals>
-  <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s közzétette a %2$s nevű bejegyzést</string>
-  <string name="thisPostIsPublished" comment="thisPostIsPublished&#10;&#10;Confirms that a post has already been published i.e. it is not a draft.">Ez a bejegyzés nyilvános</string>
+  <string name="xPublishedY">%1$s közzétette a %2$s nevű bejegyzést</string>
+  <string name="thisPostIsPublished">Ez a bejegyzés nyilvános</string>
   <string name="thisIsADraft">Ez egy vázlat</string>
-  <string name="moreBlogPostsBy" comment="moreBlogPostsBy&#10;&#10;%s is the author of the blog post.">Még több bejegyzés tőle: %s</string>
+  <string name="moreBlogPostsBy">Még több bejegyzés tőle: %s</string>
 </resources>
