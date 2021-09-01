@@ -18,4 +18,6 @@
   <string name="thisPostIsPublished">Dette indlæg er publiceret</string>
   <string name="thisIsADraft">Dette er et udkast</string>
   <string name="moreBlogPostsBy">Se flere blogindlæg af %s</string>
+  <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
+  <string name="noDrafts">Ingen udkast at vise.</string>
 </resources>
