@@ -42,9 +42,12 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi)(implicit ec: ExecutionCon
     paginatorByUser(user, false, page)
 
   def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] =
-    picfitApi.upload(s"ublog:${post.id}", picture, userId = post.user).flatMap { image =>
-      coll.update.one($id(post.id), $set("image" -> image.id)) inject post.copy(image = image.id.some)
-    }
+    picfitApi
+      .upload(s"ublog:${post.id}", picture, userId = post.user)
+      .flatMap { image =>
+        coll.update.one($id(post.id), $set("image" -> image.id)) inject post.copy(image = image.id.some)
+      }
+      .logFailure(logger branch "upload")
 
   def litesByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     coll
