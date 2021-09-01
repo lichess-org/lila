@@ -7,4 +7,5 @@
     <item quantity="many">Опубликованы %s записей в блоге</item>
     <item quantity="other">Опубликованы %s записей в блоге</item>
   </plurals>
+  <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
 </resources>
