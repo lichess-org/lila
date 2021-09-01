@@ -34,7 +34,18 @@ object form {
       main(cls := "box box-pad page ublog-post-form")(
         h1(trans.ublog.editYourBlogPost()),
         imageForm(user, post),
-        inner(user, f, post.some)
+        inner(user, f, post.some),
+        postForm(
+          cls := "ublog-post-form__delete",
+          action := routes.Ublog.delete(user.username, post.id.value)
+        )(
+          form3.action(
+            submitButton(
+              cls := "button button-red button-empty confirm",
+              title := "Delete this blog post definitively"
+            )(trans.delete())
+          )
+        )
       )
     }
 

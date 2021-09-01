@@ -52,9 +52,11 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
   def draftByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
     paginatorByUser(user, false, page)
 
+  private def imageRel(post: UblogPost) = s"ublog:${post.id}"
+
   def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] =
     picfitApi
-      .upload(s"ublog:${post.id}", picture, userId = post.user)
+      .upload(imageRel(post), picture, userId = post.user)
       .flatMap { image =>
         coll.update.one($id(post.id), $set("image" -> image.id)) inject post.copy(image = image.id.some)
       }
@@ -65,6 +67,10 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
       .find($inIds(ids), $doc("title" -> true).some)
       .cursor[UblogPost.LightPost]()
       .list()
+
+  def delete(post: UblogPost): Funit =
+    coll.delete.one($id(post.id)) >>
+      picfitApi.deleteByRel(imageRel(post))
 
   private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost]] =
     Paginator(

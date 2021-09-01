@@ -61,14 +61,14 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
             createdAt = DateTime.now
           )
           picfitServer.store(image, uploaded) >>
-            deletePrevious(image) >>
+            deleteByRel(image.rel) >>
             coll.insert.one(image) inject image
         }
       }
 
-  private def deletePrevious(image: PicfitImage): Funit =
+  def deleteByRel(rel: String): Funit =
     coll
-      .findAndRemove($doc("rel" -> image.rel, "_id" $ne image.id))
+      .findAndRemove($doc("rel" -> rel))
       .flatMap { _.result[PicfitImage] ?? picfitServer.delete }
       .void
 

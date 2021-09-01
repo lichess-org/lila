@@ -12,6 +12,12 @@
         color: $c-link;
       }
     }
+    &__posts {
+      &--empty {
+        margin: 20vh auto;
+        text-align: center;
+      }
+    }
   }
   &-post {
     @include fluid-size('--box-padding', 25px, 100px);

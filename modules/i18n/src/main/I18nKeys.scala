@@ -2263,6 +2263,8 @@ val `xPublishedY` = new I18nKey("ublog:xPublishedY")
 val `thisPostIsPublished` = new I18nKey("ublog:thisPostIsPublished")
 val `thisIsADraft` = new I18nKey("ublog:thisIsADraft")
 val `moreBlogPostsBy` = new I18nKey("ublog:moreBlogPostsBy")
+val `noPostsInThisBlogYet` = new I18nKey("ublog:noPostsInThisBlogYet")
+val `noDrafts` = new I18nKey("ublog:noDrafts")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 }
 

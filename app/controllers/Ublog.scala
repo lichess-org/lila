@@ -92,6 +92,14 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def delete(unusedUsername: String, id: String) = AuthBody { implicit ctx => me =>
+    env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
+      _ ?? { post =>
+        env.ublog.api.delete(post) inject Redirect(routes.Ublog.index(me.username)).flashSuccess
+      }
+    }
+  }
+
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "ublog.image.ip"
   )(
