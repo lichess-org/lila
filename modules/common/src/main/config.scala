@@ -43,7 +43,8 @@ object config {
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress,
-      picfitEndpoint: String
+      picfitEndpoint: String,
+      picfitSecretKey: Secret
   ) {
     def isProd = domain == prodDomain
   }
