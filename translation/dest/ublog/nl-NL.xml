@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">Blog van %s</string>
+  <string name="xBlog">Blog van %s</string>
   <string name="newPost">Nieuwe blogpost</string>
   <string name="editYourBlogPost">Bewerk je blogpost</string>
-  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Berichttitel</string>
-  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Inleiding</string>
-  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Broodtekst</string>
-  <string name="drafts" comment="drafts&#10;Relates to blogs only">Concepten</string>
-  <string name="published" comment="published&#10;Confirmation a post has been published.">Gepubliceerd</string>
-  <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Publiceren op blog</string>
+  <string name="postTitle">Titel</string>
+  <string name="postIntro">Inleiding</string>
+  <string name="postBody">Hoofdgedeelte</string>
+  <string name="drafts">Concepten</string>
+  <string name="published">Gepubliceerd</string>
+  <string name="publishOnYourBlog">Publiceren op blog</string>
   <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publiceerde een blogpost</item>
     <item quantity="other">Publiceerde %s blogposts</item>
   </plurals>
-  <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s heeft %2$s gepubliceerd</string>
-  <string name="thisPostIsPublished" comment="thisPostIsPublished&#10;&#10;Confirms that a post has already been published i.e. it is not a draft.">Dit bericht is gepubliceerd</string>
+  <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
+  <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
   <string name="thisIsADraft">Dit is een concept</string>
-  <string name="moreBlogPostsBy" comment="moreBlogPostsBy&#10;&#10;%s is the author of the blog post.">Bekijk meer blogberichten van %s</string>
+  <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
 </resources>
