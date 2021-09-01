@@ -4,4 +4,5 @@
     <item quantity="one">Hat einen Blog-Beitrag veröffentlicht</item>
     <item quantity="other">Hat %s Blog-Beiträge veröffentlicht</item>
   </plurals>
+  <string name="xPublishedY">%1$s veröffentlichte %2$s</string>
 </resources>
