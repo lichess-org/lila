@@ -82,7 +82,7 @@ object post {
                 a(
                   titleOrText(trans.reportXToModerators.txt(userId)),
                   cls := "mod report button button-empty",
-                  href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}",
+                  href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
                   dataIcon := ""
                 )
               )

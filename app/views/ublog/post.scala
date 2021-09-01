@@ -38,16 +38,24 @@ object post {
           post.liveAt map { date =>
             span(cls := "ublog-post__meta__date")(semanticDate(date))
           },
-          ctx.is(user) option frag(
-            (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
-              if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
-            ),
+          if (ctx.is(user))
+            frag(
+              (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
+                if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
+              ),
+              a(
+                href := editUrlOf(post),
+                cls := "button button-empty text",
+                dataIcon := ""
+              )(trans.edit())
+            )
+          else
             a(
-              href := editUrlOf(post),
-              cls := "button button-empty text",
-              dataIcon := ""
-            )(trans.edit())
-          )
+              titleOrText(trans.reportXToModerators.txt(user.username)),
+              cls := "mod report button button-red button-empty",
+              href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOf(post).url}")}&reason=comm",
+              dataIcon := ""
+            )
         ),
         div(cls := "ublog-post__image-wrap")(
           imageOf(post)(cls := "ublog-post__image")

@@ -159,7 +159,9 @@ final class Report(
           env.report.forms.createWithCaptcha map { case (form, captcha) =>
             val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {
               case (Some(u), Some(pid)) =>
-                form.fill(lila.report.ReportSetup(user = u.light, "", text = pid, "", ""))
+                form.fill(
+                  lila.report.ReportSetup(user = u.light, reason = ~get("reason"), text = s"$pid\n\n", "", "")
+                )
               case _ => form
             }
             Ok(html.report.form(filledForm, user, captcha))

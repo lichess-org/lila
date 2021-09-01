@@ -20,7 +20,7 @@ object index {
     ) {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(
-          h1(trans.ublog.xBlog(user.username)),
+          h1(trans.ublog.xBlog(userLink(user))),
           ctx.is(user) option
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
