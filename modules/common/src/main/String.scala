@@ -45,8 +45,8 @@ object String {
       (c >= '\u2028' && c <= '\u202F') ||
       // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
       (c >= '\u2100' && c <= '\u2C5F') ||
-      // decorative chars ꧁ ꧂
-      (c == '\ua9c1' || c == '\ua9c2') ||
+      // decorative chars ꧁ ꧂ and svastikas
+      (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
       // pretty quranic chars ஜ۩۞۩ஜ
       (c >= '\u06d6' && c <= '\u06ff')
 
