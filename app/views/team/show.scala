@@ -217,7 +217,7 @@ object show {
                       div(cls := "meta")(
                         strong(post.topicName),
                         em(
-                          post.userId map usernameOrId,
+                          post.userId map titleNameOrId,
                           " • ",
                           momentFromNow(post.createdAt)
                         )

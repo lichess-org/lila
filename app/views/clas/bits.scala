@@ -32,7 +32,7 @@ object bits {
                     cls := List("student" -> true, "active" -> student.exists(s.is)),
                     href := routes.Clas.studentShow(clas.clas.id.value, s.userId)
                   )(
-                    usernameOrId(s.userId),
+                    titleNameOrId(s.userId),
                     em(s.realName)
                   )
                 }

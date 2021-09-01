@@ -60,7 +60,7 @@ object show {
         .OpenGraph(
           title = s.name.value,
           url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
-          description = s"A chess study by ${usernameOrId(s.ownerId)}"
+          description = s"A chess study by ${titleNameOrId(s.ownerId)}"
         )
         .some
     )(

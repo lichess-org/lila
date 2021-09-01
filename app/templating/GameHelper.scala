@@ -219,7 +219,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   // whiteUsername 1-0 blackUsername
   def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
     val res = if (finished) chess.Color.showResult(result map Color.fromWhite) else "*"
-    s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
+    s"${titleNameOrId(whiteUserId)} $res ${titleNameOrId(blackUserId)}"
   }
 
   def gameResult(game: Game) =
@@ -248,13 +248,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
     val challenger = c.challengerUser.fold(trans.anonymous.txt()) { reg =>
-      s"${usernameOrId(reg.id)} (${reg.rating.show})"
+      s"${titleNameOrId(reg.id)} (${reg.rating.show})"
     }
     val players =
       if (c.isOpen) "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger") { dest =>
-          s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
+          s"$challenger challenges ${titleNameOrId(dest.id)} (${dest.rating.show})"
         }
     s"$speed$variant ${c.mode.name} Chess • $players"
   }

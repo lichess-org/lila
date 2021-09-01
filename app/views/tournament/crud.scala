@@ -51,7 +51,7 @@ object crud {
           h1(
             a(href := routes.Tournament.show(tour.id))(tour.name()),
             " ",
-            span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+            span("Created by ", titleNameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
           ),
           st.form(
             cls := "box__top__actions",

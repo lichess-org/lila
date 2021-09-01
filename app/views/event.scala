@@ -27,9 +27,9 @@ object event {
         div(cls := "box__top")(
           h1(
             a(href := routes.Event.show(event.id))(event.title),
-            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt)),
+            span("Created by ", titleNameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt)),
             event.updatedBy map { updatedBy =>
-              span("Updated by ", usernameOrId(updatedBy.value), " ", event.updatedAt.map(momentFromNow(_)))
+              span("Updated by ", titleNameOrId(updatedBy.value), " ", event.updatedAt.map(momentFromNow(_)))
             }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(

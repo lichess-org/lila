@@ -100,7 +100,7 @@ object bits extends Context.ToLang {
 
   def contextual(userId: User.ID)(implicit lang: Lang): Frag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
-      xIsStreaming(usernameOrId(userId))
+      xIsStreaming(titleNameOrId(userId))
     )
 
   def rules(implicit lang: Lang) =
