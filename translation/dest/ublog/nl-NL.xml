@@ -4,6 +4,8 @@
   <string name="newPost">Nieuw bericht</string>
   <string name="editYourBlogPost">Bericht bewerken</string>
   <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Berichttitel</string>
+  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Inleidng</string>
+  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Broodtekst</string>
   <string name="drafts" comment="drafts&#10;Relates to blogs only">Concepten</string>
   <string name="published" comment="published&#10;Confirmation a post has been published.">Gepubliceerd</string>
   <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Publiceren op blog</string>
