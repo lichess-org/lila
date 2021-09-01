@@ -16,14 +16,14 @@ object index {
   def apply(user: User, posts: Paginator[UblogPost])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      title = s"${user.username} blog"
+      title = trans.ublog.xBlog.txt(user.username)
     ) {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(
-          h1(userLink(user), " Blog"),
+          h1(trans.ublog.xBlog(user.username)),
           ctx.is(user) option
             div(cls := "box__top__actions")(
-              a(href := routes.Ublog.drafts(user.username))("Drafts"),
+              a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
               newPostLink
             )
         ),
@@ -37,13 +37,13 @@ object index {
   def drafts(user: User, posts: Paginator[UblogPost])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      title = s"${user.username} drafts"
+      title = s"${trans.ublog.drafts()}"
     ) {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(
-          h1(s"${user.username} drafts"),
+          h1(trans.ublog.drafts()),
           div(cls := "box__top__actions")(
-            a(href := routes.Ublog.index(user.username))("Published"),
+            a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
             newPostLink
           )
         ),
@@ -59,7 +59,7 @@ object index {
       href := routes.Ublog.form(u.username),
       cls := "button button-green",
       dataIcon := "",
-      title := "Write a new blog post"
+      title := trans.ublog.newPost.txt()
     )
   }
 }

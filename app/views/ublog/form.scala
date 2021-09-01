@@ -17,10 +17,10 @@ object form {
   def create(user: User, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      title = s"${user.username} blog • New post"
+      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
     ) {
       main(cls := "box box-pad page ublog-post-form")(
-        h1("Write a new blog post"),
+        h1(trans.ublog.newPost()),
         inner(user, f, none)
       )
     }
@@ -29,10 +29,10 @@ object form {
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = jsModule("ublog"),
-      title = s"${user.username} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
       main(cls := "box box-pad page ublog-post-form")(
-        h1("Edit your blog post"),
+        h1(trans.ublog.editYourBlogPost()),
         imageForm(user, post),
         inner(user, f, post.some)
       )
@@ -67,16 +67,14 @@ object form {
       form3.globalError(form),
       post.isDefined option form3.checkbox(
         form("live"),
-        raw("Publish on your blog"),
-        help = raw(
-          "If checked, the post will be listed on your blog. If not, it will be private, in your draft posts"
-        ).some
+        trans.ublog.publishOnYourBlog(),
+        help = trans.ublog.publishHelp().some
       ),
-      form3.group(form("title"), "Post title")(form3.input(_)(autofocus)),
-      form3.group(form("intro"), "Post intro")(form3.input(_)(autofocus)),
+      form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
+      form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
       form3.group(
         form("markdown"),
-        "Post body",
+        trans.ublog.postBody(),
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 30)),
       form3.actions(

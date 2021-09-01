@@ -16,7 +16,7 @@ object post {
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       moreJs = jsModule("expandText"),
-      title = s"${user.username} blog • ${post.title}",
+      title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
@@ -29,26 +29,24 @@ object post {
     ) {
       main(cls := "box box-pad page page-small ublog-post")(
         header(cls := "ublog-post__header")(
-          a(href := routes.Ublog.index(user.username))(
-            s"${user.username}' Blog"
-          )
+          a(href := routes.Ublog.index(user.username))(trans.ublog.xBlog(user.username))
         ),
         ctx.is(user) option standardFlash(),
         h1(cls := "ublog-post__title")(post.title),
         div(cls := "ublog-post__meta")(
-          span(cls := "ublog-post__meta__author")("by ", userLink(user)),
+          span(cls := "ublog-post__meta__author")(trans.by(userLink(user))),
           post.liveAt map { date =>
             span(cls := "ublog-post__meta__date")(semanticDate(date))
           },
           ctx.is(user) option frag(
             (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
-              if (post.live) "This post is published" else "This is a draft"
+              if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
             ),
             a(
               href := editUrlOf(post),
               cls := "button button-empty text",
               dataIcon := ""
-            )("Edit")
+            )(trans.edit())
           )
         ),
         div(cls := "ublog-post__image-wrap")(
@@ -57,7 +55,7 @@ object post {
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup expand-text")(markup),
         div(cls := "ublog-post__footer")(
-          a(href := routes.Ublog.index(user.username))("View more blog posts by ", user.username)
+          a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))
         )
       )
     }

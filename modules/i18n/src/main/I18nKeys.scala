@@ -2249,7 +2249,20 @@ val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
 }
 
 object ublog {
+val `xBlog` = new I18nKey("ublog:xBlog")
+val `newPost` = new I18nKey("ublog:newPost")
+val `editYourBlogPost` = new I18nKey("ublog:editYourBlogPost")
+val `postTitle` = new I18nKey("ublog:postTitle")
+val `postIntro` = new I18nKey("ublog:postIntro")
+val `postBody` = new I18nKey("ublog:postBody")
+val `drafts` = new I18nKey("ublog:drafts")
+val `published` = new I18nKey("ublog:published")
+val `publishOnYourBlog` = new I18nKey("ublog:publishOnYourBlog")
+val `publishHelp` = new I18nKey("ublog:publishHelp")
 val `xPublishedY` = new I18nKey("ublog:xPublishedY")
+val `thisPostIsPublished` = new I18nKey("ublog:thisPostIsPublished")
+val `thisIsADraft` = new I18nKey("ublog:thisIsADraft")
+val `moreBlogPostsBy` = new I18nKey("ublog:moreBlogPostsBy")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 }
 
