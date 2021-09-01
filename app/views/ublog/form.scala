@@ -41,7 +41,7 @@ object form {
   private def imageForm(user: User, post: UblogPost)(implicit ctx: Context) =
     postForm(
       cls := "ublog-post-form__image",
-      action := routes.Ublog.image(user.username, post.id.value),
+      action := routes.Ublog.image(post.id.value),
       enctype := "multipart/form-data"
     )(
       form3.split(
