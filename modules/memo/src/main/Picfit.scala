@@ -6,9 +6,12 @@ import org.joda.time.DateTime
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.Macros
+import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
+import lila.common.config
 import lila.db.dsl._
+import com.github.blemale.scaffeine.LoadingCache
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -33,7 +36,9 @@ object PicfitImage {
   implicit val imageBSONHandler   = Macros.handler[PicfitImage]
 }
 
-final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(implicit ec: ExecutionContext) {
+final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(implicit
+    ec: ExecutionContext
+) {
 
   import PicfitApi._
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
@@ -80,7 +85,7 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
         fileSize = from.fileSize
       )
       val source: Source[Part, _] = Source(part :: List())
-      ws.url(s"$endpoint/upload")
+      ws.url(s"${config.endpointPost}/upload")
         .post(source)
         .flatMap {
           case res if res.status != 200 => fufail(res.statusText)
@@ -92,7 +97,7 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, endpoint: String)(impl
     }
 
     def delete(image: PicfitImage): Funit =
-      ws.url(s"$endpoint/${image.id}").delete().flatMap {
+      ws.url(s"${config.endpointPost}/${image.id}").delete().flatMap {
         case res if res.status != 200 =>
           logger
             .branch("picfit")
@@ -123,11 +128,12 @@ object PicfitApi {
   }
 }
 
-final class PicfitUrl(endpoint: String, id: PicfitImage.Id) {
+final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
   def resize(
+      id: PicfitImage.Id,
       size: Either[Int, Int], // either the width or the height! the other one will be preserved
       upscale: Boolean = true
   ) = display(id, "resize")(
@@ -140,6 +146,7 @@ final class PicfitUrl(endpoint: String, id: PicfitImage.Id) {
   // crops it to the specified width and height and returns the transformed image.
   // Preserves the aspect ratio
   def thumbnail(
+      id: PicfitImage.Id,
       width: Int,
       height: Int,
       upscale: Boolean = true
@@ -149,6 +156,19 @@ final class PicfitUrl(endpoint: String, id: PicfitImage.Id) {
       width: Int,
       height: Int,
       upscale: Boolean
-  ) =
-    s"$endpoint/display?path=$id&op=$operation&w=$width&h=$height&upscale=${upscale ?? 1}"
+  ) = {
+    // parameters must be given in alphabetical order for the signature to work (!)
+    val queryString = s"h=$height&op=$operation&path=$id&upscale=${upscale ?? 1}&w=$width"
+    s"$endpoint/display?${signQueryString(queryString)}"
+  }
+
+  private object signQueryString {
+    private val signer = com.roundeights.hasher.Algo hmac secretKey.value
+    private val cache: LoadingCache[String, String] =
+      CacheApi.scaffeineNoScheduler
+        .expireAfterWrite(5 minutes)
+        .build { qs => signer.sha1(qs).hex }
+
+    def apply(qs: String) = s"$qs&sig=${cache get qs}"
+  }
 }

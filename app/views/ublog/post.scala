@@ -80,7 +80,7 @@ object post {
     val (w, h) = (600, 300)
     post.image match {
       case Some(image) =>
-        baseImg(src := picfitUrl(image).thumbnail(w, h))
+        baseImg(src := picfitUrl.thumbnail(image, w, h))
       case _ =>
         div(cls := "ublog-post-image-default")
     }
@@ -99,7 +99,7 @@ object post {
     }
 
   def imageUrlOf(post: UblogPost, height: Int = defaultImageHeight) = post.image map { i =>
-    picfitUrl(i).resize(Right(height))
+    picfitUrl.resize(i, Right(height))
   }
 
   private val baseImg = img(cls := "ublog-post-image")
