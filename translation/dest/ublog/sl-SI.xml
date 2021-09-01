@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog" comment="xBlog&#10;&#10;%s is the name of the user. This is a heading and can be freely translated, but the user's name must be contained within.">%s blog</string>
+  <string name="newPost">Nova objava</string>
+  <string name="editYourBlogPost">Uredi svojo objavo v blogu</string>
+  <string name="postTitle" comment="postTitle&#10;&#10;The title of the post. You can enter it just below the box.">Naslov objave</string>
+  <string name="postIntro" comment="postIntro&#10;Introduction to a post you are writing.">Objavi uvod</string>
+  <string name="postBody" comment="postBody&#10;The main section of a blog post you are writing.">Telo objave</string>
+  <string name="drafts" comment="drafts&#10;Relates to blogs only">Osnutki</string>
+  <string name="published" comment="published&#10;Confirmation a post has been published.">Objavljeno</string>
+  <string name="publishOnYourBlog" comment="publishOnYourBlog&#10;&#10;This is a checkbox [X]&#10;&#10;If checked, the post you are writing will be listed on your blog. If not, it will be private, in your draft posts.">Objava na svojem blogu</string>
+  <string name="publishHelp">Če je označeno, bo objava navedena na vašem spletnem dnevniku. Če ne, bo v vaših osnutkih objav zaseben</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Objavil objavo v blogu</item>
+    <item quantity="two">Objavljene objave v spletnem dnevniku %s</item>
+    <item quantity="few">Objavljene objave v spletnem dnevniku %s</item>
+    <item quantity="other">Objavljene objave v spletnem dnevniku %s</item>
+  </plurals>
+</resources>
