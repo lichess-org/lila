@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s Tinklaraštis</string>
+  <string name="newPost">Naujas pranešimas</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Išleido tinklaraščio įrašą</item>
+    <item quantity="few">Išleido %s tinklaraščio įrašus</item>
+    <item quantity="many">Išleido %s tinklaraščio įrašo</item>
+    <item quantity="other">Išleido %s tinklaraščio įrašų</item>
+  </plurals>
+  <string name="xPublishedY">%1$s išleido %2$s</string>
+</resources>
