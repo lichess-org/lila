@@ -18,4 +18,6 @@
   <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
   <string name="thisIsADraft">Dit is een concept</string>
   <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
+  <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
+  <string name="noDrafts">Geen concepten om weer te geven.</string>
 </resources>
