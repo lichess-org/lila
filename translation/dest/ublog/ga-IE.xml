@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="thisIsADraft">Seo dréacht</string>
+  <string name="noPostsInThisBlogYet">Níl aon phoist sa bhlag seo, go fóill.</string>
+  <string name="noDrafts">Gan aon dréachtaí le taispeáint.</string>
+</resources>
