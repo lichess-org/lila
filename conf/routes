@@ -64,7 +64,7 @@ GET   /@/:username/blog/new            controllers.Ublog.form(username: String)
 POST  /@/:username/blog/new            controllers.Ublog.create(username: String)
 GET   /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.edit(username: String, id: String)
 POST  /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.update(username: String, id: String)
-POST  /@/:username/blog/$id<\w{8}>/image controllers.Ublog.image(username: String, id: String)
+POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: String)
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
 
 # User
@@ -241,7 +241,7 @@ POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 GET   /streamer/picture/edit           controllers.Streamer.picture
-POST  /streamer/picture/upload         controllers.Streamer.pictureApply
+POST  /upload/image/streamer           controllers.Streamer.pictureApply
 POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
 GET   /streamer/:username              controllers.Streamer.show(username: String)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: String)
@@ -541,7 +541,7 @@ GET   /coach                           controllers.Coach.all(page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/picture/edit              controllers.Coach.picture
-POST  /coach/picture/upload            controllers.Coach.pictureApply
+POST  /upload/image/coach              controllers.Coach.pictureApply
 POST  /coach/picture/delete            controllers.Coach.pictureDelete
 POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: String)
 POST  /coach/mod-review/:id            controllers.Coach.modReview(id: String)

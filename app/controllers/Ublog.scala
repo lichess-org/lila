@@ -99,7 +99,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     ("slow", 60, 1.day)
   )
 
-  def image(unusedUsername: String, id: String) =
+  def image(id: String) =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
       env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
         _ ?? { post =>
