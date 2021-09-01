@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newPost">Nyt indlæg</string>
+  <string name="editYourBlogPost">Rediger dit blogindlæg</string>
+  <string name="drafts" comment="drafts&#10;Relates to blogs only">Udkast</string>
+  <string name="published" comment="published&#10;Confirmation a post has been published.">Offentliggjort</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Offentliggjorde et blogindlæg</item>
     <item quantity="other">Offentliggjorde %s blogindlæg</item>
   </plurals>
-  <string name="xPublishedY">%1$s offentliggjorde %2$s</string>
+  <string name="xPublishedY" comment="xPublishedY&#10;&#10;%1$s is the name of the user.&#10;%2$s is the title of the blog post they published.&#10;&#10;Appears in the user's activity feed.">%1$s offentliggjorde %2$s</string>
 </resources>
