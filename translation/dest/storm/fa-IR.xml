@@ -33,9 +33,16 @@
   <string name="viewBestRuns">مشاهده بهترین دورها</string>
   <string name="bestRunOfDay">بهترین دور روز</string>
   <string name="runs">دورها</string>
+  <string name="getReady">آماده شو!</string>
+  <string name="waitingForMorePlayers">در حال انتظار برای ورود بازیکنان بیشتر...</string>
   <string name="raceComplete">مسابقه تمام به اتمام رسید!</string>
+  <string name="spectating">در حال تماشا</string>
+  <string name="joinTheRace">به مسابقه بپیوندید!</string>
   <string name="startTheRace">شروع مسابقه</string>
+  <string name="yourRankX">رتبه شما: %s</string>
+  <string name="waitForRematch">برای بازی مجدد منتظر بمانید</string>
   <string name="nextRace">مسابقه بعدی</string>
+  <string name="joinRematch">ورود به بازی مجدد</string>
   <string name="waitingToStart">در حال بارگزاری</string>
   <string name="createNewGame">ایجاد یک بازی جدید</string>
   <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
