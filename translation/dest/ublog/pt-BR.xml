@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Uma postagem de blog foi feita</item>
+    <item quantity="other">%s postagens de blog foram feitas</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publicou %2$s</string>
+</resources>
