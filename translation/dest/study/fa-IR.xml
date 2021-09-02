@@ -13,6 +13,7 @@
   <string name="dateAddedNewest">بروز(جدید ترین)</string>
   <string name="recentlyUpdated">اخیرا به روز شده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
+  <string name="alphabetical">براساس حروف الفبا</string>
   <string name="addNewChapter">افزودن فصل جدید</string>
   <plurals name="nbChapters">
     <item quantity="one">%s فصل</item>
@@ -59,6 +60,8 @@
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
+  <string name="open">بگشایید</string>
+  <string name="studyNotFound">مطالعه یافت نشد</string>
   <string name="editChapter">ویرایش فصل</string>
   <string name="newChapter">وصل جدید</string>
   <string name="analysisMode">حالت تجزیه تحلیل</string>
