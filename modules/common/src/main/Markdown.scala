@@ -47,5 +47,11 @@ final class Markdown(
   private val parser   = Parser.builder(immutableOptions).build()
   private val renderer = HtmlRenderer.builder(immutableOptions).build()
 
-  def apply(text: Text): Html = renderer.render(parser.parse(text))
+  def apply(text: Text): Html = try {
+    renderer.render(parser.parse(text))
+  } catch {
+    case e: StackOverflowError =>
+      lila.log("markdown").error("StackOverflowError", e)
+      text
+  }
 }
