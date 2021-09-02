@@ -698,10 +698,8 @@ object mon {
       )
     def timeout(name: String) = counter("workQueue.timeout").withTag("name", name)
   }
-  object ublog {
-    object markdown {
-      val time = timer("ublog.markdown.time").withoutTags()
-    }
+  object markdown {
+    val time = timer("markdown.time").withoutTags()
   }
   object picfit {
     def uploadTime(user: String) = future("picfit.upload.time", Map("user" -> user))

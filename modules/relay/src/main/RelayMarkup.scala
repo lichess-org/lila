@@ -1,7 +1,5 @@
 package lila.relay
 
-import com.github.blemale.scaffeine.LoadingCache
-
 import scala.concurrent.duration._
 
 final class RelayMarkup {
@@ -15,10 +13,11 @@ final class RelayMarkup {
       header = true
     )
 
-  private val cache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .maximumSize(256)
-    .build(renderer.apply)
+    .build[Int, String]()
 
-  def apply(text: String): String = cache.get(text)
+  def apply(tour: RelayTour)(markup: String): String =
+    cache.get(markup.hashCode, _ => renderer(s"relay:${tour.id}")(markup))
 }

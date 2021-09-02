@@ -1,5 +1,6 @@
 package lila.common
 
+
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
@@ -19,6 +20,7 @@ final class Markdown(
     code: Boolean = false
 ) {
 
+  private type Key  = String
   private type Text = String
   private type Html = String
 
@@ -47,11 +49,20 @@ final class Markdown(
   private val parser   = Parser.builder(immutableOptions).build()
   private val renderer = HtmlRenderer.builder(immutableOptions).build()
 
-  def apply(text: Text): Html = try {
-    renderer.render(parser.parse(text))
-  } catch {
-    case e: StackOverflowError =>
-      lila.log("markdown").error("StackOverflowError", e)
-      text
-  }
+  private val logger = lila.log("markdown")
+
+  def apply(key: Key)(text: Text): Html =
+    Chronometer
+      .sync {
+        try {
+          renderer.render(parser.parse(text))
+        } catch {
+          case e: StackOverflowError =>
+            logger.branch(key).error("StackOverflowError", e)
+            text
+        }
+      }
+      .mon(_.markdown.time)
+      .logIfSlow(100, logger.branch(key))(_ => s"slow markdown size:${text.size}")
+      .result
 }

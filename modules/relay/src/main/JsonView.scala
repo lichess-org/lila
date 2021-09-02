@@ -20,7 +20,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
             "slug"        -> trs.tour.slug,
             "description" -> trs.tour.description
           )
-          .add("markup" -> trs.tour.markup.map(markup.apply))
+          .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
           .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
         "rounds" -> trs.rounds.map { round =>
           if (withUrls) withUrl(round withTour trs.tour) else apply(round)

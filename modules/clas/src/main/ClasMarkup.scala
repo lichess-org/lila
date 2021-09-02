@@ -1,7 +1,5 @@
 package lila.clas
 
-import com.github.blemale.scaffeine.LoadingCache
-
 import scala.concurrent.duration._
 
 final class ClasMarkup {
@@ -14,10 +12,11 @@ final class ClasMarkup {
       header = true
     )
 
-  private val cache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
-    .maximumSize(256)
-    .build(renderer.apply)
+    .maximumSize(512)
+    .build[Int, String]()
 
-  def apply(text: String): String = cache.get(text)
+  def apply(clas: Clas): String =
+    cache.get(clas.wall.hashCode, _ => renderer(s"clas:${clas.id}")(clas.wall))
 }

@@ -78,7 +78,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         forStudent = (clas, students) =>
           env.clas.api.clas.teachers(clas) map { teachers =>
             preloadStudentUsers(students)
-            val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
+            val wall = scalatags.Text.all.raw(env.clas.markup(clas))
             Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
           },
         orDefault = _ =>
@@ -119,7 +119,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
       WithClassAny(id, me.user)(
         forTeacher = WithClass(me, id) { clas =>
           env.clas.api.student.allWithUsers(clas) map { students =>
-            val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
+            val wall = scalatags.Text.all.raw(env.clas.markup(clas))
             views.html.clas.wall.show(clas, wall, students)
           }
         },

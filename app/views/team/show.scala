@@ -237,13 +237,12 @@ object show {
   private object markdown {
     import scala.concurrent.duration._
     private val renderer = new lila.common.Markdown(list = true)
-    private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
-      lila.memo.CacheApi.scaffeineNoScheduler
-        .expireAfterAccess(10 minutes)
-        .maximumSize(512)
-        .build(renderer.apply)
+    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterAccess(10 minutes)
+      .maximumSize(1024)
+      .build[Int, String]()
 
-    def apply(text: String): Frag = raw(cache get text)
+    def apply(text: String): Frag = raw(cache.get(text.hashCode, _ => renderer("team")(text)))
   }
 
   // handle special teams here
