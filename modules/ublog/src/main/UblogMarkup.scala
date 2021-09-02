@@ -11,7 +11,8 @@ final class UblogMarkup {
       autoLink = true,
       list = true,
       strikeThrough = true,
-      header = true
+      header = true,
+      code = true
     )
 
   private val cache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler

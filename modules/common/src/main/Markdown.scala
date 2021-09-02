@@ -14,7 +14,8 @@ final class Markdown(
     strikeThrough: Boolean = false,
     header: Boolean = false,
     blockQuote: Boolean = false,
-    list: Boolean = false
+    list: Boolean = false,
+    code: Boolean = false
 ) {
 
   private type Text = String
@@ -35,7 +36,8 @@ final class Markdown(
   // always disabled
   options.set(Parser.HTML_BLOCK_PARSER, Boolean box false)
   options.set(Parser.INDENTED_CODE_BLOCK_PARSER, Boolean box false)
-  options.set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean box false)
+
+  options.set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean box code)
 
   // configurable
   if (table) options.set(TablesExtension.CLASS_NAME, "slist")
