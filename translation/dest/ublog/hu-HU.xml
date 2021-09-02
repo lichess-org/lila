@@ -18,6 +18,6 @@
   <string name="thisPostIsPublished">Ez a bejegyzés nyilvános</string>
   <string name="thisIsADraft">Ez egy vázlat</string>
   <string name="moreBlogPostsBy">Még több bejegyzés tőle: %s</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Ebben a blogban még nincsenek bejegyzések.</string>
+  <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
   <string name="noDrafts">Nincsenek megjelenítendő piszkozatok.</string>
 </resources>
