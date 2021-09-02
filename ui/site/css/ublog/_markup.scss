@@ -25,7 +25,9 @@
 
   p,
   ol,
-  ul {
+  ul,
+  table,
+  pre {
     margin: 2em 0;
   }
 
@@ -35,6 +37,12 @@
 
   ul li {
     list-style: disc inside;
+  }
+
+  li p {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0;
   }
 
   /* should not be used */
