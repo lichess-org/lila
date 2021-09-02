@@ -134,12 +134,10 @@ final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
   // Preserves the aspect ratio
   def resize(
       id: PicfitImage.Id,
-      size: Either[Int, Int], // either the width or the height! the other one will be preserved
-      upscale: Boolean = true
+      size: Either[Int, Int] // either the width or the height! the other one will be preserved
   ) = display(id, "resize")(
     width = ~size.left.toOption,
-    height = ~size.toOption,
-    upscale = upscale
+    height = ~size.toOption
   )
 
   // Thumbnail scales the image up or down using the specified resample filter,
@@ -148,17 +146,15 @@ final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
   def thumbnail(
       id: PicfitImage.Id,
       width: Int,
-      height: Int,
-      upscale: Boolean = true
-  ) = display(id, "thumbnail")(width, height, upscale)
+      height: Int
+  ) = display(id, "thumbnail")(width, height)
 
   private def display(id: PicfitImage.Id, operation: String)(
       width: Int,
-      height: Int,
-      upscale: Boolean
+      height: Int
   ) = {
     // parameters must be given in alphabetical order for the signature to work (!)
-    val queryString = s"h=$height&op=$operation&path=$id&upscale=${upscale ?? 1}&w=$width"
+    val queryString = s"h=$height&op=$operation&path=$id&w=$width"
     s"$endpoint/display?${signQueryString(queryString)}"
   }
 
@@ -166,7 +162,7 @@ final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
     private val signer = com.roundeights.hasher.Algo hmac secretKey.value
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
-        .expireAfterWrite(5 minutes)
+        .expireAfterWrite(10 minutes)
         .build { qs => signer.sha1(qs).hex }
 
     def apply(qs: String) = s"$qs&sig=${cache get qs}"

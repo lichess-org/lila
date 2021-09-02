@@ -12,7 +12,9 @@ import lila.user.User
 
 object post {
 
-  def apply(user: User, post: UblogPost, markup: Frag, others: List[UblogPost])(implicit ctx: Context) =
+  def apply(user: User, post: UblogPost, markup: Frag, others: List[UblogPost.PreviewPost])(implicit
+      ctx: Context
+  ) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       moreJs = frag(jsModule("expandText"), ctx.is(user) option jsModule("ublog")),
@@ -72,7 +74,7 @@ object post {
       )
     }
 
-  def card(post: UblogPost, makeUrl: UblogPost => Call = urlOf)(implicit ctx: Context) =
+  def card(post: UblogPost.BasePost, makeUrl: UblogPost.BasePost => Call = urlOf)(implicit ctx: Context) =
     a(cls := "ublog-post-card", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
@@ -82,21 +84,21 @@ object post {
       )
     )
 
-  def urlOf(post: UblogPost) = routes.Ublog.post(usernameOrId(post.user), post.slug, post.id.value)
+  def urlOf(post: UblogPost.BasePost) = routes.Ublog.post(usernameOrId(post.user), post.slug, post.id.value)
 
-  def editUrlOf(post: UblogPost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
+  def editUrlOf(post: UblogPost.BasePost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
 
   object thumbnail {
     sealed abstract class Size(val width: Int) {
       def height = width * 10 / 16
     }
-    case object Large extends Size(800)
+    case object Large extends Size(880)
     case object Small extends Size(400)
 
-    def apply(post: UblogPost, size: thumbnail.type => Size) =
+    def apply(post: UblogPost.BasePost, size: thumbnail.type => Size) =
       img(cls := "ublog-post-image")(src := url(post, size))
 
-    def url(post: UblogPost, size: thumbnail.type => Size) = {
+    def url(post: UblogPost.BasePost, size: thumbnail.type => Size) = {
       val s = size(thumbnail)
       post.image match {
         case Some(image) => picfitUrl.thumbnail(image, s.width, s.height)

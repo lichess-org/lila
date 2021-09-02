@@ -44,19 +44,19 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
   def findByAuthor(id: UblogPost.Id, author: User): Fu[Option[UblogPost]] =
     coll.one[UblogPost]($id(id) ++ $doc("user" -> author.id))
 
-  def otherPosts(author: User, post: UblogPost): Fu[List[UblogPost]] =
+  def otherPosts(author: User, post: UblogPost): Fu[List[UblogPost.PreviewPost]] =
     coll
-      .find($doc("user" -> author.id, "live" -> true, "_id" $ne post.id))
+      .find($doc("user" -> author.id, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
       .sort($doc("liveAt" -> -1, "createdAt" -> -1))
-      .cursor[UblogPost]()
+      .cursor[UblogPost.PreviewPost]()
       .list(4)
 
   def countLiveByUser(user: User): Fu[Int] = coll.countSel($doc("user" -> user.id, "live" -> true))
 
-  def liveByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
+  def liveByUser(user: User, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
     paginatorByUser(user, true, page)
 
-  def draftByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =
+  def draftByUser(user: User, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
     paginatorByUser(user, false, page)
 
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
@@ -71,7 +71,7 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
 
   def lightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     coll
-      .find($inIds(ids), $doc("title" -> true).some)
+      .find($inIds(ids), lightPostProjection.some)
       .cursor[UblogPost.LightPost]()
       .list()
 
@@ -79,16 +79,16 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
     coll.delete.one($id(post.id)) >>
       picfitApi.deleteByRel(imageRel(post))
 
-  private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost]] =
+  private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
     Paginator(
-      adapter = new Adapter[UblogPost](
+      adapter = new Adapter[UblogPost.PreviewPost](
         collection = coll,
         selector = $doc("user" -> user.id, "live" -> live),
-        projection = none,
+        projection = previewPostProjection.some,
         sort = $doc("liveAt" -> -1, "createdAt" -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
       currentPage = page,
-      maxPerPage = MaxPerPage(15)
+      maxPerPage = MaxPerPage(8)
     )
 }

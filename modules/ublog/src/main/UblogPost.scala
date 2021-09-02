@@ -16,11 +16,7 @@ case class UblogPost(
     createdAt: DateTime,
     updatedAt: DateTime,
     liveAt: Option[DateTime]
-) {
-
-  def id = _id
-
-  lazy val slug = UblogPost slug title
+) extends UblogPost.BasePost {
 
   def isBy(u: User) = user == u.id
 }
@@ -36,16 +32,25 @@ object UblogPost {
     def slug = UblogPost slug title
   }
 
-  // case class PreviewPost(
-  //     _id: UblogPost.Id,
-  //     title: String,
-  //     intro: String,
-  //     image: Option[PicfitImage.Id],
-  //     liveAt: DateTime
-  // ) {
-  //   def id   = _id
-  //   def slug = UblogPost slug title
-  // }
+  trait BasePost {
+    val _id: UblogPost.Id
+    val user: User.ID
+    val title: String
+    val intro: String
+    val image: Option[PicfitImage.Id]
+    val liveAt: Option[DateTime]
+    def id   = _id
+    def slug = UblogPost slug title
+  }
+
+  case class PreviewPost(
+      _id: UblogPost.Id,
+      user: User.ID,
+      title: String,
+      intro: String,
+      image: Option[PicfitImage.Id],
+      liveAt: Option[DateTime]
+  ) extends BasePost
 
   def slug(title: String) = {
     val s = lila.common.String slugify title

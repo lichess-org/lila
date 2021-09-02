@@ -13,7 +13,7 @@ object index {
 
   import views.html.ublog.{ post => postView }
 
-  def apply(user: User, posts: Paginator[UblogPost])(implicit ctx: Context) =
+  def apply(user: User, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = ctx.is(user) option jsModule("ublog"),
@@ -41,7 +41,7 @@ object index {
       )
     }
 
-  def drafts(user: User, posts: Paginator[UblogPost])(implicit ctx: Context) =
+  def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
       title = s"${trans.ublog.drafts()}"
