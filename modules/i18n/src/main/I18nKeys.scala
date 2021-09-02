@@ -2245,6 +2245,8 @@ val `raceYourFriends` = new I18nKey("storm:raceYourFriends")
 val `skip` = new I18nKey("storm:skip")
 val `skipHelp` = new I18nKey("storm:skipHelp")
 val `skipExplanation` = new I18nKey("storm:skipExplanation")
+val `failedPuzzles` = new I18nKey("storm:failedPuzzles")
+val `slowPuzzles` = new I18nKey("storm:slowPuzzles")
 val `xRuns` = new I18nKey("storm:xRuns")
 val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
 }

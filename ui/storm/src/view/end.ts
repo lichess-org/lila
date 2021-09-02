@@ -74,6 +74,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
 
 const renderHistory = (ctrl: StormCtrl): VNode => {
   const slowIds = slowPuzzleIds(ctrl);
+  const noarg = ctrl.trans.noarg;
   return h('div.storm--end__history.box.box-pad', [
     h('div.box__top', [
       h('h2', ctrl.trans('puzzlesPlayed')),
@@ -87,7 +88,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
             },
             hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterFailed)),
           },
-          'Failed puzzles'
+          noarg('failedPuzzles')
         ),
         h(
           'button.storm--end__history__filter.button',
@@ -98,7 +99,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
             },
             hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterSlow)),
           },
-          'Slow puzzles'
+          noarg('slowPuzzles')
         ),
       ]),
     ]),
