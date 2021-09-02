@@ -2,7 +2,7 @@
 <resources>
   <string name="xBlog">%s\' Blogja</string>
   <string name="newPost">Új bejegyzés</string>
-  <string name="editYourBlogPost">Saját poszt módosítása</string>
+  <string name="editYourBlogPost">Saját bejegyzés módosítása</string>
   <string name="postTitle">Bejegyzés címe</string>
   <string name="postIntro">Bejegyzés felvezetése</string>
   <string name="postBody">Bejegyzés törzse</string>
