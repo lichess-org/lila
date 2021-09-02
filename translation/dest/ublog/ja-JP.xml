@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">%s のブログ</string>
+  <string name="newPost">新しい投稿</string>
+  <string name="editYourBlogPost">ブログへの投稿を編集</string>
+  <string name="postTitle">タイトル</string>
+  <string name="postIntro">導入部</string>
+  <string name="postBody">本文</string>
+  <string name="drafts">下書き</string>
+  <string name="published">公開されました</string>
+  <string name="publishOnYourBlog">ブログ上で公開</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="other">%s 件のブログ記事を公開</item>
   </plurals>
