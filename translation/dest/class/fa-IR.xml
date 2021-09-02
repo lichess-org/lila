@@ -7,7 +7,12 @@
   <string name="reopen">بازگشایی</string>
   <string name="removedStudents">حذف شده</string>
   <string name="className">نام کلاس</string>
+  <string name="classDescription">توصیف کلاس</string>
+  <string name="teachersOfTheClass">معلمهای کلاس</string>
+  <string name="resetPassword">بازنشانی گذرواژه</string>
   <string name="realName">نام واقعی</string>
+  <string name="addStudent">دانش‌آموز اضافه کنید</string>
+  <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
   <string name="closeStudent">بستن حساب کاربری</string>
   <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
