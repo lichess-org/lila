@@ -18,6 +18,6 @@
   <string name="thisPostIsPublished">این نوشته منتشر شد</string>
   <string name="thisIsADraft">این یک پیش‌نویس است</string>
   <string name="moreBlogPostsBy">نوشته‌های تارنگارِ بیشتری از %s را ببینید</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">هنوز، هیچ نوشته‌ای در این تارنگار نیست.</string>
+  <string name="noPostsInThisBlogYet">هنوز، هیچ نوشته‌ای در این تارنگار نیست.</string>
   <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
 </resources>
