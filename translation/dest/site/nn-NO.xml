@@ -900,6 +900,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="simulDescription">Beskriving av simultantilskipinga</string>
   <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
   <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
+  <string name="embedsAvailable">Sett inn URLen til eit spel eller studiekapittel for å bygge det inn.</string>
   <string name="inYourLocalTimezone">I di tidssone</string>
   <string name="tournChat">Turneringschat</string>
   <string name="noChat">Ikkje chat</string>
