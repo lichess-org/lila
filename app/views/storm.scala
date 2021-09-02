@@ -161,6 +161,8 @@ object storm {
       s.endRun,
       s.youPlayTheWhitePiecesInAllPuzzles,
       s.youPlayTheBlackPiecesInAllPuzzles,
+      s.failedPuzzles,
+      s.slowPuzzles,
       trans.flipBoard
     ).map(_.key)
   }
