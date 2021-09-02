@@ -897,6 +897,7 @@
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
+  <string name="embedsAvailable">برای قرار دادن یک بخش جهت مطالعه یا یک بازی، پیوند آن را در زیر بنویسید (لینک مربوط به آن را کپی و پیست نمایید).</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>
