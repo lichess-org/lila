@@ -18,6 +18,8 @@
   <string name="rule1">A \"lichess.org\" kulcsszó hozzáadása a közvetítés címéhez és \"Sakk\" kategória használata mikor a Lichess-en közvetítesz.</string>
   <string name="rule2">Távolítsd el a kulcsszót ha nem Lichess-hez kapcsolódót közvetítesz.</string>
   <string name="rule3">A Lichess automatikusan észleli ha közvetítesz és az alábbiakkal élénkíti:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Olvasd el a %s-et, hogy mindenki számára igazságos legyen a játék a közvetítés ideje alatt is.</string>
+  <string name="streamingFairplayFAQ">sportszerű közvetítés GYIK</string>
   <string name="perks">A kulcsszóval történő közvetítés előnyei</string>
   <string name="perk1">Egy lángoló közvetítői ikon a Lichess profilodon.</string>
   <string name="perk2">A közvetítők listájának tetejére dobása.</string>
