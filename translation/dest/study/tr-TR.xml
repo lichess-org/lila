@@ -126,7 +126,7 @@
   <string name="clearChat">Sohbeti temizle</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın sohbet geçmişi silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="deleteStudy">Çalışmayı sil</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tüm çalışma silinsin mi? Bunun geri dönüşü yok! İşlemi onaylamak için çalışmanın adını yazın.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tüm çalışma silinsin mi? Bunun geri dönüşü yok! İşlemi onaylamak için çalışmanın adını yazın: %s</string>
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
   <string name="goodMove">İyi hamle</string>
   <string name="mistake">Hata</string>
