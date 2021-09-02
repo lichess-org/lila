@@ -86,7 +86,7 @@ object form {
       form3.group(
         form("markdown"),
         trans.ublog.postBody(),
-        help = markdownAvailable.some
+        help = frag(markdownAvailable, br, trans.embedsAvailable()).some
       )(form3.textarea(_)(rows := 30)),
       form3.actions(
         a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOf))(trans.cancel()),

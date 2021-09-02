@@ -67,7 +67,7 @@ object header {
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
           ),
-          ctx.noKid && info.nbUblogPosts > 0 option a(
+          ctx.noKid && (info.nbUblogPosts > 0 || ctx.is(u)) option a(
             cls := "nm-item",
             href := routes.Ublog.index(u.username)
           )(
