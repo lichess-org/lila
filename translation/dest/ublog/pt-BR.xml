@@ -18,4 +18,6 @@
   <string name="thisPostIsPublished">Esta postagem foi publicada</string>
   <string name="thisIsADraft">Isto é um rascunho</string>
   <string name="moreBlogPostsBy">Ver mais postagens de %s</string>
+  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Ainda não há postagens neste blog.</string>
+  <string name="noDrafts">Não há rascunhos para mostrar.</string>
 </resources>
