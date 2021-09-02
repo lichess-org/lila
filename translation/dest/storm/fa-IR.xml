@@ -26,7 +26,7 @@
   <string name="time">زمان</string>
   <string name="timePerMove">زمان برای هر حرکت</string>
   <string name="highestSolved">بالاترین تعداد حل شده</string>
-  <string name="puzzlesPlayed">تعداد پازل‌های انجام شده</string>
+  <string name="puzzlesPlayed">پازل‌های انجام شده</string>
   <string name="newRun">دور جدید (میانبر: Space)</string>
   <string name="endRun">پایان دور (میانبر: Enter)</string>
   <string name="highscores">بالاترین امتیازها</string>
