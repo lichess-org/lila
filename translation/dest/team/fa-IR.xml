@@ -12,6 +12,8 @@
   <string name="noTeamFound">تیمی پیدا نشد</string>
   <string name="joinTeam">پیوستن به تیم</string>
   <string name="quitTeam">خروج از تیم</string>
+  <string name="manuallyReviewAdmissionRequests">درخواستهای پذیرش را به صورت شخصی و دستی بررسی کنید</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">اگر انتخاب شود، بازیکنان نیاز خواهند داشت تا برای پیوستن به تیم یک درخواست بنویسند، که شما می‌توانید آن را قبول یا رد نمایید.</string>
   <plurals name="teamLeaders">
     <item quantity="one">رهبر گروه</item>
     <item quantity="other">رهبران گروه</item>
@@ -26,9 +28,12 @@
   </plurals>
   <string name="willBeReviewed">درخواست عضویت شما توسط مسئول گروه بررسی خواهد شد.</string>
   <string name="beingReviewed">درخواست عضویت شما توسط مسئول گروه در حال بررسی می باشد.</string>
+  <string name="subToTeamMessages">برای دریافت پیامهای تیم، نام‌نویسی کنید</string>
   <string name="teamBattle">مبارزات تیمی</string>
   <string name="teamBattleOverview">مبارزه ی چندین تیم، امتیاز هر بازیکن برای تیم اش حساب می شود</string>
   <string name="teamTournament">مسابقه تیمی</string>
+  <string name="teamTournamentOverview">یک میدان مسابقه که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
+  <string name="swissTournamentOverview">یک میدان مسابقه سوئیسی که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
   <string name="messageAllMembers">پیام به همه ی اعضا</string>
   <string name="messageAllMembersOverview">یک پیام خصوصی به همه ی اعضای تیم ارسال کن</string>
   <string name="teamsIlead">تیم هایی که رهبری می کنم</string>
@@ -38,5 +43,8 @@
   <string name="closeTeamDescription">بستن گروه برای همیشه</string>
   <string name="entryCode">کد ورود به تیم</string>
   <string name="entryCodeDescriptionForLeader">کدی است که اعضای جدید برای ورود به تیم باید بدانند(اختیاری).</string>
-  <string name="incorrectEntryCode">کد ورودی اشتباه است.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">کد ورودی اشتباه است.</string>
+  <string name="teamAlreadyExists">این تیم هم‌اکنون وجود دارد.</string>
+  <string name="upcomingTourns">مسابقاتِ پیش رو</string>
+  <string name="completedTourns">مسابقاتِ کامل شده</string>
 </resources>
