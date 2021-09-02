@@ -27,7 +27,7 @@ object Dependencies {
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"                    % "0.13.1"
 
   object flexmark {
-    val version = "0.50.50"
+    val version = "0.62.2"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
         List("formatter", "ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
