@@ -18,6 +18,6 @@
   <string name="thisPostIsPublished">This post is published</string>
   <string name="thisIsADraft">This is a draft</string>
   <string name="moreBlogPostsBy">View more blog posts by %s</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Aún no hay mensajes en este blog.</string>
+  <string name="noPostsInThisBlogYet">Aún no hay mensajes en este blog.</string>
   <string name="noDrafts">No hay borradores que mostrar.</string>
 </resources>
