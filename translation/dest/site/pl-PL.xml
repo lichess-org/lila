@@ -978,6 +978,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="simulDescription">Opis symultany</string>
   <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
   <string name="markdownAvailable">%s jest dostępny dla bardziej zaawansowanej składni.</string>
+  <string name="embedsAvailable">Wklej adres URL partii lub adres URL rozdziału opracowania, aby go osadzć.</string>
   <string name="inYourLocalTimezone">W Twojej lokalnej strefie czasowej</string>
   <string name="tournChat">Czat turniejowy</string>
   <string name="noChat">Wyłącz czat</string>
