@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newPost">Новы допіс</string>
+  <string name="editYourBlogPost">Рэдагаваць ваш допіс у блозе</string>
+  <string name="postTitle">Назва допісу</string>
+  <string name="postIntro">Уступ да допісу</string>
+  <string name="postBody">Асноўны тэкст допісу</string>
+  <string name="noPostsInThisBlogYet">Пакуль няма допісаў у гэтым блогу.</string>
+</resources>
