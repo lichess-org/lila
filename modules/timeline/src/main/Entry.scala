@@ -52,7 +52,7 @@ case class Entry(
 
   def userIds = decode.??(_.userIds)
 
-  def okForKid = decode ?? (_.okForKid)
+  def okForKid = decode.??(_.okForKid)
 }
 
 object Entry {

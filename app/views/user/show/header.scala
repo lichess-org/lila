@@ -61,13 +61,13 @@ object header {
           a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
             splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
           ),
-          a(
+          ctx.noKid option a(
             cls := "nm-item",
-            href := ctx.noKid option routes.ForumPost.search("user:" + u.username, 1).url
+            href := routes.ForumPost.search("user:" + u.username, 1).url
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
           ),
-          info.nbUblogPosts > 0 option a(
+          ctx.noKid && info.nbUblogPosts > 0 option a(
             cls := "nm-item",
             href := routes.Ublog.index(u.username)
           )(

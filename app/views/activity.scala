@@ -159,7 +159,7 @@ object activity {
   private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(implicit
       ctx: Context
   ) =
-    entryTag(
+    ctx.noKid option entryTag(
       iconTag(""),
       div(
         trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),

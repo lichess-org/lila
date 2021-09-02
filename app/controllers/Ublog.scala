@@ -15,29 +15,35 @@ final class Ublog(env: Env) extends LilaController(env) {
   import lila.common.paginator.Paginator.zero
 
   def index(username: String, page: Int) = Open { implicit ctx =>
-    OptionFuOk(env.user.repo named username) { user =>
-      (canViewBlogOf(user) ?? env.ublog.api.liveByUser(user, page)) map { posts =>
-        html.ublog.index(user, posts)
+    NotForKids {
+      OptionFuOk(env.user.repo named username) { user =>
+        (canViewBlogOf(user) ?? env.ublog.api.liveByUser(user, page)) map { posts =>
+          html.ublog.index(user, posts)
+        }
       }
     }
   }
 
   def drafts(username: String, page: Int) = Auth { implicit ctx => me =>
-    if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).fuccess
-    else
-      env.ublog.api.draftByUser(me, page) map { posts =>
-        Ok(html.ublog.index.drafts(me, posts))
-      }
+    NotForKids {
+      if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).fuccess
+      else
+        env.ublog.api.draftByUser(me, page) map { posts =>
+          Ok(html.ublog.index.drafts(me, posts))
+        }
+    }
   }
 
   def post(username: String, slug: String, id: String) = Open { implicit ctx =>
-    OptionFuResult(env.user.repo named username) { user =>
-      (env.ublog.api.findByAuthor(UblogPost.Id(id), user)) flatMap {
-        _.filter(canViewPost(user)).fold(notFound) { post =>
-          if (slug != post.slug) Redirect(urlOf(post)).fuccess
-          else {
-            val markup = scalatags.Text.all.raw(env.ublog.markup(post))
-            Ok(html.ublog.post(user, post, markup)).fuccess
+    NotForKids {
+      OptionFuResult(env.user.repo named username) { user =>
+        (env.ublog.api.findByAuthor(UblogPost.Id(id), user)) flatMap {
+          _.filter(canViewPost(user)).fold(notFound) { post =>
+            if (slug != post.slug) Redirect(urlOf(post)).fuccess
+            else {
+              val markup = scalatags.Text.all.raw(env.ublog.markup(post))
+              Ok(html.ublog.post(user, post, markup)).fuccess
+            }
           }
         }
       }
@@ -45,8 +51,10 @@ final class Ublog(env: Env) extends LilaController(env) {
   }
 
   def form(username: String) = Auth { implicit ctx => me =>
-    if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
-    else Ok(html.ublog.form.create(me, env.ublog.form.create)).fuccess
+    NotForKids {
+      if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
+      else Ok(html.ublog.form.create(me, env.ublog.form.create)).fuccess
+    }
   }
 
   private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
@@ -56,38 +64,44 @@ final class Ublog(env: Env) extends LilaController(env) {
   )
 
   def create(unusedUsername: String) = AuthBody { implicit ctx => me =>
-    env.ublog.form.create
-      .bindFromRequest()(ctx.body, formBinding)
-      .fold(
-        err => BadRequest(html.ublog.form.create(me, err)).fuccess,
-        data =>
-          CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
-            env.ublog.api.create(data, me) map { post =>
-              Redirect(editUrlOf(post)).flashSuccess
-            }
-          }(rateLimitedFu)
-      )
+    NotForKids {
+      env.ublog.form.create
+        .bindFromRequest()(ctx.body, formBinding)
+        .fold(
+          err => BadRequest(html.ublog.form.create(me, err)).fuccess,
+          data =>
+            CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
+              env.ublog.api.create(data, me) map { post =>
+                Redirect(editUrlOf(post)).flashSuccess
+              }
+            }(rateLimitedFu)
+        )
+    }
   }
 
   def edit(username: String, id: String) = AuthBody { implicit ctx => me =>
-    OptionOk(env.ublog.api.find(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
-      html.ublog.form.edit(me, post, env.ublog.form.edit(post))
+    NotForKids {
+      OptionOk(env.ublog.api.find(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
+        html.ublog.form.edit(me, post, env.ublog.form.edit(post))
+      }
     }
   }
 
   def update(unusedUsername: String, id: String) = AuthBody { implicit ctx => me =>
-    env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
-      _ ?? { prev =>
-        env.ublog.form
-          .edit(prev)
-          .bindFromRequest()(ctx.body, formBinding)
-          .fold(
-            err => BadRequest(html.ublog.form.edit(me, prev, err)).fuccess,
-            data =>
-              env.ublog.api.update(data, prev, me) map { post =>
-                Redirect(urlOf(post)).flashSuccess
-              }
-          )
+    NotForKids {
+      env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
+        _ ?? { prev =>
+          env.ublog.form
+            .edit(prev)
+            .bindFromRequest()(ctx.body, formBinding)
+            .fold(
+              err => BadRequest(html.ublog.form.edit(me, prev, err)).fuccess,
+              data =>
+                env.ublog.api.update(data, prev, me) map { post =>
+                  Redirect(urlOf(post)).flashSuccess
+                }
+            )
+        }
       }
     }
   }
