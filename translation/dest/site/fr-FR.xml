@@ -899,6 +899,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
+  <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
   <string name="noChat">Aucun salon de discussion</string>
