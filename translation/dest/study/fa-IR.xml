@@ -75,6 +75,9 @@
   <string name="createChapter">ساخت فصل</string>
   <string name="public">عمومی</string>
   <string name="unlisted">فهرست نشده</string>
+  <string name="nobody">هیچ کس</string>
+  <string name="onlyMe">تنها من</string>
+  <string name="contributors">مشارکت‌کنندگان</string>
   <string name="members">اعضا</string>
   <string name="everyone">همه</string>
   <string name="enableSync">فعال کردن همگام سازی</string>
@@ -87,4 +90,16 @@
   <string name="deleteStudy">پاک کردن درس</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">می خواهید کل آموزش را حذف کنید؟ راه برگشتی وجود ندارد! برای ادامه کار نام آموزش را وارد کنید:%s</string>
   <string name="whereDoYouWantToStudyThat">کجا میخواهید آنرا مطالعه کنید?</string>
+  <string name="goodMove">حرکت خوبی بود</string>
+  <string name="mistake">اشتباه</string>
+  <string name="blunder">اشتباه فاحش</string>
+  <string name="interestingMove">حرکت جالب</string>
+  <string name="equalPosition">موقعیت برابر</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">موقعیت نامعلوم</string>
+  <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
+  <string name="blackIsSlightlyBetter">مشکی کمی بهتر است</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با ایده</string>
+  <string name="nextChapter">فصل بعدی</string>
+  <string name="prevChapter">فصل قبلی</string>
+  <string name="studyActions">عملگرهای مطالعه</string>
 </resources>
