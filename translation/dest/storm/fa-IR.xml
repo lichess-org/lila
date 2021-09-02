@@ -22,7 +22,7 @@
   <string name="score">امتیاز</string>
   <string name="moves">حرکت‌ها</string>
   <string name="accuracy">دقت</string>
-  <string name="combo" comment="combo&#10;&#10;A &quot;Combo&quot; is a consecutive sequence of correctly solved puzzles. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm.">Combo</string>
+  <string name="combo">Combo</string>
   <string name="time">زمان</string>
   <string name="timePerMove">زمان برای هر حرکت</string>
   <string name="highestSolved">بالاترین تعداد حل شده</string>
