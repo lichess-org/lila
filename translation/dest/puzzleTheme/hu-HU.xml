@@ -121,7 +121,7 @@
   <string name="zugzwangDescription">Az ellenfélnek kevés lehetséges lépése van, és mind csak tovább rontja a pozícióját.</string>
   <string name="healthyMix">Vegyes mix</string>
   <string name="healthyMixDescription">Egy kicsit mindenből. Nem tudod mire számíthatsz, ezért állj készen bármire! Akár egy valódi játszmában.</string>
-  <string name="playerGames">Felhasználói játékok</string>
-  <string name="playerGamesDescription">A saját vagy más játékosok játékaiból generált feladványok keresése.</string>
-  <string name="puzzleDownloadInformation">Ezek a feladványok a nyilvánosan elérhető lichess játék adatbázisból lettek összeállítva, melyeket itt megtalálsz: %s.</string>
+  <string name="playerGames">Felhasználók játszmái</string>
+  <string name="playerGamesDescription">A saját vagy mások játszmáiból generált feladványok keresése.</string>
+  <string name="puzzleDownloadInformation">Ezek a feladványok közkincsnek minősülnek és innen letölthetők: %s.</string>
 </resources>
