@@ -50,4 +50,6 @@
   <string name="skip">sla over</string>
   <string name="skipHelp">Je kunt één zet per race overslaan:</string>
   <string name="skipExplanation">Sla deze zet over om je combo te behouden! Werkt maar eenmaal per race.</string>
+  <string name="failedPuzzles">Mislukte puzzels</string>
+  <string name="slowPuzzles">Trage puzzels</string>
 </resources>
