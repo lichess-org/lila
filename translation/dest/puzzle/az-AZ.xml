@@ -69,7 +69,8 @@
   <string name="searchPuzzles">Tapmaca axtar</string>
   <string name="fromMyGamesNone">Verilənlər bazasında heç bir tapmaca yoxdur, amma Lichess hələ də səni çox sevir.
 Bir tapmaca əlavə etmək şansınızı artırmaq üçün sürətli və klassik oyunlar oynayın!</string>
-  <string name="puzzleDashboardDescription">Təlim edin, təhlil edin, təkmilləşdirin</string>
+  <string name="fromXGamesFound">%1$s oyunlarında tapılan%2$s tapmacalar</string>
+  <string name="puzzleDashboardDescription">Təlim edin, təhlil edin, təkmilləşdirmə edin</string>
   <string name="percentSolved">%s həll edildi</string>
   <string name="noPuzzlesToShow">Göstərəcək bir şey yoxdur, əvvəlcə bəzi tapmacalar oynayın!</string>
   <string name="improvementAreasDescription">irəliləmənizi yoxlamaq üçün bunları optimize edin!</string>
