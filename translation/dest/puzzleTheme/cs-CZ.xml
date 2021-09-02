@@ -106,4 +106,7 @@
   <string name="zugzwangDescription">Soupeř musí zahrát jakýkoliv tah, přičemž všechny zhoršují jeho pozici a zlepšují naší pozici.</string>
   <string name="healthyMix">Mix úloh</string>
   <string name="healthyMixDescription">Troška od všeho. Nevíte co čekat, čili jste na vše připraveni! Jako v normální partii.</string>
+  <string name="playerGames">Z vašich her</string>
+  <string name="playerGamesDescription">Vyhledejte úlohy vygenerované z vašich her, nebo z her jiného hráče.</string>
+  <string name="puzzleDownloadInformation">Tyto hádanky jsou ve veřejné doméně a lze je stáhnout z %s.</string>
 </resources>
