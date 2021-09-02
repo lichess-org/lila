@@ -61,6 +61,8 @@ Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki kés
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
  Bármikor újracsatlakozhatnak a versenyhez.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
+  <string name="lateJoinA">Igen, amíg nem több, mint a fordulók fele elkezdődött; például egy 11 fordulósban játékosok csatlakozhatnak a 6. forduló kezdete előtt illetve egy 12 fordulósban a 7. forduló kezdetéig.
+A későn csatlakozók egy pontot érő szabadkört kapnak akkor is, ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
   <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
   <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
