@@ -915,10 +915,10 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="closedAccountChangedMind">Wänn du dä Account gschlossä häsch, abär nachhär dini Meinig gändärät häsch, häsch ä Chancä din Account zrugg übärzcho.</string>
   <string name="onlyWorksOnce">Das funktioniärt nur eimal.</string>
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
-  <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
+  <string name="emailAssociatedToaccount">E-Mail-Adresse deines Kontos</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
   <string name="tournamentEntryCode">Turniäriigangscode</string>
-  <string name="hangOn">Moment mal!</string>
+  <string name="hangOn">Einen Moment!</string>
   <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
   <string name="abortTheGame">Partie abbrechen</string>
   <string name="resignTheGame">Partie aufgeben</string>
