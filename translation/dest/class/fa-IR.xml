@@ -3,7 +3,9 @@
   <string name="lichessClasses">کلاس ها</string>
   <string name="features">امکانات</string>
   <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
+  <string name="noClassesYet">هنوز کلاسی موجود نیست.</string>
   <string name="newClass">کلاس جدید</string>
+  <string name="closeClass">کلاس را ببندید</string>
   <string name="reopen">بازگشایی</string>
   <string name="removedStudents">حذف شده</string>
   <string name="className">نام کلاس</string>
@@ -13,6 +15,7 @@
   <string name="realName">نام واقعی</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
   <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
+  <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
   <string name="closeStudent">بستن حساب کاربری</string>
   <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
