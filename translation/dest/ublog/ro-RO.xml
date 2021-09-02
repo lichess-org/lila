@@ -14,6 +14,6 @@
   <string name="thisPostIsPublished">Această postare este publicată</string>
   <string name="thisIsADraft">Aceasta este o ciornă</string>
   <string name="moreBlogPostsBy">Vezi mai multe postări pe blog scrise de %s</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Nici o postare în acest blog, încă.</string>
+  <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
   <string name="noDrafts">Nici o ciornă de afișat.</string>
 </resources>
