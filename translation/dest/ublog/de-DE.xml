@@ -17,7 +17,7 @@
   <string name="xPublishedY">%1$s veröffentlichte %2$s</string>
   <string name="thisPostIsPublished">Dieser Beitrag wurde veröffentlicht</string>
   <string name="thisIsADraft">Dies ist ein Entwurf</string>
-  <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s ansehen</string>
+  <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s</string>
   <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
   <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
 </resources>
