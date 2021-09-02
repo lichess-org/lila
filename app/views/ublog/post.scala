@@ -20,7 +20,7 @@ object post {
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
-          image = imageUrlOf(post),
+          image = post.image.isDefined option thumbnail.url(post, _.Large),
           title = post.title,
           url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id.value)}",
           description = post.intro
@@ -28,6 +28,7 @@ object post {
         .some
     ) {
       main(cls := "box box-pad page page-small ublog-post")(
+        thumbnail(post, _.Large)(cls := "ublog-post__image"),
         ctx.is(user) option standardFlash(),
         h1(cls := "ublog-post__title")(post.title),
         div(cls := "ublog-post__meta")(
@@ -62,9 +63,6 @@ object post {
               dataIcon := ""
             )
         ),
-        div(cls := "ublog-post__image-wrap")(
-          imageOf(post)(cls := "ublog-post__image")
-        ),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup expand-text")(markup),
         div(cls := "ublog-post__footer")(
@@ -76,7 +74,7 @@ object post {
 
   def card(post: UblogPost, makeUrl: UblogPost => Call = urlOf)(implicit ctx: Context) =
     a(cls := "ublog-post-card", href := makeUrl(post))(
-      thumbnailOf(post)(cls := "ublog-post-card__image"),
+      thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         span(cls := "ublog-post-card__intro")(post.intro),
@@ -88,28 +86,22 @@ object post {
 
   def editUrlOf(post: UblogPost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
 
-  def thumbnailOf(post: UblogPost) = {
-    val (w, h) = (600, 300)
-    post.image match {
-      case Some(image) =>
-        baseImg(src := picfitUrl.thumbnail(image, w, h))
-      case _ =>
-        div(cls := "ublog-post-image-default")
+  object thumbnail {
+    sealed abstract class Size(val width: Int) {
+      def height = width * 10 / 16
+    }
+    case object Large extends Size(800)
+    case object Small extends Size(400)
+
+    def apply(post: UblogPost, size: thumbnail.type => Size) =
+      img(cls := "ublog-post-image")(src := url(post, size))
+
+    def url(post: UblogPost, size: thumbnail.type => Size) = {
+      val s = size(thumbnail)
+      post.image match {
+        case Some(image) => picfitUrl.thumbnail(image, s.width, s.height)
+        case _           => assetUrl("images/user-blog-default.png")
+      }
     }
   }
-
-  private val defaultImageHeight = 500
-
-  def imageOf(post: UblogPost, height: Int = defaultImageHeight) =
-    imageUrlOf(post) match {
-      case Some(url) => baseImg(src := url)
-      case _ =>
-        baseImg(src := assetUrl("images/user-blog-full-default.png"))
-    }
-
-  def imageUrlOf(post: UblogPost, height: Int = defaultImageHeight) = post.image map { i =>
-    picfitUrl.resize(i, Right(height))
-  }
-
-  private val baseImg = img(cls := "ublog-post-image")
 }

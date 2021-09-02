@@ -22,7 +22,7 @@
   &-post {
     &__title {
       text-align: center;
-      margin: 6vh 0 2vh;
+      margin: 3rem 0 3rem;
     }
     &__meta {
       text-align: center;
@@ -32,12 +32,8 @@
       }
     }
     &__image {
-      max-width: 100%;
-      max-height: 80vh;
-      margin: 0 auto 6vh auto;
-      &-wrap {
-        text-align: center;
-      }
+      @extend %box-neat-force;
+      width: 100%;
     }
     &__intro {
       font-size: 1.2em;
@@ -45,9 +41,9 @@
       display: block;
     }
     &__footer {
-      margin: 5vh 0 0 0;
+      margin: 7em 0 0 0;
       h2 {
-        margin-bottom: 1em;
+        margin-bottom: 1.5em;
       }
     }
   }

@@ -64,7 +64,7 @@ object form {
       )
     )
 
-  def formImage(post: UblogPost) = postView.imageOf(post, height = 200)
+  def formImage(post: UblogPost) = postView.thumbnail(post, _.Small)
 
   private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost])(implicit
       ctx: Context
