@@ -20,4 +20,6 @@
   <string name="thisPostIsPublished">Ta objava je objavljena</string>
   <string name="thisIsADraft">To je osnutek</string>
   <string name="moreBlogPostsBy">Poglej več objav od %s</string>
+  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Ni še objav v tem blogu.</string>
+  <string name="noDrafts">Ni osnutkov za prikaz.</string>
 </resources>
