@@ -18,6 +18,8 @@
   <string name="rule1">Zahrnout klíčové slovo \"lichess.org\" do názvu svého streamu, když budete streamovat na Lichess.</string>
   <string name="rule2">Odstraňte klíčové slovo, pokud streamujete neLichess věci.</string>
   <string name="rule3">Lichess automaticky rozpozná váš stream a zapne následující vychytávky:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Přečtěte si naše %s pro zajištění fair play pro všechny během vašeho streamu.</string>
+  <string name="streamingFairplayFAQ">fairplay FAQ pro streamování</string>
   <string name="perks">Výhody streamování s klíčovým slovem</string>
   <string name="perk1">Získejte žhavou ikonu streamera na svém Lichess profilu.</string>
   <string name="perk2">Dostaň se na vrchol seznamu streamerů.</string>
