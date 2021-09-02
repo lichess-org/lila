@@ -12,10 +12,10 @@ import lila.user.User
 
 object post {
 
-  def apply(user: User, post: UblogPost, markup: Frag)(implicit ctx: Context) =
+  def apply(user: User, post: UblogPost, markup: Frag, others: List[UblogPost])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      moreJs = jsModule("expandText"),
+      moreJs = frag(jsModule("expandText"), ctx.is(user) option jsModule("ublog")),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
       openGraph = lila.app.ui
         .OpenGraph(
@@ -28,13 +28,18 @@ object post {
         .some
     ) {
       main(cls := "box box-pad page page-small ublog-post")(
-        header(cls := "ublog-post__header")(
-          a(href := routes.Ublog.index(user.username))(trans.ublog.xBlog(user.username))
-        ),
         ctx.is(user) option standardFlash(),
         h1(cls := "ublog-post__title")(post.title),
         div(cls := "ublog-post__meta")(
-          span(cls := "ublog-post__meta__author")(trans.by(userLink(user))),
+          span(cls := "ublog-post__meta__author")(
+            trans.by(
+              a(
+                href := routes.Ublog.index(user.username),
+                cls := userClass(user.id, none, withOnline = true),
+                dataHref := routes.User.show(user.username)
+              )(lineIcon(user), titleTag(user.title), user.username)
+            )
+          ),
           post.liveAt map { date =>
             span(cls := "ublog-post__meta__date")(semanticDate(date))
           },
@@ -63,7 +68,8 @@ object post {
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup expand-text")(markup),
         div(cls := "ublog-post__footer")(
-          a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))
+          h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
+          others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
         )
       )
     }

@@ -17,7 +17,7 @@
   <string name="xPublishedY">%1$s published %2$s</string>
   <string name="thisPostIsPublished">This post is published</string>
   <string name="thisIsADraft">This is a draft</string>
-  <string name="moreBlogPostsBy">View more blog posts by %s</string>
+  <string name="moreBlogPostsBy">More blog posts by %s</string>
   <string name="noPostsInThisBlogYet">No posts in this blog, yet.</string>
   <string name="noDrafts">No drafts to show.</string>
 </resources>

@@ -39,10 +39,12 @@ final class Ublog(env: Env) extends LilaController(env) {
       OptionFuResult(env.user.repo named username) { user =>
         (env.ublog.api.findByAuthor(UblogPost.Id(id), user)) flatMap {
           _.filter(canViewPost(user)).fold(notFound) { post =>
-            if (slug != post.slug) Redirect(urlOf(post)).fuccess
-            else {
-              val markup = scalatags.Text.all.raw(env.ublog.markup(post))
-              Ok(html.ublog.post(user, post, markup)).fuccess
+            env.ublog.api.otherPosts(user, post) map { others =>
+              if (slug != post.slug) Redirect(urlOf(post))
+              else {
+                val markup = scalatags.Text.all.raw(env.ublog.markup(post))
+                Ok(html.ublog.post(user, post, markup, others))
+              }
             }
           }
         }
@@ -141,7 +143,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
 
   private def canViewBlogOf(user: UserModel)(implicit ctx: Context) =
-    ctx.is(user) || isGranted(_.ModerateBlog) || !user.marks.troll
+    ctx.is(user) || isGranted(_.ModerateBlog) || (user.enabled && !user.marks.troll)
 
   private def canViewPost(user: UserModel)(post: UblogPost)(implicit ctx: Context) =
     canViewBlogOf(user) && (ctx.is(user) || post.live)

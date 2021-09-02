@@ -243,7 +243,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   private def userUrl(username: String, params: String = ""): Option[String] =
     (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
 
-  protected def userClass(
+  def userClass(
       userId: String,
       cssClass: Option[String],
       withOnline: Boolean,

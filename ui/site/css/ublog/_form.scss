@@ -8,4 +8,12 @@
   &__etiquette {
     margin-right: 3em;
   }
+  &__image {
+    .form-group {
+      text-align: center;
+      @extend %flex-column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

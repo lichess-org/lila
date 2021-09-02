@@ -19,7 +19,7 @@ object form {
       moreCss = cssTag("ublog"),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
     ) {
-      main(cls := "box box-pad page ublog-post-form")(
+      main(cls := "box box-pad page page-small ublog-post-form")(
         h1(trans.ublog.newPost()),
         inner(user, f, none)
       )
@@ -31,7 +31,7 @@ object form {
       moreJs = jsModule("ublog"),
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
-      main(cls := "box box-pad page ublog-post-form")(
+      main(cls := "box box-pad page page-small ublog-post-form")(
         h1(trans.ublog.editYourBlogPost()),
         imageForm(user, post),
         inner(user, f, post.some),
@@ -64,7 +64,7 @@ object form {
       )
     )
 
-  def formImage(post: UblogPost) = postView.imageOf(post, height = 300)
+  def formImage(post: UblogPost) = postView.imageOf(post, height = 200)
 
   private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost])(implicit
       ctx: Context

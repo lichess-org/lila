@@ -15,7 +15,8 @@ object index {
 
   def apply(user: User, posts: Paginator[UblogPost])(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = frag(cssTag("ublog")),
+      moreCss = cssTag("ublog"),
+      moreJs = ctx.is(user) option jsModule("ublog"),
       title = trans.ublog.xBlog.txt(user.username)
     ) {
       main(cls := "box box-pad page page-small ublog-index")(

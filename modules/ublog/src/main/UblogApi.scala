@@ -44,6 +44,13 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
   def findByAuthor(id: UblogPost.Id, author: User): Fu[Option[UblogPost]] =
     coll.one[UblogPost]($id(id) ++ $doc("user" -> author.id))
 
+  def otherPosts(author: User, post: UblogPost): Fu[List[UblogPost]] =
+    coll
+      .find($doc("user" -> author.id, "live" -> true, "_id" $ne post.id))
+      .sort($doc("liveAt" -> -1, "createdAt" -> -1))
+      .cursor[UblogPost]()
+      .list(4)
+
   def countLiveByUser(user: User): Fu[Int] = coll.countSel($doc("user" -> user.id, "live" -> true))
 
   def liveByUser(user: User, page: Int): Fu[Paginator[UblogPost]] =

@@ -16,4 +16,5 @@ lichess.load.then(() => {
         );
       });
   });
+  $('.flash').addClass('fade');
 });
