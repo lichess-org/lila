@@ -1,8 +1,9 @@
 package lila.ublog
 
-import com.github.blemale.scaffeine.LoadingCache
+import com.github.blemale.scaffeine.Cache
 
 import scala.concurrent.duration._
+import lila.common.Chronometer
 
 final class UblogMarkup {
 
@@ -12,13 +13,22 @@ final class UblogMarkup {
       list = true,
       strikeThrough = true,
       header = true,
-      code = true
+      code = true,
+      table = true
     )
 
-  private val cache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[Int, String] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .maximumSize(512)
-    .build(renderer.apply)
+    .build()
 
-  def apply(text: String): String = cache.get(text)
+  def apply(post: UblogPost): String = cache.get(
+    post.markdown.hashCode,
+    _ =>
+      Chronometer
+        .sync(renderer(post.markdown))
+        .mon(_.ublog.markdown.time)
+        .logIfSlow(100, logger)(_ => s"slow markdown ${post.id} by ${post.user} size:${post.markdown.size}")
+        .result
+  )
 }

@@ -36,7 +36,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         _.filter(canViewPost(user)).fold(notFound) { post =>
           if (slug != post.slug) Redirect(urlOf(post)).fuccess
           else {
-            val markup = scalatags.Text.all.raw(env.ublog.markup(post.markdown))
+            val markup = scalatags.Text.all.raw(env.ublog.markup(post))
             Ok(html.ublog.post(user, post, markup)).fuccess
           }
         }

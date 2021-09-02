@@ -98,7 +98,7 @@ object post {
     imageUrlOf(post) match {
       case Some(url) => baseImg(src := url)
       case _ =>
-        baseImg(src := assetUrl("images/placeholder-500.png"))
+        baseImg(src := assetUrl("images/user-blog-full-default.png"))
     }
 
   def imageUrlOf(post: UblogPost, height: Int = defaultImageHeight) = post.image map { i =>
