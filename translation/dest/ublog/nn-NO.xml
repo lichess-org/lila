@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Framleis ingen innlegg i denne bloggen.</string>
+  <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
   <string name="noDrafts">Ingen utkast å visa.</string>
 </resources>
