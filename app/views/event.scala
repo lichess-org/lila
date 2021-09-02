@@ -79,11 +79,11 @@ object event {
   private object markdown {
     import scala.concurrent.duration._
     private val renderer = new lila.common.Markdown(table = true, list = true)
+    // hashcode caching is safe for official events
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(10 minutes)
       .maximumSize(64)
       .build[Int, String]()
-
     def apply(text: String): Frag = raw(cache.get(text.hashCode, _ => renderer("event")(text)))
   }
 

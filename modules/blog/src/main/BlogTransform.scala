@@ -17,6 +17,8 @@ object BlogTransform {
 
     private val renderer = new lila.common.Markdown(table = true)
 
+    // hash code collisions can't be a vector of attack here,
+    // since only lichess team members can write these blog posts
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(20 minutes)
       .maximumSize(64)

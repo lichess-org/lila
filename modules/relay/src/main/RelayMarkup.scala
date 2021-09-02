@@ -16,8 +16,7 @@ final class RelayMarkup {
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .maximumSize(256)
-    .build[Int, String]()
+    .build[String, String]()
 
-  def apply(tour: RelayTour)(markup: String): String =
-    cache.get(markup.hashCode, _ => renderer(s"relay:${tour.id}")(markup))
+  def apply(tour: RelayTour)(markup: String): String = cache.get(markup, renderer(s"relay:${tour.id}"))
 }

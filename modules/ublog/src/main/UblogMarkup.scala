@@ -18,8 +18,7 @@ final class UblogMarkup {
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .maximumSize(1024)
-    .build[Int, String]()
+    .build[String, String]()
 
-  def apply(post: UblogPost): String =
-    cache.get(post.markdown.hashCode, _ => renderer(s"ublog:${post.id}")(post.markdown))
+  def apply(post: UblogPost): String = cache.get(post.markdown, renderer(s"ublog:${post.id}"))
 }
