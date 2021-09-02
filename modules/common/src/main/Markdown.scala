@@ -6,6 +6,7 @@ import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
+import java.util.Arrays
 import scala.jdk.CollectionConverters._
 
 final class Markdown(
@@ -21,23 +22,19 @@ final class Markdown(
   private type Text = String
   private type Html = String
 
-  private val extensions: java.util.List[Parser.ParserExtension] = List(
-    table option TablesExtension.create(),
-    strikeThrough option StrikethroughExtension.create(),
-    autoLink option AutolinkExtension.create()
-  ).flatten.asJava
+  private val extensions = new java.util.ArrayList[com.vladsch.flexmark.util.misc.Extension]()
+  if (table) extensions.add(TablesExtension.create())
+  if (strikeThrough) extensions.add(StrikethroughExtension.create())
+  if (autoLink) extensions.add(AutolinkExtension.create())
 
   private val options = new MutableDataSet()
-
-  options.set(Parser.EXTENSIONS, extensions)
-  options.set(HtmlRenderer.ESCAPE_HTML, Boolean box true)
-  options.set(HtmlRenderer.SOFT_BREAK, "<br>")
-
-  // always disabled
-  options.set(Parser.HTML_BLOCK_PARSER, Boolean box false)
-  options.set(Parser.INDENTED_CODE_BLOCK_PARSER, Boolean box false)
-
-  options.set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean box code)
+    .set(Parser.EXTENSIONS, extensions)
+    .set(HtmlRenderer.ESCAPE_HTML, Boolean box true)
+    .set(HtmlRenderer.SOFT_BREAK, "<br>")
+    // always disabled
+    .set(Parser.HTML_BLOCK_PARSER, Boolean box false)
+    .set(Parser.INDENTED_CODE_BLOCK_PARSER, Boolean box false)
+    .set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean box code)
 
   // configurable
   if (table) options.set(TablesExtension.CLASS_NAME, "slist")
@@ -45,8 +42,10 @@ final class Markdown(
   if (!blockQuote) options.set(Parser.BLOCK_QUOTE_PARSER, Boolean box false)
   if (!list) options.set(Parser.LIST_BLOCK_PARSER, Boolean box false)
 
-  private val parser   = Parser.builder(options).build()
-  private val renderer = HtmlRenderer.builder(options).build()
+  private val immutableOptions = options.toImmutable
+
+  private val parser   = Parser.builder(immutableOptions).build()
+  private val renderer = HtmlRenderer.builder(immutableOptions).build()
 
   def apply(text: Text): Html = renderer.render(parser.parse(text))
 }

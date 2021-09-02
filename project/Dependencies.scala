@@ -30,7 +30,7 @@ object Dependencies {
     val version = "0.62.2"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
-        List("formatter", "ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
+        List("ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
           "com.vladsch.flexmark" % s"flexmark-$ext" % version
         }
   }
