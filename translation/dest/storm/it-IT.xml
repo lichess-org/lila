@@ -50,4 +50,6 @@
   <string name="skip">salta</string>
   <string name="skipHelp">Puoi saltare una mossa per gara:</string>
   <string name="skipExplanation">Salta questa mossa per mantenere la combo! È possibile farlo solo una volta per gara.</string>
+  <string name="failedPuzzles">Rompicapi falliti</string>
+  <string name="slowPuzzles">Rompicapi lenti</string>
 </resources>
