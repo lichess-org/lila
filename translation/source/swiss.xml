@@ -100,4 +100,5 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="streaksAndBerserk">Streaks and Berserk</string>
   <string name="similarToOTB">Similar to OTB tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
+  <string name="roundsSwiss" comment="the message will be 'X rounds swiss' or 'X/Y rounds swiss'">rounds swiss</string>
 </resources>

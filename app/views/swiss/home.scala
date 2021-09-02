@@ -12,13 +12,13 @@ object home {
 
   def apply(featured: FeaturedSwisses)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Swiss tournaments",
+      title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home")
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
-        h1("Swiss tournaments"),
-        renderList("Now playing")(featured.started),
-        renderList("Starting soon")(featured.created),
+        h1(trans.swiss.swissTournaments()),
+        renderList(trans.swiss.nowPlaying.txt())(featured.started),
+        renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
             iconTag(""),
@@ -59,7 +59,8 @@ object home {
               span(cls := "rounds")(
                 s.isStarted option frag(s.round.value, " / "),
                 s.settings.nbRounds,
-                " rounds Swiss"
+                " ",
+                trans.swiss.roundsSwiss()
               ),
               span(cls := "setup")(
                 s.clock.show,
