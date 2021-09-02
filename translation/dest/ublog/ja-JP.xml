@@ -17,6 +17,6 @@
   <string name="thisPostIsPublished">この投稿は公開ずみです</string>
   <string name="thisIsADraft">これは下書きです</string>
   <string name="moreBlogPostsBy">%s のブログ投稿をもっと見る</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">このブログにはまだ投稿なし。</string>
+  <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
   <string name="noDrafts">下書きがありません。</string>
 </resources>
