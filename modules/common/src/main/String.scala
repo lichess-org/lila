@@ -44,7 +44,9 @@ object String {
       // weird stuff https://www.compart.com/en/unicode/block/U+2000
       (c >= '\u2028' && c <= '\u202F') ||
       // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
-      (c >= '\u2100' && c <= '\u2C5F') ||
+      // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
+      (c >= '\u2100' && c <= '\u21FF') ||
+      (c >= '\u2300' && c <= '\u2C5F') ||
       // decorative chars ꧁ ꧂ and svastikas
       (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
       // pretty quranic chars ஜ۩۞۩ஜ
