@@ -35,7 +35,7 @@
   <string name="runs">دورها</string>
   <string name="getReady">آماده شوید!</string>
   <string name="waitingForMorePlayers">منتظرم بازیکنان بیشتری بپیوندند...</string>
-  <string name="raceComplete">مسابقه کامل شد!</string>
+  <string name="raceComplete">رقابت کامل شد!</string>
   <string name="spectating">در حال تماشا</string>
   <string name="joinTheRace">به رقابت بپیوندید!</string>
   <string name="startTheRace">رقابت را شروع کنید</string>
@@ -43,13 +43,13 @@
   <string name="waitForRematch">منتظر بمانید تا حریف دیگری برای شما پیدا کنیم</string>
   <string name="nextRace">رقابت بعدی</string>
   <string name="joinRematch">ورود به بازی مجدد</string>
-  <string name="waitingToStart">در حال بارگزاری</string>
-  <string name="createNewGame">ایجاد یک بازی جدید</string>
-  <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
-  <string name="raceYourFriends">با دوستان خود مسابقه دهید</string>
-  <string name="skip">رد کردن</string>
-  <string name="skipHelp">در هر مسابقه می توانید یک حرکت را رد کنید:</string>
-  <string name="skipExplanation">از این حرکت پرش کن تا Combo خود را نگه دارید! فقط یک بار در هر دور قابل استفاده است.</string>
-  <string name="failedPuzzles">پازلهای باخته</string>
-  <string name="slowPuzzles">پازلهای با سرعت کم</string>
+  <string name="waitingToStart">انتظار برای شروع</string>
+  <string name="createNewGame">یک بازی جدید ایجاد کنید</string>
+  <string name="joinPublicRace">به یک رقابت عمومی بپیوندید</string>
+  <string name="raceYourFriends">با دوستان خود رقابت کنید</string>
+  <string name="skip">ناديده گرفتن</string>
+  <string name="skipHelp">در هر رقابت می‌توانید یک حرکت را رد کنید:</string>
+  <string name="skipExplanation">از این حرکت چشم‌پوشی کنید تا ترکیب خود را حفظ نمایید! فقط یک بار در هر رقابت قابل استفاده است.</string>
+  <string name="failedPuzzles">معماهای ناموفق</string>
+  <string name="slowPuzzles">معماهای با سرعت کم</string>
 </resources>
