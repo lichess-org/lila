@@ -39,7 +39,7 @@
   <string name="classicalShieldArena">نشان افتخار میدان مسابقه سنتی</string>
   <string name="classicalShield">نشان افتخار مسابقه سنتی</string>
   <string name="xShieldArena">نشان افتخار میدان مسابقه با محدودیت زمانی یا نوع بازی %s</string>
-  <string name="xShield">نشان افتخار مسابقه با محدودیت زمانی %s</string>
+  <string name="xShield">نشان افتخار مسابقه با محدودیت زمانی یا نوع بازی %s</string>
   <string name="openingRapidArena">میدان مسابقه سریع با شروع %s</string>
   <string name="openingRapid">مسابقه سریع با شروع %s</string>
   <string name="xTeamBattle">مسابقه گروهی %s</string>
