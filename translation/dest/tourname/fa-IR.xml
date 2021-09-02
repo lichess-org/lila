@@ -14,4 +14,24 @@
   <string name="easternRapid">سریع شرقی</string>
   <string name="easternClassicalArena">میدان مسابقه سنتی شرقی</string>
   <string name="easternClassical">سنتی شرقی</string>
+  <string name="easternXArena">میدان مسابقه شرقی با محدودیت زمانی %s</string>
+  <string name="easternX">شرقی با محدودیت زمانی %s</string>
+  <string name="weeklyRapidArena">میدان مسابقه سریع هفتگی</string>
+  <string name="weeklyRapid">سریع هفتگی</string>
+  <string name="weeklyClassicalArena">میدان مسابقه سنتی هفتگی</string>
+  <string name="weeklyClassical">سنتی هفتگی</string>
+  <string name="weeklyXArena">میدان مسابقه هفتگی با محدودیت زمانی %s</string>
+  <string name="weeklyX">هفتگی با محدودیت زمانی %s</string>
+  <string name="monthlyRapidArena">میدان مسابقه سریع ماهانه</string>
+  <string name="monthlyRapid">سریع ماهانه</string>
+  <string name="monthlyClassicalArena">میدان مسابقه سنتی ماهانه</string>
+  <string name="monthlyClassical">سنتی ماهانه</string>
+  <string name="monthlyXArena">میدان مسابقه ماهانه با محدودیت زمانی %s</string>
+  <string name="monthlyX">ماهانه با محدودیت زمانی %s</string>
+  <string name="yearlyRapidArena">میدان مسابقه سریع سالانه</string>
+  <string name="yearlyRapid">سریع سالانه</string>
+  <string name="yearlyClassicalArena">میدان مسابقه سنتی سالانه</string>
+  <string name="yearlyClassical">سنتی سالانه</string>
+  <string name="yearlyXArena">میدان مسابقه سالانه با محدودیت زمانی %s</string>
+  <string name="yearlyX">سالانه با محدودیت زمانی %s</string>
 </resources>
