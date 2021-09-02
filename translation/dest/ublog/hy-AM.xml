@@ -17,6 +17,6 @@
   <string name="thisPostIsPublished">Գրառումը հրապարակված է</string>
   <string name="thisIsADraft">Սա սևագրություն է</string>
   <string name="moreBlogPostsBy">Դիտել %s-ի ավելի շատ գրառումներ բլոգում</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Այս բլոգում գրառումներ առայժմ չկան։</string>
+  <string name="noPostsInThisBlogYet">Այս բլոգում գրառումներ առայժմ չկան։</string>
   <string name="noDrafts">Ցուցադրելու համար սևագրություններ չկան։</string>
 </resources>
