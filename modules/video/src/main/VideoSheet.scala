@@ -70,7 +70,7 @@ final private class VideoSheet(
     ws.url(url).get() flatMap {
       case res if res.status == 200 =>
         Future {
-          res.body.linesIterator
+          res.bodyAsBytes.utf8String.linesIterator
             .map { line =>
               com.github.tototoshi.csv.CSVParser(
                 input = line,
