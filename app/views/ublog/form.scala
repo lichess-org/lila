@@ -90,7 +90,18 @@ object form {
       )(form3.textarea(_)(rows := 30)),
       form3.actions(
         a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOf))(trans.cancel()),
-        form3.submit(trans.apply())
+        span(
+          etiquette,
+          form3.submit(trans.apply())
+        )
       )
     )
+
+  private def etiquette(implicit ctx: Context) =
+    a(
+      dataIcon := "",
+      href := routes.Page.loneBookmark("blog-etiquette"),
+      cls := "text ublog-post-form__etiquette",
+      targetBlank
+    )("Blog Etiquette")
 }

@@ -81,7 +81,7 @@ object show {
               info.ledByMe option a(
                 dataIcon := "",
                 href := routes.Page.loneBookmark("team-etiquette"),
-                cls := "text team-show__meta__etiquette"
+                cls := "text"
               )("Team Etiquette")
             ),
             (t.enabled && chatOption.isDefined) option frag(
