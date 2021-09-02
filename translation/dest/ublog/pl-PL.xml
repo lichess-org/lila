@@ -20,6 +20,6 @@
   <string name="thisPostIsPublished">Ten wpis jest opublikowany</string>
   <string name="thisIsADraft">To jest wersja robocza</string>
   <string name="moreBlogPostsBy">Zobacz więcej wpisów opublikowanych przez %s</string>
-  <string name="noPostsInThisBlogYet" comment="noPostsInThisBlogYet&#10;&#10;Appears in a user blog that has had no posts on it so far.">Nie ma jeszcze wpisów na tym blogu.</string>
+  <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
   <string name="noDrafts">Brak wersji roboczych.</string>
 </resources>
