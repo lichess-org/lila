@@ -979,6 +979,7 @@
   <string name="simulDescription">Апісанне сеансу</string>
   <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
   <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
+  <string name="embedsAvailable">Устаўце спасылку на гульню ці спасылку на раздзел навучання каб убудаваць яе.</string>
   <string name="inYourLocalTimezone">У вашым часавым поясе</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
