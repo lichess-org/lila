@@ -230,7 +230,8 @@ final class JsonView(
             "turns"      -> game.turns,
             "player"     -> game.turnColor.name,
             "status"     -> game.status,
-            "source"     -> game.source
+            "source"     -> game.source,
+            "startedAtTurn" -> game.shogi.startedAtTurn
           )
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
