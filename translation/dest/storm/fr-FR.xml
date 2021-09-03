@@ -50,4 +50,6 @@
   <string name="skip">sauter</string>
   <string name="skipHelp">Vous pouvez sauter un coup par course :</string>
   <string name="skipExplanation">Sautez ce coup pour préserver votre combo ! Ne fonctionne qu\'une seule fois par course.</string>
+  <string name="failedPuzzles">Problèmes échoués</string>
+  <string name="slowPuzzles">Problèmes lents</string>
 </resources>
