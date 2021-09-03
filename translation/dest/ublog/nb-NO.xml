@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Bloggen til %s</string>
+  <string name="newPost">Nytt innlegg</string>
+  <string name="editYourBlogPost">Rediger blogginnlegget ditt</string>
+  <string name="postTitle">Tittel</string>
+  <string name="postIntro">Ingress</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Har publisert et blogginnlegg</item>
+    <item quantity="other">Har publisert %s blogginnlegg</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publiserte %2$s</string>
+</resources>
