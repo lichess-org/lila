@@ -14,7 +14,7 @@ object StudyForm {
         "gameId"      -> optional(nonEmptyText),
         "orientation" -> optional(nonEmptyText),
         "fen"         -> optional(nonEmptyText),
-        "pgn"         -> optional(nonEmptyText),
+        "kif"         -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "as"          -> optional(nonEmptyText)
       )(Data.apply)(Data.unapply)
@@ -24,7 +24,7 @@ object StudyForm {
         gameId: Option[String] = None,
         orientationStr: Option[String] = None,
         fenStr: Option[String] = None,
-        pgnStr: Option[String] = None,
+        kifStr: Option[String] = None,
         variantStr: Option[String] = None,
         asStr: Option[String] = None
     ) {
@@ -43,7 +43,7 @@ object StudyForm {
           game = gameId,
           variant = variantStr,
           fen = fenStr,
-          pgn = pgnStr,
+          kif = kifStr,
           orientation = orientation.name,
           mode = ChapterMaker.Mode.Normal.key,
           initial = false
@@ -65,7 +65,7 @@ object StudyForm {
         "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
         "initial"     -> boolean,
         "sticky"      -> boolean,
-        "pgn"         -> nonEmptyText
+        "kif"         -> nonEmptyText
       )(Data.apply)(Data.unapply)
     )
 
@@ -76,18 +76,18 @@ object StudyForm {
         mode: String,
         initial: Boolean,
         sticky: Boolean,
-        pgn: String
+        kif: String
     ) {
 
       def orientation = orientationStr.flatMap(shogi.Color.apply) | shogi.Sente
 
       def toChapterDatas =
-        MultiPgn.split(pgn, max = 20).value.zipWithIndex map { case (onePgn, index) =>
+        MultiPgn.split(kif, max = 20).value.zipWithIndex map { case (oneKif, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
-            pgn = onePgn.some,
+            kif = oneKif.some,
             orientation = orientation.name,
             mode = mode,
             initial = initial && index == 0

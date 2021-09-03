@@ -75,7 +75,7 @@ $col2-panel-height: 240px;
   .future-game-analysis {
     text-align: center;
   }
-  .fen-pgn {
+  .fen-kif {
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
@@ -83,7 +83,7 @@ $col2-panel-height: 240px;
       @extend %flex-center-nowrap;
       margin-bottom: 1em;
     }
-    .pgn {
+    .kif {
       white-space: pre-wrap;
       font-family: monospace;
     }
@@ -91,7 +91,7 @@ $col2-panel-height: 240px;
       display: inline-block;
       margin-right: 1em;
     }
-    .pgn-options {
+    .kif-options {
       div {
         @extend %flex-wrap;
       }

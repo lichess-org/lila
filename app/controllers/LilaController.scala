@@ -652,6 +652,6 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
   protected val noProxyBuffer       = (res: Result) => res.withHeaders(noProxyBufferHeader)
 
-  protected val pgnContentType    = "application/x-chess-pgn"
+  protected val kifContentType    = "text/plain" // I guess, there is nothing better for shogi
   protected val ndJsonContentType = "application/x-ndjson"
 }

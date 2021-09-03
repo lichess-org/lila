@@ -27,17 +27,17 @@ private[game] object Metadata {
 case class PgnImport(
     user: Option[String],
     date: Option[String],
-    pgn: String,
-    // hashed PGN for DB unicity
+    kif: String,
+    // hashed Kif for DB unicity
     h: Option[ByteArray]
 )
 
 object PgnImport {
 
-  def hash(pgn: String) =
+  def hash(kif: String) =
     ByteArray {
       MessageDigest getInstance "MD5" digest {
-        pgn.linesIterator
+        kif.linesIterator
           .map(_.replace(" ", ""))
           .filter(_.nonEmpty)
           .to(List)
@@ -49,13 +49,13 @@ object PgnImport {
   def make(
       user: Option[String],
       date: Option[String],
-      pgn: String
+      kif: String
   ) =
     PgnImport(
       user = user,
       date = date,
-      pgn = pgn,
-      h = hash(pgn).some
+      kif = kif,
+      h = hash(kif).some
     )
 
   import reactivemongo.api.bson.Macros

@@ -192,8 +192,8 @@ final class Round(
             else
               for { // web crawlers don't need the full thing
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-                pgn        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-              } yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
+                kif        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
+              } yield Ok(html.round.watcher.crawler(pov, initialFen, kif))
           },
           api = apiVersion =>
             for {

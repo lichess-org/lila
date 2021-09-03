@@ -10,7 +10,7 @@ object replayBot {
   def apply(
       pov: Pov,
       initialFen: Option[shogi.format.FEN],
-      pgn: String,
+      kif: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) = {
@@ -30,12 +30,12 @@ object replayBot {
         div(cls := "analyse__controls"),
         div(cls := "analyse__underboard")(
           div(cls := "analyse__underboard__panels")(
-            div(cls := "fen-pgn active")(
+            div(cls := "fen-kif active")(
               div(
                 strong("SFEN"),
                 input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
               ),
-              div(cls := "pgn")(pgn)
+              div(cls := "kif")(kif)
             ),
             cross.map { c =>
               div(cls := "ctable active")(

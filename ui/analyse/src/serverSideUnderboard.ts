@@ -137,7 +137,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  $panels.on('click', '.pgn', function (this: HTMLElement) {
+  $panels.on('click', '.kif', function (this: HTMLElement) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);

@@ -106,7 +106,7 @@ export default class AnalyseCtrl {
 
   // underboard inputs
   fenInput?: string;
-  pgnInput?: string;
+  kifInput?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -217,7 +217,7 @@ export default class AnalyseCtrl {
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
-    this.pgnInput = undefined;
+    this.kifInput = undefined;
   };
 
   flip = () => {

@@ -28,7 +28,7 @@ object create {
           input(tpe := "hidden", name := "gameId", value := data.gameId),
           input(tpe := "hidden", name := "orientation", value := data.orientationStr),
           input(tpe := "hidden", name := "fen", value := data.fenStr),
-          input(tpe := "hidden", name := "pgn", value := data.pgnStr),
+          input(tpe := "hidden", name := "kif", value := data.kifStr),
           input(tpe := "hidden", name := "variant", value := data.variantStr),
           h2(trans.study.whereDoYouWantToStudyThat()),
           p(

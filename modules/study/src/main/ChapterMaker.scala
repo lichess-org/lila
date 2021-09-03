@@ -23,7 +23,7 @@ final private class ChapterMaker(
     data.game.??(parseGame) flatMap {
       case None =>
         data.game ?? pgnFetch.fromUrl flatMap {
-          case Some(pgn) => fromFenOrKifOrBlank(study, data.copy(pgn = pgn.some), order, userId)
+          case Some(kif) => fromFenOrKifOrBlank(study, data.copy(kif = kif.some), order, userId)
           case _         => fromFenOrKifOrBlank(study, data, order, userId)
         }
       case Some(game) => fromGame(study, game, data, order, userId)
@@ -32,15 +32,15 @@ final private class ChapterMaker(
     }
 
   def fromFenOrKifOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
-    data.pgn.filter(_.trim.nonEmpty) match {
-      case Some(pgn) => fromKif(study, pgn, data, order, userId)
+    data.kif.filter(_.trim.nonEmpty) match {
+      case Some(kif) => fromKif(study, kif, data, order, userId)
       case None      => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromKif(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  private def fromKif(study: Study, kif: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).future recoverWith { case e: Exception =>
+      parsed <- PgnImport(kif, contributors.flatten).future recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(
@@ -210,7 +210,7 @@ private[study] object ChapterMaker {
       game: Option[String] = None,
       variant: Option[String] = None,
       fen: Option[String] = None,
-      pgn: Option[String] = None,
+      kif: Option[String] = None,
       orientation: String = "sente",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,

@@ -140,21 +140,21 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         },
       }),
     ]),
-    h('div.pgn', [
+    h('div.kif', [
       h('div.pair', [
         h('label.name', 'KIF'),
         h('textarea.copyable.autoselect', {
           attrs: { spellCheck: false },
           hook: {
             ...onInsert(el => {
-              (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
-                ? ctrl.pgnInput
+              (el as HTMLTextAreaElement).value = defined(ctrl.kifInput)
+                ? ctrl.kifInput
                 : kifExport.renderFullTxt(ctrl);
-              el.addEventListener('input', e => (ctrl.pgnInput = (e.target as HTMLTextAreaElement).value));
+              el.addEventListener('input', e => (ctrl.kifInput = (e.target as HTMLTextAreaElement).value));
             }),
             postpatch: (_, vnode) => {
-              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
-                ? ctrl.pgnInput
+              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.kifInput)
+                ? ctrl.kifInput
                 : kifExport.renderFullTxt(ctrl);
             },
           },
@@ -166,7 +166,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             hook: bind(
               'click',
               _ => {
-                const kif = $('.copyables .pgn textarea').val();
+                const kif = $('.copyables .kif textarea').val();
                 if (kif !== kifExport.renderFullTxt(ctrl)) ctrl.changeKif(kif);
               },
               ctrl.redraw

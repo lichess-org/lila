@@ -415,15 +415,15 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
+  private val KifRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 1.minute,
-    key = "export.study.pgn.ip"
+    key = "export.study.kif.ip"
   )
 
   def kif(id: String) =
     Open { implicit ctx =>
-      PgnRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
+      KifRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
@@ -432,7 +432,7 @@ final class Study(
                 noProxyBufferHeader,
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.kif"
               )
-              .as(pgnContentType)
+              .as(kifContentType)
               .fuccess
           }
         }
@@ -449,7 +449,7 @@ final class Study(
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.kif"
               )
-              .as(pgnContentType)
+              .as(kifContentType)
               .fuccess
           }
         }

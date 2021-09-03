@@ -29,7 +29,7 @@ final private class StudyMaker(
         name = Chapter.Name("Chapter 1"),
         variant = data.form.variantStr,
         fen = data.form.fenStr,
-        pgn = data.form.pgnStr,
+        kif = data.form.kifStr,
         orientation = data.form.orientation.name,
         mode = ChapterMaker.Mode.Normal.key,
         initial = true

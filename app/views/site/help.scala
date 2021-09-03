@@ -154,7 +154,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
             raw(s"""<iframe src="/embed/sFbJtorq?bg=auto&theme=auto" $args></iframe>"""),
             p(
               raw(
-                """On a game analysis page, click the <em>"SFEN &amp; PGN"</em> tab at the bottom, then """
+                """On a game analysis page, click the <em>"SFEN &amp; KIF"</em> tab at the bottom, then """
               ),
               "\"",
               em(trans.embedInYourWebsite(), "\".")

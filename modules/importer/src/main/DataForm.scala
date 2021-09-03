@@ -91,7 +91,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
             gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
             source = Source.Import,
-            pgnImport = PgnImport.make(user = user, date = date, pgn = kif).some
+            pgnImport = PgnImport.make(user = user, date = date, kif = kif).some
           )
           .sloppy
           .start pipe { dbGame =>

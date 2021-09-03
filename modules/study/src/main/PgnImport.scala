@@ -27,8 +27,8 @@ object PgnImport {
       statusText: String
   )
 
-  def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
-    ImportData(pgn, analyse = none).preprocess(user = none).map {
+  def apply(kif: String, contributors: List[LightUser]): Valid[Result] =
+    ImportData(kif, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match {

@@ -24,7 +24,7 @@ object replay {
       pov: Pov,
       data: play.api.libs.json.JsObject,
       initialFen: Option[shogi.format.FEN],
-      kifu: String,
+      kif: String,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],
@@ -47,15 +47,14 @@ object replay {
         palantir = ctx.me.exists(_.canPalantir)
       )
     }
-    val pgnLinks = div(
-      /*
+    val kifLinks = div(
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
         trans.downloadAnnotated()
-      ),*/
+      ),
       a(
         dataIcon := "x",
         cls := "text",
-        href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kifu, "UTF-8")}",
+        href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
         attr(
           "download"
         ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kif"
@@ -143,7 +142,7 @@ object replay {
                 div(cls := "move-times")(
                   game.turns > 1 option div(id := "movetimes-chart")
                 ),
-                div(cls := "fen-pgn")(
+                div(cls := "fen-kif")(
                   div(
                     strong("SFEN"),
                     input(
@@ -152,11 +151,11 @@ object replay {
                       cls := "copyable autoselect analyse__underboard__fen"
                     )
                   ),
-                  div(cls := "pgn-options")(
-                    strong("Kifu"),
-                    pgnLinks
+                  div(cls := "kif-options")(
+                    strong("Kif"),
+                    kifLinks
                   ),
-                  div(cls := "pgn")(kifu)
+                  div(cls := "kif")(kif)
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(
@@ -177,7 +176,7 @@ object replay {
                   game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
                   cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
                 ),
-                span(dataPanel := "fen-pgn")(raw("SFEN &amp; Kifu"))
+                span(dataPanel := "fen-kif")(raw("SFEN &amp; Kif"))
               )
             )
           )
@@ -185,7 +184,7 @@ object replay {
         if (ctx.blind)
           div(cls := "blind-content none")(
             h2("KIF downloads"),
-            pgnLinks
+            kifLinks
           )
       )
     )

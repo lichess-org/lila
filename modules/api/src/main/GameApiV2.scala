@@ -46,21 +46,21 @@ final class GameApiV2(
       )
     )
     game.pgnImport ifTrue config.imported match {
-      case Some(imported) => fuccess(imported.pgn)
+      case Some(imported) => fuccess(imported.kif)
       case None =>
         for {
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           export <- config.format match {
             case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
-            case Format.PGN =>
+            case Format.KIF =>
               pgnDump(
                 game,
                 initialFen,
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
-              ) dmap pgnDump.toPgnString
+              ) dmap pgnDump.toKifString
           }
         } yield export
     }
@@ -70,7 +70,7 @@ final class GameApiV2(
   def filename(game: Game, format: Format): Fu[String] =
     gameLightUsers(game) map { case (wu, bu) =>
       fileR.replaceAllIn(
-        "lishogi_pgn_%s_%s_vs_%s.%s.%s".format(
+        "lishogi_kif_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
           pgnDump.dumper.player(game.sentePlayer, wu),
           pgnDump.dumper.player(game.gotePlayer, bu),
@@ -171,7 +171,7 @@ final class GameApiV2(
           }
           .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
             config.format match {
-              case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
+              case Format.KIF => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
               case Format.JSON =>
                 def addBerserk(color: shogi.Color)(json: JsObject) =
                   if (pairing berserkOf color)
@@ -202,7 +202,7 @@ final class GameApiV2(
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4) { case (game, fen, analysis) =>
         config.format match {
-          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
+          case Format.KIF => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
           case Format.JSON =>
             toJson(game, fen, analysis, config.flags, None) dmap { json =>
               s"${Json.stringify(json)}\n"
@@ -226,13 +226,13 @@ final class GameApiV2(
 
   private def formatterFor(config: Config) =
     config.format match {
-      case Format.PGN  => pgnDump.formatter(config.flags)
+      case Format.KIF  => pgnDump.formatter(config.flags)
       case Format.JSON => jsonFormatter(config.flags)
     }
 
   private def emptyMsgFor(config: Config) =
     config.format match {
-      case Format.PGN  => "\n"
+      case Format.KIF  => "\n"
       case Format.JSON => "{}\n"
     }
 
@@ -257,10 +257,10 @@ final class GameApiV2(
   ): Fu[JsObject] =
     for {
       lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
-      pgn <-
+      kif <-
         withFlags.pgnInJson ?? pgnDump
           .apply(g, initialFen, analysisOption, withFlags)
-          .dmap(pgnDump.toPgnString)
+          .dmap(pgnDump.toKifString)
           .dmap(some)
     } yield Json
       .obj(
@@ -290,7 +290,7 @@ final class GameApiV2(
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
-      .add("pgn" -> pgn)
+      .add("kif" -> kif)
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
       .add("tournament" -> g.tournamentId)
@@ -312,9 +312,9 @@ object GameApiV2 {
 
   sealed trait Format
   object Format {
-    case object PGN  extends Format
+    case object KIF  extends Format
     case object JSON extends Format
-    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else PGN
+    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else KIF
   }
 
   sealed trait Config {

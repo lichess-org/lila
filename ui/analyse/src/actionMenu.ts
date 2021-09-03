@@ -129,12 +129,12 @@ function studyButton(ctrl: AnalyseCtrl) {
         action: '/study/as',
       },
       hook: bind('submit', e => {
-        const kifInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
+        const kifInput = (e.target as HTMLElement).querySelector('input[name=kif]') as HTMLInputElement;
         if (kifInput) kifInput.value = kifExport.renderFullTxt(ctrl);
       }),
     },
     [
-      !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pgn', ''),
+      !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('kif', ''),
       hiddenInput('orientation', ctrl.shogiground.state.orientation),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),

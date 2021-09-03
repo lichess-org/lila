@@ -39,7 +39,7 @@ final class Game(
       case Some(game) =>
         lila.mon.export.pgn.game.increment()
         val config = GameApiV2.OneConfig(
-          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.KIF,
           imported = getBool("imported", req),
           flags = requestPgnFlags(req, extended = true),
           noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
@@ -156,7 +156,7 @@ final class Game(
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match {
-      case GameApiV2.Format.PGN => pgnContentType
+      case GameApiV2.Format.KIF => kifContentType
       case GameApiV2.Format.JSON =>
         config match {
           case _: GameApiV2.OneConfig => JSON

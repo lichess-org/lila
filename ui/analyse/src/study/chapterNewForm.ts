@@ -38,7 +38,7 @@ export interface StudyChapterNewFormCtrl {
   submit(d: any): void;
   chapters: Prop<StudyChapterMeta[]>;
   startTour(): void;
-  multiPgnMax: number;
+  multiKifMax: number;
   redraw: Redraw;
 }
 
@@ -48,7 +48,7 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-  const multiPgnMax = 10;
+  const multiKifMax = 10;
 
   const vm = {
     variants: [],
@@ -93,7 +93,7 @@ export function ctrl(
       const study = root.study!;
       d.initial = vm.initial();
       d.sticky = study.vm.mode.sticky;
-      if (!d.pgn) send('addChapter', d);
+      if (!d.kif) send('addChapter', d);
       else importKif(study.data.id, d);
       close();
       setTab();
@@ -104,7 +104,7 @@ export function ctrl(
         vm.tab(tab);
         root.redraw();
       }),
-    multiPgnMax,
+    multiKifMax,
     redraw: root.redraw,
   };
 }
@@ -123,7 +123,6 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       name
     );
   };
-  //const gameOrPgn = activeTab === "game" || activeTab === "pgn";
   const currentChapter = ctrl.root.study!.data.chapter;
   const mode = currentChapter.practice
     ? 'practice'
@@ -159,7 +158,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
               isDefaultName: isDefaultName,
             };
-            'name game variant pgn orientation mode'.split(' ').forEach(field => {
+            'name game variant kif orientation mode'.split(' ').forEach(field => {
               o[field] = fieldValue(e, field);
             });
             ctrl.submit(o);
@@ -196,7 +195,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
             makeTab('fen', 'SFEN', noarg('loadAPositionFromFen').replace('FEN', 'SFEN')),
-            makeTab('pgn', 'KIF', noarg('loadAGameFromKif')),
+            makeTab('kif', 'KIF', noarg('loadAGameFromKif')),
           ]),
           activeTab === 'edit'
             ? h(
@@ -254,15 +253,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 }),
               ])
             : null,
-          activeTab === 'pgn'
+          activeTab === 'kif'
             ? h('div.form-groupabel', [
-                h('textarea#chapter-pgn.form-control', {
+                h('textarea#chapter-kif.form-control', {
                   attrs: {
-                    placeholder: 'max ' + ctrl.multiPgnMax,
+                    placeholder: 'max ' + ctrl.multiKifMax,
                   },
                 }),
                 window.FileReader
-                  ? h('input#chapter-pgn-file.form-control', {
+                  ? h('input#chapter-kif-file.form-control', {
                       attrs: {
                         type: 'file',
                         accept: '.kif, .kifu',
@@ -279,7 +278,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                               );
                               readFile(file, 'shift-jis');
                             } else {
-                              (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value = res;
+                              (document.getElementById('chapter-kif') as HTMLTextAreaElement).value = res;
                             }
                           };
                           reader.readAsText(file, encoding);
