@@ -220,12 +220,12 @@ final class JsonView(
             "id"         -> gameId,
             "variant"    -> game.variant,
             "opening"    -> game.opening,
-            "initialFen" -> (initialFen | chess.format.Forsyth.initial),
             "fen"        -> fen,
             "turns"      -> game.turns,
             "player"     -> game.turnColor.name,
             "status"     -> game.status
           )
+          .add("initialFen", initialFen)
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
         "player" -> Json.obj(
