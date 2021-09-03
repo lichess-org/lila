@@ -10,6 +10,8 @@ private[study] object CommentParser {
   private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
   private val arrowsRegex        = """(?s)\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r.unanchored
   private val arrowsRemoveRegex  = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
+  private val piecesRegex        = """(?s)\[\%cpl[\s\r\n]+((?:\w{4}[,\s]*)+)\]""".r.unanchored
+  private val piecesRemoveRegex  = """\[\%cpl[\s\r\n]+((?:\w{4}[,\s]*)+)\]""".r
 
   case class ParsedComment(
       shapes: Shapes,
@@ -27,7 +29,10 @@ private[study] object CommentParser {
     parseCircles(comment) match {
       case (circles, comment) =>
         parseArrows(comment) match {
-          case (arrows, comment) => (circles ++ arrows) -> comment
+          case (arrows, comment) => 
+            parsePieces(comment) match {
+              case (pieces, comment) => (circles ++ arrows ++ pieces) -> comment
+            }
         }
     }
 
@@ -55,6 +60,21 @@ private[study] object CommentParser {
           } yield Shape.Arrow(toBrush(color), orig, dest)
         }
         Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "").trim
+      case _ => Shapes(Nil) -> comment
+    }
+
+  private def parsePieces(comment: String): ShapesAndComment =
+    comment match {
+      case piecesRegex(str) =>
+        val pieces = str.split(',').toList.map(_.trim).flatMap { c =>
+          for {
+            color <- c.headOption
+            pos   <- Pos posAt c.drop(1).take(2)
+            pieceChar <- c.lastOption
+            piece <- shogi.Piece.fromChar(pieceChar)
+          } yield Shape.Piece(toBrush(color), pos, piece)
+        }
+        Shapes(pieces) -> piecesRemoveRegex.replaceAllIn(comment, "").trim
       case _ => Shapes(Nil) -> comment
     }
 
