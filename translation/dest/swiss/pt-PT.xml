@@ -86,7 +86,9 @@ Além disso, é atribuído um único bye de meio ponto quando um jogador entra a
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
   <string name="lateJoin">Entrada atrasada</string>
+  <string name="lateJoinUntil">Sim até que mais de metade das rondas comecem</string>
   <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sim mas pode reduzir o número de rondas</string>
   <string name="streaksAndBerserk">Sequências e Berserk</string>
   <string name="similarToOTB">Semelhante a torneios OTB</string>
   <string name="unlimitedAndFree">Ilimitado e livre</string>
