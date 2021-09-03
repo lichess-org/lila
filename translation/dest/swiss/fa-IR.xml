@@ -43,4 +43,13 @@
   <string name="lateJoinA">بله،تا زمانی که بیش از نیمی از دورها اجرا شوند؛به عنوان مثال در یک مسابقه سوئیسی که در 11 دور برگزار می شود بازیکنان می توانند تا پیش از دور ششم حضور یابند و در مسابقه ای که در دوازده دور برگزار شود می توانند تا پیش از دور هفتم در مسابقه شرکت کنند. به بازیکنانی که دیرتر به مسابقه ملحق شوند فقط یک استراحت تعلق می گیرد حتی اگر چندین دور را از دست بدهند.</string>
   <string name="willSwissReplaceArenasQ">آیا مسابقات سوئیسی می توانند جایگزین آرنا شوند?</string>
   <string name="otherSystemsA">در حال حاضر ما قصد اضافه کردن روش برگزاری مسابقه ی دیگری به لیچس نداریم.</string>
+  <string name="joinOrCreateTeam">به یک تیم بپیوندید یا یک تیم ایجاد نمایید</string>
+  <string name="startingSoon">بزودی شروع می‌شود</string>
+  <string name="comparison">مقایسه</string>
+  <string name="tournDuration">مدت زمان مسابقه</string>
+  <string name="predefinedDuration">مدت زمان از پیش تعریف شده به دقیقه</string>
+  <string name="numberOfGames">تعداد بازی‌ها</string>
+  <string name="pairingSystem">روش تعیین حریف</string>
+  <string name="identicalForbidden">ممنوع</string>
+  <string name="pause">درنگ</string>
 </resources>
