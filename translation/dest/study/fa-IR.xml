@@ -97,10 +97,20 @@
   <string name="mistake">اشتباه</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="interestingMove">حرکت جالب</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تنها حرکت مناسب</string>
   <string name="equalPosition">موقعیت برابر</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">موقعیت نامعلوم</string>
   <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
   <string name="blackIsSlightlyBetter">مشکی کمی بهتر است</string>
+  <string name="whiteIsBetter">سفید بهتر است</string>
+  <string name="blackIsBetter">سیاه بهتر است</string>
+  <string name="whiteIsWinning">سفید در حال پیروزی است</string>
+  <string name="blackIsWinning">سیاه در حال پیروزی است</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">روش و ایده‌ای نو در شروع بازی</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">راهگشایی</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">حمله</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">حریف</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">تنگنای زمانی، وقت تنگ است</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با ایده</string>
   <string name="nextChapter">فصل بعدی</string>
   <string name="prevChapter">فصل قبلی</string>
