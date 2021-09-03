@@ -12,6 +12,7 @@ import { setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
 import { COLORS } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
+import { MAX_STOCKFISH_PLIES } from './stockfishProtocol';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
@@ -151,6 +152,8 @@ export default function (opts: CevalOpts): CevalCtrl {
       lichess.storage.fire('ceval.fen', ev.fen);
     }
   });
+
+  const curDepth = () => (curEval ? curEval.depth : 0);
 
   const effectiveMaxDepth = () =>
     isDeeper() || infinite()
@@ -310,12 +313,12 @@ export default function (opts: CevalOpts): CevalCtrl {
         enabled(false);
       }
     },
-    curDepth: () => (curEval ? curEval.depth : 0),
+    curDepth,
     effectiveMaxDepth,
     variant: opts.variant,
     isDeeper,
     goDeeper,
-    canGoDeeper: () => !isDeeper() && !infinite() && !worker?.isComputing(),
+    canGoDeeper: () => !isDeeper() && !infinite() && !(curDepth() >= MAX_STOCKFISH_PLIES) && !worker?.isComputing(),
     isComputing: () => !!started && !!worker?.isComputing(),
     engineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),

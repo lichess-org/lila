@@ -13,6 +13,7 @@ const evalRegex = new RegExp(
 );
 
 const minDepth = 6;
+export const MAX_STOCKFISH_PLIES = 245;
 
 export default class Protocol {
   private engineNameDeferred: Deferred<string> = defer();
@@ -147,7 +148,7 @@ export default class Protocol {
         this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
         this.send(
           this.work.maxDepth >= 99
-            ? 'go depth 245' // 'go infinite' would not finish even if entire tree search completed
+            ? `go depth ${MAX_STOCKFISH_PLIES}` // 'go infinite' would not finish even if entire tree search completed
             : 'go movetime 90000'
         );
       }
