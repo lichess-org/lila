@@ -50,4 +50,5 @@
   <string name="skip">omet</string>
   <string name="skipHelp">NOU! Pots ometre un moviment a cada cursa:</string>
   <string name="skipExplanation">Omet aquest moviment per preservar el teu combo! Només funciona un cop per cursa.</string>
+  <string name="failedPuzzles">Puzzles errats</string>
 </resources>
