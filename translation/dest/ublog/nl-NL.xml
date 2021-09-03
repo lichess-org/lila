@@ -5,7 +5,7 @@
   <string name="editYourBlogPost">Bewerk je blogpost</string>
   <string name="postTitle">Titel</string>
   <string name="postIntro">Inleiding</string>
-  <string name="postBody">Hoofdgedeelte</string>
+  <string name="postBody">Tekst</string>
   <string name="drafts">Concepten</string>
   <string name="published">Gepubliceerd</string>
   <string name="publishOnYourBlog">Publiceren op blog</string>
