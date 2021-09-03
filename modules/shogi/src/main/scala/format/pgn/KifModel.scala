@@ -2,9 +2,6 @@ package shogi
 package format
 package pgn
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-
 import scala._
 
 // This is temporary for exporting KIFs
@@ -34,19 +31,17 @@ case class Kif(
       tags = tags + Tag(_.Event, title)
     )
 
-  def renderMoveLine(moveline: List[KifMove]): String =
-    moveline.foldLeft((List[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
-        (acc :+ cur.render(lastDest), cur.dest)
-    }._1.map("   " + _) mkString "\n"
+  def renderMovesAndVariations(moveline: List[KifMove]): String = {
+    val mainline = moveline.foldLeft((List[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
+      (acc :+ (KifMove.offset + cur.render(lastDest)), cur.dest)
+    }._1 mkString "\n"
 
-  def renderVariationLine(moveline: List[KifMove]): String = {
-    val vHeader = moveline.headOption.fold("")( m => s"\n\n変化：${m.ply}手\n")
-    val main = renderMoveLine(moveline)
-    val variations = moveline.reverse.foldLeft("")((acc: String, cur) => {
-      acc + cur.variations.map(v => renderVariationLine(v)).mkString("\n")
+    val variations = moveline.reverse.foldLeft("")((acc, cur) => {
+      acc + cur.variations.map(v => s"\n\n変化：${cur.ply}手\n" + renderMovesAndVariations(v)).mkString("\n")
     })
-    s"$vHeader$main$variations"
-  } 
+
+    s"$mainline$variations"
+  }
 
   def render: String = {
     val initStr =
@@ -54,36 +49,39 @@ case class Kif(
       else ""
     val header = KifUtils kifHeader tags
     val movesHeader    = "\n手数----指手---------消費時間--\n"
-    val movesStr = renderMoveLine(moves)
-    val variations = moves.reverse.foldLeft("")((acc, cur) => {
-        acc + cur.variations.map(v => renderVariationLine(v)).mkString("\n")
-    })
-    val endStr  = tags(_.Termination) | ""
-    s"$header$movesHeader$initStr$movesStr$endStr$variations"
+    val movesStr = renderMovesAndVariations(moves)
+    s"$header$movesHeader$initStr$movesStr"
   }.trim
 
   override def toString = render
 }
 
 case class KifMove(
-    san: String,
-    uci: String,
     ply: Int,
+    uci: String,
+    san: String,
     comments: List[String] = Nil,
+    glyphs: Glyphs = Glyphs.empty, // treat as comments for now?
+    opening: Option[String] = None,
     result: Option[String] = None,
     variations: List[List[KifMove]] = Nil,
     // time left for the user who made the move, after he made it
-    secondsSpent: Option[Int] = None
+    secondsSpent: Option[Int] = None,
+    // total time spent playing so far
+    secondsTotal: Option[Int] = None,
 ) {
 
   private def clockString: Option[String] =
-    secondsSpent.map(seconds => "   (" + KifMove.formatKifSeconds(seconds) + "/" + ")\n")
+    secondsSpent.map(spent =>
+        s"${KifMove.offset}(${KifMove.formatKifSpent(spent)}/${secondsTotal.fold("")(total => KifMove.formatKifTotal(total))})"
+    )
 
   def render(lastDest: Option[Pos]) = {
     val kifMove = KifUtils.moveKif(uci, san, lastDest) 
     val timeStr = clockString.getOrElse("")
-    val commentsStr = comments.map { text => s"\n* ${KifMove.fixComment(text)}" }.mkString("")
-    s"$ply $kifMove$timeStr$commentsStr"
+    val glyphsNames = glyphs.toList.map(_.name)
+    val commentsStr = (glyphsNames ::: comments ::: result.toList).map { text => s"\n* ${KifMove.fixComment(text)}" }.mkString("")
+    s"$ply${KifMove.offset}$kifMove$timeStr$commentsStr"
   }
 
   def dest: Option[Pos] = Uci(uci).map(_.origDest._2)
@@ -92,23 +90,39 @@ case class KifMove(
 
 object KifMove {
 
+  val offset = "   "
+
   private val noDoubleLineBreakRegex = "(\r?\n){2,}".r
 
   private def fixComment(txt: String) =
-    noDoubleLineBreakRegex.replaceAllIn(txt, "\n").replace("\n", "\n*  ")
+    noDoubleLineBreakRegex.replaceAllIn(txt, "\n").replace("\n", "\n* ")
 
-  private def formatKifSeconds(t: Int) =
-    periodFormatter.print(
+  private def formatKifSpent(t: Int) =
+    ms.print(
       org.joda.time.Duration.standardSeconds(t).toPeriod
     )
 
-  private[this] val periodFormatter = new org.joda.time.format.PeriodFormatterBuilder().printZeroAlways
-    .minimumPrintedDigits(1)
+  private def formatKifTotal(t: Int) =
+    hms.print(
+      org.joda.time.Duration.standardSeconds(t).toPeriod
+    )
+
+  private[this] val ms = new org.joda.time.format.PeriodFormatterBuilder().printZeroAlways
+    .minimumPrintedDigits(2)
+    .appendMinutes
+    .appendSeparator(":")
+    .minimumPrintedDigits(2)
+    .appendSeconds
+    .toFormatter
+
+  private[this] val hms = new org.joda.time.format.PeriodFormatterBuilder().printZeroAlways
+    .minimumPrintedDigits(2)
     .appendHours
     .appendSeparator(":")
     .minimumPrintedDigits(2)
     .appendMinutes
     .appendSeparator(":")
+    .minimumPrintedDigits(2)
     .appendSeconds
     .toFormatter
 
