@@ -56,9 +56,9 @@ object show {
             )
           else
             a(
-              cls := "text button button-empty",
+              cls      := "text button button-empty",
               dataIcon := "",
-              href := s"${routes.Msg.convo(c.user.username)}"
+              href     := s"${routes.Msg.convo(c.user.username)}"
             )(sendPM()),
           ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
           review.list(coachReviews)
@@ -90,9 +90,9 @@ object show {
             div(cls := "list")(
               profile.youtubeUrls.map { url =>
                 iframe(
-                  width := "256",
-                  height := "192",
-                  src := url.value,
+                  width               := "256",
+                  height              := "192",
+                  src                 := url.value,
                   attr("frameborder") := "0",
                   frame.allowfullscreen
                 )

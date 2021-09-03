@@ -40,7 +40,7 @@ object irwin {
             div(cls := "box__top__actions")(
               a(
                 href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-                cls := "button button-empty"
+                cls  := "button button-empty"
               )("Monitoring")
             )
           ),
@@ -76,7 +76,7 @@ object irwin {
   def report(report: lila.irwin.IrwinReport.WithPovs)(implicit ctx: Context): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
       header(
-        a(cls := "title", href := routes.Irwin.dashboard)(
+        a(cls     := "title", href := routes.Irwin.dashboard)(
           img(src := assetUrl("images/icons/brain.blue.svg")),
           " Irwin AI",
           br,
@@ -99,9 +99,9 @@ object irwin {
                   a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
                     gameReport.moves.map { move =>
                       span(
-                        cls := percentClass(move.activation),
+                        cls      := percentClass(move.activation),
                         st.title := move.toString,
-                        style := s"height:${move.activation}%"
+                        style    := s"height:${move.activation}%"
                       )
                     }
                   )

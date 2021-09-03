@@ -26,7 +26,7 @@ object mini {
             u.profileOrDefault.countryInfo map { c =>
               val hasRoomForNameText = u.username.length + c.shortName.length < 20
               span(
-                cls := "upt__info__top__country",
+                cls   := "upt__info__top__country",
                 title := (!hasRoomForNameText).option(c.name)
               )(
                 img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
@@ -46,30 +46,30 @@ object mini {
           (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
             a(
               dataIcon := "",
-              cls := "btn-rack__btn",
-              title := trans.watchGames.txt(),
-              href := routes.User.tv(u.username)
+              cls      := "btn-rack__btn",
+              title    := trans.watchGames.txt(),
+              href     := routes.User.tv(u.username)
             ),
             !blocked option frag(
               a(
                 dataIcon := "",
-                cls := "btn-rack__btn",
-                title := trans.chat.txt(),
-                href := routes.Msg.convo(u.username)
+                cls      := "btn-rack__btn",
+                title    := trans.chat.txt(),
+                href     := routes.Msg.convo(u.username)
               ),
               a(
                 dataIcon := "",
-                cls := "btn-rack__btn",
-                title := trans.challenge.challengeToPlay.txt(),
-                href := s"${routes.Lobby.home}?user=${u.username}#friend"
+                cls      := "btn-rack__btn",
+                title    := trans.challenge.challengeToPlay.txt(),
+                href     := s"${routes.Lobby.home}?user=${u.username}#friend"
               )
             ),
             views.html.relation.mini(u.id, blocked, followable, rel)
           ),
           crosstable.flatMap(_.nonEmpty) map { cross =>
             a(
-              cls := "upt__score",
-              href := s"${routes.User.games(u.username, "me")}#games",
+              cls   := "upt__score",
+              href  := s"${routes.User.games(u.username, "me")}#games",
               title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
             )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross
               .showOpponentScore(myId)}</strong>""")))

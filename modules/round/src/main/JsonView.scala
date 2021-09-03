@@ -8,7 +8,7 @@ import scala.math
 
 import lila.common.ApiVersion
 import lila.game.JsonView._
-import lila.game.{ Pov, Game, Player => GamePlayer }
+import lila.game.{ Game, Player => GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -217,13 +217,13 @@ final class JsonView(
       .obj(
         "game" -> Json
           .obj(
-            "id"         -> gameId,
-            "variant"    -> game.variant,
-            "opening"    -> game.opening,
-            "fen"        -> fen,
-            "turns"      -> game.turns,
-            "player"     -> game.turnColor.name,
-            "status"     -> game.status
+            "id"      -> gameId,
+            "variant" -> game.variant,
+            "opening" -> game.opening,
+            "fen"     -> fen,
+            "turns"   -> game.turns,
+            "player"  -> game.turnColor.name,
+            "status"  -> game.status
           )
           .add("initialFen", initialFen)
           .add("division", division)

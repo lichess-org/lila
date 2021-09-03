@@ -23,7 +23,7 @@ object gamesContent {
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map { f =>
           a(
-            cls := s"nm-item to-${f.name}${(filters.current == f) ?? " active"}",
+            cls  := s"nm-item to-${f.name}${(filters.current == f) ?? " active"}",
             href := routes.User.games(u.username, f.name)
           )(userGameFilterTitle(u, nbs, f))
         }

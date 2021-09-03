@@ -22,7 +22,7 @@ object form {
       main(cls := "page-small box box-pad report")(
         h1(trans.reportAUser()),
         postForm(
-          cls := "form3",
+          cls    := "form3",
           action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
@@ -64,9 +64,9 @@ object form {
       form3.hidden("resource", resource),
       form3.hidden("text", text take 140),
       submitButton(
-        cls := "button button-empty button-red confirm",
+        cls      := "button button-empty button-red confirm",
         dataIcon := "",
-        title := "Report spam or offensive language"
+        title    := "Report spam or offensive language"
       )
     )
 }

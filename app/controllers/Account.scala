@@ -11,7 +11,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ User => UserModel, TotpSecret, Holder }
+import lila.user.{ Holder, TotpSecret, User => UserModel }
 
 final class Account(
     env: Env,

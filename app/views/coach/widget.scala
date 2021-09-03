@@ -24,20 +24,20 @@ object widget {
     c.coach.picturePath
       .map { path =>
         img(
-          width := size,
+          width  := size,
           height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${c.user.titleUsername} Lichess coach picture"
+          cls    := "picture",
+          src    := dbImageUrl(path.value),
+          alt    := s"${c.user.titleUsername} Lichess coach picture"
         )
       }
       .getOrElse {
         img(
-          width := size,
+          width  := size,
           height := size,
-          cls := "default picture",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default Lichess coach picture"
+          cls    := "default picture",
+          src    := assetUrl("images/placeholder.png"),
+          alt    := "Default Lichess coach picture"
         )
       }
 
@@ -64,7 +64,7 @@ object widget {
                 },
                 profile.countryInfo.map { c =>
                   frag(
-                    span(cls := "country")(
+                    span(cls  := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name

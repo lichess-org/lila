@@ -36,12 +36,12 @@ object form {
         imageForm(user, post),
         inner(user, f, post.some),
         postForm(
-          cls := "ublog-post-form__delete",
+          cls    := "ublog-post-form__delete",
           action := routes.Ublog.delete(user.username, post.id.value)
         )(
           form3.action(
             submitButton(
-              cls := "button button-red button-empty confirm",
+              cls   := "button button-red button-empty confirm",
               title := "Delete this blog post definitively"
             )(trans.delete())
           )
@@ -51,8 +51,8 @@ object form {
 
   private def imageForm(user: User, post: UblogPost)(implicit ctx: Context) =
     postForm(
-      cls := "ublog-post-form__image",
-      action := routes.Ublog.image(post.id.value),
+      cls     := "ublog-post-form__image",
+      action  := routes.Ublog.image(post.id.value),
       enctype := "multipart/form-data"
     )(
       form3.split(
@@ -100,8 +100,8 @@ object form {
   private def etiquette(implicit ctx: Context) =
     a(
       dataIcon := "",
-      href := routes.Page.loneBookmark("blog-etiquette"),
-      cls := "text ublog-post-form__etiquette",
+      href     := routes.Page.loneBookmark("blog-etiquette"),
+      cls      := "text ublog-post-form__etiquette",
       targetBlank
     )("Blog Etiquette")
 }

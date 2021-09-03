@@ -11,8 +11,8 @@ lazy val root = Project("lila", file("."))
   .settings(buildSettings)
 
 // shorter prod classpath
-scriptClasspath := Seq("*")
-maintainer := "contact@lichess.org"
+scriptClasspath             := Seq("*")
+maintainer                  := "contact@lichess.org"
 Compile / resourceDirectory := baseDirectory.value / "conf"
 
 // format: off

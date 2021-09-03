@@ -157,10 +157,10 @@ object mon {
       val other   = counter("round.error").withTag("from", "other")
     }
     object titivate {
-      val time                  = future("round.titivate.time")
-      val game                  = histogram("round.titivate.game").withoutTags()           // how many games were processed
-      val total                 = histogram("round.titivate.total").withoutTags()          // how many games should have been processed
-      val old                   = histogram("round.titivate.old").withoutTags()            // how many old games remain
+      val time  = future("round.titivate.time")
+      val game  = histogram("round.titivate.game").withoutTags()  // how many games were processed
+      val total = histogram("round.titivate.total").withoutTags() // how many games should have been processed
+      val old   = histogram("round.titivate.old").withoutTags()   // how many old games remain
       def broken(error: String) = counter("round.titivate.broken").withTag("error", error) // broken game
     }
     object alarm {

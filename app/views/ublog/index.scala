@@ -68,10 +68,10 @@ object index {
 
   private def newPostLink(implicit ctx: Context) = ctx.me map { u =>
     a(
-      href := routes.Ublog.form(u.username),
-      cls := "button button-green",
+      href     := routes.Ublog.form(u.username),
+      cls      := "button button-green",
       dataIcon := "",
-      title := trans.ublog.newPost.txt()
+      title    := trans.ublog.newPost.txt()
     )
   }
 }

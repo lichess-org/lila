@@ -29,7 +29,7 @@ object post {
         )
         .some
     ) {
-      main(cls := "box box-pad page page-small ublog-post")(
+      main(cls                       := "box box-pad page page-small ublog-post")(
         thumbnail(post, _.Large)(cls := "ublog-post__image"),
         ctx.is(user) option standardFlash(),
         h1(cls := "ublog-post__title")(post.title),
@@ -37,8 +37,8 @@ object post {
           span(cls := "ublog-post__meta__author")(
             trans.by(
               a(
-                href := routes.Ublog.index(user.username),
-                cls := userClass(user.id, none, withOnline = true),
+                href     := routes.Ublog.index(user.username),
+                cls      := userClass(user.id, none, withOnline = true),
                 dataHref := routes.User.show(user.username)
               )(lineIcon(user), titleTag(user.title), user.username)
             )
@@ -52,8 +52,8 @@ object post {
                 if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
               ),
               a(
-                href := editUrlOf(post),
-                cls := "button button-empty text",
+                href     := editUrlOf(post),
+                cls      := "button button-empty text",
                 dataIcon := ""
               )(trans.edit())
             )
@@ -75,7 +75,7 @@ object post {
     }
 
   def card(post: UblogPost.BasePost, makeUrl: UblogPost.BasePost => Call = urlOf)(implicit ctx: Context) =
-    a(cls := "ublog-post-card", href := makeUrl(post))(
+    a(cls                          := "ublog-post-card", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),

@@ -9,8 +9,10 @@ abstract class AdapterLike[A](implicit ec: scala.concurrent.ExecutionContext) {
 
   /** Returns a slice of the results.
     *
-    * @param   offset    The number of elements to skip, starting from zero
-    * @param   length    The maximum number of elements to return
+    * @param offset
+    *   The number of elements to skip, starting from zero
+    * @param length
+    *   The maximum number of elements to return
     */
   def slice(offset: Int, length: Int): Fu[Seq[A]]
 
