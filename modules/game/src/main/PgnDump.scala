@@ -1,7 +1,8 @@
 package lila.game
 
+import shogi.Replay
 import shogi.format.Forsyth
-import shogi.format.pgn.{ KifParser, ParsedPgn, Pgn, Tag, TagType, Tags }
+import shogi.format.pgn.{ KifParser, ParsedPgn, Pgn, Tag, TagType, Tags, Kif }
 import shogi.format.{ FEN, pgn => shogiPgn }
 import shogi.{ Centis, Color }
 
@@ -20,30 +21,42 @@ final class PgnDump(
       initialFen: Option[FEN],
       flags: WithFlags,
       teams: Option[Color.Map[String]] = None
-  ): Fu[Pgn] = {
-    val imported = game.pgnImport.flatMap { pgni =>
-      KifParser.full(pgni.pgn).toOption
+  ): Fu[Kif] = {
+    val imported = game.pgnImport.flatMap { kifi =>
+      KifParser.full(kifi.kif).toOption
     }
     val tagsFuture =
       if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
-      val turns = flags.moves ?? {
-        val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
-        val moves2 =
-          if (fenSituation.exists(_.situation.color.gote)) ".." +: game.pgnMoves
-          else game.pgnMoves
-        val moves3 =
-          if (flags.delayMoves > 0) moves2 dropRight flags.delayMoves
-          else moves2
-        makeTurns(
-          moves3,
-          fenSituation.map(_.fullMoveNumber) | 1,
-          flags.clocks ?? ~game.bothClockStates,
-          game.startColor
-        )
+      val moves = flags.moves ?? {
+        val clocksSpent: Vector[Centis] = (flags.clocks && !game.isCorrespondence) ?? {
+          val movetimes = ~game.moveTimes
+          if(movetimes.forall(_==Centis(0))) Vector[Centis]() else movetimes
+        } 
+        val clocksTotal = clocksSpent.foldLeft(Vector[Centis]())((acc, cur) => acc :+ (acc.takeRight(2).headOption.getOrElse(Centis(0)) + cur))
+        val clockOffset = game.startColor.fold(0, 1)
+        val extendedMoves = Replay.gameMoveWhileValid(
+          game.pgnMoves,
+          initialFen.map(_.value) | game.variant.initialFen,
+          game.variant
+        ) match {
+          case (_, games, _) =>
+            games map { case (_, uciSan) =>
+              (uciSan.san, uciSan.uci.uci)
+            }
+        }
+        extendedMoves.zipWithIndex.map { case ((san, uci), index) =>
+          shogiPgn.KifMove(
+            ply = index + 1,
+            san = san,
+            uci = uci,
+            secondsSpent = clocksSpent lift (index - clockOffset) map (_.roundSeconds),
+            secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds)
+          )
+        }
       }
-      Pgn(ts, turns)
+      Kif(ts, moves)
     }
   }
 
@@ -121,17 +134,22 @@ final class PgnDump(
           Tag.timeControl(game.clock.map(_.config)).some,
           Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
           withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
+          // For now we don't display the game termination
           Tag(
             _.Termination, {
               import shogi.Status._
               game.status match {
-                case Created | Started   => "Unterminated"
-                case Aborted | NoStart   => "Abandoned"
-                case Timeout | Outoftime => "Time forfeit"
-                case Resign | Draw | Stalemate | Mate | VariantEnd | TryRule | PerpetualCheck | Impasse27 =>
-                  "Normal"
-                case Cheat         => "Rules infraction"
-                case UnknownFinish => "Unknown"
+                case Created | Started   => ""
+                case Aborted | NoStart   => "中断"
+                case Timeout | Outoftime => "切れ負け"
+                case Resign => "" // "投了", how to display resigning during opponent's turn?
+                case Mate | Stalemate => "詰み"
+                case Draw           => "千日手"
+                case TryRule        => "トライルール"
+                case Impasse27      => "入玉勝ち"
+                case PerpetualCheck => "反則勝ち"
+                case Cheat          => "反則"
+                case UnknownFinish | VariantEnd | _  => ""
               }
             }
           ).some
@@ -143,31 +161,6 @@ final class PgnDump(
         )
       }
     }
-
-  private def makeTurns(
-      moves: Seq[String],
-      from: Int,
-      clocks: Vector[Centis],
-      startColor: Color
-  ): List[shogiPgn.Turn] =
-    (moves grouped 2).zipWithIndex.toList map { case (moves, index) =>
-      val clockOffset = startColor.fold(0, 1)
-      shogiPgn.Turn(
-        number = index + from,
-        sente = moves.headOption filter (".." !=) map { san =>
-          shogiPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
-          )
-        },
-        gote = moves lift 1 map { san =>
-          shogiPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
-          )
-        }
-      )
-    } filterNot (_.isEmpty)
 }
 
 object PgnDump {

@@ -1,59 +1,52 @@
 package lila.analyse
 
-import shogi.format.pgn.{ Glyphs, Move, Pgn, Tag, Turn }
+import shogi.format.pgn.{ Glyphs, KifMove, Tag, Kif }
 import shogi.opening._
 import shogi.{ Color, Status }
 
 final class Annotator(netDomain: lila.common.config.NetDomain) {
 
   def apply(
-      p: Pgn,
+      k: Kif,
       analysis: Option[Analysis],
       opening: Option[FullOpening.AtPly],
       winner: Option[Color],
       status: Status
-  ): Pgn =
+  ): Kif =
     annotateStatus(winner, status) {
       annotateOpening(opening) {
-        annotateTurns(p, analysis ?? (_.advices))
+        annotateMoves(k, analysis ?? (_.advices))
       }.copy(
-        tags = p.tags + Tag(_.Annotator, netDomain)
+        tags = k.tags + Tag(_.Annotator, netDomain)
       )
     }
 
-  private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
+  private def annotateStatus(winner: Option[Color], status: Status)(k: Kif) =
     lila.game.StatusText(status, winner, shogi.variant.Standard) match {
-      case ""   => p
-      case text => p.updateLastPly(_.copy(result = text.some))
+      case ""   => k
+      case text => k.updateLastPly(_.copy(result = text.some))
     }
 
-  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) =
-    opening.fold(p) { o =>
-      p.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
+  private def annotateOpening(opening: Option[FullOpening.AtPly])(k: Kif) =
+    opening.fold(k) { o =>
+      k.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
     }
 
-  private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
-    advices.foldLeft(p) { case (pgn, advice) =>
-      pgn.updateTurn(
-        advice.turn,
-        turn =>
-          turn.update(
-            advice.color,
-            move =>
-              move.copy(
-                glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-                comments = advice.makeComment(true, true) :: move.comments,
-                variations = makeVariation(turn, advice) :: Nil
-              )
+  private def annotateMoves(k: Kif, advices: List[Advice]): Kif =
+    advices.foldLeft(k) { case (kif, advice) =>
+      kif.updatePly(
+        advice.ply,
+        move =>
+          move.copy(
+            comments = advice.makeComment(true, true) :: move.comments,
+            //variations = makeVariation(advice.ply, advice) :: Nil
           )
       )
     }
 
-  private def makeVariation(turn: Turn, advice: Advice): List[Turn] =
-    Turn.fromMoves(
-      advice.info.variation take 20 map { san =>
-        Move(san)
-      },
-      turn plyOf advice.color
-    )
+  // We also need uci to export this properly, so nah for now
+  //private def makeVariation(ply: Int, advice: Advice): List[Move] =
+  //  (advice.info.variation take 20).zipWithIndex.map { case (san, index) =>
+  //    KifMove(ply + index, san)
+  //  }
 }

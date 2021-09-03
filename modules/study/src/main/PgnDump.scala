@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags, Kif }
+import shogi.format.pgn.{ Glyphs, Initial, Tag, Tags, Kif }
 import shogi.format.{ Forsyth, pgn => shogiPgn }
 import org.joda.time.format.DateTimeFormat
 
@@ -91,23 +91,24 @@ object PgnDump {
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  private def node2move(node: Node, variations: Variations)(implicit flags: WithFlags) =
+  private def node2move(node: Node, variations: Variations, startingPly: Int)(implicit flags: WithFlags) =
     shogiPgn.KifMove(
       san = node.move.san,
       uci = node.move.uci.uci,
-      ply = node.ply,
-      //glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
+      ply = node.ply - startingPly,
+      glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
+        shapeComment(node.shapes).toList ::: node.comments.list.map(c => s"[${s.by}] ${s.text.value}")
       },
       //opening = none,
       result = none,
       variations = flags.variations ?? {
         variations.view.map { child =>
-          toMoves(child.mainline, noVariations).toList
+          toMoves(child.mainline, noVariations, startingPly).toList
         }.toList
       },
-      //secondsLeft = flags.clocks ?? node.clock.map(_.roundSeconds)
+      //secondsSpent = flags.clocks ?? node.clock.map(_.roundSeconds)
+      //secondsTotal = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
@@ -135,21 +136,19 @@ object PgnDump {
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)
   }
 
-  def toMove(node: Node, variations: Variations)(implicit flags: WithFlags) =
-    node2move(node, variations)
-
   def toMoves(root: Node.Root)(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =
-    toMoves(root.mainline, root.children.variations)
+    toMoves(root.mainline, root.children.variations, root.ply)
 
   def toMoves(
     line: Vector[Node],
-    variations: Variations
+    variations: Variations,
+    startingPly: Int
   )(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =
     line
       .foldLeft(variations -> Vector.empty[shogiPgn.KifMove]) { case variations ~ moves ~ first =>
         first
           .children
-          .variations -> (toMove(first, variations) +: moves)
+          .variations -> (node2move(first, variations, startingPly) +: moves)
       }
       ._2
       .reverse
