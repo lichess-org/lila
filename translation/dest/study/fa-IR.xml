@@ -76,6 +76,7 @@
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
   <string name="createChapter">ساخت فصل</string>
+  <string name="visibility">وضعیت نمایش</string>
   <string name="public">عمومی</string>
   <string name="unlisted">فهرست نشده</string>
   <string name="nobody">هیچ کس</string>
