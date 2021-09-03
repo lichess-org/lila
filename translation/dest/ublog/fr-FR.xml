@@ -15,9 +15,9 @@
     <item quantity="other">A publié %s articles de blog</item>
   </plurals>
   <string name="xPublishedY">%1$s a publié %2$s</string>
-  <string name="thisPostIsPublished">Cet article a été publié</string>
+  <string name="thisPostIsPublished">Cet article est publié</string>
   <string name="thisIsADraft">Ceci est un brouillon</string>
-  <string name="moreBlogPostsBy">Voir plus d’articles de %s</string>
+  <string name="moreBlogPostsBy">Plus d’articles de %s</string>
   <string name="noPostsInThisBlogYet">Pas encore d’article dans ce blogue</string>
   <string name="noDrafts">Aucun brouillon à afficher</string>
 </resources>
