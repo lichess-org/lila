@@ -41,6 +41,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('shift+i', () => {
       ctrl.treeView.toggle();
       ctrl.redraw();
+    })
+    .bind('z', () => {
+      ctrl.toggleComputer();
+      ctrl.redraw();
     });
 
   if (ctrl.embed) return;
