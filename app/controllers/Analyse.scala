@@ -51,7 +51,7 @@ final class Analyse(
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false)
-            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
+            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ kif =>
               env.api.roundApi.review(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
@@ -67,24 +67,20 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
-                val finalPgn = env.analyse.annotator(
-                  pgn,
+                val finalKif = env.analyse.annotator(
+                  kif,
                   analysis,
                   pov.game.opening,
                   pov.game.winnerColor,
                   pov.game.status
                 )
-                val movesSeq = data("treeParts").as[JsArray].value.tail map { move: JsValue =>
-                  val nodeMap = move.as[JsObject].value
-                  (nodeMap("uci").as[JsString].value, nodeMap("san").as[JsString].value)
-                }
                 EnableSharedArrayBuffer(
                   Ok(
                     html.analyse.replay(
                       pov,
                       data,
                       initialFen,
-                      finalPgn.renderAsKifu(movesSeq, pov.game.createdAt),
+                      finalKif.render,
                       analysis,
                       analysisInProgress,
                       simul,
@@ -139,13 +135,13 @@ final class Analyse(
       analysis   <- env.analyse.analyser get pov.game
       simul      <- pov.game.simulId ?? env.simul.repo.find
       crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-      pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+      kif        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
     } yield Ok(
       html.analyse.replayBot(
         pov,
         initialFen,
         env.analyse
-          .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
+          .annotator(kif, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
           .toString,
         simul,
         crosstable
