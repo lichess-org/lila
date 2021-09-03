@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">کمک مالی</string>
+  <string name="lichessPatron">پشتیبانِ Lichess</string>
+  <string name="freeAccount">حساب کاربری رایگان</string>
+  <string name="becomePatron">پشتیبانِ Lichess بشوید</string>
+  <string name="xBecamePatron">%s پشتیبانِ Lichess شد</string>
+  <string name="newPatrons">پشتیبانهای جدید</string>
+  <string name="lifetime">مادام‌العمر</string>
+  <string name="monthly">ماهانه</string>
+  <string name="onetime">یک بار</string>
+  <string name="otherAmount">دیگر</string>
   <string name="pleaseEnterAmountInX">لطفا مقدار را در %s وارد کنید</string>
+  <string name="withCreditCard">کارت اعتباری</string>
+  <string name="withPaypal">پی‌پال</string>
+  <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
+  <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
+  <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
+  <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
+  <string name="tyvm">از کمک شما بسیار سپاسگزاریم. شما تاثیرگذارید!</string>
+  <string name="currentStatus">وضعیت کنونی</string>
+  <string name="nextPayment">پرداخت بعدی</string>
+  <string name="makeAdditionalDonation">یک کمک مالی اضافه انجام دهید</string>
   <string name="giftPatronWings">به یک بازیکن بالهای پشتیبان هدیه بدهید</string>
   <string name="update">به روز رسانی</string>
   <string name="changeMonthlyAmount">مقدار ماهانه (%s) را تغییر دهید</string>
@@ -13,8 +33,10 @@
   <string name="date">تاریخ</string>
   <string name="amount">مقدار</string>
   <string name="transactionCompleted">تراکنشِ شما تکمیل شد، و یک رسید برای کمک مالی شما برایتان ایمیل شد.</string>
-  <string name="permanentPatron">شما هم اکنون یک حساب دائمی پشتیبان دارید.</string>
+  <string name="permanentPatron">شما هم‌اکنون یک حساب دائمی پشتیبان دارید.</string>
   <string name="checkOutProfile">صفحه کاربری خود را بررسی کنید!</string>
   <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
+  <string name="nowOneMonth">شما هم‌اکنون برای یک ماه یک پشتیبانِ Lichess هستید!</string>
+  <string name="downgradeNextMonth">طی یک ماه، دوباره برای شما بدهکاری ثبت نخواهد شد، و حساب کاربری Lichess شما به یک حساب کاربری معمولی برگردانده خواهد شد.</string>
   <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">تغییر واحد پول</string>
 </resources>
