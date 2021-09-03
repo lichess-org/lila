@@ -58,10 +58,11 @@ $player-height: 1.6rem;
   .analyse__clock {
     @extend %roboto, %flex-center-nowrap;
 
-    align-self: stretch;
+    height: 100%;
     font-size: 1.2em;
     padding: 0 0.8em 0 0.4em;
     border-radius: 0 4px 0 0;
+    box-shadow: none;
   }
 
   &-bot .analyse__clock {
