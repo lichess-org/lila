@@ -18,6 +18,7 @@
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
+  <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
   <string name="clickToSolve">برای جل کردن کلیک کنید</string>
   <string name="goodMove">حرکتی خوب</string>
@@ -50,6 +51,7 @@
   <string name="history">تاریخ پازل</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
+  <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">جستجو پازل ها در بازی های یک بازیکن</string>
