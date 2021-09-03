@@ -14,8 +14,6 @@ import {
   OpeningMoveStats,
   OpeningGame,
   Opening,
-  TablebaseMoveStatsWithDtz,
-  hasDtz,
 } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -336,6 +334,16 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
 
 let lastShow: MaybeVNode;
 
+type TablebaseMoveCategory =
+  | 'win'
+  | 'unknown'
+  | 'maybe-win'
+  | 'cursed-win'
+  | 'draw'
+  | 'blessed-loss'
+  | 'maybe-loss'
+  | 'loss';
+
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const trans = ctrl.trans.noarg,
     data = ctrl.explorer.current();
@@ -363,57 +371,39 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       ]);
     else lastShow = showEmpty(ctrl, data.opening);
   } else if (data && isTablebase(data)) {
-    const halfmoves = parseInt(data.fen.split(' ')[4], 10) + 1;
-    const zeroed = halfmoves === 1;
-    const moves = data.moves;
-    const immediateWin = (m: TablebaseMoveStats) => m.checkmate || m.variant_loss;
-    const dtz = (m: TablebaseMoveStatsWithDtz) =>
-      m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz;
-    const row = (title: string, moves: TablebaseMoveStats[]) => showTablebase(ctrl, data.fen, title, moves);
-    if (moves.length)
+    const halfmovesBefore = parseInt(data.fen.split(' ')[4], 10);
+    const moveCategory: (m: TablebaseMoveStats) => TablebaseMoveCategory = m => {
+      const dtz = m.zeroing || m.checkmate || m.variant_loss || m.variant_win ? 0 : m.dtz;
+      const halfmovesAfter = m.zeroing ? 0 : halfmovesBefore + 1;
+      if ((m.stalemate || m.insufficient_material || m.wdl === 0) && !m.variant_loss && !m.variant_win) return 'draw';
+      else if (m.checkmate || m.variant_loss || (m.dtz && m.dtz < 0)) {
+        if (halfmovesBefore >= 100 || (dtz && dtz - halfmovesAfter < -100)) return 'cursed-win';
+        if ((dtz && dtz - halfmovesAfter > -100) || (m.zeroing && m.wdl === -2) || m.checkmate || m.variant_win)
+          return 'win';
+        return 'maybe-win';
+      } else if (m.variant_win || (m.dtz && m.dtz > 0)) {
+        if (halfmovesBefore >= 100 || (dtz && dtz + halfmovesAfter > 100)) return 'blessed-loss';
+        if ((dtz && dtz + halfmovesAfter < 100) || (m.zeroing && m.wdl === 2) || m.variant_win) return 'loss';
+        return 'maybe-loss';
+      } else return 'unknown';
+    };
+    const row = (category: TablebaseMoveCategory, title: string) =>
+      showTablebase(
+        ctrl,
+        data.fen,
+        title,
+        data.moves.filter(m => moveCategory(m) === category)
+      );
+    if (data.moves.length)
       lastShow = h('div.data', [
-        ...row(
-          trans('winning'),
-          moves.filter(m => immediateWin(m) || (m.wdl === -2 && hasDtz(m) && (zeroed || dtz(m) - halfmoves > -100)))
-        ),
-        ...row(
-          trans('unknown'),
-          moves.filter(
-            m =>
-              !immediateWin(m) &&
-              !m.variant_win &&
-              !m.insufficient_material &&
-              !m.stalemate &&
-              m.wdl === null &&
-              m.dtz === null
-          )
-        ),
-        ...row(
-          'Winning or 50 moves by prior mistake',
-          moves.filter(m => m.wdl === -2 && hasDtz(m) && !zeroed && dtz(m) - halfmoves === -100)
-        ),
-        ...row(
-          trans('winPreventedBy50MoveRule'),
-          moves.filter(m => hasDtz(m) && (m.wdl === -1 || (m.wdl === -2 && !zeroed && dtz(m) - halfmoves < -100)))
-        ),
-        ...row(
-          trans('drawn'),
-          moves.filter(
-            m => !immediateWin(m) && !m.variant_win && (m.insufficient_material || m.stalemate || m.wdl === 0)
-          )
-        ),
-        ...row(
-          trans('lossSavedBy50MoveRule'),
-          moves.filter(m => hasDtz(m) && (m.wdl === 1 || (m.wdl === 2 && !zeroed && dtz(m) + halfmoves > 100)))
-        ),
-        ...row(
-          'Losing or 50 moves by prior mistake',
-          moves.filter(m => m.wdl === 2 && hasDtz(m) && !zeroed && dtz(m) + halfmoves === 100)
-        ),
-        ...row(
-          trans('losing'),
-          moves.filter(m => m.variant_win || (m.wdl === 2 && hasDtz(m) && (zeroed || dtz(m) + halfmoves < 100)))
-        ),
+        ...row('win', trans('winning')),
+        ...row('unknown', trans('unknown')),
+        ...row('maybe-win', 'Winning or 50 moves by prior mistake'),
+        ...row('cursed-win', trans('winPreventedBy50MoveRule')),
+        ...row('draw', trans('drawn')),
+        ...row('blessed-loss', trans('lossSavedBy50MoveRule')),
+        ...row('maybe-loss', 'Losing or 50 moves by prior mistake'),
+        ...row('loss', trans('losing')),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));
     else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'));
