@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="pleaseEnterAmountInX">لطفا مقدار را در %s وارد کنید</string>
-  <string name="giftPatronWings">اهدای بال های پاترون به یک بازیکن</string>
-  <string name="changeCurrency">تغییر واحد پول</string>
+  <string name="giftPatronWings">به یک بازیکن بالهای پشتیبان هدیه بدهید</string>
+  <string name="update">به روز رسانی</string>
+  <string name="changeMonthlyAmount">مقدار ماهانه (%s) را تغییر دهید</string>
+  <string name="cancelSupport">پشتیبانی خود را متوقف کنید</string>
+  <string name="xOrY">%1$s یا %2$s</string>
+  <string name="decideHowMuch">تصمیم بگیرید که Lichess چه میزان برای شما ارزش دارد:</string>
+  <string name="stopPayments">کارت اعتباری خود را خارج و پرداختها را متوقف نمایید:</string>
+  <string name="noLongerSupport">بیش از این Lichess را پشتیبانی نکنید</string>
+  <string name="viewOthers">پشتیبانهای دیگرِ Lichess را ببینید</string>
+  <string name="date">تاریخ</string>
+  <string name="amount">مقدار</string>
+  <string name="transactionCompleted">تراکنشِ شما تکمیل شد، و یک رسید برای کمک مالی شما برایتان ایمیل شد.</string>
+  <string name="permanentPatron">شما هم اکنون یک حساب دائمی پشتیبان دارید.</string>
+  <string name="checkOutProfile">صفحه کاربری خود را بررسی کنید!</string>
+  <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">تغییر واحد پول</string>
 </resources>
