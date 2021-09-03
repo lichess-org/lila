@@ -48,4 +48,6 @@
   <string name="skip">ignorar</string>
   <string name="skipHelp">Pode pular um movimento por corrida:</string>
   <string name="skipExplanation">Pule este lance para preservar seu combo! Funciona apenas uma vez por corrida.</string>
+  <string name="failedPuzzles">Desafios falhados</string>
+  <string name="slowPuzzles">Desafios lentos</string>
 </resources>
