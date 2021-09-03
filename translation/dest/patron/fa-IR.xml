@@ -6,7 +6,10 @@
   <string name="becomePatron">پشتیبانِ Lichess بشوید</string>
   <string name="xBecamePatron">%s پشتیبانِ Lichess شد</string>
   <string name="newPatrons">پشتیبانهای جدید</string>
+  <string name="freeChess">شطرنجِ رایگان برایِ همه، برایِ همیشه!</string>
+  <string name="thankYou">از کمک مالی شما سپاسگزاریم!</string>
   <string name="lifetime">مادام‌العمر</string>
+  <string name="lifetimePatron">پشتیبانِ مادام‌العمرِ Lichess</string>
   <string name="monthly">ماهانه</string>
   <string name="onetime">یک بار</string>
   <string name="otherAmount">دیگر</string>
@@ -14,9 +17,11 @@
   <string name="withCreditCard">کارت اعتباری</string>
   <string name="withPaypal">پی‌پال</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
+  <string name="costBreakdown">جزئیات ساختار مخارج را مشاهده نمایید</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
+  <string name="bitcoin">و این آدرس بیت‌کوین ما می‌باشد: %s</string>
   <string name="tyvm">از کمک شما بسیار سپاسگزاریم. شما تاثیرگذارید!</string>
   <string name="currentStatus">وضعیت کنونی</string>
   <string name="nextPayment">پرداخت بعدی</string>
