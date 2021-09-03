@@ -877,7 +877,7 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="streamerManager">Streamerverwaltung</string>
   <string name="cancelTournament">Turnier abbrechen</string>
   <string name="tournDescription">Turnierbeschreibung</string>
-  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst Markdown-formatierte Links benutzen: [Name](https://url)</string>
+  <string name="tournDescriptionHelp">Etwas Besonderes, was du den Teilnehmern mitteilen möchtest? Versuche es kurz zu halten. Markdown-Links sind verfügbar: [name](https://url)</string>
   <string name="ratedFormHelp">Partien sind gewertet
 und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
