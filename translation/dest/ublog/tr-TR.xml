@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s Blogu</string>
+  <string name="newPost">Yeni gönderi</string>
+  <string name="editYourBlogPost">Blog gönderinizi düzenleyin</string>
+  <string name="postTitle">Gönderi başlığı</string>
+  <string name="postIntro">Gönderi girişi</string>
+  <string name="drafts">Taslaklar</string>
+  <string name="noDrafts">Gösterilecek taslak yok.</string>
+</resources>
