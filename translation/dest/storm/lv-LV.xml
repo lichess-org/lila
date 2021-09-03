@@ -52,4 +52,6 @@
   <string name="skip">izlaist</string>
   <string name="skipHelp">Varat izlaist vienu gājienu katrās sacīkstēs:</string>
   <string name="skipExplanation">Izlaist gājienu, lai paturētu kombināciju! Darbojas tikai vienreiz katrās sacensībās.</string>
+  <string name="failedPuzzles">Zaudētās puzles</string>
+  <string name="slowPuzzles">Lēni atrisinātās</string>
 </resources>
