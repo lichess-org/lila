@@ -50,4 +50,6 @@
   <string name="skip">hopp over</string>
   <string name="skipHelp">Du kan hoppe over ett trekk for hvert løp:</string>
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Funker bare én gang for hvert løp.</string>
+  <string name="failedPuzzles">Mislykkede sjakknøtter</string>
+  <string name="slowPuzzles">Trege sjakknøtter</string>
 </resources>
