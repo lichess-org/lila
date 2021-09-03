@@ -897,6 +897,7 @@
   <string name="simulDescription">Описание на сеанса</string>
   <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
   <string name="markdownAvailable">%s е достъпен за разширено форматиране.</string>
+  <string name="embedsAvailable">Копирайте URL на игра или на глава от проучване за да я включите в страницата.</string>
   <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>
   <string name="noChat">Без чат</string>
