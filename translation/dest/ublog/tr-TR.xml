@@ -10,6 +10,8 @@
   <string name="published">Yayınlandı</string>
   <string name="publishOnYourBlog">Bloğunda yayınla</string>
   <string name="publishHelp">Eğer işaretliyse gönderi bloğunuzda listelenir. İşaretli değilse taslak gönderilerde gizli olacaktır</string>
+  <string name="thisIsADraft">Bu bir taslaktır</string>
+  <string name="moreBlogPostsBy">%s tarafından daha fazla gönderi</string>
   <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
   <string name="noDrafts">Gösterilecek taslak yok.</string>
 </resources>
