@@ -48,4 +48,6 @@
   <string name="skip">飛ばす</string>
   <string name="skipHelp">レース中 1 手だけ飛ばすことができます：</string>
   <string name="skipExplanation">手を飛ばすことで連続正解が続きます！ 1 レース中 1 回だけ有効。</string>
+  <string name="failedPuzzles">不正解の問題</string>
+  <string name="slowPuzzles">時間のかかった問題</string>
 </resources>
