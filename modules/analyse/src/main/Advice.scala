@@ -25,8 +25,7 @@ sealed trait Advice {
       }) + "." + {
         withBestMove ?? {
           info.variation.headOption ?? { move =>
-            //s" $move was best." // we would need to take care of notation
-            " The best move was:"
+            moveAdviceString(move).fold("")(mStr => s" Moving $mStr was best.")
           }
         }
       }
@@ -34,6 +33,19 @@ sealed trait Advice {
   def evalComment: Option[String] = {
     List(prev.evalComment, info.evalComment).flatten mkString " → "
   }.some filter (_.nonEmpty)
+
+  // We can't just show the move, so let's just work around it till san is reworked
+  private def moveAdviceString(san: String): Option[String] = {
+    val role = san.headOption.flatMap(shogi.Role.allByPgn.get _).map(_.name)
+    val dest = shogi.Pos.posAt(san.filterNot(c => c =='+' || c =='=').takeRight(2)).map(_.usiKey)
+    val orig = if(san.size > 4) shogi.Pos.posAt(san.drop(1).take(2)).map(_.usiKey) else None
+    for {
+      roleStr <- role
+      roleStr2 = roleStr.split("((?<=(promoted))|(?=(promoted)))").mkString(" ")
+      destStr <- dest
+      origStr = orig.fold("")(o => s" from $o")
+    } yield(s"$roleStr2$origStr to $destStr")
+  }
 }
 
 object Advice {
