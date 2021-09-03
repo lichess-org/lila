@@ -899,6 +899,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="simulDescription">Beskrivelse av simultanen</string>
   <string name="simulDescriptionHelp">Er det noe du vil si til deltakerne?</string>
   <string name="markdownAvailable">%s er tilgjengelig for utforming.</string>
+  <string name="embedsAvailable">Lim inn en URL til et parti eller et kapittel i en studie for å bygge det inn.</string>
   <string name="inYourLocalTimezone">I tidssonen din</string>
   <string name="tournChat">Turneringssamtale</string>
   <string name="noChat">Ingen samtale</string>
