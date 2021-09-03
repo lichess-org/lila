@@ -27,7 +27,7 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match {
-      case Array(key) => load("", Standard)
+      case Array(_key) => load("", Standard)
       case Array(key, fen) =>
         Variant.byKey get key match {
           //case Some(variant)                 => load(fen, variant)

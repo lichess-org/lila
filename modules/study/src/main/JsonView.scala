@@ -1,7 +1,7 @@
 package lila.study
 
 import shogi.format.{ FEN, Uci }
-import shogi.{ Pos, Piece => ChessPiece }
+import shogi.{ Pos, Piece => ShogiPiece }
 import play.api.libs.json._
 import scala.util.chaining._
 
@@ -140,7 +140,7 @@ object JsonView {
     (v.asOpt[String] flatMap { r => shogi.Role.forsyth(if (r == "knight") 'n' else r.head) })
       .fold[JsResult[shogi.Role]](JsError(Nil))(JsSuccess(_))
   }
-  implicit private val pieceReader = Json.reads[ChessPiece]
+  implicit private val pieceReader = Json.reads[ShogiPiece]
 
   implicit private[study] val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
@@ -177,7 +177,7 @@ object JsonView {
         } yield o.get[Pos]("dest") match {
           case Some(dest) => Shape.Arrow(brush, orig, dest)
           case _ => {
-            o.get[ChessPiece]("piece") match {
+            o.get[ShogiPiece]("piece") match {
               case Some(piece) => Shape.Piece(brush, orig, piece)
               case _           => Shape.Circle(brush, orig)
             }

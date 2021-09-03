@@ -15,6 +15,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
     sentePlayer = showNames ? game.getPlayer(ctrl.data, 'sente') : undefined,
     gotePlayer = showNames ? game.getPlayer(ctrl.data, 'gote') : undefined;
 
+  // We are not gonna show remaining time for imported games, since it's prob not worth it for now
   if (!defined(clock) || ctrl.imported) {
     if (showNames && sentePlayer && gotePlayer && (!ctrl.synthetic || ctrl.imported))
       return [

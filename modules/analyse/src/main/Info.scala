@@ -8,7 +8,7 @@ import lila.tree.Eval
 case class Info(
     ply: Int,
     eval: Eval,
-    // variation is first in UCI, then converted to PGN before storage
+    // variation is first in UCI, then converted to SAN before storage
     variation: List[String] = Nil
 ) {
 

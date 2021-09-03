@@ -269,12 +269,6 @@ abstract class Variant private[variant] (
     }
     .to(Map)
 
-  lazy val rolesByKif: Map[String, Role] = roles
-    .map { r =>
-      (r.kif, r)
-    }
-    .to(Map)
-
   lazy val rolesByFullForsyth: Map[String, Role] = roles
     .map { r =>
       (r.forsythFull.toUpperCase, r)
