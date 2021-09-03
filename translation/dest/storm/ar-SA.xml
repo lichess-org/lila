@@ -58,4 +58,6 @@
   <string name="skip">تخطى</string>
   <string name="skipHelp">يمكنك تخطي حركة واحدة في كل سباق:</string>
   <string name="skipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
+  <string name="failedPuzzles">الألغاز التي فشلت في حلها</string>
+  <string name="slowPuzzles">ألغاز بطيئة</string>
 </resources>
