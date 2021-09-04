@@ -109,7 +109,7 @@ object PgnImport {
   private def endComment(end: End): Comment = {
     import lila.tree.Node.Comment
     import end._
-    val text = s"$resultText $statusText"
+    val text = s"$statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lishogi)
   }
 
