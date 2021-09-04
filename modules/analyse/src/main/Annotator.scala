@@ -14,23 +14,23 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
       status: Status
   ): Kif =
     annotateStatus(winner, status) {
-      annotateOpening(opening) {
-        annotateMoves(k, analysis ?? (_.advices))
-      }.copy(
+      annotateMoves(
+        k, analysis ?? (_.advices)
+      ).copy(
         tags = k.tags + Tag(_.Annotator, netDomain)
       )
     }
 
-  private def annotateStatus(winner: Option[Color], status: Status)(k: Kif) =
-    lila.game.StatusText(status, winner, shogi.variant.Standard) match {
-      case ""   => k
-      case text => k.updateLastPly(_.copy(result = text.some))
+  private def annotateStatus(winner: Option[Color], status: Status)(k: Kif) = {
+    k.tags(_.Termination).fold(
+      lila.game.StatusText(status, winner, shogi.variant.Standard) match {
+        case ""   => k
+        case text => k.updateLastPly(move => move.copy(comments = text :: move.comments))
+      }
+    ){ t =>
+      k.updateLastPly(_.copy(result = t.some)) 
     }
-
-  private def annotateOpening(opening: Option[FullOpening.AtPly])(k: Kif) =
-    opening.fold(k) { o =>
-      k.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
-    }
+  }
 
   private def annotateMoves(k: Kif, advices: List[Advice]): Kif =
     advices.foldLeft(k) { case (kif, advice) =>

@@ -324,13 +324,13 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       str.map(KifUtils toDigit _) match {
         case MoveRegex(pos, role, prom, orig) => {
           (variant.rolesByEverything get role) flatMap { role =>
-            (if (pos == "同") lastDest else (allDests get pos)) map { dest =>
+            (if (pos == "同") lastDest else (Pos.numberAllKeys get pos)) map { dest =>
               succezz(
                 Std(
                   dest = dest,
                   role = role,
-                  file = allDests.get(orig).map(_.x),
-                  rank = allDests.get(orig).map(_.y),
+                  file = Pos.numberAllKeys.get(orig).map(_.x),
+                  rank = Pos.numberAllKeys.get(orig).map(_.y),
                   promotion = if (prom == "成" || prom == "+") true else false,
                   metas = Metas(
                     check = false,
@@ -348,7 +348,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         }
         case DropRegex(posS, roleS) =>
           (variant.rolesByEverything get roleS) flatMap { role =>
-            allDests get posS map { pos =>
+            Pos.numberAllKeys get posS map { pos =>
               succezz(
                 Drop(
                   role = role,
@@ -369,8 +369,6 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         case _ => "Cannot parse move: %s\n".format(str).failureNel
       }
     }
-
-    val allDests = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y)) -> v }
   }
 
   object TagParser extends RegexParsers with Logging {
@@ -389,23 +387,9 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def tag: Parser[Tag] =
       """.+(:).*""".r ^^ { case line =>
-        val s = line.split(":").map(_.trim).toList
-        Tag(normalizeTags(s.head), s.lift(1).getOrElse(""))
+        val s = line.split(":", 2).map(_.trim).toList
+        Tag(KifUtils.normalizeKifName(s.head), s.lift(1).getOrElse(""))
       }
-
-    def normalizeTags(str: String): String = {
-      str match {
-        case "棋戦"        => Tag.Event.lowercase
-        case "場所"        => Tag.Site.lowercase
-        case "開始日時"      => Tag.Date.lowercase
-        case "持ち時間"      => Tag.TimeControl.lowercase
-        case "手合割"       => Tag.Handicap.lowercase
-        case "先手" | "下手" => Tag.Sente.lowercase
-        case "後手" | "上手" => Tag.Gote.lowercase
-        case "戦型"        => Tag.Opening.lowercase
-        case _           => str
-      }
-    }
   }
 
   private def splitHeaderAndRest(kif: String): Valid[(String, String)] =

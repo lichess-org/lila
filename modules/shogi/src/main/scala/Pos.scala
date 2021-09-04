@@ -181,4 +181,8 @@ object Pos {
       pos.piotr -> pos
     }
     .to(Map)
+
+  val numberAllKeys = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y)) -> v }
+  val usiAllKeys = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y + 96).toChar) -> v }
+  
 }

@@ -33,7 +33,7 @@ case class Kif(
 
   def renderMovesAndVariations(moveline: List[KifMove]): String = {
     val mainline = moveline.foldLeft((List[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
-      (acc :+ (KifMove.offset + cur.render(lastDest)), cur.dest)
+      (acc :+ (cur.render(lastDest)), cur.dest)
     }._1 mkString "\n"
 
     val variations = moveline.reverse.foldLeft("")((acc, cur) => {
@@ -62,7 +62,6 @@ case class KifMove(
     san: String,
     comments: List[String] = Nil,
     glyphs: Glyphs = Glyphs.empty, // treat as comments for now?
-    opening: Option[String] = None,
     result: Option[String] = None,
     variations: List[List[KifMove]] = Nil,
     // time left for the user who made the move, after he made it
@@ -77,11 +76,12 @@ case class KifMove(
     )
 
   def render(lastDest: Option[Pos]) = {
+    val resultStr = result.fold("")(r => s"\n${KifMove.offset}${ply+1}${KifMove.offset}$r")
     val kifMove = KifUtils.moveKif(uci, san, lastDest) 
     val timeStr = clockString.getOrElse("")
     val glyphsNames = glyphs.toList.map(_.name)
-    val commentsStr = (glyphsNames ::: comments ::: result.toList).map { text => s"\n* ${KifMove.fixComment(text)}" }.mkString("")
-    s"$ply${KifMove.offset}$kifMove$timeStr$commentsStr"
+    val commentsStr = (glyphsNames ::: comments).map { text => s"\n* ${KifMove.fixComment(text)}" }.mkString("")
+    s"${KifMove.offset}$ply${KifMove.offset}$kifMove$timeStr$commentsStr$resultStr"
   }
 
   def dest: Option[Pos] = Uci(uci).map(_.origDest._2)
