@@ -97,6 +97,11 @@ object show {
                       submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
                     )
                   )
+                else if (info.isMyRequestDeclined)
+                  frag(
+                    strong(requestDeclined()),
+                    a(cls := "button disabled button-metal")(joinTeam())
+                  )
                 else ctx.isAuth option joinButton(t)
               ),
               ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>

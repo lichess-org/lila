@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Your join request will be reviewed by a team leader.</string>
   <string name="beingReviewed">Your join request is being reviewed by a team leader.</string>
+  <string name="requestDeclined">Your join request was declined by a team leader.</string>
   <string name="subToTeamMessages">Subscribe to team messages</string>
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>

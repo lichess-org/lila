@@ -2,7 +2,7 @@ package lila.team
 
 import akka.actor._
 import com.softwaremill.macwire._
-
+import com.softwaremill.tagging._
 import lila.common.config._
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
@@ -29,7 +29,9 @@ final class Env(
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
-  lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
+  lazy val requestRepo = new RequestRepo(db(CollName("team_request"))).taggedWith[NewRequest]
+  lazy val declinedRequestRepo =
+    new RequestRepo(db(CollName("team_request_declined"))).taggedWith[DeclinedRequest]
 
   lazy val forms = wire[TeamForm]
 

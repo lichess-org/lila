@@ -377,7 +377,7 @@ lazy val forumSearch = module("forumSearch",
 
 lazy val team = module("team",
   Seq(common, memo, db, user, forum, security, hub, notifyModule),
-  reactivemongo.bundle
+  reactivemongo.bundle ++ Seq(macwire.tagging)
 )
 
 lazy val teamSearch = module("teamSearch",

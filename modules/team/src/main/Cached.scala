@@ -1,5 +1,6 @@
 package lila.team
 
+import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
 import lila.memo.Syncache
@@ -8,7 +9,7 @@ import lila.user.User
 final class Cached(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    requestRepo: RequestRepo @@ NewRequest,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 

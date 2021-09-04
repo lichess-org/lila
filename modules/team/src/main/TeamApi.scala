@@ -1,6 +1,8 @@
 package lila.team
 
 import actorApi._
+import com.softwaremill.tagging._
+import org.joda.time.DateTime
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json }
 import reactivemongo.api.{ Cursor, ReadPreference }
@@ -16,11 +18,11 @@ import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
-
 final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    requestRepo: RequestRepo @@ NewRequest,
+    declinedRequestRepo: RequestRepo @@ DeclinedRequest,
     userRepo: UserRepo,
     cached: Cached,
     notifier: Notifier,
@@ -140,9 +142,10 @@ final class TeamApi(
 
   def requestable(team: Team, user: User): Fu[Boolean] =
     for {
-      belongs   <- belongsTo(team.id, user.id)
-      requested <- requestRepo.exists(team.id, user.id)
-    } yield !belongs && !requested
+      belongs         <- belongsTo(team.id, user.id)
+      requested       <- requestRepo.exists(team.id, user.id)
+      requestDeclined <- declinedRequestRepo.exists(team._id, user.id)
+    } yield !belongs && !requested && !requestDeclined
 
   def createRequest(team: Team, user: User, msg: String): Funit =
     requestable(team, user) flatMap {
@@ -168,6 +171,7 @@ final class TeamApi(
         userOption
           .filter(_ => accept)
           .??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
+      _ <- !accept ?? declinedRequestRepo.coll.insert.one(request.copy(date = DateTime.now())).void
     } yield ()
 
   def deleteRequestsByUserId(userId: User.ID) =
