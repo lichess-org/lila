@@ -29,9 +29,24 @@ object importGame {
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameKifuExplanation()),
         postForm(cls := "form3 import", action := routes.Importer.sendGame())(
-          div(cls := "import left")(
-            form3.group(form("kif"), trans.pasteTheKifStringHere())(form3.textarea(_)()),
-            form("kif").value flatMap { kif =>
+          div(cls := "import-top")(
+            div(cls := "left")(
+              form3.group(form("kif"), trans.pasteTheKifStringHere())(form3.textarea(_)())
+            ),
+            div(cls := "right")(
+              form3.group(form("kifFile"), raw("Or upload a KIF file"), klass = "upload") { f =>
+                form3.file.kif(f.name)
+              },
+              form3.checkbox(
+                form("analyse"),
+                trans.requestAComputerAnalysis(),
+                help = Some(analyseHelp),
+                disabled = ctx.isAnon
+              ),
+              form3.action(form3.submit(trans.importGame(), "/".some))
+            ),
+          ),
+          form("kif").value flatMap { kif =>
               lila.importer
                 .ImportData(kif, none)
                 .preprocess(none)
@@ -44,20 +59,7 @@ object importGame {
                     ).some,
                   _ => none
                 )
-            }
-          ),
-          div(cls := "import right")(
-            form3.group(form("kifFile"), raw("Or upload a KIF file"), klass = "upload") { f =>
-              form3.file.kif(f.name)
-            },
-            form3.checkbox(
-              form("analyse"),
-              trans.requestAComputerAnalysis(),
-              help = Some(analyseHelp),
-              disabled = ctx.isAnon
-            ),
-            form3.action(form3.submit(trans.importGame(), "/".some))
-          )
+          }
         )
       )
     }

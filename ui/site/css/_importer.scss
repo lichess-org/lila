@@ -6,14 +6,27 @@ main.importer {
     text-align: center;
   }
   form {
-    &.import {
+    .import-top {
       display: flex;
       flex-direction: column;
       @include breakpoint($mq-col2) {
         flex-direction: row;
       }
       justify-content: space-around;
+      .left {
+        flex: 4;
+        @include breakpoint($mq-col2) {
+          margin-right: 1rem;
+        }
+      }
+      .right {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
+
     label.kif {
       display: block;
       margin-bottom: 1em;
@@ -24,18 +37,6 @@ main.importer {
       margin-bottom: 1em;
     }
 
-    .left {
-      flex: 4;
-      @include breakpoint($mq-col2) {
-        margin-right: 1rem;
-      }
-    }
-    .right {
-      flex: 3;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
 
     textarea {
       width: 98%;
@@ -67,6 +68,10 @@ main.importer {
     p.error {
       margin: 10px 0;
       color: red;
+    }
+    pre.error {
+      max-width: 90vw;
+      overflow-x: auto;
     }
     .wait {
       display: none;
