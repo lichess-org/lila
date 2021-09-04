@@ -51,7 +51,8 @@ function wasmInfo() {
 function localStorageInfo() {
   var interesting = [
     'client-eval-enabled',
-    'analyse.ceval.max-depth',
+    'ceval.disable',
+    'ceval.enabled-after',
     'analyse.ceval.multipv',
     'analyse.ceval.threads',
     'analyse.ceval.hash-size',
@@ -87,7 +88,7 @@ function serviceWorkerInfo() {
 }
 
 var info = {
-  diagnosticsVersion: 6,
+  diagnosticsVersion: 7,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
