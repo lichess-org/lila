@@ -47,6 +47,7 @@
   <string name="annotateWithGlyphs">نشان کردن با علامت ها</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
+  <string name="makeSureTheChapterIsComplete">مطمئن شوید که فصل کامل است. شما فقط یک بار می‌توانید درخواست تحلیل بدهید.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
   <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
   <string name="playing">در حال انجام</string>
@@ -62,6 +63,8 @@
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
+  <string name="youCanPasteThisInTheForumToEmbed">برای جاسازی این نوشته، این کد را در تالار گفت و گو قرار دهید</string>
+  <string name="startAtInitialPosition">در موقعیت آغازین شروع نمایید</string>
   <string name="startAtX">شروع از %s</string>
   <string name="embedInYourWebsite">در وبسایت یا وبلاگ خود قرار دهید</string>
   <string name="readMoreAboutEmbedding">درباره قرار دادن (در سایت) بیشتر بخوانید</string>
@@ -78,6 +81,7 @@
   <string name="clearAnnotations">حاشیه‌نویسی را پاک نمایید</string>
   <string name="deleteChapter">حذف فصل</string>
   <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
+  <string name="rightUnderTheBoard">درست در زیر تخته بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
@@ -88,8 +92,13 @@
   <string name="editor">ویرایشگر</string>
   <string name="startFromCustomPosition">از موقعیت دلخواه شروع نمایید</string>
   <string name="loadAGameByUrl">بارگزاری بازی با استفاده از URL</string>
+  <string name="loadAPositionFromFen">از FEN یک موقعیت را بارگیری کنید</string>
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
+    <item quantity="other">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
+  </plurals>
   <string name="urlOfTheGame">آدرس اینترنتی بازی، یکی در هر خط</string>
   <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
   <string name="createChapter">ساخت فصل</string>
@@ -100,6 +109,7 @@
   <string name="public">عمومی</string>
   <string name="unlisted">فهرست نشده</string>
   <string name="inviteOnly">فقط توسط دعوتنامه</string>
+  <string name="allowCloning" comment="allowCloning&#10;&#10;Option for studies (https://lichess.org/study). Lets other Lichess users easily clone (make exact copies of) your study. They can then edit their copy, and alter/improve the study.">اجازه دهید تا بازی شما را کلون کنند که به این معنا است که بتوان آن را دقیقاً کپی کرد</string>
   <string name="nobody">هیچ کس</string>
   <string name="onlyMe">تنها من</string>
   <string name="contributors">مشارکت‌کنندگان</string>
@@ -122,6 +132,7 @@
   <string name="blunder">اشتباه فاحش</string>
   <string name="interestingMove">حرکت جالب</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تنها حرکت مناسب</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate one side is in zugzwang.">کوچ دادن یا حرکت اجباری</string>
   <string name="equalPosition">موقعیت برابر</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">موقعیت نامعلوم</string>
   <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
@@ -132,9 +143,11 @@
   <string name="blackIsWinning">سیاه در حال پیروزی است</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">روش و ایده‌ای نو در شروع بازی</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">راهگشایی</string>
+  <string name="initiative" comment="initiative&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate a side has gained the initiative in the game.">دارای ابتکار عمل</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">حمله</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">حریف</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">تنگنای زمانی، وقت تنگ است</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">دارای مزیت و برتری</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با ایده</string>
   <string name="nextChapter">فصل بعدی</string>
   <string name="prevChapter">فصل قبلی</string>
