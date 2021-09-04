@@ -9,4 +9,7 @@
   <string name="lichessServerLatency">تاخیر سِروِر Lichess</string>
   <string name="lichessServerLatencyExplanation">زمانی که طول می‌کشد تا یک حرکت بر روی سِروِر پردازش شود. این برای همه مشابه است، و فقط وابسته به بار روی سِروِر می‌باشد. هر چه بازیکنان بیشتر باشند بیشتر طول می‌کشد، اما توسعه‌دهندگان Lichess بهترین تلاش خود را انجام می‌دهند تا آن را پایین نگه دارند. این مقدار به ندرت از 10ms بالاتر می‌رود.</string>
   <string name="networkBetweenLichessAndYou">شبکه بین Lichess و شما</string>
+  <string name="networkBetweenLichessAndYouExplanation">زمانی که طول می‌کشد تا یک حرکت از رایانه شما به سِروِر Lichess ارسال شود، و پاسخ را برگرداند. این مختص به فاصله شما تا Lichess (فرانسه) و کیفیت اتصال اینترنت شما می‌باشد. توسعه‌دهندگان Lichess نمی‌توانند وای‌فای شما را تنظیم کنند یا کاری کنند که نور سریع‌تر حرکت کند.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">شما همیشه می‌توانید با کلیک کردن روی نام کاربری خود در نوار فوقانی، هر دوی این مقادیر را پیدا کنید.</string>
+  <string name="lagCompensation">جبران کُندی یا افت سرعت</string>
 </resources>
