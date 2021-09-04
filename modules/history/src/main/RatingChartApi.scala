@@ -43,24 +43,7 @@ final class RatingChartApi(
         historyApi get userId map2 { (history: History) =>
           lila.common.String.html.safeJsonValue {
             Json.toJson {
-              import lila.rating.PerfType._
-              List(
-                Bullet,
-                Blitz,
-                Rapid,
-                Classical,
-                Correspondence,
-                Chess960,
-                KingOfTheHill,
-                ThreeCheck,
-                Antichess,
-                Atomic,
-                Horde,
-                RacingKings,
-                Crazyhouse,
-                Puzzle,
-                UltraBullet
-              ) map { pt =>
+              RatingChartApi.perfTypes map { pt =>
                 Json.obj(
                   "name"   -> pt.trans(lila.i18n.defaultLang),
                   "points" -> ratingsMapToJson(userId, createdAt, history(pt))
@@ -71,4 +54,28 @@ final class RatingChartApi(
         }
       }
     }
+}
+
+object RatingChartApi {
+
+  def bestPerfIndex(user: User): Int = user.bestPerf ?? { perfTypes indexOf _ }
+
+  import lila.rating.PerfType._
+  private val perfTypes = List(
+    Bullet,
+    Blitz,
+    Rapid,
+    Classical,
+    Correspondence,
+    Chess960,
+    KingOfTheHill,
+    ThreeCheck,
+    Antichess,
+    Atomic,
+    Horde,
+    RacingKings,
+    Crazyhouse,
+    Puzzle,
+    UltraBullet
+  )
 }
