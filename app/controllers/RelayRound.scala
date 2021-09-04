@@ -15,7 +15,6 @@ import views._
 final class RelayRound(
     env: Env,
     studyC: => Study
-    // apiC: => Api
 ) extends LilaController(env) {
 
   def form(tourId: String) =
