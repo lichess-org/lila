@@ -12,6 +12,7 @@ case class Tag(name: TagType, value: String) {
 sealed trait TagType {
   lazy val name      = toString
   lazy val lowercase = name.toLowerCase
+  lazy val kifName   = KifUtils.tagToKif.get(this).getOrElse(name)
   val isUnknown      = false
 }
 
@@ -25,10 +26,12 @@ case class Tags(value: List[Tag]) extends AnyVal {
   def apply(which: Tag.type => TagType): Option[String] =
     value find (_.name == which(Tag)) map (_.value)
 
-  def clockConfig: Option[Clock.Config] =
-    value.collectFirst { case Tag(Tag.TimeControl, str) =>
+  def clockConfig: Option[Clock.Config] = {
+    val baseClk = value.collectFirst { case Tag(Tag.TimeControl, str) =>
       str
     } flatMap Clock.readKifConfig
+    apply(_.Byoyomi).flatMap(Clock.parseJPTime _).fold(baseClk)(byo => baseClk.map(_.copy(byoyomiSeconds = byo)))
+  }
 
   def variant: Option[shogi.variant.Variant] =
     apply(_.Variant).map(_.toLowerCase).flatMap { case name =>
@@ -55,30 +58,11 @@ case class Tags(value: List[Tag]) extends AnyVal {
 
   def +(tag: Tag) = Tags(value.filterNot(_.name == tag.name) :+ tag)
 
-  def sorted =
-    copy(
-      value = value.sortBy { tag =>
-        Tags.tagIndex.getOrElse(tag.name, 999)
-      }
-    )
-
-  override def toString = sorted.value mkString "\n"
+  override def toString = value mkString "\n"
 }
 
 object Tags {
   val empty = Tags(Nil)
-
-  // according to http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c8.1.1
-  val sevenTagRoster = List(
-    Tag.Event,
-    Tag.Site,
-    Tag.Date,
-    Tag.Round,
-    Tag.Sente,
-    Tag.Gote,
-    Tag.Result
-  )
-  val tagIndex: Map[TagType, Int] = sevenTagRoster.zipWithIndex.toMap
 
   private val DateRegex = """(\d{4}|\?{4})\.(\d\d|\?\?)\.(\d\d|\?\?)""".r
 }
@@ -94,7 +78,6 @@ object Tag {
   case object UTCTime extends TagType {
     val format = DateTimeFormat forPattern "HH:mm:ss" withZone DateTimeZone.UTC
   }
-  case object Round           extends TagType
   case object Sente           extends TagType
   case object Gote            extends TagType
   case object TimeControl     extends TagType
@@ -102,8 +85,6 @@ object Tag {
   case object GoteClock       extends TagType
   case object SenteElo        extends TagType
   case object GoteElo         extends TagType
-  case object SenteRatingDiff extends TagType
-  case object GoteRatingDiff  extends TagType
   case object SenteTitle      extends TagType
   case object GoteTitle       extends TagType
   case object SenteTeam       extends TagType
@@ -111,15 +92,35 @@ object Tag {
   case object Result          extends TagType
   case object FEN             extends TagType
   case object Variant         extends TagType
-  case object ECO             extends TagType
   case object Opening         extends TagType
   case object Termination     extends TagType
   case object Annotator       extends TagType
   case object Handicap        extends TagType
+  case object Byoyomi         extends TagType
   case class Unknown(n: String) extends TagType {
     override def toString  = n
     override val isUnknown = true
   }
+  // Tsume tags
+  case object ProblemName         extends TagType
+  case object ProblemId           extends TagType
+  case object DateOfPublication   extends TagType
+  case object Composer            extends TagType
+  case object Publication         extends TagType
+  case object Collection          extends TagType
+  case object Length              extends TagType
+  case object Prize               extends TagType
+
+  val tsumeTypes = List(
+    ProblemName,
+    ProblemId,
+    DateOfPublication,
+    Composer,
+    Publication,
+    Collection,
+    Length,
+    Prize
+  )
 
   val tagTypes = List(
     Event,
@@ -127,7 +128,6 @@ object Tag {
     Date,
     UTCDate,
     UTCTime,
-    Round,
     Sente,
     Gote,
     TimeControl,
@@ -135,8 +135,6 @@ object Tag {
     GoteClock,
     SenteElo,
     GoteElo,
-    SenteRatingDiff,
-    GoteRatingDiff,
     SenteTitle,
     GoteTitle,
     SenteTeam,
@@ -144,12 +142,13 @@ object Tag {
     Result,
     FEN,
     Variant,
-    ECO,
     Opening,
     Termination,
     Annotator,
-    Handicap
-  )
+    Handicap,
+    Byoyomi
+  ) ++ tsumeTypes
+
   val tagTypesByLowercase: Map[String, TagType] =
     tagTypes
       .map { t =>
@@ -170,22 +169,25 @@ object Tag {
     )
 
   def tagType(name: String) =
-    (tagTypesByLowercase get name.toLowerCase) | Unknown(name)
+    (tagTypesByLowercase get KifUtils.normalizeKifName(name).toLowerCase) | Unknown(name)
 
   def timeControl(clock: Option[Clock.Config]) =
     Tag(
       TimeControl,
-      clock.fold("-") { c =>
+      clock.fold("") { c =>
         val init =
           if (c.limit.roundSeconds % 60 == 0) s"${c.limit.roundSeconds / 60}分"
           else s"${c.limit.roundSeconds}秒"
+        val byo =
+          if (c.hasByoyomi) s"+${c.byoyomi.roundSeconds}秒"
+          else ""
         val periods =
           if (c.periods > 1) s"(${c.periods})"
           else ""
         val inc =
           if(c.hasIncrement) s"+${c.increment.roundSeconds}秒"
           else ""
-        s"${init}+${c.byoyomi.roundSeconds}秒$periods$inc"
+        s"$init$byo$periods$inc"
       }
     )
 }

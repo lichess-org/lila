@@ -17,8 +17,8 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   if (!study || ctrl.embed) return;
   const tags = study.data.chapter.tags,
     playerNames = {
-      sente: findTag(tags, 'sente')!,
-      gote: findTag(tags, 'gote')!,
+      sente: findTag(tags, '先手')!,
+      gote: findTag(tags, '後手')!,
     };
   if (!playerNames.sente && !playerNames.gote && !treeOps.findInMainline(ctrl.tree.root, n => defined(n.clock))) return;
   const clocks = renderClocks(ctrl, false),

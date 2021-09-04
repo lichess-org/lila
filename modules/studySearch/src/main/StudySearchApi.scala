@@ -69,12 +69,14 @@ final class StudySearchApi(
   private val relevantPgnTags: Set[shogi.format.pgn.TagType] = Set(
     Tag.Variant,
     Tag.Event,
-    Tag.Round,
     Tag.Sente,
     Tag.Gote,
-    Tag.ECO,
     Tag.Opening,
-    Tag.Annotator
+    Tag.Annotator,
+    Tag.Composer,
+    Tag.ProblemName,
+    Tag.Collection,
+    Tag.Publication
   )
 
   private def chapterText(c: Chapter): List[String] = {

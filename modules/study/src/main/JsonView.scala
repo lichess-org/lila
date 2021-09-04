@@ -193,11 +193,11 @@ object JsonView {
   implicit private val variantWrites = OWrites[shogi.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
-  implicit val pgnTagWrites: Writes[shogi.format.pgn.Tag] = Writes[shogi.format.pgn.Tag] { t =>
-    Json.arr(t.name.toString, t.value)
+  implicit val kifTagWrites: Writes[shogi.format.pgn.Tag] = Writes[shogi.format.pgn.Tag] { t =>
+    Json.arr(t.name.kifName, t.value)
   }
-  implicit val pgnTagsWrites = Writes[shogi.format.pgn.Tags] { tags =>
-    JsArray(tags.value map pgnTagWrites.writes)
+  implicit val kifTagsWrites = Writes[shogi.format.pgn.Tags] { tags =>
+    JsArray(tags.value map kifTagWrites.writes)
   }
   implicit private val chapterSetupWrites = Json.writes[Chapter.Setup]
   implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>

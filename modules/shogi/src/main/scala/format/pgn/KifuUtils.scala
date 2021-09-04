@@ -5,15 +5,51 @@ package pgn
 import scala._
 
 object KifUtils {
-  val tagParse = Map[TagType, String](
+  val tagToKif = Map[TagType, String](
+    Tag.Date        -> "開始日時",
     Tag.Event       -> "棋戦",
     Tag.Site        -> "場所",
+    Tag.Opening     -> "戦型",
     Tag.TimeControl -> "持ち時間",
+    Tag.Byoyomi     -> "秒読み",
     Tag.Handicap    -> "手合割",
     Tag.Sente       -> "先手",
     Tag.Gote        -> "後手",
-    Tag.Opening     -> "戦型"
+    Tag.SenteTeam   -> "先手のチーム",
+    Tag.GoteTeam    -> "後手のチーム",
+    Tag.Annotator   -> "注釈者",
+    Tag.Termination -> "図",
+    Tag.ProblemName -> "作品名",
+    Tag.ProblemId   -> "作品番号",
+    Tag.Composer    -> "作者",
+    Tag.DateOfPublication -> "発表年月",
+    Tag.Publication -> "発表誌",
+    Tag.Collection  -> "出典",
+    Tag.Length      -> "手数",
+    Tag.Prize       -> "受賞"
   )
+
+  val kifToTag = (tagToKif map { case (k, v) => v -> k }) ++ Map("下手" -> Tag.Sente, "上手" -> Tag.Gote)
+
+  def normalizeKifName(str: String): String =
+    kifToTag.get(str).fold(str)(_.lowercase)
+
+  def createTerminationTag(status: Status, winnerTurn: Boolean): Option[Tag] = {
+    import Status._
+    val termString = status match {
+      case Aborted | NoStart   => "中断".some
+      case Timeout | Outoftime => "切れ負け".some
+      case Resign if !winnerTurn => "投了".some
+      case PerpetualCheck => "反則勝ち".some
+      case Mate if winnerTurn => "反則勝ち".some // pawn checkmate
+      case Mate | Stalemate => "詰み".some
+      case Draw           => "千日手".some
+      case Impasse27      => "入玉勝ち".some
+      case Created | Started | UnknownFinish | VariantEnd | TryRule | Cheat | Resign  => None
+      case _ => None
+    }
+    termString.map(t => Tag(_.Termination, t))
+  }
 
   def toDigit(c: Char): Char = {
     c match {
@@ -220,23 +256,24 @@ object KifUtils {
   }
 
   // in this order
-  val kifTags = List(
+  val kifTags = Tag.tsumeTypes ++ List(
     Tag.Event,
     Tag.Site,
+    Tag.Opening,
     Tag.TimeControl,
     Tag.Handicap,
     Tag.Sente,
     Tag.Gote,
-    Tag.Opening
   )
 
   def kifHeader(tags: Tags): String =
     kifTags.map { kt => 
-      tagParse.get(kt).fold("") { kifTagName =>
+      tagToKif.get(kt).fold("") { kifTagName =>
         // we need these even empty
         if (kt == Tag.Sente || kt == Tag.Gote) {
-          val playername = tags(kt.name).getOrElse("")
-          s"${kifTagName}：$playername"
+          val tagName = tags(kt.name).getOrElse("")
+          val playerName = if(tagName == "?") "" else tagName // We want the ? somewhere, but not in kif
+          s"${kifTagName}：$playerName"
         }
         else if (kt == Tag.Handicap) {
           tags.fen.fold(s"${kifTagName}：平手") { fen =>
@@ -245,7 +282,7 @@ object KifUtils {
         }
         else {
           tags(kt.name).fold("")(tagValue => {
-            if(tagValue != "?") s"${kifTagName}：$tagValue"
+            if(tagValue != "?" && tagValue != "") s"${kifTagName}：$tagValue"
             else ""
           })
         }
@@ -272,18 +309,4 @@ object KifUtils {
       case _ => s"parse error - $uci, $san"
     }
 
-  // Use kifmodel instead
-  def movesAsKifu(uciPgn: Vector[(String, String)]): Vector[String] = {
-    uciPgn.foldLeft((Vector[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
-      // t is a tuple of (uci, pgn)
-      val kifMove = cur match {
-        case (uci, san) => moveKif(uci, san, lastDest)
-      }
-      val prevDest = cur match {
-        case (uci, _) => Uci(uci).map(_.origDest._2)
-      }
-      (acc :+ kifMove, prevDest)
-    }._1
-  }
 }
-//Result & Termination <-> saigo no te

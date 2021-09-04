@@ -29,6 +29,10 @@ object PgnTags {
   private val sortedTypes: List[TagType] = {
     import Tag._
     List(
+      Date,
+      Site,
+      Event,
+      TimeControl,
       Sente,
       SenteElo,
       SenteTitle,
@@ -37,18 +41,20 @@ object PgnTags {
       GoteElo,
       GoteTitle,
       GoteTeam,
-      TimeControl,
-      Date,
       Result,
-      Termination,
-      Site,
-      Event,
-      Round,
+      ProblemName,
+      ProblemId,
+      DateOfPublication,
+      Composer,
+      Publication,
+      Collection,
+      Length,
+      Prize,
       Annotator
     )
   }
 
-  val typesToString = sortedTypes mkString ","
+  val typesToString = sortedTypes.map(_.kifName) mkString ","
 
   private val relevantTypeSet: Set[TagType] = sortedTypes.toSet
 

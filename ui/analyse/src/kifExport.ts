@@ -14,8 +14,6 @@ import { isDrop, Square, Role, Move } from 'shogiops/types';
 import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
 import { renderTime } from './clocks';
 
-import * as game from 'game';
-
 function renderKifMove(move: Move, role: Role, same = false): string {
   if (isDrop(move)) {
     return kifDestSquare(move.to) + roleTo2Kanji(role) + '打';
@@ -84,18 +82,20 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
 
   const txt = renderKifNodes(ctrl.tree.root, offset % 2).join('\n');
 
-  const senteName = game.getPlayer(ctrl.data, 'sente').name;
-  const goteName = game.getPlayer(ctrl.data, 'gote').name;
-  const sente = '先手：' + (senteName === '?' || !senteName ? '' : senteName);
-  const gote = '後手：' + (goteName === '?' || !goteName ? '' : goteName);
+  const tags = ctrl.data.tags ?? [];
+  // We either don't want to display these or we display them through other means
+  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割'];
+  const otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => t[0] + '：' + t[1]);
 
-  const timeControl = ctrl.data.tags?.find(t => t[0] === 'TimeControl');
+  // We want these even empty
+  const sente = tags.find(t => t[0] === '先手' || t[0] === '下手') ?? ['先手', ''];
+  const gote = tags.find(t => t[0] === '後手' || t[0] === '上手') ?? ['後手', ''];
 
   return [
-    ...(defined(timeControl) ? ['持ち時間：' + timeControl[1]] : []),
+    ...otherTags,
     makeKifHeader(setup),
-    sente,
-    gote,
+    sente.join('：'),
+    gote.join('：'),
     '手数----指手---------消費時間--',
     txt,
   ].join('\n');

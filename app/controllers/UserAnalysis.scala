@@ -14,7 +14,7 @@ import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
 import lila.round.JsonView.WithFlags
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.study.JsonView.{pgnTagWrites, pgnTagsWrites}
+import lila.study.JsonView.{ kifTagWrites, kifTagsWrites }
 import views._
 
 final class UserAnalysis(
