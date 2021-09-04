@@ -212,10 +212,7 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(''),
         hook: bind(
           'click',
-          _ => {
-            members.confing(members.confing() == member.user.id ? null : member.user.id);
-            console.log(members.confing(), member.user.id);
-          },
+          _ => members.confing(members.confing() == member.user.id ? null : member.user.id),
           ctrl.redraw
         ),
       });
