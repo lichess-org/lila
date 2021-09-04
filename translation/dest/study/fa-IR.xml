@@ -8,9 +8,11 @@
   <string name="myFavoriteStudies">درس های مورد علاقه من</string>
   <string name="whatAreStudies">درس ها چه هستند?</string>
   <string name="allStudies">همه درس های من</string>
+  <string name="studiesCreatedByX">مطالعاتِ ایجاد شده توسط %s</string>
   <string name="noneYet">هنوز چیزی نیست.</string>
   <string name="hot">داغ</string>
   <string name="dateAddedNewest">بروز(جدید ترین)</string>
+  <string name="dateAddedOldest">تاریخی که اضافه شده است (قدیمی‌ترین)</string>
   <string name="recentlyUpdated">اخیرا به روز شده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
   <string name="alphabetical">براساس حروف الفبا</string>
@@ -60,6 +62,7 @@
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
+  <string name="startAtX">شروع از %s</string>
   <string name="open">بگشایید</string>
   <string name="studyNotFound">مطالعه یافت نشد</string>
   <string name="editChapter">ویرایش فصل</string>
@@ -82,6 +85,7 @@
   <string name="visibility">وضعیت نمایش</string>
   <string name="public">عمومی</string>
   <string name="unlisted">فهرست نشده</string>
+  <string name="inviteOnly">فقط توسط دعوتنامه</string>
   <string name="nobody">هیچ کس</string>
   <string name="onlyMe">تنها من</string>
   <string name="contributors">مشارکت‌کنندگان</string>
@@ -90,6 +94,7 @@
   <string name="enableSync">فعال کردن همگام سازی</string>
   <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در پوزیسیونی یکسان نگه دار</string>
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
+  <string name="pinnedStudyComment">نظر سنجاق شده درباره مطالعه</string>
   <string name="start">شروع</string>
   <string name="save">ذخیره</string>
   <string name="clearChat">پاک کردن گفتگو</string>
@@ -99,6 +104,7 @@
   <string name="whereDoYouWantToStudyThat">کجا میخواهید آنرا مطالعه کنید?</string>
   <string name="goodMove">حرکت خوبی بود</string>
   <string name="mistake">اشتباه</string>
+  <string name="brilliantMove">حرکت درخشان</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="interestingMove">حرکت جالب</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تنها حرکت مناسب</string>
