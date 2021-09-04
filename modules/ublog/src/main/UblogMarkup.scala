@@ -11,6 +11,7 @@ final class UblogMarkup {
       list = true,
       strikeThrough = true,
       header = true,
+      blockQuote = true,
       code = true,
       table = true
     )
