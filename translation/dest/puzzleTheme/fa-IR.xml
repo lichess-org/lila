@@ -44,6 +44,7 @@
   <string name="middlegameDescription">تاکتیکی در لحظات آخر بازی.</string>
   <string name="oneMove">معمای یک-حرکتی</string>
   <string name="opening">گشایش</string>
+  <string name="pawnEndgame">پایان بازی با پیاده</string>
   <string name="pin">سنجاق کردن</string>
   <string name="promotion">ترفیع</string>
   <string name="queenEndgame">آخربازی وزیر</string>
@@ -56,6 +57,8 @@
   <string name="quietMoveDescription">حرکتی که نه کیش ایجاد می کند و نه مهره ای را می گیرد و نه تهدید فوری را در پی دارد اما یک تهدید غیر قابل پیشگیری را در حرکات بعد به همراه دارد.</string>
   <string name="rookEndgame">آخربازی رخ</string>
   <string name="sacrifice">قربانی</string>
+  <string name="short">معمای کوتاه</string>
+  <string name="shortDescription">دو حرکت تا پیروزی.</string>
   <string name="skewer">حمله پیکانی</string>
   <string name="smotheredMate">مات مختنق</string>
   <string name="superGM">بازی سوپر استاد بزرگ</string>
