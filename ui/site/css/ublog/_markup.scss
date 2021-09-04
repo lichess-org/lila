@@ -96,6 +96,12 @@
     }
   }
 
+  blockquote {
+    color: $c-font-dim;
+    border-left: 0.3em solid $c-font-dimmer;
+    padding-left: 1em;
+  }
+
   .embed {
     @extend %video;
 
