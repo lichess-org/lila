@@ -104,6 +104,9 @@
     }
     .embed {
       @extend %embed;
+      &--game {
+        @extend %game-embed;
+      }
       margin: $block-gap auto;
     }
   }

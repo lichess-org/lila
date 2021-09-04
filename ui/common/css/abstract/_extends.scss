@@ -169,6 +169,12 @@
   padding-bottom: 56.25%;
 }
 
+%game-embed {
+  @include breakpoint($mq-not-xx-small) {
+    padding-bottom: 175%;
+  }
+}
+
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;

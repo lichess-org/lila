@@ -1,22 +1,3 @@
-.analyse {
-  &__board {
-    grid-area: board;
-  }
-  &__tools {
-    grid-area: tools;
-  }
-  &__controls {
-    grid-area: controls;
-  }
-
-  display: grid;
-  grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
-  grid-template-rows: auto 2.5rem;
-  grid-template-areas:
-    'board tools'
-    'board controls';
-}
-
 .pocket {
   &-top {
     grid-area: pocket-top;
@@ -29,15 +10,36 @@
   background: #888;
   border-radius: 0;
 }
-.analyse.variant-fromPosition,
-.analyse.variant-standard {
-  grid-template-rows: 60px auto 2.5rem 60px;
-  body.supports-max-content & {
-    grid-template-rows: max-content auto 2.5rem max-content;
+
+.analyse {
+  &__board {
+    grid-area: board;
   }
+  &__tools {
+    grid-area: tools;
+  }
+  &__controls {
+    grid-area: controls;
+    height: 100%;
+  }
+
+  display: grid;
   grid-template-areas:
-    'board pocket-top'
-    'board tools'
-    'board controls'
-    'board pocket-bot';
+    'pocket-top'
+    'board'
+    'pocket-bot'
+    'tools'
+    'controls';
+  grid-template-columns: auto;
+  grid-template-rows: max-content 100vw max-content minmax(50px, calc(100vh - 100vw - 12rem)) 3rem;
+
+  @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
+    grid-template-columns: minmax(100px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
+    grid-template-rows: max-content auto 2.5rem max-content;
+    grid-template-areas:
+      'board pocket-top'
+      'board tools'
+      'board controls'
+      'board pocket-bot';
+    }
 }

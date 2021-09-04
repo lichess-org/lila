@@ -74,7 +74,7 @@ $(function () {
     var $iframe = $('<iframe>')
       .addClass('analyse ' + a.type)
       .attr('src', a.src);
-    $(a.element).replaceWith($('<div class="embed"></div>').html($iframe));
+    $(a.element).replaceWith($('<div class="embed embed--game"></div>').html($iframe));
     return $iframe
       .on('load', function () {
         if (this.contentDocument.title.startsWith('404')) this.style.height = '100px';

@@ -59,6 +59,9 @@
     .embed:not(img) {
       @extend %embed;
       margin: $block-gap auto;
+      &.embed--game {
+        @extend %game-embed;
+      }
     }
     img {
       max-width: 100%;
