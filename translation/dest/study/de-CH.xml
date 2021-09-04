@@ -47,7 +47,7 @@
   <string name="annotateWithGlyphs">Mit Symbool kommentiärä</string>
   <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum Analysieren.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende a därä Schtuudiä chönd ä Kompianalysä aafordärä.</string>
-  <string name="getAFullComputerAnalysis">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
+  <string name="getAFullComputerAnalysis" comment="getAFullComputerAnalysis&#10;&#10;This function gives you exactly what the string states, in a Lichess study (https://lichess.org/study).&#10;&#10;Please click/tap on the words for a definition of each, to get an idea of what this means.">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
@@ -111,7 +111,7 @@
   <string name="public">Öffäntlich</string>
   <string name="unlisted">Ungliischtät</string>
   <string name="inviteOnly">Nur mit Iiladig</string>
-  <string name="allowCloning">Kloonä erlaubt</string>
+  <string name="allowCloning" comment="allowCloning&#10;&#10;Option for studies (https://lichess.org/study). Lets other Lichess users easily clone (make exact copies of) your study. They can then edit their copy, and alter/improve the study.">Kloonä erlaubt</string>
   <string name="nobody">Niämärt</string>
   <string name="onlyMe">Numä ich</string>
   <string name="contributors">Mitwirkändi</string>
@@ -126,16 +126,16 @@
   <string name="clearChat">Tschätt löschä</string>
   <string name="deleteTheStudyChatHistory">Tschättverlauf vodä Schtuudiä löschä? Das chan nümä rückgängig gmacht wärdä!</string>
   <string name="deleteStudy">Schtuudiä löschä</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die gesamte Studie löschen? Es gibt kein Zurück! Gib zur Bestätigung den Namen der Studie ein.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die gesamte Studie löschen? Es gibt kein Zurück! Gib zur Bestätigung den Namen der Studie ein: %s</string>
   <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
   <string name="goodMove">Guätä Zug</string>
   <string name="mistake">Fähler</string>
   <string name="brilliantMove">Briliantä Zug</string>
   <string name="blunder">Grobä Patzer</string>
   <string name="interestingMove">Intressantä Zug</string>
-  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Frogwürdigä Zug</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate this may have been an unwise move.">Frogwürdigä Zug</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einzigä Zug</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Uusglichäni Schtellig</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
   <string name="whiteIsSlightlyBetter">Wiis schtoht liächt besser</string>
@@ -146,7 +146,7 @@
   <string name="blackIsWinning">Schwarz schtoht uf Gwünn</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuärig</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>
-  <string name="initiative">Initiativä</string>
+  <string name="initiative" comment="initiative&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate a side has gained the initiative in the game.">Initiativä</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Aagriff</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Gägäschpiil</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Ziitnot</string>
