@@ -14,7 +14,7 @@ final class Importer(env: Env) extends LilaController(env) {
     key = "import.game.ip",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 4, 1.minute),
+    ("fast", 10, 1.minute),
     ("slow", 150, 1.hour)
   )
 
