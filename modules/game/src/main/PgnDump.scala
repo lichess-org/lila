@@ -84,11 +84,6 @@ final class PgnDump(
     }
   }
 
-  private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
-    p.ratingDiff.map { rd =>
-      Tag(tag(Tag), s"${if (rd >= 0) "+" else ""}$rd")
-    }
-
   def tags(
       game: Game,
       initialFen: Option[FEN],
@@ -106,53 +101,13 @@ final class PgnDump(
           ).some,
           Tag(_.Site, gameUrl(game.id)).some,
           Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
-          imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
           Tag(_.Sente, player(game.sentePlayer, wu)).some,
           Tag(_.Gote, player(game.gotePlayer, bu)).some,
-          Tag(_.Result, result(game)).some,
-          importedDate.isEmpty option Tag(
-            _.UTCDate,
-            imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
-          ),
-          importedDate.isEmpty option Tag(
-            _.UTCTime,
-            imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
-          ),
-          Tag(_.SenteElo, rating(game.sentePlayer)).some,
-          Tag(_.GoteElo, rating(game.gotePlayer)).some,
-          ratingDiffTag(game.sentePlayer, _.SenteRatingDiff),
-          ratingDiffTag(game.gotePlayer, _.GoteRatingDiff),
-          wu.flatMap(_.title).map { t =>
-            Tag(_.SenteTitle, t)
-          },
-          bu.flatMap(_.title).map { t =>
-            Tag(_.GoteTitle, t)
-          },
           teams.map { t => Tag("SenteTeam", t.sente) },
           teams.map { t => Tag("GoteTeam", t.gote) },
           Tag(_.Variant, game.variant.name.capitalize).some,
           Tag.timeControl(game.clock.map(_.config)).some,
-          Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-          withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
-          // For now we don't display the game termination
-          Tag(
-            _.Termination, {
-              import shogi.Status._
-              game.status match {
-                case Created | Started   => ""
-                case Aborted | NoStart   => "中断"
-                case Timeout | Outoftime => "切れ負け"
-                case Resign => "" // "投了", how to display resigning during opponent's turn?
-                case Mate | Stalemate => "詰み"
-                case Draw           => "千日手"
-                case TryRule        => "トライルール"
-                case Impasse27      => "入玉勝ち"
-                case PerpetualCheck => "反則勝ち"
-                case Cheat          => "反則"
-                case UnknownFinish | VariantEnd | _  => ""
-              }
-            }
-          ).some
+          withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco)),
         ).flatten ::: customStartPosition(game.variant).??(
           List(
             Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value)),
