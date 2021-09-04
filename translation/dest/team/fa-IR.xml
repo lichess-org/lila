@@ -29,7 +29,7 @@
   <string name="willBeReviewed">درخواست عضویت شما توسط مسئول گروه بررسی خواهد شد.</string>
   <string name="beingReviewed">درخواست عضویت شما توسط مسئول گروه در حال بررسی می باشد.</string>
   <string name="subToTeamMessages">برای دریافت پیامهای تیم، نام‌نویسی کنید</string>
-  <string name="teamBattle">مبارزات تیمی</string>
+  <string name="teamBattle">مبارزه تیمی</string>
   <string name="teamBattleOverview">مبارزه ی چندین تیم، امتیاز هر بازیکن برای تیم اش حساب می شود</string>
   <string name="teamTournament">مسابقه تیمی</string>
   <string name="teamTournamentOverview">یک میدان مسابقه که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
