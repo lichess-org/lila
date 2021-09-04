@@ -201,5 +201,9 @@ object Forsyth {
       }
     }
 
+  def truncateFen(fen: String) = fen split ' ' take 3 mkString " "
+
+  def compareTruncated(a: String, b: String) = truncateFen(a) == truncateFen(b)
+
   private def read[A](source: String)(f: String => A): A = f(source.replace("_", " ").trim)
 }

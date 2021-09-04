@@ -42,11 +42,8 @@ final private class ExplorerGame(
         }
       }
 
-  private def truncateFen(f: FEN)         = f.value split ' ' take 4 mkString " "
-  private def compareFens(a: FEN, b: FEN) = truncateFen(a) == truncateFen(b)
-
   private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root): Option[(Node, Path)] = {
-    val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)) drop 1
+    val gameNodes = game.mainline.dropWhile(n => !shogi.format.Forsyth.compareTruncated(n.fen.value, fromNode.fen.value)) drop 1
     val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode

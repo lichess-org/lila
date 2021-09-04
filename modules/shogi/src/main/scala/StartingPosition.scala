@@ -229,8 +229,8 @@ object StartingPosition {
 
   def searchHandicapByFen(fen: Option[format.FEN]): Option[StartingPosition] = {
     fen flatMap { fe =>
-      this.categories find { _.name == "Handicaps" } flatMap { hcs =>
-        hcs.positions find { _.fen == fe.value }
+      categories find { _.name == "Handicaps" } flatMap { hcs =>
+        hcs.positions find { p => format.Forsyth.compareTruncated(p.fen, fe.value) }
       }
     }
   }
