@@ -41,8 +41,16 @@
   <string name="normal">معمولی</string>
   <string name="easier">اسان تر</string>
   <string name="easiest">آسان‌ترین</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+  </plurals>
   <string name="harder">سخت تر</string>
   <string name="hardest">سخت‌ترین</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">یک امتیاز بالاتر از امتیاز شما در معماها</item>
+    <item quantity="other">%s امتیاز بالاتر از امتیاز شما در معماها</item>
+  </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
@@ -53,7 +61,9 @@
   <string name="history">تاریخ پازل</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
+  <string name="streakDescription">به تدریج معماهای پیچیده‌تری را حل کنید و یک توالی پیروزی بسازید. هیچ ساعتی در کار نیست، پس از زمان استفاده کنید. یک حرکت اشتباه لازم است تا بازی پایان یابد! اما می‌توانید در هر جلسه از یک حرکت چشم‌پوشی کنید.</string>
   <string name="yourStreakX">توالی شما: %s</string>
+  <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
@@ -73,4 +83,6 @@
   </plurals>
   <string name="percentSolved">%s حل شده</string>
   <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و نخست چند معما حل کنید!</string>
+  <string name="improvementAreasDescription">اینها را یاد بگیرید تا پیش‌رفت خود را بهینه کنید!</string>
+  <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>
