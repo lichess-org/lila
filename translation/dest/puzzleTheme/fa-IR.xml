@@ -12,6 +12,7 @@
   <string name="bishopEndgame">آخر بازی فیل</string>
   <string name="castling">قلعه رفتن</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
+  <string name="equality">برابری</string>
   <string name="kingsideAttack">حمله به جناه شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
   <string name="clearance">پاکسازی</string>
@@ -39,12 +40,15 @@
   <string name="mateIn3">مات در سه حرکت</string>
   <string name="mateIn3Description">در سه حرکت کیش و مات کنید.</string>
   <string name="mateIn4">مات در چهار حرکت</string>
+  <string name="mateIn4Description">در چهار حرکت کیش و مات کنید.</string>
   <string name="mateIn5">مات در پنج حرکت یا بیشتر</string>
   <string name="middlegame">وسط بازی</string>
   <string name="middlegameDescription">تاکتیکی در لحظات آخر بازی.</string>
   <string name="oneMove">معمای یک-حرکتی</string>
+  <string name="oneMoveDescription">یک معما که فقط یک حرکت طول می‌کشد.</string>
   <string name="opening">گشایش</string>
   <string name="pawnEndgame">پایان بازی با پیاده</string>
+  <string name="pawnEndgameDescription">یک آخر بازی تنها با پیاده‌ها.</string>
   <string name="pin">سنجاق کردن</string>
   <string name="promotion">ترفیع</string>
   <string name="queenEndgame">آخربازی وزیر</string>
