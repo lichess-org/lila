@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Svizaj turniroj</string>
+  <string name="tournStartDate">Komencdato de turniro</string>
+  <string name="numberOfRoundsHelp">Malpara nombro da raŭndoj permesas la plej bona egaleco de koloroj.</string>
+  <string name="roundInterval">Tempo inter raŭndoj</string>
+  <string name="forbiddenPairings">Malpermesataj paroj</string>
+  <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
 </resources>
