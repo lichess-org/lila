@@ -5,6 +5,8 @@
   <string name="location">موقعیت مکانی</string>
   <string name="languages">زبان ها</string>
   <string name="rating">ریتینگ</string>
+  <string name="availability">دسترس‌پذیری</string>
+  <string name="sendPM">یک پیام خصوصی ارسال کنید</string>
   <string name="aboutMe">درباره من</string>
   <string name="playingExperience">سابقه بازی</string>
   <string name="teachingExperience">سابقه تدریس</string>
@@ -13,4 +15,5 @@
   <string name="teachingMethod">شیوه آموزش</string>
   <string name="publicStudies">مطالعات عمومی</string>
   <string name="youtubeVideos">ویدیو های یوتیوب</string>
+  <string name="describeExperienceWith">تجربه مربی‌گری خود را با %s توصیف نمایید</string>
 </resources>
