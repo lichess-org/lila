@@ -1638,6 +1638,7 @@ object team {
 val `team` = new I18nKey("team:team")
 val `teams` = new I18nKey("team:teams")
 val `allTeams` = new I18nKey("team:allTeams")
+val `leaderTeams` = new I18nKey("team:leaderTeams")
 val `newTeam` = new I18nKey("team:newTeam")
 val `myTeams` = new I18nKey("team:myTeams")
 val `noTeamFound` = new I18nKey("team:noTeamFound")
