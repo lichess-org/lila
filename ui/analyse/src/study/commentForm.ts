@@ -62,19 +62,16 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     submit,
     start,
     onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
-      setTimeout(() => {
-        const cur = current();
-        if (
-          cur &&
-          (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node) &&
-          (!focus() || playedMyself)
-        ) {
-          cur.chapterId = chapterId;
-          cur.path = path;
-          cur.node = node;
-          root.redraw();
-        }
-      }, 100);
+      const cur = current();
+      if (
+        cur &&
+        (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node) &&
+        (!focus() || playedMyself)
+      ) {
+        cur.chapterId = chapterId;
+        cur.path = path;
+        cur.node = node;
+      }
     },
     redraw: root.redraw,
     delete(chapterId: string, path: Tree.Path, id: string) {
@@ -97,29 +94,52 @@ export function view(root: AnalyseCtrl): VNode {
     current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
 
-  function setupTextarea(vnode: VNode) {
-    const el = vnode.elm as HTMLInputElement,
-      mine = (current!.node.comments || []).find(function (c) {
+  const setupTextarea = (vnode: VNode, old?: VNode) => {
+    const el = vnode.elm as HTMLInputElement;
+    const newKey = current.chapterId + current.path;
+
+    if (old?.data!.path !== newKey) {
+      const mine = (current!.node.comments || []).find(function (c) {
         return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId;
       });
-    el.value = mine ? mine.text : '';
-    if (ctrl.opening() || ctrl.focus()) requestAnimationFrame(() => el.focus());
-    ctrl.opening(false);
-  }
+      el.value = mine ? mine.text : '';
+    }
+    vnode.data!.path = newKey;
+
+    if (ctrl.opening() || ctrl.focus()) {
+      requestAnimationFrame(() => el.focus());
+      ctrl.opening(false);
+    }
+  };
 
   return h('div.study__comments', [
     currentComments(root, !study.members.canContribute()),
     h('form.form3', [
-      ctrl.focus() && ctrl.root.path !== current.path
+      ctrl.root.path !== current.path
         ? h('p', [
             'Commenting position after ',
             h(
-              'a',
+              'button.button-link',
               {
+                attrs: { type: 'button' },
                 hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw),
               },
               nodeFullName(current.node)
             ),
+            h('button.goto-current.button-link', {
+              attrs: {
+                'data-icon': '',
+                type: 'button',
+              },
+              hook: bind(
+                'click',
+                _ => {
+                  current.path = ctrl.root.path;
+                  current.node = ctrl.root.node;
+                },
+                ctrl.redraw
+              ),
+            }),
           ])
         : null,
       h('div.form-group', [
@@ -132,20 +152,10 @@ export function view(root: AnalyseCtrl): VNode {
                 setTimeout(() => ctrl.submit(el.value), 50);
               }
               el.onkeyup = el.onpaste = onChange;
-              el.onfocus = function () {
-                ctrl.focus(true);
-                ctrl.redraw();
-              };
-              el.onblur = function () {
-                ctrl.focus(false);
-              };
-              vnode.data!.path = current.chapterId + current.path;
+              el.onfocus = () => ctrl.focus(true);
+              el.onblur = () => ctrl.focus(false);
             },
-            postpatch(old, vnode) {
-              const newKey = current.chapterId + current.path;
-              if (old.data!.path !== newKey) setupTextarea(vnode);
-              vnode.data!.path = newKey;
-            },
+            postpatch: (old, vnode) => setupTextarea(vnode, old),
           },
         }),
       ]),

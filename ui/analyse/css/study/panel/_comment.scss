@@ -3,6 +3,10 @@
     margin: 1em 0;
   }
 
+  .goto-current {
+    float: right;
+  }
+
   #comment-text {
     @extend %box-shadow;
 

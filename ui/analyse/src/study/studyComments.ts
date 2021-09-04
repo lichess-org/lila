@@ -63,21 +63,6 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
               ),
             })
           : null,
-        isMine && study.vm.mode.write
-          ? h('a.edit', {
-              attrs: {
-                'data-icon': '',
-                title: 'Edit',
-              },
-              hook: bind(
-                'click',
-                _ => {
-                  study.commentForm.start(chapter.id, ctrl.path, node);
-                },
-                ctrl.redraw
-              ),
-            })
-          : null,
         authorDom(by),
         ...(node.san ? [' on ', h('span.node', nodeFullName(node))] : []),
         ': ',
