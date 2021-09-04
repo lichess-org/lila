@@ -29,6 +29,7 @@
     <item quantity="other">ارزیابی %s دانشجو</item>
   </plurals>
   <string name="thankYouForReview">از ارزیابی توسط شما سپاسگزاریم!</string>
+  <string name="xWillApproveIt">%s خیلی زود آن را تایید خواهد کرد، یا یک مدیر نگاهی به آن خواهد انداخت.</string>
   <string name="reviewCoach">این مربی را ارزیابی کنید</string>
   <string name="describeExperienceWith">تجربه مربی‌گری خود را با %s توصیف نمایید</string>
 </resources>
