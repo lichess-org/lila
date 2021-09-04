@@ -598,9 +598,14 @@ export default class AnalyseCtrl {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
-        if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
-      } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
-      else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
+        const threat = ev as Tree.LocalEval;
+        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
+          node.threat = threat;
+      } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      else if (!ev.cloud) {
+        if (node.ceval.cloud && ev.maxDepth > node.ceval.depth) node.ceval = ev;
+        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
+      }
 
       if (path === this.path) {
         this.setAutoShapes();

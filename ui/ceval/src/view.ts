@@ -53,7 +53,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   return t;
 }
 
-function threatInfo(ctrl: ParentCtrl, threat?: Tree.ClientEval | false): string {
+function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
   if (!threat) return ctrl.trans.noarg('loadingEngine');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
   if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
@@ -161,7 +161,9 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client
-      ? Math.min(100, Math.round((100 * evs.client.depth) / (evs.client.maxDepth || instance.effectiveMaxDepth())))
+      ? evs.client.cloud
+        ? 100
+        : Math.min(100, Math.round((100 * evs.client.depth) / evs.client.maxDepth))
       : 0;
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
