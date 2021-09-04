@@ -19,7 +19,7 @@ export function palantir(opts: PalantirOpts) {
 
   function start() {
     setState('opening');
-    peer = new window['Peer'](peerIdOf(opts.uid))
+    peer = new window.Peer(peerIdOf(opts.uid))
       .on('open', () => {
         setState('getting-media');
         devices
