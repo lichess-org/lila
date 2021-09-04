@@ -363,6 +363,7 @@ object Schedule {
         case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet)             => 30
         case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
         case (Weekly | Weekend | Monthly | Shield, Rapid)                            => 15
+        case (Weekly | Weekend | Monthly | Shield, Classical)                        => 5
 
         case _ => 0
       }
