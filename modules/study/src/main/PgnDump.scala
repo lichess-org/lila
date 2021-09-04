@@ -67,15 +67,14 @@ final class PgnDump(
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-        Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
-      ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(
+        Tag(_.Date, Tag.UTCDate.format.print(chapter.createdAt)),
+      ) ::: List(annotatorTag(study)) ::: (!Forsyth.compareTruncated(chapter.root.fen.value, Forsyth.initial)).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
         )
       )
-      genTags
+      opening.fold(genTags)(o => Tag(_.Opening, o.eco) :: genTags)
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
           else tag :: tags
@@ -98,9 +97,8 @@ object PgnDump {
       ply = node.ply - startingPly,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        shapeComment(node.shapes).toList ::: node.comments.list.map(c => s"[${s.by}] ${s.text.value}")
+        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
       },
-      //opening = none,
       result = none,
       variations = flags.variations ?? {
         variations.view.map { child =>
@@ -120,17 +118,17 @@ object PgnDump {
       }
     val circles = render("csl") {
       shapes.value.collect { case Shape.Circle(brush, orig) =>
-        s"${brush.head.toUpper}$orig"
+        s"${brush.head.toUpper}${orig.usiKey}"
       }
     }
     val arrows = render("cal") {
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
-        s"${brush.head.toUpper}$orig$dest"
+        s"${brush.head.toUpper}${orig.usiKey}${dest.usiKey}"
       }
     }
     val pieces = render("cpl") {
       shapes.value.collect { case Shape.Piece(brush, orig, piece) =>
-        s"${brush.head.toUpper}$orig${piece.forsyth}"
+        s"${brush.head.toUpper}${orig.usiKey}${piece.forsyth}"
       }
     }
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)
