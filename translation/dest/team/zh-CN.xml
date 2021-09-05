@@ -44,7 +44,7 @@
   <string name="closeTeamDescription">永远关闭团队。</string>
   <string name="entryCode">团队入场码</string>
   <string name="entryCodeDescriptionForLeader">(可选) 新成员必须提交此代码才能加入团队。</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">错误的入场码</string>
+  <string name="incorrectEntryCode">错误的入场码</string>
   <string name="teamAlreadyExists">该团队已经存在。</string>
   <string name="upcomingTourns">即将开始的锦标赛</string>
   <string name="completedTourns">已完成的锦标赛</string>
