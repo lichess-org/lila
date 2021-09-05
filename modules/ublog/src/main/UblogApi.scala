@@ -89,9 +89,9 @@ final class UblogApi(
     )
   }
 
-  def lightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
+  def liveLightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     coll
-      .find($inIds(ids), lightPostProjection.some)
+      .find($inIds(ids) ++ $doc("live" -> true), lightPostProjection.some)
       .cursor[UblogPost.LightPost]()
       .list()
 
