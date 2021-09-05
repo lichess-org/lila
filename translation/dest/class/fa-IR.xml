@@ -3,6 +3,7 @@
   <string name="lichessClasses">کلاس ها</string>
   <string name="features">امکانات</string>
   <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
+  <string name="applyToBeLichessTeacher">برای آنکه معلمِ Lichess باشید درخواست بدهید</string>
   <string name="noClassesYet">هنوز کلاسی موجود نیست.</string>
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
@@ -17,6 +18,9 @@
   <string name="classDescription">توصیف کلاس</string>
   <string name="teachersOfTheClass">معلمهای کلاس</string>
   <string name="resetPassword">بازنشانی گذرواژه</string>
+  <string name="passwordX">گذرواژه: %s</string>
+  <string name="generateANewPassword">یک گذرواژه جدید برای دانشجو تولید کنید</string>
+  <string name="invitedToXByY">توسط %2$s به %1$s دعوت شد</string>
   <string name="realName">نام واقعی</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
   <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
