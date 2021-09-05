@@ -239,6 +239,8 @@ declare namespace Editor {
 interface Window {
   lichess: Lichess;
 
+  el: Element;
+  chrome: any;
   moment: any;
   Mousetrap: any;
   Chessground: any;
@@ -252,8 +254,29 @@ interface Window {
   palantir?: {
     palantir(opts: PalantirOpts): Palantir;
   };
-  LichessChat(element: Element, opts: any): unknown;
-  [key: string]: any; // TODO
+  LichessChat(element: Element, opts: any): any;
+  LichessFlatpickr(element: Element, opts: any): any;
+  LichessNotify(element: any, opts: any): any;
+  LichessChallenge(element: any, opts: any): any;
+  LichessDasher(element: any, opts: any): any;
+  LichessAnalyse: any;
+  LichessCli: any;
+  LichessRound: any;
+  Highcharts: any;
+  Howler: any;
+  Howl: any;
+  stripeHandler: any;
+  Stripe: any;
+  Textcomplete: any;
+  UserComplete: any;
+  Stockfish?: any;
+  StockfishMv?: any;
+  Tagify: any;
+  Sortable: any;
+  passwordComplexity: any;
+  requestIdleCallback: any;
+  Peer: any;
+  signupSubmit: () => void;
 }
 
 interface Study {
