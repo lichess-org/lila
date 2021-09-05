@@ -899,6 +899,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
   <string name="markdownAvailable">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
+  <string name="embedsAvailable">Voit upottaa pelin tai tutkielman kappaleen liittämällä sen URL-osoitteen.</string>
   <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
   <string name="tournChat">Turnauksen keskusteluhuone</string>
   <string name="noChat">Ei keskustelua</string>
