@@ -101,11 +101,10 @@ final class IrcApi(
       id: String,
       slug: String,
       title: String,
-      filename: String,
       imageUrl: String
   ): Funit =
     zulip(_.image, "blog")(
-      s"[$filename](${imageUrl
+      s"[Blog image](${imageUrl
         .replace("/display?", "/display.jpg?")}) in ${markdown
         .lichessLink(title, s"/@/${user.username}/blog/$slug/$id")} by ${markdown
         .userLink(user)}"

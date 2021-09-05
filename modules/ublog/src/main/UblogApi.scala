@@ -32,15 +32,17 @@ final class UblogApi(
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] = {
     val post = data.update(prev)
-    coll.update.one($id(prev.id), post) >>- {
-      if (post.live && prev.liveAt.isEmpty) {
-        Bus.publish(UblogPost.Create(post), "ublogPost")
-        if (!user.marks.troll)
-          timeline ! {
-            Propagate(
-              lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
-            ) toFollowersOf user.id
-          }
+    coll.update.one($id(prev.id), post) >> {
+      (post.live && prev.liveAt.isEmpty) ?? {
+        sendImageToZulip(user, post) >>- {
+          Bus.publish(UblogPost.Create(post), "ublogPost")
+          if (!user.marks.troll)
+            timeline ! {
+              Propagate(
+                lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
+              ) toFollowersOf user.id
+            }
+        }
       }
     } inject post
   }
@@ -72,16 +74,20 @@ final class UblogApi(
       image <- picfitApi
         .upload(imageRel(post), picture, userId = post.user)
       _ <- coll.update.one($id(post.id), $set("image" -> image.id))
-      _ <- post.live ?? irc.ublogImage(
-        user,
-        id = post.id.value,
-        slug = post.slug,
-        title = post.title,
-        filename = image.name,
-        imageUrl = UblogPost.thumbnail(picfitUrl, image.id, _.Large)
-      )
-    } yield post.copy(image = image.id.some)
+      newPost = post.copy(image = image.id.some)
+      _ <- sendImageToZulip(user, newPost)
+    } yield newPost
   }.logFailure(logger branch "upload")
+
+  private def sendImageToZulip(user: User, post: UblogPost): Funit = post.live ?? post.image ?? { imageId =>
+    irc.ublogImage(
+      user,
+      id = post.id.value,
+      slug = post.slug,
+      title = post.title,
+      imageUrl = UblogPost.thumbnail(picfitUrl, imageId, _.Large)
+    )
+  }
 
   def lightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     coll
