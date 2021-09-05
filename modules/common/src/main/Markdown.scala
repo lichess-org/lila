@@ -50,11 +50,17 @@ final class Markdown(
 
   private val logger = lila.log("markdown")
 
+  // quick and dirty.
+  // there should be a clean way to do it:
+  // https://programming.vip/docs/flexmark-java-markdown-add-target-attribute-to-link.html
+  private def addLinkAttributes(markup: String) =
+    markup.replace("<a href=", """<a rel="nofollow noopener noreferrer" href=""")
+
   def apply(key: Key)(text: Text): Html =
     Chronometer
       .sync {
         try {
-          renderer.render(parser.parse(text))
+          addLinkAttributes(renderer.render(parser.parse(text)))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
