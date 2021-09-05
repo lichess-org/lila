@@ -47,7 +47,7 @@
   <string name="closeTeamDescription">تیم را برای همیشه می‌بندد.</string>
   <string name="entryCode">کد ورود به تیم</string>
   <string name="entryCodeDescriptionForLeader">کدی است که اعضای جدید برای ورود به تیم باید بدانند(اختیاری).</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">کد ورودی اشتباه است.</string>
+  <string name="incorrectEntryCode">کد ورودی اشتباه است.</string>
   <string name="teamAlreadyExists">این تیم هم‌اکنون وجود دارد.</string>
   <string name="upcomingTourns">مسابقاتِ پیش رو</string>
   <string name="completedTourns">مسابقاتِ کامل شده</string>
