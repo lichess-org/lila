@@ -47,7 +47,7 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="closeTeamDescription">Desfazer a equipe permanentemente.</string>
   <string name="entryCode">Código de entrada da equipe</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que novos membros devem saber para entrarem nesta equipe.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Código de entrada incorreto.</string>
+  <string name="incorrectEntryCode">Código de entrada incorreto.</string>
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
   <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
