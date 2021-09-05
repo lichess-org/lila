@@ -9,6 +9,7 @@
     <item quantity="other">%s členov</item>
   </plurals>
   <string name="allTeams">Všetky tímy</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Líder tímov</string>
   <string name="newTeam">Nový tím</string>
   <string name="myTeams">Moje tímy</string>
   <string name="noTeamFound">Nenašiel sa tím</string>
