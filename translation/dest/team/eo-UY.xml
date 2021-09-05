@@ -7,6 +7,7 @@
     <item quantity="other">%s teamanoj</item>
   </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Teamoj kiujn mi gvidas</string>
   <string name="newTeam">Nova teamo</string>
   <string name="myTeams">Miaj teamoj</string>
   <string name="noTeamFound">Ne trovis teamon</string>
