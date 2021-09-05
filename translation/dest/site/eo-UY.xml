@@ -842,6 +842,8 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
