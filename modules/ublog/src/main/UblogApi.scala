@@ -78,7 +78,7 @@ final class UblogApi(
         slug = post.slug,
         title = post.title,
         filename = image.name,
-        imageUrl = UblogPost.thumbnail(picfitUrl, image.id, _.Small)
+        imageUrl = UblogPost.thumbnail(picfitUrl, image.id, _.Large)
       )
     } yield post.copy(image = image.id.some)
   }.logFailure(logger branch "upload")

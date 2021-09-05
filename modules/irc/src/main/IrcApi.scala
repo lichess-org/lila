@@ -105,7 +105,8 @@ final class IrcApi(
       imageUrl: String
   ): Funit =
     zulip(_.image, "blog")(
-      s"[$filename](${imageUrl.replace("/display?", "/display.jpg?")}) [$title](/@/${user.username}/blog/$slug/$id) by ${markdown
+      s"[$filename](${imageUrl
+        .replace("/display?", "/display.jpg?")}) in [$title](/@/${user.username}/blog/$slug/$id) by ${markdown
         .userLink(user)}"
     )
 
