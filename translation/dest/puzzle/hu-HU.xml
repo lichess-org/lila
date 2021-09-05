@@ -71,7 +71,15 @@
 Játssz rapid vagy klasszikus partikat, így nagyobb eséllyel szerepelhetnek a te játszmáid feladványai is!</string>
   <string name="fromXGamesFound">%1$s feladvány található %2$s játszmái között</string>
   <string name="puzzleDashboardDescription">Gyakorolj, elemezz, fejlődj</string>
-  <string name="percentSolved">%s megoldott</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s játszott</item>
+    <item quantity="other">%s játszott</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s újra</item>
+    <item quantity="other">%s újra</item>
+  </plurals>
+  <string name="percentSolved">%s sikeres</string>
   <string name="noPuzzlesToShow">Oldj meg néhány feladványt a statisztika megjelenítéséhez!</string>
   <string name="improvementAreasDescription">Gyakorolj ezekben a témákban, hogy erősítsd a tudásod!</string>
   <string name="strengthDescription">Ezekben a témákban teljesítesz a legjobban</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Προηγμένο πιόνι</string>
+  <string name="advancedPawn">Προωθημένο πιόνι</string>
   <string name="advancedPawnDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="advantage">Πλεονέκτημα</string>
   <string name="advantageDescription">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>

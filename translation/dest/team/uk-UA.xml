@@ -53,7 +53,7 @@
   <string name="closeTeamDescription">Закриває команду назавжди.</string>
   <string name="entryCode">Код входу команди</string>
   <string name="entryCodeDescriptionForLeader">(Не обов\'язково) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Невірний вхідний код.</string>
+  <string name="incorrectEntryCode">Невірний вхідний код.</string>
   <string name="teamAlreadyExists">Така команда вже існує.</string>
   <string name="upcomingTourns">Майбутні турніри</string>
   <string name="completedTourns">Завершені турніри</string>

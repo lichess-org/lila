@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">مسابقات فرمت سوئیسی</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">دور بازی را تماشا نمایید</item>
+    <item quantity="other">تمام %s دور بازی را تماشا نمایید</item>
+  </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s دور</item>
     <item quantity="other">%s دور</item>
@@ -28,6 +32,7 @@
   <string name="numberOfRounds">تعداد دورها</string>
   <string name="numberOfRoundsHelp">تعداد فرد دورها باعث تعادل رنگ بهینه می شود.</string>
   <string name="roundInterval">فاصله بین دورها</string>
+  <string name="forbiddenPairings">انتخاب حریفِ ممنون</string>
   <string name="newSwiss">مسابقه سوئیسی جدید</string>
   <string name="swissVsArenaQ">چه زمانی از مسابقه با فرمت سوئیسی به جای فرمت آرنا استفاده کنیم?</string>
   <string name="swissVsArenaA">در مسابقه با فرم سوئیسی، تمام شرکت کننده ها به تعداد برابر بازی انجام می دهند و هر دو بازیکن فقط یک بار با یکدیگر بازی می کنند.
@@ -39,8 +44,18 @@
   <string name="FIDEHandbook">کتابچه فدراسیون جهانی شطرنج</string>
   <string name="restrictedToTeamsA">مسابقات به شیوه سوئیسی برای شطرنج آنلاین طراحی نشده اند. آن ها نیازمند وقت شناسی، فداکاری و صبر از جانب بازیکنان هستند.
 ما فکر می کنیم که این شرایط در تیم بیشتر از مسابقات جهانی بر آورده می شود.</string>
+  <string name="numberOfByesQ">یک بازیکن چند بدرود می‌تواند دریافت کند؟</string>
   <string name="lateJoinQ">آیا بازیکنان می توانند دیر تر در مسابقه شرکت کنند?</string>
   <string name="lateJoinA">بله،تا زمانی که بیش از نیمی از دورها اجرا شوند؛به عنوان مثال در یک مسابقه سوئیسی که در 11 دور برگزار می شود بازیکنان می توانند تا پیش از دور ششم حضور یابند و در مسابقه ای که در دوازده دور برگزار شود می توانند تا پیش از دور هفتم در مسابقه شرکت کنند. به بازیکنانی که دیرتر به مسابقه ملحق شوند فقط یک استراحت تعلق می گیرد حتی اگر چندین دور را از دست بدهند.</string>
   <string name="willSwissReplaceArenasQ">آیا مسابقات سوئیسی می توانند جایگزین آرنا شوند?</string>
   <string name="otherSystemsA">در حال حاضر ما قصد اضافه کردن روش برگزاری مسابقه ی دیگری به لیچس نداریم.</string>
+  <string name="joinOrCreateTeam">به یک تیم بپیوندید یا یک تیم ایجاد نمایید</string>
+  <string name="startingSoon">بزودی شروع می‌شود</string>
+  <string name="comparison">مقایسه</string>
+  <string name="tournDuration">مدت زمان مسابقه</string>
+  <string name="predefinedDuration">مدت زمان از پیش تعریف شده به دقیقه</string>
+  <string name="numberOfGames">تعداد بازی‌ها</string>
+  <string name="pairingSystem">روش تعیین حریف</string>
+  <string name="identicalForbidden">ممنوع</string>
+  <string name="pause">درنگ</string>
 </resources>

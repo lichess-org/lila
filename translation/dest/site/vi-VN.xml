@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
+  <string name="computerAnalysisDisabled">Phân tích máy tính không có sẵn</string>
   <string name="analysis">Bảng phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Phân tích bằng máy chủ</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s người chơi</item>
   </plurals>
+  <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
+  <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
   <string name="currentGames">Những ván cờ đang diễn ra</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
@@ -843,6 +846,10 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="maximumWeeklyRating">Hệ số cao nhất trong tuần</string>
   <string name="onlyTitled">Kỳ thủ phải có danh hiệu</string>
   <string name="onlyTitledHelp">Đòi hỏi danh hiệu chính thức khi gia nhập giải đấu</string>
+  <string name="positionInputHelp">Dán một dãy FEN để bắt đầu tất cả ván đấu bằng thế cờ đó.
+Nó chỉ dùng được cho cờ thường (không phải các biến thể).
+Bạn có thể dùng %s để tạo ra một dãy FEN, rồi dán ở đây.
+Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận mở đầu bình thường.</string>
   <string name="cancelSimul">Bỏ cuộc đánh đồng loạt</string>
   <string name="simulHostcolor">Chọn màu cho ky thủ tổ chức đánh đồng loạt</string>
   <string name="estimatedStart">Thời gian dự kiến bắt đầu</string>
@@ -857,6 +864,10 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="onlyTeamLeaders">Chỉ dành cho nhóm quản lý</string>
   <string name="onlyTeamMembers">Chỉ dành cho thành viên</string>
   <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
+  <string name="toggleLocalAnalysis">Bật/tắt đánh giá máy tính</string>
+  <string name="playComputerMove">Chơi nước máy tính tốt nhất</string>
+  <string name="analysisOptions">Tùy chọn phân tích</string>
+  <string name="focusChat">Nói chuyện tập trung</string>
   <string name="showHelpDialog">Hiển thị giao diện trợ giúp này</string>
   <string name="reopenYourAccount">Mở lại tài khoản</string>
   <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
@@ -864,4 +875,9 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể phục hồi lại.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
+  <string name="hangOn">Từ đã!</string>
+  <string name="gameInProgress">Bạn đang có ván đấu với %s.</string>
+  <string name="abortTheGame">Hủy ván đấu</string>
+  <string name="resignTheGame">Bỏ cuộc</string>
+  <string name="youCantStartNewGame">Bạn không thể chơi ván mới cho đến khi xong ván này.</string>
 </resources>

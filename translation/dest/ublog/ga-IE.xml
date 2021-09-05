@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blag %s\'</string>
+  <string name="newPost">Post nua</string>
+  <string name="postBody">Postáil corpthéacs</string>
+  <string name="drafts">Dréachtaí</string>
+  <string name="published">Foilsithe</string>
+  <string name="publishOnYourBlog">Foilsigh ar do bhlag féin</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Foilsíodh postáilbhlag</item>
+    <item quantity="two">Foilsíodh %s phostáilbhlag</item>
+    <item quantity="few">Foilsíodh %s bpostáilbhlag</item>
+    <item quantity="many">Foilsíodh %s postáilbhlag</item>
+    <item quantity="other">Foilsíodh %s postáilbhlag</item>
+  </plurals>
+  <string name="thisIsADraft">Seo dréacht</string>
+  <string name="noPostsInThisBlogYet">Níl aon phoist sa bhlag seo, go fóill.</string>
+  <string name="noDrafts">Gan aon dréachtaí le taispeáint.</string>
+</resources>

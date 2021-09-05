@@ -52,4 +52,6 @@
   <string name="skip">omite</string>
   <string name="skipHelp">Poți sări peste o mutare pe cursă:</string>
   <string name="skipExplanation">Sări peste această mutare pentru a păstra combo-ul! Funcționează o singură dată pe cursă.</string>
+  <string name="failedPuzzles">Probleme eșuate</string>
+  <string name="slowPuzzles">Probleme lente</string>
 </resources>

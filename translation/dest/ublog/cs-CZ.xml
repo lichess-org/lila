@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xPublishedY">%1$s publikoval %2$s</string>
+  <string name="noPostsInThisBlogYet">Zatím v tomto blogu nejsou žádné příspěvky.</string>
+  <string name="noDrafts">Žádné koncepty k zobrazení.</string>
+</resources>

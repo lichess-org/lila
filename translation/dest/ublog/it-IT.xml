@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog di %s</string>
+  <string name="newPost">Nuovo post</string>
+  <string name="editYourBlogPost">Modifica il post del tuo blog</string>
+  <string name="postTitle">Titolo del post</string>
+  <string name="postIntro">Introduzione al post</string>
+  <string name="postBody">Corpo del post</string>
+  <string name="drafts">Bozze</string>
+  <string name="published">Pubblicato</string>
+  <string name="publishOnYourBlog">Pubblica sul tuo blog</string>
+  <string name="publishHelp">Se spuntato, questo post sarà elencato sul tuo blog. Altrimenti, sarà privato, nelle bozze dei tuoi post</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Pubblicato un post del blog</item>
+    <item quantity="other">Pubblicati %s post del blog</item>
+  </plurals>
+  <string name="xPublishedY">%1$s ha pubblicato %2$s</string>
+  <string name="thisPostIsPublished">Questo post è pubblicato</string>
+  <string name="thisIsADraft">Questo è una bozza</string>
+  <string name="moreBlogPostsBy">Visualizza altri post del blog di %s</string>
+  <string name="noPostsInThisBlogYet">Ancora nessun post in questo blog.</string>
+  <string name="noDrafts">Nessuna bozza da mostrare.</string>
+</resources>

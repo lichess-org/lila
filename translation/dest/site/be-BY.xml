@@ -979,6 +979,7 @@
   <string name="simulDescription">Апісанне сеансу</string>
   <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
   <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
+  <string name="embedsAvailable">Устаўце спасылку на гульню ці спасылку на раздзел навучання каб убудаваць яе.</string>
   <string name="inYourLocalTimezone">У вашым часавым поясе</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
@@ -999,4 +1000,9 @@
   <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з акаўнтам</string>
   <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
   <string name="tournamentEntryCode">Код далучэння да турніру</string>
+  <string name="hangOn">Пачакайце!</string>
+  <string name="gameInProgress">Вы зараз гуляеце з %s.</string>
+  <string name="abortTheGame">Скасаваць гульню</string>
+  <string name="resignTheGame">Здацца</string>
+  <string name="youCantStartNewGame">Вы не можаце пачаць новую гульню, пакуль гэта няскончана.</string>
 </resources>

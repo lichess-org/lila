@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s のブログ</string>
+  <string name="newPost">新しい投稿</string>
+  <string name="editYourBlogPost">ブログへの投稿を編集</string>
+  <string name="postTitle">タイトル</string>
+  <string name="postIntro">導入部</string>
+  <string name="postBody">本文</string>
+  <string name="drafts">下書き</string>
+  <string name="published">公開されました</string>
+  <string name="publishOnYourBlog">ブログ上で公開</string>
+  <string name="publishHelp">チェックすると投稿がブログに表示されます。しないと下書きで非公開となります。</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">%s 件のブログ記事を公開</item>
+  </plurals>
+  <string name="xPublishedY">%1$s が %2$s を公開しました</string>
+  <string name="thisPostIsPublished">この投稿は公開ずみです</string>
+  <string name="thisIsADraft">これは下書きです</string>
+  <string name="moreBlogPostsBy">%s のブログ投稿をもっと見る</string>
+  <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
+  <string name="noDrafts">下書きがありません。</string>
+</resources>

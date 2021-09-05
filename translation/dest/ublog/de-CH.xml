@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog von %s</string>
+  <string name="newPost">Neuer Beitrag</string>
+  <string name="editYourBlogPost">Bearbeite deinen Blog-Beitrag</string>
+  <string name="postTitle">Beitragstitel</string>
+  <string name="postIntro">Beitragseinleitung</string>
+  <string name="postBody">Beitragsinhalt</string>
+  <string name="drafts">Entwürfe</string>
+  <string name="published">Veröffentlicht</string>
+  <string name="publishOnYourBlog">Veröffentliche in deinem Blog</string>
+  <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Hat einen Blog-Beitrag veröffentlicht</item>
+    <item quantity="other">Hat %s Blog-Beiträge veröffentlicht</item>
+  </plurals>
+  <string name="xPublishedY">%1$s veröffentlichte %2$s</string>
+  <string name="thisPostIsPublished">Dieser Beitrag wurde veröffentlicht</string>
+  <string name="thisIsADraft">Dies ist ein Entwurf</string>
+  <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s ansehen</string>
+  <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
+  <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
+</resources>

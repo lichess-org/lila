@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Lietotāja %s blogs</string>
+  <string name="newPost">Jauns ieraksts</string>
+  <string name="editYourBlogPost">Rediģēt savu bloga ierakstu</string>
+  <string name="postTitle">Nosaukums</string>
+  <string name="postIntro">Ievads</string>
+  <string name="postBody">Ieraksta teksts</string>
+  <string name="drafts">Melnraksti</string>
+  <string name="published">Publicēts</string>
+  <string name="publishOnYourBlog">Publicēt savā blogā</string>
+  <string name="publishHelp">Ieraksts tiks parādīts blogā tikai, ja šis lauciņš būs atzīmēts. Pretējā gadījumā tas paliks privāts jūsu melnrakstos</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="zero">Publicēja %s bloga ierakstu</item>
+    <item quantity="one">Publicēja %s bloga ierakstu</item>
+    <item quantity="other">Publicēja %s bloga ierakstus</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publicēja \"%2$s\"</string>
+  <string name="thisPostIsPublished">Šis ieraksts ir publicēts</string>
+  <string name="thisIsADraft">Šis ir melnraksts</string>
+  <string name="moreBlogPostsBy">Skatīt citus lietotāja %s bloga ierakstus</string>
+  <string name="noPostsInThisBlogYet">Šajā blogā vēl nav ierakstu.</string>
+  <string name="noDrafts">Nav melnrakstu, ko rādīt.</string>
+</resources>

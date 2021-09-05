@@ -61,6 +61,7 @@
   <string name="fromMyGamesNone">V databázi nemáte žádné úlohy, ale Lichess vás stále velmi miluje.
 Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!</string>
   <string name="fromXGamesFound">%1$s úloh nalezeno v %2$s partiích</string>
+  <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte</string>
   <plurals name="nbToReplay">
     <item quantity="one">%s k opakování</item>
     <item quantity="few">%s k opakování</item>
@@ -68,4 +69,5 @@ Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!
     <item quantity="other">%s k opakování</item>
   </plurals>
   <string name="percentSolved">%s vyřešeno</string>
+  <string name="strengthDescription">V těchto tématech se vám daří nejvíc</string>
 </resources>

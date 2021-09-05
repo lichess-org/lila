@@ -47,7 +47,7 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="closeTeamDescription">Da de baja el equipo definitivamente.</string>
   <string name="entryCode">Código de entrada al equipo</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Un código de entrada que los nuevos miembros deben saber para unirse a este equipo.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Código de entrada incorrecto.</string>
+  <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
   <string name="upcomingTourns">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>

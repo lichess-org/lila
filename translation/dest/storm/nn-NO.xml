@@ -50,4 +50,6 @@
   <string name="skip">hopp over</string>
   <string name="skipHelp">Du kan hoppe over eit trekk for kvart race:</string>
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Fungere berre ein gong for kvart race.</string>
+  <string name="failedPuzzles">Mislukka oppgåveløysingar</string>
+  <string name="slowPuzzles">Langsame oppgåver</string>
 </resources>

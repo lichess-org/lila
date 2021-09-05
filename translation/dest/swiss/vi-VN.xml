@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Các giải đấu hệ Thụy Sĩ</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="other">Xem vòng đấu
+Xem tất cả %s vòng đấu</item>
+  </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s vòng đấu</item>
   </plurals>
@@ -20,4 +24,21 @@ Một vòng đấu cho %s ngày</item>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">Ván cờ hiện đang chơi</item>
   </plurals>
+  <string name="tournStartDate">Ngày bắt đầu giải đấu</string>
+  <string name="numberOfRounds">Số vòng đấu</string>
+  <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
+  <string name="forbiddenPairings">Ghép nối bị cấm</string>
+  <string name="forbiddenPairingsHelp">Tên người dùng của những người chơi không được chơi cùng nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
+  <string name="newSwiss">Giải Swiss mới</string>
+  <string name="swissVsArenaQ">Khi nào nên chơi giải Swiss mà không phải giải Arena?</string>
+  <string name="pointsCalculationQ">Những điểm số được tính toán như thế nào?</string>
+  <string name="tiebreaksCalculationQ">Tie breaks được tính toán như thế nào?</string>
+  <string name="dutchSystem">Khai cuộc Hà Lan</string>
+  <string name="FIDEHandbook">Sổ tay FIDE</string>
+  <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
+  <string name="nowPlaying">Đang chơi</string>
+  <string name="startingSoon">Sắp bắt đầu</string>
+  <string name="comparison">So sánh</string>
+  <string name="numberOfGames">Số lượng trò chơi</string>
+  <string name="pairingSystem">Hệ thống bắt cặp</string>
 </resources>

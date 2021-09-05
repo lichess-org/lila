@@ -7,7 +7,7 @@
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Todas as equipes</string>
-  <string name="newTeam">Nova equipa</string>
+  <string name="newTeam">Nova equipe</string>
   <string name="myTeams">Minhas equipes</string>
   <string name="noTeamFound">Nenhuma equipe encontrada</string>
   <string name="joinTeam">Juntar-se à equipe</string>

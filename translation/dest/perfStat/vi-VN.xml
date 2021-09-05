@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Không có đủ trò chơi được xếp hạng đã được chơi để thiết lập một xếp hạng đáng tin cậy.</string>
   <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ trước đây:</string>
   <string name="ratingDeviation">Độ lệch xếp hạng:%s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Giá trị thấp hơn nghĩa là elo ổn định hơn. Ở ngưỡng trên %1$s, elo được coi là tạm thời. Để được xếp trong bảng xếp hạng, giá trị này phải ở dưới ngưỡng %2$s (cờ thường) hoặc %3$s (các biến thể).</string>
   <string name="totalGames">Tổng số các ván cờ</string>
   <string name="ratedGames">Các ván cờ xếp hạng</string>
   <string name="tournamentGames">Trò chơi kiểu giải đấu</string>
@@ -23,9 +24,9 @@
   <string name="losingStreak">Chuỗi thua</string>
   <string name="longestStreak">Chuỗi dài nhất: %s</string>
   <string name="currentStreak">Chuỗi hiện tại: %s</string>
-  <string name="bestRated">Chiến thắng được đánh giá cao nhất</string>
-  <string name="worstRated">Trận thua được đánh giá tệ nhất</string>
-  <string name="gamesInARow">Các ván cờ được chơi liên tục</string>
+  <string name="bestRated">Chiến thắng tính elo tốt nhất</string>
+  <string name="worstRated">Trận thua tính elo tệ nhất</string>
+  <string name="gamesInARow">Số ván cờ được chơi liên tục</string>
   <string name="lessThanOneHour">Ít hơn một giờ giữa các ván cờ</string>
   <string name="maxTimePlaying">Thời gian dài nhất đã chơi</string>
   <string name="now">bây giờ</string>

@@ -3,13 +3,25 @@
   <string name="broadcasts">پخش می شود</string>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
   <string name="newBroadcast">پخش مستقیم جدید</string>
+  <string name="addRound">یک دور بازی ایجاد کنید</string>
   <string name="ongoing">در حال اجرا</string>
   <string name="upcoming">در آینده</string>
   <string name="completed">کامل شده</string>
+  <string name="roundName">نام بازی</string>
   <string name="roundNumber">عدد گرد شده</string>
+  <string name="tournamentName">نام مسابقه</string>
+  <string name="tournamentDescription">توصیفی کوتاه از مسابقه</string>
   <string name="fullDescription">شرح کامل رویداد</string>
+  <string name="fullDescriptionHelp">توصیفی طولانی و اختیاری از مسابقه. %1$s در دسترس است. اندازه متن باید کمتر از %2$s حرف باشد.</string>
+  <string name="sourceUrlOrGameIds">آدرس اینترنتی منبع، یا شماره‌های شناسایی بازی</string>
   <string name="sourceUrlHelp">لینکی که Lichess برای دریافت به روزرسانی های PGN بررسی می کند. باید از طریق اینترنت در دسترس عموم باشد.</string>
+  <string name="gameIdsHelp">به عنوان یک راهکار دیگر، شما می‌توانید تا 64 شماره شناسایی بازی در Lichess را که با فاصله (space) از هم جدا شده‌اند، وارد نمایید.</string>
   <string name="startDate">تاریخ را در منطقه‌ی زمانی خود شروع کنید</string>
   <string name="startDateHelp">اختیاری ، اگر می دانید چه زمانی رویداد شروع می شود</string>
   <string name="credits">به منبع اعتبار دهید</string>
+  <string name="resetRound">بازی از اول! این دور بازی را نوسازی کنید</string>
+  <string name="deleteRound">این دور بازی را حذف نمایید</string>
+  <string name="broadcastUrl">آدرس اینترنتی پخش زنده</string>
+  <string name="currentRoundUrl">آدرس اینترنتی دور بازی کنونی</string>
+  <string name="currentGameUrl">آدرس اینترنتی بازی در جریان</string>
 </resources>

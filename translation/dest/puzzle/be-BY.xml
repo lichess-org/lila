@@ -76,4 +76,21 @@
   <string name="fromMyGamesNone">Базе дадзеных няма задач з вашых гульня, але Liches усе роўна любіць вас!
 Пагуляйце ў хуткія або класічныя шахматы каб павялічыць шанец выкарыстання вашых гульняў у задачах.</string>
   <string name="fromXGamesFound">Знойдзена %1$s задач ў %2$s гульнях</string>
+  <string name="puzzleDashboardDescription">Трэніруйцеся, аналізуйце, паляпшайцеся</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s вырашана</item>
+    <item quantity="few">%s вырашаны</item>
+    <item quantity="many">%s вырашана</item>
+    <item quantity="other">%s вырашана</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s перарашаць</item>
+    <item quantity="few">%s перарашаць</item>
+    <item quantity="many">%s перарашаць</item>
+    <item quantity="other">%s перарашаць</item>
+  </plurals>
+  <string name="percentSolved">%s вырашана правільна</string>
+  <string name="noPuzzlesToShow">Нічога няма, вырашыце некалькі задач спачатку!</string>
+  <string name="improvementAreasDescription">Трэніруйце гэта, каб атрымаць лепшы прагрэс!</string>
+  <string name="strengthDescription">Найбольш атрымоўваюцца гэтыя тэмы</string>
 </resources>

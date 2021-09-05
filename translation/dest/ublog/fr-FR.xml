@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blogue de %s</string>
+  <string name="newPost">Nouvel article</string>
+  <string name="editYourBlogPost">Modifier votre article de blogue</string>
+  <string name="postTitle">Titre de l\'article</string>
+  <string name="postIntro">Introduction de l’article</string>
+  <string name="postBody">Contenu de l’article</string>
+  <string name="drafts">Brouillons</string>
+  <string name="published">Publié</string>
+  <string name="publishOnYourBlog">Publier sur votre blogue</string>
+  <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">A publié un article de blog</item>
+    <item quantity="other">A publié %s articles de blog</item>
+  </plurals>
+  <string name="xPublishedY">%1$s a publié %2$s</string>
+  <string name="thisPostIsPublished">Cet article est publié</string>
+  <string name="thisIsADraft">Ceci est un brouillon</string>
+  <string name="moreBlogPostsBy">Plus d’articles de %s</string>
+  <string name="noPostsInThisBlogYet">Pas encore d’article dans ce blogue</string>
+  <string name="noDrafts">Aucun brouillon à afficher</string>
+</resources>

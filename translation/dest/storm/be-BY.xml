@@ -54,4 +54,6 @@
   <string name="skip">прапусціць</string>
   <string name="skipHelp">Вы можаце прапусціць адзін ход за гонку:</string>
   <string name="skipExplanation">Прапусціце ход, каб захаваць серыю! Працуе адзін раз на гонку.</string>
+  <string name="failedPuzzles">Нявырашыная задачы</string>
+  <string name="slowPuzzles">Павольныя задачы</string>
 </resources>

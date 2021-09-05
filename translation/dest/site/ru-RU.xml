@@ -954,10 +954,10 @@
   <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
 Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
-  <string name="streamerManager">Для стримеров</string>
+  <string name="streamerManager">Управление трансляцией</string>
   <string name="cancelTournament">Отменить турнир</string>
   <string name="tournDescription">Описание турнира</string>
-  <string name="tournDescriptionHelp">Всё, что вы хотите рассказать участникам. Будьте краткими. Для ссылок доступна разметка Markdown: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Игры идут с обсчётом рейтинга
 и влияют на рейтинг игроков</string>
   <string name="onlyMembersOfTeam">Только для членов клуба</string>

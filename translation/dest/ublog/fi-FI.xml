@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Käyttäjän %s blogi</string>
+  <string name="newPost">Uusi kirjoitus</string>
+  <string name="editYourBlogPost">Muokkaa blogikirjoitustasi</string>
+  <string name="postTitle">Otsikko</string>
+  <string name="postIntro">Johdanto</string>
+  <string name="postBody">Varsinainen teksti</string>
+  <string name="drafts">Luonnokset</string>
+  <string name="published">Julkaistu</string>
+  <string name="publishOnYourBlog">Julkaise blogissasi</string>
+  <string name="publishHelp">Jos valitset tämän, kirjoitus näytetään blogissasi. Jos et, kirjoituksesi on yksityinen ja tallentuu luonnoksiin</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Julkaisi blogikirjoituksen</item>
+    <item quantity="other">Julkaisi %s blogikirjoitusta</item>
+  </plurals>
+  <string name="xPublishedY">%1$s julkaisi kirjoituksen %2$s</string>
+  <string name="thisPostIsPublished">Tämä kirjoitus on julkaistu</string>
+  <string name="thisIsADraft">Tämä on luonnos</string>
+  <string name="moreBlogPostsBy">Näytä lisää käyttäjän %s blogikirjoituksia</string>
+  <string name="noPostsInThisBlogYet">Tässä blogissa ei ole vielä kirjoituksia.</string>
+  <string name="noDrafts">Ei näytettäviä luonnoksia.</string>
+</resources>

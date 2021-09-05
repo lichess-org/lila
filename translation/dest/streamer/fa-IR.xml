@@ -13,11 +13,13 @@
   <string name="editPage">ویرایش صفحه استریم</string>
   <string name="yourPage">ویرایش صفحه استریم</string>
   <string name="downloadKit">دانلود کیت استریمر</string>
+  <string name="xIsStreaming">%s در حال استریم کردن است</string>
   <string name="rules">قونین استریم</string>
   <string name="rule1">Twitch این گروه را \"شطرنج\" در همه زبانها می نامد: https://www.twitch.tv/directory/game/Chess - بنابراین توصیه می کنیم متن انگلیسی را در اینجا نگه دارید.</string>
   <string name="rule2">هنگام پخش چیزهای غیر مجوز ، کلمه کلیدی را حذف کنید.</string>
   <string name="rule3">لیچس جریان شما را به صورت خودکار تشخیص داده و قدرت پردازش زیر را فعال می کند:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">%s ما را بخوانید تا در مدت استریم شما از بازی جوانمردانه برای همه اطمینان حاصل شود.</string>
+  <string name="streamingFairplayFAQ">پرسشها و پاسخهای متداول درباره استریم نمودن به صورت منصفانه</string>
   <string name="perks">مزایای جریان با کلمه کلیدی</string>
   <string name="perk1">یک نماد جریان مستقیم شعله ور در نمایه لیچس خود دریافت کنید.</string>
   <string name="perk2">در بالای لیست پخش کننده ها پرش کنید.</string>
@@ -26,6 +28,7 @@
   <string name="approved">استریم شما تایید شده است</string>
   <string name="pendingReview">استریم شما توسط مدیران سایت درحال بررسی است</string>
   <string name="pleaseFillIn">لطفاً اطلاعات جابجایی خود را پر کنید و تصویری بارگذاری کنید.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">زمانی که شما آماده‌اید تا در لیست استریم کننده‌های Lichess قرار گیرید، %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی مدیر کنید</string>
   <string name="anotherLanguage">اگر زبان استریم شما زبانی غیر از انگلیسی است, برچسب زبان صحیح (%s) را که در پرانتز قرار دارد ، اضافه کنید.
 به عنوان مثال ، می توانید \"[RU]\" برای روسی ، \"[TR]\" برای ترکی ، \"[FR]\" برای فرانسوی و غیره وارد کنید.
@@ -35,14 +38,20 @@
   <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
   <string name="youtubeChannel">ایدی شما در یوتیوب ویا کانال .</string>
   <string name="streamerName">نام استریم شما رد لیچس</string>
+  <plurals name="keepItShort">
+    <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>
+    <item quantity="other">کوتاه بنویسید: کمتر از %s حرف</item>
+  </plurals>
   <string name="visibility">در صفحه استریم قابل دیدن است.</string>
   <string name="whenApproved">هنگام تأیید مدیران سایت</string>
   <string name="headline">عنوان .</string>
   <string name="tellUsAboutTheStream">موضوع خود را در یک جمله به ما بگویید.</string>
   <string name="longDescription">توضیحات  طولانی.</string>
+  <string name="xStreamerPicture">تصویر استریمر %s</string>
   <string name="changePicture">تصویر خود را تغییر دهید / حذف کنید</string>
   <string name="uploadPicture">بارگذاری تصویر</string>
   <string name="deletePicture">پاک کردن تصویر</string>
+  <string name="maxSize">بیشترین اندازه یا حجم: %s</string>
   <string name="installBlocker">یک بلاکر بدافزار نصب کنید!</string>
   <string name="beSafe">از تبلیغات و ردیابها ایمن باشید
 Twitch و YouTube را آلوده کنید.

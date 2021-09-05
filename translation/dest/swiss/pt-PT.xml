@@ -58,12 +58,15 @@ Julgamos que essas condições são mais susceptíveis de serem cumpridas numa e
   <string name="numberOfByesA">Um jogador recebe um bye de um ponto toda vez que o sistema não conseguir emparelhá-lo.
 Além disso, é atribuído um único bye de meio ponto quando um jogador entra atrasado num torneio.</string>
   <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
+  <string name="whatIfOneDoesntPlayA">O seu relógio vai contar, serão sinalizados e perderão o jogo.
+Então o sistema irá retirar o jogador do torneio, para não perder mais jogos. Podem entrar novamente no torneio a qualquer momento.</string>
   <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>
   <string name="willSwissReplaceArenasQ">Os Suíços irão substituir os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. São características complementares.</string>
   <string name="roundRobinQ">E no que diz respeito ao Round Robin?</string>
   <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
   <string name="otherSystemsA">De momento não planeamos adicionar mais sistemas de torneio ao Lichess.</string>
+  <string name="swissDescription">Num torneio suíço %1$s, cada competidor não joga necessariamente contra todos os outros participantes. Os competidores encontram-se individualmente em cada ronda e são emparelhados usando um conjunto de regras destinadas a garantir que cada um jogue contra adversários com uma pontuação semelhante, mas não com o mesmo adversário mais de uma vez. O vencedor é o competidor com o maior número de pontos acumulados conquistados em todas as rondas. Todos os concorrentes jogam em cada ronda, excepto se existir um número ímpar de jogadores.\"</string>
   <string name="teamOnly">Os torneios Suíços só podem ser criados por líderes de equipa e só podem ser jogados por membros da equipa.           
 %1$s para começar a jogar em torneios Suíços.</string>
   <string name="joinOrCreateTeam">Junte-se ou crie uma equipa</string>
@@ -86,7 +89,9 @@ Além disso, é atribuído um único bye de meio ponto quando um jogador entra a
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
   <string name="lateJoin">Entrada atrasada</string>
+  <string name="lateJoinUntil">Sim até que mais de metade das rondas comecem</string>
   <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sim mas pode reduzir o número de rondas</string>
   <string name="streaksAndBerserk">Sequências e Berserk</string>
   <string name="similarToOTB">Semelhante a torneios OTB</string>
   <string name="unlimitedAndFree">Ilimitado e livre</string>

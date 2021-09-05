@@ -54,4 +54,6 @@
   <string name="skip">pomiń</string>
   <string name="skipHelp">W każdym wyścigu możesz pominąć jeden ruch:</string>
   <string name="skipExplanation">Pomiń ten ruch aby zachować serię! Działa tylko raz na wyścig.</string>
+  <string name="failedPuzzles">Zadania nieudane</string>
+  <string name="slowPuzzles">Zadania bez limitu czasu</string>
 </resources>

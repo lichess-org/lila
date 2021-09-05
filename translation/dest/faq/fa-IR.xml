@@ -8,7 +8,24 @@
   <string name="hearItPronouncedBySpecialist">می‌توانید تلفظ اسم سایت توسط فردی متخصص را بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
+  <string name="beingAPatron">پشتیبان بودن</string>
+  <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
   <string name="otherWaysToHelp">راه های دیگر برای حمایت</string>
+  <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="leavingGameWithoutResigningExplanation">اگر حریف شما به صورت مداوم بازی را ترک کند، از بازی محروم می شود این به این معنی است که به صورت موقت اجازه بازی کردن را نخواهد داشت. این امر در حساب کاربری فرد نمایش داده نمی شود. اگر این رفتار ادامه پیدا کند، مدت زمان محرومیت از بازی افزایش می یابد و انجام این کار در مدت زمان طولانی ممکن است منجر به مسدود شدن حساب کاربر شود.</string>
+  <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
+  <string name="goodIntroduction">معرفی و مقدمه خوب</string>
+  <string name="officialRulesPDF">قوانین رسمی (PDF)</string>
+  <string name="positions">موقعیت‌ها</string>
+  <string name="configure">پیکربندی نمایید</string>
+  <string name="accounts">حساب‌های کاربری</string>
+  <string name="titlesAvailableOnLichess">چه عناوینی در Lichess وجود دارند؟</string>
+  <string name="verificationForm">فرم تایید</string>
+  <string name="canIbecomeLM">آیا می‌توانم عنوان Lichess Master (LM) را دریافت کنم؟</string>
+  <string name="noUpperCaseDot">خیر.</string>
+  <string name="whatUsernameCanIchoose">نام کاربری من چه می‌تواند باشد؟</string>
+  <string name="guidelines">دستورالعمل‌ها</string>
+  <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
+  <string name="howToThreeDots">چگونه...</string>
 </resources>

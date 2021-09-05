@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Nel database delle tattiche di Lichess non è presente nessuna delle tue partite, ma Lichess ti vuole bene lo stesso.
 Gioca altre partite rapide o classiche per aumentare le tue possibilità di avere una tua tattica nel database!</string>
   <string name="fromXGamesFound">%1$s tattiche trovate in %2$s partite</string>
+  <string name="puzzleDashboardDescription">Allenati, analizza, migliora</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s giocato</item>
+    <item quantity="other">%s giocati</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s da rigiocare</item>
+    <item quantity="other">%s da rigiocare</item>
+  </plurals>
+  <string name="percentSolved">%s risolto</string>
+  <string name="noPuzzlesToShow">Nulla da mostrare, vai a giocare a qualche rompicapo prima!</string>
+  <string name="improvementAreasDescription">Addestrali per ottimizzare il tuo progresso!</string>
+  <string name="strengthDescription">Dai il meglio di te in questi temi</string>
 </resources>

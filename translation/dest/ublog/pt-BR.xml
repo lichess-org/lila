@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog de %s</string>
+  <string name="newPost">Nova postagem</string>
+  <string name="editYourBlogPost">Editar sua postagem no blog</string>
+  <string name="postTitle">Título</string>
+  <string name="postIntro">Introdução</string>
+  <string name="postBody">Corpo</string>
+  <string name="drafts">Rascunhos</string>
+  <string name="published">Publicado</string>
+  <string name="publishOnYourBlog">Publicar no seu blog</string>
+  <string name="publishHelp">Se ativado, a postagem será listada no seu blog. Senão, ficará privada, e salva como rascunho</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Uma postagem de blog foi feita</item>
+    <item quantity="other">%s postagens de blog foram feitas</item>
+  </plurals>
+  <string name="xPublishedY">%1$s publicou %2$s</string>
+  <string name="thisPostIsPublished">Esta postagem foi publicada</string>
+  <string name="thisIsADraft">Isto é um rascunho</string>
+  <string name="moreBlogPostsBy">Ver mais postagens de %s</string>
+  <string name="noPostsInThisBlogYet">Ainda não há postagens neste blog.</string>
+  <string name="noDrafts">Não há rascunhos para mostrar.</string>
+</resources>

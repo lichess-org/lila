@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">تارنگارِ %s</string>
+  <string name="newPost">نوشتهٔ جدید</string>
+  <string name="editYourBlogPost">نوشتهٔ تارنگارِ خود را ویرایش نمایید</string>
+  <string name="postTitle">عنوانِ نوشته</string>
+  <string name="postIntro">مقدمهٔ نوشته</string>
+  <string name="postBody">متنِ نوشته</string>
+  <string name="drafts">پیش‌نویس‌ها</string>
+  <string name="published">منتشر شده</string>
+  <string name="publishOnYourBlog">روی تارنگارِ خود منتشر کنید</string>
+  <string name="publishHelp">اگر انتخاب شود، نوشته در تارنگار شما نمایه می‌شود. اگر نه، به صورت خصوصی، در نوشته‌های پیش‌نویس شما خواهد بود</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">یک نوشتهٔ تارنگار منتشر شد</item>
+    <item quantity="other">نوشته‌های تارنگار %s منتشر شد</item>
+  </plurals>
+  <string name="xPublishedY">%1$s، %2$s را منتشر کرد</string>
+  <string name="thisPostIsPublished">این نوشته منتشر شد</string>
+  <string name="thisIsADraft">این یک پیش‌نویس است</string>
+  <string name="moreBlogPostsBy">نوشته‌های تارنگارِ بیشتری از %s را ببینید</string>
+  <string name="noPostsInThisBlogYet">هنوز، هیچ نوشته‌ای در این تارنگار نیست.</string>
+  <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
+</resources>

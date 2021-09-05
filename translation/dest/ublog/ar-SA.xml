@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">مدونة %s</string>
+  <string name="newPost">منشور جديد</string>
+  <string name="editYourBlogPost">تعديل منشور مدونتك</string>
+  <string name="postTitle">عنوان المنشور</string>
+  <string name="postIntro">مقدمة المنشور</string>
+  <string name="postBody">نص المنشور</string>
+  <string name="drafts">المسودات</string>
+  <string name="published">المنشورة</string>
+  <string name="publishOnYourBlog">المنشور على مدونتك</string>
+  <string name="publishHelp">إذا تم تحديد الخيار سيتم نشر المقال على مدونتك، اذا لم يتم تحديد الخيار سيتم حفظها بشكل خاص في مسوداتك</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="zero">نشر منشور مدونة</item>
+    <item quantity="one">نشر منشور مدونة</item>
+    <item quantity="two">نشر منشور مدونة</item>
+    <item quantity="few">نشر منشور مدونة</item>
+    <item quantity="many">نشر منشور مدونة</item>
+    <item quantity="other">نشر %s مشاركات المدونة</item>
+  </plurals>
+  <string name="xPublishedY">%1$s نشر %2$s</string>
+  <string name="thisPostIsPublished">المقال تم نشره</string>
+  <string name="thisIsADraft">هذه مسودة</string>
+  <string name="moreBlogPostsBy">مقالات أكثر من قبل %s</string>
+  <string name="noPostsInThisBlogYet">لايوجد مقالات في هذه المدونة حالياً.</string>
+  <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
+</resources>

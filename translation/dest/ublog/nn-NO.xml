@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
+  <string name="noDrafts">Ingen utkast å visa.</string>
+</resources>

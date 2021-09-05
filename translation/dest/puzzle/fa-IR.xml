@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">معما</string>
+  <string name="puzzles">معماها</string>
   <string name="puzzleThemes">تم پازل هت</string>
   <string name="recommended">توصیه شده
 عنوان برای تم های پازل ها قابل مشاهده است در  https://lichess.org/training/themes
@@ -15,9 +15,11 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
+  <string name="yourPuzzleRatingX">امتیاز شما در معماها: %s</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
+  <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
   <string name="clickToSolve">برای جل کردن کلیک کنید</string>
   <string name="goodMove">حرکتی خوب</string>
@@ -27,6 +29,7 @@
   <string name="puzzleComplete">پازل تمام شد!</string>
   <string name="notTheMove">ابن حرکت صحیح نیست</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
+  <string name="ratingX">امتیاز: %s</string>
   <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s بار بازی شده است</item>
@@ -38,8 +41,16 @@
   <string name="normal">معمولی</string>
   <string name="easier">اسان تر</string>
   <string name="easiest">آسان‌ترین</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+  </plurals>
   <string name="harder">سخت تر</string>
   <string name="hardest">سخت‌ترین</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">یک امتیاز بالاتر از امتیاز شما در معماها</item>
+    <item quantity="other">%s امتیاز بالاتر از امتیاز شما در معماها</item>
+  </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">تم دیگری را اضافه کنید.</string>
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
@@ -50,6 +61,10 @@
   <string name="history">تاریخ پازل</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
+  <string name="streakDescription">به تدریج معماهای پیچیده‌تری را حل کنید و یک توالی پیروزی بسازید. هیچ ساعتی در کار نیست، پس از زمان استفاده کنید. یک حرکت اشتباه لازم است تا بازی پایان یابد! اما می‌توانید در هر جلسه از یک حرکت چشم‌پوشی کنید.</string>
+  <string name="yourStreakX">توالی شما: %s</string>
+  <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
+  <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">جستجو پازل ها در بازی های یک بازیکن</string>
@@ -57,4 +72,17 @@
   <string name="searchPuzzles">جستجوی پازل ها</string>
   <string name="fromMyGamesNone">شما هیچ پازلی در پایگاه داده ندارید، اما لایچس همچنان عاشق شماست. بازیهای رپید و کلاسیک انجام بدین تا شانس داشتن پازل از بازی های شما افزایش پیدا کند!</string>
   <string name="fromXGamesFound">تعداد %1$s پازل در تعداد %2$s بازی یافت شد</string>
+  <string name="puzzleDashboardDescription">تعلیم، تحلیل، پیش‌رفت</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s نفر بازی کردند</item>
+    <item quantity="other">%s نفر بازی کردند</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s مورد برای بازبینی</item>
+    <item quantity="other">%s مورد برای بازبینی</item>
+  </plurals>
+  <string name="percentSolved">%s حل شده</string>
+  <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و نخست چند معما حل کنید!</string>
+  <string name="improvementAreasDescription">اینها را یاد بگیرید تا پیش‌رفت خود را بهینه کنید!</string>
+  <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publicada unha entrada de blogue</item>
+    <item quantity="other">Publicadas %s entradas de blogue</item>
+  </plurals>
+  <string name="noPostsInThisBlogYet">Aínda non hai posts.</string>
+  <string name="noDrafts">Non hai empates que amosar.</string>
+</resources>

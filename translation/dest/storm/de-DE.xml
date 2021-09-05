@@ -50,4 +50,6 @@
   <string name="skip">überspringen</string>
   <string name="skipHelp">Du kannst einen Zug pro Rennen überspringen:</string>
   <string name="skipExplanation">Überspringe diesen Zug, um deine Kombination beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
+  <string name="failedPuzzles">Fehlgeschlagene Aufgaben</string>
+  <string name="slowPuzzles">Langsame Aufgaben</string>
 </resources>

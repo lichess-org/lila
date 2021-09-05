@@ -97,6 +97,7 @@
   <string name="noGameFound">Oyun tapılmadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə tərcihlər menyusunda daha çox oyunun daxil edilməsini seçəsiniz?</string>
   <string name="openingExplorer">Debüt tədqiqatçısı</string>
+  <string name="openingEndgameExplorer">Debüt/Endşpil tədqiqatçısı</string>
   <string name="xOpeningExplorer">%s debüt bazası</string>
   <string name="winPreventedBy50MoveRule">Qələbə 50 gediş qaydasına görə hesaba alınmadı</string>
   <string name="lossSavedBy50MoveRule">Məğlubiyyət 50 gediş qaydasına görə hesaba alınmadı</string>

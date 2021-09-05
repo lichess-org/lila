@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s Tinklaraštis</string>
+  <string name="newPost">Naujas įrašas</string>
+  <string name="editYourBlogPost">Keisti savo tinklaraščio įrašą</string>
+  <string name="postTitle">Įrašo pavadinimas</string>
+  <string name="postIntro">Įrašo įžanga</string>
+  <string name="postBody">Įrašo tekstas</string>
+  <string name="drafts">Juodraščiai</string>
+  <string name="published">Paskelbta</string>
+  <string name="publishOnYourBlog">Skelbti savo tinklaraštyje</string>
+  <string name="publishHelp">Jei pažymeta - įrašas patalpintas jūsų tinklaraštyje. Jei ne - įrašas privatus ir matomas tarp juodraščių</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Išleido tinklaraščio įrašą</item>
+    <item quantity="few">Išleido %s tinklaraščio įrašus</item>
+    <item quantity="many">Išleido %s tinklaraščio įrašo</item>
+    <item quantity="other">Išleido %s tinklaraščio įrašų</item>
+  </plurals>
+  <string name="xPublishedY">%1$s išleido %2$s</string>
+  <string name="thisPostIsPublished">Šis įrašas paskelbtas</string>
+  <string name="thisIsADraft">Tai yra juodraštis</string>
+  <string name="moreBlogPostsBy">Peržiūrėti daugiau tinklaraščio įrašų iš %s</string>
+  <string name="noPostsInThisBlogYet">Šiame tinklaraštyje įrašų dar nėra.</string>
+  <string name="noDrafts">Nėra galimų parodyti juodraščių.</string>
+</resources>

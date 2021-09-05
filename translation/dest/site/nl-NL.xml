@@ -899,6 +899,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulDescription">Omschrijving van de simultaan</string>
   <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
   <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>
+  <string name="embedsAvailable">Plak de URL van een partij of een studie om deze in te voegen.</string>
   <string name="inYourLocalTimezone">In je eigen lokale tijdzone</string>
   <string name="tournChat">Toernooichat</string>
   <string name="noChat">Geen chat</string>

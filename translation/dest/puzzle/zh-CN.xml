@@ -67,4 +67,15 @@
   <string name="fromMyGamesNone">您下过的棋局暂时没有被纳入到谜题数据库中，但Lichess将一如既往地记着你所走的每一步。
 多下快棋和慢棋可以提升您的棋局被纳入谜题数据库的概率哦！</string>
   <string name="fromXGamesFound">在 %2$s 场游戏中发现了 %1$s 个谜题</string>
+  <string name="puzzleDashboardDescription">训练、分析、提升</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">玩过 %s</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s 重玩</item>
+  </plurals>
+  <string name="percentSolved">%s 已解决</string>
+  <string name="noPuzzlesToShow">没有什么可以显示的，先去玩一些谜题吧！</string>
+  <string name="improvementAreasDescription">训练这些主题来提升你的表现！</string>
+  <string name="strengthDescription">你擅长这些主题</string>
 </resources>

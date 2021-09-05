@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog-ul lui %s</string>
+  <string name="newPost">Postare nouă</string>
+  <string name="editYourBlogPost">Editează-ți postarea</string>
+  <string name="postTitle">Titlul mesajului</string>
+  <string name="postIntro">Introducere</string>
+  <string name="postBody">Conținut</string>
+  <string name="drafts">Ciorne</string>
+  <string name="published">Publicat</string>
+  <string name="publishOnYourBlog">Publică pe blogul tău</string>
+  <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
+  <string name="xPublishedY">%1$s a publicat %2$s</string>
+  <string name="thisPostIsPublished">Această postare este publicată</string>
+  <string name="thisIsADraft">Aceasta este o ciornă</string>
+  <string name="moreBlogPostsBy">Vezi mai multe postări pe blog scrise de %s</string>
+  <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
+  <string name="noDrafts">Nici o ciornă de afișat.</string>
+</resources>

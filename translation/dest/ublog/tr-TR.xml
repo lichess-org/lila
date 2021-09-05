@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s Bloğu</string>
+  <string name="newPost">Yeni gönderi</string>
+  <string name="editYourBlogPost">Blog gönderinizi düzenleyin</string>
+  <string name="postTitle">Gönderi başlığı</string>
+  <string name="postIntro">Gönderi girişi</string>
+  <string name="postBody">Gönderi ana metni</string>
+  <string name="drafts">Taslaklar</string>
+  <string name="published">Yayınlandı</string>
+  <string name="publishOnYourBlog">Bloğunda yayınla</string>
+  <string name="publishHelp">Eğer işaretliyse gönderi bloğunuzda listelenir. İşaretli değilse taslak gönderilerde gizli olacaktır</string>
+  <string name="xPublishedY">%1$s yayınladı%2$s</string>
+  <string name="thisPostIsPublished">Bu gönderi yayınlanmış</string>
+  <string name="thisIsADraft">Bu bir taslaktır</string>
+  <string name="moreBlogPostsBy">%s tarafından daha fazla gönderi</string>
+  <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
+  <string name="noDrafts">Gösterilecek taslak yok.</string>
+</resources>

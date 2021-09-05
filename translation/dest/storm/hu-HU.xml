@@ -50,4 +50,6 @@
   <string name="skip">kihagy</string>
   <string name="skipHelp">Kihagyhatsz egy lépést versenyenként:</string>
   <string name="skipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
+  <string name="failedPuzzles">Sikertelen feladványok</string>
+  <string name="slowPuzzles">Lassú megfejtések</string>
 </resources>

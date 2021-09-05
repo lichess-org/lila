@@ -805,6 +805,7 @@
   <string name="noRestriction">Առանց սահմանափակումների</string>
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>
+  <string name="embedsAvailable">Ներդնելու համար տեղադրեք պարտիայի կամ ստուդիայի URL-հասցեն։</string>
   <string name="tournChat">Մրցաշարի զրուցարան</string>
   <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>

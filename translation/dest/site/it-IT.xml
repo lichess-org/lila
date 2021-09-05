@@ -900,6 +900,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="simulDescription">Descrizione della simulazione</string>
   <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
   <string name="markdownAvailable">%s è disponibile per la sintassi più avanzata.</string>
+  <string name="embedsAvailable">Incolla l\'URL di un gioco o l\'URL di un capitolo di studio per incorporarlo.</string>
   <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
   <string name="tournChat">Chat del torneo</string>
   <string name="noChat">Nessuna chat</string>
@@ -920,4 +921,9 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="emailAssociatedToaccount">Indirizzo email associato all\'account</string>
   <string name="sentEmailWithLink">Ti abbiamo inviato un\'email con un link.</string>
   <string name="tournamentEntryCode">Codice di accesso al torneo</string>
+  <string name="hangOn">Aspetta!</string>
+  <string name="gameInProgress">Hai una partita in corso con %s.</string>
+  <string name="abortTheGame">Annulla la partita</string>
+  <string name="resignTheGame">Rinuncia alla partita</string>
+  <string name="youCantStartNewGame">Non puoi avviare una nuova partita finché questa non è terminata.</string>
 </resources>

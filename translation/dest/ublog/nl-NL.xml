@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog van %s</string>
+  <string name="newPost">Nieuwe blogpost</string>
+  <string name="editYourBlogPost">Bewerk je blogpost</string>
+  <string name="postTitle">Titel</string>
+  <string name="postIntro">Inleiding</string>
+  <string name="postBody">Tekst</string>
+  <string name="drafts">Concepten</string>
+  <string name="published">Gepubliceerd</string>
+  <string name="publishOnYourBlog">Publiceren op blog</string>
+  <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publiceerde een blogpost</item>
+    <item quantity="other">Publiceerde %s blogposts</item>
+  </plurals>
+  <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
+  <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
+  <string name="thisIsADraft">Dit is een concept</string>
+  <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
+  <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
+  <string name="noDrafts">Geen concepten om weer te geven.</string>
+</resources>

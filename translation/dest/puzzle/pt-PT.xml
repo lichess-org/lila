@@ -70,4 +70,12 @@ Estes desafios foram retirados dos jogos desse utilizador</string>
   <string name="searchPuzzles">Pesquisar desafios</string>
   <string name="fromXGamesFound">%1$s problemas encontrados em %2$s partidas</string>
   <string name="puzzleDashboardDescription">Treinar, analisar, melhorar</string>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s para repetir</item>
+    <item quantity="other">%s para repetir</item>
+  </plurals>
+  <string name="percentSolved">%s resolvido</string>
+  <string name="noPuzzlesToShow">Nada para mostrar, jogue alguns quebra-cabeças primeiro!</string>
+  <string name="improvementAreasDescription">Treine estes para optimizar o seu progresso!</string>
+  <string name="strengthDescription">Você tem melhor performance nestes temas</string>
 </resources>

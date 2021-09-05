@@ -50,4 +50,6 @@
   <string name="skip">spring over</string>
   <string name="skipHelp">NYT! Du kan springe ét træk over pr. race:</string>
   <string name="skipExplanation">Spring dette træk over for at bevare din kombo! Virker kun én gang pr. race.</string>
+  <string name="failedPuzzles">Mislykkede opgaver</string>
+  <string name="slowPuzzles">Langsomme opgaver</string>
 </resources>

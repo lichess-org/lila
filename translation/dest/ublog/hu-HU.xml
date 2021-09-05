@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s\' Blogja</string>
+  <string name="newPost">Új bejegyzés</string>
+  <string name="editYourBlogPost">Saját bejegyzés módosítása</string>
+  <string name="postTitle">Bejegyzés címe</string>
+  <string name="postIntro">Bejegyzés felvezetése</string>
+  <string name="postBody">Bejegyzés törzse</string>
+  <string name="drafts">Piszkozatok</string>
+  <string name="published">Közzétett</string>
+  <string name="publishOnYourBlog">Közzététel a saját blogomon</string>
+  <string name="publishHelp">Ha bejelölöd a bejegyzés nyilvános lesz. Ha nem jelölöd be, akkor privát poszt marad és a vázlatok között megtalálható lesz</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Blogbejegyzést tett közzé</item>
+    <item quantity="other">Blogbejegyzést tett közzé</item>
+  </plurals>
+  <string name="xPublishedY">%1$s közzétette a %2$s nevű bejegyzést</string>
+  <string name="thisPostIsPublished">Ez a bejegyzés nyilvános</string>
+  <string name="thisIsADraft">Ez egy vázlat</string>
+  <string name="moreBlogPostsBy">Még több bejegyzés tőle: %s</string>
+  <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
+  <string name="noDrafts">Nincsenek megjelenítendő piszkozatok.</string>
+</resources>

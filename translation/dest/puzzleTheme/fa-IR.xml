@@ -12,6 +12,7 @@
   <string name="bishopEndgame">آخر بازی فیل</string>
   <string name="castling">قلعه رفتن</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
+  <string name="equality">برابری</string>
   <string name="kingsideAttack">حمله به جناه شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
   <string name="clearance">پاکسازی</string>
@@ -27,6 +28,9 @@
   <string name="fork">چنگال</string>
   <string name="forkDescription">حرکتی که در آن مهره ای که حرکت می کند دو مهره حریف را به صورت همزمان مورد حمله قرار می دهد.</string>
   <string name="hangingPiece">مهره بی دفاع</string>
+  <string name="long">معمای طولانی</string>
+  <string name="master">بازی‌های اساتید</string>
+  <string name="masterVsMaster">بازیهای استاد در مقابل استاد</string>
   <string name="mate">کیش و مات</string>
   <string name="mateDescription">بازی را با سبک خاصی ببرید.</string>
   <string name="mateIn1">مات در یک حرکت</string>
@@ -36,9 +40,17 @@
   <string name="mateIn3">مات در سه حرکت</string>
   <string name="mateIn3Description">در سه حرکت کیش و مات کنید.</string>
   <string name="mateIn4">مات در چهار حرکت</string>
+  <string name="mateIn4Description">در چهار حرکت کیش و مات کنید.</string>
   <string name="mateIn5">مات در پنج حرکت یا بیشتر</string>
   <string name="middlegame">وسط بازی</string>
   <string name="middlegameDescription">تاکتیکی در لحظات آخر بازی.</string>
+  <string name="oneMove">معمای یک-حرکتی</string>
+  <string name="oneMoveDescription">یک معما که فقط یک حرکت طول می‌کشد.</string>
+  <string name="opening">گشایش</string>
+  <string name="pawnEndgame">پایان بازی با پیاده</string>
+  <string name="pawnEndgameDescription">یک آخر بازی تنها با پیاده‌ها.</string>
+  <string name="pin">سنجاق کردن</string>
+  <string name="promotion">ترفیع</string>
   <string name="queenEndgame">آخربازی وزیر</string>
   <string name="queenEndgameDescription">یک آخر بازی تنها با وزیر و پیاده ها در صفحه.</string>
   <string name="queenRookEndgame">وزیر و رخ</string>
@@ -49,8 +61,11 @@
   <string name="quietMoveDescription">حرکتی که نه کیش ایجاد می کند و نه مهره ای را می گیرد و نه تهدید فوری را در پی دارد اما یک تهدید غیر قابل پیشگیری را در حرکات بعد به همراه دارد.</string>
   <string name="rookEndgame">آخربازی رخ</string>
   <string name="sacrifice">قربانی</string>
+  <string name="short">معمای کوتاه</string>
+  <string name="shortDescription">دو حرکت تا پیروزی.</string>
   <string name="skewer">حمله پیکانی</string>
   <string name="smotheredMate">مات مختنق</string>
   <string name="superGM">بازی سوپر استاد بزرگ</string>
   <string name="superGMDescription">پازل هایی از بازی های بهترین بازیکنان جهان.</string>
+  <string name="playerGames">بازی‌های بازیکن</string>
 </resources>

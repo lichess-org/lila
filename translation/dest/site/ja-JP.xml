@@ -61,7 +61,7 @@
   <string name="loadingEngine">エンジン読み込み中…</string>
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="goDeeper">より深く</string>
-  <string name="showThreat">脅威的な駒を表示</string>
+  <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内での解析</string>
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
   <string name="promoteVariation">変化を主手順にする</string>
@@ -99,7 +99,7 @@
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="allSet">準備完了！</string>
-  <string name="importPgn">PGNをインポート</string>
+  <string name="importPgn">PGN をインポート</string>
   <string name="delete">削除</string>
   <string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
   <string name="replayMode">再現の方式</string>
@@ -860,6 +860,7 @@
   <string name="simulDescription">同時対局の説明</string>
   <string name="simulDescriptionHelp">参加者に伝えたいことがあればどうぞ</string>
   <string name="markdownAvailable">高度な修飾方法として %s も使えます。</string>
+  <string name="embedsAvailable">棋譜の URL、研究の章の URL をペーストすると埋め込みできます。</string>
   <string name="inYourLocalTimezone">自分のタイムゾーンで</string>
   <string name="tournChat">トーナメント チャット</string>
   <string name="noChat">チャットなし</string>

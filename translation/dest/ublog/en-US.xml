@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s\' Blog</string>
+  <string name="newPost">New post</string>
+  <string name="editYourBlogPost">Edit your blog post</string>
+  <string name="postTitle">Post title</string>
+  <string name="postIntro">Post intro</string>
+  <string name="postBody">Post body</string>
+  <string name="drafts">Drafts</string>
+  <string name="published">Published</string>
+  <string name="publishOnYourBlog">Publish on your blog</string>
+  <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private, in your draft posts</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Published a blog post</item>
+    <item quantity="other">Published %s blog posts</item>
+  </plurals>
+  <string name="xPublishedY">%1$s published %2$s</string>
+  <string name="thisPostIsPublished">This post is published</string>
+  <string name="thisIsADraft">This is a draft</string>
+  <string name="moreBlogPostsBy">View more blog posts by %s</string>
+  <string name="noPostsInThisBlogYet">No posts in this blog, yet.</string>
+  <string name="noDrafts">No drafts to show.</string>
+</resources>

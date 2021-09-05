@@ -980,6 +980,7 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="simulDescription">Simulo aprašymas</string>
   <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
   <string name="markdownAvailable">%s prieinama norint naudoti sudėtingesnę sintaksę.</string>
+  <string name="embedsAvailable">Įklijuokite partijos adresą arba studijos skyriaus adresą norėdami juos įterpti.</string>
   <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
   <string name="tournChat">Turnyro pokalbis</string>
   <string name="noChat">Jokio pokalbio</string>

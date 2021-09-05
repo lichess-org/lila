@@ -8,11 +8,14 @@
   <string name="myFavoriteStudies">درس های مورد علاقه من</string>
   <string name="whatAreStudies">درس ها چه هستند?</string>
   <string name="allStudies">همه درس های من</string>
+  <string name="studiesCreatedByX">مطالعاتِ ایجاد شده توسط %s</string>
   <string name="noneYet">هنوز چیزی نیست.</string>
   <string name="hot">داغ</string>
   <string name="dateAddedNewest">بروز(جدید ترین)</string>
+  <string name="dateAddedOldest">تاریخی که اضافه شده است (قدیمی‌ترین)</string>
   <string name="recentlyUpdated">اخیرا به روز شده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
+  <string name="alphabetical">براساس حروف الفبا</string>
   <string name="addNewChapter">افزودن فصل جدید</string>
   <plurals name="nbChapters">
     <item quantity="one">%s فصل</item>
@@ -44,6 +47,8 @@
   <string name="annotateWithGlyphs">نشان کردن با علامت ها</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
+  <string name="getAFullComputerAnalysis" comment="getAFullComputerAnalysis&#10;&#10;This function gives you exactly what the string states, in a Lichess study (https://lichess.org/study).&#10;&#10;Please click/tap on the words for a definition of each, to get an idea of what this means.">یک تحلیل رایانه‌ای از حرکات اصلی (نه حرکات منشعب و فرعی) با استفاده از منابع سرورها (نه منابع محلی مانند مرورگر، اپلیکیشن و غیره) دریافت نمایید.</string>
+  <string name="makeSureTheChapterIsComplete">مطمئن شوید که فصل کامل است. شما فقط یک بار می‌توانید درخواست تحلیل بدهید.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
   <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
   <string name="playing">در حال انجام</string>
@@ -59,27 +64,63 @@
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
+  <string name="youCanPasteThisInTheForumToEmbed">برای جاسازی این نوشته، این کد را در تالار گفت و گو قرار دهید</string>
+  <string name="startAtInitialPosition">در موقعیت آغازین شروع نمایید</string>
+  <string name="startAtX">شروع از %s</string>
+  <string name="embedInYourWebsite">در وبسایت یا وبلاگ خود قرار دهید</string>
+  <string name="readMoreAboutEmbedding">درباره قرار دادن (در سایت) بیشتر بخوانید</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعاتِ عمومی می‌توانند جایگذاری شوند!</string>
+  <string name="open">بگشایید</string>
+  <string name="xBroughtToYouByY">مطالعه %1$s، توسط %2$s برای شما آورده شده است</string>
+  <string name="studyNotFound">مطالعه یافت نشد</string>
   <string name="editChapter">ویرایش فصل</string>
   <string name="newChapter">وصل جدید</string>
+  <string name="orientation">جهت</string>
   <string name="analysisMode">حالت تجزیه تحلیل</string>
+  <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>
   <string name="saveChapter">ذخیره فصل</string>
+  <string name="clearAnnotations">حاشیه‌نویسی را پاک نمایید</string>
   <string name="deleteChapter">حذف فصل</string>
   <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
+  <string name="clearAllCommentsInThisChapter">تمام نظرات، شکلها و نمایه‌های ترسیم شده در این فصل پاک شوند؟</string>
+  <string name="rightUnderTheBoard">درست در زیر تخته بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
+  <string name="interactiveLesson">درس تعاملی</string>
+  <string name="chapterX">فصل %s</string>
+  <string name="empty">خالی</string>
+  <string name="startFromInitialPosition">از موقعیت ابتدایی شروع نمایید</string>
   <string name="editor">ویرایشگر</string>
+  <string name="startFromCustomPosition">از موقعیت دلخواه شروع نمایید</string>
   <string name="loadAGameByUrl">بارگزاری بازی با استفاده از URL</string>
+  <string name="loadAPositionFromFen">از FEN یک موقعیت را بارگیری کنید</string>
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
+    <item quantity="other">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
+  </plurals>
+  <string name="urlOfTheGame">آدرس اینترنتی بازی، یکی در هر خط</string>
+  <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
   <string name="createChapter">ساخت فصل</string>
+  <string name="configureLiveBroadcast">پخش زنده را تنظیم و پیکربندی نمایید</string>
+  <string name="createStudy">مطالعه ایجاد کنید</string>
+  <string name="editStudy">مطالعه را ویرایش نمایید</string>
+  <string name="visibility">وضعیت نمایش</string>
   <string name="public">عمومی</string>
   <string name="unlisted">فهرست نشده</string>
+  <string name="inviteOnly">فقط توسط دعوتنامه</string>
+  <string name="allowCloning" comment="allowCloning&#10;&#10;Option for studies (https://lichess.org/study). Lets other Lichess users easily clone (make exact copies of) your study. They can then edit their copy, and alter/improve the study.">اجازه دهید تا بازی شما را کلون کنند که به این معنا است که بتوان آن را دقیقاً کپی کرد</string>
+  <string name="nobody">هیچ کس</string>
+  <string name="onlyMe">تنها من</string>
+  <string name="contributors">مشارکت‌کنندگان</string>
   <string name="members">اعضا</string>
   <string name="everyone">همه</string>
   <string name="enableSync">فعال کردن همگام سازی</string>
   <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در پوزیسیونی یکسان نگه دار</string>
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
+  <string name="pinnedStudyComment">نظر سنجاق شده درباره مطالعه</string>
   <string name="start">شروع</string>
   <string name="save">ذخیره</string>
   <string name="clearChat">پاک کردن گفتگو</string>
@@ -87,4 +128,31 @@
   <string name="deleteStudy">پاک کردن درس</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">می خواهید کل آموزش را حذف کنید؟ راه برگشتی وجود ندارد! برای ادامه کار نام آموزش را وارد کنید:%s</string>
   <string name="whereDoYouWantToStudyThat">کجا میخواهید آنرا مطالعه کنید?</string>
+  <string name="goodMove">حرکت خوبی بود</string>
+  <string name="mistake">اشتباه</string>
+  <string name="brilliantMove">حرکت درخشان</string>
+  <string name="blunder">اشتباه فاحش</string>
+  <string name="interestingMove">حرکت جالب</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate this may have been an unwise move.">حرکت نامفهوم و نامعقول</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تنها حرکت مناسب</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate one side is in zugzwang.">کوچ دادن یا حرکت اجباری</string>
+  <string name="equalPosition">موقعیت برابر</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">موقعیت نامعلوم</string>
+  <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
+  <string name="blackIsSlightlyBetter">مشکی کمی بهتر است</string>
+  <string name="whiteIsBetter">سفید بهتر است</string>
+  <string name="blackIsBetter">سیاه بهتر است</string>
+  <string name="whiteIsWinning">سفید در حال پیروزی است</string>
+  <string name="blackIsWinning">سیاه در حال پیروزی است</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">روش و ایده‌ای نو در شروع بازی</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">راهگشایی</string>
+  <string name="initiative" comment="initiative&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate a side has gained the initiative in the game.">دارای ابتکار عمل</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">حمله</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">حریف</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">تنگنای زمانی، وقت تنگ است</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">دارای مزیت و برتری</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با ایده</string>
+  <string name="nextChapter">فصل بعدی</string>
+  <string name="prevChapter">فصل قبلی</string>
+  <string name="studyActions">عملگرهای مطالعه</string>
 </resources>

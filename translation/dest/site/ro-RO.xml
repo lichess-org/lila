@@ -914,6 +914,7 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>
   <string name="noRestriction">Fără restricții</string>
   <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
+  <string name="embedsAvailable">Lipește un URL al jocului sau un URL de capitol de studiu pentru a-l încorpora.</string>
   <string name="inYourLocalTimezone">În fusul orar local</string>
   <string name="onlyTeamLeaders">Doar lideri de echipă</string>
   <string name="onlyTeamMembers">Doar membrii echipei</string>

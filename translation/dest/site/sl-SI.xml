@@ -979,6 +979,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
   <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
+  <string name="embedsAvailable">Prilepite URL igre ali URL poglavja študije, da ga vdelate.</string>
   <string name="inYourLocalTimezone">V svojem lokalnem časovnem pasu</string>
   <string name="tournChat">Turnirski klepet</string>
   <string name="noChat">Brez klepeta</string>

@@ -63,4 +63,16 @@
   <string name="streakSkipExplanation">Qələbə seriyanı qorumaq üçün bu gedişi keç! Oyun başına yalnız bir dəfə işləyir.</string>
   <string name="continueTheStreak">Qələbə seriyanı davam et</string>
   <string name="newStreak">Yeni qələbə seriyası</string>
+  <string name="fromMyGames">Oyunlarımdan</string>
+  <string name="lookupOfPlayer">Bir oyunçunun oyunlarından tapmacalar</string>
+  <string name="fromXGames">%s\' oyunlarından yapbozlar</string>
+  <string name="searchPuzzles">Tapmaca axtar</string>
+  <string name="fromMyGamesNone">Verilənlər bazasında heç bir tapmaca yoxdur, amma Lichess hələ də səni çox sevir.
+Bir tapmaca əlavə etmək şansınızı artırmaq üçün sürətli və klassik oyunlar oynayın!</string>
+  <string name="fromXGamesFound">%1$s oyunlarında tapılan%2$s tapmacalar</string>
+  <string name="puzzleDashboardDescription">Təlim edin, təhlil edin, təkmilləşdirmə edin</string>
+  <string name="percentSolved">%s həll edildi</string>
+  <string name="noPuzzlesToShow">Göstərəcək bir şey yoxdur, əvvəlcə bəzi tapmacalar oynayın!</string>
+  <string name="improvementAreasDescription">irəliləmənizi yoxlamaq üçün bunları optimize edin!</string>
+  <string name="strengthDescription">Bu mövzularda ən yaxşı performansı göstərirsiniz</string>
 </resources>

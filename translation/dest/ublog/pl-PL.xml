@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog gracza %s</string>
+  <string name="newPost">Nowy wpis</string>
+  <string name="editYourBlogPost">Edytuj swój wpis na blogu</string>
+  <string name="postTitle">Tytuł wpisu</string>
+  <string name="postIntro">Wstęp wpisu</string>
+  <string name="postBody">Treść wpisu</string>
+  <string name="drafts">Wersje robocze</string>
+  <string name="published">Opublikowane</string>
+  <string name="publishOnYourBlog">Opublikuj na swoim blogu</string>
+  <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Opublikowano wpis na blogu</item>
+    <item quantity="few">Opublikowano %s wpisy na blogu</item>
+    <item quantity="many">Opublikowano %s wpisów na blogu</item>
+    <item quantity="other">Opublikowano %s wpisów na blogu</item>
+  </plurals>
+  <string name="xPublishedY">%1$s opublikował %2$s</string>
+  <string name="thisPostIsPublished">Ten wpis jest opublikowany</string>
+  <string name="thisIsADraft">To jest wersja robocza</string>
+  <string name="moreBlogPostsBy">Zobacz więcej wpisów opublikowanych przez %s</string>
+  <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
+  <string name="noDrafts">Brak wersji roboczych.</string>
+</resources>

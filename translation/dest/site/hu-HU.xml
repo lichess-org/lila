@@ -899,6 +899,7 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="simulDescription">Szimultán leírása</string>
   <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
   <string name="markdownAvailable">%s is elérhető a haladó szerkesztéshez.</string>
+  <string name="embedsAvailable">Illeszd be a játék vagy a tanulmány URL-jét a beágyazáshoz.</string>
   <string name="inYourLocalTimezone">Saját időzónád szerint</string>
   <string name="tournChat">Verseny csevegő</string>
   <string name="noChat">Nincs csevegő</string>

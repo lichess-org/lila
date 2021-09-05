@@ -17,4 +17,6 @@
   <string name="wantChangeUsername">می خواهم نام کاربری ام را عوض کنم</string>
   <string name="doNotMessageModerators">لطفا پیام مستقیم به مدیران سایت نفرستید.</string>
   <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
+  <string name="noneOfTheAbove">هیچ یک از موارد فوق</string>
+  <string name="sendEmailAt">یک رایانامه برای ما به آدرس %s ارسال نمایید.</string>
 </resources>

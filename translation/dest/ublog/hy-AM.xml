@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s-ի բլոգ</string>
+  <string name="newPost">Նոր գրառում</string>
+  <string name="editYourBlogPost">Խմբագրել բլոգի գրառումը</string>
+  <string name="postTitle">Գրառման վերնագիրը</string>
+  <string name="postIntro">Գրառման ներածություն</string>
+  <string name="postBody">Գրառման տեքստ</string>
+  <string name="drafts">Սևագրեր</string>
+  <string name="published">Հրապարակված</string>
+  <string name="publishOnYourBlog">Հրապարակել ձեր բլոգում</string>
+  <string name="publishHelp">Եթե այս նշումն առկա է, գրառումը կերևա ձեր բլոգում։ Հակառակ դեպքում այն կլինի անձնական` ձեր գրառումների սևագրերի մեջ</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Հրապարակել է հաղորդագրություն բլոգում</item>
+    <item quantity="other">Հրապարակել է %s հաղորդագրություն բլոգում</item>
+  </plurals>
+  <string name="thisPostIsPublished">Գրառումը հրապարակված է</string>
+  <string name="thisIsADraft">Սա սևագրություն է</string>
+  <string name="moreBlogPostsBy">Դիտել %s-ի ավելի շատ գրառումներ բլոգում</string>
+  <string name="noPostsInThisBlogYet">Այս բլոգում գրառումներ առայժմ չկան։</string>
+  <string name="noDrafts">Ցուցադրելու համար սևագրություններ չկան։</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Блог %s</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Опубликована запись в блоге</item>
+    <item quantity="few">Опубликованы %s записи в блоге</item>
+    <item quantity="many">Опубликованы %s записей в блоге</item>
+    <item quantity="other">Опубликованы %s записей в блоге</item>
+  </plurals>
+  <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
+</resources>

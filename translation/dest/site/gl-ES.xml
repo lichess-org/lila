@@ -899,6 +899,7 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="simulDescription">Descrición da simulación</string>
   <string name="simulDescriptionHelp">Algo que queiras dicir ás persoas participantes?</string>
   <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
+  <string name="embedsAvailable">Pega unha ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
   <string name="tournChat">Chat do torneo</string>
   <string name="noChat">Sen chat</string>

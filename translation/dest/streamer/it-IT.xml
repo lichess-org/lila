@@ -18,6 +18,8 @@
   <string name="rule1">Includi la parola chiave \"lichess.org\" nel titolo del tuo stream quando fai streaming su Lichess.</string>
   <string name="rule2">Rimuovi la parola chiave quando fai streaming di materiale non-Lichess.</string>
   <string name="rule3">Lichess rileverà automaticamente il tuo stream e riceverai i seguenti vantaggi:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Leggi la nostra %s per assicurare a tutti il fair play durante la tua diretta.</string>
+  <string name="streamingFairplayFAQ">FAQ di Fairplay in streaming Fairplay</string>
   <string name="perks">Vantaggi di fare streaming con la parola chiave</string>
   <string name="perk1">Ricevi un\'icona di streamer sul tuo profilo Lichess.</string>
   <string name="perk2">Vieni messo in primo piano nella lista degli streamer.</string>

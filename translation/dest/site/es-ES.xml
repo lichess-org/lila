@@ -899,6 +899,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownAvailable">Se puede usar %s para dar formatear el texto.</string>
+  <string name="embedsAvailable">Pegar una URL del juego o un capítulo de estudio para incrustarla.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>
   <string name="noChat">Sin chat</string>
