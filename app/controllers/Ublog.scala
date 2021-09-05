@@ -37,11 +37,12 @@ final class Ublog(env: Env) extends LilaController(env) {
   def post(username: String, slug: String, id: String) = Open { implicit ctx =>
     NotForKids {
       OptionFuResult(env.user.repo named username) { user =>
-        (env.ublog.api.findByAuthor(UblogPost.Id(id), user)) flatMap {
+        env.ublog.api.findByAuthor(UblogPost.Id(id), user) flatMap {
           _.filter(canViewPost(user)).fold(notFound) { post =>
             env.ublog.api.otherPosts(user, post) map { others =>
               if (slug != post.slug) Redirect(urlOf(post))
               else {
+                lila.mon.ublog.view(user.id).increment()
                 val markup = scalatags.Text.all.raw(env.ublog.markup(post))
                 Ok(html.ublog.post(user, post, markup, others))
               }
@@ -87,6 +88,7 @@ final class Ublog(env: Env) extends LilaController(env) {
           data =>
             CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
               env.ublog.api.create(data, me) map { post =>
+                lila.mon.ublog.create(me.id).increment()
                 Redirect(editUrlOf(post)).flashSuccess
               }
             }(rateLimitedFu)

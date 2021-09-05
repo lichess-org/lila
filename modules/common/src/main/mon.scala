@@ -701,6 +701,10 @@ object mon {
   object markdown {
     val time = timer("markdown.time").withoutTags()
   }
+  object ublog {
+    def create(user: String) = counter("ublog.create").withTag("user", user)
+    def view(user: String)   = counter("ublog.view").withTag("user", user)
+  }
   object picfit {
     def uploadTime(user: String) = future("picfit.upload.time", Map("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
