@@ -96,7 +96,13 @@ object show {
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
-                if (info.requestedByMe) strong(beingReviewed())
+                if (info.requestedByMe)
+                  frag(
+                    strong(beingReviewed()),
+                    postForm(action := routes.Team.quit(t.id))(
+                      submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
+                    )
+                  )
                 else ctx.isAuth option joinButton(t)
               ),
               (info.mine && !info.ledByMe) option
