@@ -106,7 +106,7 @@ final class IrcApi(
     zulip(_.image, "blog")(
       s"[Blog image](${imageUrl
         .replace("/display?", "/display.jpg?")}) in ${markdown
-        .lichessLink(title, s"/@/${user.username}/blog/$slug/$id")} by ${markdown
+        .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} by ${markdown
         .userLink(user)}"
     )
 
