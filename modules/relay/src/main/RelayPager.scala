@@ -25,29 +25,21 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
               Match(tourRepo.selectors.official ++ tourRepo.selectors.inactive) -> List(
                 Sort(Descending("syncedAt")),
                 PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from" -> roundRepo.coll.name,
-                      "as"   -> "round",
-                      "let"  -> $doc("id" -> "$_id"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc(
-                              $doc("$eq" -> $arr("$tourId", "$$id"))
-                            )
-                          )
-                        ),
-                        $doc(
-                          "$sort" -> $doc(
-                            "startedAt" -> -1,
-                            "startsAt"  -> -1,
-                            "name"      -> -1
-                          )
-                        ),
-                        $doc("$limit"     -> 1),
-                        $doc("$addFields" -> $doc("sync.log" -> $arr()))
-                      )
+                  $lookup.pipeline(
+                    from = roundRepo.coll,
+                    as = "round",
+                    local = "_id",
+                    foreign = "tourId",
+                    pipeline = List(
+                      $doc(
+                        "$sort" -> $doc(
+                          "startedAt" -> -1,
+                          "startsAt"  -> -1,
+                          "name"      -> -1
+                        )
+                      ),
+                      $doc("$limit"     -> 1),
+                      $doc("$addFields" -> $doc("sync.log" -> $arr()))
                     )
                   )
                 ),
