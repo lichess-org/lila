@@ -55,21 +55,21 @@ object forms {
         renderTimeMode(form),
         if (ctx.blind)
           frag(
-            renderLabel(form("level"), trans.level()),
+            renderLabel(form("level"), trans.strength()),
             renderSelect(form("level"), lila.setup.AiConfig.levelChoices),
             blindSideChoice(form)
           )
         else
           frag(
             br,
-            trans.level(),
+            trans.strength(),
             div(cls := "level buttons")(
               div(id := "config_level")(
                 renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
               ),
               div(cls := "ai_info")(
                 ratings.toList.map { case (level, _) =>
-                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("YaneuraOu V6.00", level))
                 }
               )
             )
