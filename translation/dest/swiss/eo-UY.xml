@@ -10,6 +10,10 @@
     <item quantity="other">Unu raŭndo dum %s tagoj</item>
   </plurals>
   <string name="roundsAreStartedManually">Oni komencas raŭndoj permane</string>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto inter raŭndoj</item>
+    <item quantity="other">%s minutoj inter raŭndoj</item>
+  </plurals>
   <string name="nextRound">Sekva raŭndo</string>
   <string name="tournStartDate">Komencdato de turniro</string>
   <string name="numberOfRounds">Nombro da raŭndoj</string>
