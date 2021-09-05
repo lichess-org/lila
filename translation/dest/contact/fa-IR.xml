@@ -10,6 +10,7 @@
   <string name="forgotUsername">نام کاربری ام را فراموش کردم</string>
   <string name="youCanLoginWithEmail">شما می توانید با آدرس ایمیلی که برای ثبت نام استفاده کردید وارد شوید</string>
   <string name="lost2FA">دسترسی به کد احراز هویت دو عاملی را از دست داده ام</string>
+  <string name="doPasswordReset">بازیابی گذرواژه را تکمیل کنید تا هویت‌سنجیِ دومِ شما برداشته شود</string>
   <string name="accountSupport">به پشتیبانی حساب کاربری نیاز دارم</string>
   <string name="wantTitle">می خواهم عنوانم در Lichess نشان داده شود</string>
   <string name="wantCloseAccount">می خواهم حساب کاربری ام را ببندم</string>
@@ -32,11 +33,22 @@
   <string name="doNotMessageModerators">لطفا پیام مستقیم به مدیران سایت نفرستید.</string>
   <string name="onlyReports">تنها گزارشِ کاربران از راه فرم گزارش می‌تواند موثر باشد.</string>
   <string name="wantReportBug">می‌خواهم یک ایراد فنی را گزارش کنم</string>
+  <string name="reportBugInForum">در قسمت بازخوردِ Lichess در تالار گفت و گو</string>
+  <string name="reportWebsiteIssue">به عنوان یک مشکلِ وب‌سایت Lichess روی GitHub</string>
   <string name="reportMobileIssue">به عنوان یک مشکلِ اپلیکیشن موبایل Lichess روی GitHub</string>
   <string name="reportBugInDiscord">در سرورِ دیسکوردِ Lichess</string>
   <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
+  <string name="castlingRules">مطمئن شوید که قوانین قلعه زدن را می‌فهمید</string>
   <string name="noRatingPoints">هیچ امتیازی اختصاص داده نشد</string>
   <string name="errorPage">صفحه خطا</string>
+  <string name="otherRestriction">محدودیتِ دیگر</string>
+  <string name="collaboration">تعامل، قانونی، تجاری</string>
+  <string name="buyingLichess">خریدِ Lichess</string>
+  <string name="authorizationToUse">مجوز برای استفاده از Lichess</string>
+  <string name="welcomeToUse">شما می‌توانید از Lichess برای فعالیت خود، حتی اگر تجاری باشد، استفاده کنید.</string>
+  <string name="videosAndBooks">شما می‌توانید آن را در ویدئوهای خود نشان دهید، و می‌توانید تصاویری از Lichess را در کتابهای خود چاپ نمایید.</string>
+  <string name="creditAppreciated">اعتبار بهتر است ولی الزامی نیست.</string>
   <string name="noneOfTheAbove">هیچ یک از موارد فوق</string>
   <string name="sendEmailAt">یک رایانامه برای ما به آدرس %s ارسال نمایید.</string>
+  <string name="explainYourRequest">لطفاً درخواست خود را به صورت کامل و واضح توضیح دهید. نام کاربریِ Lichess خود و هر گونه اطلاعاتی که می‌تواند به ما در کمک به شما یاری برساند را ذکر کنید.</string>
 </resources>
