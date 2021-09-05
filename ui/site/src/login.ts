@@ -2,6 +2,8 @@ import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import spinnerHtml from './component/spinner';
 
+import type * as PasswordComplexity from './passwordComplexity';
+
 export function loginStart() {
   const selector = '.auth-login form';
 
@@ -71,12 +73,7 @@ export function signupStart() {
     else return false;
   });
 
-  window.signupSubmit = () => {
-    const form = document.getElementById('signup-form') as HTMLFormElement;
-    if (form.reportValidity()) form.submit();
-  };
-
   lichess
     .loadModule('passwordComplexity')
-    .then(() => window['passwordComplexity'].addPasswordChangeListener('form3-password'));
+    .then(() => (window.passwordComplexity as typeof PasswordComplexity).addPasswordChangeListener('form3-password'));
 }

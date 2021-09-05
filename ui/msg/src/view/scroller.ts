@@ -16,7 +16,6 @@ class Scroller {
       }),
       { passive: true }
     );
-    window.el = this.element;
   };
   auto = () => {
     if (this.element && this.enabled) requestAnimationFrame(() => (this.element!.scrollTop = 9999999));
