@@ -7,6 +7,7 @@
     <item quantity="other">%s անդամներ</item>
   </plurals>
   <string name="allTeams">Բոլոր թիմերը</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Թիմերի առաջատարներ</string>
   <string name="newTeam">Նոր թիմ</string>
   <string name="myTeams">Իմ թիմերը</string>
   <string name="noTeamFound">Թիմ գտնված չէ</string>
