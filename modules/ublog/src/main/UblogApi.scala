@@ -9,11 +9,17 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.memo.PicfitApi
+import lila.memo.{ PicfitApi, PicfitUrl }
 import lila.user.User
 import lila.hub.actorApi.timeline.Propagate
 
-final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors.Timeline)(implicit
+final class UblogApi(
+    coll: Coll,
+    picfitApi: PicfitApi,
+    picfitUrl: PicfitUrl,
+    timeline: lila.hub.actors.Timeline,
+    irc: lila.irc.IrcApi
+)(implicit
     ec: ExecutionContext
 ) {
 
@@ -61,13 +67,21 @@ final class UblogApi(coll: Coll, picfitApi: PicfitApi, timeline: lila.hub.actors
 
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
-  def uploadImage(post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] =
-    picfitApi
-      .upload(imageRel(post), picture, userId = post.user)
-      .flatMap { image =>
-        coll.update.one($id(post.id), $set("image" -> image.id)) inject post.copy(image = image.id.some)
-      }
-      .logFailure(logger branch "upload")
+  def uploadImage(user: User, post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] = {
+    for {
+      image <- picfitApi
+        .upload(imageRel(post), picture, userId = post.user)
+      _ <- coll.update.one($id(post.id), $set("image" -> image.id))
+      _ <- post.live ?? irc.ublogImage(
+        user,
+        id = post.id.value,
+        slug = post.slug,
+        title = post.title,
+        filename = image.name,
+        imageUrl = UblogPost.thumbnail(picfitUrl, image.id, _.Small)
+      )
+    } yield post.copy(image = image.id.some)
+  }.logFailure(logger branch "upload")
 
   def lightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     coll

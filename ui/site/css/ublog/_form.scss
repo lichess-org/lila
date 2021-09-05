@@ -16,4 +16,11 @@
       align-items: center;
     }
   }
+  &__etiquette {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+    padding: 2em 3em;
+    margin: 3em auto;
+    max-width: 80ch;
+  }
 }

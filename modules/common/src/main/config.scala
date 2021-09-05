@@ -42,9 +42,7 @@ object config {
       @ConfigName("socket.domains") socketDomains: List[String],
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,
-      email: EmailAddress,
-      picfitEndpoint: String,
-      picfitSecretKey: Secret
+      email: EmailAddress
   ) {
     def isProd = domain == prodDomain
   }

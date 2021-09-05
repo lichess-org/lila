@@ -130,7 +130,7 @@ final class Ublog(env: Env) extends LilaController(env) {
           ctx.body.body.file("image") match {
             case Some(image) =>
               ImageRateLimitPerIp(HTTPRequest ipAddress ctx.req) {
-                env.ublog.api.uploadImage(post, image) map { newPost =>
+                env.ublog.api.uploadImage(me, post, image) map { newPost =>
                   Ok(html.ublog.form.formImage(newPost))
                 } recover { case e: Exception =>
                   BadRequest(e.getMessage)

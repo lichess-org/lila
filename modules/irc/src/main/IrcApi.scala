@@ -96,6 +96,18 @@ final class IrcApi(
   def broadcastError(id: String, name: String, error: String): Funit =
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
+  def ublogImage(
+      user: User,
+      id: String,
+      slug: String,
+      title: String,
+      filename: String,
+      imageUrl: String
+  ): Funit =
+    zulip(_.image, "blog")(
+      s"![$filename]($imageUrl) [$title](/@/${user.username}/blog/$slug/$id) by ${markdown.userLink(user)}"
+    )
+
   def userAppeal(user: User, mod: Holder): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(

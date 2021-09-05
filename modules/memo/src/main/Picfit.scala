@@ -128,7 +128,7 @@ object PicfitApi {
   }
 }
 
-final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
+final class PicfitUrl(config: PicfitConfig) {
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
@@ -155,11 +155,11 @@ final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
   ) = {
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString = s"h=$height&op=$operation&path=$id&w=$width"
-    s"$endpoint/display?${signQueryString(queryString)}"
+    s"${config.endpointGet}/display?${signQueryString(queryString)}"
   }
 
   private object signQueryString {
-    private val signer = com.roundeights.hasher.Algo hmac secretKey.value
+    private val signer = com.roundeights.hasher.Algo hmac config.secretKey.value
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10 minutes)

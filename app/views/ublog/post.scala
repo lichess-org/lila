@@ -89,21 +89,13 @@ object post {
   def editUrlOf(post: UblogPost.BasePost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
 
   object thumbnail {
-    sealed abstract class Size(val width: Int) {
-      def height = width * 10 / 16
-    }
-    case object Large extends Size(880)
-    case object Small extends Size(400)
-
-    def apply(post: UblogPost.BasePost, size: thumbnail.type => Size) =
+    def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       img(cls := "ublog-post-image")(src := url(post, size))
 
-    def url(post: UblogPost.BasePost, size: thumbnail.type => Size) = {
-      val s = size(thumbnail)
+    def url(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       post.image match {
-        case Some(image) => picfitUrl.thumbnail(image, s.width, s.height)
+        case Some(image) => UblogPost.thumbnail(picfitUrl, image, size)
         case _           => assetUrl("images/user-blog-default.png")
       }
-    }
   }
 }

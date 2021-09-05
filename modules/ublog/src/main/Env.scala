@@ -9,7 +9,9 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
-    picfit: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl,
+    ircApi: lila.irc.IrcApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {

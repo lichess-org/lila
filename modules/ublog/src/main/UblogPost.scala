@@ -2,7 +2,7 @@ package lila.ublog
 
 import org.joda.time.DateTime
 
-import lila.memo.PicfitImage
+import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 
 case class UblogPost(
@@ -55,5 +55,17 @@ object UblogPost {
   def slug(title: String) = {
     val s = lila.common.String slugify title
     if (s.isEmpty) "-" else s
+  }
+
+  object thumbnail {
+    sealed abstract class Size(val width: Int) {
+      def height = width * 10 / 16
+    }
+    case object Large extends Size(880)
+    case object Small extends Size(400)
+    type SizeSelector = thumbnail.type => Size
+
+    def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
+      picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
   }
 }

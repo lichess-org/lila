@@ -113,7 +113,7 @@ lazy val blog = module("blog",
 )
 
 lazy val ublog = module("ublog",
-  Seq(common, memo, timeline),
+  Seq(common, memo, timeline, irc),
   Seq(specs2) ++ reactivemongo.bundle
 )
 

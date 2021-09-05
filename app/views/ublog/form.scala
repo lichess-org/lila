@@ -21,6 +21,7 @@ object form {
     ) {
       main(cls := "box box-pad page page-small ublog-post-form")(
         h1(trans.ublog.newPost()),
+        etiquette,
         inner(user, f, none)
       )
     }
@@ -90,18 +91,18 @@ object form {
       )(form3.textarea(_)(rows := 30)),
       form3.actions(
         a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOf))(trans.cancel()),
-        span(
-          etiquette,
-          form3.submit(trans.apply())
-        )
+        form3.submit(trans.apply())
       )
     )
 
-  private def etiquette(implicit ctx: Context) =
+  private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
+    p("Please only post safe and respectful content."),
+    p("Anything even slightly inappropriate could get your account closed."),
     a(
       dataIcon := "",
       href := routes.Page.loneBookmark("blog-etiquette"),
-      cls := "text ublog-post-form__etiquette",
+      cls := "text",
       targetBlank
     )("Blog Etiquette")
+  )
 }
