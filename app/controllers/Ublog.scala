@@ -54,8 +54,18 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def form(username: String) = Auth { implicit ctx => me =>
     NotForKids {
-      if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
-      else Ok(html.ublog.form.create(me, env.ublog.form.create)).fuccess
+      if (env.ublog.api.canBlog(me)) {
+        if (!me.is(username)) Redirect(routes.Ublog.form(me.username)).fuccess
+        else
+          env.ublog.form.anyCaptcha map { captcha =>
+            Ok(html.ublog.form.create(me, env.ublog.form.create, captcha))
+          }
+      } else
+        Unauthorized(
+          html.site.message.notYet(
+            "Please play a few games and wait 2 days before you can create blog posts."
+          )
+        ).fuccess
     }
   }
 
@@ -70,7 +80,10 @@ final class Ublog(env: Env) extends LilaController(env) {
       env.ublog.form.create
         .bindFromRequest()(ctx.body, formBinding)
         .fold(
-          err => BadRequest(html.ublog.form.create(me, err)).fuccess,
+          err =>
+            env.ublog.form.anyCaptcha map { captcha =>
+              BadRequest(html.ublog.form.create(me, err, captcha))
+            },
           data =>
             CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
               env.ublog.api.create(data, me) map { post =>

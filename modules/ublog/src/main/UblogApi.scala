@@ -99,6 +99,11 @@ final class UblogApi(
     coll.delete.one($id(post.id)) >>
       picfitApi.deleteByRel(imageRel(post))
 
+  def canBlog(u: User) =
+    !u.isBot && {
+      (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
+    }
+
   private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
     Paginator(
       adapter = new Adapter[UblogPost.PreviewPost](

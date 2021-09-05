@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.Captcha
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.UblogPost
 import lila.user.User
@@ -14,15 +15,16 @@ object form {
 
   import views.html.ublog.{ post => postView }
 
-  def create(user: User, f: Form[UblogPostData])(implicit ctx: Context) =
+  def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
+      moreJs = captchaTag,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
     ) {
       main(cls := "box box-pad page page-small ublog-post-form")(
         h1(trans.ublog.newPost()),
         etiquette,
-        inner(user, f, none)
+        inner(user, f, none, captcha.some)
       )
     }
 
@@ -35,7 +37,7 @@ object form {
       main(cls := "box box-pad page page-small ublog-post-form")(
         h1(trans.ublog.editYourBlogPost()),
         imageForm(user, post),
-        inner(user, f, post.some),
+        inner(user, f, post.some, none),
         postForm(
           cls := "ublog-post-form__delete",
           action := routes.Ublog.delete(user.username, post.id.value)
@@ -67,8 +69,8 @@ object form {
 
   def formImage(post: UblogPost) = postView.thumbnail(post, _.Small)
 
-  private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost])(implicit
-      ctx: Context
+  private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost], captcha: Option[Captcha])(
+      implicit ctx: Context
   ) =
     postForm(
       cls := "form3",
@@ -89,6 +91,9 @@ object form {
         trans.ublog.postBody(),
         help = frag(markdownAvailable, br, trans.embedsAvailable()).some
       )(form3.textarea(_)(rows := 30)),
+      captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
+        views.html.base.captcha(form, c)
+      },
       form3.actions(
         a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOf))(trans.cancel()),
         form3.submit(trans.apply())

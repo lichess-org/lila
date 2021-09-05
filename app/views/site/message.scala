@@ -103,4 +103,7 @@ object message {
     apply("Temporarily disabled")(
       "Sorry, his feature is temporarily disabled while we figure out a way to bring it back."
     )
+
+  def notYet(text: String)(implicit ctx: Context) =
+    apply("Not yet available")(text)
 }

@@ -7,28 +7,49 @@ import play.api.data.Forms._
 import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage }
 import lila.user.User
 
-final class UblogForm(markup: UblogMarkup) {
+final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
+    ec: scala.concurrent.ExecutionContext
+) extends lila.hub.CaptchedForm {
 
   import UblogForm._
 
-  val create = Form(
+  private val base =
     mapping(
       "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 100),
       "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 2_000),
       "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
-      "live"     -> boolean
+      "live"     -> boolean,
+      "gameId"   -> text,
+      "move"     -> text
     )(UblogPostData.apply)(UblogPostData.unapply)
+
+  val create = Form(
+    base.verifying(captchaFailMessage, validateCaptcha _)
   )
 
   def edit(post: UblogPost) =
-    create.fill(
-      UblogPostData(title = post.title, intro = post.intro, markdown = post.markdown, live = post.live)
+    Form(base).fill(
+      UblogPostData(
+        title = post.title,
+        intro = post.intro,
+        markdown = post.markdown,
+        live = post.live,
+        gameId = "",
+        move = ""
+      )
     )
 }
 
 object UblogForm {
 
-  case class UblogPostData(title: String, intro: String, markdown: String, live: Boolean) {
+  case class UblogPostData(
+      title: String,
+      intro: String,
+      markdown: String,
+      live: Boolean,
+      gameId: String,
+      move: String
+  ) {
 
     def create(user: User) = {
       val now = DateTime.now

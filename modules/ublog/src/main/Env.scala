@@ -11,7 +11,8 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
-    ircApi: lila.irc.IrcApi
+    ircApi: lila.irc.IrcApi,
+    captcher: lila.hub.actors.Captcher
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
