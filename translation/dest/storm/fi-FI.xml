@@ -50,4 +50,6 @@
   <string name="skip">ohita</string>
   <string name="skipHelp">Kunkin kilvan aikana voit ohittaa yhden siirron:</string>
   <string name="skipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin kilvan aikana vain kerran.</string>
+  <string name="failedPuzzles">Epäonnistuneet tehtävät</string>
+  <string name="slowPuzzles">Hitaat tehtävät</string>
 </resources>
