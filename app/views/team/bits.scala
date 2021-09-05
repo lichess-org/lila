@@ -31,7 +31,7 @@ object bits {
           ),
         ctx.isAuth option
           a(cls := tab.active("leader"), href := routes.Team.leader)(
-            "Leader teams"
+            leaderTeams()
           ),
         a(cls := tab.active("all"), href := routes.Team.all())(
           allTeams()
