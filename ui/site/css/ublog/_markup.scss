@@ -12,17 +12,6 @@
     font-style: italic;
   }
 
-  .block-img {
-    text-align: center;
-  }
-
-  .block-img + p > em:first-child {
-    margin-top: -20px;
-    display: block;
-    font-size: 0.8em;
-    text-align: center;
-  }
-
   p,
   ol,
   ul,
@@ -71,6 +60,8 @@
   img {
     padding: 5px;
     border: 1px solid $c-border;
+    max-width: 100%;
+    max-height: 50vh;
   }
 
   $c-code-bg: #111;
