@@ -47,7 +47,7 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
   <string name="entryCode">Team entry code</string>
   <string name="entryCodeDescriptionForLeader">(Optional) An entry code that new members must know to join this team.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Incorrect entry code.</string>
+  <string name="incorrectEntryCode">Incorrect entry code.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTourns">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
