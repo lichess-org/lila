@@ -9,6 +9,7 @@
     <item quantity="other">%s graczy</item>
   </plurals>
   <string name="allTeams">Wszystkie kluby</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Dowodzone kluby</string>
   <string name="newTeam">Załóż klub</string>
   <string name="myTeams">Moje kluby</string>
   <string name="noTeamFound">Nie znaleziono klubu</string>
