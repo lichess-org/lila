@@ -25,5 +25,10 @@
   <string name="numberOfRoundsHelp">Malpara nombro da raŭndoj permesas la plej bona egaleco de koloroj.</string>
   <string name="roundInterval">Tempo inter raŭndoj</string>
   <string name="forbiddenPairings">Malpermesataj paroj</string>
+  <string name="newSwiss">Nova svisa turniro</string>
+  <string name="swissVsArenaQ">Kiam oni uzu svisan turniron anstataŭ arenan?</string>
+  <string name="swissVsArenaA">En svisa turniro, ĉiuj partoprenantoj ludas la saman nombron da ludoj, kaj ludas unu kontraŭ la alia nur unufoje.
+Ĝi povas esti bona elekto por kluboj kaj oficialaj turniroj.</string>
+  <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
 </resources>
