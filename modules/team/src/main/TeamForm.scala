@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage, mustNotContainLichess, numberIn }
 import lila.db.dsl._
 
 final private[team] class TeamForm(
@@ -24,8 +24,10 @@ final private[team] class TeamForm(
     def requestMessage(team: Team) =
       "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
         .verifying("Request message required", msg => msg.isDefined || team.open)
-    val description = "description" -> cleanText(minLength = 30, maxLength = 4000)
-    val descPrivate = "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000))
+    val description =
+      "description" -> cleanText(minLength = 30, maxLength = 4000).verifying(markdownImage.constraint)
+    val descPrivate =
+      "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).verifying(markdownImage.constraint))
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text

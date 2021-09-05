@@ -1,6 +1,5 @@
 package lila.common
 
-
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
@@ -65,4 +64,12 @@ final class Markdown(
       .mon(_.markdown.time)
       .logIfSlow(100, logger.branch(key))(_ => s"slow markdown size:${text.size}")
       .result
+}
+
+object Markdown {
+
+  private val imageRegex = """!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)""".r
+
+  def imageUrls(markdown: String): List[String] =
+    imageRegex.findAllIn(markdown).matchData.map(_ group 1).toList
 }

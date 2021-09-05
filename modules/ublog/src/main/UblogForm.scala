@@ -4,10 +4,10 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage }
 import lila.user.User
 
-final class UblogForm {
+final class UblogForm(markup: UblogMarkup) {
 
   import UblogForm._
 
@@ -15,7 +15,7 @@ final class UblogForm {
     mapping(
       "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 100),
       "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 2_000),
-      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000),
+      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
       "live"     -> boolean
     )(UblogPostData.apply)(UblogPostData.unapply)
   )

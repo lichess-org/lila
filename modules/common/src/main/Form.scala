@@ -123,6 +123,39 @@ object Form {
     }
   }
 
+  object markdownImage {
+    private val allowedDomains   = List("imgur.com", "giphy.com", "wikipedia.org")
+    private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
+    sealed abstract private class Bad(val msg: String)
+    private case class BadUrl(url: String)       extends Bad(s"Invalid image URL: $url")
+    private case class BadDomain(domain: String) extends Bad(s"Disallowed image domain: $domain")
+    val constraint = V.Constraint((s: String) =>
+      Markdown
+        .imageUrls(s)
+        .map {
+          case imageDomainRegex(domain) =>
+            !allowedDomains.exists(d => domain == d || domain.endsWith(s".$d")) option BadDomain(
+              domain
+            )
+          case url => BadUrl(url).some
+        }
+        .flatten match {
+        case Nil => V.Valid
+        case bads =>
+          V.Invalid(
+            bads.map(_.msg).map(V.ValidationError(_)) ::: {
+              bads.exists {
+                case _: BadDomain => true
+                case _            => false
+              } ?? List(
+                V.ValidationError(s"Allowed domains: ${allowedDomains mkString ", "}")
+              )
+            }
+          )
+      }
+    )
+  }
+
   def stringIn(choices: Options[String]) =
     text.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
