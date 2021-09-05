@@ -124,7 +124,16 @@ object Form {
   }
 
   object markdownImage {
-    private val allowedDomains   = List("imgur.com", "giphy.com", "wikimedia.org", "googleusercontent.com")
+    private val allowedDomains =
+      List(
+        "imgur.com",
+        "giphy.com",
+        "wikimedia.org",
+        "githubusercontent.com",
+        "googleusercontent.com",
+        "i.ibb.co",
+        "i.postimg.cc"
+      )
     private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
     sealed abstract private class Bad(val msg: String)
     private case class BadUrl(url: String)       extends Bad(s"Invalid image URL: $url")
