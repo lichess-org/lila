@@ -1,5 +1,5 @@
-export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
-  return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
+export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
+  return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
 }
 
 export function renderEval(e: number): string {
