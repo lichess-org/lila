@@ -47,7 +47,7 @@ Os xogadores/as aos que non lles guste recibir as túas mensaxes poden abandoar 
   <string name="closeTeamDescription">Pechar equipo para sempre.</string>
   <string name="entryCode">Código de entrada no equipo</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Un contrasinal que os novos membros deben saber para unirse a este equipo.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Código de entrada incorrecto.</string>
+  <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="teamAlreadyExists">Este nome xa existe.</string>
   <string name="upcomingTourns">Torneos vindeiros</string>
   <string name="completedTourns">Torneos completos</string>
