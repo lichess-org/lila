@@ -28,7 +28,7 @@
   <string name="mateDescription">Win the game with style.</string>
   <string name="mateIn1">1 手詰</string>
   <string name="mateIn1Description">Deliver checkmate in one move.</string>
-  <string name="mateIn2">兩步殺</string>
+  <string name="mateIn2">2 手詰</string>
   <string name="mateIn2Description">兩步棋將死國王</string>
   <string name="mateIn3">3 手詰</string>
   <string name="mateIn3Description">三步棋將死國王</string>

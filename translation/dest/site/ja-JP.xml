@@ -316,8 +316,6 @@
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
-	<string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザー上でのリプレイ、
-コンピューター解析、ゲームチャット、共有可能 URL が得られます。</string>
 	<string name="importGameKifuExplanation">ゲームの KIF を貼りつけると、ブラウザー上でのリプレイ、
 コンピューター解析、ゲームチャット、共有可能 URL が得られます。</string>
 	<plurals name="nbImportedGames">

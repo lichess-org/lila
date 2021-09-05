@@ -53,7 +53,7 @@ Password: %3$s</string>
 	<string name="invitationToClass">您被邀請加入%s課程做為學生</string>
 	<string name="clickToViewInvitation">點擊連結來查看邀請函</string>
 	<plurals name="nbPendingInvitations">
-		<item quantity="other">%s pending invitations</item>
+		<item quantity="other">%s 待处理的邀请</item>
 	</plurals>
 	<string name="noPendingInvitations">沒有未回覆的邀請</string>
 	<string name="onlyVisibleToTeachers">只有教師可以看到</string>

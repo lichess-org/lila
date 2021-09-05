@@ -59,6 +59,8 @@
   <string name="cloneStudy">Clone</string>
   <string name="downloadAllGames">I-download lahat ng mga laro</string>
   <string name="downloadGame">I-download ang laro</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">URL ng pag-aaral</string>
   <string name="broadcastUrl">I-broadcast ang URL</string>
   <string name="currentChapterUrl">Ang URL ng kasalukuyang kabanata</string>

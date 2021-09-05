@@ -337,8 +337,6 @@
 	<string name="continueFromHere">Continue from here</string>
 	<string name="toStudy">Study</string>
 	<string name="importGame">Import game</string>
-	<string name="importGameExplanation">Paste a game PGN to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

@@ -337,7 +337,6 @@
 	<string name="continueFromHere">Continuar desde aquí</string>
 	<string name="toStudy">Estudiar</string>
 	<string name="importGame">Importar partida</string>
-	<string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y un enlace para compartir.</string>
 	<string name="importGameKifuExplanation">Pega el kifu de una partida para obtener una partida navegable,
 análisis por computadora, chat de juego y una URL para compartir.</string>
 	<plurals name="nbImportedGames">

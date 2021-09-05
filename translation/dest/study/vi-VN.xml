@@ -56,6 +56,8 @@
   <string name="cloneStudy">Bản sao</string>
   <string name="downloadAllGames">Tải xuống tất cả các ván đấu</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="broadcastUrl">URL phát sóng</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>

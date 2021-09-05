@@ -15,7 +15,7 @@
 	<string name="resign">認輸</string>
 	<string name="checkmate">將死</string>
 	<string name="stalemate">逼和</string>
-	<string name="impasse">Impasse</string>
+	<string name="impasse">僵局</string>
 	<string name="white">後手</string>
 	<string name="black">先手</string>
 	<string name="shitate">下手</string>
@@ -57,7 +57,7 @@
 	<string name="computerAnalysisAvailable">電腦分析可用</string>
 	<string name="analysis">分析棋局</string>
 	<string name="depthX">深度 %s</string>
-	<string name="usingServerAnalysis">正在使用伺服器分析</string>
+	<string name="usingServerAnalysis">使用伺服器分析</string>
 	<string name="loadingEngine">正在載入引擎 ...</string>
 	<string name="cloudAnalysis">雲端分析</string>
 	<string name="goDeeper">深入分析</string>
@@ -104,8 +104,8 @@
 	<string name="memory">記憶體</string>
 	<string name="infiniteAnalysis">無限分析</string>
 	<string name="removesTheDepthLimit">取消深度限制，使您的電腦發熱。</string>
-	<string name="blunder">嚴重錯誤</string>
-	<string name="blunders">嚴重錯誤</string>
+	<string name="blunder">惡手</string>
+	<string name="blunders">惡手</string>
 	<string name="mistake">錯誤</string>
 	<string name="mistakes">錯誤</string>
 	<string name="inaccuracy">輕微失誤</string>
@@ -316,7 +316,6 @@
 	<string name="continueFromHere">從此處繼續</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">導入棋局</string>
-	<string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
 	<string name="importGameKifuExplanation">貼上棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">已導入%s盤棋局</item>
@@ -564,7 +563,7 @@
 	<string name="periods">Periods</string>
 	<string name="playOnline">線上對弈</string>
 	<string name="playOffline">离线对弈</string>
-	<string name="allowAnalytics">允许发送匿名统计数据</string>
+	<string name="allowAnalytics">允許匿名發送統計資料</string>
 	<string name="shareGameURL">分享对局网址</string>
 	<string name="error.required">本项必填</string>
 	<string name="error.email">电邮地址无效</string>
@@ -658,7 +657,7 @@
 	<string name="printFriendlyPDF">下载打印版PDF文档</string>
 	<string name="crosstable">历史表</string>
 	<string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滚动键在棋盘游戏中移动。</string>
-	<string name="analysisShapesHowTo">按shift点击或右键棋盘上绘制圆圈和箭头。</string>
+	<string name="analysisShapesHowTo">使用 Shift+左鍵 或是 右鍵 以在棋盤上畫圓圈及箭頭。</string>
 	<string name="letOtherPlayersMessageYou">允許其他人發送私訊給您</string>
 	<string name="shareYourInsightsData">Share your shogi insights data</string>
 	<string name="withNobody">不分享</string>
@@ -831,10 +830,10 @@
 	<string name="subscribe">訂閱</string>
 	<string name="unsubscribe">取消訂閱</string>
 	<string name="blackDeclinesImpasse">先手拒絕和棋</string>
-	<string name="blackOffersImpasse">Sente offers impasse</string>
+	<string name="blackOffersImpasse">先手求和</string>
 	<string name="notationType">記譜方法</string>
-	<string name="whiteDeclinesImpasse">Gote declines impasse</string>
-	<string name="whiteOffersImpasse">Gote offers impasse</string>
+	<string name="whiteDeclinesImpasse">後手拒絕和棋</string>
+	<string name="whiteOffersImpasse">後手求和</string>
 	<string name="notationSystem">記譜方法</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>
@@ -842,6 +841,6 @@
 	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
 	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
+	<string name="enteringKing">入玉</string>
 	<string name="totalImpasseValue">Total value</string>
 </resources>

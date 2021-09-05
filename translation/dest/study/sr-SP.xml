@@ -62,6 +62,8 @@
   <string name="cloneStudy">Клонирајте</string>
   <string name="downloadAllGames">Преузми све партије</string>
   <string name="downloadGame">Преузми игру</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">Проучите УРЛ адресу</string>
   <string name="broadcastUrl">Објави линк</string>
   <string name="currentChapterUrl">УРЛ тренутних поглавља</string>

@@ -59,6 +59,8 @@
   <string name="cloneStudy">Klona</string>
   <string name="downloadAllGames">Ladda ner alla partier</string>
   <string name="downloadGame">Ladda ner parti</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">Studie-URL</string>
   <string name="broadcastUrl">Länk till direktsändning (URL)</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>

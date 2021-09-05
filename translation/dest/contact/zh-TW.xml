@@ -29,7 +29,7 @@
   <string name="wantReport">我想要舉報一位玩家</string>
   <string name="cheating">作弊</string>
   <string name="sandbagging">刻意降低評分</string>
-  <string name="trolling">trolling</string>
+  <string name="trolling">戳人</string>
   <string name="insults">侮辱</string>
   <string name="otherReason">其他原因</string>
   <string name="toReportAPlayer">To report a player for %s, use the report form</string>

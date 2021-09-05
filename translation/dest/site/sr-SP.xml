@@ -358,8 +358,6 @@
 	<string name="continueFromHere">Настави одавде</string>
 	<string name="toStudy">Проучи</string>
 	<string name="importGame">Увези игру</string>
-	<string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
-рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

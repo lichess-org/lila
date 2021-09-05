@@ -59,6 +59,8 @@
   <string name="cloneStudy">Κλωνοποίησε</string>
   <string name="downloadAllGames">Download all games</string>
   <string name="downloadGame">Download game</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">URL μελέτης</string>
   <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>

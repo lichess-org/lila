@@ -48,7 +48,7 @@
 	<string name="goodIntroduction">хорошее объяснение</string>
 	<string name="officialRulesPDF">официальные правила (pdf)</string>
 	<string name="lishogiTraining">Обучение Lishogi</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">Четырехкратное повторение позиции</string>
 	<string name="handBookPDF">правил (pdf)</string>
 	<string name="notRepeatedMoves">Наши ходы не повторялись. Почему игра закончилась повторением?</string>
 	<string name="repeatedPositionsThatMatters">Троекратное повторение связано с повторением %1$s на доске, а не сделанных ходов. К повторению позиции могут приводить разные ходы, не обязательно одинаковые.</string>

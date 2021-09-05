@@ -337,7 +337,6 @@
 	<string name="continueFromHere">Von hier aus weiterspielen</string>
 	<string name="toStudy">Studie</string>
 	<string name="importGame">Partie importieren</string>
-	<string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
 	<string name="importGameKifuExplanation">Wenn du ein Kifu einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s importierte Partie</item>

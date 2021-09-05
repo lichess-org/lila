@@ -337,8 +337,6 @@
 	<string name="continueFromHere">Gaan voort van hier af</string>
 	<string name="toStudy">Bestudeer</string>
 	<string name="importGame">Voer spel in</string>
-	<string name="importGameExplanation">Plak \'n wedstryd PGN om dit deursoekbaar te herspeel,
-rekenaar analise, kletskamer en deelbare URL te kry.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

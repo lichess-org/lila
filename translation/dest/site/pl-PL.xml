@@ -379,7 +379,6 @@
 	<string name="continueFromHere">Kontynuuj z tej pozycji</string>
 	<string name="toStudy">Opracowanie</string>
 	<string name="importGame">Importuj partię</string>
-	<string name="importGameExplanation">Wklejenie zapisu partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
 	<string name="importGameKifuExplanation">Wklej zapis partii, aby móc ją ponownie odtworzyć,
 analizować komputerowo, dyskutować i udostępniać.</string>
 	<plurals name="nbImportedGames">

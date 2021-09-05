@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">अध्ययन छोड़े</string>
   <string name="youAreNowAContributor">अब आप एक योगदानकर्ता हैं</string>
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
-  <string name="tags">Tags</string>
+  <string name="tags">टैग (Tags)</string>
   <string name="like">पसंद करें</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
@@ -59,6 +59,8 @@
   <string name="cloneStudy">क्लोन</string>
   <string name="downloadAllGames">सभी गेम डाउनलोड करें</string>
   <string name="downloadGame">गेम डाउनलोड करो</string>
+  <string name="studyKif">अध्ययन KIF</string>
+  <string name="chapterKif">अध्याय का KIF</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="broadcastUrl">प्रसारण (Broadcast) का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय का URL</string>
@@ -94,7 +96,7 @@
   <string name="startFromCustomPosition">कृत्रिम स्थिति से शुरू करें</string>
   <string name="loadAGameByUrl">URL द्वारा गेम लोड करें</string>
   <string name="loadAPositionFromFen">FEN द्वारा स्थिति लोड करें</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
+  <string name="loadAGameFromKif">KIF से गेम लोड करें</string>
   <string name="automatic">स्वचालित</string>
   <string name="urlOfTheGame">खेल का URL, प्रति पंक्ति एक</string>
   <string name="loadAGameFromXOrY">%1$s से गेम लोड करें</string>

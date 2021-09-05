@@ -59,6 +59,8 @@
   <string name="cloneStudy">Klon</string>
   <string name="downloadAllGames">Download alle partier</string>
   <string name="downloadGame">Download parti</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">Studie URL</string>
   <string name="broadcastUrl">Transmission URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>

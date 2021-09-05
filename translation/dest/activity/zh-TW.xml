@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">活動</string>
-  <string name="hostedALiveStream">主持一個現場直播</string>
+  <string name="hostedALiveStream">開了一場實況</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="other">以%2$s的身分支持lishogi.org%1$s個月</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">在%2$s練習了%1$s個棋局</item>
+    <item quantity="other">在%2$s練習了%1$s盤棋</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="other">解決了%s個戰術題目</item>
@@ -15,19 +15,19 @@
     <item quantity="other">下了%1$s場%2$s類型的棋局</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">在%2$s發表了%1$s則訊息</item>
+    <item quantity="other">在%2$s發了%1$s則訊息</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">下了%1$s手</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">在%1$s場長時間棋局中</item>
+    <item quantity="other">在%1$s場通信棋戰中</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">完成了%s場長時間棋局</item>
+    <item quantity="other">完成了%s場通信棋戰</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">開始關注%s個玩家</item>
+    <item quantity="other">開始追隨%s個玩家</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">增加了%s個追蹤者</item>
@@ -39,13 +39,13 @@
     <item quantity="other">加入了%s場車輪戰</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">創造了%s個新的研究</item>
+    <item quantity="other">創造了%s個新的研究項目</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="other">完成了%s場錦標賽</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="other">在%4$s錦標賽中下了%3$s盤棋局，排名第%1$s(前%2$s%%)</item>
+    <item quantity="other">在%4$s錦標賽中下了%3$s盤棋，排名第%1$s(前%2$s%%)</item>
   </plurals>
   <string name="signedUp">在lishogi.org中註冊</string>
   <plurals name="joinedNbTeams">

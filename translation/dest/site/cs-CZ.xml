@@ -379,7 +379,6 @@
 	<string name="continueFromHere">Pokračovat zde</string>
 	<string name="toStudy">Do studie</string>
 	<string name="importGame">Importuj hru</string>
-	<string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
 	<string name="importGameKifuExplanation">Vložení partie ve kifu vám umožní přehrání partii, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s importovaná</item>

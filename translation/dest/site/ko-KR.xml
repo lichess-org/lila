@@ -316,7 +316,6 @@
 	<string name="continueFromHere">여기서부터 시작</string>
 	<string name="toStudy">연구</string>
 	<string name="importGame">게임 불러오기</string>
-	<string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

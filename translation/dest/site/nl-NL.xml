@@ -337,7 +337,6 @@
 	<string name="continueFromHere">Ga vanaf hier verder</string>
 	<string name="toStudy">Studie</string>
 	<string name="importGame">Importeer partij</string>
-	<string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

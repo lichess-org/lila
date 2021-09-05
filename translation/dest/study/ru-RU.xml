@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Покинуть студию</string>
   <string name="youAreNowAContributor">Теперь вы редактор</string>
   <string name="youAreNowASpectator">Теперь вы зритель</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Теги</string>
   <string name="like">Нравится</string>
   <string name="newTag">Новый тег</string>
   <string name="commentThisPosition">Комментировать эту позицию</string>
@@ -65,6 +65,8 @@
   <string name="cloneStudy">Клонировать</string>
   <string name="downloadAllGames">Скачать все партии</string>
   <string name="downloadGame">Скачать партию</string>
+  <string name="studyKif">Студия KIF</string>
+  <string name="chapterKif">Глава KIF</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="broadcastUrl">Интернет-адрес трансляции</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
@@ -100,7 +102,7 @@
   <string name="startFromCustomPosition">Начать со своей позиции</string>
   <string name="loadAGameByUrl">Загрузить игру по URL</string>
   <string name="loadAPositionFromFen">Загрузить позицию из FEN</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
+  <string name="loadAGameFromKif">Загрузить игру из KIF</string>
   <string name="automatic">Автоматически</string>
   <string name="urlOfTheGame">URL игры</string>
   <string name="loadAGameFromXOrY">Загрузить игру из %1$s</string>

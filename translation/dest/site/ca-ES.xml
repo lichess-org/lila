@@ -337,7 +337,6 @@
 	<string name="continueFromHere">Continua des d\'aquí</string>
 	<string name="toStudy">Estudi</string>
 	<string name="importGame">Importa una partida</string>
-	<string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

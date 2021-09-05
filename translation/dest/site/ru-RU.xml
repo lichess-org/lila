@@ -15,7 +15,7 @@
 	<string name="resign">Сдаться</string>
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
-	<string name="impasse">Impasse</string>
+	<string name="impasse">Тупик</string>
 	<string name="white">Белые</string>
 	<string name="black">Чёрные</string>
 	<string name="shitate">Шитатэ</string>
@@ -92,7 +92,7 @@
 	<string name="openingExplorer">База дебютов</string>
 	<string name="xOpeningExplorer">База дебютов для %s</string>
 	<string name="allSet">Готово!</string>
-	<string name="importKif">Import KIF</string>
+	<string name="importKif">Импортировать партию</string>
 	<string name="delete">Удалить</string>
 	<string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
 	<string name="replayMode">Смотреть в повторе</string>
@@ -374,12 +374,11 @@
 	<string name="leaderboard">Лучшие игроки</string>
 	<string name="selectHandicap">Выберите фору</string>
 	<string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifStringHere">Вставьте строчку в формате KIF</string>
 	<string name="fromPosition">С позиции</string>
 	<string name="continueFromHere">Продолжить с этой позиции</string>
 	<string name="toStudy">Студия</string>
 	<string name="importGame">Импортировать игру</string>
-	<string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
 	<string name="importGameKifuExplanation">Вставьте кифу, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s импортированная</item>
@@ -949,7 +948,7 @@
 	<string name="previousBlogPosts">Предыдущие записи блога</string>
 	<string name="continueReadingThis"> Продолжить чтение поста</string>
 	<string name="discussBlogForum">Обсудить этот пост на форуме</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces">Фигуры в лагере соперника</string>
+	<string name="enteringKing">Король в лагере противника</string>
+	<string name="totalImpasseValue">Суммарная стоимость</string>
 </resources>

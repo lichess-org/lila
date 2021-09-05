@@ -15,7 +15,7 @@
 	<string name="humanOrComputer">不管您的對手是電腦或是其他玩家</string>
 	<string name="aiLevel">A.I等級</string>
 	<string name="source">來源</string>
-	<string name="nbTurns">回和數</string>
+	<string name="nbTurns">回合數</string>
 	<string name="result">結果</string>
 	<string name="winnerColor">獲勝方棋子顏色</string>
 	<string name="date">日期</string>

@@ -337,7 +337,6 @@
 	<string name="continueFromHere">Fortsätt härifrån</string>
 	<string name="toStudy">Studera</string>
 	<string name="importGame">Importera parti</string>
-	<string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
 	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">

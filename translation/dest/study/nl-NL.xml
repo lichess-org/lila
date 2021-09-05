@@ -59,6 +59,8 @@
   <string name="cloneStudy">Kopiëren</string>
   <string name="downloadAllGames">Download alle partijen</string>
   <string name="downloadGame">Partij downloaden</string>
+  <string name="studyKif">Study KIF</string>
+  <string name="chapterKif">Chapter KIF</string>
   <string name="studyUrl">Studie URL</string>
   <string name="broadcastUrl">Uitzendingslink</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
