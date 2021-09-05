@@ -1,4 +1,4 @@
-lichess.ratingHistoryChart = function (data, singlePerfName) {
+lichess.ratingHistoryChart = function (data, { singlePerfName, perfIndex }) {
   var oneDay = 86400000;
   function smoothDates(data) {
     if (!data.length) return [];
@@ -95,6 +95,9 @@ lichess.ratingHistoryChart = function (data, singlePerfName) {
             labels: disabled,
             lineWidth: 0,
             tickWidth: 0,
+          },
+          navigator: {
+            baseSeries: perfIndex,
           },
           scrollbar: disabled,
           series: data

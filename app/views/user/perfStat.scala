@@ -30,7 +30,7 @@ object perfStat {
           frag(
             jsTag("chart/ratingHistory.js"),
             embedJsUnsafeLoadThen(
-              s"lichess.ratingHistoryChart($rc,'${perfType.trans(lila.i18n.defaultLang)}');"
+              s"lichess.ratingHistoryChart($rc,{singlePerfName:'${perfType.trans(lila.i18n.defaultLang)}'});"
             )
           )
         }

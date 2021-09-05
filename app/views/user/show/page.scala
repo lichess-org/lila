@@ -11,6 +11,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.game.Game
 import lila.user.User
+import lila.history.RatingChartApi
 
 object page {
 
@@ -84,7 +85,9 @@ object page {
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
-          embedJsUnsafeLoadThen(s"lichess.ratingHistoryChart($ratingChart)")
+          embedJsUnsafeLoadThen(
+            s"lichess.ratingHistoryChart($ratingChart,{perfIndex:${RatingChartApi.bestPerfIndex(info.user)}})"
+          )
         )
       },
       withSearch option jsModule("gameSearch"),
