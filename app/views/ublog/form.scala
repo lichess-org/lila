@@ -34,7 +34,7 @@ object form {
       moreJs = jsModule("ublog"),
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
-      main(cls := "box box-pad page page-small ublog-post-form")(
+      main(cls := "box box-pad page ublog-post-form")(
         h1(trans.ublog.editYourBlogPost()),
         imageForm(user, post),
         inner(user, f, post.some, none),
@@ -67,7 +67,7 @@ object form {
       )
     )
 
-  def formImage(post: UblogPost) = postView.thumbnail(post, _.Small)
+  def formImage(post: UblogPost) = postView.thumbnail(post, _.Large)
 
   private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost], captcha: Option[Captcha])(
       implicit ctx: Context
@@ -79,18 +79,25 @@ object form {
       )
     )(
       form3.globalError(form),
-      post.isDefined option form3.checkbox(
-        form("live"),
-        trans.ublog.publishOnYourBlog(),
-        help = trans.ublog.publishHelp().some
+      form3.split(
+        form3.group(form("title"), trans.ublog.postTitle(), half = true)(form3.input(_)(autofocus)),
+        post.isDefined option form3.checkbox(
+          form("live"),
+          trans.ublog.publishOnYourBlog(),
+          help = trans.ublog.publishHelp().some,
+          half = true
+        )
       ),
-      form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
       form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
-      form3.group(
-        form("markdown"),
-        trans.ublog.postBody(),
-        help = frag(markdownAvailable, br, trans.embedsAvailable()).some
-      )(form3.textarea(_)(rows := 30)),
+      form3.split(
+        form3.group(
+          form("markdown"),
+          trans.ublog.postBody(),
+          help = frag(markdownAvailable, br, trans.embedsAvailable()).some,
+          half = true
+        )(form3.textarea(_)(rows := 30)),
+        div(cls := "form-group form-half ublog-post-form__markdown__preview")
+      )(cls := "half ublog-post-form__markdown"),
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)
       },

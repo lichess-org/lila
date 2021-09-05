@@ -66,7 +66,8 @@ GET   /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.edit(username: String,
 POST  /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.update(username: String, id: String)
 POST  /@/:username/blog/$id<\w{8}>/del controllers.Ublog.delete(username: String, id: String)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: String)
-GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
+GET   /@/:username/blog/:slug/$id<\w{8}> controllers.Ublog.post(username: String, slug: String, id: String)
+POST  /ublog/$id<\w{8}>/preview        controllers.Ublog.preview(id: String)
 
 # User
 GET   /api/stream/:username/mod        controllers.User.mod(username: String)

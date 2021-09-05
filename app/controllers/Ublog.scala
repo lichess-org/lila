@@ -129,6 +129,14 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def preview(id: String) = AuthBody { implicit ctx => me =>
+    NotForKids {
+      OptionOk(env.ublog.api.find(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
+        html.ublog.form.edit(me, post, env.ublog.form.edit(post))
+      }
+    }
+  }
+
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "ublog.image.ip"
   )(
