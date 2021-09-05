@@ -9,6 +9,7 @@
     <item quantity="one">Unu raŭndo dum tago</item>
     <item quantity="other">Unu raŭndo dum %s tagoj</item>
   </plurals>
+  <string name="roundsAreStartedManually">Oni komencas raŭndoj permane</string>
   <string name="nextRound">Sekva raŭndo</string>
   <string name="tournStartDate">Komencdato de turniro</string>
   <string name="numberOfRounds">Nombro da raŭndoj</string>
