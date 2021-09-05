@@ -132,7 +132,8 @@ object Form {
         "githubusercontent.com",
         "googleusercontent.com",
         "i.ibb.co",
-        "i.postimg.cc"
+        "i.postimg.cc",
+        "lichess1.org"
       )
     private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
     sealed abstract private class Bad(val msg: String)

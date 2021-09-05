@@ -14,7 +14,8 @@ final class Env(
     ircApi: lila.irc.IrcApi,
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    net: NetConfig
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
