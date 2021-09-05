@@ -45,8 +45,11 @@
   <string name="fideMate">بازگشت به قوانین فیده برای شطرنج بخش 6.9، اگر کیش و مات با هر گونه سلسله حرکتهای قانونی ممکن باشد، آنگاه بازی مساوی نیست</string>
   <string name="noRatingPoints">هیچ امتیازی اختصاص داده نشد</string>
   <string name="errorPage">صفحه خطا</string>
+  <string name="banAppeal">درخواست بازنگری برای یک ممنوعیت یا محدودیتِ IP</string>
   <string name="engineAppeal">نشانه استفاده از موتور تحلیل یا تقلب</string>
   <string name="sendAppealTo">شما می‌توانید یک درخواست بررسی مجدد به %s ارسال کنید.</string>
+  <string name="falsePositives">مثبتهای اشتباهی حتماً گاهی اتفاق می‌افتد، و ما درباره آن متاسفیم.</string>
+  <string name="ifLegit">اگر درخواست بازنگری شما مشروع و قانونی باشد، ما در نزدیکترین زمان ممکن ممنوعیت را رفع خواهیم کرد.</string>
   <string name="otherRestriction">محدودیتِ دیگر</string>
   <string name="collaboration">تعامل، قانونی، تجاری</string>
   <string name="buyingLichess">خریدِ Lichess</string>
