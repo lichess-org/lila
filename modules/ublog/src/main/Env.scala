@@ -13,7 +13,8 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.relation.RelationApi,
-    captcher: lila.hub.actors.Captcher
+    captcher: lila.hub.actors.Captcher,
+    cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {

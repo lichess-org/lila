@@ -30,6 +30,15 @@
       > * {
         margin: 0 1em;
       }
+      &__report {
+        color: $c-font-dim !important;
+        &:hover {
+          color: $c-bad !important;
+        }
+      }
+      .user-link {
+        color: $c-link;
+      }
     }
     &__image {
       @extend %box-neat-force;

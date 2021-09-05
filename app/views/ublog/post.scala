@@ -60,7 +60,7 @@ object post {
           else
             a(
               titleOrText(trans.reportXToModerators.txt(user.username)),
-              cls := "mod report button button-red button-empty",
+              cls := "button button-empty ublog-post__meta__report",
               href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOf(post).url}")}&reason=comm",
               dataIcon := ""
             )
