@@ -194,7 +194,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
           a(activeCls("about"), href := routes.Page.about())(trans.aboutX("lishogi.org")),
-          //a(activeCls("faq"), href := routes.Main.faq())(trans.faq.faqAbbreviation()),
+          a(activeCls("faq"), href := routes.Main.faq())(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact())(trans.contact.contact()),
           a(activeCls("resources"), href := routes.Page.resources())(trans.shogiResources()),
           a(activeCls("tos"), href := routes.Page.tos())(trans.termsOfService()),
