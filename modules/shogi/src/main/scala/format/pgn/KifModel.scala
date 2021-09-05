@@ -37,7 +37,7 @@ case class Kif(
     }._1 mkString "\n"
 
     val variations = moveline.reverse.foldLeft("")((acc, cur) => {
-      acc + cur.variations.map(v => s"\n\n変化：${cur.ply}手\n" + renderMovesAndVariations(v)).mkString("\n")
+      acc + cur.variations.map(v => s"\n\n変化：${cur.ply}手\n${renderMovesAndVariations(v)}").mkString("")
     })
 
     s"$mainline$variations"
@@ -45,7 +45,7 @@ case class Kif(
 
   def render: String = {
     val initStr =
-      if (initial.comments.nonEmpty) initial.comments.mkString("* ", "\n" , "\n")
+      if (initial.comments.nonEmpty) initial.comments.map(KifMove.fixComment _).mkString("* ", "\n* " , "\n")
       else ""
     val header = KifUtils kifHeader tags
     val movesHeader    = "\n手数----指手---------消費時間--\n"
@@ -94,7 +94,7 @@ object KifMove {
 
   private val noDoubleLineBreakRegex = "(\r?\n){2,}".r
 
-  private def fixComment(txt: String) =
+  def fixComment(txt: String) =
     noDoubleLineBreakRegex.replaceAllIn(txt, "\n").replace("\n", "\n* ")
 
   private def formatKifSpent(t: Int) =
