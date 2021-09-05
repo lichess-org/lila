@@ -200,7 +200,7 @@ final class Report(
             env.user.repo named data.username flatMap {
               _ ?? { user =>
                 if (user == me) BadRequest.fuccess
-                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
               }
             }
         )
