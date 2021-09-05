@@ -16,7 +16,7 @@ import lila.relation.BSONHandlers._
 import lila.user.User
 
 final class RelationApi(
-    coll: Coll,
+    val coll: Coll,
     repo: RelationRepo,
     timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,

@@ -209,7 +209,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Frag = {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Tag = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     span(

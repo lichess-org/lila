@@ -17,7 +17,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def index(username: String, page: Int) = Open { implicit ctx =>
     NotForKids {
       OptionFuOk(env.user.repo named username) { user =>
-        (canViewBlogOf(user) ?? env.ublog.api.liveByUser(user, page)) map { posts =>
+        (canViewBlogOf(user) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
           html.ublog.index(user, posts)
         }
       }
@@ -28,7 +28,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     NotForKids {
       if (!me.is(username)) Redirect(routes.Ublog.drafts(me.username)).fuccess
       else
-        env.ublog.api.draftByUser(me, page) map { posts =>
+        env.ublog.paginator.byUser(me, false, page) map { posts =>
           Ok(html.ublog.index.drafts(me, posts))
         }
     }
@@ -156,6 +156,18 @@ final class Ublog(env: Env) extends LilaController(env) {
         }
       }
     }
+
+  def friends(page: Int) = Open { implicit ctx =>
+    NotForKids {
+      Reasonable(page, 10) {
+        ctx.me ?? { me =>
+          env.ublog.paginator.liveByFollowed(me, page) map { posts =>
+            Ok(html.ublog.index.friends(posts))
+          }
+        }
+      }
+    }
+  }
 
   private def canViewBlogOf(user: UserModel)(implicit ctx: Context) =
     ctx.is(user) || isGranted(_.ModerateBlog) || (user.enabled && !user.marks.troll)

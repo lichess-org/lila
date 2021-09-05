@@ -5,10 +5,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
-import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.Adapter
 import lila.memo.{ PicfitApi, PicfitUrl }
 import lila.user.User
 import lila.hub.actorApi.timeline.Propagate
@@ -19,9 +16,7 @@ final class UblogApi(
     picfitUrl: PicfitUrl,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
-)(implicit
-    ec: ExecutionContext
-) {
+)(implicit ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 
@@ -61,12 +56,6 @@ final class UblogApi(
 
   def countLiveByUser(user: User): Fu[Int] = coll.countSel($doc("user" -> user.id, "live" -> true))
 
-  def liveByUser(user: User, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
-    paginatorByUser(user, true, page)
-
-  def draftByUser(user: User, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
-    paginatorByUser(user, false, page)
-
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
   def uploadImage(user: User, post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] = {
@@ -103,17 +92,4 @@ final class UblogApi(
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
-
-  private def paginatorByUser(user: User, live: Boolean, page: Int): Fu[Paginator[UblogPost.PreviewPost]] =
-    Paginator(
-      adapter = new Adapter[UblogPost.PreviewPost](
-        collection = coll,
-        selector = $doc("user" -> user.id, "live" -> live),
-        projection = previewPostProjection.some,
-        sort = $doc("liveAt" -> -1, "createdAt" -> -1),
-        readPreference = ReadPreference.secondaryPreferred
-      ),
-      currentPage = page,
-      maxPerPage = MaxPerPage(8)
-    )
 }

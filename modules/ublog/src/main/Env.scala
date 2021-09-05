@@ -12,6 +12,7 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.irc.IrcApi,
+    relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher
 )(implicit
     ec: scala.concurrent.ExecutionContext
@@ -20,6 +21,8 @@ final class Env(
   private val postColl = db(CollName("ublog_post"))
 
   val api = wire[UblogApi]
+
+  val paginator = wire[UblogPaginator]
 
   val markup = wire[UblogMarkup]
 

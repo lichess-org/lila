@@ -63,7 +63,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   def showEnglishDateTime(date: DateTime): String =
     englishDateTimeFormatter print date
 
-  def semanticDate(date: DateTime)(implicit lang: Lang): Frag =
+  def semanticDate(date: DateTime)(implicit lang: Lang): Tag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
   def showPeriod(period: Period)(implicit lang: Lang): String =

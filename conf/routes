@@ -92,11 +92,12 @@ GET   /dasher                          controllers.Dasher.get
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1)
 GET   /blog/all                        controllers.Blog.all
-GET   /blog/:year                      controllers.Blog.year(year: Int)
+GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
+GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home

@@ -17,15 +17,21 @@
       box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;
     }
 
-    time {
+    &__over-image {
       position: absolute;
       top: 0;
-      left: 0;
-      padding: 0.2em 0.5em;
-      background: #111;
+      padding: 0.2em 0.5em 0.3em 0.5em;
+      background: rgba(0, 0, 0, 0.7);
       color: #ddd;
-      border-radius: 0 0 $box-radius-size 0;
       opacity: 1;
+    }
+    time {
+      left: 0;
+      border-radius: 0 0 $box-radius-size 0;
+    }
+    .user-link {
+      right: 0;
+      border-radius: 0 0 0 $box-radius-size;
     }
 
     &__image {
@@ -34,6 +40,12 @@
         background-image: img-url('placeholder-margin.png');
         background-size: cover;
         background-position: center;
+      }
+      transition: 0.6s all ease-in-out;
+      overflow: hidden;
+      transform-origin: bottom;
+      &:hover {
+        transform: scale(1.02);
       }
     }
 
@@ -51,6 +63,7 @@
     &__intro {
       @extend %roboto;
 
+      color: $c-font;
       margin-top: 2vmin;
       display: block;
     }

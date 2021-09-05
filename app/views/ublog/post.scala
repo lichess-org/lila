@@ -74,13 +74,18 @@ object post {
       )
     }
 
-  def card(post: UblogPost.BasePost, makeUrl: UblogPost.BasePost => Call = urlOf)(implicit ctx: Context) =
+  def card(
+      post: UblogPost.BasePost,
+      makeUrl: UblogPost.BasePost => Call = urlOf,
+      showAuthor: Boolean = false
+  )(implicit ctx: Context) =
     a(cls := "ublog-post-card", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         span(cls := "ublog-post-card__intro")(post.intro),
-        post.liveAt map semanticDate
+        post.liveAt map { date => semanticDate(date)(ctx.lang)(cls := "ublog-post-card__over-image") },
+        showAuthor option userIdSpanMini(post.user)(ctx.lang)(cls := "ublog-post-card__over-image")
       )
     )
 
