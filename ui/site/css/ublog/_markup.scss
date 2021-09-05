@@ -111,4 +111,17 @@
 
     margin: $block-gap auto;
   }
+
+  th,
+  td {
+    &[align='left'] {
+      text-align: left;
+    }
+    &[align='center'] {
+      text-align: center;
+    }
+    &[align='right'] {
+      text-align: right;
+    }
+  }
 }
