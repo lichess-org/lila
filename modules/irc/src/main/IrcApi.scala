@@ -106,7 +106,8 @@ final class IrcApi(
   ): Funit =
     zulip(_.image, "blog")(
       s"[$filename](${imageUrl
-        .replace("/display?", "/display.jpg?")}) in [$title](/@/${user.username}/blog/$slug/$id) by ${markdown
+        .replace("/display?", "/display.jpg?")}) in ${markdown
+        .lichessLink(title, s"/@/${user.username}/blog/$slug/$id")} by ${markdown
         .userLink(user)}"
     )
 
