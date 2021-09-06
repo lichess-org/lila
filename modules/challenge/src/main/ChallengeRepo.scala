@@ -34,14 +34,14 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
 
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 
-  def createdByChallengerId(max: Int = 100)(userId: String): Fu[List[Challenge]] =
+  def createdByChallengerId(max: Int = 50)(userId: String): Fu[List[Challenge]] =
     coll
       .find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()
       .list(max)
 
-  def createdByDestId(max: Int = 100)(userId: String): Fu[List[Challenge]] =
+  def createdByDestId(max: Int = 50)(userId: String): Fu[List[Challenge]] =
     coll
       .find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
