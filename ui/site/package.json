@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
+    "@toast-ui/editor": "^3.0.3",
     "@yaireo/tagify": "^4.0.5",
     "apexcharts": "^3.27.1",
     "chat": "2.0.0",

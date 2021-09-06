@@ -17,7 +17,7 @@ object form {
 
   def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("ublog"),
+      moreCss = cssTag("ublog.form"),
       moreJs = captchaTag,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
     ) {
@@ -30,7 +30,7 @@ object form {
 
   def edit(user: User, post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("ublog"),
+      moreCss = cssTag("ublog.form"),
       moreJs = jsModule("ublog"),
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
@@ -89,8 +89,13 @@ object form {
       form3.group(
         form("markdown"),
         trans.ublog.postBody(),
-        help = frag(markdownAvailable, br, trans.embedsAvailable()).some
-      )(form3.textarea(_)(rows := 30)),
+        help = frag(trans.embedsAvailable()).some
+      ) { field =>
+        frag(
+          form3.textarea(field)(),
+          div(id := "markdown-editor")
+        )
+      },
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)
       },

@@ -24,3 +24,16 @@
     max-width: 80ch;
   }
 }
+#form3-markdown {
+  display: none;
+}
+#markdown-editor {
+  height: 80vh;
+  .toastui-editor-popup-body li[data-type='Heading'] {
+    &[data-level='1'],
+    &[data-level='5'],
+    &[data-level='6'] {
+      display: none;
+    }
+  }
+}
