@@ -37,7 +37,7 @@ function renderPalantir(ctrl: Ctrl) {
             p.loaded = true;
             lichess.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
               lichess.loadModule('palantir').then(() => {
-                p.instance = window.palantir!.palantir({
+                p.instance = window.Palantir!.palantir({
                   uid: ctrl.data.userId!,
                   redraw: ctrl.redraw,
                 });

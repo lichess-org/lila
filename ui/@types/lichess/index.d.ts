@@ -250,7 +250,7 @@ interface Window {
   readonly hopscotch: any;
   LichessSpeech?: LichessSpeech;
   readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
-  readonly palantir?: {
+  readonly Palantir?: {
     palantir(opts: PalantirOpts): Palantir;
   };
   LichessChat: (element: Element, opts: any) => any;
