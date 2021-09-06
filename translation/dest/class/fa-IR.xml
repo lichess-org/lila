@@ -23,9 +23,20 @@
   <string name="invitedToXByY">توسط %2$s به %1$s دعوت شد</string>
   <string name="realName">نام واقعی</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
+  <string name="studentCredentials">دانش‌جو: %1$s
+نامِ کاربری: %2$s
+گذرواژه: %3$s</string>
   <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
+  <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
   <string name="lichessUsername">نام کاربریِ Lichess</string>
   <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
+  <string name="clickToViewInvitation">برای مشاهده دعوت‌نامه، روی پیوند کلیک کنید:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">یک دعوت‌نامه منتظر پاسخ</item>
+    <item quantity="other">%s دعوت‌نامه منتظر پاسخ</item>
+  </plurals>
+  <string name="noPendingInvitations">هیچ دعوت‌نامه منتظر پاسخی وجود ندارد</string>
+  <string name="onlyVisibleToTeachers">قابل مشاهده فقط برای معلم‌های کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">دسترسی کاربری مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>
@@ -35,6 +46,10 @@
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
   <string name="closeDesc2">شما ممکن است بخواهد به دانش آموزان کنترل اکانت را بدهید، بنابراین آن ها می توانند که به استفاده از آن ادامه دهند.</string>
   <string name="teachers">معلم‌ها</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">معلم</item>
+    <item quantity="other">%s معلم</item>
+  </plurals>
   <plurals name="nbStudents">
     <item quantity="one">دانشجو</item>
     <item quantity="other">%s دانشجو</item>
@@ -47,4 +62,5 @@
   <string name="na">در دسترس نیست</string>
   <string name="news">اخبار کلاس</string>
   <string name="editNews">خبرها را ویرایش نمایید</string>
+  <string name="nothingHere">اینجا هنوز چیزی نیست.</string>
 </resources>

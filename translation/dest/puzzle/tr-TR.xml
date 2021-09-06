@@ -69,9 +69,17 @@
   <string name="searchPuzzles">Bulmaca ara</string>
   <string name="fromMyGamesNone">Veri tabanında sizin maçlarınızdan bir bulmaca bulamadık ama dert etmeyin, Lichess pabucunuzu dama atmadı. Size ait bulmacaların eklenme şansını artırmak için rapid ve klasik maçlar oynayın!</string>
   <string name="fromXGamesFound">%2$s oyun içinde %1$s bulmaca bulundu</string>
-  <string name="puzzleDashboardDescription">Eğitin, analiz edin, iyileştirin</string>
+  <string name="puzzleDashboardDescription">Egzersiz yapın, analiz edin, becerilerinizi geliştirin</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s bulmaca</item>
+    <item quantity="other">%s bulmaca</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s gözden geçirilecek</item>
+    <item quantity="other">%s gözden geçirilecek</item>
+  </plurals>
   <string name="percentSolved">%s çözüldü</string>
-  <string name="noPuzzlesToShow">Gösterilecek bir şey yok, önce git biraz yapboz oyna!</string>
-  <string name="improvementAreasDescription">İlerlemenizi optimize etmek için bunları eğitin!</string>
-  <string name="strengthDescription">Bu temalarda en iyi performansı gösterirsiniz</string>
+  <string name="noPuzzlesToShow">Gösterilecek bir şey yok. Önce biraz bulmaca çöz!</string>
+  <string name="improvementAreasDescription">Gelişiminizi optimize etmek için bunlar üzerine çalışın!</string>
+  <string name="strengthDescription">En iyi performansı bu temalarda gösteriyorsunuz</string>
 </resources>
