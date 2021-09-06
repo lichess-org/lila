@@ -50,7 +50,7 @@ final class UblogApi(
   def otherPosts(author: User, post: UblogPost): Fu[List[UblogPost.PreviewPost]] =
     coll
       .find($doc("user" -> author.id, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
-      .sort($doc("liveAt" -> -1, "createdAt" -> -1))
+      .sort($doc("liveAt" -> -1))
       .cursor[UblogPost.PreviewPost]()
       .list(4)
 

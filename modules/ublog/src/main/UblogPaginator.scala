@@ -29,7 +29,7 @@ final class UblogPaginator(
         collection = coll,
         selector = $doc("user" -> user.id, "live" -> live),
         projection = previewPostProjection.some,
-        sort = $doc("liveAt" -> -1, "createdAt" -> -1),
+        sort = if (live) $doc("liveAt" -> -1) else $doc("createdAt" -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
       currentPage = page,
