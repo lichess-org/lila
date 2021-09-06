@@ -36,6 +36,19 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
+  def liveByCommunity(page: Int): Fu[Paginator[PreviewPost]] =
+    Paginator(
+      adapter = new Adapter[PreviewPost](
+        collection = coll,
+        selector = $doc("live" -> true),
+        projection = previewPostProjection.some,
+        sort = $sort desc "rank",
+        readPreference = ReadPreference.secondaryPreferred
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+
   object liveByFollowed {
 
     def apply(user: User, page: Int): Fu[Paginator[PreviewPost]] =

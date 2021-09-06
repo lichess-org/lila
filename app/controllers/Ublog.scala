@@ -178,6 +178,16 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def community(page: Int) = Open { implicit ctx =>
+    NotForKids {
+      Reasonable(page, 10) {
+        env.ublog.paginator.liveByCommunity(page) map { posts =>
+          Ok(html.ublog.index.community(posts))
+        }
+      }
+    }
+  }
+
   private def canViewBlogOf(user: UserModel)(implicit ctx: Context) =
     ctx.is(user) || isGranted(_.ModerateBlog) || (user.enabled && !user.marks.troll)
 

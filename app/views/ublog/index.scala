@@ -92,6 +92,23 @@ object index {
       )
     }
 
+  def community(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("ublog"),
+      moreJs = posts.hasNextPage option infiniteScrollTag,
+      title = "Community blogs"
+    ) {
+      main(cls := "box box-pad page page-small ublog-index")(
+        div(cls := "box__top")(
+          h1("Community blogs")
+        ),
+        div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+          posts.currentPageResults map { postView.card(_, showAuthor = true) },
+          pagerNext(posts, np => routes.Ublog.friends(np).url)
+        )
+      )
+    }
+
   private def newPostLink(implicit ctx: Context) = ctx.me map { u =>
     a(
       href := routes.Ublog.form(u.username),
