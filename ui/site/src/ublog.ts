@@ -19,27 +19,38 @@ lichess.load.then(() => {
   });
   $('.flash').addClass('fade');
   $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
-    const editor = new Editor({
-      el: this,
-      usageStatistics: false,
-      height: '70vh',
-      theme: $('body').data('theme') == 'light' ? 'light' : 'dark',
-      initialValue: $('#form3-markdown').val() as string,
-      initialEditType: 'wysiwyg',
-      language: $('html').attr('lang') as string,
-      toolbarItems: [
-        ['heading', 'bold', 'italic', 'strike'],
-        ['hr', 'quote'],
-        ['ul', 'ol'],
-        ['table', 'image', 'link'],
-        ['code', 'codeblock'],
-        ['scrollSync'],
-      ],
-      events: {
-        change() {
-          $('#form3-markdown').val(editor.getMarkdown());
+    const el = this,
+      editor = new Editor({
+        el,
+        usageStatistics: false,
+        height: '70vh',
+        theme: $('body').data('theme') == 'light' ? 'light' : 'dark',
+        initialValue: $('#form3-markdown').val() as string,
+        initialEditType: 'wysiwyg',
+        language: $('html').attr('lang') as string,
+        toolbarItems: [
+          ['heading', 'bold', 'italic', 'strike'],
+          ['hr', 'quote'],
+          ['ul', 'ol'],
+          ['table', 'image', 'link'],
+          ['code', 'codeblock'],
+          ['scrollSync'],
+        ],
+        events: {
+          change() {
+            $('#form3-markdown').val(editor.getMarkdown());
+          },
         },
-      },
-    });
+        hooks: {
+          addImageBlobHook() {
+            alert('Sorry, file upload in the post body is not supported. Only image URLs will work.');
+          },
+        },
+      });
+    $(el)
+      .find('button.image')
+      .on('click', () => {
+        $(el).find('.toastui-editor-popup-add-image .tab-item:last-child').trigger('click');
+      });
   });
 });

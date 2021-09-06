@@ -133,6 +133,7 @@ object Form {
         "googleusercontent.com",
         "i.ibb.co",
         "i.postimg.cc",
+        "xkcd.com",
         "lichess1.org"
       )
     private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
