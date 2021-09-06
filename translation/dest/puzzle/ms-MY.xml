@@ -17,4 +17,9 @@
   <string name="findTheBestMoveForWhite">Cari langkah terbaik untuk putih.</string>
   <string name="findTheBestMoveForBlack">Cari langkah terbaik untuk hitam.</string>
   <string name="toGetPersonalizedPuzzles">Untuk mendapatkan teka-teki yang diperibadikan:</string>
+  <string name="puzzleId">Teka-teki</string>
+  <string name="puzzleOfTheDay">Teka-teki hari ini</string>
+  <string name="clickToSolve">Klik untuk menyelesaikan</string>
+  <string name="goodMove">Pergerakan baik</string>
+  <string name="bestMove">Gerakan Terbaik!</string>
 </resources>
