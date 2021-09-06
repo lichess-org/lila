@@ -4,8 +4,10 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, markdownImage, stringIn }
+import lila.i18n.{ defaultLang, LangList }
 import lila.user.User
+import play.api.i18n.Lang
 
 final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captcher)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -18,6 +20,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 100),
       "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 2_000),
       "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
+      "language" -> stringIn(LangList.popularNoRegion.map(_.code).toSet),
       "live"     -> boolean,
       "gameId"   -> text,
       "move"     -> text
@@ -33,6 +36,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         title = post.title,
         intro = post.intro,
         markdown = post.markdown,
+        language = post.language.code,
         live = post.live,
         gameId = "",
         move = ""
@@ -46,10 +50,13 @@ object UblogForm {
       title: String,
       intro: String,
       markdown: String,
+      language: String,
       live: Boolean,
       gameId: String,
       move: String
   ) {
+
+    def realLanguage = Lang.get(language)
 
     def create(user: User) = {
       val now = DateTime.now
@@ -59,6 +66,7 @@ object UblogForm {
         title = title,
         intro = intro,
         markdown = markdown,
+        language = realLanguage.orElse(user.realLang) | defaultLang,
         image = none,
         live = false,
         createdAt = now,
@@ -72,6 +80,7 @@ object UblogForm {
         title = title,
         intro = intro,
         markdown = markdown,
+        language = realLanguage | prev.language,
         live = live,
         liveAt = prev.liveAt orElse live.option(DateTime.now)
       )

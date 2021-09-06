@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
+import play.api.i18n.Lang
 
 case class UblogPost(
     _id: UblogPost.Id,
@@ -11,6 +12,7 @@ case class UblogPost(
     title: String,
     intro: String,
     markdown: String,
+    language: Lang,
     image: Option[PicfitImage.Id],
     live: Boolean,
     createdAt: DateTime,

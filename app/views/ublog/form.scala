@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.Captcha
+import lila.i18n.LangList
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.UblogPost
 import lila.user.User
@@ -81,10 +82,21 @@ object form {
       )
     )(
       form3.globalError(form),
-      post.isDefined option form3.checkbox(
-        form("live"),
-        trans.ublog.publishOnYourBlog(),
-        help = trans.ublog.publishHelp().some
+      post.isDefined option form3.split(
+        form3.checkbox(
+          form("live"),
+          trans.ublog.publishOnYourBlog(),
+          help = trans.ublog.publishHelp().some,
+          half = true
+        ),
+        form3.group(form("language"), trans.language(), half = true) { field =>
+          form3.select(
+            field,
+            LangList.popularNoRegion.map { l =>
+              l.code -> l.toLocale.getDisplayLanguage
+            }
+          )
+        }
       ),
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
       form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
