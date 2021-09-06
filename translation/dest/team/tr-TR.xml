@@ -7,6 +7,7 @@
     <item quantity="other">%s üye</item>
   </plurals>
   <string name="allTeams">Tüm takımlar</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Lideri olduğun takımlar</string>
   <string name="newTeam">Yeni takım</string>
   <string name="myTeams">Takımlarım</string>
   <string name="noTeamFound">Takım bulunamadı</string>
