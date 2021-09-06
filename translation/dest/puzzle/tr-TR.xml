@@ -72,6 +72,6 @@
   <string name="puzzleDashboardDescription">Eğitin, analiz edin, iyileştirin</string>
   <string name="percentSolved">%s çözüldü</string>
   <string name="noPuzzlesToShow">Gösterilecek bir şey yok, önce git biraz yapboz oyna!</string>
-  <string name="improvementAreasDescription">İlerlemenizi optimize etmek için bunları eğitin!</string>
-  <string name="strengthDescription">Bu temalarda en iyi performansı gösterirsiniz</string>
+  <string name="improvementAreasDescription">Gelişiminizi optimize etmek için bunlar üzerine çalışın!</string>
+  <string name="strengthDescription">En iyi performansı bu temalarda gösteriyorsunuz</string>
 </resources>
