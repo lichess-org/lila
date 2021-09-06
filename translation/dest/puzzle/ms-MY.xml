@@ -22,4 +22,9 @@
   <string name="clickToSolve">Klik untuk menyelesaikan</string>
   <string name="goodMove">Pergerakan baik</string>
   <string name="bestMove">Gerakan Terbaik!</string>
+  <string name="keepGoing">Terus berusaha…</string>
+  <string name="puzzleSuccess">Berjaya!</string>
+  <string name="puzzleComplete">Teka-teki siap!</string>
+  <string name="notTheMove">Bukan Gerakan Itu!</string>
+  <string name="trySomethingElse">Cuba sesuatu yang lain.</string>
 </resources>
