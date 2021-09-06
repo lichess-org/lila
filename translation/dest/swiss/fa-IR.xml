@@ -50,12 +50,16 @@
   <string name="willSwissReplaceArenasQ">آیا مسابقات سوئیسی می توانند جایگزین آرنا شوند?</string>
   <string name="otherSystemsA">در حال حاضر ما قصد اضافه کردن روش برگزاری مسابقه ی دیگری به لیچس نداریم.</string>
   <string name="joinOrCreateTeam">به یک تیم بپیوندید یا یک تیم ایجاد نمایید</string>
+  <string name="nowPlaying">در حال بازی</string>
   <string name="startingSoon">بزودی شروع می‌شود</string>
   <string name="comparison">مقایسه</string>
   <string name="tournDuration">مدت زمان مسابقه</string>
   <string name="predefinedDuration">مدت زمان از پیش تعریف شده به دقیقه</string>
   <string name="numberOfGames">تعداد بازی‌ها</string>
   <string name="pairingSystem">روش تعیین حریف</string>
+  <string name="pairingWaitTime">زمان انتظار برای حریف‌یابی</string>
+  <string name="pairingWaitTimeFast">سریع: برای همه بازیکنان صبر نمی‌کند</string>
   <string name="identicalForbidden">ممنوع</string>
+  <string name="lateJoin">ورود با تاخیر</string>
   <string name="pause">درنگ</string>
 </resources>
