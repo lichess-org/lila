@@ -62,10 +62,6 @@ body {
 
   --meta-height: auto;
 
-  @include proper-grid {
-    --meta-height: max-content;
-  }
-
   grid-template-rows: auto auto minmax(20em, 30vh);
   grid-template-areas:
     'board'

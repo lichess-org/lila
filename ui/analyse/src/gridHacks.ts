@@ -3,10 +3,6 @@ import * as gridHacks from 'common/gridHacks';
 let booted = false;
 
 export function start(container: HTMLElement) {
-  // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
-  // Update: since chromium 93 the hack is needed!
-  // if (window.chrome) return;
-
   const runHacks = () => fixChatHeight(container);
 
   gridHacks.runner(runHacks);
