@@ -65,6 +65,7 @@ POST  /@/:username/blog/new            controllers.Ublog.create(username: String
 GET   /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.edit(username: String, id: String)
 POST  /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.update(username: String, id: String)
 POST  /@/:username/blog/$id<\w{8}>/del controllers.Ublog.delete(username: String, id: String)
+POST  /@/:username/blog/$id<\w{8}>/like controllers.Ublog.like(username: String, id: String)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: String)
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
 

@@ -24,6 +24,8 @@ final class Env(
 
   val api = wire[UblogApi]
 
+  val like = wire[UblogLike]
+
   val paginator = wire[UblogPaginator]
 
   val markup = wire[UblogMarkup]

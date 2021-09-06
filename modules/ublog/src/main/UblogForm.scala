@@ -71,7 +71,8 @@ object UblogForm {
         live = false,
         createdAt = now,
         updatedAt = now,
-        liveAt = live option now
+        liveAt = live option now,
+        likes = UblogPost.Likes(0)
       )
     }
 

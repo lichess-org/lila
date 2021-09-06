@@ -131,6 +131,14 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def like(unusedUsername: String, id: String, v: Boolean) = Auth { implicit ctx => me =>
+    NotForKids {
+      env.ublog.like(UblogPost.Id(id), me, v) map { likes =>
+        Ok(likes.toString)
+      }
+    }
+  }
+
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "ublog.image.ip"
   )(

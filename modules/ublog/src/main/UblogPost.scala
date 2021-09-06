@@ -17,7 +17,8 @@ case class UblogPost(
     live: Boolean,
     createdAt: DateTime,
     updatedAt: DateTime,
-    liveAt: Option[DateTime]
+    liveAt: Option[DateTime],
+    likes: UblogPost.Likes
 ) extends UblogPost.BasePost {
 
   def isBy(u: User) = user == u.id
@@ -26,6 +27,21 @@ case class UblogPost(
 object UblogPost {
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  case class Likes(value: Int) extends AnyVal
+  case class Liking(likes: Likes, me: Boolean)
+  val emptyLiking = Liking(Likes(0), me = false)
+
+  case class Rank(value: DateTime) extends AnyVal
+  object Rank {
+    def compute(likes: Likes, liveAt: DateTime) =
+      Rank {
+        liveAt plusHours likesToHours(likes)
+      }
+    private def likesToHours(likes: Likes): Int =
+      if (likes.value < 1) 0
+      else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
+  }
 
   case class Create(post: UblogPost) extends AnyVal
 

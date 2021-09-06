@@ -4,7 +4,6 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.{ PicfitApi, PicfitUrl }
 import lila.user.User
@@ -22,7 +21,11 @@ final class UblogApi(
 
   def create(data: UblogForm.UblogPostData, user: User): Fu[UblogPost] = {
     val post = data.create(user)
-    coll.insert.one(post) inject post
+    coll.insert.one(
+      postBSONHandler.writeTry(post).get ++ $doc(
+        "likers" -> List(user.id)
+      )
+    ) inject post
   }
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] = {
@@ -30,7 +33,7 @@ final class UblogApi(
     coll.update.one($id(prev.id), post) >> {
       (post.live && prev.liveAt.isEmpty) ?? {
         sendImageToZulip(user, post) >>- {
-          Bus.publish(UblogPost.Create(post), "ublogPost")
+          lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
           if (!user.marks.troll)
             timeline ! {
               Propagate(
