@@ -10,10 +10,14 @@
   <string name="published">Yayınlandı</string>
   <string name="publishOnYourBlog">Bloğunda yayınla</string>
   <string name="publishHelp">Eğer işaretliyse gönderi bloğunuzda listelenir. İşaretli değilse taslak gönderilerde gizli olacaktır</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Bir blog gönderisi yayımladı</item>
+    <item quantity="other">%s blog gönderisi yayımladı</item>
+  </plurals>
   <string name="xPublishedY">%1$s yayımladı: %2$s</string>
-  <string name="thisPostIsPublished">Bu gönderi yayınlanmış</string>
+  <string name="thisPostIsPublished">Bu gönderi yayımlanmıştır</string>
   <string name="thisIsADraft">Bu bir taslaktır</string>
-  <string name="moreBlogPostsBy">%s tarafından daha fazla gönderi</string>
+  <string name="moreBlogPostsBy">%s adlı kullanıcının diğer blog gönderileri</string>
   <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
   <string name="noDrafts">Gösterilecek taslak yok.</string>
 </resources>
