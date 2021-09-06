@@ -58,6 +58,18 @@
     }
   }
 
+  &-link {
+    @extend %button-none;
+
+    color: $c-link;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $c-link-hover;
+    }
+  }
+
   &.button-empty {
     transition: none;
 
