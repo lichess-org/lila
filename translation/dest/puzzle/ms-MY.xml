@@ -56,4 +56,11 @@
   <string name="solved">diselesaikan</string>
   <string name="failed">gagal</string>
   <string name="streakDescription">Selesaikan teka-teki yang lebih sukar dan membina rentak kemenangan. Tidak ada jam, jadi luangkan masa anda. Satu langkah yang salah, dan ia selesai! Tetapi anda boleh melangkau satu gerakan setiap sesi.</string>
+  <string name="yourStreakX">Coretan anda: %s</string>
+  <string name="streakSkipExplanation">Langkau langkah ini untuk mengekalkan rentak anda! Hanya berfungsi sekali dalam larian.</string>
+  <string name="continueTheStreak">Teruskan coretan</string>
+  <string name="newStreak">Coretan baru</string>
+  <string name="fromMyGames">Dari permainan saya</string>
+  <string name="lookupOfPlayer">Mencari teka-teki dari permainan pemain</string>
+  <string name="fromXGames">Teka-teki dari permainan %s</string>
 </resources>
