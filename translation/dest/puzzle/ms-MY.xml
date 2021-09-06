@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Teka-teki</string>
+  <string name="puzzleThemes">Tema Teka-teki</string>
+  <string name="recommended">Disarankan</string>
+  <string name="phases">Fasa</string>
+  <string name="motifs">Motif</string>
+  <string name="advanced">Lanjutan</string>
+  <string name="lengths">Panjang</string>
+  <string name="mates">Menyekak</string>
+  <string name="goals">Sasaran</string>
+  <string name="origin">Asal</string>
+  <string name="specialMoves">Gerakan Khas</string>
+</resources>
