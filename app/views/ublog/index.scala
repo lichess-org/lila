@@ -76,19 +76,22 @@ object index {
       moreJs = posts.hasNextPage option infiniteScrollTag,
       title = "Friends blogs"
     ) {
-      main(cls := "box box-pad page page-small ublog-index")(
-        div(cls := "box__top")(
-          h1("Friends blogs")
-        ),
-        if (posts.nbResults > 0)
-          div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-            posts.currentPageResults map { postView.card(_, showAuthor = true) },
-            pagerNext(posts, np => routes.Ublog.friends(np).url)
-          )
-        else
-          div(cls := "ublog-index__posts--empty")(
-            "Nothing to show. Follow some authors!"
-          )
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "friends".some),
+        main(cls := "page-menu__content box box-pad ublog-index")(
+          div(cls := "box__top")(
+            h1("Friends blogs")
+          ),
+          if (posts.nbResults > 0)
+            div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+              posts.currentPageResults map { postView.card(_, showAuthor = true) },
+              pagerNext(posts, np => routes.Ublog.friends(np).url)
+            )
+          else
+            div(cls := "ublog-index__posts--empty")(
+              "Nothing to show. Follow some authors!"
+            )
+        )
       )
     }
 
@@ -98,13 +101,16 @@ object index {
       moreJs = posts.hasNextPage option infiniteScrollTag,
       title = "Community blogs"
     ) {
-      main(cls := "box box-pad page page-small ublog-index")(
-        div(cls := "box__top")(
-          h1("Community blogs")
-        ),
-        div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-          posts.currentPageResults map { postView.card(_, showAuthor = true) },
-          pagerNext(posts, np => routes.Ublog.friends(np).url)
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "community".some),
+        main(cls := "page-menu__content box box-pad ublog-index")(
+          div(cls := "box__top")(
+            h1("Community blogs")
+          ),
+          div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+            posts.currentPageResults map { postView.card(_, showAuthor = true) },
+            pagerNext(posts, np => routes.Ublog.community(np).url)
+          )
         )
       )
     }
