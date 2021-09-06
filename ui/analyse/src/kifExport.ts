@@ -65,10 +65,10 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
   }
 
   for (const m of mainline.reverse()) {
-      for(const m2 of m.children.slice(1)) {
-        res.push('\n変化：' + m2.ply + '手');
-        res.push(...renderKifNodes(m2, offset));
-      }
+    for (const m2 of m.children.slice(1)) {
+      res.push('\n変化：' + m2.ply + '手');
+      res.push(...renderKifNodes(m2, offset));
+    }
   }
 
   return res;
