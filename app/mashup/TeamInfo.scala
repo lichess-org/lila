@@ -49,7 +49,7 @@ final class TeamInfoApi(
     swissApi: SwissApi,
     simulApi: SimulApi,
     requestRepo: RequestRepo @@ NewRequest,
-    requestDeclinedRepo: RequestRepo @@ DeclinedRequest
+    declinedRequestRepo: RequestRepo @@ DeclinedRequest
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import TeamInfo._
@@ -59,7 +59,7 @@ final class TeamInfoApi(
       requests            <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
       mine                <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe       <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
-      isMyRequestDeclined <- !mine ?? !requestedByMe ?? me.??(m => requestDeclinedRepo.exists(team._id, m.id))
+      isMyRequestDeclined <- !mine ?? !requestedByMe ?? me.??(m => declinedRequestRepo.exists(team._id, m.id))
       subscribed          <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
       forumPosts          <- withForum(mine) ?? forumRecent.team(team.id).dmap(some)
       tours               <- tournaments(team, 5, 5)
