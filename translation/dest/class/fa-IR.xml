@@ -27,6 +27,7 @@
 نامِ کاربری: %2$s
 گذرواژه: %3$s</string>
   <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
+  <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
   <string name="lichessUsername">نام کاربریِ Lichess</string>
   <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
   <string name="clickToViewInvitation">برای مشاهده دعوت‌نامه، روی پیوند کلیک کنید:</string>
