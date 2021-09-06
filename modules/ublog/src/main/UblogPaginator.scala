@@ -40,7 +40,7 @@ final class UblogPaginator(
     Paginator(
       adapter = new Adapter[PreviewPost](
         collection = coll,
-        selector = $doc("live" -> true),
+        selector = $doc("live" -> true, "troll" $ne true),
         projection = previewPostProjection.some,
         sort = $sort desc "rank",
         readPreference = ReadPreference.secondaryPreferred
@@ -82,6 +82,7 @@ final class UblogPaginator(
                               "$and" -> $arr(
                                 $doc("$in" -> $arr(s"$$user", "$$users")),
                                 $doc("$eq" -> $arr("$live", true)),
+                                $doc("$ne" -> $arr("$troll", true)),
                                 $doc("$gt" -> $arr("$liveAt", DateTime.now.minusMonths(3)))
                               )
                             )

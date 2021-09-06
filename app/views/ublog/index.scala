@@ -25,11 +25,14 @@ object index {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(
           h1(trans.ublog.xBlog(userLink(user))),
-          ctx.is(user) option
+          if (ctx is user)
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
               newPostLink
             )
+          else if (isGranted(_.ModerateBlog) && user.marks.troll)
+            badTag("Not visible to the public")
+          else emptyFrag
         ),
         standardFlash(),
         if (posts.nbResults > 0)

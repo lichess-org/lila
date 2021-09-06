@@ -54,7 +54,7 @@ object post {
             dataRel := post.id.value,
             title := trans.study.like.txt()
           )(post.likes.value),
-          if (ctx.is(user))
+          if (ctx is user)
             frag(
               (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
                 if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
@@ -65,6 +65,8 @@ object post {
                 dataIcon := ""
               )(trans.edit())
             )
+          else if (isGranted(_.ModerateBlog) && user.marks.troll)
+            badTag("Not visible to the public")
           else
             a(
               titleOrText(trans.reportXToModerators.txt(user.username)),

@@ -17,7 +17,7 @@ final class UblogLike(coll: Coll)(implicit ec: ExecutionContext) {
 
   def apply(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
     countLikes(postId).flatMap {
-      case None => fuccess(UblogPost.Likes(0))
+      case None => fuccess(UblogPost.Likes(v ?? 1))
       case Some((prevLikes, liveAt)) =>
         val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
         coll.update.one(

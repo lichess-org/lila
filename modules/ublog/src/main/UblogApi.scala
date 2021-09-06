@@ -91,6 +91,12 @@ final class UblogApi(
     coll.delete.one($id(post.id)) >>
       picfitApi.deleteByRel(imageRel(post))
 
+  // denormalization
+  private[ublog] def setShadowban(userId: User.ID, v: Boolean) =
+    coll.update
+      .one($doc("user" -> userId), if (v) $set("troll" -> true) else $unset("troll"), multi = true)
+      .void
+
   def canBlog(u: User) =
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron

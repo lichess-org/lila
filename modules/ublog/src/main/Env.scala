@@ -31,4 +31,8 @@ final class Env(
   val markup = wire[UblogMarkup]
 
   val form = wire[UblogForm]
+
+  lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, v) =>
+    api.setShadowban(userId, v).unit
+  }
 }
