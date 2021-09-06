@@ -41,6 +41,7 @@
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
   <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
   <string name="calledEnPassant">این حرکت \"en passant\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
+  <string name="tryEnPassant">این بازی تعاملی کوچک را امتحان کنید تا در مورد \"en passant\" بیشتر یاد بگیرید.</string>
   <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
   <string name="castlingPrevented">از قلعه‌زدن فقط وقتی جلوگیری می‌شود که شاه حرکتهای کنترل‌شده‌ای را انجام می‌دهد.</string>
   <string name="castlingRules">مطمئن شوید که قوانین قلعه زدن را می‌فهمید</string>
@@ -60,6 +61,7 @@
   <string name="falsePositives">مثبتهای اشتباهی حتماً گاهی اتفاق می‌افتد، و ما درباره آن متاسفیم.</string>
   <string name="ifLegit">اگر درخواست بازنگری شما مشروع و قانونی باشد، ما در نزدیکترین زمان ممکن ممنوعیت را رفع خواهیم کرد.</string>
   <string name="accountLost">با این حال اگر شما واقعاً حتی یک بار از کمک موتور تحلیل‌گر استفاده کرده‌اید، حساب کاربری شما متاسفانه از دست رفته است.</string>
+  <string name="doNotDeny">این که تقلب کرده‌اید را انکار نکنید. اگر می‌خواهید به شما اجازه داده شود تا یک حساب کاربری جدید بسازید، فقط به کاری که کرده‌اید اذعان کنید، و نشان دهید که شما متوجه شدید آن کار اشتباه بوده است.</string>
   <string name="otherRestriction">محدودیتِ دیگر</string>
   <string name="collaboration">تعامل، قانونی، تجاری</string>
   <string name="monetizing">کسب درآمد و انتفاع مالی از Lichess</string>
