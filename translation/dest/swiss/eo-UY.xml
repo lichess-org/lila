@@ -9,11 +9,27 @@
     <item quantity="one">Unu raŭndo dum tago</item>
     <item quantity="other">Unu raŭndo dum %s tagoj</item>
   </plurals>
+  <string name="roundsAreStartedManually">Oni komencas raŭndoj permane</string>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto inter raŭndoj</item>
+    <item quantity="other">%s minutoj inter raŭndoj</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Komenciĝos post</string>
   <string name="nextRound">Sekva raŭndo</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Daŭranta ludo</item>
+    <item quantity="other">Daŭrantaj ludoj</item>
+  </plurals>
   <string name="tournStartDate">Komencdato de turniro</string>
   <string name="numberOfRounds">Nombro da raŭndoj</string>
   <string name="numberOfRoundsHelp">Malpara nombro da raŭndoj permesas la plej bona egaleco de koloroj.</string>
   <string name="roundInterval">Tempo inter raŭndoj</string>
   <string name="forbiddenPairings">Malpermesataj paroj</string>
+  <string name="forbiddenPairingsHelp">Salutnomoj de ludantoj kiuj devas ne kunludi (ekz. gefratoj). Metu po du salutnomojn por linio, kaj apartigu ilin per spaco.</string>
+  <string name="newSwiss">Nova svisa turniro</string>
+  <string name="swissVsArenaQ">Kiam oni uzu svisan turniron anstataŭ arenan?</string>
+  <string name="swissVsArenaA">En svisa turniro, ĉiuj partoprenantoj ludas la saman nombron da ludoj, kaj ludas unu kontraŭ la alia nur unufoje.
+Ĝi povas esti bona elekto por kluboj kaj oficialaj turniroj.</string>
+  <string name="pointsCalculationQ">Kiel oni kalkulas poentojn?</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>
 </resources>

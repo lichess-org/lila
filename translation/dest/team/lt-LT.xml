@@ -9,6 +9,7 @@
     <item quantity="other">%s narių</item>
   </plurals>
   <string name="allTeams">Visos komandos</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lyderių komandos</string>
   <string name="newTeam">Nauja komanda</string>
   <string name="myTeams">Mano komandos</string>
   <string name="noTeamFound">Nerasta jokia komanda</string>

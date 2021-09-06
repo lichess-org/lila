@@ -7,6 +7,7 @@
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="allTeams">Alle hold</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Holdleder</string>
   <string name="newTeam">Nyt hold</string>
   <string name="myTeams">Mine hold</string>
   <string name="noTeamFound">Ingen hold fundet</string>

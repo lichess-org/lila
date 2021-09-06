@@ -11,6 +11,7 @@
     <item quantity="other">%s عضو</item>
   </plurals>
   <string name="allTeams">كل الفِرق</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">الفريق القائد</string>
   <string name="newTeam">فريق جديد</string>
   <string name="myTeams">فرقي</string>
   <string name="noTeamFound">لايوجد فريق</string>

@@ -7,6 +7,7 @@
     <item quantity="other">%s tagok</item>
   </plurals>
   <string name="allTeams">Összes csapat</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Csapatok amiket te vezetsz</string>
   <string name="newTeam">Új csapat</string>
   <string name="myTeams">Csapataim</string>
   <string name="noTeamFound">Nem található ilyen csapat</string>

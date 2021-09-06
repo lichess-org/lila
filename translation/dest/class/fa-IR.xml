@@ -3,6 +3,7 @@
   <string name="lichessClasses">کلاس ها</string>
   <string name="features">امکانات</string>
   <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
+  <string name="applyToBeLichessTeacher">برای آنکه معلمِ Lichess باشید درخواست بدهید</string>
   <string name="noClassesYet">هنوز کلاسی موجود نیست.</string>
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
@@ -17,16 +18,33 @@
   <string name="classDescription">توصیف کلاس</string>
   <string name="teachersOfTheClass">معلمهای کلاس</string>
   <string name="resetPassword">بازنشانی گذرواژه</string>
+  <string name="passwordX">گذرواژه: %s</string>
+  <string name="generateANewPassword">یک گذرواژه جدید برای دانشجو تولید کنید</string>
+  <string name="invitedToXByY">توسط %2$s به %1$s دعوت شد</string>
   <string name="realName">نام واقعی</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
   <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
+  <string name="lichessUsername">نام کاربریِ Lichess</string>
   <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
   <string name="lastActiveDate">فعال</string>
+  <string name="managed">دسترسی کاربری مدیریت‌شده</string>
+  <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>
+  <string name="release">حساب کاربری تبدیل شده به حساب اصلی</string>
   <string name="closeStudent">بستن حساب کاربری</string>
   <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
   <string name="closeDesc2">شما ممکن است بخواهد به دانش آموزان کنترل اکانت را بدهید، بنابراین آن ها می توانند که به استفاده از آن ادامه دهند.</string>
   <string name="teachers">معلم‌ها</string>
+  <plurals name="nbStudents">
+    <item quantity="one">دانشجو</item>
+    <item quantity="other">%s دانشجو</item>
+  </plurals>
   <string name="students">دانشجویان</string>
   <string name="progress">پیشرفت</string>
+  <string name="noStudents">هنوز، هیچ دانشجویی در کلاس نیست.</string>
+  <string name="noRemovedStudents">هیچ دانشجویی اخراج نشده است.</string>
+  <string name="winrate">نرخِ برد</string>
+  <string name="na">در دسترس نیست</string>
+  <string name="news">اخبار کلاس</string>
+  <string name="editNews">خبرها را ویرایش نمایید</string>
 </resources>
