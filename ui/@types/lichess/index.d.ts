@@ -239,44 +239,37 @@ declare namespace Editor {
 interface Window {
   lichess: Lichess;
 
-  el: Element;
-  chrome: any;
-  moment: any;
-  Mousetrap: any;
+  readonly chrome?: unknown;
+  readonly moment: any;
+  readonly Mousetrap: any;
   Chessground: any;
-  InfiniteScroll(selector: string): void;
-  lichessReplayMusic: () => {
+  readonly InfiniteScroll: (selector: string) => void;
+  readonly lichessReplayMusic: () => {
     jump(node: Tree.Node): void;
   };
-  hopscotch: any;
+  readonly hopscotch: any;
   LichessSpeech?: LichessSpeech;
-  LichessEditor?(element: HTMLElement, config: Editor.Config): LichessEditor;
-  palantir?: {
+  readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
+  readonly palantir?: {
     palantir(opts: PalantirOpts): Palantir;
   };
-  LichessChat(element: Element, opts: any): any;
-  LichessFlatpickr(element: Element, opts: any): any;
-  LichessNotify(element: any, opts: any): any;
-  LichessChallenge(element: any, opts: any): any;
-  LichessDasher(element: any, opts: any): any;
-  LichessAnalyse: any;
-  LichessCli: any;
-  LichessRound: any;
-  Highcharts: any;
-  Howler: any;
-  Howl: any;
-  stripeHandler: any;
-  Stripe: any;
-  Textcomplete: any;
-  UserComplete: any;
-  Stockfish?: any;
-  StockfishMv?: any;
-  Tagify: any;
-  Sortable: any;
-  passwordComplexity: any;
-  requestIdleCallback: any;
-  Peer: any;
-  signupSubmit: () => void;
+  LichessChat: (element: Element, opts: any) => any;
+  readonly LichessFlatpickr: (element: Element, opts: any) => any;
+  readonly LichessNotify: (element: any, opts: any) => any;
+  readonly LichessChallenge: (element: any, opts: any) => any;
+  readonly LichessDasher: (element: any, opts: any) => any;
+  readonly LichessAnalyse: any;
+  readonly LichessCli: any;
+  readonly LichessRound: any;
+  readonly stripeHandler: any;
+  readonly Stripe: any;
+  readonly Textcomplete: any;
+  readonly UserComplete: any;
+  readonly Sortable: any;
+  readonly Peer: any;
+
+  readonly passwordComplexity: unknown;
+  readonly Tagify: unknown;
 }
 
 interface Study {

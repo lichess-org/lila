@@ -101,24 +101,24 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
   lichess.loadCssPath('tagify');
   lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
-    tagify = new window.Tagify(elm, {
+    const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, {
       pattern: /.{2,}/,
       maxTags: 30,
-    }) as Tagify;
+    }));
     let abortCtrl: AbortController | undefined; // for aborting the call
-    tagify.on('input', e => {
+    tagi.on('input', e => {
       const term = e.detail.value.trim();
       if (term.length < 2) return;
-      tagify!.settings.whitelist!.length = 0; // reset the whitelist
+      tagi.settings.whitelist!.length = 0; // reset the whitelist
       abortCtrl && abortCtrl.abort();
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
-      tagify!.loading(true).dropdown.hide.call(tagify);
+      tagi.loading(true).dropdown.hide.call(tagi);
       xhr
         .json(xhr.url('/study/topic/autocomplete', { term, user: userId }), { signal: abortCtrl.signal })
         .then(list => {
-          tagify!.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
-          tagify!.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
+          tagi.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
+          tagi.loading(false).dropdown.show.call(tagi, term); // render the suggestions dropdown
         });
     });
     $('.tagify__input').each(function (this: HTMLInputElement) {

@@ -9,7 +9,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "tsc --incremental --outDir ./dist --declaration --inlineSourceMap",
+    "compile": "tsc --incremental --declaration --inlineSourceMap",
     "dev": "$npm_execpath run compile && rollup --config",
     "prod": "$npm_execpath run compile && rollup --config --config-prod"
   },

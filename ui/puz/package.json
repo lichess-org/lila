@@ -20,7 +20,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc --incremental",
     "dev": "$npm_execpath run compile",
     "prod": "$npm_execpath run compile"
   },

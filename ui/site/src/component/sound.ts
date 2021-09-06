@@ -2,11 +2,23 @@ import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
 
+declare class Howl {
+  constructor(opts: { src: string | string[] });
+  volume(vol: number): Howl;
+  play(): number;
+}
+
+interface Howler {
+  ctx: AudioContext;
+}
+
+declare const Howler: Howler;
+
 type Name = string;
 type Path = string;
 
 const sound: SoundI = new (class {
-  sounds = new Map<Name, any>(); // The loaded sounds and their instances
+  sounds = new Map<Name, Howl>(); // The loaded sounds and their instances
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
@@ -21,7 +33,7 @@ const sound: SoundI = new (class {
   loadOggOrMp3 = (name: Name, path: Path) =>
     this.sounds.set(
       name,
-      new window.Howl({
+      new Howl({
         src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`),
       })
     );
@@ -36,6 +48,15 @@ const sound: SoundI = new (class {
     if (this.soundSet !== 'music') ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
   }
 
+  private getOrLoadSound = (name: string, set: string): Howl => {
+    let s = this.sounds.get(name);
+    if (!s) {
+      this.loadStandard(name, set);
+      s = this.sounds.get(name)!;
+    }
+    return s;
+  };
+
   play(name: string, volume?: number) {
     if (!this.enabled()) return;
     let set = this.soundSet;
@@ -43,13 +64,10 @@ const sound: SoundI = new (class {
       if (['move', 'capture', 'check'].includes(name)) return;
       set = 'standard';
     }
-    let s = this.sounds.get(name);
-    if (!s) {
-      this.loadStandard(name, set);
-      s = this.sounds.get(name);
-    }
+    const s = this.getOrLoadSound(name, set);
+
     const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
-    if (window.Howler.ctx?.state === 'suspended') window.Howler.ctx.resume().then(doPlay);
+    if (Howler.ctx?.state === 'suspended') Howler.ctx.resume().then(doPlay);
     else doPlay();
   }
 

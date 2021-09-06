@@ -3,6 +3,26 @@ import { ProtocolOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 import { Cache } from './cache';
 
+interface WasmStockfishModule {
+  (opts: {
+    wasmBinary?: ArrayBuffer;
+    locateFile(path: string): string;
+    wasmMemory: WebAssembly.Memory;
+  }): Promise<Stockfish>;
+}
+
+interface Stockfish {
+  addMessageListener(cb: (msg: string) => void): void;
+  postMessage(msg: string): void;
+}
+
+declare global {
+  interface Window {
+    Stockfish?: WasmStockfishModule;
+    StockfishMv?: WasmStockfishModule;
+  }
+}
+
 export abstract class AbstractWorker<T> {
   protected protocol: Sync<Protocol>;
 
@@ -68,7 +88,7 @@ export interface ThreadedWasmWorkerOpts {
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
   private static protocols: { Stockfish?: Protocol; StockfishMv?: Protocol } = {};
-  private static sf: { Stockfish?: any; StockfishMv?: any } = {};
+  private static sf: { Stockfish?: Stockfish; StockfishMv?: Stockfish } = {};
 
   async boot(): Promise<Protocol> {
     let protocol = ThreadedWasmWorker.protocols[this.opts.module];
@@ -77,7 +97,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       const cache = this.opts.cache;
 
       // Fetch WASM file ourselves, for caching and progress indication.
-      let wasmBinary;
+      let wasmBinary: ArrayBuffer | undefined;
       if (cache) {
         const wasmPath = this.opts.baseUrl + 'stockfish.wasm';
         if (cache) {
@@ -113,7 +133,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 
       // Load Emscripten module.
       await lichess.loadScript(this.opts.baseUrl + 'stockfish.js', { version });
-      const sf = await window[this.opts.module]({
+      const sf = await window[this.opts.module]!({
         wasmBinary,
         locateFile: (path: string) =>
           lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
