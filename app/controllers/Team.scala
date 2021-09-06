@@ -398,6 +398,28 @@ final class Team(
       }
     }
 
+  def declinedRequests(id: String, page: Int) =
+    Auth { implicit ctx => _ =>
+      WithOwnedTeamEnabled(id) { team =>
+        paginator.declinedRequests(team, page) map { requests =>
+          Ok(html.team.declinedRequest.all(team, requests))
+        }
+      }
+    }
+
+  def processDeclinedRequest(requestId: String) =
+    Auth { implicit ctx => me =>
+      import cats.implicits._
+      OptionFuResult(for {
+        requestOption <- api declinedRequest requestId
+        teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
+      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
+        api.processDeclinedRequest(team, request) inject Redirect(
+          routes.Team.show(team._id)
+        ).flashSuccess
+      }
+    }
+
   def quit(id: String) =
     AuthOrScoped(_.Team.Write)(
       auth = implicit ctx =>

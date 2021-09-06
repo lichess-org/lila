@@ -18,6 +18,7 @@ import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
+
 final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
@@ -42,7 +43,9 @@ final class TeamApi(
 
   def lightsByLeader = teamRepo.lightsByLeader _
 
-  def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
+  def request(id: Request.ID) = requestRepo.coll.byId[Request](id)
+
+  def declinedRequest(id: Request.ID) = declinedRequestRepo.coll.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] = {
     val bestId = Team.nameToId(setup.name)
@@ -172,6 +175,14 @@ final class TeamApi(
           .filter(_ => accept)
           .??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
       _ <- !accept ?? declinedRequestRepo.coll.insert.one(request.copy(date = DateTime.now())).void
+    } yield ()
+
+  def processDeclinedRequest(team: Team, request: Request): Funit =
+    for {
+      _          <- declinedRequestRepo.coll.delete.one(request)
+      userOption <- userRepo byId request.user
+      _ <-
+        userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
     } yield ()
 
   def deleteRequestsByUserId(userId: User.ID) =

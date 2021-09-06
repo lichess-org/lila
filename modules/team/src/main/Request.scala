@@ -17,6 +17,7 @@ case class Request(
 
 object Request {
 
+  type ID = String
   def makeId(team: Team.ID, user: User.ID) = s"$user@$team"
 
   def make(team: Team.ID, user: User.ID, message: String): Request =

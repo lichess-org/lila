@@ -53,4 +53,5 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTourns">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
+  <string name="declinedRequests">Declined Requests</string>
 </resources>
