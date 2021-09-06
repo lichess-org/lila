@@ -10,7 +10,7 @@
   <string name="published">Yayınlandı</string>
   <string name="publishOnYourBlog">Bloğunda yayınla</string>
   <string name="publishHelp">Eğer işaretliyse gönderi bloğunuzda listelenir. İşaretli değilse taslak gönderilerde gizli olacaktır</string>
-  <string name="xPublishedY">%1$s yayınladı%2$s</string>
+  <string name="xPublishedY">%1$s yayımladı: %2$s</string>
   <string name="thisPostIsPublished">Bu gönderi yayınlanmış</string>
   <string name="thisIsADraft">Bu bir taslaktır</string>
   <string name="moreBlogPostsBy">%s tarafından daha fazla gönderi</string>
