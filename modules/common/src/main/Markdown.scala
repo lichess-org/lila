@@ -8,6 +8,7 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
+import lila.base.RawHtml
 
 final class Markdown(
     autoLink: Boolean = true,
@@ -53,14 +54,17 @@ final class Markdown(
   // quick and dirty.
   // there should be a clean way to do it:
   // https://programming.vip/docs/flexmark-java-markdown-add-target-attribute-to-link.html
-  private def addLinkAttributes(markup: String) =
+  private def addLinkAttributes(markup: Html) =
     markup.replace("<a href=", """<a rel="nofollow noopener noreferrer" href=""")
+
+  private def mentionsToLinks(markdown: Text): Text =
+    RawHtml.atUsernameRegex.replaceAllIn(markdown, "[$1](/@/$1)")
 
   def apply(key: Key)(text: Text): Html =
     Chronometer
       .sync {
         try {
-          addLinkAttributes(renderer.render(parser.parse(text)))
+          addLinkAttributes(renderer.render(parser.parse(mentionsToLinks(text))))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
