@@ -11,4 +11,10 @@
   <string name="goals">Sasaran</string>
   <string name="origin">Asal</string>
   <string name="specialMoves">Gerakan Khas</string>
+  <string name="didYouLikeThisPuzzle">Adakah kamu menyuka Teka-teki ini?</string>
+  <string name="voteToLoadNextOne">Undi untuk memuatkan yang seterusnya!</string>
+  <string name="yourPuzzleRatingX">Penilaian Teka-teki anda</string>
+  <string name="findTheBestMoveForWhite">Cari langkah terbaik untuk putih.</string>
+  <string name="findTheBestMoveForBlack">Cari langkah terbaik untuk hitam.</string>
+  <string name="toGetPersonalizedPuzzles">Untuk mendapatkan teka-teki yang diperibadikan:</string>
 </resources>
