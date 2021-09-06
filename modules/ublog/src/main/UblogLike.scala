@@ -10,6 +10,11 @@ final class UblogLike(coll: Coll)(implicit ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 
+  private def selectLiker(userId: User.ID) = $doc("likers" -> userId)
+
+  def liked(post: UblogPost)(user: User): Fu[Boolean] =
+    coll.exists($id(post.id) ++ selectLiker(user.id))
+
   def apply(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
     countLikes(postId).flatMap {
       case None => fuccess(UblogPost.Likes(0))

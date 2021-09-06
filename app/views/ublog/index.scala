@@ -18,7 +18,7 @@ object index {
       moreCss = cssTag("ublog"),
       moreJs = frag(
         posts.hasNextPage option infiniteScrollTag,
-        ctx.is(user) option jsModule("ublog")
+        ctx.isAuth option jsModule("ublog")
       ),
       title = trans.ublog.xBlog.txt(user.username)
     ) {

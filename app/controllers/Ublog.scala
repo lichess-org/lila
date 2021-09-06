@@ -39,13 +39,14 @@ final class Ublog(env: Env) extends LilaController(env) {
       OptionFuResult(env.user.repo named username) { user =>
         env.ublog.api.findByAuthor(UblogPost.Id(id), user) flatMap {
           _.filter(canViewPost(user)).fold(notFound) { post =>
-            env.ublog.api.otherPosts(user, post) map { others =>
-              if (slug != post.slug) Redirect(urlOf(post))
-              else {
-                lila.mon.ublog.view(user.id).increment()
-                val markup = scalatags.Text.all.raw(env.ublog.markup(post))
-                Ok(html.ublog.post(user, post, markup, others))
-              }
+            if (slug != post.slug) Redirect(urlOf(post)).fuccess
+            else {
+              env.ublog.api.otherPosts(user, post) zip
+                ctx.me.??(env.ublog.like.liked(post)) map { case (others, liked) =>
+                  lila.mon.ublog.view(user.id).increment()
+                  val markup = scalatags.Text.all.raw(env.ublog.markup(post))
+                  Ok(html.ublog.post(user, post, markup, others, liked))
+                }
             }
           }
         }
@@ -134,7 +135,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def like(id: String, v: Boolean) = Auth { implicit ctx => me =>
     NotForKids {
       env.ublog.like(UblogPost.Id(id), me, v) map { likes =>
-        Ok(likes.toString)
+        Ok(likes.value)
       }
     }
   }

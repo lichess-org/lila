@@ -12,12 +12,15 @@ import lila.user.User
 
 object post {
 
-  def apply(user: User, post: UblogPost, markup: Frag, others: List[UblogPost.PreviewPost])(implicit
-      ctx: Context
+  def apply(user: User, post: UblogPost, markup: Frag, others: List[UblogPost.PreviewPost], liked: Boolean)(
+      implicit ctx: Context
   ) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      moreJs = frag(jsModule("expandText"), ctx.is(user) option jsModule("ublog")),
+      moreJs = frag(
+        jsModule("expandText"),
+        ctx.isAuth option jsModule("ublog")
+      ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
       openGraph = lila.app.ui
         .OpenGraph(
@@ -34,18 +37,23 @@ object post {
         ctx.is(user) option standardFlash(),
         h1(cls := "ublog-post__title")(post.title),
         div(cls := "ublog-post__meta")(
-          span(cls := "ublog-post__meta__author")(
-            trans.by(
-              a(
-                href := routes.Ublog.index(user.username),
-                cls := userClass(user.id, none, withOnline = true),
-                dataHref := routes.User.show(user.username)
-              )(lineIcon(user), titleTag(user.title), user.username)
-            )
-          ),
+          a(
+            href := routes.Ublog.index(user.username),
+            cls := userClass(user.id, none, withOnline = true),
+            dataHref := routes.User.show(user.username)
+          )(lineIcon(user), titleTag(user.title), user.username),
           post.liveAt map { date =>
             span(cls := "ublog-post__meta__date")(semanticDate(date))
           },
+          button(
+            tpe := "button",
+            cls := List(
+              "ublog-post__like button-link is" -> true,
+              "ublog-post__like--liked"         -> liked
+            ),
+            dataRel := post.id.value,
+            title := trans.study.like.txt()
+          )(post.likes.value),
           if (ctx.is(user))
             frag(
               (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(

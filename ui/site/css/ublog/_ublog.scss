@@ -38,6 +38,25 @@
       }
       .user-link {
         color: $c-link;
+        font-size: 1.2em;
+      }
+    }
+    &__like {
+      margin-left: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: $c-font;
+      transition: 0.3s;
+      &:hover {
+        opacity: 1;
+        color: $c-red;
+      }
+      &::before {
+        margin-right: 0.4em;
+        content: '';
+      }
+      &.ublog-post__like--liked::before {
+        content: '';
       }
     }
     &__image {

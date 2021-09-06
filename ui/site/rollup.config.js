@@ -231,4 +231,8 @@ export default rollupProject({
     input: 'src/ublog.ts',
     output: 'ublog',
   },
+  ublogForm: {
+    input: 'src/ublogForm.ts',
+    output: 'ublogForm',
+  },
 });
