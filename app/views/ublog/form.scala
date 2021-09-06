@@ -18,10 +18,11 @@ object form {
   def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog.form"),
-      moreJs = captchaTag,
+      moreJs = frag(jsModule("ublog"), captchaTag),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
     ) {
       main(cls := "box box-pad page page-small ublog-post-form")(
+        standardFlash(),
         h1(trans.ublog.newPost()),
         etiquette,
         inner(user, f, none, captcha.some)
@@ -35,6 +36,7 @@ object form {
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
       main(cls := "box box-pad page page-small ublog-post-form")(
+        standardFlash(),
         h1(trans.ublog.editYourBlogPost()),
         imageForm(user, post),
         inner(user, f, post.some, none),

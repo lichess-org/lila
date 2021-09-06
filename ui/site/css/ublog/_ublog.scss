@@ -1,5 +1,6 @@
 @import 'card';
 @import 'markup';
+@import 'flash';
 
 .ublog {
   &-index {
@@ -53,21 +54,6 @@
       h2 {
         margin-bottom: 1.5em;
       }
-    }
-  }
-}
-
-main.page {
-  position: relative;
-  .flash {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    &.fade {
-      opacity: 0;
-      transition: 3s;
-      transition-delay: 2s;
     }
   }
 }
