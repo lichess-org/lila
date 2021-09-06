@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Rakibin iyi bir hamlesinin kalmadığı, yapabileceği bütün hamlelerin kendisine zarar vereceği taktikler.</string>
   <string name="healthyMix">Bir ondan bir bundan</string>
   <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
+  <string name="playerGames">Bireysel oyunlardan</string>
+  <string name="playerGamesDescription">Sizin veya başka bir oyuncunun maçlarından üretilen bulmacalar.</string>
+  <string name="puzzleDownloadInformation">Bütün bulmacalar kamuya açıktır ve %s adresinden indirilebilir.</string>
 </resources>
