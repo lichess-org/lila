@@ -59,15 +59,15 @@ GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username:
 
 # User blog
 GET   /@/:username/blog                controllers.Ublog.index(username: String, page: Int ?= 1)
+GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: String, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username: String)
-POST  /@/:username/blog/new            controllers.Ublog.create(username: String)
-GET   /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.edit(username: String, id: String)
-POST  /@/:username/blog/$id<\w{8}>/edit controllers.Ublog.update(username: String, id: String)
-POST  /@/:username/blog/$id<\w{8}>/del controllers.Ublog.delete(username: String, id: String)
-POST  /@/:username/blog/$id<\w{8}>/like controllers.Ublog.like(username: String, id: String)
+POST  /ublog/new                       controllers.Ublog.create
+GET   /ublog/blog/$id<\w{8}>/edit      controllers.Ublog.edit(id: String)
+POST  /ublog/blog/$id<\w{8}>/edit      controllers.Ublog.update(id: String)
+POST  /ublog/blog/$id<\w{8}>/del       controllers.Ublog.delete(id: String)
+POST  /ublog/blog/$id<\w{8}>/like      controllers.Ublog.like(id: String, v: Boolean)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: String)
-GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
 
 # User
 GET   /api/stream/:username/mod        controllers.User.mod(username: String)

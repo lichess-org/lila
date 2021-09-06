@@ -76,7 +76,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     key = "ublog.create.user"
   )
 
-  def create(unusedUsername: String) = AuthBody { implicit ctx => me =>
+  def create = AuthBody { implicit ctx => me =>
     NotForKids {
       env.ublog.form.create
         .bindFromRequest()(ctx.body, formBinding)
@@ -96,7 +96,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def edit(username: String, id: String) = AuthBody { implicit ctx => me =>
+  def edit(id: String) = AuthBody { implicit ctx => me =>
     NotForKids {
       OptionOk(env.ublog.api.find(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
         html.ublog.form.edit(me, post, env.ublog.form.edit(post))
@@ -104,7 +104,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def update(unusedUsername: String, id: String) = AuthBody { implicit ctx => me =>
+  def update(id: String) = AuthBody { implicit ctx => me =>
     NotForKids {
       env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
         _ ?? { prev =>
@@ -123,7 +123,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def delete(unusedUsername: String, id: String) = AuthBody { implicit ctx => me =>
+  def delete(id: String) = AuthBody { implicit ctx => me =>
     env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
       _ ?? { post =>
         env.ublog.api.delete(post) inject Redirect(routes.Ublog.index(me.username)).flashSuccess
@@ -131,7 +131,7 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def like(unusedUsername: String, id: String, v: Boolean) = Auth { implicit ctx => me =>
+  def like(id: String, v: Boolean) = Auth { implicit ctx => me =>
     NotForKids {
       env.ublog.like(UblogPost.Id(id), me, v) map { likes =>
         Ok(likes.toString)

@@ -91,7 +91,7 @@ object post {
 
   def urlOf(post: UblogPost.BasePost) = routes.Ublog.post(usernameOrId(post.user), post.slug, post.id.value)
 
-  def editUrlOf(post: UblogPost.BasePost) = routes.Ublog.edit(usernameOrId(post.user), post.id.value)
+  def editUrlOf(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
 
   object thumbnail {
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =

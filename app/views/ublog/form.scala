@@ -43,7 +43,7 @@ object form {
         inner(user, f, post.some, none),
         postForm(
           cls := "ublog-post-form__delete",
-          action := routes.Ublog.delete(user.username, post.id.value)
+          action := routes.Ublog.delete(post.id.value)
         )(
           form3.action(
             submitButton(
@@ -77,9 +77,7 @@ object form {
   ) =
     postForm(
       cls := "form3",
-      action := post.fold(routes.Ublog.create(user.username))(p =>
-        routes.Ublog.update(user.username, p.id.value)
-      )
+      action := post.fold(routes.Ublog.create)(p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
       post.isDefined option form3.split(
