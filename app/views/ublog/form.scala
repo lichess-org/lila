@@ -118,8 +118,8 @@ object form {
     )
 
   private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
-    p("Please only post safe and respectful content."),
-    p("Anything even slightly inappropriate could get your account closed."),
+    p("Please only post safe and respectful content. Do not copy someone else's content."),
+    p("Anything inappropriate could get your account closed."),
     a(
       dataIcon := "",
       href := routes.Page.loneBookmark("blog-etiquette"),
