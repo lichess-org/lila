@@ -582,18 +582,20 @@ final class ReportApi(
       for {
         report <- coll.byId[Report](id) orElse coll.one[Report](
           $doc("user" -> id, "inquiry.mod" $exists true)
-        ) orFail s"No report $id found"
+        )
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
         _ <-
-          report.inquiry.isEmpty ?? coll
-            .updateField(
-              $id(report.id),
-              "inquiry",
-              Report.Inquiry(mod.user.id, DateTime.now)
-            )
-            .void
-      } yield (current, report.inquiry.isEmpty option report)
+          report ?? { r =>
+            r.inquiry.isEmpty ?? coll
+              .updateField(
+                $id(r.id),
+                "inquiry",
+                Report.Inquiry(mod.user.id, DateTime.now)
+              )
+              .void
+          }
+      } yield (current, report.filter(_.inquiry.isEmpty))
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {
