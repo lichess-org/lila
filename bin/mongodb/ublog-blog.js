@@ -63,6 +63,7 @@ db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
           : undefined,
         likers: [],
         likes: NumberInt(0),
+        views: NumberInt(1),
       },
       $unset: {
         user: 1,

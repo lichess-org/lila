@@ -18,7 +18,8 @@ case class UblogPost(
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
-    likes: UblogPost.Likes
+    likes: UblogPost.Likes,
+    views: UblogPost.Views
 ) extends UblogPost.BasePost {
 
   def isBy(u: User) = created.by == u.id
@@ -31,6 +32,7 @@ object UblogPost {
   case class Recorded(by: User.ID, at: DateTime)
 
   case class Likes(value: Int) extends AnyVal
+  case class Views(value: Int) extends AnyVal
 
   case class Rank(value: DateTime) extends AnyVal
 

@@ -2270,6 +2270,7 @@ val `moreBlogPostsBy` = new I18nKey("ublog:moreBlogPostsBy")
 val `noPostsInThisBlogYet` = new I18nKey("ublog:noPostsInThisBlogYet")
 val `noDrafts` = new I18nKey("ublog:noDrafts")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
+val `nbViews` = new I18nKey("ublog:nbViews")
 }
 
 }

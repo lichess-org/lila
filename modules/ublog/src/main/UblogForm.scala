@@ -71,7 +71,8 @@ object UblogForm {
         created = UblogPost.Recorded(user.id, DateTime.now),
         updated = none,
         lived = none,
-        likes = UblogPost.Likes(1)
+        likes = UblogPost.Likes(1),
+        views = UblogPost.Views(0)
       )
 
     def update(user: User, prev: UblogPost) =

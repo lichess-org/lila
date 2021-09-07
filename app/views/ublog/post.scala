@@ -54,6 +54,9 @@ object post {
             dataRel := post.id.value,
             title := trans.study.like.txt()
           )(post.likes.value),
+          span(cls := "ublog-post__views")(
+            trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
+          ),
           if (ctx is user)
             frag(
               (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
