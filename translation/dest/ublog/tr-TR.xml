@@ -7,7 +7,7 @@
   <string name="postIntro">Gönderi konusu</string>
   <string name="postBody">Gönderi ana metni</string>
   <string name="drafts">Taslaklar</string>
-  <string name="published">Yayımlandı</string>
+  <string name="published">Yayımlanan</string>
   <string name="publishOnYourBlog">Bloğunda yayımla</string>
   <string name="publishHelp">İşaretliyse bu gönderi, bloğunuzda paylaşılır. İşaretli değilse taslak gönderiler arasında gizli kalır</string>
   <plurals name="publishedNbBlogPosts">
