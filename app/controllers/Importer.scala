@@ -39,7 +39,7 @@ final class Importer(env: Env) extends LilaController(env) {
               api = _ => BadRequest(jsonError("Invalid PGN")).fuccess
             ),
           data =>
-            ImportRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
+            ImportRateLimitPerIP(ctx.ip, cost = 1) {
               doImport(data, req, ctx.me) flatMap {
                 case Some(game) =>
                   ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
@@ -47,7 +47,7 @@ final class Importer(env: Env) extends LilaController(env) {
                       game,
                       lila.fishnet.Work.Sender(
                         userId = me.id,
-                        ip = HTTPRequest.ipAddress(ctx.req).some,
+                        ip = ctx.ip.some,
                         mod = isGranted(_.Hunter) || isGranted(_.Relay),
                         system = false
                       )

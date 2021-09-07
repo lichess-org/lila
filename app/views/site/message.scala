@@ -1,13 +1,12 @@
 package views
 package html.site
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import controllers.routes
-import lila.common.HTTPRequest
 
 object message {
 
@@ -45,7 +44,7 @@ object message {
     }
 
   def blacklistedMessage(implicit ctx: Context) =
-    s"Sorry, your IP address ${HTTPRequest ipAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
+    s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(

@@ -296,7 +296,7 @@ abstract private[controllers] class LilaController(val env: Env)
     else keyPages.blacklisted.fuccess
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
-    if (env.security.tor isExitNode HTTPRequest.ipAddress(ctx.req))
+    if (env.security.tor isExitNode ctx.ip)
       Unauthorized(views.html.auth.bits.tor()).fuccess
     else res
 

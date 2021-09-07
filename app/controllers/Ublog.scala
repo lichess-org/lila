@@ -5,7 +5,6 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.common.HTTPRequest
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User => UserModel }
 
@@ -176,7 +175,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         _ ?? { post =>
           ctx.body.body.file("image") match {
             case Some(image) =>
-              ImageRateLimitPerIp(HTTPRequest ipAddress ctx.req) {
+              ImageRateLimitPerIp(ctx.ip) {
                 env.ublog.api.uploadImage(me, post, image) map { newPost =>
                   Ok(html.ublog.form.formImage(newPost))
                 } recover { case e: Exception =>

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.EmailAddress
 import lila.plan.StripeClient.StripeException
 import lila.plan.{
   Checkout,
@@ -105,7 +105,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   private def myCurrency(implicit ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
       env.plan.currencyApi.currencyByCountryCodeOrLang(
-        env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
+        env.security.geoIP(ctx.ip).flatMap(_.countryCode),
         ctx.lang
       )
 
@@ -196,7 +196,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def stripeCheckout =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      StripeRateLimit(HTTPRequest ipAddress req) {
+      StripeRateLimit(ctx.ip) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
           env.plan.checkoutForm
             .form(pricing)
@@ -231,7 +231,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def updatePayment =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      StripeRateLimit(HTTPRequest ipAddress req) {
+      StripeRateLimit(ctx.ip) {
         env.plan.api.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
             env.plan.api

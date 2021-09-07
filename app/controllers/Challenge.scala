@@ -291,7 +291,7 @@ final class Challenge(
             .fold(
               _ => funit,
               username =>
-                ChallengeIpRateLimit(HTTPRequest ipAddress req) {
+                ChallengeIpRateLimit(ctx.ip) {
                   env.user.repo named username flatMap {
                     case None => Redirect(routes.Challenge.show(c.id)).fuccess
                     case Some(dest) =>

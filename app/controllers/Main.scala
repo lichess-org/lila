@@ -7,7 +7,6 @@ import play.api.mvc._
 import scala.annotation.nowarn
 
 import lila.app._
-import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -90,7 +89,7 @@ final class Main(
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
-        ip = HTTPRequest ipAddress ctx.req,
+        ip = ctx.ip,
         fullId = lila.game.Game.FullId(id),
         name = get("n", ctx.req) | "?"
       )

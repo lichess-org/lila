@@ -9,7 +9,6 @@ import lila.api.Context
 import lila.api.GameApiV2
 import lila.app._
 import lila.common.config
-import lila.common.HTTPRequest
 import lila.db.dsl._
 import lila.user.Holder
 
@@ -74,7 +73,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
           game,
           lila.fishnet.Work.Sender(
             userId = me.id,
-            ip = HTTPRequest.ipAddress(ctx.req).some,
+            ip = ctx.ip.some,
             mod = true,
             system = false
           )

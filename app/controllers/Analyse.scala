@@ -24,7 +24,7 @@ final class Analyse(
           game,
           lila.fishnet.Work.Sender(
             userId = me.id,
-            ip = HTTPRequest.ipAddress(ctx.req).some,
+            ip = ctx.ip.some,
             mod = isGranted(_.Hunter) || isGranted(_.Relay),
             system = false
           )
