@@ -1,5 +1,6 @@
 package lila.streamer
 
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
@@ -91,5 +92,9 @@ final class Env(
 
   system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
     api.autoDemoteFakes.unit
+  }
+
+  system.scheduler.scheduleOnce(1 minute) {
+    wire[StreamerPictureMigration]().unit
   }
 }

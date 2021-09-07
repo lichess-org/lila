@@ -42,25 +42,28 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
   import PicfitApi._
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
-  def upload(rel: String, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
-    if (uploaded.fileSize > uploadMaxBytes)
+  def uploadFile(rel: String, uploaded: FilePart, userId: String): Fu[PicfitImage] =
+    uploadSource(rel, uploaded.copy[ByteSource](ref = FileIO.fromPath(uploaded.ref.path)), userId)
+
+  def uploadSource(rel: String, part: SourcePart, userId: String, monitor: Boolean = true): Fu[PicfitImage] =
+    if (part.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
-      uploaded.contentType collect {
+      part.contentType collect {
         case "image/png"  => "png"
         case "image/jpeg" => "jpg"
       } match {
-        case None => fufail(s"Invalid file type: ${uploaded.contentType | "unknown"}")
+        case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
         case Some(extension) => {
           val image = PicfitImage(
             _id = PicfitImage.Id(s"$userId:$rel:${lila.common.ThreadLocalRandom nextString 8}.$extension"),
             user = userId,
             rel = rel,
-            name = uploaded.filename,
-            size = uploaded.fileSize.toInt,
+            name = part.filename,
+            size = part.fileSize.toInt,
             createdAt = DateTime.now
           )
-          picfitServer.store(image, uploaded) >>
+          picfitServer.store(image, part, monitor = monitor) >>
             deleteByRel(image.rel) >>
             coll.insert.one(image) inject image
         }
@@ -74,26 +77,23 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
 
   private object picfitServer {
 
-    def store(image: PicfitImage, from: Uploaded): Funit = {
-      type Part = MultipartFormData.FilePart[Source[ByteString, _]]
-      import WSBodyWritables._
-      val part: Part = MultipartFormData.FilePart(
-        key = "data",
-        filename = image.id.value,
-        contentType = from.contentType,
-        ref = FileIO.fromPath(from.ref.path),
-        fileSize = from.fileSize
-      )
-      val source: Source[Part, _] = Source(part :: List())
-      ws.url(s"${config.endpointPost}/upload")
-        .post(source)
+    import WSBodyWritables._
+
+    // the monitoring causes OOM in dev during migration
+    def store(image: PicfitImage, part: SourcePart, monitor: Boolean): Funit = {
+      val sendPart = part.copy[ByteSource](filename = image.id.value, key = "data")
+      val fu = ws
+        .url(s"${config.endpointPost}/upload")
+        .post(Source(sendPart :: List()))
         .flatMap {
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
           case _ =>
-            lila.mon.picfit.uploadSize(image.user).record(image.size)
+            if (monitor)
+              lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
         }
-        .monSuccess(_.picfit.uploadTime(image.user))
+      if (monitor) fu.monSuccess(_.picfit.uploadTime(image.user))
+      else fu
     }
 
     def delete(image: PicfitImage): Funit =
@@ -112,7 +112,9 @@ object PicfitApi {
 
   val uploadMaxMb = 4
 
-  type Uploaded = play.api.mvc.MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  type FilePart   = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  type ByteSource = Source[ByteString, _]
+  type SourcePart = MultipartFormData.FilePart[ByteSource]
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
   object WSBodyWritables {

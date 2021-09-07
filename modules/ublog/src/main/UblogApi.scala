@@ -75,10 +75,10 @@ final class UblogApi(
 
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
-  def uploadImage(user: User, post: UblogPost, picture: PicfitApi.Uploaded): Fu[UblogPost] = {
+  def uploadImage(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] = {
     for {
       image <- picfitApi
-        .upload(imageRel(post), picture, userId = user.id)
+        .uploadFile(imageRel(post), picture, userId = user.id)
       _ <- colls.post.update.one($id(post.id), $set("image" -> image.id))
       newPost = post.copy(image = image.id.some)
       _ <- sendImageToZulip(user, newPost)
