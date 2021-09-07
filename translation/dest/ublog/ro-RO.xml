@@ -10,6 +10,11 @@
   <string name="published">Publicat</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
   <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
+  <plurals name="nbViews">
+    <item quantity="one">O vizualizare</item>
+    <item quantity="few">%s vizualizări</item>
+    <item quantity="other">%s de vizualizări</item>
+  </plurals>
   <string name="xPublishedY">%1$s a publicat %2$s</string>
   <string name="thisPostIsPublished">Această postare este publicată</string>
   <string name="thisIsADraft">Aceasta este o ciornă</string>
