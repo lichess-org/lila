@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <plurals name="nbViews">
+    <item quantity="one">Едно преглеждане</item>
+    <item quantity="other">%s преглеждания</item>
+  </plurals>
   <string name="xPublishedY">%1$s публикува %2$s</string>
 </resources>
