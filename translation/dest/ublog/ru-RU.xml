@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">Блог %s</string>
+  <string name="newPost">Новая запись</string>
+  <string name="editYourBlogPost">Редактировать запись в блоге</string>
+  <string name="postTitle">Заголовок записи</string>
+  <string name="postIntro">Отрывок записи</string>
+  <string name="postBody">Полный текст записи</string>
+  <string name="drafts">Черновики</string>
+  <string name="published">Опубликовано</string>
+  <string name="publishOnYourBlog">Опубликовать в вашем блоге</string>
+  <string name="publishHelp">Если отмечено, сообщение будет отображаться в вашем блоге. В противном случае оно будет приватным, в ваших черновиках сообщений</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Опубликована запись в блоге</item>
     <item quantity="few">Опубликованы %s записи в блоге</item>
     <item quantity="many">Опубликованы %s записей в блоге</item>
     <item quantity="other">Опубликованы %s записей в блоге</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">%s просмотр</item>
+    <item quantity="few">%s просмотра</item>
+    <item quantity="many">%s просмотров</item>
+    <item quantity="other">%s просмотров</item>
+  </plurals>
+  <string name="xPublishedY">%1$s опубликовал %2$s</string>
+  <string name="thisPostIsPublished">Эта запись опубликована</string>
+  <string name="thisIsADraft">Это черновик</string>
+  <string name="moreBlogPostsBy">Больше записей в блоге от %s</string>
   <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
+  <string name="noDrafts">Нет черновиков для просмотра.</string>
 </resources>
