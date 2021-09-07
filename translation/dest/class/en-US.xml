@@ -62,11 +62,11 @@ Here is the link to access the class.</string>
   <string name="managed">Managed</string>
   <string name="thisStudentAccountIsManaged">This student account is managed</string>
   <string name="upgradeFromManaged">Upgrade from managed to autonomous</string>
-  <string name="release">Release</string>
-  <string name="releaseTheAccount">Release the account so the student can manage it in autonomy.</string>
-  <string name="releaseDesc1">A released account cannot be made managed again. The student will be able to toggle kid mode and reset password themselves.</string>
-  <string name="releaseDesc2">The student will remain in the class after their account is released.</string>
-  <string name="realUniqueEmail">Real, unique email address of the student. We will send a confirmation email to it, with a link to release the account.</string>
+  <string name="release">Graduate</string>
+  <string name="releaseTheAccount">Graduate the account so the student can manage it autonomously.</string>
+  <string name="releaseDesc1">A graduated account cannot be made managed again. The student will be able to toggle kid mode and reset password themselves.</string>
+  <string name="releaseDesc2">The student will remain in the class after their account is graduated.</string>
+  <string name="realUniqueEmail">Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account.</string>
   <string name="closeStudent">Close account</string>
   <string name="closeTheAccount">Close the student account permanently.</string>
   <string name="closeDesc1">The student will never be able to use this account again. Closing is final. Make sure the student understands and agrees.</string>
