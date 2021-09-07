@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.ublog.UblogForm.UblogPostData
-import lila.ublog.UblogPost
+import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
 
 object post {
@@ -42,8 +42,8 @@ object post {
             cls := userClass(user.id, none, withOnline = true),
             dataHref := routes.User.show(user.username)
           )(lineIcon(user), titleTag(user.title), user.username),
-          post.liveAt map { date =>
-            span(cls := "ublog-post__meta__date")(semanticDate(date))
+          post.lived map { live =>
+            span(cls := "ublog-post__meta__date")(semanticDate(live.at))
           },
           button(
             tpe := "button",
@@ -94,12 +94,15 @@ object post {
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
         span(cls := "ublog-post-card__intro")(post.intro),
-        post.liveAt map { date => semanticDate(date)(ctx.lang)(cls := "ublog-post-card__over-image") },
-        showAuthor option userIdSpanMini(post.user)(ctx.lang)(cls := "ublog-post-card__over-image")
+        post.lived map { live => semanticDate(live.at)(ctx.lang)(cls := "ublog-post-card__over-image") },
+        showAuthor option userIdSpanMini(post.created.by)(ctx.lang)(cls := "ublog-post-card__over-image")
       )
     )
 
-  def urlOf(post: UblogPost.BasePost) = routes.Ublog.post(usernameOrId(post.user), post.slug, post.id.value)
+  def urlOf(post: UblogPost.BasePost) = post.blog match {
+    case UblogBlog.Id.User(userId) =>
+      routes.Ublog.post(usernameOrId(userId), post.slug, post.id.value)
+  }
 
   def editUrlOf(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
 

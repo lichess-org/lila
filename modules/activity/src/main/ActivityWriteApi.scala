@@ -54,7 +54,7 @@ final class ActivityWriteApi(
     }
 
   def ublogPost(post: lila.ublog.UblogPost): Funit =
-    getOrCreate(post.user) flatMap { a =>
+    getOrCreate(post.created.by) flatMap { a =>
       coll.update
         .one(
           $id(a.id),

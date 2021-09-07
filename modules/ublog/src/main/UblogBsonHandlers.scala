@@ -1,18 +1,27 @@
 package lila.ublog
 
-import lila.db.dsl._
-import reactivemongo.api.bson._
-import play.api.i18n.Lang
-import lila.common.Iso
 import org.joda.time.DateTime
+import play.api.i18n.Lang
+import reactivemongo.api.bson._
+import scala.util.{ Success, Try }
 
-private[ublog] object UblogBsonHandlers {
+import lila.common.Iso
+import lila.db.dsl._
+
+private object UblogBsonHandlers {
 
   import lila.memo.PicfitImage.imageIdBSONHandler
-  import UblogPost.{ LightPost, Likes, PreviewPost, Rank }
+  import UblogPost.{ LightPost, Likes, PreviewPost, Rank, Recorded }
+
+  implicit val blogIdHandler = tryHandler[UblogBlog.Id](
+    { case BSONString(v) => UblogBlog.Id(v).toTry(s"Invalid blog id $v") },
+    id => BSONString(id.full)
+  )
+  implicit val blogBSONHandler = Macros.handler[UblogBlog]
 
   implicit val postIdBSONHandler      = stringAnyValHandler[UblogPost.Id](_.value, UblogPost.Id.apply)
   implicit val langBsonHandler        = stringAnyValHandler[Lang](_.code, Lang.apply)
+  implicit val recordedBSONHandler    = Macros.handler[Recorded]
   implicit val likesBSONHandler       = intAnyValHandler[Likes](_.value, Likes.apply)
   implicit val rankBSONHandler        = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
   implicit val postBSONHandler        = Macros.handler[UblogPost]
@@ -21,5 +30,12 @@ private[ublog] object UblogBsonHandlers {
 
   val lightPostProjection = $doc("title" -> true)
   val previewPostProjection =
-    $doc("title" -> true, "user" -> true, "intro" -> true, "image" -> true, "liveAt" -> true)
+    $doc(
+      "blog"    -> true,
+      "title"   -> true,
+      "intro"   -> true,
+      "image"   -> true,
+      "created" -> true,
+      "lived"   -> true
+    )
 }

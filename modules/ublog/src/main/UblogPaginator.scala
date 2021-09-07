@@ -13,7 +13,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 
 final class UblogPaginator(
-    coll: Coll,
+    colls: UblogColls,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: ExecutionContext) {
@@ -24,12 +24,15 @@ final class UblogPaginator(
   val maxPerPage = MaxPerPage(8)
 
   def byUser(user: User, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
+    byBlog(UblogBlog.Id.User(user.id), live, page)
+
+  def byBlog(blog: UblogBlog.Id, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new Adapter[PreviewPost](
-        collection = coll,
-        selector = $doc("user" -> user.id, "live" -> live),
+        collection = colls.post,
+        selector = $doc("blog" -> blog, "live" -> live),
         projection = previewPostProjection.some,
-        sort = if (live) $doc("liveAt" -> -1) else $doc("createdAt" -> -1),
+        sort = if (live) $doc("live.at" -> -1) else $doc("created.at" -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
       currentPage = page,
@@ -39,8 +42,8 @@ final class UblogPaginator(
   def liveByCommunity(page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new Adapter[PreviewPost](
-        collection = coll,
-        selector = $doc("live" -> true, "troll" $ne true),
+        collection = colls.post,
+        selector = $doc("live" -> true),
         projection = previewPostProjection.some,
         sort = $sort desc "rank",
         readPreference = ReadPreference.secondaryPreferred
@@ -72,7 +75,7 @@ final class UblogPaginator(
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
-                      "from" -> coll.name,
+                      "from" -> colls.post.name,
                       "as"   -> "post",
                       "let"  -> $doc("users" -> "$ids"),
                       "pipeline" -> $arr(
@@ -80,9 +83,8 @@ final class UblogPaginator(
                           "$match" -> $doc(
                             "$expr" -> $doc(
                               "$and" -> $arr(
-                                $doc("$in" -> $arr(s"$$user", "$$users")),
+                                $doc("$in" -> $arr(s"$$created.by", "$$users")),
                                 $doc("$eq" -> $arr("$live", true)),
-                                $doc("$ne" -> $arr("$troll", true)),
                                 $doc("$gt" -> $arr("$liveAt", DateTime.now.minusMonths(3)))
                               )
                             )

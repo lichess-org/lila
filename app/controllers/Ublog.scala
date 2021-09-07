@@ -6,7 +6,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.ublog.UblogPost
+import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User => UserModel }
 
 final class Ublog(env: Env) extends LilaController(env) {
@@ -16,9 +16,11 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def index(username: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      OptionFuOk(env.user.repo named username) { user =>
-        (canViewBlogOf(user) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
-          html.ublog.index(user, posts)
+      OptionFuResult(env.user.repo named username) { user =>
+        env.ublog.api.getUserBlog(user) flatMap { blog =>
+          (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
+            Ok(html.ublog.index(user, posts))
+          }
         }
       }
     }
@@ -37,16 +39,18 @@ final class Ublog(env: Env) extends LilaController(env) {
   def post(username: String, slug: String, id: String) = Open { implicit ctx =>
     NotForKids {
       OptionFuResult(env.user.repo named username) { user =>
-        env.ublog.api.findByAuthor(UblogPost.Id(id), user) flatMap {
-          _.filter(canViewPost(user)).fold(notFound) { post =>
-            if (slug != post.slug) Redirect(urlOf(post)).fuccess
-            else {
-              env.ublog.api.otherPosts(user, post) zip
-                ctx.me.??(env.ublog.like.liked(post)) map { case (others, liked) =>
-                  lila.mon.ublog.view(user.id).increment()
-                  val markup = scalatags.Text.all.raw(env.ublog.markup(post))
-                  Ok(html.ublog.post(user, post, markup, others, liked))
-                }
+        env.ublog.api.getUserBlog(user) flatMap { blog =>
+          env.ublog.api.findByIdAndBlog(UblogPost.Id(id), blog.id) flatMap {
+            _.filter(canViewPost(user, blog)) ?? { post =>
+              if (slug != post.slug) Redirect(urlOf(post)).fuccess
+              else {
+                env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
+                  ctx.me.??(env.ublog.like.liked(post)) map { case (others, liked) =>
+                    lila.mon.ublog.view(user.id).increment()
+                    val markup = scalatags.Text.all.raw(env.ublog.markup(post))
+                    Ok(html.ublog.post(user, post, markup, others, liked))
+                  }
+              }
             }
           }
         }
@@ -99,7 +103,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def edit(id: String) = AuthBody { implicit ctx => me =>
     NotForKids {
-      OptionOk(env.ublog.api.find(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
+      OptionOk(env.ublog.api.getPost(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
         html.ublog.form.edit(me, post, env.ublog.form.edit(post))
       }
     }
@@ -107,7 +111,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def update(id: String) = AuthBody { implicit ctx => me =>
     NotForKids {
-      env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
+      env.ublog.api.findByUserBlog(UblogPost.Id(id), me) flatMap {
         _ ?? { prev =>
           env.ublog.form
             .edit(prev)
@@ -125,7 +129,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   }
 
   def delete(id: String) = AuthBody { implicit ctx => me =>
-    env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
+    env.ublog.api.findByUserBlog(UblogPost.Id(id), me) flatMap {
       _ ?? { post =>
         env.ublog.api.delete(post) inject Redirect(routes.Ublog.index(me.username)).flashSuccess
       }
@@ -149,7 +153,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def image(id: String) =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
-      env.ublog.api.findByAuthor(UblogPost.Id(id), me) flatMap {
+      env.ublog.api.findByUserBlog(UblogPost.Id(id), me) flatMap {
         _ ?? { post =>
           ctx.body.body.file("image") match {
             case Some(image) =>
@@ -188,9 +192,9 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  private def canViewBlogOf(user: UserModel)(implicit ctx: Context) =
-    ctx.is(user) || isGranted(_.ModerateBlog) || (user.enabled && !user.marks.troll)
+  private def canViewBlogOf(user: UserModel, blog: UblogBlog)(implicit ctx: Context) =
+    ctx.is(user) || isGranted(_.ModerateBlog) || (user.enabled && blog.visible)
 
-  private def canViewPost(user: UserModel)(post: UblogPost)(implicit ctx: Context) =
-    canViewBlogOf(user) && (ctx.is(user) || post.live)
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(implicit ctx: Context) =
+    canViewBlogOf(user, blog) && (ctx.is(user) || post.live)
 }

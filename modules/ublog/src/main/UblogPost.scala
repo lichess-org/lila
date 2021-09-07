@@ -8,38 +8,31 @@ import play.api.i18n.Lang
 
 case class UblogPost(
     _id: UblogPost.Id,
-    user: User.ID,
+    blog: UblogBlog.Id,
     title: String,
     intro: String,
     markdown: String,
     language: Lang,
     image: Option[PicfitImage.Id],
     live: Boolean,
-    createdAt: DateTime,
-    updatedAt: DateTime,
-    liveAt: Option[DateTime],
+    created: UblogPost.Recorded,
+    updated: Option[UblogPost.Recorded],
+    lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes
 ) extends UblogPost.BasePost {
 
-  def isBy(u: User) = user == u.id
+  def isBy(u: User) = created.by == u.id
 }
 
 object UblogPost {
 
   case class Id(value: String) extends AnyVal with StringValue
 
+  case class Recorded(by: User.ID, at: DateTime)
+
   case class Likes(value: Int) extends AnyVal
 
   case class Rank(value: DateTime) extends AnyVal
-  object Rank {
-    def compute(likes: Likes, liveAt: DateTime) =
-      Rank {
-        liveAt plusHours likesToHours(likes)
-      }
-    private def likesToHours(likes: Likes): Int =
-      if (likes.value < 1) 0
-      else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
-  }
 
   case class Create(post: UblogPost) extends AnyVal
 
@@ -50,22 +43,24 @@ object UblogPost {
 
   trait BasePost {
     val _id: UblogPost.Id
-    val user: User.ID
+    val blog: UblogBlog.Id
     val title: String
     val intro: String
     val image: Option[PicfitImage.Id]
-    val liveAt: Option[DateTime]
+    val created: Recorded
+    val lived: Option[Recorded]
     def id   = _id
     def slug = UblogPost slug title
   }
 
   case class PreviewPost(
       _id: UblogPost.Id,
-      user: User.ID,
+      blog: UblogBlog.Id,
       title: String,
       intro: String,
       image: Option[PicfitImage.Id],
-      liveAt: Option[DateTime]
+      created: Recorded,
+      lived: Option[Recorded]
   ) extends BasePost
 
   def slug(title: String) = {

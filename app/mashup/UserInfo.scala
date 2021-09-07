@@ -135,7 +135,7 @@ object UserInfo {
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
         !(user.is(User.lichessId) || user.isBot) ??
         postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
-        ublogApi.countLiveByUser(user).mon(_.user segment "nbUblogPosts") zip
+        ublogApi.countLiveByBlog(lila.ublog.UblogBlog.Id.User(user.id)).mon(_.user segment "nbUblogPosts") zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
         shieldApi.active(user).mon(_.user segment "shields") zip

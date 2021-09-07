@@ -58,32 +58,31 @@ object UblogForm {
 
     def realLanguage = language flatMap Lang.get
 
-    def create(user: User) = {
-      val now = DateTime.now
+    def create(user: User) =
       UblogPost(
         _id = UblogPost.Id(lila.common.ThreadLocalRandom nextString 8),
-        user = user.id,
+        blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
         markdown = markdown,
         language = realLanguage.orElse(user.realLang) | defaultLang,
         image = none,
         live = false,
-        createdAt = now,
-        updatedAt = now,
-        liveAt = live option now,
+        created = UblogPost.Recorded(user.id, DateTime.now),
+        updated = none,
+        lived = none,
         likes = UblogPost.Likes(0)
       )
-    }
 
-    def update(prev: UblogPost) =
+    def update(user: User, prev: UblogPost) =
       prev.copy(
         title = title,
         intro = intro,
         markdown = markdown,
         language = realLanguage | prev.language,
         live = live,
-        liveAt = prev.liveAt orElse live.option(DateTime.now)
+        updated = UblogPost.Recorded(user.id, DateTime.now).some,
+        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
   }
 }

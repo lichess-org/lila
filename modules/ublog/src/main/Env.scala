@@ -3,6 +3,7 @@ package lila.ublog
 import com.softwaremill.macwire._
 
 import lila.common.config._
+import lila.db.dsl.Coll
 
 @Module
 final class Env(
@@ -20,7 +21,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  private val postColl = db(CollName("ublog_post"))
+  private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
   val api = wire[UblogApi]
 
@@ -36,3 +37,5 @@ final class Env(
     api.setShadowban(userId, v).unit
   }
 }
+
+final private class UblogColls(val blog: Coll, val post: Coll)
