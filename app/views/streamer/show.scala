@@ -25,7 +25,7 @@ object show {
             shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
           url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
           `type` = "video",
-          image = s.streamer.hasPicture option bits.thumbnail.url(s.streamer)
+          image = s.streamer.hasPicture option picture.thumbnail.url(s.streamer)
         )
         .some,
       csp = defaultCsp.finalizeWithTwitch.some

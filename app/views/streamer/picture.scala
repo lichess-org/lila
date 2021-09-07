@@ -5,6 +5,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.user.User
 
 object picture {
 
@@ -22,7 +23,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
     ) {
       main(cls := "streamer-picture small-page box")(
         h1(xStreamerPicture(userLink(s.user))),
-        div(cls := "picture_wrap")(bits.thumbnail(s.streamer, s.user)),
+        div(cls := "picture_wrap")(thumbnail(s.streamer, s.user)),
         div(cls := "forms")(
           error.map { badTag(_) },
           postForm(
@@ -40,4 +41,21 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
         )
       )
     }
+
+  object thumbnail {
+    val size = 300
+    def apply(s: lila.streamer.Streamer, u: User) =
+      img(
+        width := size,
+        height := size,
+        cls := "picture",
+        src := url(s),
+        alt := s"${u.titleUsername} Lichess streamer picture"
+      )
+    def url(s: lila.streamer.Streamer) =
+      s.picture match {
+        case Some(image) => picfitUrl.thumbnail(image, size, size)
+        case _           => assetUrl("images/placeholder.png")
+      }
+  }
 }

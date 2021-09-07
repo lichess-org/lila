@@ -31,23 +31,6 @@ object bits extends Context.ToLang {
       )
     )
 
-  object thumbnail {
-    val size = 300
-    def apply(s: lila.streamer.Streamer, u: User) =
-      img(
-        width := size,
-        height := size,
-        cls := "picture",
-        src := url(s),
-        alt := s"${u.titleUsername} Lichess streamer picture"
-      )
-    def url(s: lila.streamer.Streamer) =
-      s.picture match {
-        case Some(image) => picfitUrl.thumbnail(image, size, size)
-        case _           => assetUrl("images/placeholder.png")
-      }
-  }
-
   def menu(active: String, s: Option[lila.streamer.Streamer.WithUser])(implicit ctx: Context) =
     st.nav(cls := "subnav")(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),

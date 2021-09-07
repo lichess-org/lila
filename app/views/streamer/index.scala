@@ -27,7 +27,7 @@ object index {
         else
           bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
         stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
-        bits.thumbnail(s.streamer, s.user),
+        picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
           h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
           s.streamer.headline.map(_.value).map { d =>
