@@ -30,7 +30,7 @@ final class UblogApi(
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost, user: User): Fu[UblogPost] = {
     val post = data.update(prev)
-    coll.update.one($id(prev.id), post) >> {
+    coll.update.one($id(prev.id), $set(postBSONHandler.writeTry(post).get)) >> {
       (post.live && prev.liveAt.isEmpty) ?? {
         sendImageToZulip(user, post) >>- {
           lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
