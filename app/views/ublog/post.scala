@@ -60,7 +60,7 @@ object post {
                 if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
               ),
               a(
-                href := editUrlOf(post),
+                href := editUrlOfPost(post),
                 cls := "button button-empty text",
                 dataIcon := ""
               )(trans.edit())
@@ -71,7 +71,7 @@ object post {
             a(
               titleOrText(trans.reportXToModerators.txt(user.username)),
               cls := "button button-empty ublog-post__meta__report",
-              href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOf(post).url}")}&reason=comm",
+              href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
               dataIcon := ""
             )
         ),
@@ -86,7 +86,7 @@ object post {
 
   def card(
       post: UblogPost.BasePost,
-      makeUrl: UblogPost.BasePost => Call = urlOf,
+      makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false
   )(implicit ctx: Context) =
     a(cls := "ublog-post-card", href := makeUrl(post))(
@@ -99,12 +99,21 @@ object post {
       )
     )
 
-  def urlOf(post: UblogPost.BasePost) = post.blog match {
+  def urlOfPost(post: UblogPost.BasePost) = post.blog match {
     case UblogBlog.Id.User(userId) =>
       routes.Ublog.post(usernameOrId(userId), post.slug, post.id.value)
   }
 
-  def editUrlOf(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
+  def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id.value)
+
+  private[ublog] def newPostLink(implicit ctx: Context) = ctx.me map { u =>
+    a(
+      href := routes.Ublog.form(u.username),
+      cls := "button button-green",
+      dataIcon := "",
+      title := trans.ublog.newPost.txt()
+    )
+  }
 
   object thumbnail {
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =

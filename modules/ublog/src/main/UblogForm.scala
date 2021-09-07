@@ -71,7 +71,7 @@ object UblogForm {
         created = UblogPost.Recorded(user.id, DateTime.now),
         updated = none,
         lived = none,
-        likes = UblogPost.Likes(0)
+        likes = UblogPost.Likes(1)
       )
 
     def update(user: User, prev: UblogPost) =
@@ -85,4 +85,6 @@ object UblogForm {
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
       )
   }
+
+  val tier = Form(single("tier" -> number(min = UblogBlog.Tier.HIDDEN, max = UblogBlog.Tier.BEST)))
 }

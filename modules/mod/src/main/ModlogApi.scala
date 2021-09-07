@@ -29,6 +29,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     add {
       Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
     }
+  def blogTier(mod: Mod, blogId: String, v: Int) =
+    add {
+      Modlog(mod.user.id, blogId.some, Modlog.blogTier, v.toString.some)
+    }
 
   def practiceConfig(mod: User.ID) =
     add {

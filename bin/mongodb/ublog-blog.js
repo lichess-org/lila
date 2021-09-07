@@ -61,6 +61,8 @@ db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
               at: p.liveAt,
             }
           : undefined,
+        likers: [],
+        likes: NumberInt(0),
       },
       $unset: {
         user: 1,

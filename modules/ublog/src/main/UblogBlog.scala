@@ -6,8 +6,8 @@ case class UblogBlog(
     _id: UblogBlog.Id,
     title: Option[String],
     intro: Option[String],
-    tier: Int,           // actual tier, auto or set by a mod
-    modTier: Option[Int] // tier set by a mod
+    tier: UblogBlog.Tier,           // actual tier, auto or set by a mod
+    modTier: Option[UblogBlog.Tier] // tier set by a mod
 ) {
   def id      = _id
   def visible = tier >= UblogBlog.Tier.VISIBLE
@@ -26,6 +26,7 @@ object UblogBlog {
     }
   }
 
+  type Tier = Int
   object Tier {
     val HIDDEN  = 0 // not visible
     val VISIBLE = 1 // not listed in community page
@@ -38,6 +39,15 @@ object UblogBlog {
       if (user.marks.troll) Tier.HIDDEN
       else if (user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)) Tier.NORMAL
       else Tier.LOW
+
+    val options = List(
+      HIDDEN  -> "Hidden",
+      VISIBLE -> "Unlisted",
+      LOW     -> "Low tier",
+      NORMAL  -> "Normal tier",
+      HIGH    -> "High tier",
+      BEST    -> "Best tier"
+    )
   }
 
   def make(user: User) = UblogBlog(

@@ -67,6 +67,7 @@ GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: String)
 POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: String)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: String)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: String, v: Boolean)
+POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: String)
 
 # User

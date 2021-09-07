@@ -1,5 +1,6 @@
 package lila.ublog
 
+import cats.implicits._
 import reactivemongo.api._
 import scala.concurrent.ExecutionContext
 import lila.db.dsl._
@@ -16,30 +17,50 @@ final class UblogLike(colls: UblogColls)(implicit ec: ExecutionContext) {
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
   def apply(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
-    countLikes(postId).flatMap {
+    fetchRankData(postId).flatMap {
       case None => fuccess(UblogPost.Likes(v ?? 1))
-      case Some((blog, prevLikes, liveAt)) =>
+      case Some((prevLikes, liveAt, tier)) =>
         val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
         colls.post.update.one(
           $id(postId),
           $set(
             "likes" -> likes,
-            "rank"  -> computeRank(blog, likes, liveAt)
+            "rank"  -> computeRank(likes, liveAt, tier)
           ) ++ {
             if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
           }
         ) inject likes
     }
 
-  private def computeRank(blog: UblogBlog, likes: UblogPost.Likes, liveAt: DateTime) =
+  def recomputeRankOfAllPosts(blogId: UblogBlog.Id): Funit =
+    colls.blog.byId[UblogBlog](blogId.full) flatMap {
+      _ ?? { blog =>
+        colls.post
+          .find($doc("blog" -> blog.id), $doc("likes" -> true, "lived" -> true).some)
+          .cursor[Bdoc]()
+          .list() flatMap { docs =>
+          lila.common.Future.applySequentially(docs) { doc =>
+            (
+              doc.string("_id"),
+              doc.getAsOpt[UblogPost.Likes]("likes"),
+              doc.getAsOpt[UblogPost.Recorded]("lived")
+            ).tupled ?? { case (id, likes, lived) =>
+              colls.post.updateField($id(id), "rank", computeRank(likes, lived.at, blog.tier)).void
+            }
+          }
+        }
+      }
+    }
+
+  private def computeRank(likes: UblogPost.Likes, liveAt: DateTime, tier: UblogBlog.Tier) =
     UblogPost.Rank {
       liveAt plusHours {
         val baseHours = likesToHours(likes)
-        blog.tier match {
-          case UblogBlog.Tier.LOW    => (baseHours * 0.2).toInt
+        tier match {
+          case UblogBlog.Tier.LOW    => (baseHours * 0.3).toInt
           case UblogBlog.Tier.NORMAL => baseHours
-          case UblogBlog.Tier.HIGH   => baseHours * 5
-          case UblogBlog.Tier.BEST   => baseHours * 12
+          case UblogBlog.Tier.HIGH   => baseHours * 3
+          case UblogBlog.Tier.BEST   => baseHours * 10
           case _                     => -99999
         }
       }
@@ -47,34 +68,33 @@ final class UblogLike(colls: UblogColls)(implicit ec: ExecutionContext) {
 
   private def likesToHours(likes: UblogPost.Likes): Int =
     if (likes.value < 1) 0
-    else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
+    else (5 * math.log(likes.value) + 1).toInt.atMost(likes.value) * 12
 
-  private def countLikes(postId: UblogPost.Id): Fu[Option[(UblogBlog, UblogPost.Likes, DateTime)]] =
+  private def fetchRankData(postId: UblogPost.Id): Fu[Option[(UblogPost.Likes, DateTime, UblogBlog.Tier)]] =
     colls.post
-      .aggregateWith[Bdoc]() { framework =>
+      .aggregateOne() { framework =>
         import framework._
-        List(
-          Match($id(postId)),
+        Match($id(postId)) -> List(
           PipelineOperator($lookup.simple(colls.blog, "blog", "blog", "_id")),
+          UnwindField("blog"),
           Project(
             $doc(
-              "_id"      -> false,
-              "blog"     -> true,
-              "likes"    -> $doc("$size" -> "$likers"),
-              "lived.at" -> true
+              "_id"       -> false,
+              "blog.tier" -> true,
+              "likes"     -> $doc("$size" -> "$likers"),
+              "lived.at"  -> true
             )
           )
         )
       }
-      .headOption
       .map { docOption =>
         for {
           doc    <- docOption
           likes  <- doc.getAsOpt[UblogPost.Likes]("likes")
           lived  <- doc.getAsOpt[Bdoc]("lived")
-          liveAt <- doc.getAsOpt[DateTime]("at")
-          blogs  <- doc.getAsOpt[List[UblogBlog]]("blog")
-          blog   <- blogs.headOption
-        } yield (blog, likes, liveAt)
+          liveAt <- lived.getAsOpt[DateTime]("at")
+          blog   <- doc.getAsOpt[Bdoc]("blog")
+          tier   <- blog int "tier"
+        } yield (likes, liveAt, tier)
       }
 }

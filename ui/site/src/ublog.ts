@@ -16,4 +16,7 @@ lichess.load.then(() => {
         .then(likes => button.text(likes).toggleClass(likeClass, liked));
     })
   );
+  $('#form3-tier').on('change', function (this: HTMLSelectElement) {
+    (this.parentNode as HTMLFormElement).submit();
+  });
 });

@@ -112,7 +112,9 @@ object form {
         views.html.base.captcha(form, c)
       },
       form3.actions(
-        a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOf))(trans.cancel()),
+        a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOfPost))(
+          trans.cancel()
+        ),
         form3.submit(trans.apply())
       )
     )

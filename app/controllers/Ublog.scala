@@ -11,7 +11,8 @@ import lila.user.{ User => UserModel }
 
 final class Ublog(env: Env) extends LilaController(env) {
 
-  import views.html.ublog.post.{ editUrlOf, urlOf }
+  import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
+  import views.html.ublog.blog.{ urlOfBlog }
   import lila.common.paginator.Paginator.zero
 
   def index(username: String, page: Int) = Open { implicit ctx =>
@@ -19,7 +20,7 @@ final class Ublog(env: Env) extends LilaController(env) {
       OptionFuResult(env.user.repo named username) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (canViewBlogOf(user, blog) ?? env.ublog.paginator.byUser(user, true, page)) map { posts =>
-            Ok(html.ublog.index(user, posts))
+            Ok(html.ublog.blog(user, blog, posts))
           }
         }
       }
@@ -42,7 +43,7 @@ final class Ublog(env: Env) extends LilaController(env) {
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           env.ublog.api.findByIdAndBlog(UblogPost.Id(id), blog.id) flatMap {
             _.filter(canViewPost(user, blog)) ?? { post =>
-              if (slug != post.slug) Redirect(urlOf(post)).fuccess
+              if (slug != post.slug) Redirect(urlOfPost(post)).fuccess
               else {
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
                   ctx.me.??(env.ublog.like.liked(post)) map { case (others, liked) =>
@@ -94,7 +95,7 @@ final class Ublog(env: Env) extends LilaController(env) {
             CreateLimitPerUser(me.id, cost = if (me.isVerified) 1 else 3) {
               env.ublog.api.create(data, me) map { post =>
                 lila.mon.ublog.create(me.id).increment()
-                Redirect(editUrlOf(post)).flashSuccess
+                Redirect(editUrlOfPost(post)).flashSuccess
               }
             }(rateLimitedFu)
         )
@@ -120,7 +121,7 @@ final class Ublog(env: Env) extends LilaController(env) {
               err => BadRequest(html.ublog.form.edit(me, prev, err)).fuccess,
               data =>
                 env.ublog.api.update(data, prev, me) map { post =>
-                  Redirect(urlOf(post)).flashSuccess
+                  Redirect(urlOfPost(post)).flashSuccess
                 }
             )
         }
@@ -140,6 +141,24 @@ final class Ublog(env: Env) extends LilaController(env) {
     NotForKids {
       env.ublog.like(UblogPost.Id(id), me, v) map { likes =>
         Ok(likes.value)
+      }
+    }
+  }
+
+  def setTier(blogId: String) = SecureBody(_.ModerateBlog) { implicit ctx => me =>
+    UblogBlog.Id(blogId).??(env.ublog.api.getBlog) flatMap {
+      _ ?? { blog =>
+        implicit val body = ctx.body
+        lila.ublog.UblogForm.tier
+          .bindFromRequest()
+          .fold(
+            err => Redirect(urlOfBlog(blog)).flashFailure.fuccess,
+            tier =>
+              env.ublog.api.setTier(blog.id, tier) >>
+                env.ublog.like.recomputeRankOfAllPosts(blog.id) >> env.mod.logApi
+                  .blogTier(lila.report.Mod(me.user), blog.id.full, tier)
+                inject Redirect(urlOfBlog(blog)).flashSuccess
+          )
       }
     }
   }

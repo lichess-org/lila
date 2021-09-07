@@ -170,6 +170,7 @@ object ModActivity {
     case object Appeal       extends Action
     case object SetEmail     extends Action
     case object Streamer     extends Action
+    case object Blog         extends Action
     case object ForumAdmin   extends Action
     val dbMap = Map(
       "modMessage"      -> Message,
@@ -191,6 +192,7 @@ object ModActivity {
       "streamerDecline" -> Streamer,
       "streamerunlist"  -> Streamer,
       "streamerTier"    -> Streamer,
+      "blogTier"        -> Blog,
       "deletePost"      -> ForumAdmin,
       "closeTopic"      -> ForumAdmin
     )

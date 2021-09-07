@@ -107,7 +107,7 @@ final class UblogApi(
 
   def setTier(blog: UblogBlog.Id, tier: Int): Funit =
     colls.blog.update
-      .one($id(blog), $set("modTier" -> tier, "tier" -> tier))
+      .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
 
   private[ublog] def setShadowban(userId: User.ID, v: Boolean) = {
