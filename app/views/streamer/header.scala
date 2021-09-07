@@ -12,7 +12,7 @@ object header {
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context) =
     div(cls := "streamer-header")(
-      bits.pic(s.streamer, s.user),
+      bits.thumbnail(s.streamer, s.user),
       div(cls := "overview")(
         h1(dataIcon := "")(
           titleTag(s.user.title),

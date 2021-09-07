@@ -25,6 +25,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
+    picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,

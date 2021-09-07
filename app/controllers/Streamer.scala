@@ -1,10 +1,11 @@
 package controllers
 
+import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
-import play.api.libs.json._
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
 
@@ -167,23 +168,25 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
       }
     }
 
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "streamer.image.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 30, 1.day)
+  )
+
   def pictureApply =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
       AsStreamer { s =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>
-            api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
-              BadRequest(html.streamer.picture(s, e.getMessage.some))
-            } inject Redirect(routes.Streamer.edit)
-          case None => fuccess(Redirect(routes.Streamer.edit))
+            ImageRateLimitPerIp(ctx.ip) {
+              api.uploadPicture(s.streamer, pic, me) recover { case e: Exception =>
+                BadRequest(html.streamer.picture(s, e.getMessage.some))
+              } inject Redirect(routes.Streamer.edit)
+            }(rateLimitedFu)
+          case None => Redirect(routes.Streamer.edit).flashFailure.fuccess
         }
-      }
-    }
-
-  def pictureDelete =
-    Auth { implicit ctx => _ =>
-      AsStreamer { s =>
-        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit)
       }
     }
 

@@ -59,10 +59,6 @@ $mq-picture: $mq-medium;
   .picture {
     flex: 0 0 300px;
 
-    &.default {
-      opacity: 0.3;
-    }
-
     display: none;
 
     @include breakpoint($mq-picture) {

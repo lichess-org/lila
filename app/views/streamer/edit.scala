@@ -34,7 +34,7 @@ object edit extends Context.ToLang {
                   href := routes.Streamer.picture,
                   title := changePicture.txt()
                 )(
-                  bits.pic(s.streamer, s.user)
+                  bits.thumbnail(s.streamer, s.user)
                 )
               else
                 div(cls := "picture-create")(

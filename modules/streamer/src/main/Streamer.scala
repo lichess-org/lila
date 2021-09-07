@@ -2,13 +2,14 @@ package lila.streamer
 
 import org.joda.time.DateTime
 
+import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 
 case class Streamer(
     _id: Streamer.Id, // user ID
     listed: Streamer.Listed,
     approval: Streamer.Approval,
-    picturePath: Option[Streamer.PicturePath],
+    picture: Option[PicfitImage.Id],
     name: Streamer.Name,
     headline: Option[Streamer.Headline],
     description: Option[Streamer.Description],
@@ -26,7 +27,7 @@ case class Streamer(
 
   def is(user: User) = userId == user.id
 
-  def hasPicture = picturePath.isDefined
+  def hasPicture = picture.isDefined
 
   def isListed = listed.value && approval.granted
 
@@ -49,7 +50,7 @@ object Streamer {
         chatEnabled = true,
         lastGrantedAt = none
       ),
-      picturePath = none,
+      picture = none,
       name = Name(user.realNameOrUsername),
       headline = none,
       description = none,

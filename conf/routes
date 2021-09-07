@@ -248,7 +248,6 @@ POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
-POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
 GET   /streamer/:username              controllers.Streamer.show(username: String)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: String)
 
