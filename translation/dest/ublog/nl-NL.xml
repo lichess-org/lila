@@ -16,7 +16,7 @@
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Eén weergave</item>
-    <item quantity="other">%s keer bekeken</item>
+    <item quantity="other">%s weergaves</item>
   </plurals>
   <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
   <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
