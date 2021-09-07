@@ -62,7 +62,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="managed">Verwaltet</string>
   <string name="thisStudentAccountIsManaged">Dieses Schülerkonto wird verwaltet</string>
   <string name="upgradeFromManaged">Aufwerten von verwaltet zu selbstständig</string>
-  <string name="release">Hochstufen</string>
+  <string name="release">Freigeben</string>
   <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
