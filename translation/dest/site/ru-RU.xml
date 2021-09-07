@@ -979,6 +979,7 @@
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
   <string name="markdownAvailable">%s доступен для расширенного форматирования.</string>
+  <string name="embedsAvailable">Вставьте URL игры или ссылку на студию, чтобы встроить её.</string>
   <string name="inYourLocalTimezone">В вашем часовом поясе</string>
   <string name="tournChat">Чат турнира</string>
   <string name="noChat">Без чата</string>
