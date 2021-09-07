@@ -5,6 +5,9 @@ import discussionView from './discussion';
 import { noteView } from './note';
 import { moderationView } from './moderation';
 
+import type * as palantir from 'palantir';
+type PalantirModule = typeof palantir;
+
 export default function (ctrl: Ctrl): VNode {
   const mod = ctrl.moderation();
 
@@ -37,7 +40,7 @@ function renderPalantir(ctrl: Ctrl) {
             p.loaded = true;
             lichess.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
               lichess.loadModule('palantir').then(() => {
-                p.instance = window.palantir!.palantir({
+                p.instance = (window.Palantir as PalantirModule).palantir({
                   uid: ctrl.data.userId!,
                   redraw: ctrl.redraw,
                 });

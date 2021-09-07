@@ -120,14 +120,6 @@ interface LichessSpeech {
   step(s: { san?: San }, cut: boolean): void;
 }
 
-interface PalantirOpts {
-  uid: string;
-  redraw(): void;
-}
-interface Palantir {
-  render(h: any): any;
-}
-
 interface Cookie {
   name: string;
   value: string;
@@ -250,9 +242,6 @@ interface Window {
   readonly hopscotch: any;
   LichessSpeech?: LichessSpeech;
   readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
-  readonly palantir?: {
-    palantir(opts: PalantirOpts): Palantir;
-  };
   LichessChat: (element: Element, opts: any) => any;
   readonly LichessFlatpickr: (element: Element, opts: any) => any;
   readonly LichessNotify: (element: any, opts: any) => any;
@@ -268,6 +257,7 @@ interface Window {
   readonly Sortable: any;
   readonly Peer: any;
 
+  readonly Palantir: unknown;
   readonly passwordComplexity: unknown;
   readonly Tagify: unknown;
 }

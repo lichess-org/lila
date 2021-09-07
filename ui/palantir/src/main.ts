@@ -1,3 +1,5 @@
+import type * as snabbdom from 'snabbdom';
+
 type State =
   | 'off'
   | 'opening'
@@ -9,9 +11,21 @@ type State =
   | 'on'
   | 'stopping';
 
-export function palantir(opts: PalantirOpts) {
+interface PalantirOpts {
+  uid: string;
+  redraw(): void;
+}
+
+export interface Palantir {
+  render(h: typeof snabbdom.h): any;
+}
+
+export function palantir(opts: PalantirOpts): Palantir | undefined {
   const devices = navigator.mediaDevices;
-  if (!devices) return alert('Voice chat requires navigator.mediaDevices');
+  if (!devices) {
+    alert('Voice chat requires navigator.mediaDevices');
+    return;
+  }
 
   let state: State = 'off',
     peer: any | undefined,

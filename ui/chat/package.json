@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "common": "2.0.0",
+    "palantir": "2.0.0",
     "snabbdom": "^3.0.1"
   },
   "devDependencies": {

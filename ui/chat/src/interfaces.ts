@@ -2,6 +2,8 @@ import { VNode } from 'snabbdom';
 import { PresetCtrl } from './preset';
 import { Prop } from 'common';
 
+import type { Palantir } from 'palantir';
+
 export interface ChatOpts {
   data: ChatData;
   writeable: boolean;
