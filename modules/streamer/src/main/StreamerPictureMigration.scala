@@ -1,5 +1,6 @@
 package lila.streamer
 
+import scala.concurrent.duration._
 import akka.stream.scaladsl._
 import play.api.libs.Files
 import play.api.mvc.MultipartFormData
@@ -29,6 +30,7 @@ final private class StreamerPictureMigration(
       .sort($sort desc "liveAt")
       .cursor[Bdoc]()
       .documentSource()
+      .throttle(20, 1 second)
       .mapAsync(1)(migrate)
       .via(lila.common.LilaStream.logRate[Unit]("streamer.picfit.migration")(logger))
       .toMat(LilaStream.sinkCount)(Keep.right)
