@@ -14,6 +14,10 @@
     <item quantity="one">Bir blog gönderisi yayımladı</item>
     <item quantity="other">%s blog gönderisi yayımladı</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Bir görüntülenme</item>
+    <item quantity="other">%s görüntülenme</item>
+  </plurals>
   <string name="xPublishedY">%1$s yayımladı: %2$s</string>
   <string name="thisPostIsPublished">Bu gönderi yayımlanmıştır</string>
   <string name="thisIsADraft">Bu bir taslaktır</string>
