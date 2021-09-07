@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="xBlog">%s' Blog</string>
+  <string name="xBlog">%s's Blog</string>
   <string name="newPost">New post</string>
   <string name="editYourBlogPost">Edit your blog post</string>
   <string name="postTitle">Post title</string>

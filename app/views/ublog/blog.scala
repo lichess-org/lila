@@ -14,7 +14,7 @@ object blog {
   import views.html.ublog.{ post => postView }
 
   def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = {
-    val title = blog.title | "Blog"
+    val title = blog.title | trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
@@ -29,7 +29,7 @@ object blog {
     ) {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(
-          h1(title),
+          h1(trans.ublog.xBlog(userLink(user))),
           if (ctx is user)
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
