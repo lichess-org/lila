@@ -14,6 +14,10 @@
     <item quantity="one">Published a blog post</item>
     <item quantity="other">Published %s blog posts</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Una visualización</item>
+    <item quantity="other">%s visualizaciones</item>
+  </plurals>
   <string name="xPublishedY">%1$s published %2$s</string>
   <string name="thisPostIsPublished">This post is published</string>
   <string name="thisIsADraft">This is a draft</string>
