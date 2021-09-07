@@ -62,6 +62,7 @@ GET   /@/:username/blog                controllers.Ublog.index(username: String,
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: String, slug: String, id: String)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: String, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username: String)
+GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: String)
 POST  /ublog/new                       controllers.Ublog.create
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: String)
 POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: String)

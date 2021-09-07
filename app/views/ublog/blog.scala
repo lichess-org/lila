@@ -13,18 +13,23 @@ object blog {
 
   import views.html.ublog.{ post => postView }
 
-  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+  def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = {
+    val title = blog.title | "Blog"
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
         posts.hasNextPage option infiniteScrollTag,
         ctx.isAuth option jsModule("ublog")
       ),
-      title = trans.ublog.xBlog.txt(user.username)
+      title = title,
+      atomLinkTag = link(
+        href := routes.Ublog.userAtom(user.username),
+        st.title := title
+      ).some
     ) {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(
-          h1(trans.ublog.xBlog(userLink(user))),
+          h1(title),
           if (ctx is user)
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
@@ -44,6 +49,7 @@ object blog {
           )
       )
     }
+  }
 
   def urlOfBlog(blog: UblogBlog) = blog.id match {
     case UblogBlog.Id.User(userId) => routes.Ublog.index(usernameOrId(userId))

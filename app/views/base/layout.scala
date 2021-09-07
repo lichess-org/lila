@@ -197,7 +197,8 @@ object layout {
       chessground: Boolean = true,
       zoomable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
-      wrapClass: String = ""
+      wrapClass: String = "",
+      atomLinkTag: Option[Tag] = None
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,
@@ -229,11 +230,12 @@ object layout {
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
-          link(
+          (atomLinkTag | link(
             href := routes.Blog.atom,
-            tpe := "application/atom+xml",
-            rel := "alternate",
             st.title := trans.blog.txt()
+          ))(
+            tpe := "application/atom+xml",
+            rel := "alternate"
           ),
           ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(

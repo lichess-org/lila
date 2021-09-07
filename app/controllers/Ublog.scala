@@ -211,8 +211,22 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def userAtom(username: String) = Action.async {
+    env.user.repo.enabledNamed(username) flatMap {
+      case None => NotFound.fuccess
+      case Some(user) =>
+        env.ublog.api.getUserBlog(user) flatMap { blog =>
+          (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
+            Ok(html.ublog.atom(user, blog, posts.currentPageResults)) as XML
+          }
+        }
+    }
+  }
+
+  private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled && blog.visible
+
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(implicit ctx: Context) =
-    ctx.is(user) || isGranted(_.ModerateBlog) || (user.enabled && blog.visible)
+    ctx.is(user) || isGranted(_.ModerateBlog) || isBlogVisible(user, blog)
 
   private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(implicit ctx: Context) =
     canViewBlogOf(user, blog) && (ctx.is(user) || post.live)
