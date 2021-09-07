@@ -65,7 +65,7 @@ final class Blog(
         blogApi.masterContext flatMap { implicit prismic =>
           blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
             _ ?? { docs =>
-              views.html.blog.atom(docs, env.net.baseUrl).render
+              views.html.blog.atom(docs).render
             }
           }
         }
