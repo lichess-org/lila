@@ -188,9 +188,9 @@
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="rank">순위</string>
-  <string name="rankX">랭킹: %s</string>
+  <string name="rankX">순위: %s등</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="other">매 %s분 순위가 새로고침됩니다.</item>
+    <item quantity="other">순위는 매 %s분마다 갱신됩니다.</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
@@ -400,7 +400,7 @@
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="berserkRate">버서크율</string>
-  <string name="performance">승점</string>
+  <string name="performance">레이팅 점수</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">하얀 말로 우승</string>
