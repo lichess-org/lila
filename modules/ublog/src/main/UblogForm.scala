@@ -20,7 +20,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 100),
       "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 2_000),
       "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
-      "language" -> stringIn(LangList.popularNoRegion.map(_.code).toSet),
+      "language" -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
       "live"     -> boolean,
       "gameId"   -> text,
       "move"     -> text
@@ -36,7 +36,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         title = post.title,
         intro = post.intro,
         markdown = post.markdown,
-        language = post.language.code,
+        language = post.language.code.some,
         live = post.live,
         gameId = "",
         move = ""
@@ -50,13 +50,13 @@ object UblogForm {
       title: String,
       intro: String,
       markdown: String,
-      language: String,
+      language: Option[String],
       live: Boolean,
       gameId: String,
       move: String
   ) {
 
-    def realLanguage = Lang.get(language)
+    def realLanguage = language flatMap Lang.get
 
     def create(user: User) = {
       val now = DateTime.now
