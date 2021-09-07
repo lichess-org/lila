@@ -54,4 +54,6 @@
   <string name="skip">пропустить</string>
   <string name="skipHelp">НОВИНКА! Вы можете пропустить один ход за гонку:</string>
   <string name="skipExplanation">Пропустить этот ход, чтобы сохранить комбо! Только один раз за гонку.</string>
+  <string name="failedPuzzles">Нерешённые задачи</string>
+  <string name="slowPuzzles">Долго решаемые задачи</string>
 </resources>
