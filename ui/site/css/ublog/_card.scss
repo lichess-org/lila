@@ -36,6 +36,7 @@
 
     &__image {
       width: 100%;
+      height: auto;
       &.ublog-post-image-default {
         background-image: img-url('placeholder-margin.png');
         background-size: cover;
