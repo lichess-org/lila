@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <plurals name="nbViews" comment="nbViews [one] [other]&#10;&#10;*PLEASE READ*&#10;The number of people that viewed your blog post. It's views by IP address. So they may not be fully unique but it will usually be the number of people.&#10;&#10;To prevent bloggers 'gaming the system', please translate it as the number of times it has been seen">
+    <item quantity="one">Ein syning</item>
+    <item quantity="other">%s syningar</item>
+  </plurals>
   <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
   <string name="noDrafts">Ingen utkast å visa.</string>
 </resources>
