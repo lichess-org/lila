@@ -16,6 +16,12 @@
     <item quantity="few">Objavljene objave v spletnem dnevniku %s</item>
     <item quantity="other">Objavljene objave v spletnem dnevniku %s</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">En pogled</item>
+    <item quantity="two">Dva ogleda</item>
+    <item quantity="few">%s ogledi</item>
+    <item quantity="other">%s ogledov</item>
+  </plurals>
   <string name="xPublishedY">%1$s objavil %2$s</string>
   <string name="thisPostIsPublished">Ta objava je objavljena</string>
   <string name="thisIsADraft">To je osnutek</string>
