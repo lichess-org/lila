@@ -62,6 +62,7 @@
     &__image {
       @extend %box-neat-force;
       width: 100%;
+      height: auto;
     }
     &__intro {
       font-size: 1.2em;

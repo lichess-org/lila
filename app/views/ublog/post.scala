@@ -120,7 +120,11 @@ object post {
 
   object thumbnail {
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
-      img(cls := "ublog-post-image")(src := url(post, size))
+      img(
+        cls := "ublog-post-image",
+        width := size(UblogPost.thumbnail).width,
+        height := size(UblogPost.thumbnail).height
+      )(src := url(post, size))
 
     def url(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       post.image match {
