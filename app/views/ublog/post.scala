@@ -122,8 +122,8 @@ object post {
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       img(
         cls := "ublog-post-image",
-        width := size(UblogPost.thumbnail).width,
-        height := size(UblogPost.thumbnail).height
+        widthA := size(UblogPost.thumbnail).width,
+        heightA := size(UblogPost.thumbnail).height
       )(src := url(post, size))
 
     def url(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
