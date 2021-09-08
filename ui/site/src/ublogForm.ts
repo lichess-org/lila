@@ -39,7 +39,7 @@ lichess.load.then(() => {
         autofocus: false,
         events: {
           change() {
-            $('#form3-markdown').val(editor.getMarkdown());
+            $('#form3-markdown').val(editor.getMarkdown().replace(/<br>/g, ''));
           },
         },
         hooks: {
