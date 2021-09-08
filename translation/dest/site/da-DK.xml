@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Skjul/Vis chat</string>
   <string name="toggleSound">Slå lyd til/fra</string>
   <string name="chat">Chat</string>
-  <string name="resign">Kapituler</string>
+  <string name="resign">Giv op</string>
   <string name="checkmate">Skakmat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Hvid</string>
@@ -32,7 +32,7 @@
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
-  <string name="joinTheGame">Start spillet</string>
+  <string name="joinTheGame">Deltag i spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
