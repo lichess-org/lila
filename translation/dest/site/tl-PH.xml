@@ -862,4 +862,32 @@
   <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
 Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
   <string name="coachManager">Tagapamahala ng coach</string>
+  <string name="streamerManager">Tagapamahala ng streamer</string>
+  <string name="cancelTournament">Kanselahin ang paligsahan</string>
+  <string name="tournDescription">Paglalarawan ng paligsahan</string>
+  <string name="tournDescriptionHelp">Anumang espesyal na nais mong sabihin sa mga kalahok? Sikaping gawing maikli ito. Magagamit ang mga link sa markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Na-rate ang mga laro
+at epekto sa mga rating ng mga manlalaro</string>
+  <string name="onlyMembersOfTeam">Mga miyembro lamang ng koponan</string>
+  <string name="noRestriction">Wala restriksyon</string>
+  <string name="minimumRatedGames">Minimum na na-rate na mga laro</string>
+  <string name="minimumRating">Minimum na rating</string>
+  <string name="maximumWeeklyRating">Maximum na lingguhang rating</string>
+  <string name="onlyTitled">Mga manlalaro lamang na may pamagat</string>
+  <string name="onlyTitledHelp">Humiling ng isang opisyal na pamagat upang sumali sa paligsahan</string>
+  <string name="positionInputHelp">I-paste ang isang wastong FEN upang simulan ang bawat laro mula sa isang naibigay na posisyon.
+Gumagawa lamang ito para sa karaniwang mga laro, hindi sa mga iba-iba.
+Maaari mong gamitin ang %s upang makabuo ng isang posisyon ng FEN, pagkatapos ay i-paste ito dito.
+Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang posisyon.</string>
+  <string name="cancelSimul">Kanselahin ang simul</string>
+  <string name="simulHostcolor">Kulay ng host para sa bawat laro</string>
+  <string name="estimatedStart">Tinantyang oras ng pagsisimula</string>
+  <string name="simulFeatured">Tampok sa %s</string>
+  <string name="simulFeaturedHelp">Ipakita ang iyong simul sa lahat sa %s. Huwag paganahin para sa mga pribadong simul.</string>
+  <string name="simulDescription">Simul Paglalarawan</string>
+  <string name="simulDescriptionHelp">Anumang nais mong sabihin sa mga kalahok?</string>
+  <string name="markdownAvailable">%s ay magagamit para sa mas advanced na syntax.</string>
+  <string name="embedsAvailable">I-paste ang isang URL ng laro o isang URL ng kabanata ng pag-aaral upang mai-embed ito.</string>
+  <string name="inYourLocalTimezone">Sa iyong sariling lokal na timezone</string>
+  <string name="tournChat">Chat sa paligsahan</string>
 </resources>
