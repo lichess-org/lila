@@ -18,6 +18,8 @@
   <string name="rule1">Συμπεριλάβετε την λέξη-κλειδί \"lichess.org\" στο τίτλο μετάδοσης και χρησιμοποιήστε την κατηγορία \"Chess\" όταν μεταδίδετε στο Lichess.</string>
   <string name="rule2">Διαγράψτε τη λέξη-κλειδί αυτή όταν σταματήσετε να μεταδίδετε θέματα σχετικά με το Lichess.</string>
   <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα έχετε τα ακόλουθα πλεονεκτήματα:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Διαβάστε τις %s για να εξασφαλίσετε ένα δίκαιο παιχνίδι για όλους κατά τη διάρκεια της ζωντανής ροής σας.</string>
+  <string name="streamingFairplayFAQ">συχνές ερωτήσεις σχετικά με το fair play στις ζωντανές ροές</string>
   <string name="perks">Πλεονεκτήματα μετάδοσης με τη λέξη-κλειδί</string>
   <string name="perk1">Αποκτήστε το εικονίδιο του flaming streamer στο προφίλ σας στο Lichess.</string>
   <string name="perk2">Ανεβείτε στη κορυφή της λίστας των streamers.</string>
