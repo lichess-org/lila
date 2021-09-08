@@ -14,6 +14,10 @@
     <item quantity="one">Publicerede et blogindlæg</item>
     <item quantity="other">Publicerede %s blogindlæg</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Én visning</item>
+    <item quantity="other">%s visninger</item>
+  </plurals>
   <string name="xPublishedY">%1$s publicerede %2$s</string>
   <string name="thisPostIsPublished">Dette indlæg er publiceret</string>
   <string name="thisIsADraft">Dette er et udkast</string>

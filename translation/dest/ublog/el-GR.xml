@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
+  <string name="newPost">Καινούργια ανάρτηση</string>
+  <string name="editYourBlogPost">Επεξεργαστείτε την ανάρτηση του ιστολογίου σας</string>
+  <string name="postTitle">Τίτλος ανάρτησης</string>
+  <string name="postIntro">Εισαγωγή ανάρτησης</string>
+  <string name="postBody">Μορφή ανάρτησης</string>
+  <string name="drafts">Προσχέδιο</string>
+  <string name="published">Αναρτήθηκε</string>
+  <string name="publishOnYourBlog">Δημοσίευση στο ιστολόγιό σας</string>
+  <string name="publishHelp">Εάν επιλεχθεί, τότε η δημοσίευση θα υπάρχει στο ιστολόγιό σας. Εάν όχι, θα είναι ιδιωτική, στις προσχέδιες αναρτήσεις σας</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Δημοσιεύθηκε μια ανάρτηση ιστολογίου</item>
+    <item quantity="other">Δημοσιεύθηκαν οι αναρτήσεις ιστολογίου του %s</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Μία εμφάνιση</item>
+    <item quantity="other">%s εμφανίσεις</item>
+  </plurals>
   <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
+  <string name="thisPostIsPublished">Αυτή η δημοσίευση αναρτήθηκε</string>
+  <string name="thisIsADraft">Αυτό είναι ένα προσχέδιο</string>
+  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις ιστολογίου από τον χρήστη %s</string>
+  <string name="noPostsInThisBlogYet">Δεν έχουν καταχωρηθεί δημοσιεύσεις σε αυτό το ιστολόγιο ακόμα.</string>
+  <string name="noDrafts">Δεν υπάρχουν προσχέδια για εμφάνιση.</string>
 </resources>

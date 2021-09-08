@@ -14,6 +14,10 @@
     <item quantity="one">Blogbejegyzést tett közzé</item>
     <item quantity="other">Blogbejegyzést tett közzé</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Egy megtekintés</item>
+    <item quantity="other">%s megtekintés</item>
+  </plurals>
   <string name="xPublishedY">%1$s közzétette a %2$s nevű bejegyzést</string>
   <string name="thisPostIsPublished">Ez a bejegyzés nyilvános</string>
   <string name="thisIsADraft">Ez egy vázlat</string>
