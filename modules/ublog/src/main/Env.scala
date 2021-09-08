@@ -23,9 +23,9 @@ final class Env(
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
-  val api = wire[UblogApi]
+  val rank = wire[UblogRank]
 
-  val like = wire[UblogLike]
+  val api = wire[UblogApi]
 
   val paginator = wire[UblogPaginator]
 
@@ -37,7 +37,7 @@ final class Env(
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, v) =>
     api.setShadowban(userId, v) >>
-      like.recomputeRankOfAllPosts(UblogBlog.Id.User(userId))
+      rank.recomputeRankOfAllPosts(UblogBlog.Id.User(userId))
     ()
   }
 }

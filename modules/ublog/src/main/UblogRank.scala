@@ -7,7 +7,7 @@ import lila.db.dsl._
 import lila.user.User
 import org.joda.time.DateTime
 
-final class UblogLike(colls: UblogColls)(implicit ec: ExecutionContext) {
+final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 
@@ -16,7 +16,7 @@ final class UblogLike(colls: UblogColls)(implicit ec: ExecutionContext) {
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
-  def apply(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
+  def like(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
     fetchRankData(postId).flatMap {
       case None => fuccess(UblogPost.Likes(v ?? 1))
       case Some((prevLikes, liveAt, tier)) =>
@@ -52,23 +52,25 @@ final class UblogLike(colls: UblogColls)(implicit ec: ExecutionContext) {
       }
     }
 
-  private def computeRank(likes: UblogPost.Likes, liveAt: DateTime, tier: UblogBlog.Tier) =
-    UblogPost.Rank {
-      liveAt plusHours {
-        val baseHours = likesToHours(likes)
-        tier match {
-          case UblogBlog.Tier.LOW    => (baseHours * 0.3).toInt
-          case UblogBlog.Tier.NORMAL => baseHours
-          case UblogBlog.Tier.HIGH   => baseHours * 3
-          case UblogBlog.Tier.BEST   => baseHours * 10
-          case _                     => -99999
-        }
-      }
+  def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.Rank] =
+    post.lived map { lived =>
+      computeRank(post.likes, lived.at, blog.tier)
     }
 
-  private def likesToHours(likes: UblogPost.Likes): Int =
-    if (likes.value < 1) 0
-    else (5 * math.log(likes.value) + 1).toInt.atMost(likes.value) * 12
+  private def computeRank(likes: UblogPost.Likes, liveAt: DateTime, tier: UblogBlog.Tier) = UblogPost.Rank {
+    liveAt plusHours {
+      val baseHours =
+        if (likes.value < 1) 0
+        else (5 * math.log(likes.value) + 1).toInt.atMost(likes.value) * 12
+      tier match {
+        case UblogBlog.Tier.LOW    => (baseHours * 0.3).toInt
+        case UblogBlog.Tier.NORMAL => baseHours
+        case UblogBlog.Tier.HIGH   => baseHours * 3
+        case UblogBlog.Tier.BEST   => baseHours * 10
+        case _                     => -99999
+      }
+    }
+  }
 
   private def fetchRankData(postId: UblogPost.Id): Fu[Option[(UblogPost.Likes, DateTime, UblogBlog.Tier)]] =
     colls.post

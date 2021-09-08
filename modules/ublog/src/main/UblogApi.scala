@@ -11,6 +11,7 @@ import lila.hub.actorApi.timeline.Propagate
 
 final class UblogApi(
     colls: UblogColls,
+    rank: UblogRank,
     userRepo: UserRepo,
     picfitApi: PicfitApi,
     picfitUrl: PicfitUrl,
@@ -33,19 +34,23 @@ final class UblogApi(
     getUserBlog(user, insertMissing = true) flatMap { blog =>
       val post = data.update(user, prev)
       colls.post.update.one($id(prev.id), $set(postBSONHandler.writeTry(post).get)) >> {
-        (post.live && prev.lived.isEmpty) ?? {
-          sendImageToZulip(user, post) >>- {
-            lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-            if (blog.visible)
-              timeline ! {
-                Propagate(
-                  lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
-                ) toFollowersOf user.id
-              }
-          }
-        }
+        (post.live && prev.lived.isEmpty) ?? onFirstPublish(user, blog, post)
       } inject post
     }
+
+  private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
+    rank.computeRank(blog, post).?? { rank =>
+      colls.post.updateField($id(post.id), "rank", rank).void
+    } >>
+      sendImageToZulip(user, post) >>- {
+        lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+        if (blog.visible)
+          timeline ! {
+            Propagate(
+              lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
+            ) toFollowersOf user.id
+          }
+      }
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {

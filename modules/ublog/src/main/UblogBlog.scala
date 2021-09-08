@@ -11,7 +11,7 @@ case class UblogBlog(
 ) {
   def id      = _id
   def visible = tier >= UblogBlog.Tier.VISIBLE
-  def mashup  = tier >= UblogBlog.Tier.LOW
+  def listed  = tier >= UblogBlog.Tier.LOW
 }
 
 object UblogBlog {

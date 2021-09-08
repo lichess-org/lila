@@ -45,7 +45,7 @@ final class Ublog(env: Env) extends LilaController(env) {
               if (slug != post.slug) Redirect(urlOfPost(post)).fuccess
               else {
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
-                  ctx.me.??(env.ublog.like.liked(post)) map { case (others, liked) =>
+                  ctx.me.??(env.ublog.rank.liked(post)) map { case (others, liked) =>
                     env.ublog.viewCounter(post, ctx.ip)
                     val markup = scalatags.Text.all.raw(env.ublog.markup(post))
                     Ok(html.ublog.post(user, blog, post, markup, others, liked))
@@ -138,7 +138,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def like(id: String, v: Boolean) = Auth { implicit ctx => me =>
     NotForKids {
-      env.ublog.like(UblogPost.Id(id), me, v) map { likes =>
+      env.ublog.rank.like(UblogPost.Id(id), me, v) map { likes =>
         Ok(likes.value)
       }
     }
@@ -154,7 +154,7 @@ final class Ublog(env: Env) extends LilaController(env) {
             err => Redirect(urlOfBlog(blog)).flashFailure.fuccess,
             tier =>
               env.ublog.api.setTier(blog.id, tier) >>
-                env.ublog.like.recomputeRankOfAllPosts(blog.id) >> {
+                env.ublog.rank.recomputeRankOfAllPosts(blog.id) >> {
                   blog.id match {
                     case UblogBlog.Id.User(userId) =>
                       env.mod.logApi.blogTier(lila.report.Mod(me.user), userId, UblogBlog.Tier.name(tier))
