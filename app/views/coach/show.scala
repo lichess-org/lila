@@ -39,7 +39,7 @@ object show {
           description = shorten(~(c.coach.profile.headline), 152),
           url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
           `type` = "profile",
-          image = c.coach.picturePath.map(p => dbImageUrl(p.value))
+          image = c.coach.picture.isDefined option picture.thumbnail.url(c.coach)
         )
         .some
     ) {

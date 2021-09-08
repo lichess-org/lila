@@ -43,11 +43,11 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
     }
 
   object thumbnail {
-    val size = 300
+    val size = 350
     def apply(s: lila.streamer.Streamer, u: User) =
       img(
-        width := size,
-        height := size,
+        widthA := size,
+        heightA := size,
         cls := "picture",
         src := url(s),
         alt := s"${u.titleUsername} Lichess streamer picture"

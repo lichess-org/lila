@@ -20,6 +20,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
+    picfitApi: lila.memo.PicfitApi,
     imageRepo: lila.db.ImageRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -33,7 +34,7 @@ final class Env(
     coachColl = coachColl,
     userRepo = userRepo,
     reviewColl = db(config.reviewColl),
-    photographer = photographer,
+    picfitApi = picfitApi,
     notifyApi = notifyApi,
     cacheApi = cacheApi
   )
@@ -59,4 +60,8 @@ final class Env(
         black ?? api.setRating
       }.unit
   }
+
+  // system.scheduler.scheduleOnce(1 minute) {
+  //   wire[StreamerPictureMigration]().unit
+  // }
 }
