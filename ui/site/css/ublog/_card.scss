@@ -45,7 +45,7 @@
       transition: 0.6s all ease-in-out;
       overflow: hidden;
       transform-origin: bottom;
-      &:hover {
+      .ublog-post-card:hover & {
         transform: scale(1.02);
       }
     }
