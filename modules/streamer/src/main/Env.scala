@@ -42,8 +42,6 @@ final class Env(
 
   private lazy val streamerColl = db(config.streamerColl)
 
-  private lazy val photographer = new lila.db.Photographer(imageRepo, "streamer")
-
   lazy val alwaysFeaturedSetting = {
     import lila.memo.SettingStore.UserIds._
     import lila.common.UserIds

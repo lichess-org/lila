@@ -29,8 +29,6 @@ final class Env(
 
   private lazy val coachColl = db(config.coachColl)
 
-  private lazy val photographer = new lila.db.Photographer(imageRepo, "coach")
-
   lazy val api = new CoachApi(
     coachColl = coachColl,
     userRepo = userRepo,

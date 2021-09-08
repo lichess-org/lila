@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.db.Photographer
 import lila.memo.PicfitApi
 import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter

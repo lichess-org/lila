@@ -21,7 +21,7 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
   chess, compression, scalalib, hasher,
   reactivemongo.driver, reactivemongo.kamon, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
-  scrimage, scaffeine, lettuce, uaparser
+  scaffeine, lettuce, uaparser
 ) ++ {
   if (useEpoll) Seq(epoll, reactivemongo.epoll)
   else Seq.empty
@@ -147,7 +147,7 @@ lazy val history = module("history",
 
 lazy val db = smallModule("db",
   Seq(common),
-  Seq(hasher, scrimage) ++ reactivemongo.bundle
+  Seq(hasher) ++ reactivemongo.bundle
 )
 
 lazy val memo = smallModule("memo",
