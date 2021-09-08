@@ -36,6 +36,7 @@
   <string name="raceComplete">Cuộc đua kết thúc!</string>
   <string name="spectating">Đang xem</string>
   <string name="joinTheRace">Tham gia cuộc đua!</string>
+  <string name="startTheRace">Bắt đầu cuộc đua</string>
   <string name="yourRankX">Thứ hạng của bạn: %s</string>
   <string name="waitForRematch">Đang đợi đấu lại</string>
   <string name="nextRace">Cuộc đua kế tiếp</string>
@@ -46,4 +47,7 @@
   <string name="raceYourFriends">Đua với bạn bè của bạn</string>
   <string name="skip">bỏ qua</string>
   <string name="skipHelp">Bạn có thể bỏ qua một nước đi mỗi ván chơi:</string>
+  <string name="skipExplanation">Bỏ qua nước đi này để bảo toàn chuỗi của bạn! Chỉ dùng được một lần mỗi cuộc đua.</string>
+  <string name="failedPuzzles">Các thế cờ làm sai</string>
+  <string name="slowPuzzles">Các thế cờ làm chậm</string>
 </resources>
