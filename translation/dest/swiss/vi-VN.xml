@@ -44,6 +44,9 @@ Cộng điểm số của tất cả người chơi mà người này thắng v�
   <string name="pairingsQ">Các cặp đấu được xác định như thế nào?</string>
   <string name="dutchSystem">Khai cuộc Hà Lan</string>
   <string name="FIDEHandbook">Sổ tay FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Điều gì xảy ra khi giải đấu có số lượng vòng đấu lớn hơn số lượng người chơi?</string>
+  <string name="moreRoundsThanPlayersA">Khi tất cả các cặp đấu có thể đã được chơi, giải đấu kết thúc và sẽ có một người thắng cuộc.</string>
+  <string name="restrictedToTeamsQ">Tại sao lại chỉ có đội được dùng?</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
   <string name="nowPlaying">Đang chơi</string>
   <string name="startingSoon">Sắp bắt đầu</string>
