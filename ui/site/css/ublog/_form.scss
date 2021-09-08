@@ -37,9 +37,12 @@
   height: 80vh;
   .toastui-editor {
     &-defaultUI {
-      border-color: $c-border;
+      border: none;
       &-toolbar {
-        @extend %metal;
+        @extend %metal, %box-radius-top;
+        border-radius: 3px 3px 0 0 !important;
+        border: 1px solid $c-border;
+        border-width: 1px 1px 0 1px;
       }
     }
     &-toolbar {
@@ -55,10 +58,42 @@
         }
       }
     }
-    &-contents {
+    &-ww-container,
+    &-md-container {
+      border: 1px solid $c-border;
+      border-width: 0 1px 1px 1px;
+      border-radius: 0 0 3px 3px;
+    }
+    &-md-preview,
+    .ProseMirror {
       @extend %base-font;
       font-size: 1rem;
       background: $c-bg-input;
+      color: $c-font;
+    }
+    &-contents {
+      & p,
+      & h2,
+      & h3,
+      & h4 {
+        color: $c-font;
+      }
+      & h2 {
+        border-color: $c-brag;
+      }
+      & h3 {
+        border: none;
+      }
+    }
+    &-mode-switch {
+      background-color: $c-bg-box;
+      border: none;
+      .tab-item {
+        background: $c-bg-box;
+        &.active {
+          @extend %metal;
+        }
+      }
     }
     &-popup-body li[data-type='Heading'] {
       &[data-level='1'],
