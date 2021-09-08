@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('node-sass'));
+const PluginError = require('plugin-error');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const sassInheritance = require('gulp-sass-inheritance');
@@ -31,18 +32,21 @@ const build = () =>
     //filter out internal imports (folders and files starting with "_" )
     .pipe(filter(file => !/\/_/.test(file.path) || !/^_/.test(file.relative)))
     .pipe(sourcemaps.init())
-    .pipe(sass(sassOptions).on('error', sass.logError))
+    .pipe(
+      sass(sassOptions).on('error', err => {
+        throw new PluginError('sass', err.messageFormatted, { showProperties: false });
+      })
+    )
     .pipe(sourcemaps.write())
     .pipe(renameAs('dev'))
     .pipe(destination());
 
-const setWatching = async () => {
+const startWatching = () => {
   global.isWatching = true;
+  gulp.watch(sourcesGlob, { ignoreInitial: false }, build);
 };
 
-const startWatching = () => gulp.watch(sourcesGlob, build);
-
-gulp.task('css', gulp.series([createThemedBuilds, setWatching, build, startWatching]));
+gulp.task('css', gulp.series([createThemedBuilds, startWatching]));
 
 gulp.task('css-dev', gulp.series([createThemedBuilds, build]));
 

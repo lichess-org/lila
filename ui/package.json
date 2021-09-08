@@ -22,7 +22,8 @@
     "gulp-sass-inheritance": "^1.1",
     "breakpoint-sass": "^2.7.1",
     "gulp-size": "^4.0.1",
-    "gulp-sourcemaps": "^3.0.0"
+    "gulp-sourcemaps": "^3.0.0",
+    "plugin-error": "^1.0.1"
   },
   "scripts": {
     "gulp": "gulp"
