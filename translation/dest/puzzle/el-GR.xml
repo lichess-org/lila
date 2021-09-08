@@ -80,4 +80,7 @@
     <item quantity="other">%s για επανάληψη</item>
   </plurals>
   <string name="percentSolved">%s λυμένα</string>
+  <string name="noPuzzlesToShow">Δεν υπάρχει τίποτα εδώ, ακόμα, λύστε μερικούς γρίφους πρώτα!</string>
+  <string name="improvementAreasDescription">Εκπαιδευτείτε σε αυτά για να βελτιώσετε την πρόοδό σας!</string>
+  <string name="strengthDescription">Τα πάτε καλύτερα στις εξής κατηγορίες</string>
 </resources>
