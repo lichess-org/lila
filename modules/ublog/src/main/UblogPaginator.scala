@@ -85,13 +85,13 @@ final class UblogPaginator(
                               "$and" -> $arr(
                                 $doc("$in" -> $arr(s"$$created.by", "$$users")),
                                 $doc("$eq" -> $arr("$live", true)),
-                                $doc("$gt" -> $arr("$liveAt", DateTime.now.minusMonths(3)))
+                                $doc("$gt" -> $arr("$lived.at", DateTime.now.minusMonths(3)))
                               )
                             )
                           )
                         ),
                         $doc("$project" -> previewPostProjection),
-                        $doc("$sort"    -> $doc("liveAt" -> -1)),
+                        $doc("$sort"    -> $doc("lived.at" -> -1)),
                         $doc("$skip"    -> offset),
                         $doc("$limit"   -> length)
                       )
