@@ -48,7 +48,7 @@ final class Ublog(env: Env) extends LilaController(env) {
                   ctx.me.??(env.ublog.like.liked(post)) map { case (others, liked) =>
                     env.ublog.viewCounter(post, ctx.ip)
                     val markup = scalatags.Text.all.raw(env.ublog.markup(post))
-                    Ok(html.ublog.post(user, post, markup, others, liked))
+                    Ok(html.ublog.post(user, blog, post, markup, others, liked))
                   }
               }
             }

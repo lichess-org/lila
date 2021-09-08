@@ -48,6 +48,9 @@ object UblogBlog {
       HIGH    -> "High tier",
       BEST    -> "Best tier"
     )
+    def name(tier: Tier) = options.collectFirst {
+      case (t, n) if t == tier => n
+    } | "???"
   }
 
   def make(user: User) = UblogBlog(

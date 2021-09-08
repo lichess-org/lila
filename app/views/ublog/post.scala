@@ -12,8 +12,15 @@ import lila.user.User
 
 object post {
 
-  def apply(user: User, post: UblogPost, markup: Frag, others: List[UblogPost.PreviewPost], liked: Boolean)(
-      implicit ctx: Context
+  def apply(
+      user: User,
+      blog: UblogBlog,
+      post: UblogPost,
+      markup: Frag,
+      others: List[UblogPost.PreviewPost],
+      liked: Boolean
+  )(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
@@ -41,7 +48,14 @@ object post {
             href := routes.Ublog.index(user.username),
             cls := userClass(user.id, none, withOnline = true),
             dataHref := routes.User.show(user.username)
-          )(lineIcon(user), titleTag(user.title), user.username),
+          )(
+            lineIcon(user),
+            titleTag(user.title),
+            user.username,
+            isGranted(_.ModerateBlog) option (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
+              cls := "ublog-post__tier"
+            )(UblogBlog.Tier.name(blog.tier))
+          ),
           post.lived map { live =>
             span(cls := "ublog-post__meta__date")(semanticDate(live.at))
           },
@@ -68,8 +82,6 @@ object post {
                 dataIcon := ""
               )(trans.edit())
             )
-          else if (isGranted(_.ModerateBlog) && user.marks.troll)
-            badTag("Not visible to the public")
           else
             a(
               titleOrText(trans.reportXToModerators.txt(user.username)),
