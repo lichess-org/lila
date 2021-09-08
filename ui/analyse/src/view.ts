@@ -302,7 +302,7 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
 
 function analysisDisabled(ctrl: AnalyseCtrl): VNode {
   return h('div.comp-off__hint', [
-    h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
+    h('span', ctrl.trans.noarg('Computer Analysis Disabled')),
     h(
       'button',
       {
