@@ -14,10 +14,15 @@
     <item quantity="one">Pubblicato un post del blog</item>
     <item quantity="other">Pubblicati %s post del blog</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Una visualizzazione</item>
+    <item quantity="other">%s visualizzazioni</item>
+  </plurals>
   <string name="xPublishedY">%1$s ha pubblicato %2$s</string>
   <string name="thisPostIsPublished">Questo post è pubblicato</string>
   <string name="thisIsADraft">Questo è una bozza</string>
   <string name="moreBlogPostsBy">Visualizza altri post del blog di %s</string>
   <string name="noPostsInThisBlogYet">Ancora nessun post in questo blog.</string>
   <string name="noDrafts">Nessuna bozza da mostrare.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Ultimi post del blog</string>
 </resources>
