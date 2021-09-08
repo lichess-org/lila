@@ -71,7 +71,7 @@
   <string name="forceVariation">Fremtving variant</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
-  <string name="variantWin">Gevinst</string>
+  <string name="variantWin">Variant sejr</string>
   <string name="insufficientMaterial">Utilstrækkeligt materiale</string>
   <string name="pawnMove">Bondetræk</string>
   <string name="capture">Slag</string>
@@ -85,7 +85,7 @@
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
-  <string name="masterDbExplanation">To millioner OTB spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millioner ikke online spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
