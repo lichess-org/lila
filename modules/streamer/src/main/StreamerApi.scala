@@ -116,12 +116,11 @@ final class StreamerApi(
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
-  def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit = {
+  def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
     picfitApi
       .uploadFile(s"streamer:${s.id}", picture, userId = by.id) flatMap { pic =>
       coll.update.one($id(s.id), $set("picture" -> pic.id)).void
     }
-  }.logFailure(logger branch "upload")
 
   // unapprove after a week if you never streamed
   def autoDemoteFakes: Funit =

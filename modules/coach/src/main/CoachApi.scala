@@ -69,12 +69,11 @@ final class CoachApi(
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
     coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
 
-  def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit = {
+  def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
     picfitApi
       .uploadFile(s"coach:${c.coach.id}", picture, userId = c.user.id) flatMap { pic =>
       coachColl.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
     }
-  }.logFailure(logger branch "upload")
 
   private val languagesCache = cacheApi.unit[Set[String]] {
     _.refreshAfterWrite(1 hour)
