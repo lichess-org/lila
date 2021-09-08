@@ -48,4 +48,6 @@
   <string name="skip">跳过</string>
   <string name="skipHelp">每场比赛仅能跳过一次</string>
   <string name="skipExplanation">跳过这一步来保留你的连击！每场比赛只能用一次</string>
+  <string name="failedPuzzles">失败的谜题</string>
+  <string name="slowPuzzles">慢 谜题</string>
 </resources>
