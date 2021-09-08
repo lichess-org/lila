@@ -18,6 +18,9 @@
       justify-content: center;
       align-items: center;
     }
+    img {
+      @extend %box-neat;
+    }
   }
   &__etiquette {
     @extend %box-neat;
