@@ -23,6 +23,6 @@
   <string name="thisIsADraft">Ez egy vázlat</string>
   <string name="moreBlogPostsBy">Még több bejegyzés tőle: %s</string>
   <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
-  <string name="noDrafts">Nincsenek megjelenítendő piszkozatok.</string>
+  <string name="noDrafts">Nincsenek piszkozatok.</string>
   <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Legutóbbi blogbejegyzések</string>
 </resources>
