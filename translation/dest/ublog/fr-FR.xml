@@ -24,4 +24,5 @@
   <string name="moreBlogPostsBy">Plus d’articles de %s</string>
   <string name="noPostsInThisBlogYet">Pas encore d’article dans ce blogue</string>
   <string name="noDrafts">Aucun brouillon à afficher</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Dernières publications du blogue</string>
 </resources>
