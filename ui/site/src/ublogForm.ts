@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import throttle from 'common/throttle';
 import spinner from './component/spinner';
 import Editor from '@toast-ui/editor';
 
@@ -20,7 +21,7 @@ lichess.load.then(() => {
   });
   $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
     const el = this,
-      editor = new Editor({
+      editor: Editor = new Editor({
         el,
         usageStatistics: false,
         height: '70vh',
@@ -38,9 +39,7 @@ lichess.load.then(() => {
         ],
         autofocus: false,
         events: {
-          change() {
-            $('#form3-markdown').val(editor.getMarkdown().replace(/<br>/g, ''));
-          },
+          change: throttle(500, () => $('#form3-markdown').val(postProcess(editor.getMarkdown()))),
         },
         hooks: {
           addImageBlobHook() {
@@ -66,3 +65,5 @@ lichess.load.then(() => {
       .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
   });
 });
+
+const postProcess = (markdown: string) => markdown.replace(/<br>/g, '').replace(/\n\s*#\s/g, '\n## ');
