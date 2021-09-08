@@ -17,20 +17,44 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
     colls.post.exists($id(post.id) ++ selectLiker(user.id))
 
   def like(postId: UblogPost.Id, user: User, v: Boolean): Fu[UblogPost.Likes] =
-    fetchRankData(postId).flatMap {
-      case None => fuccess(UblogPost.Likes(v ?? 1))
-      case Some((prevLikes, liveAt, tier)) =>
-        val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
-        colls.post.update.one(
-          $id(postId),
-          $set(
-            "likes" -> likes,
-            "rank"  -> computeRank(likes, liveAt, tier)
-          ) ++ {
-            if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
-          }
-        ) inject likes
-    }
+    colls.post
+      .aggregateOne() { framework =>
+        import framework._
+        Match($id(postId)) -> List(
+          PipelineOperator($lookup.simple(colls.blog, "blog", "blog", "_id")),
+          UnwindField("blog"),
+          Project(
+            $doc(
+              "_id"   -> false,
+              "tier"  -> "$blog.tier",
+              "likes" -> $doc("$size" -> "$likers"),
+              "at"    -> "$lived.at"
+            )
+          )
+        )
+      }
+      .map { docOption =>
+        for {
+          doc    <- docOption
+          likes  <- doc.getAsOpt[UblogPost.Likes]("likes")
+          liveAt <- doc.getAsOpt[DateTime]("at")
+          tier   <- doc int "tier"
+        } yield (likes, liveAt, tier)
+      }
+      .flatMap {
+        case None => fuccess(UblogPost.Likes(v ?? 1))
+        case Some((prevLikes, liveAt, tier)) =>
+          val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
+          colls.post.update.one(
+            $id(postId),
+            $set(
+              "likes" -> likes,
+              "rank"  -> computeRank(likes, liveAt, tier)
+            ) ++ {
+              if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
+            }
+          ) inject likes
+      }
 
   def recomputeRankOfAllPosts(blogId: UblogBlog.Id): Funit =
     colls.blog.byId[UblogBlog](blogId.full) flatMap {
@@ -71,32 +95,4 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       }
     }
   }
-
-  private def fetchRankData(postId: UblogPost.Id): Fu[Option[(UblogPost.Likes, DateTime, UblogBlog.Tier)]] =
-    colls.post
-      .aggregateOne() { framework =>
-        import framework._
-        Match($id(postId)) -> List(
-          PipelineOperator($lookup.simple(colls.blog, "blog", "blog", "_id")),
-          UnwindField("blog"),
-          Project(
-            $doc(
-              "_id"       -> false,
-              "blog.tier" -> true,
-              "likes"     -> $doc("$size" -> "$likers"),
-              "lived.at"  -> true
-            )
-          )
-        )
-      }
-      .map { docOption =>
-        for {
-          doc    <- docOption
-          likes  <- doc.getAsOpt[UblogPost.Likes]("likes")
-          lived  <- doc.getAsOpt[Bdoc]("lived")
-          liveAt <- lived.getAsOpt[DateTime]("at")
-          blog   <- doc.getAsOpt[Bdoc]("blog")
-          tier   <- blog int "tier"
-        } yield (likes, liveAt, tier)
-      }
 }

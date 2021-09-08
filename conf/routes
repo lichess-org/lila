@@ -101,6 +101,7 @@ GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: S
 GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
+GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.community(page: Int ?= 1)
 
 # Training - Coordinate

@@ -37,7 +37,8 @@ object post {
           url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id.value)}",
           description = post.intro
         )
-        .some
+        .some,
+      robots = netConfig.crawlable && blog.listed
     ) {
       main(cls := "box box-pad page page-small ublog-post")(
         thumbnail(post, _.Large)(cls := "ublog-post__image"),

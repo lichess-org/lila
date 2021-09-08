@@ -28,6 +28,7 @@ db.ublog_post.createIndex(
     name: 'liveByRank',
   }
 );
+db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true }, name: 'liveByLiked' });
 
 db.ublog_post.find({ blog: { $exists: false } }).forEach(p => {
   blogId = `user:${p.user}`;

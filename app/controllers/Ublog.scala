@@ -206,9 +206,21 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def community(page: Int) = Open { implicit ctx =>
     NotForKids {
-      Reasonable(page, 10) {
+      Reasonable(page, 20) {
         env.ublog.paginator.liveByCommunity(page) map { posts =>
           Ok(html.ublog.index.community(posts))
+        }
+      }
+    }
+  }
+
+  def liked(page: Int) = Auth { implicit ctx => me =>
+    NotForKids {
+      Reasonable(page, 15) {
+        ctx.me ?? { me =>
+          env.ublog.paginator.liveByLiked(me, page) map { posts =>
+            Ok(html.ublog.index.liked(posts))
+          }
         }
       }
     }

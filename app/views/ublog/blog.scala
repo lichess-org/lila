@@ -25,7 +25,8 @@ object blog {
       atomLinkTag = link(
         href := routes.Ublog.userAtom(user.username),
         st.title := title
-      ).some
+      ).some,
+      robots = netConfig.crawlable && blog.listed
     ) {
       main(cls := "box box-pad page page-small ublog-index")(
         div(cls := "box__top")(

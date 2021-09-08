@@ -8,6 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.ublog.UblogPost
 import lila.user.User
+import play.api.mvc.Call
 
 object index {
 
@@ -39,47 +40,53 @@ object index {
       )
     }
 
-  def friends(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+  def friends(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+    title = "Friends blogs",
+    posts = posts,
+    menuItem = "friends",
+    route = routes.Ublog.friends _,
+    onEmpty = "Nothing to show. Follow some authors!"
+  )
+
+  def liked(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+    title = "Liked blog posts",
+    posts = posts,
+    menuItem = "liked",
+    route = routes.Ublog.liked _,
+    onEmpty = "Nothing to show. Like some posts!"
+  )
+
+  def community(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+    title = "Community blogs",
+    posts = posts,
+    menuItem = "community",
+    route = routes.Ublog.community _,
+    onEmpty = "Nothing to show."
+  )
+
+  private def list(
+      title: String,
+      posts: Paginator[UblogPost.PreviewPost],
+      menuItem: String,
+      route: Int => Call,
+      onEmpty: => Frag
+  )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
-      title = "Friends blogs"
+      title = title
     ) {
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "friends".some),
+        views.html.blog.bits.menu(none, menuItem.some),
         main(cls := "page-menu__content box box-pad ublog-index")(
-          div(cls := "box__top")(
-            h1("Friends blogs")
-          ),
+          div(cls := "box__top")(h1(title)),
           if (posts.nbResults > 0)
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },
-              pagerNext(posts, np => routes.Ublog.friends(np).url)
+              pagerNext(posts, np => route(np).url)
             )
           else
-            div(cls := "ublog-index__posts--empty")(
-              "Nothing to show. Follow some authors!"
-            )
-        )
-      )
-    }
-
-  def community(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
-    views.html.base.layout(
-      moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
-      title = "Community blogs"
-    ) {
-      main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "community".some),
-        main(cls := "page-menu__content box box-pad ublog-index")(
-          div(cls := "box__top")(
-            h1("Community blogs")
-          ),
-          div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-            posts.currentPageResults map { postView.card(_, showAuthor = true) },
-            pagerNext(posts, np => routes.Ublog.community(np).url)
-          )
+            div(cls := "ublog-index__posts--empty")(onEmpty)
         )
       )
     }

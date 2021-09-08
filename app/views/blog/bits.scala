@@ -12,8 +12,9 @@ object bits {
 
   def menu(year: Option[Int], active: Option[String]) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())("Friends blogs"),
       a(cls := active.has("community").option("active"), href := routes.Ublog.community())("Community blogs"),
+      a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())("Friends blogs"),
+      a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())("Liked blog posts"),
       a(cls := active.has("lichess").option("active"), href := routes.Blog.index())("Lichess blog"),
       year.isDefined || active.has("lichess") option lila.blog.allYears.map { y =>
         a(cls := (year has y).option("active"), href := routes.Blog.year(y))(y)
