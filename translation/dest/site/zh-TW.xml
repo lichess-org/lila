@@ -854,4 +854,5 @@
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
   <string name="tournamentEntryCode">錦標賽參賽碼</string>
+  <string name="abortTheGame">中止本局</string>
 </resources>
