@@ -1,4 +1,4 @@
-<configuration>
+</configuration>
 
   <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel"/>
 
