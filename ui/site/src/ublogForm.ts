@@ -59,6 +59,10 @@ lichess.load.then(() => {
       .find('button.image')
       .on('click', () => {
         $(el).find('.toastui-editor-popup-add-image .tab-item:last-child').trigger('click');
+        $('#toastuiImageUrlInput')[0]?.focus();
       });
+    $(el)
+      .find('button.link')
+      .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
   });
 });
