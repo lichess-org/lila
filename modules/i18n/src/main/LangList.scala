@@ -102,6 +102,16 @@ object LangList {
     Lang("zu", "ZA")  -> "isiZulu"
   )
 
+  val defaultRegions = Map[String, Lang](
+    "de" -> Lang("de", "DE"),
+    "en" -> Lang("en", "US"),
+    "pt" -> Lang("pt", "PT"),
+    "zh" -> Lang("zh", "CN")
+  )
+
+  def removeRegion(lang: Lang): Lang =
+    defaultRegions.get(lang.language) | lang
+
   private lazy val popular: List[Lang] = {
     // 26/04/2020 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
     val langs =
@@ -116,13 +126,6 @@ object LangList {
   lazy val popularNoRegion: List[Lang] = popular.collect {
     case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
-
-  val defaultRegions = Map[String, Lang](
-    "de" -> Lang("de", "DE"),
-    "en" -> Lang("en", "US"),
-    "pt" -> Lang("pt", "PT"),
-    "zh" -> Lang("zh", "CN")
-  )
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
