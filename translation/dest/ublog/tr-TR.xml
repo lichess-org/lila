@@ -24,4 +24,5 @@
   <string name="moreBlogPostsBy">%s adlı kullanıcının diğer blog gönderileri</string>
   <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
   <string name="noDrafts">Gösterilecek taslak yok.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Son blog gönderileri</string>
 </resources>
