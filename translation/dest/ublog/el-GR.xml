@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
+  <string name="newPost">Καινούργια ανάρτηση</string>
   <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
 </resources>
