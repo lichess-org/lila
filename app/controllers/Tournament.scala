@@ -82,7 +82,7 @@ final class Tournament(
         (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
           _.ChatTimeout
         )) && // private tournament that I joined or has ChatTimeout
-        env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
+        (env.chat.panic.allowed(u) || isGranted(_.ChatTimeout))
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
