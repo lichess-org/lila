@@ -23,7 +23,7 @@ object post {
       ctx: Context
   ) =
     views.html.base.layout(
-      moreCss = frag(cssTag("ublog")),
+      moreCss = cssTag("ublog"),
       moreJs = frag(
         jsModule("expandText"),
         ctx.isAuth option jsModule("ublog")

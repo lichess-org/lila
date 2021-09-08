@@ -16,9 +16,11 @@ object form {
 
   import views.html.ublog.{ post => postView }
 
+  private def moreCss(implicit ctx: Context) = frag(cssTag("ublog.form"), cssTag("tagify"))
+
   def create(user: User, f: Form[UblogPostData], captcha: Captcha)(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("ublog.form"),
+      moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
     ) {
@@ -32,7 +34,7 @@ object form {
 
   def edit(user: User, post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("ublog.form"),
+      moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
@@ -80,6 +82,9 @@ object form {
       action := post.fold(routes.Ublog.create)(p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
+      form3.group(form("topics"), frag("Select the topics your post is about"))(
+        form3.textarea(_)(dataRel := UblogPost.Topic.all.mkString(","))
+      ),
       post.isDefined option form3.split(
         form3.checkbox(
           form("live"),

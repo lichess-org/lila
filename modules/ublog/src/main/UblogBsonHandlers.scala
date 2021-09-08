@@ -19,12 +19,13 @@ private object UblogBsonHandlers {
   )
   implicit val blogBSONHandler = Macros.handler[UblogBlog]
 
-  implicit val postIdBSONHandler      = stringAnyValHandler[UblogPost.Id](_.value, UblogPost.Id.apply)
+  implicit val postIdBSONHandler      = stringAnyValHandler[UblogPost.Id](_.value, UblogPost.Id)
+  implicit val topicBsonHandler       = stringAnyValHandler[UblogPost.Topic](_.value, UblogPost.Topic.apply)
   implicit val langBsonHandler        = stringAnyValHandler[Lang](_.code, Lang.apply)
   implicit val recordedBSONHandler    = Macros.handler[Recorded]
-  implicit val likesBSONHandler       = intAnyValHandler[Likes](_.value, Likes.apply)
-  implicit val viewsBSONHandler       = intAnyValHandler[Views](_.value, Views.apply)
-  implicit val rankBSONHandler        = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
+  implicit val likesBSONHandler       = intAnyValHandler[Likes](_.value, Likes)
+  implicit val viewsBSONHandler       = intAnyValHandler[Views](_.value, Views)
+  implicit val rankBSONHandler        = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank, _.value))
   implicit val postBSONHandler        = Macros.handler[UblogPost]
   implicit val lightPostBSONHandler   = Macros.handler[LightPost]
   implicit val previewPostBSONHandler = Macros.handler[PreviewPost]

@@ -14,6 +14,7 @@ case class UblogPost(
     markdown: String,
     language: Lang,
     image: Option[PicfitImage.Id],
+    topics: List[UblogPost.Topic],
     live: Boolean,
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
@@ -31,9 +32,37 @@ object UblogPost {
 
   case class Recorded(by: User.ID, at: DateTime)
 
-  case class Likes(value: Int) extends AnyVal
-  case class Views(value: Int) extends AnyVal
+  case class Topic(value: String) extends AnyVal
 
+  object Topic {
+    val all = List(
+      "Chess",
+      "Variant",
+      "Chess960",
+      "Crazyhouse",
+      "Chess960",
+      "King of the Hill",
+      "Three-check",
+      "Antichess",
+      "Atomic",
+      "Horde",
+      "Racing Kings",
+      "Puzzle",
+      "Opening",
+      "Endgame",
+      "Tactics",
+      "Strategy",
+      "Software",
+      "Lichess",
+      "Off topic"
+    )
+    val exists                   = all.toSet
+    def get(str: String)         = exists(str) option Topic(str)
+    def fromStrList(str: String) = str.split(',').toList.flatMap(get).distinct
+  }
+
+  case class Likes(value: Int)     extends AnyVal
+  case class Views(value: Int)     extends AnyVal
   case class Rank(value: DateTime) extends AnyVal
 
   case class Create(post: UblogPost) extends AnyVal

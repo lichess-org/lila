@@ -21,6 +21,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
       "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
       "language" -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
+      "topics"   -> optional(text),
       "live"     -> boolean,
       "gameId"   -> text,
       "move"     -> text
@@ -37,6 +38,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         intro = post.intro,
         markdown = post.markdown,
         language = post.language.code.some,
+        topics = post.topics.map(_.value).mkString(", ").some,
         live = post.live,
         gameId = "",
         move = ""
@@ -51,6 +53,7 @@ object UblogForm {
       intro: String,
       markdown: String,
       language: Option[String],
+      topics: Option[String],
       live: Boolean,
       gameId: String,
       move: String
@@ -66,6 +69,7 @@ object UblogForm {
         intro = intro,
         markdown = markdown,
         language = realLanguage.orElse(user.realLang) | defaultLang,
+        topics = topics ?? UblogPost.Topic.fromStrList,
         image = none,
         live = false,
         created = UblogPost.Recorded(user.id, DateTime.now),
@@ -81,6 +85,7 @@ object UblogForm {
         intro = intro,
         markdown = markdown,
         language = realLanguage | prev.language,
+        topics = topics ?? UblogPost.Topic.fromStrList,
         live = live,
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))
