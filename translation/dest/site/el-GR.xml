@@ -921,4 +921,7 @@
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
   <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
   <string name="gameInProgress">Έχετε μία παρτίδα σε εξέλιξη με τον/την %s.</string>
+  <string name="abortTheGame">Διακόψτε το παιχνίδι</string>
+  <string name="resignTheGame">Εγκαταλείψτε το παιχνίδι</string>
+  <string name="youCantStartNewGame">Δεν μπορείτε να ξεκινήσετε μια καινούργια παρτίδα εάν δεν ολοκληρωθεί αυτή.</string>
 </resources>
