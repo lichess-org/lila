@@ -36,6 +36,7 @@ lichess.load.then(() => {
           ['code', 'codeblock'],
           ['scrollSync'],
         ],
+        autofocus: false,
         events: {
           change() {
             $('#form3-markdown').val(editor.getMarkdown());

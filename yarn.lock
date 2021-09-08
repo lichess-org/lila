@@ -159,10 +159,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@toast-ui/editor@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-3.0.3.tgz#8423e27ce92b6806c7dbdab1ea67f065afa91a81"
-  integrity sha512-uU8FhUKsbW6nYSS+NrwqE7d/63JvezfmQ9xsRwIV9crLLyZ3K6a9/kT8XPIDcep2yKviybIDLeTEbXxuwBWvFQ==
+"@toast-ui/editor@^3.1":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-3.1.0.tgz#48febab0b9102ad6e9fb2bd3ed3a1207003a6bd8"
+  integrity sha512-ewNsl0eefMejVYwY3SP6n/gx9Ppf+K2iOSUJPIEcLeoeIoodd4JAS0gyBvfx+/nLY0feVj9CjqMfbuAezssDYg==
   dependencies:
     prosemirror-commands "^1.1.9"
     prosemirror-history "^1.1.3"
