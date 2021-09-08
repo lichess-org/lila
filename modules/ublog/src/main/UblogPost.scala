@@ -32,7 +32,7 @@ object UblogPost {
 
   case class Recorded(by: User.ID, at: DateTime)
 
-  case class Topic(value: String) extends AnyVal
+  case class Topic(value: String) extends AnyVal with StringValue
 
   object Topic {
     val all = List(

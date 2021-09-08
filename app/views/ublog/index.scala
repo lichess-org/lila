@@ -56,6 +56,14 @@ object index {
     onEmpty = "Nothing to show. Like some posts!"
   )
 
+  def topic(top: UblogPost.Topic, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+    title = s"Blog posts about $top",
+    posts = posts,
+    menuItem = top.value,
+    route = p => routes.Ublog.topic(top.value, p),
+    onEmpty = "Nothing to show."
+  )
+
   def community(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
     title = "Community blogs",
     posts = posts,

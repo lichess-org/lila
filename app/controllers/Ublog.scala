@@ -226,6 +226,18 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def topic(str: String, page: Int) = Open { implicit ctx =>
+    NotForKids {
+      Reasonable(page, 15) {
+        UblogPost.Topic.get(str) ?? { top =>
+          env.ublog.paginator.liveByTopic(top, page) map { posts =>
+            Ok(html.ublog.index.topic(top, posts))
+          }
+        }
+      }
+    }
+  }
+
   def userAtom(username: String) = Action.async {
     env.user.repo.enabledNamed(username) flatMap {
       case None => NotFound.fuccess

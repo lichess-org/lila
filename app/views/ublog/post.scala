@@ -93,7 +93,7 @@ object post {
         ),
         div(cls := "ublog-post__topics")(
           post.topics.map { topic =>
-            a()(topic.value)
+            a(href := routes.Ublog.topic(topic.value, 1))(topic.value)
           }
         ),
         strong(cls := "ublog-post__intro")(post.intro),

@@ -103,6 +103,7 @@ GET   /blog.txt                        controllers.Blog.sitemapTxt
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.community(page: Int ?= 1)
+GET   /blog/topic                      controllers.Ublog.topic(topic: String, page: Int ?= 1)
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
