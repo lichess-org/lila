@@ -112,7 +112,8 @@ object userAnalysisI18n {
     trans.goDeeper,
     trans.showThreat,
     trans.inLocalBrowser,
-    trans.toggleLocalEvaluation
+    trans.toggleLocalEvaluation,
+    trans.computerAnalysisDisabled
   ).map(_.key)
 
   private val cevalTranslations: Vector[MessageKey] = cevalWidget ++ Vector(
@@ -126,7 +127,6 @@ object userAnalysisI18n {
     trans.multipleLines,
     trans.cpus,
     trans.memory,
-    trans.computerAnalysisDisabled
   ).map(_.key)
 
   val explorerTranslations: Vector[MessageKey] = Vector(
