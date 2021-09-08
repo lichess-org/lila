@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Humingi ng pagsusuri ng kompyuter</string>
   <string name="computerAnalysis">Pagsusuri ng kompyuter</string>
   <string name="computerAnalysisAvailable">Magagamit na ang pagsusuri ng Kompyuter</string>
+  <string name="computerAnalysisDisabled">Kompyuter pagsusurì baldado</string>
   <string name="analysis">Board ng Pagsusuri</string>
   <string name="depthX">Lalim %s</string>
   <string name="usingServerAnalysis">Gamit ang pagsusuri ng server</string>
@@ -96,6 +97,7 @@
   <string name="noGameFound">Walang nakitang laro</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maaring magsama ng maraming laro mula sa ginustong menu?</string>
   <string name="openingExplorer">Pagbubukas ng tagalakbay</string>
+  <string name="openingEndgameExplorer">Pagbubukas / endgame explorer</string>
   <string name="xOpeningExplorer">%s pagbubukas ng tagalakbay</string>
   <string name="winPreventedBy50MoveRule">Nanalo na pinigilan ng 50-alituntunin ng galaw</string>
   <string name="lossSavedBy50MoveRule">Natalo naisave sa 50-alituntunin ng galaw</string>
@@ -128,6 +130,8 @@
     <item quantity="one">%s na manlalaro</item>
     <item quantity="other">%s na mga manlalaro</item>
   </plurals>
+  <string name="drawByMutualAgreement">Iguhit sa pamamagitan ng kasunduan sa isa\'t isa</string>
+  <string name="fiftyMovesWithoutProgress">Limampu\'t gumagalaw nang walang pag-unlad</string>
   <string name="currentGames">Mga laro ngayon</string>
   <plurals name="nbGames">
     <item quantity="one">%s na laro</item>
@@ -427,6 +431,8 @@
   <string name="boardEditor">Taga-edit ng board</string>
   <string name="setTheBoard">Tingnan ang board</string>
   <string name="popularOpenings">Sikat na mga bukasan</string>
+  <string name="endgamePositions">Posisyon ng Endgame</string>
+  <string name="chess960StartPosition">Posisyon ng pagsisimula ng Chess960: %s</string>
   <string name="startPosition">Simulang posisyon</string>
   <string name="clearBoard">Linisin ang board</string>
   <string name="savePosition">I-save ang board</string>
@@ -442,6 +448,7 @@
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa O watawat</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
@@ -664,8 +671,10 @@
   <string name="printFriendlyPDF">Palakaibigang pagprint ng PDF</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pwede kang magscroll sa ibabaw ng board upang gumalaw sa laro.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mag-scroll sa mga pagkakaiba-iba ng computer upang i-preview ang mga ito.</string>
   <string name="analysisShapesHowTo">Pindutin ang shift+click o pindutin ang kanan ng mouse upang gumawa ngcmga bilog at mga arrow sa board.</string>
   <string name="letOtherPlayersMessageYou">Hayaan ang ibang mga manlalaro na magmensahe sayo</string>
+  <string name="receiveForumNotifications">Makatanggap ng mga abiso kapag nabanggit sa forum</string>
   <string name="shareYourInsightsData">Ibahagi ang iyong mga data ng pananaw</string>
   <string name="withNobody">Walang kasama</string>
   <string name="withFriends">Kasama ang mga kaibigan</string>
@@ -677,6 +686,7 @@
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
+  <string name="sessions">Mga Session</string>
   <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
   <string name="asFreeAsLichess">Kasinglibre ng lichess</string>
@@ -846,5 +856,10 @@
   <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
   <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
+  <string name="clickToRevealEmailAddress">[Mag-click upang ipakita ang email address]</string>
   <string name="download">Download</string>
+  <string name="welcome">Maligayang pagdating!</string>
+  <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
+Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
+  <string name="coachManager">Tagapamahala ng coach</string>
 </resources>
