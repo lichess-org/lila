@@ -890,4 +890,27 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="embedsAvailable">I-paste ang isang URL ng laro o isang URL ng kabanata ng pag-aaral upang mai-embed ito.</string>
   <string name="inYourLocalTimezone">Sa iyong sariling lokal na timezone</string>
   <string name="tournChat">Chat sa paligsahan</string>
+  <string name="noChat">Walang chat</string>
+  <string name="onlyTeamLeaders">Mga namumuno lamang sa koponan</string>
+  <string name="onlyTeamMembers">Mga miyembro lamang ng koponan</string>
+  <string name="navigateMoveTree">I-navigate ang puno ng paglipat</string>
+  <string name="mouseTricks">Mga trick sa mouse</string>
+  <string name="toggleLocalAnalysis">I-toggle ang lokal na pagtatasa ng computer</string>
+  <string name="toggleAllAnalysis">I-toggle ang lahat ng pagtatasa ng computer</string>
+  <string name="playComputerMove">Maglaro ng pinakamahusay na paglipat ng computer</string>
+  <string name="analysisOptions">Mga pagpipilian sa pagtatasa</string>
+  <string name="focusChat">Pusa ng pokus</string>
+  <string name="showHelpDialog">Ipakita ang dayalogo sa tulong na ito</string>
+  <string name="reopenYourAccount">Muling buksan ang iyong account</string>
+  <string name="closedAccountChangedMind">Kung isinara mo ang iyong account, ngunit mula nang nagbago ang iyong isip, makakakuha ka ng isang pagkakataon na maibalik ang iyong account.</string>
+  <string name="onlyWorksOnce">Minsan lang ito gagana.</string>
+  <string name="cantDoThisTwice">Kung isara mo ang iyong account sa pangalawang pagkakataon, walang paraan upang mabawi ito.</string>
+  <string name="emailAssociatedToaccount">Ang email address na nauugnay sa account</string>
+  <string name="sentEmailWithLink">Nagpadala kami sa iyo ng isang email na may isang link.</string>
+  <string name="tournamentEntryCode">Code ng Entry ng Tournament</string>
+  <string name="hangOn">Tambay ka na!</string>
+  <string name="gameInProgress">Mayroon kang laro na isinasagawa %s.</string>
+  <string name="abortTheGame">I-abort ang laro</string>
+  <string name="resignTheGame">Resign ang laro</string>
+  <string name="youCantStartNewGame">Hindi ka maaaring magsimula ng isang bagong laro hanggang sa matapos ang isang ito.</string>
 </resources>
