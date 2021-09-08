@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s的博客</string>
+  <string name="newPost">发新帖</string>
+  <string name="editYourBlogPost">编辑帖子</string>
+  <string name="postTitle">帖子主题</string>
+  <string name="postIntro">帖子简介</string>
+  <string name="postBody">帖子主体</string>
+</resources>
