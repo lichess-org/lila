@@ -48,7 +48,7 @@
   <string name="whiteResigned">Hvid har givet op</string>
   <string name="blackResigned">Sort har givet op</string>
   <string name="whiteLeftTheGame">Hvid har forladt partiet</string>
-  <string name="blackLeftTheGame">Sort har forladt partiet</string>
+  <string name="blackLeftTheGame">Sort forlod spillet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
   <string name="theComputerAnalysisHasFailed">Computeranalysen slog fejl</string>
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
@@ -158,7 +158,7 @@
   <string name="signIn">Log ind</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke deltage. Lad venligst være med at modtage assistance fra skakcomputere, databaser eller andre spillere mens du spiller</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det at lave flere konti er stærkt frarådet og at lave alt for mange konti vil medføre udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
