@@ -31,7 +31,7 @@
     }
     &__meta {
       text-align: center;
-      margin-bottom: 6vh;
+      margin-bottom: 2rem;
       > * {
         margin: 0 1em;
       }
@@ -44,6 +44,30 @@
       .user-link {
         color: $c-link;
         font-size: 1.2em;
+      }
+    }
+    &__topics {
+      @extend %flex-wrap;
+      justify-content: center;
+      margin-bottom: 6vh;
+      line-height: 2em;
+
+      a {
+        @extend %box-radius;
+
+        background: mix($c-primary, $c-bg-box, 12%);
+        padding: 0.2em 0.6em;
+        margin: 0.2em;
+
+        &:hover {
+          background: mix($c-primary, $c-bg-box, 15%);
+        }
+
+        white-space: nowrap;
+      }
+
+      .box__pad & {
+        margin-bottom: 2em;
       }
     }
     &__tier {

@@ -91,6 +91,11 @@ object post {
               dataIcon := ""
             )
         ),
+        div(cls := "ublog-post__topics")(
+          post.topics.map { topic =>
+            a()(topic.value)
+          }
+        ),
         strong(cls := "ublog-post__intro")(post.intro),
         div(cls := "ublog-post__markup expand-text")(markup),
         div(cls := "ublog-post__footer")(
