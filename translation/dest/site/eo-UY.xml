@@ -122,6 +122,10 @@
     <item quantity="one">%s erarego</item>
     <item quantity="other">%s eraregoj</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s eraro</item>
+    <item quantity="other">%s eraroj</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s erareto</item>
     <item quantity="other">%s eraretoj</item>
@@ -844,12 +848,16 @@
   <string name="unsubscribe">Malaboni</string>
   <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
+  <string name="invitedYouToX">invitis vin al \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
+  <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
+  <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
