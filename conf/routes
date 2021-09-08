@@ -588,9 +588,6 @@ GET   /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClose(id
 POST  /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClosePost(id: String, username: String)
 POST  /class/$id<\w{8}>/invitation/revoke controllers.Clas.invitationRevoke(id: String)
 
-# DB image
-GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
-
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame

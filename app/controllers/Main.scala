@@ -104,20 +104,6 @@ final class Main(
       NoContent
     }
 
-  def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
-    Action.async {
-      env.imageRepo
-        .fetch(id)
-        .map {
-          case None => NotFound
-          case Some(image) =>
-            lila.mon.http.imageBytes.record(image.size.toLong)
-            Ok(image.data).withHeaders(
-              CACHE_CONTROL -> "max-age=1209600"
-            ) as image.contentType.getOrElse("image/jpeg")
-        }
-    }
-
   val robots = Action { req =>
     Ok {
       if (env.net.crawlable && req.domain == env.net.domain.value) """User-agent: *

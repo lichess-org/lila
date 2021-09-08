@@ -34,7 +34,6 @@ object mon {
       counter("http.csrf.error").withTags(Map("type" -> tpe, "action" -> action, "client" -> client))
     val fingerPrint          = timer("http.fingerPrint.time").withoutTags()
     def jsmon(event: String) = counter("http.jsmon").withTag("event", event)
-    val imageBytes           = histogram("http.image.bytes").withoutTags()
   }
   object syncache {
     def miss(name: String)    = counter("syncache.miss").withTag("name", name)
