@@ -11,7 +11,7 @@
     "@types/debounce-promise": "^3.1.4",
     "@types/fnando__sparkline": "^0.3.2",
     "@types/lichess": "2.0.0",
-    "@types/yaireo__tagify": "^4.0.1",
+    "@types/yaireo__tagify": "^4.7",
     "@types/zxcvbn": "^4.4.0",
     "chessground": "^8.1.7",
     "rollup": "^2.56.2",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@toast-ui/editor": "^3.1",
-    "@yaireo/tagify": "^4.0.5",
+    "@yaireo/tagify": "^4.7",
     "apexcharts": "^3.27.1",
     "chat": "2.0.0",
     "common": "2.0.0",
