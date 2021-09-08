@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Aurkariak jokaldi mugatuak ditu eta jokaldi guztien bere posizioa okertu egiten dute.</string>
   <string name="healthyMix">Denetik pixkat</string>
   <string name="healthyMixDescription">Denetatik. Ez dakizu zer espero, beraz prestatu zure burua edozertarako! Benetako partidetan bezala.</string>
+  <string name="playerGames">Jokalarien partidak</string>
+  <string name="playerGamesDescription">Ikusi zure edo beste jokalarien partidetatik sortutako ariketak.</string>
+  <string name="puzzleDownloadInformation">Ariketa hauek publikoak dira, %s helbidetik deskargatu daitezke.</string>
 </resources>
