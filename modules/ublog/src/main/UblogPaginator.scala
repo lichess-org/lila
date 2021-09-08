@@ -32,7 +32,7 @@ final class UblogPaginator(
         collection = colls.post,
         selector = $doc("blog" -> blog, "live" -> live),
         projection = previewPostProjection.some,
-        sort = if (live) $doc("live.at" -> -1) else $doc("created.at" -> -1),
+        sort = if (live) $doc("lived.at" -> -1) else $doc("created.at" -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
       currentPage = page,
