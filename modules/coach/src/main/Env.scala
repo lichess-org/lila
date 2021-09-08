@@ -3,6 +3,7 @@ package lila.coach
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.security.Permission
@@ -22,7 +23,7 @@ final class Env(
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi,
     imageRepo: lila.db.ImageRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
@@ -61,7 +62,7 @@ final class Env(
       }.unit
   }
 
-  // system.scheduler.scheduleOnce(1 minute) {
-  //   wire[StreamerPictureMigration]().unit
-  // }
+  system.scheduler.scheduleOnce(1 minute) {
+    wire[CoachPictureMigration]().unit
+  }
 }
