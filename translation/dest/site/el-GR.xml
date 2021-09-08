@@ -900,6 +900,7 @@
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
   <string name="markdownAvailable">Η μορφή %s είναι διαθέσιμη για μια πιο προχωρημένη σύνταξη.</string>
+  <string name="embedsAvailable">Επικολλήστε μια διεύθυνση URL παιχνιδιού ή ένα κεφάλαιο μελέτης για να το ενσωματώσετε.</string>
   <string name="inYourLocalTimezone">Στη δική σας ζώνη ώρας</string>
   <string name="tournChat">Δωμάτιο συνομιλίας τουρνουά</string>
   <string name="noChat">Να μην επιτρέπεται η συνομιλία</string>
@@ -920,6 +921,7 @@
   <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
   <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
+  <string name="hangOn">Περιμένετε!</string>
   <string name="gameInProgress">Έχετε μία παρτίδα σε εξέλιξη με τον/την %s.</string>
   <string name="abortTheGame">Διακόψτε το παιχνίδι</string>
   <string name="resignTheGame">Εγκαταλείψτε το παιχνίδι</string>
