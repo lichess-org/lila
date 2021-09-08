@@ -120,37 +120,38 @@ Allow: /
     }
   }
 
-  def manifest =
-    Action {
-      JsonOk {
-        Json.obj(
-          "name"             -> env.net.domain.value,
-          "short_name"       -> "Lichess",
-          "start_url"        -> "/",
-          "display"          -> "standalone",
-          "background_color" -> "#161512",
-          "theme_color"      -> "#161512",
-          "description"      -> "The (really) free, no-ads, open source chess server.",
-          "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
-            Json.obj(
-              "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
-              "sizes" -> s"${size}x$size",
-              "type"  -> "image/png"
-            )
-          },
-          "related_applications" -> Json.arr(
-            Json.obj(
-              "platform" -> "play",
-              "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-            ),
-            Json.obj(
-              "platform" -> "itunes",
-              "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
-            )
+  private lazy val manifestResponse = Ok(
+    Json.stringify(
+      Json.obj(
+        "name"             -> env.net.domain.value,
+        "short_name"       -> "Lichess",
+        "start_url"        -> "/",
+        "display"          -> "standalone",
+        "background_color" -> "#161512",
+        "theme_color"      -> "#161512",
+        "description"      -> "The (really) free, no-ads, open source chess server.",
+        "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
+          Json.obj(
+            "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
+            "sizes" -> s"${size}x$size",
+            "type"  -> "image/png"
+          )
+        },
+        "related_applications" -> Json.arr(
+          Json.obj(
+            "platform" -> "play",
+            "url"      -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
+          ),
+          Json.obj(
+            "platform" -> "itunes",
+            "url"      -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
           )
         )
-      } withHeaders (CACHE_CONTROL -> "max-age=1209600")
-    }
+      )
+    )
+  ) as JSON withHeaders (CACHE_CONTROL -> "max-age=1209600")
+
+  val manifest = Action(manifestResponse)
 
   def getFishnet =
     Open { implicit ctx =>
