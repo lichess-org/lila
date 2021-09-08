@@ -35,16 +35,42 @@
 }
 #markdown-editor {
   height: 80vh;
-  .toastui-editor-popup-body li[data-type='Heading'] {
-    &[data-level='1'],
-    &[data-level='5'],
-    &[data-level='6'] {
-      display: none;
+  .toastui-editor {
+    &-defaultUI {
+      border-color: $c-border;
+      &-toolbar {
+        @extend %metal;
+      }
     }
-  }
-  .toastui-editor-popup-add-image {
-    .toastui-editor-tabs {
-      display: none;
+    &-toolbar {
+      &-icons {
+        border-color: $c-border;
+        &:not(:disabled) {
+          &:hover {
+            background-color: $c-bg-box;
+          }
+          &.active {
+            background-color: $c-bg-zebra;
+          }
+        }
+      }
+    }
+    &-contents {
+      @extend %base-font;
+      font-size: 1rem;
+      background: $c-bg-input;
+    }
+    &-popup-body li[data-type='Heading'] {
+      &[data-level='1'],
+      &[data-level='5'],
+      &[data-level='6'] {
+        display: none;
+      }
+    }
+    &-popup-add-image {
+      .toastui-editor-tabs {
+        display: none;
+      }
     }
   }
 }
