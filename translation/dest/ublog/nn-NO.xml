@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <plurals name="nbViews">
+    <item quantity="one">Ein syning</item>
+    <item quantity="other">%s syningar</item>
+  </plurals>
   <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
   <string name="noDrafts">Ingen utkast å visa.</string>
 </resources>

@@ -14,6 +14,10 @@
     <item quantity="one">Հրապարակել է հաղորդագրություն բլոգում</item>
     <item quantity="other">Հրապարակել է %s հաղորդագրություն բլոգում</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">%s դիտում</item>
+    <item quantity="other">%s դիտում</item>
+  </plurals>
   <string name="thisPostIsPublished">Գրառումը հրապարակված է</string>
   <string name="thisIsADraft">Սա սևագրություն է</string>
   <string name="moreBlogPostsBy">Դիտել %s-ի ավելի շատ գրառումներ բլոգում</string>

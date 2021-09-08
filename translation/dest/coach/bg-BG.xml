@@ -12,6 +12,7 @@
   <string name="hourlyRate">Цена за час</string>
   <string name="availability">Достъпност</string>
   <string name="accepting">Приемащ ученици</string>
+  <string name="viewXProfile">Вижте Lichess профила на %s</string>
   <string name="aboutMe">За мен</string>
   <string name="playingExperience">Игрален опит</string>
   <string name="teachingExperience">Опит като учител</string>

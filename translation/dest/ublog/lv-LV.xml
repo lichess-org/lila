@@ -15,6 +15,11 @@
     <item quantity="one">Publicēja %s bloga ierakstu</item>
     <item quantity="other">Publicēja %s bloga ierakstus</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="zero">%s skatījumu</item>
+    <item quantity="one">%s skatījums</item>
+    <item quantity="other">%s skatījumi</item>
+  </plurals>
   <string name="xPublishedY">%1$s publicēja \"%2$s\"</string>
   <string name="thisPostIsPublished">Šis ieraksts ir publicēts</string>
   <string name="thisIsADraft">Šis ir melnraksts</string>

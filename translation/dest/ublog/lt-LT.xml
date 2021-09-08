@@ -16,6 +16,12 @@
     <item quantity="many">Išleido %s tinklaraščio įrašo</item>
     <item quantity="other">Išleido %s tinklaraščio įrašų</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Viena peržiūra</item>
+    <item quantity="few">%s peržiūros</item>
+    <item quantity="many">%s pežiūros</item>
+    <item quantity="other">%s peržiūrų</item>
+  </plurals>
   <string name="xPublishedY">%1$s išleido %2$s</string>
   <string name="thisPostIsPublished">Šis įrašas paskelbtas</string>
   <string name="thisIsADraft">Tai yra juodraštis</string>

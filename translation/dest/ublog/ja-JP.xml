@@ -13,6 +13,9 @@
   <plurals name="publishedNbBlogPosts">
     <item quantity="other">%s 件のブログ記事を公開</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="other">%s 回閲覧</item>
+  </plurals>
   <string name="xPublishedY">%1$s が %2$s を公開しました</string>
   <string name="thisPostIsPublished">この投稿は公開ずみです</string>
   <string name="thisIsADraft">これは下書きです</string>

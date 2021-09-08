@@ -9,6 +9,7 @@
     <item quantity="other">%s участников</item>
   </plurals>
   <string name="allTeams">Все клубы</string>
+  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Организаторы клуба</string>
   <string name="newTeam">Создать клуб</string>
   <string name="myTeams">Мои клубы</string>
   <string name="noTeamFound">Нет таких клубов</string>

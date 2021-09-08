@@ -18,6 +18,14 @@
     <item quantity="many">نشر منشور مدونة</item>
     <item quantity="other">نشر %s مشاركات المدونة</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="zero">صفر مشاهدات</item>
+    <item quantity="one">%s مشاهدات</item>
+    <item quantity="two">%s مشاهدات</item>
+    <item quantity="few">%s مشاهدات</item>
+    <item quantity="many">%s مشاهدات</item>
+    <item quantity="other">%s مشاهدات</item>
+  </plurals>
   <string name="xPublishedY">%1$s نشر %2$s</string>
   <string name="thisPostIsPublished">المقال تم نشره</string>
   <string name="thisIsADraft">هذه مسودة</string>

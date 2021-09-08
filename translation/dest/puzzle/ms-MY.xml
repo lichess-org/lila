@@ -63,4 +63,19 @@
   <string name="fromMyGames">Dari permainan saya</string>
   <string name="lookupOfPlayer">Mencari teka-teki dari permainan pemain</string>
   <string name="fromXGames">Teka-teki dari permainan %s</string>
+  <string name="searchPuzzles">Cari teka-teki</string>
+  <string name="fromMyGamesNone">Anda tidak mempunyai teka-teki dalam pangkalan data, tetapi Lichess masih sangat menyayangi anda.
+Main permainan pantas dan klasik untuk meningkatkan peluang anda untuk menambahkan teka-teki anda!</string>
+  <string name="fromXGamesFound">Teka-teki %1$s terdapat dalam permainan %2$s</string>
+  <string name="puzzleDashboardDescription">Melatih, menganalisis, memperbaiki</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">%s dimainkan</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s untuk dimainkan semula</item>
+  </plurals>
+  <string name="percentSolved">%s diselesaikan</string>
+  <string name="noPuzzlesToShow">Tiada apa-apa yang ditunjukkan, main dulu teka-teki!</string>
+  <string name="improvementAreasDescription">Latih ini untuk mengoptimumkan kemajuan anda!</string>
+  <string name="strengthDescription">Anda menunjukkan prestasi terbaik dalam tema ini</string>
 </resources>

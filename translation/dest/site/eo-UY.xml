@@ -122,6 +122,10 @@
     <item quantity="one">%s erarego</item>
     <item quantity="other">%s eraregoj</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s eraro</item>
+    <item quantity="other">%s eraroj</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s erareto</item>
     <item quantity="other">%s eraretoj</item>
@@ -336,7 +340,7 @@
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="xJoinedTeamY">%1$s aliĝis al teamo %2$s</string>
   <string name="xCreatedTeamY">%1$s kreis teamon %2$s</string>
-  <string name="xStartedStreaming">%s starti elsendon</string>
+  <string name="xStartedStreaming">%s komencis elsendon</string>
   <string name="averageElo">Meznombra rango</string>
   <string name="location">Loko</string>
   <string name="filterGames">Filtri ludojn</string>
@@ -682,11 +686,11 @@
   <string name="withFriends">Kun amikoj</string>
   <string name="withEverybody">Kun ĉiuj</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Vi jam registris la retadreso: %s</string>
-  <string name="kidMode">Infano reĝimo</string>
-  <string name="kidModeExplanation">Ĉi tio temas pri sekureco. En infana modo, ĉiuj retejaj komunikadoj estas malebligitaj. Aktivigu ĉi tiun por viaj infanoj kaj lernejaj studentoj, por protekti ilin de aliaj retaj uzantoj.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En infana modo, la lichess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
-  <string name="enableKidMode">Aktivigi infanan modon</string>
-  <string name="disableKidMode">Malaktivigi infanan modon</string>
+  <string name="kidMode">Infana reĝimo</string>
+  <string name="kidModeExplanation">Ĉi tio temas pri sekureco. En infana reĝimo, ĉiuj retejaj komunikadoj estas malebligitaj. Aktivigu ĉi tiun por viaj infanoj kaj lernejaj studentoj, por protekti ilin de aliaj retaj uzantoj.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En infana reĝimo, la lichess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
+  <string name="enableKidMode">Aktivigi infanan reĝimon</string>
+  <string name="disableKidMode">Malaktivigi infanan reĝimon</string>
   <string name="security">Sekureco</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
@@ -712,7 +716,7 @@
   <string name="xCreatesStudyY">%1$s kreis la studon %2$s</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
-  <string name="anonymous">Anonima</string>
+  <string name="anonymous">Sennoma</string>
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
   <string name="background">Fono</string>
@@ -725,11 +729,11 @@
   <string name="boardSize">Tabula grandeco</string>
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
-  <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
-  <string name="usernamePrefixInvalid">La uzantnomo devas komenci kun litero.</string>
+  <string name="usernameAlreadyUsed">Oni jam uzas tiun salutnomon. Bonvolu provi alian.</string>
+  <string name="usernamePrefixInvalid">La salutnomo devas komenci kun litero.</string>
   <string name="usernameSuffixInvalid">La salutnomo devas finanta kun letero aux numero.</string>
-  <string name="usernameCharsInvalid">La uzantnomo devas enhavi nur literojn, nombrojn, substrekojn, kaj streketojn.</string>
-  <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
+  <string name="usernameCharsInvalid">La salutnomo devas enhavi nur literojn, nombrojn, substrekojn, kaj streketojn. Sinsekvaj substrekoj kaj streketoj ne permesiĝas.</string>
+  <string name="usernameUnacceptable">Tiu salutnomo estas malakceptebla.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>
   <string name="playChessInStyle">Ludu ŝakon elegante</string>
   <string name="chessBasics">Ŝaka aboco</string>
@@ -750,7 +754,7 @@
   </plurals>
   <string name="practiceWithComputer">Praktiki kun komputilo</string>
   <string name="anotherWasX">Alia estis %s</string>
-  <string name="bestWasX">Plejbona estis %s</string>
+  <string name="bestWasX">Plej bona estis %s</string>
   <string name="youBrowsedAway">Vi retumis foren</string>
   <string name="resumePractice">Daŭrigi praktikon</string>
   <string name="theGameIsADraw">La ludo egalvenkas.</string>
@@ -844,12 +848,16 @@
   <string name="unsubscribe">Malaboni</string>
   <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
+  <string name="invitedYouToX">invitis vin al \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
+  <string name="lostAgainstTOSViolator">Vi malvenkis kontraŭ iu kiu malobeis la regulojn de Lichess</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
+  <string name="download">Elŝuti</string>
   <string name="welcome">Bonvenon!</string>
   <string name="tournDescription">Turnira priskribo</string>
   <string name="onlyMembersOfTeam">Nur teamanoj</string>
