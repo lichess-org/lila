@@ -154,9 +154,13 @@ final class Ublog(env: Env) extends LilaController(env) {
             err => Redirect(urlOfBlog(blog)).flashFailure.fuccess,
             tier =>
               env.ublog.api.setTier(blog.id, tier) >>
-                env.ublog.like.recomputeRankOfAllPosts(blog.id) >> env.mod.logApi
-                  .blogTier(lila.report.Mod(me.user), blog.id.full, tier)
-                inject Redirect(urlOfBlog(blog)).flashSuccess
+                env.ublog.like.recomputeRankOfAllPosts(blog.id) >> {
+                  blog.id match {
+                    case UblogBlog.Id.User(userId) =>
+                      env.mod.logApi.blogTier(lila.report.Mod(me.user), userId, UblogBlog.Tier.name(tier))
+                    case _ => funit
+                  }
+                } inject Redirect(urlOfBlog(blog)).flashSuccess
           )
       }
     }
