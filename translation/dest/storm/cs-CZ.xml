@@ -53,4 +53,6 @@
   <string name="skip">přeskočit</string>
   <string name="skipHelp">V každém závodě můžete přeskočit jeden tah:</string>
   <string name="skipExplanation">Přeskočte tento tah pro zachování své série! Funguje pouze jednou za závod.</string>
+  <string name="failedPuzzles">Neúspěšné úlohy</string>
+  <string name="slowPuzzles">Pomalé úlohy</string>
 </resources>
