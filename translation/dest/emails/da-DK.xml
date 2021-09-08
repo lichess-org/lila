@@ -16,7 +16,7 @@ Her er din profilside: %1$s. Du kan tilpasse den på %2$s.
 
 God fornøjelse, og må din brikker altid finde vej til din modstanders konge!</string>
   <string name="logInToLichess">Log ind på lichess.org, %s</string>
-  <string name="common_orPaste">(Fungerer det ikke at klikke? Prøv at indsætte linket i din browser!)</string>
+  <string name="common_orPaste">(Fungerer det ikke at klikke? Prøv at kopiere linket ind i din browser!)</string>
   <string name="common_note">Dette er en service e-mail vedrørende din brug af %s.</string>
   <string name="common_contact">Vil du kontakte os, bedes du bruge %s.</string>
 </resources>
