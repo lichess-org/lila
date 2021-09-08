@@ -24,4 +24,5 @@
   <string name="moreBlogPostsBy">View more blog posts by %s</string>
   <string name="noPostsInThisBlogYet">Aún no hay mensajes en este blog.</string>
   <string name="noDrafts">No hay borradores que mostrar.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Últimas entradas de blog</string>
 </resources>
