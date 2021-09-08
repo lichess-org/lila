@@ -48,6 +48,13 @@ lichess.load.then(() => {
           },
         },
       });
+    // in a modal, <Enter> should complete the action, not submit the post form
+    $(el).on('keypress', event => {
+      if (event.key != 'Enter') return;
+      const okButton = $(event.target).parents('.toastui-editor-popup-body').find('.toastui-editor-ok-button')[0];
+      if (okButton) $(okButton).trigger('click');
+      return !okButton;
+    });
     $(el)
       .find('button.image')
       .on('click', () => {
