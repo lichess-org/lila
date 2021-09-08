@@ -16,6 +16,12 @@
     <item quantity="many">Opublikowano %s wpisów na blogu</item>
     <item quantity="other">Opublikowano %s wpisów na blogu</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Raz przeczytane</item>
+    <item quantity="few">%s razy przeczytane</item>
+    <item quantity="many">%s razy przeczytane</item>
+    <item quantity="other">%s razy przeczytane</item>
+  </plurals>
   <string name="xPublishedY">%1$s opublikował %2$s</string>
   <string name="thisPostIsPublished">Ten wpis jest opublikowany</string>
   <string name="thisIsADraft">To jest wersja robocza</string>
