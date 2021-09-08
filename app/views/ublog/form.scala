@@ -82,9 +82,6 @@ object form {
       action := post.fold(routes.Ublog.create)(p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
-      form3.group(form("topics"), frag("Select the topics your post is about"))(
-        form3.textarea(_)(dataRel := UblogPost.Topic.all.mkString(","))
-      ),
       post.isDefined option form3.split(
         form3.checkbox(
           form("live"),
@@ -113,6 +110,9 @@ object form {
           div(id := "markdown-editor")
         )
       },
+      form3.group(form("topics"), frag("Select the topics your post is about"))(
+        form3.textarea(_)(dataRel := UblogPost.Topic.all.mkString(","))
+      ),
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)
       },

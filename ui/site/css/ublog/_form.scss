@@ -34,7 +34,8 @@
   display: none;
 }
 #markdown-editor {
-  height: 80vh;
+  height: 70vh;
+  margin-bottom: -1em;
   .tab-item {
     background: $c-bg-box;
     &.active {
@@ -106,7 +107,7 @@
       }
     }
     &-mode-switch {
-      background-color: $c-bg-box;
+      background: none;
       border: none;
     }
     &-popup-body li[data-type='Heading'] {
