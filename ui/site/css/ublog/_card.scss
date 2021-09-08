@@ -53,6 +53,7 @@
     &__content {
       padding: 2vmin;
       display: block;
+      max-height: 12em;
     }
 
     &__title {
@@ -62,7 +63,7 @@
     }
 
     &__intro {
-      @extend %roboto;
+      @extend %roboto, %break-word;
 
       color: $c-font;
       margin-top: 2vmin;

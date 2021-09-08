@@ -21,6 +21,7 @@
   }
   &-post {
     &__title {
+      @extend %break-word;
       text-align: center;
       margin: 3rem 0 3rem;
     }
@@ -68,6 +69,7 @@
       height: auto;
     }
     &__intro {
+      @extend %break-word;
       font-size: 1.2em;
       margin-bottom: 4vh;
       display: block;
