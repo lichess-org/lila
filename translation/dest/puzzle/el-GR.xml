@@ -70,4 +70,14 @@
   <string name="fromMyGamesNone">Δεν υπάρχουν γρίφοι από τα παιχνίδια σας στη βάση δεδομένων.
 Παίξτε κλασικά ή rapid παιχνίδια για να αυξηθούν οι πιθανότητες προσθήκης γρίφων από τα παιχνίδια σας στη βάση δεδομένων!</string>
   <string name="fromXGamesFound">%1$s γρίφοι βρέθηκαν σε %2$s παιχνίδια</string>
+  <string name="puzzleDashboardDescription">Προπονηθείτε, αναλύστε, βελτιωθείτε</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s παίχτηκε</item>
+    <item quantity="other">%s παίχτηκαν</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s για επανάληψη</item>
+    <item quantity="other">%s για επανάληψη</item>
+  </plurals>
+  <string name="percentSolved">%s λυμένα</string>
 </resources>
