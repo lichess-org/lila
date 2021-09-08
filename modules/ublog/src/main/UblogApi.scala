@@ -63,12 +63,19 @@ final class UblogApi(
   def findByIdAndBlog(id: UblogPost.Id, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
 
-  def otherPosts(blog: UblogBlog.Id, post: UblogPost): Fu[List[UblogPost.PreviewPost]] =
+  def latestPosts(blog: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
+    colls.post
+      .find($doc("blog" -> blog, "live" -> true), previewPostProjection.some)
+      .sort($doc("lived.at" -> -1))
+      .cursor[UblogPost.PreviewPost]()
+      .list(nb)
+
+  def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blog, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
-      .sort($doc("live.at" -> -1))
+      .sort($doc("lived.at" -> -1))
       .cursor[UblogPost.PreviewPost]()
-      .list(4)
+      .list(nb)
 
   def countLiveByBlog(blog: UblogBlog.Id): Fu[Int] =
     colls.post.countSel($doc("blog" -> blog, "live" -> true))

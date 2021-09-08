@@ -2269,6 +2269,7 @@ val `thisIsADraft` = new I18nKey("ublog:thisIsADraft")
 val `moreBlogPostsBy` = new I18nKey("ublog:moreBlogPostsBy")
 val `noPostsInThisBlogYet` = new I18nKey("ublog:noPostsInThisBlogYet")
 val `noDrafts` = new I18nKey("ublog:noDrafts")
+val `latestBlogPosts` = new I18nKey("ublog:latestBlogPosts")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 val `nbViews` = new I18nKey("ublog:nbViews")
 }
