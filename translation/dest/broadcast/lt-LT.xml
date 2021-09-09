@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Transliacijos adresas</string>
   <string name="currentRoundUrl">Dabartinio raundo adresas</string>
   <string name="currentGameUrl">Dabartinio žaidimo adresas</string>
+  <string name="downloadAllRounds">Atsisiųsti visus raundus</string>
 </resources>
