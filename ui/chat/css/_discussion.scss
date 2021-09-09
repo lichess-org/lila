@@ -50,7 +50,11 @@
       padding: 0;
       color: $c-font-dim;
       letter-spacing: -1px;
-      margin-right: 0.4em;
+      padding-right: 0.4em;
+      max-width: 110px;
+      text-overflow: ellipsis;
+      display: inline-block;
+      vertical-align: bottom;
     }
 
     line.patron {
