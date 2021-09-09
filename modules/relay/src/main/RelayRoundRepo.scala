@@ -18,6 +18,14 @@ final private class RelayRoundRepo(val coll: Coll)(implicit ec: scala.concurrent
       .cursor[RelayRound]()
       .list(RelayTour.maxRelays)
 
+  def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRound.Id]] =
+    coll
+      .find(selectors.tour(tour.id), $id(true).some)
+      .sort(sort.chrono)
+      .cursor[Bdoc]()
+      .list(RelayTour.maxRelays)
+      .map(_.flatMap(_.getAsOpt[RelayRound.Id]("_id")))
+
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
       .find(selectors tour tour.id)
