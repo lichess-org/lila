@@ -16,4 +16,11 @@
   <string name="thisIsADraft">Seo dréacht</string>
   <string name="noPostsInThisBlogYet">Níl aon phoist sa bhlag seo, go fóill.</string>
   <string name="noDrafts">Gan aon dréachtaí le taispeáint.</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Féach ar phost amháin</item>
+    <item quantity="two">Féach ar %s phost</item>
+    <item quantity="few">Féach ar %s bpost</item>
+    <item quantity="many">Féach ar %s post</item>
+    <item quantity="other">Féach ar %s post</item>
+  </plurals>
 </resources>
