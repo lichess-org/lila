@@ -19,6 +19,6 @@ object bits {
 
   val i18nKeys: List[lila.i18n.MessageKey] = {
     import trans.broadcast._
-    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl).map(_.key)
+    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds).map(_.key)
   }
 }

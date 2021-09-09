@@ -200,7 +200,7 @@ GET   /broadcast                              controllers.RelayTour.index(page: 
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/:rs/$anyId<\w{8}>            controllers.RelayTour.redirectOrApiTour(rs: String, anyId: String)
-GET   /broadcast/$tourId<\w{8}>.pgn           controllers.RelayTour.pgn(tourId: String)
+GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId: String)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: String)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: String)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: String)

@@ -91,6 +91,18 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ctrl.trans.noarg('cloneStudy')
           )
         : null,
+      ctrl.relay &&
+        h(
+          'a.button.text',
+          {
+            attrs: {
+              'data-icon': '',
+              href: `/api/broadcast/${ctrl.relay.data.tour.id}.pgn`,
+              download: true,
+            },
+          },
+          ctrl.trans.noarg('downloadAllRounds')
+        ),
       h(
         'a.button.text',
         {
