@@ -49,6 +49,8 @@
   <string name="blackResigned">Svart gav opp</string>
   <string name="whiteLeftTheGame">Kvit har forlate partiet</string>
   <string name="blackLeftTheGame">Svart har forlate partiet</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Kvit gjorde ikkje trekket sitt</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Svart gjorde ikkje trekket sitt</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne lekkja slik at andre kan sjå partiet</string>
   <string name="theComputerAnalysisHasFailed">Sjakkprogramanalysen havarerte</string>
   <string name="viewTheComputerAnalysis">Vis maskinanalysen</string>
