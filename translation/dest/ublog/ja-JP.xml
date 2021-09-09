@@ -3,6 +3,7 @@
   <string name="xBlog">%s のブログ</string>
   <string name="newPost">新しい投稿</string>
   <string name="editYourBlogPost">ブログへの投稿を編集</string>
+  <string name="saveDraft">下書きを保存</string>
   <string name="postTitle">タイトル</string>
   <string name="postIntro">導入部</string>
   <string name="postBody">本文</string>
@@ -22,4 +23,5 @@
   <string name="moreBlogPostsBy">%s のブログ投稿をもっと見る</string>
   <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
   <string name="noDrafts">下書きがありません。</string>
+  <string name="latestBlogPosts">最新のブログ投稿</string>
 </resources>
