@@ -13,6 +13,9 @@ $vp-max-width: 1200px;
 
     .box__top {
       padding: 0 0 var(--box-padding) 0;
+      h1 {
+        margin-top: 0;
+      }
     }
   }
 
