@@ -5,5 +5,5 @@
     <item quantity="other">%s преглеждания</item>
   </plurals>
   <string name="xPublishedY">%1$s публикува %2$s</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Последни публикации в блога</string>
+  <string name="latestBlogPosts">Последни публикации в блога</string>
 </resources>
