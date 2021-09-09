@@ -49,6 +49,8 @@
   <string name="blackResigned">Sort har givet op</string>
   <string name="whiteLeftTheGame">Hvid har forladt partiet</string>
   <string name="blackLeftTheGame">Sort forlod spillet</string>
+  <string name="whiteDidntMove">Hvid flyttede ikke</string>
+  <string name="blackDidntMove">Sort flyttede ikke</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
   <string name="theComputerAnalysisHasFailed">Computeranalysen slog fejl</string>
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
