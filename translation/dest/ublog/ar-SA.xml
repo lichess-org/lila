@@ -11,7 +11,7 @@
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
   <string name="publishHelp">إذا تم تحديد الخيار سيتم نشر المقال على مدونتك، اذا لم يتم تحديد الخيار سيتم حفظها بشكل خاص في مسوداتك</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="zero">نشر منشور مدونة</item>
+    <item quantity="zero">نشر %s منشور مدونة</item>
     <item quantity="one">نشر منشور مدونة</item>
     <item quantity="two">نشر منشور مدونة</item>
     <item quantity="few">نشر منشور مدونة</item>
