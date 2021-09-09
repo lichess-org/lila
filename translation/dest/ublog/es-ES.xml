@@ -2,15 +2,15 @@
 <resources>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nueva entrada</string>
-  <string name="editYourBlogPost">Edit your blog post</string>
+  <string name="editYourBlogPost">Edita tu entrada</string>
   <string name="saveDraft">Guardar borrador</string>
   <string name="postTitle">Título de la entrada</string>
   <string name="postIntro">Introducción de la entrada</string>
-  <string name="postBody">Cuerpo de la entrada</string>
+  <string name="postBody">Contenido de la entrada</string>
   <string name="drafts">Borradores</string>
-  <string name="published">Published</string>
+  <string name="published">Publicado</string>
   <string name="publishOnYourBlog">Publicar en tu blog</string>
-  <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private, in your draft posts</string>
+  <string name="publishHelp">Si está marcado, la entrada aparecerá en tu blog. Si no, será privada en tus borradores</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Published a blog post</item>
     <item quantity="other">Published %s blog posts</item>
