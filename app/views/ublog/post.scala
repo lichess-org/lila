@@ -40,7 +40,7 @@ object post {
         .some,
       robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH)
     ) {
-      main(cls := "page-menu")(
+      main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-post")(
           thumbnail(post, _.Large)(cls := "ublog-post__image"),
