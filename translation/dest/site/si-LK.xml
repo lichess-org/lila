@@ -49,12 +49,15 @@
   <string name="blackResigned">කළු ඉල්ලා අස්විය</string>
   <string name="whiteLeftTheGame">සුදු ක්‍රීඩාවෙන් ඉවත් විය</string>
   <string name="blackLeftTheGame">කළු ක්‍රීඩාවෙන් ඉවත් විය</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">සුදු චලනය නොවීය</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">කළු චලනය නොවීය</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">ප්‍රේක්ෂකයින්ට ක්‍රීඩාව බැලීමට මෙම URL බෙදාගන්න</string>
   <string name="theComputerAnalysisHasFailed">පරිගණක විශ්ලේෂණය අසමත් විය</string>
   <string name="viewTheComputerAnalysis">පරිගණක විශ්ලේෂණය බලන්න</string>
   <string name="requestAComputerAnalysis">පරිගණක විශ්ලේෂණයක් ඉල්ලන්න</string>
   <string name="computerAnalysis">පරිගණක විශ්ලේෂණය</string>
   <string name="computerAnalysisAvailable">පරිගණක විශ්ලේෂණය ලබා ගත හැකිය</string>
+  <string name="computerAnalysisDisabled">පරිගණක විශ්ලේෂණය අබලයි</string>
   <string name="analysis">විශ්ලේෂණ මණ්ඩලය</string>
   <string name="depthX">ගැඹුර %s</string>
   <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
@@ -96,6 +99,7 @@
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>
   <string name="openingExplorer">පටන්ගැනීම් ගවේෂකය</string>
+  <string name="openingEndgameExplorer">විවෘත කිරීම/අවසන් ක්‍රීඩා ගවේෂක</string>
   <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
   <string name="winPreventedBy50MoveRule">ඇදීම් 50 නීතීයෙන් ජයග්‍රහණය නැතිවුණා</string>
   <string name="lossSavedBy50MoveRule">ඇදීම් 50 නීතියෙන් පරාජය නැතිවුණා</string>
@@ -136,6 +140,8 @@
     <item quantity="one">තරගකරුවන් %s ක්</item>
     <item quantity="other">තරගකරුවන් %s ක්</item>
   </plurals>
+  <string name="drawByMutualAgreement">අන්යොන්ය එකඟතාවයෙන් ඇඳීම</string>
+  <string name="fiftyMovesWithoutProgress">ප්‍රගතියක් නොමැතිව චලනයන් පනහක්</string>
   <string name="currentGames">වර්තමාන තරඟ</string>
   <plurals name="nbBookmarks">
     <item quantity="one">%sබුක්මාකය</item>
