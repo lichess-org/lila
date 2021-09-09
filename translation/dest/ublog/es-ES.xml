@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Aún no hay entradas en este blog.</string>
   <string name="noDrafts">No hay borradores que mostrar.</string>
   <string name="latestBlogPosts">Últimas entradas de blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ver una entrada</item>
+    <item quantity="other">Ver las %s entradas</item>
+  </plurals>
 </resources>
