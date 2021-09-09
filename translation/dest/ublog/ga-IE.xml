@@ -2,11 +2,15 @@
 <resources>
   <string name="xBlog">Blag %s\'</string>
   <string name="newPost">Post nua</string>
+  <string name="editYourBlogPost">Cuir do phost bhlag in eagar</string>
+  <string name="saveDraft">Sábháil dréacht</string>
+  <string name="postTitle">Teideal postála</string>
   <string name="postIntro">Réamhrá do phostáil</string>
   <string name="postBody">Postáil corpthéacs</string>
   <string name="drafts">Dréachtaí</string>
   <string name="published">Foilsithe</string>
   <string name="publishOnYourBlog">Foilsigh ar do bhlag féin</string>
+  <string name="publishHelp">Má dhéantar seiceáil air, liostálfar an postáil ar do bhlag. Mura bhfuil, beidh sé príobháideach, i do dhréachtphostáil</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Foilsíodh postáilbhlag</item>
     <item quantity="two">Foilsíodh %s phostáilbhlag</item>
