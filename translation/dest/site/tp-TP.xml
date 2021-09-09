@@ -131,7 +131,7 @@
     <item quantity="other">pakala %s</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">pakala lili %s</item>
+    <item quantity="one">pakala lili wan</item>
     <item quantity="other">pakala lili %s</item>
   </plurals>
   <string name="moveTimes">tenpo tawa</string>
@@ -144,6 +144,8 @@
     <item quantity="one">jan musi wan</item>
     <item quantity="other">jan musi %s</item>
   </plurals>
+  <string name="drawByMutualAgreement">pini sama tan wile ale</string>
+  <string name="fiftyMovesWithoutProgress">tawa mute mute luka luka la musi li tawa ala</string>
   <string name="currentGames">musi pi tenpo ni</string>
   <plurals name="nbGames">
     <item quantity="one">musi wan</item>
@@ -866,6 +868,11 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
   <string name="timeAlmostUp">tenpo lili li lon a!</string>
   <string name="clickToRevealEmailAddress">[pilin la sina ken lukin e ma pi lipu kon]</string>
+  <string name="download">o pana e musi tawa ilo sona mi</string>
   <string name="welcome">o kama pona!</string>
+  <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
+ona li wile e mani la jan li wile pana e mani tawa ona.</string>
+  <string name="cancelTournament">o moli e musi</string>
+  <string name="tournDescription">toki musi</string>
   <string name="noChat">toki ala</string>
 </resources>
