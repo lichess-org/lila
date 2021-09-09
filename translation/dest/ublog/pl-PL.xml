@@ -30,4 +30,10 @@
   <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
   <string name="noDrafts">Brak wersji roboczych.</string>
   <string name="latestBlogPosts">Najnowsze wpisy na blogu</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Zobacz jeden wpis</item>
+    <item quantity="few">Zobacz %s wpisy</item>
+    <item quantity="many">Zobacz %s wpisów</item>
+    <item quantity="other">Zobacz %s wpisów</item>
+  </plurals>
 </resources>
