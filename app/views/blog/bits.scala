@@ -10,11 +10,14 @@ import controllers.routes
 
 object bits {
 
-  def menu(year: Option[Int], active: Option[String]) =
+  def menu(year: Option[Int], active: Option[String])(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.has("community").option("active"), href := routes.Ublog.community())("Community blogs"),
       a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())("Friends blogs"),
       a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())("Liked blog posts"),
+      ctx.me map { me =>
+        a(cls := active.has("mine").option("active"), href := routes.Ublog.index(me.username))("My blog")
+      },
       a(cls := active.has("lichess").option("active"), href := routes.Blog.index())("Lichess blog"),
       year.isDefined || active.has("lichess") option lila.blog.allYears.map { y =>
         a(cls := (year has y).option("active"), href := routes.Blog.year(y))(y)
