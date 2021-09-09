@@ -24,4 +24,5 @@
   <string name="broadcastUrl">ブロードキャスト URL</string>
   <string name="currentRoundUrl">現在のラウンドの URL</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
+  <string name="downloadAllRounds">全ラウンドをダウンロード</string>
 </resources>
