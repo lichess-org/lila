@@ -3,6 +3,7 @@
   <string name="xBlog">Lietotāja %s blogs</string>
   <string name="newPost">Jauns ieraksts</string>
   <string name="editYourBlogPost">Rediģēt savu bloga ierakstu</string>
+  <string name="saveDraft">Saglabāt melnrakstu</string>
   <string name="postTitle">Nosaukums</string>
   <string name="postIntro">Ievads</string>
   <string name="postBody">Ieraksta teksts</string>
