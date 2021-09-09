@@ -193,10 +193,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case (Black, None)    => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
         }
       case S.NoStart =>
-        game.loser match {
-          case Some(p) if p.color.white => trans.whiteDidntMove.txt()
-          case _                        => trans.blackDidntMove.txt()
-        }
+        (if (game.loser.exists(_.color.white)) trans.whiteDidntMove else trans.blackDidntMove).txt()
       case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
