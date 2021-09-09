@@ -30,4 +30,10 @@
   <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
   <string name="noDrafts">Нет черновиков для просмотра.</string>
   <string name="latestBlogPosts">Свежие записи в блоге</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Посмотреть один пост</item>
+    <item quantity="few">Посмотреть %s поста</item>
+    <item quantity="many">Посмотреть %s постов</item>
+    <item quantity="other">Посмотреть все %s постов</item>
+  </plurals>
 </resources>
