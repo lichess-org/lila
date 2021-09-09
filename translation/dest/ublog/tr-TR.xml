@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
   <string name="noDrafts">Gösterilecek taslak yok.</string>
   <string name="latestBlogPosts">Son blog gönderileri</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Bir gönderiyi görüntüle</item>
+    <item quantity="other">%s gönderinin hepsini görüntüle</item>
+  </plurals>
 </resources>
