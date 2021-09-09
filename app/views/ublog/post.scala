@@ -38,7 +38,7 @@ object post {
           description = post.intro
         )
         .some,
-      robots = netConfig.crawlable && blog.listed && post.indexable
+      robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH)
     ) {
       main(cls := "box box-pad page page-small ublog-post")(
         thumbnail(post, _.Large)(cls := "ublog-post__image"),
