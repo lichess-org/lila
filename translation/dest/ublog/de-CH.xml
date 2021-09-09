@@ -3,6 +3,7 @@
   <string name="xBlog">Blog von %s</string>
   <string name="newPost">Neuer Beitrag</string>
   <string name="editYourBlogPost">Bearbeite deinen Blog-Beitrag</string>
+  <string name="saveDraft">Entwurf speichern</string>
   <string name="postTitle">Beitragstitel</string>
   <string name="postIntro">Beitragseinleitung</string>
   <string name="postBody">Beitragsinhalt</string>
