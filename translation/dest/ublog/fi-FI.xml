@@ -3,6 +3,7 @@
   <string name="xBlog">Käyttäjän %s blogi</string>
   <string name="newPost">Uusi kirjoitus</string>
   <string name="editYourBlogPost">Muokkaa blogikirjoitustasi</string>
+  <string name="saveDraft">Tallenna luonnos</string>
   <string name="postTitle">Otsikko</string>
   <string name="postIntro">Johdanto</string>
   <string name="postBody">Varsinainen teksti</string>
@@ -14,10 +15,15 @@
     <item quantity="one">Julkaisi blogikirjoituksen</item>
     <item quantity="other">Julkaisi %s blogikirjoitusta</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Katsottu yhden kerran</item>
+    <item quantity="other">Katsottu %s kertaa</item>
+  </plurals>
   <string name="xPublishedY">%1$s julkaisi kirjoituksen %2$s</string>
   <string name="thisPostIsPublished">Tämä kirjoitus on julkaistu</string>
   <string name="thisIsADraft">Tämä on luonnos</string>
   <string name="moreBlogPostsBy">Näytä lisää käyttäjän %s blogikirjoituksia</string>
   <string name="noPostsInThisBlogYet">Tässä blogissa ei ole vielä kirjoituksia.</string>
   <string name="noDrafts">Ei näytettäviä luonnoksia.</string>
+  <string name="latestBlogPosts">Uusimmat blogikirjoitukset</string>
 </resources>
