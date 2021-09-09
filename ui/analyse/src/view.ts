@@ -56,7 +56,7 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
     const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
     return render(result, [
       statusView(ctrl),
-      winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
+      winner ? ' • ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
     ]);
   } else if (ctrl.study) {
     const result = findTag(ctrl.study.data.chapter.tags, 'result');
