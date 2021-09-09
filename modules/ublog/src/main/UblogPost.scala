@@ -41,6 +41,7 @@ object UblogPost {
   object Topic {
     val indexable = List(
       "Chess",
+      "Analysis",
       "Puzzle",
       "Opening",
       "Endgame",
