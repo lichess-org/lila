@@ -94,4 +94,7 @@ Imir cluichí gasta agus clasaiceacha chun cur leis na seansanna go gcuirfear fa
     <item quantity="other">%s athimirt</item>
   </plurals>
   <string name="percentSolved">Réitíodh %s</string>
+  <string name="noPuzzlesToShow">Níl rud le taispeáint, imirt roinnt fadhb ar dtús!</string>
+  <string name="improvementAreasDescription">Traenáil iad seo chun do fhorbairt a bharrfheabhsú!</string>
+  <string name="strengthDescription">Cruthaigh tú an chuid is fearr sna réimsí seo</string>
 </resources>
