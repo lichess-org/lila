@@ -86,6 +86,7 @@ export const render = (ctrl: LobbyController) =>
       insert(vnode) {
         const el = vnode.elm as FilterNode;
         if (el.filterLoaded) return;
+        lichess.loadCssPath('lobby.setup');
         xhr.text('/setup/filter').then(html => {
           el.innerHTML = html;
           el.filterLoaded = true;

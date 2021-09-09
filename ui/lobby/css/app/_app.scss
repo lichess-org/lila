@@ -75,3 +75,8 @@
     }
   }
 }
+
+.hook__filters {
+  // will be overridden by _hook-filter.scss once it's loaded
+  display: none;
+}

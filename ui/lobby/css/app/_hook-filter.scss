@@ -3,6 +3,7 @@
   background: fade-out($c-bg-high, 0.5);
   height: 100%;
   white-space: nowrap;
+  display: block;
 
   td {
     padding: 1em 0;

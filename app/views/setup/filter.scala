@@ -13,7 +13,6 @@ object filter {
 
   def apply(form: Form[_])(implicit ctx: Context) =
     frag(
-      cssTag("lobby.setup"),
       st.form(novalidate)(
         table(
           tbody(
