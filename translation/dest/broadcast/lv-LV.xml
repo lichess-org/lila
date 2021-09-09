@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Tiešraides URL</string>
   <string name="currentRoundUrl">Pašreizējā raunda URL</string>
   <string name="currentGameUrl">Pašreizējās spēles URL</string>
+  <string name="downloadAllRounds">Lejupielādēt visus raundus</string>
 </resources>
