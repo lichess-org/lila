@@ -3,6 +3,7 @@
   <string name="xBlog">Lietotāja %s blogs</string>
   <string name="newPost">Jauns ieraksts</string>
   <string name="editYourBlogPost">Rediģēt savu bloga ierakstu</string>
+  <string name="saveDraft">Saglabāt melnrakstu</string>
   <string name="postTitle">Nosaukums</string>
   <string name="postIntro">Ievads</string>
   <string name="postBody">Ieraksta teksts</string>
@@ -26,5 +27,10 @@
   <string name="moreBlogPostsBy">Skatīt citus lietotāja %s bloga ierakstus</string>
   <string name="noPostsInThisBlogYet">Šajā blogā vēl nav ierakstu.</string>
   <string name="noDrafts">Nav melnrakstu, ko rādīt.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Jaunākie bloga ieraksti</string>
+  <string name="latestBlogPosts">Jaunākie bloga ieraksti</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="zero">Skatīt %s ierakstus</item>
+    <item quantity="one">Skatīt %s ierakstu</item>
+    <item quantity="other">Skatīt %s ierakstus</item>
+  </plurals>
 </resources>

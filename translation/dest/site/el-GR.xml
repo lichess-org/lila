@@ -49,6 +49,8 @@
   <string name="blackResigned">Τα μαύρα παραιτήθηκαν</string>
   <string name="whiteLeftTheGame">Τα λευκά έφυγαν από το παιχνίδι</string>
   <string name="blackLeftTheGame">Τα μαύρα έφυγαν από το παιχνίδι</string>
+  <string name="whiteDidntMove">Τα λευκά δεν έπαιξαν</string>
+  <string name="blackDidntMove">Τα μαύρα δεν έπαιξαν</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Στείλτε αυτήν τη διεύθυνση για να επιτρέψετε σε θεατές να δουν το παιχνίδι</string>
   <string name="theComputerAnalysisHasFailed">Η ανάλυση του υπολογιστή απέτυχε</string>
   <string name="viewTheComputerAnalysis">Δείτε την ανάλυση του υπολογιστή</string>

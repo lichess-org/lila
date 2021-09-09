@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="saveDraft">Lagre utkast</string>
   <plurals name="nbViews">
     <item quantity="one">Ein syning</item>
     <item quantity="other">%s syningar</item>
   </plurals>
   <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
   <string name="noDrafts">Ingen utkast å visa.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Siste blogginnlegg</string>
+  <string name="latestBlogPosts">Siste blogginnlegg</string>
 </resources>

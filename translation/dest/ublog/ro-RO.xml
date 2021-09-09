@@ -3,6 +3,7 @@
   <string name="xBlog">Blog-ul lui %s</string>
   <string name="newPost">Postare nouă</string>
   <string name="editYourBlogPost">Editează-ți postarea</string>
+  <string name="saveDraft">Salvează ciorna</string>
   <string name="postTitle">Titlul mesajului</string>
   <string name="postIntro">Introducere</string>
   <string name="postBody">Conținut</string>
@@ -21,5 +22,10 @@
   <string name="moreBlogPostsBy">Vezi mai multe postări pe blog scrise de %s</string>
   <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
   <string name="noDrafts">Nici o ciornă de afișat.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Ultimele postări pe blog</string>
+  <string name="latestBlogPosts">Ultimele postări pe blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Vezi o postare</item>
+    <item quantity="few">Vezi toate cele %s postări</item>
+    <item quantity="other">Vezi toate cele %s de postări</item>
+  </plurals>
 </resources>

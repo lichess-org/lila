@@ -71,6 +71,14 @@
 Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vos parties soit utilisée comme problème!</string>
   <string name="fromXGamesFound">%1$s problèmes trouvés dans %2$s parties</string>
   <string name="puzzleDashboardDescription">S\'entraîner, analyser, s\'améliorer</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s problème fait</item>
+    <item quantity="other">%s problèmes faits</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s problème à refaire</item>
+    <item quantity="other">%s problèmes à refaire</item>
+  </plurals>
   <string name="percentSolved">%s des problèmes résolus</string>
   <string name="noPuzzlesToShow">Rien à afficher - faites d\'abord quelques problèmes !</string>
   <string name="improvementAreasDescription">Faites ces problèmes pour progresser !</string>

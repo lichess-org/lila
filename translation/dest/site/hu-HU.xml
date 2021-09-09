@@ -49,6 +49,8 @@
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Világos nem lépett</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Sötét nem lépett</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások nézhessék a játszmát</string>
   <string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
   <string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>

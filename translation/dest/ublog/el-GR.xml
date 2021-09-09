@@ -3,6 +3,7 @@
   <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
   <string name="newPost">Καινούργια ανάρτηση</string>
   <string name="editYourBlogPost">Επεξεργαστείτε την ανάρτηση του ιστολογίου σας</string>
+  <string name="saveDraft">Αποθήκευση ως πρόχειρο</string>
   <string name="postTitle">Τίτλος ανάρτησης</string>
   <string name="postIntro">Εισαγωγή ανάρτησης</string>
   <string name="postBody">Μορφή ανάρτησης</string>
@@ -24,5 +25,5 @@
   <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις ιστολογίου από τον χρήστη %s</string>
   <string name="noPostsInThisBlogYet">Δεν έχουν καταχωρηθεί δημοσιεύσεις σε αυτό το ιστολόγιο ακόμα.</string>
   <string name="noDrafts">Δεν υπάρχουν προσχέδια για εμφάνιση.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Τελευταίες δημοσιεύσεις ιστολογίου</string>
+  <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>
 </resources>

@@ -49,12 +49,15 @@
   <string name="blackResigned">pimeja li pini e musi tan anpa</string>
   <string name="whiteLeftTheGame">walo li weka tan musi</string>
   <string name="blackLeftTheGame">pimeja li weka tan musi</string>
+  <string name="whiteDidntMove">walo li tawa ala</string>
+  <string name="blackDidntMove">pimeja li tawa ala</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">o pana e linja ni tawa jan ante la ona li ken lukin e musi</string>
   <string name="theComputerAnalysisHasFailed">ilo sona li pakala</string>
   <string name="viewTheComputerAnalysis">o lukin e sona ilo</string>
   <string name="requestAComputerAnalysis">mi wile lukin e sona ilo</string>
   <string name="computerAnalysis">sona ilo</string>
   <string name="computerAnalysisAvailable">sona ilo li lon</string>
+  <string name="computerAnalysisDisabled">sona ilo li lon ala</string>
   <string name="analysis">supa sona</string>
   <string name="depthX">sona pi tawa kama: %s</string>
   <string name="usingServerAnalysis">kepeken sona tan ilo pana</string>
@@ -96,6 +99,7 @@
   <string name="noGameFound">musi ala li lon</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">sina ken alasa e musi ante kepeken lipu wile.</string>
   <string name="openingExplorer">ilo open</string>
+  <string name="openingEndgameExplorer">ilo open anu ilo pini</string>
   <string name="xOpeningExplorer">ilo open pi nasin %s</string>
   <string name="winPreventedBy50MoveRule">pini pona li kama ala tan nasin pi tawa mute mute luka luka</string>
   <string name="lossSavedBy50MoveRule">pini ike li kama ala tan nasin pi tawa mute mute luka luka</string>
@@ -114,7 +118,7 @@
   <string name="cpus">pilin pi ilo sona</string>
   <string name="memory">awen sona ilo</string>
   <string name="infiniteAnalysis">alasa sona pi pini ala</string>
-  <string name="removesTheDepthLimit">ni li weka e pini pi alasa sona. ilo sona sina li ken kama seli a.</string>
+  <string name="removesTheDepthLimit">ni li weka e pini pi alasa sona. ilo sona sina li ken kama seli a</string>
   <string name="blunder">pakala suli</string>
   <string name="mistake">pakala</string>
   <string name="inaccuracy">pakala lili</string>
@@ -140,6 +144,8 @@
     <item quantity="one">jan musi wan</item>
     <item quantity="other">jan musi %s</item>
   </plurals>
+  <string name="drawByMutualAgreement">pini sama tan wile ale</string>
+  <string name="fiftyMovesWithoutProgress">tawa mute mute luka luka la musi li tawa ala</string>
   <string name="currentGames">musi pi tenpo ni</string>
   <plurals name="nbGames">
     <item quantity="one">musi wan</item>
@@ -862,6 +868,11 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
   <string name="timeAlmostUp">tenpo lili li lon a!</string>
   <string name="clickToRevealEmailAddress">[pilin la sina ken lukin e ma pi lipu kon]</string>
+  <string name="download">o pana e musi tawa ilo sona mi</string>
   <string name="welcome">o kama pona!</string>
+  <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
+ona li wile e mani la jan li wile pana e mani tawa ona.</string>
+  <string name="cancelTournament">o moli e musi</string>
+  <string name="tournDescription">toki musi</string>
   <string name="noChat">toki ala</string>
 </resources>

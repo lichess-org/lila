@@ -52,6 +52,8 @@
   <string name="blackResigned">D\'éirigh Dubh as</string>
   <string name="whiteLeftTheGame">D\'fhág Bán an cluiche</string>
   <string name="blackLeftTheGame">D\'fhág Dubh an cluiche</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Níor bhog bán</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Níor bhog dubh</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comhroinn an URL seo chun ligean do lucht féachana an cluiche a fheiceáil</string>
   <string name="theComputerAnalysisHasFailed">Theip ar anailís an ríomhaire</string>
   <string name="viewTheComputerAnalysis">Féach ar anailís an ríomhaire</string>
@@ -1020,6 +1022,7 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="simulDescription">Tuairisc ar thaispeántas comhuaineach</string>
   <string name="simulDescriptionHelp">Rud ar bith is mian leat a rá leis na rannpháirtithe?</string>
   <string name="markdownAvailable">Tá %s ar fáil le haghaidh comhréir níos airde.</string>
+  <string name="embedsAvailable">Greamaigh URL cluiche nó URL caibidil staidéir chun é a leabú.</string>
   <string name="inYourLocalTimezone">I do chrios ama áitiúil féin</string>
   <string name="tournChat">Comhrá comórtais</string>
   <string name="noChat">Cosc ar comhrá</string>

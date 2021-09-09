@@ -898,6 +898,7 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="simulDescription">Simultanbeschriibig</string>
   <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
   <string name="markdownAvailable">%s isch für erwiitärätä Syntax erhältlich.</string>
+  <string name="embedsAvailable">Füge eine Partie-URL oder eine Studienkapitel-URL ein, um sie einzubetten.</string>
   <string name="inYourLocalTimezone">I dinärä eigänä lokalä Ziitzonä</string>
   <string name="tournChat">Turniärtschätt</string>
   <string name="noChat">Kein Tschätt</string>

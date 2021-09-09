@@ -49,6 +49,8 @@
   <string name="blackResigned">Les Noirs abandonnent</string>
   <string name="whiteLeftTheGame">Les Blancs ont quitté la partie</string>
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
+  <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
+  <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partagez ce lien pour permettre à des spectateurs de voir la partie</string>
   <string name="theComputerAnalysisHasFailed">L\'analyse automatique a échoué</string>
   <string name="viewTheComputerAnalysis">Voir l\'analyse automatique</string>

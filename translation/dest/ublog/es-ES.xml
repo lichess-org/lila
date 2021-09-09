@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">%s\' Blog</string>
-  <string name="newPost">New post</string>
-  <string name="editYourBlogPost">Edit your blog post</string>
-  <string name="postTitle">Post title</string>
-  <string name="postIntro">Post intro</string>
-  <string name="postBody">Post body</string>
-  <string name="drafts">Drafts</string>
-  <string name="published">Published</string>
-  <string name="publishOnYourBlog">Publish on your blog</string>
-  <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private, in your draft posts</string>
+  <string name="xBlog">Blog de %s</string>
+  <string name="newPost">Nueva entrada</string>
+  <string name="editYourBlogPost">Edita tu entrada</string>
+  <string name="saveDraft">Guardar borrador</string>
+  <string name="postTitle">Título de la entrada</string>
+  <string name="postIntro">Introducción de la entrada</string>
+  <string name="postBody">Contenido de la entrada</string>
+  <string name="drafts">Borradores</string>
+  <string name="published">Publicado</string>
+  <string name="publishOnYourBlog">Publicar en tu blog</string>
+  <string name="publishHelp">Si está marcado, la entrada aparecerá en tu blog. Si no, será privada en tus borradores</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Published a blog post</item>
     <item quantity="other">Published %s blog posts</item>
@@ -18,11 +19,15 @@
     <item quantity="one">Una visualización</item>
     <item quantity="other">%s visualizaciones</item>
   </plurals>
-  <string name="xPublishedY">%1$s published %2$s</string>
-  <string name="thisPostIsPublished">This post is published</string>
-  <string name="thisIsADraft">This is a draft</string>
-  <string name="moreBlogPostsBy">View more blog posts by %s</string>
-  <string name="noPostsInThisBlogYet">Aún no hay mensajes en este blog.</string>
+  <string name="xPublishedY">%1$s publicó %2$s</string>
+  <string name="thisPostIsPublished">Esta entrada está publicada</string>
+  <string name="thisIsADraft">Esto es un borrador</string>
+  <string name="moreBlogPostsBy">Más entradas de %s</string>
+  <string name="noPostsInThisBlogYet">Aún no hay entradas en este blog.</string>
   <string name="noDrafts">No hay borradores que mostrar.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Últimas entradas de blog</string>
+  <string name="latestBlogPosts">Últimas entradas de blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ver una entrada</item>
+    <item quantity="other">Ver las %s entradas</item>
+  </plurals>
 </resources>

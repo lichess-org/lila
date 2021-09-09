@@ -49,6 +49,8 @@
   <string name="blackResigned">Siyah oyundan çekildi</string>
   <string name="whiteLeftTheGame">Beyaz oyundan ayrıldı</string>
   <string name="blackLeftTheGame">Siyah oyundan ayrıldı</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Beyaz hamle yapmadı</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Siyah hamle yapmadı</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oyunu izlemek isteyenlerle bu bağlantıyı paylaşın</string>
   <string name="theComputerAnalysisHasFailed">Bilgisayar analizi başarısız oldu</string>
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>

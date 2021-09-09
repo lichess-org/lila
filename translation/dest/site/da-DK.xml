@@ -49,6 +49,8 @@
   <string name="blackResigned">Sort har givet op</string>
   <string name="whiteLeftTheGame">Hvid har forladt partiet</string>
   <string name="blackLeftTheGame">Sort forlod spillet</string>
+  <string name="whiteDidntMove">Hvid flyttede ikke</string>
+  <string name="blackDidntMove">Sort flyttede ikke</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
   <string name="theComputerAnalysisHasFailed">Computeranalysen slog fejl</string>
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
@@ -188,7 +190,7 @@
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Brugernavn</string>
-  <string name="usernameOrEmail">Brugernavn eller e-mail</string>
+  <string name="usernameOrEmail">Brugernavn eller Email</string>
   <string name="changeUsername">Ændr brugernavn</string>
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"holgerdanske\" til \"HolgerDanske\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
@@ -293,7 +295,7 @@
   <string name="thisAccountViolatedTos">Denne konto overtrådte Lichess servicevilkår</string>
   <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>
-  <string name="proposeATakeback">Foreslå et omtræk</string>
+  <string name="proposeATakeback">Anmod om omtræk</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
   <string name="takebackPropositionDeclined">Anmodning om omtræk afslået</string>
   <string name="takebackPropositionAccepted">Anmodning om omtræk accepteret</string>

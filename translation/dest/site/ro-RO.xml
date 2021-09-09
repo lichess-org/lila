@@ -49,6 +49,8 @@
   <string name="blackResigned">Negrul a cedat</string>
   <string name="whiteLeftTheGame">Albul a părăsit partida</string>
   <string name="blackLeftTheGame">Negrul a părăsit partida</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Albul nu s-a mișcat</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Negrul nu s-a mișcat</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribuiți acest link pentru a permite spectatorilor să vizioneze partida</string>
   <string name="theComputerAnalysisHasFailed">Analiza calculatorului a eșuat</string>
   <string name="viewTheComputerAnalysis">Vezi analiza calculatorului</string>

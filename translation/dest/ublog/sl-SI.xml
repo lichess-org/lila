@@ -3,6 +3,7 @@
   <string name="xBlog">%s blog</string>
   <string name="newPost">Nova objava</string>
   <string name="editYourBlogPost">Uredi svojo objavo v blogu</string>
+  <string name="saveDraft">Shrani osnutek</string>
   <string name="postTitle">Naslov objave</string>
   <string name="postIntro">Objavi uvod</string>
   <string name="postBody">Telo objave</string>
@@ -28,5 +29,11 @@
   <string name="moreBlogPostsBy">Poglej več objav od %s</string>
   <string name="noPostsInThisBlogYet">Ni še objav v tem blogu.</string>
   <string name="noDrafts">Ni osnutkov za prikaz.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Zadnje objave na blogu</string>
+  <string name="latestBlogPosts">Zadnje objave na blogu</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ogled objave</item>
+    <item quantity="two">Ogled obeh objav</item>
+    <item quantity="few">Ogled vseh %s objav</item>
+    <item quantity="other">Ogled vseh %s objav</item>
+  </plurals>
 </resources>

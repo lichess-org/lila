@@ -51,6 +51,8 @@
   <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe porzuciły partię</string>
   <string name="blackLeftTheGame">Czarne porzuciły partię</string>
+  <string name="whiteDidntMove">Białe nie ruszyły się</string>
+  <string name="blackDidntMove">Czarne nie ruszyły się</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres innym, by mogli zobaczyć tę partię</string>
   <string name="theComputerAnalysisHasFailed">Nie udało się przeanalizować tej partii</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>

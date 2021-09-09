@@ -22,5 +22,5 @@
   <string name="moreBlogPostsBy">%s的更多文章</string>
   <string name="noPostsInThisBlogYet">此博客中尚无文章</string>
   <string name="noDrafts">无可展示的草稿。</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">最新博客文章</string>
+  <string name="latestBlogPosts">最新博客文章</string>
 </resources>

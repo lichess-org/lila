@@ -50,6 +50,8 @@
   <string name="blackResigned">Melnie padevās</string>
   <string name="whiteLeftTheGame">Baltie pameta spēli</string>
   <string name="blackLeftTheGame">Melnie pameta spēli</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Baltie neveica gājienu</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Melnie neveica gājienu</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Padalies ar šo saiti, lai ļautu skatītājiem redzēt spēli</string>
   <string name="theComputerAnalysisHasFailed">Spēles datoranalīze neizdevās</string>
   <string name="viewTheComputerAnalysis">Skatīt spēles datoranalīzi</string>

@@ -3,6 +3,7 @@
   <string name="xBlog">%s\' Blogja</string>
   <string name="newPost">Új bejegyzés</string>
   <string name="editYourBlogPost">Saját bejegyzés módosítása</string>
+  <string name="saveDraft">Piszkozat mentése</string>
   <string name="postTitle">Bejegyzés címe</string>
   <string name="postIntro">Bejegyzés felvezetése</string>
   <string name="postBody">Bejegyzés törzse</string>
@@ -12,7 +13,7 @@
   <string name="publishHelp">Ha bejelölöd a bejegyzés nyilvános lesz. Ha nem jelölöd be, akkor privát poszt marad és a vázlatok között megtalálható lesz</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blogbejegyzést tett közzé</item>
-    <item quantity="other">Blogbejegyzést tett közzé</item>
+    <item quantity="other">Blogbejegyzést %s tett közzé</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Egy megtekintés</item>
@@ -24,5 +25,5 @@
   <string name="moreBlogPostsBy">Még több bejegyzés tőle: %s</string>
   <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
   <string name="noDrafts">Nincsenek piszkozatok.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Legutóbbi blogbejegyzések</string>
+  <string name="latestBlogPosts">Legutóbbi blogbejegyzések</string>
 </resources>

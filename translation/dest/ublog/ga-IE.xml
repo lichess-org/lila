@@ -2,10 +2,15 @@
 <resources>
   <string name="xBlog">Blag %s\'</string>
   <string name="newPost">Post nua</string>
+  <string name="editYourBlogPost">Cuir do phost bhlag in eagar</string>
+  <string name="saveDraft">Sábháil dréacht</string>
+  <string name="postTitle">Teideal postála</string>
+  <string name="postIntro">Réamhrá do phostáil</string>
   <string name="postBody">Postáil corpthéacs</string>
   <string name="drafts">Dréachtaí</string>
   <string name="published">Foilsithe</string>
   <string name="publishOnYourBlog">Foilsigh ar do bhlag féin</string>
+  <string name="publishHelp">Má dhéantar seiceáil air, liostálfar an postáil ar do bhlag. Mura bhfuil, beidh sé príobháideach, i do dhréachtphostáil</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Foilsíodh postáilbhlag</item>
     <item quantity="two">Foilsíodh %s phostáilbhlag</item>
@@ -13,7 +18,25 @@
     <item quantity="many">Foilsíodh %s postáilbhlag</item>
     <item quantity="other">Foilsíodh %s postáilbhlag</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Amharc amháin</item>
+    <item quantity="two">%s amharc</item>
+    <item quantity="few">%s amharc</item>
+    <item quantity="many">%s amharc</item>
+    <item quantity="other">%s amharc</item>
+  </plurals>
+  <string name="xPublishedY">Foilsithe %1$s %2$s</string>
+  <string name="thisPostIsPublished">Foilsítear an postáil seo</string>
   <string name="thisIsADraft">Seo dréacht</string>
+  <string name="moreBlogPostsBy">Tuilleadh postálacha blag ó %s</string>
   <string name="noPostsInThisBlogYet">Níl aon phoist sa bhlag seo, go fóill.</string>
   <string name="noDrafts">Gan aon dréachtaí le taispeáint.</string>
+  <string name="latestBlogPosts">Postáil bhlag is déanaí</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Féach ar phost amháin</item>
+    <item quantity="two">Féach ar %s phost</item>
+    <item quantity="few">Féach ar %s bpost</item>
+    <item quantity="many">Féach ar %s post</item>
+    <item quantity="other">Féach ar %s post</item>
+  </plurals>
 </resources>

@@ -3,6 +3,7 @@
   <string name="xBlog">Blog von %s</string>
   <string name="newPost">Neuer Beitrag</string>
   <string name="editYourBlogPost">Bearbeite deinen Blog-Beitrag</string>
+  <string name="saveDraft">Entwurf speichern</string>
   <string name="postTitle">Beitragstitel</string>
   <string name="postIntro">Beitragseinleitung</string>
   <string name="postBody">Beitragsinhalt</string>
@@ -24,5 +25,9 @@
   <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s</string>
   <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
   <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Neueste Blog-Beiträge</string>
+  <string name="latestBlogPosts">Neueste Blog-Beiträge</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Einen Beitrag anzeigen</item>
+    <item quantity="other">Alle %s Beiträge anzeigen</item>
+  </plurals>
 </resources>

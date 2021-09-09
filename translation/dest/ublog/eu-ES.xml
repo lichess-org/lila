@@ -24,5 +24,9 @@
   <string name="moreBlogPostsBy">%s erabiltzailearen sarrera gehiago</string>
   <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
   <string name="noDrafts">Ez dago zirriborrorik.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Blogeko azken sarrerak</string>
+  <string name="latestBlogPosts">Blogeko azken sarrerak</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Sarrera bat ikusi</item>
+    <item quantity="other">%s sarrera guztiak ikusi</item>
+  </plurals>
 </resources>
