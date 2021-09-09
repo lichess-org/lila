@@ -18,6 +18,8 @@
   <string name="rule1">Cuir an eochairfhocal \"lichess.org\" san áireamh i do theideal srutha agus bain úsáid as an gcatagóir \"Ficheall\" nuair a dhéanann tú sruth ar Lichess.</string>
   <string name="rule2">Bain an eochair-fhocal nuair atá tú ag sruthlú stuif neamh-Lichess.</string>
   <string name="rule3">Braithfidh Lichess do shruth go huathoibríoch agus ligfidh sé na buntáistí seo a leanas:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Léigh ár %s chun cothrom na Féinne a chinntiú do gach duine le linn do shruth.</string>
+  <string name="streamingFairplayFAQ">cCanna maidir le cothrom na Féinne a shruthlú</string>
   <string name="perks">Buntáistí a bhaineann le sruthú leis an eochairfhocal</string>
   <string name="perk1">Faigh deilbhín sraoilleán lasrach ar do phróifíl Lichess.</string>
   <string name="perk2">Teigh suas go barr an liosta sruthlaithe.</string>
