@@ -117,7 +117,7 @@ export function view(root: AnalyseCtrl): VNode {
     h('form.form3', [
       ctrl.root.path !== current.path
         ? h('p', [
-            'Commenting position after ',
+            `Commenting ${current.node.san ? 'position after' : ''}`,
             h(
               'button.button-link',
               {
