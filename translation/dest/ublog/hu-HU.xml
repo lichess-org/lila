@@ -13,7 +13,7 @@
   <string name="publishHelp">Ha bejelölöd a bejegyzés nyilvános lesz. Ha nem jelölöd be, akkor privát poszt marad és a vázlatok között megtalálható lesz</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blogbejegyzést tett közzé</item>
-    <item quantity="other">Blogbejegyzést tett közzé</item>
+    <item quantity="other">Blogbejegyzést %s tett közzé</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Egy megtekintés</item>
