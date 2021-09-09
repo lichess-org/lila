@@ -20,11 +20,22 @@
     margin: 2em 0;
   }
 
-  ol li {
+  ol,
+  ul {
+    padding-left: 0.5em;
+  }
+
+  li ol,
+  li ul {
+    margin: 0;
+    padding-left: 2em;
+  }
+
+  ol > li {
     list-style: decimal inside;
   }
 
-  ul li {
+  ul > li {
     list-style: disc inside;
   }
 
