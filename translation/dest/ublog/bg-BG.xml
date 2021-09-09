@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="saveDraft">Запазване на черновата</string>
   <plurals name="nbViews">
     <item quantity="one">Едно преглеждане</item>
     <item quantity="other">%s преглеждания</item>
