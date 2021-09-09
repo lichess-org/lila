@@ -49,6 +49,8 @@
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
   <string name="blackLeftTheGame">Pretas deixaram a partida</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">As brancas não jogaram</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">As pretas não jogaram</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Compartilhe esta URL para convidar espectadores</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
