@@ -3,6 +3,7 @@
   <string name="xBlog">Blog van %s</string>
   <string name="newPost">Nieuwe blogpost</string>
   <string name="editYourBlogPost">Bewerk je blogpost</string>
+  <string name="saveDraft">Concept opslaan</string>
   <string name="postTitle">Titel</string>
   <string name="postIntro">Inleiding</string>
   <string name="postBody">Tekst</string>
