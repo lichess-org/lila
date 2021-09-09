@@ -1,6 +1,5 @@
 import spinner from './component/spinner';
 
-
 function toYouTubeEmbedUrl(url: string) {
   if (!url) return;
   const m = url.match(

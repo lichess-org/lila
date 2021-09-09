@@ -217,13 +217,13 @@ final class JsonView(
       .obj(
         "game" -> Json
           .obj(
-            "id"         -> gameId,
-            "variant"    -> game.variant,
-            "opening"    -> game.opening,
-            "fen"        -> fen,
-            "turns"      -> game.turns,
-            "player"     -> game.turnColor.name,
-            "status"     -> game.status
+            "id"      -> gameId,
+            "variant" -> game.variant,
+            "opening" -> game.opening,
+            "fen"     -> fen,
+            "turns"   -> game.turns,
+            "player"  -> game.turnColor.name,
+            "status"  -> game.status
           )
           .add("initialFen", initialFen)
           .add("division", division)

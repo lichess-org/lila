@@ -162,10 +162,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Aborted => trans.gameAborted.txt()
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
-        game.loser match {
-          case Some(p) if p.color.white => trans.whiteResigned.txt()
-          case _                        => trans.blackResigned.txt()
-        }
+        (if (game.loser.exists(_.color.white)) trans.whiteResigned else trans.blackResigned).txt()
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
       case S.Timeout =>

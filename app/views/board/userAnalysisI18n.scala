@@ -126,7 +126,7 @@ object userAnalysisI18n {
     trans.removesTheDepthLimit,
     trans.multipleLines,
     trans.cpus,
-    trans.memory,
+    trans.memory
   ).map(_.key)
 
   val explorerTranslations: Vector[MessageKey] = Vector(

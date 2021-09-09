@@ -72,7 +72,7 @@ final class TournamentStandingApi(
 
   private def compute(tour: Tournament, page: Int): Fu[JsObject] =
     for {
-      rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
+      rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, 10, page atLeast 1)
       sheets <-
         rankedPlayers
           .map { p =>
