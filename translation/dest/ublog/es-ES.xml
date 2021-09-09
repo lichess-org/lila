@@ -20,10 +20,10 @@
     <item quantity="other">%s visualizaciones</item>
   </plurals>
   <string name="xPublishedY">%1$s publicó %2$s</string>
-  <string name="thisPostIsPublished">This post is published</string>
-  <string name="thisIsADraft">This is a draft</string>
-  <string name="moreBlogPostsBy">View more blog posts by %s</string>
-  <string name="noPostsInThisBlogYet">Aún no hay mensajes en este blog.</string>
+  <string name="thisPostIsPublished">Esta entrada está publicada</string>
+  <string name="thisIsADraft">Esto es un borrador</string>
+  <string name="moreBlogPostsBy">Más entradas de %s</string>
+  <string name="noPostsInThisBlogYet">Aún no hay entradas en este blog.</string>
   <string name="noDrafts">No hay borradores que mostrar.</string>
   <string name="latestBlogPosts">Últimas entradas de blog</string>
 </resources>
