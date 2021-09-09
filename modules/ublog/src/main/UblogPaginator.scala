@@ -11,6 +11,7 @@ import lila.db.paginator.Adapter
 import lila.user.User
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
+import play.api.i18n.Lang
 
 final class UblogPaginator(
     colls: UblogColls,
@@ -39,11 +40,11 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByCommunity(page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new Adapter[PreviewPost](
         collection = colls.post,
-        selector = $doc("live" -> true),
+        selector = $doc("live" -> true) ++ lang.?? { l => $doc("language" -> l.code) },
         projection = previewPostProjection.some,
         sort = $sort desc "rank",
         readPreference = ReadPreference.secondaryPreferred

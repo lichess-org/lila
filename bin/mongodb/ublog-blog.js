@@ -19,14 +19,11 @@ db.ublog_post.createIndex(
     name: 'draftByBlog',
   }
 );
+db.ublog_post.createIndex({ rank: -1 }, { partialFilterExpression: { live: true }, name: 'liveByRank' });
+db.ublog_post.dropIndex('liveByLang');
 db.ublog_post.createIndex(
-  {
-    rank: -1,
-  },
-  {
-    partialFilterExpression: { live: true },
-    name: 'liveByRank',
-  }
+  { language: 1, rank: -1 },
+  { partialFilterExpression: { live: true }, name: 'liveByLanguage' }
 );
 db.ublog_post.createIndex({ likers: 1, rank: -1 }, { partialFilterExpression: { live: true }, name: 'liveByLiked' });
 db.ublog_post.createIndex({ topic: 1, rank: -1 }, { partialFilterExpression: { live: true }, name: 'liveByTopic' });

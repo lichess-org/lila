@@ -127,6 +127,11 @@ object LangList {
     case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
 
+  // lazy val popularNoRegionByLanguage: Map[String, Lang] =
+  //   popularNoRegion.view.map { l =>
+  //     l.language -> l
+  //   }.toMap
+
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
 

@@ -7,6 +7,8 @@ import lila.api.Context
 import lila.app._
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User => UserModel }
+import play.api.i18n.Lang
+import lila.i18n.LangList
 
 final class Ublog(env: Env) extends LilaController(env) {
 
@@ -204,21 +206,12 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def community(page: Int) = Open { implicit ctx =>
+  def community(code: String, page: Int) = Open { implicit ctx =>
     NotForKids {
+      val l = Lang.get(code).filter(LangList.popularNoRegion.contains)
       Reasonable(page, 20) {
-        env.ublog.paginator.liveByCommunity(page) map { posts =>
-          Ok(html.ublog.index.community(posts))
-        }
-      }
-    }
-  }
-
-  def lang(lang: String, page: Int) = Open { implicit ctx =>
-    NotForKids {
-      Reasonable(page, 20) {
-        env.ublog.paginator.liveByCommunity(page) map { posts =>
-          Ok(html.ublog.index.community(posts))
+        env.ublog.paginator.liveByCommunity(l, page) map { posts =>
+          Ok(html.ublog.index.community(l, posts))
         }
       }
     }

@@ -9,6 +9,8 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
+import play.api.i18n.Lang
+import lila.i18n.LangList
 
 object index {
 
@@ -67,13 +69,46 @@ object index {
     onEmpty = "Nothing to show."
   )
 
-  def community(posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
-    title = "Community blogs",
-    posts = posts,
-    menuItem = "community",
-    route = routes.Ublog.community _,
-    onEmpty = "Nothing to show."
-  )
+  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("ublog"),
+      moreJs = posts.hasNextPage option infiniteScrollTag,
+      title = "Community blogs"
+    ) {
+      val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
+        .sortFor(LangList.popularNoRegion, ctx.req)
+        .map { l =>
+          l.code -> LangList.name(l)
+        }
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "community".some),
+        div(cls := "page-menu__content box box-pad ublog-index")(
+          div(cls := "box__top")(
+            h1("Community blogs"),
+            div(cls := "box__top__actions")(
+              views.html.base.bits.mselect(
+                "ublog-lang",
+                lang.fold("All languages")(LangList.name),
+                langSelections
+                  .map { case (code, name) =>
+                    a(
+                      href := routes.Ublog.community(code),
+                      cls := (code == lang.fold("all")(_.code)).option("current")
+                    )(name)
+                  }
+              )
+            )
+          ),
+          if (posts.nbResults > 0)
+            div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+              posts.currentPageResults map { postView.card(_, showAuthor = true) },
+              pagerNext(posts, p => routes.Ublog.community(lang.fold("all")(_.language)).url)
+            )
+          else
+            div(cls := "ublog-index__posts--empty")("Nothing to show.")
+        )
+      )
+    }
 
   def topics(tops: List[UblogTopic.WithPosts])(implicit ctx: Context) =
     views.html.base.layout(

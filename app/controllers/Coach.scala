@@ -20,13 +20,11 @@ final class Coach(env: Env) extends LilaController(env) {
       val order   = CoachPager.Order(o)
       val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
       val country = (c != "all") ?? Countries.info(c)
-      env.coach.api.allLanguages flatMap { langCodes =>
-        env.coach.api.allCountries flatMap { countryCodes =>
-          env.coach.pager(lang, order, country, page) map { pager =>
-            Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
-          }
-        }
-      }
+      for {
+        langCodes    <- env.coach.api.allLanguages
+        countryCodes <- env.coach.api.allCountries
+        pager        <- env.coach.pager(lang, order, country, page)
+      } yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
     }
 
   def show(username: String) =
