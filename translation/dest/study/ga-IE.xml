@@ -138,6 +138,7 @@
   <string name="clearChat">Glan comhrá</string>
   <string name="deleteTheStudyChatHistory">Scrios an stair comhrá staidéir? Níl aon dul ar ais!</string>
   <string name="deleteStudy">Scrios an staidéar</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Scrios an staidéar iomlán? Níl aon dul ar ais! Clóscríobh ainm an staidéar le deimhniú: %s</string>
   <string name="whereDoYouWantToStudyThat">Cá háit ar mhaith leat staidéar a dhéanamh air sin?</string>
   <string name="goodMove">Beart maith</string>
   <string name="mistake">Botún</string>
