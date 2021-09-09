@@ -49,6 +49,8 @@
   <string name="blackResigned">Zwart geeft op</string>
   <string name="whiteLeftTheGame">Wit is weggegaan</string>
   <string name="blackLeftTheGame">Zwart is weggegaan</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Wit heeft niet gezet</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Zwart heeft niet gezet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel deze link om anderen de partij te laten zien</string>
   <string name="theComputerAnalysisHasFailed">De computeranalyse is mislukt</string>
   <string name="viewTheComputerAnalysis">Bekijk de computeranalyse</string>
