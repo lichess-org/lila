@@ -28,26 +28,40 @@ object blog {
       ).some,
       robots = netConfig.crawlable && blog.listed
     ) {
-      main(cls := "box box-pad page page-small ublog-index")(
-        div(cls := "box__top")(
-          h1(trans.ublog.xBlog(userLink(user))),
-          if (ctx is user)
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
+        div(cls := "page-menu__content box box-pad ublog-index")(
+          div(cls := "box__top")(
+            h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
-              a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
-              postView.newPostLink
+              if (ctx is user)
+                frag(
+                  a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
+                  postView.newPostLink
+                )
+              else
+                frag(
+                  isGranted(_.ModerateBlog) option tierForm(blog),
+                  a(
+                    cls := "atom",
+                    st.title := "Atom RSS feed",
+                    href := routes.Ublog.userAtom(user.username),
+                    dataIcon := ""
+                  )
+                )
             )
-          else isGranted(_.ModerateBlog) option tierForm(blog)
-        ),
-        standardFlash(),
-        if (posts.nbResults > 0)
-          div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-            posts.currentPageResults map { postView.card(_) },
-            pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
-          )
-        else
-          div(cls := "ublog-index__posts--empty")(
-            trans.ublog.noPostsInThisBlogYet()
-          )
+          ),
+          standardFlash(),
+          if (posts.nbResults > 0)
+            div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
+              posts.currentPageResults map { postView.card(_) },
+              pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
+            )
+          else
+            div(cls := "ublog-index__posts--empty")(
+              trans.ublog.noPostsInThisBlogYet()
+            )
+        )
       )
     }
   }

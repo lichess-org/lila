@@ -40,67 +40,70 @@ object post {
         .some,
       robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH)
     ) {
-      main(cls := "box box-pad page page-small ublog-post")(
-        thumbnail(post, _.Large)(cls := "ublog-post__image"),
-        ctx.is(user) option standardFlash(),
-        h1(cls := "ublog-post__title")(post.title),
-        div(cls := "ublog-post__meta")(
-          a(
-            href := routes.Ublog.index(user.username),
-            cls := userClass(user.id, none, withOnline = true),
-            dataHref := routes.User.show(user.username)
-          )(
-            lineIcon(user),
-            titleTag(user.title),
-            user.username,
-            isGranted(_.ModerateBlog) option (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
-              cls := "ublog-post__tier"
-            )(UblogBlog.Tier.name(blog.tier))
-          ),
-          post.lived map { live =>
-            span(cls := "ublog-post__meta__date")(semanticDate(live.at))
-          },
-          button(
-            tpe := "button",
-            cls := List(
-              "ublog-post__like button-link is" -> true,
-              "ublog-post__like--liked"         -> liked
-            ),
-            dataRel := post.id.value,
-            title := trans.study.like.txt()
-          )(post.likes.value),
-          span(cls := "ublog-post__views")(
-            trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
-          ),
-          if (ctx is user)
-            frag(
-              (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
-                if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
-              ),
-              a(
-                href := editUrlOfPost(post),
-                cls := "button button-empty text",
-                dataIcon := ""
-              )(trans.edit())
-            )
-          else
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
+        div(cls := "page-menu__content box box-pad ublog-post")(
+          thumbnail(post, _.Large)(cls := "ublog-post__image"),
+          ctx.is(user) option standardFlash(),
+          h1(cls := "ublog-post__title")(post.title),
+          div(cls := "ublog-post__meta")(
             a(
-              titleOrText(trans.reportXToModerators.txt(user.username)),
-              cls := "button button-empty ublog-post__meta__report",
-              href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
-              dataIcon := ""
-            )
-        ),
-        div(cls := "ublog-post__topics")(
-          post.topics.map { topic =>
-            a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
-          }
-        ),
-        strong(cls := "ublog-post__intro")(post.intro),
-        div(cls := "ublog-post__markup expand-text")(markup),
-        div(cls := "ublog-post__footer")(
-          h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
-          others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
+              href := routes.Ublog.index(user.username),
+              cls := userClass(user.id, none, withOnline = true),
+              dataHref := routes.User.show(user.username)
+            )(
+              lineIcon(user),
+              titleTag(user.title),
+              user.username,
+              isGranted(_.ModerateBlog) option (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
+                cls := "ublog-post__tier"
+              )(UblogBlog.Tier.name(blog.tier))
+            ),
+            post.lived map { live =>
+              span(cls := "ublog-post__meta__date")(semanticDate(live.at))
+            },
+            button(
+              tpe := "button",
+              cls := List(
+                "ublog-post__like button-link is" -> true,
+                "ublog-post__like--liked"         -> liked
+              ),
+              dataRel := post.id.value,
+              title := trans.study.like.txt()
+            )(post.likes.value),
+            span(cls := "ublog-post__views")(
+              trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
+            ),
+            if (ctx is user)
+              frag(
+                (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
+                  if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
+                ),
+                a(
+                  href := editUrlOfPost(post),
+                  cls := "button button-empty text",
+                  dataIcon := ""
+                )(trans.edit())
+              )
+            else
+              a(
+                titleOrText(trans.reportXToModerators.txt(user.username)),
+                cls := "button button-empty ublog-post__meta__report",
+                href := s"${routes.Report.form}?username=${user.username}&postUrl=${urlencode(s"${netBaseUrl}${urlOfPost(post).url}")}&reason=comm",
+                dataIcon := ""
+              )
+          ),
+          div(cls := "ublog-post__topics")(
+            post.topics.map { topic =>
+              a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
+            }
+          ),
+          strong(cls := "ublog-post__intro")(post.intro),
+          div(cls := "ublog-post__markup expand-text")(markup),
+          div(cls := "ublog-post__footer")(
+            h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
+            others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
+          )
         )
       )
     }

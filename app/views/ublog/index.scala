@@ -20,23 +20,26 @@ object index {
       moreJs = posts.hasNextPage option infiniteScrollTag,
       title = s"${trans.ublog.drafts()}"
     ) {
-      main(cls := "box box-pad page page-small ublog-index")(
-        div(cls := "box__top")(
-          h1(trans.ublog.drafts()),
-          div(cls := "box__top__actions")(
-            a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
-            postView.newPostLink
-          )
-        ),
-        if (posts.nbResults > 0)
-          div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
-            posts.currentPageResults map { postView.card(_, postView.editUrlOfPost) },
-            pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
-          )
-        else
-          div(cls := "ublog-index__posts--empty")(
-            trans.ublog.noDrafts()
-          )
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "mine".some),
+        div(cls := "page-menu__content box box-pad ublog-index")(
+          div(cls := "box__top")(
+            h1(trans.ublog.drafts()),
+            div(cls := "box__top__actions")(
+              a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
+              postView.newPostLink
+            )
+          ),
+          if (posts.nbResults > 0)
+            div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
+              posts.currentPageResults map { postView.card(_, postView.editUrlOfPost) },
+              pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
+            )
+          else
+            div(cls := "ublog-index__posts--empty")(
+              trans.ublog.noDrafts()
+            )
+        )
       )
     }
 
@@ -86,7 +89,7 @@ object index {
     ) {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, menuItem.some),
-        main(cls := "page-menu__content box box-pad ublog-index")(
+        div(cls := "page-menu__content box box-pad ublog-index")(
           div(cls := "box__top")(h1(title)),
           if (posts.nbResults > 0)
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(

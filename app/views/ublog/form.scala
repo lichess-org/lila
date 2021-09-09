@@ -24,11 +24,14 @@ object form {
       moreJs = frag(jsModule("ublogForm"), captchaTag),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     ) {
-      main(cls := "box box-pad page page-small ublog-post-form")(
-        standardFlash(),
-        h1(trans.ublog.newPost()),
-        etiquette,
-        inner(user, f, none, captcha.some)
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "mine".some),
+        div(cls := "page-menu__content box box-pad ublog-post-form")(
+          standardFlash(),
+          h1(trans.ublog.newPost()),
+          etiquette,
+          inner(user, f, none, captcha.some)
+        )
       )
     }
 
@@ -38,20 +41,23 @@ object form {
       moreJs = jsModule("ublogForm"),
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
-      main(cls := "box box-pad page page-small ublog-post-form")(
-        standardFlash(),
-        h1(trans.ublog.editYourBlogPost()),
-        imageForm(user, post),
-        inner(user, f, post.some, none),
-        postForm(
-          cls := "ublog-post-form__delete",
-          action := routes.Ublog.delete(post.id.value)
-        )(
-          form3.action(
-            submitButton(
-              cls := "button button-red button-empty confirm",
-              title := "Delete this blog post definitively"
-            )(trans.delete())
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "mine".some),
+        div(cls := "page-menu__content box box-pad ublog-post-form")(
+          standardFlash(),
+          h1(trans.ublog.editYourBlogPost()),
+          imageForm(user, post),
+          inner(user, f, post.some, none),
+          postForm(
+            cls := "ublog-post-form__delete",
+            action := routes.Ublog.delete(post.id.value)
+          )(
+            form3.action(
+              submitButton(
+                cls := "button button-red button-empty confirm",
+                title := "Delete this blog post definitively"
+              )(trans.delete())
+            )
           )
         )
       )
