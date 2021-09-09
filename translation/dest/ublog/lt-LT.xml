@@ -3,6 +3,7 @@
   <string name="xBlog">%s Tinklaraštis</string>
   <string name="newPost">Naujas įrašas</string>
   <string name="editYourBlogPost">Keisti savo tinklaraščio įrašą</string>
+  <string name="saveDraft">Išsaugoti juodraštį</string>
   <string name="postTitle">Įrašo pavadinimas</string>
   <string name="postIntro">Įrašo įžanga</string>
   <string name="postBody">Įrašo tekstas</string>
