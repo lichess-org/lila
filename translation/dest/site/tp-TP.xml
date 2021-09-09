@@ -49,12 +49,15 @@
   <string name="blackResigned">pimeja li pini e musi tan anpa</string>
   <string name="whiteLeftTheGame">walo li weka tan musi</string>
   <string name="blackLeftTheGame">pimeja li weka tan musi</string>
+  <string name="whiteDidntMove">walo li tawa ala</string>
+  <string name="blackDidntMove">pimeja li tawa ala</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">o pana e linja ni tawa jan ante la ona li ken lukin e musi</string>
   <string name="theComputerAnalysisHasFailed">ilo sona li pakala</string>
   <string name="viewTheComputerAnalysis">o lukin e sona ilo</string>
   <string name="requestAComputerAnalysis">mi wile lukin e sona ilo</string>
   <string name="computerAnalysis">sona ilo</string>
   <string name="computerAnalysisAvailable">sona ilo li lon</string>
+  <string name="computerAnalysisDisabled">sona ilo li lon ala</string>
   <string name="analysis">supa sona</string>
   <string name="depthX">sona pi tawa kama: %s</string>
   <string name="usingServerAnalysis">kepeken sona tan ilo pana</string>
