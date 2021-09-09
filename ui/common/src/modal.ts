@@ -29,7 +29,7 @@ export default function modal(opts: Modal) {
   opts.content.clone().removeClass('none').appendTo($wrap);
   opts.onInsert && opts.onInsert($wrap);
   modal.onClose = opts.onClose;
-  $wrap.find('.close').each(function (this: HTMLElement) {
+  $wrap.find('.close,.cancel').each(function (this: HTMLElement) {
     bindClose(this, modal.close);
   });
   $('body').addClass('overlayed').prepend($overlay);
