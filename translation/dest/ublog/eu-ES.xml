@@ -25,4 +25,8 @@
   <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
   <string name="noDrafts">Ez dago zirriborrorik.</string>
   <string name="latestBlogPosts">Blogeko azken sarrerak</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Sarrera bat ikusi</item>
+    <item quantity="other">%s sarrera guztiak ikusi</item>
+  </plurals>
 </resources>
