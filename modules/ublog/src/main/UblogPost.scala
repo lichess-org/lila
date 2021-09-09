@@ -41,7 +41,15 @@ object UblogPost {
   object Topic {
     val indexable = List(
       "Chess",
-      "Variant",
+      "Puzzle",
+      "Opening",
+      "Endgame",
+      "Tactics",
+      "Strategy",
+      "Chess engine",
+      "Chess bot",
+      "Over the board",
+      "Tournament",
       "Chess960",
       "Crazyhouse",
       "Chess960",
@@ -50,15 +58,10 @@ object UblogPost {
       "Antichess",
       "Atomic",
       "Horde",
-      "Racing Kings",
-      "Puzzle",
-      "Opening",
-      "Endgame",
-      "Tactics",
-      "Strategy"
+      "Racing Kings"
     )
     val all = indexable ::: List(
-      "Software",
+      "Software Development",
       "Lichess",
       "Off topic"
     )
