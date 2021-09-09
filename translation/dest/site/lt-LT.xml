@@ -51,6 +51,8 @@
   <string name="blackResigned">Juodieji pasidavė</string>
   <string name="whiteLeftTheGame">Baltieji paliko žaidimą</string>
   <string name="blackLeftTheGame">Juodieji paliko žaidimą</string>
+  <string name="whiteDidntMove">Baltieji nepajudėjo</string>
+  <string name="blackDidntMove">Juodieji nepajudėjo</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Pasidalinę šiuo adresu leisite žiūrovams stebėti partiją</string>
   <string name="theComputerAnalysisHasFailed">Kompiuterio analizė nepavyko</string>
   <string name="viewTheComputerAnalysis">Peržiūrėti kompiuterio analizę</string>
