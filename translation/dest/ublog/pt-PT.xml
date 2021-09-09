@@ -3,6 +3,7 @@
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nova publicação</string>
   <string name="editYourBlogPost">Modificar a sua publicação</string>
+  <string name="saveDraft">Guardar rascunho</string>
   <string name="postTitle">Titulo da publicação</string>
   <string name="postIntro">Introdução à publicação</string>
   <string name="postBody">Corpo da publicação</string>
