@@ -79,6 +79,7 @@
   <string name="fromMyGamesNone">Níl aon fadhb agat sa bhunachar sonraí, ach is breá le Lichess tú go mór fós. 
 Imir cluichí gasta agus clasaiceacha chun cur leis na seansanna go gcuirfear fadhb de do chuid féin leis!</string>
   <string name="fromXGamesFound">%1$s fadhb le fáil i %2$s cluiche</string>
+  <string name="puzzleDashboardDescription">Traenáil, anailís, feabhsú</string>
   <plurals name="nbPlayed">
     <item quantity="one">D\'imir %s</item>
     <item quantity="two">D\'imir %s</item>
