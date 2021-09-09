@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xPublishedY">%1$s nalathala %2$s</string>
+  <string name="thisPostIsPublished">Ang post na ito ay nai-publish</string>
+  <string name="thisIsADraft">Ito ay isang draft</string>
+  <string name="moreBlogPostsBy">Marami pang mga post sa blog ni %s</string>
+  <string name="noPostsInThisBlogYet">Wala pang post sa blog na ito.</string>
+  <string name="noDrafts">Walang mga draft na ipapakita.</string>
   <string name="latestBlogPosts">Pinakabagong mga post sa blog</string>
 </resources>
