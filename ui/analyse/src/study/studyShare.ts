@@ -97,7 +97,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           {
             attrs: {
               'data-icon': '',
-              href: `/broadcast/${ctrl.relay.data.tour.id}.pgn`,
+              href: `/api/broadcast/${ctrl.relay.data.tour.id}.pgn`,
               download: true,
             },
           },
