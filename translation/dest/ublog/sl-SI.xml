@@ -28,5 +28,5 @@
   <string name="moreBlogPostsBy">Poglej več objav od %s</string>
   <string name="noPostsInThisBlogYet">Ni še objav v tem blogu.</string>
   <string name="noDrafts">Ni osnutkov za prikaz.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Zadnje objave na blogu</string>
+  <string name="latestBlogPosts">Zadnje objave na blogu</string>
 </resources>
