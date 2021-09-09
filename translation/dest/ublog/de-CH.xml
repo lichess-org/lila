@@ -24,4 +24,5 @@
   <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s</string>
   <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
   <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
+  <string name="latestBlogPosts">Neueste Blog-Beiträge</string>
 </resources>
