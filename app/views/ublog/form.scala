@@ -22,7 +22,7 @@ object form {
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
-      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost()}"
+      title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     ) {
       main(cls := "box box-pad page page-small ublog-post-form")(
         standardFlash(),
