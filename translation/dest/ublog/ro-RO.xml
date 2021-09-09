@@ -3,6 +3,7 @@
   <string name="xBlog">Blog-ul lui %s</string>
   <string name="newPost">Postare nouă</string>
   <string name="editYourBlogPost">Editează-ți postarea</string>
+  <string name="saveDraft">Salvează ciorna</string>
   <string name="postTitle">Titlul mesajului</string>
   <string name="postIntro">Introducere</string>
   <string name="postBody">Conținut</string>
