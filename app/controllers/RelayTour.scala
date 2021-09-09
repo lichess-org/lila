@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.mvc._
 import scala.annotation.nowarn
 import scala.concurrent.duration._
-import scala.util.chaining._
 import views._
 
 import lila.api.Context
