@@ -123,6 +123,18 @@ object post {
       )
     )
 
+  def miniCard(
+      post: UblogPost.BasePost,
+      makeUrl: UblogPost.BasePost => Call = urlOfPost,
+      showAuthor: Boolean = false
+  )(implicit ctx: Context) =
+    a(cls := "ublog-post-card ublog-post-card--mini", href := makeUrl(post))(
+      thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
+      h3(cls := "ublog-post-card__title")(post.title),
+      post.lived map { live => semanticDate(live.at)(ctx.lang)(cls := "ublog-post-card__over-image") },
+      showAuthor option userIdSpanMini(post.created.by)(ctx.lang)(cls := "ublog-post-card__over-image")
+    )
+
   def urlOfPost(post: UblogPost.BasePost) = post.blog match {
     case UblogBlog.Id.User(userId) =>
       routes.Ublog.post(usernameOrId(userId), post.slug, post.id.value)

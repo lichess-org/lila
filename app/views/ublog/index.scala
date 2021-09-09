@@ -1,14 +1,14 @@
 package views.html.ublog
 
 import controllers.routes
+import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.ublog.UblogPost
+import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
-import play.api.mvc.Call
 
 object index {
 
@@ -59,10 +59,10 @@ object index {
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogPost.Topic, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
+  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = list(
     title = s"Blog posts about $top",
     posts = posts,
-    menuItem = top.value,
+    menuItem = "topics",
     route = p => routes.Ublog.topic(top.value, p),
     onEmpty = "Nothing to show."
   )
@@ -74,6 +74,34 @@ object index {
     route = routes.Ublog.community _,
     onEmpty = "Nothing to show."
   )
+
+  def topics(tops: List[UblogTopic.WithPosts])(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("ublog"),
+      title = "All blog topics"
+    ) {
+      main(cls := "page-menu")(
+        views.html.blog.bits.menu(none, "topics".some),
+        div(cls := "page-menu__content box box-pad ublog-index")(
+          div(cls := "box__top")(h1("All blog topics")),
+          div(cls := "ublog-topics")(
+            tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
+              st.section(cls := "ublog-topics__topic")(
+                h2(
+                  a(href := routes.Ublog.topic(topic.url))(
+                    strong(topic.value),
+                    span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
+                  )
+                ),
+                div(cls := "ublog-topics__topic__posts ublog-post-cards")(
+                  posts map { postView.miniCard(_, showAuthor = true) }
+                )
+              )
+            }
+          )
+        )
+      )
+    }
 
   private def list(
       title: String,

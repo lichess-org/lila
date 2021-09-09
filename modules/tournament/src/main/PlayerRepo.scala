@@ -110,10 +110,9 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       teamId: TeamID
   ): Fu[TeamBattle.TeamInfo] = {
     coll
-      .aggregateWith[Bdoc]() { framework =>
+      .aggregateOne() { framework =>
         import framework._
-        List(
-          Match(selectTour(tourId) ++ $doc("t" -> teamId)),
+        Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
           Sort(Descending("m")),
           Facet(
             List(
@@ -130,20 +129,19 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
           )
         )
       }
-      .headOption
-      .map {
-        _.flatMap { doc =>
-          for {
-            aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
-            agg       <- aggs.headOption
-            nbPlayers <- agg.int("nb")
-            rating = agg.double("rating").??(math.round)
-            perf   = agg.double("perf").??(math.round)
-            score  = agg.double("score").??(math.round)
-            topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
-          } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
-        } | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil)
+      .map { docO =>
+        for {
+          doc       <- docO
+          aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
+          agg       <- aggs.headOption
+          nbPlayers <- agg.int("nb")
+          rating = agg.double("rating").??(math.round)
+          perf   = agg.double("perf").??(math.round)
+          score  = agg.double("score").??(math.round)
+          topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
+        } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
       }
+      .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
   }
 
   def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamID, nb: Int): Fu[List[Player]] =

@@ -38,7 +38,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
         for {
           doc    <- docOption
           likes  <- doc.getAsOpt[UblogPost.Likes]("likes")
-          topics <- doc.getAsOpt[List[UblogPost.Topic]]("topics")
+          topics <- doc.getAsOpt[List[UblogTopic]]("topics")
           liveAt <- doc.getAsOpt[DateTime]("at")
           tier   <- doc int "tier"
         } yield (topics, likes, liveAt, tier)
@@ -68,7 +68,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
           lila.common.Future.applySequentially(docs) { doc =>
             (
               doc.string("_id"),
-              doc.getAsOpt[List[UblogPost.Topic]]("topics"),
+              doc.getAsOpt[List[UblogTopic]]("topics"),
               doc.getAsOpt[UblogPost.Likes]("likes"),
               doc.getAsOpt[UblogPost.Recorded]("lived")
             ).tupled ?? { case (id, topics, likes, lived) =>
@@ -85,7 +85,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
     }
 
   private def computeRank(
-      topics: List[UblogPost.Topic],
+      topics: List[UblogTopic],
       likes: UblogPost.Likes,
       liveAt: DateTime,
       tier: UblogBlog.Tier
@@ -94,7 +94,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       val likeHours =
         if (likes.value < 1) 0
         else (5 * math.log(likes.value) + 1).toInt.atMost(likes.value) * 12
-      val topicsMultiplier = topics.count(t => UblogPost.Topic.chessExists(t.value)) match {
+      val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
         case 0 => 0.5
         case 1 => 1
         case _ => 1.5

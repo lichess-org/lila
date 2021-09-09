@@ -69,7 +69,7 @@ object UblogForm {
         intro = intro,
         markdown = markdown,
         language = LangList.removeRegion(realLanguage.orElse(user.realLang) | defaultLang),
-        topics = topics ?? UblogPost.Topic.fromStrList,
+        topics = topics ?? UblogTopic.fromStrList,
         image = none,
         live = false,
         created = UblogPost.Recorded(user.id, DateTime.now),
@@ -85,7 +85,7 @@ object UblogForm {
         intro = intro,
         markdown = markdown,
         language = LangList.removeRegion(realLanguage | prev.language),
-        topics = topics ?? UblogPost.Topic.fromStrList,
+        topics = topics ?? UblogTopic.fromStrList,
         live = live,
         updated = UblogPost.Recorded(user.id, DateTime.now).some,
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, DateTime.now))

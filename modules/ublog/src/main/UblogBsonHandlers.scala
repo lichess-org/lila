@@ -20,9 +20,9 @@ private object UblogBsonHandlers {
   implicit val blogBSONHandler = Macros.handler[UblogBlog]
 
   implicit val postIdBSONHandler = stringAnyValHandler[UblogPost.Id](_.value, UblogPost.Id)
-  implicit val topicBsonHandler  = stringAnyValHandler[UblogPost.Topic](_.value, UblogPost.Topic.apply)
-  implicit val topicsBsonHandler = implicitly[BSONReader[List[UblogPost.Topic]]]
-    .afterRead(_.filter(t => UblogPost.Topic.exists(t.value)))
+  implicit val topicBsonHandler  = stringAnyValHandler[UblogTopic](_.value, UblogTopic.apply)
+  implicit val topicsBsonHandler = implicitly[BSONReader[List[UblogTopic]]]
+    .afterRead(_.filter(t => UblogTopic.exists(t.value)))
   implicit val langBsonHandler        = stringAnyValHandler[Lang](_.code, Lang.apply)
   implicit val recordedBSONHandler    = Macros.handler[Recorded]
   implicit val likesBSONHandler       = intAnyValHandler[Likes](_.value, Likes)

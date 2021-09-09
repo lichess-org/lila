@@ -226,10 +226,18 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
+  def topics = Open { implicit ctx =>
+    NotForKids {
+      env.ublog.topic.withPosts map { topics =>
+        Ok(html.ublog.index.topics(topics))
+      }
+    }
+  }
+
   def topic(str: String, page: Int) = Open { implicit ctx =>
     NotForKids {
       Reasonable(page, 15) {
-        UblogPost.Topic.fromUrl(str) ?? { top =>
+        lila.ublog.UblogTopic.fromUrl(str) ?? { top =>
           env.ublog.paginator.liveByTopic(top, page) map { posts =>
             Ok(html.ublog.index.topic(top, posts))
           }

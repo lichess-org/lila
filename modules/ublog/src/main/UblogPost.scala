@@ -14,7 +14,7 @@ case class UblogPost(
     markdown: String,
     language: Lang,
     image: Option[PicfitImage.Id],
-    topics: List[UblogPost.Topic],
+    topics: List[UblogTopic],
     live: Boolean,
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
@@ -25,7 +25,7 @@ case class UblogPost(
 
   def isBy(u: User) = created.by == u.id
 
-  def indexable = live && topics.exists(t => UblogPost.Topic.chessExists(t.value))
+  def indexable = live && topics.exists(t => UblogTopic.chessExists(t.value))
 }
 
 object UblogPost {
@@ -33,46 +33,6 @@ object UblogPost {
   case class Id(value: String) extends AnyVal with StringValue
 
   case class Recorded(by: User.ID, at: DateTime)
-
-  case class Topic(value: String) extends StringValue {
-    val url = value.replace(" ", "_")
-  }
-
-  object Topic {
-    val chess = List(
-      "Chess",
-      "Analysis",
-      "Puzzle",
-      "Opening",
-      "Endgame",
-      "Tactics",
-      "Strategy",
-      "Chess engine",
-      "Chess bot",
-      "Chess Personalities",
-      "Over the board",
-      "Tournament",
-      "Chess960",
-      "Crazyhouse",
-      "Chess960",
-      "King of the Hill",
-      "Three-check",
-      "Antichess",
-      "Atomic",
-      "Horde",
-      "Racing Kings"
-    )
-    val all = chess ::: List(
-      "Software Development",
-      "Lichess",
-      "Off topic"
-    )
-    val exists                   = all.toSet
-    val chessExists              = chess.toSet
-    def get(str: String)         = exists(str) option Topic(str)
-    def fromStrList(str: String) = str.split(',').toList.flatMap(get).distinct
-    def fromUrl(str: String)     = get(str.replace("_", " "))
-  }
 
   case class Likes(value: Int)     extends AnyVal
   case class Views(value: Int)     extends AnyVal

@@ -65,7 +65,7 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByTopic(topic: UblogPost.Topic, page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByTopic(topic: UblogTopic, page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new Adapter[PreviewPost](
         collection = colls.post,

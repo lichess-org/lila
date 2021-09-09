@@ -116,4 +116,28 @@
       }
     }
   }
+
+  &-topics {
+    .ublog-post-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+      grid-gap: 3vmin;
+    }
+    &__topic {
+      margin-bottom: 3em;
+      h2 {
+        margin-bottom: 1rem;
+        a {
+          @extend %flex-between;
+        }
+        strong {
+          letter-spacing: 0.5ch;
+          font-weight: normal;
+        }
+        span {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 }

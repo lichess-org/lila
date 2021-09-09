@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.Captcha
 import lila.i18n.LangList
 import lila.ublog.UblogForm.UblogPostData
-import lila.ublog.UblogPost
+import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 
 object form {
@@ -117,7 +117,7 @@ object form {
         )
       },
       form3.group(form("topics"), frag("Select the topics your post is about"))(
-        form3.textarea(_)(dataRel := UblogPost.Topic.all.mkString(","))
+        form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
       ),
       captcha.fold(views.html.base.captcha.hiddenEmpty(form)) { c =>
         views.html.base.captcha(form, c)

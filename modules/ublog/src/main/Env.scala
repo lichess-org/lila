@@ -23,6 +23,8 @@ final class Env(
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
+  val topic = wire[UblogTopicApi]
+
   val rank = wire[UblogRank]
 
   val api = wire[UblogApi]
