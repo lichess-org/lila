@@ -24,5 +24,5 @@
   <string name="moreBlogPostsBy">Se flere blogindlæg af %s</string>
   <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
   <string name="noDrafts">Ingen udkast at vise.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Seneste blog-indlæg</string>
+  <string name="latestBlogPosts">Seneste blog-indlæg</string>
 </resources>
