@@ -49,6 +49,8 @@
   <string name="blackResigned">Black resigned</string>
   <string name="whiteLeftTheGame">White left the game</string>
   <string name="blackLeftTheGame">Black left the game</string>
+  <string name="whiteDidntMove">White didn't move</string>
+  <string name="blackDidntMove">Black didn't move</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Share this URL to let spectators see the game</string>
   <string name="theComputerAnalysisHasFailed">The computer analysis has failed</string>
   <string name="viewTheComputerAnalysis">View the computer analysis</string>

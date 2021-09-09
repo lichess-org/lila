@@ -73,6 +73,8 @@ object jsI18n {
     trans.checkmate,
     trans.whiteResigned,
     trans.blackResigned,
+    trans.whiteDidntMove,
+    trans.blackDidntMove,
     trans.stalemate,
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
