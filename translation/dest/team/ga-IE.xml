@@ -56,6 +56,8 @@ D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoire
   <string name="closeTeam">Dún foireann</string>
   <string name="closeTeamDescription">Má chliceálann tú ar seo, dúnfar d’fhoireann go deo.</string>
   <string name="entryCode">Cód iontrála foirne</string>
+  <string name="entryCodeDescriptionForLeader">(Roghnach) Cód iontrála nach mór a bheith ar eolas ag baill nua le bheith ar an bhfoireann seo.</string>
+  <string name="incorrectEntryCode">Cód iontrála mícheart.</string>
   <string name="teamAlreadyExists">Tá an foireann seo ann cheana féin.</string>
   <string name="upcomingTourns">Comórtais le teacht</string>
   <string name="completedTourns">Comórtais críochnaithe</string>
