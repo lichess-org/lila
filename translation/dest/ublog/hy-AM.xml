@@ -3,6 +3,7 @@
   <string name="xBlog">%s-ի բլոգ</string>
   <string name="newPost">Նոր գրառում</string>
   <string name="editYourBlogPost">Խմբագրել բլոգի գրառումը</string>
+  <string name="saveDraft">Հիշել սևագիրը</string>
   <string name="postTitle">Գրառման վերնագիրը</string>
   <string name="postIntro">Գրառման ներածություն</string>
   <string name="postBody">Գրառման տեքստ</string>
