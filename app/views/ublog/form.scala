@@ -120,7 +120,7 @@ object form {
         a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOfPost))(
           trans.cancel()
         ),
-        form3.submit(trans.apply())
+        form3.submit(post.fold(trans.ublog.saveDraft())(trans.apply()))
       )
     )
 
