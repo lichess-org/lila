@@ -126,7 +126,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const allowed = prop(true);
   const enabled = prop(opts.possible && analysable && allowed() && enabledAfterDisable());
   const downloadProgress = prop(0);
-  let running: boolean = false;
+  let running = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
   const pvBoard = prop<PvBoard | null>(null);
