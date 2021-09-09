@@ -129,8 +129,27 @@
       }
       opacity: 0.7;
     }
-    .ublog-post-card__title {
-      color: $c-font-clearer;
+    .ublog-post-card {
+      &--mini {
+        @extend %box-neat-force;
+        font-size: 0.9em;
+        line-height: 0;
+        .ublog-post-card {
+          &__title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5vmin;
+            background: $c-bg-zebra;
+            opacity: 0.9;
+            line-height: 1.5em;
+          }
+        }
+      }
+      &__title {
+        color: $c-font-clearer;
+      }
     }
     &__topic {
       display: block;

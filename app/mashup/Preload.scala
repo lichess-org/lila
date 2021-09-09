@@ -1,6 +1,7 @@
 package lila.app
 package mashup
 
+import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json._
 
 import lila.api.Context
@@ -13,12 +14,12 @@ import lila.streamer.LiveStreams
 import lila.swiss.Swiss
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
-import lila.tv.Tv
+import lila.ublog.UblogPost
 import lila.user.LightUserApi
 import lila.user.User
 
 final class Preload(
-    tv: Tv,
+    tv: lila.tv.Tv,
     gameRepo: lila.game.GameRepo,
     userCached: lila.user.Cached,
     tourWinners: lila.tournament.WinnersApi,
@@ -31,7 +32,8 @@ final class Preload(
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
-    lastPostCache: lila.blog.LastPostCache
+    lastPostCache: lila.blog.LastPostCache,
+    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
@@ -58,9 +60,10 @@ final class Preload(
         .dmap(_.homepage(streamerSpots, ctx.req, ctx.me.flatMap(_.lang)) withTitles lightUserApi)
         .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
-      (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
+      (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) zip
+      lastPostsCache.get {} flatMap {
         // format: off
-        case (((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames) =>
+        case ((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts) =>
         // format: on
         (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
           .mon(_.lobby segment "currentGame") zip
@@ -82,12 +85,13 @@ final class Preload(
               tWinners,
               puzzle,
               streams.excludeUsers(events.flatMap(_.hostedBy)),
-              lastPostCache.apply,
               playban,
               currentGame,
               simulIsFeaturable,
               blindGames,
-              lobbySocket.counters
+              lobbySocket.counters,
+              lastPostCache.apply,
+              ublogPosts
             )
           }
       }
@@ -126,12 +130,13 @@ object Preload {
       tournamentWinners: List[Winner],
       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
       streams: LiveStreams.WithTitles,
-      lastPost: List[lila.blog.MiniPost],
       playban: Option[TempBan],
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      counters: lila.lobby.LobbyCounters
+      counters: lila.lobby.LobbyCounters,
+      lastPost: Option[lila.blog.MiniPost],
+      ublogPosts: List[UblogPost.PreviewPost]
   )
 
   case class CurrentGame(pov: Pov, opponent: String)

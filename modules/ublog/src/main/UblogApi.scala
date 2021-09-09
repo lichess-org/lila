@@ -75,6 +75,13 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost]()
       .list(nb)
 
+  def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
+    colls.post
+      .find($doc("live" -> true), previewPostProjection.some)
+      .sort($doc("rank" -> -1))
+      .cursor[UblogPost.PreviewPost]()
+      .list(nb)
+
   def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blog, "live" -> true, "_id" $ne post.id), previewPostProjection.some)

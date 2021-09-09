@@ -111,13 +111,13 @@ object post {
   def card(
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
-      showAuthor: Boolean = false
+      showAuthor: Boolean = false,
+      showIntro: Boolean = false
   )(implicit ctx: Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
-        span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)),
         post.lived map { live => semanticDate(live.at)(ctx.lang)(cls := "ublog-post-card__over-image") },
         showAuthor option userIdSpanMini(post.created.by)(ctx.lang)(cls := "ublog-post-card__over-image")
       )

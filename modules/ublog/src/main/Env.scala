@@ -1,6 +1,8 @@
 package lila.ublog
 
+import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire._
+import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.db.dsl.Coll
@@ -27,7 +29,7 @@ final class Env(
 
   val rank = wire[UblogRank]
 
-  val api = wire[UblogApi]
+  val api: UblogApi = wire[UblogApi]
 
   val paginator = wire[UblogPaginator]
 
@@ -36,6 +38,11 @@ final class Env(
   val form = wire[UblogForm]
 
   val viewCounter = wire[UblogViewCounter]
+
+  val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
+    cacheApi.unit[List[UblogPost.PreviewPost]](_.refreshAfterWrite(10 seconds).buildAsyncFuture { _ =>
+      api.latestPosts(2)
+    })
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, v) =>
     api.setShadowban(userId, v) >>

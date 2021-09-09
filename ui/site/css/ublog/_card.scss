@@ -7,7 +7,7 @@
   &-card {
     @extend %box-neat-force;
 
-    @include transition;
+    @include transition(box-shadow);
 
     background: $c-bg-zebra;
     color: $c-font;
@@ -68,24 +68,6 @@
       color: $c-font;
       margin-top: 2vmin;
       display: block;
-    }
-
-    &--mini {
-      @extend %box-neat-force;
-      font-size: 0.9em;
-      line-height: 0;
-      .ublog-post-card {
-        &__title {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 1.5vmin;
-          background: $c-bg-zebra;
-          opacity: 0.9;
-          line-height: 1.5em;
-        }
-      }
     }
   }
 }
