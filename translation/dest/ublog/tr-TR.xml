@@ -3,6 +3,7 @@
   <string name="xBlog">%s Bloğu</string>
   <string name="newPost">Yeni gönderi</string>
   <string name="editYourBlogPost">Blog gönderinizi düzenleyin</string>
+  <string name="saveDraft">Taslağı kaydet</string>
   <string name="postTitle">Gönderi başlığı</string>
   <string name="postIntro">Gönderi konusu</string>
   <string name="postBody">Gönderi ana metni</string>
