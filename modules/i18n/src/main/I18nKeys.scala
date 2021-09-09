@@ -2256,6 +2256,7 @@ object ublog {
 val `xBlog` = new I18nKey("ublog:xBlog")
 val `newPost` = new I18nKey("ublog:newPost")
 val `editYourBlogPost` = new I18nKey("ublog:editYourBlogPost")
+val `saveDraft` = new I18nKey("ublog:saveDraft")
 val `postTitle` = new I18nKey("ublog:postTitle")
 val `postIntro` = new I18nKey("ublog:postIntro")
 val `postBody` = new I18nKey("ublog:postBody")
