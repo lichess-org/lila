@@ -24,7 +24,7 @@ object form {
       moreJs = frag(jsModule("ublogForm"), captchaTag),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     ) {
-      main(cls := "page-menu")(
+      main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box box-pad ublog-post-form")(
           standardFlash(),
@@ -41,7 +41,7 @@ object form {
       moreJs = jsModule("ublogForm"),
       title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
     ) {
-      main(cls := "page-menu")(
+      main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box box-pad ublog-post-form")(
           standardFlash(),

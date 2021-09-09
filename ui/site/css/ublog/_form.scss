@@ -93,6 +93,7 @@
       color: $c-font;
     }
     &-contents {
+      font-size: 1rem;
       & p,
       & h2,
       & h3,
@@ -105,6 +106,10 @@
       & h3 {
         border: none;
       }
+    }
+    .ProseMirror {
+      font-size: 1rem;
+      padding: 0.8em 1.2em;
     }
     &-mode-switch {
       background: none;
