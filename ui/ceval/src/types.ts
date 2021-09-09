@@ -24,8 +24,13 @@ export interface Work {
   initialFen: string;
   currentFen: string;
   moves: string[];
-  emit: (ev: Tree.ClientEval) => void;
+  emit: (ev: Tree.LocalEval) => void;
   stopRequested: boolean;
+}
+
+export interface EvalMeta {
+  path: string;
+  threatMode: boolean;
 }
 
 export interface CevalOpts {
@@ -34,7 +39,7 @@ export interface CevalOpts {
   possible: boolean;
   variant: Variant;
   initialFen: string | undefined;
-  emit: (ev: Tree.ClientEval, work: Work) => void;
+  emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: () => void;
 }
@@ -71,7 +76,7 @@ export interface CevalCtrl {
   setHovering: (fen: string, uci?: string) => void;
   setPvBoard: (pvBoard: PvBoard | null) => void;
   multiPv: StoredProp<number>;
-  start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
+  start: (path: string, steps: Step[], threatMode?: boolean) => void;
   stop(): void;
   threads: StoredProp<number> | undefined;
   hashSize: StoredProp<number> | undefined;

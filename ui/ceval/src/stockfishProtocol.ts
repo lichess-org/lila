@@ -13,7 +13,7 @@ const evalRegex = new RegExp(
 );
 
 const minDepth = 6;
-export const MAX_STOCKFISH_PLIES = 245;
+const MAX_STOCKFISH_PLIES = 245;
 
 export default class Protocol {
   private engineNameDeferred: Deferred<string> = defer();
@@ -27,7 +27,7 @@ export default class Protocol {
   ]);
 
   private work: Work | undefined;
-  private currentEval: Tree.ClientEval | undefined;
+  private currentEval: Tree.LocalEval | undefined;
   private expectedPvs = 1;
 
   private nextWork: Work | undefined;

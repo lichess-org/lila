@@ -12,7 +12,6 @@ import { setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
 import { COLORS } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
-import { MAX_STOCKFISH_PLIES } from './stockfishProtocol';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
@@ -123,11 +122,11 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
-  let curEval: Tree.ClientEval | null = null;
+  let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
   const enabled = prop(opts.possible && analysable && allowed() && enabledAfterDisable());
   const downloadProgress = prop(0);
-  let started: Started | false = false;
+  let running: boolean = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
   const pvBoard = prop<PvBoard | null>(null);
@@ -142,7 +141,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let worker: AbstractWorker<unknown> | undefined;
 
   let lastEmitFen: string | null = null;
-  const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
+  const onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     curEval = ev;
     opts.emit(ev, work);
@@ -165,10 +164,9 @@ export default function (opts: CevalOpts): CevalCtrl {
       return povChances(color, b) - povChances(color, a);
     });
 
-  const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
+  const start = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
     if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
-    isDeeper(deeper);
     const maxDepth = effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
@@ -192,7 +190,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       maxDepth,
       multiPv: parseInt(multiPv()),
       threatMode,
-      emit(ev: Tree.ClientEval) {
+      emit(ev: Tree.LocalEval) {
         if (enabled()) onEmit(ev, work);
       },
       stopRequested: false,
@@ -246,7 +244,8 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     worker.start(work);
 
-    started = {
+    running = true;
+    lastStarted = {
       path,
       steps,
       threatMode,
@@ -254,23 +253,35 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
 
   function goDeeper() {
-    const s = started || lastStarted;
-    if (s) {
-      stop();
-      start(s.path, s.steps, s.threatMode, true);
+    isDeeper(true);
+    if (lastStarted) {
+      if (infinite()) {
+        if (curEval) opts.emit(curEval, lastStarted);
+      } else {
+        stop();
+        start(lastStarted.path, lastStarted.steps, lastStarted.threatMode);
+      }
     }
   }
 
   function stop() {
-    if (!enabled() || !started) return;
+    if (!enabled() || !running) return;
     worker?.stop();
-    lastStarted = started;
-    started = false;
+    running = false;
   }
+
+  const showingCloud = (): boolean => {
+    if (!lastStarted) return false;
+    const curr = lastStarted.steps[lastStarted.steps.length - 1];
+    return !!curr.ceval?.cloud;
+  };
 
   return {
     technology,
-    start,
+    start: (path, steps, threadMode) => {
+      isDeeper(false);
+      start(path, steps, !!threadMode);
+    },
     stop,
     allowed,
     possible: opts.possible,
@@ -318,8 +329,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     variant: opts.variant,
     isDeeper,
     goDeeper,
-    canGoDeeper: () => !isDeeper() && !infinite() && !(curDepth() >= MAX_STOCKFISH_PLIES) && !worker?.isComputing(),
-    isComputing: () => !!started && !!worker?.isComputing(),
+    canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
+    isComputing: () => !!running && !!worker?.isComputing(),
     engineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,

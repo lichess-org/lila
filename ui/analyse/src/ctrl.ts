@@ -17,7 +17,7 @@ import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { ActionMenuCtrl } from './actionMenu';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop } from 'common';
 import { DrawShape } from 'chessground/draw';
@@ -603,7 +603,7 @@ export default class AnalyseCtrl {
           node.threat = threat;
       } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (!ev.cloud) {
-        if (node.ceval.cloud && ev.maxDepth > node.ceval.depth) node.ceval = ev;
+        if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
         else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
       }
 
@@ -627,7 +627,7 @@ export default class AnalyseCtrl {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
-      emit: (ev: Tree.ClientEval, work: CevalWork) => {
+      emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
@@ -664,7 +664,7 @@ export default class AnalyseCtrl {
   startCeval = throttle(800, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
+        this.ceval.start(this.path, this.nodeList, this.threatMode());
         this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
