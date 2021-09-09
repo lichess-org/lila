@@ -264,6 +264,9 @@ object header {
             )
           )
       },
+      info.posts.nonEmpty option div(cls := "user-show__blog ublog-post-cards")(
+        info.posts map { views.html.ublog.post.card(_, showAuthor = false) }
+      ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
         a(
           dataTab := "activity",

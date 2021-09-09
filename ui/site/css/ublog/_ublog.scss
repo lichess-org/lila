@@ -121,7 +121,7 @@
     .ublog-post-cards {
       display: none;
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      grid-gap: 0 2vmin;
+      grid-gap: 0 2%;
       grid-template-rows: auto; /* first row auto */
       grid-auto-rows: 0; /* all the other rows 0 */
       @include breakpoint($mq-xx-small) {

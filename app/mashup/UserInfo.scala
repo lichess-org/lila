@@ -6,10 +6,10 @@ import play.api.data.Form
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.ublog.UblogApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
+import lila.ublog.{ UblogApi, UblogBlog, UblogPost }
 import lila.user.{ Trophies, TrophyApi, User }
 
 case class UserInfo(
@@ -29,7 +29,8 @@ case class UserInfo(
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
-    completionRate: Option[Double]
+    completionRate: Option[Double],
+    posts: List[UblogPost.PreviewPost]
 ) {
 
   def crosstable = nbs.crosstable
@@ -149,9 +150,10 @@ object UserInfo {
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
-        userCached.rankingsOf(user.id) map {
+        userCached.rankingsOf(user.id) zip
+        ublogApi.latestPosts(UblogBlog.Id.User(user.id), 3) map {
           // format: off
-          case ((((((((((((((ratingChart, nbFollowers), nbForumPosts), nbUblogPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          case (((((((((((((((ratingChart, nbFollowers), nbForumPosts), nbUblogPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks), posts) =>
           // format: on
           new UserInfo(
             user = user,
@@ -175,7 +177,8 @@ object UserInfo {
             isStreamer = isStreamer,
             isCoach = isCoach,
             insightVisible = insightVisible,
-            completionRate = completionRate
+            completionRate = completionRate,
+            posts = posts
           )
         }
   }
