@@ -44,7 +44,7 @@
   <string name="annotateWithGlyphs">以圖形標註</string>
   <string name="theChapterIsTooShortToBeAnalysed">因為太短，所以此章節無法被分析</string>
   <string name="onlyContributorsCanRequestAnalysis">只有研究專案編輯者才能要求電腦分析</string>
-  <string name="getAFullComputerAnalysis">請求伺服器完整的分析主要走法</string>
+  <string name="getAFullComputerAnalysis" comment="getAFullComputerAnalysis&#10;&#10;This function gives you exactly what the string states, in a Lichess study (https://lichess.org/study).&#10;&#10;Please click/tap on the words for a definition of each, to get an idea of what this means.">請求伺服器完整的分析主要走法</string>
   <string name="makeSureTheChapterIsComplete">確認此章節已完成，您只能要求分析一次</string>
   <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
   <string name="playing">下棋中</string>
@@ -103,7 +103,7 @@
   <string name="public">公開的</string>
   <string name="unlisted">不公開</string>
   <string name="inviteOnly">僅限邀請</string>
-  <string name="allowCloning">可以複製</string>
+  <string name="allowCloning" comment="allowCloning&#10;&#10;Option for studies (https://lichess.org/study). Lets other Lichess users easily clone (make exact copies of) your study. They can then edit their copy, and alter/improve the study.">可以複製</string>
   <string name="nobody">没有人</string>
   <string name="onlyMe">僅自己</string>
   <string name="contributors">貢獻者</string>
@@ -119,6 +119,7 @@
   <string name="goodMove">好棋</string>
   <string name="mistake">失誤</string>
   <string name="blunder">嚴重失誤</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study (https://lichess.org/study), to indicate one side is in zugzwang.">等著</string>
   <string name="equalPosition">勢均力敵</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
   <string name="whiteIsSlightlyBetter">白方稍占優勢</string>

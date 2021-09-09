@@ -6,4 +6,5 @@
   </plurals>
   <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
   <string name="noDrafts">Ingen utkast å visa.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Siste blogginnlegg</string>
 </resources>

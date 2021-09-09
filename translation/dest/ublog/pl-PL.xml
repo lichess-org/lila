@@ -28,4 +28,5 @@
   <string name="moreBlogPostsBy">Zobacz więcej wpisów opublikowanych przez %s</string>
   <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
   <string name="noDrafts">Brak wersji roboczych.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Najnowsze wpisy na blogu</string>
 </resources>

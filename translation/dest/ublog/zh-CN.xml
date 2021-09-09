@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s的博客</string>
+  <string name="newPost">新文章</string>
+  <string name="editYourBlogPost">编辑您的博客文章</string>
+  <string name="postTitle">文章标题</string>
+  <string name="postIntro">文章简介</string>
+  <string name="postBody">文章主体</string>
+  <string name="drafts">草稿箱</string>
+  <string name="published">已发佈</string>
+  <string name="publishOnYourBlog">在博客上发布</string>
+  <string name="publishHelp">如果选中，文章将列于您的博客上。如果未选择，它将是私密的，在您的草稿箱中</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">已发布 %s 博客文章</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="other">%s 次观看</item>
+  </plurals>
+  <string name="xPublishedY">%1$s发布了%2$s</string>
+  <string name="thisPostIsPublished">文章已发布</string>
+  <string name="thisIsADraft">这是一个草稿</string>
+  <string name="moreBlogPostsBy">%s的更多文章</string>
+  <string name="noPostsInThisBlogYet">此博客中尚无文章</string>
+  <string name="noDrafts">无可展示的草稿。</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">最新博客文章</string>
+</resources>

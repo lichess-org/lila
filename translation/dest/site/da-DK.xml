@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Skjul/Vis chat</string>
   <string name="toggleSound">Slå lyd til/fra</string>
   <string name="chat">Chat</string>
-  <string name="resign">Kapituler</string>
+  <string name="resign">Giv op</string>
   <string name="checkmate">Skakmat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Hvid</string>
@@ -32,7 +32,7 @@
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
-  <string name="joinTheGame">Start spillet</string>
+  <string name="joinTheGame">Deltag i spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
@@ -48,7 +48,7 @@
   <string name="whiteResigned">Hvid har givet op</string>
   <string name="blackResigned">Sort har givet op</string>
   <string name="whiteLeftTheGame">Hvid har forladt partiet</string>
-  <string name="blackLeftTheGame">Sort har forladt partiet</string>
+  <string name="blackLeftTheGame">Sort forlod spillet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
   <string name="theComputerAnalysisHasFailed">Computeranalysen slog fejl</string>
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
@@ -65,13 +65,13 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i din egen browser</string>
   <string name="toggleLocalEvaluation">Skift til lokal evaluering</string>
-  <string name="promoteVariation">Forvandlingsvariation</string>
+  <string name="promoteVariation">Forfrem variation</string>
   <string name="makeMainLine">Gør til hovedlinjen</string>
   <string name="deleteFromHere">Slet herfra</string>
   <string name="forceVariation">Fremtving variant</string>
   <string name="move">Træk</string>
   <string name="variantLoss">Variant tab</string>
-  <string name="variantWin">Gevinst</string>
+  <string name="variantWin">Variant sejr</string>
   <string name="insufficientMaterial">Utilstrækkeligt materiale</string>
   <string name="pawnMove">Bondetræk</string>
   <string name="capture">Slag</string>
@@ -85,7 +85,7 @@
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
-  <string name="masterDbExplanation">To millioner OTB spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millioner ikke online spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
@@ -101,7 +101,7 @@
   <string name="xOpeningExplorer">%s åbningsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
-  <string name="allSet">Klar!</string>
+  <string name="allSet">Ok!</string>
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
@@ -111,7 +111,7 @@
   <string name="openStudy">Åben studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
-  <string name="evaluationGauge">Styrkeindikator</string>
+  <string name="evaluationGauge">Evalueringsbar</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
@@ -158,7 +158,7 @@
   <string name="signIn">Log ind</string>
   <string name="youNeedAnAccountToDoThat">Du skal have en konto for at gøre dette</string>
   <string name="signUp">Registrer</string>
-  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke deltage. Lad venligst være med at modtage assistance fra skakcomputere, databaser eller andre spillere mens du spiller</string>
+  <string name="computersAreNotAllowedToPlay">Computere og computerassisterede spillere må ikke spille. Du må ikke få hjælp fra skakmotorer, databaser eller fra andre spillere, mens du spiller. Bemærk også, at det at lave flere konti er stærkt frarådet og at lave alt for mange konti vil medføre udelukkelse.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>

@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s erabiltzailearen Bloga</string>
+  <string name="newPost">Sarrera berria</string>
+  <string name="editYourBlogPost">Editatu blogeko sarrera</string>
+  <string name="postTitle">Sarreraren izenburua</string>
+  <string name="postIntro">Sarreraren laburpena</string>
+  <string name="postBody">Sarreraren testu luzea</string>
+  <string name="drafts">Zirriborroak</string>
+  <string name="published">Argitaratuta</string>
+  <string name="publishOnYourBlog">Argitaratu zure blogean</string>
+  <string name="publishHelp">Aukeratuta badago, sarrera zure blogean agertuko da. Bestela pribatua izango da eta zirriborroen zerrendan egongo da</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Sarrera bat argitaratu da blogean</item>
+    <item quantity="other">%s sarrera argitaratu dira blogean</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Behin ikusita</item>
+    <item quantity="other">%s aldiz ikusi da</item>
+  </plurals>
+  <string name="xPublishedY">%1$s erabiltzaileak %2$s argitaratu du</string>
+  <string name="thisPostIsPublished">Sarrera hau argitaratuta dago</string>
+  <string name="thisIsADraft">Hau zirriborro bat da</string>
+  <string name="moreBlogPostsBy">%s erabiltzailearen sarrera gehiago</string>
+  <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
+  <string name="noDrafts">Ez dago zirriborrorik.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Blogeko azken sarrerak</string>
+</resources>

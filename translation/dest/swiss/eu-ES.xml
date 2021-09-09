@@ -64,4 +64,12 @@ Berandu sartzen diren jokalariek, puntu erdiko bye edo atseden bakarra jasoko du
   <string name="willSwissReplaceArenasQ">Txapelketa suitzarren Arena txapelketak ordezkatuko dituzte?</string>
   <string name="willSwissReplaceArenasA">Ez. Aukera ezberdinak dira eta horrela jarraituko dute.</string>
   <string name="roundRobinQ">Eta zer diozue Round Robin edo guztiek-guztien aurkako txapelketez?</string>
+  <string name="pairingSystem">Parekatze sistema</string>
+  <string name="pairingWaitTime">Parekatzeko itxaron-denbora</string>
+  <string name="pairingWaitTimeFast">Azkarra: ez du jokalari guztiek amaitu arte itxaroten</string>
+  <string name="pairingWaitTimeSlow">Geldoa: jokalari guztiek amaitu arte itxaroten du</string>
+  <string name="identicalPairing">Parekatze berdina</string>
+  <string name="possibleButNotConsecutive">Posible da, baina ez jarraian</string>
+  <string name="identicalForbidden">Debekatuta</string>
+  <string name="lateJoin">Berandu sartzea</string>
 </resources>

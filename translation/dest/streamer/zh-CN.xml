@@ -18,6 +18,8 @@
   <string name="rule1">当您在Lichess上直播时，请在您的直播标题中包含关键词\"lichess.org\"。</string>
   <string name="rule2">当您直播与Lichess不相关的东西时，移除关键词。</string>
   <string name="rule3">Lichess 将自动检测您的直播并启用以下津贴：</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">阅读我们的 %s 以确保每个人公平地在您的直播游戏。</string>
+  <string name="streamingFairplayFAQ">直播公平游戏常见问题</string>
   <string name="perks">使用关键词直播的好处</string>
   <string name="perk1">在您的 Lichess 个人资料上获得一个燃烧的主播图标。</string>
   <string name="perk2">快速到达主播列表顶部。</string>

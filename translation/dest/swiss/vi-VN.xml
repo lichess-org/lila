@@ -26,15 +26,27 @@ Một vòng đấu cho %s ngày</item>
   </plurals>
   <string name="tournStartDate">Ngày bắt đầu giải đấu</string>
   <string name="numberOfRounds">Số vòng đấu</string>
+  <string name="numberOfRoundsHelp">Một số lượng lẻ vòng đấu cho phép cân bằng trắng-đen tốt nhất.</string>
   <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
   <string name="forbiddenPairings">Ghép nối bị cấm</string>
   <string name="forbiddenPairingsHelp">Tên người dùng của những người chơi không được chơi cùng nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
   <string name="newSwiss">Giải Swiss mới</string>
   <string name="swissVsArenaQ">Khi nào nên chơi giải Swiss mà không phải giải Arena?</string>
+  <string name="swissVsArenaA">Trong một giải đấu Thụy Sĩ, tất cả người chơi chơi cùng số lượng ván đấu, và chỉ chơi mỗi người một lần.
+Đây là một lựa chọn tốt cho các câu lạc bộ và các giải đấu chính thức.</string>
   <string name="pointsCalculationQ">Những điểm số được tính toán như thế nào?</string>
+  <string name="pointsCalculationA">Một trận thắng là một điểm, trận hòa là nửa điểm và một trận thua không tính điểm.
+Khi có người không được ghép đôi trong một vòng đấu, họ nhận một lượt đặc cách 1 điểm.</string>
   <string name="tiebreaksCalculationQ">Tie breaks được tính toán như thế nào?</string>
+  <string name="sonnebornBergerScore">Điểm số Sonneborn-Berger</string>
+  <string name="tiebreaksCalculationA">Với %s.
+Cộng điểm số của tất cả người chơi mà người này thắng và nửa số điểm của mỗi người chơi mà người này hòa.</string>
+  <string name="pairingsQ">Các cặp đấu được xác định như thế nào?</string>
   <string name="dutchSystem">Khai cuộc Hà Lan</string>
   <string name="FIDEHandbook">Sổ tay FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Điều gì xảy ra khi giải đấu có số lượng vòng đấu lớn hơn số lượng người chơi?</string>
+  <string name="moreRoundsThanPlayersA">Khi tất cả các cặp đấu có thể đã được chơi, giải đấu kết thúc và sẽ có một người thắng cuộc.</string>
+  <string name="restrictedToTeamsQ">Tại sao lại chỉ có đội được dùng?</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
   <string name="nowPlaying">Đang chơi</string>
   <string name="startingSoon">Sắp bắt đầu</string>

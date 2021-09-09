@@ -858,6 +858,7 @@
   <string name="simulDescription">车轮战描述</string>
   <string name="simulDescriptionHelp">写下您想要告诉参与者的任何内容</string>
   <string name="markdownAvailable">%s 可用于更高级的格式。</string>
+  <string name="embedsAvailable">粘贴对局URL或学习章节URL来嵌入。</string>
   <string name="inYourLocalTimezone">在您的本地时区</string>
   <string name="tournChat">比赛聊天</string>
   <string name="noChat">关闭聊天</string>

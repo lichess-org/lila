@@ -50,4 +50,6 @@
   <string name="skip">salto egin</string>
   <string name="skipHelp">Lasterketa bakoitzean jokaldi bat saltatu dezakezu:</string>
   <string name="skipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>
+  <string name="failedPuzzles">Huts egindako ariketak</string>
+  <string name="slowPuzzles">Ariketa geldoak</string>
 </resources>

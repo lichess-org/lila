@@ -26,4 +26,5 @@
   <string name="moreBlogPostsBy">Skatīt citus lietotāja %s bloga ierakstus</string>
   <string name="noPostsInThisBlogYet">Šajā blogā vēl nav ierakstu.</string>
   <string name="noDrafts">Nav melnrakstu, ko rādīt.</string>
+  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Jaunākie bloga ieraksti</string>
 </resources>
