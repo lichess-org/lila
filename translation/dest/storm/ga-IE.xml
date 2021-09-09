@@ -56,4 +56,5 @@
   <string name="skip">scipeáil</string>
   <string name="skipHelp">Tá cead beart amháin a scipeáil in aon rás amháin:</string>
   <string name="skipExplanation">Scipeáil an beart seo chun do sraithbhuille a chaomhnú! Ní oibríonn sé ach uair amháin in aon rás amháin.</string>
+  <string name="failedPuzzles">Fadhbanna theip</string>
 </resources>
