@@ -295,7 +295,7 @@
   <string name="thisAccountViolatedTos">Denne konto overtrådte Lichess servicevilkår</string>
   <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>
-  <string name="proposeATakeback">Foreslå et omtræk</string>
+  <string name="proposeATakeback">Anmod om omtræk</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
   <string name="takebackPropositionDeclined">Anmodning om omtræk afslået</string>
   <string name="takebackPropositionAccepted">Anmodning om omtræk accepteret</string>
