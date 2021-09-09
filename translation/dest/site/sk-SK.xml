@@ -51,6 +51,8 @@
   <string name="blackResigned">Čierny sa vzdal</string>
   <string name="whiteLeftTheGame">Biely opustil partiu</string>
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Biely nepotiahol</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Čierny nepotiahol</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ukážte partiu ostatným pomocou zdieľania tejto adresy</string>
   <string name="theComputerAnalysisHasFailed">Počítačová analýza zlyhala</string>
   <string name="viewTheComputerAnalysis">Zobraziť počítačovú analýzu</string>
