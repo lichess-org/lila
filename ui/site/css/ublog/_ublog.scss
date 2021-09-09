@@ -130,12 +130,13 @@
       @include breakpoint($mq-xx-small) {
         display: grid;
       }
-      opacity: 0.7;
+      opacity: 0.65;
+      @include transition(opacity);
     }
     .ublog-post-card {
       &--mini {
         @extend %box-neat-force;
-        font-size: 0.9em;
+        font-size: 0.85em;
         line-height: 0;
         .ublog-post-card {
           &__title {
@@ -143,7 +144,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.5vmin;
+            padding: 3% 4% 3% 6%;
             background: $c-bg-zebra;
             opacity: 0.9;
             line-height: 1.5em;
@@ -159,7 +160,7 @@
       padding: 1.2em var(--box-padding) 2.3em var(--box-padding);
       @include transition(background);
       &:hover {
-        background: mix($c-link, $c-bg-box, 20%);
+        background: mix($c-link, $c-bg-box, 18%);
       }
       h2 {
         @extend %flex-between;

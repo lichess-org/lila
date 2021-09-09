@@ -21,8 +21,15 @@
       position: absolute;
       top: 0;
       padding: 0.2em 0.5em 0.3em 0.5em;
-      background: rgba(0, 0, 0, 0.7);
-      color: #ddd;
+      @if $theme-dark {
+        background: rgba(0, 0, 0, 0.65);
+        color: #ddd;
+        text-shadow: 0 1px 1px black;
+      } @else {
+        background: rgba(255, 255, 255, 0.65);
+        color: #333;
+        text-shadow: 0 1px 1px white;
+      }
       opacity: 1;
     }
     time {
@@ -51,7 +58,7 @@
     }
 
     &__content {
-      padding: 2vmin;
+      padding: 3% 3% 4% 6%;
       display: block;
       max-height: 12em;
     }
@@ -66,7 +73,7 @@
       @extend %roboto, %break-word;
 
       color: $c-font;
-      margin-top: 2vmin;
+      margin-top: 1em;
       display: block;
     }
   }
