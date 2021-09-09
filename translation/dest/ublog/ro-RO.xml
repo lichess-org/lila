@@ -23,4 +23,9 @@
   <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
   <string name="noDrafts">Nici o ciornă de afișat.</string>
   <string name="latestBlogPosts">Ultimele postări pe blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Vezi o postare</item>
+    <item quantity="few">Vezi toate cele %s postări</item>
+    <item quantity="other">Vezi toate cele %s de postări</item>
+  </plurals>
 </resources>
