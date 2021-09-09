@@ -55,9 +55,10 @@ object post {
               lineIcon(user),
               titleTag(user.title),
               user.username,
-              isGranted(_.ModerateBlog) option (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
-                cls := "ublog-post__tier"
-              )(UblogBlog.Tier.name(blog.tier))
+              !ctx.is(user) && isGranted(_.ModerateBlog) option
+                (if (blog.tier <= UblogBlog.Tier.VISIBLE) badTag else goodTag)(
+                  cls := "ublog-post__tier"
+                )(UblogBlog.Tier.name(blog.tier))
             ),
             post.lived map { live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at))
@@ -75,10 +76,11 @@ object post {
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
             ),
             if (ctx is user)
-              frag(
-                (if (post.live) goodTag else badTag)(cls := "ublog-post__meta__publish")(
+              div(cls := "ublog-post__meta__owner")(
+                (if (post.live) goodTag else badTag)(
                   if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
                 ),
+                " ",
                 a(
                   href := editUrlOfPost(post),
                   cls := "button button-empty text",

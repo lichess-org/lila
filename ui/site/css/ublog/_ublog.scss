@@ -52,6 +52,9 @@
         color: $c-link;
         font-size: 1.2em;
       }
+      &__owner {
+        margin-top: 1em;
+      }
     }
     &__topics {
       @extend %flex-wrap;
