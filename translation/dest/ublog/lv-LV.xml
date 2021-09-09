@@ -28,4 +28,9 @@
   <string name="noPostsInThisBlogYet">Šajā blogā vēl nav ierakstu.</string>
   <string name="noDrafts">Nav melnrakstu, ko rādīt.</string>
   <string name="latestBlogPosts">Jaunākie bloga ieraksti</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="zero">Skatīt %s ierakstus</item>
+    <item quantity="one">Skatīt %s ierakstu</item>
+    <item quantity="other">Skatīt %s ierakstus</item>
+  </plurals>
 </resources>
