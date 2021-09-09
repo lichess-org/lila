@@ -3,6 +3,7 @@
   <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
   <string name="newPost">Καινούργια ανάρτηση</string>
   <string name="editYourBlogPost">Επεξεργαστείτε την ανάρτηση του ιστολογίου σας</string>
+  <string name="saveDraft">Αποθήκευση ως πρόχειρο</string>
   <string name="postTitle">Τίτλος ανάρτησης</string>
   <string name="postIntro">Εισαγωγή ανάρτησης</string>
   <string name="postBody">Μορφή ανάρτησης</string>
