@@ -28,5 +28,5 @@
   <string name="moreBlogPostsBy">Peržiūrėti daugiau tinklaraščio įrašų iš %s</string>
   <string name="noPostsInThisBlogYet">Šiame tinklaraštyje įrašų dar nėra.</string>
   <string name="noDrafts">Nėra galimų parodyti juodraščių.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Vėliausi tinklaraščio įrašai</string>
+  <string name="latestBlogPosts">Vėliausi tinklaraščio įrašai</string>
 </resources>
