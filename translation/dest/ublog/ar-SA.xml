@@ -32,5 +32,5 @@
   <string name="moreBlogPostsBy">مقالات أكثر من قبل %s</string>
   <string name="noPostsInThisBlogYet">لايوجد مقالات في هذه المدونة حالياً.</string>
   <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">أخر منشورات المدونة</string>
+  <string name="latestBlogPosts">أخر منشورات المدونة</string>
 </resources>
