@@ -94,7 +94,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       val likeHours =
         if (likes.value < 1) 0
         else (5 * math.log(likes.value) + 1).toInt.atMost(likes.value) * 12
-      val topicsMultiplier = topics.count(t => UblogPost.Topic.indexableExists(t.value)) match {
+      val topicsMultiplier = topics.count(t => UblogPost.Topic.chessExists(t.value)) match {
         case 0 => 0.5
         case 1 => 1
         case _ => 1.5
