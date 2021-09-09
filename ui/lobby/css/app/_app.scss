@@ -76,6 +76,13 @@
   }
 }
 
+.lreal_time,
+.lseeks .hooks__list {
+  @include breakpoint($mq-not-xx-small) {
+    font-size: 0.7em;
+  }
+}
+
 .hook__filters {
   // will be overridden by _hook-filter.scss once it's loaded
   display: none;
