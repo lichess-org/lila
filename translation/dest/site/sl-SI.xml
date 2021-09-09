@@ -51,6 +51,8 @@
   <string name="blackResigned">Črni je predal</string>
   <string name="whiteLeftTheGame">Beli je zapustil igro</string>
   <string name="blackLeftTheGame">Črni je zapustil igro</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Beli ni naredil poteze</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Črni ni naredil poteze</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">S tem naslovom lahko povabiš v igro gledalce</string>
   <string name="theComputerAnalysisHasFailed">Računalniška analiza je spodletela</string>
   <string name="viewTheComputerAnalysis">Poglej računalniško analizo</string>
