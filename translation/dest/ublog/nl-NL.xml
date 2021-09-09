@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
   <string name="noDrafts">Geen concepten om weer te geven.</string>
   <string name="latestBlogPosts">Meest recente blogberichten</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Bekijk één bericht</item>
+    <item quantity="other">Bekijk alle %s berichten</item>
+  </plurals>
 </resources>
