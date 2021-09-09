@@ -48,6 +48,8 @@
   <string name="blackResigned">黒が投了しました</string>
   <string name="whiteLeftTheGame">白が退席しました</string>
   <string name="blackLeftTheGame">黒が退席しました</string>
+  <string name="whiteDidntMove">白、手を指さず</string>
+  <string name="blackDidntMove">黒、手を指さず</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">誰かに対局を見てほしい場合、この URL を共有してください。</string>
   <string name="theComputerAnalysisHasFailed">コンピューター解析に失敗しました</string>
   <string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
