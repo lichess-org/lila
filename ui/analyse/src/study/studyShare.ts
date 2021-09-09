@@ -75,6 +75,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
     chapter = ctrl.chapter();
   const isPrivate = ctrl.isPrivate();
   const addPly = (path: string) => (ctrl.withPly() ? `${path}#${ctrl.currentNode().ply}` : path);
+  const youCanPasteThis = () =>
+    h('p.form-help.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'));
   return h('div.study__share', [
     h('div.downloads', [
       ctrl.cloneable
@@ -131,10 +133,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ['currentGameUrl', `${ctrl.relay.roundPath()}/${chapter.id}`],
           ]
         : [
-            ['studyUrl', `/study/${studyId}`],
+            ['studyUrl', addPly(`/study/${studyId}`), true],
             ['currentChapterUrl', addPly(`/study/${studyId}/${chapter.id}`), true],
           ]
-      ).map(([i18n, path, isFull]: [string, string, boolean]) =>
+      ).map(([i18n, path, pastable]: [string, string, boolean]) =>
         h('div.form-group', [
           h('label.form-label', ctrl.trans.noarg(i18n)),
           h('input.form-control.autoselect', {
@@ -143,20 +145,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               value: `${baseUrl()}${path}`,
             },
           }),
-          ...(isFull
-            ? [
-                fromPly(ctrl),
-                !isPrivate
-                  ? h(
-                      'p.form-help.text',
-                      {
-                        attrs: { 'data-icon': '' },
-                      },
-                      ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed')
-                    )
-                  : null,
-              ]
-            : []),
+          ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
         ])
       ),
       h(

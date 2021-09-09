@@ -64,10 +64,10 @@
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum to embed</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum or your Lichess blog to embed</string>
   <string name="startAtInitialPosition">Start at initial position</string>
   <string name="startAtX">Start at %s</string>
-  <string name="embedInYourWebsite">Embed in your website or blog</string>
+  <string name="embedInYourWebsite">Embed in your website</string>
   <string name="readMoreAboutEmbedding">Read more about embedding</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Only public studies can be embedded!</string>
   <string name="open">Open</string>

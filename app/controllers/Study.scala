@@ -341,7 +341,10 @@ final class Study(
 
   def embed(id: String, chapterId: String) =
     Action.async { implicit req =>
-      env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
+      val studyWithChapter =
+        if (chapterId == "autochap") env.study.api.byIdWithChapter(id)
+        else env.study.api.byIdWithChapter(id, chapterId)
+      studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
         _.fold(embedNotFound) { case WithChapter(study, chapter) =>
           for {
             chapters <- env.study.chapterRepo.idNames(study.id)

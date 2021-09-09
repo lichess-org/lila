@@ -1,5 +1,6 @@
 import spinner from './component/spinner';
 
+
 function toYouTubeEmbedUrl(url: string) {
   if (!url) return;
   const m = url.match(
@@ -41,7 +42,8 @@ interface Group {
 
 lichess.load.then(() => {
   const domain = window.location.host,
-    studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b'),
+    chapterRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b'),
+    studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})(#\\d+)?\\b'),
     gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b'),
     notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
 
@@ -52,11 +54,17 @@ lichess.load.then(() => {
         type: 'youtube',
         src: yt,
       };
-    let matches = a.href.match(studyRegex);
-    if (matches && matches[2] && a.text.match(studyRegex))
+    let matches = a.href.match(chapterRegex);
+    if (matches && matches[2] && a.text.match(chapterRegex))
       return {
         type: 'study',
-        src: '/study/embed/' + matches[1] + '/' + matches[2] + (matches[3] || ''),
+        src: `/study/embed/${matches[1]}/${matches[2]}${matches[3] || ''}`,
+      };
+    matches = a.href.match(studyRegex);
+    if (matches && matches[1] && a.text.match(studyRegex))
+      return {
+        type: 'study',
+        src: `/study/embed/${matches[1]}/autochap${matches[2] || ''}`,
       };
     matches = a.href.match(gameRegex);
     if (matches && matches[1] && !notGames.includes(matches[1]) && a.text.match(gameRegex)) {
