@@ -32,7 +32,9 @@ object UblogPost {
 
   case class Recorded(by: User.ID, at: DateTime)
 
-  case class Topic(value: String) extends AnyVal with StringValue
+  case class Topic(value: String) extends StringValue {
+    val url = value.replace(" ", "_")
+  }
 
   object Topic {
     val all = List(
@@ -59,6 +61,7 @@ object UblogPost {
     val exists                   = all.toSet
     def get(str: String)         = exists(str) option Topic(str)
     def fromStrList(str: String) = str.split(',').toList.flatMap(get).distinct
+    def fromUrl(str: String)     = get(str.replace("_", " "))
   }
 
   case class Likes(value: Int)     extends AnyVal
