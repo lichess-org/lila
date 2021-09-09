@@ -46,6 +46,8 @@
   <string name="blackResigned">အမည်းရောင််ကအရှုံးပေးသည်</string>
   <string name="whiteLeftTheGame">အဖြူရောင်သည်ဂိမ်းးမှထွက်ခွာသွားသည်</string>
   <string name="blackLeftTheGame">အမည်းရောင်သည်ဂိမ်းးမှထွက်ခွာသွားသည်</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">အဖြူ စ, မရွှေ့ခဲ့</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">အနက် မရွှေ့ခဲ့</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Share this URL to let spectators see the game</string>
   <string name="theComputerAnalysisHasFailed">The computer analysis has failed</string>
   <string name="viewTheComputerAnalysis">View the computer analysis</string>
