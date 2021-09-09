@@ -6,7 +6,7 @@ function toYouTubeEmbedUrl(url: string) {
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i
   );
   if (!m) return;
-  let start = 1;
+  let start = 0;
   m[2].split('&').forEach(p => {
     const s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
