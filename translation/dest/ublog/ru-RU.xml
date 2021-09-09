@@ -28,5 +28,5 @@
   <string name="moreBlogPostsBy">Больше записей в блоге от %s</string>
   <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
   <string name="noDrafts">Нет черновиков для просмотра.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Свежие записи в блоге</string>
+  <string name="latestBlogPosts">Свежие записи в блоге</string>
 </resources>
