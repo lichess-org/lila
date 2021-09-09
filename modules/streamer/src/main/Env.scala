@@ -29,8 +29,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
-    db: lila.db.Db,
-    imageRepo: lila.db.ImageRepo
+    db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem

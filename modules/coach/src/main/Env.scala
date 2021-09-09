@@ -21,8 +21,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
-    picfitApi: lila.memo.PicfitApi,
-    imageRepo: lila.db.ImageRepo
+    picfitApi: lila.memo.PicfitApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
@@ -58,9 +57,5 @@ final class Env(
         white ?? api.setRating
         black ?? api.setRating
       }.unit
-  }
-
-  system.scheduler.scheduleOnce(1 minute) {
-    wire[CoachPictureMigration]().unit
   }
 }

@@ -17,7 +17,6 @@ import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,
-    val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
     val mailer: lila.mailer.Env,
@@ -212,7 +211,6 @@ final class EnvBoot(
   implicit def idGenerator = game.idGenerator
 
   lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
-  lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
 
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
