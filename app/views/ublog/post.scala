@@ -113,7 +113,7 @@ object post {
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false
   )(implicit ctx: Context) =
-    a(cls := "ublog-post-card", href := makeUrl(post))(
+    a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
@@ -123,16 +123,10 @@ object post {
       )
     )
 
-  def miniCard(
-      post: UblogPost.BasePost,
-      makeUrl: UblogPost.BasePost => Call = urlOfPost,
-      showAuthor: Boolean = false
-  )(implicit ctx: Context) =
-    a(cls := "ublog-post-card ublog-post-card--mini", href := makeUrl(post))(
+  def miniCard(post: UblogPost.BasePost)(implicit ctx: Context) =
+    span(cls := "ublog-post-card ublog-post-card--mini")(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
-      h3(cls := "ublog-post-card__title")(post.title),
-      post.lived map { live => semanticDate(live.at)(ctx.lang)(cls := "ublog-post-card__over-image") },
-      showAuthor option userIdSpanMini(post.created.by)(ctx.lang)(cls := "ublog-post-card__over-image")
+      h3(cls := "ublog-post-card__title")(post.title)
     )
 
   def urlOfPost(post: UblogPost.BasePost) = post.blog match {

@@ -13,7 +13,7 @@
     color: $c-font;
     position: relative;
 
-    &:hover {
+    &--link:hover {
       box-shadow: 0 0 5px $c-link, 0 0 20px $c-link;
     }
 
@@ -45,7 +45,7 @@
       transition: 0.6s transform ease-in-out;
       overflow: hidden;
       transform-origin: bottom;
-      .ublog-post-card:hover & {
+      .ublog-post-card--link:hover & {
         transform: scale(1.02);
       }
     }
@@ -71,20 +71,19 @@
     }
 
     &--mini {
+      @extend %box-neat-force;
       font-size: 0.9em;
       line-height: 0;
-      > * {
-        line-height: 1.5em;
-      }
       .ublog-post-card {
         &__title {
           position: absolute;
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 2vmin;
+          padding: 1.5vmin;
           background: $c-bg-zebra;
           opacity: 0.9;
+          line-height: 1.5em;
         }
       }
     }

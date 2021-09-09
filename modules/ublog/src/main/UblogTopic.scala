@@ -1,5 +1,6 @@
 package lila.ublog
 
+
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
@@ -26,15 +27,7 @@ object UblogTopic {
     "Chess Personalities",
     "Over the board",
     "Tournament",
-    "Chess960",
-    "Crazyhouse",
-    "Chess960",
-    "King of the Hill",
-    "Three-check",
-    "Antichess",
-    "Atomic",
-    "Horde",
-    "Racing Kings"
+    "Chess variant"
   )
   val all = chess ::: List(
     "Software Development",
@@ -63,10 +56,10 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(implicit ec: Ex
             UblogTopic.all.map { topic =>
               topic -> List(
                 Match($doc("live" -> true, "topics" -> topic)),
-                Project(previewPostProjection),
                 Sort(Descending("rank")),
+                Project(previewPostProjection),
                 Group(BSONNull)("nb" -> SumAll, "posts" -> PushField("$ROOT")),
-                Project($doc("_id" -> false, "nb" -> true, "posts" -> $doc("$slice" -> $arr("$posts", 3))))
+                Project($doc("_id" -> false, "nb" -> true, "posts" -> $doc("$slice" -> $arr("$posts", 4))))
               )
             }
           ) -> List(

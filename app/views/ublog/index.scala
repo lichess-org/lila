@@ -82,19 +82,17 @@ object index {
     ) {
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
-        div(cls := "page-menu__content box box-pad ublog-index")(
+        div(cls := "page-menu__content box")(
           div(cls := "box__top")(h1("All blog topics")),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
-              st.section(cls := "ublog-topics__topic")(
+              a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
                 h2(
-                  a(href := routes.Ublog.topic(topic.url))(
-                    strong(topic.value),
-                    span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
-                  )
+                  strong(topic.value),
+                  span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
-                div(cls := "ublog-topics__topic__posts ublog-post-cards")(
-                  posts map { postView.miniCard(_, showAuthor = true) }
+                span(cls := "ublog-topics__topic__posts ublog-post-cards")(
+                  posts map postView.miniCard
                 )
               )
             }

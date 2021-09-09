@@ -119,23 +119,41 @@
 
   &-topics {
     .ublog-post-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
-      grid-gap: 3vmin;
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      grid-gap: 0 2vmin;
+      grid-template-rows: auto; /* first row auto */
+      grid-auto-rows: 0; /* all the other rows 0 */
+      @include breakpoint($mq-xx-small) {
+        display: grid;
+      }
+      opacity: 0.7;
+    }
+    .ublog-post-card__title {
+      color: $c-font-clearer;
     }
     &__topic {
-      margin-bottom: 3em;
+      display: block;
+      padding: 1.2em var(--box-padding) 2.3em var(--box-padding);
+      @include transition(background);
+      &:hover {
+        background: mix($c-link, $c-bg-box, 20%);
+      }
       h2 {
+        @extend %flex-between;
         margin-bottom: 1rem;
-        a {
-          @extend %flex-between;
-        }
         strong {
           letter-spacing: 0.5ch;
           font-weight: normal;
         }
         span {
           font-size: 1rem;
+        }
+      }
+      &:hover .ublog-post-cards {
+        opacity: 1;
+        .ublog-post-card__title {
+          color: $c-font-clear;
         }
       }
     }
