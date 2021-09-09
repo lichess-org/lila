@@ -3,6 +3,7 @@
   <string name="xBlog">Blog gracza %s</string>
   <string name="newPost">Nowy wpis</string>
   <string name="editYourBlogPost">Edytuj swój wpis na blogu</string>
+  <string name="saveDraft">Zapisz wersję roboczą</string>
   <string name="postTitle">Tytuł wpisu</string>
   <string name="postIntro">Wstęp wpisu</string>
   <string name="postBody">Treść wpisu</string>
