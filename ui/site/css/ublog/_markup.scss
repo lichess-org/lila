@@ -68,6 +68,12 @@
     font-size: 1.4em;
   }
 
+  .img-container {
+    text-align: center;
+    color: $c-font-dim;
+    line-height: 1.2em;
+  }
+
   img {
     padding: 5px;
     border: 1px solid $c-border;

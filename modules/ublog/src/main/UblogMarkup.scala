@@ -18,7 +18,11 @@ final class UblogMarkup(net: NetConfig) {
     )
 
   def apply(post: UblogPost): String =
-    cache.get(post.markdown, str => renderer(s"ublog:${post.id}")(replaceGameGifs(str)))
+    cache.get(post.markdown, str => postProcess(renderer(s"ublog:${post.id}")(preProcess(str))))
+
+  private def preProcess = replaceGameGifs.apply _
+
+  private def postProcess = imageParagraph.apply _
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
@@ -30,5 +34,9 @@ final class UblogMarkup(net: NetConfig) {
       """!\[[^\]]*\]\(""" + net.assetBaseUrl + """/game/export/gif/(white|black)/(\w{8}).gif\)"""
     }.r
     def apply(markdown: String) = regex.replaceAllIn(markdown, net.baseUrl.value + "/$2/$1")
+  }
+
+  private object imageParagraph {
+    def apply(markup: String) = markup.replace("""<p><img src=""", """<p class="img-container"><img src=""")
   }
 }
