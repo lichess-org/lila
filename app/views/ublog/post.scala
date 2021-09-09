@@ -112,7 +112,7 @@ object post {
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: Boolean = false,
-      showIntro: Boolean = false
+      showIntro: Boolean = true
   )(implicit ctx: Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
