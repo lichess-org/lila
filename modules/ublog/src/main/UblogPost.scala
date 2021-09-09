@@ -24,6 +24,8 @@ case class UblogPost(
 ) extends UblogPost.BasePost {
 
   def isBy(u: User) = created.by == u.id
+
+  def indexable = live && topics.exists(t => UblogPost.Topic.indexableExists(t.value))
 }
 
 object UblogPost {
@@ -37,7 +39,7 @@ object UblogPost {
   }
 
   object Topic {
-    val all = List(
+    val indexable = List(
       "Chess",
       "Variant",
       "Chess960",
@@ -53,12 +55,15 @@ object UblogPost {
       "Opening",
       "Endgame",
       "Tactics",
-      "Strategy",
+      "Strategy"
+    )
+    val all = indexable ::: List(
       "Software",
       "Lichess",
       "Off topic"
     )
     val exists                   = all.toSet
+    val indexableExists          = indexable.toSet
     def get(str: String)         = exists(str) option Topic(str)
     def fromStrList(str: String) = str.split(',').toList.flatMap(get).distinct
     def fromUrl(str: String)     = get(str.replace("_", " "))
