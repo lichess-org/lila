@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Ainda não há postagens neste blog.</string>
   <string name="noDrafts">Não há rascunhos para mostrar.</string>
   <string name="latestBlogPosts">Últimas postagens de blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ver uma postagem</item>
+    <item quantity="other">Ver todas as %s postagens</item>
+  </plurals>
 </resources>
