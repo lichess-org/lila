@@ -3,6 +3,7 @@
   <string name="xBlog">%s\' blog</string>
   <string name="newPost">Nyt indlæg</string>
   <string name="editYourBlogPost">Rediger dit blogindlæg</string>
+  <string name="saveDraft">Gem udkast</string>
   <string name="postTitle">Indlægstitel</string>
   <string name="postIntro">Indlægsintro</string>
   <string name="postBody">Indlæggets hovedtekst</string>
