@@ -24,5 +24,5 @@
   <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
   <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
   <string name="noDrafts">Geen concepten om weer te geven.</string>
-  <string name="latestBlogPosts" comment="latestBlogPosts&#10;&#10;Heading. A list of the most recent blog posts.">Meest recente blogberichten</string>
+  <string name="latestBlogPosts">Meest recente blogberichten</string>
 </resources>
