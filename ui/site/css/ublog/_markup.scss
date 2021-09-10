@@ -72,13 +72,12 @@
     text-align: center;
     color: $c-font-dim;
     line-height: 1.2em;
-  }
-
-  img {
-    padding: 5px;
-    border: 1px solid $c-border;
-    max-width: 100%;
-    max-height: 50vh;
+    font-size: 0.9em;
+    img {
+      @extend %box-neat;
+      max-width: 100%;
+      max-height: 50vh;
+    }
   }
 
   $c-code-bg: #111;
