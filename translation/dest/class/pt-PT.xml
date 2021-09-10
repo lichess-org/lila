@@ -46,6 +46,7 @@ Palavra-passe: %3$s</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terás que transmiti-la ao aluno, para que eles possam ter acesso.</string>
   <string name="createDesc3">Importante: um aluno não pode ter várias contas.</string>
   <string name="createDesc4">Se já tiveres um, utiliza o formulário de convite.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Crie contas apenas para alunos reais. Não usar isto para criar várias contas para si próprio. Você seria banido.</string>
   <string name="lichessUsername">Nome de utilizador no Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à tua aula: %s.
