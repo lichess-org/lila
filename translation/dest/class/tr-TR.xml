@@ -46,6 +46,7 @@ Kullanıcı adı: %2$s
   <string name="createDesc2">E-posta adresine gerek yoktur. Size vereceğimiz şifreyi öğrenciye iletirseniz hesabına giriş yapabilir.</string>
   <string name="createDesc3">Önemli: Öğrencilerin birden fazla hesabı olmamalı.</string>
   <string name="createDesc4">Hâlihazırda hesabı olan öğrenciler için davet formunu kullanın.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Yalnızca gerçek öğrenciler için hesap oluşturun. Kendi adınıza birden fazla hesap açmak için bu özelliği kullanmayın. Aksi takdirde hesabınız kapatılabilir.</string>
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="welcomeToClass">Sınıfınıza hoşgeldiniz: %s
