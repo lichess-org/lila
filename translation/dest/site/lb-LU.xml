@@ -62,6 +62,7 @@
   <string name="delete">Läschen</string>
   <string name="deleteThisImportedGame">Importéiert Partie läschen?</string>
   <string name="flipBoard">Briet dréinen</string>
+  <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
   <string name="offerDraw">Remis ubidden</string>
   <string name="draw">Remis</string>
@@ -69,5 +70,28 @@
     <item quantity="one">%s Spiller</item>
     <item quantity="other">%s Spiller</item>
   </plurals>
+  <string name="logOut">Ofmellen</string>
+  <string name="signIn">Umellen</string>
+  <string name="signUp">Registréieren</string>
+  <string name="games">Partien</string>
+  <string name="forum">Forum</string>
+  <string name="players">Spiller</string>
+  <string name="friends">Frënn</string>
+  <string name="discussions">Konversatiounen</string>
+  <string name="today">Haut</string>
+  <string name="yesterday">Gëschter</string>
+  <string name="variant">Variant</string>
+  <string name="variants">Varianten</string>
+  <string name="timeControl">Zäitkontroll</string>
   <string name="oneDay">Een Dag</string>
+  <string name="rating">Wertung</string>
+  <string name="password">Passwuert</string>
+  <string name="changePassword">Passwuert änneren</string>
+  <string name="blackOffersDraw">Schwaarz bitt Remis un</string>
+  <string name="whiteDeclinesDraw">Wäiss leent Remis of</string>
+  <string name="blackDeclinesDraw">Schwaarz leent Remis of</string>
+  <string name="yourOpponentOffersADraw">Däin Géigner bitt Remis un</string>
+  <string name="accept">Acceptéieren</string>
+  <string name="decline">Ofleenen</string>
+  <string name="standard">Standard</string>
 </resources>
