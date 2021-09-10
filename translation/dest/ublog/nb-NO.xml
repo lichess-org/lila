@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
   <string name="noDrafts">Ingen utkast å vise.</string>
   <string name="latestBlogPosts">Siste blogginnlegg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Vis ett innlegg</item>
+    <item quantity="other">Vis alle %s innleggene</item>
+  </plurals>
 </resources>
