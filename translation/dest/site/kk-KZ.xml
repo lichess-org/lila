@@ -122,6 +122,18 @@
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s өрескел қателік</item>
+    <item quantity="other">%s өрескел қателік</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s қателік</item>
+    <item quantity="other">%s қателік</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ағаттық</item>
+    <item quantity="other">%s ағаттық</item>
+  </plurals>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
