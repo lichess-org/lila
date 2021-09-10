@@ -30,4 +30,5 @@
     <item quantity="one">Sjå eitt innlegg</item>
     <item quantity="other">Sjå alle %s innlegg</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Last opp eit bilete til innlegget ditt</string>
 </resources>
