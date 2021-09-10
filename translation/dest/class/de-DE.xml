@@ -46,6 +46,7 @@ Passwort: %3$s</string>
   <string name="createDesc2">Es wird keine E-Mail-Adresse benötigt. Ein Passwort wird generiert und du musst es dem Schüler mitteilen, damit er sich anmelden kann.</string>
   <string name="createDesc3">Wichtig: Ein Schüler darf nicht mehrere Konten besitzen.</string>
   <string name="createDesc4">Verwende stattdessen das Einladungsformular, falls sie bereits eines besitzen.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Erstelle nur Konten für echte Schüler. Verwende dies nicht, um mehrere Konten für dich selbst zu erstellen. Du würdest gebannt werden.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
   <string name="generateANewUsername">Erstelle einen neuen Benutzernamen</string>
   <string name="welcomeToClass">Willkommen in deiner Klasse: %s.
