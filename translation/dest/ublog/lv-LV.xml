@@ -33,4 +33,5 @@
     <item quantity="one">Skatīt %s ierakstu</item>
     <item quantity="other">Skatīt %s ierakstus</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Augšuplādējiet attēlu savam ierakstam</string>
 </resources>
