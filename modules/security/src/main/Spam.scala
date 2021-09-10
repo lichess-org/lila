@@ -25,7 +25,9 @@ final class Spam(spamKeywords: () => lila.common.Strings) {
     "chess-bot.com",
     "chessbotx",
     "/auth/magic-link/login/",
-    "/auth/token/"
+    "/auth/token/",
+    "/signup/confirm/",
+    "/password/reset/confirm/"
   ) ::: bannedYoutubeIds ::: referBlacklist
 
   def replace(text: String) =
