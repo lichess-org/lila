@@ -46,6 +46,7 @@ Jelszó: %3$s</string>
   <string name="createDesc2">Nincs szükség e-mail címre. Létrejön egy jelszó, amelyet el kell küldenie a hallgatónak, hogy bejelentkezhessenek.</string>
   <string name="createDesc3">Fontos: egy hallgatónak nem lehet több fiókja.</string>
   <string name="createDesc4">Ha már van ilyen, akkor használja a meghívó űrlapot.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Csak valódi diákoknak hozzál létre fiókot. Ne használ ezt a funkciót arra, hogy neked legyen több fiókod mert ezért kitiltás jár.</string>
   <string name="lichessUsername">Lichess felhasználónév</string>
   <string name="generateANewUsername">Új felhasználónevet generál</string>
   <string name="welcomeToClass">Üdvözöljük osztályában: %s.
