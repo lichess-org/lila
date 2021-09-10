@@ -347,12 +347,11 @@ export default class AnalyseCtrl {
       isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     if (pathChanged) {
-      const playedMyself = this.playedLastMoveMyself();
-      if (this.study) this.study.setPath(path, this.node, playedMyself);
+      if (this.study) this.study.setPath(path, this.node);
       if (isForwardStep) {
         if (!this.node.uci) this.sound.move();
         // initial position
-        else if (!playedMyself) {
+        else if (!this.playedLastMoveMyself()) {
           if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
