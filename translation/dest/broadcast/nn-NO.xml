@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Kunngjerings-URL</string>
   <string name="currentRoundUrl">URL til noverande runde</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
+  <string name="downloadAllRounds">Last ned alle rundene</string>
 </resources>

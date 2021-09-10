@@ -30,4 +30,5 @@
     <item quantity="one">Bir gönderiyi görüntüle</item>
     <item quantity="other">%s gönderinin hepsini görüntüle</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Gönderinize bir görsel ekleyin</string>
 </resources>

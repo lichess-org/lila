@@ -46,6 +46,7 @@
   <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
   <string name="createDesc3">Σημαντικό: ο μαθητής δεν πρέπει να έχει πολλαπλούς λογαριασμούς.</string>
   <string name="createDesc4">Εάν έχουν ήδη έναν, χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Δημιουργήστε λογαριασμούς μόνο για πραγματικούς μαθητές. Εάν δημιουργήσετε πολλούς λογαριασμούς για σας, ενδέχεται να κλείσει ο λογαριασμός σας.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.

@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
   <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
   <string name="latestBlogPosts">Neueste Blog-Beiträge</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Einen Beitrag anzeigen</item>
+    <item quantity="other">Alle %s Beiträge anzeigen</item>
+  </plurals>
 </resources>

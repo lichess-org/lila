@@ -46,6 +46,7 @@ Passord: %3$s</string>
   <string name="createDesc2">Det er ikke påkrevet med e-post-adresse. Et passord blir generert og det må du gi videre til eleven.</string>
   <string name="createDesc3">Viktig: en elev kan ikke ha flere konti.</string>
   <string name="createDesc4">Bruk invitasjonsskjemaet dersom de allerede har en brukerkonto.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Opprett kontoer kun for faktiske elever. Ikke opprett flere kontoer til deg selv. Da blir du utestengt.</string>
   <string name="lichessUsername">Lichess-brukernavn</string>
   <string name="generateANewUsername">Generer et nytt brukernavn</string>
   <string name="welcomeToClass">Velkommen til klassen din: %s.

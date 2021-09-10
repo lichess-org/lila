@@ -18,6 +18,8 @@
   <string name="rule1">Incúe a palabra \"lichess.org\" no título da túa transmisión e usa a categoría \"Chess\" cando retransmitas en Lichess.</string>
   <string name="rule2">Elimina a palabra cando transmitas contido que non estea relacionado con Lichess.</string>
   <string name="rule3">Lichess detectará a túa transmisión automaticamente e habilitará os siguientes beneficios:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Le as nosas %s para asegurarte de xogar limpo para todas durante a túa retransmisión.</string>
+  <string name="streamingFairplayFAQ">FAQ sobre xogo limpo en retransmisións</string>
   <string name="perks">Beneficios de transmitir coa palabra</string>
   <string name="perk1">Obtén unha flameante icona de presentador no teu perfil de Lichess.</string>
   <string name="perk2">Sube á cima da lista de streamers.</string>

@@ -28,4 +28,5 @@
     <item quantity="few">Vezi toate cele %s postări</item>
     <item quantity="other">Vezi toate cele %s de postări</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Încarcă o imagine pentru postarea ta</string>
 </resources>

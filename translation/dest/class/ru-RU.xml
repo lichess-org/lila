@@ -46,6 +46,7 @@
   <string name="createDesc2">Email адрес не требуется. Будет сгенерирован пароль, который вы передадите ученику, чтобы он мог войти в систему.</string>
   <string name="createDesc3">Важно: ученик не должен иметь несколько учётных записей.</string>
   <string name="createDesc4">Если у них уже есть, используйте форму приглашения.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Создавайте аккаунты только для реальных учеников. Не используйте эту возможность для создания аккаунтов в личных целях, иначе вы будете заблокированы.</string>
   <string name="lichessUsername">Имя пользователя в Lichess</string>
   <string name="generateANewUsername">Создать новое имя пользователя</string>
   <string name="welcomeToClass">Добро пожаловать в ваш класс: %s.

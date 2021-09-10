@@ -30,4 +30,5 @@
     <item quantity="one">Δείτε μία δημοσίευση</item>
     <item quantity="other">Δείτε όλες τις συνολικά %s δημοσιεύσεις</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Μεταφορτώστε μια εικόνα στη δημοσίευσή σας</string>
 </resources>

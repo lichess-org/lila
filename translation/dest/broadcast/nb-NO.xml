@@ -24,4 +24,5 @@
   <string name="broadcastUrl">URL for denne overføringen</string>
   <string name="currentRoundUrl">URL for denne runden</string>
   <string name="currentGameUrl">URL for dette partiet</string>
+  <string name="downloadAllRounds">Last ned alle rundene</string>
 </resources>

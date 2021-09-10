@@ -26,4 +26,9 @@
   <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
   <string name="noDrafts">Ingen udkast at vise.</string>
   <string name="latestBlogPosts">Seneste blog-indlæg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Se et indlæg</item>
+    <item quantity="other">Se alle %s indlæg</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Upload et billede til dit indlæg</string>
 </resources>

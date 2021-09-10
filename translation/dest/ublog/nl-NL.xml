@@ -30,4 +30,5 @@
     <item quantity="one">Bekijk één bericht</item>
     <item quantity="other">Bekijk alle %s berichten</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
 </resources>

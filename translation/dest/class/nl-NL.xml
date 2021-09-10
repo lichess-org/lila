@@ -46,6 +46,7 @@ Wachtwoord: %3$s</string>
   <string name="createDesc2">Er is geen e-mailadres vereist. Er wordt een wachtwoord aangemaakt die moet worden doorgeven aan de student, zodat ze kunnen inloggen.</string>
   <string name="createDesc3">Belangrijk: een leerling mag niet meerdere accounts hebben.</string>
   <string name="createDesc4">Als ze er al een hebben, gebruik dan het uitnodigingsformulier.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Maak alleen accounts aan voor echte leerlingen. Gebruik deze functie niet om meerdere accounts voor jezelf te maken. In dat geval wordt je account gesloten.</string>
   <string name="lichessUsername">Lichess gebruikersnaam</string>
   <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
   <string name="welcomeToClass">Welkom bij de groep: %s.

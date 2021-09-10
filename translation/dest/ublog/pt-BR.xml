@@ -30,4 +30,5 @@
     <item quantity="one">Ver uma postagem</item>
     <item quantity="other">Ver todas as %s postagens</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Enviar uma imagem para sua postagem</string>
 </resources>

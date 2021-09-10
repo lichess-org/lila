@@ -36,4 +36,5 @@
     <item quantity="many">Zobacz %s wpisów</item>
     <item quantity="other">Zobacz %s wpisów</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Prześlij obraz do swojego wpisu</string>
 </resources>

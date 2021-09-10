@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Pas encore d’article dans ce blogue</string>
   <string name="noDrafts">Aucun brouillon à afficher</string>
   <string name="latestBlogPosts">Dernières publications du blogue</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Voir la publication</item>
+    <item quantity="other">Voir les %s publications</item>
+  </plurals>
 </resources>

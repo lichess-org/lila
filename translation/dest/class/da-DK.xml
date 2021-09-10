@@ -46,6 +46,7 @@ Adgangskode: %3$s</string>
   <string name="createDesc2">Ingen e-mailadresse påkrævet. En adgangskode vil blive genereret, og du vil skulle videregive den til eleven, så de kan logge ind.</string>
   <string name="createDesc3">Vigtigt: En elev må ikke have flere konti.</string>
   <string name="createDesc4">Brug invitationsformularen, hvis de allerede har en.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Opret kun konti for rigtige elever. Brug ikke dette til at lave flere konti for dig selv. Du ville blive udelukket.</string>
   <string name="lichessUsername">Lichess-brugernavn</string>
   <string name="generateANewUsername">Generer et nyt brugernavn</string>
   <string name="welcomeToClass">Velkommen til din klasse: %s.

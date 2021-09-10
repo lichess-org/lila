@@ -50,4 +50,6 @@
   <string name="skip">omitir</string>
   <string name="skipHelp">Podes omitir un movemento por carreira:</string>
   <string name="skipExplanation">Omite este movemento para conservar o teu combo. Só funciona unha vez por corrida.</string>
+  <string name="failedPuzzles">Problemas errados</string>
+  <string name="slowPuzzles">Problemas lentos</string>
 </resources>
