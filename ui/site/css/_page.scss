@@ -4,6 +4,8 @@
     text-align: justify;
     h2 {
       margin-top: 1.3em;
+      border-bottom: 1px solid $c-brag;
+      line-height: 2.5em;
     }
     p,
     ul,
@@ -23,7 +25,11 @@
     }
     h3 {
       @extend %roboto;
-      font-size: 1.3em;
+      font-size: 1.5em;
+      line-height: 2.5em;
+    }
+    h4 {
+      font-weight: bold;
     }
     em {
       font-style: italic;
@@ -31,9 +37,16 @@
     iframe {
       width: 100%;
     }
+    img, .block-img {
+      max-width: 100%;
+    }
     .block-img {
       margin: 1em auto;
       text-align: center;
+      img {
+        width: auto;
+        height: auto;
+      }
     }
     .center {
       text-align: center;
