@@ -36,4 +36,5 @@
     <item quantity="few">Ogled vseh %s objav</item>
     <item quantity="other">Ogled vseh %s objav</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Naložite sliko za svojo objavo</string>
 </resources>
