@@ -30,4 +30,5 @@
     <item quantity="one">Einen Beitrag anzeigen</item>
     <item quantity="other">Alle %s Beiträge anzeigen</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Ein Bild für deinen Beitrag hochladen</string>
 </resources>
