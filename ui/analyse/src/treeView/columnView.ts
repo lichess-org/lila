@@ -198,6 +198,7 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
 
   const colorClass = withColor ? (node.ply % 2 === 0 ? '.gote ' : '.sente ') : '';
+  const withAuthor = node.comments!.some(c => c.by !== node.comments![0].by);
 
   return node.comments!.map(comment => {
     if (comment.by === 'lishogi' && !ctx.showComputer) return;
@@ -206,7 +207,7 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
     else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
-    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
+    const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
       hook: innerHTML(truncated, text => by + enrichText(text)),

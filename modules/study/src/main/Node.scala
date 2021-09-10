@@ -222,6 +222,9 @@ object Node {
         count + n.children.countRecursive
       }
 
+    def hasMultipleCommentAuthors: Boolean =
+      nodes.exists(n => n.comments.hasMultipleAuthors || n.children.hasMultipleCommentAuthors)
+
     def lastMainlineNode: Option[Node] =
       nodes.headOption map { first =>
         first.children.lastMainlineNode | first
@@ -315,6 +318,8 @@ object Node {
     def mainlinePath = Path(mainline.map(_.id))
 
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
+
+    def hasMultipleCommentAuthors: Boolean = comments.hasMultipleAuthors || children.hasMultipleCommentAuthors
 
     def moveOption = none
 

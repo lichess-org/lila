@@ -179,6 +179,7 @@ object Node {
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
 
     def hasLishogiComment = value.exists(_.by == Comment.Author.Lishogi)
+    def hasMultipleAuthors = value.filterNot(_.by == Comment.Author.Lishogi).exists(_.by != value.head.by)
   }
   object Comments {
     val empty = Comments(Nil)

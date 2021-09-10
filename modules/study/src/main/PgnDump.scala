@@ -6,7 +6,7 @@ import shogi.format.{ Forsyth, pgn => shogiPgn }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
-import lila.tree.Node.{ Shape, Shapes }
+import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -28,7 +28,7 @@ final class PgnDump(
       tags = makeTags(study, chapter),
       moves = toMoves(chapter.root)(flags).toList,
       initial = Initial(
-        chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+        renderComments(chapter.root.comments, chapter.hasMultipleCommentAuthors) ::: shapeComment(chapter.root.shapes).toList
       ),
       variant = chapter.setup.variant
     )
@@ -58,20 +58,16 @@ final class PgnDump(
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 
-  private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"https://lishogi.org/@/${ownerName(study)}")
-
   private def makeTags(study: Study, chapter: Chapter): Tags =
     Tags {
       val opening = chapter.opening
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.Date, Tag.UTCDate.format.print(chapter.createdAt)),
-      ) ::: List(annotatorTag(study)) ::: (!Forsyth.compareTruncated(chapter.root.fen.value, Forsyth.initial)).??(
+        Tag(_.Annotator, ownerName(study))
+      ) ::: (!Forsyth.compareTruncated(chapter.root.fen.value, Forsyth.initial)).??(
         List(
-          Tag(_.FEN, chapter.root.fen.value),
-          Tag("SetUp", "1")
+          Tag(_.FEN, chapter.root.fen.value)
         )
       )
       opening.fold(genTags)(o => Tag(_.Opening, o.eco) :: genTags)
@@ -90,26 +86,25 @@ object PgnDump {
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  private def node2move(node: Node, variations: Variations, startingPly: Int)(implicit flags: WithFlags) =
+  private def node2move(node: Node, variations: Variations, startingPly: Int, showAuthors: Boolean)(implicit flags: WithFlags) =
     shogiPgn.KifMove(
       san = node.move.san,
       uci = node.move.uci.uci,
       ply = node.ply - startingPly,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
-        node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList
+        renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
       },
       result = none,
       variations = flags.variations ?? {
         variations.view.map { child =>
-          toMoves(child.mainline, noVariations, startingPly).toList
+          toMoves(child.mainline, noVariations, startingPly, showAuthors).toList
         }.toList
       },
       //secondsSpent = flags.clocks ?? node.clock.map(_.roundSeconds)
       //secondsTotal = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
 
-  // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[String] = {
     def render(as: String)(shapes: List[String]) =
       shapes match {
@@ -134,19 +129,31 @@ object PgnDump {
     s"$circles$arrows$pieces".some.filter(_.nonEmpty)
   }
 
+  private def renderComments(comments: Comments, showAuthors: Boolean): List[String] = {
+    def getName(author: Comment.Author) =
+      author match {
+        case Comment.Author.User(_, name) => name
+        case Comment.Author.External(name) => name
+        case Comment.Author.Lishogi        => "lishogi"
+        case Comment.Author.Unknown        => "?"
+      }
+    comments.list.map(c => s"${showAuthors ?? s"[${getName(c.by)}] "}${c.text.value}")
+  }
+
   def toMoves(root: Node.Root)(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =
-    toMoves(root.mainline, root.children.variations, root.ply)
+    toMoves(root.mainline, root.children.variations, root.ply, root.hasMultipleCommentAuthors)
 
   def toMoves(
     line: Vector[Node],
     variations: Variations,
-    startingPly: Int
+    startingPly: Int,
+    showAuthors: Boolean
   )(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =
     line
       .foldLeft(variations -> Vector.empty[shogiPgn.KifMove]) { case variations ~ moves ~ first =>
         first
           .children
-          .variations -> (node2move(first, variations, startingPly) +: moves)
+          .variations -> (node2move(first, variations, startingPly, showAuthors) +: moves)
       }
       ._2
       .reverse

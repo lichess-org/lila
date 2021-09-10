@@ -5,7 +5,7 @@ import { nodeFullName, bind, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';
 
 function authorDom(author) {
-  if (!author) return '*';
+  if (!author) return '';
   if (!author.name) return author;
   return h(
     'span.user-link.ulpt',
@@ -17,9 +17,9 @@ function authorDom(author) {
 }
 
 export function authorText(author): string {
-  if (!author) return '*';
-  if (!author.name) return author;
-  return author.name;
+  if (!author) return '';
+  if (!author.name) return '[' + author + ']';
+  return '[' + author.name + ']';
 }
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
