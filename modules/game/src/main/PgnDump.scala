@@ -93,14 +93,16 @@ final class PgnDump(
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {
-        val importedDate = imported.flatMap(_.tags(_.Date))
+        val importedStart = imported.flatMap(_.tags(_.Start))
+        val importedEnd = imported.flatMap(_.tags(_.End))
         List[Option[Tag]](
           Tag(
             _.Event,
             imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
           ).some,
           Tag(_.Site, gameUrl(game.id)).some,
-          Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
+          Tag(_.Start, importedStart | s"${Tag.UTCDate.format.print(game.createdAt)} ${Tag.UTCTime.format.print(game.createdAt)}").some,
+          Tag(_.End, importedEnd | s"${Tag.UTCDate.format.print(game.movedAt)} ${Tag.UTCTime.format.print(game.movedAt)}").some,
           Tag(_.Sente, player(game.sentePlayer, wu)).some,
           Tag(_.Gote, player(game.gotePlayer, bu)).some,
           teams.map { t => Tag("SenteTeam", t.sente) },
@@ -108,10 +110,10 @@ final class PgnDump(
           Tag(_.Variant, game.variant.name.capitalize).some,
           Tag.timeControl(game.clock.map(_.config)).some,
           withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco)),
+          shogi.format.pgn.KifUtils.createTerminationTag(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
         ).flatten ::: customStartPosition(game.variant).??(
           List(
-            Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value)),
-            Tag("SetUp", "1")
+            Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
           )
         )
       }

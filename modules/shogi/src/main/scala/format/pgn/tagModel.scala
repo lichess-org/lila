@@ -38,7 +38,7 @@ case class Tags(value: List[Tag]) extends AnyVal {
       shogi.variant.Variant byName name
     }
 
-  def anyDate: Option[String] = apply(_.UTCDate) orElse apply(_.Date)
+  def anyDate: Option[String] = apply(_.UTCDate) orElse apply(_.Start) orElse apply(_.End)
 
   def year: Option[Int] =
     anyDate flatMap {
@@ -71,9 +71,10 @@ object Tag {
 
   case object Event extends TagType
   case object Site  extends TagType
-  case object Date  extends TagType
+  case object Start extends TagType
+  case object End   extends TagType
   case object UTCDate extends TagType {
-    val format = DateTimeFormat forPattern "yyyy.MM.dd" withZone DateTimeZone.UTC
+    val format = DateTimeFormat forPattern "yyyy/MM/dd" withZone DateTimeZone.UTC
   }
   case object UTCTime extends TagType {
     val format = DateTimeFormat forPattern "HH:mm:ss" withZone DateTimeZone.UTC
@@ -125,7 +126,8 @@ object Tag {
   val tagTypes = List(
     Event,
     Site,
-    Date,
+    Start,
+    End,
     UTCDate,
     UTCTime,
     Sente,

@@ -156,7 +156,7 @@ final private class ExplorerIndexer(
           s"[SenteElo $senteRating]",
           s"[GoteElo $goteRating]",
           s"[Result ${PgnDump.result(game)}]",
-          s"[Date ${pgnDateFormat.print(game.createdAt)}]"
+          s"[Start ${pgnDateFormat.print(game.createdAt)}]"
         )
         val allTags = fenTags ::: otherTags
         s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some

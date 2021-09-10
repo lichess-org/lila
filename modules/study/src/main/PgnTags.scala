@@ -29,7 +29,8 @@ object PgnTags {
   private val sortedTypes: List[TagType] = {
     import Tag._
     List(
-      Date,
+      Start,
+      End,
       Site,
       Event,
       TimeControl,
@@ -49,8 +50,7 @@ object PgnTags {
       Publication,
       Collection,
       Length,
-      Prize,
-      Annotator
+      Prize
     )
   }
 

@@ -6,7 +6,8 @@ import scala._
 
 object KifUtils {
   val tagToKif = Map[TagType, String](
-    Tag.Date        -> "開始日時",
+    Tag.Start       -> "開始日時",
+    Tag.End         -> "終了日時",
     Tag.Event       -> "棋戦",
     Tag.Site        -> "場所",
     Tag.Opening     -> "戦型",
@@ -29,7 +30,7 @@ object KifUtils {
     Tag.Prize       -> "受賞"
   )
 
-  val kifToTag = (tagToKif map { case (k, v) => v -> k }) ++ Map("下手" -> Tag.Sente, "上手" -> Tag.Gote)
+  val kifToTag = (tagToKif map { case (k, v) => v -> k }) ++ Map("下手" -> Tag.Sente, "上手" -> Tag.Gote, "対局日" -> Tag.Start)
 
   def normalizeKifName(str: String): String =
     kifToTag.get(str).fold(str)(_.lowercase)
@@ -257,13 +258,18 @@ object KifUtils {
 
   // in this order
   val kifTags = Tag.tsumeTypes ++ List(
+    Tag.Start,
+    Tag.End,
     Tag.Event,
     Tag.Site,
-    Tag.Opening,
+    // Tag.Annotator, // not sure whether we want to display this...
     Tag.TimeControl,
     Tag.Handicap,
     Tag.Sente,
+    Tag.SenteTeam,
     Tag.Gote,
+    Tag.GoteTeam,
+    Tag.Opening,
   )
 
   def kifHeader(tags: Tags): String =
@@ -271,9 +277,13 @@ object KifUtils {
       tagToKif.get(kt).fold("") { kifTagName =>
         // we need these even empty
         if (kt == Tag.Sente || kt == Tag.Gote) {
-          val tagName = tags(kt.name).getOrElse("")
-          val playerName = if(tagName == "?") "" else tagName // We want the ? somewhere, but not in kif
-          s"${kifTagName}：$playerName"
+          val playerName = tags(kt.name).getOrElse("")
+          val playerTag = {
+            if (!StartingPosition.isFENHandicap(tags.fen)) kifTagName
+            else if (kt == Tag.Sente) "下手"
+            else "上手"
+          }
+          s"$playerTag：${if(playerName == "?") "" else playerName}"
         }
         else if (kt == Tag.Handicap) {
           tags.fen.fold(s"${kifTagName}：平手") { fen =>
