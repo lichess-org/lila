@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="saveDraft">Gardar borrador</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicada unha entrada de blogue</item>
     <item quantity="other">Publicadas %s entradas de blogue</item>
@@ -10,4 +11,8 @@
   </plurals>
   <string name="noPostsInThisBlogYet">Aínda non hai posts.</string>
   <string name="noDrafts">Non hai empates que amosar.</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ver un post</item>
+    <item quantity="other">Ver %s posts</item>
+  </plurals>
 </resources>
