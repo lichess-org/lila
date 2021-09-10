@@ -72,6 +72,7 @@ object Form {
         .get(key)
         .map(_.trim)
         .map(String.normalize.apply)
+        .map(String.removeMultibyteSymbols)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   }

@@ -252,5 +252,7 @@ private[study] object ChapterMaker {
     def hasDescription = description.nonEmpty
   }
 
-  case class DescData(id: Chapter.Id, desc: String)
+  case class DescData(id: Chapter.Id, desc: String) {
+    lazy val clean = lila.common.String.fullCleanUp(desc)
+  }
 }

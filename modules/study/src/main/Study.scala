@@ -92,7 +92,7 @@ object Study {
     def id = _id
   }
 
-  def toName(str: String) = Name(str.trim take 100)
+  def toName(str: String) = Name(lila.common.String.fullCleanUp(str) take 100)
 
   sealed trait Visibility {
     lazy val key = toString.toLowerCase

@@ -697,7 +697,7 @@ final class StudyApi(
         chapterRepo.byIdAndStudy(data.id, studyId) flatMap {
           _ ?? { chapter =>
             val newChapter = chapter.copy(
-              description = data.desc.nonEmpty option data.desc
+              description = data.clean.nonEmpty option data.clean
             )
             (chapter != newChapter) ?? {
               chapterRepo.update(newChapter) >>- {

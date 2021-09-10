@@ -1,11 +1,11 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
+import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.Variant
 import chess.{ Centis, Color }
 import org.joda.time.DateTime
 
-import chess.opening.{ FullOpening, FullOpeningDB }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
@@ -172,7 +172,7 @@ object Chapter {
   private val defaultNameRegex = """Chapter \d+""".r
   def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
-  def fixName(n: Name) = Name(n.value.trim take 80)
+  def fixName(n: Name) = Name(lila.common.String.fullCleanUp(n.value) take 80)
 
   val idSize = 8
 
