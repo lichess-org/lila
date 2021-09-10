@@ -61,7 +61,7 @@ object theirs {
                   badTag(
                     p(trans.thisGameIsRated()),
                     a(
-                      cls := "button",
+                      cls  := "button",
                       href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
                     )(trans.signIn())
                   )
@@ -78,9 +78,9 @@ object theirs {
               h1(trans.challenge.challengeAccepted()),
               bits.details(c),
               a(
-                id := "challenge-redirect",
+                id   := "challenge-redirect",
                 href := routes.Round.watcher(c.id, "white"),
-                cls := "button button-fat"
+                cls  := "button button-fat"
               )(
                 trans.joinTheGame()
               )

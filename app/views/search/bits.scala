@@ -33,7 +33,7 @@ private object bits {
             th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.white, trans.black)())),
             td(
               st.select(
-                id := form3.id(form("players")(color.name)),
+                id   := form3.id(form("players")(color.name)),
                 name := form("players")(color.name).name
               )(
                 option(cls := "blank", value := "")
@@ -48,7 +48,7 @@ private object bits {
             th(label(`for` := form3.id(field))(trans.winner())),
             td(
               st.select(id := form3.id(field), name := field.name)(
-                option(cls := "blank", value := "")
+                option(cls := "blank", value        := "")
               )
             )
           )
@@ -60,7 +60,7 @@ private object bits {
             th(label(`for` := form3.id(field))(trans.search.loser())),
             td(
               st.select(id := form3.id(field), name := field.name)(
-                option(cls := "blank", value := "")
+                option(cls := "blank", value        := "")
               )
             )
           )

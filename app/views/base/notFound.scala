@@ -30,10 +30,10 @@ object notFound {
         ),
         div(cls := "game")(
           iframe(
-            src := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+            src            := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
-            width := 400,
-            height := 500
+            width          := 400,
+            height         := 500
           ),
           p(cls := "credits")(
             a(href := "https://github.com/Saturnyn/ChessPursuit")("ChessPursuit"),

@@ -63,7 +63,7 @@ object index {
       moreCss = cssTag("streamer.list"),
       moreJs = infiniteScrollTag
     ) {
-      main(cls := "page-menu")(
+      main(cls                                                          := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
           h1(dataIcon := "", cls := "text")(title),

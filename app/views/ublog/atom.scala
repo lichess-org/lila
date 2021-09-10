@@ -30,8 +30,8 @@ object atom {
         tag("id")(s"$netBaseUrl${urlOfBlog(blog)}"),
         tag("published")(post.lived.map(_.at) map atomDate),
         link(
-          rel := "alternate",
-          tpe := "text/html",
+          rel  := "alternate",
+          tpe  := "text/html",
           href := s"$netBaseUrl${urlOfPost(post)}"
         ),
         tag("title")(post.title),

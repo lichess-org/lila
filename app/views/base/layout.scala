@@ -15,8 +15,8 @@ object layout {
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
-    val topComment                   = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-    val charset                      = raw("""<meta charset="utf-8">""")
+    val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     )
@@ -33,9 +33,9 @@ object layout {
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
-        id := "piece-sprite",
+        id   := "piece-sprite",
         href := assetUrl(s"piece-css/$ps.css"),
-        rel := "stylesheet"
+        rel  := "stylesheet"
       )
   }
   import bits._
@@ -128,10 +128,10 @@ object layout {
     div(id := "clinput")(
       clinputLink,
       input(
-        spellcheck := "false",
+        spellcheck   := "false",
         autocomplete := ctx.blind.toString,
-        aria.label := trans.search.search.txt(),
-        placeholder := trans.search.search.txt()
+        aria.label   := trans.search.search.txt(),
+        placeholder  := trans.search.search.txt()
       )
     )
 
@@ -141,7 +141,7 @@ object layout {
 
   private def botImage =
     img(
-      src := assetUrl("images/icons/bot.png"),
+      src   := assetUrl("images/icons/bot.png"),
       title := "Robot chess",
       style :=
         "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
@@ -182,9 +182,9 @@ object layout {
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
-  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl
+  val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl
   val dataAssetVersion          = attr("data-asset-version")
-  val dataDev                   = attr("data-dev") := (!netConfig.minifiedAssets).option("true")
+  val dataDev                   = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")
 
   def apply(
       title: String,
@@ -223,7 +223,7 @@ object layout {
           pieceSprite,
           meta(
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
-            name := "description"
+            name    := "description"
           ),
           link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), color := "black"),
           favicons,
@@ -231,7 +231,7 @@ object layout {
           noTranslate,
           openGraph.map(_.frags),
           (atomLinkTag | link(
-            href := routes.Blog.atom,
+            href     := routes.Blog.atom,
             st.title := trans.blog.txt()
           ))(
             tpe := "application/atom+xml",
@@ -263,17 +263,17 @@ object layout {
             )
           },
           dataDev,
-          dataVapid := vapidPublicKey,
-          dataUser := ctx.userId,
+          dataVapid    := vapidPublicKey,
+          dataUser     := ctx.userId,
           dataSoundSet := ctx.currentSoundSet.toString,
           dataSocketDomains,
           dataAssetUrl,
           dataAssetVersion := assetVersion.value,
-          dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
-          dataTheme := ctx.currentBg,
-          dataPieceSet := ctx.currentPieceSet.name,
-          dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style := zoomable option s"--zoom:${ctx.zoom}"
+          dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
+          dataTheme        := ctx.currentBg,
+          dataPieceSet     := ctx.currentPieceSet.name,
+          dataAnnounce     := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          style            := zoomable option s"--zoom:${ctx.zoom}"
         )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
@@ -294,11 +294,11 @@ object layout {
             )
           )(body),
           ctx.me.exists(_.enabled) option div(
-            id := "friend_box",
+            id       := "friend_box",
             dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
           )(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
-            div(cls := "content_wrap none")(
+            div(cls   := "content_wrap none")(
               div(cls := "content list")
             )
           ),
@@ -327,30 +327,30 @@ object layout {
                 "report-score--high"                       -> (score > high),
                 "report-score--low"                        -> (score <= mid)
               ),
-              title := "Moderation",
-              href := routes.Report.list,
+              title     := "Moderation",
+              href      := routes.Report.list,
               dataCount := score,
-              dataIcon := ""
+              dataIcon  := ""
             )
         }
       }.some
       else
         (isGranted(_.PublicChatView)) option
           a(
-            cls := "link",
-            title := "Moderation",
-            href := routes.Mod.publicChat,
+            cls      := "link",
+            title    := "Moderation",
+            href     := routes.Mod.publicChat,
             dataIcon := ""
           )
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option
         a(
-          cls := "link data-count link-center",
-          href := routes.Team.requests,
+          cls       := "link data-count link-center",
+          href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon := "",
-          title := trans.team.teams.txt()
+          dataIcon  := "",
+          title     := trans.team.teams.txt()
         )
 
     def apply(playing: Boolean)(implicit ctx: Context) =

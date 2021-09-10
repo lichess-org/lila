@@ -28,9 +28,9 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
         div(cls := "forms")(
           error.map { badTag(_) },
           postForm(
-            action := routes.Streamer.pictureApply,
+            action  := routes.Streamer.pictureApply,
             enctype := "multipart/form-data",
-            cls := "upload"
+            cls     := "upload"
           )(
             p(maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
             form3.file.image("picture"),
@@ -46,11 +46,11 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
   object thumbnail {
     def apply(s: Streamer, u: User) =
       img(
-        widthA := Streamer.imageSize,
+        widthA  := Streamer.imageSize,
         heightA := Streamer.imageSize,
-        cls := "picture",
-        src := url(s),
-        alt := s"${u.titleUsername} Lichess streamer picture"
+        cls     := "picture",
+        src     := url(s),
+        alt     := s"${u.titleUsername} Lichess streamer picture"
       )
     def url(s: Streamer) =
       s.picture match {

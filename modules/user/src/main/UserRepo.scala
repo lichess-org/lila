@@ -14,7 +14,7 @@ import lila.rating.{ Perf, PerfType }
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import User.{ userBSONHandler, ID, BSONFields => F }
+  import User.{ userBSONHandler, BSONFields => F, ID }
   import Title.titleBsonHandler
   import UserMark.markBsonHandler
 
@@ -338,8 +338,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   /** Filters out invalid usernames and returns the IDs for those usernames
     *
-    * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
-    * @return A list of IDs for the usernames that were given that were valid
+    * @param usernames
+    *   Usernames to filter out the non-existent usernames from, and return the IDs for
+    * @return
+    *   A list of IDs for the usernames that were given that were valid
     */
   def existingUsernameIds(usernames: Set[String]): Fu[List[User.ID]] =
     coll.primitive[String]($inIds(usernames.map(normalize)), F.id)

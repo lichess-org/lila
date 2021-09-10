@@ -15,7 +15,7 @@ final private[team] class TeamForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name     = "name"     -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
+    val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectEntryCode",

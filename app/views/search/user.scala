@@ -18,7 +18,7 @@ object user {
     import commons._
     st.form(
       noFollow,
-      cls := "search__form",
+      cls    := "search__form",
       action := routes.User.games(u.username, "search"),
       method := "GET"
     )(dataReqs)(
@@ -38,8 +38,8 @@ object user {
         aiLevel,
         tr(cls := "opponentName")(
           th(label(`for` := form3.id(form("players")("b")))(opponentName())),
-          td(cls := "usernames")(
-            st.input(tpe := "hidden", value := u.id, name := "players.a"),
+          td(cls                                  := "usernames")(
+            st.input(tpe                          := "hidden", value := u.id, name := "players.a"),
             form3.input(form("players")("b"))(tpe := "text")
           )
         ),

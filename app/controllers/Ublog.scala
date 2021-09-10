@@ -13,7 +13,7 @@ import lila.i18n.LangList
 final class Ublog(env: Env) extends LilaController(env) {
 
   import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
-  import views.html.ublog.blog.{ urlOfBlog }
+  import views.html.ublog.blog.urlOfBlog
   import lila.common.paginator.Paginator.zero
 
   def index(username: String, page: Int) = Open { implicit ctx =>

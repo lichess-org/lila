@@ -16,7 +16,7 @@ import lila.user.User
 final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
-  import Game.{ ID, BSONFields => F }
+  import Game.{ BSONFields => F, ID }
   import Player.holdAlertBSONHandler
 
   def game(gameId: ID): Fu[Option[Game]]              = coll.byId[Game](gameId)

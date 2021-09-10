@@ -25,8 +25,8 @@ object atom {
         tag("published")(docDate(doc) map atomDate),
         tag("updated")(docDate(doc) map atomDate),
         link(
-          rel := "alternate",
-          tpe := "text/html",
+          rel  := "alternate",
+          tpe  := "text/html",
           href := s"$netBaseUrl${routes.Blog.show(doc.id, doc.slug)}"
         ),
         tag("title")(doc.getText("blog.title")),

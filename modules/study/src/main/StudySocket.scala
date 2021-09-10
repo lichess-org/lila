@@ -364,7 +364,7 @@ final private class StudySocket(
     )
   private[study] def reloadChapters(chapters: List[Chapter.Metadata]) = version("chapters", chapters)
   def reloadAll                                                       = version("reload", JsNull)
-  def changeChapter(pos: Position.Ref, who: Who)                      = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
+  def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
   def updateChapter(chapterId: Chapter.Id, who: Who) =
     version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
   def descChapter(chapterId: Chapter.Id, desc: Option[String], who: Who) =

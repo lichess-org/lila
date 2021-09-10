@@ -33,7 +33,7 @@ object search {
               name := "q",
               autofocus,
               placeholder := "Search by IP, email, or username",
-              value := form("q").value
+              value       := form("q").value
             ),
             form3.select(form("as"), lila.mod.UserSearch.asChoices)
           ),

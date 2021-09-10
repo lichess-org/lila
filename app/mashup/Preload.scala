@@ -65,35 +65,35 @@ final class Preload(
         // format: off
         case ((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts) =>
         // format: on
-        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
-          .mon(_.lobby segment "currentGame") zip
-          lightUserApi
-            .preloadMany {
-              tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+          (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
+            .mon(_.lobby segment "currentGame") zip
+            lightUserApi
+              .preloadMany {
+                tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+              }
+              .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
+              Homepage(
+                data,
+                entries,
+                posts,
+                tours,
+                swiss,
+                events,
+                simuls,
+                feat,
+                lead,
+                tWinners,
+                puzzle,
+                streams.excludeUsers(events.flatMap(_.hostedBy)),
+                playban,
+                currentGame,
+                simulIsFeaturable,
+                blindGames,
+                lobbySocket.counters,
+                lastPostCache.apply,
+                ublogPosts
+              )
             }
-            .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
-            Homepage(
-              data,
-              entries,
-              posts,
-              tours,
-              swiss,
-              events,
-              simuls,
-              feat,
-              lead,
-              tWinners,
-              puzzle,
-              streams.excludeUsers(events.flatMap(_.hostedBy)),
-              playban,
-              currentGame,
-              simulIsFeaturable,
-              blindGames,
-              lobbySocket.counters,
-              lastPostCache.apply,
-              ublogPosts
-            )
-          }
       }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =

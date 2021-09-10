@@ -87,7 +87,7 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.challenger match {
-      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => HTTPRequest sid ctx.req contains secret
+      case lila.challenge.Challenge.Challenger.Anonymous(secret) => HTTPRequest sid ctx.req contains secret
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
       case lila.challenge.Challenge.Challenger.Open                  => false
     }

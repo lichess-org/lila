@@ -40,7 +40,7 @@ object header {
           u.plan.active option
             a(
               href := routes.Plan.index,
-              cls := "trophy award patron icon3d",
+              cls  := "trophy award patron icon3d",
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
         ),
@@ -52,8 +52,8 @@ object header {
             splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))
           ),
           u.noBot option a(
-            href := routes.UserTournament.path(u.username, "recent"),
-            cls := "nm-item tournament_stats",
+            href       := routes.UserTournament.path(u.username, "recent"),
+            cls        := "nm-item tournament_stats",
             dataToints := u.toints
           )(
             splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
@@ -62,13 +62,13 @@ object header {
             splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
           ),
           ctx.noKid option a(
-            cls := "nm-item",
+            cls  := "nm-item",
             href := routes.ForumPost.search("user:" + u.username, 1).url
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
           ),
           ctx.noKid && (info.nbUblogPosts > 0 || ctx.is(u)) option a(
-            cls := "nm-item",
+            cls  := "nm-item",
             href := routes.Ublog.index(u.username)
           )(
             splitNumber(s"${info.nbUblogPosts} blog posts")
@@ -79,13 +79,13 @@ object header {
         div(cls := "user-actions btn-rack")(
           (ctx is u) option frag(
             a(
-              cls := "btn-rack__btn",
+              cls  := "btn-rack__btn",
               href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
               dataIcon := ""
             ),
             a(
-              cls := "btn-rack__btn",
+              cls  := "btn-rack__btn",
               href := routes.Relation.blocks(),
               titleOrText(trans.listBlockedPlayers.txt()),
               dataIcon := ""
@@ -93,13 +93,13 @@ object header {
           ),
           isGranted(_.UserModView) option
             a(
-              cls := "btn-rack__btn mod-zone-toggle",
+              cls  := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := ""
             ),
           a(
-            cls := "btn-rack__btn",
+            cls  := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.watchGames.txt()),
             dataIcon := ""
@@ -112,15 +112,15 @@ object header {
               blocked = social.blocked
             ),
           a(
-            cls := "btn-rack__btn",
+            cls  := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.exportGames.txt()),
             dataIcon := ""
           ),
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
-            cls := "btn-rack__btn",
-            href := s"${routes.Report.form}?username=${u.username}",
+            cls      := "btn-rack__btn",
+            href     := s"${routes.Report.form}?username=${u.username}",
             dataIcon := ""
           )
         )
@@ -128,7 +128,7 @@ object header {
       (!ctx.is(u)) option div(cls := "note-zone")(
         postForm(action := s"${routes.User.writeNote(u.username)}?note")(
           textarea(
-            name := "text",
+            name        := "text",
             placeholder := "Write a private note about this user"
           ),
           if (isGranted(_.ModNote))
@@ -168,8 +168,8 @@ object header {
                   br,
                   postForm(action := routes.User.deleteNote(note._id))(
                     submitButton(
-                      cls := "button-empty button-red confirm button text",
-                      style := "float:right",
+                      cls      := "button-empty button-red confirm button text",
+                      style    := "float:right",
                       dataIcon := ""
                     )("Delete")
                   )
@@ -194,7 +194,7 @@ object header {
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon := "", cls := "is4"),
+                    span(dataIcon       := "", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
                 ),
@@ -214,7 +214,7 @@ object header {
                     span(cls := "location")(l)
                   },
                   profile.countryInfo.map { c =>
-                    span(cls := "country")(
+                    span(cls  := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
@@ -287,7 +287,7 @@ object header {
           trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
           info.nbs.playing > 0 option
             span(
-              cls := "unread",
+              cls   := "unread",
               title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
             )(
               info.nbs.playing
