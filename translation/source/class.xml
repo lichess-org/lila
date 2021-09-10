@@ -46,6 +46,7 @@ Password: %3$s</string>
   <string name="createDesc2">No email address is required. A password will be generated, and you will have to transmit it to the student, so they can log in.</string>
   <string name="createDesc3">Important: a student must not have multiple accounts.</string>
   <string name="createDesc4">If they already have one, use the invite form instead.</string>
+  <string name="createStudentWarning">Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned.</string>
   <string name="lichessUsername">Lichess username</string>
   <string name="generateANewUsername">Generate a new username</string>
   <string name="welcomeToClass">Welcome to your class: %s.

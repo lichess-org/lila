@@ -170,7 +170,8 @@ object student {
             h2(trans.clas.createANewLichessAccount()),
             p(trans.clas.createDesc1()),
             p(trans.clas.createDesc2()),
-            p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4())
+            p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4()),
+            badTag(strong(trans.clas.createStudentWarning()))
           ),
           postForm(cls := "form3", action := routes.Clas.studentCreate(clas.id.value))(
             form3.group(
@@ -238,6 +239,7 @@ object student {
         )
       ),
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(
+        p(badTag(strong(trans.clas.createStudentWarning()))),
         postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
           form3.globalError(form),
           form3.group(
