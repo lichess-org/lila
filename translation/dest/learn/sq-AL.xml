@@ -190,6 +190,7 @@ Dama &gt; Fili</string>
   <string name="pieceValueExchange">Merrni figurën me vlerë më të lartë!
 Mos shkëmbeni një
 figurë me vlerë më të lartë për një më pak të vlefshme.</string>
+  <string name="pieceValueLegal">Merrni figurën me vlerë më të lartë! Sigurohuni që lëvizja të jetë legale!</string>
   <string name="takeThePieceWithTheHighestValue">Merr figuren
 qe ka me shume vlere!</string>
   <string name="pieceValueComplete">Urime! Dini vlerat e figurave!
