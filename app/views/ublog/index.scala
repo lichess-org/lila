@@ -102,7 +102,7 @@ object index {
           if (posts.nbResults > 0)
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
               posts.currentPageResults map { postView.card(_, showAuthor = true) },
-              pagerNext(posts, p => routes.Ublog.community(lang.fold("all")(_.language)).url)
+              pagerNext(posts, p => routes.Ublog.community(lang.fold("all")(_.language), p).url)
             )
           else
             div(cls := "ublog-index__posts--empty")("Nothing to show.")
