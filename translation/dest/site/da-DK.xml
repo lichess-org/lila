@@ -48,7 +48,7 @@
   <string name="whiteResigned">Hvid opgav</string>
   <string name="blackResigned">Sort opgav</string>
   <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Hvid forlod partiet</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Sort forlod spillet</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Sort forlod partiet</string>
   <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Hvid flyttede ikke</string>
   <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Sort flyttede ikke</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
