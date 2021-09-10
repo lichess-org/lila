@@ -30,4 +30,5 @@
     <item quantity="one">Se et indlæg</item>
     <item quantity="other">Se alle %s indlæg</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Upload et billede til dit indlæg</string>
 </resources>
