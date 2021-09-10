@@ -60,10 +60,12 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Tr
         },
         [
           h('option', trans.noarg('newTag')),
-          ...types.filter(t => !unwantedTags.includes(t)).map(t => {
-            if (!existingTypes.includes(t)) return option(t, '', t);
-            return undefined;
-          }),
+          ...types
+            .filter(t => !unwantedTags.includes(t))
+            .map(t => {
+              if (!existingTypes.includes(t)) return option(t, '', t);
+              return undefined;
+            }),
         ]
       ),
       editable('', (value, el) => {
@@ -118,7 +120,10 @@ function doRender(root: StudyCtrl): VNode {
 
 export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
-    tagKey = chapter.tags.filter(t => !unwantedTags.includes(t[0])).map(t => t[1]).join(','),
+    tagKey = chapter.tags
+      .filter(t => !unwantedTags.includes(t[0]))
+      .map(t => t[1])
+      .join(','),
     key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk('div.' + chapter.id, doRender, [root, key]);
 }
