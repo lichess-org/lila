@@ -1,6 +1,6 @@
 package lila.ublog
 
-
+import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
@@ -57,9 +57,21 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(implicit ec: Ex
               topic -> List(
                 Match($doc("live" -> true, "topics" -> topic)),
                 Sort(Descending("rank")),
-                Project(previewPostProjection),
+                Project(previewPostProjection ++ $doc("rank" -> true)),
                 Group(BSONNull)("nb" -> SumAll, "posts" -> PushField("$ROOT")),
-                Project($doc("_id" -> false, "nb" -> true, "posts" -> $doc("$slice" -> $arr("$posts", 4))))
+                Project(
+                  $doc(
+                    "_id" -> false,
+                    "nb"  -> true,
+                    "posts" -> $doc(
+                      "$filter" -> $doc(
+                        "input" -> $doc("$slice" -> $arr("$posts", 4)),
+                        "as"    -> "post",
+                        "cond"  -> $doc("$gt" -> $arr("$$post.rank", DateTime.now))
+                      )
+                    )
+                  )
+                )
               )
             }
           ) -> List(
