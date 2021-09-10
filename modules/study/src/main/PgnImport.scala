@@ -77,23 +77,29 @@ object PgnImport {
   def userAnalysis(kif: String): Valid[(Game, Option[FEN], Node.Root, Tags)] =
     ImportData(kif, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
-        val root = Node.Root(
-          ply = replay.setup.turns,
-          fen = initialFen | FEN(game.variant.initialFen),
-          check = replay.setup.situation.check,
-          glyphs = Glyphs.empty,
-          clock = parsedPgn.tags.clockConfig.map(_.limit),
-          crazyData = replay.setup.situation.board.crazyData,
-          children = Node.Children {
-            val variations = makeVariations(parsedPgn.sans.value, replay.setup, None)
-            makeNode(
-              prev = replay.setup,
-              sans = parsedPgn.sans.value,
-              annotator = None
-            ).fold(variations)(_ :: variations).toVector
-          }
-        )
-        (game withId "synthetic", initialFen, root, parsedPgn.tags)
+        val annotator = findAnnotator(parsedPgn, Nil)
+        parseComments(parsedPgn.initialPosition.comments, annotator) match {
+          case (shapes, comments) =>
+            val root = Node.Root(
+              ply = replay.setup.turns,
+              fen = initialFen | FEN(game.variant.initialFen),
+              check = replay.setup.situation.check,
+              shapes = shapes,
+              comments = comments,
+              glyphs = Glyphs.empty,
+              clock = parsedPgn.tags.clockConfig.map(_.limit),
+              crazyData = replay.setup.situation.board.crazyData,
+              children = Node.Children {
+                val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
+                makeNode(
+                  prev = replay.setup,
+                  sans = parsedPgn.sans.value,
+                  annotator = annotator
+                ).fold(variations)(_ :: variations).toVector
+              }
+            )
+            (game withId "synthetic", initialFen, root, parsedPgn.tags)
+        }
     }
 
   private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
@@ -124,7 +130,7 @@ object PgnImport {
       comments: List[String],
       annotator: Option[Comment.Author]
   ): (Shapes, Comments) =
-    comments.foldLeft((Shapes(Nil), Comments(Nil))) { case ((shapes, comments), txt) =>
+    comments.reverse.foldLeft((Shapes(Nil), Comments(Nil))) { case ((shapes, comments), txt) =>
       CommentParser(txt) match {
         case CommentParser.ParsedComment(s, str) =>
           (
