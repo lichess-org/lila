@@ -35,4 +35,13 @@
   <string name="joinTheGame">Tried der Partie bäi</string>
   <string name="whitePlays">Wäiss um Zuch</string>
   <string name="blackPlays">Schwaarz um Zuch</string>
+  <string name="opponentLeftChoices">Däin Géigner huet d\'Partie verlooss. Du kanns d\'Victoire reklaméieren, Remis erklären, oder waarden.</string>
+  <string name="makeYourOpponentResign">Forcéier däin Géigner opzegin</string>
+  <string name="forceResignation">Victoire reklaméieren</string>
+  <string name="forceDraw">Remis erklären</string>
+  <string name="talkInChat">Wannechgelift sief frëndlech am Chat!</string>
+  <string name="whiteResigned">Wäiss huet opginn</string>
+  <string name="blackResigned">Schwaarz huet opginn</string>
+  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Wäiss huet d\'Partie verlooss</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwaarz huet d\'Partie verlooss</string>
 </resources>
