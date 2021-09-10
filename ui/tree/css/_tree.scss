@@ -153,11 +153,8 @@
     margin-right: 0.4em;
     max-width: 9em;
   }
-  &-column comment.sente {
+  &-column comment.sente, &-column comment.gote {
     border-left: 3px solid;
-  }
-  &-column comment.gote {
-    border-right: 3px solid;
     overflow-x: hidden;
   }
   &-column comment.inaccuracy {
