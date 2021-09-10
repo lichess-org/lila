@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">O Blog de %s</string>
+  <string name="newPost">Novo artigo</string>
+  <string name="editYourBlogPost">Edita o teu artigo</string>
   <string name="saveDraft">Gardar borrador</string>
+  <string name="postTitle">Título da entrada</string>
+  <string name="postIntro">Intro do artigo</string>
+  <string name="postBody">Corpo do artigo</string>
+  <string name="drafts">Borradores</string>
+  <string name="published">Publicado</string>
+  <string name="publishOnYourBlog">Publica no teu blog</string>
+  <string name="publishHelp">Se está chequeado, o post será listado no teu blog. Se non, será privado, e estará nos teus borradores</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicada unha entrada de blogue</item>
     <item quantity="other">Publicadas %s entradas de blogue</item>
@@ -9,10 +19,16 @@
     <item quantity="one">Una vista</item>
     <item quantity="other">%s vistas</item>
   </plurals>
+  <string name="xPublishedY">%1$s publicou %2$s</string>
+  <string name="thisPostIsPublished">Post publicado</string>
+  <string name="thisIsADraft">Este é un borrador</string>
+  <string name="moreBlogPostsBy">Máis post de %s</string>
   <string name="noPostsInThisBlogYet">Aínda non hai posts.</string>
   <string name="noDrafts">Non hai empates que amosar.</string>
+  <string name="latestBlogPosts">Últimas entradas</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Ver un post</item>
     <item quantity="other">Ver %s posts</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Sube unha imaxe para o teu artigo</string>
 </resources>
