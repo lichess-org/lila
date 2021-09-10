@@ -59,7 +59,9 @@
     $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
 
     align-items: center;
-    padding: 0.4em 0 0.6em 0;
+    justify-content: center;
+    text-align: center;
+    padding: 0.4em 0.7em 0.6em 0.7em;
     text-transform: uppercase;
     flex: 0 0 23.5%;
     margin-left: 2%;
@@ -159,7 +161,6 @@
       i {
         font-size: 4em;
         opacity: 0.8;
-        margin-right: -0.1em;
         color: $c-good-over;
       }
     }
@@ -172,7 +173,7 @@
   }
 
   &__global .puzzle-dashboard__metric {
-    padding: 1em 0 1.5em 0;
+    padding: 1em 1em 1.5em 1em;
     border-radius: 8px;
 
     strong {
@@ -226,6 +227,7 @@
     .puzzle-dashboard__metric--fix {
       i {
         font-size: 1.6em;
+        margin-left: 0.3em;
       }
     }
   }
