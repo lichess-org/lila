@@ -50,8 +50,18 @@
   <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwaarz huet d\'Partie verlooss</string>
   <string name="analysis">Analysebriet</string>
   <string name="depthX">Déift %s</string>
+  <string name="loadingEngine">Engine luet...</string>
+  <string name="inLocalBrowser">am lokalen Browser</string>
+  <string name="move">Zuch</string>
+  <string name="pawnMove">Baueren Zuch</string>
   <string name="topGames">Top Partien</string>
   <string name="masterDbExplanation">Zwou Milliounen OTB Partien vun %1$s+ FIDE-gewerteten Spiller vun %2$s bis %3$s</string>
+  <string name="noGameFound">Keng Partie fonnt</string>
+  <string name="openingExplorer">Eröffnungsdatenbank</string>
+  <string name="importPgn">PGN importéieren</string>
+  <string name="delete">Läschen</string>
+  <string name="deleteThisImportedGame">Importéiert Partie läschen?</string>
+  <string name="flipBoard">Briet dréinen</string>
   <string name="claimADraw">Remis reklaméieren</string>
   <string name="offerDraw">Remis ubidden</string>
   <string name="draw">Remis</string>
