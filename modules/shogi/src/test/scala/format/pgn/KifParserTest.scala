@@ -361,18 +361,31 @@ class KifParserTest extends ShogiTest {
 
     変化：1手
       1 ２六歩(27)        ( 0:00/00:00:00)
+    
+    変化：1手
+      1 ３六歩(37)        ( 0:00/00:00:00)
       """) must beSuccess.like { case ParsedPgn(_, _, Sans(sans)) =>
-        sans(5).metas.variations.headOption must beSome.like { case variation =>
-          variation.value must haveSize(2)
+        sans(5).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(2)
         }
-        sans(4).metas.variations.headOption must beSome.like { case variation =>
-          variation.value must haveSize(1)
+        sans(4).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(1)
         }
-        sans(1).metas.variations.headOption must beSome.like { case variation =>
-          variation.value must haveSize(5)
+        sans(1).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(5)
+          v.value(4).metas.variations.headOption must beSome.like { case vv =>
+            vv.value must haveSize(1)
+          }
+          v.value(2).metas.variations.headOption must beSome.like { case vv =>
+            vv.value must haveSize(1)
+          }
         }
-        sans(0).metas.variations.headOption must beSome.like { case variation =>
-          variation.value must haveSize(1)
+        sans(0).metas.variations must haveSize(2)
+        sans(0).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(1)
+        }
+        sans(0).metas.variations.lastOption must beSome.like { case v =>
+          v.value must haveSize(1)
         }
       }
     }
@@ -401,6 +414,53 @@ class KifParserTest extends ShogiTest {
           tag.name == Tag.Result && tag.value == "0-1"
         }
       }
+    }
+  }
+
+  "accept also reverse variation order 1 depth" in {
+    parser("""
+手合割：平手
+先手：
+後手：
+
+手数----指手----消費時間--
+   1 ３六歩(37)
+   2 ４二玉(51)
+   3 ３五歩(36)
+   4 ３二玉(42)
+   5 ３四歩(35)
+   6 ４二銀(31)
+   7 ３三歩成(34)
+   8 同　桂(21)
+
+変化：1手
+   1 ７六歩(77)
+   2 ４二玉(51)
+   3 １六歩(17)
+
+変化：3手
+   3 ９六歩(97)
+   4 ３二玉(42)
+
+変化：5手
+   5 ７六歩(77)
+
+変化：7手
+   7 ３三歩(34)
+    """) must beSuccess.like { case ParsedPgn(_, tags, Sans(sans)) =>
+        sans(0).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(3)
+          v.value(2).metas.variations.headOption must beSome.like { case vv =>
+            vv.value must haveSize(2)
+          }
+        }
+        sans(2).metas.variations.headOption must beNone
+        sans(4).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(1)
+        }
+        sans(6).metas.variations.headOption must beSome.like { case v =>
+          v.value must haveSize(1)
+        }
     }
   }
 }

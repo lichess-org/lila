@@ -87,6 +87,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
           .filterNot(_ => preTags.exists(_.Result))
           .foldLeft(boardTags)(_ + _)
         sans <- objMoves(strMoves, tags.variant | Variant.default, variations)
+        _ <- if (kif.isEmpty || sans.value.nonEmpty || tags.exists(_.FEN)) succezz(true) else "No moves nor initial position".failureNel
       } yield ParsedPgn(init, tags, sans)
     } catch {
       case _: StackOverflowError =>
@@ -133,12 +134,13 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   def createVariations(vs: List[StrVariation]): List[StrVariation] = {
     def getChildren(parent: StrVariation, rest: List[StrVariation]): StrVariation = {
+      // variationStart is increasing as long as it relates to the current variation
       val ch = rest
         .takeWhile(_.variationStart > parent.variationStart)
         .zipWithIndex
-        .foldLeft(List[(StrVariation, Int)]()) { case (acc, o) =>
-          if (acc.headOption.fold(false)(_._1.variationStart < o._1.variationStart)) acc
-          else o :: acc
+        .foldLeft(List[(StrVariation, Int)]()) { case (acc, cur) =>
+          if (acc.headOption.fold(false)(_._1.variationStart < cur._1.variationStart)) acc
+          else cur :: acc
         }
         .reverse
       val res = ch.map { case (k, i) =>
@@ -146,10 +148,11 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
       StrVariation(parent.variationStart, parent.moves, res)
     }
+    // Obtain first depth variations - that's what we want to use in objMoves 
     val ch = vs.zipWithIndex
-      .foldLeft(List[(StrVariation, Int)]()) { case (acc, o) =>
-        if (acc.headOption.fold(false)(_._1.variationStart < o._1.variationStart)) acc
-        else o :: acc
+      .foldLeft(List[(StrVariation, Int)]()) { case (acc, cur) =>
+        if (acc.headOption.fold(false)(v => (v._1.variationStart < cur._1.variationStart) && ((v._1.variationStart + v._1.moves.size) > cur._1.variationStart))) acc
+        else cur :: acc
       }
       .reverse
 
