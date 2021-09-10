@@ -9,6 +9,7 @@
   <string name="yourTurn">Du bass drun</string>
   <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
   <string name="level">Level</string>
+  <string name="strength">Stäerkt</string>
   <string name="toggleTheChat">Chat uweisen/ausblenden</string>
   <string name="toggleSound">Toun umaachen/ausmaachen</string>
   <string name="chat">So eppes</string>
@@ -24,9 +25,14 @@
   <string name="youPlayTheWhitePieces">Du spills déi wäiss Figuren</string>
   <string name="youPlayTheBlackPieces">Du spills déi schwaarz Figuren</string>
   <string name="itsYourTurn">Et ass un dir!</string>
+  <string name="cheatDetected">Bedruch erkannt</string>
   <string name="kingInTheCenter">Kinnek am Zentrum</string>
   <string name="threeChecks">Drëtt Kéier Schach</string>
   <string name="raceFinished">Course eriwwer</string>
   <string name="variantEnding">Enn vun der Variant</string>
   <string name="newOpponent">Neie Géigner</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Däin Géigner wëll eng nei Partie mat dir spillen</string>
+  <string name="joinTheGame">Tried der Partie bäi</string>
+  <string name="whitePlays">Wäiss um Zuch</string>
+  <string name="blackPlays">Schwaarz um Zuch</string>
 </resources>
