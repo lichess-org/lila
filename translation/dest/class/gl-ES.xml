@@ -46,6 +46,7 @@ Contrasinal %3$s</string>
   <string name="createDesc2">Non se precisa dirección de correo. Xerarase un contrasinal que debes pasar ó alumno para que poidan acceder.</string>
   <string name="createDesc3">Importante: os alumnos non deben ter máis dunha conta.</string>
   <string name="createDesc4">Se xa a teñen, usa o formulario de invitación.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Crea só contas para estudantes reais. Non uses isto para crear moitas contas para ti mesmo/a. Serás baneado/a.</string>
   <string name="lichessUsername">Nome de usuario en Lichess</string>
   <string name="generateANewUsername">Xenera un novo nome de usuario</string>
   <string name="welcomeToClass">Benvido á túa clase %s
