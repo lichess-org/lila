@@ -76,15 +76,17 @@ case class KifMove(
     )
 
   def render(lastDest: Option[Pos]) = {
-    val resultStr = result.fold("")(r => s"\n${KifMove.offset}${ply+1}${KifMove.offset}$r")
+    val resultStr = result.fold("")(r => s"\n${KifMove.plyOffset(ply + 1)}${KifMove.offset}$r")
     val kifMove = KifUtils.moveKif(uci, san, lastDest) 
     val timeStr = clockString.getOrElse("")
     val glyphsNames = glyphs.toList.map(_.name)
     val commentsStr = (glyphsNames ::: comments).map { text => s"\n* ${KifMove.fixComment(text)}" }.mkString("")
-    s"${KifMove.offset}$ply${KifMove.offset}$kifMove$timeStr$commentsStr$resultStr"
+    s"${KifMove.plyOffset(ply)}${KifMove.offset}$kifMove$timeStr$commentsStr$resultStr"
   }
 
   def dest: Option[Pos] = Uci(uci).map(_.origDest._2)
+
+  override def toString = render(None)
 
 }
 
@@ -96,6 +98,9 @@ object KifMove {
 
   def fixComment(txt: String) =
     noDoubleLineBreakRegex.replaceAllIn(txt, "\n").replace("\n", "\n* ")
+
+  private def plyOffset(ply: Int) =
+    f"$ply%4d"
 
   private def formatKifSpent(t: Int) =
     ms.print(
