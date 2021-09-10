@@ -14,10 +14,15 @@
     <item quantity="one">Har publisert et blogginnlegg</item>
     <item quantity="other">Har publisert %s blogginnlegg</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">En visning</item>
+    <item quantity="other">%s visninger</item>
+  </plurals>
   <string name="xPublishedY">%1$s publiserte %2$s</string>
   <string name="thisPostIsPublished">Dette innlegget er publisert</string>
   <string name="thisIsADraft">Dette er et utkast</string>
   <string name="moreBlogPostsBy">Flere blogginnlegg av %s</string>
   <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
   <string name="noDrafts">Ingen utkast å vise.</string>
+  <string name="latestBlogPosts">Siste blogginnlegg</string>
 </resources>
