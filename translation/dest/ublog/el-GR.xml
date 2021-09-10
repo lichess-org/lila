@@ -26,4 +26,8 @@
   <string name="noPostsInThisBlogYet">Δεν έχουν καταχωρηθεί δημοσιεύσεις σε αυτό το ιστολόγιο ακόμα.</string>
   <string name="noDrafts">Δεν υπάρχουν προσχέδια για εμφάνιση.</string>
   <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Δείτε μία δημοσίευση</item>
+    <item quantity="other">Δείτε όλες τις συνολικά %s δημοσιεύσεις</item>
+  </plurals>
 </resources>

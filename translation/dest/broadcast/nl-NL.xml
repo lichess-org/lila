@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Uitzendingslink</string>
   <string name="currentRoundUrl">Huidige ronde-link</string>
   <string name="currentGameUrl">Huidige partij-link</string>
+  <string name="downloadAllRounds">Alle rondes downloaden</string>
 </resources>

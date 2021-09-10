@@ -30,4 +30,10 @@
   <string name="noPostsInThisBlogYet">Šiame tinklaraštyje įrašų dar nėra.</string>
   <string name="noDrafts">Nėra galimų parodyti juodraščių.</string>
   <string name="latestBlogPosts">Vėliausi tinklaraščio įrašai</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Peržiūrėti pranešimą</item>
+    <item quantity="few">Peržiūrėti %s pranešimus</item>
+    <item quantity="many">Peržiūrėti %s pranešimo</item>
+    <item quantity="other">Peržiūrėti %s pranešimų</item>
+  </plurals>
 </resources>

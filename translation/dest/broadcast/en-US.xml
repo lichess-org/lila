@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentRoundUrl">Current round URL</string>
   <string name="currentGameUrl">Current game URL</string>
+  <string name="downloadAllRounds">Download all rounds</string>
 </resources>

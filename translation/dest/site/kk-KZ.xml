@@ -49,12 +49,15 @@
   <string name="blackResigned">Қара берілді</string>
   <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Ақтар жүрмеді</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Қаралар жүрмеді</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемені жіберіңіз</string>
   <string name="theComputerAnalysisHasFailed">Компьютерлік талдау ақауға ұшырады</string>
   <string name="viewTheComputerAnalysis">Компьютерлік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға жіберу</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
   <string name="computerAnalysisAvailable">Компьютерлік талдау ашық</string>
+  <string name="computerAnalysisDisabled">Компьютерлік талдау өшірулі</string>
   <string name="analysis">Талдау тақтасы</string>
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
@@ -96,6 +99,7 @@
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
+  <string name="openingEndgameExplorer">Бастау/ойынсоңы қоры</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережемен жеңіске жеткізбеу</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережемен жеңілістен құтылу</string>
@@ -118,6 +122,18 @@
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s өрескел қателік</item>
+    <item quantity="other">%s өрескел қателік</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s қателік</item>
+    <item quantity="other">%s қателік</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ағаттық</item>
+    <item quantity="other">%s ағаттық</item>
+  </plurals>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
@@ -128,6 +144,8 @@
     <item quantity="one">%s ойыншы</item>
     <item quantity="other">%s ойыншы</item>
   </plurals>
+  <string name="drawByMutualAgreement">Өзара мақұлданған тепе-теңдік</string>
+  <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
   <string name="currentGames">Қазір ойналуда</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
@@ -275,7 +293,7 @@
     <item quantity="other">%s секунд беру</item>
   </plurals>
   <string name="thisAccountViolatedTos">Бұл тіркелгі Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="openingExplorerAndTablebase">Бастаулар мен аяқталулар қоры</string>
+  <string name="openingExplorerAndTablebase">Бастаулар мен ойынсоңдарының қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
   <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
@@ -427,6 +445,8 @@
   <string name="boardEditor">Еркін тақта</string>
   <string name="setTheBoard">Тақтаны орнатыңыз</string>
   <string name="popularOpenings">Танымал бастаулар</string>
+  <string name="endgamePositions">Ойынсоңы күйлері</string>
+  <string name="chess960StartPosition">Шахмат960 бастапқы күйі: %s</string>
   <string name="startPosition">Бастапқы күй</string>
   <string name="clearBoard">Тақтаны жинау</string>
   <string name="savePosition">Күйді сақтау</string>
@@ -442,6 +462,7 @@
   <string name="firstName">Атыңыз</string>
   <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ел немесе туы</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="inlineNotation">Бір жолды хаттама</string>
@@ -463,6 +484,8 @@
   <string name="tournamentWinners">Жарыс женімпаздары</string>
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
+  <string name="descPrivate">Құпия сипаттама</string>
+  <string name="descPrivateHelp">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
   <string name="no">Жоқ</string>
   <string name="yes">Иә</string>
   <string name="help">Көмек:</string>

@@ -24,4 +24,7 @@
   <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
   <string name="noDrafts">下書きがありません。</string>
   <string name="latestBlogPosts">最新のブログ投稿</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="other">%s 件の投稿を表示</item>
+  </plurals>
 </resources>
