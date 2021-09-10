@@ -23,7 +23,8 @@ final class Page(
   val storm   = explanation("storm")
   val impasse = explanation("impasse")
   val tsume   = explanation("tsume")
-  val kif     = explanation("kif")
+
+  val kif     = kifExplanation("kif")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>
@@ -70,6 +71,14 @@ final class Page(
       pageHit
       OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, resolver) =>
         views.html.site.page(doc, resolver)
+      }
+    }
+
+  private def kifExplanation(uid: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, _) =>
+        views.html.site.kifExplanation(doc)
       }
     }
 
