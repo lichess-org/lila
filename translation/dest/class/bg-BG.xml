@@ -46,6 +46,7 @@
   <string name="createDesc2">Няма нужда от e-mail адрес. Паролата ще се генерира автоматично, а Вие трябва да я предадете на ученика, за да могат да влязат.</string>
   <string name="createDesc3">Важно: учениците не трябва да имат няколко акаунта.</string>
   <string name="createDesc4">Ако вече имат акаунт, използвайте тази форма.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Можете да създавате регистрации само за истински ученици. Не използвайте тази възможност да правите допълнителни профили за себе си, защото ще бъдете блокирани.</string>
   <string name="lichessUsername">Lichess потребителско име</string>
   <string name="generateANewUsername">Генерирайте ново потребителско име</string>
   <string name="welcomeToClass">Добре дошли във Вашият клас: %s.
