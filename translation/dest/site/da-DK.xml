@@ -45,8 +45,8 @@
   <string name="forceDraw">Fremtving remis</string>
   <string name="talkInChat">Husk den gode tone i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander</string>
-  <string name="whiteResigned">Hvid har givet op</string>
-  <string name="blackResigned">Sort har givet op</string>
+  <string name="whiteResigned">Hvid opgav</string>
+  <string name="blackResigned">Sort opgav</string>
   <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Hvid forlod partiet</string>
   <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Sort forlod spillet</string>
   <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Hvid flyttede ikke</string>
