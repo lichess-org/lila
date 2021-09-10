@@ -105,6 +105,8 @@ object EmailAddress {
     isValid(str) option EmailAddress(str)
 
   private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
+
+  val clasIdRegex = """^noreply\.class\.(\w{8})\.\w+@lichess\.org""".r
 }
 
 case class Domain private (value: String) extends AnyVal with StringValue {

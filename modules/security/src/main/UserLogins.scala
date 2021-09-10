@@ -224,9 +224,7 @@ object UserLogins {
       client: UserAgent.Client
   )
 
-  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
-    def emailValueOf(u: User) = emails.get(u.id).map(_.value)
-  }
+  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress])
 
   def withMeSortedWithEmails(
       userRepo: UserRepo,

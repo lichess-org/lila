@@ -6,6 +6,8 @@ import play.api.i18n.Lang
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.appeal.Appeal
+import lila.common.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.ModPresets
@@ -13,7 +15,6 @@ import lila.playban.RageSit
 import lila.security.Granter
 import lila.security.{ Permission, UserLogins }
 import lila.user.{ Holder, User }
-import lila.appeal.Appeal
 
 object mod {
   private def mzSection(key: String) =
@@ -578,7 +579,7 @@ object mod {
               if (o == u || Granter.canViewAltUsername(mod, o))
                 td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
               else td,
-              isGranted(_.Admin) option td(othersWithEmail emailValueOf o),
+              isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(
                 // show prints and ips separately
                 dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
@@ -637,6 +638,12 @@ object mod {
       )
     )
   }
+
+  private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
+    emails.emails.get(u.id).map(_.value) map {
+      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
+      case email                        => frag(email)
+    }
 
   def identification(mod: Holder, user: User, logins: UserLogins)(implicit
       ctx: Context,
