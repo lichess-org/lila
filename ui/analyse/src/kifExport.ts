@@ -54,12 +54,12 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
         const kifMove = renderKifMove(move, role, lastDest === move.to);
         const kifTime = defined(m.clock) ? renderKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '';
         res.push(pad((m.ply - offset).toString(), padding + 1) + kifMove + kifTime);
-        if (defined(m.comments)) {
-          for (const c of m.comments) {
-            res.push('* ' + c.text);
-          }
-        }
         lastDest = move.to;
+      }
+    }
+    if (defined(m.comments)) {
+      for (const c of m.comments) {
+        res.push('* ' + c.text);
       }
     }
   }
@@ -84,7 +84,7 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
 
   const tags = ctrl.data.tags ?? [];
   // We either don't want to display these or we display them through other means
-  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割'];
+  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割', '図', 'FEN', 'Result'];
   const otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => t[0] + '：' + t[1]);
 
   // We want these even empty
