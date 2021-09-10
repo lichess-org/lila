@@ -38,6 +38,16 @@ object String {
       .map((i: Integer) => i.toChar)
       .toSet
 
+  def removeGarbageChars(str: String): String =
+    str
+      .chars()
+      .filter(c => !isGarbageChar(c))
+      .boxed()
+      .iterator()
+      .asScala
+      .map((i: Integer) => i.toChar)
+      .mkString
+
   def isGarbageChar(c: Int) =
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
     (c >= '\u2000' && c <= '\u200F') ||
@@ -71,6 +81,11 @@ object String {
       )
       .replace('\u0001', 'ª')
   }
+
+  // https://www.compart.com/en/unicode/block/U+1F300
+  def removeMultibyteSymbols(str: String): String = str.replaceAll("\\p{So}+", "")
+
+  def fullCleanUp(str: String) = removeMultibyteSymbols(removeGarbageChars(normalize(str.trim)))
 
   def decodeUriPath(input: String): Option[String] = {
     try {
