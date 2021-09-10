@@ -97,7 +97,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
         case 0 => 0.5
         case 1 => 1
-        case _ => 1.5
+        case _ => 1.2
       }
       val tiered = tier match {
         case UblogBlog.Tier.LOW    => likeHours * 0.3 * topicsMultiplier
