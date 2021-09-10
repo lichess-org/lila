@@ -144,6 +144,8 @@
     <item quantity="one">%s ойыншы</item>
     <item quantity="other">%s ойыншы</item>
   </plurals>
+  <string name="drawByMutualAgreement">Өзара мақұлданған тепе-теңдік</string>
+  <string name="fiftyMovesWithoutProgress">Жетістігі жоқ елу жүріс</string>
   <string name="currentGames">Қазір ойналуда</string>
   <plurals name="nbGames">
     <item quantity="one">%s ойын</item>
