@@ -47,8 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira persoa que chegue a este URL xogará contra ti</string>
   <string name="whiteResigned">As brancas abandonaron</string>
   <string name="blackResigned">As negras abandonaron</string>
-  <string name="whiteLeftTheGame">As brancas saíron da partida</string>
-  <string name="blackLeftTheGame">As negras saíron da partida</string>
+  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">As brancas saíron da partida</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">As negras saíron da partida</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">As brancas non poden mover</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">As negras non poden mover</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparte este URL para permitir ós espectadores ver a partida</string>
   <string name="theComputerAnalysisHasFailed">A análise por computador fallou</string>
   <string name="viewTheComputerAnalysis">Ver a análise por computador</string>
