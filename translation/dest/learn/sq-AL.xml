@@ -187,6 +187,9 @@ Mbreti eshte i pacmueshem! Te humbasesh mbretin do te thote te humbasesh lojen.<
   <string name="queenOverBishop">Merr figuren
 me vleren me te madhe!
 Dama &gt; Fili</string>
+  <string name="pieceValueExchange">Merrni figurën me vlerë më të lartë!
+Mos shkëmbeni një
+figurë me vlerë më të lartë për një më pak të vlefshme.</string>
   <string name="takeThePieceWithTheHighestValue">Merr figuren
 qe ka me shume vlere!</string>
   <string name="pieceValueComplete">Urime! Dini vlerat e figurave!
