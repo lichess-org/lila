@@ -13,7 +13,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,

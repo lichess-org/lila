@@ -35,7 +35,7 @@ object PicfitImage {
   implicit val imageBSONHandler   = Macros.handler[PicfitImage]
 }
 
-final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(implicit
+final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(implicit
     ec: ExecutionContext
 ) {
 

@@ -27,6 +27,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
+    irc: lila.irc.IrcApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db

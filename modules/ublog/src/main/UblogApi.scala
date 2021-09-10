@@ -14,7 +14,6 @@ final class UblogApi(
     rank: UblogRank,
     userRepo: UserRepo,
     picfitApi: PicfitApi,
-    picfitUrl: PicfitUrl,
     timeline: lila.hub.actors.Timeline,
     irc: lila.irc.IrcApi
 )(implicit ec: ExecutionContext) {
@@ -48,7 +47,7 @@ final class UblogApi(
           timeline ! Propagate(
             lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
           ).toFollowersOf(user.id)
-          if (!blog.modTier.isDefined) sendPostToZulip(user, blog, post).unit
+          if (blog.modTier.isEmpty) sendPostToZulip(user, blog, post).unit
         }
       }
 
@@ -109,7 +108,7 @@ final class UblogApi(
       id = post.id.value,
       slug = post.slug,
       title = post.title,
-      imageUrl = UblogPost.thumbnail(picfitUrl, imageId, _.Small)
+      imageUrl = UblogPost.thumbnail(picfitApi.url, imageId, _.Small)
     )
   }
 

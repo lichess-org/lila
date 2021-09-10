@@ -15,7 +15,8 @@ final class CoachApi(
     userRepo: UserRepo,
     picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi,
-    notifyApi: NotifyApi
+    notifyApi: NotifyApi,
+    irc: lila.irc.IrcApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -72,7 +73,11 @@ final class CoachApi(
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
     picfitApi
       .uploadFile(s"coach:${c.coach.id}", picture, userId = c.user.id) flatMap { pic =>
-      coachColl.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
+      coachColl.update.one($id(c.coach.id), $set("picture" -> pic.id)) >>
+        irc.coachImage(
+          c.user,
+          imageUrl = picfitApi.url.thumbnail(pic.id, Coach.imageSize, Coach.imageSize)
+        )
     }
 
   private val languagesCache = cacheApi.unit[Set[String]] {

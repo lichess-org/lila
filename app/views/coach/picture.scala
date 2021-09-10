@@ -1,16 +1,17 @@
 package views.html
 package coach
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
+import lila.coach.Coach
 import lila.user.User
 
 object picture {
 
-  def apply(c: lila.coach.Coach.WithUser, error: Option[String] = None)(implicit ctx: Context) =
+  def apply(c: Coach.WithUser, error: Option[String] = None)(implicit ctx: Context) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach picture",
       evenMoreJs = jsTag("coach.form.js"),
@@ -41,20 +42,19 @@ object picture {
     }
 
   object thumbnail {
-    val size = 350
-    def apply(c: lila.coach.Coach.WithUser, cssSize: Int = size) =
+    def apply(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =
       img(
-        widthA := size,
-        heightA := size,
+        widthA := Coach.imageSize,
+        heightA := Coach.imageSize,
         width := cssSize,
         height := cssSize,
         cls := "picture",
         src := url(c.coach),
         alt := s"${c.user.titleUsername} Lichess coach picture"
       )
-    def url(c: lila.coach.Coach) =
+    def url(c: Coach) =
       c.picture match {
-        case Some(image) => picfitUrl.thumbnail(image, size, size)
+        case Some(image) => picfitUrl.thumbnail(image, Coach.imageSize, Coach.imageSize)
         case _           => assetUrl("images/placeholder.png")
       }
   }

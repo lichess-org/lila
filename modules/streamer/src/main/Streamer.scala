@@ -38,6 +38,8 @@ case class Streamer(
 
 object Streamer {
 
+  val imageSize = 350
+
   def make(user: User) =
     Streamer(
       _id = Id(user.id),
@@ -72,7 +74,6 @@ object Streamer {
       chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[DateTime]
   )
-  case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String)        extends AnyVal with StringValue
   case class Headline(value: String)    extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue

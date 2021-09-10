@@ -104,10 +104,25 @@ final class IrcApi(
       imageUrl: String
   ): Funit =
     zulip(_.image, "blog")(
-      s"[Blog image](${imageUrl
-        .replace("/display?", "/display.jpg?")}) in ${markdown
+      s"[Blog image](${markdown.fixImageUrl(imageUrl)}) in ${markdown
         .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} by ${markdown
         .userLink(user)}"
+    )
+
+  def coachImage(
+      user: User,
+      imageUrl: String
+  ): Funit =
+    zulip(_.image, "coach")(
+      s"[Coach image](${markdown.fixImageUrl(imageUrl)}) by ${markdown.userLink(user)}"
+    )
+
+  def streamerImage(
+      user: User,
+      imageUrl: String
+  ): Funit =
+    zulip(_.image, "coach")(
+      s"[Streamer image](${markdown.fixImageUrl(imageUrl)}) by ${markdown.userLink(user)}"
     )
 
   def ublogPost(
@@ -217,5 +232,6 @@ object IrcApi {
     val postReplace                             = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
     def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))
+    def fixImageUrl(url: String)                = url.replace("/display?", "/display.jpg?")
   }
 }

@@ -5,13 +5,14 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.streamer.Streamer
 import lila.user.User
 
 object picture {
 
   import trans.streamer._
 
-  def apply(s: lila.streamer.Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context) =
+  def apply(s: Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = xStreamerPicture.txt(s.user.username),
       moreJs = embedJsUnsafeLoadThen("""
@@ -43,18 +44,17 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
     }
 
   object thumbnail {
-    val size = 350
-    def apply(s: lila.streamer.Streamer, u: User) =
+    def apply(s: Streamer, u: User) =
       img(
-        widthA := size,
-        heightA := size,
+        widthA := Streamer.imageSize,
+        heightA := Streamer.imageSize,
         cls := "picture",
         src := url(s),
         alt := s"${u.titleUsername} Lichess streamer picture"
       )
-    def url(s: lila.streamer.Streamer) =
+    def url(s: Streamer) =
       s.picture match {
-        case Some(image) => picfitUrl.thumbnail(image, size, size)
+        case Some(image) => picfitUrl.thumbnail(image, Streamer.imageSize, Streamer.imageSize)
         case _           => assetUrl("images/placeholder.png")
       }
   }

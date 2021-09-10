@@ -21,7 +21,8 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    irc: lila.irc.IrcApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
@@ -34,6 +35,7 @@ final class Env(
     reviewColl = db(config.reviewColl),
     picfitApi = picfitApi,
     notifyApi = notifyApi,
+    irc = irc,
     cacheApi = cacheApi
   )
 

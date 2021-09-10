@@ -28,6 +28,8 @@ case class Coach(
 
 object Coach {
 
+  val imageSize = 350
+
   def make(user: lila.user.User) =
     Coach(
       _id = Id(user.id),
@@ -46,9 +48,8 @@ object Coach {
     def isListed = coach.listed.value && user.enabled && user.marks.clean
   }
 
-  case class Id(value: String)          extends AnyVal with StringValue
-  case class Listed(value: Boolean)     extends AnyVal
-  case class Available(value: Boolean)  extends AnyVal
-  case class PicturePath(value: String) extends AnyVal with StringValue
+  case class Id(value: String)         extends AnyVal with StringValue
+  case class Listed(value: Boolean)    extends AnyVal
+  case class Available(value: Boolean) extends AnyVal
   case class User(rating: Int, seenAt: DateTime)
 }
