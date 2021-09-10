@@ -3,6 +3,7 @@
   <string name="xBlog">Bloggen til %s</string>
   <string name="newPost">Nytt innlegg</string>
   <string name="editYourBlogPost">Rediger blogginnlegget ditt</string>
+  <string name="saveDraft">Lagre utkast</string>
   <string name="postTitle">Tittel</string>
   <string name="postIntro">Ingress</string>
   <string name="postBody">Tekst</string>
