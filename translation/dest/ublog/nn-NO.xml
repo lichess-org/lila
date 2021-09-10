@@ -10,6 +10,7 @@
   <string name="drafts">Utkast</string>
   <string name="published">Publisert</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
+  <string name="publishHelp">Kryss av om du vil syna innlegget på bloggen din. Om du ikkje gjer det vert dette eit privat utkast som ikkje andre kan lesa</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publiserte eitt innlegg</item>
     <item quantity="other">Publiserte %s innlegg</item>
@@ -18,6 +19,10 @@
     <item quantity="one">Ein syning</item>
     <item quantity="other">%s syningar</item>
   </plurals>
+  <string name="xPublishedY">%1$s publiserte %2$s</string>
+  <string name="thisPostIsPublished">Dette innlegget er publisert</string>
+  <string name="thisIsADraft">Dette er eit utkast</string>
+  <string name="moreBlogPostsBy">Fleire innlegg av %s</string>
   <string name="noPostsInThisBlogYet">Framleis ingen innlegg i denne bloggen.</string>
   <string name="noDrafts">Ingen utkast å visa.</string>
   <string name="latestBlogPosts">Siste blogginnlegg</string>
