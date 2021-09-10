@@ -9,6 +9,7 @@
 	<string name="yourTurn">دورك</string>
 	<string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
 	<string name="level">مستوى</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
 	<string name="toggleSound">تعطيل/تشغيل الصوت</string>
 	<string name="chat">دردشة</string>

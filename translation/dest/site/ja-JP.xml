@@ -9,6 +9,7 @@
 	<string name="yourTurn">あなたの手番です</string>
 	<string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
 	<string name="level">レベル</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">チャットのオン・オフ</string>
 	<string name="toggleSound">音声のオン・オフ</string>
 	<string name="chat">チャット</string>

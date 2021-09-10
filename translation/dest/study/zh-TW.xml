@@ -6,10 +6,10 @@
   <string name="myPublicStudies">我的公開研究</string>
   <string name="myPrivateStudies">我的私人研究</string>
   <string name="myFavoriteStudies">我最愛的研究</string>
-  <string name="whatAreStudies">研究是什麼?</string>
+  <string name="whatAreStudies">研究是什麼？</string>
   <string name="allStudies">所有研究</string>
   <string name="studiesCreatedByX">由%s創建的研究</string>
-  <string name="noneYet">暫時沒有...</string>
+  <string name="noneYet">目前還沒有。</string>
   <string name="hot">熱門的</string>
   <string name="dateAddedNewest">新增日期(由新到舊)</string>
   <string name="dateAddedOldest">新增日期(由舊到新)</string>
@@ -69,7 +69,7 @@
   <string name="readMoreAboutEmbedding">閱讀更多與嵌入有關的內容</string>
   <string name="onlyPublicStudiesCanBeEmbedded">只有公開的研究可以嵌入!</string>
   <string name="open">開啟</string>
-  <string name="xBroughtToYouByY">%1$s, brought to you by %2$s</string>
+  <string name="xBroughtToYouByY">%1$s，由%2$s提供</string>
   <string name="studyNotFound">沒有找到任何研究</string>
   <string name="editChapter">編輯章節</string>
   <string name="newChapter">新章節</string>
@@ -77,10 +77,10 @@
   <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置頂評論(章節)</string>
   <string name="saveChapter">儲存章節</string>
-  <string name="clearAnnotations">Clear annotations</string>
+  <string name="clearAnnotations">清除註記</string>
   <string name="deleteChapter">刪除章節</string>
   <string name="deleteThisChapter">確定要刪除這個章節嗎？這個動作是無法復原的喔！</string>
-  <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>
+  <string name="clearAllCommentsInThisChapter">清除此章節中的所有註記和圖形嗎？</string>
   <string name="rightUnderTheBoard">棋盤之下</string>
   <string name="noPinnedComment">空</string>
   <string name="normalAnalysis">一般解析</string>
@@ -95,7 +95,7 @@
   <string name="loadAPositionFromFen">透過FEN讀取局面</string>
   <string name="loadAGameFromKif">從 KIF 檔案載入棋局</string>
   <string name="automatic">自動</string>
-  <string name="urlOfTheGame">URL of the games, one per line</string>
+  <string name="urlOfTheGame">棋局連結（一行一個）</string>
   <string name="loadAGameFromXOrY">從 %1$s 讀取棋譜</string>
   <string name="createChapter">建立章節</string>
   <string name="configureLiveBroadcast">實況設定</string>

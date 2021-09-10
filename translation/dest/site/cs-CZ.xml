@@ -9,6 +9,7 @@
 	<string name="yourTurn">Jste na tahu</string>
 	<string name="aiNameLevelAiLevel">AI %1$s - úrovně %2$s</string>
 	<string name="level">Úroveň</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">Zapnout/vypnout chat</string>
 	<string name="toggleSound">Zapnout/vypnout zvuk</string>
 	<string name="chat">Konverzace</string>

@@ -6,15 +6,15 @@
 	<string name="materialDifference">子力差距</string>
 	<string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
 	<string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
-	<string name="dropDestinations">Drop destinations (valid drops and predrops)</string>
+	<string name="dropDestinations">棋駒著法提示</string>
 	<string name="boardCoordinates">棋盤座標</string>
 	<string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
 	<string name="pgnPieceNotation">棋譜記法</string>
-	<string name="chessPieceSymbol">Shogi piece symbol</string>
+	<string name="chessPieceSymbol">棋駒符號</string>
 	<string name="zenMode">禪意模式</string>
-	<string name="displayBoardResizeHandle">Show board resize handle</string>
-	<string name="onlyOnInitialPosition">Only on initial position</string>
-	<string name="blindfoldChess">Blindfold shogi (invisible pieces)</string>
+	<string name="displayBoardResizeHandle">顯示大小調整區塊</string>
+	<string name="onlyOnInitialPosition">只從起始局面開始</string>
+	<string name="blindfoldChess">盲眼將棋（看不到棋駒）</string>
 	<string name="chessClock">棋鐘</string>
 	<string name="tenthsOfSeconds">十分之一秒</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">當剩餘時間小於10秒</string>
@@ -22,9 +22,9 @@
 	<string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
 	<string name="giveMoreTime">給對方更多時間</string>
 	<string name="gameBehavior">對局行為</string>
-	<string name="howDoYouMovePieces">How do you move pieces?</string>
-	<string name="clickTwoSquares">Click two squares</string>
-	<string name="dragPiece">Drag a piece</string>
+	<string name="howDoYouMovePieces">要如何移動棋駒呢？</string>
+	<string name="clickTwoSquares">點擊棋駒及目標位置</string>
+	<string name="dragPiece">拖曳移動</string>
 	<string name="bothClicksAndDrag">兩者都行</string>
 	<string name="premovesPlayingDuringOpponentTurn">預先走棋（在對方思考之時下棋）</string>
 	<string name="takebacksWithOpponentApproval">悔棋（需經過對手同意）</string>
@@ -35,10 +35,10 @@
 	<string name="moveConfirmation">走棋確認</string>
 	<string name="inCorrespondenceGames">在通訊棋戰中</string>
 	<string name="correspondenceAndUnlimited">通信和無限</string>
-	<string name="confirmResignationAndDrawOffers">Confirm resignation and draw offers</string>
-	<string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
+	<string name="confirmResignationAndDrawOffers">確認投降或和局請求</string>
+	<string name="inputMovesWithTheKeyboard">使用鍵盤輸入棋步</string>
 	<string name="westernNotation">西洋記法</string>
 	<string name="japaneseNotation">日本記法</string>
-	<string name="kitaoKawasakiNotation">北島-川崎記法</string>
+	<string name="kitaoKawasakiNotation">北尾-川崎記法</string>
 	<string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
 </resources>

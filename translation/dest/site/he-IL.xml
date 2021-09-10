@@ -9,6 +9,7 @@
 	<string name="yourTurn">תורך</string>
 	<string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>
 	<string name="level">רמה</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">הפעל/כבה את הצ\'אט</string>
 	<string name="toggleSound">הפעל/כבה צלילים</string>
 	<string name="chat">צ\'אט</string>

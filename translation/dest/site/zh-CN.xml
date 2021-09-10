@@ -9,6 +9,7 @@
 	<string name="yourTurn">你的回合</string>
 	<string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
 	<string name="level">级别</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">聊天开关</string>
 	<string name="toggleSound">声音开关</string>
 	<string name="chat">聊天</string>

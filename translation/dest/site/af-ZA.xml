@@ -9,6 +9,7 @@
 	<string name="yourTurn">Jou beurt</string>
 	<string name="aiNameLevelAiLevel">%1$s vlak %2$s</string>
 	<string name="level">Vlak</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">Wissel klets</string>
 	<string name="toggleSound">Wissel klank</string>
 	<string name="chat">Klets</string>

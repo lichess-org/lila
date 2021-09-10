@@ -40,10 +40,10 @@
 	<string name="kingComplete">現在連國王都要聽令於你了！</string>
 	<string name="theKnight">桂馬</string>
 	<string name="itMovesInAnLShape">它以L字形行走，但只能前進!</string>
-	<string name="knightIntro">給你一個小挑戰，桂馬是一個．．．比較特別的棋子。</string>
-	<string name="knightsHaveAFancyWay">桂馬有著特別酷的跳法!</string>
-	<string name="knightsCanJumpOverObstacles">桂馬可以跳過任何棋子!</string>
-	<string name="knightSummary">桂馬可以以L字形向前跳躍，但只能向前兩格並左或右一格。桂馬的走法不受其他棋子限制，因為它可以從它們頭上跳過去</string>
+	<string name="knightIntro">給你一個小挑戰，桂馬是一個…比較特別的棋子。</string>
+	<string name="knightsHaveAFancyWay">桂馬有著特別酷的跳法！</string>
+	<string name="knightsCanJumpOverObstacles">桂馬可以跳過任何棋子！</string>
+	<string name="knightSummary">桂馬可以以L字形向前跳躍，但只能向前兩格並左或右一格。桂馬的走法不受其他棋子限制，因為它可以從它們頭上跳過去。</string>
 	<string name="pknightSummary">成桂走法跟未升變的桂馬完全不同，但是跟金將完全一模一樣。所以請牢記金將的走法。</string>
 	<string name="knightPromotion">桂馬也可以升變，但它的走法變得完全不同，請特別留意</string>
 	<string name="knightComplete">恭喜！你現在已經精通了桂馬的用法。</string>

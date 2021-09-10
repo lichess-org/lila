@@ -9,6 +9,7 @@
 	<string name="yourTurn">Ваш хід</string>
 	<string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
 	<string name="level">Рівень</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">Стан бесіди</string>
 	<string name="toggleSound">Стан звуку</string>
 	<string name="chat">Чат</string>

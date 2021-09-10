@@ -9,6 +9,7 @@
 	<string name="yourTurn">Rândul dvs.</string>
 	<string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
 	<string name="level">Nivel</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">Arată/Ascunde discuţia</string>
 	<string name="toggleSound">Cu/Fără sunet</string>
 	<string name="chat">Discuţie</string>

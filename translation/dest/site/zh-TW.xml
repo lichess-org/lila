@@ -9,10 +9,11 @@
 	<string name="yourTurn">輪到您了</string>
 	<string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
 	<string name="level">難度</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">聊天開關</string>
-	<string name="toggleSound">聲音開關</string>
-	<string name="chat">聊天</string>
-	<string name="resign">認輸</string>
+	<string name="toggleSound">切換音效</string>
+	<string name="chat">聊天室</string>
+	<string name="resign">投了</string>
 	<string name="checkmate">將死</string>
 	<string name="stalemate">逼和</string>
 	<string name="impasse">僵局</string>
@@ -547,7 +548,7 @@
 	<string name="clock">鐘</string>
 	<string name="unauthorizedError">无权访问。</string>
 	<string name="noInternetConnection">无网络。您仍然可以从菜单栏离线对弈。</string>
-	<string name="connectedToLishogi">You are now connected to lishogi.org</string>
+	<string name="connectedToLishogi">您已經連接至 lishogi.org</string>
 	<string name="signedOut">登出成功</string>
 	<string name="loginSuccessful">登出成功</string>
 	<string name="playOnTheBoardOffline">面對面</string>
@@ -563,7 +564,7 @@
 	<string name="periods">Periods</string>
 	<string name="playOnline">線上對弈</string>
 	<string name="playOffline">离线对弈</string>
-	<string name="allowAnalytics">允許匿名發送統計資料</string>
+	<string name="allowAnalytics">允許匿名發送統計數據</string>
 	<string name="shareGameURL">分享对局网址</string>
 	<string name="error.required">本项必填</string>
 	<string name="error.email">电邮地址无效</string>
@@ -616,7 +617,7 @@
 	<string name="onlyMembersOfTeam">Only members of team</string>
 	<string name="simulDescription">Simul description</string>
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
-	<string name="lishogiTournaments">Lishogi tournaments</string>
+	<string name="lishogiTournaments">Lishogi 錦標賽</string>
 	<string name="tournamentFAQ">比赛常见问题</string>
 	<string name="tournamentOfficial">官方</string>
 	<string name="timeBeforeTournamentStarts">比赛准备时间</string>
@@ -649,7 +650,7 @@
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
 	<string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
 	<string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
-	<string name="networkLagBetweenYouAndLishogi">Network lag between you and Lishogi</string>
+	<string name="networkLagBetweenYouAndLishogi">您與 Lishogi 之間的網路延遲</string>
 	<string name="timeToProcessAMoveOnLishogiServer">Time to process a move on Lishogi\'s server</string>
 	<string name="downloadAnnotated">下载带笔记的记录</string>
 	<string name="downloadRaw">下载无笔记的记录</string>
@@ -837,9 +838,9 @@
 	<string name="notationSystem">記譜方法</string>
 	<string name="officialBlog">Lishogi Official Blog</string>
 	<string name="blogPostsFromYear">Blog posts from %1$s</string>
-	<string name="previousBlogPosts">Previous blog posts</string>
-	<string name="continueReadingThis"> Continue reading this post</string>
-	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="previousBlogPosts">上一則貼文</string>
+	<string name="continueReadingThis"> 繼續閱讀</string>
+	<string name="discussBlogForum">在論壇上討論這篇貼文</string>
 	<string name="invadingPieces">Invading pieces</string>
 	<string name="enteringKing">入玉</string>
 	<string name="totalImpasseValue">Total value</string>

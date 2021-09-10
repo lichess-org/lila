@@ -9,6 +9,7 @@
 	<string name="yourTurn">Ваш потез</string>
 	<string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
 	<string name="level">Ниво</string>
+	<string name="strength">Strength</string>
 	<string name="toggleTheChat">Укључи/искључи ћаскање</string>
 	<string name="toggleSound">Укључи/искључи звук</string>
 	<string name="chat">Ћаскање</string>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">移動以開始</string>
-  <string name="puzzlesSolved">已解決題目</string>
+  <string name="puzzlesSolved">解決過的問題</string>
   <string name="newDailyHighscore">新的每日紀錄！</string>
   <string name="newWeeklyHighscore">新的每周紀錄！</string>
   <string name="newMonthlyHighscore">新的每月紀錄！</string>
   <string name="newAllTimeHighscore">新歷史紀錄！</string>
-  <string name="previousHighscoreWasX">之前的紀錄:%s</string>
-  <string name="playAgain">再來一局</string>
+  <string name="previousHighscoreWasX">之前的紀錄：%s</string>
+  <string name="playAgain">再試一次</string>
   <plurals name="xRuns">
     <item quantity="other">%s runs</item>
   </plurals>
