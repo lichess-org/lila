@@ -1,9 +1,7 @@
 import { prop, Prop } from 'common';
-import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { nodeFullName } from '../util';
 import { currentComments, isAuthorObj } from './studyComments';
 
 interface Current {
@@ -15,18 +13,16 @@ interface Current {
 export interface CommentForm {
   root: AnalyseCtrl;
   current: Prop<Current | null>;
-  focus: Prop<boolean>;
   opening: Prop<boolean>;
   submit(text: string): void;
   start(chapterId: string, path: Tree.Path, node: Tree.Node): void;
-  onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
+  onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node): void;
   redraw(): void;
   delete(chapterId: string, path: Tree.Path, id: string): void;
 }
 
 export function ctrl(root: AnalyseCtrl): CommentForm {
   const current = prop<Current | null>(null),
-    focus = prop(false),
     opening = prop(false);
 
   function submit(text: string): void {
@@ -57,17 +53,12 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
   return {
     root,
     current,
-    focus,
     opening,
     submit,
     start,
-    onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
+    onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node): void {
       const cur = current();
-      if (
-        cur &&
-        (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node) &&
-        (!focus() || playedMyself)
-      ) {
+      if (cur && (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node)) {
         cur.chapterId = chapterId;
         cur.path = path;
         cur.node = node;
@@ -106,7 +97,7 @@ export function view(root: AnalyseCtrl): VNode {
     }
     vnode.data!.path = newKey;
 
-    if (ctrl.opening() || ctrl.focus()) {
+    if (ctrl.opening()) {
       requestAnimationFrame(() => el.focus());
       ctrl.opening(false);
     }
@@ -115,33 +106,6 @@ export function view(root: AnalyseCtrl): VNode {
   return h('div.study__comments', [
     currentComments(root, !study.members.canContribute()),
     h('form.form3', [
-      ctrl.root.path !== current.path
-        ? h('p', [
-            `Commenting ${current.node.san ? 'position after' : ''}`,
-            h(
-              'button.button-link',
-              {
-                attrs: { type: 'button' },
-                hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw),
-              },
-              nodeFullName(current.node)
-            ),
-            h('button.goto-current.button-link', {
-              attrs: {
-                'data-icon': '',
-                type: 'button',
-              },
-              hook: bind(
-                'click',
-                _ => {
-                  current.path = ctrl.root.path;
-                  current.node = ctrl.root.node;
-                },
-                ctrl.redraw
-              ),
-            }),
-          ])
-        : null,
       h('div.form-group', [
         h('textarea#comment-text.form-control', {
           hook: {
@@ -152,8 +116,6 @@ export function view(root: AnalyseCtrl): VNode {
                 setTimeout(() => ctrl.submit(el.value), 50);
               }
               el.onkeyup = el.onpaste = onChange;
-              el.onfocus = () => ctrl.focus(true);
-              el.onblur = () => ctrl.focus(false);
             },
             postpatch: (old, vnode) => setupTextarea(vnode, old),
           },
