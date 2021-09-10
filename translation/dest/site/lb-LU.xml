@@ -35,6 +35,10 @@
   <string name="joinTheGame">Tried der Partie bäi</string>
   <string name="whitePlays">Wäiss um Zuch</string>
   <string name="blackPlays">Schwaarz um Zuch</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Däin Géigner huet d\'Partie verlooss. Du kanns an %s Sekonn d\'Victoire reklaméieren.</item>
+    <item quantity="other">Däin Géigner huet d\'Partie verlooss. Du kanns an %s Sekonnen d\'Victoire reklaméieren.</item>
+  </plurals>
   <string name="opponentLeftChoices">Däin Géigner huet d\'Partie verlooss. Du kanns d\'Victoire reklaméieren, Remis erklären, oder waarden.</string>
   <string name="makeYourOpponentResign">Forcéier däin Géigner opzegin</string>
   <string name="forceResignation">Victoire reklaméieren</string>
@@ -44,4 +48,16 @@
   <string name="blackResigned">Schwaarz huet opginn</string>
   <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Wäiss huet d\'Partie verlooss</string>
   <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwaarz huet d\'Partie verlooss</string>
+  <string name="analysis">Analysebriet</string>
+  <string name="depthX">Déift %s</string>
+  <string name="topGames">Top Partien</string>
+  <string name="masterDbExplanation">Zwou Milliounen OTB Partien vun %1$s+ FIDE-gewerteten Spiller vun %2$s bis %3$s</string>
+  <string name="claimADraw">Remis reklaméieren</string>
+  <string name="offerDraw">Remis ubidden</string>
+  <string name="draw">Remis</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s Spiller</item>
+    <item quantity="other">%s Spiller</item>
+  </plurals>
+  <string name="oneDay">Een Dag</string>
 </resources>
