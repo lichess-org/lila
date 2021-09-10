@@ -1,12 +1,13 @@
 package views.html.ublog
 
 import controllers.routes
+import play.api.i18n.Lang
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.user.User
 import lila.ublog.{ UblogBlog, UblogPost }
+import lila.user.User
 
 object atom {
 
@@ -18,12 +19,12 @@ object atom {
       user: User,
       blog: UblogBlog,
       posts: Seq[UblogPost.PreviewPost]
-  ) =
+  )(implicit ctx: Lang) =
     views.html.base.atom(
       elems = posts,
       htmlCall = routes.Ublog.index(user.username),
       atomCall = routes.Blog.atom,
-      title = "lichess.org blog",
+      title = trans.ublog.xBlog.txt(user.username),
       updated = posts.headOption.flatMap(_.lived).map(_.at)
     ) { post =>
       frag(

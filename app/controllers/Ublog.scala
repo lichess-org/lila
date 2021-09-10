@@ -249,10 +249,11 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
   }
 
-  def userAtom(username: String) = Action.async {
+  def userAtom(username: String) = Action.async { implicit req =>
     env.user.repo.enabledNamed(username) flatMap {
       case None => NotFound.fuccess
       case Some(user) =>
+        implicit val lang = reqLang
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           (isBlogVisible(user, blog) ?? env.ublog.paginator.byUser(user, true, 1)) map { posts =>
             Ok(html.ublog.atom(user, blog, posts.currentPageResults)) as XML
