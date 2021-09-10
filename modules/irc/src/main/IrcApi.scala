@@ -110,6 +110,18 @@ final class IrcApi(
         .userLink(user)}"
     )
 
+  def ublogPost(
+      user: User,
+      id: String,
+      slug: String,
+      title: String
+  ): Funit =
+    zulip(_.blog, "non-tiered new posts")(
+      s"${markdown
+        .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} by ${markdown
+        .userLink(user)}"
+    )
+
   def userAppeal(user: User, mod: Holder): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(

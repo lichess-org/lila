@@ -44,12 +44,12 @@ final class UblogApi(
     } >>
       sendImageToZulip(user, post) >>- {
         lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-        if (blog.visible)
-          timeline ! {
-            Propagate(
-              lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
-            ) toFollowersOf user.id
-          }
+        if (blog.visible) {
+          timeline ! Propagate(
+            lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
+          ).toFollowersOf(user.id)
+          if (!blog.modTier.isDefined) sendPostToZulip(user, blog, post).unit
+        }
       }
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
@@ -112,6 +112,14 @@ final class UblogApi(
       imageUrl = UblogPost.thumbnail(picfitUrl, imageId, _.Small)
     )
   }
+
+  private def sendPostToZulip(user: User, blog: UblogBlog, post: UblogPost): Funit =
+    irc.ublogPost(
+      user,
+      id = post.id.value,
+      slug = post.slug,
+      title = post.title
+    )
 
   def liveLightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
     colls.post
