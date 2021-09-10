@@ -49,12 +49,15 @@
   <string name="blackResigned">Қара берілді</string>
   <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Ақтар жүрмеді</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Қаралар жүрмеді</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемені жіберіңіз</string>
   <string name="theComputerAnalysisHasFailed">Компьютерлік талдау ақауға ұшырады</string>
   <string name="viewTheComputerAnalysis">Компьютерлік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға жіберу</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
   <string name="computerAnalysisAvailable">Компьютерлік талдау ашық</string>
+  <string name="computerAnalysisDisabled">Компьютерлік талдау өшірулі</string>
   <string name="analysis">Талдау тақтасы</string>
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
