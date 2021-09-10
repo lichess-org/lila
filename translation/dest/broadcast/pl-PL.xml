@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Adres URL transmisji</string>
   <string name="currentRoundUrl">Adres URL bieżącej rundy</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
+  <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
 </resources>
