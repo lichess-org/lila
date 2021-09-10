@@ -49,6 +49,8 @@
   <string name="blackResigned">Sort ga opp</string>
   <string name="whiteLeftTheGame">Hvit forlot partiet</string>
   <string name="blackLeftTheGame">Sort forlot partiet</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Hvit flyttet ikke</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Svart flyttet ikke</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne lenken for å la andre følge partiet</string>
   <string name="theComputerAnalysisHasFailed">Datamaskinanalysen fungerte ikke</string>
   <string name="viewTheComputerAnalysis">Se computeranalyse</string>
