@@ -485,6 +485,7 @@
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
   <string name="descPrivate">Құпия сипаттама</string>
+  <string name="descPrivateHelp">Тек топ мүшелері көретін мәтін. Жазылған болса, жария сипаттаманы алмастырады.</string>
   <string name="no">Жоқ</string>
   <string name="yes">Иә</string>
   <string name="help">Көмек:</string>
