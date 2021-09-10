@@ -46,6 +46,7 @@ Geslo: %3$s</string>
   <string name="createDesc2">Ne potrebuje email naslova. Ustvarjeno bo geslo in prenesti ga morate k učencu, da se lahko prijavi.</string>
   <string name="createDesc3">Pomembno: Učenec ne sme imeti več računov.</string>
   <string name="createDesc4">Če račun že imajo, uporabite obrazec za povabilo.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Ustvarite račune samo za prave študente. Tega ne uporabljajte za ustvarjanje več računov. Dobili bi prepoved.</string>
   <string name="lichessUsername">Lichess uporabniško ime</string>
   <string name="generateANewUsername">Ustvarite novo uporabniško ime</string>
   <string name="welcomeToClass">Dobrodošli v razred: %s
