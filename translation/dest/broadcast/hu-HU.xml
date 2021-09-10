@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Közvetítés URL</string>
   <string name="currentRoundUrl">Jelenlegi forduló URL</string>
   <string name="currentGameUrl">Jelenlegi játszma URL</string>
+  <string name="downloadAllRounds">Összes játszma letöltése</string>
 </resources>
