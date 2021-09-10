@@ -46,6 +46,7 @@ Parole: %3$s</string>
   <string name="createDesc2">E-pasta adrese nav nepieciešama. Tiks izveidota parole, kura jums būs jānodod skolēnam, lai viņš vai viņa var ierakstīties.</string>
   <string name="createDesc3">Svarīgi: skolēnam nedrīkst būt vairāki konti.</string>
   <string name="createDesc4">Ja skolēnam jau ir konts, aizpildiet ielūguma veidlapu.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Izveidojiet kontus tikai īstiem skolēniem. Neizmantojiet šo funkciju, lai sev izveidotu vairākus kontus – citādi jums aizliegs lietot Lichess.</string>
   <string name="lichessUsername">Lichess lietotājvārds</string>
   <string name="generateANewUsername">Izveidot jaunu lietotājvārdu</string>
   <string name="welcomeToClass">Laipni lūgti savā klasē: %s.
