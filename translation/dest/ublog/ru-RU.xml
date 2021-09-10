@@ -36,4 +36,5 @@
     <item quantity="many">Посмотреть %s записей</item>
     <item quantity="other">Посмотреть все %s записей</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Загрузите изображение к вашей записи</string>
 </resources>
