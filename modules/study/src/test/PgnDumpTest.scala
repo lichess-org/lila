@@ -18,7 +18,7 @@ class PgnDumpTest extends Specification {
       id = UciCharPair(Uci(uci).get),
       ply = ply,
       move = Uci.WithSan(Uci(uci).get, san),
-      fen = FEN("<fen>"),
+      fen = FEN("<sfen>"),
       check = false,
       clock = None,
       crazyData = Some(Hands.init),
@@ -30,14 +30,15 @@ class PgnDumpTest extends Specification {
 
   val root = Node.Root.default(variant.Standard)
 
-  "toTurns" should {
+  "toMoves" should {
     "empty" in {
-      P.toTurns(root) must beEmpty
+      P.toMoves(root) must beEmpty
     }
     "one move" in {
       val tree = root.copy(children = children(node(1, "e3e4", "Pe4")))
-      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(move), None)) =>
+      P.toMoves(tree) must beLike { case Vector(move) =>
         move.san must_== "Pe4"
+        move.uci must_== "e3e4"
         move.variations must beEmpty
       }
     }
@@ -48,9 +49,9 @@ class PgnDumpTest extends Specification {
           node(1, "c1d2", "Sd2")
         )
       )
-      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(move), None)) =>
+      P.toMoves(tree) must beLike { case Vector(move) =>
         move.san must_== "Pe4"
-        move.variations must beLike { case List(List(Turn(1, Some(move), None))) =>
+        move.variations must beLike { case List(List(move)) =>
           move.san must_== "Sd2"
           move.variations must beEmpty
         }
@@ -70,9 +71,9 @@ class PgnDumpTest extends Specification {
           node(1, "c1d2", "Sd2")
         )
       )
-      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(sente), Some(gote))) =>
+      P.toMoves(tree) must beLike { case Vector(sente, gote) =>
         sente.san must_== "Pe4"
-        sente.variations must beLike { case List(List(Turn(1, Some(move), None))) =>
+        sente.variations must beLike { case List(List(move)) =>
           move.san must_== "Sd2"
           move.variations must beEmpty
         }
@@ -95,17 +96,18 @@ class PgnDumpTest extends Specification {
           node(1, "c1d2", "Sd2")
         )
       )
-      P.toTurns(tree).mkString(" ").toString must_==
-        "1. Pe4 (1. Sd2) 1... Pd6 (1... Sd8)"
+      P.toMoves(tree).mkString("\n").toString must_==
+        """   1   ５六歩(57)
+   2   ６四歩(63)"""
 
-      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(sente), Some(gote))) =>
+      P.toMoves(tree) must beLike { case Vector(sente, gote) =>
         sente.san must_== "Pe4"
-        sente.variations must beLike { case List(List(Turn(1, Some(move), None))) =>
+        sente.variations must beLike { case List(List(move)) =>
           move.san must_== "Sd2"
           move.variations must beEmpty
         }
         gote.san must_== "Pd6"
-        gote.variations must beLike { case List(List(Turn(1, None, Some(move)))) =>
+        gote.variations must beLike { case List(List(move)) =>
           move.san must_== "Sd8"
           move.variations must beEmpty
         }
@@ -156,29 +158,27 @@ class PgnDumpTest extends Specification {
           )
         )
       )
-      P.toTurns(tree).mkString(" ").toString must_==
-        "1. Pe4 (1. Sd2 Pa6 (1... Pb6 2. Pc4)) 1... Pd6 (1... Sd8 2. Ph4) 2. Pa4 (2. Pb4)"
 
-      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(s1), Some(g1)), Turn(2, Some(s2), None)) =>
+      P.toMoves(tree) must beLike { case Vector(s1, g1, s2) =>
         s1.san must_== "Pe4"
-        s1.variations must beLike { case List(List(Turn(1, Some(w), Some(b)))) =>
+        s1.variations must beLike { case List(List(w, b)) =>
           w.san must_== "Sd2"
           w.variations must beEmpty
           b.san must_== "Pa6"
-          b.variations must beLike { case List(List(Turn(1, None, Some(b)), Turn(2, Some(w), None))) =>
+          b.variations must beLike { case List(List(b, w)) =>
             b.san must_== "Pb6"
             w.san must_== "Pc4"
           }
         }
         g1.san must_== "Pd6"
-        g1.variations must beLike { case List(List(Turn(1, None, Some(b)), Turn(2, Some(w), None))) =>
+        g1.variations must beLike { case List(List(b, w)) =>
           b.san must_== "Sd8"
           b.variations must beEmpty
           w.san must_== "Ph4"
           b.variations must beEmpty
         }
         s2.san must_== "Pa4"
-        s2.variations must beLike { case List(List(Turn(2, Some(move), None))) =>
+        s2.variations must beLike { case List(List(move)) =>
           move.san must_== "Pb4"
           move.variations must beEmpty
         }
