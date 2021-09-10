@@ -45,7 +45,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   const editor: Editor = new Editor({
     el,
     usageStatistics: false,
-    height: '70vh',
+    height: '60vh',
     theme: $('body').data('theme') == 'light' ? 'light' : 'dark',
     initialValue: $('#form3-markdown').val() as string,
     initialEditType: 'wysiwyg',

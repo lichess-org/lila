@@ -45,7 +45,10 @@ object form {
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box box-pad ublog-post-form")(
           standardFlash(),
-          h1(trans.ublog.editYourBlogPost()),
+          div(cls := "box__top")(
+            h1(trans.ublog.editYourBlogPost()),
+            a(href := postView.urlOfPost(post), dataIcon := "", cls := "text", targetBlank)("Preview")
+          ),
           imageForm(user, post),
           inner(user, f, post.some, none),
           postForm(
@@ -72,6 +75,7 @@ object form {
       form3.split(
         div(cls := "form-group form-half")(formImage(post)),
         div(cls := "form-group form-half")(
+          p(trans.ublog.uploadAnImageForYourPost()),
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
           form3.file.image("image")
         )
