@@ -23,7 +23,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   type Html = String
 
   def apply(post: UblogPost): String =
-    cache.get(post.markdown, str => postProcess(renderer(s"ublog:${post.id}")(preProcess(str)).pp))
+    cache.get(post.markdown, str => postProcess(renderer(s"ublog:${post.id}")(preProcess(str))))
 
   private def preProcess = replaceGameGifs.apply _
 
