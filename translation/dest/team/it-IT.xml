@@ -7,7 +7,7 @@
     <item quantity="other">%s membri</item>
   </plurals>
   <string name="allTeams">Tutti i gruppi</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Squadre capitanate</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Squadre capitanate</string>
   <string name="newTeam">Nuovo gruppo</string>
   <string name="myTeams">I miei gruppi</string>
   <string name="noTeamFound">Nessun gruppo trovato</string>
