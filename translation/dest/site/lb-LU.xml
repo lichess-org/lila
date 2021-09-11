@@ -423,7 +423,7 @@
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
   <string name="points">Punkten</string>
-  <string name="wins">Victoiren</string>
+  <string name="wins">Victoirë</string>
   <string name="losses">Defaiten</string>
   <string name="winStreak">Victoireserie</string>
   <string name="createdBy">Kreéiert vum</string>
@@ -436,8 +436,8 @@
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Turnéier fäerdeg</string>
   <string name="movesPlayed">Zich gespillt</string>
-  <string name="whiteWins">Wäiss Victoiren</string>
-  <string name="blackWins">Schwaarz Victoiren</string>
+  <string name="whiteWins">Wäiss Victoirë</string>
+  <string name="blackWins">Schwaarz Victoirë</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
