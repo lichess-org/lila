@@ -1,14 +1,14 @@
 package views.html.streamer
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
 
-object bits extends Context.ToLang {
+object bits {
 
   import trans.streamer._
 

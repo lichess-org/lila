@@ -8,7 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 
-object edit extends Context.ToLang {
+object edit {
 
   import trans.streamer._
 
