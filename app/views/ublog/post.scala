@@ -18,7 +18,8 @@ object post {
       post: UblogPost,
       markup: Frag,
       others: List[UblogPost.PreviewPost],
-      liked: Boolean
+      liked: Boolean,
+      followed: Boolean
   )(implicit
       ctx: Context
   ) =
@@ -63,7 +64,7 @@ object post {
             post.lived map { live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at))
             },
-            likeButton(post, liked),
+            likeButton(post, liked)(ctx)(cls := "ublog-post__like--mini button-link"),
             span(cls := "ublog-post__views")(
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
             ),
@@ -95,7 +96,13 @@ object post {
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
-            likeButton(post, liked),
+            (ctx.isAuth && !ctx.is(user)) option
+              div(cls := "ublog-post__actions")(
+                likeButton(post, liked)(ctx)(cls := "ublog-post__like--big button button-big button-red")(
+                  span(cls := "button-label")("Like this post")
+                ),
+                followButton(user, post, followed)
+              ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
           )
@@ -106,12 +113,33 @@ object post {
   private def likeButton(post: UblogPost, liked: Boolean)(implicit ctx: Context) = button(
     tpe := "button",
     cls := List(
-      "ublog-post__like button-link is" -> true,
-      "ublog-post__like--liked"         -> liked
+      "ublog-post__like is"     -> true,
+      "ublog-post__like--liked" -> liked
     ),
     dataRel := post.id.value,
     title := trans.study.like.txt()
-  )(post.likes.value)
+  )(span(cls := "ublog-post__like__nb")(post.likes.value))
+
+  private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
+    div(
+      cls := List(
+        "ublog-post__follow" -> true,
+        "followed"           -> followed
+      )
+    )(
+      List(
+        ("yes", trans.following, routes.Relation.unfollow _, ""),
+        ("no", trans.follow, routes.Relation.follow _, "")
+      ).map { case (role, text, route, icon) =>
+        button(
+          cls := s"ublog-post__follow__$role button button-big",
+          dataIcon := icon,
+          dataRel := route(user.id)
+        )(
+          span(cls := "button-label")(text.txt(), " ", user.titleUsername)
+        )
+      }
+    )
 
   def card(
       post: UblogPost.BasePost,

@@ -47,10 +47,12 @@ final class Ublog(env: Env) extends LilaController(env) {
               if (slug != post.slug) Redirect(urlOfPost(post)).fuccess
               else {
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
-                  ctx.me.??(env.ublog.rank.liked(post)) map { case (others, liked) =>
-                    env.ublog.viewCounter(post, ctx.ip)
-                    val markup = scalatags.Text.all.raw(env.ublog.markup(post))
-                    Ok(html.ublog.post(user, blog, post, markup, others, liked))
+                  ctx.me.??(env.ublog.rank.liked(post)) zip
+                  ctx.userId.??(env.relation.api.fetchFollows(_, user.id)) map {
+                    case ((others, liked), followed) =>
+                      env.ublog.viewCounter(post, ctx.ip)
+                      val markup = scalatags.Text.all.raw(env.ublog.markup(post))
+                      Ok(html.ublog.post(user, blog, post, markup, others, liked, followed))
                   }
               }
             }

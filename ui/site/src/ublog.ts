@@ -13,7 +13,22 @@ lichess.load.then(() => {
         .text(`/ublog/${button.data('rel')}/like?v=${liked}`, {
           method: 'post',
         })
-        .then(likes => button.text(likes).toggleClass(likeClass, liked));
+        .then(likes => {
+          $('.ublog-post__like__nb').text(likes);
+          $('.ublog-post__like').toggleClass(likeClass, liked);
+        });
+    })
+  );
+  $('.ublog-post__follow button').on(
+    'click',
+    throttle(1000, function (this: HTMLButtonElement) {
+      const button = $(this),
+        followClass = 'followed';
+      xhr
+        .text(button.data('rel'), {
+          method: 'post',
+        })
+        .then(() => button.parent().toggleClass(followClass));
     })
   );
   $('#form3-tier').on('change', function (this: HTMLSelectElement) {

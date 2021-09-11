@@ -1,0 +1,118 @@
+.ublog-post {
+  &__title {
+    @extend %break-word;
+    text-align: center;
+    margin: 3rem 0 3rem;
+  }
+  &__meta {
+    text-align: center;
+    margin-bottom: 2rem;
+    > * {
+      margin: 0 1em;
+    }
+    &__report {
+      color: $c-font-dim !important;
+      &:hover {
+        color: $c-bad !important;
+      }
+    }
+    .user-link {
+      color: $c-link;
+      font-size: 1.2em;
+    }
+    &__owner {
+      margin-top: 1em;
+    }
+  }
+  &__topics {
+    @extend %flex-wrap;
+    justify-content: center;
+    margin-bottom: 6vh;
+    line-height: 2em;
+
+    a {
+      @extend %box-radius;
+
+      background: mix($c-primary, $c-bg-box, 12%);
+      padding: 0.2em 0.6em;
+      margin: 0.2em;
+
+      &:hover {
+        background: mix($c-primary, $c-bg-box, 15%);
+      }
+
+      white-space: nowrap;
+    }
+
+    .box__pad & {
+      margin-bottom: 2em;
+    }
+  }
+  &__tier {
+    margin-left: 1em;
+  }
+  &__like {
+    font-weight: bold;
+    cursor: pointer;
+    &::before {
+      margin-right: 0.4em;
+      content: '';
+    }
+    &.ublog-post__like--liked::before {
+      content: '';
+    }
+    &--mini {
+      margin-left: 1rem;
+      color: $c-font;
+      transition: 0.3s;
+      &:hover {
+        opacity: 1;
+        color: $c-red;
+      }
+    }
+  }
+  &__image {
+    @extend %box-neat-force;
+    width: 100%;
+    height: auto;
+  }
+  &__intro {
+    @extend %break-word;
+    font-size: 1.2em;
+    margin-bottom: 4vh;
+    display: block;
+  }
+  &__footer {
+    margin: 5em 0 0 0;
+    h2 {
+      margin-bottom: 1.5em;
+    }
+  }
+  &__actions {
+    @extend %flex-center;
+    justify-content: center;
+    font-size: 2em;
+    margin: 0 0 4rem 0;
+    .button {
+      margin: 0 1em;
+      padding: 0.8em 1.5em;
+      border-radius: 5px;
+      &-label {
+        display: block;
+        margin-top: 1em;
+        text-transform: none;
+        font-size: 1rem;
+      }
+    }
+  }
+  &__follow {
+    .ublog-post__follow__yes,
+    &.followed .ublog-post__follow__no {
+      display: none;
+    }
+    .ublog-post__follow__no,
+    &.followed .ublog-post__follow__yes {
+      display: block;
+    }
+  }
+}
