@@ -120,6 +120,21 @@
   <string name="infiniteAnalysis">Endlos Analyse</string>
   <string name="removesTheDepthLimit">Entfernt d\'Déifenbegrenzung an hält däin Computer waarm</string>
   <string name="blunder">Gaffe</string>
+  <string name="mistake">Feeler</string>
+  <string name="inaccuracy">Ongenauegkeet</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s Gaffe</item>
+    <item quantity="other">%s Gaffen</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s Feeler</item>
+    <item quantity="other">%s Feeler</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s Ongenauegkeet</item>
+    <item quantity="other">%s Ongenauegkeeten</item>
+  </plurals>
+  <string name="moveTimes">Zuchzäiten</string>
   <string name="flipBoard">Briet dréinen</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
@@ -129,9 +144,23 @@
     <item quantity="one">%s Spiller</item>
     <item quantity="other">%s Spiller</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis duerch Eenegung</string>
+  <string name="fiftyMovesWithoutProgress">50 Zich ouni Progrès</string>
+  <string name="currentGames">Lafend Partien</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Partien</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Lesezeichen</item>
+    <item quantity="other">%s Lesezeichen</item>
+  </plurals>
+  <string name="viewInFullSize">An voller Gréisst ukucken</string>
   <string name="logOut">Ofmellen</string>
   <string name="signIn">Umellen</string>
+  <string name="youNeedAnAccountToDoThat">Du brauchs een Account fir dat ze maachen</string>
   <string name="signUp">Registréieren</string>
+  <string name="computersAreNotAllowedToPlay">Ënnerstëtzung vun Schachprogrammen, Datenbanken oder aneren Spiller ass wärend enger Partie net erlaabt. Wannechgelift bedenkt och, dass d\'Creatioun vun puer Benotzerkonten ongären gesinn ass and d\'Missachtung vun dëser Reegel, bis op Kulanz vun der Ekipp, zum Ausschloss aller betraffenen Konten féiert.</string>
   <string name="games">Partien</string>
   <string name="forum">Forum</string>
   <string name="players">Spiller</string>
