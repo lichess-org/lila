@@ -52,7 +52,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Huet %s Etüd kreéiert</item>
-    <item quantity="other">Huet %s Etüde kreéiert</item>
+    <item quantity="other">Huet %s Etüden kreéiert</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Huet bei %s Arena Turnéier matgemaach</item>
