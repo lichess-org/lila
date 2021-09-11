@@ -59,7 +59,7 @@
   <string name="solved">resuelto</string>
   <string name="failed">fallido</string>
   <string name="streakDescription">Resuelve ejercicios cada vez más difíciles para conseguir la racha más larga posible. No hay tiempo, así que tómatelo con calma. Un movimiento erróneo y ¡se acabó!, aunque puedes omitir un movimiento en cada sesión.</string>
-  <string name="yourStreakX">Aciertos seguidos: %s</string>
+  <string name="yourStreakX">Tu racha: %s</string>
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
   <string name="continueTheStreak">Continuar la racha</string>
   <string name="newStreak">Nueva racha</string>
