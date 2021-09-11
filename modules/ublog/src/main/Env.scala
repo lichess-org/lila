@@ -22,6 +22,8 @@ final class Env(
     ec: scala.concurrent.ExecutionContext
 ) {
 
+  import net.{ assetBaseUrl, baseUrl }
+
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
   val topic = wire[UblogTopicApi]
