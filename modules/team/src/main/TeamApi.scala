@@ -161,17 +161,16 @@ final class TeamApi(
     }
 
   def processRequest(team: Team, request: Request, decision: String): Funit = {
-    cached.nbRequests invalidate team.createdBy
-    if (decision == "decline")
-      requestRepo.coll.update.one($id(request.id), request.copy(declined = true)).void
-    else if (decision == "accept" | decision == "accept-declined")
-      for {
-        _          <- requestRepo.remove(request.id)
-        userOption <- userRepo byId request.user
-        _ <-
-          userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
-      } yield ()
+    if (decision == "decline") requestRepo.coll.updateField($id(request.id), "declined", true).void
+    else if (decision == "accept") for {
+      _          <- requestRepo.remove(request.id)
+      userOption <- userRepo byId request.user
+      _ <-
+        userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
+    } yield ()
     else funit
+  } addEffect { _ =>
+    cached.nbRequests invalidate team.createdBy
   }
 
   def deleteRequestsByUserId(userId: User.ID) =

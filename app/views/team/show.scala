@@ -90,7 +90,7 @@ object show {
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
-                if (info.myRequest.map(_.declined) | false)
+                if (info.myRequest.exists(_.declined))
                   frag(
                     strong(requestDeclined()),
                     a(cls := "button disabled button-metal")(joinTeam())
