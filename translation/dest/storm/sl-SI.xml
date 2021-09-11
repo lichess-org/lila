@@ -54,4 +54,6 @@
   <string name="skip">preskoči</string>
   <string name="skipHelp">NOVO! Lahko preskočite eno potezo na dirko:</string>
   <string name="skipExplanation">Preskočite to potezo, da ohranite svojo kombinacijo! Deluje samo enkrat na dirko.</string>
+  <string name="failedPuzzles">Neuspele uganke</string>
+  <string name="slowPuzzles">Počasne uganke</string>
 </resources>
