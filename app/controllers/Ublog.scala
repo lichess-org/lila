@@ -78,7 +78,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   }
 
   private val CreateLimitPerUser = new lila.memo.RateLimit[UserModel.ID](
-    credits = 10 * 3,
+    credits = 5 * 3,
     duration = 24.hour,
     key = "ublog.create.user"
   )
