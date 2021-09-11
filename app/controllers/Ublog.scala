@@ -115,7 +115,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def update(id: String) = AuthBody { implicit ctx => me =>
     NotForKids {
-      env.ublog.api.findByUserBlog(UblogPost.Id(id), me) flatMap {
+      env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
         _ ?? { prev =>
           env.ublog.form
             .edit(prev)
@@ -133,9 +133,9 @@ final class Ublog(env: Env) extends LilaController(env) {
   }
 
   def delete(id: String) = AuthBody { implicit ctx => me =>
-    env.ublog.api.findByUserBlog(UblogPost.Id(id), me) flatMap {
+    env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
       _ ?? { post =>
-        env.ublog.api.delete(post) inject Redirect(routes.Ublog.index(me.username)).flashSuccess
+        env.ublog.api.delete(post) inject Redirect(urlOfBlog(post.blog)).flashSuccess
       }
     }
   }
@@ -179,7 +179,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def image(id: String) =
     AuthBody(parse.multipartFormData) { implicit ctx => me =>
-      env.ublog.api.findByUserBlog(UblogPost.Id(id), me) flatMap {
+      env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
         _ ?? { post =>
           ctx.body.body.file("image") match {
             case Some(image) =>

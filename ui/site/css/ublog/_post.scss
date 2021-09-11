@@ -23,6 +23,9 @@
     &__owner {
       margin-top: 1em;
     }
+    &__delete {
+      display: inline;
+    }
   }
   &__topics {
     @extend %flex-wrap;

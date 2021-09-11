@@ -5,9 +5,10 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
-import lila.memo.{ PicfitApi, PicfitUrl }
-import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.timeline.Propagate
+import lila.memo.{ PicfitApi, PicfitUrl }
+import lila.security.Granter
+import lila.user.{ User, UserRepo }
 
 final class UblogApi(
     colls: UblogColls,
@@ -61,8 +62,10 @@ final class UblogApi(
 
   def getPost(id: UblogPost.Id): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id.value)
 
-  def findByUserBlog(id: UblogPost.Id, user: User): Fu[Option[UblogPost]] =
-    findByIdAndBlog(id, UblogBlog.Id.User(user.id))
+  def findByUserBlogOrAdmin(id: UblogPost.Id, user: User): Fu[Option[UblogPost]] =
+    colls.post.byId[UblogPost](id.value) dmap {
+      _.filter(_.blog == UblogBlog.Id.User(user.id) || Granter(_.ModerateBlog)(user))
+    }
 
   def findByIdAndBlog(id: UblogPost.Id, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))

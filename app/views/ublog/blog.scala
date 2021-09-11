@@ -8,6 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
+import play.api.mvc.Call
 
 object blog {
 
@@ -66,7 +67,8 @@ object blog {
     }
   }
 
-  def urlOfBlog(blog: UblogBlog) = blog.id match {
+  def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
+  def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match {
     case UblogBlog.Id.User(userId) => routes.Ublog.index(usernameOrId(userId))
   }
 

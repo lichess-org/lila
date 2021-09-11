@@ -1,5 +1,6 @@
 package views.html.ublog
 
+
 import controllers.routes
 import play.api.mvc.Call
 
@@ -80,6 +81,13 @@ object post {
                   dataIcon := ""
                 )(trans.edit())
               )
+            else if (isGranted(_.ModerateBlog))
+              form(
+                method := "post",
+                action := routes.Ublog.delete(post.id.value),
+                cls := "ublog-post__meta__delete",
+                title := "MOD: Delete this post"
+              )(submitButton(dataIcon := "", cls := "button button-empty button-red confirm"))
             else
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
