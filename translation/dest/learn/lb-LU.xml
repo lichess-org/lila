@@ -58,4 +58,15 @@ Keen Zwang zur Ëmwandlung.</string>
   <string name="pawnComplete">Félicitatiounen! Baueren hun keng Geheimnisser méi virun dir.</string>
   <string name="pawnPromotion">Baueren Ëmwandlung</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Däin Bauer ass zum Schluss vum Briet ukomm!</string>
+  <string name="itNowPromotesToAStrongerPiece">Hien gëtt elo zu enger méi staarker Figur.</string>
+  <string name="selectThePieceYouWant">Wiehl d\'Figur déi du wëlls!</string>
+  <string name="fundamentals">Grondlagen</string>
+  <string name="capture">Schlagzuch</string>
+  <string name="takeTheEnemyPieces">Schlo d\'géigneresch Figuren</string>
+  <string name="captureIntro">Fann dem Géigner seng onverteidegt Figuren an huel se!</string>
+  <string name="takeTheBlackPieces">Huel d\'schwaarz Figuren!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Huel d\'schwaarz Figuren!
+An verléier net deng eegen.</string>
+  <string name="captureComplete">Félicitatiounen! Du wees wéi een mat Schachfiguren kämpft!</string>
+  <string name="protection">Beschützen</string>
 </resources>
