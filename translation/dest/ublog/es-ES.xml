@@ -12,8 +12,8 @@
   <string name="publishOnYourBlog">Publicar en tu blog</string>
   <string name="publishHelp">Si está marcado, la entrada aparecerá en tu blog. Si no, será privada en tus borradores</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Published a blog post</item>
-    <item quantity="other">Published %s blog posts</item>
+    <item quantity="one">Publicó una entrada</item>
+    <item quantity="other">Publicó %s entradas</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Una visualización</item>
