@@ -47,8 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Di erschti Pärson, wo dä URL aaklickt, isch din Gägner.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
-  <string name="whiteLeftTheGame">Wiis hät d\'Partii verloh</string>
-  <string name="blackLeftTheGame">Schwarz hät d\'Partii verlaa</string>
+  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Wiis hät d\'Partii verloh</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwarz hät d\'Partii verlaa</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Wiis hät nöt zogä</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Schwarz hät nöt zogä</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teil dä URL, zum Zuäschauer zum zuäluägä iizladä</string>
   <string name="theComputerAnalysisHasFailed">D Kompianalysä isch bachab</string>
   <string name="viewTheComputerAnalysis">D\'Kompianalysä aaluägä</string>
@@ -916,12 +918,12 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="closedAccountChangedMind">Wänn du dä Account gschlossä häsch, abär nachhär dini Meinig gändärät häsch, häsch ä Chancä din Account zrugg übärzcho.</string>
   <string name="onlyWorksOnce">Das funktioniärt nur eimal.</string>
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
-  <string name="emailAssociatedToaccount">E-Mail-Adresse deines Kontos</string>
-  <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
+  <string name="emailAssociatedToaccount">E-Mail-Adrässä vo dim Konto</string>
+  <string name="sentEmailWithLink">Mir häd der äs Mail mitäm Link gschickt.</string>
   <string name="tournamentEntryCode">Turniäriigangscode</string>
-  <string name="hangOn">Einen Moment!</string>
-  <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
-  <string name="abortTheGame">Partie abbrechen</string>
-  <string name="resignTheGame">Partie aufgeben</string>
+  <string name="hangOn">Momäntäli!</string>
+  <string name="gameInProgress">Du häsch no ä laufädi Partii mit %s.</string>
+  <string name="abortTheGame">Partii abbrächä</string>
+  <string name="resignTheGame">Partii ufgää</string>
   <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
 </resources>
