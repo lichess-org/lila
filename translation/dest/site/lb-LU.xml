@@ -164,7 +164,7 @@
   <string name="games">Partien</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s huet zum Thema %2$s geschriwwen</string>
-  <string name="latestForumPosts">Neisten Forum Posts</string>
+  <string name="latestForumPosts">Neisten Forumbäiträg</string>
   <string name="players">Spiller</string>
   <string name="friends">Frënn</string>
   <string name="discussions">Konversatiounen</string>
@@ -485,14 +485,18 @@
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
   <string name="descPrivate">Privat Beschreiwung</string>
+  <string name="descPrivateHelp">Text deen just Ekippen Member wäerten gesinn. Falls agestallt, ersetzt en fir Member d\'öffentlech Beschreiwung.</string>
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
   <string name="help">Hëllef:</string>
+  <string name="createANewTopic">Neien Thema kreéieren</string>
   <string name="topics">Themen</string>
   <string name="posts">Bäiträg</string>
   <string name="lastPost">Leschten Beitrag</string>
   <string name="views">Besich</string>
   <string name="replies">Äntwerten</string>
+  <string name="replyToThisTopic">Op dësen Thema äntweren</string>
+  <string name="reply">Äntwert</string>
   <string name="message">Message</string>
   <string name="createTheTopic">Thema erstellen</string>
   <string name="reportAUser">Benotzer mellen</string>
@@ -504,6 +508,11 @@
   <string name="troll">Troll</string>
   <string name="ratingManipulation">Wäertungsmanipulatioun</string>
   <string name="other">Aner</string>
+  <string name="reportDescriptionHelp">Post den Link vun Partie(n) and erklär wat den Problem mat dësem Benotzer sengem Verhalen ass. So net just \"Hien fuddelt\", mee so eis wéi du zu dëser Konklusioun komm bass. Däin Rapport gëtt méi schnell veraarbecht wann en op Englesch ass.</string>
+  <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>
+  <string name="by">vum %s</string>
+  <string name="thisTopicIsNowClosed">Dësen Thema ass elo zou.</string>
+  <string name="theming">Design</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Froen &amp; Äntweren</string>
   <string name="notes">Notten</string>
@@ -588,6 +597,10 @@
   <string name="castling">Rochade</string>
   <string name="whiteCastlingKingside">Wäiss O-O</string>
   <string name="blackCastlingKingside">Schwaarz O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Forumbäitrag</item>
+    <item quantity="other">%s Forumbäiträg</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Gesamt Spillzäit: %s</string>
   <string name="watchGames">Partien ukucken</string>
   <string name="tpTimeSpentOnTV">Gesamtzäit op TV: %s</string>
@@ -618,6 +631,7 @@
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
   <string name="keyboardShortcuts">Tastaturkürzel</string>
   <string name="newTournament">Neien Turnéier</string>
+  <string name="returnToTournamentsHomepage">Zeréck zur Tunéier Homepage</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hues keng feststehend %s Wäertung.</string>
   <string name="yourRating">Deng Wäertung</string>
   <string name="cumulative">Kumulativ</string>
