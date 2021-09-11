@@ -9,17 +9,11 @@ import scala.concurrent.duration._
 
 import lila.common.config.Secret
 import lila.common.String.urlencode
-import lila.memo.RateLimit
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
-
-  private val limiter = new RateLimit[Int](
-    credits = 1,
-    duration = 15 minutes,
-    key = "zulip.client"
-  )
+  private val dedupMsg = lila.memo.OnceEvery.hashCode[ZulipMessage](15 minutes)
 
   def apply(stream: ZulipClient.stream.Selector, topic: String)(content: String): Funit = {
     apply(stream(ZulipClient.stream), topic)(content)
@@ -43,34 +37,33 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     }
   }
 
-  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] =
-    limiter(msg.hashCode) {
-      if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) inject None
-      else
-        ws
-          .url(s"https://${config.domain}/api/v1/messages")
-          .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
-          .post(
-            Map(
-              "type"    -> "stream",
-              "to"      -> msg.stream,
-              "topic"   -> msg.topic,
-              "content" -> msg.content
-            )
+  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg) ?? {
+    if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) inject None
+    else
+      ws
+        .url(s"https://${config.domain}/api/v1/messages")
+        .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
+        .post(
+          Map(
+            "type"    -> "stream",
+            "to"      -> msg.stream,
+            "topic"   -> msg.topic,
+            "content" -> msg.content
           )
-          .flatMap {
-            case res if res.status == 200 =>
-              (res.body[JsValue] \ "id").validate[ZulipMessage.ID] match {
-                case JsSuccess(result, _) => fuccess(result.some)
-                case JsError(err)         => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
-              }
-            case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
-          }
-          .monSuccess(_.irc.zulip.say(msg.stream))
-          .logFailure(lila.log("zulip"))
-          .recoverDefault
+        )
+        .flatMap {
+          case res if res.status == 200 =>
+            (res.body[JsValue] \ "id").validate[ZulipMessage.ID] match {
+              case JsSuccess(result, _) => fuccess(result.some)
+              case JsError(err)         => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
+            }
+          case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
+        }
+        .monSuccess(_.irc.zulip.say(msg.stream))
+        .logFailure(lila.log("zulip"))
+        .recoverDefault
 
-    }(fuccess(None))
+  }
 }
 
 private object ZulipClient {
