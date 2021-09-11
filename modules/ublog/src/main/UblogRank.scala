@@ -26,11 +26,12 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
           UnwindField("blog"),
           Project(
             $doc(
-              "_id"    -> false,
-              "tier"   -> "$blog.tier",
-              "likes"  -> $doc("$size" -> "$likers"),
-              "topics" -> "$topics",
-              "at"     -> "$lived.at"
+              "_id"      -> false,
+              "tier"     -> "$blog.tier",
+              "likes"    -> $doc("$size" -> "$likers"),
+              "topics"   -> "$topics",
+              "language" -> true,
+              "at"       -> "$lived.at"
             )
           )
         )
