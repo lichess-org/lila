@@ -654,9 +654,16 @@
   <string name="keyEnterOrExitVariation">Variant wiehlen/verloossen</string>
   <string name="newTournament">Neien Turnéier</string>
   <string name="tournamentHomeTitle">Schach Turnéier mat verschiddenen Zäitkontrollen and Varianten</string>
+  <string name="tournamentHomeDescription">Spill rasant Schachturnéier! Triet engem offiziell geplangten Turnéier bäi oder kreéier däin eegenen. Bullet, Blitz, Klassesch, Chess960, King of the Kill, Threecheck an weider Optiounen fir grenzenlosen Schachspaass.</string>
   <string name="tournamentNotFound">Turnéier net fonnt</string>
   <string name="tournamentDoesNotExist">Dësen Turnéier existéiert net.</string>
+  <string name="tournamentMayHaveBeenCanceled">Den Turnéier gouf villäicht annuléiert falls all Spiller virum Start gaange sinn.</string>
   <string name="returnToTournamentsHomepage">Zeréck zur Tunéier Homepage</string>
+  <string name="weeklyPerfTypeRatingDistribution">Wöchentlech %s Wäertungsverdeelung</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s%2$s Spiller dës Woch.</item>
+    <item quantity="other">%1$s%2$s Spiller dës Woch.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Deng %1$s Wäertung ass %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bass besser wéi %1$s vun allen %2$s-Spiller.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ass besser wéi %2$s vun allen %3$s-Spiller.</string>
@@ -666,6 +673,10 @@
   <string name="glicko2Rating">Glicko-2 Wäertung</string>
   <string name="checkYourEmail">Kuckt Är Emailen</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir hun dir eng Email geschéckt. Klick den Link an der Email fir däin Konto ze aktivéieren.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wanns du keng Email gesäis, kuck op aneren Plazen, wéi Junk, Spam, Sozial Medien, oder aneren Uerdner.</string>
+  <string name="weHaveSentYouAnEmailTo">Mir hun eng Email un %s geschéckt. Klick den Link an der Email fir däin Passwuert zeréckzesetzen.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Mam Registréieren akzeptéiers du %s.</string>
+  <string name="readAboutOur">Lies iwwer eis %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwierk Lag zwëschen dir an Lichess</string>
   <string name="crosstable">Matchverlaf</string>
   <string name="shareYourInsightsData">Deng perséinlech Schachstatistiken deelen</string>
