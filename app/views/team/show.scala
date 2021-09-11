@@ -90,7 +90,12 @@ object show {
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
-                if (info.requestedByMe)
+                if (info.myRequest.map(_.declined) | false)
+                  frag(
+                    strong(requestDeclined()),
+                    a(cls := "button disabled button-metal")(joinTeam())
+                  )
+                else if (info.myRequest.isDefined)
                   frag(
                     strong(beingReviewed()),
                     postForm(action := routes.Team.quit(t.id))(

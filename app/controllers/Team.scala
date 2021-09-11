@@ -392,9 +392,18 @@ final class Team(
           .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
             { case (decision, url) =>
-              api.processRequest(team, request, decision == "accept") inject url
+              api.processRequest(team, request, decision) inject url
             }
           )
+      }
+    }
+
+  def declinedRequests(id: String, page: Int) =
+    Auth { implicit ctx => _ =>
+      WithOwnedTeamEnabled(id) { team =>
+        paginator.declinedRequests(team, page) map { requests =>
+          Ok(html.team.declinedRequest.all(team, requests))
+        }
       }
     }
 

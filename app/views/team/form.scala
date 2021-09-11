@@ -48,7 +48,8 @@ object form {
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
-              a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
+              a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
+              a(cls := "button button-empty", href := routes.Team.declinedRequests(t.id))(declinedRequests())
             ),
             entryFields(form, t.some),
             textFields(form),

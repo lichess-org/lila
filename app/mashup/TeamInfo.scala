@@ -2,7 +2,7 @@ package lila.app
 package mashup
 
 import lila.forum.MiniForumPost
-import lila.team.{ RequestRepo, RequestWithUser, Team, TeamApi }
+import lila.team.{ Request, RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
@@ -11,7 +11,7 @@ import lila.simul.{ Simul, SimulApi }
 case class TeamInfo(
     mine: Boolean,
     ledByMe: Boolean,
-    requestedByMe: Boolean,
+    myRequest: Option[Request],
     subscribed: Boolean,
     requests: List[RequestWithUser],
     forum: Option[List[MiniForumPost]],
@@ -52,17 +52,17 @@ final class TeamInfoApi(
 
   def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
-      requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
-      mine          <- me.??(m => api.belongsTo(team.id, m.id))
-      requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
-      subscribed    <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
-      forumPosts    <- withForum(mine) ?? forumRecent.team(team.id).dmap(some)
-      tours         <- tournaments(team, 5, 5)
-      simuls        <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
+      requests   <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
+      mine       <- me.??(m => api.belongsTo(team.id, m.id))
+      myRequest  <- !mine ?? me.??(m => requestRepo.find(team.id, m.id))
+      subscribed <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
+      forumPosts <- withForum(mine) ?? forumRecent.team(team.id).dmap(some)
+      tours      <- tournaments(team, 5, 5)
+      simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
-      requestedByMe = requestedByMe,
+      myRequest = myRequest,
       subscribed = subscribed,
       requests = requests,
       forum = forumPosts,
