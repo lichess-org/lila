@@ -44,13 +44,27 @@
   <string name="forceResignation">Victoire reklaméieren</string>
   <string name="forceDraw">Remis erklären</string>
   <string name="talkInChat">Wannechgelift sief frëndlech am Chat!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Di éischt Persoun déi dëst URL oprifft wäert däin Géigner sinn.</string>
   <string name="whiteResigned">Wäiss huet opginn</string>
   <string name="blackResigned">Schwaarz huet opginn</string>
   <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Wäiss huet d\'Partie verlooss</string>
   <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwaarz huet d\'Partie verlooss</string>
+  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Wäiss huet net gezunn</string>
+  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Schwaarz huet net gezunn</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deelt dës URL fir Spectateuren ze invitéieren</string>
+  <string name="theComputerAnalysisHasFailed">D\'Computer Analyse huet net fonctionéiert</string>
+  <string name="viewTheComputerAnalysis">D\'Computer Analyse ukucken</string>
+  <string name="requestAComputerAnalysis">Eng Computer Analyse ufroen</string>
+  <string name="computerAnalysis">Computer Analyse</string>
+  <string name="computerAnalysisAvailable">Computer Analyse disponibel</string>
+  <string name="computerAnalysisDisabled">Computer Analyse desaktivéiert</string>
   <string name="analysis">Analysebriet</string>
   <string name="depthX">Déift %s</string>
+  <string name="usingServerAnalysis">Server Analyse gëtt benotzt</string>
   <string name="loadingEngine">Engine luet...</string>
+  <string name="cloudAnalysis">Cloud Analyse</string>
+  <string name="goDeeper">Déift erhiewen</string>
+  <string name="showThreat">Bedrohung weisen</string>
   <string name="inLocalBrowser">am lokalen Browser</string>
   <string name="move">Zuch</string>
   <string name="pawnMove">Baueren Zuch</string>
