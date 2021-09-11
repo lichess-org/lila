@@ -15,4 +15,28 @@
   <string name="grabAllTheStars">Huel dir all d\'Stären!</string>
   <string name="theFewerMoves">Wat du manner Zich brauchs, wat et méi Punkten ze gewannen ginn!</string>
   <string name="useTwoRooks">Benotz zwee Tierm fir méi schnell ze sinn!</string>
+  <string name="rookComplete">Félicitatiounen! Du hues den Tuerm gemeeschtert.</string>
+  <string name="theBishop">De Leefer</string>
+  <string name="itMovesDiagonally">Hien beweegt sech diagonal</string>
+  <string name="bishopIntro">Als nächst léieren mer wéi de Leefer manövréiert!</string>
+  <string name="youNeedBothBishops">Een wäissfeldregen Leefer, 
+een donkelfeldregen Leefer.
+Du brauchs déi zwee!</string>
+  <string name="bishopComplete">Félicitatiounen! Du hues den Leefer gemeeschtert.</string>
+  <string name="theQueen">D\'Dame</string>
+  <string name="queenCombinesRookAndBishop">Dame = Tuerm + Leefer</string>
+  <string name="queenIntro">Déi stäerksten Schachfigur ass do. Hir Majestéit, d\'Dame!</string>
+  <string name="queenComplete">Félicitatiounen! Dammen hun keng Geheimnisser méi virun dir.</string>
+  <string name="theKing">De Kinnek</string>
+  <string name="theMostImportantPiece">Déi wichtegsten Figur</string>
+  <string name="kingIntro">Du bass de Kinnek. Wanns du an der Schlacht fälls ass d\'Spill verluer.</string>
+  <string name="theKingIsSlow">De Kinnek ass lues.</string>
+  <string name="lastOne">Nach een!</string>
+  <string name="kingComplete">Du kanns lo den Commandeur commandéieren!</string>
+  <string name="theKnight">De Sprénger</string>
+  <string name="itMovesInAnLShape">Hien beweegt sech an L Form</string>
+  <string name="knightIntro">Hei ass eng Aufgab fir dech. De Sprénger ass... eng trickreich Figur.</string>
+  <string name="knightsHaveAFancyWay">Sprénger sprangen raffinéiert hin an hir!</string>
+  <string name="knightsCanJumpOverObstacles">Sprénger kënnen iwwer Hindernisser sprangen!
+Entkomm an sammel d\'Stären!</string>
 </resources>
