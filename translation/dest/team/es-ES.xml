@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
   <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
+  <string name="requestDeclined">Tu solicitud de ingreso fue rechazada por un líder del equipo.</string>
   <string name="subToTeamMessages">Suscribirse a los mensajes del equipo</string>
   <string name="teamBattle">Batalla por Equipos</string>
   <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
@@ -52,4 +53,5 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
   <string name="upcomingTourns">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>
+  <string name="declinedRequests">Solicitudes rechazadas</string>
 </resources>
