@@ -57,6 +57,7 @@ Adaugă scorurile fiecărui adversar pe care jucătorul îl învinge și jumăta
   <string name="restrictedToTeamsA">Turneurile elvețiene nu au fost proiectate pentru șah online. Ele necesită punctualitate, dedicare și răbdare din partea jucătorilor.
 Considerăm că este mai probabil ca aceste condiții să fie îndeplinite în cadrul unei echipe decât în turneele globale.</string>
   <string name="whatIfOneDoesntPlayQ">Ce se întâmplă dacă un jucător nu joacă un joc?</string>
+  <string name="lateJoinQ">Pot jucătorii să se alăture cu întârziere?</string>
   <string name="lateJoinA">Da, până la începerea a mai mult de jumătate din runde; De exemplu, într-un turneu elvețian cu 11 runde jucătorii se pot alătura înainte ca runda 6 să înceapă, iar într-un turneu cu 12 runde jucătorii se pot alătura înainte de a începe runda 7.
 Cei care s-au alăturat cu întârziere primesc o singură pauză, chiar dacă au ratat mai multe runde.</string>
   <string name="roundRobinA">Am dori să o adăugăm, dar din păcate Round Robin nu funcționează bine online.
@@ -68,4 +69,6 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="tournDuration">Durata turneului</string>
   <string name="predefinedDuration">Durată predefinită în minute</string>
   <string name="durationUnknown">Runde maxime predefinite, dar durata nu este cunoscută</string>
+  <string name="lateJoin">Aderare tardivă</string>
+  <string name="lateJoinUntil">Da, însă doar înainte să înceapă mai mult de jumătate din numărul rundelor</string>
 </resources>
