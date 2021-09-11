@@ -54,4 +54,5 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="teamAlreadyExists">Această echipă există deja.</string>
   <string name="upcomingTourns">Turnee viitoare</string>
   <string name="completedTourns">Turnee finalizate</string>
+  <string name="declinedRequests">Cereri refuzate</string>
 </resources>
