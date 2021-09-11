@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
+import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.{ Holder, User }
@@ -44,10 +45,17 @@ final class StudyApi(
 
   def byIdAndOwner(id: Study.Id, owner: User) =
     byId(id) map {
-      _.filter(_ isOwner owner.id)
+      _.filter(s => s isOwner owner.id)
     }
 
   def isOwner(id: Study.Id, owner: User) = byIdAndOwner(id, owner).map(_.isDefined)
+
+  def byIdAndOwnerOrAdmin(id: Study.Id, owner: User) =
+    byId(id) map {
+      _.filter(s => s.isOwner(owner.id) || Granter(_.StudyAdmin)(owner))
+    }
+
+  def isOwnerOrAdmin(id: Study.Id, owner: User) = byIdAndOwnerOrAdmin(id, owner).map(_.isDefined)
 
   def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] =
     byId(id) flatMap {
