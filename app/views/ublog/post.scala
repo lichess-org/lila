@@ -43,7 +43,7 @@ object post {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-post")(
-          thumbnail(post, _.Large)(cls := "ublog-post__image"),
+          post.image.isDefined option thumbnail(post, _.Large)(cls := "ublog-post__image"),
           ctx.is(user) option standardFlash(),
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
