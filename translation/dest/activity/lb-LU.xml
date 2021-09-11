@@ -21,6 +21,7 @@
     <item quantity="one">Huet sech als #%1$s (iewescht %2$s%) mat %3$s Parti an %4$s placéiert</item>
     <item quantity="other">Huet sech als #%1$s (iewescht %2$s%) mat %3$s Partien an %4$s placéiert</item>
   </plurals>
+  <string name="rankedInSwissTournament">Huet sech als #%1$s an %2$s placéiert</string>
   <string name="signedUp">Huet sech bei Lichess ugemellt</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ass %s Equipe bäigetrueden</item>
