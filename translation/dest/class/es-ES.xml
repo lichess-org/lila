@@ -33,7 +33,7 @@
   <string name="privateWillNeverBeShown">Privado. Nunca se mostrará fuera de la clase. Ayuda a recordar quién es el estudiante.</string>
   <string name="addStudent">Añadir estudiante</string>
   <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
-  <string name="studentCredentials">Estudiante:  %1$s
+  <string name="studentCredentials">Estudiante: %1$s
 Nombre de usuario: %2$s
 Contraseña: %3$s</string>
   <string name="inviteALichessAccount">Invita una cuenta de Lichess</string>
