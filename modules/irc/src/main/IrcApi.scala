@@ -121,7 +121,7 @@ final class IrcApi(
       user: User,
       imageUrl: String
   ): Funit =
-    zulip(_.image, "coach")(
+    zulip(_.image, "streamer")(
       s"[Streamer image](${markdown.fixImageUrl(imageUrl)}) by ${markdown.userLink(user)}"
     )
 
