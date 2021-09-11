@@ -129,11 +129,12 @@ final class IrcApi(
       user: User,
       id: String,
       slug: String,
-      title: String
+      title: String,
+      intro: String
   ): Funit =
     zulip(_.blog, "non-tiered new posts")(
-      s"${markdown
-        .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} by ${markdown
+      s":note: ${markdown
+        .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} $intro - by ${markdown
         .userLink(user)}"
     )
 

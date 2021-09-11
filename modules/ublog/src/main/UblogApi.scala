@@ -117,7 +117,8 @@ final class UblogApi(
       user,
       id = post.id.value,
       slug = post.slug,
-      title = post.title
+      title = post.title,
+      intro = post.intro
     )
 
   def liveLightsByIds(ids: List[UblogPost.Id]): Fu[List[UblogPost.LightPost]] =
