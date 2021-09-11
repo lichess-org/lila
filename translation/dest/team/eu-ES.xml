@@ -7,7 +7,7 @@
     <item quantity="other">%s kide</item>
   </plurals>
   <string name="allTeams">Talde guztiak</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Kapitain zaren taldeak</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Kapitain zaren taldeak</string>
   <string name="newTeam">Talde berria</string>
   <string name="myTeams">Nire taldeak</string>
   <string name="noTeamFound">Ez da talderik aurkitu</string>
