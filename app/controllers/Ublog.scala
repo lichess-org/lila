@@ -43,7 +43,7 @@ final class Ublog(env: Env) extends LilaController(env) {
       OptionFuResult(env.user.repo named username) { user =>
         env.ublog.api.getUserBlog(user) flatMap { blog =>
           env.ublog.api.findByIdAndBlog(UblogPost.Id(id), blog.id) flatMap {
-            _.filter(canViewPost(user, blog)) ?? { post =>
+            _.filter(canViewPost(user, blog)).fold(notFound) { post =>
               if (slug != post.slug) Redirect(urlOfPost(post)).fuccess
               else {
                 env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post) zip
