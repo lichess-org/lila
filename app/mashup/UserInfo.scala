@@ -9,7 +9,7 @@ import lila.forum.PostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.ublog.{ UblogApi, UblogBlog, UblogPost }
+import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Trophies, TrophyApi, User }
 
 case class UserInfo(
@@ -20,7 +20,7 @@ case class UserInfo(
     nbs: UserInfo.NbGames,
     nbFollowers: Int,
     nbForumPosts: Int,
-    nbUblogPosts: Int,
+    ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
     trophies: Trophies,
     shields: List[lila.tournament.TournamentShield.Award],
@@ -29,8 +29,7 @@ case class UserInfo(
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
-    completionRate: Option[Double],
-    posts: List[UblogPost.PreviewPost]
+    completionRate: Option[Double]
 ) {
 
   def crosstable = nbs.crosstable
@@ -136,7 +135,7 @@ object UserInfo {
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
         !(user.is(User.lichessId) || user.isBot) ??
         postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
-        ublogApi.countLiveByBlog(lila.ublog.UblogBlog.Id.User(user.id)).mon(_.user segment "nbUblogPosts") zip
+        ublogApi.userBlogPreviewFor(user, 3, ctx.me) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
         shieldApi.active(user).mon(_.user segment "shields") zip
@@ -150,10 +149,9 @@ object UserInfo {
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
-        userCached.rankingsOf(user.id) zip
-        ublogApi.latestPostsFor(UblogBlog.Id.User(user.id), 3, ctx.me) map {
+        userCached.rankingsOf(user.id) map {
           // format: off
-          case (((((((((((((((ratingChart, nbFollowers), nbForumPosts), nbUblogPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks), posts) =>
+          case ((((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
           // format: on
           new UserInfo(
             user = user,
@@ -163,7 +161,7 @@ object UserInfo {
             ratingChart = ratingChart,
             nbFollowers = nbFollowers,
             nbForumPosts = nbForumPosts,
-            nbUblogPosts = nbUblogPosts,
+            ublog = ublog,
             nbStudies = nbStudies,
             trophies = trophies ::: trophyApi.roleBasedTrophies(
               user,
@@ -177,8 +175,7 @@ object UserInfo {
             isStreamer = isStreamer,
             isCoach = isCoach,
             insightVisible = insightVisible,
-            completionRate = completionRate,
-            posts = posts
+            completionRate = completionRate
           )
         }
   }

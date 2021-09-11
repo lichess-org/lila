@@ -67,6 +67,8 @@ object UblogPost {
       lived: Option[Recorded]
   ) extends BasePost
 
+  case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
+
   def slug(title: String) = {
     val s = lila.common.String slugify title
     if (s.isEmpty) "-" else s

@@ -4,8 +4,6 @@ import lila.user.User
 
 case class UblogBlog(
     _id: UblogBlog.Id,
-    title: Option[String],
-    intro: Option[String],
     tier: UblogBlog.Tier,           // actual tier, auto or set by a mod
     modTier: Option[UblogBlog.Tier] // tier set by a mod
 ) {
@@ -55,8 +53,6 @@ object UblogBlog {
 
   def make(user: User) = UblogBlog(
     _id = Id.User(user.id),
-    title = none,
-    intro = none,
     tier = Tier default user,
     modTier = none
   )

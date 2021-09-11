@@ -14,7 +14,7 @@ object blog {
   import views.html.ublog.{ post => postView }
 
   def apply(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(implicit ctx: Context) = {
-    val title = blog.title | trans.ublog.xBlog.txt(user.username)
+    val title = trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
