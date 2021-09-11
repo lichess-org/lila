@@ -39,4 +39,23 @@ Du brauchs déi zwee!</string>
   <string name="knightsHaveAFancyWay">Sprénger sprangen raffinéiert hin an hir!</string>
   <string name="knightsCanJumpOverObstacles">Sprénger kënnen iwwer Hindernisser sprangen!
 Entkomm an sammel d\'Stären!</string>
+  <string name="knightComplete">Félicitatiounen! Du hues den Sprénger gemeeschtert.</string>
+  <string name="thePawn">De Bauer</string>
+  <string name="itMovesForwardOnly">Hien kann sech just richtaus beweegen</string>
+  <string name="pawnIntro">Baueren sinn schwaach mee sie hunn vill Potenzial.</string>
+  <string name="pawnsMoveOneSquareOnly">Baueren beweegen sech zwar just een Feld.
+Mee wann sie op der anerer Säit vum Briet ukommen, ginn sie zu enger méi staarker Figur!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meeschtens ass d\'Ëmwandlung zu enger Dame am Beschten.
+Mee heiansdo kann een Sprénger méi praktesch sinn!</string>
+  <string name="pawnsMoveForward">Baueren beweegen sech richtaus, 
+mee schloen diagonal!</string>
+  <string name="captureThenPromote">Schlo an wandel ëm!</string>
+  <string name="useAllThePawns">Benotz all deng Baueren!
+Keen Zwang zur Ëmwandlung.</string>
+  <string name="aPawnOnTheSecondRank">Een Bauer op der zweeter Rei kann an engem Zuch zwee Felder no fir!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Sammel all d\'Stären!
+Keen Zwang zur Ëmwandlung.</string>
+  <string name="pawnComplete">Félicitatiounen! Baueren hun keng Geheimnisser méi virun dir.</string>
+  <string name="pawnPromotion">Baueren Ëmwandlung</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Däin Bauer ass zum Schluss vum Briet ukomm!</string>
 </resources>
