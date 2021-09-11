@@ -73,8 +73,8 @@ Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
   <string name="configure">configurar</string>
   <string name="accounts">Cuentas</string>
   <string name="titlesAvailableOnLichess">¿Qué títulos hay en Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
-  <string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos en torneos presenciales, así como %1$s. Aquí hay una lista de títulos FIDE:</string>
+  <string name="showYourTitle">Si tienes un título obtenido en un torneo presencial, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
 
 La verificación como jugador titulado en Lichess da acceso a jugar en los torneos para titulados.
 
@@ -135,7 +135,7 @@ Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de 
   <string name="viewSiteInformationPopUp">Ver notificación emergente de información del sitio</string>
   <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
-Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
+Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de enlaces de tu navegador.
 
 Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
 </resources>
