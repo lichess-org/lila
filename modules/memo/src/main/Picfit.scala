@@ -2,6 +2,7 @@ package lila.memo
 
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
+import com.github.blemale.scaffeine.LoadingCache
 import org.joda.time.DateTime
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -11,7 +12,6 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.config
 import lila.db.dsl._
-import com.github.blemale.scaffeine.LoadingCache
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -45,7 +45,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   def uploadFile(rel: String, uploaded: FilePart, userId: String): Fu[PicfitImage] =
     uploadSource(rel, uploaded.copy[ByteSource](ref = FileIO.fromPath(uploaded.ref.path)), userId)
 
-  def uploadSource(rel: String, part: SourcePart, userId: String, monitor: Boolean = true): Fu[PicfitImage] =
+  def uploadSource(rel: String, part: SourcePart, userId: String): Fu[PicfitImage] =
     if (part.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
@@ -63,7 +63,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
             size = part.fileSize.toInt,
             createdAt = DateTime.now
           )
-          picfitServer.store(image, part, monitor = monitor) >>
+          picfitServer.store(image, part) >>
             deleteByRel(image.rel) >>
             coll.insert.one(image) inject image
         }
@@ -79,22 +79,17 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
     import WSBodyWritables._
 
-    // the monitoring causes OOM in dev during migration
-    def store(image: PicfitImage, part: SourcePart, monitor: Boolean): Funit = {
-      val sendPart = part.copy[ByteSource](filename = image.id.value, key = "data")
-      val fu = ws
+    def store(image: PicfitImage, part: SourcePart): Funit =
+      ws
         .url(s"${config.endpointPost}/upload")
-        .post(Source(sendPart :: List()))
+        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))
         .flatMap {
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
           case _ =>
-            if (monitor)
-              lila.mon.picfit.uploadSize(image.user).record(image.size)
+            lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
         }
-      if (monitor) fu.monSuccess(_.picfit.uploadTime(image.user))
-      else fu
-    }
+        .monSuccess(_.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}").delete().flatMap {
