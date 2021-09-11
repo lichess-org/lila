@@ -63,15 +63,7 @@ object post {
             post.lived map { live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at))
             },
-            button(
-              tpe := "button",
-              cls := List(
-                "ublog-post__like button-link is" -> true,
-                "ublog-post__like--liked"         -> liked
-              ),
-              dataRel := post.id.value,
-              title := trans.study.like.txt()
-            )(post.likes.value),
+            likeButton(post, liked),
             span(cls := "ublog-post__views")(
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
             ),
@@ -103,12 +95,23 @@ object post {
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
           div(cls := "ublog-post__footer")(
+            likeButton(post, liked),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
           )
         )
       )
     }
+
+  private def likeButton(post: UblogPost, liked: Boolean)(implicit ctx: Context) = button(
+    tpe := "button",
+    cls := List(
+      "ublog-post__like button-link is" -> true,
+      "ublog-post__like--liked"         -> liked
+    ),
+    dataRel := post.id.value,
+    title := trans.study.like.txt()
+  )(post.likes.value)
 
   def card(
       post: UblogPost.BasePost,
