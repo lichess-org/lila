@@ -116,15 +116,15 @@ Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo d
   <string name="howDoLeaderoardsWork">¿Cómo funcionan los rankings y el listado de líderes?</string>
   <string name="inOrderToAppearsYouMust">Para llegar al %1$s deberías:</string>
   <string name="ratingLeaderboards">listado de líderes</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una modalidad dada,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta modalidad,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos con una puntuación dada,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana con esta puntuación,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en ajedrez estándar, y menor que %2$s en variantes,</string>
   <string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar el listado de líderes.</string>
   <string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otras páginas y organizaciones como FIDE, USCF y el CIC?</string>
   <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las puntuaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen distintos niveles de jugadores y sistemas de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (puntuaciones).
 
- Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las puntuaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores con los que comparar esa puntuación.</string>
+Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las puntuaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores con los que comparar esa puntuación.</string>
   <string name="howToHideRatingWhilePlaying">¿Cómo ocultar mis puntuaciones durante las partidas?</string>
   <string name="enableZenMode">Habilita el modo Zen en %1$s o presionando %2$s durante una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
@@ -135,7 +135,7 @@ Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo d
   <string name="viewSiteInformationPopUp">Ver notificación emergente de información del sitio</string>
   <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
- Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
+Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
 
- Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
+Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
 </resources>
