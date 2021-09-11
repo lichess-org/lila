@@ -9,7 +9,8 @@ case class Request(
     team: String,
     user: String,
     message: String,
-    date: DateTime
+    date: DateTime,
+    declined: Boolean
 ) {
 
   def id = _id
@@ -26,7 +27,8 @@ object Request {
       user = user,
       team = team,
       message = message.trim,
-      date = DateTime.now
+      date = DateTime.now,
+      declined = false
     )
 }
 

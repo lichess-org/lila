@@ -1,7 +1,6 @@
 package lila.team
 
 import actorApi._
-import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json }
@@ -22,8 +21,7 @@ import lila.user.{ User, UserRepo }
 final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
-    requestRepo: RequestRepo @@ NewRequest,
-    declinedRequestRepo: RequestRepo @@ DeclinedRequest,
+    requestRepo: RequestRepo,
     userRepo: UserRepo,
     cached: Cached,
     notifier: Notifier,
@@ -44,8 +42,6 @@ final class TeamApi(
   def lightsByLeader = teamRepo.lightsByLeader _
 
   def request(id: Request.ID) = requestRepo.coll.byId[Request](id)
-
-  def declinedRequest(id: Request.ID) = declinedRequestRepo.coll.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] = {
     val bestId = Team.nameToId(setup.name)
@@ -111,7 +107,7 @@ final class TeamApi(
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     for {
-      requests <- requestRepo findByTeam team.id
+      requests <- requestRepo findActiveByTeam team.id
       users    <- userRepo usersFromSecondary requests.map(_.user)
     } yield requests zip users map { case (request, user) =>
       RequestWithUser(request, user)
@@ -120,7 +116,7 @@ final class TeamApi(
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
     for {
       teamIds  <- teamRepo enabledTeamIdsByLeader user.id
-      requests <- requestRepo findByTeams teamIds
+      requests <- requestRepo findActiveByTeams teamIds
       users    <- userRepo usersFromSecondary requests.map(_.user)
     } yield requests zip users map { case (request, user) =>
       RequestWithUser(request, user)
@@ -145,10 +141,9 @@ final class TeamApi(
 
   def requestable(team: Team, user: User): Fu[Boolean] =
     for {
-      belongs         <- belongsTo(team.id, user.id)
-      requested       <- requestRepo.exists(team.id, user.id)
-      requestDeclined <- declinedRequestRepo.exists(team._id, user.id)
-    } yield !belongs && !requested && !requestDeclined
+      belongs   <- belongsTo(team.id, user.id)
+      requested <- requestRepo.exists(team.id, user.id)
+    } yield !belongs && !requested
 
   def createRequest(team: Team, user: User, msg: String): Funit =
     requestable(team, user) flatMap {
@@ -165,25 +160,18 @@ final class TeamApi(
       }
     }
 
-  def processRequest(team: Team, request: Request, accept: Boolean): Funit =
-    for {
-      _ <- requestRepo.coll.delete.one(request)
-      _ = cached.nbRequests invalidate team.createdBy
-      userOption <- userRepo byId request.user
-      _ <-
-        userOption
-          .filter(_ => accept)
-          .??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
-      _ <- !accept ?? declinedRequestRepo.coll.insert.one(request.copy(date = DateTime.now())).void
-    } yield ()
-
-  def processDeclinedRequest(team: Team, request: Request): Funit =
-    for {
-      _          <- declinedRequestRepo.coll.delete.one(request)
-      userOption <- userRepo byId request.user
-      _ <-
-        userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
-    } yield ()
+  def processRequest(team: Team, request: Request, decision: String): Funit = {
+    cached.nbRequests invalidate team.createdBy
+    if (decision == "decline")
+      requestRepo.coll.update.one($id(request.id), request.copy(declined = true)).void
+    else
+      for {
+        _          <- requestRepo.remove(request.id)
+        userOption <- userRepo byId request.user
+        _ <-
+          userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
+      } yield ()
+  }
 
   def deleteRequestsByUserId(userId: User.ID) =
     requestRepo.getByUserId(userId) flatMap {

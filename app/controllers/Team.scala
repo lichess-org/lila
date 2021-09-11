@@ -392,7 +392,7 @@ final class Team(
           .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
             { case (decision, url) =>
-              api.processRequest(team, request, decision == "accept") inject url
+              api.processRequest(team, request, decision) inject url
             }
           )
       }
@@ -404,19 +404,6 @@ final class Team(
         paginator.declinedRequests(team, page) map { requests =>
           Ok(html.team.declinedRequest.all(team, requests))
         }
-      }
-    }
-
-  def processDeclinedRequest(requestId: String) =
-    Auth { implicit ctx => me =>
-      import cats.implicits._
-      OptionFuResult(for {
-        requestOption <- api declinedRequest requestId
-        teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
-        api.processDeclinedRequest(team, request) inject Redirect(
-          routes.Team.show(team._id)
-        ).flashSuccess
       }
     }
 

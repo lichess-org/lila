@@ -1,7 +1,6 @@
 package views.html.team
 
 import controllers.routes
-import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -23,7 +22,13 @@ object declinedRequest {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
-          h1(title),
+          h1(
+            a(href := routes.Team.show(team.id))(
+              team.name
+            ),
+            " • ",
+            trans.team.declinedRequests()
+          ),
           pager,
           table(cls := "slist")(
             tbody(
@@ -35,9 +40,14 @@ object declinedRequest {
                   td(cls := "process")(
                     postForm(
                       cls := "process-request",
-                      action := routes.Team.processDeclinedRequest(request.id)
+                      action := routes.Team.requestProcess(request.id)
                     )(
-                      button(name := "process", cls := "button button-green", value := "accept")(
+                      input(
+                        tpe := "hidden",
+                        name := "url",
+                        value := routes.Team.declinedRequests(team.id, requests.currentPage)
+                      ),
+                      button(name := "process", cls := "button button-green", value := "accept-declined")(
                         trans.accept()
                       )
                     )

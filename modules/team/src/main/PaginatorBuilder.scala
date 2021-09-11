@@ -1,7 +1,5 @@
 package lila.team
 
-import com.softwaremill.tagging._
-
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
 import lila.common.LightUser
@@ -11,7 +9,7 @@ import lila.db.paginator._
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
-    declinedRequestRepo: RequestRepo @@ DeclinedRequest,
+    requestRepo: RequestRepo,
     userRepo: lila.user.UserRepo,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -67,13 +65,13 @@ final private[team] class PaginatorBuilder(
       maxRequestsPerPage
     )
   final private class DeclinedRequestAdapter(team: Team) extends AdapterLike[RequestWithUser] {
-    val nbResults        = declinedRequestRepo countByTeam team.id
-    private def selector = declinedRequestRepo teamQuery team.id
+    val nbResults        = requestRepo countDeclinedByTeam team.id
+    private def selector = requestRepo teamDeclinedQuery team.id
     private def sorting  = $sort desc "date"
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] = {
       for {
-        requests <- declinedRequestRepo.coll
+        requests <- requestRepo.coll
           .find(selector)
           .sort(sorting)
           .skip(offset)
