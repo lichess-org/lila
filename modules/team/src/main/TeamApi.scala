@@ -164,13 +164,14 @@ final class TeamApi(
     cached.nbRequests invalidate team.createdBy
     if (decision == "decline")
       requestRepo.coll.update.one($id(request.id), request.copy(declined = true)).void
-    else
+    else if (decision == "accept" | decision == "accept-declined")
       for {
         _          <- requestRepo.remove(request.id)
         userOption <- userRepo byId request.user
         _ <-
           userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
       } yield ()
+    else funit
   }
 
   def deleteRequestsByUserId(userId: User.ID) =
