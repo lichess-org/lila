@@ -182,7 +182,7 @@ object layout {
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
-  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl
+  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev") := (!netConfig.minifiedAssets).option("true")
 
