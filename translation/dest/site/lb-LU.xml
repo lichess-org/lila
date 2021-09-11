@@ -358,6 +358,17 @@
   <string name="continueFromHere">Vun hei weiderspillen</string>
   <string name="toStudy">Etüd</string>
   <string name="importGame">Partie importéieren</string>
+  <string name="importGameExplanation">Füg eng Partien PGN an fir en browsbaren Replay, Computer Analyse, Partienchat and eng deelbar URL ze kréien.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s importéiert Partie</item>
+    <item quantity="other">%s importéiert Partien</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Dat hei ass en Schach CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick op d\'Briet an maach däin Zuch fir ze weisen, dass du en Mënsch bass.</string>
+  <string name="captcha.fail">Wannechgelift léis den Schach captcha.</string>
+  <string name="notACheckmate">Keen Schachmatt</string>
+  <string name="whiteCheckmatesInOneMove">Wäiss huet Schachmatt an engem Zuch</string>
+  <string name="blackCheckmatesInOneMove">Schwaarz huet Schachmatt an engem Zuch</string>
   <string name="retry">Nei probéieren</string>
   <string name="reconnecting">Remverbannen</string>
   <plurals name="nbFriendsOnline">
@@ -400,6 +411,15 @@
   <string name="standing">Plaz</string>
   <string name="createANewTournament">Neien Turnéier kreéieren</string>
   <string name="tournamentCalendar">Turnéier Kalenner</string>
+  <string name="conditionOfEntry">Teilnahmebedingung:</string>
+  <string name="advancedSettings">Erweidert Astellungen</string>
+  <string name="safeTournamentName">Wiehl en ganz sécheren Numm fir däin Turnéier.</string>
+  <string name="inappropriateNameWarning">Alles nemmen liicht Onangemessenes kéint zum Zoumaachen vun dengem Konto féieren.</string>
+  <string name="emptyTournamentName">Eidel loossen, wann den Turnéier no engem bekannten Schachspiller soll benannt ginn.</string>
+  <string name="recommendNotTouching">Mir recommandéieren déi net unzepaken.</string>
+  <string name="fewerPlayers">Mat Teilnahmebedingungen wäert däin Turnéier maner Spiller hunn.</string>
+  <string name="showAdvancedSettings">Erweidert Optiounen uweisen</string>
+  <string name="makePrivateTournament">Turnéier privat maachen an Accès mat Passwuert beschränken</string>
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
   <string name="points">Punkten</string>
@@ -695,6 +715,10 @@
   <string name="reopenYourAccount">Konto nei opmaachen</string>
   <string name="closedAccountChangedMind">Wanns du dein Konto zougemaach has, mee säit deem deng Meenung geännert hues, kriss du eng Chance däin Konto zeréckzekréien.</string>
   <string name="onlyWorksOnce">Dat hei klappt just eemol.</string>
+  <string name="cantDoThisTwice">Wann du däin Konto eng zweete Kéier zou mëss, kann een en net méi zeréckkréien.</string>
+  <string name="emailAssociatedToaccount">Email Adress associéiert mam Konto</string>
+  <string name="sentEmailWithLink">Mir hun dir eng Email mat engem Link geschéckt.</string>
+  <string name="tournamentEntryCode">Turnéier Zougangscode</string>
   <string name="hangOn">Waart!</string>
   <string name="gameInProgress">Du hues eng Partie amgaang géint %s.</string>
   <string name="abortTheGame">Partie ofbriechen</string>
