@@ -19,4 +19,7 @@
   <string name="declineRated">Schéck mer wannechgelift eng gewäert Erausfuerderung.</string>
   <string name="declineCasual">Schéck mer wannechgelift eng ongewäert Erausfuerderung.</string>
   <string name="declineStandard">Ech akzeptéieren am Moment keng Erausfuerderungen zu Varianten.</string>
+  <string name="declineVariant">Ech wëll déi Variant gerad net spillen.</string>
+  <string name="declineNoBot">Ech akzeptéieren keng Erausfuerderungen vun Bots.</string>
+  <string name="declineOnlyBot">Ech akzeptéieren just Erausfuerderungen vun Bots.</string>
 </resources>
