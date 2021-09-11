@@ -192,7 +192,7 @@ final class Signup(
         err.errors.exists(_.messages.contains("error.email_acceptable")) &&
         err("email").value.exists(EmailAddress.isValid)
       )
-        authLog(username, email, s"Signup with unacceptable email")
+        authLog(username, email, "Signup with unacceptable email")
     }
 
   private def authLog(user: String, email: String, msg: String) =

@@ -97,6 +97,7 @@ private object DisposableEmailDomain {
     "fastmail.com",
     "fastmail.fm",
     "yandex.com",
+    "yandex.net",
     /* United States ISP domains */
     "bellsouth.net",
     "charter.net",
