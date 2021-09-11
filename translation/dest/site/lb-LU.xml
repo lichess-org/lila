@@ -87,7 +87,7 @@
   <string name="averageRatingX">Duerchschnëttlech Wertung: %s</string>
   <string name="recentGames">Rezent Partien</string>
   <string name="topGames">Top Partien</string>
-  <string name="masterDbExplanation">Zwou Milliounen OTB Partien vun %1$s+ FIDE-gewerteten Spiller vun %2$s bis %3$s</string>
+  <string name="masterDbExplanation">Zwou Milliounen OTB Partien vun %1$s+ FIDE-gewäerteten Spiller vun %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
@@ -116,6 +116,10 @@
   <string name="evaluationGauge">Evaluatioun weisen</string>
   <string name="multipleLines">Puer Linnen</string>
   <string name="cpus">CPUs</string>
+  <string name="memory">Aarbechtsspäicher</string>
+  <string name="infiniteAnalysis">Endlos Analyse</string>
+  <string name="removesTheDepthLimit">Entfernt d\'Déifenbegrenzung an hält däin Computer waarm</string>
+  <string name="blunder">Gaffe</string>
   <string name="flipBoard">Briet dréinen</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
@@ -148,5 +152,15 @@
   <string name="yourOpponentOffersADraw">Däin Géigner bitt Remis un</string>
   <string name="accept">Acceptéieren</string>
   <string name="decline">Ofleenen</string>
+  <string name="playingRightNow">Partie leeft</string>
+  <string name="eventInProgress">Partien lafen</string>
+  <string name="finished">Fäerdeg</string>
+  <string name="finishesX">ass fäerdeg %s</string>
+  <string name="abortGame">Partie ofbriechen</string>
+  <string name="gameAborted">Partie ofgebrach</string>
   <string name="standard">Standard</string>
+  <string name="unlimited">Illimitéiert</string>
+  <string name="mode">Modus</string>
+  <string name="casual">Lässeg</string>
+  <string name="rated">Gewäert</string>
 </resources>
