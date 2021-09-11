@@ -202,11 +202,27 @@
   <string name="forgotPassword">Passwuert vergiess?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rang gëtt all Minutt geupdate</item>
+    <item quantity="other">Rank gëtt all %s Minutten geupdate</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s Aufgab</item>
+    <item quantity="other">%s Aufgaben</item>
+  </plurals>
   <string name="gamesPlayed">Partien gespillt</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s Partie géint dech</item>
+    <item quantity="other">%s Partien géint dech</item>
+  </plurals>
   <string name="cancel">Annuléieren</string>
   <string name="whiteTimeOut">Zäitiwwerschreidung vun Wäiss</string>
   <string name="blackTimeOut">Zäitiwwerschreidung vun Schwaarz</string>
   <string name="drawOfferSent">Remis Offer geschéckt</string>
+  <string name="drawOfferDeclined">Remis Offer ofgeleent</string>
+  <string name="drawOfferAccepted">Remis Offer ugeholl</string>
+  <string name="drawOfferCanceled">Remis Offer annuléiert</string>
+  <string name="whiteOffersDraw">Wäiss bitt Remis un</string>
   <string name="blackOffersDraw">Schwaarz bitt Remis un</string>
   <string name="whiteDeclinesDraw">Wäiss leent Remis of</string>
   <string name="blackDeclinesDraw">Schwaarz leent Remis of</string>
@@ -226,19 +242,48 @@
   <string name="rated">Gewäert</string>
   <string name="casualTournament">Lässeg</string>
   <string name="ratedTournament">Gewäert</string>
+  <string name="thisGameIsRated">Dës Partie ass gewäert</string>
   <string name="rematch">Revanche</string>
+  <string name="rematchOfferSent">Revanche Offer geschéckt</string>
+  <string name="rematchOfferSentWhite">Wäiss bitt Revanche un</string>
+  <string name="rematchOfferSentBlack">Schwaarz bitt Revanche un</string>
+  <string name="rematchOfferAccepted">Revanche Offer ugeholl</string>
+  <string name="rematchOfferCanceled">Revanche Offer annuléiert</string>
+  <string name="rematchOfferDeclined">Revanche Offer ofgeleent</string>
+  <string name="cancelRematchOffer">Revanche Offer annuléieren</string>
   <string name="viewRematch">Revanche ukucken</string>
   <string name="confirmMove">Zuch confirméieren</string>
   <string name="play">Spillen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chat Raum</string>
+  <string name="loginToChat">An Chat aloggen</string>
+  <string name="youHaveBeenTimedOut">Du krus eng Auszeit.</string>
   <string name="spectatorRoom">Spectateur Raum</string>
+  <string name="composeMessage">Message schreiwen</string>
   <string name="noNewMessages">Keng nei Messagen</string>
   <string name="subject">Betreff</string>
   <string name="recipient">Empfänger</string>
   <string name="send">Schécken</string>
   <string name="incrementInSeconds">Inkrement an Sekonnen</string>
+  <string name="freeOnlineChess">Gratis Online Schach</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s gewonn</item>
+    <item quantity="other">%s gewonn</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s verluer</item>
+    <item quantity="other">%s verluer</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s Remis</item>
+    <item quantity="other">%s Remis</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s lafend</item>
+    <item quantity="other">%s lafend</item>
+  </plurals>
   <string name="exportGames">Partien exportéieren</string>
+  <string name="ratingRange">Wäertungsberäich</string>
   <string name="thematic">Thematesch</string>
   <string name="averageElo">Duerchschnëttlech Wäertung</string>
   <string name="location">Standuert</string>
