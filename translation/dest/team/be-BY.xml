@@ -9,7 +9,7 @@
     <item quantity="other">%s удзельнікаў</item>
   </plurals>
   <string name="allTeams">Усе каманды</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Каманды пад вашым лідарствам</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Каманды пад вашым лідарствам</string>
   <string name="newTeam">Новая каманда</string>
   <string name="myTeams">Мае каманды</string>
   <string name="noTeamFound">Каманда не знойдзена</string>
