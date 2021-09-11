@@ -29,4 +29,5 @@
     <item quantity="one">View one post</item>
     <item quantity="other">View all %s posts</item>
   </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Upload an image for your post</string>
 </resources>

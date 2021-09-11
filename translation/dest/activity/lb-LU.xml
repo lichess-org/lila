@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">Verlaf</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Ënnerstëtzt Lichess.org säit %1$s Mount als %2$s</item>
+    <item quantity="other">Ënnerstëtzt Lichess.org säit %1$s Méint als %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Huet %1$s Positioun zu %2$s geüübt</item>
+    <item quantity="other">Huet %1$s Positioune zu %2$s geüübt</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Huet %s Taktikaufgab geléist</item>
+    <item quantity="other">Huet %s Taktikaufgabe geléist</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Huet %1$s Parti %2$s gespillt</item>
+    <item quantity="other">Huet %1$s Partien %2$s gespillt</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Huet sech als #%1$s (iewescht %2$s%) mat %3$s Parti an %4$s placéiert</item>
+    <item quantity="other">Huet sech als #%1$s (iewescht %2$s%) mat %3$s Partien an %4$s placéiert</item>
+  </plurals>
+  <string name="signedUp">Huet sech bei Lichess ugemellt</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Ass %s Equipe bäigetrueden</item>
+    <item quantity="other">Ass %s Equipe bäigetrueden</item>
+  </plurals>
+</resources>
