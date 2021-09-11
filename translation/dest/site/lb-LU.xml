@@ -266,6 +266,10 @@
   <string name="send">Schécken</string>
   <string name="incrementInSeconds">Inkrement an Sekonnen</string>
   <string name="freeOnlineChess">Gratis Online Schach</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s gewäert</item>
+    <item quantity="other">%s gewäert</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s gewonn</item>
     <item quantity="other">%s gewonn</item>
@@ -629,6 +633,8 @@
   <string name="notifications">Notificatiounen</string>
   <string name="perfRatingX">Wäertung: %s</string>
   <string name="practiceWithComputer">Mam Computer üben</string>
+  <string name="anotherWasX">En aneren war %s</string>
+  <string name="bestWasX">Am Beschten war %s</string>
   <string name="theGameIsADraw">D\'Partie ass Remis.</string>
   <string name="computerThinking">Computer iwwerleet ...</string>
   <string name="seeBestMove">Beschten Zuch gesinn</string>
@@ -666,6 +672,9 @@
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
   <string name="timeoutExpires">D\'Auszeit ass riwwer %s.</string>
   <string name="why">Firwat?</string>
+  <string name="howToAvoidThis">Dat hei vermeiden?</string>
+  <string name="playEveryGame">Spill all Partie déi du ufänks.</string>
+  <string name="thankYouForReading">Merci fir d\'Liesen!</string>
   <string name="edit">Änneren</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
@@ -674,4 +683,21 @@
   <string name="blitzDesc">Schnell Partien: 3 bis 8 Minutten</string>
   <string name="rapidDesc">Rapid Partien: 8 bis 25 Minutten</string>
   <string name="classicalDesc">Klassesch Partien: 25 Minutten an méi</string>
+  <string name="welcome">Wëllkomm!</string>
+  <string name="navigateMoveTree">Duerch den Zuchbam navigéieren</string>
+  <string name="mouseTricks">Maus Tricks</string>
+  <string name="toggleLocalAnalysis">Lokal Computer Analyse aktivéieren/desaktivéieren</string>
+  <string name="toggleAllAnalysis">All Computer Analyse aktivéieren/desaktivéieren</string>
+  <string name="playComputerMove">Beschten Computer Zuch spillen</string>
+  <string name="analysisOptions">Analyse Optiounen</string>
+  <string name="focusChat">Chat fokusséieren</string>
+  <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
+  <string name="reopenYourAccount">Konto nei opmaachen</string>
+  <string name="closedAccountChangedMind">Wanns du dein Konto zougemaach has, mee säit deem deng Meenung geännert hues, kriss du eng Chance däin Konto zeréckzekréien.</string>
+  <string name="onlyWorksOnce">Dat hei klappt just eemol.</string>
+  <string name="hangOn">Waart!</string>
+  <string name="gameInProgress">Du hues eng Partie amgaang géint %s.</string>
+  <string name="abortTheGame">Partie ofbriechen</string>
+  <string name="resignTheGame">Partie opginn</string>
+  <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken bis déi do fäerdeg ass.</string>
 </resources>
