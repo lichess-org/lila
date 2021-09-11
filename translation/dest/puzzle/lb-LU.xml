@@ -3,4 +3,10 @@
   <string name="puzzles">Aufgaben</string>
   <string name="puzzleThemes">Aufgabenthemen</string>
   <string name="recommended">Recommandéiert</string>
+  <string name="phases">Phase</string>
+  <string name="motifs">Motive</string>
+  <string name="advanced">Avancéiert</string>
+  <string name="strengths">Stäerkten</string>
+  <string name="history">Aufgabeverlaf</string>
+  <string name="solved">geléist</string>
 </resources>
