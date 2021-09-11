@@ -34,6 +34,14 @@
     <item quantity="one">Huet %s Fernschachparti gespillt</item>
     <item quantity="other">Huet %s Fernschachpartie gespillt</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Suivéiert %s Spiller</item>
+    <item quantity="other">Suivéiert %s Spiller</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Huet %s neien Unhänger</item>
+    <item quantity="other">Huet %s nei Unhänger</item>
+  </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Huet %s Simultanvirstellung presentéiert</item>
     <item quantity="other">Huet %s Simultanvirstellunge presentéiert</item>
@@ -41,6 +49,10 @@
   <plurals name="joinedNbSimuls">
     <item quantity="one">Huet bei %s Simultanvirstellung matgemaach</item>
     <item quantity="other">Huet bei %s Simultanvirstellunge matgemaach</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Huet %s Etüd kreéiert</item>
+    <item quantity="other">Huet %s Etüde kreéiert</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Huet bei %s Arena Turnéier matgemaach</item>
