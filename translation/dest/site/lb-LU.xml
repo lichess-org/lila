@@ -354,6 +354,11 @@
   <string name="continueFromHere">Vun hei weiderspillen</string>
   <string name="toStudy">Etüd</string>
   <string name="importGame">Partie importéieren</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s Frënd online</item>
+    <item quantity="other">%s Frënn online</item>
+  </plurals>
+  <string name="noFriendsOnline">Keng Frënn online</string>
   <string name="findFriends">Fann Frënn</string>
   <string name="favoriteOpponents">Lieblingsgéigner</string>
   <string name="more">Méi</string>
@@ -473,6 +478,22 @@
   <string name="tpTimeSpentOnTV">Gesamtzäit op TV: %s</string>
   <string name="watch">Kucken</string>
   <string name="videoLibrary">Video Librairie</string>
+  <string name="streamersMenu">Streamer</string>
+  <string name="mobileApp">Mobil Applicatioun</string>
+  <string name="webmasters">Webmasters</string>
+  <string name="about">Iwwer</string>
+  <string name="aboutX">Iwwer %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ass en gratis (%2$s), fräien, keng-Reklammen, Open Source Schach Server.</string>
+  <string name="really">wierklech</string>
+  <string name="contribute">Bäidroen</string>
+  <string name="termsOfService">AGB</string>
+  <string name="sourceCode">Quellcode</string>
+  <string name="simultaneousExhibitions">Simultanveranstaltungen</string>
+  <string name="host">Host</string>
+  <string name="hostColorX">Host Figuren: %s</string>
+  <string name="createdSimuls">Nei kreéiert Simuls</string>
+  <string name="hostANewSimul">Eng nei Simul hosten</string>
+  <string name="noSimulFound">Simul net fonnt</string>
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
   <string name="tournamentOfficial">Offiziell</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
