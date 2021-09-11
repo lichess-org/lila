@@ -69,7 +69,7 @@
   <string name="rankedInSwissTournament">Huet sech als #%1$s an %2$s placéiert</string>
   <string name="signedUp">Huet sech bei Lichess ugemellt</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Ass %s Equipe bäigetrueden</item>
-    <item quantity="other">Ass %s Equipe bäigetrueden</item>
+    <item quantity="one">Ass %s Ekipp bäigetrueden</item>
+    <item quantity="other">Ass %s Ekippe bäigetrueden</item>
   </plurals>
 </resources>
