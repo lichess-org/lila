@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">Léier Schach</string>
+  <string name="byPlaying">duerch Spillen!</string>
+  <string name="menu">Menü</string>
+  <string name="progressX">Progrès: %s</string>
+  <string name="resetMyProgress">Progrès zerécksetzen</string>
+  <string name="youWillLoseAllYourProgress">Du wäers däin ganzen Progrès verléieren!</string>
+  <string name="play">Spill!</string>
+  <string name="chessPieces">Schachfiguren</string>
+  <string name="theRook">Den Tuerm</string>
+  <string name="itMovesInStraightLines">Hien beweegt sech an riichten Linnen</string>
+  <string name="rookIntro">Den Tuerm ass eng mächteg Figur. Bass du prett en ze commandéieren?</string>
+  <string name="rookGoal">Klick op den Tuerm fir en bei den Stär ze bréngen!</string>
+  <string name="grabAllTheStars">Huel dir all d\'Stären!</string>
+  <string name="theFewerMoves">Wat du manner Zich brauchs, wat et méi Punkten ze gewannen ginn!</string>
+  <string name="useTwoRooks">Benotz zwee Tierm fir méi schnell ze sinn!</string>
+</resources>
