@@ -69,4 +69,10 @@ Keen Zwang zur Ëmwandlung.</string>
 An verléier net deng eegen.</string>
   <string name="captureComplete">Félicitatiounen! Du wees wéi een mat Schachfiguren kämpft!</string>
   <string name="protection">Beschützen</string>
+  <string name="keepYourPiecesSafe">Beschütz deng Figuren</string>
+  <string name="protectionIntro">Fann d\'Figuren déi däin Géigner ugräift an verteideg se!</string>
+  <string name="protectionComplete">Félicitatiounen! Eng Figur déi een net verléiert ass eng gewonne Figur!</string>
+  <string name="escape">Du bass ugegraff!
+Entkomm der Bedrohung!</string>
+  <string name="noEscape">Du kanns net entkommen, mee du kanns verteidegen!</string>
 </resources>
