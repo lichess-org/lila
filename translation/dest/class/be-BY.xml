@@ -46,6 +46,7 @@
   <string name="createDesc2">Электронная пошта не патрэбна. Пароль будзе згенераваны, і вы зможаце перадаць яго студэнту(цы) для ўвахода на сайт.</string>
   <string name="createDesc3">Важна: студэнт(ка) не павінен мець некалькі акаўнтаў.</string>
   <string name="createDesc4">Калі ён/яна ўжо мае акаўнт, адпраўце запрашэнне замест.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Стварайце акаўнты толькі для рэальных студэнтаў. Не выкароўстовайце для стварэння некалькіх акаўнтаў для сябе, інакш вы будзіце забанены.</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
   <string name="welcomeToClass">Вітаем на вашым занятку: %s.
