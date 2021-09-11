@@ -92,11 +92,30 @@
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Nächsten Schlag- oder Bauerenzuch an %s Hallef-Zuch (Distanz zum Zerécksetzen vum 50-Zich-Ziehler)</item>
+    <item quantity="other">Nächsten Schlag- oder Bauerenzuch an %s Hallef-Zich (Distanz zum Zerécksetzen vum 50-Zich-Ziehler)</item>
+  </plurals>
   <string name="noGameFound">Keng Partie fonnt</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
+  <string name="openingEndgameExplorer">Eröffnungs-/Endspilldatenbank</string>
+  <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
+  <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
+  <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
+  <string name="allSet">Prett!</string>
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
   <string name="deleteThisImportedGame">Importéiert Partie läschen?</string>
+  <string name="replayMode">Replay Modus</string>
+  <string name="realtimeReplay">Realzäit</string>
+  <string name="byCPL">No CPL</string>
+  <string name="openStudy">Studie opmaachen</string>
+  <string name="enable">Aktivéieren</string>
+  <string name="bestMoveArrow">Beschten Zuch Feil</string>
+  <string name="evaluationGauge">Evaluatioun weisen</string>
+  <string name="multipleLines">Puer Linnen</string>
+  <string name="cpus">CPUs</string>
   <string name="flipBoard">Briet dréinen</string>
   <string name="threefoldRepetition">Dräifach Widderhuelung</string>
   <string name="claimADraw">Remis reklaméieren</string>
