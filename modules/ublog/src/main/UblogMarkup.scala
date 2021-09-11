@@ -22,21 +22,20 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   type Text = String
   type Html = String
 
-  def apply(post: UblogPost): String =
-    cache.get(post.markdown, str => postProcess(renderer(s"ublog:${post.id}")(preProcess(str))))
+  def apply(post: UblogPost): String = cache.get(post.markdown, process(post))
 
-  private def preProcess(markdown: Text) = unescapeAtUsername(replaceGameGifs(markdown))
+  private val cache = lila.memo.CacheApi.scaffeineNoScheduler.maximumSize(2048).build[Text, Html]()
 
-  private def postProcess(html: String) = unescapeUnderscoreInLinks(imageParagraph(html))
-
-  private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-    .maximumSize(2048)
-    .build[Text, Html]()
+  private def process(post: UblogPost): Text => Html = replaceGameGifs.apply andThen
+    unescapeAtUsername.apply andThen
+    renderer(s"ublog:${post.id}") andThen
+    imageParagraph andThen
+    unescapeAtUsername.apply
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs {
-    private val regex         = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
-    def apply(markdown: Text) = regex.replaceAllIn(markdown, baseUrl.value + "/$2$1")
+    private val regex = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
+    val apply         = (markdown: Text) => regex.replaceAllIn(markdown, baseUrl.value + "/$2$1")
   }
 
   // put images into a container for styling
