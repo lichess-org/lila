@@ -113,7 +113,11 @@ object form {
       form3.group(
         form("markdown"),
         trans.ublog.postBody(),
-        help = frag(trans.embedsAvailable()).some
+        help = frag(
+          trans.embedsAvailable(),
+          br,
+          tips
+        ).some
       ) { field =>
         frag(
           form3.textarea(field)(),
@@ -137,11 +141,21 @@ object form {
   private def etiquette(implicit ctx: Context) = div(cls := "ublog-post-form__etiquette")(
     p("Please only post safe and respectful content. Do not copy someone else's content."),
     p("Anything inappropriate could get your account closed."),
-    a(
-      dataIcon := "",
-      href := routes.Page.loneBookmark("blog-etiquette"),
-      cls := "text",
-      targetBlank
-    )("Blog Etiquette")
+    p(
+      a(
+        dataIcon := "",
+        href := routes.Page.loneBookmark("blog-etiquette"),
+        cls := "text",
+        targetBlank
+      )("Blog Etiquette")
+    ),
+    p(tips)
   )
+
+  def tips(implicit ctx: Context) = a(
+    dataIcon := "",
+    href := routes.Page.loneBookmark("blog-tips"),
+    cls := "text",
+    targetBlank
+  )("Our simple tips to write great blog posts")
 }
