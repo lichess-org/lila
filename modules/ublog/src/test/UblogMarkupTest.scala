@@ -30,4 +30,17 @@ class UblogMarkupTest extends Specification {
         """<p><a rel="nofollow noopener noreferrer" href="https://youtu.be/di6W_i3NiJA">https://youtu.be/di6W_i3NiJA</a></p>"""
     }
   }
+  "fix AtUsername" in {
+    m.unescapeAtUsername(
+      """@test\_1234"""
+    ) must_==
+      """@test_1234"""
+  }
+
+  "not break fine AtUsername" in {
+    m.unescapeAtUsername(
+      """@foo_bar"""
+    ) must_==
+      """@foo_bar"""
+  }
 }

@@ -25,7 +25,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   def apply(post: UblogPost): String =
     cache.get(post.markdown, str => postProcess(renderer(s"ublog:${post.id}")(preProcess(str))))
 
-  private def preProcess = replaceGameGifs.apply _
+  private def preProcess(markdown: Text) = unescapeAtUsername(replaceGameGifs(markdown))
 
   private def postProcess(html: String) = unescapeUnderscoreInLinks(imageParagraph(html))
 
@@ -43,15 +43,23 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   private def imageParagraph(markup: Html) =
     markup.replace("""<p><img src=""", """<p class="img-container"><img src=""")
 
+  private def unescape(txt: String) = txt.replace("""\\_""", "_")
+
   // https://github.com/ornicar/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks
   private[ublog] object unescapeUnderscoreInLinks {
-    private val hrefRegex             = """href="([^"]+)"""".r
-    private val contentRegex          = """>([^<]+)</a>""".r
-    private def unescape(txt: String) = txt.replace("""\\_""", "_")
+    private val hrefRegex    = """href="([^"]+)"""".r
+    private val contentRegex = """>([^<]+)</a>""".r
     def apply(markup: Html) = contentRegex.replaceAllIn(
       hrefRegex.replaceAllIn(markup, m => s"""href="${unescape(m group 1)}""""),
       m => s""">${unescape(m group 1)}</a>"""
     )
+  }
+
+  // toastui editor escapes `_` as `\_` and it breaks @username
+  private[ublog] object unescapeAtUsername {
+    // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matchs the '\' character.
+    private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{2,30}+)(?![@\w-]|\.\w)""".r
+    def apply(markdown: Text)          = atUsernameRegexEscaped.replaceAllIn(markdown, m => s"@${unescape(m group 1)}")
   }
 }
