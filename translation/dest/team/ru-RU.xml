@@ -35,6 +35,7 @@
   </plurals>
   <string name="willBeReviewed">Ваш запрос на вступление будет рассмотрен руководителем клуба.</string>
   <string name="beingReviewed">Ваш запрос на рассмотрении у руководителя клуба.</string>
+  <string name="requestDeclined">Организатор клуба отклонил ваш запрос на вступление.</string>
   <string name="subToTeamMessages">Подписаться на сообщения от клуба</string>
   <string name="teamBattle">Межклубный турнир</string>
   <string name="teamBattleOverview">Сражение нескольких клубов, каждый игрок набирает очки за свой клуб</string>
@@ -58,4 +59,5 @@
   <string name="teamAlreadyExists">Такой клуб уже существует.</string>
   <string name="upcomingTourns">Предстоящие турниры</string>
   <string name="completedTourns">Завершённые турниры</string>
+  <string name="declinedRequests">Отклонённые запросы</string>
 </resources>
