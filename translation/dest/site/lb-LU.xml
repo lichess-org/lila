@@ -465,12 +465,20 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fändel</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
+  <string name="inlineNotation">Inline-Notatioun</string>
   <string name="watchLichessTV">Lichess TV ukucken</string>
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
   <string name="onlinePlayers">Online Spiller</string>
   <string name="activeToday">Haut aktiv</string>
   <string name="activePlayers">Aktiv Spiller</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Pass op, d\'Partie ass gewäert mee huet keng Auer!</string>
   <string name="success">Succès</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s Partie amgaang</item>
+    <item quantity="other">%s Partien amgaang</item>
+  </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Automatesch bei déi nächst Partie goen nom Zéien</string>
+  <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Aufgaben</string>
   <string name="latestUpdates">Lescht Updates</string>
   <string name="tournamentWinners">Turnéier Gewënner</string>
@@ -594,6 +602,7 @@
   <string name="createdSimuls">Nei kreéiert Simuls</string>
   <string name="hostANewSimul">Eng nei Simul hosten</string>
   <string name="noSimulFound">Simul net fonnt</string>
+  <string name="aboutSimulImage">Vun 50 Géigner huet den Fischer géint 47 gewonn, géint 2 Remis gespillt and 1 Partie verluer.</string>
   <string name="create">Kreéieren</string>
   <string name="lichessTournaments">Lichess Turnéier</string>
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
@@ -602,6 +611,7 @@
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
   <string name="keyboardShortcuts">Tastaturkürzel</string>
   <string name="newTournament">Neien Turnéier</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hues keng feststehend %s Wäertung.</string>
   <string name="yourRating">Deng Wäertung</string>
   <string name="cumulative">Kumulativ</string>
   <string name="glicko2Rating">Glicko-2 Wäertung</string>
@@ -615,6 +625,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">D\'Email %s ass schon registréiert</string>
   <string name="kidMode">Kannermodus</string>
   <string name="security">Sécherheet</string>
+  <string name="asFreeAsLichess">Sou gratis wéi Lichess</string>
   <string name="zeroAdvertisement">Keng Reklamm</string>
   <string name="phoneAndTablet">Handy an Tablet</string>
   <string name="bulletBlitzClassical">Bullet, Blitz, Klassesch</string>
@@ -704,6 +715,19 @@
   <string name="rapidDesc">Rapid Partien: 8 bis 25 Minutten</string>
   <string name="classicalDesc">Klassesch Partien: 25 Minutten an méi</string>
   <string name="welcome">Wëllkomm!</string>
+  <string name="cancelTournament">Turnéier annuléieren</string>
+  <string name="tournDescription">Turnéier Beschreiwung</string>
+  <string name="onlyMembersOfTeam">Just Member vun der Ekipp</string>
+  <string name="noRestriction">Keng Aschränkungen</string>
+  <string name="minimumRatedGames">Minimum gewäert Partien</string>
+  <string name="minimumRating">Minimum Wäertung</string>
+  <string name="maximumWeeklyRating">Maximal wöchentlech Wäertung</string>
+  <string name="onlyTitled">Just Spiller mat Titel</string>
+  <string name="inYourLocalTimezone">An denger lokaler Zäitzon</string>
+  <string name="tournChat">Turnéier Chat</string>
+  <string name="noChat">Keen Chat</string>
+  <string name="onlyTeamLeaders">Just Ekippenleader</string>
+  <string name="onlyTeamMembers">Just Ekippenmember</string>
   <string name="navigateMoveTree">Duerch den Zuchbam navigéieren</string>
   <string name="mouseTricks">Maus Tricks</string>
   <string name="toggleLocalAnalysis">Lokal Computer Analyse aktivéieren/desaktivéieren</string>
