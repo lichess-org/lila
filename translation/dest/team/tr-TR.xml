@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Katılma talebiniz takım lideri tarafından incelenecek.</string>
   <string name="beingReviewed">Katılma talebiniz takım lideri tarafından inceleniyor.</string>
+  <string name="requestDeclined">Katılma talebiniz bir takım lideri tarafından reddedildi.</string>
   <string name="subToTeamMessages">Takım mesajlarına abone ol</string>
   <string name="teamBattle">Takım Çarpışması</string>
   <string name="teamBattleOverview">Bu birden fazla takımın mücadelesidir, her oyuncu kendi takımına puan kazandırır</string>
@@ -52,4 +53,5 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
   <string name="upcomingTourns">Yaklaşan turnuvalar</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>
+  <string name="declinedRequests">Geri çevrilen istekler</string>
 </resources>
