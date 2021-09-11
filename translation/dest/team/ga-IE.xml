@@ -10,7 +10,7 @@
     <item quantity="other">%s ball</item>
   </plurals>
   <string name="allTeams">Na foirne go léir</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Foirne ceannaire</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Foirne ceannaire</string>
   <string name="newTeam">Foireann nua</string>
   <string name="myTeams">M\'fhoirne</string>
   <string name="noTeamFound">Níor aimsíodh aon fhoireann</string>
