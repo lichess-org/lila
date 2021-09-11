@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">Blog von %s</string>
-  <string name="newPost">Neuer Beitrag</string>
-  <string name="editYourBlogPost">Bearbeite deinen Blog-Beitrag</string>
-  <string name="saveDraft">Entwurf speichern</string>
-  <string name="postTitle">Beitragstitel</string>
-  <string name="postIntro">Beitragseinleitung</string>
-  <string name="postBody">Beitragsinhalt</string>
-  <string name="drafts">Entwürfe</string>
+  <string name="xBlog">%s\'s Blog</string>
+  <string name="newPost">Neuä Post</string>
+  <string name="editYourBlogPost">Bearbeit din Blog-Post</string>
+  <string name="saveDraft">Entwurf schpeichärä</string>
+  <string name="postTitle">Post-Titäl</string>
+  <string name="postIntro">Post-Intro</string>
+  <string name="postBody">Post-Inhalt</string>
+  <string name="drafts">Entwürf</string>
   <string name="published">Veröffentlicht</string>
-  <string name="publishOnYourBlog">Veröffentliche in deinem Blog</string>
+  <string name="publishOnYourBlog">Veröffentlich i dim Blog</string>
   <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Hat einen Blog-Beitrag veröffentlicht</item>
     <item quantity="other">Hat %s Blog-Beiträge veröffentlicht</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="one">Einmal angesehen</item>
-    <item quantity="other">%s mal angesehen</item>
+    <item quantity="one">Eimal aagluägt</item>
+    <item quantity="other">%s-mal aagluägt</item>
   </plurals>
   <string name="xPublishedY">%1$s veröffentlichte %2$s</string>
   <string name="thisPostIsPublished">Dieser Beitrag wurde veröffentlicht</string>
-  <string name="thisIsADraft">Dies ist ein Entwurf</string>
-  <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s</string>
-  <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
-  <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
-  <string name="latestBlogPosts">Neueste Blog-Beiträge</string>
+  <string name="thisIsADraft">Das isch än Entwurf</string>
+  <string name="moreBlogPostsBy">Meh Blog-Posts vo %s</string>
+  <string name="noPostsInThisBlogYet">No kei Posts i dem Blog.</string>
+  <string name="noDrafts">Kei Entwürf z\'zeigä.</string>
+  <string name="latestBlogPosts">Neuschti Blog-Posts</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">Einen Beitrag anzeigen</item>
-    <item quantity="other">Alle %s Beiträge anzeigen</item>
+    <item quantity="one">Ein Post zeigä</item>
+    <item quantity="other">Alli %s Posts zeigä</item>
   </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Äs Bild für din Post ufäladä</string>
 </resources>
