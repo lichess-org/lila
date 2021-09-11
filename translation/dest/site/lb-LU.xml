@@ -546,8 +546,15 @@
   <string name="difficultyEasy">Einfach</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Schwéier</string>
+  <string name="xCompetesInY">%1$s hëlt deel bei %2$s</string>
+  <string name="xAskedY">%1$s freet %2$s</string>
+  <string name="xAnsweredY">%1$s äntwert %2$s</string>
+  <string name="xCommentedY">%1$s kommentéiert %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Defaite</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s an %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s an %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s an %3$s</string>
   <string name="timeline">Verlaf</string>
   <string name="starting">Start:</string>
   <string name="allInformationIsPublicAndOptional">All Infourmatioun ass public an optional.</string>
@@ -622,6 +629,8 @@
   <string name="createdSimuls">Nei kreéiert Simuls</string>
   <string name="hostANewSimul">Eng nei Simul hosten</string>
   <string name="noSimulFound">Simul net fonnt</string>
+  <string name="noSimulExplanation">Dës Simultanveranstaltung existéiert net.</string>
+  <string name="returnToSimulHomepage">Zeréck op Simul Homepage</string>
   <string name="aboutSimulImage">Vun 50 Géigner huet den Fischer géint 47 gewonn, géint 2 Remis gespillt and 1 Partie verluer.</string>
   <string name="create">Kreéieren</string>
   <string name="lichessTournaments">Lichess Turnéier</string>
