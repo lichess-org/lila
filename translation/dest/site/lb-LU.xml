@@ -625,8 +625,12 @@
   <string name="youHaveAlreadyRegisteredTheEmail">D\'Email %s ass schon registréiert</string>
   <string name="kidMode">Kannermodus</string>
   <string name="security">Sécherheet</string>
+  <string name="playChessEverywhere">Spill iwwerall Schach</string>
   <string name="asFreeAsLichess">Sou gratis wéi Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Aus Léift zum Schach, net Suen</string>
+  <string name="everybodyGetsAllFeaturesForFree">Jiddereen kritt all Features fir näischt</string>
   <string name="zeroAdvertisement">Keng Reklamm</string>
+  <string name="fullFeatured">Keng Aschränkungen</string>
   <string name="phoneAndTablet">Handy an Tablet</string>
   <string name="bulletBlitzClassical">Bullet, Blitz, Klassesch</string>
   <string name="correspondenceChess">Korrespondenz Schach</string>
