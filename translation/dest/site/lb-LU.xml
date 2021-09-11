@@ -764,6 +764,7 @@
   <string name="opening">Eröffnung</string>
   <string name="middlegame">Mëttelspill</string>
   <string name="endgame">Endspill</string>
+  <string name="playX">Spill %s</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
   <string name="timeoutExpires">D\'Auszeit ass riwwer %s.</string>
