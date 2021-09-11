@@ -96,35 +96,6 @@ final class IrcApi(
   def broadcastError(id: String, name: String, error: String): Funit =
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
-  def ublogImage(
-      user: User,
-      id: String,
-      slug: String,
-      title: String,
-      imageUrl: String
-  ): Funit =
-    zulip(_.image, "blog")(
-      s"[Blog image](${markdown.fixImageUrl(imageUrl)}) in ${markdown
-        .lichessLink(s"/@/${user.username}/blog/$slug/$id", title)} by ${markdown
-        .userLink(user)}"
-    )
-
-  def coachImage(
-      user: User,
-      imageUrl: String
-  ): Funit =
-    zulip(_.image, "coach")(
-      s"[Coach image](${markdown.fixImageUrl(imageUrl)}) by ${markdown.userLink(user)}"
-    )
-
-  def streamerImage(
-      user: User,
-      imageUrl: String
-  ): Funit =
-    zulip(_.image, "streamer")(
-      s"[Streamer image](${markdown.fixImageUrl(imageUrl)}) by ${markdown.userLink(user)}"
-    )
-
   def ublogPost(
       user: User,
       id: String,

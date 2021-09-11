@@ -92,7 +92,6 @@ private object ZulipClient {
     val general   = "general"
     val broadcast = "content-broadcast"
     val blog      = "content-blog"
-    val image     = "mod-comms-image"
     type Selector = ZulipClient.stream.type => String
   }
 }

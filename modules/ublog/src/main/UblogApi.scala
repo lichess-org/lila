@@ -41,16 +41,15 @@ final class UblogApi(
   private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
     rank.computeRank(blog, post).?? { rank =>
       colls.post.updateField($id(post.id), "rank", rank).void
-    } >>
-      sendImageToZulip(user, post) >>- {
-        lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-        if (blog.visible) {
-          timeline ! Propagate(
-            lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
-          ).toFollowersOf(user.id)
-          if (blog.modTier.isEmpty) sendPostToZulip(user, blog, post).unit
-        }
+    } >>- {
+      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+      if (blog.visible) {
+        timeline ! Propagate(
+          lila.hub.actorApi.timeline.UblogPost(user.id, post.id.value, post.slug, post.title)
+        ).toFollowersOf(user.id)
+        if (blog.modTier.isEmpty) sendPostToZulip(user, blog, post).unit
       }
+    }
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)) getOrElse {
@@ -110,19 +109,7 @@ final class UblogApi(
       image <- picfitApi
         .uploadFile(imageRel(post), picture, userId = user.id)
       _ <- colls.post.update.one($id(post.id), $set("image" -> image.id))
-      newPost = post.copy(image = image.id.some)
-      _ <- sendImageToZulip(user, newPost)
-    } yield newPost
-
-  private def sendImageToZulip(user: User, post: UblogPost): Funit = post.live ?? post.image ?? { imageId =>
-    irc.ublogImage(
-      user,
-      id = post.id.value,
-      slug = post.slug,
-      title = post.title,
-      imageUrl = UblogPost.thumbnail(picfitApi.url, imageId, _.Small)
-    )
-  }
+    } yield post.copy(image = image.id.some)
 
   private def sendPostToZulip(user: User, blog: UblogBlog, post: UblogPost): Funit =
     irc.ublogPost(

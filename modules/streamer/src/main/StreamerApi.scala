@@ -14,8 +14,7 @@ final class StreamerApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
-    notifyApi: lila.notify.NotifyApi,
-    irc: lila.irc.IrcApi
+    notifyApi: lila.notify.NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -120,11 +119,7 @@ final class StreamerApi(
   def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
     picfitApi
       .uploadFile(s"streamer:${s.id}", picture, userId = by.id) flatMap { pic =>
-      coll.update.one($id(s.id), $set("picture" -> pic.id)) >>
-        irc.streamerImage(
-          by,
-          imageUrl = picfitApi.url.thumbnail(pic.id, Streamer.imageSize, Streamer.imageSize)
-        )
+      coll.update.one($id(s.id), $set("picture" -> pic.id)).void
     }
 
   // unapprove after a week if you never streamed
