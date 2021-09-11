@@ -4,11 +4,13 @@
 
 Lila (li[shogi in sca]la) is a free online shogi game server focused on realtime gameplay and ease of use.
 
-It features a [computer analysis](https://lishogi.org/analysis),
+It features a [search engine](https://lishogi.org/games/search),
+[computer analysis](https://lishogi.org/B8fAS7aW/gote) distributed with [shoginet](https://github.com/WandererXII/shoginet),
 [tournaments](https://lishogi.org/tournament),
 [simuls](https://lishogi.org/simul),
 [forums](https://lishogi.org/forum),
 [teams](https://lishogi.org/team),
+[tactic trainer](https://lishogi.org/training),
 and a [shared analysis board](https://lishogi.org/study).
 
 Lishogi is [Lichess](https://lichess.org) rewritten for shogi.
@@ -23,6 +25,7 @@ HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.o
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lishogi.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 
+[Join us on Discord](https://discord.gg/YFtpMGg3rR) for more info.
 Use [GitHub issues](https://github.com/WandererXII/lishogi/issues) for bug reports and feature requests.
 
 ## Credits
