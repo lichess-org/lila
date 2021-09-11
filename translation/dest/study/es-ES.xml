@@ -142,8 +142,8 @@
   <string name="blackIsSlightlyBetter">Las negras están ligeramente mejor</string>
   <string name="whiteIsBetter">Las blancas están mejor</string>
   <string name="blackIsBetter">Las negras están mejor</string>
-  <string name="whiteIsWinning">Las blancas ganan</string>
-  <string name="blackIsWinning">Las negras ganan</string>
+  <string name="whiteIsWinning">Las blancas están ganando</string>
+  <string name="blackIsWinning">Las negras están ganando</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novedad</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Desarrollo</string>
   <string name="initiative">Iniciativa</string>
