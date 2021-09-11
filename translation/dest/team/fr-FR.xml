@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Votre requête d\'adhésion sera examinée par le chef d\'équipe.</string>
   <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examination par le chef d\'équipe.</string>
+  <string name="requestDeclined">Votre demande d\'adhésion a été refusée par le chef d\'équipe.</string>
   <string name="subToTeamMessages">S\'abonner aux messages de l\'équipe</string>
   <string name="teamBattle">Tournoi entre équipes</string>
   <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
@@ -52,4 +53,5 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="teamAlreadyExists">Cette équipe existe déjà.</string>
   <string name="upcomingTourns">Tournois à venir</string>
   <string name="completedTourns">Tournois terminés</string>
+  <string name="declinedRequests">Demandes refusées</string>
 </resources>
