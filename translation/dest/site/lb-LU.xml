@@ -152,8 +152,8 @@
     <item quantity="other">%s Partien</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Lesezeichen</item>
-    <item quantity="other">%s Lesezeichen</item>
+    <item quantity="one">%s Lieszeeche</item>
+    <item quantity="other">%s Lieszeeche</item>
   </plurals>
   <string name="viewInFullSize">An voller Gréisst ukucken</string>
   <string name="logOut">Ofmellen</string>
@@ -284,7 +284,50 @@
   </plurals>
   <string name="exportGames">Partien exportéieren</string>
   <string name="ratingRange">Wäertungsberäich</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dem Géigner %s Sekonn ginn</item>
+    <item quantity="other">Dem Géigner %s Sekonnen ginn</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Dësen Konto huet géint d\'Lichess-Notzungsbedingungen verstouss</string>
+  <string name="openingExplorerAndTablebase">Eröffnungsdatenbank &amp; Tablebase</string>
+  <string name="takeback">Zeréckhuelen</string>
+  <string name="proposeATakeback">Zeréckhuelen virschloen</string>
+  <string name="takebackPropositionSent">Zeréckhuelen geschéckt</string>
+  <string name="takebackPropositionDeclined">Zeréckhuelen ofgeleent</string>
+  <string name="takebackPropositionAccepted">Zeréckhuelen ugeholl</string>
+  <string name="takebackPropositionCanceled">Zeréckhuelen annuléiert</string>
+  <string name="yourOpponentProposesATakeback">Däin Géigner schléit en Zeréckhuelen fir</string>
+  <string name="bookmarkThisGame">Dës Partie als Lieszeeche späicheren</string>
+  <string name="tournament">Turnéier</string>
+  <string name="tournaments">Turnéier</string>
+  <string name="tournamentPoints">Turnéierpunkten</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s Turnéierpunkt</item>
+    <item quantity="other">%s Turnéierpunkten</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s Etüd</item>
+    <item quantity="other">%s Etüden</item>
+  </plurals>
+  <string name="viewTournament">Turnéier ukucken</string>
+  <string name="backToTournament">Zeréck bei den Turnéier</string>
   <string name="thematic">Thematesch</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s gewäert Partie</item>
+    <item quantity="other">≥ %s gewäert Partien</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s gewäert %2$s Partie</item>
+    <item quantity="other">≥ %1$s gewäert %2$s Partien</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Du muss nach %1$s gewäert %2$s Partie spillen</item>
+    <item quantity="other">Du muss nach %1$s gewäert %2$s Partien spillen</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Du muss nach %s gewäert Partie spillen</item>
+    <item quantity="other">Du muss nach %s gewäert Partien spillen</item>
+  </plurals>
   <string name="averageElo">Duerchschnëttlech Wäertung</string>
   <string name="location">Standuert</string>
   <string name="save">Späicheren</string>
