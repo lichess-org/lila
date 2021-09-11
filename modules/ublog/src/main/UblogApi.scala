@@ -59,6 +59,9 @@ final class UblogApi(
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
+  def isBlogVisible(id: UblogBlog.Id): Fu[Boolean] =
+    colls.blog.exists($id(id.full) ++ $doc("tier" $gte UblogBlog.Tier.VISIBLE))
+
   def getPost(id: UblogPost.Id): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id.value)
 
   def findByUserBlog(id: UblogPost.Id, user: User): Fu[Option[UblogPost]] =
@@ -67,25 +70,35 @@ final class UblogApi(
   def findByIdAndBlog(id: UblogPost.Id, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
 
-  def latestPosts(blog: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
+  def latestPostsFor(
+      blogId: UblogBlog.Id,
+      nb: Int,
+      forUser: Option[User]
+  ): Fu[List[UblogPost.PreviewPost]] =
+    (blogId match {
+      case UblogBlog.Id.User(userId) if forUser.exists(_ is userId) => fuTrue
+      case _                                                        => isBlogVisible(blogId)
+    }) flatMap { _ ?? latestPosts(blogId, nb) }
+
+  def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
-      .find($doc("blog" -> blog, "live" -> true), previewPostProjection.some)
+      .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost]()
+      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
   def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("live" -> true), previewPostProjection.some)
       .sort($doc("rank" -> -1))
-      .cursor[UblogPost.PreviewPost]()
+      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
   def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blog, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost]()
+      .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
   def countLiveByBlog(blog: UblogBlog.Id): Fu[Int] =

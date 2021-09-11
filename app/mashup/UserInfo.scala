@@ -151,7 +151,7 @@ object UserInfo {
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) zip
-        ublogApi.latestPosts(UblogBlog.Id.User(user.id), 3) map {
+        ublogApi.latestPostsFor(UblogBlog.Id.User(user.id), 3, ctx.me) map {
           // format: off
           case (((((((((((((((ratingChart, nbFollowers), nbForumPosts), nbUblogPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks), posts) =>
           // format: on
