@@ -76,7 +76,7 @@ Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
   <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
   <string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
 
-La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
+La verificación como jugador titulado en Lichess da acceso a jugar en los torneos para titulados.
 
 Finalmente, existe el título honorífico %2$s.</string>
   <string name="asWellAsManyNMtitles">muchos títulos de maestros nacionales</string>
@@ -95,7 +95,7 @@ No solicites el título de LM.</string>
   <string name="usernamesCannotBeChanged">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas/minúsculas solo una vez.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá jamás.</string>
-  <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>
+  <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó todas las partidas de %s.</string>
   <string name="aHourlyBulletTournament">un torneo Bullet por hora</string>
   <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo lograba durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuaciones de Lichess</string>
