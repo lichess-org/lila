@@ -53,5 +53,5 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
   <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
-  <string name="declinedRequests">Solicitações Recusadas</string>
+  <string name="declinedRequests">Pedidos Recusados</string>
 </resources>
