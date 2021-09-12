@@ -93,4 +93,34 @@ op dem Géigner säin Kinnek!</string>
   <string name="escapeWithTheKing">Entkomm mat dengem Kinnek!</string>
   <string name="theKingCannotEscapeButBlock">De Kinnek kann net entkommen,
 mee du kanns den Ugrëff blocken!</string>
+  <string name="youCanGetOutOfCheckByTaking">Du kanns dem Schach entkommen
+andeem du den Ugräifer schléis.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">De Sprénger gëtt Schach 
+duerch deng Verdeedegung!</string>
+  <string name="escapeOrBlock">Entkomm mat dengem Kinnek 
+oder block den Ugrëff!</string>
+  <string name="outOfCheckComplete">Felicitatioun! Däin Kinnek kann nie geholl ginn, stell sécher dass du géint en Schach verdeedegen kanns!</string>
+  <string name="mateInOne">Matt an 1</string>
+  <string name="defeatTheOpponentsKing">Bezwéng dem Géigner säin Kinnek</string>
+  <string name="mateInOneIntro">Du gewënns wann däin Géigner en Schach net verdeedegen kann.</string>
+  <string name="attackYourOpponentsKing">Gräif dengem Géigner säin Kinnek sou un, 
+dass hien net verdeedegen kann!</string>
+  <string name="mateInOneComplete">Felicitatioun! Sou gewënns du eng Schachpartie!</string>
+  <string name="intermediate">Mëttleren Niveau</string>
+  <string name="boardSetup">Opstellung</string>
+  <string name="howTheGameStarts">Wéi eng Partie ufänkt</string>
+  <string name="boardSetupIntro">Déi zwou Arméien stinn sech géigeniwwer, prett fir den Kampf.</string>
+  <string name="thisIsTheInitialPosition">Dat hei ass d\'Startpositioun 
+vun all Schachpartie!
+Spill een Zuch fir weiderzemaachen.</string>
+  <string name="firstPlaceTheRooks">Fir d\'éischt d\'Tierm!
+Se ginn an d\'Ecker.</string>
+  <string name="thenPlaceTheKnights">Plazéier d\'Sprénger!
+Se stinn nieft den Tierm.</string>
+  <string name="placeTheBishops">Plazéier d\'Leefer!
+Se stinn nieft den Sprénger.</string>
+  <string name="placeTheQueen">Plazéier d\'Dame!
+Si steet op hirer eegener Faarf.</string>
+  <string name="placeTheKing">Plazéier de Kinnek!
+Direkt nieft senger Dame.</string>
 </resources>
