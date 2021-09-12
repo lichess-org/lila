@@ -50,8 +50,8 @@
   <string name="blackResigned">Melnie padevās</string>
   <string name="whiteLeftTheGame">Baltie pameta spēli</string>
   <string name="blackLeftTheGame">Melnie pameta spēli</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Baltie neveica gājienu</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Melnie neveica gājienu</string>
+  <string name="whiteDidntMove">Baltie neveica gājienu</string>
+  <string name="blackDidntMove">Melnie neveica gājienu</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Padalies ar šo saiti, lai ļautu skatītājiem redzēt spēli</string>
   <string name="theComputerAnalysisHasFailed">Spēles datoranalīze neizdevās</string>
   <string name="viewTheComputerAnalysis">Skatīt spēles datoranalīzi</string>
@@ -93,11 +93,6 @@
     <item quantity="zero">Mats %s pusgājienos</item>
     <item quantity="one">Mats %s pusgājienā</item>
     <item quantity="other">Mats %s pusgājienos</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="zero">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja atiestatīšanas attālums)</item>
-    <item quantity="one">Nākamā sišana vai bandinieka gājiens pēc %s pusgājiena (50 gājienu skaitītāja atiestatīšanas attālums)</item>
-    <item quantity="other">Nākamā sišana vai bandinieka gājiens pēc %s pusgājieniem (50 gājienu skaitītāja atiestatīšanas attālums)</item>
   </plurals>
   <string name="noGameFound">Neviena spēle nav atrasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
