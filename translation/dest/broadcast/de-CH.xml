@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Veröffentlichungs-URL</string>
   <string name="currentRoundUrl">URL vode laufendä Rundi</string>
   <string name="currentGameUrl">URL vode laufendä Partie</string>
+  <string name="downloadAllRounds">Alli Rundänä abäladä</string>
 </resources>
