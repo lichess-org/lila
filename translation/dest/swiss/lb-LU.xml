@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swissTournaments">Schwäizer Turnéier</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Ronn ukucken</item>
+    <item quantity="other">All %s Ronnen ukucken</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s Ronn</item>
+    <item quantity="other">%s Ronnen</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Eng Ronn pro Dag</item>
+    <item quantity="other">Eng Ronn all %s Deeg</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Ronnen ginn manuell gestart</string>
+</resources>
