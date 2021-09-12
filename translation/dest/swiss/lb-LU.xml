@@ -34,11 +34,14 @@
   <string name="roundInterval">Intervall tëschent de Ronnen</string>
   <string name="forbiddenPairings">Verbuede Puerungen</string>
   <string name="newSwiss">Neien SchwäizerTurnéier</string>
+  <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
   <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
   <string name="tiebreaksCalculationQ">Wéi ginn Tiebreaks gerechent?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger Score</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
+  <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
   <string name="roundRobinQ">An Round Robin?</string>
+  <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
