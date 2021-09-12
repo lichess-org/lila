@@ -11,6 +11,10 @@
   <string name="strengths">Stäerkten</string>
   <string name="history">Aufgabeverlaf</string>
   <string name="solved">geléist</string>
+  <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partien fonnt</string>
+  <string name="puzzleDashboardDescription">Trainéier, analyséier, verbesser</string>
+  <string name="percentSolved">%s geléist</string>
+  <string name="noPuzzlesToShow">Näicht ze weisen, spill fir d\'éischt e puer Aufgaben!</string>
   <string name="improvementAreasDescription">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
   <string name="strengthDescription">Dës Aufgaben leien dir am beschten</string>
 </resources>
