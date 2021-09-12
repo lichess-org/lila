@@ -152,4 +152,37 @@ laang ze rochéieren!</string>
   <string name="castlingComplete">Felicitatioun! D\'Rochade ass bal all Partie nëtzlech.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speziellen Bauerenzuch</string>
+  <string name="enPassantIntro">Wann sech dem Géigner säin Bauer zwee Felder beweegt, kanns du en schloen wéi wann en sech just een Feld beweegt hätt.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Schwaarz huet säin Bauer
+just zwee Felder beweegt!
+Schlo en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant funktionéiert just 
+direkt nodeem den Géigner 
+de Bauer beweegt huet.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant funktionéiert just
+wann däin Bauer op der 5ter Rei steet.</string>
+  <string name="takeAllThePawnsEnPassant">Schlo all d\'Baueren en passant!</string>
+  <string name="enPassantComplete">Felicitatioun! Du kanns elo en passant schloen.</string>
+  <string name="stalemate">Patt</string>
+  <string name="theGameIsADraw">D\'Partie ass Remis</string>
+  <string name="stalemateIntro">Wann een Spiller net am Schach steet mee och keen legalen Zuch huet, ass et Patt. D\'Partie ass en Remis: Keen gewënnt, keen verléiert.</string>
+  <string name="stalemateGoal">Fir Schwaarz Patt ze setzen:
+-Schwaarz kann sech néirens beweegen
+-Et ass keen Schach.</string>
+  <string name="stalemateComplete">Felicitatioun! Léiwer Patt wéi Matt gesat ginn!</string>
+  <string name="advanced">Avancéiert</string>
+  <string name="pieceValue">Figurenvaleur</string>
+  <string name="evaluatePieceStrength">Figurenstäerkt evaluéieren</string>
+  <string name="pieceValueIntro">Figuren mat héijer Mobilitéit sinn méi wertvoll!
+Dame = 9
+Tuerm = 5
+Leefer = 3
+Sprénger = 3
+Bauer = 1
+De Kinnek ass onbezuehlbar! Hien ze verléieren heecht d\'Partie ze verléieren.</string>
+  <string name="yourScore">Däin Score</string>
+  <string name="next">Weider</string>
+  <string name="backToMenu">Zeréck an den Menü</string>
+  <string name="puzzleFailed">Aufgab mësslong!</string>
+  <string name="retry">Nei probéieren</string>
 </resources>
