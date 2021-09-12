@@ -33,6 +33,10 @@
   <string name="numberOfRoundsHelp">Eng ongerued Unzuel u Ronnen erlaabt fir eng optimal Säiteverdeelung.</string>
   <string name="roundInterval">Intervall tëschent de Ronnen</string>
   <string name="forbiddenPairings">Verbuede Puerungen</string>
+  <string name="newSwiss">Neien SchwäizerTurnéier</string>
+  <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
+  <string name="tiebreaksCalculationQ">Wéi ginn Tiebreaks gerechent?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger Score</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
   <string name="roundRobinQ">An Round Robin?</string>
   <string name="nowPlaying">Grad amgaang</string>
