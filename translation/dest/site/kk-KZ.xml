@@ -47,8 +47,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Бұл сілтемеден бірінші келген адам сізбен ойнайды.</string>
   <string name="whiteResigned">Ақ берілді</string>
   <string name="blackResigned">Қара берілді</string>
-  <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
-  <string name="blackLeftTheGame">Қара ойыннан шықты</string>
+  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Ақ ойыннан шықты</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Қара ойыннан шықты</string>
   <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Ақтар жүрмеді</string>
   <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Қаралар жүрмеді</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемені жіберіңіз</string>
@@ -506,6 +506,7 @@
   <string name="cheat">Чит, алдап ойнау</string>
   <string name="insult">Қорлау</string>
   <string name="troll">Троль, кемсіту</string>
+  <string name="ratingManipulation">Рейтингпен айла-шарғы</string>
   <string name="other">Басқа</string>
   <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
