@@ -98,8 +98,9 @@
   <string name="xOpeningExplorer">%s オープニング探索</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
-  <string name="winOr50MovesByPriorMistake" comment="Shown in some situations in the tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.&#10;&#10;winOr50MovesByPriorMistake">勝ち、または以前の悪手のため50手ドロー</string>
-  <string name="lossOr50MovesByPriorMistake" comment="Analogous to source string &quot;Win or 50 moves by prior mistake&quot;.&#10;&#10;lossOr50MovesByPriorMistake">負け、または以前の悪手のため50手ドロー</string>
+  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">勝ち、または以前の悪手のため50手ドロー</string>
+  <string name="lossOr50MovesByPriorMistake" comment="lossOr50MovesByPriorMistake&#10;&#10;Analogous to source string &quot;Win or 50 moves by prior mistake&quot; - please see context there.">負け、または以前の悪手のため50手ドロー</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">勝ち／負けが確実なのは、最後の駒取りかポーンの移動からずっとテーブルベースの推奨ラインに従った場合のみです（丸めの可能性のため）。</string>
   <string name="allSet">準備完了！</string>
   <string name="importPgn">PGN をインポート</string>
   <string name="delete">削除</string>
