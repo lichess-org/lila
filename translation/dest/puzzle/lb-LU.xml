@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Aufgaben</string>
-  <string name="puzzleThemes">Aufgabenthemen</string>
+  <string name="puzzleThemes">Aufgabethemen</string>
   <string name="recommended">Recommandéiert</string>
   <string name="phases">Phasen</string>
   <string name="motifs">Motiven</string>
   <string name="advanced">Avancéiert</string>
   <string name="lengths">Längten</string>
   <string name="mates">Mats</string>
-  <string name="jumpToNextPuzzleImmediately">Direkt zur nächster Aufgaben sprangen</string>
+  <string name="jumpToNextPuzzleImmediately">Direkt zur nächster Aufgab sprangen</string>
   <string name="puzzleDashboard">Aufgabeniwwersiicht</string>
   <string name="improvementAreas">Verbesserungsberäicher</string>
   <string name="strengths">Stäerkten</string>
   <string name="history">Aufgabeverlaf</string>
   <string name="solved">geléist</string>
   <string name="failed">feelgeschloen</string>
-  <string name="streakDescription">Léis Aufgaben déi méi schwéier ginn an bau eng Erfollegsserie op. Et gëtt keng Auer, also huel dir Zäit. Een falsche Zuch an et ass eriwwer! Mee du kanns een Zuch pro Laf iwwersprangen.</string>
+  <string name="streakDescription">Léis Aufgabe déi méi schwéier ginn a bau eng Erfollegsserie op. Et gëtt keng Auer, also huel dir Zäit. Ee falsche Zuch an et ass eriwwer! Mee du kanns een Zuch pro Laf iwwersprangen.</string>
   <string name="yourStreakX">Deng Erfollegsserie: %s</string>
-  <string name="streakSkipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen een Mol pro Laf maachen.</string>
+  <string name="streakSkipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen ee Mol pro Laf maachen.</string>
   <string name="continueTheStreak">Erfollegsserie wiederféieren</string>
   <string name="newStreak">Nei Erfollegsserie</string>
-  <string name="fromMyGames">Aus mengen Partien</string>
-  <string name="lookupOfPlayer">Sich Aufgaben aus Partien vun engem Spiller</string>
-  <string name="fromXGames">Aufgaben aus Partien vun %s</string>
-  <string name="searchPuzzles">Aufgaben sichen</string>
-  <string name="fromMyGamesNone">Et befannen sech keng Aufgaben vun dir an der Datebank, mee Lichess schätzt dech weiderhin ganz vill.
-Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun dengen Partien bäizefügen!</string>
-  <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partien fonnt</string>
+  <string name="fromMyGames">Aus menge Partien</string>
+  <string name="lookupOfPlayer">Sich Aufgaben aus Partie vun engem Spiller</string>
+  <string name="fromXGames">Aufgaben aus Partie vum %s</string>
+  <string name="searchPuzzles">Aufgabe sichen</string>
+  <string name="fromMyGamesNone">Et befannen sech keng Aufgabe vun dir an der Datebank, mee Lichess schätzt dech weiderhi ganz vill.
+Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun denge Partien bäizefügen!</string>
+  <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partie fonnt</string>
   <string name="puzzleDashboardDescription">Trainéier, analyséier, verbesser</string>
   <string name="percentSolved">%s geléist</string>
   <string name="noPuzzlesToShow">Näicht ze weisen, spill fir d\'éischt e puer Aufgaben!</string>
   <string name="improvementAreasDescription">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
-  <string name="strengthDescription">Dës Aufgaben leien dir am beschten</string>
+  <string name="strengthDescription">Dës Aufgabe leien dir am beschten</string>
 </resources>
