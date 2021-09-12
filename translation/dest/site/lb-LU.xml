@@ -827,6 +827,11 @@
   <string name="thankYouForReading">Merci fir d\'Liesen!</string>
   <string name="lifetimeScore">Éiwegen Spillstand</string>
   <string name="currentMatchScore">Aktuellen Match Score</string>
+  <string name="agreementAssistance">Ech stëmmen zou dass ech zu kengem Zäitpunkt wärend mengen Partien Hëllef an Usproch huelen (duerch Computer, Buch, Datenbank oder eng aner Persoun).</string>
+  <string name="agreementNice">Ech stëmmen zou dass ech aneren Spiller géigeniwwer ëmmer respektvoll agéieren wäert.</string>
+  <string name="agreementAccount">Ech stëmmen zou dass ech net puer Konten kreéieren wäert.</string>
+  <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
+  <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
@@ -835,9 +840,16 @@
   <string name="blitzDesc">Schnell Partien: 3 bis 8 Minutten</string>
   <string name="rapidDesc">Rapid Partien: 8 bis 25 Minutten</string>
   <string name="classicalDesc">Klassesch Partien: 25 Minutten an méi</string>
+  <string name="correspondenceDesc">Korrespondenz Partien: Een oder puer Deeg pro Zuch</string>
+  <string name="puzzleDesc">Schach Taktiktrainer</string>
+  <string name="important">Wichteg</string>
+  <string name="inTheFAQ">am FAQ</string>
   <string name="subscribe">Abonéieren</string>
   <string name="unsubscribe">Desabonéiren</string>
+  <string name="download">Download</string>
   <string name="welcome">Wëllkomm!</string>
+  <string name="coachManager">Coach Manager</string>
+  <string name="streamerManager">Stream Manager</string>
   <string name="cancelTournament">Turnéier annuléieren</string>
   <string name="tournDescription">Turnéier Beschreiwung</string>
   <string name="onlyMembersOfTeam">Just Member vun der Ekipp</string>
@@ -847,6 +859,7 @@
   <string name="maximumWeeklyRating">Maximal wöchentlech Wäertung</string>
   <string name="onlyTitled">Just Spiller mat Titel</string>
   <string name="simulFeatured">Op %s weisen</string>
+  <string name="simulDescription">Simul Beschreiwung</string>
   <string name="embedsAvailable">Füg eng Partien-URL oder eng Etüdenkapitel-URL an, fir se anzebetten.</string>
   <string name="inYourLocalTimezone">An denger lokaler Zäitzon</string>
   <string name="tournChat">Turnéier Chat</string>
