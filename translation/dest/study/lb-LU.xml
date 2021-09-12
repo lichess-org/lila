@@ -7,4 +7,13 @@
   <string name="myPrivateStudies">Meng privat Etüden</string>
   <string name="myFavoriteStudies">Meng Lieblingsetüden</string>
   <string name="whatAreStudies">Wat sinn Etüden?</string>
+  <string name="allStudies">All Etüden</string>
+  <string name="studiesCreatedByX">Etüden kreéiert vun %s</string>
+  <string name="noneYet">Nach keng.</string>
+  <string name="hot">Ugesot</string>
+  <string name="dateAddedNewest">Veröffentlechungsdatum (am neisten)</string>
+  <string name="dateAddedOldest">Veröffentlechungsdatum (am aalsten)</string>
+  <string name="recentlyUpdated">Rezent aktualiséiert</string>
+  <string name="mostPopular">Am Beléiftsten</string>
+  <string name="alphabetical">Alphabetesch</string>
 </resources>
