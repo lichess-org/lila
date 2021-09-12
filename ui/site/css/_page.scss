@@ -3,7 +3,7 @@
     font-size: 1.1em;
 
     h2 {
-      margin-top: 1.3em;
+      margin: 1.3em 0 0.5em 0;
       border-bottom: 1px solid $c-brag;
       line-height: 2.5em;
     }
@@ -57,6 +57,7 @@
       text-align: center;
 
       img {
+        @extend %box-neat-force;
         width: auto;
         height: auto;
       }
