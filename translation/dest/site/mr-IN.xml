@@ -90,10 +90,6 @@
     <item quantity="one">%s अर्ध्याचालीत मात</item>
     <item quantity="other">%s अर्ध चालीत मात</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">पुढील सोंगटी कैद किंवा प्यादीची चाल %s अर्धी-चाल (५० चालींची उलटी मोजणी सुरू)</item>
-    <item quantity="other">पुढील सोंगटी कैद किंवा प्यादीची चाल %s अर्धी-चाल (५० चालींची उलटी मोजणी सुरू)</item>
-  </plurals>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
   <string name="openingExplorer">ओपेनिग अन्वेषक</string>
