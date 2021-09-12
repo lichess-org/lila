@@ -11,7 +11,10 @@
   <string name="strengths">Stäerkten</string>
   <string name="history">Aufgabeverlaf</string>
   <string name="solved">geléist</string>
-  <string name="newStreak">Nei Erfollegserie</string>
+  <string name="yourStreakX">Deng Erfollegsserie: %s</string>
+  <string name="streakSkipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen een Mol pro Laf maachen.</string>
+  <string name="continueTheStreak">Erfollegsserie wiederféieren</string>
+  <string name="newStreak">Nei Erfollegsserie</string>
   <string name="fromMyGames">Aus mengen Partien</string>
   <string name="lookupOfPlayer">Sich Aufgaben aus Partien vun engem Spiller</string>
   <string name="fromXGames">Aufgaben aus Partien vun %s</string>
