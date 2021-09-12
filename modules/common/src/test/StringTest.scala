@@ -42,6 +42,13 @@ class StringTest extends Specification {
     }
   }
 
+  "normalize" should {
+    "keep º and ª" in {
+      String.normalize("keep normal text") must_== "keep normal text"
+      String.normalize("keep º and ª") must_== "keep º and ª"
+    }
+  }
+
   "slugify" should {
     "be safe in html" in {
       String.slugify("hello \" world") must not contain "\""
