@@ -27,18 +27,20 @@ const setupTopics = (el: HTMLTextAreaElement) =>
     originalInputValueFormat: tags => tags.map(t => t.value).join(','),
   });
 
-const setupImage = (form: HTMLFormElement) =>
-  $(form)
-    .find('input[name="image"]')
-    .on('change', () => {
-      const replace = (html: string) => $(form).find('.ublog-post-image').replaceWith(html);
-      const wrap = (html: string) => '<div class="ublog-post-image">' + html + '</div>';
-      replace(wrap(spinner));
-      xhr.formToXhr(form).then(
-        html => replace(html),
-        err => replace(wrap(`<bad>${err}</bad>`))
-      );
-    });
+const setupImage = (form: HTMLFormElement) => {
+  const submit = () => {
+    const replace = (html: string) => $(form).find('.ublog-post-image').replaceWith(html);
+    const wrap = (html: string) => '<div class="ublog-post-image">' + html + '</div>';
+    xhr.formToXhr(form).then(
+      html => replace(html),
+      err => replace(wrap(`<bad>${err}</bad>`))
+    );
+    replace(wrap(spinner));
+    return false;
+  };
+  $(form).on('submit', submit);
+  $(form).find('input[name="image"]').on('change', submit);
+};
 
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   const postProcess = (markdown: string) => markdown.replace(/<br>/g, '').replace(/\n\s*#\s/g, '\n## ');

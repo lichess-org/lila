@@ -190,7 +190,10 @@ final class Ublog(env: Env) extends LilaController(env) {
                   BadRequest(e.getMessage)
                 }
               }(rateLimitedFu)
-            case None => BadRequest("Missing image").fuccess
+            case None =>
+              env.ublog.api.deleteImage(post) map { newPost =>
+                Ok(html.ublog.form.formImage(newPost))
+              }
           }
         }
       }

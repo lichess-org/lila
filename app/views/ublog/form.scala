@@ -78,9 +78,14 @@ object form {
       form3.split(
         div(cls := "form-group form-half")(formImage(post)),
         div(cls := "form-group form-half")(
-          p(trans.ublog.uploadAnImageForYourPost()),
-          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-          form3.file.image("image")
+          if (ctx isUserId post.created.by)
+            frag(
+              p(trans.ublog.uploadAnImageForYourPost()),
+              p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+              form3.file.image("image")
+            )
+          else
+            post.image.isDefined option submitButton(cls := "button button-red confirm")("Delete the image")
         )
       )
     )

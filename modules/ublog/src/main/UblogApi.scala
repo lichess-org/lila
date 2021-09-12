@@ -112,6 +112,10 @@ final class UblogApi(
       _ <- colls.post.update.one($id(post.id), $set("image" -> image.id))
     } yield post.copy(image = image.id.some)
 
+  def deleteImage(post: UblogPost): Fu[UblogPost] =
+    picfitApi.deleteByRel(imageRel(post)) >>
+      colls.post.unsetField($id(post.id), "image") inject post.copy(image = none)
+
   private def sendPostToZulip(user: User, blog: UblogBlog, post: UblogPost): Funit =
     irc.ublogPost(
       user,
