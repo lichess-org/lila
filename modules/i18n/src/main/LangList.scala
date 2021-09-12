@@ -60,6 +60,7 @@ object LangList {
     Lang("ko", "KR")  -> "한국어",
     Lang("ky", "KG")  -> "кыргызча",
     Lang("la", "LA")  -> "lingua Latina",
+    Lang("lb", "LU")  -> "Lëtzebuergesch",
     Lang("lt", "LT")  -> "lietuvių kalba",
     Lang("lv", "LV")  -> "latviešu valoda",
     Lang("mg", "MG")  -> "fiteny malagasy",
