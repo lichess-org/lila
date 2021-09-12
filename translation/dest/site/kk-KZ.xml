@@ -869,4 +869,8 @@
   <string name="newPendingReview">Жаңа қарастыруды күтуде</string>
   <string name="lostAgainstTOSViolator">Сіз Личестің Ережесін бұзған біреуге жеңілдіңіз</string>
   <string name="refundXpointsTimeControlY">Қайтару: %1$s %2$s рейтинг ұпайы.</string>
+  <string name="timeAlmostUp">Уақыт таусылғалы тұр!</string>
+  <string name="clickToRevealEmailAddress">[поштаны көрсету үшін шертіңіз]</string>
+  <string name="download">Жүктеп алу</string>
+  <string name="welcome">Қол келдіңіз!</string>
 </resources>
