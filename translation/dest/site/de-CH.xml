@@ -510,9 +510,9 @@
   <string name="thisTopicIsNowClosed">Das Thema isch gschlossä wordä.</string>
   <string name="theming">Design</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Frogä &amp; Antwortä</string>
+  <string name="questionsAndAnswers">Fragä &amp; Antwortä</string>
   <string name="notes">Notizä</string>
-  <string name="typePrivateNotesHere">Privati Notizä do iigäh</string>
+  <string name="typePrivateNotesHere">Privati Notizä da iigäh</string>
   <string name="invalidUsernameOrPassword">Ungültigä Benutzernamä oder Passwort</string>
   <string name="incorrectPassword">Falschs Passwort</string>
   <string name="invalidAuthenticationCode">Ungültigä Authäntifiziärigscode</string>
@@ -896,7 +896,7 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="simulDescription">Simultanbeschriibig</string>
   <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
   <string name="markdownAvailable">%s isch für erwiitärätä Syntax erhältlich.</string>
-  <string name="embedsAvailable">Füge eine Partie-URL oder eine Studienkapitel-URL ein, um sie einzubetten.</string>
+  <string name="embedsAvailable">Füäg zum Ibettä ä Spiil-URL odär ä Studiäkapitäl-URL ii.</string>
   <string name="inYourLocalTimezone">I dinärä eigänä lokalä Ziitzonä</string>
   <string name="tournChat">Turniärtschätt</string>
   <string name="noChat">Kein Tschätt</string>
@@ -913,7 +913,7 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="reopenYourAccount">Konto widär eröffnä</string>
   <string name="closedAccountChangedMind">Wänn du dä Account gschlossä häsch, abär nachhär dini Meinig gändärät häsch, häsch ä Chancä din Account zrugg übärzcho.</string>
   <string name="onlyWorksOnce">Das funktioniärt nur eimal.</string>
-  <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
+  <string name="cantDoThisTwice">Wänn du dis Konto äs zweits Mal schlüssisch, gits kä Möglichkeit meh, s widärhärzschtellä.</string>
   <string name="emailAssociatedToaccount">E-Mail-Adrässä vo dim Konto</string>
   <string name="sentEmailWithLink">Mir häd der äs Mail mitäm Link gschickt.</string>
   <string name="tournamentEntryCode">Turniäriigangscode</string>
@@ -921,5 +921,5 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="gameInProgress">Du häsch no ä laufädi Partii mit %s.</string>
   <string name="abortTheGame">Partii abbrächä</string>
   <string name="resignTheGame">Partii ufgää</string>
-  <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
+  <string name="youCantStartNewGame">Du chasch kä neui Partii startä, bevor du diä abgschlossä häsch.</string>
 </resources>
