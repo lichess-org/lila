@@ -11,7 +11,7 @@
   <string name="attackingF2F7">Ugrëff op f2 oder f7</string>
   <string name="attackingF2F7Description">En Ugrëff den sech op d\'Baueren op f2 oder f7 konzentréiert, wéi z. B. bei der Fegatello-Variant.</string>
   <string name="attraction">Hinlenkung oder Magnéit</string>
-  <string name="attractionDescription">En Oftausch oder Opfer dat eng Géigner Figur ob en Feld invitéiert oder forcéiert dat eng Folgetaktik erlaabt.</string>
+  <string name="attractionDescription">En Oftausch oder Opfer datt eng géigneresch Figur ob e Feld invitéiert oder forcéiert datt eng Folgetaktik erlaabt.</string>
   <string name="backRankMate">Grondreiematt</string>
   <string name="backRankMateDescription">Setz de Kinnek op der Grondrei matt, wann en do vun sengen eegene Figuren ageklemmt ass.</string>
   <string name="bishopEndgame">Leefer Endspill</string>
@@ -33,7 +33,7 @@
   <string name="kingsideAttack">Ugrëff op der Kinnekssäit</string>
   <string name="kingsideAttackDescription">En Ugrëff op den géigneresche Kinnek, nodeem en op der Kinnekssäit rochéiert huet.</string>
   <string name="clearance">Räumung</string>
-  <string name="clearanceDescription">Een Zuch, meeschtens mat Tempo, deen de Wee ob en Feld, eng Linn, eng Diagonal fräi mëscht an eng Folgetaktik erlaabt.</string>
+  <string name="clearanceDescription">En Zuch, meeschtens mat Tempo, deen de Wee ob e Feld, eng Linn oder eng Diagonal fräi mëscht an eng Folgetaktik erlaabt.</string>
   <string name="defensiveMove">Defensiven Zuch</string>
   <string name="defensiveMoveDescription">E prezisen Zuch oder eng Sequenz vun Zich, déi gespillt musse ginn fir keen Material oder Virdeel ze verléieren.</string>
   <string name="deflection">Oflenkung</string>
@@ -46,7 +46,7 @@
   <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
   <string name="enPassantDescription">Eng Taktik bezüglech der \"en passant\" Reegel, bei där e Bauer e géigneresche Bauer schloen kann, deen un em mat engem Dubbelschrëtt aus der Ausgangspositioun laanscht gaangen ass.</string>
   <string name="exposedKing">Exponéiert Kinnek</string>
-  <string name="exposedKingDescription">Eng Taktik bezüglech engem Kinnek, deen vun wéinege Figuren verdeedegt gëtt, wat oft zu Schachmatt féiert.</string>
+  <string name="exposedKingDescription">Eng Taktik bezüglech engem Kinnek, dee vun wéinege Figuren verdeedegt gëtt, wat oft zu Schachmatt féiert.</string>
   <string name="fork">Forschett</string>
   <string name="forkDescription">En Zuch, bei deem déi gespillte Figur zwou géigneresch Figuren gläichzäiteg ugräift.</string>
   <string name="hangingPiece">Hänkend Figur</string>
@@ -103,7 +103,7 @@
   <string name="sacrificeDescription">Eng Taktik wou een kuerzfristeg Material opgëtt fir no enger forcéierter Sequenz laangfristeg e Virdeel ze hunn.</string>
   <string name="short">Kuerz Aufgab</string>
   <string name="shortDescription">Zwee Zich fir ze gewannen.</string>
-  <string name="skewer">Spieß</string>
+  <string name="skewer">Spiiss</string>
   <string name="skewerDescription">E Motiv mat enger wertvoller Figur déi ugegraff gëtt a beim Fortbeweegen erlaabt, dass eng manner wertvoll Figur hannendrunn ugegraff oder geschloe gëtt. Den Inverse vun enger Fesselung.</string>
   <string name="smotheredMate">Erstéckte Matt</string>
   <string name="smotheredMateDescription">E Schachmatt duerch e Sprénger deem den Kinnek net entkomme kann, well hien vun sengen eegenen Figuren ëmkreest (erstéckt) gëtt.</string>
