@@ -96,12 +96,6 @@
     <item quantity="many">Matas už %s pus-ėjimų</item>
     <item quantity="other">Matas už %s pus-ėjimų</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimą (50-ies ėjimų ribos „Distance To Zeroing“)</item>
-    <item quantity="few">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimus (50-ies ėjimų ribos „Distance To Zeroing“)</item>
-    <item quantity="many">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimų (50-ies ėjimų ribos „Distance To Zeroing“)</item>
-    <item quantity="other">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimų (50-ies ėjimų ribos „Distance To Zeroing“)</item>
-  </plurals>
   <string name="noGameFound">Partijų nerasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
