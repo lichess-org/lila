@@ -49,8 +49,8 @@
   <string name="blackResigned">Svart gav opp</string>
   <string name="whiteLeftTheGame">Kvit har forlate partiet</string>
   <string name="blackLeftTheGame">Svart har forlate partiet</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Kvit gjorde ikkje trekket sitt</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Svart gjorde ikkje trekket sitt</string>
+  <string name="whiteDidntMove">Kvit gjorde ikkje trekket sitt</string>
+  <string name="blackDidntMove">Svart gjorde ikkje trekket sitt</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne lekkja slik at andre kan sjå partiet</string>
   <string name="theComputerAnalysisHasFailed">Sjakkprogramanalysen havarerte</string>
   <string name="viewTheComputerAnalysis">Vis maskinanalysen</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Neste slag- eller bondetrekk om %s halvtrekk (dvs. til nullstilling av 50-trekks-teller)</item>
-    <item quantity="other">Neste slag- eller bondetrekk om %s halvtrekk (dvs. til nullstilling av 50-trekks-teljar)</item>
   </plurals>
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
