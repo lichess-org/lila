@@ -47,8 +47,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pelaat sen kaverin kanssa, joka ensimmäisenä avaa linkin.</string>
   <string name="whiteResigned">Valkea luovutti</string>
   <string name="blackResigned">Musta luovutti</string>
-  <string name="whiteLeftTheGame">Valkea lähti pelistä</string>
-  <string name="blackLeftTheGame">Musta lähti pelistä</string>
+  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Valkea lähti pelistä</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Musta lähti pelistä</string>
   <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Valkea ei siirtänyt</string>
   <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Musta ei siirtänyt</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Jaa tämä linkki pelin katsojille</string>
@@ -160,7 +160,7 @@
   <string name="signIn">Kirjaudu sisään</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
-  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneavusteiset pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
+  <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneen avustamat pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
   <string name="games">Pelit</string>
   <string name="forum">Foorumi</string>
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
