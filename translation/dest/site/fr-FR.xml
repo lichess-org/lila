@@ -92,10 +92,6 @@
     <item quantity="one">Mate en %s demi-coup</item>
     <item quantity="other">Mate en %s demi-coups</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Prochaine prise ou coup de pion dans %s demi-coup (distance de remise à zéro de la règle des 50 coups)</item>
-    <item quantity="other">Prochaine prise ou coup de pion dans %s demi-coups (distance de remise à zéro de la règle des 50 coups)</item>
-  </plurals>
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
