@@ -3,6 +3,7 @@
   <string name="xBlog">Blog di %s</string>
   <string name="newPost">Nuovo post</string>
   <string name="editYourBlogPost">Modifica il post del tuo blog</string>
+  <string name="saveDraft">Salva bozza</string>
   <string name="postTitle">Titolo del post</string>
   <string name="postIntro">Introduzione al post</string>
   <string name="postBody">Corpo del post</string>
@@ -25,4 +26,9 @@
   <string name="noPostsInThisBlogYet">Ancora nessun post in questo blog.</string>
   <string name="noDrafts">Nessuna bozza da mostrare.</string>
   <string name="latestBlogPosts">Ultimi post del blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Visualizza un post</item>
+    <item quantity="other">Visualizza tutti i %s post</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Carica un\'immagine per il tuo post</string>
 </resources>
