@@ -4,7 +4,7 @@
   <string name="teams">Ekippen</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Member</item>
-    <item quantity="other">%s Member</item>
+    <item quantity="other">%s Memberen</item>
   </plurals>
   <string name="allTeams">All Ekippen</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vun dir geréiert Ekippen</string>
