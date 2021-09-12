@@ -1,5 +1,6 @@
 package lila.ublog
 
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
@@ -134,6 +135,9 @@ final class UblogApi(
     colls.blog.update
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
+
+  def postCursor(user: User): AkkaStreamCursor[UblogPost] =
+    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPreference.secondaryPreferred)
 
   private[ublog] def setShadowban(userId: User.ID, v: Boolean) = {
     if (v) fuccess(UblogBlog.Tier.HIDDEN)

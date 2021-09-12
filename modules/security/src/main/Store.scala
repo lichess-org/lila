@@ -3,10 +3,8 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson.BSONNull
-import reactivemongo.api.bson.{ BSONHandler, Macros }
-import reactivemongo.api.CursorProducer
-import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson.{ BSONHandler, BSONNull, Macros }
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.concurrent.blocking
 import scala.concurrent.duration._
 
