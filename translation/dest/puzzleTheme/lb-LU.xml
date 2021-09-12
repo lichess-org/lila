@@ -49,9 +49,15 @@
   <string name="interference">Ënnerbriechung</string>
   <string name="intermezzo">Zwëschenzuch</string>
   <string name="knightEndgame">Sprénger Endspill</string>
+  <string name="knightEndgameDescription">En Endspill nëmmen mat Sprénger a Baueren.</string>
   <string name="long">Laang Aufgab</string>
+  <string name="longDescription">Dräi Zich fir ze gewannen.</string>
   <string name="master">Meeschter Partien</string>
+  <string name="masterDescription">Aufgabe aus Partie vu Spiller mat engem Titel.</string>
+  <string name="masterVsMaster">Partie vun Meeschter géint Meeschter</string>
+  <string name="masterVsMasterDescription">Aufgabe aus Partie tëschent zwee Spiller mat engem Titel.</string>
   <string name="mate">Schachmatt</string>
+  <string name="mateDescription">Gewann d\'Partie mat Stil.</string>
   <string name="mateIn1">Matt an 1</string>
   <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
   <string name="mateIn2">Matt an 2</string>
@@ -74,6 +80,7 @@
   <string name="queenEndgameDescription">En Endspill mat just Dammen an Baueren.</string>
   <string name="queenRookEndgame">Damm an Tuerm</string>
   <string name="queensideAttack">Ugrëff op der Dammesäit</string>
+  <string name="quietMove">Rouegen Zuch</string>
   <string name="rookEndgame">Tuerm Endspill</string>
   <string name="rookEndgameDescription">En Endspill nëmmen mat Tierm a Baueren.</string>
   <string name="sacrifice">Opfer</string>
