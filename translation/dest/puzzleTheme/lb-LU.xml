@@ -75,9 +75,21 @@
   <string name="queenRookEndgame">Damm an Tuerm</string>
   <string name="queensideAttack">Ugrëff op der Dammesäit</string>
   <string name="rookEndgame">Tuerm Endspill</string>
+  <string name="rookEndgameDescription">En Endspill nëmmen mat Tierm a Baueren.</string>
   <string name="sacrifice">Opfer</string>
   <string name="sacrificeDescription">Eng Taktik wou een kuerzfristeg Material opgëtt fir no enger forcéierter Sequenz laangfristeg en Virdeel ze hunn.</string>
+  <string name="short">Kuerz Aufgab</string>
+  <string name="shortDescription">Zwee Zich fir ze gewannen.</string>
   <string name="skewer">Spieß</string>
   <string name="skewerDescription">Een Motiv mat enger wertvoller Figur déi ugegraff gëtt an beim Fortbeweegen erlaabt, dass eng manner wertvoll Figur hannendrunn ugegraff oder geschlo gëtt. Den Inverse vun enger Fesselung.</string>
+  <string name="superGM">Super-GM-Partien</string>
+  <string name="veryLong">Ganz laang Aufgab</string>
+  <string name="veryLongDescription">Véier oder méi Zich fir ze gewannen.</string>
+  <string name="xRayAttack">Rëntgen-Ugrëff</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="healthyMix">Gesonde Mix</string>
+  <string name="healthyMixDescription">E bësse vun allem. Du weess net wat dech erwaart, dowéinst muss op alles preparéiert sinn! Genau wéi bei echte Partien.</string>
+  <string name="playerGames">Partie vu Spiller</string>
+  <string name="playerGamesDescription">Sich no Aufgaben, déi aus denge Partien, oder aus de Partie vun anere Spiller generéiert goufen.</string>
+  <string name="puzzleDownloadInformation">Dës Aufgaben sinn ëffentlech zougänglech an kënnen ënner %s erofgelueden ginn.</string>
 </resources>
