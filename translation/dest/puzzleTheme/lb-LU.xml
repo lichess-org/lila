@@ -10,6 +10,8 @@
   <string name="arabianMateDescription">E Sprénger an en Turm schaffen zesummen fir de géigneresche Kinnek am Eck vum Briet matt ze setzen.</string>
   <string name="attackingF2F7">Ugrëff op f2 oder f7</string>
   <string name="attackingF2F7Description">En Ugrëff den sech op d\'Baueren op f2 oder f7 konzentréiert, wéi z. B. bei der Fegatello-Variant.</string>
+  <string name="attraction">Hinlenkung oder Magnéit</string>
+  <string name="attractionDescription">En Oftausch oder Opfer dat eng Géigner Figur ob en Feld invitéiert oder forcéiert dat eng Folgetaktik erlaabt.</string>
   <string name="backRankMate">Grondreiematt</string>
   <string name="backRankMateDescription">Setz de Kinnek op der Grondrei matt, wann en do vun sengen eegene Figuren ageklemmt ass.</string>
   <string name="bishopEndgame">Leefer Endspill</string>
@@ -30,10 +32,14 @@
   <string name="equalityDescription">Komm aus enger verluerener Positioun zeréck a sécher dir e Remis oder ausgeglache Positioun. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ugrëff op der Kinnekssäit</string>
   <string name="kingsideAttackDescription">En Ugrëff op den géigneresche Kinnek, nodeem en op der Kinnekssäit rochéiert huet.</string>
+  <string name="clearance">Räumung</string>
+  <string name="clearanceDescription">Een Zuch, meeschtens mat Tempo, deen de Wee ob en Feld, eng Linn, eng Diagonal fräi mëscht an eng Folgetaktik erlaabt.</string>
   <string name="defensiveMove">Defensiven Zuch</string>
   <string name="defensiveMoveDescription">E prezisen Zuch oder eng Sequenz vun Zich, déi gespillt musse ginn fir keen Material oder Virdeel ze verléieren.</string>
   <string name="deflection">Oflenkung</string>
   <string name="deflectionDescription">En Zuch, deen eng géigneresch Figur vun enger anerer Aufgab oflenkt, wéi zum Beispill d\'Deckung vun engem wichtegen Feld. Heiansdo och \"Iwwerlaaschtung\" genannt.</string>
+  <string name="discoveredAttack">Ofzuchsugrëff</string>
+  <string name="discoveredAttackDescription">Eng Figur, déi den Ugrëff vun enger laangfeldreger Figur (zum Beispill en Tuerm) blockéiert, aus dem Wee beweegen.</string>
   <string name="doubleCheck">Dubbelschach</string>
   <string name="endgame">Endspill</string>
   <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
@@ -48,6 +54,7 @@
   <string name="hookMateDescription">Schachmatt mat engem Tuerm, Sprénger a Bauer zesummen mat engem géigneresche Bauer deen dem géigneresche Kinnek e Fluchtfeld hëlt.</string>
   <string name="interference">Ënnerbriechung</string>
   <string name="intermezzo">Zwëschenzuch</string>
+  <string name="intermezzoDescription">Amplaz den erwaardenen Zuch ze spillen, spill als éischt en Zuch deen eng direkt Bedroung poséiert, op deen de Géigner äntweren muss.</string>
   <string name="knightEndgame">Sprénger Endspill</string>
   <string name="knightEndgameDescription">En Endspill nëmmen mat Sprénger a Baueren.</string>
   <string name="long">Laang Aufgab</string>
@@ -67,6 +74,7 @@
   <string name="mateIn4">Matt a 4</string>
   <string name="mateIn4Description">Mattsetzen a véier Zich.</string>
   <string name="mateIn5">Matt a 5 oder méi</string>
+  <string name="mateIn5Description">Fann eng laang Sequenz un Zich, déi schachmatt gëtt.</string>
   <string name="middlegame">Mëttelspill</string>
   <string name="middlegameDescription">Eng Taktik an der zweeter Phase vun der Partie.</string>
   <string name="oneMove">Een-Zuch Aufgab</string>
@@ -94,7 +102,11 @@
   <string name="shortDescription">Zwee Zich fir ze gewannen.</string>
   <string name="skewer">Spieß</string>
   <string name="skewerDescription">Een Motiv mat enger wertvoller Figur déi ugegraff gëtt an beim Fortbeweegen erlaabt, dass eng manner wertvoll Figur hannendrunn ugegraff oder geschlo gëtt. Den Inverse vun enger Fesselung.</string>
+  <string name="smotheredMate">Erstéckten Matt</string>
   <string name="superGM">Super-GM-Partien</string>
+  <string name="trappedPieceDescription">Eng Figur kann dem Schlagzuch net entkommen, well hir Zich begrenzt sinn.</string>
+  <string name="underPromotion">Ënnerwandlung</string>
+  <string name="underPromotionDescription">Ëmwandlung zu engem Sprénger, Leefer oder Tuerm.</string>
   <string name="veryLong">Ganz laang Aufgab</string>
   <string name="veryLongDescription">Véier oder méi Zich fir ze gewannen.</string>
   <string name="xRayAttack">Rëntgen-Ugrëff</string>
