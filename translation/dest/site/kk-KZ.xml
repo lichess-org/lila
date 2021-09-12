@@ -688,6 +688,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Компьютердің ойын тармағын көру үшін үстіне меңзер апарыңыз.</string>
   <string name="analysisShapesHowTo">Тақтада шеңбер мен нұсқағыш сызу үшін тінтуірмен оң шертіңіз немесе shift баса сол шертіңіз.</string>
   <string name="letOtherPlayersMessageYou">Ойыншыларға сізге хабар жіберу рұқсат па?</string>
+  <string name="receiveForumNotifications">Форумда сіз туралы жазса, хабарлама алу</string>
   <string name="shareYourInsightsData">Шахмат жайлы ойларыңызды бөлісу</string>
   <string name="withNobody">Ешкіммен</string>
   <string name="withFriends">Достармен</string>
@@ -699,6 +700,7 @@
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қауіпсіздік</string>
+  <string name="sessions">Қосылулар</string>
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="asFreeAsLichess">Личес-тей тегін</string>
@@ -853,4 +855,10 @@
   <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
+  <string name="mentionedYouInX">%1$s біреу сіз туралы жазды.</string>
+  <string name="xMentionedYouInY">%1$s сіз туралы %2$s жазды.</string>
+  <string name="invitedYouToX">сізді %1$s шақырды.</string>
+  <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
+  <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
+  <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
 </resources>
