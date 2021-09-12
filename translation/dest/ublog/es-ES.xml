@@ -30,4 +30,5 @@
     <item quantity="one">Ver una entrada</item>
     <item quantity="other">Ver las %s entradas</item>
   </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Subir una imagen para tu entrada</string>
 </resources>
