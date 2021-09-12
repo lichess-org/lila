@@ -50,6 +50,7 @@ Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst h
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
   <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
+  <string name="otherSystemsA">Mir plange momentan keng weider Turnéiersystemer op Lichess bäizefügen.</string>
   <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
@@ -61,7 +62,9 @@ Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst h
   <string name="possibleButNotConsecutive">Méiglech, mee net noeneen</string>
   <string name="identicalForbidden">Verbueden</string>
   <string name="lateJoin">Spéide Bäitrëtt</string>
+  <string name="lateJoinUntil">Jo, bis méi wéi d\'Hallschent vun de Ronne ugefaangen hunn</string>
   <string name="pause">Paus</string>
+  <string name="pauseSwiss">Jo, mee kéint d\'Unzuel vun de Ronne reduzéieren</string>
   <string name="similarToOTB">Änlech wéi OTB Turnéier</string>
   <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
 </resources>
