@@ -99,6 +99,8 @@
   <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
   <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
+  <string name="winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
+  <string name="lossOr50MovesByPriorMistake">Defaite oder 50 Zich duerch fréiere Feeler</string>
   <string name="allSet">Prett!</string>
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
@@ -419,7 +421,7 @@
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
   <string name="points">Punkten</string>
-  <string name="wins">Victoirë</string>
+  <string name="wins">Victoiren</string>
   <string name="losses">Defaiten</string>
   <string name="winStreak">Erfollegsserie</string>
   <string name="createdBy">Kreéiert vum</string>
@@ -432,8 +434,8 @@
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Turnéier fäerdeg</string>
   <string name="movesPlayed">Zich gespillt</string>
-  <string name="whiteWins">Wäiss Victoirë</string>
-  <string name="blackWins">Schwaarz Victoirë</string>
+  <string name="whiteWins">Wäiss Victoiren</string>
+  <string name="blackWins">Schwaarz Victoiren</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
