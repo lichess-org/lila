@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Di éischt Persoun déi dëst URL oprifft wäert däin Géigner sinn.</string>
   <string name="whiteResigned">Wäiss huet opginn</string>
   <string name="blackResigned">Schwaarz huet opginn</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Wäiss huet d\'Partie verlooss</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwaarz huet d\'Partie verlooss</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Wäiss huet net gezunn</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Schwaarz huet net gezunn</string>
+  <string name="whiteLeftTheGame">Wäiss huet d\'Partie verlooss</string>
+  <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
+  <string name="whiteDidntMove">Wäiss huet net gezunn</string>
+  <string name="blackDidntMove">Schwaarz huet net gezunn</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deelt dës URL fir Spectateuren ze invitéieren</string>
   <string name="theComputerAnalysisHasFailed">D\'Computer Analyse huet net fonctionéiert</string>
   <string name="viewTheComputerAnalysis">D\'Computer Analyse ukucken</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Nächsten Schlag- oder Bauerenzuch an %s Hallef-Zuch (Distanz zum Zerécksetzen vum 50-Zich-Ziehler)</item>
-    <item quantity="other">Nächsten Schlag- oder Bauerenzuch an %s Hallef-Zich (Distanz zum Zerécksetzen vum 50-Zich-Ziehler)</item>
   </plurals>
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
