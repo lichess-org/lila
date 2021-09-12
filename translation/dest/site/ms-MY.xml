@@ -87,9 +87,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mate dalam %s separuh-pergerakan</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
-  </plurals>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
   <string name="openingExplorer">Membuka explorer</string>
