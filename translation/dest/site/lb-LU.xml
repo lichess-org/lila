@@ -889,6 +889,10 @@ an veränneren Spillerwäertungen</string>
   <string name="maximumWeeklyRating">Maximal wöchentlech Wäertung</string>
   <string name="onlyTitled">Just Spiller mat Titel</string>
   <string name="onlyTitledHelp">Offiziellen Titel viraussetzen fir Turnéier bäizetrieden</string>
+  <string name="positionInputHelp">Füg eng gülteg FEN an, fir all Partie aus enger bestëmmter Positioun ze starten.
+Et funktioneiert nëmmen fir Standardpartien, net fir Varianten.
+Du kanns de %s benotzen, fir eng FEN-Positioun ze generéieren an dës dann hei afügen.
+Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</string>
   <string name="cancelSimul">Simul annuléieren</string>
   <string name="simulHostcolor">Faarf vum Host fir all Partie</string>
   <string name="estimatedStart">Ongeféier Startzäit</string>
