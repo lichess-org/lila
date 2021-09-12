@@ -678,6 +678,11 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mam Registréieren akzeptéiers du %s.</string>
   <string name="readAboutOur">Lies iwwer eis %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwierk Lag zwëschen dir an Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Zäit fir en Zuch um Lichess Server ze veraarbechten</string>
+  <string name="downloadAnnotated">Download kommentéiert</string>
+  <string name="downloadRaw">Download onkommentéiert</string>
+  <string name="downloadImported">Importéiert Partie eroflueden</string>
+  <string name="printFriendlyPDF">Drockfrëndlechen PDF</string>
   <string name="crosstable">Matchverlaf</string>
   <string name="shareYourInsightsData">Deng perséinlech Schachstatistiken deelen</string>
   <string name="withNobody">Mat kengem</string>
