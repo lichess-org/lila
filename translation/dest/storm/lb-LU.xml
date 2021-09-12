@@ -8,4 +8,22 @@
   <string name="newWeeklyHighscore">Néien Wocherekord!</string>
   <string name="newMonthlyHighscore">Néie Rekord vum Mount!</string>
   <string name="newAllTimeHighscore">Néien Allzäitrekord!</string>
+  <string name="highscoreX">Highscore: %s</string>
+  <string name="score">Score</string>
+  <string name="moves">Zich</string>
+  <string name="accuracy">Prezisioun</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Zäit</string>
+  <string name="timePerMove">Zäit pro Zuch</string>
+  <string name="highscores">Highscores</string>
+  <string name="getReady">Maach dech prett!</string>
+  <string name="nextRace">Nächst Course</string>
+  <string name="joinRematch">Revanche bäitrieden</string>
+  <string name="createNewGame">Kreéier eng nei Partie</string>
+  <string name="raceYourFriends">Course géint Frënn</string>
+  <string name="skip">Iwwersprangen</string>
+  <string name="skipHelp">Du kanns een Zuch pro Course iwwersprangen:</string>
+  <string name="skipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen ee Mol pro Laf maachen.</string>
+  <string name="failedPuzzles">Mësslongen Aufgaben</string>
+  <string name="slowPuzzles">Lues Aufgaben</string>
 </resources>
