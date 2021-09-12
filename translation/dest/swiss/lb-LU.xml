@@ -40,7 +40,10 @@
   <string name="sonnebornBergerScore">Sonneborn–Berger Score</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
+  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom schwäizer System Arena ersetzen?</string>
+  <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
+  <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
   <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
