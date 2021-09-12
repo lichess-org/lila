@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="mateIn1">Matt an 1</string>
+  <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
+  <string name="mateIn2">Matt an 2</string>
+  <string name="mateIn2Description">Mattsetzen an zwee Zich.</string>
+  <string name="mateIn3">Matt a 3</string>
+  <string name="mateIn3Description">Mattsetzen a dräi Zich.</string>
+  <string name="mateIn4">Matt a 4</string>
+  <string name="mateIn4Description">Mattsetzen a véier Zich.</string>
+  <string name="mateIn5">Matt a 5 oder méi</string>
+</resources>
