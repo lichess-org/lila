@@ -23,9 +23,9 @@
 een donkelfeldregen Leefer.
 Du brauchs déi zwee!</string>
   <string name="bishopComplete">Felicitatioun! Du hues den Leefer gemeeschtert.</string>
-  <string name="theQueen">D\'Dame</string>
-  <string name="queenCombinesRookAndBishop">Dame = Tuerm + Leefer</string>
-  <string name="queenIntro">Déi stäerksten Schachfigur ass do. Hir Majestéit, d\'Dame!</string>
+  <string name="theQueen">D\'Damm</string>
+  <string name="queenCombinesRookAndBishop">Damm = Tuerm + Leefer</string>
+  <string name="queenIntro">Déi stäerksten Schachfigur ass do. Hir Majestéit, d\'Damm!</string>
   <string name="queenComplete">Felicitatioun! Dammen hun keng Geheimnisser méi virun dir.</string>
   <string name="theKing">De Kinnek</string>
   <string name="theMostImportantPiece">Déi wichtegsten Figur</string>
@@ -45,7 +45,7 @@ Entkomm an sammel d\'Stären!</string>
   <string name="pawnIntro">Baueren sinn schwaach mee sie hunn vill Potenzial.</string>
   <string name="pawnsMoveOneSquareOnly">Baueren beweegen sech zwar just een Feld.
 Mee wann sie op der anerer Säit vum Briet ukommen, ginn sie zu enger méi staarker Figur!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Meeschtens ass d\'Ëmwandlung zu enger Dame am Beschten.
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meeschtens ass d\'Ëmwandlung zu enger Damm am Beschten.
 Mee heiansdo kann een Sprénger méi praktesch sinn!</string>
   <string name="pawnsMoveForward">Baueren beweegen sech richtaus, 
 mee schloen diagonal!</string>
@@ -119,10 +119,10 @@ Se ginn an d\'Ecker.</string>
 Se stinn nieft den Tierm.</string>
   <string name="placeTheBishops">Plazéier d\'Leefer!
 Se stinn nieft den Sprénger.</string>
-  <string name="placeTheQueen">Plazéier d\'Dame!
+  <string name="placeTheQueen">Plazéier d\'Damm!
 Si steet op hirer eegener Faarf.</string>
   <string name="placeTheKing">Plazéier de Kinnek!
-Direkt nieft senger Dame.</string>
+Direkt nieft senger Damm.</string>
   <string name="pawnsFormTheFrontLine">Baueren stinn un der Front.
 Spill een zuch fir weiderzemaachen.</string>
   <string name="boardSetupComplete">Felicitatioun! Du wees wéi een d\'Schachbriet opbaut.</string>
@@ -174,7 +174,7 @@ wann däin Bauer op der 5ter Rei steet.</string>
   <string name="pieceValue">Figurenvaleur</string>
   <string name="evaluatePieceStrength">Figurenstäerkt evaluéieren</string>
   <string name="pieceValueIntro">Figuren mat héijer Mobilitéit sinn méi wertvoll!
-Dame = 9
+Damm = 9
 Tuerm = 5
 Leefer = 3
 Sprénger = 3
@@ -182,7 +182,7 @@ Bauer = 1
 De Kinnek ass onbezuehlbar! Hien ze verléieren heecht d\'Partie ze verléieren.</string>
   <string name="queenOverBishop">Huel déi 
 méi wertvoll Figur!
-Dame &gt; Leefer</string>
+Damm &gt; Leefer</string>
   <string name="pieceValueExchange">Huel déi méi wertvoll Figur!
 Tausch net eng wertvoll Figur géint eng manner gudd.</string>
   <string name="pieceValueLegal">Huel déi méi wertvoll Figur!
@@ -190,7 +190,7 @@ Stell sécher dass den Zuch legal ass!</string>
   <string name="takeThePieceWithTheHighestValue">Huel déi 
 méi wertvoll Figur!</string>
   <string name="pieceValueComplete">Felicitatioun! Du kenns d\'Valeur vum Material!
-Dame = 9
+Damm = 9
 Tuerm = 5
 Leefer = 3
 Sprénger = 3
