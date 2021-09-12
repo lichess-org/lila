@@ -92,7 +92,7 @@
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
+  <string name="dtzWithRounding" comment="Tooltip for DTZ in tablebase view. DTZ50'' (speak &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases. It's probably best to keep &quot;DTZ50''&quot; untranslated.&#10;&#10;dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -100,9 +100,9 @@
   <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
   <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
-  <string name="winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
-  <string name="lossOr50MovesByPriorMistake">Defaite oder 50 Zich duerch fréiere Feeler</string>
-  <string name="unknownDueToRounding">Victoire/Defaite just garantéiert wann Tablebase Variant säit leschtem Schlag- oder Bauerenzuch gespillt gouf, wéinst méiglechem Ronnungsfeeler.</string>
+  <string name="winOr50MovesByPriorMistake" comment="Shown in some situations in the tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.&#10;&#10;winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
+  <string name="lossOr50MovesByPriorMistake" comment="Analogous to source string &quot;Win or 50 moves by prior mistake&quot;.&#10;&#10;lossOr50MovesByPriorMistake">Defaite oder 50 Zich duerch fréiere Feeler</string>
+  <string name="unknownDueToRounding" comment="Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in tablebase view.&#10;&#10;unknownDueToRounding">Victoire/Defaite just garantéiert wann Tablebase Variant säit leschtem Schlag- oder Bauerenzuch gespillt gouf, wéinst méiglechem Ronnungsfeeler.</string>
   <string name="allSet">Prett!</string>
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
@@ -441,7 +441,7 @@
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
-  <string name="membersOnly">Just Member</string>
+  <string name="membersOnly">Just Memberen</string>
   <string name="boardEditor">Briet Editor</string>
   <string name="setTheBoard">Briet opbauen</string>
   <string name="popularOpenings">Beléift Eröffnungen</string>
@@ -485,7 +485,7 @@
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
   <string name="descPrivate">Privat Beschreiwung</string>
-  <string name="descPrivateHelp">Text deen just Ekippen Member wäerten gesinn. Falls agestallt, ersetzt en fir Member d\'ëffentlech Beschreiwung.</string>
+  <string name="descPrivateHelp">Text deen just Ekippenmemberen wäerten gesinn. Falls agestallt, ersetzt en fir Memberen d\'ëffentlech Beschreiwung.</string>
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
   <string name="help">Hëllef:</string>
@@ -882,7 +882,7 @@ All Betriebskäschten, Entwécklung and Inhalter ginn ausschließlech vun Benotz
   <string name="tournDescriptionHelp">Wëlls du den Participanten eppes matdeelen? Haal dech kuerz. Markdown-Links sinn disponibel [name](https://url)</string>
   <string name="ratedFormHelp">Partien sinn gewäert 
 an veränneren Spillerwäertungen</string>
-  <string name="onlyMembersOfTeam">Just Member vun der Ekipp</string>
+  <string name="onlyMembersOfTeam">Just Memberen vun der Ekipp</string>
   <string name="noRestriction">Keng Aschränkungen</string>
   <string name="minimumRatedGames">Minimum gewäert Partien</string>
   <string name="minimumRating">Minimum Wäertung</string>
@@ -906,7 +906,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="tournChat">Turnéier Chat</string>
   <string name="noChat">Keen Chat</string>
   <string name="onlyTeamLeaders">Just Ekippenleader</string>
-  <string name="onlyTeamMembers">Just Ekippenmember</string>
+  <string name="onlyTeamMembers">Just Ekippenmemberen</string>
   <string name="navigateMoveTree">Duerch den Zuchbam navigéieren</string>
   <string name="mouseTricks">Maus Tricks</string>
   <string name="toggleLocalAnalysis">Lokal Computer Analyse aktivéieren/desaktivéieren</string>
