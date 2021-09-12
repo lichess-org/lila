@@ -50,6 +50,7 @@ final class Env(
     msgEnv: lila.msg.Env,
     videoEnv: lila.video.Env,
     ublogApi: lila.ublog.UblogApi,
+    picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,

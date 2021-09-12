@@ -24,6 +24,7 @@ final class PersonalDataExport(
     relationEnv: lila.relation.Env,
     userRepo: lila.user.UserRepo,
     ublogApi: lila.ublog.UblogApi,
+    picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
 )(implicit ec: ExecutionContext, mat: Materializer) {
 
@@ -162,7 +163,7 @@ final class PersonalDataExport(
               "title"  -> post.title,
               "intro"  -> post.intro,
               "body"   -> post.markdown,
-              "image"  -> post.image.??(_.value),
+              "image"  -> post.image.??(lila.ublog.UblogPost.thumbnail(picfitUrl, _, _.Large)),
               "topics" -> post.topics.map(_.value).mkString(", ")
             ).map { case (k, v) =>
               s"$k: $v"
