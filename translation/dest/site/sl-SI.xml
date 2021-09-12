@@ -96,6 +96,7 @@
     <item quantity="few">Mat v %s pol-potezah</item>
     <item quantity="other">Mat v %s pol-potezah</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50 \'\' z zaokroževanjem, odvisno od števila pol-potez do naslednjega zajema ali poteze kmeta</string>
   <string name="noGameFound">Igra ni najdena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij v meniju nastavitev?</string>
   <string name="openingExplorer">Raziskovalec otvoritev</string>
@@ -103,6 +104,9 @@
   <string name="xOpeningExplorer">%s raziskovalec otvoritev</string>
   <string name="winPreventedBy50MoveRule">Zmago preprečilo pravilo 50 potez</string>
   <string name="lossSavedBy50MoveRule">Poraz rešilo pravilo 50 potez</string>
+  <string name="winOr50MovesByPriorMistake">Zmagajte ali 50 potez po predhodni napaki</string>
+  <string name="lossOr50MovesByPriorMistake">Izguba ali 50 potez po predhodni napaki</string>
+  <string name="unknownDueToRounding">Zmaga/poraz je zagotovljen le, če je bila od možnega zaokroževanja upoštevana priporočena vrstica mize.</string>
   <string name="allSet">Vse pripravljeno!</string>
   <string name="importPgn">Uvozi PGN</string>
   <string name="delete">Izbriši</string>
