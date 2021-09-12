@@ -16,6 +16,19 @@
   <string name="recentlyUpdated">Rezent aktualiséiert</string>
   <string name="mostPopular">Am Beléiftsten</string>
   <string name="alphabetical">Alphabetesch</string>
+  <string name="searchByUsername">No Benotzernumm sichen</string>
+  <string name="spectator">Zuschauer</string>
+  <string name="kick">Rausgehéien</string>
+  <string name="leaveTheStudy">Etüd verloossen</string>
+  <string name="youAreNowAContributor">Du bass elo e Contributeur</string>
+  <string name="youAreNowASpectator">Du bass elo en Zuschauer</string>
+  <string name="pgnTags">PGN Tags</string>
+  <string name="like">Gefällt mir</string>
+  <string name="newTag">Néien Tag</string>
+  <string name="commentThisPosition">Kommentéier des Positioun</string>
+  <string name="commentThisMove">Kommentéier dësen Zuch</string>
+  <string name="annotateWithGlyphs">Mat Symboler kommentéieren</string>
+  <string name="theChapterIsTooShortToBeAnalysed">D\'Kapitel ass ze kuerz fir analyséiert ze ginn.</string>
   <string name="playing">Lafend Partie</string>
   <string name="first">Éischt Säit</string>
   <string name="previous">Zeréck</string>
@@ -24,4 +37,16 @@
   <string name="shareAndExport">Deelen &amp; exportéieren</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">PGN studéieren</string>
+  <string name="whiteIsBetter">Wäiss ass besser</string>
+  <string name="blackIsBetter">Schwaarz ass besser</string>
+  <string name="whiteIsWinning">Wéiss steet op Gewënn</string>
+  <string name="blackIsWinning">Schwaarz steet op Gewënn</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwécklung</string>
+  <string name="initiative">Initiativ</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ugrëff</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Géigespill</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Zäitdrock</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mat Kompensatioun</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mat der Iddi</string>
+  <string name="nextChapter">Nächst Kapitel</string>
 </resources>
