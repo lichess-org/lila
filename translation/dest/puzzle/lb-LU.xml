@@ -8,6 +8,31 @@
   <string name="advanced">Avancéiert</string>
   <string name="lengths">Längten</string>
   <string name="mates">Mats</string>
+  <string name="trySomethingElse">Probéier eppes aneres.</string>
+  <string name="ratingX">Bewärtung: %s</string>
+  <string name="hidden">verstoppt</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s mol gespillt</item>
+    <item quantity="other">%s mol gespillt</item>
+  </plurals>
+  <string name="fromGameLink">Aus der Partie %s</string>
+  <string name="continueTraining">Training weiderféieren</string>
+  <string name="difficultyLevel">Schwieregkeetsgrad</string>
+  <string name="normal">Normal</string>
+  <string name="easier">Méi einfach</string>
+  <string name="easiest">Einfachst</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ee Punkt ënner denger Aufgabebewärtung</item>
+    <item quantity="other">%s Punkten ënner denger Aufgabebewärtung</item>
+  </plurals>
+  <string name="harder">Méi schwéier</string>
+  <string name="hardest">Schwéierst</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ee Punkt iwwer denger Aufgabebewärtung</item>
+    <item quantity="other">%s Punkten iwwer denger Aufgabebewärtung</item>
+  </plurals>
+  <string name="example">Beispill</string>
+  <string name="addAnotherTheme">E weidert Motiv bäifügen</string>
   <string name="jumpToNextPuzzleImmediately">Direkt zur nächster Aufgab sprangen</string>
   <string name="puzzleDashboard">Aufgabeniwwersiicht</string>
   <string name="improvementAreas">Verbesserungsberäicher</string>
