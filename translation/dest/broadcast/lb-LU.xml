@@ -2,4 +2,27 @@
 <resources>
   <string name="broadcasts">Iwwerdroungen</string>
   <string name="liveBroadcasts">Live Turnéier Iwwerdroungen</string>
+  <string name="newBroadcast">Nei Live Iwwerdroung</string>
+  <string name="addRound">Ronn hinzufügen</string>
+  <string name="ongoing">Am Gaang</string>
+  <string name="upcoming">Demnächst</string>
+  <string name="completed">Eriwwer</string>
+  <string name="roundName">Ronnennumm</string>
+  <string name="roundNumber">Ronnennummer</string>
+  <string name="tournamentName">Turnéiernumm</string>
+  <string name="tournamentDescription">Kuerz Turnéierbeschreiwung</string>
+  <string name="fullDescription">Komplett Turnéierbeschreiwung</string>
+  <string name="fullDescriptionHelp">Optional laang Beschreiwung vum Turnéier. %1$s ass disponibel. Längt muss manner wéi %2$s Buschtawen sinn.</string>
+  <string name="sourceUrlOrGameIds">Quellen-URL oder Partien IDs</string>
+  <string name="sourceUrlHelp">URL déi Lichess checkt fir PGN à jour ze halen. Muss öffentlech iwwer Internet zougänglech sinn.</string>
+  <string name="gameIdsHelp">Alternativ kanns du och bis zu 64 Lichess Partien IDs aginn, getrennt duerch Espacen.</string>
+  <string name="startDate">Startdatum an denger eegener Zäitzon</string>
+  <string name="startDateHelp">Optional, wann du wees wéini den Turnéier ufänkt</string>
+  <string name="credits">Quell kreditéieren</string>
+  <string name="resetRound">Ronn zerécksetzen</string>
+  <string name="deleteRound">Ronn läschen</string>
+  <string name="broadcastUrl">Iwwerdroungs-URL</string>
+  <string name="currentRoundUrl">URL vun der aktueller Ronn</string>
+  <string name="currentGameUrl">URL vun der aktueller Partie</string>
+  <string name="downloadAllRounds">All Ronnen eroflueden</string>
 </resources>
