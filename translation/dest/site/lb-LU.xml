@@ -684,13 +684,24 @@
   <string name="downloadImported">Importéiert Partie eroflueden</string>
   <string name="printFriendlyPDF">Drockfrëndlechen PDF</string>
   <string name="crosstable">Matchverlaf</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kanns och um Briet scrollen fir duerch d\'Partie ze goen.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll iwwer Computer Varianten fir eng Virschau ze kréien.</string>
+  <string name="analysisShapesHowTo">Dréck Shift+Mausklick oder Rietsklick fir Kreeser and Feiler um Briet ze zeechnen.</string>
+  <string name="letOtherPlayersMessageYou">Anerer kënnen dir Messagen schécken</string>
+  <string name="receiveForumNotifications">Notificatioun kréien wann du am Forum erwähnt gëss</string>
   <string name="shareYourInsightsData">Deng perséinlech Schachstatistiken deelen</string>
   <string name="withNobody">Mat kengem</string>
   <string name="withFriends">Mat Frënn</string>
   <string name="withEverybody">Mat jidderengem</string>
   <string name="youHaveAlreadyRegisteredTheEmail">D\'Email %s ass schon registréiert</string>
   <string name="kidMode">Kannermodus</string>
+  <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
+  <string name="enableKidMode">Kannermodus aktivéieren</string>
+  <string name="disableKidMode">Kannermodus desaktivéieren</string>
   <string name="security">Sécherheet</string>
+  <string name="sessions">Sitzungen</string>
+  <string name="revokeAllSessions">All Sitzungen ofschléissen</string>
   <string name="playChessEverywhere">Spill iwwerall Schach</string>
   <string name="asFreeAsLichess">Sou gratis wéi Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Aus Léift zum Schach, net Suen</string>
@@ -708,6 +719,10 @@
     <item quantity="other">Disponibel an %s Sproochen!</item>
   </plurals>
   <string name="gameAnalysis">Spill Analyse</string>
+  <string name="xHostsY">%1$s huet %2$s kreéiert</string>
+  <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
+  <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="xCreatesStudyY">%1$s huet Etüd %2$s kreéiert</string>
   <string name="quickPairing">Schnell Paarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
