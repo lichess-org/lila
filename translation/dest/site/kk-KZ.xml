@@ -880,4 +880,11 @@
   <string name="cancelTournament">Жарысты болдырмау</string>
   <string name="tournDescription">Жарыс сипаттамасы</string>
   <string name="tournDescriptionHelp">Қатысушыларға арнайы сөзіңіз болса, жазыңыз. Қысқа болған жақсы. Сілтемелерді markdown күйінде қосуыңызға болады: [name](https://url)</string>
+  <string name="ratedFormHelp">Ойындар бағаланады
+яғни ойыншылардың рейтингіне әсер етеді</string>
+  <string name="onlyMembersOfTeam">Тек топ мүшелері</string>
+  <string name="noRestriction">Шектеусіз</string>
+  <string name="minimumRatedGames">Бағаланған ойындар кемінде</string>
+  <string name="minimumRating">Рейтинг кемінде</string>
+  <string name="maximumWeeklyRating">Апталық рейтингтің ең көбі</string>
 </resources>
