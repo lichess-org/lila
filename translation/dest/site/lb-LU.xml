@@ -880,15 +880,20 @@ All Betriebskäschten, Entwécklung and Inhalter ginn ausschließlech vun Benotz
   <string name="cancelTournament">Turnéier annuléieren</string>
   <string name="tournDescription">Turnéier Beschreiwung</string>
   <string name="tournDescriptionHelp">Wëlls du den Participanten eppes matdeelen? Haal dech kuerz. Markdown-Links sinn disponibel [name](https://url)</string>
+  <string name="ratedFormHelp">Partien sinn gewäert 
+an veränneren Spillerwäertungen</string>
   <string name="onlyMembersOfTeam">Just Member vun der Ekipp</string>
   <string name="noRestriction">Keng Aschränkungen</string>
   <string name="minimumRatedGames">Minimum gewäert Partien</string>
   <string name="minimumRating">Minimum Wäertung</string>
   <string name="maximumWeeklyRating">Maximal wöchentlech Wäertung</string>
   <string name="onlyTitled">Just Spiller mat Titel</string>
+  <string name="onlyTitledHelp">Offiziellen Titel viraussetzen fir Turnéier bäizetrieden</string>
   <string name="cancelSimul">Simul annuléieren</string>
+  <string name="simulHostcolor">Faarf vum Host fir all Partie</string>
   <string name="estimatedStart">Ongeféier Startzäit</string>
   <string name="simulFeatured">Op %s weisen</string>
+  <string name="simulFeaturedHelp">Jidderengem op %s Simul uweisen. Desaktivéieren fir privat Simuls.</string>
   <string name="simulDescription">Simul Beschreiwung</string>
   <string name="simulDescriptionHelp">Wëlls du den Participanten eppes matdeelen?</string>
   <string name="markdownAvailable">%s ass fir erweidert Formatéierung disponibel.</string>
