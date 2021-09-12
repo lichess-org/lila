@@ -25,6 +25,11 @@
     <item quantity="one">%s Partie</item>
     <item quantity="other">%s Partien</item>
   </plurals>
+  <string name="addMembers">Memberen hinzufügen</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Member</item>
+    <item quantity="other">%s Memberen</item>
+  </plurals>
   <string name="inviteToTheStudy">An d\'Etüd alueden</string>
   <string name="searchByUsername">No Benotzernumm sichen</string>
   <string name="spectator">Zuschauer</string>
