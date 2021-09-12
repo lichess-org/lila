@@ -485,7 +485,7 @@
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
   <string name="descPrivate">Privat Beschreiwung</string>
-  <string name="descPrivateHelp">Text deen just Ekippen Member wäerten gesinn. Falls agestallt, ersetzt en fir Member d\'öffentlech Beschreiwung.</string>
+  <string name="descPrivateHelp">Text deen just Ekippen Member wäerten gesinn. Falls agestallt, ersetzt en fir Member d\'ëffentlech Beschreiwung.</string>
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
   <string name="help">Hëllef:</string>
@@ -557,7 +557,7 @@
   <string name="drawVsYInZ">%1$s vs %2$s an %3$s</string>
   <string name="timeline">Verlaf</string>
   <string name="starting">Start:</string>
-  <string name="allInformationIsPublicAndOptional">All Infourmatioun ass public an optional.</string>
+  <string name="allInformationIsPublicAndOptional">All Infourmatioun ass ëffentlech an optional.</string>
   <string name="yourCityRegionOrDepartment">Deng Stad, Regioun, oder Provënz.</string>
   <string name="biographyDescription">Erziehl eppes iwer dech, deng Interessen, wat dir um Schach gefällt, deng Lieblingseröffnungen oder -spiller, ...</string>
   <plurals name="maximumNbCharacters">
