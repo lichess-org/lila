@@ -46,6 +46,7 @@
   <string name="hangingPieceDescription">Eng Taktik, bei där eng géignerescher Figur net oder ongenügend gedeckt ass an fräi ze schloen ass.</string>
   <string name="hookMate">Hokenmatt</string>
   <string name="hookMateDescription">Schachmatt mat engem Tuerm, Sprénger a Bauer zesummen mat engem géigneresche Bauer deen dem géigneresche Kinnek e Fluchtfeld hëlt.</string>
+  <string name="interference">Ënnerbriechung</string>
   <string name="intermezzo">Zwëschenzuch</string>
   <string name="knightEndgame">Sprénger Endspill</string>
   <string name="long">Laang Aufgab</string>
@@ -60,6 +61,8 @@
   <string name="mateIn4">Matt a 4</string>
   <string name="mateIn4Description">Mattsetzen a véier Zich.</string>
   <string name="mateIn5">Matt a 5 oder méi</string>
+  <string name="middlegame">Mëttelspill</string>
+  <string name="middlegameDescription">Eng Taktik an der zweeter Phase vun der Partie.</string>
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eng Taktik an der éischter Phase vun der Partie.</string>
   <string name="pawnEndgame">Baueren Endspill</string>
@@ -67,5 +70,14 @@
   <string name="pin">Fesselung</string>
   <string name="promotion">Ëmwandlung</string>
   <string name="promotionDescription">Wandel een Bauer zu enger Dame oder Liichtfigur ëm.</string>
+  <string name="queenEndgame">Dammen Endspill</string>
+  <string name="queenEndgameDescription">En Endspill mat just Dammen an Baueren.</string>
+  <string name="queenRookEndgame">Damm an Tuerm</string>
+  <string name="queensideAttack">Ugrëff op der Dammesäit</string>
+  <string name="rookEndgame">Tuerm Endspill</string>
+  <string name="sacrifice">Opfer</string>
+  <string name="sacrificeDescription">Eng Taktik wou een kuerzfristeg Material opgëtt fir no enger forcéierter Sequenz laangfristeg en Virdeel ze hunn.</string>
+  <string name="skewer">Spieß</string>
+  <string name="skewerDescription">Een Motiv mat enger wertvoller Figur déi ugegraff gëtt an beim Fortbeweegen erlaabt, dass eng manner wertvoll Figur hannendrunn ugegraff oder geschlo gëtt. Den Inverse vun enger Fesselung.</string>
   <string name="zugzwang">Zugzwang</string>
 </resources>
