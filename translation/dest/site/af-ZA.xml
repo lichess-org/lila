@@ -88,10 +88,6 @@
     <item quantity="one">Mat in %s half-skuif</item>
     <item quantity="other">Mat in %s half-skuiwe</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Volgende stukvat of pionskuif in %s halwe-skuiwe (Afstand Tot Herstel van die 50 skuif teller)</item>
-    <item quantity="other">Volgende vat of pionskuif in %s halwe-skuiwe(Afstand Tot Herstel van die 50 skuif teller)</item>
-  </plurals>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Opening ontdekker</string>
