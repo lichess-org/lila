@@ -107,8 +107,8 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def edit(id: String) = AuthBody { implicit ctx => me =>
     NotForKids {
-      OptionOk(env.ublog.api.getPost(UblogPost.Id(id)).map(_.filter(_.isBy(me)))) { post =>
-        html.ublog.form.edit(me, post, env.ublog.form.edit(post))
+      OptionOk(env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me)) { post =>
+        html.ublog.form.edit(post, env.ublog.form.edit(post))
       }
     }
   }
@@ -121,7 +121,7 @@ final class Ublog(env: Env) extends LilaController(env) {
             .edit(prev)
             .bindFromRequest()(ctx.body, formBinding)
             .fold(
-              err => BadRequest(html.ublog.form.edit(me, prev, err)).fuccess,
+              err => BadRequest(html.ublog.form.edit(prev, err)).fuccess,
               data =>
                 env.ublog.api.update(data, prev, me) map { post =>
                   Redirect(urlOfPost(post)).flashSuccess

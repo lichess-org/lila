@@ -30,27 +30,30 @@ object form {
           standardFlash(),
           h1(trans.ublog.newPost()),
           etiquette,
-          inner(user, f, none, captcha.some)
+          inner(f, Left(user), captcha.some)
         )
       )
     }
 
-  def edit(user: User, post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
+  def edit(post: UblogPost, f: Form[UblogPostData])(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
-      title = s"${trans.ublog.xBlog.txt(user.username)} blog • ${post.title}"
+      title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} blog • ${post.title}"
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
         div(cls := "page-menu__content box box-pad ublog-post-form")(
           standardFlash(),
           div(cls := "box__top")(
-            h1(trans.ublog.editYourBlogPost()),
+            h1(
+              if (ctx isUserId post.created.by) trans.ublog.editYourBlogPost()
+              else s"Edit ${usernameOrId(post.created.by)}'s post"
+            ),
             a(href := postView.urlOfPost(post), dataIcon := "", cls := "text", targetBlank)("Preview")
           ),
-          imageForm(user, post),
-          inner(user, f, post.some, none),
+          imageForm(post),
+          inner(f, Right(post), none),
           postForm(
             cls := "ublog-post-form__delete",
             action := routes.Ublog.delete(post.id.value)
@@ -66,7 +69,7 @@ object form {
       )
     }
 
-  private def imageForm(user: User, post: UblogPost)(implicit ctx: Context) =
+  private def imageForm(post: UblogPost)(implicit ctx: Context) =
     postForm(
       cls := "ublog-post-form__image",
       action := routes.Ublog.image(post.id.value),
@@ -84,15 +87,15 @@ object form {
 
   def formImage(post: UblogPost) = postView.thumbnail(post, _.Small)
 
-  private def inner(user: User, form: Form[UblogPostData], post: Option[UblogPost], captcha: Option[Captcha])(
+  private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(
       implicit ctx: Context
   ) =
     postForm(
       cls := "form3",
-      action := post.fold(routes.Ublog.create)(p => routes.Ublog.update(p.id.value))
+      action := post.fold(_ => routes.Ublog.create, p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
-      post.isDefined option form3.split(
+      post.isRight option form3.split(
         form3.checkbox(
           form("live"),
           trans.ublog.publishOnYourBlog(),
@@ -131,10 +134,13 @@ object form {
         views.html.base.captcha(form, c)
       },
       form3.actions(
-        a(href := post.fold(routes.Ublog.index(user.username))(views.html.ublog.post.urlOfPost))(
+        a(
+          href := post
+            .fold(user => routes.Ublog.index(user.username), views.html.ublog.post.urlOfPost)
+        )(
           trans.cancel()
         ),
-        form3.submit((if (post.isDefined) trans.apply else trans.ublog.saveDraft)())
+        form3.submit((if (post.isRight) trans.apply else trans.ublog.saveDraft)())
       )
     )
 

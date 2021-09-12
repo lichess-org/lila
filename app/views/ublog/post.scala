@@ -45,7 +45,7 @@ object post {
         views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-post")(
           post.image.isDefined option thumbnail(post, _.Large)(cls := "ublog-post__image"),
-          ctx.is(user) option standardFlash(),
+          ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash(),
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
             a(
@@ -74,19 +74,18 @@ object post {
                   if (post.live) trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
                 ),
                 " ",
-                a(
-                  href := editUrlOfPost(post),
-                  cls := "button button-empty text",
-                  dataIcon := ""
-                )(trans.edit())
+                editButton(post)
               )
             else if (isGranted(_.ModerateBlog))
-              form(
-                method := "post",
-                action := routes.Ublog.delete(post.id.value),
-                cls := "ublog-post__meta__delete",
-                title := "MOD: Delete this post"
-              )(submitButton(dataIcon := "", cls := "button button-empty button-red confirm"))
+              frag(
+                editButton(post),
+                form(
+                  method := "post",
+                  action := routes.Ublog.delete(post.id.value),
+                  cls := "ublog-post__meta__delete",
+                  title := "MOD: Delete this post"
+                )(submitButton(dataIcon := "", cls := "button button-empty button-red confirm"))
+              )
             else
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
@@ -116,6 +115,12 @@ object post {
         )
       )
     }
+
+  private def editButton(post: UblogPost)(implicit ctx: Context) = a(
+    href := editUrlOfPost(post),
+    cls := "button button-empty text",
+    dataIcon := ""
+  )(trans.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean)(implicit ctx: Context) = button(
     tpe := "button",

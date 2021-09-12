@@ -19,6 +19,8 @@ sealed trait UserContext {
 
   def is(user: User): Boolean = me contains user
 
+  def isUserId(id: User.ID): Boolean = userId contains id
+
   def userId = me.map(_.id)
 
   def username = me.map(_.username)
