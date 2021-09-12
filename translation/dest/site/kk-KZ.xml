@@ -887,4 +887,10 @@
   <string name="minimumRatedGames">Бағаланған ойындар кемінде</string>
   <string name="minimumRating">Рейтинг кемінде</string>
   <string name="maximumWeeklyRating">Апталық рейтингтің ең көбі</string>
+  <string name="onlyTitled">Тек атаққа ие ойыншылар</string>
+  <string name="onlyTitledHelp">Жарысқа қосу үшін ресми атағын талап ету</string>
+  <string name="positionInputHelp">Әр ойынды нақты бір күйден бастау үшін FEN еңгізіңіз.
+Бұл тек қалыпты ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
+Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында қойыңыз.
+Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
 </resources>
