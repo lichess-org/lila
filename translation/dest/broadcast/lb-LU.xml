@@ -14,7 +14,7 @@
   <string name="fullDescription">Komplett Turnéierbeschreiwung</string>
   <string name="fullDescriptionHelp">Optional laang Beschreiwung vum Turnéier. %1$s ass disponibel. Längt muss manner wéi %2$s Buschtawen sinn.</string>
   <string name="sourceUrlOrGameIds">Quellen-URL oder Partien IDs</string>
-  <string name="sourceUrlHelp">URL déi Lichess checkt fir PGN à jour ze halen. Muss öffentlech iwwer Internet zougänglech sinn.</string>
+  <string name="sourceUrlHelp">URL déi Lichess checkt fir PGN à jour ze halen. Muss ëffentlech iwwer Internet zougänglech sinn.</string>
   <string name="gameIdsHelp">Alternativ kanns du och bis zu 64 Lichess Partien IDs aginn, getrennt duerch Espacen.</string>
   <string name="startDate">Startdatum an denger eegener Zäitzon</string>
   <string name="startDateHelp">Optional, wann du wees wéini den Turnéier ufänkt</string>
