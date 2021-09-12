@@ -63,16 +63,34 @@ Keen Zwang zur Ëmwandlung.</string>
   <string name="fundamentals">Grondlagen</string>
   <string name="capture">Schlagzuch</string>
   <string name="takeTheEnemyPieces">Schlo d\'géigneresch Figuren</string>
-  <string name="captureIntro">Fann dem Géigner seng onverteidegt Figuren an huel se!</string>
+  <string name="captureIntro">Fann dem Géigner seng onverdeedegt Figuren an huel se!</string>
   <string name="takeTheBlackPieces">Huel d\'schwaarz Figuren!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Huel d\'schwaarz Figuren!
 An verléier net deng eegen.</string>
   <string name="captureComplete">Felicitatioun! Du wees wéi een mat Schachfiguren kämpft!</string>
   <string name="protection">Beschützen</string>
   <string name="keepYourPiecesSafe">Beschütz deng Figuren</string>
-  <string name="protectionIntro">Fann d\'Figuren déi däin Géigner ugräift an verteideg se!</string>
+  <string name="protectionIntro">Fann d\'Figuren déi däin Géigner ugräift an verdeedeg se!</string>
   <string name="protectionComplete">Felicitatioun! Eng Figur déi een net verléiert ass eng gewonne Figur!</string>
   <string name="escape">Du bass ugegraff!
 Entkomm der Bedrohung!</string>
-  <string name="noEscape">Du kanns net entkommen, mee du kanns verteidegen!</string>
+  <string name="noEscape">Du kanns net entkommen, mee du kanns verdeedegen!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Looss sie keng
+onverdeedegt Figuren huelen!</string>
+  <string name="combat">Kampf</string>
+  <string name="captureAndDefendPieces">Huel an verdeedeg Figuren</string>
+  <string name="combatIntro">E gudde Kämpfer kennt souwuel Ugrëff wéi och Defense!</string>
+  <string name="combatComplete">Felicitatioun! Du wees wéi een mat Schachfiguren kämpft!</string>
+  <string name="checkInOne">Schach an 1</string>
+  <string name="attackTheOpponentsKing">Gräif dem Géigner säin Kinnek un</string>
+  <string name="checkInOneIntro">Fir en Schach ze ginn, gräif säin Kinnek un. Hien muss en verdeedegen!</string>
+  <string name="checkInOneGoal">Ziel an engem Zuch 
+op dem Géigner säin Kinnek!</string>
+  <string name="checkInOneComplete">Felicitatioun! Du hues dem Géigner e Schach ginn an hien forcéiert, säin Kinnek ze verdeedegen!</string>
+  <string name="outOfCheck">Aus dem Schach</string>
+  <string name="defendYourKing">Verdeedeg däin Kinnek</string>
+  <string name="outOfCheckIntro">Du bass am Schach! Du muss dem Ugrëff entkommen oder en blocken.</string>
+  <string name="escapeWithTheKing">Entkomm mat dengem Kinnek!</string>
+  <string name="theKingCannotEscapeButBlock">De Kinnek kann net entkommen,
+mee du kanns den Ugrëff blocken!</string>
 </resources>
