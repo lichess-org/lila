@@ -41,6 +41,7 @@
   <string name="discoveredAttack">Ofzuchsugrëff</string>
   <string name="discoveredAttackDescription">Eng Figur, déi den Ugrëff vun enger laangfeldreger Figur (zum Beispill en Tuerm) blockéiert, aus dem Wee beweegen.</string>
   <string name="doubleCheck">Dubbelschach</string>
+  <string name="doubleCheckDescription">Schach mat zwou Figuren gläichzäiteg ginn als Resultat vun engem Ofzuchsugrëff, wou souwuel déi gespillte Figur ewéi och déi opgedeckte Figur de géigneresche Kinnek ugräifen.</string>
   <string name="endgame">Endspill</string>
   <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
   <string name="enPassantDescription">Eng Taktik bezüglech der \"en passant\" Reegel, bei där e Bauer e géigneresche Bauer schloen kann, deen un em mat engem Dubbelschrëtt aus der Ausgangspositioun laanscht gaangen ass.</string>
@@ -103,7 +104,9 @@
   <string name="skewer">Spieß</string>
   <string name="skewerDescription">Een Motiv mat enger wertvoller Figur déi ugegraff gëtt an beim Fortbeweegen erlaabt, dass eng manner wertvoll Figur hannendrunn ugegraff oder geschlo gëtt. Den Inverse vun enger Fesselung.</string>
   <string name="smotheredMate">Erstéckten Matt</string>
+  <string name="smotheredMateDescription">Een Schachmatt duerch en Sprénger deem den Kinnek net entkommen kann, well hien vun sengen eegenen Figuren ëmkreest (erstéckt) gëtt.</string>
   <string name="superGM">Super-GM-Partien</string>
+  <string name="superGMDescription">Aufgaben vu Partie vun de beschte Spiller vun der Welt.</string>
   <string name="trappedPieceDescription">Eng Figur kann dem Schlagzuch net entkommen, well hir Zich begrenzt sinn.</string>
   <string name="underPromotion">Ënnerwandlung</string>
   <string name="underPromotionDescription">Ëmwandlung zu engem Sprénger, Leefer oder Tuerm.</string>
@@ -111,6 +114,7 @@
   <string name="veryLongDescription">Véier oder méi Zich fir ze gewannen.</string>
   <string name="xRayAttack">Rëntgen-Ugrëff</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">De Géigner huet eng begrenzten Unzuel un Zich an all Zuch verschlechtert seng Positioun.</string>
   <string name="healthyMix">Gesonde Mix</string>
   <string name="healthyMixDescription">E bësse vun allem. Du weess net wat dech erwaart, dowéinst muss op alles preparéiert sinn! Genau wéi bei echte Partien.</string>
   <string name="playerGames">Partie vu Spiller</string>
