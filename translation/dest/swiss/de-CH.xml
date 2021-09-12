@@ -53,7 +53,7 @@ Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Pu
   <string name="restrictedToTeamsQ">Wieso isch es uf Teams beschränkt?</string>
   <string name="restrictedToTeamsA">Turniär noch Schwiizer Syschtem sind für Onlineschach echli ung\'eignät. Si verlangäd Pünktlichkeit, Durchhaltevermögä und Geduld.
 Mir glaubäd, dass die Bedingigä ehnder innerhalb vu Teams als in öffentlichä Turniär erfüllt wärdäd.</string>
-  <string name="numberOfByesQ">Wie viele kampflose Punkte kann ein Spieler bekommen?</string>
+  <string name="numberOfByesQ">Wievill Adiös chan än Spillär übercho?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu spät beitritt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>
