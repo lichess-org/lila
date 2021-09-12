@@ -92,6 +92,7 @@
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -101,6 +102,7 @@
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
   <string name="winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
   <string name="lossOr50MovesByPriorMistake">Defaite oder 50 Zich duerch fréiere Feeler</string>
+  <string name="unknownDueToRounding">Victoire/Defaite just garantéiert wann Tablebase Variant säit leschtem Schlag- oder Bauerenzuch gespillt gouf, wéinst méiglechem Ronnungsfeeler.</string>
   <string name="allSet">Prett!</string>
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
