@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander</string>
   <string name="whiteResigned">Hvid opgav</string>
   <string name="blackResigned">Sort opgav</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Hvid forlod partiet</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Sort forlod partiet</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Hvid flyttede ikke</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Sort flyttede ikke</string>
+  <string name="whiteLeftTheGame">Hvid forlod partiet</string>
+  <string name="blackLeftTheGame">Sort forlod partiet</string>
+  <string name="whiteDidntMove">Hvid flyttede ikke</string>
+  <string name="blackDidntMove">Sort flyttede ikke</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
   <string name="theComputerAnalysisHasFailed">Computeranalysen slog fejl</string>
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
-    <item quantity="other">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
   </plurals>
   <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
