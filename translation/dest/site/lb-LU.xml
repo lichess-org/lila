@@ -32,7 +32,7 @@
   <string name="variantEnding">Enn vun der Variant</string>
   <string name="newOpponent">Neie Géigner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Däin Géigner wëll eng nei Partie mat dir spillen</string>
-  <string name="joinTheGame">Tried der Partie bäi</string>
+  <string name="joinTheGame">Triet der Partie bäi</string>
   <string name="whitePlays">Wäiss um Zuch</string>
   <string name="blackPlays">Schwaarz um Zuch</string>
   <plurals name="opponentLeftCounter">
