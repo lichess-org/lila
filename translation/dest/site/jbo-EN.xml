@@ -85,9 +85,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">la caxmat. selfri ba lo %s kelka\'u</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">ga lonu kavbu gi lonu la paan. muvdu poi bavla\'i cu selfri ba lo %s kelka\'u to vo\'a kraga\'igau la muno mei kelka\'u kancu toi</item>
-  </plurals>
   <string name="noGameFound">sispe\'i no nunjvi</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">.e\'o ko zukyjdipei lozu\'o tengau lo selcmi sepi\'o le se nelrai</string>
   <string name="openingExplorer">cfari kelka\'u sispe\'i</string>
