@@ -32,10 +32,14 @@
   <string name="numberOfRounds">Unzuel u Ronnen</string>
   <string name="numberOfRoundsHelp">Eng ongerued Unzuel u Ronnen erlaabt fir eng optimal Säiteverdeelung.</string>
   <string name="roundInterval">Intervall tëschent de Ronnen</string>
+  <string name="forbiddenPairings">Verbuede Puerungen</string>
+  <string name="FIDEHandbook">FIDE Handbuch</string>
+  <string name="roundRobinQ">An Round Robin?</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
   <string name="tournDuration">Dauer vum Tounéier</string>
+  <string name="numberOfGames">Zuel vun Partien</string>
   <string name="identicalForbidden">Verbueden</string>
   <string name="lateJoin">Spéide Bäitrëtt</string>
   <string name="pause">Paus</string>
