@@ -899,4 +899,8 @@
   <string name="simulFeatured">%s осында көрсету</string>
   <string name="simulFeaturedHelp">Көпшілікке қарсы ойынды баршаға %s көрсету. Оңаша ойындарда өшірулі.</string>
   <string name="simulDescription">Көпшілікке қарсы ойын сипаттамасы</string>
+  <string name="simulDescriptionHelp">Қатысушыларға тағы айтар сөзіңіз бар ма?</string>
+  <string name="markdownAvailable">Кеңейтілген синтаксис үшін %s.</string>
+  <string name="embedsAvailable">Еңгізу үшін ойынның не зерттеу бөлімінің URL-ын қойыңыз.</string>
+  <string name="inYourLocalTimezone">Жергілікті уақыт белдеуіңізде</string>
 </resources>
