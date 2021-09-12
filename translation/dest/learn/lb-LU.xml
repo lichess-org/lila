@@ -180,6 +180,36 @@ Leefer = 3
 Sprénger = 3
 Bauer = 1
 De Kinnek ass onbezuehlbar! Hien ze verléieren heecht d\'Partie ze verléieren.</string>
+  <string name="queenOverBishop">Huel déi 
+méi wertvoll Figur!
+Dame &gt; Leefer</string>
+  <string name="pieceValueExchange">Huel déi méi wertvoll Figur!
+Tausch net eng wertvoll Figur géint eng manner gudd.</string>
+  <string name="pieceValueLegal">Huel déi méi wertvoll Figur!
+Stell sécher dass den Zuch legal ass!</string>
+  <string name="takeThePieceWithTheHighestValue">Huel déi 
+méi wertvoll Figur!</string>
+  <string name="pieceValueComplete">Felicitatioun! Du kenns d\'Valeur vum Material!
+Dame = 9
+Tuerm = 5
+Leefer = 3
+Sprénger = 3
+Bauer = 1</string>
+  <string name="checkInTwo">Schach an 2</string>
+  <string name="twoMovesToGiveCheck">Zwee Zich fir en Schach ze ginn</string>
+  <string name="checkInTwoIntro">Fann déi richteg Kombinatioun vun zwee Zich fir dem Géigner en Schach ze ginn!</string>
+  <string name="checkInTwoGoal">Bedroh dem Géigner säin Kinnek
+an zwee Zich!</string>
+  <string name="checkInTwoComplete">Felicitatioun! Du hues dem Géigner e Schach ginn an hien forcéiert, säin Kinnek ze verdeedegen!</string>
+  <string name="whatNext">An wat elo?</string>
+  <string name="youKnowHowToPlayChess">Felicitatioun, du wees wéi een Schach spillt! Wëlls du en méi staarken Spiller ginn?</string>
+  <string name="register">Registréieren</string>
+  <string name="getAFreeLichessAccount">Gratis Lichess Benotzerkonto kreéieren</string>
+  <string name="practice">Üben</string>
+  <string name="learnCommonChessPositions">Typesch Schachpositiounen léieren</string>
+  <string name="puzzles">Aufgaben</string>
+  <string name="exerciseYourTacticalSkills">Trainéier deng taktesch Fähegkeeten</string>
+  <string name="playPeople">Online spillen</string>
   <string name="yourScore">Däin Score</string>
   <string name="next">Weider</string>
   <string name="backToMenu">Zeréck an den Menü</string>
