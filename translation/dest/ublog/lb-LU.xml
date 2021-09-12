@@ -26,5 +26,9 @@
   <string name="noPostsInThisBlogYet">Nach keng Bäiträg an dësen Blog.</string>
   <string name="noDrafts">Keng Entwërf unzeweisen.</string>
   <string name="latestBlogPosts">Neiste Blog-Bäiträg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">E Bäitrag uweisen</item>
+    <item quantity="other">%s Bäiträg uweisen</item>
+  </plurals>
   <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">E Bild fir däin Bäitrag eroplueden</string>
 </resources>
