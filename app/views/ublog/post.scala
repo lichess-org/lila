@@ -76,16 +76,7 @@ object post {
                 " ",
                 editButton(post)
               )
-            else if (isGranted(_.ModerateBlog))
-              frag(
-                editButton(post),
-                form(
-                  method := "post",
-                  action := routes.Ublog.delete(post.id.value),
-                  cls := "ublog-post__meta__delete",
-                  title := "MOD: Delete this post"
-                )(submitButton(dataIcon := "", cls := "button button-empty button-red confirm"))
-              )
+            else if (isGranted(_.ModerateBlog)) editButton(post)
             else
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),
