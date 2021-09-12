@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Maach en Zuch fir ze starten</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du spills an allen Aufgaben mat de wäisse Figuren</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spills an allen Aufgaben mat de schwaarze Figuren</string>
+  <string name="puzzlesSolved">Aufgabe geléist</string>
+  <string name="newDailyHighscore">Néien Dagesrekord!</string>
+  <string name="newWeeklyHighscore">Néien Wocherekord!</string>
+  <string name="newMonthlyHighscore">Néie Rekord vum Mount!</string>
+  <string name="newAllTimeHighscore">Néien Allzäitrekord!</string>
+</resources>
