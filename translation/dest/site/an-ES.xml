@@ -90,10 +90,6 @@
     <item quantity="one">Mate en %s meyo movimiento</item>
     <item quantity="other">Mate en %s meyos movimientos</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguient captura u movimiento de peón en %s meyos movimientos (distancia a la mesa a zero d\'o contador de 50 movimientos)</item>
-    <item quantity="other">Siguient captura u movimiento de peón en %s meyos movimientos (distancia a zero d\'o contador de 50 movimientos)</item>
-  </plurals>
   <string name="noGameFound">No s\'ha trobau garra partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Preba incluyindo mas partidas dende lo menú de preferencias</string>
   <string name="openingExplorer">Explorador d\'obriduras</string>
