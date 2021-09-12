@@ -56,6 +56,9 @@ Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst h
   <string name="comparison">Vergläich</string>
   <string name="tournDuration">Dauer vum Tounéier</string>
   <string name="numberOfGames">Zuel vun Partien</string>
+  <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
+  <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
+  <string name="possibleButNotConsecutive">Méiglech, mee net noeneen</string>
   <string name="identicalForbidden">Verbueden</string>
   <string name="lateJoin">Spéide Bäitrëtt</string>
   <string name="pause">Paus</string>
