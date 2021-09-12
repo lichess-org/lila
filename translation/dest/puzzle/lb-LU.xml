@@ -8,9 +8,14 @@
   <string name="advanced">Avancéiert</string>
   <string name="lengths">Längten</string>
   <string name="mates">Mats</string>
+  <string name="jumpToNextPuzzleImmediately">Direkt zur nächster Aufgaben sprangen</string>
+  <string name="puzzleDashboard">Aufgabeniwwersiicht</string>
+  <string name="improvementAreas">Verbesserungsberäicher</string>
   <string name="strengths">Stäerkten</string>
   <string name="history">Aufgabeverlaf</string>
   <string name="solved">geléist</string>
+  <string name="failed">feelgeschloen</string>
+  <string name="streakDescription">Léis Aufgaben déi méi schwéier ginn an bau eng Erfollegsserie op. Et gëtt keng Auer, also huel dir Zäit. Een falsche Zuch an et ass eriwwer! Mee du kanns een Zuch pro Laf iwwersprangen.</string>
   <string name="yourStreakX">Deng Erfollegsserie: %s</string>
   <string name="streakSkipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen een Mol pro Laf maachen.</string>
   <string name="continueTheStreak">Erfollegsserie wiederféieren</string>
