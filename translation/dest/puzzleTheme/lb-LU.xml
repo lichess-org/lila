@@ -40,8 +40,16 @@
   <string name="enPassantDescription">Eng Taktik bezüglech der \"en passant\" Reegel, bei där e Bauer e géigneresche Bauer schloen kann, deen un em mat engem Dubbelschrëtt aus der Ausgangspositioun laanscht gaangen ass.</string>
   <string name="exposedKing">Exponéiert Kinnek</string>
   <string name="exposedKingDescription">Eng Taktik bezüglech engem Kinnek, deen vun wéinege Figuren verteidegt gëtt, wat oft zu Schachmatt féiert.</string>
+  <string name="fork">Forschett</string>
   <string name="forkDescription">En Zuch, bei deem déi gespillte Figur zwou géigneresch Figuren gläichzäiteg ugräift.</string>
   <string name="hangingPiece">Hänkend Figur</string>
+  <string name="hangingPieceDescription">Eng Taktik, bei där eng géignerescher Figur net oder ongenügend gedeckt ass an fräi ze schloen ass.</string>
+  <string name="hookMate">Hokenmatt</string>
+  <string name="hookMateDescription">Schachmatt mat engem Tuerm, Sprénger a Bauer zesummen mat engem géigneresche Bauer deen dem géigneresche Kinnek e Fluchtfeld hëlt.</string>
+  <string name="intermezzo">Zwëschenzuch</string>
+  <string name="knightEndgame">Sprénger Endspill</string>
+  <string name="long">Laang Aufgab</string>
+  <string name="master">Meeschter Partien</string>
   <string name="mate">Schachmatt</string>
   <string name="mateIn1">Matt an 1</string>
   <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
@@ -52,5 +60,12 @@
   <string name="mateIn4">Matt a 4</string>
   <string name="mateIn4Description">Mattsetzen a véier Zich.</string>
   <string name="mateIn5">Matt a 5 oder méi</string>
+  <string name="opening">Eröffnung</string>
+  <string name="openingDescription">Eng Taktik an der éischter Phase vun der Partie.</string>
+  <string name="pawnEndgame">Baueren Endspill</string>
+  <string name="pawnEndgameDescription">En Endspill mat just Baueren.</string>
+  <string name="pin">Fesselung</string>
+  <string name="promotion">Ëmwandlung</string>
+  <string name="promotionDescription">Wandel een Bauer zu enger Dame oder Liichtfigur ëm.</string>
   <string name="zugzwang">Zugzwang</string>
 </resources>
