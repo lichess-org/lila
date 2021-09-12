@@ -92,7 +92,7 @@
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50'' with rounding, based on number of half moves until next capture or pawn move</string>
+  <string name="dtzWithRounding">DTZ50'' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">No game found</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer</string>
