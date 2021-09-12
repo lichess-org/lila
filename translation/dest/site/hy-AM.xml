@@ -49,8 +49,8 @@
   <string name="blackResigned">Սևերը հանձնվեցին</string>
   <string name="whiteLeftTheGame">Սպիտակները լքեցին խաղը</string>
   <string name="blackLeftTheGame">Սևերը լքեցին խաղը</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Սպիտակները քայլ չեն կատարել</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Սևերը քայլ չեն կատարել</string>
+  <string name="whiteDidntMove">Սպիտակները քայլ չեն կատարել</string>
+  <string name="blackDidntMove">Սևերը քայլ չեն կատարել</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Տարածել այս հղումը, որպեսզի հանդիսատեսները տեսնեն խաղի ընթացքը</string>
   <string name="theComputerAnalysisHasFailed">Համակարգչային վերլուծությունը չստացվեց</string>
   <string name="viewTheComputerAnalysis">Ցույց տալ համակարգչային վերլուծությունը</string>
