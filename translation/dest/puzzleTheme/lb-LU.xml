@@ -33,6 +33,10 @@
   <string name="defensiveMove">Defensiven Zuch</string>
   <string name="defensiveMoveDescription">E prezisen Zuch oder eng Sequenz vun Zich, déi gespillt musse ginn fir keen Material oder Virdeel ze verléieren.</string>
   <string name="deflection">Oflenkung</string>
+  <string name="deflectionDescription">En Zuch, deen eng géigneresch Figur vun enger anerer Aufgab oflenkt, wéi zum Beispill d\'Deckung vun engem wichtegen Feld. Heiansdo och \"Iwwerlaaschtung\" genannt.</string>
+  <string name="doubleCheck">Dubbelschach</string>
+  <string name="endgame">Endspill</string>
+  <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
   <string name="mate">Schachmatt</string>
   <string name="mateIn1">Matt an 1</string>
   <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
