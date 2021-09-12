@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Ընդգրկվելու Ձեր հայտը պետք է հաստատի թիմի ղեկավարը։</string>
   <string name="beingReviewed">Ընդգրկվելու Ձեր հայտն ուսումնասիրում է թիմի ղեկավարը։</string>
+  <string name="requestDeclined">Թիմի ղեկավարը մերժել է ընդգրկվելու Ձեր հայտը։</string>
   <string name="subToTeamMessages">Բաժանորդագրվել թիմի հաղորդագրություններին</string>
   <string name="teamBattle">Միջակումբային մրցաշար</string>
   <string name="teamBattleOverview">Մի քանի թիմի մրցաշար, յուրաքանչյուր խաղացող միավորներ է վաստակում իր թիմի համար</string>
@@ -52,4 +53,5 @@
   <string name="teamAlreadyExists">Այդպիսի թիմ արդեն գոյություն ունի։</string>
   <string name="upcomingTourns">Գալիք մրցաշարեր</string>
   <string name="completedTourns">Ավարտված մրցաշարեր</string>
+  <string name="declinedRequests">Մերժված հայտեր</string>
 </resources>

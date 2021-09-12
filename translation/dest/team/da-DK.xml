@@ -7,7 +7,7 @@
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="allTeams">Alle hold</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Holdleder</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Holdleder</string>
   <string name="newTeam">Nyt hold</string>
   <string name="myTeams">Mine hold</string>
   <string name="noTeamFound">Ingen hold fundet</string>
@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Din tilmeldingsanmodning vil blive gennemgået af holdlederen.</string>
   <string name="beingReviewed">Din tilmeldingsanmodning bliver gennemgået af holdlederen.</string>
+  <string name="requestDeclined">Din tilmeldingsanmodning blev afvist af holdlederen.</string>
   <string name="subToTeamMessages">Abonner på holdbeskeder</string>
   <string name="teamBattle">Holdkamp</string>
   <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>

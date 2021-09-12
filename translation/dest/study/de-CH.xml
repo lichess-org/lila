@@ -126,7 +126,7 @@
   <string name="clearChat">Tschätt löschä</string>
   <string name="deleteTheStudyChatHistory">Tschättverlauf vodä Schtuudiä löschä? Das chan nümä rückgängig gmacht wärdä!</string>
   <string name="deleteStudy">Schtuudiä löschä</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die gesamte Studie löschen? Es gibt kein Zurück! Gib zur Bestätigung den Namen der Studie ein: %s</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die ganz Schtuudiä löschä? Es git käs Zrugg! Gib zur Beschtätigung dä amä vo dä Schtuudiä ii: %s</string>
   <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
   <string name="goodMove">Guätä Zug</string>
   <string name="mistake">Fähler</string>

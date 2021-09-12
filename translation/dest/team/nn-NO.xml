@@ -7,7 +7,7 @@
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="allTeams">Alle lag</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Lag du er leiar av</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lag du er leiar av</string>
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mine lag</string>
   <string name="noTeamFound">Finn ikkje noko lag</string>
@@ -27,8 +27,9 @@
     <item quantity="one">%s førespurnad om å slutte seg til</item>
     <item quantity="other">%s førespurnadar om å slutte seg til</item>
   </plurals>
-  <string name="willBeReviewed">Din førespurnad om å bli med vil bli vurdert av lagleiaren.</string>
-  <string name="beingReviewed">Din førespurnad om å slutte seg til blir vurdert av lagleiaren.</string>
+  <string name="willBeReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
+  <string name="beingReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
+  <string name="requestDeclined">Lagleiaren avslo din førespurnad om å bli med.</string>
   <string name="subToTeamMessages">Abonner på lagmeldingar</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">Ein konkurranse mellom fleire lag, kvar spelar skårar poeng for sitt eige lag</string>
@@ -52,4 +53,5 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="teamAlreadyExists">Dette laget finst allereie.</string>
   <string name="upcomingTourns">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Avviste førespurnader</string>
 </resources>

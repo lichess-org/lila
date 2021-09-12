@@ -3,6 +3,7 @@
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новы допіс</string>
   <string name="editYourBlogPost">Рэдагаваць ваш допіс у блогу</string>
+  <string name="saveDraft">Захаваць чарнавік</string>
   <string name="postTitle">Назва допісу</string>
   <string name="postIntro">Уступ да допісу</string>
   <string name="postBody">Асноўны тэкст допісу</string>
@@ -16,10 +17,24 @@
     <item quantity="many">Апублікаваць %s постоў у блогу</item>
     <item quantity="other">Апублікаваць %s постоў ў блогу</item>
   </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Адзін прагляд</item>
+    <item quantity="few">%s прагляда</item>
+    <item quantity="many">%s праглядаў</item>
+    <item quantity="other">%s праглядаў</item>
+  </plurals>
   <string name="xPublishedY">%1$s апублікаваў(-ла) %2$s</string>
   <string name="thisPostIsPublished">Допіс апублікаваны</string>
   <string name="thisIsADraft">Гэта чарнавік</string>
   <string name="moreBlogPostsBy">Больш допісаў %s</string>
   <string name="noPostsInThisBlogYet">Пакуль няма допісаў у гэтым блогу.</string>
   <string name="noDrafts">Няма чарнавых допісаў.</string>
+  <string name="latestBlogPosts">Апошнія допісы ў блогу</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Праглядзець адзін допіс</item>
+    <item quantity="few">Праглядзець усе %s допісы</item>
+    <item quantity="many">Праглядзець усе %s допісаў</item>
+    <item quantity="other">Праглядзець усе %s допісаў</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Загрузіць малюнак да вашага допісу</string>
 </resources>

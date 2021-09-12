@@ -47,8 +47,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Бұл сілтемеден бірінші келген адам сізбен ойнайды.</string>
   <string name="whiteResigned">Ақ берілді</string>
   <string name="blackResigned">Қара берілді</string>
-  <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
-  <string name="blackLeftTheGame">Қара ойыннан шықты</string>
+  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Ақ ойыннан шықты</string>
+  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Қара ойыннан шықты</string>
   <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Ақтар жүрмеді</string>
   <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Қаралар жүрмеді</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемені жіберіңіз</string>
@@ -506,6 +506,7 @@
   <string name="cheat">Чит, алдап ойнау</string>
   <string name="insult">Қорлау</string>
   <string name="troll">Троль, кемсіту</string>
+  <string name="ratingManipulation">Рейтингпен айла-шарғы</string>
   <string name="other">Басқа</string>
   <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
@@ -684,8 +685,10 @@
   <string name="printFriendlyPDF">Қағазға бастыруға лайық PDF</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Компьютердің ойын тармағын көру үшін үстіне меңзер апарыңыз.</string>
   <string name="analysisShapesHowTo">Тақтада шеңбер мен нұсқағыш сызу үшін тінтуірмен оң шертіңіз немесе shift баса сол шертіңіз.</string>
   <string name="letOtherPlayersMessageYou">Ойыншыларға сізге хабар жіберу рұқсат па?</string>
+  <string name="receiveForumNotifications">Форумда сіз туралы жазса, хабарлама алу</string>
   <string name="shareYourInsightsData">Шахмат жайлы ойларыңызды бөлісу</string>
   <string name="withNobody">Ешкіммен</string>
   <string name="withFriends">Достармен</string>
@@ -697,6 +700,7 @@
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қауіпсіздік</string>
+  <string name="sessions">Қосылулар</string>
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="asFreeAsLichess">Личес-тей тегін</string>
@@ -851,4 +855,22 @@
   <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
+  <string name="mentionedYouInX">%1$s біреу сіз туралы жазды.</string>
+  <string name="xMentionedYouInY">%1$s сіз туралы %2$s жазды.</string>
+  <string name="invitedYouToX">сізді %1$s шақырды.</string>
+  <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
+  <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
+  <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
+  <string name="someoneYouReportedWasBanned">Сіз шағым жіберегенсіз, ол ойыншы шектелді</string>
+  <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
+  <string name="gameVsX">%1$s қарсы ойын</string>
+  <string name="resVsX">%1$s қарсы %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Сіздің бапкер куәлігіңізді біреу қарастырды.</string>
+  <string name="newPendingReview">Жаңа қарастыруды күтуде</string>
+  <string name="lostAgainstTOSViolator">Сіз Личестің Ережесін бұзған біреуге жеңілдіңіз</string>
+  <string name="refundXpointsTimeControlY">Қайтару: %1$s %2$s рейтинг ұпайы.</string>
+  <string name="timeAlmostUp">Уақыт таусылғалы тұр!</string>
+  <string name="clickToRevealEmailAddress">[поштаны көрсету үшін шертіңіз]</string>
+  <string name="download">Жүктеп алу</string>
+  <string name="welcome">Қол келдіңіз!</string>
 </resources>

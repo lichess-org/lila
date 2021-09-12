@@ -7,7 +7,7 @@
     <item quantity="other">%s Mitglieder</item>
   </plurals>
   <string name="allTeams">Alle Teams</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Von dir geleitete Teams</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Von dir geleitete Teams</string>
   <string name="newTeam">Neues Team</string>
   <string name="myTeams">Meine Teams</string>
   <string name="noTeamFound">Kein Team gefunden</string>
@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft werden.</string>
   <string name="beingReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft.</string>
+  <string name="requestDeclined">Deine Beitrittsanfrage wurde von einem Teamleiter abgelehnt.</string>
   <string name="subToTeamMessages">Team-Nachrichten abonnieren</string>
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">Ein Kampf mehrerer Teams, jeder Spieler erzielt Punkte für sein Team</string>
@@ -50,4 +51,5 @@
   <string name="teamAlreadyExists">Dieses Team existiert bereits.</string>
   <string name="upcomingTourns">Anstehende Turniere</string>
   <string name="completedTourns">Beendete Turniere</string>
+  <string name="declinedRequests">Abgelehnte Anfragen</string>
 </resources>

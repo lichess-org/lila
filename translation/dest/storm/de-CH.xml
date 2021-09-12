@@ -50,4 +50,6 @@
   <string name="skip">überschpringä</string>
   <string name="skipHelp">Du chasch ein Zug pro Ränä überschpringä:</string>
   <string name="skipExplanation">Überschpring dä Zug, zum dini Kombination byzbhaltä! Du chasch das nur eimol pro Ränä machä.</string>
+  <string name="failedPuzzles">Fählgschlagi Ufgoobä</string>
+  <string name="slowPuzzles">Langsami Ufgoobä</string>
 </resources>

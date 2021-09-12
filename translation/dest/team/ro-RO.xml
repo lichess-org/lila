@@ -31,6 +31,7 @@
   </plurals>
   <string name="willBeReviewed">Cererea ta va fi revizuită de către liderul echipei.</string>
   <string name="beingReviewed">Cererea ta este revizuită de către liderul echipei.</string>
+  <string name="requestDeclined">Cererea ta de aderare a fost refuzată de un lider de echipă.</string>
   <string name="subToTeamMessages">Abonează-te la mesajele echipei</string>
   <string name="teamBattle">Luptă în echipă</string>
   <string name="teamBattleOverview">O bătălie între mai multe echipe, fiecare jucator adună puncte pentru echipa sa</string>
@@ -53,4 +54,5 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="teamAlreadyExists">Această echipă există deja.</string>
   <string name="upcomingTourns">Turnee viitoare</string>
   <string name="completedTourns">Turnee finalizate</string>
+  <string name="declinedRequests">Cereri refuzate</string>
 </resources>

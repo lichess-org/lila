@@ -3,6 +3,7 @@
   <plurals name="teamLeaders">
     <item quantity="other">အသင်းခေါင်းဆောင်</item>
   </plurals>
+  <string name="requestDeclined">အသင်း ဝင်ရန် လူကြီးမင်း၏ တောင်းဆိုမှုအား အသင်း ခေါင်းဆောင်က ငြင်းပယ်ထားပါသည်။</string>
   <string name="messageAllMembersLongDescription">အသင်းဝင် အားလုံးထံ လျှို့ဝှက် စာတို ပို့ရန်။
 ပြိုင်ပွဲ သို့မဟုတ် အသင်းအချင်းချင်း ကစားပွဲ တစ်ခုတွင် ပါဝင်ကြရေး နိုးဆော်ရန် အသုံးပြုနိုင်ပါသည်။
 သင့်ထံမှ စာတို မရယူလိုသော အသင်းဝင်တို့ အသင်းမှ ထွက်ကောင်း ထွက်သွားနိုင်ပါသည်။</string>
@@ -14,4 +15,5 @@
   <string name="closeTeamDescription">အသင်းကို ထာဝရ ဖျက်သည်။</string>
   <string name="entryCode">အသင်းသို့ ဝင်ရန် စကားဝှက်။</string>
   <string name="incorrectEntryCode">စကားဝှက် မမှန်ပါ။</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">ငြင်းပယ်ထားသော တောင်းဆိုမှုများ</string>
 </resources>

@@ -7,7 +7,7 @@
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Todas as equipes</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">Equipes que você lidera</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Equipes que você lidera</string>
   <string name="newTeam">Nova equipe</string>
   <string name="myTeams">Minhas equipes</string>
   <string name="noTeamFound">Nenhuma equipe encontrada</string>
@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Seu pedido de adesão será analisado pelos líderes da equipe.</string>
   <string name="beingReviewed">Seu pedido de adesão está sendo analisado pelos líderes da equipe.</string>
+  <string name="requestDeclined">Seu pedido de adesão foi recusado por um líder da equipe.</string>
   <string name="subToTeamMessages">Inscrever-se às mensagens da equipe</string>
   <string name="teamBattle">Batalha de equipes</string>
   <string name="teamBattleOverview">Uma batalha de várias equipes, cada jogador marca pontos para sua equipe</string>
@@ -52,4 +53,5 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
   <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Pedidos recusados</string>
 </resources>

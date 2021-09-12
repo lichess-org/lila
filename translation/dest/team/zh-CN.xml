@@ -6,7 +6,7 @@
     <item quantity="other">%s位成员</item>
   </plurals>
   <string name="allTeams">所有团队</string>
-  <string name="leaderTeams" comment="leaderTeams&#10;This is the button for 'teams led by you' in the teams navigation sidebar">领导团队</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">领导团队</string>
   <string name="newTeam">建立团队</string>
   <string name="myTeams">我的团队</string>
   <string name="noTeamFound">你不在任何团队中</string>
