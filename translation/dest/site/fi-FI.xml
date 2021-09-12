@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pelaat sen kaverin kanssa, joka ensimmäisenä avaa linkin.</string>
   <string name="whiteResigned">Valkea luovutti</string>
   <string name="blackResigned">Musta luovutti</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Valkea lähti pelistä</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Musta lähti pelistä</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Valkea ei siirtänyt</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Musta ei siirtänyt</string>
+  <string name="whiteLeftTheGame">Valkea lähti pelistä</string>
+  <string name="blackLeftTheGame">Musta lähti pelistä</string>
+  <string name="whiteDidntMove">Valkea ei siirtänyt</string>
+  <string name="blackDidntMove">Musta ei siirtänyt</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Jaa tämä linkki pelin katsojille</string>
   <string name="theComputerAnalysisHasFailed">Tietokoneanalyysi epäonnistui</string>
   <string name="viewTheComputerAnalysis">Katso tietokoneanalyysi</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matti %s puolisiirrolla</item>
     <item quantity="other">Matti %s puolisiirrolla</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
-    <item quantity="other">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
   </plurals>
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
