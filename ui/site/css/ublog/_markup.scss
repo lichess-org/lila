@@ -58,14 +58,14 @@
   }
 
   h3 {
-    @include fluid-size('font-size', 18px, 30px);
+    @include fluid-size('font-size', 18px, 27px);
 
     font-weight: bold;
     margin: 1.6em 0 1em 0;
   }
 
   h4 {
-    font-size: 1.4em;
+    @include fluid-size('font-size', 17px, 23px);
   }
 
   .img-container {
