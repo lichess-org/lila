@@ -90,10 +90,6 @@
     <item quantity="one">%s yarımgedişə mat</item>
     <item quantity="other">%s yarımgedişə mat</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Növbəti vurma və ya piyada gedişi %s yarımgediş sonra (50 gediş qaydasının sıfırlanmasına qalan məsafə)</item>
-    <item quantity="other">Növbəti vurma və ya piyada gedişi %s yarımgediş sonra (50 gediş qaydasının sıfırlanmasına qalan məsafə)</item>
-  </plurals>
   <string name="noGameFound">Oyun tapılmadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə tərcihlər menyusunda daha çox oyunun daxil edilməsini seçəsiniz?</string>
   <string name="openingExplorer">Debüt tədqiqatçısı</string>
