@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Privat</string>
+  <string name="myStudies">Meng Etüden</string>
+  <string name="studiesIContributeTo">Etüden, un deenen ech matwierken</string>
+  <string name="myPublicStudies">Meng öffentlech Etüden</string>
+  <string name="myPrivateStudies">Meng privat Etüden</string>
+  <string name="myFavoriteStudies">Meng Lieblingsetüden</string>
+  <string name="whatAreStudies">Wat sinn Etüden?</string>
+</resources>
