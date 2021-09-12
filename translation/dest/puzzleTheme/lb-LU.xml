@@ -31,6 +31,8 @@
   <string name="kingsideAttack">Ugrëff op der Kinnekssäit</string>
   <string name="kingsideAttackDescription">En Ugrëff op den géigneresche Kinnek, nodeem en op der Kinnekssäit rochéiert huet.</string>
   <string name="defensiveMove">Defensiven Zuch</string>
+  <string name="defensiveMoveDescription">E prezisen Zuch oder eng Sequenz vun Zich, déi gespillt musse ginn fir keen Material oder Virdeel ze verléieren.</string>
+  <string name="deflection">Oflenkung</string>
   <string name="mate">Schachmatt</string>
   <string name="mateIn1">Matt an 1</string>
   <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
