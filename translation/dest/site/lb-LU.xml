@@ -425,7 +425,7 @@
   <string name="points">Punkten</string>
   <string name="wins">Victoirë</string>
   <string name="losses">Defaiten</string>
-  <string name="winStreak">Victoireserie</string>
+  <string name="winStreak">Erfollegsserie</string>
   <string name="createdBy">Kreéiert vum</string>
   <string name="tournamentIsStarting">Den Turnéier geet lass</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
