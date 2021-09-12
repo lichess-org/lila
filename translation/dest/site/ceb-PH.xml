@@ -85,10 +85,6 @@
     <item quantity="one">Namate sa %s tunga nga lihok</item>
     <item quantity="other">Namate sa %s tunga nga mga lihok</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Sunod nga pagdakup o paglihok sa lakang sa %s tunga sa paglihok (Distansya Ngadto sa Zeroing sa 50 ka lakang sa pagbalhin)</item>
-    <item quantity="other">Sunod nga pagdakup o paglihok sa lakang sa %s tunga-tunga nga paglihok (Distansya Ngadto sa Zeroing sa 50 move counter)</item>
-  </plurals>
   <string name="noGameFound">Walay makita nga duwa</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pwedeng mag-apil ug mga duwa gikan sa gustong menu?</string>
   <string name="openingExplorer">Pag-abli sa explorer</string>
