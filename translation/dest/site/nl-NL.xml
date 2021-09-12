@@ -49,8 +49,8 @@
   <string name="blackResigned">Zwart geeft op</string>
   <string name="whiteLeftTheGame">Wit is weggegaan</string>
   <string name="blackLeftTheGame">Zwart is weggegaan</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Wit heeft niet gezet</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Zwart heeft niet gezet</string>
+  <string name="whiteDidntMove">Wit heeft niet gezet</string>
+  <string name="blackDidntMove">Zwart heeft niet gezet</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel deze link om anderen de partij te laten zien</string>
   <string name="theComputerAnalysisHasFailed">De computeranalyse is mislukt</string>
   <string name="viewTheComputerAnalysis">Bekijk de computeranalyse</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Schaakmat in %s halfzet</item>
     <item quantity="other">Schaakmat in %s halfzetten</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Volgende slag- of pionzet in %s halfzet (afstand tot het herstellen van de vijftig zetten teller)</item>
-    <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
   </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
