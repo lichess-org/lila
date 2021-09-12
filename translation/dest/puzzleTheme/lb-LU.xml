@@ -37,6 +37,11 @@
   <string name="doubleCheck">Dubbelschach</string>
   <string name="endgame">Endspill</string>
   <string name="endgameDescription">Eng Taktik an der leschter Phase vun der Partie.</string>
+  <string name="enPassantDescription">Eng Taktik bezüglech der \"en passant\" Reegel, bei där e Bauer e géigneresche Bauer schloen kann, deen un em mat engem Dubbelschrëtt aus der Ausgangspositioun laanscht gaangen ass.</string>
+  <string name="exposedKing">Exponéiert Kinnek</string>
+  <string name="exposedKingDescription">Eng Taktik bezüglech engem Kinnek, deen vun wéinege Figuren verteidegt gëtt, wat oft zu Schachmatt féiert.</string>
+  <string name="forkDescription">En Zuch, bei deem déi gespillte Figur zwou géigneresch Figuren gläichzäiteg ugräift.</string>
+  <string name="hangingPiece">Hänkend Figur</string>
   <string name="mate">Schachmatt</string>
   <string name="mateIn1">Matt an 1</string>
   <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
