@@ -36,10 +36,16 @@
   <string name="newSwiss">Neien SchwäizerTurnéier</string>
   <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
   <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
+  <string name="pointsCalculationA">Eng Victoire ass ee Punkt wäert, e Remis ass en hallwen Punkt wäert an eng Defaite si null Punkte wäert. 
+Wann e Spiller net gepuert ka ginn, kritt en en hallwe Punkt.</string>
   <string name="tiebreaksCalculationQ">Wéi ginn Tiebreaks gerechent?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger Score</string>
+  <string name="pairingsQ">Wéi ginn Puerungen decidéiert?</string>
+  <string name="dutchSystem">Hollännesche System</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
+  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
+Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
   <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom schwäizer System Arena ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
