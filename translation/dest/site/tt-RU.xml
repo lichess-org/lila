@@ -87,9 +87,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s ярты-йөрүдә мат</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">Киләсе алу я пешка йөрүе %s ярты-йөрүдән (чутлау 50 йөрүдән соң нульләнә)</item>
-  </plurals>
   <string name="noGameFound">Бер уен да табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Бәлки көйләүләрдә күбрәк уеннарны кабызырсыз?</string>
   <string name="openingExplorer">Дебютлар базасы</string>
