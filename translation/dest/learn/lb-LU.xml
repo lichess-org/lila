@@ -15,18 +15,18 @@
   <string name="grabAllTheStars">Huel dir all d\'Stären!</string>
   <string name="theFewerMoves">Wat du manner Zich brauchs, wat et méi Punkten ze gewannen ginn!</string>
   <string name="useTwoRooks">Benotz zwee Tierm fir méi schnell ze sinn!</string>
-  <string name="rookComplete">Félicitatiounen! Du hues den Tuerm gemeeschtert.</string>
+  <string name="rookComplete">Felicitatioun! Du hues den Tuerm gemeeschtert.</string>
   <string name="theBishop">De Leefer</string>
   <string name="itMovesDiagonally">Hien beweegt sech diagonal</string>
   <string name="bishopIntro">Als nächst léieren mer wéi de Leefer manövréiert!</string>
   <string name="youNeedBothBishops">Een wäissfeldregen Leefer, 
 een donkelfeldregen Leefer.
 Du brauchs déi zwee!</string>
-  <string name="bishopComplete">Félicitatiounen! Du hues den Leefer gemeeschtert.</string>
+  <string name="bishopComplete">Felicitatioun! Du hues den Leefer gemeeschtert.</string>
   <string name="theQueen">D\'Dame</string>
   <string name="queenCombinesRookAndBishop">Dame = Tuerm + Leefer</string>
   <string name="queenIntro">Déi stäerksten Schachfigur ass do. Hir Majestéit, d\'Dame!</string>
-  <string name="queenComplete">Félicitatiounen! Dammen hun keng Geheimnisser méi virun dir.</string>
+  <string name="queenComplete">Felicitatioun! Dammen hun keng Geheimnisser méi virun dir.</string>
   <string name="theKing">De Kinnek</string>
   <string name="theMostImportantPiece">Déi wichtegsten Figur</string>
   <string name="kingIntro">Du bass de Kinnek. Wanns du an der Schlacht fälls ass d\'Spill verluer.</string>
@@ -39,7 +39,7 @@ Du brauchs déi zwee!</string>
   <string name="knightsHaveAFancyWay">Sprénger sprangen raffinéiert hin an hir!</string>
   <string name="knightsCanJumpOverObstacles">Sprénger kënnen iwwer Hindernisser sprangen!
 Entkomm an sammel d\'Stären!</string>
-  <string name="knightComplete">Félicitatiounen! Du hues den Sprénger gemeeschtert.</string>
+  <string name="knightComplete">Felicitatioun! Du hues den Sprénger gemeeschtert.</string>
   <string name="thePawn">De Bauer</string>
   <string name="itMovesForwardOnly">Hien kann sech just richtaus beweegen</string>
   <string name="pawnIntro">Baueren sinn schwaach mee sie hunn vill Potenzial.</string>
@@ -55,7 +55,7 @@ Keen Zwang zur Ëmwandlung.</string>
   <string name="aPawnOnTheSecondRank">Een Bauer op der zweeter Rei kann an engem Zuch zwee Felder no fir!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Sammel all d\'Stären!
 Keen Zwang zur Ëmwandlung.</string>
-  <string name="pawnComplete">Félicitatiounen! Baueren hun keng Geheimnisser méi virun dir.</string>
+  <string name="pawnComplete">Felicitatioun! Baueren hun keng Geheimnisser méi virun dir.</string>
   <string name="pawnPromotion">Baueren Ëmwandlung</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Däin Bauer ass zum Schluss vum Briet ukomm!</string>
   <string name="itNowPromotesToAStrongerPiece">Hien gëtt elo zu enger méi staarker Figur.</string>
@@ -67,11 +67,11 @@ Keen Zwang zur Ëmwandlung.</string>
   <string name="takeTheBlackPieces">Huel d\'schwaarz Figuren!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Huel d\'schwaarz Figuren!
 An verléier net deng eegen.</string>
-  <string name="captureComplete">Félicitatiounen! Du wees wéi een mat Schachfiguren kämpft!</string>
+  <string name="captureComplete">Felicitatioun! Du wees wéi een mat Schachfiguren kämpft!</string>
   <string name="protection">Beschützen</string>
   <string name="keepYourPiecesSafe">Beschütz deng Figuren</string>
   <string name="protectionIntro">Fann d\'Figuren déi däin Géigner ugräift an verteideg se!</string>
-  <string name="protectionComplete">Félicitatiounen! Eng Figur déi een net verléiert ass eng gewonne Figur!</string>
+  <string name="protectionComplete">Felicitatioun! Eng Figur déi een net verléiert ass eng gewonne Figur!</string>
   <string name="escape">Du bass ugegraff!
 Entkomm der Bedrohung!</string>
   <string name="noEscape">Du kanns net entkommen, mee du kanns verteidegen!</string>
