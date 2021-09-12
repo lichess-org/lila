@@ -4,7 +4,7 @@
   <string name="newPost">Новая заметка</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
-  <string name="postTitle">Заголовок записи</string>
+  <string name="postTitle">Название записи</string>
   <string name="postIntro">Отрывок записи</string>
   <string name="postBody">Полный текст записи</string>
   <string name="drafts">Черновики</string>
