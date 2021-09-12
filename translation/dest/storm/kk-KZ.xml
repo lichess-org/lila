@@ -49,4 +49,7 @@
   <string name="raceYourFriends">Достармен бәйгеге түсу</string>
   <string name="skip">бас тарту</string>
   <string name="skipHelp">Сіз әр бәйгеде бір жүрістен ғана бас тарта аласыз:</string>
+  <string name="skipExplanation">Өз тізбегіңізді сақтау үшін осы жүрістен бас тарту! Әр бәйгеде бір рет.</string>
+  <string name="failedPuzzles">Шешілмеген жұмбақтар</string>
+  <string name="slowPuzzles">Баяу жұмбақтар</string>
 </resources>
