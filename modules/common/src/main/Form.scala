@@ -132,6 +132,7 @@ object Form {
         "wikimedia.org",
         "creativecommons.org",
         "pexels.com",
+        "piqsels.com",
         "freeimages.com",
         "unsplash.com",
         "githubusercontent.com",
