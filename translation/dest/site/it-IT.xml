@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La prima persona che si presenta a questo URL giocherà con te.</string>
   <string name="whiteResigned">Il Bianco ha abbandonato</string>
   <string name="blackResigned">Il Nero ha abbandonato</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Il Bianco ha lasciato la partita</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Il Nero ha lasciato la partita</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Il bianco non si è mosso</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Il bianco non si è mosso</string>
+  <string name="whiteLeftTheGame">Il Bianco ha lasciato la partita</string>
+  <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
+  <string name="whiteDidntMove">Il bianco non si è mosso</string>
+  <string name="blackDidntMove">Il bianco non si è mosso</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Condividi questo URL per ammettere spettatori alla partita</string>
   <string name="theComputerAnalysisHasFailed">Il computer ha fallito l\'analisi</string>
   <string name="viewTheComputerAnalysis">Guarda l\'analisi del computer</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matto in %s semi-mossa</item>
     <item quantity="other">Matto in %s semi-mosse</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Prossima cattura o mossa di pedone in %s semi-mossa (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
-    <item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
