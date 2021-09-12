@@ -92,6 +92,7 @@
     <item quantity="one">Mate en %s demi-coup</item>
     <item quantity="other">Mate en %s demi-coups</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50 avec arrondissement, selon le nombre de coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
@@ -101,7 +102,7 @@
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
   <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
   <string name="lossOr50MovesByPriorMistake">Défaite ou 50 coups par suite d\'une erreur</string>
-  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la bibliothèque de finales a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible</string>
+  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la table de finale a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible</string>
   <string name="allSet">Tout est prêt !</string>
   <string name="importPgn">Importer le PGN</string>
   <string name="delete">Effacer</string>
