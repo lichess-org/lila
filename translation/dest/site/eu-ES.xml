@@ -89,10 +89,6 @@
     <item quantity="one">Mate jokaldi erdi %sn</item>
     <item quantity="other">Mate %s jokaldi erditan</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Hurrengo harrapaketa edo peoi mugimendua jokaldi erdi %sn (50 jokaldien kontagailua zeroan jartzeko distantzia)</item>
-    <item quantity="other">Hurrengo harrapaketa edo peoi mugimendua %s jokaldi erditan (50 jokaldien kontagailua zeroan jartzeko distantzia)</item>
-  </plurals>
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
   <string name="openingExplorer">Hasiera-arakatzailea</string>
