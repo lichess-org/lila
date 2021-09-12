@@ -142,7 +142,7 @@ def lint_string(ctx, dest, source, allow_missing=0):
         for placeholder in re.findall(r"%\d+\$s", dest):
             ctx.error(f"mixing placeholder styles: {placeholder} and %s")
 
-    for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
+    for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N", "DTZ50''"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:

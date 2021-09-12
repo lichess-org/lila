@@ -232,10 +232,16 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   );
 }
 
-function showTablebase(ctrl: AnalyseCtrl, fen: Fen, title: string, moves: TablebaseMoveStats[]): VNode[] {
+function showTablebase(
+  ctrl: AnalyseCtrl,
+  fen: Fen,
+  title: string,
+  tooltip: string | undefined,
+  moves: TablebaseMoveStats[]
+): VNode[] {
   if (!moves.length) return [];
   return [
-    h('div.title', title),
+    h('div.title', tooltip ? { attrs: { title: tooltip } } : {}, title),
     h('table.tablebase', [
       h(
         'tbody',
@@ -286,7 +292,7 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
     'result.' + winnerOf(fen, move),
     {
       attrs: {
-        title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz)),
+        title: trans('dtzWithRounding') + ' (Distance To Zeroing)',
       },
     },
     'DTZ ' + Math.abs(move.dtz)
@@ -362,22 +368,23 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       ]);
     else lastShow = showEmpty(ctrl, data.opening);
   } else if (data && isTablebase(data)) {
-    const row = (category: TablebaseCategory, title: string) =>
+    const row = (category: TablebaseCategory, title: string, tooltip?: string) =>
       showTablebase(
         ctrl,
         data.fen,
         title,
+        tooltip,
         data.moves.filter(m => m.category == category)
       );
     if (data.moves.length)
       lastShow = h('div.data', [
         ...row('loss', trans('winning')),
         ...row('unknown', trans('unknown')),
-        ...row('maybe-loss', 'Winning or 50 moves by prior mistake'),
+        ...row('maybe-loss', trans('winOr50MovesByPriorMistake'), trans('unknownDueToRounding')),
         ...row('blessed-loss', trans('winPreventedBy50MoveRule')),
         ...row('draw', trans('drawn')),
         ...row('cursed-win', trans('lossSavedBy50MoveRule')),
-        ...row('maybe-win', 'Losing or 50 moves by prior mistake'),
+        ...row('maybe-win', trans('winOr50MovesByPriorMistake'), trans('unknownDueToRounding')),
         ...row('win', trans('losing')),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));
