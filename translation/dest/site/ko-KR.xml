@@ -88,9 +88,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">다음 기물을 잡거나 폰을 움직일 때까지 %s 수 남음 (50수 룰 카운트 갱신까지)</item>
-  </plurals>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
