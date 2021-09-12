@@ -30,6 +30,8 @@
   </plurals>
   <string name="tournStartDate">Startzäit vum Turnéier</string>
   <string name="numberOfRounds">Unzuel u Ronnen</string>
+  <string name="numberOfRoundsHelp">Eng ongerued Unzuel u Ronnen erlaabt fir eng optimal Säiteverdeelung.</string>
+  <string name="roundInterval">Intervall tëschent de Ronnen</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
