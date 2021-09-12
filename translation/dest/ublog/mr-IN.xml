@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">एक्सब्लॉग
+
+% हे वापरकर्त्याचे नाव आहे. हे एक शीर्षक आहे आणि मुक्तपणे भाषांतरित केले जाऊ शकते, परंतु वापरकर्त्याचे नाव आत असणे आवश्यक आहे</string>
+  <string name="newPost">नवीन पोस्ट</string>
+  <string name="editYourBlogPost">आपली ब्लॉग पोस्ट संपादित करा</string>
+  <string name="saveDraft">मसुदा वाचवा</string>
+  <string name="postTitle">पदशीर्षक
+
+पदाचे शीर्षक. आपण बॉक्सच्या अगदी खाली प्रवेश करू शकता</string>
+  <string name="postIntro">पोस्टइंट्रो
+आपण लिहीत असलेल्या पोस्टची ओळख</string>
+  <string name="postBody">पोस्टबॉडी
+आपण लिहीत असलेल्या ब्लॉग पोस्टचा मुख्य विभाग</string>
+</resources>
