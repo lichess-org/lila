@@ -29,7 +29,7 @@
   <string name="kingInTheCenter">Патша тақтаның ортасында</string>
   <string name="threeChecks">Шах үш рет қойылды</string>
   <string name="raceFinished">Бәйге аяқталды</string>
-  <string name="variantEnding">Нұсқа аяқталды</string>
+  <string name="variantEnding">Тармақ аяқталды</string>
   <string name="newOpponent">Жаңа қарсылас</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Қарсылас сізбен тағы ойнағысы келеді</string>
   <string name="joinTheGame">Ойынға қосылу</string>
@@ -67,10 +67,10 @@
   <string name="showThreat">Қауіп көрсету</string>
   <string name="inLocalBrowser">Жергілікті браузерде</string>
   <string name="toggleLocalEvaluation">Жергілікті өңдеу</string>
-  <string name="promoteVariation">Нұсқажолды көтеру</string>
+  <string name="promoteVariation">Тармақты көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
-  <string name="forceVariation">Ойын барысын тарқату</string>
+  <string name="forceVariation">Тармақты дамыту</string>
   <string name="move">Жүріс</string>
   <string name="variantLoss">Ұтылу жолы</string>
   <string name="variantWin">Жеңу жолы</string>
@@ -651,7 +651,7 @@
   <string name="keyMoveBackwardOrForward">алға/артқа жүру</string>
   <string name="keyGoToStartOrEnd">басына/аяғына жүру</string>
   <string name="keyShowOrHideComments">пікірлерді көрсету/жасыру</string>
-  <string name="keyEnterOrExitVariation">нұсқаларға ауысу/шығу</string>
+  <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
   <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Буллит, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
@@ -803,8 +803,8 @@
   <string name="middlegame">Ойын ортасы</string>
   <string name="endgame">Ойынсоңы</string>
   <string name="conditionalPremoves">Шартты алдын-ала жүрістер</string>
-  <string name="addCurrentVariation">Осы нұсқаны қосу</string>
-  <string name="playVariationToCreateConditionalPremoves">Шартты алдын-ала жүрістерді құру үшін бір нұсқаны ойнаңыз</string>
+  <string name="addCurrentVariation">Қазіргі тармақты қосу</string>
+  <string name="playVariationToCreateConditionalPremoves">Шартты алдын-ала жүрістерді құру үшін бір тармақты ойнаңыз</string>
   <string name="noConditionalPremoves">Шартты алдын-ала жүрістер жоқ</string>
   <string name="playX">%s жүріңіз</string>
   <plurals name="andSaveNbPremoveLines">
