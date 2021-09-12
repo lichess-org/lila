@@ -519,7 +519,7 @@
   <string name="typePrivateNotesHere">Schreiw hei deng privat Notten</string>
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
   <string name="incorrectPassword">Inkorrekt Passwuert</string>
-  <string name="invalidAuthenticationCode">Ongëltegen Authenticatiounscode</string>
+  <string name="invalidAuthenticationCode">Ongëltegen Authentifizéierungscode</string>
   <string name="emailMeALink">Email mir en Link</string>
   <string name="currentPassword">Aktuellt Passwuert</string>
   <string name="newPassword">Neit Passwuert</string>
