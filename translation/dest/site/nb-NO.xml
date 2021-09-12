@@ -49,8 +49,8 @@
   <string name="blackResigned">Sort ga opp</string>
   <string name="whiteLeftTheGame">Hvit forlot partiet</string>
   <string name="blackLeftTheGame">Sort forlot partiet</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Hvit flyttet ikke</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Svart flyttet ikke</string>
+  <string name="whiteDidntMove">Hvit flyttet ikke</string>
+  <string name="blackDidntMove">Svart flyttet ikke</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne lenken for å la andre følge partiet</string>
   <string name="theComputerAnalysisHasFailed">Datamaskinanalysen fungerte ikke</string>
   <string name="viewTheComputerAnalysis">Se computeranalyse</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Neste slag eller bondetrekk om %s halvtrekk (avstand til nullstilling av 50-trekks-teller)</item>
-    <item quantity="other">Neste slag eller bondetrekk om %s halvtrekk (avstand til nullstilling av 50-trekks-teller)</item>
   </plurals>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
