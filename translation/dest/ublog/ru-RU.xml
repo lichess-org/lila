@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">Блог %s</string>
-  <string name="newPost">Новая запись</string>
+  <string name="newPost">Новая заметка</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
   <string name="postTitle">Заголовок записи</string>
@@ -36,5 +36,5 @@
     <item quantity="many">Посмотреть %s записей</item>
     <item quantity="other">Посмотреть все %s записей</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Загрузите изображение к вашей записи</string>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Загрузите изображение к вашей записи</string>
 </resources>
