@@ -11,6 +11,13 @@
   <string name="strengths">Stäerkten</string>
   <string name="history">Aufgabeverlaf</string>
   <string name="solved">geléist</string>
+  <string name="newStreak">Nei Erfollegserie</string>
+  <string name="fromMyGames">Aus mengen Partien</string>
+  <string name="lookupOfPlayer">Sich Aufgaben aus Partien vun engem Spiller</string>
+  <string name="fromXGames">Aufgaben aus Partien vun %s</string>
+  <string name="searchPuzzles">Aufgaben sichen</string>
+  <string name="fromMyGamesNone">Et befannen sech keng Aufgaben vun dir an der Datebank, mee Lichess schätzt dech weiderhin ganz vill.
+Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun dengen Partien bäizefügen!</string>
   <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partien fonnt</string>
   <string name="puzzleDashboardDescription">Trainéier, analyséier, verbesser</string>
   <string name="percentSolved">%s geléist</string>
