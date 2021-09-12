@@ -638,7 +638,7 @@
   <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
-  <string name="simulVariantsHint">Егер сіз бірнеше нұсқа таңдасаңыз, әр ойыншы өзіне лайық бір нұсқасын таңдайды.</string>
+  <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан өзіне лайық біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
