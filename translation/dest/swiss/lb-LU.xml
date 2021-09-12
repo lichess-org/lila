@@ -13,5 +13,30 @@
     <item quantity="one">Eng Ronn pro Dag</item>
     <item quantity="other">Eng Ronn all %s Deeg</item>
   </plurals>
-  <string name="roundsAreStartedManually">Ronnen ginn manuell gestart</string>
+  <string name="roundsAreStartedManually">Ronne ginn manuell gestart</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s Sekonn tëschent Ronnen</item>
+    <item quantity="other">%s Sekonne tëschent Ronnen</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s Minut tëschent Ronnen</item>
+    <item quantity="other">%s Minute tëschent Ronnen</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Start an</string>
+  <string name="nextRound">Nächst Ronn</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Lafend Partie</item>
+    <item quantity="other">Lafend Partien</item>
+  </plurals>
+  <string name="tournStartDate">Startzäit vum Tournéier</string>
+  <string name="numberOfRounds">Unzuel u Ronnen</string>
+  <string name="nowPlaying">Grad amgaang</string>
+  <string name="startingSoon">Fänkt gläich un</string>
+  <string name="comparison">Vergläich</string>
+  <string name="tournDuration">Dauer vum Touréier</string>
+  <string name="identicalForbidden">Verbueden</string>
+  <string name="lateJoin">Spéide Bäitrëtt</string>
+  <string name="pause">Paus</string>
+  <string name="similarToOTB">Änlech wéi OTB Tournéier</string>
+  <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
 </resources>
