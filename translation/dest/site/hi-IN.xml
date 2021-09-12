@@ -90,10 +90,6 @@
     <item quantity="one">%s हाफ मूव में मैच</item>
     <item quantity="other">%s आधे-कदम में चेकमैट</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s आधे-कदम में अगला कैप्चर या मोहर चाल (50 कदम काउंटर के शून्यकरण करने के लिए दूरी)</item>
-    <item quantity="other">%s आधे-कदम में अगला कैप्चर या मोहर चाल (50 कदम काउंटर के शून्यकरण करने के लिए दूरी)</item>
-  </plurals>
   <string name="noGameFound">कोई गेम नहीं मिला</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
