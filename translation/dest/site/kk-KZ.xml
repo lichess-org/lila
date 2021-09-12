@@ -893,4 +893,10 @@
 Бұл тек қалыпты ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
 Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында қойыңыз.
 Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
+  <string name="cancelSimul">Көпшілікке қарсы ойынды болдырмау</string>
+  <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>
+  <string name="estimatedStart">Болжаулы басталу уақыты</string>
+  <string name="simulFeatured">%s осында көрсету</string>
+  <string name="simulFeaturedHelp">Көпшілікке қарсы ойынды баршаға %s көрсету. Оңаша ойындарда өшірулі.</string>
+  <string name="simulDescription">Көпшілікке қарсы ойын сипаттамасы</string>
 </resources>
