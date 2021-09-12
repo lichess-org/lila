@@ -15,6 +15,10 @@
   <string name="bishopEndgame">Leefer Endspill</string>
   <string name="bishopEndgameDescription">En Endspill mat nëmmen Leefer a Baueren.</string>
   <string name="bodenMate">Buedem-Matt</string>
+  <string name="bodenMateDescription">Zwee ugräifende Leefer op sech kräizegen Diagonalen setzen den Kinnek ass, deen duerch seng eege Figuren behënnert ass.</string>
+  <string name="castling">Rochéieren</string>
+  <string name="castlingDescription">Bréng de Kinnek a Sécherheet an den Tuerm op Ugrëffspositoun.</string>
+  <string name="capturingDefender">Schlo de Verteideger</string>
   <string name="mateIn1">Matt an 1</string>
   <string name="mateIn1Description">Mattsetzen an engem Zuch.</string>
   <string name="mateIn2">Matt an 2</string>
