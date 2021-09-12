@@ -88,10 +88,6 @@
     <item quantity="one">%s ஆட்டத்தில் முடிவுரை</item>
     <item quantity="other">%s ஆட்டங்களில் முடிவுரை</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s ஆட்டத்தில் காயவெட்டு (ஐம்பது ஆட்டம் அவகாசம்)</item>
-    <item quantity="other">%s ஆட்டங்களில் காயவெட்டு (ஐம்பது ஆட்டம் அவகாசம்)</item>
-  </plurals>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
