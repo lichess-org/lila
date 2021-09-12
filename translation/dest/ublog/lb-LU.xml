@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="xBlog">%s säi Blog</string>
-  <string name="newPost">Neien Bäidrag</string>
+  <string name="newPost">Neien Bäitrag</string>
+  <string name="editYourBlogPost">Beaarbecht däin Blog-Bäitrag</string>
+  <string name="saveDraft">Entworf späicheren</string>
+  <string name="postTitle">Bäitragstitel</string>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">E Bild fir däin Bäitrag eroplueden</string>
 </resources>
