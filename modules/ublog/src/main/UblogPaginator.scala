@@ -22,7 +22,7 @@ final class UblogPaginator(
   import UblogBsonHandlers._
   import UblogPost.PreviewPost
 
-  val maxPerPage = MaxPerPage(8)
+  val maxPerPage = MaxPerPage(9)
 
   def byUser(user: User, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     byBlog(UblogBlog.Id.User(user.id), live, page)
