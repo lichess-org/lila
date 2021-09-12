@@ -28,15 +28,15 @@
     <item quantity="one">Lafend Partie</item>
     <item quantity="other">Lafend Partien</item>
   </plurals>
-  <string name="tournStartDate">Startzäit vum Tournéier</string>
+  <string name="tournStartDate">Startzäit vum Turnéier</string>
   <string name="numberOfRounds">Unzuel u Ronnen</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
-  <string name="tournDuration">Dauer vum Touréier</string>
+  <string name="tournDuration">Dauer vum Tounéier</string>
   <string name="identicalForbidden">Verbueden</string>
   <string name="lateJoin">Spéide Bäitrëtt</string>
   <string name="pause">Paus</string>
-  <string name="similarToOTB">Änlech wéi OTB Tournéier</string>
+  <string name="similarToOTB">Änlech wéi OTB Turnéier</string>
   <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
 </resources>
