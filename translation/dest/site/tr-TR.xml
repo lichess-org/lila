@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bağlantıya ilk ulaşan kişi rakibiniz olacak.</string>
   <string name="whiteResigned">Beyaz oyundan çekildi</string>
   <string name="blackResigned">Siyah oyundan çekildi</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Beyaz oyundan ayrıldı</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Siyah oyundan ayrıldı</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Beyaz hamle yapmadı</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Siyah hamle yapmadı</string>
+  <string name="whiteLeftTheGame">Beyaz oyundan ayrıldı</string>
+  <string name="blackLeftTheGame">Siyah oyundan ayrıldı</string>
+  <string name="whiteDidntMove">Beyaz hamle yapmadı</string>
+  <string name="blackDidntMove">Siyah hamle yapmadı</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oyunu izlemek isteyenlerle bu bağlantıyı paylaşın</string>
   <string name="theComputerAnalysisHasFailed">Bilgisayar analizi başarısız oldu</string>
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s yarım hamle sonra mat</item>
     <item quantity="other">%s yarım hamle sonra mat</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
-    <item quantity="other">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
   </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
