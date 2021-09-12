@@ -7,7 +7,7 @@ export function colorOf(fen: Fen): Color {
 
 export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined {
   const stm = colorOf(fen);
-  if (move.checkmate || move.variant_loss || move.wdl! < 0) return stm;
-  if (move.variant_win || move.wdl! > 0) return opposite(stm);
+  if (move.checkmate || move.variant_loss || (move.dtz && move.dtz < 0)) return stm;
+  if (move.variant_win || (move.dtz && move.dtz > 0)) return opposite(stm);
   return undefined;
 }

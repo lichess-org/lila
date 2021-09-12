@@ -74,9 +74,18 @@ interface OpeningPlayer {
   rating: number;
 }
 
+export type TablebaseCategory =
+  | 'loss'
+  | 'unknown'
+  | 'maybe-loss'
+  | 'blessed-loss'
+  | 'draw'
+  | 'cursed-win'
+  | 'maybe-win'
+  | 'win';
+
 export interface TablebaseData extends ExplorerData {
   moves: TablebaseMoveStats[];
-  wdl: number | null;
   dtz: number | null;
   dtm: number | null;
   checkmate: boolean;
@@ -84,6 +93,7 @@ export interface TablebaseData extends ExplorerData {
   variant_win: boolean;
   variant_loss: boolean;
   insufficient_material: boolean;
+  category: TablebaseCategory;
 }
 
 export interface MoveStats {
@@ -98,7 +108,6 @@ export interface OpeningMoveStats extends MoveStats {
   averageRating: number;
 }
 export interface TablebaseMoveStats extends MoveStats {
-  wdl: number | null;
   dtz: number | null;
   dtm: number | null;
   checkmate: boolean;
@@ -107,6 +116,7 @@ export interface TablebaseMoveStats extends MoveStats {
   variant_loss: boolean;
   insufficient_material: boolean;
   zeroing: boolean;
+  category: TablebaseCategory;
 }
 
 export function isOpening(m: ExplorerData): m is OpeningData {

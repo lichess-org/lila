@@ -9,6 +9,7 @@ import AnalyseCtrl from '../ctrl';
 import {
   isOpening,
   isTablebase,
+  TablebaseCategory,
   TablebaseMoveStats,
   OpeningData,
   OpeningMoveStats,
@@ -334,16 +335,6 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
 
 let lastShow: MaybeVNode;
 
-type TablebaseMoveCategory =
-  | 'win'
-  | 'unknown'
-  | 'maybe-win'
-  | 'cursed-win'
-  | 'draw'
-  | 'blessed-loss'
-  | 'maybe-loss'
-  | 'loss';
-
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const trans = ctrl.trans.noarg,
     data = ctrl.explorer.current();
@@ -371,39 +362,23 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       ]);
     else lastShow = showEmpty(ctrl, data.opening);
   } else if (data && isTablebase(data)) {
-    const halfmovesBefore = parseInt(data.fen.split(' ')[4], 10);
-    const moveCategory: (m: TablebaseMoveStats) => TablebaseMoveCategory = m => {
-      const dtz = m.zeroing || m.checkmate || m.variant_loss || m.variant_win ? 0 : m.dtz;
-      const halfmovesAfter = m.zeroing ? 0 : halfmovesBefore + 1;
-      if ((m.stalemate || m.insufficient_material || m.wdl === 0) && !m.variant_loss && !m.variant_win) return 'draw';
-      else if (m.checkmate || m.variant_loss || (m.dtz && m.dtz < 0)) {
-        if (halfmovesBefore >= 100 || (dtz && dtz - halfmovesAfter < -100)) return 'cursed-win';
-        if ((dtz && dtz - halfmovesAfter > -100) || (m.zeroing && m.wdl === -2) || m.checkmate || m.variant_win)
-          return 'win';
-        return 'maybe-win';
-      } else if (m.variant_win || (m.dtz && m.dtz > 0)) {
-        if (halfmovesBefore >= 100 || (dtz && dtz + halfmovesAfter > 100)) return 'blessed-loss';
-        if ((dtz && dtz + halfmovesAfter < 100) || (m.zeroing && m.wdl === 2) || m.variant_win) return 'loss';
-        return 'maybe-loss';
-      } else return 'unknown';
-    };
-    const row = (category: TablebaseMoveCategory, title: string) =>
+    const row = (category: TablebaseCategory, title: string) =>
       showTablebase(
         ctrl,
         data.fen,
         title,
-        data.moves.filter(m => moveCategory(m) === category)
+        data.moves.filter(m => m.category == category)
       );
     if (data.moves.length)
       lastShow = h('div.data', [
-        ...row('win', trans('winning')),
+        ...row('loss', trans('winning')),
         ...row('unknown', trans('unknown')),
-        ...row('maybe-win', 'Winning or 50 moves by prior mistake'),
-        ...row('cursed-win', trans('winPreventedBy50MoveRule')),
+        ...row('maybe-loss', 'Winning or 50 moves by prior mistake'),
+        ...row('blessed-loss', trans('winPreventedBy50MoveRule')),
         ...row('draw', trans('drawn')),
-        ...row('blessed-loss', trans('lossSavedBy50MoveRule')),
-        ...row('maybe-loss', 'Losing or 50 moves by prior mistake'),
-        ...row('loss', trans('losing')),
+        ...row('cursed-win', trans('lossSavedBy50MoveRule')),
+        ...row('maybe-win', 'Losing or 50 moves by prior mistake'),
+        ...row('win', trans('losing')),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));
     else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'));
