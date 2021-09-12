@@ -5,6 +5,10 @@
   <string name="freeAccount">Тегін тіркелгі</string>
   <string name="becomePatron">Лическе Қамқоршы болу</string>
   <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s %2$s ай Личес-ке Қамқоршы</item>
+    <item quantity="other">%1$s %2$s ай Личес-ке Қамқоршы</item>
+  </plurals>
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршаға арналған тегін шахмат! Мәңгіге!</string>
   <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
@@ -22,6 +26,7 @@
   <string name="onetime">Бір рет</string>
   <string name="singleDonation">Бір реттік жәрдем берсеңіз, бір ай бойы Қамқоршы боласыз.</string>
   <string name="otherAmount">Басқа</string>
+  <string name="pleaseEnterAmountInX">Мөлшерін %s-мен жазыңыз</string>
   <string name="withCreditCard">Банк картасы</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Біз шағын ғана топпыз, сондықтан сіздің жәрдеміңіз зор пайда болады!</string>
@@ -37,7 +42,7 @@
 Немесе %s.</string>
   <string name="contactSupport">Личес қолдау орталығына хабарлаңыз</string>
   <string name="otherMethods">Ақшалай жәрдем берудің басқа тәсілдері?</string>
-  <string name="bankTransfers">Одан басқа банк аударымдарын қабылдаймыз</string>
+  <string name="bankTransfers">Сонымен қатар банк аударымдарын қабылдаймыз</string>
   <string name="bitcoin">Биткоин мекенжайымыз: %s</string>
   <string name="patronFeatures">Қамқоршылар үшін бір артықшылықтар бар ма?</string>
   <string name="noPatronFeatures">Жоқ, өйткені Личес бәріне бірдей мәңгі тегін. Уәде етеміз.
@@ -60,7 +65,7 @@
   <string name="xOrY">%1$s немесе %2$s</string>
   <string name="decideHowMuch">Личес сізге қаншалықты бағалы:</string>
   <string name="stopPayments">Банк картасын ажыратып, төлемдерді тоқтату:</string>
-  <string name="noLongerSupport">Личесті енді қолдамау</string>
+  <string name="noLongerSupport">Личесті қолдауын доғару</string>
   <string name="viewOthers">Басқа Личес Қамқоршыларын қарау</string>
   <string name="date">Күні</string>
   <string name="amount">Мөлшері</string>
