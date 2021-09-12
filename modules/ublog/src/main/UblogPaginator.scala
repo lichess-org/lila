@@ -42,13 +42,11 @@ final class UblogPaginator(
 
   def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
-      adapter = new Adapter[PreviewPost](
-        collection = colls.post,
-        selector = $doc("live" -> true) ++ lang.?? { l => $doc("language" -> l.code) },
-        projection = previewPostProjection.some,
-        sort = $sort desc "rank",
-        readPreference = ReadPreference.secondaryPreferred
-      ),
+      adapter = new AdapterLike[PreviewPost] {
+        val select                          = $doc("live" -> true) ++ lang.?? { l => $doc("language" -> l.code) }
+        def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
+        def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
+      },
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -68,16 +66,48 @@ final class UblogPaginator(
 
   def liveByTopic(topic: UblogTopic, page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
-      adapter = new Adapter[PreviewPost](
-        collection = colls.post,
-        selector = $doc("live" -> true, "topics" -> topic),
-        projection = previewPostProjection.some,
-        sort = $sort desc "rank",
-        readPreference = ReadPreference.secondaryPreferred
-      ),
+      adapter = new AdapterLike[PreviewPost] {
+        def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
+        def slice(offset: Int, length: Int) =
+          aggregateVisiblePosts($doc("topics" -> topic.value), offset, length)
+      },
       currentPage = page,
       maxPerPage = maxPerPage
     )
+
+  private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
+    .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match(select ++ $doc("live" -> true)) -> List(
+        Sort(Descending("rank")),
+        PipelineOperator(
+          $lookup.pipeline(
+            from = colls.blog,
+            as = "blog",
+            local = "blog",
+            foreign = "_id",
+            pipeline = List(
+              $doc(
+                "$match" -> $doc(
+                  "$expr" -> $doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW))
+                )
+              ),
+              $doc("$project" -> $id(true))
+            )
+          )
+        ),
+        UnwindField("blog"),
+        Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
+        Skip(offset),
+        Limit(length)
+      )
+    }
+    .map { docs =>
+      for {
+        doc  <- docs
+        post <- doc.asOpt[PreviewPost]
+      } yield post
+    }
 
   object liveByFollowed {
 
