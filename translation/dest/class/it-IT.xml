@@ -46,6 +46,7 @@ Password: %3$s</string>
   <string name="createDesc2">Non è richiesto alcun indirizzo email. Verrà generata una password e dovrai trasmetterla allo studente, in modo che possa accedere.</string>
   <string name="createDesc3">Importante: uno studente non deve avere account multipli.</string>
   <string name="createDesc4">Se ne ha già uno, utilizza invece il modulo di invito.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Crea profili solo per studenti reali. Non usare questo per creare profili multipli per te stesso. Saresti bannato.</string>
   <string name="lichessUsername">Nome utente Lichess</string>
   <string name="generateANewUsername">Genera un nuovo nome utente</string>
   <string name="welcomeToClass">Benvenuto nella lezione: %s
