@@ -8,6 +8,11 @@
   <string name="advanced">Avancéiert</string>
   <string name="lengths">Längten</string>
   <string name="mates">Mats</string>
+  <string name="goals">Zieler</string>
+  <string name="origin">Ursprong</string>
+  <string name="specialMoves">Besonnesch Zich</string>
+  <string name="didYouLikeThisPuzzle">Huet dir dës Aufgab gefall?</string>
+  <string name="voteToLoadNextOne">Stëmm of fir déi nächst ze lueden!</string>
   <string name="yourPuzzleRatingX">Deng Aufgabebewärtung: %s</string>
   <string name="findTheBestMoveForWhite">Fann de beschten Zuch fir Wäiss.</string>
   <string name="findTheBestMoveForBlack">Fann de beschten Zuch fir Schwaarz.</string>
@@ -66,6 +71,14 @@
 Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun denge Partien bäizefügen!</string>
   <string name="fromXGamesFound">%1$s Aufgaben an %2$s Partie fonnt</string>
   <string name="puzzleDashboardDescription">Trainéier, analyséier, verbesser</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s gespillt</item>
+    <item quantity="other">%s gespillt</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s ze widderhuelen</item>
+    <item quantity="other">%s ze widderhuelen</item>
+  </plurals>
   <string name="percentSolved">%s geléist</string>
   <string name="noPuzzlesToShow">Näicht ze weisen, spill fir d\'éischt e puer Aufgaben!</string>
   <string name="improvementAreasDescription">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
