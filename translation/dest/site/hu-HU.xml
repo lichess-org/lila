@@ -49,8 +49,8 @@
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Világos nem lépett</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Sötét nem lépett</string>
+  <string name="whiteDidntMove">Világos nem lépett</string>
+  <string name="blackDidntMove">Sötét nem lépett</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások nézhessék a játszmát</string>
   <string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
   <string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt %s féllépésben</item>
     <item quantity="other">Matt %s féllépésben</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s féllépés a következő ütésig vagy gyaloglépésig (az 50 lépés számláló nullázásáig)</item>
-    <item quantity="other">%s féllépés a következő ütésig vagy gyaloglépésig (az 50 lépés számláló nullázásáig)</item>
   </plurals>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
