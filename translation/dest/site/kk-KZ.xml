@@ -914,4 +914,13 @@
   <string name="reopenYourAccount">Тіркелгіні қайта ашу</string>
   <string name="closedAccountChangedMind">Егер сіз тіркелгіні жапқан соң, ойыңыздан қайтсаңыз, сізде тіркелгіні қайтаруға бір мүмкіндік бар.</string>
   <string name="onlyWorksOnce">Бұл амал бір рет қана жарамды.</string>
+  <string name="cantDoThisTwice">Егер тіркелгіңізді екінші рет жапсаңыз, оны қайтару еш мүмкіндік болмайды.</string>
+  <string name="emailAssociatedToaccount">Тіркелгіге байлаулы поштаңыз</string>
+  <string name="sentEmailWithLink">Біз сілтемесі бар хат жібереміз.</string>
+  <string name="tournamentEntryCode">Жарысқа кіру коды</string>
+  <string name="hangOn">Тоқтаңыз!</string>
+  <string name="gameInProgress">Сіз қазір %s-мен ойнап отырсыз.</string>
+  <string name="abortTheGame">Ойынды үзу</string>
+  <string name="resignTheGame">Берілу</string>
+  <string name="youCantStartNewGame">Бұл ойын аяқталмағанша, сіз жаңа ойын бастай алмайсыз.</string>
 </resources>
