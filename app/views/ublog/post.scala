@@ -1,6 +1,5 @@
 package views.html.ublog
 
-
 import controllers.routes
 import play.api.mvc.Call
 
@@ -67,7 +66,7 @@ object post {
             },
             likeButton(post, liked)(ctx)(cls := "ublog-post__like--mini button-link"),
             span(cls := "ublog-post__views")(
-              trans.ublog.nbViews.plural(post.views.value, strong(post.views.value))
+              trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
             ),
             if (ctx is user)
               div(cls := "ublog-post__meta__owner")(
