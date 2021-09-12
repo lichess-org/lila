@@ -99,6 +99,9 @@
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
   <string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
+  <string name="winOr50MovesByPriorMistake">Victoire ou 50 coups par suite d\'une erreur</string>
+  <string name="lossOr50MovesByPriorMistake">Défaite ou 50 coups par suite d\'une erreur</string>
+  <string name="unknownDueToRounding">Victoire/défaite garantie uniquement si la variante recommandée de la bibliothèque de finales a été suivie depuis la dernière capture ou le dernier coup de pion, en raison de l’arrondissement possible</string>
   <string name="allSet">Tout est prêt !</string>
   <string name="importPgn">Importer le PGN</string>
   <string name="delete">Effacer</string>
