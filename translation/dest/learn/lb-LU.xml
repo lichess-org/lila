@@ -123,4 +123,33 @@ Se stinn nieft den Sprénger.</string>
 Si steet op hirer eegener Faarf.</string>
   <string name="placeTheKing">Plazéier de Kinnek!
 Direkt nieft senger Dame.</string>
+  <string name="pawnsFormTheFrontLine">Baueren stinn un der Front.
+Spill een zuch fir weiderzemaachen.</string>
+  <string name="boardSetupComplete">Felicitatioun! Du wees wéi een d\'Schachbriet opbaut.</string>
+  <string name="castling">Rochade</string>
+  <string name="theSpecialKingMove">De speziellen Kinnekszuch</string>
+  <string name="castlingIntro">Bréng de Kinnek a Sécherheet an den Tuerm op Ugrëffspositoun!</string>
+  <string name="castleKingSide">Beweeg däi Kinnek zwee Felder 
+fir kuerz ze rochéieren!</string>
+  <string name="castleQueenSide">Beweeg däi Kinnek dräi Felder 
+fir laang ze rochéieren!</string>
+  <string name="theKnightIsInTheWay">De Sprénger ass am Wee!
+Beweeg hien an rochéier dann kuerz.</string>
+  <string name="castleKingSideMovePiecesFirst">Rochéier kuerz!
+Du muss virdrun deng Figuren beweegen.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rochéier laang!
+Du muss virdrun deng Figuren beweegen.</string>
+  <string name="youCannotCastleIfMoved">Du kanns net rochéieren wann
+de Kinnek sech schon beweegt huet
+oder den Tuerm sech schon beweegt huet.</string>
+  <string name="youCannotCastleIfAttacked">Du kanns net rochéieren wann
+de Kinnek um Wee ugegraff ass.
+Block den Schach an rochéier dann!</string>
+  <string name="findAWayToCastleKingSide">Fann e Wee fir 
+kuerz ze rochéieren!</string>
+  <string name="findAWayToCastleQueenSide">Fann e Wee fir 
+laang ze rochéieren!</string>
+  <string name="castlingComplete">Felicitatioun! D\'Rochade ass bal all Partie nëtzlech.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">De speziellen Bauerenzuch</string>
 </resources>
