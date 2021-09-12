@@ -88,10 +88,6 @@
     <item quantity="one">%s പകുതി-നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</item>
     <item quantity="other">%s പകുതി-നീക്കങ്ങൾക്കുള്ളിൽ ചെക്ക്മേറ്റ്</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">അടുത്തതായി %s പകുതി-നീക്കത്തിൽ എതിരാളിയുടെ കരു നേടുകയോ അല്ലെങ്കിൽ കാലാളിനെ നീക്കുകയോ ചെയ്യുക ( 50 നീക്കങ്ങളുടെ കൗണ്ടറിൽ പൂജ്യത്തിലേക്ക് പോകാനുള്ള ദൂരം)</item>
-    <item quantity="other">അടുത്തതായി %s പകുതി-നീക്കത്തിൽ എതിരാളിയുടെ കരു നേടുകയോ അല്ലെങ്കിൽ കാലാളിനെ നീക്കുകയോ ചെയ്യുക ( 50 നീക്കങ്ങളുടെ കൗണ്ടറിൽ പൂജ്യത്തിലേക്ക് പോകാനുള്ള ദൂരം)</item>
-  </plurals>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
