@@ -16,4 +16,12 @@
   <string name="recentlyUpdated">Rezent aktualiséiert</string>
   <string name="mostPopular">Am Beléiftsten</string>
   <string name="alphabetical">Alphabetesch</string>
+  <string name="playing">Lafend Partie</string>
+  <string name="first">Éischt Säit</string>
+  <string name="previous">Zeréck</string>
+  <string name="next">Weider</string>
+  <string name="last">Lescht Säit</string>
+  <string name="shareAndExport">Deelen &amp; exportéieren</string>
+  <string name="cloneStudy">Klonen</string>
+  <string name="studyPgn">PGN studéieren</string>
 </resources>
