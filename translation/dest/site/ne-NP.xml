@@ -88,10 +88,6 @@
     <item quantity="one">%s अर्धचालमा माथ</item>
     <item quantity="other">%s अर्धचालहरुमा माथ</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">अर्को खाने वा प्युसा चाल्ने %s अर्धचालमा (५० चालको गिन्ती फेरि शुरु हुने दूरी)</item>
-    <item quantity="other">अर्को खाने वा प्युसा चाल्ने %s अर्धचालहरुमा (५० चालको गिन्ती फेरि शुरु हुने दूरी)</item>
-  </plurals>
   <string name="noGameFound">कुनैपनि खेल भेट्टिएनन्</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">चयनको सुचिबाट अरु खेलहरु पनि छान्ने कि?</string>
   <string name="openingExplorer">प्रारम्भिक चाल अन्वेषक</string>
