@@ -16,6 +16,16 @@
   <string name="recentlyUpdated">Rezent aktualiséiert</string>
   <string name="mostPopular">Am Beléiftsten</string>
   <string name="alphabetical">Alphabetesch</string>
+  <string name="addNewChapter">Neit Kapitel bäifügen</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitel</item>
+    <item quantity="other">%s Kapitel</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Partien</item>
+  </plurals>
+  <string name="inviteToTheStudy">An d\'Etüd alueden</string>
   <string name="searchByUsername">No Benotzernumm sichen</string>
   <string name="spectator">Zuschauer</string>
   <string name="kick">Rausgehéien</string>
@@ -37,6 +47,47 @@
   <string name="shareAndExport">Deelen &amp; exportéieren</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">PGN studéieren</string>
+  <string name="downloadAllGames">All Partien eroflueden</string>
+  <string name="chapterPgn">Kapitel PGN</string>
+  <string name="downloadGame">Partie eroflueden</string>
+  <string name="studyUrl">Etüd URL</string>
+  <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
+  <string name="open">Opmaachen</string>
+  <string name="studyNotFound">Etüd net fonnt</string>
+  <string name="editChapter">Kapitel editéieren</string>
+  <string name="newChapter">Neit Kapitel</string>
+  <string name="orientation">Orientatioun</string>
+  <string name="analysisMode">Analysemodus</string>
+  <string name="saveChapter">Kapitel späicheren</string>
+  <string name="deleteChapter">Kapitel läschen</string>
+  <string name="chapterX">Kapitel %s</string>
+  <string name="empty">Eidel</string>
+  <string name="createChapter">Kapitel kréieren</string>
+  <string name="createStudy">Etüd kreéieren</string>
+  <string name="editStudy">Etüd änneren</string>
+  <string name="visibility">Visibilitéit</string>
+  <string name="public">Ëffentlech</string>
+  <string name="unlisted">Ongelëscht</string>
+  <string name="inviteOnly">Just mat Invitatioun</string>
+  <string name="allowCloning">Klonen erlaaben</string>
+  <string name="nobody">Keen</string>
+  <string name="onlyMe">Just ech</string>
+  <string name="everyone">Jiddereen</string>
+  <string name="start">Lass</string>
+  <string name="save">Späicheren</string>
+  <string name="deleteStudy">Etüd läschen</string>
+  <string name="goodMove">Gudden Zuch</string>
+  <string name="mistake">Feeler</string>
+  <string name="brilliantMove">Brillianten Zuch</string>
+  <string name="blunder">Gaffe</string>
+  <string name="interestingMove">Interessanten Zuch</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubiosen Zuch</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eenzegen Zuch</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Ausgeglach Positioun</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Onkloer Positioun</string>
+  <string name="whiteIsSlightlyBetter">Wäiss steet liicht besser</string>
+  <string name="blackIsSlightlyBetter">Schwaarz steet liicht besser</string>
   <string name="whiteIsBetter">Wäiss ass besser</string>
   <string name="blackIsBetter">Schwaarz ass besser</string>
   <string name="whiteIsWinning">Wéiss steet op Gewënn</string>
