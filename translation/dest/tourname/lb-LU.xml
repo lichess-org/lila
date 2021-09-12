@@ -10,6 +10,12 @@
   <string name="dailyClassical">Deeglech Klassesch</string>
   <string name="dailyXArena">Deeglech %s Arena</string>
   <string name="dailyX">Deeglech %s</string>
+  <string name="easternRapidArena">Ëstlech Rapid Arena</string>
+  <string name="easternRapid">Ëstlech Rapid</string>
+  <string name="easternClassicalArena">Ëstlech Klassesch Arena</string>
+  <string name="easternClassical">Ëstlech Klassesch</string>
+  <string name="easternXArena">Ëstlech %s Arena</string>
+  <string name="easternX">Ëstlech %s</string>
   <string name="weeklyRapidArena">Wöchentlech Rapid Arena</string>
   <string name="weeklyRapid">Wöchentlech Rapid</string>
   <string name="weeklyClassicalArena">Wöchentlech Klassesch Arena</string>
