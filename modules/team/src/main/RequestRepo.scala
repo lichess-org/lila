@@ -27,8 +27,8 @@ final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
   def teamQuery(teamId: ID)               = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[ID])       = $doc("team" $in teamIds)
   def teamDeclinedQuery(teamId: ID)       = $and(teamQuery(teamId), $doc("declined" -> true))
-  def teamActiveQuery(teamId: ID)         = $and(teamQuery(teamId), $doc("declined" -> $ne(true)))
-  def teamsActiveQuery(teamIds: List[ID]) = $and(teamsQuery(teamIds), $doc("declined" -> $ne(true)))
+  def teamActiveQuery(teamId: ID)         = $and(teamQuery(teamId), $doc("declined" $ne true))
+  def teamsActiveQuery(teamIds: List[ID]) = $and(teamsQuery(teamIds), $doc("declined" $ne true))
 
   def getByUserId(userId: User.ID) =
     coll.list[Request]($doc("user" -> userId))
