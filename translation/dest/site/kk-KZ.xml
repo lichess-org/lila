@@ -92,6 +92,7 @@
     <item quantity="one">%s жарты жүрістік мат</item>
     <item quantity="other">%s жарты жүрістік мат</item>
   </plurals>
+  <string name="dtzWithRounding">Жуықталған DTZ50\'\' келесі басып алғанша не сарбаз жүргенше дейін жарты жүрістердің санына негізделген</string>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
