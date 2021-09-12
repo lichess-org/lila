@@ -92,10 +92,6 @@
     <item quantity="one">Matt in %s Halbzug</item>
     <item quantity="other">Matt in %s Halbzügen</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
-    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
-  </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Partien über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -922,7 +918,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="emailAssociatedToaccount">E-Mail-Adresse deines Kontos</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
   <string name="tournamentEntryCode">Turnierbeitrittscode</string>
-  <string name="hangOn">Einen Moment!</string>
+  <string name="hangOn">Moment mal!</string>
   <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
   <string name="abortTheGame">Partie abbrechen</string>
   <string name="resignTheGame">Partie aufgeben</string>
