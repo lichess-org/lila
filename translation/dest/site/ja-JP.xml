@@ -90,9 +90,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s プライでメイト</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">次の駒取りかポーンの手まで %s プライ（50 手ルールのカウント更新までの手数）</item>
-  </plurals>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openingExplorer">オープニング探索</string>
