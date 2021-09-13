@@ -20,7 +20,7 @@ final private class Cleaner(
 
   import BSONHandlers._
 
-  private def analysisTimeout(plies: Int) = plies * 7.seconds + 3.seconds
+  private def analysisTimeout(plies: Int) = plies * Cleaner.timeoutPerPly + 3.seconds
   private def analysisTimeoutBase         = analysisTimeout(20)
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
@@ -49,4 +49,8 @@ final private class Cleaner(
   system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>
     cleanAnalysis.unit
   }
+}
+
+object Cleaner {
+  val timeoutPerPly = 7.seconds
 }

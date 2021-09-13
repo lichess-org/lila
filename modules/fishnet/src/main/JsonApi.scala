@@ -190,7 +190,8 @@ object JsonApi {
                 "sf14"      -> a.nodes * 14 / 10,
                 "nnue"      -> a.nodes * 14 / 10, // bc fishnet <= 2.3.4
                 "classical" -> a.nodes * 28 / 10
-              )
+              ),
+              "timeout" -> Cleaner.timeoutPerPly.toMillis
             ),
             "skipPositions" -> a.skipPositions
           )
