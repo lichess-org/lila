@@ -29,9 +29,13 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     add {
       Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
     }
-  def blogTier(mod: Mod, blogId: String, v: String) =
+  def blogTier(mod: Mod, sus: Suspect, blogId: String, tier: String) =
     add {
-      Modlog(mod.user.id, blogId.some, Modlog.blogTier, v.some)
+      Modlog.make(mod, sus, Modlog.blogTier, tier.some)
+    }
+  def blogPostEdit(mod: Mod, sus: Suspect, postId: String, postName: String, action: String) =
+    add {
+      Modlog.make(mod, sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
     }
 
   def practiceConfig(mod: User.ID) =
@@ -306,6 +310,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       case M.closeTopic | M.disableTeam                                     => "lock"
       case M.openTopic | M.enableTeam                                       => "unlock"
       case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
+      case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
     }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""

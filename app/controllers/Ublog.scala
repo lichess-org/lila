@@ -9,6 +9,7 @@ import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.{ User => UserModel }
 import play.api.i18n.Lang
 import lila.i18n.LangList
+import lila.report.Suspect
 
 final class Ublog(env: Env) extends LilaController(env) {
 
@@ -123,8 +124,9 @@ final class Ublog(env: Env) extends LilaController(env) {
             .fold(
               err => BadRequest(html.ublog.form.edit(prev, err)).fuccess,
               data =>
-                env.ublog.api.update(data, prev, me) map { post =>
-                  Redirect(urlOfPost(post)).flashSuccess
+                env.ublog.api.update(data, prev, me) flatMap { post =>
+                  logModAction(post, "edit") inject
+                    Redirect(urlOfPost(post)).flashSuccess
                 }
             )
         }
@@ -135,10 +137,23 @@ final class Ublog(env: Env) extends LilaController(env) {
   def delete(id: String) = AuthBody { implicit ctx => me =>
     env.ublog.api.findByUserBlogOrAdmin(UblogPost.Id(id), me) flatMap {
       _ ?? { post =>
-        env.ublog.api.delete(post) inject Redirect(urlOfBlog(post.blog)).flashSuccess
+        env.ublog.api.delete(post) >>
+          logModAction(post, "delete") inject
+          Redirect(urlOfBlog(post.blog)).flashSuccess
       }
     }
   }
+
+  private def logModAction(post: UblogPost, action: String)(implicit ctx: Context): Funit =
+    isGranted(_.ModerateBlog) ?? ctx.me ?? { me =>
+      !me.is(post.created.by) ?? {
+        env.user.repo.byId(post.created.by) flatMap {
+          _ ?? { user =>
+            env.mod.logApi.blogPostEdit(lila.report.Mod(me), Suspect(user), post.id.value, post.title, action)
+          }
+        }
+      }
+    }
 
   def like(id: String, v: Boolean) = Auth { implicit ctx => me =>
     NotForKids {
@@ -157,14 +172,13 @@ final class Ublog(env: Env) extends LilaController(env) {
           .fold(
             err => Redirect(urlOfBlog(blog)).flashFailure.fuccess,
             tier =>
-              env.ublog.api.setTier(blog.id, tier) >>
-                env.ublog.rank.recomputeRankOfAllPosts(blog.id) >> {
-                  blog.id match {
-                    case UblogBlog.Id.User(userId) =>
-                      env.mod.logApi.blogTier(lila.report.Mod(me.user), userId, UblogBlog.Tier.name(tier))
-                    case _ => funit
-                  }
-                } inject Redirect(urlOfBlog(blog)).flashSuccess
+              for {
+                user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect
+                _    <- env.ublog.api.setTier(blog.id, tier)
+                _    <- env.ublog.rank.recomputeRankOfAllPosts(blog.id)
+                _ <- env.mod.logApi
+                  .blogTier(lila.report.Mod(me.user), user, blog.id.full, UblogBlog.Tier.name(tier))
+              } yield Redirect(urlOfBlog(blog)).flashSuccess
           )
       }
     }
@@ -191,8 +205,9 @@ final class Ublog(env: Env) extends LilaController(env) {
                 }
               }(rateLimitedFu)
             case None =>
-              env.ublog.api.deleteImage(post) map { newPost =>
-                Ok(html.ublog.form.formImage(newPost))
+              env.ublog.api.deleteImage(post) flatMap { newPost =>
+                logModAction(newPost, "delete image") inject
+                  Ok(html.ublog.form.formImage(newPost))
               }
           }
         }
