@@ -9,6 +9,8 @@ import shogi.{ Centis, Color }
 import lila.common.config.BaseUrl
 import lila.common.LightUser
 
+import org.joda.time.DateTime
+
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.LightUserApi
@@ -84,6 +86,9 @@ final class PgnDump(
     }
   }
 
+  def dateAndTime(dateTime: DateTime): String =
+    s"${Tag.UTCDate.format.print(dateTime)} ${Tag.UTCTime.format.print(dateTime)}"
+
   def tags(
       game: Game,
       initialFen: Option[FEN],
@@ -93,25 +98,33 @@ final class PgnDump(
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {
-        val importedStart = imported.flatMap(_.tags(_.Start))
-        val importedEnd = imported.flatMap(_.tags(_.End))
-        List[Option[Tag]](
-          Tag(
-            _.Event,
-            imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
-          ).some,
+        // ugly
+        val importedOrNormal: List[Option[Tag]] = imported map { p: ParsedPgn  =>
+          List(
+            Tag(_.Event, imported.flatMap(_.tags(_.Event)) | "Import").some,
+            p.tags.value.find(_.name == Tag.Start),
+            p.tags.value.find(_.name == Tag.End),
+            p.tags.value.find(_.name == Tag.TimeControl),
+            p.tags.value.find(_.name == Tag.Byoyomi)
+          )
+        } getOrElse {
+          List(
+            Tag(_.Event, eventOf(game)).some,
+            Tag(_.Start, dateAndTime(game.createdAt)).some,
+            Tag(_.End, dateAndTime(game.movedAt)).some,
+            Tag.timeControl(game.clock.map(_.config)).some
+          )
+        }
+        (List[Option[Tag]](
           Tag(_.Site, gameUrl(game.id)).some,
-          Tag(_.Start, importedStart | s"${Tag.UTCDate.format.print(game.createdAt)} ${Tag.UTCTime.format.print(game.createdAt)}").some,
-          Tag(_.End, importedEnd | s"${Tag.UTCDate.format.print(game.movedAt)} ${Tag.UTCTime.format.print(game.movedAt)}").some,
           Tag(_.Sente, player(game.sentePlayer, wu)).some,
           Tag(_.Gote, player(game.gotePlayer, bu)).some,
           teams.map { t => Tag("SenteTeam", t.sente) },
           teams.map { t => Tag("GoteTeam", t.gote) },
           Tag(_.Variant, game.variant.name.capitalize).some,
-          Tag.timeControl(game.clock.map(_.config)).some,
           withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco)),
           shogi.format.pgn.KifUtils.createTerminationTag(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
-        ).flatten ::: customStartPosition(game.variant).??(
+        ) ::: importedOrNormal).flatten ::: customStartPosition(game.variant).??(
           List(
             Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
           )
