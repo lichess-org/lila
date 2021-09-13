@@ -614,7 +614,6 @@ object mon {
           c.withTags(Map("client" -> client, "result" -> r))
         val success     = apply("success") _
         val failure     = apply("failure") _
-        val weak        = apply("weak") _
         val timeout     = apply("timeout") _
         val notFound    = apply("notFound") _
         val notAcquired = apply("notAcquired") _

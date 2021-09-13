@@ -65,11 +65,6 @@ object JsonApi {
             .withFilter(e => !(e.mateFound || e.deadDraw))
             .flatMap(_.nodes)
         }
-
-      // fishnet 2.x analysis is never weak in this sense. It is either exactly
-      // the same as analysis provided by any other instance, or failed.
-      def strong = stockfish.flavor.isDefined || medianNodes.fold(true)(_ > Evaluation.legacyAcceptableNodes)
-      def weak   = !strong
     }
 
     case class PartialAnalysis(
@@ -107,9 +102,6 @@ object JsonApi {
       }
 
       val npsCeil = 10_000_000
-
-      private val legacyDesiredNodes = 3_000_000
-      val legacyAcceptableNodes      = legacyDesiredNodes * 0.9
     }
   }
 
@@ -194,11 +186,12 @@ object JsonApi {
               "type" -> "analysis",
               "id"   -> a.id,
               "nodes" -> Json.obj(
-                "nnue"      -> a.nodes,
-                "classical" -> a.nodes * 2
+                "sf15"      -> a.nodes,
+                "sf14"      -> a.nodes * 14 / 10,
+                "nnue"      -> a.nodes * 14 / 10, // bc fishnet <= 2.3.4
+                "classical" -> a.nodes * 28 / 10
               )
             ),
-            "nodes"         -> a.nodes * 2, // bc for fishnet 1.x clients without nnue
             "skipPositions" -> a.skipPositions
           )
       }) ++ Json.toJson(work.game).as[JsObject]

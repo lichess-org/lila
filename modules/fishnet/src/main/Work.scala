@@ -102,7 +102,6 @@ object Work {
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
-    def weak    = copy(acquired = none)
 
     def isOutOfTries = tries >= 2
 
