@@ -1,21 +1,25 @@
-Chess API written in scala for [lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/scalachess.svg?branch=master)](https://travis-ci.org/ornicar/scalachess)
+Scalashogi
+==========
+
+Shogi API written in scala for [lishogi.org](https://lishogi.org)
 
 It is entirely functional, immutable, and free of side effects.
 
 INSTALL
 -------
 
-Clone scalachess
+Clone lishogi and then set the directory to `/modules/shogi`.
 
-    git clone git://github.com/ornicar/scalachess
+    git clone git://github.com/WandererXII/lishogi
+    cd lishogi/modules/shogi
 
 Get latest sbt on http://www.scala-sbt.org/download.html
 
-Start sbt in scalachess directory
+Start sbt in `/modules/shogi` directory
 
     sbt
 
-In the sbt shell, to compile scalachess, run
+In the sbt shell, to compile scalashogi, run
 
     compile
 
@@ -25,7 +29,7 @@ To run the tests (with coverage):
     coverageReport
 
 Code formatting
-###
+---------------
 
 This repository uses [scalafmt](https://scalameta.org/scalafmt/).
 

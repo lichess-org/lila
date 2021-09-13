@@ -15,9 +15,9 @@ Lishogi is [Lichess](https://lichess.org) rewritten for shogi.
 Lishogi is written in [Scala 2.13](https://www.scala-lang.org/),
 and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](https://com-lihaoyi.github.io/scalatags/) is used for templating.
-Pure chess logic is contained in the [scalashogi](https://github.com/WandererXII/scalashogi) submodule.
+Pure shogi logic is contained in the [shogi](modules/shogi) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](http://akka.io).
-WebSocket connections are handled by a [separate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
+WebSocket connections are handled by a [separate server](https://github.com/WandererXII/lila-ws) that communicates using [redis](https://redis.io/).
 It uses [MongoDB](https://mongodb.org) to store games.
 HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
@@ -44,6 +44,6 @@ For your own sake, please upgrade. Security and performance, think about it!
 
 ## License
 
-Lila is licensed under the GNU Affero General Public License 3 or any later
+Li[shogi in scala]la is licensed under the GNU Affero General Public License 3 or any later
 version at your choice with an exception for Highcharts. See COPYING for
 details. WIP
