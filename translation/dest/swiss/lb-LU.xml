@@ -88,6 +88,7 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="numberOfGamesPreDefined">Am Viraus decidéiert, fir all Spiller nämmlecht</string>
   <string name="pairingSystem">Puerungssytem</string>
   <string name="pairingSystemArena">All verfügbare Géigner mat änleche Rang</string>
+  <string name="pairingSystemSwiss">Bescht Puerung baséiert op Punkte an Entscheedungspartien</string>
   <string name="pairingWaitTime">Waardezäit fir d\'Puerung</string>
   <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
   <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
@@ -98,6 +99,7 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="lateJoinUntil">Jo, bis méi wéi d\'Hallschent vun de Ronne ugefaangen hunn</string>
   <string name="pause">Paus</string>
   <string name="pauseSwiss">Jo, mee kéint d\'Unzuel vun de Ronne reduzéieren</string>
+  <string name="streaksAndBerserk">Erfollegsserie a Berserker</string>
   <string name="similarToOTB">Änlech wéi OTB Turnéier</string>
   <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
 </resources>
