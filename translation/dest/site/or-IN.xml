@@ -147,10 +147,12 @@
   <string name="currentPassword">ଏବେକାର ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="newPassword">ନୁତନ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="newPasswordAgain">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ (ପୁନଃ)</string>
+  <string name="newPasswordsDontMatch">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
+  <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କକୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>
   <string name="language">ଭାଷା</string>
