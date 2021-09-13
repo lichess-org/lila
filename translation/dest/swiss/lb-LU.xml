@@ -49,6 +49,12 @@ Addéier d\'Punkte vun all Géigner, géint déi de Spiller gewonne huet an d\'
   <string name="dutchSystem">Hollännesche System</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
   <string name="pairingsA">Mat dem %1$s, ëmgesat vu %2$s, nom %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Wat geschitt wann en Turnéier méi Ronne wéi Spiller huet?</string>
+  <string name="moreRoundsThanPlayersA">Wann all méiglech Puerunge gespillt goufen, wäert den Turnéier finaliséiert an e Gewënner deklaréiert ginn.</string>
+  <string name="restrictedToTeamsQ">Firwat ass et op Ekippe beschränkt?</string>
+  <string name="restrictedToTeamsA">Turnéier nom Schwäizer System sinn net fir Online-Schach konzipéiert. Se fuerderen vun alle Spiller Pünktlechkeet, Asaz a Gedold.
+Mir sinn der Meenung, datt dës Konditiounen éischter bannent enger Ekipp erfëllt ginn, als an engem ëffentlechen Turnéier.</string>
+  <string name="numberOfByesQ">Wéi vill kampflos Punkte kann e Spiller kréien?</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
   <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
 Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
