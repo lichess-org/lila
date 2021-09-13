@@ -99,6 +99,8 @@
   <string name="xOpeningExplorer">%s åbningsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
+  <string name="winOr50MovesByPriorMistake">Sejr eller 50 træk efter tidligere fejl</string>
+  <string name="lossOr50MovesByPriorMistake">Nederlag eller 50 træk efter tidligere fejl</string>
   <string name="allSet">Ok!</string>
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>
