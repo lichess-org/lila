@@ -5,7 +5,7 @@ import { nodeFullName, bind, richHTML } from '../util';
 import { StudyCtrl } from './interfaces';
 
 function authorDom(author) {
-  if (!author) return '';
+  if (!author) return 'Unknown';
   if (!author.name) return author;
   return h(
     'span.user-link.ulpt',

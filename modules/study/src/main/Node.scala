@@ -222,8 +222,11 @@ object Node {
         count + n.children.countRecursive
       }
 
-    def hasMultipleCommentAuthors: Boolean =
-      nodes.exists(n => n.comments.hasMultipleAuthors || n.children.hasMultipleCommentAuthors)
+    def commentAuthors: List[Comment.Author] = {
+      nodes.foldLeft(nodes.toList.map(_.comments.authors).flatten) { case (acc, n) =>
+        acc ::: n.children.commentAuthors
+      }
+    }
 
     def lastMainlineNode: Option[Node] =
       nodes.headOption map { first =>
@@ -319,7 +322,7 @@ object Node {
 
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 
-    def hasMultipleCommentAuthors: Boolean = comments.hasMultipleAuthors || children.hasMultipleCommentAuthors
+    def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.size > 1
 
     def moveOption = none
 

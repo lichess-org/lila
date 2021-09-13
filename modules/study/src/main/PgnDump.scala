@@ -28,7 +28,7 @@ final class PgnDump(
       tags = makeTags(study, chapter),
       moves = toMoves(chapter.root)(flags).toList,
       initial = Initial(
-        renderComments(chapter.root.comments, chapter.hasMultipleCommentAuthors) ::: shapeComment(chapter.root.shapes).toList
+        renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(chapter.root.shapes).toList
       ),
       variant = chapter.setup.variant
     )
@@ -130,14 +130,16 @@ object PgnDump {
   }
 
   private def renderComments(comments: Comments, showAuthors: Boolean): List[String] = {
-    def getName(author: Comment.Author) =
-      author match {
-        case Comment.Author.User(_, name) => name
-        case Comment.Author.External(name) => name
-        case Comment.Author.Lishogi        => "lishogi"
-        case Comment.Author.Unknown        => "?"
+    def getName(author: Comment.Author) = {
+      val nameOpt = author match {
+        case Comment.Author.User(_, id)  => id.some
+        case Comment.Author.External(id) => id.some
+        case Comment.Author.Lishogi      => "lishogi".some
+        case Comment.Author.Unknown      => none
       }
-    comments.list.map(c => s"${showAuthors ?? s"[${getName(c.by)}] "}${c.text.value}")
+      nameOpt.filter(_.nonEmpty).map(n => s"[${n}] ").getOrElse("")
+    }
+    comments.list.map(c => s"${showAuthors ?? s"${getName(c.by)}"}${c.text.value}")
   }
 
   def toMoves(root: Node.Root)(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =

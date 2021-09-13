@@ -88,7 +88,6 @@ case class Chapter(
   def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
-  def hasMultipleCommentAuthors = root.hasMultipleCommentAuthors
 }
 
 object Chapter {
