@@ -156,6 +156,9 @@
   <string name="newPasswordsDontMatch">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
+  <string name="victory">ବିଜୟ</string>
+  <string name="timeline">ସମୟରେଖା</string>
+  <string name="starting">ଆରମ୍ଭ:</string>
   <string name="studyMenu">ଅଧ୍ୟୟନ</string>
   <string name="practice">ଅଭ୍ୟାସ</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
@@ -168,9 +171,11 @@
   <string name="language">ଭାଷା</string>
   <string name="light">ହାଲୁକା</string>
   <string name="dark">ଗାଢ଼</string>
+  <string name="solution">ସମାଧାନ</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
   <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
+  <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
