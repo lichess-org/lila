@@ -28,6 +28,10 @@
   <string name="youSupportWith">ଆପଣ ପ୍ରତି ମାସରେ %s ସହିତ lichess.org କୁ ସମର୍ଥନ କରନ୍ତି।</string>
   <string name="currentStatus">ବର୍ତ୍ତମାନ ସ୍ଥିତି</string>
   <string name="nextPayment">ଆଗାମୀ ଦେୟ</string>
+  <string name="update">ଅଦ୍ୟତନ କରନ୍ତୁ</string>
+  <string name="changeMonthlyAmount">ମାସିକ ରାଶି ପରିବର୍ତ୍ତନ କର (%s)</string>
   <string name="date">ତାରିଖ</string>
   <string name="amount">ରାଶି</string>
+  <string name="transactionCompleted">ଆପଣଙ୍କ ଟ୍ରାଞ୍ଜାକସନ୍ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇଛି, ଏବଂ ଆପଣଙ୍କ ଦାନ ପାଇଁ ଏକ ରସିଦ ଆପଣଙ୍କୁ ଇମେଲ୍ କରାଯାଇଛି।</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">ମୁଦ୍ରା ପରିବର୍ତ୍ତନ କର</string>
 </resources>
