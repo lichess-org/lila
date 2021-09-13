@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="passwordReset_subject">ଆପଣଙ୍କ lichess.org ପାସ୍ଓ୍ୱାର୍ଡ଼ କୁ ପୁନଃସେଟ୍ କରନ୍ତୁ, %s</string>
+  <string name="passwordReset_intro">ଆପଣଙ୍କ ଆକାଉଣ୍ଟ ପାଇଁ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଆମେ ଏକ ଅନୁରୋଧ ପାଇଲୁ।</string>
+  <string name="passwordReset_clickOrIgnore">ଯଦି ଆପଣ ଏହି ଅନୁରୋଧ କରିଛନ୍ତି, ନିମ୍ନ ଲିଙ୍କ୍ କ୍ଲିକ୍ କରନ୍ତୁ। ଯଦି ନୁହେଁ, ତେବେ ଆପଣ ଏହି ଇମେଲ୍ ଅଣଦେଖା କରିପାରିବେ।</string>
 </resources>
