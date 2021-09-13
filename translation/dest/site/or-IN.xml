@@ -129,7 +129,9 @@
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
+  <string name="changeUsername">ଉପଭୋକ୍ତା ନାମ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
+  <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="help">ସହାୟତା:</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
