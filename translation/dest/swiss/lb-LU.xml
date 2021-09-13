@@ -67,7 +67,7 @@ Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst h
   <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom Schwäizer System Arena ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
-  <string name="roundRobinA">Mir géifen et gären bäifügen, mee leider funktionéiert Round Robin online net.
+  <string name="roundRobinA">Mir géifen et gäre bäifügen, mee leider funktionéiert Round Robin online net.
 De Grond ass, datt et keng fair Méiglechkeet gëtt mat Leit ëmzegoen, déi d\'Turnéier virzäiteg verloossen. Mir kënne net erwaarden, datt all Spiller an engem Online-Event all hir Partie spille wäerten. Dat wäert einfach net geschéien an doduerch géifen déi meescht Round Robin Turnéieren ongülteg an onfair sinn, wat dem eigentleche Sënn aus dem Wee geet.
 Dat noosten un engem Round Robin Turnéier, wier en Turnéier nom Schwäizer System mat enger héicher Unzuel u Ronnen. Doduerch géifen all méiglech Puerungen gespillt ginn, éier d\'Turnéier eriwwer ass.</string>
   <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
@@ -80,7 +80,7 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
-  <string name="tournDuration">Dauer vum Tounéier</string>
+  <string name="tournDuration">Dauer vum Turnéier</string>
   <string name="predefinedDuration">Virdefinéiert Dauer a Minutten</string>
   <string name="durationUnknown">Virdefinéiert maximal Unzuel u Ronne, mee onbekannt Dauer</string>
   <string name="numberOfGames">Zuel vun Partien</string>
@@ -88,7 +88,7 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="numberOfGamesPreDefined">Am Viraus decidéiert, fir all Spiller nämmlecht</string>
   <string name="pairingSystem">Puerungssytem</string>
   <string name="pairingSystemArena">All verfügbare Géigner mat änleche Rang</string>
-  <string name="pairingSystemSwiss">Bescht Puerung baséiert op Punkte an Entscheedungspartien</string>
+  <string name="pairingSystemSwiss">Bescht Puerung baséiert op Punkte an Tie-Breaks</string>
   <string name="pairingWaitTime">Waardezäit fir d\'Puerung</string>
   <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
   <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
