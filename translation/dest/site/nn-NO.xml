@@ -39,7 +39,7 @@
     <item quantity="one">Motspelaren din har forlate partiet. Du kan krevje vinst om %s sekund.</item>
     <item quantity="other">Motspelaren din har forlate partiet. Du kan krevje siger om %s sekund.</item>
   </plurals>
-  <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja siger eller erklæra remis, eller venta til motspelaren kjem attende.</string>
+  <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja vinst, kunngjera remis eller venta til motspelaren kjem attende.</string>
   <string name="makeYourOpponentResign">Tving motspelaren til å gje opp</string>
   <string name="forceResignation">Krev siger</string>
   <string name="forceDraw">Erklær remis</string>
