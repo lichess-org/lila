@@ -101,7 +101,7 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       tier: UblogBlog.Tier
   ) = UblogPost.Rank {
     liveAt plusHours {
-      val tierLikes = likes.value + ((tier - 2) * 3).atLeast(0) // initial boost
+      val tierLikes = likes.value + ((tier - 2) * 4).atLeast(0) // initial boost
       val likeHours =
         if (tierLikes < 1) 0
         else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 12
