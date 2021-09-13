@@ -101,9 +101,10 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       tier: UblogBlog.Tier
   ) = UblogPost.Rank {
     liveAt plusHours {
+      val tierLikes = likes.value + ((tier - 2) * 3).atLeast(0) // initial boost
       val likeHours =
-        if (likes.value < 1) 0
-        else (5 * math.log(likes.value) + 1).toInt.atMost(likes.value) * 12
+        if (tierLikes < 1) 0
+        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 12
       val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
         case 0 => 0.5
         case 1 => 1
