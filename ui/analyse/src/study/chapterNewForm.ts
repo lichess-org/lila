@@ -47,7 +47,6 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-
   const vm = {
     variants: [],
     open: false,
