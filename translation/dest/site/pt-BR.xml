@@ -92,6 +92,7 @@
     <item quantity="one">Mate em %s lance (meio-movimento)</item>
     <item quantity="other">Mate em %s lances (meio-movimentos)</item>
   </plurals>
+  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\" com arredondamento, baseado no número de meias-jogadas até a próxima captura ou jogada de peão</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos através do menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
@@ -99,6 +100,7 @@
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">Vitória/derrota garantida somente se a variante recomendada tiver sido seguida desde o último movimento de captura ou de peão, devido ao possível arredondamento.</string>
   <string name="allSet">Tudo pronto!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Excluir</string>
