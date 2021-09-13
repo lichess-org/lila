@@ -164,5 +164,17 @@ class ClockTest extends ShogiTest {
     "without per and inc" in {
       Clock.readKifConfig("10分|20秒") must_== Some(Clock.Config(600, 0, 20, 1))
     }
+    "without per and inc" in {
+      Clock.readKifConfig("10分+20秒") must_== Some(Clock.Config(600, 0, 20, 1))
+    }
+    "mix of mins and secs" in {
+      Clock.readKifConfig("10分20秒") must_== Some(Clock.Config(620, 0, 0, 1))
+    }
+    "hours" in {
+      Clock.readKifConfig("1時間+20秒") must_== Some(Clock.Config(3600, 0, 20, 1))
+    }
+    "mix of hours mins and secs" in {
+      Clock.readKifConfig("1時間10分20秒+20秒") must_== Some(Clock.Config(4220, 0, 20, 1))
+    }
   }
 }

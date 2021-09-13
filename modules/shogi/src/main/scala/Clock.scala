@@ -296,13 +296,17 @@ object Clock {
   }
 
   def parseJPTime(str: String): Option[Int] = {
-    if (str contains "分")
+    if (str contains "時間")
+      parseIntOption(str.takeWhile(_ != '時'))
+        .map(_ * 3600 + parseJPTime(str.reverse.takeWhile(_ != '間').reverse).getOrElse(0))
+    else if (str contains "分")
       parseIntOption(str.takeWhile(_ != '分'))
-        .map(_ * 60 + parseJPTime(str.reverse.takeWhile(_ != '分')).getOrElse(0))
+        .map(_ * 60 + parseJPTime(str.reverse.takeWhile(_ != '分').reverse).getOrElse(0))
     else parseIntOption(str.filterNot(_ == '秒'))
   }
 
-  lazy val KifClkRegex = """(?:(\d+[秒|分]?))(?:[\+|\|](\d+[秒|分]?))?(?:\((\d)\))?(?:[\+|\|](\d+[秒|分]?))?""".r
+  val kifTime = """(?:\d+(?:秒|分|時間)?)+"""
+  lazy val KifClkRegex = raw"""($kifTime)(?:[\+|\|]($kifTime))?(?:\((\d)\))?(?:[\+|\|]($kifTime))?""".r
 
   // 持ち時間: 10分|20秒(1)+10 -> 600 init, 10inc, 20 byo, 1 per
   def readKifConfig(str: String): Option[Config] =
