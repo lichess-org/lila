@@ -126,6 +126,10 @@
   <string name="realTime">ପ୍ରକୃତ ସମୟ</string>
   <string name="correspondence">ବହୁତ ଲମ୍ବା ସମୟ ର ଖେଳ</string>
   <string name="oneDay">ଦିନେ</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ଦିନ</item>
+    <item quantity="other">%s ଦିନ</item>
+  </plurals>
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
@@ -138,6 +142,7 @@
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
   <string name="apply">ଜମା କରନ୍ତୁ</string>
+  <string name="pasteTheFenStringHere">ଏଠାରେ FEN ପାଠ୍ୟ ଲେପନ କରନ୍ତୁ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
@@ -171,6 +176,7 @@
   <string name="language">ଭାଷା</string>
   <string name="light">ହାଲୁକା</string>
   <string name="dark">ଗାଢ଼</string>
+  <string name="invalidFen">ଅବୈଧ FEN</string>
   <string name="solution">ସମାଧାନ</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
