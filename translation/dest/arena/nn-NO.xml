@@ -43,6 +43,6 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="allowBerserk">Tillat berserk</string>
   <string name="allowBerserkHelp">Lat spelarane halvere tida si på klokka for eit ekstra poeng</string>
   <string name="allowChatHelp">Lat spelarane diskutera i samtalerom</string>
-  <string name="arenaStreaks">Arena-sigersrekkjer</string>
+  <string name="arenaStreaks">Arena-vinstrekkjer</string>
   <string name="arenaStreaksHelp">Etter to sigrar gjev seinara sigrar fire poeng i staden for to.</string>
 </resources>
