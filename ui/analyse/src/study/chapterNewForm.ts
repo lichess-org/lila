@@ -38,7 +38,6 @@ export interface StudyChapterNewFormCtrl {
   submit(d: any): void;
   chapters: Prop<StudyChapterMeta[]>;
   startTour(): void;
-  multiKifMax: number;
   redraw: Redraw;
 }
 
@@ -48,7 +47,6 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-  const multiKifMax = 10;
 
   const vm = {
     variants: [],
@@ -104,7 +102,6 @@ export function ctrl(
         vm.tab(tab);
         root.redraw();
       }),
-    multiKifMax,
     redraw: root.redraw,
   };
 }
@@ -257,7 +254,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             ? h('div.form-groupabel', [
                 h('textarea#chapter-kif.form-control', {
                   attrs: {
-                    placeholder: 'max ' + ctrl.multiKifMax,
+                    placeholder: trans.noarg('pasteTheKifStringHere'),
                   },
                 }),
                 window.FileReader

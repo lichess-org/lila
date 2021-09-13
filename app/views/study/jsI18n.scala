@@ -22,6 +22,7 @@ object jsI18n {
       trans.startPosition,
       trans.cancel,
       trans.chat,
+      trans.pasteTheKifStringHere,
       addNewChapter,
       addMembers,
       inviteToTheStudy,

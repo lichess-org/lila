@@ -75,7 +75,6 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
 }
 
 export function renderFullTxt(ctrl: AnalyseCtrl): string {
-  console.log(ctrl);
   const g = ctrl.data.game;
   const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
   const offset = ctrl.data.game.startedAtTurn % 2;
