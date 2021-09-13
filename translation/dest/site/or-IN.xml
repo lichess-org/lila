@@ -129,4 +129,9 @@
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
+  <string name="help">ସହାୟତା:</string>
+  <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
+  <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
+  <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
+  <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
 </resources>
