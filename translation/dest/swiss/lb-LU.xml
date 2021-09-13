@@ -55,6 +55,9 @@ Addéier d\'Punkte vun all Géigner, géint déi de Spiller gewonne huet an d\'
   <string name="restrictedToTeamsA">Turnéier nom Schwäizer System sinn net fir Online-Schach konzipéiert. Se fuerderen vun alle Spiller Pünktlechkeet, Asaz a Gedold.
 Mir sinn der Meenung, datt dës Konditiounen éischter bannent enger Ekipp erfëllt ginn, als an engem ëffentlechen Turnéier.</string>
   <string name="numberOfByesQ">Wéi vill kampflos Punkte kann e Spiller kréien?</string>
+  <string name="numberOfByesA">E Spiller kritt all Kéiers, wann de System keng Puerung fir e fënnt, e Punkt.
+Zousätzlech, kritt e Spiller en hallwen Punkt, wann en gëtt ze spéit bäitrëtt.</string>
+  <string name="whatIfOneDoesntPlayQ">Wat geschitt, wann e Spiller eng Partie net spillt?</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
   <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
 Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
