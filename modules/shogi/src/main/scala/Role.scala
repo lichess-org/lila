@@ -224,6 +224,7 @@ object Role {
 
   val singleKifs = Map( // and others
     "王" -> King,
+    "兵" -> Pawn,
     "竜" -> Dragon,
     "全" -> PromotedSilver,
     "圭" -> PromotedKnight,

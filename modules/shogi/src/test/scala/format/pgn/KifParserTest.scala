@@ -144,7 +144,8 @@ class KifParserTest extends ShogiTest {
   }
   "tags" should {
     "one tag" in {
-      parser("""後手：  Me""") must beSuccess.like { case a =>
+      parser("""後手：  Me
+      1 ７六歩(77)""") must beSuccess.like { case a =>
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Gote && tag.value == """Me"""
         }
@@ -154,6 +155,7 @@ class KifParserTest extends ShogiTest {
       parser("""
         後手：俺
         Sente: Also me
+        1 ７六歩(77)
       """) must beSuccess.like { case a =>
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Gote && tag.value == """俺"""
@@ -164,7 +166,8 @@ class KifParserTest extends ShogiTest {
       }
     }
     "empty tag is ignored" in {
-      parser("""後手：""") must beSuccess.like { case a =>
+      parser("""後手：
+      1 ７六歩(77)""") must beSuccess.like { case a =>
         a.tags.value must not contain { (tag: Tag) =>
           tag.name == Tag.Gote
         }
@@ -174,6 +177,7 @@ class KifParserTest extends ShogiTest {
       parser("""
         後手：
         Sente: NOPE
+        1 ７六歩(77)
       """) must beSuccess.like { case a =>
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Sente && tag.value == """NOPE"""
@@ -182,18 +186,36 @@ class KifParserTest extends ShogiTest {
     }
   }
 
-  "comments" in {
-    parser("""７7金(78)
-    *such a neat comment
-    * one more
-    * drop P*5e""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
-      san.metas.comments must_== List("such a neat comment", "one more", "drop P*5e")
+  "comments" should {
+    "multiple comments" in {
+      parser("""７7金(78)
+      *such a neat comment
+      * one more
+      *
+      * drop P*5e""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
+        san.metas.comments must_== List("such a neat comment", "one more", "drop P*5e")
+      }
+    }
+    "termination comments" in {
+      parser("""1 ７7金(78)
+      *such a neat comment
+      * one more
+      2 投了 ( 0:03/ )
+      * comment on termination?""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
+        san.metas.comments must_== List("such a neat comment", "one more", "comment on termination?")
+      }
     }
   }
 
   "times" should {
     "both times" in {
       parser("""29 ４八玉(59) (2:25/0:8:23)""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
+        san.metas.timeSpent must_== Some(Centis(14500))
+        san.metas.timeTotal must_== Some(Centis(50300))
+      }
+    }
+    "both times with spaces" in {
+      parser("""29 ４八玉(59) ( 2:25 / 0:8:23 )""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
         san.metas.timeSpent must_== Some(Centis(14500))
         san.metas.timeTotal must_== Some(Centis(50300))
       }

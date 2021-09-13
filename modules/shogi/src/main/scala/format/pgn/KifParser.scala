@@ -21,8 +21,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
   val colorsS        = """▲|△|☗|☖"""
   val numbersS       = """[1-9１-９一二三四五六七八九十百][0-9０-９一二三四五六七八九十百]*"""
   val positionS      = """[1-9１-９一二三四五六七八九][1-9a-i１-９一二三四五六七八九]|同"""
-  val piecesJPS      = """玉|王|飛|龍|角|馬|金|銀|成銀|桂|成桂|香|成香|歩|と|竜|全|圭|今|杏|仝|个"""
-  val handPiecesJPS  = """飛|角|金|銀|桂|香|歩"""
+  val piecesJPS      = """玉|王|飛|龍|角|馬|金|銀|成銀|桂|成桂|香|成香|歩|と|竜|全|圭|今|杏|仝|个|兵"""
+  val handPiecesJPS  = """飛|角|金|銀|桂|香|歩|兵"""
   val piecesENGS     = """K|R|\+R|B|\+B|G|S|\+G|N|\+N|L|\+L|P|\+P"""
   val handPiecesENGS = """R|B|G|S|N|L|P"""
   val promotionS     = """不成|成|\+"""
@@ -34,6 +34,9 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   val moveOrDropLineRegex =
     raw"""(${numbersS}[\s\.。]{1,})?(${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(((${promotionS})?(${parsS})?${positionS}(${parsS})?)|${dropS})""".r.unanchored
+ 
+  val commentRegex = 
+    raw"""\*|＊""".r
 
   case class StrMove(
       turnNumber: Option[Int],
@@ -53,7 +56,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     try {
       val preprocessed = augmentString(kif).linesIterator
         .map(_.split("#|&").head.trim) // remove # and & comments and trim
-        .filter(l => l.nonEmpty && !(l.startsWith("まで")))
+        .filter(l => l.nonEmpty && !(l.startsWith("まで")) && !commentRegex.matches(l))
         .mkString("\n")
         .replace("‑", "-")
         .replace("–", "-")
@@ -214,7 +217,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def commentary: Parser[String] =
       as("commentary") {
-        """\*|＊""".r ~> """.+""".r
+        commentRegex ~> """.+""".r
       }
 
   }
@@ -247,8 +250,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def strMoves: Parser[(InitialPosition, List[StrMove], Option[String])] =
       as("moves") {
-        (commentary *) ~ (strMove *) ~ (termination *) ~ (commentary *) ^^ { case coms ~ sans ~ term ~ _ =>
-          (InitialPosition(cleanComments(coms)), sans, term.headOption)
+        (commentary *) ~ (strMove *) ~ (termination *) ~ (commentary *) ^^ { case coms ~ sans ~ term ~ coms2 =>
+          (InitialPosition(cleanComments(coms)), updateLastComments(sans, coms2), term.headOption)
         }
       }
 
@@ -286,6 +289,13 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
     }
 
+    private def updateLastComments(moves: List[StrMove], comments: List[String]): List[StrMove] = {
+      val index = moves.size - 1
+      (moves lift index).fold(moves) { move =>
+        moves.updated(index, move.copy(comments = move.comments ::: comments))
+      }
+    }
+
     def clock: Parser[(Option[Centis], Option[Centis])] =
       as("clock") {
         """[\(（]\s*""".r ~>
@@ -302,7 +312,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def commentary: Parser[String] =
       as("commentary") {
-        """\*|＊""".r ~> """.+""".r
+        commentRegex ~> """.+""".r
       }
 
     def termination: Parser[String] =
@@ -397,7 +407,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   private def splitHeaderAndRest(kif: String): Valid[(String, String)] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
-      !((moveOrDropLineRegex.matches(line)) || (line lift 0 contains '*')) // Matches first move or comment
+      !((moveOrDropLineRegex.matches(line)) || (line lift 0 contains '*') || (line lift 0 contains '＊')) // Matches first move or comment
     } match {
       case (headerLines, moveLines) => succezz(headerLines.mkString("\n") -> moveLines.mkString("\n"))
     }
