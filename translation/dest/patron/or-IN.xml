@@ -5,4 +5,9 @@
   <string name="freeAccount">ମାଗଣା ଖାତା</string>
   <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
   <string name="xBecamePatron">%s ଜଣେ Lichess Patron ହେଲେ</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
+    <item quantity="other">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
+  </plurals>
+  <string name="withPaypal">PayPal</string>
 </resources>
