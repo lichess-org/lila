@@ -46,6 +46,7 @@ Slaptažodis: %3$s</string>
   <string name="createDesc2">El. pašto adresas nereikalingas. Bus sugeneruotas slaptažodis, kurį turėsite perduoti mokiniui. Šiuo slaptažodžiu jis galės prisijungti.</string>
   <string name="createDesc3">Svarbu: mokinys negali turėti kelių paskyrų.</string>
   <string name="createDesc4">Jei jis jau turi paskyrą, naudokite pakvietimo formą.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Kurkite paskyras tik tikriems mokiniams. Nenaudokite šios funkcijos kurdami kelias paskyras sau, kitu atveju būsite užblokuoti.</string>
   <string name="lichessUsername">Lichess vartotojo vardas</string>
   <string name="generateANewUsername">Sugeneruoti naują vartotojo vardą</string>
   <string name="welcomeToClass">Sveiki atvykę į klasę: %s
