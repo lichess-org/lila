@@ -1,14 +1,16 @@
 package lila.ublog
 
 import cats.implicits._
-import reactivemongo.api._
-import scala.concurrent.ExecutionContext
-import lila.db.dsl._
-import lila.user.User
 import org.joda.time.DateTime
 import play.api.i18n.Lang
+import reactivemongo.api._
+import scala.concurrent.ExecutionContext
 
-final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
+import lila.db.dsl._
+import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
+import lila.user.User
+
+final class UblogRank(colls: UblogColls, timeline: lila.hub.actors.Timeline)(implicit ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 
@@ -22,16 +24,16 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       .aggregateOne() { framework =>
         import framework._
         Match($id(postId)) -> List(
-          PipelineOperator($lookup.simple(colls.blog, "blog", "blog", "_id")),
+          PipelineOperator($lookup.simple(from = colls.blog, as = "blog", local = "blog", foreign = "_id")),
           UnwindField("blog"),
           Project(
             $doc(
-              "_id"      -> false,
               "tier"     -> "$blog.tier",
               "likes"    -> $doc("$size" -> "$likers"),
               "topics"   -> "$topics",
+              "at"       -> "$lived.at",
               "language" -> true,
-              "at"       -> "$lived.at"
+              "title"    -> true
             )
           )
         )
@@ -39,25 +41,31 @@ final class UblogRank(colls: UblogColls)(implicit ec: ExecutionContext) {
       .map { docOption =>
         for {
           doc      <- docOption
+          id       <- doc.getAsOpt[UblogPost.Id]("_id")
           likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
           topics   <- doc.getAsOpt[List[UblogTopic]]("topics")
           liveAt   <- doc.getAsOpt[DateTime]("at")
-          language <- doc.getAsOpt[Lang]("language")
           tier     <- doc int "tier"
-        } yield (topics, likes, liveAt, language, tier)
+          language <- doc.getAsOpt[Lang]("language")
+          title    <- doc string "title"
+        } yield (id, topics, likes, liveAt, tier, language, title)
       }
       .flatMap {
-        _.fold(fuccess(UblogPost.Likes(v ?? 1))) { case (topics, prevLikes, liveAt, language, tier) =>
-          val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
-          colls.post.update.one(
-            $id(postId),
-            $set(
-              "likes" -> likes,
-              "rank"  -> computeRank(topics, likes, liveAt, language, tier)
-            ) ++ {
-              if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
-            }
-          ) inject likes
+        _.fold(fuccess(UblogPost.Likes(v ?? 1))) {
+          case (id, topics, prevLikes, liveAt, tier, language, title) =>
+            val likes = UblogPost.Likes(prevLikes.value + (if (v) 1 else -1))
+            colls.post.update.one(
+              $id(postId),
+              $set(
+                "likes" -> likes,
+                "rank"  -> computeRank(topics, likes, liveAt, language, tier)
+              ) ++ {
+                if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
+              }
+            ) >>- {
+              if (v && tier >= UblogBlog.Tier.NORMAL)
+                timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
+            } inject likes
         }
       }
 

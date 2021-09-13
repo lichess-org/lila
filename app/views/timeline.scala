@@ -123,6 +123,11 @@ object timeline {
           )
         case BlogPost(id, slug, title) =>
           a(cls := "text", dataIcon := "", href := routes.Blog.show(id, slug))(title)
+        case UblogPostLike(userId, postId, postTitle) =>
+          trans.xLikesY(
+            userLink(userId),
+            a(href := routes.Ublog.redirect(postId))(postTitle)
+          )
         case StreamStart(id, name) =>
           views.html.streamer.bits
             .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))

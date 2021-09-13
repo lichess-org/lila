@@ -103,6 +103,9 @@ final class UblogApi(
       .cursor[UblogPost.PreviewPost](ReadPreference.secondaryPreferred)
       .list(nb)
 
+  def postPreview(id: UblogPost.Id) =
+    colls.post.byId[UblogPost.PreviewPost](id.value, previewPostProjection)
+
   private def imageRel(post: UblogPost) = s"ublog:${post.id}"
 
   def uploadImage(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] =
