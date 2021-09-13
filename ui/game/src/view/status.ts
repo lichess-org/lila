@@ -38,6 +38,8 @@ export default function status(ctrl: Ctrl): string {
       return noarg('cheatDetected');
     case 'variantEnd':
       return noarg('variantEnding');
+    case 'unknownFinish':
+      return 'Finished';
     default:
       return d.game.status.name;
   }
