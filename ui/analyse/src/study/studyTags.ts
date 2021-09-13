@@ -5,7 +5,7 @@ import { option, onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapter } from './interfaces';
 
-const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle'];
+const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle', 'Variant'];
 
 function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
   return h('input', {
@@ -36,7 +36,6 @@ type TagRow = (string | VNode)[];
 function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
   let rows: TagRow[] = [];
   const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0]));
-  if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]));
   if (submit) {
     const existingTypes = wantedTags.map(t => t[0]);

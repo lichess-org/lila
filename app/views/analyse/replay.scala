@@ -140,7 +140,7 @@ object replay {
                     )
                 ),
                 div(cls := "move-times")(
-                  game.turns > 1 option div(id := "movetimes-chart")
+                  (game.turns > 1 && !game.isPgnImport) option div(id := "movetimes-chart")
                 ),
                 div(cls := "fen-kif")(
                   div(

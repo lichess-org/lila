@@ -2,7 +2,6 @@ package shogi
 package format
 package pgn
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 import scala._
