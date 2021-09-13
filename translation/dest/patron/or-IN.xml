@@ -11,12 +11,17 @@
   </plurals>
   <string name="newPatrons">ନୂଆ ପୃଷ୍ଠପୋଷକ</string>
   <string name="freeChess">ସମସ୍ତଙ୍କ ପାଇଁ ମାଗଣା ଚେସ୍, ସବୁଦିନ ପାଇଁ!</string>
+  <string name="noAdsNoSubs">କୌଣସି ବିଜ୍ଞାପନ ନାହିଁ, କୌଣସି ସଦସ୍ୟତା ନାହିଁ; କିନ୍ତୁ ଖୋଲା-ଉତ୍ସ ଏବଂ ଉତ୍ସାହ ରହିଛି।</string>
+  <string name="thankYou">ଆପଣଙ୍କ ଦାନ ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="pleaseEnterAmountInX">ଦୟାକରି %s ରେ ଏକ ରାଶି ପ୍ରବେଶ କରନ୍ତୁ</string>
   <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
   <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">ଟଙ୍କା କୁଆଡ଼େ ଯାଏ?</string>
   <string name="serversAndDeveloper">ସର୍ବପ୍ରଥମେ, ଶକ୍ତିଶାଳୀ ସର୍ଭର।
 ତା\'ପରେ ଆମେ ଏକ ପୂର୍ଣ୍ଣକାଳୀନ ବିକାଶକାରୀ: %sଙ୍କୁ, Lichess ର ପ୍ରତିଷ୍ଠାତା, ଦେୟ ଦେଇଥାଉ।</string>
+  <string name="contactSupport">Lichess ସମର୍ଥନ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ</string>
+  <string name="otherMethods">ଦାନ କରିବାର ଅନ୍ୟ ପଦ୍ଧତି?</string>
+  <string name="bankTransfers">ଆମେ ବ୍ୟାଙ୍କ ଟ୍ରାନ୍ସଫରକୁ ମଧ୍ୟ ଗ୍ରହଣ କରୁ</string>
   <string name="currentStatus">ବର୍ତ୍ତମାନ ସ୍ଥିତି</string>
   <string name="nextPayment">ଆଗାମୀ ଦେୟ</string>
 </resources>
