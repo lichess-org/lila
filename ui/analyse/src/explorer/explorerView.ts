@@ -384,7 +384,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         ...row('blessed-loss', trans('winPreventedBy50MoveRule')),
         ...row('draw', trans('drawn')),
         ...row('cursed-win', trans('lossSavedBy50MoveRule')),
-        ...row('maybe-win', trans('winOr50MovesByPriorMistake'), trans('unknownDueToRounding')),
+        ...row('maybe-win', trans('lossOr50MovesByPriorMistake'), trans('unknownDueToRounding')),
         ...row('win', trans('losing')),
       ]);
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));
