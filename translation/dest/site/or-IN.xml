@@ -130,6 +130,10 @@
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
   <string name="changeUsername">ଉପଭୋକ୍ତା ନାମ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
+  <string name="password">ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+  <string name="changePassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
+  <string name="passwordReset">ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
+  <string name="forgotPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲିଯାଇଛନ୍ତି କି?</string>
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="apply">ଜମା କରନ୍ତୁ</string>
@@ -138,9 +142,18 @@
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
   <string name="help">ସହାୟତା:</string>
+  <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+  <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+  <string name="currentPassword">ଏବେକାର ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+  <string name="newPassword">ନୁତନ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
+  <string name="newPasswordAgain">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ (ପୁନଃ)</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
+  <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
+  <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
+  <string name="security">ସୁରକ୍ଷା</string>
+  <string name="language">ଭାଷା</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
   <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
