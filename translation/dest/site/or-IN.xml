@@ -129,8 +129,10 @@
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
+  <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="help">ସହାୟତା:</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
+  <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
