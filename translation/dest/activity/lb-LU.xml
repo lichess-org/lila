@@ -70,6 +70,6 @@
   <string name="signedUp">Huet sech bei Lichess ugemellt</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ass %s Ekipp bäigetrueden</item>
-    <item quantity="other">Ass %s Ekippe bäigetrueden</item>
+    <item quantity="other">Ass %s Ekippen bäigetrueden</item>
   </plurals>
 </resources>

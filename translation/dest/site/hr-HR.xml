@@ -91,11 +91,6 @@
     <item quantity="few">Mat u %s međupoteza</item>
     <item quantity="other">Mat u %s međupoteza</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s polupotezu (udaljenost od resetiranja brojača 50 poteza)</item>
-    <item quantity="few">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
-    <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
-  </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>

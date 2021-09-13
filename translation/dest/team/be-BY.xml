@@ -35,6 +35,7 @@
   </plurals>
   <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
   <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
+  <string name="requestDeclined">Ваш запыт на далучэнне быў адхілены лідэрам каманды.</string>
   <string name="subToTeamMessages">Падпісацца на камандныя паведамленні</string>
   <string name="teamBattle">Камандная бітва</string>
   <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае балы для сваёй каманды</string>
@@ -58,4 +59,5 @@
   <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
   <string name="upcomingTourns">Надыходзячыя турніры</string>
   <string name="completedTourns">Завершаныя турніры</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Адхіленыя запыты</string>
 </resources>

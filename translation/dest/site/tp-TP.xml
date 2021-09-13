@@ -92,10 +92,6 @@
     <item quantity="one">mije lawa li moli lon tawa kama %s</item>
     <item quantity="other">mije lawa li moli lon tawa kama %s</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">tawa pi jan lili anu moku kiwen lon tawa %s kama (tan nasin pi tawa 50)</item>
-    <item quantity="other">tawa pi jan lili anu moku kiwen lon tawa %s kama (tan nasin pi tawa 50)</item>
-  </plurals>
   <string name="noGameFound">musi ala li lon</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">sina ken alasa e musi ante kepeken lipu wile.</string>
   <string name="openingExplorer">ilo open</string>

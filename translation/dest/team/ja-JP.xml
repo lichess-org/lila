@@ -26,6 +26,7 @@
   </plurals>
   <string name="willBeReviewed">あなたの加入申請はチームリーダーが審査します。</string>
   <string name="beingReviewed">あなたの加入申請はチームリーダーが審査中です。</string>
+  <string name="requestDeclined">あなたの加入申請はチームリーダーが却下しました。</string>
   <string name="subToTeamMessages">チームメッセージを受信する</string>
   <string name="teamBattle">チームバトル</string>
   <string name="teamBattleOverview">複数チームの団体戦で、所属プレイヤーのポイント合計を争う</string>
@@ -49,4 +50,5 @@
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTourns">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">却下した申請</string>
 </resources>

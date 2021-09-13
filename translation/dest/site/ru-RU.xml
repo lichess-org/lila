@@ -51,8 +51,8 @@
   <string name="blackResigned">Чёрные сдались</string>
   <string name="whiteLeftTheGame">Белые вышли из игры</string>
   <string name="blackLeftTheGame">Чёрные вышли из игры</string>
-  <string name="whiteDidntMove">Белые не выполнили ход</string>
-  <string name="blackDidntMove">Чёрные не выполнили ход</string>
+  <string name="whiteDidntMove">Белые не сделали ход</string>
+  <string name="blackDidntMove">Чёрные не сделали ход</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Пригласите зрителей с помощью этой ссылки</string>
   <string name="theComputerAnalysisHasFailed">Произошёл сбой</string>
   <string name="viewTheComputerAnalysis">Просмотреть компьютерный анализ</string>
@@ -95,12 +95,6 @@
     <item quantity="few">Мат в %s полухода</item>
     <item quantity="many">Мат в %s полуходов</item>
     <item quantity="other">Мат в %s полуходов</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Следующее взятие или ход пешкой в %s полуход (Расстояние до обнуления счётчика 50 ходов)</item>
-    <item quantity="few">Следующее взятие или ход пешкой в %s полухода (Расстояние до обнуления счётчика 50 ходов)</item>
-    <item quantity="many">Следующее взятие или ход пешкой в %s полуходов (Расстояние до обнуления счётчика 50 ходов)</item>
-    <item quantity="other">Следующее взятие или ход пешкой в %s полуходов (Расстояние до обнуления счётчика 50 ходов)</item>
   </plurals>
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>

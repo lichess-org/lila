@@ -39,7 +39,7 @@
   <string name="swissVsArenaA">I ein sveitsarturnering spelar alle deltakarane det same antal spel og kan spela mot kvarandre berre éin gong.
 Det kan vera eit godt alternativ for klubbar og offisielle turneringar.</string>
   <string name="pointsCalculationQ">Korleis vert poenga rekna ut?</string>
-  <string name="pointsCalculationA">Siger gjev eitt poeng, remis eit halvt poeng og tap null poeng.
+  <string name="pointsCalculationA">Vinst gjev eitt poeng, remis eit halvt poeng og tap null poeng.
 Spelarar som ikkje får tildelt motspelar i ein runde får eitt poeng.</string>
   <string name="tiebreaksCalculationQ">Korleis vert poenga rekna ut ved uavgjord resultat (\"tie-break\")?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger skåre</string>
@@ -94,7 +94,7 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="lateJoinUntil">Ja fram til meir enn halvparten av rundane er påbyrja</string>
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Ja, men talet på rundar kan verte redusert</string>
-  <string name="streaksAndBerserk">Sigersrekkjer og Berserk</string>
+  <string name="streaksAndBerserk">Vinstrekkjer og Berserk</string>
   <string name="similarToOTB">Svarande til turneringar over bordet (\"OTB\")</string>
   <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
 </resources>

@@ -88,9 +88,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">在%s步內將死對手</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">下次吃子或走兵出現在%s步後（重置50步計數器）</item>
-  </plurals>
   <string name="noGameFound">未找到遊戲</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從偏好設置中加入更多棋局</string>
   <string name="openingExplorer">開局瀏覽器</string>

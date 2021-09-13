@@ -88,10 +88,6 @@
     <item quantity="one">Chaco mat in %s medie-movimento</item>
     <item quantity="other">Chaco mat in %s medie-movimentos</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
-    <item quantity="other">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
-  </plurals>
   <string name="noGameFound">Nulle partita trovate</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Forsan includer plus partitas per le menu preferentias?</string>
   <string name="openingExplorer">Explorator de initio de joco</string>

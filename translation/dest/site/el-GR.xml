@@ -92,10 +92,7 @@
     <item quantity="one">Ματ σε %s μισή κίνηση</item>
     <item quantity="other">Ματ σε %s μισές κινήσεις</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
-    <item quantity="other">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισές κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
-  </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' με στρογγυλοποίηση, βάσει του αριθμού των κινήσεων μέχρι την επόμενη κίνηση πιονιού ή την επόμενη αλλαγή</string>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
@@ -103,6 +100,9 @@
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="winOr50MovesByPriorMistake">Νίκη ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
+  <string name="lossOr50MovesByPriorMistake">Ήττα ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
+  <string name="unknownDueToRounding">Η νίκη/ήττα είναι εγγυημένη μόνο εάν έχει ακολουθηθεί η συνιστώμενη γραμμή βάσης από την τελευταία κίνηση πιονιού ή την τελευταία αλλαγή, λόγω πιθανής στρογγυλοποίησης.</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>

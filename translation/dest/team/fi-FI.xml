@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Joukkueen johtaja tarkastaa liittymispyyntösi.</string>
   <string name="beingReviewed">Liittymispyyntösi on joukkueen johtajan tarkastettavana.</string>
+  <string name="requestDeclined">Joukkueen johtaja hylkäsi liittymispyyntösi.</string>
   <string name="subToTeamMessages">Tilaa joukkueen viestit</string>
   <string name="teamBattle">Joukkuetaisto</string>
   <string name="teamBattleOverview">Useiden joukkueiden keskinäinen kamppailu: kukin pelaaja kerää pisteitä joukkueelleen</string>
@@ -52,4 +53,5 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="teamAlreadyExists">Tämä joukkue on jo olemassa.</string>
   <string name="upcomingTourns">Tulevat turnaukset</string>
   <string name="completedTourns">Päättyneet turnaukset</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Hylätyt pyynnöt</string>
 </resources>

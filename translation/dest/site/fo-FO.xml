@@ -88,10 +88,6 @@
     <item quantity="one">Skák og mát í %s hálvum leiki</item>
     <item quantity="other">Skák og mát í %s hálvum leikum</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Næsta tøka ella næsti finnuleikur í %s hálvum leiki (Frástøða til null í 50-leika niðurteljingini)</item>
-    <item quantity="other">Næsta tøka ella næsti finnuleikur í %s hálvum leikum (Frástøða til null í 50-leika niðurteljingini)</item>
-  </plurals>
   <string name="noGameFound">Einki talv funnið</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vilt tú taka fleiri talv úr tínari egnu valmynd?</string>
   <string name="openingExplorer">Rannsaka byrjanartalv</string>

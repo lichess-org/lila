@@ -32,7 +32,7 @@
   <string name="variantEnding">Enn vun der Variant</string>
   <string name="newOpponent">Neie Géigner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Däin Géigner wëll eng nei Partie mat dir spillen</string>
-  <string name="joinTheGame">Tried der Partie bäi</string>
+  <string name="joinTheGame">Triet der Partie bäi</string>
   <string name="whitePlays">Wäiss um Zuch</string>
   <string name="blackPlays">Schwaarz um Zuch</string>
   <plurals name="opponentLeftCounter">
@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Di éischt Persoun déi dëst URL oprifft wäert däin Géigner sinn.</string>
   <string name="whiteResigned">Wäiss huet opginn</string>
   <string name="blackResigned">Schwaarz huet opginn</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Wäiss huet d\'Partie verlooss</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Schwaarz huet d\'Partie verlooss</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Wäiss huet net gezunn</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Schwaarz huet net gezunn</string>
+  <string name="whiteLeftTheGame">Wäiss huet d\'Partie verlooss</string>
+  <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
+  <string name="whiteDidntMove">Wäiss huet net gezunn</string>
+  <string name="blackDidntMove">Schwaarz huet net gezunn</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deelt dës URL fir Spectateuren ze invitéieren</string>
   <string name="theComputerAnalysisHasFailed">D\'Computer Analyse huet net fonctionéiert</string>
   <string name="viewTheComputerAnalysis">D\'Computer Analyse ukucken</string>
@@ -92,10 +92,7 @@
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Nächsten Schlag- oder Bauerenzuch an %s Hallef-Zuch (Distanz zum Zerécksetzen vum 50-Zich-Ziehler)</item>
-    <item quantity="other">Nächsten Schlag- oder Bauerenzuch an %s Hallef-Zich (Distanz zum Zerécksetzen vum 50-Zich-Ziehler)</item>
-  </plurals>
+  <string name="dtzWithRounding" comment="Tooltip for DTZ in tablebase view. DTZ50'' (speak &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases. It's probably best to keep &quot;DTZ50''&quot; untranslated.&#10;&#10;dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -103,6 +100,9 @@
   <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
   <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
+  <string name="winOr50MovesByPriorMistake" comment="Shown in some situations in the tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.&#10;&#10;winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
+  <string name="lossOr50MovesByPriorMistake" comment="Analogous to source string &quot;Win or 50 moves by prior mistake&quot;.&#10;&#10;lossOr50MovesByPriorMistake">Defaite oder 50 Zich duerch fréiere Feeler</string>
+  <string name="unknownDueToRounding" comment="Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in tablebase view.&#10;&#10;unknownDueToRounding">Victoire/Defaite just garantéiert wann Tablebase Variant säit leschtem Schlag- oder Bauerenzuch gespillt gouf, wéinst méiglechem Ronnungsfeeler.</string>
   <string name="allSet">Prett!</string>
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
@@ -423,9 +423,9 @@
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
   <string name="points">Punkten</string>
-  <string name="wins">Victoirë</string>
+  <string name="wins">Victoiren</string>
   <string name="losses">Defaiten</string>
-  <string name="winStreak">Victoireserie</string>
+  <string name="winStreak">Erfollegsserie</string>
   <string name="createdBy">Kreéiert vum</string>
   <string name="tournamentIsStarting">Den Turnéier geet lass</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
@@ -436,12 +436,12 @@
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Turnéier fäerdeg</string>
   <string name="movesPlayed">Zich gespillt</string>
-  <string name="whiteWins">Wäiss Victoirë</string>
-  <string name="blackWins">Schwaarz Victoirë</string>
+  <string name="whiteWins">Wäiss Victoiren</string>
+  <string name="blackWins">Schwaarz Victoiren</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
-  <string name="membersOnly">Just Member</string>
+  <string name="membersOnly">Just Memberen</string>
   <string name="boardEditor">Briet Editor</string>
   <string name="setTheBoard">Briet opbauen</string>
   <string name="popularOpenings">Beléift Eröffnungen</string>
@@ -485,7 +485,7 @@
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
   <string name="descPrivate">Privat Beschreiwung</string>
-  <string name="descPrivateHelp">Text deen just Ekippen Member wäerten gesinn. Falls agestallt, ersetzt en fir Member d\'öffentlech Beschreiwung.</string>
+  <string name="descPrivateHelp">Text deen just Ekippenmemberen wäerten gesinn. Falls agestallt, ersetzt en fir Memberen d\'ëffentlech Beschreiwung.</string>
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
   <string name="help">Hëllef:</string>
@@ -519,7 +519,7 @@
   <string name="typePrivateNotesHere">Schreiw hei deng privat Notten</string>
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
   <string name="incorrectPassword">Inkorrekt Passwuert</string>
-  <string name="invalidAuthenticationCode">Ongëltegen Authenticatiounscode</string>
+  <string name="invalidAuthenticationCode">Ongëltegen Authentifizéierungscode</string>
   <string name="emailMeALink">Email mir en Link</string>
   <string name="currentPassword">Aktuellt Passwuert</string>
   <string name="newPassword">Neit Passwuert</string>
@@ -557,7 +557,7 @@
   <string name="drawVsYInZ">%1$s vs %2$s an %3$s</string>
   <string name="timeline">Verlaf</string>
   <string name="starting">Start:</string>
-  <string name="allInformationIsPublicAndOptional">All Infourmatioun ass public an optional.</string>
+  <string name="allInformationIsPublicAndOptional">All Infourmatioun ass ëffentlech an optional.</string>
   <string name="yourCityRegionOrDepartment">Deng Stad, Regioun, oder Provënz.</string>
   <string name="biographyDescription">Erziehl eppes iwer dech, deng Interessen, wat dir um Schach gefällt, deng Lieblingseröffnungen oder -spiller, ...</string>
   <plurals name="maximumNbCharacters">
@@ -678,14 +678,30 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mam Registréieren akzeptéiers du %s.</string>
   <string name="readAboutOur">Lies iwwer eis %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwierk Lag zwëschen dir an Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Zäit fir en Zuch um Lichess Server ze veraarbechten</string>
+  <string name="downloadAnnotated">Download kommentéiert</string>
+  <string name="downloadRaw">Download onkommentéiert</string>
+  <string name="downloadImported">Importéiert Partie eroflueden</string>
+  <string name="printFriendlyPDF">Drockfrëndlechen PDF</string>
   <string name="crosstable">Matchverlaf</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kanns och um Briet scrollen fir duerch d\'Partie ze goen.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll iwwer Computer Varianten fir eng Virschau ze kréien.</string>
+  <string name="analysisShapesHowTo">Dréck Shift+Mausklick oder Rietsklick fir Kreeser and Feiler um Briet ze zeechnen.</string>
+  <string name="letOtherPlayersMessageYou">Anerer kënnen dir Messagen schécken</string>
+  <string name="receiveForumNotifications">Notificatioun kréien wann du am Forum erwähnt gëss</string>
   <string name="shareYourInsightsData">Deng perséinlech Schachstatistiken deelen</string>
   <string name="withNobody">Mat kengem</string>
   <string name="withFriends">Mat Frënn</string>
   <string name="withEverybody">Mat jidderengem</string>
   <string name="youHaveAlreadyRegisteredTheEmail">D\'Email %s ass schon registréiert</string>
   <string name="kidMode">Kannermodus</string>
+  <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
+  <string name="enableKidMode">Kannermodus aktivéieren</string>
+  <string name="disableKidMode">Kannermodus desaktivéieren</string>
   <string name="security">Sécherheet</string>
+  <string name="sessions">Sitzungen</string>
+  <string name="revokeAllSessions">All Sitzungen ofschléissen</string>
   <string name="playChessEverywhere">Spill iwwerall Schach</string>
   <string name="asFreeAsLichess">Sou gratis wéi Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Aus Léift zum Schach, net Suen</string>
@@ -703,6 +719,10 @@
     <item quantity="other">Disponibel an %s Sproochen!</item>
   </plurals>
   <string name="gameAnalysis">Spill Analyse</string>
+  <string name="xHostsY">%1$s huet %2$s kreéiert</string>
+  <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
+  <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="xCreatesStudyY">%1$s huet Etüd %2$s kreéiert</string>
   <string name="quickPairing">Schnell Paarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
@@ -717,6 +737,11 @@
   <string name="boardTheme">Briet Design</string>
   <string name="boardSize">Briet Gréisst</string>
   <string name="pieceSet">Figuren Set</string>
+  <string name="embedInYourWebsite">An Websäit anbetten</string>
+  <string name="usernameAlreadyUsed">Dësen Benotzernumm gëtt schonn benotzt, wiel wannechgelift een aneren.</string>
+  <string name="usernamePrefixInvalid">De Benotzernumm muss mat engem Buschtaf ufänken.</string>
+  <string name="usernameSuffixInvalid">De Benotzernumm muss mat engem Buschtaf oder enger Zuel ophalen.</string>
+  <string name="usernameCharsInvalid">De Benotzernumm däerf just Buschtawen, Zuelen, Ënner- an Bindestricher enthalen. Konsekutiv Ënner- an Bindestricher sinn net erlaabt.</string>
   <string name="usernameUnacceptable">Dësen Benotzernumm ass net akzeptabel.</string>
   <string name="directlySupportLichess">Lichess direkt ennerstëtzen</string>
   <string name="playChessInStyle">Mat Style Schach spillen</string>
@@ -724,18 +749,29 @@
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Ongëlteg PGN</string>
   <string name="invalidFen">Ongëlteg FEN</string>
+  <string name="error.minLength">Mindestens %s Zeechen</string>
+  <string name="error.maxLength">Maximal %s Zeechen</string>
+  <string name="error.min">Muss mindestens %s sinn</string>
+  <string name="error.max">Däerf maximal %s sinn</string>
   <string name="error.unknown">Feeler</string>
   <string name="custom">Personaliséiert</string>
   <string name="notifications">Notificatiounen</string>
   <string name="perfRatingX">Wäertung: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s Sekonn fir den éischten Zuch ze spillen</item>
+    <item quantity="other">%s Sekonnen fir den éischten Zuch ze spillen</item>
+  </plurals>
   <string name="practiceWithComputer">Mam Computer üben</string>
   <string name="anotherWasX">En aneren war %s</string>
   <string name="bestWasX">Am Beschten war %s</string>
+  <string name="youBrowsedAway">Du hues fortgebliedert</string>
+  <string name="resumePractice">Übung fortsetzen</string>
   <string name="theGameIsADraw">D\'Partie ass Remis.</string>
   <string name="computerThinking">Computer iwwerleet ...</string>
   <string name="seeBestMove">Beschten Zuch gesinn</string>
   <string name="hideBestMove">Beschten Zuch verstoppen</string>
   <string name="getAHint">Tipp kréien</string>
+  <string name="evaluatingYourMove">Zuch gëtt evaluéiert ...</string>
   <string name="whiteWinsGame">Wäiss gewënnt</string>
   <string name="blackWinsGame">Schwaarz gewënnt</string>
   <string name="learnFromYourMistakes">Aus dengen Feeler léieren</string>
@@ -756,6 +792,8 @@
   <string name="doneReviewingWhiteMistakes">Wäiss Feeler all nogekuckt</string>
   <string name="doneReviewingBlackMistakes">Schwaarz Feeler all nogekuckt</string>
   <string name="doItAgain">Nach eng Kéier</string>
+  <string name="reviewWhiteMistakes">Feeler vun Wäiss iwwerpréifen</string>
+  <string name="reviewBlackMistakes">Feeler vun Schwaarz iwwerpréifen</string>
   <string name="advantage">Virdeel</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s Sekonn</item>
@@ -764,14 +802,36 @@
   <string name="opening">Eröffnung</string>
   <string name="middlegame">Mëttelspill</string>
   <string name="endgame">Endspill</string>
+  <string name="conditionalPremoves">Bedingt Virauszich</string>
+  <string name="addCurrentVariation">Aktuell Variante bäifügen</string>
+  <string name="playVariationToCreateConditionalPremoves">Variant spillen fir bedingt Virauszich ze kreéieren</string>
+  <string name="noConditionalPremoves">Keng bedingt Virauszich</string>
   <string name="playX">Spill %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">an späicher %s bedingten Virauszuch</item>
+    <item quantity="other">an späicher %s bedingt Virauszich</item>
+  </plurals>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
   <string name="timeoutExpires">D\'Auszeit ass riwwer %s.</string>
   <string name="why">Firwat?</string>
+  <string name="pleasantChessExperience">Mir wëllen jidderengem eng méiglechst gudd Schacherfahrung offréieren.</string>
+  <string name="goodPractice">Fir dat ze erreechen mussen mer sécherstellen dass all Spiller sech korrekt verhalen.</string>
+  <string name="potentialProblem">Mir weisen dësen Message, wann en potentiellen Problem erkannt gouf.</string>
   <string name="howToAvoidThis">Dat hei vermeiden?</string>
   <string name="playEveryGame">Spill all Partie déi du ufänks.</string>
+  <string name="tryToWin">Probéier all Partie ze gewannen (oder op mannst Remis ze spillen).</string>
+  <string name="resignLostGames">Gëff verlueren Partien op (looss net d\'Auer roflafen).</string>
+  <string name="temporaryInconvenience">Mir entschëllege ons fir d\'temporär Onannehmlechkeeten,</string>
+  <string name="wishYouGreatGames">an wënschen dir flott Partien op lichess.org.</string>
   <string name="thankYouForReading">Merci fir d\'Liesen!</string>
+  <string name="lifetimeScore">Éiwegen Spillstand</string>
+  <string name="currentMatchScore">Aktuellen Match Score</string>
+  <string name="agreementAssistance">Ech stëmmen zou dass ech zu kengem Zäitpunkt wärend mengen Partien Hëllef an Usproch huelen (duerch Computer, Buch, Datenbank oder eng aner Persoun).</string>
+  <string name="agreementNice">Ech stëmmen zou dass ech aneren Spiller géigeniwwer ëmmer respektvoll agéieren wäert.</string>
+  <string name="agreementAccount">Ech stëmmen zou dass ech net puer Konten kreéieren wäert.</string>
+  <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
+  <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
@@ -780,20 +840,73 @@
   <string name="blitzDesc">Schnell Partien: 3 bis 8 Minutten</string>
   <string name="rapidDesc">Rapid Partien: 8 bis 25 Minutten</string>
   <string name="classicalDesc">Klassesch Partien: 25 Minutten an méi</string>
+  <string name="correspondenceDesc">Korrespondenz Partien: Een oder puer Deeg pro Zuch</string>
+  <string name="puzzleDesc">Schach Taktiktrainer</string>
+  <string name="important">Wichteg</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Deng Fro gouf villäicht schon beäntwert %1$s</string>
+  <string name="inTheFAQ">am FAQ</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Fir en Benotzer fir Bedruch oder schlecht Behuelen ze mellen, %1$s</string>
+  <string name="useTheReportForm">benotz dësen Formulaire</string>
+  <string name="toRequestSupport">Fir Hëllef ze kréien, %1$s</string>
+  <string name="tryTheContactPage">probéier eis Kontaktsäit</string>
+  <string name="thisTopicIsArchived">Dësen Thema gouf archivéiert and kann net méi beäntwert ginn.</string>
+  <string name="joinTheTeamXToPost">Triet %1$s bäi, fir an dësem Forum ze posten</string>
+  <string name="teamNamedX">%1$s Ekipp</string>
+  <string name="youCannotPostYetPlaySomeGames">Du kanns nach net am Forum schreiwen. Spill puer Partien!</string>
+  <string name="subscribe">Abonéieren</string>
+  <string name="unsubscribe">Desabonéiren</string>
+  <string name="mentionedYouInX">huet dech an \"%1$s\" erwähnt.</string>
+  <string name="xMentionedYouInY">%1$s huet dech an \"%2$s\" erwähnt.</string>
+  <string name="invitedYouToX">huet dech zu \"%1$s\" invitéiert.</string>
+  <string name="xInvitedYouToY">%1$s huet dech zu \"%2$s\" invitéiert.</string>
+  <string name="youAreNowPartOfTeam">Du bass elo Member vun der Ekipp.</string>
+  <string name="youHaveJoinedTeamX">Du bass \"%1$s\" bäigetrueden.</string>
+  <string name="someoneYouReportedWasBanned">Een vun dir gemellten Benotzer gouf gebannt</string>
+  <string name="congratsYouWon">Felicitatioun, du hues gewonn!</string>
+  <string name="gameVsX">Partie géint %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Et huet een däin Trainerprofil bewäert.</string>
+  <string name="newPendingReview">Nei ausstoend Bewäertungen</string>
+  <string name="lostAgainstTOSViolator">Du hues géint een verluer deen géint Lichess-Richtlinnen vertouss huet</string>
+  <string name="refundXpointsTimeControlY">Réckerstattung: %1$s %2$s Wäertungspunkten.</string>
+  <string name="timeAlmostUp">Deng Zäit ass baal ofgelaf!</string>
+  <string name="clickToRevealEmailAddress">[Klick fir Email Adress ze weisen]</string>
+  <string name="download">Download</string>
   <string name="welcome">Wëllkomm!</string>
+  <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
+All Betriebskäschten, Entwécklung and Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
+  <string name="coachManager">Coach Manager</string>
+  <string name="streamerManager">Stream Manager</string>
   <string name="cancelTournament">Turnéier annuléieren</string>
   <string name="tournDescription">Turnéier Beschreiwung</string>
-  <string name="onlyMembersOfTeam">Just Member vun der Ekipp</string>
+  <string name="tournDescriptionHelp">Wëlls du den Participanten eppes matdeelen? Haal dech kuerz. Markdown-Links sinn disponibel [name](https://url)</string>
+  <string name="ratedFormHelp">Partien sinn gewäert 
+an veränneren Spillerwäertungen</string>
+  <string name="onlyMembersOfTeam">Just Memberen vun der Ekipp</string>
   <string name="noRestriction">Keng Aschränkungen</string>
   <string name="minimumRatedGames">Minimum gewäert Partien</string>
   <string name="minimumRating">Minimum Wäertung</string>
   <string name="maximumWeeklyRating">Maximal wöchentlech Wäertung</string>
   <string name="onlyTitled">Just Spiller mat Titel</string>
+  <string name="onlyTitledHelp">Offiziellen Titel viraussetzen fir Turnéier bäizetrieden</string>
+  <string name="positionInputHelp">Füg eng gülteg FEN an, fir all Partie aus enger bestëmmter Positioun ze starten.
+Et funktioneiert nëmmen fir Standardpartien, net fir Varianten.
+Du kanns de %s benotzen, fir eng FEN-Positioun ze generéieren an dës dann hei afügen.
+Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</string>
+  <string name="cancelSimul">Simul annuléieren</string>
+  <string name="simulHostcolor">Faarf vum Host fir all Partie</string>
+  <string name="estimatedStart">Ongeféier Startzäit</string>
+  <string name="simulFeatured">Op %s weisen</string>
+  <string name="simulFeaturedHelp">Jidderengem op %s Simul uweisen. Desaktivéieren fir privat Simuls.</string>
+  <string name="simulDescription">Simul Beschreiwung</string>
+  <string name="simulDescriptionHelp">Wëlls du den Participanten eppes matdeelen?</string>
+  <string name="markdownAvailable">%s ass fir erweidert Formatéierung disponibel.</string>
+  <string name="embedsAvailable">Füg eng Partien-URL oder eng Etüdenkapitel-URL an, fir se anzebetten.</string>
   <string name="inYourLocalTimezone">An denger lokaler Zäitzon</string>
   <string name="tournChat">Turnéier Chat</string>
   <string name="noChat">Keen Chat</string>
   <string name="onlyTeamLeaders">Just Ekippenleader</string>
-  <string name="onlyTeamMembers">Just Ekippenmember</string>
+  <string name="onlyTeamMembers">Just Ekippenmemberen</string>
   <string name="navigateMoveTree">Duerch den Zuchbam navigéieren</string>
   <string name="mouseTricks">Maus Tricks</string>
   <string name="toggleLocalAnalysis">Lokal Computer Analyse aktivéieren/desaktivéieren</string>

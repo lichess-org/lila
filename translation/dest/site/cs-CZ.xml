@@ -94,12 +94,6 @@
     <item quantity="many">Mat v %s půltazích</item>
     <item quantity="other">Mat v %s půltazích</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s půltah do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-    <item quantity="few">%s půltahy do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-    <item quantity="many">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-    <item quantity="other">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-  </plurals>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>

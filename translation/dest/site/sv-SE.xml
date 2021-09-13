@@ -90,10 +90,6 @@
     <item quantity="one">Matt på %s halvdrag</item>
     <item quantity="other">Matt på %s halvdrag</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
-    <item quantity="other">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
-  </plurals>
   <string name="noGameFound">Inget parti hittades</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
   <string name="openingExplorer">Öppningsbok</string>

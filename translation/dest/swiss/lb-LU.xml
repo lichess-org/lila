@@ -1,2 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swissTournaments">Schwäizer Turnéier</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Ronn ukucken</item>
+    <item quantity="other">All %s Ronnen ukucken</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s Ronn</item>
+    <item quantity="other">%s Ronnen</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Eng Ronn pro Dag</item>
+    <item quantity="other">Eng Ronn all %s Deeg</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Ronne ginn manuell gestart</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s Sekonn tëschent Ronnen</item>
+    <item quantity="other">%s Sekonne tëschent Ronnen</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s Minut tëschent Ronnen</item>
+    <item quantity="other">%s Minute tëschent Ronnen</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Start an</string>
+  <string name="nextRound">Nächst Ronn</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Lafend Partie</item>
+    <item quantity="other">Lafend Partien</item>
+  </plurals>
+  <string name="tournStartDate">Startzäit vum Turnéier</string>
+  <string name="numberOfRounds">Unzuel u Ronnen</string>
+  <string name="numberOfRoundsHelp">Eng ongerued Unzuel u Ronnen erlaabt fir eng optimal Säiteverdeelung.</string>
+  <string name="roundInterval">Intervall tëschent de Ronnen</string>
+  <string name="forbiddenPairings">Verbuede Puerungen</string>
+  <string name="forbiddenPairingsHelp">Benotzernimm vu Spiller déi net géinteneen spillen däerfen (zum Beispill Geschwëster). Zwee Benotzernimm pro Zeil, getrennt duerch en Espace.</string>
+  <string name="newSwiss">Neien SchwäizerTurnéier</string>
+  <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
+  <string name="swissVsArenaA">An engem Turnéier nom schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
+Et kann eng gutt Optioun sinn fir Clibb an offiziell Turnéier.</string>
+  <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
+  <string name="pointsCalculationA">Eng Victoire ass ee Punkt wäert, e Remis ass en hallwen Punkt wäert an eng Defaite si null Punkte wäert. 
+Wann e Spiller net gepuert ka ginn, kritt en en hallwe Punkt.</string>
+  <string name="tiebreaksCalculationQ">Wéi ginn Tiebreaks gerechent?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger Score</string>
+  <string name="tiebreaksCalculationA">Mat dem %s.
+Addéier d\'Punkte vun all Géigner, géint déi de Spiller gewonne huet an d\'Hallschent vun de Punkte vun de Géigner, géint déi de Spiller gläichgespillt huet.</string>
+  <string name="pairingsQ">Wéi ginn Puerungen decidéiert?</string>
+  <string name="dutchSystem">Hollännesche System</string>
+  <string name="FIDEHandbook">FIDE Handbuch</string>
+  <string name="pairingsA">Mat dem %1$s, ëmgesat vu %2$s, nom %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Wat geschitt wann en Turnéier méi Ronne wéi Spiller huet?</string>
+  <string name="moreRoundsThanPlayersA">Wann all méiglech Puerunge gespillt goufen, wäert den Turnéier finaliséiert an e Gewënner deklaréiert ginn.</string>
+  <string name="restrictedToTeamsQ">Firwat ass et op Ekippe beschränkt?</string>
+  <string name="restrictedToTeamsA">Turnéier nom Schwäizer System sinn net fir Online-Schach konzipéiert. Se fuerderen vun alle Spiller Pünktlechkeet, Asaz a Gedold.
+Mir sinn der Meenung, datt dës Konditiounen éischter bannent enger Ekipp erfëllt ginn, als an engem ëffentlechen Turnéier.</string>
+  <string name="numberOfByesQ">Wéi vill kampflos Punkte kann e Spiller kréien?</string>
+  <string name="numberOfByesA">E Spiller kritt all Kéiers, wann de System keng Puerung fir e fënnt, e Punkt.
+Zousätzlech, kritt e Spiller en hallwen Punkt, wann en gëtt ze spéit bäitrëtt.</string>
+  <string name="whatIfOneDoesntPlayQ">Wat geschitt, wann e Spiller eng Partie net spillt?</string>
+  <string name="whatIfOneDoesntPlayA">D\'Zäit wäert oflafen an e wäert d\'Partie verléieren.
+Uschléissend gëtt de Spiller vum System aus dem Turnéier ofgezunn, esou datt dësen keng weider Partie verléiert.
+ E kann jidderzäit dem Turnéier erëm bäitrieden.</string>
+  <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
+  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
+Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
+  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom schwäizer System Arena ersetzen?</string>
+  <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
+  <string name="roundRobinQ">An Round Robin?</string>
+  <string name="roundRobinA">Mir géifen et gären bäifügen, mee leider funktionéiert Round Robin online net.
+De Grond ass, datt et keng fair Méiglechkeet gëtt mat Leit ëmzegoen, déi d\'Turnéier virzäiteg verloossen. Mir kënne net erwaarden, datt all Spiller an engem Online-Event all hir Partie spille wäerten. Dat wäert einfach net geschéien an doduerch géifen déi meescht Round Robin Turnéieren ongülteg an onfair sinn, wat dem eigentleche Sënn aus dem Wee geet.
+Dat noosten un engem Round Robin Turnéier, wier en Turnéier nom Schwäizer System mat enger héicher Unzuel u Ronnen. Doduerch géifen all méiglech Puerungen gespillt ginn, éier d\'Turnéier eriwwer ass.</string>
+  <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
+  <string name="otherSystemsA">Mir plange momentan keng weider Turnéiersystemer op Lichess bäizefügen.</string>
+  <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
+  <string name="nowPlaying">Grad amgaang</string>
+  <string name="startingSoon">Fänkt gläich un</string>
+  <string name="comparison">Vergläich</string>
+  <string name="tournDuration">Dauer vum Tounéier</string>
+  <string name="numberOfGames">Zuel vun Partien</string>
+  <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
+  <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
+  <string name="possibleButNotConsecutive">Méiglech, mee net noeneen</string>
+  <string name="identicalForbidden">Verbueden</string>
+  <string name="lateJoin">Spéide Bäitrëtt</string>
+  <string name="lateJoinUntil">Jo, bis méi wéi d\'Hallschent vun de Ronne ugefaangen hunn</string>
+  <string name="pause">Paus</string>
+  <string name="pauseSwiss">Jo, mee kéint d\'Unzuel vun de Ronne reduzéieren</string>
+  <string name="similarToOTB">Änlech wéi OTB Turnéier</string>
+  <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
+</resources>

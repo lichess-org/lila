@@ -49,8 +49,8 @@
   <string name="blackResigned">Black resigned</string>
   <string name="whiteLeftTheGame">White left the game</string>
   <string name="blackLeftTheGame">Black left the game</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">White didn\'t move</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Black didn\'t move</string>
+  <string name="whiteDidntMove">White didn\'t move</string>
+  <string name="blackDidntMove">Black didn\'t move</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Share this URL to let spectators see the game</string>
   <string name="theComputerAnalysisHasFailed">The computer analysis has failed</string>
   <string name="viewTheComputerAnalysis">View the computer analysis</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Next capture or pawn move in %s half-move (Distance To Zeroing of the 50 move counter)</item>
-    <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
   </plurals>
   <string name="noGameFound">No game found</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>

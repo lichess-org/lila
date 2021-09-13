@@ -90,10 +90,6 @@
     <item quantity="one">Namate sa %s kalahating galaw</item>
     <item quantity="other">Namate sa %s kalahating mga galaw</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Ang Sunod na Pagdakip o galaw ng pawn sa %s Kalahating paggalaw ( Layu sa Pagkazero sa 50 na Tagabilang ng Galaw)</item>
-    <item quantity="other">Ang Sunod na Pagdakip o galaw ng pawn sa %s Kalahating mga paggalaw ( Layu sa Pagkazero sa 50 na Tagabilang ng Galaw)</item>
-  </plurals>
   <string name="noGameFound">Walang nakitang laro</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maaring magsama ng maraming laro mula sa ginustong menu?</string>
   <string name="openingExplorer">Pagbubukas ng tagalakbay</string>

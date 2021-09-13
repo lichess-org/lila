@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">O teu pedido de adesão será revisto pelo líder da equipa.</string>
   <string name="beingReviewed">O teu pedido de adesão está a ser revisto pelo líder da equipa.</string>
+  <string name="requestDeclined">O seu pedido de adesão foi recusado por um líder de equipa.</string>
   <string name="teamBattle">Batalha de Equipas</string>
   <string name="teamBattleOverview">Uma batalha de várias equipas, cada jogador ganha pontos para a sua equipa</string>
   <string name="teamTournament">Torneio de equipa</string>
@@ -48,4 +49,5 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que os novos membros devem saber para se juntarem a esta equipa.</string>
   <string name="incorrectEntryCode">Código incorreto.</string>
   <string name="teamAlreadyExists">Esta equipa já existe.</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Pedidos Recusados</string>
 </resources>

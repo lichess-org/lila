@@ -83,10 +83,6 @@
   <string name="recentGames">Resinte partijen</string>
   <string name="topGames">Top partijen</string>
   <string name="masterDbExplanation">Twa miljoen fysyk oan-it-boerd partijen fan %1$s + FIDE-rating spilers fan %2$s oant %3$s</string>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Folgjende slach of pion set yn %s heale set (ôfstân ta de nul fan \'e 50 setten teller)</item>
-    <item quantity="other">Folgjende slach of pion set yn %s heale setten (ôfstân ta de nul fan \'e 50 setten teller)</item>
-  </plurals>
   <string name="noGameFound">Gjin partij fûn</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Miskien mear partijen tafoegje út it foarkarmenu?</string>
   <string name="openingExplorer">Iepeningsblêder</string>

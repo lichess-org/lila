@@ -90,10 +90,6 @@
     <item quantity="one">Scaccu mattu in %s mezzu colpu</item>
     <item quantity="other">Scaccu mattu in %s mezzu colpi</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Prossima cattura o muvimentu d\' un pedinu in %s mezzu colpu (U numeru di colpi chì stanu siontu à a regula di i 50 colpi)</item>
-    <item quantity="other">Prossima cattura o muvimentu d\' un pedinu in %s mezzu colpi (U numeru di colpi chì stanu siontu à a regula di i 50 colpi)</item>
-  </plurals>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
   <string name="openingExplorer">Espluratore d\' apertura</string>

@@ -83,10 +83,6 @@
   <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Дараагийн барьцаа эсвэл падаа %s хагас шилжих хөдөлгөөнд шилжих (50 алхам тоолуурын Zeroing руу шилжих)</item>
-    <item quantity="other">Дараагийн удаа барьцаалах буюу зээлдүүлэгчид %s хагас хөдөлгөөнд шилжих (50 шилжих тоолуурын зайнаас шилжих)</item>
-  </plurals>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>

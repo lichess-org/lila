@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Вашата заявка за присъединяване ще бъде прегледана от лидер на отбора.</string>
   <string name="beingReviewed">Вашата заявка за присъединяване се преглежда от лидер на отбора.</string>
+  <string name="requestDeclined">Вашата заявка за присъединяване беше отказана от лидер на отбора.</string>
   <string name="subToTeamMessages">Абонирайте се за съобщения от отбора</string>
   <string name="teamBattle">Отборна битка</string>
   <string name="teamBattleOverview">Битка между няколко отбора, всеки играч печели точки за своя отбор</string>
@@ -51,4 +52,5 @@
   <string name="teamAlreadyExists">Този отбор вече съществува.</string>
   <string name="upcomingTourns">Предстоящи турнири</string>
   <string name="completedTourns">Завършени турнири</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Отказани заявки за присъединяване</string>
 </resources>

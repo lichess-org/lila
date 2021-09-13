@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Бастау үшін жүріңіз</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Барлық жұмбақтарда сіз ақ түспен ойнайсыз</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Барлық жұмбақтарда сіз қара түспен ойнайсыз</string>
   <string name="puzzlesSolved">жұмбақ шешілді</string>
   <string name="newDailyHighscore">Жаңа күндік рекорд!</string>
   <string name="newWeeklyHighscore">Жаңа апталық рекорд!</string>
@@ -31,4 +33,23 @@
   <string name="viewBestRuns">Үздік кезеңдерді көру</string>
   <string name="bestRunOfDay">Бір күннің үздік кезеңі</string>
   <string name="runs">Кезеңдер</string>
+  <string name="getReady">Дайынсыз ба!</string>
+  <string name="waitingForMorePlayers">Көбірек ойыншылардың қосылуын күтеміз...</string>
+  <string name="raceComplete">Бәйге аяқталды!</string>
+  <string name="spectating">Көріп отырғандар</string>
+  <string name="joinTheRace">Бәйгеге қосылу!</string>
+  <string name="startTheRace">Бәйге бастау</string>
+  <string name="yourRankX">Сіздің орныңыз: %s</string>
+  <string name="waitForRematch">Қайта ойнауды күту</string>
+  <string name="nextRace">Келесі бәйге</string>
+  <string name="joinRematch">Қайта ойнаға қосылу</string>
+  <string name="waitingToStart">Басталуын күтеміз</string>
+  <string name="createNewGame">Жаңа ойын құру</string>
+  <string name="joinPublicRace">Жалпыға ашық бәйгеге қосылу</string>
+  <string name="raceYourFriends">Достармен бәйгеге түсу</string>
+  <string name="skip">бас тарту</string>
+  <string name="skipHelp">Сіз әр бәйгеде бір жүрістен ғана бас тарта аласыз:</string>
+  <string name="skipExplanation">Өз тізбегіңізді сақтау үшін осы жүрістен бас тарту! Әр бәйгеде бір рет.</string>
+  <string name="failedPuzzles">Шешілмеген жұмбақтар</string>
+  <string name="slowPuzzles">Баяу жұмбақтар</string>
 </resources>

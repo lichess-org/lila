@@ -1,2 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s säi Blog</string>
+  <string name="newPost">Neien Bäitrag</string>
+  <string name="editYourBlogPost">Beaarbecht däin Blog-Bäitrag</string>
+  <string name="saveDraft">Entworf späicheren</string>
+  <string name="postTitle">Bäitragstitel</string>
+  <string name="postIntro">Bäitragsaleedung</string>
+  <string name="postBody">Bäitragsinhalt</string>
+  <string name="drafts">Entworf</string>
+  <string name="published">Verëffentlecht</string>
+  <string name="publishOnYourBlog">Verëffentlechen an dengem Blog</string>
+  <string name="publishHelp">Wann aktivéiert, wäert de Bäitrag an engem Blog opgelëscht ginn. Wann net, wäert e privat sinn, an dengen Entwërf</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Huet e Blog-Bäitrag verëffentlecht</item>
+    <item quantity="other">Huet %s Blog-Bäiträg verëffentlecht</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Emol ugesinn</item>
+    <item quantity="other">%s mol ugesinn</item>
+  </plurals>
+  <string name="xPublishedY">%1$s huet %2$s verëffentlecht</string>
+  <string name="thisPostIsPublished">Dësen Bäitrag ass verëffentlecht</string>
+  <string name="thisIsADraft">Dëst ass en Entworf</string>
+  <string name="moreBlogPostsBy">Méi Blog-Bäiträg vum %s</string>
+  <string name="noPostsInThisBlogYet">Nach keng Bäiträg an dësen Blog.</string>
+  <string name="noDrafts">Keng Entwërf unzeweisen.</string>
+  <string name="latestBlogPosts">Neiste Blog-Bäiträg</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">E Bäitrag uweisen</item>
+    <item quantity="other">%s Bäiträg uweisen</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">E Bild fir däin Bäitrag eroplueden</string>
+</resources>

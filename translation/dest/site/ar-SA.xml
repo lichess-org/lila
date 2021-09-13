@@ -98,14 +98,6 @@
     <item quantity="many">مات في %s نصف-نقلة</item>
     <item quantity="other">مات في %s نصف-نقلة</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="zero">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-    <item quantity="one">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-    <item quantity="two">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-    <item quantity="few">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-    <item quantity="many">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-    <item quantity="other">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-  </plurals>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>

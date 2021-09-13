@@ -55,18 +55,18 @@
     <item quantity="other">Hät %s neui Schtuudiä ärschtellt</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Hat an %s Turnier teilgenommen</item>
-    <item quantity="other">Hat an %s Turnieren teilgenommen</item>
+    <item quantity="one">Hät a %s Turniär teilgno</item>
+    <item quantity="other">Hät a %s Turniär teilgno</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Hat Platz #%1$s (obere %2$s%%) mit %3$s Spiel in %4$s erreicht</item>
-    <item quantity="other">Hat Platz #%1$s (obere %2$s%%) mit %3$s Spielen in %4$s erreicht</item>
+    <item quantity="one">Hät Platz #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
+    <item quantity="other">Hät Platz #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Hat an %s Turnier nach Schweizer System teilgenommen</item>
-    <item quantity="other">Hat an %s Turnieren nach Schweizer System teilgenommen</item>
+    <item quantity="one">Hät a %s Turniär nach Schwiizär System teilgno</item>
+    <item quantity="other">Hät a %s Turniär nach Schwiizär System teilgno</item>
   </plurals>
-  <string name="rankedInSwissTournament">Hat Platz #%1$s im Turnier %2$s belegt</string>
+  <string name="rankedInSwissTournament">Hät Platz #%1$s im Turniär %2$s erreicht</string>
   <string name="signedUp">Hat sich bei Lichess angemeldet</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ist %s Team beigetreten</item>

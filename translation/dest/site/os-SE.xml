@@ -88,10 +88,6 @@
     <item quantity="one">Мат %s æрдæгцыды фæстæ</item>
     <item quantity="other">Мат %s æрдæгцыды фæстæ</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
-    <item quantity="other">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
-  </plurals>
   <string name="noGameFound">Нæ ссардтам партитæ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъæуы бафтауын фылдæр хъæзтыты настройкæты?</string>
   <string name="openingExplorer">Райдайæнты æвæрæн</string>

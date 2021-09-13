@@ -49,10 +49,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Той, хто перайдзе па гэтай спасылцы, зможа згуляць з вамі.</string>
   <string name="whiteResigned">Белыя здаліся</string>
   <string name="blackResigned">Чорныя здаліся</string>
-  <string name="whiteLeftTheGame" comment="whiteLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because White left the game.">Гулец з боку белых выйшаў з гульні</string>
-  <string name="blackLeftTheGame" comment="blackLeftTheGame&#10;&#10;Game ending condition: appears when the game ends because Black left the game.">Гулец з боку чорных выйшаў з гульні</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Белыя не пахадзілі</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Чорныя не пахадзілі</string>
+  <string name="whiteLeftTheGame">Гулец з боку белых выйшаў з гульні</string>
+  <string name="blackLeftTheGame">Гулец з боку чорных выйшаў з гульні</string>
+  <string name="whiteDidntMove">Белыя не пахадзілі</string>
+  <string name="blackDidntMove">Чорныя не пахадзілі</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Каб запрасіць назіральнікаў, падзяліцеся з імі гэтай спасылкай</string>
   <string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз не ўдаўся</string>
   <string name="viewTheComputerAnalysis">Прагледзець камп\'ютарны аналіз</string>
@@ -95,12 +95,6 @@
     <item quantity="few">Мат за %s паўхады</item>
     <item quantity="many">Мат за %s паўхадоў</item>
     <item quantity="other">Мат за %s паўхадоў</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Наступнае узяцце ці ход пешкай за %s паўход (Дыстанцыя да 50-га ходу)</item>
-    <item quantity="few">Наступнае узяцце ці ход пешкай за %s паўхады (Дыстанцыя да 50-га ходу)</item>
-    <item quantity="many">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
-    <item quantity="other">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
   </plurals>
   <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>

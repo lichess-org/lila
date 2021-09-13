@@ -26,4 +26,5 @@
   <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
   <string name="noDrafts">Nincsenek piszkozatok.</string>
   <string name="latestBlogPosts">Legutóbbi blogbejegyzések</string>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Tölts fel egy képet a bejegyzésedhez</string>
 </resources>

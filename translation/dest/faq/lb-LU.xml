@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">Heefeg gestallte Froen</string>
+  <string name="whyIsLichessCalledLichess">Firwat heescht Lichess Lichess?</string>
+  <string name="howCanIContributeToLichess">Wéi kann ech zu Lichess bäidroen?</string>
+  <string name="areThereWebsitesBasedOnLichess">Ginn et Websäiten déi op Lichess baséieren?</string>
+  <string name="fairPlay">Fair Play</string>
+</resources>

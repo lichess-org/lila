@@ -92,10 +92,6 @@
     <item quantity="one">Xeque-mate em %s meio-movimento</item>
     <item quantity="other">Xeque-mate em %s meio-movimentos</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Próxima captura ou movimento de peão em %s meio-movimento (Distância para zerar o contador de 50 movimentos)</item>
-    <item quantity="other">Próxima captura ou movimento de peão em %s meio-movimentos (Distância para zerar o contador de 50 movimentos)</item>
-  </plurals>
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>

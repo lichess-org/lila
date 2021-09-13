@@ -96,12 +96,6 @@
     <item quantity="many">Mat w %s posunięciach</item>
     <item quantity="other">Mat w %s posunięciach</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Następne bicie lub ruch pionem w następnym posunięciu (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-  </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>

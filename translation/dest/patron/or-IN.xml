@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">ଦାନ କରନ୍ତୁ</string>
+  <string name="lichessPatron">Lichess Patron</string>
+  <string name="freeAccount">ମାଗଣା ଖାତା</string>
+  <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
+  <string name="xBecamePatron">%s ଜଣେ Lichess Patron ହେଲେ</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
+    <item quantity="other">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
+  </plurals>
+  <string name="newPatrons">ନୂଆ ପୃଷ୍ଠପୋଷକ</string>
+  <string name="freeChess">ସମସ୍ତଙ୍କ ପାଇଁ ମାଗଣା ଚେସ୍, ସବୁଦିନ ପାଇଁ!</string>
+  <string name="pleaseEnterAmountInX">ଦୟାକରି %s ରେ ଏକ ରାଶି ପ୍ରବେଶ କରନ୍ତୁ</string>
+  <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
+  <string name="withPaypal">PayPal</string>
+</resources>

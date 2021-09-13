@@ -49,8 +49,8 @@
   <string name="blackResigned">කළු ඉල්ලා අස්විය</string>
   <string name="whiteLeftTheGame">සුදු ක්‍රීඩාවෙන් ඉවත් විය</string>
   <string name="blackLeftTheGame">කළු ක්‍රීඩාවෙන් ඉවත් විය</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">සුදු චලනය නොවීය</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">කළු චලනය නොවීය</string>
+  <string name="whiteDidntMove">සුදු චලනය නොවීය</string>
+  <string name="blackDidntMove">කළු චලනය නොවීය</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">ප්‍රේක්ෂකයින්ට ක්‍රීඩාව බැලීමට මෙම URL බෙදාගන්න</string>
   <string name="theComputerAnalysisHasFailed">පරිගණක විශ්ලේෂණය අසමත් විය</string>
   <string name="viewTheComputerAnalysis">පරිගණක විශ්ලේෂණය බලන්න</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">ඇදීම් %sකින් චෙක්මේට්</item>
     <item quantity="other">ඇදීම් වාර %sකින් චෙක්මේට්</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">ඊළඟ පෝන් ඇදීමට හෝ ඉත්තන් කැපීමට ඇදීම්%sකි(ඇදීම් පනහේ නීතියට ඇදීම් 0ක් සේ සලකා)</item>
-    <item quantity="other">ළඟ පෝන් ඇදීමට හෝ ඉත්තන් කැපීමට ඇදීම්%sකි(ඇදීම් පනහේ නීතියට ඇදීම් 0ක් සේ සලකා)</item>
   </plurals>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>

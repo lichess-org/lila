@@ -89,10 +89,6 @@
     <item quantity="one">সজ্ঞী %s অর্ধ-ধাপ</item>
     <item quantity="other">সজ্ঞী %s অর্ধ-ধাপ</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">পরের গ্রহন বা ঘুটি স্থানতর %sঅর্ধ-ধাপ (সূন্য করার জন্য দূরুত্ব 50 পদক্ষেপ)</item>
-    <item quantity="other">পরের গ্রহন বা ঘুটি স্থানতর %sঅর্ধ-ধাপগুলো (সূন্য করার জন্য দূরুত্ব 50 পদক্ষেপ)</item>
-  </plurals>
   <string name="noGameFound">কোন খেলা নেই</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">হয়তো আরো খেলা যোগ করা হবে পচ্ছন্দের তালিকায়?</string>
   <string name="openingExplorer">অনুসন্ধানকারী খুলতেছে</string>

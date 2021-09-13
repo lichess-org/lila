@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Lähetyksen URL</string>
   <string name="currentRoundUrl">Tämän kierroksen URL</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
+  <string name="downloadAllRounds">Lataa kaikki kierrokset</string>
 </resources>

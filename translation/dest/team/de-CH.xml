@@ -7,7 +7,7 @@
     <item quantity="other">%s Mitglider</item>
   </plurals>
   <string name="allTeams">Alli Teams</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Von dir geleitete Teams</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vo dir gleitäti Teams</string>
   <string name="newTeam">Neus Team</string>
   <string name="myTeams">Mini Teams</string>
   <string name="noTeamFound">Kais Team gfundä</string>
@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Dini Bitrittsafrog wird bald vomänä Teamleiter überprüäft.</string>
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
+  <string name="requestDeclined">Deine Beitrittsanfrage wurde von einem Teamleiter abgelehnt.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
   <string name="teamBattle">Teamfight</string>
   <string name="teamBattleOverview">En Fight vo mehrere Teams, alli Schpiller/-innä sammläd Pünkt für ihräs Team</string>
@@ -50,4 +51,5 @@
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTourns">Kommendi Turnier</string>
   <string name="completedTourns">Beendeti Turnier</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Abglehnti Aafragä</string>
 </resources>
