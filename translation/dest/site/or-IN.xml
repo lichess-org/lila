@@ -136,6 +136,7 @@
   <string name="forgotPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲିଯାଇଛନ୍ତି କି?</string>
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
+  <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
   <string name="apply">ଜମା କରନ୍ତୁ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
@@ -144,6 +145,8 @@
   <string name="more">ଅଧିକ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
+  <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ଦେଶ କିମ୍ୱା ପତାକା</string>
   <string name="help">ସହାୟତା:</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
@@ -157,6 +160,8 @@
   <string name="practice">ଅଭ୍ୟାସ</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
+  <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
+  <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କକୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>
@@ -168,5 +173,6 @@
   <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
+  <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
 </resources>
