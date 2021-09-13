@@ -42,6 +42,7 @@ object PgnTags {
       GoteElo,
       GoteTitle,
       GoteTeam,
+      Opening,
       Result,
       ProblemName,
       ProblemId,
