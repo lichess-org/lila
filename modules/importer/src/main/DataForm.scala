@@ -48,7 +48,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
         kif,
         sans => sans.copy(value = sans.value take maxPlies),
         Tags.empty
-      ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
+      ) map evenIncomplete map { case replay @ Replay(_, _, state) =>
         val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
         val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
         val variant = {
@@ -61,7 +61,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
           case shogi.variant.Standard if fromPosition                => shogi.variant.FromPosition
           case v                                                     => v
         }
-        val game = state.copy(situation = state.situation withVariant variant)
+        val game = state.copy(situation = state.situation withVariant variant, clock = None)
         val initialFen = parsed.tags.fen.map(_.value) flatMap {
           Forsyth.<<<@(variant, _)
         } map Forsyth.>> map FEN.apply
