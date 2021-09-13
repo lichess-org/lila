@@ -92,7 +92,7 @@
     <item quantity="one">Matt an %s Hallef-Zuch</item>
     <item quantity="other">Matt an %s Hallef-Zich</item>
   </plurals>
-  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
+  <string name="dtzWithRounding">DTZ50\'\' mat Ronnung, baséierend ob Unzuel vun Hallefzich bis zum nächsten Schlag- oder Bauerenzuch</string>
   <string name="noGameFound">Keng Partie fonnt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villäicht mussen méi Partien iwert den Astellungsmenü consideréiert ginn?</string>
   <string name="openingExplorer">Eröffnungsdatenbank</string>
@@ -100,9 +100,9 @@
   <string name="xOpeningExplorer">%s -Eröffnungsdatenbank</string>
   <string name="winPreventedBy50MoveRule">Victoire verhënnert duerch 50-Zich-Reegel</string>
   <string name="lossSavedBy50MoveRule">Defaite verhënnert duerch 50-Zich-Reegel</string>
-  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">Victoire oder 50 Zich duerch fréiere Feeler</string>
-  <string name="lossOr50MovesByPriorMistake" comment="lossOr50MovesByPriorMistake&#10;&#10;Analogous to source string &quot;Win or 50 moves by prior mistake&quot; - please see context there.">Defaite oder 50 Zich duerch fréiere Feeler</string>
-  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">Victoire/Defaite just garantéiert wann Tablebase Variant säit leschtem Schlag- oder Bauerenzuch gespillt gouf, wéinst méiglechem Ronnungsfeeler.</string>
+  <string name="winOr50MovesByPriorMistake">Victoire oder 50 Zich duerch fréiere Feeler</string>
+  <string name="lossOr50MovesByPriorMistake">Defaite oder 50 Zich duerch fréiere Feeler</string>
+  <string name="unknownDueToRounding">Victoire/Defaite just garantéiert wann Tablebase Variant säit leschtem Schlag- oder Bauerenzuch gespillt gouf, wéinst méiglechem Ronnungsfeeler.</string>
   <string name="allSet">Prett!</string>
   <string name="importPgn">PGN importéieren</string>
   <string name="delete">Läschen</string>
