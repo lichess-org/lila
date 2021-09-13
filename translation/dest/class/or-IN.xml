@@ -10,5 +10,7 @@
 ପାସ୍ଓ୍ୱାର୍ଡ଼: %3$s</string>
   <string name="createDesc2">କୌଣସି ଇମେଲ୍ ଠିକଣା ଆବଶ୍ୟକ ନାହିଁ। ଏକ ପାସ୍ଓ୍ୱାର୍ଡ଼ ସୃଷ୍ଟି ହେବ, ଏବଂ ଆପଣଙ୍କୁ ଏହାକୁ ଛାତ୍ରଙ୍କ ନିକଟକୁ ପଠାଇବାକୁ ପଡ଼ିବ, ଯାହା ଫଳରେ ସେମାନେ ଲଗ୍ ଇନ୍ କରିପାରିବେ।</string>
   <string name="managed">ପରିଚାଳିତ</string>
+  <string name="thisStudentAccountIsManaged">ଏହି ଛାତ୍ର ଆକାଉଣ୍ଟ୍ ଟି ପରିଚାଳିତ ଅଟେ</string>
+  <string name="upgradeFromManaged">ପରିଚାଳିତରୁ ସ୍ୱୟଂଶାସିତକୁ ଅପଗ୍ରେଡ୍ କର</string>
   <string name="releaseDesc1">ଏକ ସ୍ନାତକ ଆକାଉଣ୍ଟ ପୁନର୍ବାର ପରିଚାଳନା କରାଯାଇପାରିବ ନାହିଁ। ଛାତ୍ର ଶିଶୁ ମୋଡ୍ ଟୋଗଲ୍ କରିବାକୁ ଏବଂ ନିଜେ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ସମର୍ଥ ହେବେ।</string>
 </resources>
