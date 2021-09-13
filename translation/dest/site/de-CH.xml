@@ -92,6 +92,7 @@
     <item quantity="one">Matt i %s Halbzug</item>
     <item quantity="other">Matt i %s Halbzüg</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
   <string name="noGameFound">Käs Schpiil gfundä</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht söted meh Schpiil vom Iischteligs Menu iibezogä werdä?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">%s Eröffnigsbuäch</string>
   <string name="winPreventedBy50MoveRule">Sieg dur d 50-Züg-Reglä verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
+  <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züge durch vorherigen Fehler</string>
+  <string name="lossOr50MovesByPriorMistake">Verlust oder 50 Züge durch vorherigen Fehler</string>
+  <string name="unknownDueToRounding">Gewinn/Verlust ist nur garantiert, falls die empfohlene Datenbank-Zugfolge seit dem letzten Schlag- oder Bauernzug befolgt wurde, da möglicherweise gerundet wird.</string>
   <string name="allSet">Färtig!</string>
   <string name="importPgn">PGN importierä</string>
   <string name="delete">Löschä</string>
