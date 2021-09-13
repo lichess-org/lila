@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="quicklyGenerateSafeUsernames">ଛାତ୍ରମାନଙ୍କ ପାଇଁ ଶୀଘ୍ର ସୁରକ୍ଷିତ ଉପଭୋକ୍ତା ନାମ ଏବଂ ପାସ୍ଓ୍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="resetPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
+  <string name="passwordX">ପାସ୍ଓ୍ୱାର୍ଡ଼: %s</string>
+  <string name="generateANewPassword">ଛାତ୍ରଙ୍କ ପାଇଁ ଏକ ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+</resources>
