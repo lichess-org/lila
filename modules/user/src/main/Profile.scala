@@ -45,6 +45,14 @@ case class Profile(
       cfcRating.map { OfficialRating("cfc", _) } orElse
       dsbRating.map { OfficialRating("dsb", _) }
 
+  def filterTroll(troll: Boolean) = copy(
+    bio = bio ifFalse troll,
+    firstName = firstName ifFalse troll,
+    lastName = lastName ifFalse troll,
+    location = location ifFalse troll,
+    links = links ifFalse troll
+  )
+
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }
 
