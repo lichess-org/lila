@@ -19,8 +19,8 @@
     <item quantity="other">%s Sekonne tëschent Ronnen</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s Minut tëschent Ronnen</item>
-    <item quantity="other">%s Minute tëschent Ronnen</item>
+    <item quantity="one">%s Minutt tëschent Ronnen</item>
+    <item quantity="other">%s Minutten tëschent Ronnen</item>
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Start an</string>
   <string name="nextRound">Nächst Ronn</string>
@@ -82,7 +82,12 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="comparison">Vergläich</string>
   <string name="tournDuration">Dauer vum Tounéier</string>
   <string name="predefinedDuration">Virdefinéiert Dauer a Minutten</string>
+  <string name="durationUnknown">Virdefinéiert maximal Unzuel u Ronne, mee onbekannt Dauer</string>
   <string name="numberOfGames">Zuel vun Partien</string>
+  <string name="numberOfGamesAsManyAsPossible">Sou vill wéi an der zougewisener Dauer kënne gespillt ginn</string>
+  <string name="numberOfGamesPreDefined">Am Viraus decidéiert, fir all Spiller nämmlecht</string>
+  <string name="pairingSystem">Puerungssytem</string>
+  <string name="pairingSystemArena">All verfügbare Géigner mat änleche Rang</string>
   <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
   <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
   <string name="possibleButNotConsecutive">Méiglech, mee net noeneen</string>
