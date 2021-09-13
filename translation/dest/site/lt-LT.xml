@@ -96,6 +96,7 @@
     <item quantity="many">Matas už %s pus-ėjimų</item>
     <item quantity="other">Matas už %s pus-ėjimų</item>
   </plurals>
+  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\" su apvalinimu remiantis pusėjimių iki kito kirtimo ar pėstininko ėjimo skaičiumi</string>
   <string name="noGameFound">Partijų nerasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
