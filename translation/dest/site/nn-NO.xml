@@ -92,6 +92,7 @@
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
   </plurals>
+  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' med avrunding, basert på antall halvtrekk inntil neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openingExplorer">Opningsbok</string>
