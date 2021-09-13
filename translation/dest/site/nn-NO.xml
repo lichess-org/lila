@@ -36,7 +36,7 @@
   <string name="whitePlays">Kvit i trekket</string>
   <string name="blackPlays">Svart i trekket</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Motspelaren din har forlate partiet. Du kan krevje siger om %s sekund.</item>
+    <item quantity="one">Motspelaren din har forlate partiet. Du kan krevje vinst om %s sekund.</item>
     <item quantity="other">Motspelaren din har forlate partiet. Du kan krevje siger om %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja siger eller erklæra remis, eller venta til motspelaren kjem attende.</string>
@@ -73,7 +73,7 @@
   <string name="forceVariation">Tving fram varianten</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
-  <string name="variantWin">Variant siger</string>
+  <string name="variantWin">Variant vinn</string>
   <string name="insufficientMaterial">Ikkje nok materiale</string>
   <string name="pawnMove">Bondetrekk</string>
   <string name="capture">Slagtrekk</string>
@@ -92,7 +92,7 @@
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
   </plurals>
-  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' med avrunding, basert på antall halvtrekk inntil neste brikketaking eller bondetrekk</string>
+  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' med avrunding, basert på antal halvtrekk fram til neste brikketaking eller bondetrekk</string>
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openingExplorer">Opningsbok</string>
@@ -100,7 +100,7 @@
   <string name="xOpeningExplorer">%s opningsutforskar</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
-  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">Siger eller 50 trekk etter tidlegare feil</string>
+  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">Vinst eller 50 trekk etter tidlegare feil</string>
   <string name="lossOr50MovesByPriorMistake" comment="lossOr50MovesByPriorMistake&#10;&#10;Analogous to source string &quot;Win or 50 moves by prior mistake&quot; - please see context there.">Tap eller 50 trekk etter tidlegare feil</string>
   <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">Vinst/tap berre garantert dersom den tilrådde trekkrekka i databasen er følgd etter siste brikkeutslag eller bondetrekk, på grunn av mogleg avrunding.</string>
   <string name="allSet">Alt klart!</string>
@@ -426,7 +426,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="points">Poeng</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tap</string>
-  <string name="winStreak">Sigersrekkje</string>
+  <string name="winStreak">Vinstrekkje</string>
   <string name="createdBy">Oppretta av</string>
   <string name="tournamentIsStarting">Turneringa startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
@@ -551,7 +551,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="xAskedY">%1$s spurde %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
-  <string name="victory">Siger</string>
+  <string name="victory">Vinst</string>
   <string name="defeat">Tap</string>
   <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="defeatVsYInZ">%1$s mot %2$s i %3$s</string>
