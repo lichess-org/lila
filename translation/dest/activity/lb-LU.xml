@@ -8,15 +8,15 @@
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Huet %1$s Positioun zu %2$s geüübt</item>
-    <item quantity="other">Huet %1$s Positioune zu %2$s geüübt</item>
+    <item quantity="other">Huet %1$s Positiounen zu %2$s geüübt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Huet %s Taktikaufgab geléist</item>
-    <item quantity="other">Huet %s Taktikaufgaben geléist</item>
+    <item quantity="other">Huet %s Taktikaufgabe geléist</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Huet %1$s Parti %2$s gespillt</item>
-    <item quantity="other">Huet %1$s Partien %2$s gespillt</item>
+    <item quantity="one">Huet %1$s Partie %2$s gespillt</item>
+    <item quantity="other">Huet %1$s Partie %2$s gespillt</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Huet %1$s Noriicht an %2$s geschriwwen</item>
@@ -27,11 +27,11 @@
     <item quantity="other">Huet %1$s Zich gespillt</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">an %1$s Fernschachparti</item>
+    <item quantity="one">an %1$s Fernschachpartie</item>
     <item quantity="other">an %1$s Fernschachpartien</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Huet %s Fernschachparti gespillt</item>
+    <item quantity="one">Huet %s Fernschachpartie gespillt</item>
     <item quantity="other">Huet %s Fernschachpartien gespillt</item>
   </plurals>
   <plurals name="followedNbPlayers">
@@ -44,19 +44,19 @@
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Huet %s Simultanvirstellung presentéiert</item>
-    <item quantity="other">Huet %s Simultanvirstellungen presentéiert</item>
+    <item quantity="other">Huet %s Simultanvirstellunge presentéiert</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Huet bei %s Simultanvirstellung matgemaach</item>
-    <item quantity="other">Huet bei %s Simultanvirstellungen matgemaach</item>
+    <item quantity="other">Huet bei %s Simultanvirstellunge matgemaach</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Huet %s Etüd kreéiert</item>
-    <item quantity="other">Huet %s Etüden kreéiert</item>
+    <item quantity="other">Huet %s Etüde kreéiert</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Huet bei %s Arena Turnéier matgemaach</item>
-    <item quantity="other">Huet bei %s Arena Turnéier matgemaach</item>
+    <item quantity="other">Huet bei %s Arena Turnéiere matgemaach</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Huet sech als #%1$s (iewescht %2$s%%) mat %3$s Parti an %4$s placéiert</item>
@@ -64,12 +64,12 @@
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">Huet bei %s Turnéier nom Schwäizer System matgemaach</item>
-    <item quantity="other">Huet bei %s Turnéier nom Schwäizer System matgemaach</item>
+    <item quantity="other">Huet bei %s Turnéieren nom Schwäizer System matgemaach</item>
   </plurals>
   <string name="rankedInSwissTournament">Huet sech als #%1$s an %2$s placéiert</string>
   <string name="signedUp">Huet sech bei Lichess ugemellt</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ass %s Ekipp bäigetrueden</item>
-    <item quantity="other">Ass %s Ekippen bäigetrueden</item>
+    <item quantity="other">Ass %s Ekippe bäigetrueden</item>
   </plurals>
 </resources>
