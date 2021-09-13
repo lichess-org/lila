@@ -96,6 +96,7 @@
     <item quantity="many">Mat w %s posunięciach</item>
     <item quantity="other">Mat w %s posunięciach</item>
   </plurals>
+  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' - odległość do zerowania z regułą pięćdziesięciu ruchów</string>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
@@ -103,6 +104,7 @@
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">Zwycięstwo/porażka gwarantowana tylko wtedy, gdy przestrzegano zwycięskiej linii bazy końcówek od ostatniego bicia lub posunięcia pionem.</string>
   <string name="allSet">Gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
