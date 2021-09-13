@@ -9,5 +9,6 @@
     <item quantity="one">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
     <item quantity="other">%1$s %2$s ମାସ ପାଇଁ ଜଣେ Lichess Patron</item>
   </plurals>
+  <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
   <string name="withPaypal">PayPal</string>
 </resources>
