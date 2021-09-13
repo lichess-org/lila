@@ -36,7 +36,7 @@
   <string name="forbiddenPairingsHelp">Benotzernimm vu Spiller déi net géinteneen spillen däerfen (zum Beispill Geschwëster). Zwee Benotzernimm pro Zeil, getrennt duerch en Espace.</string>
   <string name="newSwiss">Neien SchwäizerTurnéier</string>
   <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
-  <string name="swissVsArenaA">An engem Turnéier nom schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
+  <string name="swissVsArenaA">An engem Turnéier nom Schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
 Et kann eng gutt Optioun sinn fir Clibb an offiziell Turnéier.</string>
   <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
   <string name="pointsCalculationA">Eng Victoire ass ee Punkt wäert, e Remis ass en hallwen Punkt wäert an eng Defaite si null Punkte wäert. 
@@ -62,9 +62,9 @@ Zousätzlech, kritt e Spiller en hallwen Punkt, wann en gëtt ze spéit bäitr�
 Uschléissend gëtt de Spiller vum System aus dem Turnéier ofgezunn, esou datt dësen keng weider Partie verléiert.
  E kann jidderzäit dem Turnéier erëm bäitrieden.</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
-  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
+  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom Schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
 Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
-  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom schwäizer System Arena ersetzen?</string>
+  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom Schwäizer System Arena ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
   <string name="roundRobinA">Mir géifen et gären bäifügen, mee leider funktionéiert Round Robin online net.
@@ -72,11 +72,16 @@ De Grond ass, datt et keng fair Méiglechkeet gëtt mat Leit ëmzegoen, déi d\'
 Dat noosten un engem Round Robin Turnéier, wier en Turnéier nom Schwäizer System mat enger héicher Unzuel u Ronnen. Doduerch géifen all méiglech Puerungen gespillt ginn, éier d\'Turnéier eriwwer ass.</string>
   <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
   <string name="otherSystemsA">Mir plange momentan keng weider Turnéiersystemer op Lichess bäizefügen.</string>
+  <string name="swissDescription">An engem Turnéier nom Schwäizer System %1$s spillt all Spiller net onbedéngt géint all Participant. Mat Hëllef vun enger Réi Reegelen ginn d\'Participanten all Ronn géint en anere Spiller zougeloust, fir sécherzestellen, datt all Participant géint Spiller mat engem änleche Punktestand spillt, mee net méi wéi eemol géint de gläiche Géigner.
+De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronne addéiert goufen. All Spiller spillt an all Ronn, ausser et gëtt eng ongerued Unzuel un Participanten.\"</string>
+  <string name="teamOnly">Turnéier nom Schwäizer System kënnen nëmmen vum Ekippechef erstallt ginn, an nëmmen vu Membere aus der Ekipp gespillt ginn.
+%1$s fir beim Turnéier nom Schwäizer System matzemaachen.</string>
   <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
   <string name="tournDuration">Dauer vum Tounéier</string>
+  <string name="predefinedDuration">Virdefinéiert Dauer a Minutten</string>
   <string name="numberOfGames">Zuel vun Partien</string>
   <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
   <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
