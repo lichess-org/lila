@@ -115,6 +115,12 @@
 .variations > .v-text {
   margin-top: 3rem;
 }
+.variations > .v-text > p {
+  padding-right: 1rem;
+}
+.variations > .v-text > p > span {
+  font-weight: bold;
+}
 .variations > div {
   flex: 1;
 }
@@ -122,12 +128,6 @@
 .variations span {
   border-left: 3px solid #00000000;
   padding-left: 3px;
-  &.v8,
-  &.v6,
-  &.v4,
-  &.v2 {
-    font-weight: bold;
-  }
   &.v8 {
     border-left: 3px solid #34568b;
   }
