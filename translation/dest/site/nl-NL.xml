@@ -92,7 +92,7 @@
     <item quantity="one">Schaakmat in %s halfzet</item>
     <item quantity="other">Schaakmat in %s halfzetten</item>
   </plurals>
-  <string name="dtzWithRounding" comment="Tooltip for DTZ in tablebase view. DTZ50'' (speak &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases. It's probably best to keep &quot;DTZ50''&quot; untranslated.&#10;&#10;dtzWithRounding">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
+  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' met afronding, gebaseerd op het aantal halfzetten tot de volgende stukwinst of pionzet</string>
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openingExplorer">Openingverkenner</string>
@@ -100,8 +100,9 @@
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
   <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
-  <string name="winOr50MovesByPriorMistake" comment="Shown in some situations in the tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.&#10;&#10;winOr50MovesByPriorMistake">Winst of 50 zetten door een voorafgaande fout</string>
-  <string name="lossOr50MovesByPriorMistake" comment="Analogous to source string &quot;Win or 50 moves by prior mistake&quot;.&#10;&#10;lossOr50MovesByPriorMistake">Verlies of 50 zetten door voorafgaande fout</string>
+  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">Winst of 50 zetten door een voorafgaande fout</string>
+  <string name="lossOr50MovesByPriorMistake" comment="lossOr50MovesByPriorMistake&#10;&#10;Analogous to source string &quot;Win or 50 moves by prior mistake&quot; - please see context there.">Verlies of 50 zetten door voorafgaande fout</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">Winst/verlies alleen gegarandeerd als aanbevolen tablebase-regel is gevolgd sinds de laatste stukwinst of pionzet, ten gevolge van mogelijke afronden.</string>
   <string name="allSet">Klaar!</string>
   <string name="importPgn">PGN importeren</string>
   <string name="delete">Verwijderen</string>
