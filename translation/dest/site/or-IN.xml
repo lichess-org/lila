@@ -132,6 +132,8 @@
   <string name="help">ସହାୟତା:</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
+  <string name="why">କାହିଁକି?</string>
+  <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
 </resources>
