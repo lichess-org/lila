@@ -141,6 +141,9 @@
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
+  <string name="more">ଅଧିକ</string>
+  <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
+  <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="help">ସହାୟତା:</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
@@ -150,12 +153,16 @@
   <string name="newPasswordsDontMatch">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
+  <string name="studyMenu">ଅଧ୍ୟୟନ</string>
+  <string name="practice">ଅଭ୍ୟାସ</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="weHaveSentYouAnEmailTo">ଆମେ %s କୁ ଏକ ଇମେଲ୍ ପଠାଇଛୁ। ଆପଣଙ୍କ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ଇମେଲରେ ଥିବା ଲିଙ୍କକୁ କ୍ଲିକ୍ କରନ୍ତୁ।</string>
   <string name="readAboutOur">ଆମର %s ବିଷୟରେ ପଢ଼ନ୍ତୁ।</string>
   <string name="security">ସୁରକ୍ଷା</string>
   <string name="language">ଭାଷା</string>
+  <string name="light">ହାଲୁକା</string>
+  <string name="dark">ଗାଢ଼</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
   <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
