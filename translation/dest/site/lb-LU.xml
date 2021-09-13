@@ -15,7 +15,7 @@
   <string name="chat">So eppes</string>
   <string name="resign">Opginn</string>
   <string name="checkmate">Schachmatt</string>
-  <string name="stalemate">Remis</string>
+  <string name="stalemate">Patt</string>
   <string name="white">Wäiss</string>
   <string name="black">Schwaarz</string>
   <string name="randomColor">Zoufälleg Säit</string>
