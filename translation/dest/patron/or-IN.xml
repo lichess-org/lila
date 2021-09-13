@@ -28,10 +28,17 @@
   <string name="youSupportWith">ଆପଣ ପ୍ରତି ମାସରେ %s ସହିତ lichess.org କୁ ସମର୍ଥନ କରନ୍ତି।</string>
   <string name="currentStatus">ବର୍ତ୍ତମାନ ସ୍ଥିତି</string>
   <string name="nextPayment">ଆଗାମୀ ଦେୟ</string>
+  <string name="makeAdditionalDonation">ଏକ ଅତିରିକ୍ତ ଦାନ କରନ୍ତୁ</string>
   <string name="update">ଅଦ୍ୟତନ କରନ୍ତୁ</string>
   <string name="changeMonthlyAmount">ମାସିକ ରାଶି ପରିବର୍ତ୍ତନ କର (%s)</string>
+  <string name="cancelSupport">ଆପଣଙ୍କ ସମର୍ଥନ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ</string>
+  <string name="xOrY">%1$s ବା %2$s</string>
+  <string name="decideHowMuch">Lichess ଆପଣଙ୍କ ପାଇଁ କେତେ ମୂଲ୍ୟବାନ ତାହା ସ୍ଥିର କରନ୍ତୁ:</string>
+  <string name="stopPayments">ଆପଣଙ୍କ କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ ଏବଂ ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
+  <string name="noLongerSupport">ଆଉ Lichess କୁ ସମର୍ଥନ କରନ୍ତି ନାହିଁ</string>
   <string name="date">ତାରିଖ</string>
   <string name="amount">ରାଶି</string>
   <string name="transactionCompleted">ଆପଣଙ୍କ ଟ୍ରାଞ୍ଜାକସନ୍ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇଛି, ଏବଂ ଆପଣଙ୍କ ଦାନ ପାଇଁ ଏକ ରସିଦ ଆପଣଙ୍କୁ ଇମେଲ୍ କରାଯାଇଛି।</string>
+  <string name="checkOutProfile">ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ପୃଷ୍ଠା ଦେଖନ୍ତୁ!</string>
   <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">ମୁଦ୍ରା ପରିବର୍ତ୍ତନ କର</string>
 </resources>
