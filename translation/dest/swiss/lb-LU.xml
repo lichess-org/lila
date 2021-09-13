@@ -67,6 +67,9 @@ Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst h
   <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom schwäizer System Arena ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
+  <string name="roundRobinA">Mir géifen et gären bäifügen, mee leider funktionéiert Round Robin online net.
+De Grond ass, datt et keng fair Méiglechkeet gëtt mat Leit ëmzegoen, déi d\'Turnéier virzäiteg verloossen. Mir kënne net erwaarden, datt all Spiller an engem Online-Event all hir Partie spille wäerten. Dat wäert einfach net geschéien an doduerch géifen déi meescht Round Robin Turnéieren ongülteg an onfair sinn, wat dem eigentleche Sënn aus dem Wee geet.
+Dat noosten un engem Round Robin Turnéier, wier en Turnéier nom Schwäizer System mat enger héicher Unzuel u Ronnen. Doduerch géifen all méiglech Puerungen gespillt ginn, éier d\'Turnéier eriwwer ass.</string>
   <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
   <string name="otherSystemsA">Mir plange momentan keng weider Turnéiersystemer op Lichess bäizefügen.</string>
   <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
