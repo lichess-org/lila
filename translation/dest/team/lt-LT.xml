@@ -35,6 +35,7 @@
   </plurals>
   <string name="willBeReviewed">Komandos vadovas peržiūrės jūsų stojimo prašymą.</string>
   <string name="beingReviewed">Komandos vadovas peržiūri jūsų stojimo prašymą.</string>
+  <string name="requestDeclined">Komandos lyderis atsisakė jūsų prisijungimo užklausos.</string>
   <string name="subToTeamMessages">Prenumeruoti komandos žinutes</string>
   <string name="teamBattle">Komandų turnyras</string>
   <string name="teamBattleOverview">Kelių komandų kova, kiekvienas žaidėjas renka taškus savo komandai</string>
@@ -58,4 +59,5 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="teamAlreadyExists">Ši komanda jau egzistuoja.</string>
   <string name="upcomingTourns">Artėjantys turnyrai</string>
   <string name="completedTourns">Baigti turnyrai</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Atsisakytos užklausos</string>
 </resources>
