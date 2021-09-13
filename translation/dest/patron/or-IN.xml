@@ -14,4 +14,6 @@
   <string name="pleaseEnterAmountInX">ଦୟାକରି %s ରେ ଏକ ରାଶି ପ୍ରବେଶ କରନ୍ତୁ</string>
   <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
   <string name="withPaypal">PayPal</string>
+  <string name="currentStatus">ବର୍ତ୍ତମାନ ସ୍ଥିତି</string>
+  <string name="nextPayment">ଆଗାମୀ ଦେୟ</string>
 </resources>
