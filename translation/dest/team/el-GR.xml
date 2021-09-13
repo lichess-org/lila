@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Το αίτημα πρόσβασης θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
   <string name="beingReviewed">Το αίτημά για πρόσβαση στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
+  <string name="requestDeclined">Το αίτημα πρόσβασης απορρίφθηκε από κάποιον αρχηγό της ομάδας.</string>
   <string name="subToTeamMessages">Εγγραφείτε στα μηνύματα της ομάδας</string>
   <string name="teamBattle">Μάχη ομάδας</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
@@ -52,4 +53,5 @@
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Απορριφθέντα αιτήματα</string>
 </resources>

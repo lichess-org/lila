@@ -49,8 +49,8 @@
   <string name="blackResigned">Черните се предадоха</string>
   <string name="whiteLeftTheGame">Белите напуснаха</string>
   <string name="blackLeftTheGame">Черните напуснаха</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Белите не направиха ход</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Черните не направиха ход</string>
+  <string name="whiteDidntMove">Белите не направиха ход</string>
+  <string name="blackDidntMove">Черните не направиха ход</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Споделете този адрес с приятели, за да могат да наблюдават играта</string>
   <string name="theComputerAnalysisHasFailed">Компютърният анализ се провали</string>
   <string name="viewTheComputerAnalysis">Вижте компютърния анализ</string>
@@ -91,10 +91,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s полуход</item>
     <item quantity="other">Мат в %s полухода</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Следващо вземане на фигура или преместване на пешка след %s полуход (преди равенство от правилото за 50 хода)</item>
-    <item quantity="other">Следващо вземане на фигура или преместване на пешка след %s полухода (преди равенство от правилото за 50 хода)</item>
   </plurals>
   <string name="noGameFound">Няма намерени игри</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>

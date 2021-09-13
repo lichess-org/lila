@@ -90,10 +90,6 @@
     <item quantity="one">Мат во %s полупотег</item>
     <item quantity="other">Мат во %s полупотези</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Следното земање или потег со пешак во %s полу-потег (растојание до израмнување со 50ти потег)</item>
-    <item quantity="other">Следното земање или потег со пешак во %s полу-потези (растојание до израмнување со 50ти потег)</item>
-  </plurals>
   <string name="noGameFound">Не е пронајдена таква партија</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Би можеле да додадете повеќе партии од менито за поставки.</string>
   <string name="openingExplorer">Пребарувач на отворања</string>

@@ -1,2 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Privat</string>
+  <string name="myStudies">Meng Etüden</string>
+  <string name="studiesIContributeTo">Etüden, un deenen ech matwierken</string>
+  <string name="myPublicStudies">Meng öffentlech Etüden</string>
+  <string name="myPrivateStudies">Meng privat Etüden</string>
+  <string name="myFavoriteStudies">Meng Lieblingsetüden</string>
+  <string name="whatAreStudies">Wat sinn Etüden?</string>
+  <string name="allStudies">All Etüden</string>
+  <string name="studiesCreatedByX">Etüden kreéiert vun %s</string>
+  <string name="noneYet">Nach keng.</string>
+  <string name="hot">Ugesot</string>
+  <string name="dateAddedNewest">Veröffentlechungsdatum (am neisten)</string>
+  <string name="dateAddedOldest">Veröffentlechungsdatum (am aalsten)</string>
+  <string name="recentlyUpdated">Rezent aktualiséiert</string>
+  <string name="mostPopular">Am Beléiftsten</string>
+  <string name="alphabetical">Alphabetesch</string>
+  <string name="addNewChapter">Neit Kapitel bäifügen</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitel</item>
+    <item quantity="other">%s Kapitel</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Partien</item>
+  </plurals>
+  <string name="addMembers">Memberen hinzufügen</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Member</item>
+    <item quantity="other">%s Memberen</item>
+  </plurals>
+  <string name="inviteToTheStudy">An d\'Etüd alueden</string>
+  <string name="searchByUsername">No Benotzernumm sichen</string>
+  <string name="spectator">Zuschauer</string>
+  <string name="kick">Rausgehéien</string>
+  <string name="leaveTheStudy">Etüd verloossen</string>
+  <string name="youAreNowAContributor">Du bass elo e Contributeur</string>
+  <string name="youAreNowASpectator">Du bass elo en Zuschauer</string>
+  <string name="pgnTags">PGN Tags</string>
+  <string name="like">Gefällt mir</string>
+  <string name="newTag">Néien Tag</string>
+  <string name="commentThisPosition">Kommentéier des Positioun</string>
+  <string name="commentThisMove">Kommentéier dësen Zuch</string>
+  <string name="annotateWithGlyphs">Mat Symboler kommentéieren</string>
+  <string name="theChapterIsTooShortToBeAnalysed">D\'Kapitel ass ze kuerz fir analyséiert ze ginn.</string>
+  <string name="playing">Lafend Partie</string>
+  <string name="first">Éischt Säit</string>
+  <string name="previous">Zeréck</string>
+  <string name="next">Weider</string>
+  <string name="last">Lescht Säit</string>
+  <string name="shareAndExport">Deelen &amp; exportéieren</string>
+  <string name="cloneStudy">Klonen</string>
+  <string name="studyPgn">PGN studéieren</string>
+  <string name="downloadAllGames">All Partien eroflueden</string>
+  <string name="chapterPgn">Kapitel PGN</string>
+  <string name="downloadGame">Partie eroflueden</string>
+  <string name="studyUrl">Etüd URL</string>
+  <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
+  <string name="open">Opmaachen</string>
+  <string name="studyNotFound">Etüd net fonnt</string>
+  <string name="editChapter">Kapitel editéieren</string>
+  <string name="newChapter">Neit Kapitel</string>
+  <string name="orientation">Orientatioun</string>
+  <string name="analysisMode">Analysemodus</string>
+  <string name="saveChapter">Kapitel späicheren</string>
+  <string name="deleteChapter">Kapitel läschen</string>
+  <string name="chapterX">Kapitel %s</string>
+  <string name="empty">Eidel</string>
+  <string name="createChapter">Kapitel kréieren</string>
+  <string name="createStudy">Etüd kreéieren</string>
+  <string name="editStudy">Etüd änneren</string>
+  <string name="visibility">Visibilitéit</string>
+  <string name="public">Ëffentlech</string>
+  <string name="unlisted">Ongelëscht</string>
+  <string name="inviteOnly">Just mat Invitatioun</string>
+  <string name="allowCloning">Klonen erlaaben</string>
+  <string name="nobody">Keen</string>
+  <string name="onlyMe">Just ech</string>
+  <string name="everyone">Jiddereen</string>
+  <string name="start">Lass</string>
+  <string name="save">Späicheren</string>
+  <string name="deleteStudy">Etüd läschen</string>
+  <string name="goodMove">Gudden Zuch</string>
+  <string name="mistake">Feeler</string>
+  <string name="brilliantMove">Brillianten Zuch</string>
+  <string name="blunder">Gaffe</string>
+  <string name="interestingMove">Interessanten Zuch</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dubiosen Zuch</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eenzegen Zuch</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Ausgeglach Positioun</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Onkloer Positioun</string>
+  <string name="whiteIsSlightlyBetter">Wäiss steet liicht besser</string>
+  <string name="blackIsSlightlyBetter">Schwaarz steet liicht besser</string>
+  <string name="whiteIsBetter">Wäiss ass besser</string>
+  <string name="blackIsBetter">Schwaarz ass besser</string>
+  <string name="whiteIsWinning">Wéiss steet op Gewënn</string>
+  <string name="blackIsWinning">Schwaarz steet op Gewënn</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwécklung</string>
+  <string name="initiative">Initiativ</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ugrëff</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Géigespill</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Zäitdrock</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mat Kompensatioun</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mat der Iddi</string>
+  <string name="nextChapter">Nächst Kapitel</string>
+</resources>

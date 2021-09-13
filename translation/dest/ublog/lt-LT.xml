@@ -36,4 +36,5 @@
     <item quantity="many">Peržiūrėti %s pranešimo</item>
     <item quantity="other">Peržiūrėti %s pranešimų</item>
   </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Įkelkite paveikslėlį savo įrašui</string>
 </resources>

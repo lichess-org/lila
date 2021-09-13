@@ -35,6 +35,7 @@
   </plurals>
   <string name="willBeReviewed">Vaša žiadosť o vstup bude posúdená vedúcim tímu.</string>
   <string name="beingReviewed">Vaša žiadosť o vstup je posudzovaná vedúcim tímu.</string>
+  <string name="requestDeclined">Vedúci tímu zamietol vašu žiadosť o vstup.</string>
   <string name="teamBattle">Tímový Súboj</string>
   <string name="teamBattleOverview">Súboj viacerých tímov, každý hráč získava body pre jeho tím</string>
   <string name="teamTournament">Tímový turnaj</string>
@@ -51,4 +52,5 @@ Hráči, ktorí nemajú radi prijímanie vašich správ, môžu opustiť váš t
   <string name="closeTeam">Rozpustiť tím</string>
   <string name="closeTeamDescription">Nevratne rozpustí tím.</string>
   <string name="teamAlreadyExists">Tento tím už existuje.</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Zamietnuté žiadosti</string>
 </resources>

@@ -87,10 +87,6 @@
     <item quantity="one">%s ýarym-göçümde mat</item>
     <item quantity="other">%s ýarym-göçümde mat</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s ýarym-göçümde nobatdaky iýme ýa-da pyýada göçümi (50 göçüm sanawyny nollamaga bolan aralyk)</item>
-    <item quantity="other">%s ýarym-göçümde nobatdaky iýme ýa-da pyýada göçümi (50 göçüm sanawyny nollamaga bolan aralyk)</item>
-  </plurals>
   <string name="noGameFound">Oýun tapylmady</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkäm ileri tutmalar menýusyndan has köp oýun importirlenmeli?</string>
   <string name="openingExplorer">Açylyşlar eksploreri</string>

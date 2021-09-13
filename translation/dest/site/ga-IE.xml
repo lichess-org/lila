@@ -52,8 +52,8 @@
   <string name="blackResigned">D\'éirigh Dubh as</string>
   <string name="whiteLeftTheGame">D\'fhág Bán an cluiche</string>
   <string name="blackLeftTheGame">D\'fhág Dubh an cluiche</string>
-  <string name="whiteDidntMove" comment="whiteDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the white player did not play a move.">Níor bhog bán</string>
-  <string name="blackDidntMove" comment="blackDidntMove&#10;&#10;Appears when a game is automatically cancelled before it starts, because the black player did not play a move.">Níor bhog dubh</string>
+  <string name="whiteDidntMove">Níor bhog bán</string>
+  <string name="blackDidntMove">Níor bhog dubh</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comhroinn an URL seo chun ligean do lucht féachana an cluiche a fheiceáil</string>
   <string name="theComputerAnalysisHasFailed">Theip ar anailís an ríomhaire</string>
   <string name="viewTheComputerAnalysis">Féach ar anailís an ríomhaire</string>
@@ -97,13 +97,6 @@
     <item quantity="few">Marbhsháinn i %s leath-bheart</item>
     <item quantity="many">Marbhsháinn i %s leath-bheart</item>
     <item quantity="other">Marbhsháinn i %s leath-bheart</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">An chéad marú nó beart ceithearnach eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
-    <item quantity="two">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
-    <item quantity="few">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
-    <item quantity="many">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
-    <item quantity="other">An chéad marú nó beart ceithearnaigh eile i %s leath-bheart (ag dul i dtreo náid as 50 beart)</item>
   </plurals>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>

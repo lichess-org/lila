@@ -193,6 +193,7 @@ object ModActivity {
       "streamerunlist"  -> Streamer,
       "streamerTier"    -> Streamer,
       "blogTier"        -> Blog,
+      "blogPostEdit"    -> Blog,
       "deletePost"      -> ForumAdmin,
       "closeTopic"      -> ForumAdmin
     )

@@ -89,10 +89,6 @@
     <item quantity="one">%s yarim yurishda Mot</item>
     <item quantity="other">%s yarim-yurishlarda Mot</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s yarim yurishlarda keyingi qo\'lga olish yoki piyoda yurishi (50 ta yurishni 0 gacha olib borishgacha bo\'lgan masofa)</item>
-    <item quantity="other">%s yarim yurishda keyingi qo\'lga olish yoki piyoda yurishi (50 ta yurishni 0 gacha olib borishgacha bo\'lgan masofa)</item>
-  </plurals>
   <string name="noGameFound">O\'yin topilmadi</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menusidan o\'yinlarni yuklash kerakdir?</string>
   <string name="openingExplorer">Sharhlovchini ochish</string>

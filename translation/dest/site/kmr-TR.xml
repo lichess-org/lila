@@ -88,10 +88,6 @@
     <item quantity="one">Mat dibe di %s vîv-hemleyê de</item>
     <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Gava piştre yê xwarin an piyonê di %s nîv-hemleyî de (Navbera bo sifirkirina qaîdeya 50 hemleyê)</item>
-    <item quantity="other">Gava piştre yê xwarin an piyonê di %s nîv-hemleyan de (Navbera bo sifirkirina qaîdeya 50 hemleyê)</item>
-  </plurals>
   <string name="noGameFound">Ti lîstik nehat dîtin</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkî bixwazî ji menuya tercîhan zêdetir lîstikan bînî?</string>
   <string name="openingExplorer">Kaşifê destpêkê</string>

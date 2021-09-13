@@ -94,12 +94,6 @@
     <item quantity="many">Мат в %s напівходів</item>
     <item quantity="other">Мат у %s напівходів</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
-    <item quantity="few">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
-    <item quantity="many">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
-    <item quantity="other">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
-  </plurals>
   <string name="noGameFound">Партій не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>

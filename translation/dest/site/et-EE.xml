@@ -89,10 +89,6 @@
     <item quantity="one">Šahh ja Matt %s käiguga</item>
     <item quantity="other">Šahh ja matt %s käiguga</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Järgmine võtmine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
-    <item quantity="other">Järgmine võtmine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
-  </plurals>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openingExplorer">Avamiste otsija</string>

@@ -90,10 +90,6 @@
     <item quantity="one">%s چال میں شاہ مات</item>
     <item quantity="other">%s چالوں میں شاہ مات</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">اگلا کیپچر یا پیادے کی چال %s چال میں (50 اقدام کاؤنٹر کی صفر سے دوری)</item>
-    <item quantity="other">اگلا کیپچر یا پیادے کی چال %s چالوں میں(50 اقدام کاؤنٹر کی صفر سے دوری)</item>
-  </plurals>
   <string name="noGameFound">کوئی بازی نہیں ملی</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ترجیحات مینو میں سے مزید بازیاں شامل کریں?</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>

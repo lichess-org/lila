@@ -87,9 +87,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">จนใน %s ตา</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">ใน %s ตาจะมีเบี้ยเดิน หรือการกินหมากเกิดขึ้น (เริ่มนับเสมอ 50 รอบใหม่อีกครั้ง)</item>
-  </plurals>
   <string name="noGameFound">ไม่พบเกม</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">แนะนำให้ลองเพิ่มเกมที่เมนูตั้งค่า</string>
   <string name="openingExplorer">ชมการเปิดเกม</string>

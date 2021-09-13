@@ -10,6 +10,10 @@ case class UblogBlog(
   def id      = _id
   def visible = tier >= UblogBlog.Tier.VISIBLE
   def listed  = tier >= UblogBlog.Tier.LOW
+
+  def userId = id match {
+    case UblogBlog.Id.User(userId) => userId
+  }
 }
 
 object UblogBlog {

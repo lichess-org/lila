@@ -186,6 +186,12 @@
   <string name="queenOverBishop">Ең бағалы тасты
 алыңыз!
 Уәзір &gt; Піл</string>
+  <string name="pieceValueExchange">Ең қымбат тасты алыңыз!
+Қымбатты арзанға
+ауыстырмаңыз.</string>
+  <string name="pieceValueLegal">Ең қымбат
+тасты басып алыңыз!
+Жүрісіңіз заңды болу керек!</string>
   <string name="takeThePieceWithTheHighestValue">Ең бағалы тасты
 алыңыз!</string>
   <string name="pieceValueComplete">Құтты болсын! Сіз тастар бағасын білесіз!

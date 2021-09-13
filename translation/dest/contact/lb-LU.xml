@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Lichess kontaktéieren</string>
+  <string name="whatCanWeHelpYouWith">Woubäi kënne mir dir hëllefen?</string>
+  <string name="visitThisPage">Besich dës Säit fir den Probleem ze léisen</string>
+  <string name="iCantLogIn">Ech kann mech net aloggen</string>
+  <string name="noConfirmationEmail">Ech hunn keng Confirmatiounsemail kritt</string>
+  <string name="forgotPassword">Ech hunn mäin Passwuert vergiess</string>
+  <string name="forgotUsername">Ech hun mäin Benotzernumm vergiess</string>
+  <string name="accountSupport">Ech brauch Benotzerkonto-Ënnerstëtzung</string>
+  <string name="wantReport">Ech wëll een Spiller mellen</string>
+  <string name="banAppeal">Asproch géint een Bann oder eng IP Restriktioun</string>
+  <string name="collaboration">Zesummenaarbecht, Legales, Kommerzielles</string>
+</resources>

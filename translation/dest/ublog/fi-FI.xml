@@ -26,4 +26,9 @@
   <string name="noPostsInThisBlogYet">Tässä blogissa ei ole vielä kirjoituksia.</string>
   <string name="noDrafts">Ei näytettäviä luonnoksia.</string>
   <string name="latestBlogPosts">Uusimmat blogikirjoitukset</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Näytä yksi kirjoitus</item>
+    <item quantity="other">Näytä kaikki %s kirjoitusta</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Lataa kirjoitukseesi kuva</string>
 </resources>

@@ -89,10 +89,6 @@
     <item quantity="one">Mato post %s duonmovo</item>
     <item quantity="other">Mato post %s duonmovoj</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">La proksima kapto aŭ peonmovo en %s duonmovoj (por rekomenci la regulon pri 50-movan)</item>
-    <item quantity="other">La proksima kapto aŭ peonmovo en %s duonmovoj (por rekomenci la regulon pri 50-movan)</item>
-  </plurals>
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>

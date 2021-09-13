@@ -90,10 +90,6 @@
     <item quantity="one">Mat në %s gjysmë lëvizje</item>
     <item quantity="other">Mat në %s gjysmë lëvizje</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Kapja pasuese ose lëvizja e ushtarit në %s gjysmë-lëvizje (Largësi nga Zerimi i numëratorit të 50 lëvizjeve)</item>
-    <item quantity="other">Kapja pasuese ose lëvizja e ushtarit në %s gjysmë-lëvizje (Largësi nga Zerimi i numëratorit të 50 lëvizjeve)</item>
-  </plurals>
   <string name="noGameFound">S’u gjet lojë</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
   <string name="openingExplorer">Eksplorues hapjesh</string>
