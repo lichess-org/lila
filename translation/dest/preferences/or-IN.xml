@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">ଅଗ୍ରାଧିକାରସମୂହ</string>
+  <string name="giveMoreTime">ଅଧିକ ସମୟ ଦିଅନ୍ତୁ</string>
   <string name="yourPreferencesHaveBeenSaved">ଆପଣଙ୍କ ଅଗ୍ରାଧିକାର ସଞ୍ଚୟ ହୋଇଛି।</string>
 </resources>
