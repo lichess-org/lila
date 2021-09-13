@@ -2,6 +2,13 @@
 <resources>
   <string name="quicklyGenerateSafeUsernames">ଛାତ୍ରମାନଙ୍କ ପାଇଁ ଶୀଘ୍ର ସୁରକ୍ଷିତ ଉପଭୋକ୍ତା ନାମ ଏବଂ ପାସ୍ଓ୍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="resetPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
+  <string name="makeSureToCopy">ଏବେ ପାସ୍ଓ୍ୱାର୍ଡ଼ କପି କିମ୍ୱା ଲେଖିବାକୁ ନିଶ୍ଚିତ କରନ୍ତୁ। ଆପଣ ଏହାକୁ ପୁନର୍ବାର ଦେଖିବାକୁ ସମର୍ଥ ହେବେ ନାହିଁ!</string>
   <string name="passwordX">ପାସ୍ଓ୍ୱାର୍ଡ଼: %s</string>
   <string name="generateANewPassword">ଛାତ୍ରଙ୍କ ପାଇଁ ଏକ ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="studentCredentials">ଛାତ୍ର:  %1$s
+ଉପଭୋକ୍ତା ନାମ: %2$s
+ପାସ୍ଓ୍ୱାର୍ଡ଼: %3$s</string>
+  <string name="createDesc2">କୌଣସି ଇମେଲ୍ ଠିକଣା ଆବଶ୍ୟକ ନାହିଁ। ଏକ ପାସ୍ଓ୍ୱାର୍ଡ଼ ସୃଷ୍ଟି ହେବ, ଏବଂ ଆପଣଙ୍କୁ ଏହାକୁ ଛାତ୍ରଙ୍କ ନିକଟକୁ ପଠାଇବାକୁ ପଡ଼ିବ, ଯାହା ଫଳରେ ସେମାନେ ଲଗ୍ ଇନ୍ କରିପାରିବେ।</string>
+  <string name="managed">ପରିଚାଳିତ</string>
+  <string name="releaseDesc1">ଏକ ସ୍ନାତକ ଆକାଉଣ୍ଟ ପୁନର୍ବାର ପରିଚାଳନା କରାଯାଇପାରିବ ନାହିଁ। ଛାତ୍ର ଶିଶୁ ମୋଡ୍ ଟୋଗଲ୍ କରିବାକୁ ଏବଂ ନିଜେ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କରିବାକୁ ସମର୍ଥ ହେବେ।</string>
 </resources>
