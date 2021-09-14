@@ -45,11 +45,11 @@ Denne værdi kan bruges som en indikator for spilkvalitet. Desto færre centibø
 
 Computeranalysen på Lichess leveres ved hjælp af Stockfish.</string>
   <string name="insufficientMaterial">Tabe på tid, remis og utilstrækkeligt materiale</string>
-  <string name="lichessFollowFIDErules">Hvis en spiller løber tør for tid, vil denne spiller som regel tabe partiet. Partiet ender dog med remis, hvis positionen er således at modstanderen ikke kan sætte spillerens konge skakmat med en række lovlige træk (%1$s).
+  <string name="lichessFollowFIDErules">Hvis en spiller løber tør for tid, vil denne spiller som regel tabe partiet. Partiet ender dog med remis, hvis stillingen er således at modstanderen ikke kan sætte spillerens konge skakmat med en række lovlige træk (%1$s).
 
-  I sjældne tilfælde kan dette være vanskeligt at afgøre automatisk (fremtvungne linjer, fæstninger). Som udgangspunkt holder vi altid med den spiller, som ikke løb tør for tid.
+I sjældne tilfælde kan dette være vanskeligt at afgøre automatisk (fremtvungne linjer, fæstninger). Som udgangspunkt holder vi altid med den spiller, som ikke løb tør for tid.
 
-  Bemærk at det kan være muligt at sætte mat med en enkelt springer eller løber, hvis modstanderen har en brik, som kan blokere kongen.</string>
+Bemærk at det kan være muligt at sætte mat med en enkelt springer eller løber, hvis modstanderen har en brik, som kan blokere kongen.</string>
   <string name="fideHandbookX">FIDE håndbog %s</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde tage en anden bonde, når den allerede er passeret? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovligt træk kendt som \"en passant\". Wikipedia-artiklen giver en %1$s.
@@ -68,8 +68,8 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
   <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>
   <string name="positions">stillinger</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Vi gentog en position tre gange. Hvorfor var partiet ikke remis?</string>
-  <string name="threeFoldHasToBeClaimed">Trækgentagelse skal kræves af en af spillerne. Du kan gøre dette ved at trykke på knappen, som dukker op, eller ved at tilbyde remis før du laver dit endelige gentagende træk. Du kan også %1$s Lichess til automatisk at kræve trækgentagelse for dig. Derudover vil femfoldig altid øjeblikkeligt afslutte partiet.</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Vi gentog en stilling tre gange. Hvorfor var partiet ikke remis?</string>
+  <string name="threeFoldHasToBeClaimed">Trækgentagelse skal kræves af en af spillerne. Du kan gøre dette ved at trykke på knappen, som dukker op, eller ved at tilbyde remis før du laver dit endelige gentagende træk. Du kan også %1$s Lichess til automatisk at kræve trækgentagelse for dig. Derudover vil femfoldig trækgentagelse altid øjeblikkeligt afslutte partiet.</string>
   <string name="configure">konfigurér</string>
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Hvilke titler er der på Lichess?</string>
