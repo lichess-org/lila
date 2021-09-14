@@ -445,12 +445,12 @@
   <string name="boardEditor">Opstilling</string>
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
-  <string name="endgamePositions">Slutspilspositioner</string>
+  <string name="endgamePositions">Slutspilsstillinger</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
-  <string name="loadPosition">Indlæs position</string>
+  <string name="loadPosition">Indlæs stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
@@ -889,10 +889,10 @@ og påvirker spilleres ratings</string>
   <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
   <string name="onlyTitled">Kun spilere med titel</string>
   <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
-  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given position.
+  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given stilling.
 Det virker kun for standardspil, ikke med varianter.
-Du kan bruge %s til at generere en FEN-position og derefter indsætte den her.
-Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
+Du kan bruge %s til at generere en FEN-stilling og derefter indsætte den her.
+Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="cancelSimul">Annuller simultanen</string>
   <string name="simulHostcolor">Værtsfarve for hvert parti</string>
   <string name="estimatedStart">Anslået starttidspunkt</string>
