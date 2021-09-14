@@ -12,7 +12,7 @@ object Dependencies {
   val compression = "org.lichess"                %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
-  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.0"   % "compile"
+  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.1"   % "compile"
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.1.0"
   val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.5.0"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
