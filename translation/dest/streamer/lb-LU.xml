@@ -2,4 +2,7 @@
 <resources>
   <string name="lichessStreamers">Lichess Streamer</string>
   <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="allStreamers">All Streamer</string>
 </resources>
