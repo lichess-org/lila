@@ -31,15 +31,15 @@
   <string name="raceFinished">Race færdigt</string>
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt parti</string>
   <string name="joinTheGame">Deltag i spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Din modstander har forladt spillet. Du kan kræve sejr om %s sekund.</item>
-    <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
+    <item quantity="one">Din modstander har forladt partiet. Du kan kræve sejr om %s sekund.</item>
+    <item quantity="other">Din modstander har forladt partiet. Du kan kræve sejr om %s sekunder.</item>
   </plurals>
-  <string name="opponentLeftChoices">Din modstander har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
+  <string name="opponentLeftChoices">Din modstander har forladt partiet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
   <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
   <string name="forceDraw">Kræv remis</string>
@@ -863,7 +863,7 @@
   <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nogen du rapporterede blev udelukket</string>
   <string name="congratsYouWon">Tillykke, du vandt!</string>
-  <string name="gameVsX">Spil mod %1$s</string>
+  <string name="gameVsX">Parti mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
   <string name="newPendingReview">Ny afventende gennemgang</string>
