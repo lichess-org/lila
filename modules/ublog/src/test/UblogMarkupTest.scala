@@ -43,4 +43,10 @@ class UblogMarkupTest extends Specification {
     ) must_==
       """@foo_bar"""
   }
+
+  "fix mention in quote (which adds backslash escaping)" in {
+    m.unescapeAtUsername("""> \(By @neio\)""") must_== """> \(By @neio\)"""
+    m.unescapeAtUsername("""> \(By @neio_1\)""") must_== """> \(By @neio_1\)"""
+    m.unescapeAtUsername("""> \(By @neio\_1\)""") must_== """> \(By @neio_1\)"""
+  }
 }

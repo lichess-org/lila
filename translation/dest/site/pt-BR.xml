@@ -92,6 +92,7 @@
     <item quantity="one">Mate em %s lance (meio-movimento)</item>
     <item quantity="other">Mate em %s lances (meio-movimentos)</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" com arredondamento, baseado no número de meias-jogadas até a próxima captura ou jogada de peão</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos através do menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
+  <string name="winOr50MovesByPriorMistake">Vitória ou 50 movimentos por erro anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movimentos por erro anterior</string>
+  <string name="unknownDueToRounding">Vitória/derrota garantida somente se a variante recomendada tiver sido seguida desde o último movimento de captura ou de peão, devido ao possível arredondamento.</string>
   <string name="allSet">Tudo pronto!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Excluir</string>

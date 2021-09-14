@@ -119,7 +119,7 @@ final private class MsgSecurity(
       spam.detect(text) ?? fuccess(Spam.some)
 
     private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
-      (contacts.orig.isTroll && !contacts.dest.isTroll) ?? fuccess(Troll.some)
+      contacts.orig.isTroll ?? fuccess(Troll.some)
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??

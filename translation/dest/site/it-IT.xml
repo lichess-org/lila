@@ -92,7 +92,7 @@
     <item quantity="one">Matto in %s semi-mossa</item>
     <item quantity="other">Matto in %s semi-mosse</item>
   </plurals>
-  <string name="dtzWithRounding" comment="Tooltip for DTZ in tablebase view. DTZ50'' (speak &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases. It's probably best to keep &quot;DTZ50''&quot; untranslated.&#10;&#10;dtzWithRounding">DTZ50\'\' con arrotondamento, in base al numero di mezze mosse fino alla prossima cattura o mossa del pedone</string>
+  <string name="dtzWithRounding">DTZ50\'\' con arrotondamento, in base al numero di mezze mosse fino alla prossima cattura o mossa del pedone</string>
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
@@ -100,9 +100,9 @@
   <string name="xOpeningExplorer">Explorer delle aperture %s</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata per la regola delle 50 mosse</string>
-  <string name="winOr50MovesByPriorMistake" comment="Shown in some situations in the tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.&#10;&#10;winOr50MovesByPriorMistake">Vittoria o 50 mosse per errore precedente</string>
-  <string name="lossOr50MovesByPriorMistake" comment="Analogous to source string &quot;Win or 50 moves by prior mistake&quot;.&#10;&#10;lossOr50MovesByPriorMistake">Perdita o 50 mosse per errore precedente</string>
-  <string name="unknownDueToRounding" comment="Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in tablebase view.&#10;&#10;unknownDueToRounding">Vittoria/perdita garantita solo se la riga della base delle tabella consigliata è stata seguita dall\'ultima cattura o mossa del pedone, a causa del possibile arrotondamento.</string>
+  <string name="winOr50MovesByPriorMistake">Vittoria o 50 mosse per errore precedente</string>
+  <string name="lossOr50MovesByPriorMistake">Perdita o 50 mosse per errore precedente</string>
+  <string name="unknownDueToRounding">Vittoria/perdita garantita solo se la riga della base delle tabella consigliata è stata seguita dall\'ultima cattura o mossa del pedone, a causa del possibile arrotondamento.</string>
   <string name="allSet">Tutto pronto!</string>
   <string name="importPgn">Importa PGN</string>
   <string name="delete">Elimina</string>

@@ -19,8 +19,8 @@
     <item quantity="other">%s Sekonne tëschent Ronnen</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s Minut tëschent Ronnen</item>
-    <item quantity="other">%s Minute tëschent Ronnen</item>
+    <item quantity="one">%s Minutt tëschent Ronnen</item>
+    <item quantity="other">%s Minutten tëschent Ronnen</item>
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Start an</string>
   <string name="nextRound">Nächst Ronn</string>
@@ -36,7 +36,7 @@
   <string name="forbiddenPairingsHelp">Benotzernimm vu Spiller déi net géinteneen spillen däerfen (zum Beispill Geschwëster). Zwee Benotzernimm pro Zeil, getrennt duerch en Espace.</string>
   <string name="newSwiss">Neien SchwäizerTurnéier</string>
   <string name="swissVsArenaQ">Wéini Schwäizer Turnéier statt Arena benotzen?</string>
-  <string name="swissVsArenaA">An engem Turnéier nom schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
+  <string name="swissVsArenaA">An engem Turnéier nom Schwäizer System spillen all Participanten déi nämmlecht Unzuel u Partien an kënne nëmmen eemol géinteneen spillen.
 Et kann eng gutt Optioun sinn fir Clibb an offiziell Turnéier.</string>
   <string name="pointsCalculationQ">Wéi ginn d\'Punkten berechent?</string>
   <string name="pointsCalculationA">Eng Victoire ass ee Punkt wäert, e Remis ass en hallwen Punkt wäert an eng Defaite si null Punkte wäert. 
@@ -62,30 +62,44 @@ Zousätzlech, kritt e Spiller en hallwen Punkt, wann en gëtt ze spéit bäitr�
 Uschléissend gëtt de Spiller vum System aus dem Turnéier ofgezunn, esou datt dësen keng weider Partie verléiert.
  E kann jidderzäit dem Turnéier erëm bäitrieden.</string>
   <string name="lateJoinQ">Kënne Spiller spéit bäitrieden?</string>
-  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
+  <string name="lateJoinA">Jo, bis méi wei d\'Hallschent vun de Ronne ugefaangen hunn; zum Beispill an engem 11-Ronne Turnéier nom Schwäizer System kënne Spiller viru Ronn 6 bäitrieden an an engem 12-Ronn Turnéier viru Ronn 7.
 Verspéit Spiller kréien en hallwe Punkt, souguer wann se méi Ronne verpasst hunn.</string>
-  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom schwäizer System Arena ersetzen?</string>
+  <string name="willSwissReplaceArenasQ">Wäerten Turnéier nom Schwäizer System Arena ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nee. Et sinn complementaire Funktiounen.</string>
   <string name="roundRobinQ">An Round Robin?</string>
-  <string name="roundRobinA">Mir géifen et gären bäifügen, mee leider funktionéiert Round Robin online net.
+  <string name="roundRobinA">Mir géifen et gäre bäifügen, mee leider funktionéiert Round Robin online net.
 De Grond ass, datt et keng fair Méiglechkeet gëtt mat Leit ëmzegoen, déi d\'Turnéier virzäiteg verloossen. Mir kënne net erwaarden, datt all Spiller an engem Online-Event all hir Partie spille wäerten. Dat wäert einfach net geschéien an doduerch géifen déi meescht Round Robin Turnéieren ongülteg an onfair sinn, wat dem eigentleche Sënn aus dem Wee geet.
 Dat noosten un engem Round Robin Turnéier, wier en Turnéier nom Schwäizer System mat enger héicher Unzuel u Ronnen. Doduerch géifen all méiglech Puerungen gespillt ginn, éier d\'Turnéier eriwwer ass.</string>
   <string name="otherSystemsQ">Wat ass mat anere Turnéiersystemer?</string>
   <string name="otherSystemsA">Mir plange momentan keng weider Turnéiersystemer op Lichess bäizefügen.</string>
+  <string name="swissDescription">An engem Turnéier nom Schwäizer System %1$s spillt all Spiller net onbedéngt géint all Participant. Mat Hëllef vun enger Réi Reegelen ginn d\'Participanten all Ronn géint en anere Spiller zougeloust, fir sécherzestellen, datt all Participant géint Spiller mat engem änleche Punktestand spillt, mee net méi wéi eemol géint de gläiche Géigner.
+De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronne addéiert goufen. All Spiller spillt an all Ronn, ausser et gëtt eng ongerued Unzuel un Participanten.\"</string>
+  <string name="teamOnly">Turnéier nom Schwäizer System kënnen nëmmen vum Ekippechef erstallt ginn, an nëmmen vu Membere aus der Ekipp gespillt ginn.
+%1$s fir beim Turnéier nom Schwäizer System matzemaachen.</string>
   <string name="joinOrCreateTeam">Erstell oder trëtt engem Team bäi</string>
   <string name="nowPlaying">Grad amgaang</string>
   <string name="startingSoon">Fänkt gläich un</string>
   <string name="comparison">Vergläich</string>
-  <string name="tournDuration">Dauer vum Tounéier</string>
+  <string name="tournDuration">Dauer vum Turnéier</string>
+  <string name="predefinedDuration">Virdefinéiert Dauer a Minutten</string>
+  <string name="durationUnknown">Virdefinéiert maximal Unzuel u Ronne, mee onbekannt Dauer</string>
   <string name="numberOfGames">Zuel vun Partien</string>
+  <string name="numberOfGamesAsManyAsPossible">Sou vill wéi an der zougewisener Dauer kënne gespillt ginn</string>
+  <string name="numberOfGamesPreDefined">Am Viraus decidéiert, fir all Spiller nämmlecht</string>
+  <string name="pairingSystem">Puerungssytem</string>
+  <string name="pairingSystemArena">All verfügbare Géigner mat änleche Rang</string>
+  <string name="pairingSystemSwiss">Bescht Puerung baséiert op Punkte an Tie-Breaks</string>
+  <string name="pairingWaitTime">Waardezäit fir d\'Puerung</string>
   <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
   <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
+  <string name="identicalPairing">Identesch Puerung</string>
   <string name="possibleButNotConsecutive">Méiglech, mee net noeneen</string>
   <string name="identicalForbidden">Verbueden</string>
   <string name="lateJoin">Spéide Bäitrëtt</string>
   <string name="lateJoinUntil">Jo, bis méi wéi d\'Hallschent vun de Ronne ugefaangen hunn</string>
   <string name="pause">Paus</string>
   <string name="pauseSwiss">Jo, mee kéint d\'Unzuel vun de Ronne reduzéieren</string>
+  <string name="streaksAndBerserk">Erfollegsserie a Berserker</string>
   <string name="similarToOTB">Änlech wéi OTB Turnéier</string>
   <string name="unlimitedAndFree">Onbegrenzt a gratis</string>
 </resources>

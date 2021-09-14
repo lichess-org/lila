@@ -222,13 +222,11 @@ final class Ublog(env: Env) extends LilaController(env) {
       }
     }
 
-  def friends(page: Int) = Open { implicit ctx =>
+  def friends(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
       Reasonable(page, 10) {
-        ctx.me ?? { me =>
-          env.ublog.paginator.liveByFollowed(me, page) map { posts =>
-            Ok(html.ublog.index.friends(posts))
-          }
+        env.ublog.paginator.liveByFollowed(me, page) map { posts =>
+          Ok(html.ublog.index.friends(posts))
         }
       }
     }

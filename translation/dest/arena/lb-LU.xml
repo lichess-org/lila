@@ -2,4 +2,10 @@
 <resources>
   <string name="arenaTournaments">Arena Turnéier</string>
   <string name="isItRated">Ass et gewäert?</string>
+  <string name="history">Arena-Geschicht</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Ekipp ukucken</item>
+    <item quantity="other">All %s Ekippen ukucken</item>
+  </plurals>
+  <string name="newTeamBattle">Neien Ekippenkampf</string>
 </resources>

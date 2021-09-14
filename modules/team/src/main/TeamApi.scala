@@ -239,7 +239,7 @@ final class TeamApi(
       Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
 
   def kickMembers(team: Team, json: String, me: User) =
-    parseTagifyInput(json) map (kick(team, _, me))
+    (parseTagifyInput(json) - team.createdBy).map(kick(team, _, me))
 
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]

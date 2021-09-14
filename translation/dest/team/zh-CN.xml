@@ -26,6 +26,7 @@
   </plurals>
   <string name="willBeReviewed">您的加入请求将由队长审查。</string>
   <string name="beingReviewed">队长正在审查您的加入请求。</string>
+  <string name="requestDeclined">您的加入请求被队长拒绝。</string>
   <string name="subToTeamMessages">订阅团队消息</string>
   <string name="teamBattle">团队战斗</string>
   <string name="teamBattleOverview">一场由多个团队组成的战斗，每个玩家都可以为其团队得分</string>
@@ -49,4 +50,5 @@
   <string name="teamAlreadyExists">该团队已经存在。</string>
   <string name="upcomingTourns">即将开始的锦标赛</string>
   <string name="completedTourns">已完成的锦标赛</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">被拒的请求</string>
 </resources>

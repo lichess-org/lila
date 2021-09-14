@@ -92,6 +92,7 @@
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' med afrunding, baseret på antallet af halv-træk indtil næste fangst eller bondetræk</string>
   <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
   <string name="openingExplorer">Åbningsbog</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">%s åbningsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
+  <string name="winOr50MovesByPriorMistake">Sejr eller 50 træk efter tidligere fejl</string>
+  <string name="lossOr50MovesByPriorMistake">Nederlag eller 50 træk efter tidligere fejl</string>
+  <string name="unknownDueToRounding">Sejr/nederlag kun garanteret, hvis den anbefalede tabelbase-linje er blevet fulgt siden sidste fangst eller bondetræk, på grund af mulig afrunding.</string>
   <string name="allSet">Ok!</string>
   <string name="importPgn">Importer PGN</string>
   <string name="delete">Slet</string>

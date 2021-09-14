@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="forgotPassword">ମୁଁ ମୋର ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲିଗଲି</string>
+  <string name="doPasswordReset">ଆପଣଙ୍କ ଦ୍ୱିତୀୟ ଫ୍ୟାକ୍ଟର ଅପସାରଣ କରିବାକୁ ଏକ ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ ସମ୍ପୂର୍ଣ୍ଣ କରନ୍ତୁ</string>
+  <string name="doNotAskByEmail">ଏକ ଖାତା ବନ୍ଦ କରିବାକୁ ଆମକୁ ଇମେଲ୍ ମାଧ୍ୟମରେ କୁହନ୍ତୁ ନାହିଁ, ଆମେ ତାହା କରିବୁ ନାହିଁ।</string>
+  <string name="doNotAskByEmailToReopen">ଏକ ଖାତା ପୁନଃଖୋଲିବାକୁ ଆମକୁ ଇମେଲ୍ ମାଧ୍ୟମରେ କୁହନ୍ତୁ ନାହିଁ, ଆମେ ତାହା କରିବୁ ନାହିଁ।</string>
+</resources>

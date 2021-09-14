@@ -90,7 +90,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s プライでメイト</item>
   </plurals>
-  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
+  <string name="dtzWithRounding">DTZ50*（丸めあり）、次の駒取りかポーンの移動までの半手単位の手数による</string>
   <string name="noGameFound">対局が見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openingExplorer">オープニング探索</string>
@@ -98,9 +98,9 @@
   <string name="xOpeningExplorer">%s オープニング探索</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
-  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">勝ち、または以前の悪手のため50手ドロー</string>
-  <string name="lossOr50MovesByPriorMistake" comment="lossOr50MovesByPriorMistake&#10;&#10;Analogous to source string &quot;Win or 50 moves by prior mistake&quot; - please see context there.">負け、または以前の悪手のため50手ドロー</string>
-  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">勝ち／負けが確実なのは、最後の駒取りかポーンの移動からずっとテーブルベースの推奨ラインに従った場合のみです（丸めの可能性のため）。</string>
+  <string name="winOr50MovesByPriorMistake">勝ち、または以前の悪手のため50手ドロー</string>
+  <string name="lossOr50MovesByPriorMistake">負け、または以前の悪手のため50手ドロー</string>
+  <string name="unknownDueToRounding">勝ち／負けが確実なのは、最後の駒取りかポーンの移動からずっとテーブルベースの推奨ラインに従った場合のみです（丸めの可能性のため）。</string>
   <string name="allSet">準備完了！</string>
   <string name="importPgn">PGN をインポート</string>
   <string name="delete">削除</string>
