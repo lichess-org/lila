@@ -34,4 +34,13 @@
   <string name="noPostsInThisBlogYet">لايوجد مقالات في هذه المدونة حالياً.</string>
   <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
   <string name="latestBlogPosts">أخر منشورات المدونة</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="zero">عرض مقالة</item>
+    <item quantity="one">عرض مقالة</item>
+    <item quantity="two">عرض مقالتين</item>
+    <item quantity="few">عرض %s مقالات</item>
+    <item quantity="many">عرض %s مقالات</item>
+    <item quantity="other">عرض %s مقال</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">تحميل صورة لمقالتك</string>
 </resources>
