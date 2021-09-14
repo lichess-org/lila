@@ -46,6 +46,7 @@
   <string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
   <string name="createDesc3">重要：学生不得拥有多个帐户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
   <string name="lichessUsername">Lichess用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
