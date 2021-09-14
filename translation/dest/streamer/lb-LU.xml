@@ -4,5 +4,16 @@
   <string name="lichessStreamer">Lichess Streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Streamt grad: %s</string>
+  <string name="lastStream">Leschte Stream: %s</string>
+  <string name="becomeStreamer">Wäert e Lichess Streamer</string>
+  <string name="doYouHaveStream">Hues du en Twitch oder YouTube-Kanal?</string>
+  <string name="hereWeGo">Lass geet et!</string>
   <string name="allStreamers">All Streamer</string>
+  <string name="editPage">Streamersäit beaarbechten</string>
+  <string name="yourPage">Deng Streamersäit</string>
+  <string name="downloadKit">Lued d\'Streamerkit erof</string>
+  <string name="xIsStreaming">%s streamt grad</string>
+  <string name="rules">Streaming-Reegelen</string>
+  <string name="rule1">Füg d\'Stëchwuert \"lichess.org\" an dengem Streamtitel an, oder verwend d\'Kategorie \"Chess\", wanns du op Lichess streamst.</string>
 </resources>
