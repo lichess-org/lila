@@ -16,7 +16,9 @@ object bits {
         "Community blogs"
       ),
       a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)("Blog topics"),
-      a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())("Friends blogs"),
+      ctx.isAuth option a(cls := active.has("friends").option("active"), href := routes.Ublog.friends())(
+        "Friends blogs"
+      ),
       a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())("Liked blog posts"),
       ctx.me map { me =>
         a(cls := active.has("mine").option("active"), href := routes.Ublog.index(me.username))("My blog")
