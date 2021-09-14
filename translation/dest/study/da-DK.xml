@@ -90,11 +90,11 @@
   <string name="interactiveLesson">Interaktiv lektion</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Tom</string>
-  <string name="startFromInitialPosition">Start ved indledende position</string>
+  <string name="startFromInitialPosition">Start ved indledende stilling</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Start fra brugerdefinerede position</string>
+  <string name="startFromCustomPosition">Start fra brugerdefinerede stilling</string>
   <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
-  <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
+  <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -118,7 +118,7 @@
   <string name="members">Medlemmer</string>
   <string name="everyone">Enhver</string>
   <string name="enableSync">Aktiver synk</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle på den samme position</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle på den samme stilling</string>
   <string name="noLetPeopleBrowseFreely">Nej: lad folk gennemse frit</string>
   <string name="pinnedStudyComment">Fastgjort studie-kommentar</string>
   <string name="start">Start</string>
@@ -136,8 +136,8 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivlsomt træk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste mulige træk</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
-  <string name="equalPosition">Lige position</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret position</string>
+  <string name="equalPosition">Lige stilling</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret stilling</string>
   <string name="whiteIsSlightlyBetter">Hvid står lidt bedre</string>
   <string name="blackIsSlightlyBetter">Sort står lidt bedre</string>
   <string name="whiteIsBetter">Hvid står bedre</string>
