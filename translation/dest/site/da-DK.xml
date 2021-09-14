@@ -87,7 +87,7 @@
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
-  <string name="masterDbExplanation">To millioner ikke online spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millioner ikke-online partier af %1$s+ FIDE-ratede spillere fra %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
