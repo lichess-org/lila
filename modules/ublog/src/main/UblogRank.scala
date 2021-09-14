@@ -112,9 +112,9 @@ final class UblogRank(colls: UblogColls, timeline: lila.hub.actors.Timeline)(imp
       val tierLikes = likes.value + ((tier - 2) * 4).atLeast(0) // initial boost
       val likeHours =
         if (tierLikes < 1) 0
-        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 12
+        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 10
       val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
-        case 0 => 0.5
+        case 0 => 0.3
         case 1 => 1
         case _ => 1.2
       }
@@ -123,7 +123,7 @@ final class UblogRank(colls: UblogColls, timeline: lila.hub.actors.Timeline)(imp
         case UblogBlog.Tier.LOW    => likeHours * 0.3 * topicsMultiplier * langMultiplier
         case UblogBlog.Tier.NORMAL => likeHours * topicsMultiplier * langMultiplier
         case UblogBlog.Tier.HIGH   => likeHours * 3 * topicsMultiplier * langMultiplier
-        case UblogBlog.Tier.BEST   => likeHours * 10 * topicsMultiplier * langMultiplier
+        case UblogBlog.Tier.BEST   => likeHours * 7 * topicsMultiplier * langMultiplier
         case _                     => -99999
       }
       tiered.toInt
