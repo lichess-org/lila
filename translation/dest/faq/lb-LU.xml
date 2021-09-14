@@ -6,4 +6,23 @@
   <string name="howCanIContributeToLichess">Wéi kann ech zu Lichess bäidroen?</string>
   <string name="areThereWebsitesBasedOnLichess">Ginn et Websäiten déi op Lichess baséieren?</string>
   <string name="fairPlay">Fair Play</string>
+  <string name="whenAmIEligibleRatinRefund">Wéi qualifizéieren ech mech fir eng automatesch Wäertungsréckerstattung?</string>
+  <string name="preventLeavingGameWithoutResigning">Wat geschitt mat Spiller, déi eng Partie verloossen, ouni opzeginn?</string>
+  <string name="howCanIBecomeModerator">Wéi kann ech e Moderator ginn?</string>
+  <string name="isCorrespondenceDifferent">Wéi ënnerscheeden sech Korrespondenz an normalen Schach?</string>
+  <string name="gameplay">Spillerliefnis</string>
+  <string name="howBulletBlitzEtcDecided">Wat decidéiert op eng Zäitkontroll Bullet, Blitz oder eng aner ass?</string>
+  <string name="whatVariantsCanIplay">Wéieng Varianten kann ech op Lichess spillen?</string>
+  <string name="whatIsACPL">Wat ass den duerchschnëttlechen Honnertselbauerverloscht (ACPL)?</string>
+  <string name="insufficientMaterial">Op Zäit verléieren, Remis an ongenügend Material</string>
+  <string name="fideHandbookX">FIDE Handbuch %s</string>
+  <string name="discoveringEnPassant">Firwat kann e Bauern een aneren Bauer schloen, wann hien laanscht gezunn huet? (en passant)</string>
+  <string name="threefoldRepetition">Dräifach Stellungswidderhuelung</string>
+  <string name="accounts">Konten</string>
+  <string name="titlesAvailableOnLichess">Wéieng Titel ginn et op Lichess?</string>
+  <string name="lichessRatings">Lichess Wäertungen</string>
+  <string name="whichRatingSystemUsedByLichess">Wéieen Wäertungssystem benotzt Lichess?</string>
+  <string name="whatIsProvisionalRating">Firwat ass en Fragezeichen (?) nieft enger Wäertung?</string>
+  <string name="howDoLeaderoardsWork">Wéi funktionéieren Räng and Ranglëschten?</string>
+  <string name="howToHideRatingWhilePlaying">Wéi kann ech Wäertungen wärend dem Spillen verstoppen?</string>
 </resources>
