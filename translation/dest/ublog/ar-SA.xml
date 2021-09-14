@@ -3,6 +3,7 @@
   <string name="xBlog">مدونة %s</string>
   <string name="newPost">منشور جديد</string>
   <string name="editYourBlogPost">تعديل منشور مدونتك</string>
+  <string name="saveDraft">حفظ المسودة</string>
   <string name="postTitle">عنوان المنشور</string>
   <string name="postIntro">مقدمة المنشور</string>
   <string name="postBody">نص المنشور</string>
