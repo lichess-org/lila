@@ -3,6 +3,7 @@
   <string name="xBlog">%s的博客</string>
   <string name="newPost">新文章</string>
   <string name="editYourBlogPost">编辑您的博客文章</string>
+  <string name="saveDraft">保存草稿</string>
   <string name="postTitle">文章标题</string>
   <string name="postIntro">文章简介</string>
   <string name="postBody">文章主体</string>
@@ -23,4 +24,5 @@
   <string name="noPostsInThisBlogYet">此博客中尚无文章</string>
   <string name="noDrafts">无可展示的草稿。</string>
   <string name="latestBlogPosts">最新博客文章</string>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">上传一张图片</string>
 </resources>
