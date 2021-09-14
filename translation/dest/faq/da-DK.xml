@@ -37,9 +37,9 @@
   <string name="lichessSupportChessAnd">Lichess understøtter standardskak og %1$s.</string>
   <string name="eightVariants">8 skakvarianter</string>
   <string name="whatIsACPL">Hvad er \"Gennemsnitligt centibonde-tab\"/GCBT?</string>
-  <string name="acplExplanation">En centibonde er et mål, som bruges i skak som en repræsentation af fordelen. En centibonde svarer til en hundrededel (1/100) af en bonde. Derfor er 100 centibønder = 1 bonde. Disse værdier spiller ingen formel rolle i partiet, men er nyttige for spillerne og essentielle i computerskak ved evalueringen af positioner.
+  <string name="acplExplanation">En centibonde er et mål, som bruges i skak som en repræsentation af fordelen. En centibonde svarer til en hundrededel (1/100) af en bonde. Derfor er 100 centibønder = 1 bonde. Disse værdier spiller ingen formel rolle i partiet, men er nyttige for spillerne og essentielle i computerskak ved evalueringen af stillinger.
 
-Det bedste computertræk vil koste nul centibønder, mens svagere træk vil medføre en forværring af positionen, målt i centibønder.
+Det bedste computertræk vil koste nul centibønder, mens svagere træk vil medføre en forværring af stillingen, målt i centibønder.
 
 Denne værdi kan bruges som en indikator for spilkvalitet. Desto færre centibønder der tabes per træk, desto stærkere spilles der.
 
@@ -63,11 +63,11 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="officialRulesPDF">officielle regler (pdf)</string>
   <string name="lichessTraining">Lichess træning</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
-  <string name="threefoldRepetitionExplanation">Hvis en position forekommer tre gange, kan spillerne kræve remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Hvis en stilling forekommer tre gange, kan spillere forlange remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
   <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
   <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>
-  <string name="positions">positioner</string>
+  <string name="positions">stillinger</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vi gentog en position tre gange. Hvorfor var partiet ikke remis?</string>
   <string name="threeFoldHasToBeClaimed">Trækgentagelse skal kræves af en af spillerne. Du kan gøre dette ved at trykke på knappen, som dukker op, eller ved at tilbyde remis før du laver dit endelige gentagende træk. Du kan også %1$s Lichess til automatisk at kræve trækgentagelse for dig. Derudover vil femfoldig altid øjeblikkeligt afslutte partiet.</string>
   <string name="configure">konfigurér</string>
