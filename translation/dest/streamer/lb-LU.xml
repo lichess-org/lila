@@ -21,4 +21,5 @@
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lies eis %s fir Fairplay fir jiddereen wärend denge Streams ze garantéieren.</string>
   <string name="streamingFairplayFAQ">Streaming Fairplay FAQ</string>
   <string name="perks">Virdeeler fir Streaming mat engem Stéchwuert</string>
+  <string name="longDescription">Laang Beschreiwung</string>
 </resources>
