@@ -19,7 +19,7 @@
   <string name="white">Hvid</string>
   <string name="black">Sort</string>
   <string name="randomColor">Tilfældig farve</string>
-  <string name="createAGame">Start et parti</string>
+  <string name="createAGame">Opret et parti</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
