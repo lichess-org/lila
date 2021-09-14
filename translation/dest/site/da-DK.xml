@@ -148,8 +148,8 @@
   <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
-    <item quantity="one">Se %s parti</item>
-    <item quantity="other">Se alle %s partier</item>
+    <item quantity="one">%s parti</item>
+    <item quantity="other">%s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bogmærke</item>
