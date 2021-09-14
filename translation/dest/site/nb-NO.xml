@@ -92,6 +92,7 @@
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' med avrunding, basert på antall halvtrekk til neste slag eller bondetrekk</string>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
+  <string name="winOr50MovesByPriorMistake">Seier eller 50 trekk etter tidligere feil</string>
+  <string name="lossOr50MovesByPriorMistake">Tap eller 50 trekk etter tidligere feil</string>
+  <string name="unknownDueToRounding">Seier/tap bare garantert dersom anbefalte trekk fra tabellbasen er fulgt siden siste slag eller bondetrekk, grunnet mulig avrunding.</string>
   <string name="allSet">Alt klart!</string>
   <string name="importPgn">Importér PGN-fil</string>
   <string name="delete">Slett</string>
