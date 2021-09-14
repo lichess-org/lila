@@ -34,5 +34,7 @@
   <string name="inCorrespondenceGames">Ludi longinqui</string>
   <string name="correspondenceAndUnlimited">per epistolam et immoderatus</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Adroccandi ratio</string>
+  <string name="castleByMovingTwoSquares">Regem movere in secundum quadrum</string>
+  <string name="castleByMovingOntoTheRook">Regem super turrim movere</string>
   <string name="yourPreferencesHaveBeenSaved">Praeposititiones tuae conservatae sunt.</string>
 </resources>
