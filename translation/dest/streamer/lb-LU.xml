@@ -15,5 +15,6 @@
   <string name="downloadKit">Lued d\'Streamerkit erof</string>
   <string name="xIsStreaming">%s streamt grad</string>
   <string name="rules">Streaming-Reegelen</string>
-  <string name="rule1">Füg d\'Stëchwuert \"lichess.org\" an dengem Streamtitel an, oder verwend d\'Kategorie \"Chess\", wanns du op Lichess streamst.</string>
+  <string name="rule1">Füg d\'Stéchwuert \"lichess.org\" an dengem Streamtitel an, oder verwend d\'Kategorie \"Chess\", wann s du op Lichess streamst.</string>
+  <string name="rule2">Sträich d\'Stéchwuert, wann s du grad näicht mat Lichess streamst.</string>
 </resources>
