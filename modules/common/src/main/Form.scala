@@ -135,6 +135,7 @@ object Form {
         "piqsels.com",
         "freeimages.com",
         "unsplash.com",
+        "pixabay.com",
         "githubusercontent.com",
         "googleusercontent.com",
         "i.ibb.co",
