@@ -18,6 +18,7 @@
   <string name="horizontalGreenProgressBars">Regula progressus viridis</string>
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="giveMoreTime">Da tempus</string>
+  <string name="howDoYouMovePieces">Quomodo milites movebuntur?</string>
   <string name="clickTwoSquares">Clige duorum quadratorum</string>
   <string name="dragPiece">Fragmen congrega</string>
   <string name="bothClicksAndDrag">Tum</string>
