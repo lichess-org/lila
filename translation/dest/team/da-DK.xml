@@ -53,4 +53,5 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="teamAlreadyExists">Dette hold findes allerede.</string>
   <string name="upcomingTourns">Kommende turneringer</string>
   <string name="completedTourns">Afsluttede turneringer</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Afviste anmodninger</string>
 </resources>

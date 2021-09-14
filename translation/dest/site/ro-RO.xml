@@ -93,7 +93,7 @@
     <item quantity="few">Mat în %s mutări</item>
     <item quantity="other">Mat în %s mutări</item>
   </plurals>
-  <string name="dtzWithRounding" comment="dtzWithRounding&#10;&#10;Tooltip for DTZ in endgame tablebase view. DTZ50'' (read aloud as &quot;DTZ fifty prime prime&quot;) is the name in literature of the exact metric used in Syzygy tablebases.&#10;&#10;It's probably best to keep &quot;DTZ50''&quot; untranslated.">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
+  <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Nu a fost găsit nici un joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
   <string name="openingExplorer">Cercetarea deschiderilor</string>
@@ -101,9 +101,9 @@
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
   <string name="winPreventedBy50MoveRule">Victoria partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
-  <string name="winOr50MovesByPriorMistake" comment="winOr50MovesByPriorMistake&#10;&#10;Shown in some situations in the endgame tablebase view. If users ignore the tablebase recommendation, it is possible to end up in a situation where Syzygy tablebases cannot tell if the 50-move rule will prevent the win.&#10;&#10;Also see the string &quot;Win/loss only guaranteed if recommended tablebase line has been ...&quot; for a tooltip that should explain this.">Câștig sau remiză la 50 de mutări din cauza unei greșeli anterioare</string>
-  <string name="lossOr50MovesByPriorMistake" comment="lossOr50MovesByPriorMistake&#10;&#10;Analogous to source string &quot;Win or 50 moves by prior mistake&quot; - please see context there.">Pierdere sau remiză la 50 de mutări din cauza unei greșeli anterioare</string>
-  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.">Câștigul sau pierderea este garantată numai dacă a fost urmată linia de bază recomandată de la ultima capturare sau mișcare de pion, din cauza eventualelor rotunjiri.</string>
+  <string name="winOr50MovesByPriorMistake">Câștig sau remiză la 50 de mutări din cauza unei greșeli anterioare</string>
+  <string name="lossOr50MovesByPriorMistake">Pierdere sau remiză la 50 de mutări din cauza unei greșeli anterioare</string>
+  <string name="unknownDueToRounding">Câștigul sau pierderea este garantată numai dacă a fost urmată linia de bază recomandată de la ultima capturare sau mișcare de pion, din cauza eventualelor rotunjiri.</string>
   <string name="allSet">Gata!</string>
   <string name="importPgn">Importare PGN</string>
   <string name="delete">Șterge</string>
