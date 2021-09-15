@@ -11,6 +11,7 @@
     "@types/debounce-promise": "^3.1.4",
     "@types/fnando__sparkline": "^0.3.2",
     "@types/lichess": "2.0.0",
+    "@types/web": "=0.0.32",
     "@types/yaireo__tagify": "^4.7",
     "@types/zxcvbn": "^4.4.0",
     "chessground": "^8.1.7",

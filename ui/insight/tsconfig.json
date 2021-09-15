@@ -5,6 +5,6 @@
     "paths": {
       "numeral": ["./@types/numeral"]
     },
-    "types": ["lichess", "cash"]
+    "types": ["lichess", "web", "cash"]
   }
 }
