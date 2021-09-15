@@ -92,11 +92,11 @@ final class RelationApi(
 
   def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (config.maxFollow <=)
 
-  private val countFollowersCache = cacheApi[ID, Int](65536, "relation.count.followers") {
+  private val countFollowersCache = cacheApi[ID, Int](131_072, "relation.count.followers") {
     _.expireAfterAccess(10 minutes)
-      .maximumSize(65536)
+      .maximumSize(131_072)
       .buildAsyncFuture { userId =>
-        coll.countSel($doc("u2" -> userId, "r" -> Follow))
+        coll.secondaryPreferred.countSel($doc("u2" -> userId, "r" -> Follow))
       }
   }
 
