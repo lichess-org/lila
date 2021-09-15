@@ -460,6 +460,7 @@ object mod {
             th("Move Times", br, "(Avg ± SD)"),
             th(span(title := "The frequency of which the user leaves the game page.")("Blurs")),
             th(span(title := "Bot detection using grid click analysis.")("Bot")),
+            th("Date"),
             th(span(title := "Aggregate match")(raw("&Sigma;")))
           )
         ),
@@ -506,6 +507,13 @@ object mod {
                 td(
                   span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := ""),
                   if (result.basics.hold) "Yes" else "No"
+                ),
+                td(
+                  pag.pov(result).map { p =>
+                    a(href := routes.Round.watcher(p.gameId, p.color.name), cls := "glpt")(
+                      momentFromNowServerText(p.game.movedAt)
+                    )
+                  }
                 ),
                 td(
                   div(cls := "aggregate")(
