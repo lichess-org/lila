@@ -100,27 +100,14 @@ final class TournamentApi(
   }
 
   def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
-    val tour = postUpdate(old, data, data updateAll old, leaderTeams)
-    tournamentRepo update tour inject tour
-  }
-
-  def apiUpdate(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
-    val tour = postUpdate(old, data, data updatePresent old, leaderTeams)
-    tournamentRepo update tour inject tour
-  }
-
-  private def postUpdate(
-      old: Tournament,
-      data: TournamentSetup,
-      tour: Tournament,
-      leaderTeams: List[LeaderTeam]
-  ) =
-    tour.copy(
+    val tour = old.copy(
       conditions = data.conditions
-        .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
+        .convert(old.perfType, leaderTeams.view.map(_.pair).toMap)
         .copy(teamMember = old.conditions.teamMember), // can't change that
-      mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
+      mode = if (old.position.isDefined) chess.Mode.Casual else old.mode
     )
+    tournamentRepo update tour inject tour
+  }
 
   def teamBattleUpdate(
       tour: Tournament,
