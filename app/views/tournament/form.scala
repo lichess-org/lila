@@ -26,12 +26,12 @@ object form {
             else trans.createANewTournament()
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
+            form3.globalError(form),
             fields.name,
             form3.split(fields.rated, fields.variant),
             fields.clock,
             form3.split(fields.minutes, fields.waitMinutes),
             form3.split(fields.description(true), fields.startPosition),
-            form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
@@ -192,7 +192,8 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
-  private def disabledAfterStart = tour.exists(!_.isCreated)
+  private def disabledAfterStart  = tour.exists(!_.isCreated)
+  private def disabledAfterCreate = tour.isDefined
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
@@ -225,7 +226,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       form3.select(
         _,
         translatedVariantChoicesWithVariants.map(x => x._1 -> x._2),
-        disabled = disabledAfterStart
+        disabled = disabledAfterCreate
       )
     )
   def startPosition =
