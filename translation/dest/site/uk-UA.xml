@@ -51,6 +51,8 @@
   <string name="blackResigned">Чорні здалися</string>
   <string name="whiteLeftTheGame">Білі залишили гру</string>
   <string name="blackLeftTheGame">Чорні залишили гру</string>
+  <string name="whiteDidntMove">Білі не зробили хід</string>
+  <string name="blackDidntMove">Чорні не зробили хід</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Поширте це посилання, щоб глядачі могли спостерігати за грою</string>
   <string name="theComputerAnalysisHasFailed">Не вдалося виконати комп’ютерний аналіз</string>
   <string name="viewTheComputerAnalysis">Переглянути комп’ютерний аналіз</string>
