@@ -4,6 +4,7 @@ import org.joda.time.{ DateTime, Interval }
 import reactivemongo.api.ReadPreference
 
 import lila.common.Heapsort
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.game.LightPov
 import lila.practice.PracticeStructure
@@ -13,7 +14,7 @@ import lila.ublog.UblogPost
 import lila.user.User
 
 final class ActivityReadApi(
-    coll: Coll,
+    coll: AsyncColl,
     gameRepo: lila.game.GameRepo,
     practiceApi: lila.practice.PracticeApi,
     forumPostApi: lila.forum.PostApi,
@@ -34,12 +35,12 @@ final class ActivityReadApi(
   def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] =
     for {
       activities <-
-        coll
-          .find(regexId(u.id))
-          .sort($sort desc "_id")
-          .cursor[Activity](ReadPreference.secondaryPreferred)
-          .vector(nb)
-          .dmap(_.filterNot(_.isEmpty))
+        coll(
+          _.find(regexId(u.id))
+            .sort($sort desc "_id")
+            .cursor[Activity](ReadPreference.secondaryPreferred)
+            .vector(nb)
+        ).dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
         practiceApi.structure.get dmap some
@@ -145,14 +146,14 @@ final class ActivityReadApi(
     )
 
   def recentSwissRanks(userId: User.ID): Fu[List[(Swiss.IdName, Int)]] =
-    coll
-      .find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
-      .sort($sort desc "_id")
-      .cursor[Activity](ReadPreference.secondaryPreferred)
-      .list(10)
-      .flatMap { activities =>
-        toSwissesView(activities.flatMap(_.swisses.??(_.value)))
-      }
+    coll(
+      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
+        .sort($sort desc "_id")
+        .cursor[Activity](ReadPreference.secondaryPreferred)
+        .list(10)
+    ).flatMap { activities =>
+      toSwissesView(activities.flatMap(_.swisses.??(_.value)))
+    }
 
   private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(Swiss.IdName, Int)]] =
     swissApi

@@ -2,13 +2,14 @@ package lila.activity
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent
 
 final class Env(
-    db: lila.db.Db,
+    db: lila.db.AsyncDb @@ lila.db.JunkDb,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
     forumPostApi: lila.forum.PostApi,
