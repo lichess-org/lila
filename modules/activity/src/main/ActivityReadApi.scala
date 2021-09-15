@@ -4,7 +4,7 @@ import org.joda.time.{ DateTime, Interval }
 import reactivemongo.api.ReadPreference
 
 import lila.common.Heapsort
-import lila.db.AsyncColl
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.game.LightPov
 import lila.practice.PracticeStructure
@@ -14,7 +14,7 @@ import lila.ublog.UblogPost
 import lila.user.User
 
 final class ActivityReadApi(
-    coll: AsyncColl,
+    coll: AsyncCollFailingSilently,
     gameRepo: lila.game.GameRepo,
     practiceApi: lila.practice.PracticeApi,
     forumPostApi: lila.forum.PostApi,

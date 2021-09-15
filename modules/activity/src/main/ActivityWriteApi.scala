@@ -1,13 +1,13 @@
 package lila.activity
 
-import lila.db.AsyncColl
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
 
 final class ActivityWriteApi(
-    coll: AsyncColl,
+    withColl: AsyncCollFailingSilently,
     studyApi: lila.study.StudyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -16,7 +16,7 @@ final class ActivityWriteApi(
   import activities._
   import model._
 
-  def game(game: Game): Funit =
+  def game(game: Game): Funit = withColl { coll =>
     game.userIds
       .flatMap { userId =>
         for {
@@ -32,40 +32,43 @@ final class ActivityWriteApi(
             ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
           )
           setters = setGames ++ setCorres
-          _ <- (!setters.isEmpty) ?? coll(_.update.one($id(a.id), $set(setters), upsert = true)).void
+          _ <- (!setters.isEmpty) ?? coll.update.one($id(a.id), $set(setters), upsert = true).void
         } yield ()
       }
       .sequenceFu
       .void
+  }
 
-  def forumPost(post: lila.forum.Post): Funit =
+  def forumPost(post: lila.forum.Post): Funit = withColl { coll =>
     post.userId.filter(User.lichessId !=) ?? { userId =>
       getOrCreate(userId) flatMap { a =>
-        coll(
-          _.update.one(
+        coll.update
+          .one(
             $id(a.id),
             $set(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id))),
             upsert = true
           )
-        ).void
+          .void
       }
     }
+  }
 
-  def ublogPost(post: lila.ublog.UblogPost): Funit =
+  def ublogPost(post: lila.ublog.UblogPost): Funit = withColl { coll =>
     getOrCreate(post.created.by) flatMap { a =>
-      coll(
-        _.update.one(
+      coll.update
+        .one(
           $id(a.id),
           $set(ActivityFields.ublogPosts -> (~a.ublogPosts + UblogPostId(post.id.value))),
           upsert = true
         )
-      ).void
+        .void
     }
+  }
 
-  def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit =
+  def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = withColl { coll =>
     getOrCreate(res.userId) flatMap { a =>
-      coll(
-        _.update.one(
+      coll.update
+        .one(
           $id(a.id),
           $set(ActivityFields.puzzles -> {
             ~a.puzzles + Score.make(
@@ -75,41 +78,45 @@ final class ActivityWriteApi(
           }),
           upsert = true
         )
-      ).void
+        .void
     }
+  }
 
-  def storm(userId: User.ID, score: Int): Funit =
+  def storm(userId: User.ID, score: Int): Funit = withColl { coll =>
     getOrCreate(userId) flatMap { a =>
-      coll(
-        _.update.one(
+      coll.update
+        .one(
           $id(a.id),
           $set(ActivityFields.storm -> { ~a.storm + score }),
           upsert = true
         )
-      ).void
+        .void
     }
+  }
 
-  def racer(userId: User.ID, score: Int): Funit =
+  def racer(userId: User.ID, score: Int): Funit = withColl { coll =>
     getOrCreate(userId) flatMap { a =>
-      coll(
-        _.update.one(
+      coll.update
+        .one(
           $id(a.id),
           $set(ActivityFields.racer -> { ~a.racer + score }),
           upsert = true
         )
-      ).void
+        .void
     }
+  }
 
-  def streak(userId: User.ID, score: Int): Funit =
+  def streak(userId: User.ID, score: Int): Funit = withColl { coll =>
     getOrCreate(userId) flatMap { a =>
-      coll(
-        _.update.one(
+      coll.update
+        .one(
           $id(a.id),
           $set(ActivityFields.streak -> { ~a.streak + score }),
           upsert = true
         )
-      ).void
+        .void
     }
+  }
 
   def learn(userId: User.ID, stage: String) =
     update(userId) { a =>
@@ -144,8 +151,8 @@ final class ActivityWriteApi(
       }
 
   def unfollowAll(from: User, following: Set[User.ID]) =
-    coll { c =>
-      c.secondaryPreferred.distinctEasy[User.ID, Set](
+    withColl { coll =>
+      coll.secondaryPreferred.distinctEasy[User.ID, Set](
         "f.o.ids",
         regexId(from.id)
       ) flatMap { extra =>
@@ -154,7 +161,7 @@ final class ActivityWriteApi(
           logger.info(s"${from.id} unfollow ${all.size} users")
           all
             .map { userId =>
-              c.update.one(
+              coll.update.one(
                 regexId(userId) ++ $doc("f.i.ids" -> from.id),
                 $pull("f.i.ids" -> from.id)
               )
@@ -192,9 +199,11 @@ final class ActivityWriteApi(
       a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some
     }
 
-  private def get(userId: User.ID)         = coll(_.byId[Activity, Id](Id today userId))
+  private def get(userId: User.ID)         = withColl(_.byId[Activity, Id](Id today userId))
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
-  private def save(activity: Activity)     = coll(_.update.one($id(activity.id), activity, upsert = true)).void
+  private def save(activity: Activity) = withColl(
+    _.update.one($id(activity.id), activity, upsert = true).void
+  )
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =
     getOrCreate(userId) flatMap { old =>
       f(old) ?? save
