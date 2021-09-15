@@ -23,6 +23,12 @@
     &__owner {
       margin-top: 1em;
     }
+    &__disclaimer {
+      color: $c-font-dimmer;
+      font-size: 0.9rem;
+      margin-left: -0.5rem;
+      vertical-align: top;
+    }
   }
   &__topics {
     @extend %flex-wrap;

@@ -61,6 +61,10 @@ object post {
                   cls := "ublog-post__tier"
                 )(UblogBlog.Tier.name(blog.tier))
             ),
+            iconTag("")(
+              cls := "ublog-post__meta__disclaimer",
+              st.title := "Opinions expressed by Lichess contributors are their own."
+            ),
             post.lived map { live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at))
             },
