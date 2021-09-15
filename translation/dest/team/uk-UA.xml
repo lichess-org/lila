@@ -9,6 +9,7 @@
     <item quantity="other">%s учасників</item>
   </plurals>
   <string name="allTeams">Усі команди</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Лідер команд</string>
   <string name="newTeam">Нова команда</string>
   <string name="myTeams">Мої команди</string>
   <string name="noTeamFound">Не знайдено команди</string>
@@ -34,6 +35,7 @@
   </plurals>
   <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
   <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>
+  <string name="requestDeclined">Ваш запит на приєднання було відхилено лідером команди.</string>
   <string name="subToTeamMessages">Підписатися на повідомлення команди</string>
   <string name="teamBattle">Командна битва</string>
   <string name="teamBattleOverview">Битва кількох команд, кожен гравець заробляє очки своїй команді</string>
@@ -57,4 +59,5 @@
   <string name="teamAlreadyExists">Така команда вже існує.</string>
   <string name="upcomingTourns">Майбутні турніри</string>
   <string name="completedTourns">Завершені турніри</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Відхилені запити</string>
 </resources>
