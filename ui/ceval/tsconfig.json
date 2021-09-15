@@ -3,6 +3,6 @@
   "include": ["src"],
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["lichess", "cash"]
+    "types": ["lichess", "web", "cash"]
   }
 }

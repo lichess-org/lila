@@ -137,7 +137,7 @@ lichess.load.then(() => {
       }, 1000);
 
     // prevent zoom when keyboard shows on iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && 'MSStream' in window) {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }

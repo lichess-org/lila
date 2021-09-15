@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["lichess", "cash"]
+    "types": ["lichess", "web", "cash"]
   }
 }

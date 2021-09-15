@@ -5,7 +5,7 @@
     "paths": {
       "chessground": ["@types/chessground"]
     },
-    "types": ["lichess", "cash"]
+    "types": ["lichess", "web", "cash"]
   },
   "extends": "../tsconfig.base.json"
 }
