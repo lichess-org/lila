@@ -147,7 +147,7 @@ lazy val history = module("history",
 
 lazy val db = smallModule("db",
   Seq(common),
-  Seq(hasher) ++ reactivemongo.bundle
+  Seq(hasher) ++ macwire.bundle ++ reactivemongo.bundle
 )
 
 lazy val memo = smallModule("memo",

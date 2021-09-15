@@ -210,8 +210,6 @@ final class EnvBoot(
   def baseUrl              = netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
 
-  lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
-
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
