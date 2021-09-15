@@ -18,7 +18,7 @@ object communication {
       mod: Holder,
       u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
-      convos: List[lila.msg.MsgConvo],
+      convos: List[lila.msg.ModMsgConvo],
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
@@ -154,16 +154,19 @@ object communication {
           ),
           div(cls := "threads")(
             h2("Recent inbox messages"),
-            convos.map { convo =>
+            convos.map { modConvo =>
               div(cls := "thread")(
-                p(cls := "title")(strong(lightUserLink(convo.contact))),
+                p(cls := "title")(strong(lightUserLink(modConvo.convo.contact))),
                 table(cls := "slist")(
                   tbody(
-                    convo.msgs.reverse.map { msg =>
+                    modConvo.truncated option div(cls := "truncated-convo")(
+                      s"Truncated, showing last ${modConvo.convo.msgs.length} messages"
+                    ),
+                    modConvo.convo.msgs.reverse.map { msg =>
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
-                        td(strong(if (author) u.username else convo.contact.name)),
+                        td(strong(if (author) u.username else modConvo.convo.contact.name)),
                         td(cls := "message")(highlightBad(msg.text))
                       )
                     }
