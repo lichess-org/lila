@@ -186,7 +186,8 @@ object JsonView {
     JsArray(tags.value map pgnTagWrites.writes)
   }
   implicit private val chapterSetupWrites = Json.writes[Chapter.Setup]
-  implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
+
+  implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json
       .obj("id" -> c._id, "name" -> c.name)
       .add("ongoing", c.looksOngoing)

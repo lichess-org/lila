@@ -5,10 +5,12 @@ import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
 import lila.common.Json.jodaWrites
+import lila.study.Chapter
 
 final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   import JsonView._
+  import lila.study.JsonView.chapterMetadataWrites
 
   def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
@@ -40,6 +42,11 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   def withUrl(rt: RelayRound.WithTour): JsObject =
     apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
+
+  def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
+    withUrl(rt) ++ Json.obj("games" -> games.map { g =>
+      chapterMetadataWrites.writes(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+    })
 
   def sync(round: RelayRound) = syncWrites writes round.sync
 
