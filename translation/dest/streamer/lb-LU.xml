@@ -2,4 +2,24 @@
 <resources>
   <string name="lichessStreamers">Lichess Streamer</string>
   <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Streamt grad: %s</string>
+  <string name="lastStream">Leschte Stream: %s</string>
+  <string name="becomeStreamer">Wäert e Lichess Streamer</string>
+  <string name="doYouHaveStream">Hues du en Twitch oder YouTube-Kanal?</string>
+  <string name="hereWeGo">Lass geet et!</string>
+  <string name="allStreamers">All Streamer</string>
+  <string name="editPage">Streamersäit beaarbechten</string>
+  <string name="yourPage">Deng Streamersäit</string>
+  <string name="downloadKit">Lued d\'Streamerkit erof</string>
+  <string name="xIsStreaming">%s streamt grad</string>
+  <string name="rules">Streaming-Reegelen</string>
+  <string name="rule1">Füg d\'Stéchwuert \"lichess.org\" an dengem Streamtitel an, oder verwend d\'Kategorie \"Chess\", wann s du op Lichess streamst.</string>
+  <string name="rule2">Sträich d\'Stéchwuert, wann s du grad näicht mat Lichess streamst.</string>
+  <string name="rule3">Lichess wäert däin Stream automatesch erkennen an follgend Zousazdéngscht aktivéieren:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lies eis %s fir Fairplay fir jiddereen wärend denge Streams ze garantéieren.</string>
+  <string name="streamingFairplayFAQ">Streaming Fairplay FAQ</string>
+  <string name="perks">Virdeeler fir Streaming mat engem Stéchwuert</string>
+  <string name="longDescription">Laang Beschreiwung</string>
 </resources>

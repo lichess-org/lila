@@ -2,10 +2,23 @@
 <resources>
   <string name="arenaTournaments">Arena Turnéier</string>
   <string name="isItRated">Ass et gewäert?</string>
+  <string name="willBeNotified">Mir soen dir Bescheed wann den Turnéier ufänkt, du kanns also an der Zwëschenzäit an engem aneren Tab spillen.</string>
+  <string name="isRated">Dësen Turnéier ass gewäert an beaflosst déng Wäertung.</string>
+  <string name="isNotRated">Dësen Turnéier ass *net* gewäert an beaflosst déng Wäertung *net*.</string>
+  <string name="someRated">Verschidden Turnéier sinn gewäert an beaflossen deng Wäertung.</string>
+  <string name="howAreScoresCalculated">Wéi ginn d\'Punkten berechent?</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="howIsTheWinnerDecided">Wéi gëtt den Gewënner bestëmmt?</string>
+  <string name="howDoesPairingWork">Wéi funktionéieren d\'Puerungen?</string>
+  <string name="howDoesItEnd">Wéi hält et op?</string>
+  <string name="otherRules">Aner wichteg Reegelen</string>
+  <string name="thisIsPrivate">Dësen Turnéier ass privat</string>
+  <string name="shareUrl">Deel dës URL, dass aner Leit bäitrieden kënnen: %s</string>
   <string name="history">Arena-Geschicht</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ekipp ukucken</item>
     <item quantity="other">All %s Ekippen ukucken</item>
   </plurals>
   <string name="newTeamBattle">Neien Ekippenkampf</string>
+  <string name="allowBerserk">Berserk erlaben</string>
 </resources>

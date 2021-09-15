@@ -8,6 +8,7 @@
   <string name="pieceDestinations">Destinationes scaccorum (motus et praemotus rati)</string>
   <string name="boardCoordinates">Coordinatae tabulae (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Index motuum</string>
+  <string name="pgnPieceNotation">Notatio motuum</string>
   <string name="chessPieceSymbol">Signum scaccarii</string>
   <string name="pgnLetter">Ars (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modus Zenonis</string>
@@ -18,6 +19,8 @@
   <string name="horizontalGreenProgressBars">Regula progressus viridis</string>
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="giveMoreTime">Da tempus</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Lusi mores</string>
+  <string name="howDoYouMovePieces">Quomodo milites movebuntur?</string>
   <string name="clickTwoSquares">Clige duorum quadratorum</string>
   <string name="dragPiece">Fragmen congrega</string>
   <string name="bothClicksAndDrag">Tum</string>
@@ -31,5 +34,9 @@
   <string name="moveConfirmation">Confirmatio motu</string>
   <string name="inCorrespondenceGames">Ludi longinqui</string>
   <string name="correspondenceAndUnlimited">per epistolam et immoderatus</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Adroccandi ratio</string>
+  <string name="castleByMovingTwoSquares">Regem movere in secundum quadrum</string>
+  <string name="castleByMovingOntoTheRook">Regem super turrim movere</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">\"Bene lusimus illum lusum\" dicere te victum vel ludu ancipe</string>
   <string name="yourPreferencesHaveBeenSaved">Praeposititiones tuae conservatae sunt.</string>
 </resources>

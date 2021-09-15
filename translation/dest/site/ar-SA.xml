@@ -53,6 +53,8 @@
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
+  <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
+  <string name="blackDidntMove">لم يقم الأبيض بالحركة</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">شارك هذا الرابط ليرى المشاهدون المباراة</string>
   <string name="theComputerAnalysisHasFailed">فشل تحليل الحاسب</string>
   <string name="viewTheComputerAnalysis">عرض تحليل الحاسب</string>
@@ -98,6 +100,7 @@
     <item quantity="many">مات في %s نصف-نقلة</item>
     <item quantity="other">مات في %s نصف-نقلة</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' مع تقريب ، استنادًا إلى عدد من نصف التحركات حتى التقاط أو نقل بياض التالي</string>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
@@ -105,6 +108,9 @@
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
   <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
+  <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
+  <string name="lossOr50MovesByPriorMistake">خسارة أو 50 نقلة عن طريق خطأ سابق</string>
+  <string name="unknownDueToRounding">فالفوز/الخسارة المكفولة فقط إذا كان خط الأساس الموصى به قد اتبع منذ آخر عملية لالتقاط أو تحريك للبياء، بسبب احتمال تقريب الأرباح.</string>
   <string name="allSet">إعتمد كل الإعدادات!</string>
   <string name="importPgn">استيراد PGN</string>
   <string name="delete">حذف</string>

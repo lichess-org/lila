@@ -46,6 +46,7 @@
   <string name="createDesc2">لا يطلب عنوان بريد إلكتروني. سيتم إنشاء كلمة مرور، وعليك إرسالها إلى الطالب، حتى يمكنهم تسجيل الدخول.</string>
   <string name="createDesc3">هام: يجب ألا يملك للطالب حسابات متعددة.</string>
   <string name="createDesc4">إذا كان لديهم واحد، استخدم نموذج الدعوة بدلاً من ذلك.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">فقط قم بإنشاء حسابات للطلاب الحقيقين. لا تقم بإنشاء حسابات متتعدة لنفسك و إلا ستتعرض للحظر.</string>
   <string name="lichessUsername">اسم المستخدم على ليتشيس</string>
   <string name="generateANewUsername">إنشاء اسم مستخدم جديد</string>
   <string name="welcomeToClass">مرحبا بك في فصلك: %s.
