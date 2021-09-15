@@ -49,12 +49,15 @@
   <string name="blackResigned">Nigro rezignis</string>
   <string name="whiteLeftTheGame">Blanko forlasis la ludon</string>
   <string name="blackLeftTheGame">Nigro forlasis la ludon</string>
+  <string name="whiteDidntMove">Blanko ne movis</string>
+  <string name="blackDidntMove">Nigro ne movis</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Diskonigu ĉi tiun ligilon por inviti spektantojn al la ludo</string>
   <string name="theComputerAnalysisHasFailed">La komputila analizo ne sukcesis</string>
   <string name="viewTheComputerAnalysis">Vidi la komputilan analizon</string>
   <string name="requestAComputerAnalysis">Peti komputilan analizon</string>
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
+  <string name="computerAnalysisDisabled">Komputila analizo haveblas</string>
   <string name="analysis">Analiza tabulo</string>
   <string name="depthX">Profundo %s</string>
   <string name="usingServerAnalysis">Analizanta per servilo</string>
@@ -848,6 +851,7 @@
   <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">La ludanto, kiun vi reportis estis blokita</string>
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
