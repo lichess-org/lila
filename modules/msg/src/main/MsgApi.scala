@@ -173,7 +173,7 @@ final class MsgApi(
       case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
     }
 
-  def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
+  def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
     colls.thread
       .find($doc("users" -> user.id))
       .sort($sort desc "lastMsg.date")
@@ -185,14 +185,17 @@ final class MsgApi(
             .find($doc("tid" -> thread.id), msgProjection)
             .sort($sort desc "date")
             .cursor[Msg]()
-            .list(10)
+            .list(11)
             .flatMap { msgs =>
               lightUserApi async thread.other(user) map { contact =>
-                MsgConvo(
-                  contact | LightUser.fallback(thread other user),
-                  msgs,
-                  lila.relation.Relations(none, none),
-                  postable = false
+                ModMsgConvo(
+                  MsgConvo(
+                    contact | LightUser.fallback(thread other user),
+                    msgs.take(10),
+                    lila.relation.Relations(none, none),
+                    postable = false
+                  ),
+                  msgs.length == 11
                 )
               }
             }

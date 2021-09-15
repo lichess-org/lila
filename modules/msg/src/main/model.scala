@@ -9,3 +9,8 @@ case class MsgConvo(
     relations: Relations,
     postable: Boolean
 )
+
+case class ModMsgConvo(
+    convo: MsgConvo,
+    truncated: Boolean
+)
