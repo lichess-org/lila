@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Блог %s</string>
+  <string name="newPost">Новий допис</string>
+  <string name="saveDraft">Зберегти чернетку</string>
+  <string name="postTitle">Заголовок допису</string>
+  <string name="postIntro">Вступ допису</string>
+  <string name="postBody">Текст допису</string>
+  <string name="drafts">Чернетки</string>
+  <string name="published">Опубліковане</string>
+  <string name="publishOnYourBlog">Опублікувати у своєму блозі</string>
+  <string name="publishHelp">Якщо відмічено, цей допис буде опубліковано у вашому блозі. Якщо ні, то він буде приватним, у вашій чернетці дописів</string>
+</resources>
