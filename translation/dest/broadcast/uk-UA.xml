@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Посилання на трансляцію</string>
   <string name="currentRoundUrl">Посилання на поточний раунд</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
+  <string name="downloadAllRounds">Завантажити всі раунди</string>
 </resources>
