@@ -1,23 +1,24 @@
 package lila.history
 
+import chess.Speed
 import org.joda.time.{ DateTime, Days }
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import chess.Speed
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Perfs, User, UserRepo }
 
-final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(implicit
-    ec: scala.concurrent.ExecutionContext
+final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
+    implicit ec: scala.concurrent.ExecutionContext
 ) {
 
   import History._
 
-  def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
+  def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = withColl { coll =>
     val days = daysBetween(user.createdAt, completedAt)
     coll.update
       .one(
@@ -28,7 +29,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
       .void
   }
 
-  def add(user: User, game: Game, perfs: Perfs): Funit = {
+  def add(user: User, game: Game, perfs: Perfs): Funit = withColl { coll =>
     val isStd = game.ratingVariant.standard
     val changes = List(
       isStd.option("standard"                                               -> perfs.standard),
@@ -62,7 +63,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
   }
 
   // used for rating refunds
-  def setPerfRating(user: User, perf: PerfType, rating: Int): Funit = {
+  def setPerfRating(user: User, perf: PerfType, rating: Int): Funit = withColl { coll =>
     val days = daysBetween(user.createdAt, DateTime.now)
     coll.update
       .one(
@@ -75,30 +76,32 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
   private def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
-  def get(userId: String): Fu[Option[History]] = coll.one[History]($id(userId))
+  def get(userId: String): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
-    coll.primitiveOne[RatingsMap]($id(user.id), perf.key) dmap (~_)
+    withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key).dmap(~_))
 
   def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(Int, Int)]] =
-    coll.optionsByOrderedIds[Bdoc, User.ID](
-      users.map(_.id),
-      $doc(perfType.key -> true).some,
-      ReadPreference.secondaryPreferred
-    )(~_.string("_id")) map { hists =>
-      users zip hists map { case (user, doc) =>
-        val current      = user.perfs(perfType).intRating
-        val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
-        val previous =
-          doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
-            hist.foldLeft(hist.headOption.fold(current)(_._2)) {
-              case (_, (d, r)) if d < previousDate => r
-              case (acc, _)                        => acc
+    withColl(
+      _.optionsByOrderedIds[Bdoc, User.ID](
+        users.map(_.id),
+        $doc(perfType.key -> true).some,
+        ReadPreference.secondaryPreferred
+      )(~_.string("_id")) map { hists =>
+        users zip hists map { case (user, doc) =>
+          val current      = user.perfs(perfType).intRating
+          val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
+          val previous =
+            doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
+              hist.foldLeft(hist.headOption.fold(current)(_._2)) {
+                case (_, (d, r)) if d < previousDate => r
+                case (acc, _)                        => acc
+              }
             }
-          }
-        previous -> current
+          previous -> current
+        }
       }
-    }
+    )
 
   object lastWeekTopRating {
 
@@ -116,7 +119,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
                 s"${perf.key}.$d" -> BSONBoolean(true)
               }
             }
-            coll.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
+            withColl(_.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
               _.flatMap {
                 _.child(perf.key) map {
                   _.elements.foldLeft(currentRating) {
@@ -125,7 +128,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
                   }
                 }
               }
-            } dmap { _ | currentRating }
+            }).dmap(_ | currentRating)
           }
         }
     }
