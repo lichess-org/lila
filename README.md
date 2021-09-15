@@ -1,16 +1,17 @@
-# [lishogi.org](https://lishogi.org) - WIP
+# [lishogi.org](https://lishogi.org)
 
-![Lishogi homepage-Lishogi comes with light and dark theme, this screenshot shows dark.](https://user-images.githubusercontent.com/73843275/116246246-6e6d1c00-a787-11eb-9d64-cd1de919b162.png)
+![Lishogi homepage-Lishogi comes with light and dark theme, this screenshot shows both.](public/images/preview.png)
 
 Lila (li[shogi in sca]la) is a free online shogi game server focused on realtime gameplay and ease of use.
 
-It features a [search engine](https://lishogi.org/games/search),
-[computer analysis](https://lishogi.org/B8fAS7aW/gote) distributed with [shoginet](https://github.com/WandererXII/shoginet),
+It features a [server analysis](https://lishogi.org/B8fAS7aW/gote) distributed with [shoginet](https://github.com/WandererXII/shoginet),
+[local analysis](https://lishogi.org/analysis),
 [tournaments](https://lishogi.org/tournament),
 [simuls](https://lishogi.org/simul),
 [forums](https://lishogi.org/forum),
 [teams](https://lishogi.org/team),
-[tactic trainer](https://lishogi.org/training),
+[puzzles](https://lishogi.org/training),
+[search engine](https://lishogi.org/games/search),
 and a [shared analysis board](https://lishogi.org/study).
 
 Lishogi is [Lichess](https://lichess.org) rewritten for shogi.
