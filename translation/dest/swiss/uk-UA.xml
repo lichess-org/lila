@@ -24,6 +24,7 @@
   <string name="nextRound">Наступний тур</string>
   <string name="tournStartDate">Дата початку турніру</string>
   <string name="numberOfRounds">Кількість турів</string>
+  <string name="numberOfRoundsHelp">Непарна кількість раундів дозволяє оптимально балансувати колір.</string>
   <string name="roundInterval">Інтервал між турами</string>
   <string name="forbiddenPairings">Заборонені пари</string>
   <string name="forbiddenPairingsHelp">Нікнейми гравців, які не можуть грати разом (Родичі, наприклад). Два нікнейми на рядок, розділені пробілом.</string>
