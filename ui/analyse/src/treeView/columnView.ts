@@ -210,7 +210,10 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
     const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
-      hook: innerHTML(truncated, text => by + enrichText(text)),
+      hook: innerHTML(by + truncated, text => {
+        const s = text.split('</span>');
+        return by + enrichText(s[s.length - 1]);
+      }),
     });
   });
 }
