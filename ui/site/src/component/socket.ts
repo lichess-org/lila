@@ -162,7 +162,7 @@ export default class StrongSocket {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
-      } catch (e) {
+      } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
       if (!stack.includes('round.nvui')) setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000);
@@ -257,7 +257,7 @@ export default class StrongSocket {
     }
   };
 
-  debug = (msg: string, always = false) => {
+  debug = (msg: unknown, always = false) => {
     if (always || this.options.debug) console.debug(msg);
   };
 
@@ -278,7 +278,7 @@ export default class StrongSocket {
     }
   };
 
-  onError = (e: Event) => {
+  onError = (e: unknown) => {
     this.options.debug = true;
     this.debug('error: ' + JSON.stringify(e));
     this.tryOtherUrl = true;

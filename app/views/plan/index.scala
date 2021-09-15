@@ -313,7 +313,9 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
         ),
         dt(otherMethods()),
         dd(
-          "Lichess is registered with Benevity.",
+          "Lichess is ",
+          a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
+          ".",
           br,
           a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
           ".",

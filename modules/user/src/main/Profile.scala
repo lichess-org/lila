@@ -1,5 +1,7 @@
 package lila.user
 
+import cats.implicits._
+
 case class Profile(
     country: Option[String] = None,
     location: Option[String] = None,
@@ -16,9 +18,8 @@ case class Profile(
 ) {
 
   def nonEmptyRealName =
-    List(ne(firstName), ne(lastName)).flatten match {
-      case Nil   => none
-      case names => (names mkString " ").some
+    (ne(firstName) zip ne(lastName)) map { case (first, last) =>
+      s"$first $last"
     }
 
   def countryInfo = country flatMap Countries.info
@@ -43,6 +44,14 @@ case class Profile(
       rcfRating.map { OfficialRating("rcf", _) } orElse
       cfcRating.map { OfficialRating("cfc", _) } orElse
       dsbRating.map { OfficialRating("dsb", _) }
+
+  def filterTroll(troll: Boolean) = copy(
+    bio = bio ifFalse troll,
+    firstName = firstName ifFalse troll,
+    lastName = lastName ifFalse troll,
+    location = location ifFalse troll,
+    links = links ifFalse troll
+  )
 
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 }

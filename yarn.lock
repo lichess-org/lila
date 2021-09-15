@@ -287,6 +287,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
+"@types/web@=0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/web/-/web-0.0.32.tgz#f0fd2a26f49719fe999a6a7edc7a37d13b288bec"
+  integrity sha512-P6r3FT1Ta4ClRVQylpanWN25tYn9fVb68b1eA2thEr5CxjxKJBZMCMXy+di+p3cHVZ0xiqKKLE2cr6iKdgDY2w==
+
 "@types/webrtc@^0.0.27":
   version "0.0.27"
   resolved "https://registry.yarnpkg.com/@types/webrtc/-/webrtc-0.0.27.tgz#cf9118fa0ac54e530f0ee16c45b8e34df70ef47d"
@@ -5462,10 +5467,10 @@ types-serviceworker@^0.0.1:
   resolved "https://registry.yarnpkg.com/types-serviceworker/-/types-serviceworker-0.0.1.tgz#3d356e176d3b987d2164b34e609c591e67d31f1c"
   integrity sha512-EKO/SZ3AsHEZsqv+bsdlTCz5k955riOksnYGlG6JhVwNTVsPWj/TScTbiNVZ5+mmX8TcEXF0C8aSxUw0jTDpIw==
 
-typescript@^4.3.5:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
-  integrity sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
+typescript@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
+  integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
 
 unc-path-regex@^0.1.2:
   version "0.1.2"

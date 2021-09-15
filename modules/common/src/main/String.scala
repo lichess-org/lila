@@ -84,7 +84,8 @@ object String {
   }
 
   // https://www.compart.com/en/unicode/block/U+1F300
-  def removeMultibyteSymbols(str: String): String = str.replaceAll("\\p{So}+", "")
+  private val multibyteSymbolsRegex               = "\\p{So}+".r
+  def removeMultibyteSymbols(str: String): String = multibyteSymbolsRegex.replaceAllIn(str, "")
 
   def fullCleanUp(str: String) = removeMultibyteSymbols(removeGarbageChars(normalize(str.trim)))
 

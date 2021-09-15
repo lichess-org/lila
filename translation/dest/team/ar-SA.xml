@@ -41,6 +41,7 @@
   </plurals>
   <string name="willBeReviewed">سيتم النظر في طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
+  <string name="requestDeclined">طلب انضمامك للفريق قد تم رفضه من قبل القائد.</string>
   <string name="subToTeamMessages">الاشتراك في رسائل الفريق</string>
   <string name="teamBattle">معركة الفرق</string>
   <string name="teamBattleOverview">معركة بين مجموعة فرق، كل لاعب يحرز النقاط لفريقه</string>
@@ -64,4 +65,5 @@
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
   <string name="upcomingTourns">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">الطلبات المرفوضة</string>
 </resources>

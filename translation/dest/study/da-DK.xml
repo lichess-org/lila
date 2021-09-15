@@ -42,14 +42,14 @@
   <string name="pgnTags">PGN tags</string>
   <string name="like">Synes godt om</string>
   <string name="newTag">Nyt tag</string>
-  <string name="commentThisPosition">Kommenter på denne position</string>
+  <string name="commentThisPosition">Kommenter på denne stilling</string>
   <string name="commentThisMove">Kommenter på dette træk</string>
   <string name="annotateWithGlyphs">Annoter med glyffer</string>
   <string name="theChapterIsTooShortToBeAnalysed">Dette kapitel er for kort til at blive analyseret.</string>
   <string name="onlyContributorsCanRequestAnalysis">Kun studiets bidragsydere kan anmode om en computeranalyse.</string>
   <string name="getAFullComputerAnalysis">Få en fuld server-computeranalyse af hovedlinjen.</string>
   <string name="makeSureTheChapterIsComplete">Sikr dig at kapitlet er færdigt. Du kan kun anmode om analyse én gang.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC medlemmer forbliver på samme position</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC medlemmer forbliver på samme stilling</string>
   <string name="shareChanges">Del ændringer med tilskuere og gem dem på serveren</string>
   <string name="playing">Spiller</string>
   <string name="first">Første</string>
@@ -65,7 +65,7 @@
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Du kan indsætte dette i forummet for at indlejre</string>
-  <string name="startAtInitialPosition">Start ved indledende position</string>
+  <string name="startAtInitialPosition">Start ved indledende stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside eller blog</string>
   <string name="readMoreAboutEmbedding">Læs mere om indlejring</string>
@@ -90,11 +90,11 @@
   <string name="interactiveLesson">Interaktiv lektion</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Tom</string>
-  <string name="startFromInitialPosition">Start ved indledende position</string>
+  <string name="startFromInitialPosition">Start ved indledende stilling</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Start fra brugerdefinerede position</string>
+  <string name="startFromCustomPosition">Start fra brugerdefinerede stilling</string>
   <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
-  <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
+  <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -118,7 +118,7 @@
   <string name="members">Medlemmer</string>
   <string name="everyone">Enhver</string>
   <string name="enableSync">Aktiver synk</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle på den samme position</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle på den samme stilling</string>
   <string name="noLetPeopleBrowseFreely">Nej: lad folk gennemse frit</string>
   <string name="pinnedStudyComment">Fastgjort studie-kommentar</string>
   <string name="start">Start</string>
@@ -136,8 +136,8 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Tvivlsomt træk</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Eneste mulige træk</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
-  <string name="equalPosition">Lige position</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret position</string>
+  <string name="equalPosition">Lige stilling</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Uafklaret stilling</string>
   <string name="whiteIsSlightlyBetter">Hvid står lidt bedre</string>
   <string name="blackIsSlightlyBetter">Sort står lidt bedre</string>
   <string name="whiteIsBetter">Hvid står bedre</string>

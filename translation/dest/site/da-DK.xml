@@ -19,7 +19,7 @@
   <string name="white">Hvid</string>
   <string name="black">Sort</string>
   <string name="randomColor">Tilfældig farve</string>
-  <string name="createAGame">Start et parti</string>
+  <string name="createAGame">Opret et parti</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
@@ -31,20 +31,20 @@
   <string name="raceFinished">Race færdigt</string>
   <string name="variantEnding">Variantafslutning</string>
   <string name="newOpponent">Ny modstander</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt parti</string>
   <string name="joinTheGame">Deltag i spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Din modstander har forladt spillet. Du kan kræve sejr om %s sekund.</item>
-    <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
+    <item quantity="one">Din modstander har forladt partiet. Du kan kræve sejr om %s sekund.</item>
+    <item quantity="other">Din modstander har forladt partiet. Du kan kræve sejr om %s sekunder.</item>
   </plurals>
-  <string name="opponentLeftChoices">Din modstander har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
+  <string name="opponentLeftChoices">Din modstander har forladt partiet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
   <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
-  <string name="forceDraw">Fremtving remis</string>
+  <string name="forceDraw">Kræv remis</string>
   <string name="talkInChat">Husk den gode tone i chatten!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander.</string>
   <string name="whiteResigned">Hvid opgav</string>
   <string name="blackResigned">Sort opgav</string>
   <string name="whiteLeftTheGame">Hvid forlod partiet</string>
@@ -87,7 +87,7 @@
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
-  <string name="masterDbExplanation">To millioner ikke online spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millioner ikke-online partier af %1$s+ FIDE-ratede spillere fra %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
@@ -113,7 +113,7 @@
   <string name="openStudy">Åben studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
-  <string name="evaluationGauge">Evalueringsbar</string>
+  <string name="evaluationGauge">Evalueringsindikator</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
@@ -148,8 +148,8 @@
   <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
-    <item quantity="one">Se %s parti</item>
-    <item quantity="other">Se alle %s partier</item>
+    <item quantity="one">%s parti</item>
+    <item quantity="other">%s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bogmærke</item>
@@ -445,12 +445,12 @@
   <string name="boardEditor">Opstilling</string>
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
-  <string name="endgamePositions">Slutspilspositioner</string>
+  <string name="endgamePositions">Slutspilsstillinger</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
-  <string name="loadPosition">Indlæs position</string>
+  <string name="loadPosition">Indlæs stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
@@ -863,7 +863,7 @@
   <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nogen du rapporterede blev udelukket</string>
   <string name="congratsYouWon">Tillykke, du vandt!</string>
-  <string name="gameVsX">Spil mod %1$s</string>
+  <string name="gameVsX">Parti mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
   <string name="newPendingReview">Ny afventende gennemgang</string>
@@ -889,10 +889,10 @@ og påvirker spilleres ratings</string>
   <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
   <string name="onlyTitled">Kun spilere med titel</string>
   <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
-  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given position.
+  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given stilling.
 Det virker kun for standardspil, ikke med varianter.
-Du kan bruge %s til at generere en FEN-position og derefter indsætte den her.
-Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
+Du kan bruge %s til at generere en FEN-stilling og derefter indsætte den her.
+Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="cancelSimul">Annuller simultanen</string>
   <string name="simulHostcolor">Værtsfarve for hvert parti</string>
   <string name="estimatedStart">Anslået starttidspunkt</string>

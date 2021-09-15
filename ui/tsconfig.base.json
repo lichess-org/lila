@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "target": "ES2017",
     "module": "esnext",
-    "lib": ["DOM", "ES2017", "DOM.iterable"],
-    "types": ["lichess"]
+    "lib": ["ES2017"],
+    "types": ["lichess", "web"]
   }
 }

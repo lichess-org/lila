@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "typescript": "^4.3.5"
+    "@types/web": "=0.0.32",
+    "typescript": "^4.4.3"
   }
 }

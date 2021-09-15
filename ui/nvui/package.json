@@ -30,7 +30,8 @@
   "devDependencies": {
     "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
-    "typescript": "^4.3.5"
+    "@types/web": "=0.0.32",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "chess": "2.0.0",

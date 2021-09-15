@@ -23,7 +23,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       )
       .add("disabled" -> u.disabled)
       .add("tosViolation" -> u.lame)
-      .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
+      .add("profile" -> u.profile.map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull))
       .add("seenAt" -> u.seenAt)
       .add("patron" -> u.isPatron)
       .add("playTime" -> u.playTime)
