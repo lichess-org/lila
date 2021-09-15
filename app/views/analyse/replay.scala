@@ -173,7 +173,7 @@ object replay {
                     }
                   )(trans.computerAnalysis()),
                 !game.isPgnImport option frag(
-                  game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
+                  (game.turns > 1 && !game.isCorrespondence) option span(dataPanel := "move-times")(trans.moveTimes()),
                   cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
                 ),
                 span(dataPanel := "fen-kif")(raw("SFEN &amp; Kif"))
