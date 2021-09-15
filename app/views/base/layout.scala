@@ -158,7 +158,7 @@ object layout {
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")
 
-  val transpBgProxy             = "https://lishogi-proxy.vercel.app/api/?url="
+  val transpBgProxy             = "https://lishogi.ovh/trbg/"
 
   def apply(
       title: String,
