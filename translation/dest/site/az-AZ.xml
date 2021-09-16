@@ -867,7 +867,18 @@
   <string name="download">Endir</string>
   <string name="welcome">Xoş Gəldiniz!</string>
   <string name="cancelTournament">Müsabiqəni ləğv et</string>
+  <string name="tournDescription">Turnir açıqlaması</string>
   <string name="onlyMembersOfTeam">Yalnız qrup üzvləri</string>
+  <string name="noRestriction">Məhdudiyyət yoxdur</string>
+  <string name="minimumRatedGames">Minimum reytinqli oyunlar</string>
+  <string name="minimumRating">Minimum reyting</string>
+  <string name="maximumWeeklyRating">Maksimum həftəlik reyting</string>
+  <string name="onlyTitled">Ancaq titullu oyunçular</string>
+  <string name="onlyTitledHelp">Turnirə qoşulmaq üçün rəsmi titul tələb edir</string>
+  <string name="cancelSimul">Simulu ləğv et</string>
   <string name="noChat">Söhbətsiz</string>
   <string name="onlyTeamLeaders">Yalnız qrup lideri</string>
+  <string name="onlyTeamMembers">Ancaq klub üzvləri</string>
+  <string name="playComputerMove">Ən yaxşı komputer gedişlərini oyna</string>
+  <string name="tournamentEntryCode">Turnirə giriş kodu</string>
 </resources>
