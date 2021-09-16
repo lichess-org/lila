@@ -879,8 +879,10 @@ export default class AnalyseCtrl {
   };
 
   togglePractice = () => {
-    if (this.practice || !this.ceval.possible) this.practice = undefined;
-    else {
+    if (this.practice || !this.ceval.possible) {
+      this.practice = undefined;
+      this.showGround();
+    } else {
       if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
       this.practice = makePractice(this, () => {
@@ -888,8 +890,8 @@ export default class AnalyseCtrl {
         // lower to 18 after task completion (or failure)
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
+      this.setAutoShapes();
     }
-    this.setAutoShapes();
   };
 
   restartPractice() {
