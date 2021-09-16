@@ -72,7 +72,23 @@
     text-align: right;
 
     button {
-      margin-left: .3em;
+      margin-left: 0.3em;
+    }
+  }
+
+  @include breakpoint($mq-not-xx-small) {
+    padding: $block-gap 1em;
+
+    td {
+      max-width: 50vw;
+    }
+
+    td:first-child {
+      margin-right: 1rem;
+    }
+
+    tr.variant .checkable {
+      width: 50%;
     }
   }
 }

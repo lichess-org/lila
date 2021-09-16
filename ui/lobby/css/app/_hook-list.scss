@@ -58,6 +58,16 @@
     &.player {
       width: 110px;
     }
+
+    @include breakpoint($mq-not-xx-small) {
+      &:nth-child(2) {
+        max-width: 7ch;
+        direction: rtl;
+        text-align: left;
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
   }
 
   td {
@@ -85,6 +95,26 @@
 
     ::before {
       opacity: 0.6;
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      padding: 0.5em 0.4em;
+
+      &:first-child {
+        padding-left: 0.7em;
+      }
+
+      // player name
+      &:nth-child(2) {
+        @include elipsis;
+        max-width: 25vw;
+      }
+
+      // rated/casual
+      &:last-child {
+        @include elipsis;
+        max-width: 10vw;
+      }
     }
   }
 
