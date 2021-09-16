@@ -49,12 +49,15 @@
   <string name="blackResigned">Les negres s\'han rendit</string>
   <string name="whiteLeftTheGame">Les blanques han abandonat la partida</string>
   <string name="blackLeftTheGame">Les negres han abandonat la partida</string>
+  <string name="whiteDidntMove">Les blanques no van moure</string>
+  <string name="blackDidntMove">Les negres no van moure</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparteix aquesta URL perquè els espectadors puguin veure la partida</string>
   <string name="theComputerAnalysisHasFailed">L\'anàlisi computeritzada ha fallat</string>
   <string name="viewTheComputerAnalysis">Veure l\'anàlisi computeritzada</string>
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="computerAnalysisAvailable">Anàlisi de l\'ordinador disponible</string>
+  <string name="computerAnalysisDisabled">Anàlisi d\'ordinador desactivat</string>
   <string name="analysis">Tauler d\'anàlisi</string>
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
@@ -89,12 +92,17 @@
     <item quantity="one">Mat en %s mig-moviment</item>
     <item quantity="other">Mat en %s mig-moviments</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més partides des d\'el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
+  <string name="openingEndgameExplorer">Explorador d\'apertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
   <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
+  <string name="winOr50MovesByPriorMistake">Victòria o empat per 50 moviments per un error anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Perdùa o empat per un error anterior</string>
+  <string name="unknownDueToRounding">Victòria o pèrdua només garantida si la línia recomanada ha sigut seguida des de l\'última capture o moviment de peó, degut a possible arrodoniment.</string>
   <string name="allSet">Tot a punt!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Suprimir</string>
@@ -437,6 +445,8 @@
   <string name="boardEditor">Editor del tauler</string>
   <string name="setTheBoard">Establir el tauler</string>
   <string name="popularOpenings">Obertures populars</string>
+  <string name="endgamePositions">Posicions dels finals</string>
+  <string name="chess960StartPosition">Posició inicial de Chess960: %s</string>
   <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Neteja el tauler</string>
   <string name="savePosition">Desa la posició</string>
