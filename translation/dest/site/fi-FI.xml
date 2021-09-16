@@ -92,6 +92,7 @@
     <item quantity="one">Matti %s puolisiirrolla</item>
     <item quantity="other">Matti %s puolisiirrolla</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' pyöristettynä, puolisiirtojen määrä seuraavaan lyöntiin tai sotilaan siirtoon</string>
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
   <string name="openingExplorer">Avaustietokanta</string>
