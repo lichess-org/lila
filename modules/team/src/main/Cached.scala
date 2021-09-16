@@ -37,19 +37,18 @@ final class Cached(
           import framework._
           Match($doc("_id" $startsWith s"$u@")) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.size + 1, -1)))),
-            Group(BSONNull)("ids" -> PushField("_id")),
             PipelineOperator(
               $doc(
                 "$lookup" -> $doc(
                   "from" -> teamRepo.coll.name,
                   "as"   -> "team",
-                  "let"  -> $doc("ids" -> "$ids"),
+                  "let"  -> $doc("id" -> "$_id"),
                   "pipeline" -> $arr(
                     $doc(
                       "$match" -> $doc(
                         "$expr" -> $doc(
                           "$and" -> $arr(
-                            $doc("$in" -> $arr("$_id", "$$ids")),
+                            $doc("$eq" -> $arr("$_id", "$$id")),
                             $doc("$eq" -> $arr("$enabled", true))
                           )
                         )
