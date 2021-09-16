@@ -5,18 +5,18 @@
   <string name="emailConfirm_ignore">Si no t\'has registrat a Lichess, pots ignorar tranquil·lament aquest missatge.</string>
   <string name="passwordReset_subject">Restableix la teva contrasenya de lichess.org, %s</string>
   <string name="passwordReset_intro">Hem rebut una sol·licitud per restablir la contrasenya del teu compte.</string>
-  <string name="passwordReset_clickOrIgnore">Si has fet aquesta petició, clica l\'enllaç de sota. Sino, pots ignorar aquest correu.</string>
+  <string name="passwordReset_clickOrIgnore">Si has fet aquesta petició, clica l\'enllaç de sota. Sinó, pots ignorar aquest correu.</string>
   <string name="emailChange_subject">Confirma l\'adreça de correu electrònic, %s</string>
-  <string name="emailChange_intro">Heu demanat canviar el correu electrònic.</string>
+  <string name="emailChange_intro">Has demanat canviar el correu electrònic.</string>
   <string name="emailChange_click">Per confirmar que teniu accés a aquest correu electrònic, feu clic a l\'enllaç següent:</string>
   <string name="welcome_subject">Benvinguts a lichess.org, %s</string>
   <string name="welcome_text">Heu creat correctament el vostre compte en https://lichess.org.
 
-Aquí teniu la pàgina del perfil: %1$s. Podeu personalitzar-la a %2$s.
+Aquí està la teva pàgina de perfil: %1$s. Pots personalitzar-la a %2$s.
 
-Divertiu-vos, i porteu les peces sempre a trobar el seu camí cap al rei del teu oponent!</string>
+Diverteix-te, i esperem que les teves peces sempre trobin el camí cap al rei del teu oponent!</string>
   <string name="logInToLichess">Inicia sessió a lichess.org, %s</string>
-  <string name="common_orPaste">(No funciona clicar? Prova enganxant-ho en el navegador!)</string>
+  <string name="common_orPaste">(No pots clicar? Prova enganxant-ho en el navegador!)</string>
   <string name="common_note">Aquest és un correu de servei relatiu al teu ús de %s.</string>
   <string name="common_contact">Per contactar amb nosaltres, si us plau usa %s.</string>
 </resources>
