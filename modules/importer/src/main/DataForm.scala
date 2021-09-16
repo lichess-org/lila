@@ -35,6 +35,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
   private type TagPicker = Tag.type => TagType
 
   private val maxPlies = 600
+  private val maxLength = 32768 // only for storage
 
   private def evenIncomplete(result: Reader.Result): Replay =
     result match {
@@ -91,7 +92,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
             gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
             source = Source.Import,
-            pgnImport = PgnImport.make(user = user, date = date, kif = kif).some
+            pgnImport = PgnImport.make(user = user, date = date, kif = kif.take(maxLength)).some
           )
           .sloppy
           .start pipe { dbGame =>
