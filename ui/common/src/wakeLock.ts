@@ -1,30 +1,22 @@
 let wakeLock: WakeLockSentinel | null = null;
 
-export const request = () => {
+export const request = async () => {
   if ('wakeLock' in navigator)
     try {
-      navigator.wakeLock
-        .request('screen')
-        .then(sentinel => {
-          wakeLock = sentinel;
-        })
-        .catch((error: Error) => {
-          console.error('wakeLock - request failed: ' + error.message);
-        });
+      wakeLock = await navigator.wakeLock.request('screen');
     } catch (e) {
-      console.error(e);
+      console.error('wakeLock - request failed: ' + e);
     }
 };
 
-export const release = () =>
-  wakeLock
-    ?.release()
-    .then(() => {
-      wakeLock = null;
-    })
-    .catch((error: Error) => {
-      console.error('wakeLock - release failed: ' + error.message);
-    });
+export const release = async () => {
+  try {
+    await wakeLock?.release();
+    wakeLock = null;
+  } catch (e) {
+    console.error('wakeLock - release failed: ' + e);
+  }
+};
 
 // re-request wakeLock if user switches tabs
 document.addEventListener('visibilitychange', () => {
