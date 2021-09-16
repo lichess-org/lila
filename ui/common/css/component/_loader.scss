@@ -1,48 +1,46 @@
 /* circular loader */
-@keyframes spinner-rotate {
-  100% {
-    transform: rotate(360deg);
+@keyframes mask1 {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  17.86% {
+    stroke-dashoffset: 0;
   }
 }
 
-@keyframes spinner-dash {
-  0%,
-  10% {
-    stroke-dasharray: 1, 270;
-    stroke-dashoffset: 0;
+@keyframes mask2 {
+  0% {
+    stroke-dashoffset: 1;
   }
-
-  40% {
-    stroke-dasharray: 89, 240;
-    stroke-dashoffset: 0;
+  17.86% {
+    stroke-dashoffset: 1;
   }
-
-  100% {
-    stroke-dasharray: 1, 240;
-    stroke-dashoffset: -110;
+  31.43% {
+    stroke-dashoffset: 0;
   }
 }
 
-@keyframes spinner-color {
-  0%,
-  20%,
-  100% {
-    stroke: #42a5f5;
+@keyframes mask3 {
+  0% {
+    stroke-dashoffset: 1;
   }
-
-  30%,
-  45% {
-    stroke: #f44336;
+  31.43% {
+    stroke-dashoffset: 1;
   }
-
-  50%,
-  70% {
-    stroke: #fdd835;
+  85% {
+    stroke-dashoffset: 0;
   }
+}
 
-  75%,
-  95% {
-    stroke: #4caf50;
+#mask {
+  path:nth-child(1) {
+    animation: mask1 2s cubic-bezier(0.417, 0.086, 0.741, 0.452) infinite;
+  }
+  path:nth-child(2) {
+    animation: mask2 2s cubic-bezier(0.333, 0.317, 0.621, 0.661) infinite;
+  }
+  path:nth-child(3) {
+    animation: mask3 2s cubic-bezier(0, 0, 0.431, 1) infinite;
   }
 }
 
@@ -51,18 +49,8 @@
   height: 70px;
   margin: auto;
 
-  svg {
-    animation: spinner-rotate 1.5s linear infinite;
-  }
-
-  circle {
-    stroke: #42a5f5;
-    stroke-width: 4;
-    animation: spinner-dash 1.275s ease-in-out infinite, spinner-color 5.1s linear infinite;
-  }
-
-  .white & circle {
-    animation: spinner-dash 1.275s ease-in-out infinite;
+  .white & path {
+    fill: #fff;
     stroke: #fff;
   }
 }
