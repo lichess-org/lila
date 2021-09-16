@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Juga amb la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquesta URL</string>
   <string name="gameOver">Partida finalitzada</string>
-  <string name="waitingForOpponent">Esperant a l\'oponent</string>
+  <string name="waitingForOpponent">Esperant a l\'adversari</string>
   <string name="waiting">Esperant</string>
   <string name="yourTurn">El teu torn</string>
   <string name="aiNameLevelAiLevel">%1$s nivell %2$s</string>
@@ -18,7 +18,7 @@
   <string name="stalemate">Ofegat</string>
   <string name="white">Blanques</string>
   <string name="black">Negres</string>
-  <string name="randomColor">Color a l\'atzar</string>
+  <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
@@ -66,10 +66,10 @@
   <string name="goDeeper">Aprofundir</string>
   <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
-  <string name="toggleLocalEvaluation">Activar avaluació local</string>
+  <string name="toggleLocalEvaluation">Activar anàlisi local</string>
   <string name="promoteVariation">Promoure variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
-  <string name="deleteFromHere">Esborrar des d\'aquí</string>
+  <string name="deleteFromHere">Esborrar d\'aquí</string>
   <string name="forceVariation">Forçar variant</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
@@ -268,7 +268,7 @@
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <plurals name="nbRated">
     <item quantity="one">%s per punts</item>
-    <item quantity="other">%s per punts</item>
+    <item quantity="other">%s puntuats</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victòries</item>
@@ -924,4 +924,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="tournamentEntryCode">Codi per entrar el tornament</string>
   <string name="hangOn">Un moment!</string>
   <string name="gameInProgress">Tens una partida començada amb %s.</string>
+  <string name="abortTheGame">Avortar el joc</string>
 </resources>
