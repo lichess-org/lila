@@ -52,7 +52,7 @@
     &.sort .is:before {
       opacity: 0.7;
       margin-right: 3px;
-      content: "";
+      content: '';
     }
 
     &.player {
@@ -73,7 +73,7 @@
   td {
     @extend %nowrap-hidden;
 
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
     background: fade-out($c-bg-box, 0.5);
