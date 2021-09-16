@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Tautan siaran</string>
   <string name="currentRoundUrl">Tautan ronde ini</string>
   <string name="currentGameUrl">Tautan permainan ini</string>
+  <string name="downloadAllRounds">Unduh semua ronde</string>
 </resources>
