@@ -13,7 +13,8 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     val default: A,
     val text: Option[String],
     persist: Boolean,
-    init: SettingStore.Init[A]
+    init: SettingStore.Init[A],
+    onSet: A => Funit
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SettingStore.{ dbField, ConfigValue, DbValue }
@@ -25,7 +26,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
   def set(v: A): Funit = {
     value = v
     persist ?? coll.update.one(dbId, $set(dbField -> v), upsert = true).void
-  }
+  } >> onSet(v)
 
   def form: Form[_] = implicitly[SettingStore.Formable[A]] form value
 
@@ -52,8 +53,9 @@ object SettingStore {
         default: A,
         text: Option[String] = None,
         persist: Boolean = true,
-        init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value
-    ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init)
+        init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value,
+        onSet: A => Funit = (_: A) => funit
+    ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init, onSet = onSet)
   }
 
   final class StringReader[A](val read: String => Option[A])
