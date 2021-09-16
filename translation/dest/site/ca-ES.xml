@@ -875,10 +875,31 @@
   <string name="welcome">Benvinguts!</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
+  <string name="coachManager">Gestionament d\'entrenador</string>
+  <string name="streamerManager">Gestionament de retransmissor</string>
   <string name="cancelTournament">Cancel-lar el torneig</string>
   <string name="tournDescription">Descripció del torneig</string>
+  <string name="tournDescriptionHelp">Cap cosa per mencionar als participants? Intenta mantenir-ho curt. Enllaços utilitzant Markdown estan disponibles: [nom](https://url)</string>
+  <string name="ratedFormHelp">Els jocs són puntuats
+i impacten les puntuacions dels jugadors</string>
   <string name="onlyMembersOfTeam">Només membres de l\'equip</string>
   <string name="noRestriction">Sense restriccions</string>
+  <string name="minimumRatedGames">Mínims partits puntuats</string>
+  <string name="minimumRating">Puntuació mínima</string>
+  <string name="maximumWeeklyRating">Puntuació màxima aquesta setmana</string>
+  <string name="onlyTitled">Només jugadors titulats</string>
   <string name="onlyTitledHelp">Es necessita un títol oficial per entrar en el torneig</string>
+  <string name="positionInputHelp">Enganxa un FEN vàlid per començar cada joc d\'una posició donada.
+Només funciona per jocs estàndard, no per a variants.
+Pots utilitzar l\'%s per generar una posició FEN, i després enganxar-ho aquí.
+Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
+  <string name="cancelSimul">Cancel·la la simultània</string>
+  <string name="simulHostcolor">Banda de l\'amfitrió cada joc</string>
+  <string name="estimatedStart">Temps de començament aproximada</string>
+  <string name="simulFeatured">Mostrar a %s</string>
+  <string name="simulFeaturedHelp">Mostra la teva simultània a tothom a %s. Desactiva-ho per a simultànies privades.</string>
+  <string name="simulDescription">Descripció de la simultània</string>
+  <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
+  <string name="markdownAvailable">%s és disponible per a formats més avançats.</string>
   <string name="gameInProgress">Tens una partida començada amb %s.</string>
 </resources>
