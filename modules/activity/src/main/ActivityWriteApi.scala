@@ -1,7 +1,5 @@
 package lila.activity
 
-import org.joda.time.DateTime
-
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.game.Game
@@ -34,7 +32,7 @@ final class ActivityWriteApi(
             ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
           )
           setters = setGames ++ setCorres
-          _ <- (!setters.isEmpty) ?? coll.update.one($id(a.id), $set(setters)).void
+          _ <- (!setters.isEmpty) ?? coll.update.one($id(a.id), $set(setters), upsert = true).void
         } yield ()
       }
       .sequenceFu
@@ -44,30 +42,41 @@ final class ActivityWriteApi(
   def forumPost(post: lila.forum.Post): Funit = withColl { coll =>
     post.userId.filter(User.lichessId !=) ?? { userId =>
       getOrCreate(userId) flatMap { a =>
-        coll.updateField($id(a.id), ActivityFields.forumPosts, (~a.forumPosts + ForumPostId(post.id))).void
+        coll.update
+          .one(
+            $id(a.id),
+            $set(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id))),
+            upsert = true
+          )
+          .void
       }
     }
   }
 
   def ublogPost(post: lila.ublog.UblogPost): Funit = withColl { coll =>
     getOrCreate(post.created.by) flatMap { a =>
-      coll
-        .updateField($id(a.id), ActivityFields.ublogPosts, (~a.ublogPosts + UblogPostId(post.id.value)))
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.ublogPosts -> (~a.ublogPosts + UblogPostId(post.id.value))),
+          upsert = true
+        )
         .void
     }
   }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = withColl { coll =>
     getOrCreate(res.userId) flatMap { a =>
-      coll
-        .updateField(
+      coll.update
+        .one(
           $id(a.id),
-          ActivityFields.puzzles, {
+          $set(ActivityFields.puzzles -> {
             ~a.puzzles + Score.make(
               res = res.result.win.some,
               rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
             )
-          }
+          }),
+          upsert = true
         )
         .void
     }
@@ -75,19 +84,37 @@ final class ActivityWriteApi(
 
   def storm(userId: User.ID, score: Int): Funit = withColl { coll =>
     getOrCreate(userId) flatMap { a =>
-      coll.updateField($id(a.id), ActivityFields.storm, { ~a.storm + score }).void
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.storm -> { ~a.storm + score }),
+          upsert = true
+        )
+        .void
     }
   }
 
   def racer(userId: User.ID, score: Int): Funit = withColl { coll =>
     getOrCreate(userId) flatMap { a =>
-      coll.updateField($id(a.id), ActivityFields.racer, { ~a.racer + score }).void
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.racer -> { ~a.racer + score }),
+          upsert = true
+        )
+        .void
     }
   }
 
   def streak(userId: User.ID, score: Int): Funit = withColl { coll =>
     getOrCreate(userId) flatMap { a =>
-      coll.updateField($id(a.id), ActivityFields.streak, { ~a.streak + score }).void
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.streak -> { ~a.streak + score }),
+          upsert = true
+        )
+        .void
     }
   }
 
@@ -172,17 +199,10 @@ final class ActivityWriteApi(
       a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some
     }
 
-  private def get(userId: User.ID) = withColl(_.byId[Activity, Id](Id today userId))
-  private def getOrCreate(userId: User.ID) = get(userId) flatMap {
-    case Some(a) => fuccess(a)
-    case None =>
-      val a = Activity make userId
-      withColl(
-        _.insert.one(activityHandler.write(a) ++ $doc("d" -> a.id.day.toDate)).void
-      ) inject a
-  }
+  private def get(userId: User.ID)         = withColl(_.byId[Activity, Id](Id today userId))
+  private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
   private def save(activity: Activity) = withColl(
-    _.update.one($id(activity.id), $set(activityHandler write activity)).void
+    _.update.one($id(activity.id), activity, upsert = true).void
   )
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =
     getOrCreate(userId) flatMap { old =>
