@@ -109,10 +109,10 @@ final class UblogRank(colls: UblogColls, timeline: lila.hub.actors.Timeline)(imp
       tier: UblogBlog.Tier
   ) = UblogPost.Rank {
     liveAt plusHours {
-      val tierLikes = likes.value + ((tier - 2) * 4).atLeast(0) // initial boost
+      val tierLikes = likes.value + ((tier - 2) * 5).atLeast(0) // initial boost
       val likeHours =
         if (tierLikes < 1) 0
-        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 8
+        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 5
       val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
         case 0 => 0.3
         case 1 => 1
