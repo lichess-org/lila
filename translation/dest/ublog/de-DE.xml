@@ -19,7 +19,7 @@
     <item quantity="one">Einmal angesehen</item>
     <item quantity="other">%s mal angesehen</item>
   </plurals>
-  <string name="xPublishedY">%1$s veröffentlichte %2$s</string>
+  <string name="xPublishedY">%1$s hat %2$s veröffentlicht</string>
   <string name="thisPostIsPublished">Dieser Beitrag wurde veröffentlicht</string>
   <string name="thisIsADraft">Dies ist ein Entwurf</string>
   <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s</string>
@@ -30,5 +30,5 @@
     <item quantity="one">Einen Beitrag anzeigen</item>
     <item quantity="other">Alle %s Beiträge anzeigen</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Ein Bild für deinen Beitrag hochladen</string>
+  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Ein Bild für deinen Beitrag hochladen</string>
 </resources>
