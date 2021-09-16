@@ -67,6 +67,8 @@
   <string name="deleteChapter">Kapitel läschen</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Eidel</string>
+  <string name="editor">Editor</string>
+  <string name="automatic">Automatesch</string>
   <string name="createChapter">Kapitel kréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
   <string name="editStudy">Etüd änneren</string>
@@ -77,7 +79,9 @@
   <string name="allowCloning">Klonen erlaaben</string>
   <string name="nobody">Keen</string>
   <string name="onlyMe">Just ech</string>
+  <string name="members">Memberen</string>
   <string name="everyone">Jiddereen</string>
+  <string name="enableSync">Synchronisatioun aktivéieren</string>
   <string name="start">Lass</string>
   <string name="save">Späicheren</string>
   <string name="deleteStudy">Etüd läschen</string>
