@@ -1,6 +1,8 @@
 package lila.ublog
 
+
 import cats.implicits._
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 import reactivemongo.api._
@@ -8,9 +10,14 @@ import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
+import lila.memo.SettingStore
 import lila.user.User
 
-final class UblogRank(colls: UblogColls, timeline: lila.hub.actors.Timeline)(implicit ec: ExecutionContext) {
+final class UblogRank(
+    colls: UblogColls,
+    timeline: lila.hub.actors.Timeline,
+    factor: SettingStore[Int] @@ UblogRankFactor
+)(implicit ec: ExecutionContext) {
 
   import UblogBsonHandlers._
 
@@ -112,7 +119,7 @@ final class UblogRank(colls: UblogColls, timeline: lila.hub.actors.Timeline)(imp
       val tierLikes = likes.value + ((tier - 2) * 5).atLeast(0) // initial boost
       val likeHours =
         if (tierLikes < 1) 0
-        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * 5
+        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * factor.get()
       val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
         case 0 => 0.3
         case 1 => 1

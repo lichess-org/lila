@@ -2,6 +2,7 @@ package lila.ublog
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -17,6 +18,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
+    settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(implicit
     ec: scala.concurrent.ExecutionContext
@@ -25,6 +27,12 @@ final class Env(
   import net.{ assetBaseUrl, baseUrl }
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
+
+  val rankFactorSetting = settingStore[Int](
+    "ublogRankFactor",
+    default = 5,
+    text = "Ublog rank factor".some
+  ).taggedWith[UblogRankFactor]
 
   val topic = wire[UblogTopicApi]
 
@@ -53,3 +61,4 @@ final class Env(
 }
 
 final private class UblogColls(val blog: Coll, val post: Coll)
+trait UblogRankFactor
