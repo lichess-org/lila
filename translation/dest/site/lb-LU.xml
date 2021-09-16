@@ -187,7 +187,7 @@
     <item quantity="other">%s Stonnen</item>
   </plurals>
   <string name="time">Zäit</string>
-  <string name="rating">Wertung</string>
+  <string name="rating">Wäertung</string>
   <string name="ratingStats">Wäertungsstatistiken</string>
   <string name="username">Benotzernumm</string>
   <string name="usernameOrEmail">Benotzernumm oder Email</string>
