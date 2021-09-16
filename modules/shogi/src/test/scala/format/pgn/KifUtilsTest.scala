@@ -22,7 +22,8 @@ class KifUtilTest extends ShogiTest {
   "write kif situation - board, hands, turn, from random sfen" in {
       writeKifSituation(
         shogi.format.FEN("lnG6/2+P4+Sn/kp3+S3/2p6/1n7/9/9/7K1/9 w GS2r2b2gsn3l15p")
-      ) must_== """後手の持駒：飛二 角二 金二 銀 桂 香三 歩十五
+      ) must_== """後手の持駒：飛二　角二　金二　銀　桂　香三　歩十五
+  ９ ８ ７ ６ ５ ４ ３ ２ １
 +---------------------------+
 |v香v桂 金 ・ ・ ・ ・ ・ ・|一
 | ・ ・ と ・ ・ ・ ・ 全v桂|二
@@ -34,7 +35,7 @@ class KifUtilTest extends ShogiTest {
 | ・ ・ ・ ・ ・ ・ ・ 玉 ・|八
 | ・ ・ ・ ・ ・ ・ ・ ・ ・|九
 +---------------------------+
-先手の持駒：金 銀
+先手の持駒：金　銀
 後手番"""
   }
 

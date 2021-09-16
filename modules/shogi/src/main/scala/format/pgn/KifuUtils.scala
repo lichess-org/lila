@@ -221,11 +221,12 @@ object KifUtils {
           if (y > 1) kifBoard append '\n'
         }
         List(
-          sit.board.crazyData.fold("")(hs => "後手の持駒：" + writeHand(hs(Gote)).trim),
+          sit.board.crazyData.fold("")(hs => "後手の持駒：" + writeHand(hs(Gote))),
+          "  ９ ８ ７ ６ ５ ４ ３ ２ １",
           "+---------------------------+",
           kifBoard.toString,
           "+---------------------------+",
-          sit.board.crazyData.fold("")(hs => "先手の持駒：" + writeHand(hs(Sente)).trim),
+          sit.board.crazyData.fold("")(hs => "先手の持駒：" + writeHand(hs(Sente))),
           if (sit.color == Gote) "後手番" else ""
         ).filter(_.nonEmpty).mkString("\n")
       }
@@ -240,7 +241,7 @@ object KifUtils {
       if (cnt == 1) r.kif
       else if (cnt > 1) r.kif + intToKanji(cnt)
       else ""
-    } mkString " "
+    }.filter(_.nonEmpty).mkString("　")
   }
 
   def getHandicapName(fen: FEN): Option[String] =
