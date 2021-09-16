@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Spenden</string>
+  <string name="lichessPatron">Lichess Ënnerstëtzer</string>
+  <string name="freeAccount">Gratis Account</string>
+  <string name="becomePatron">Lichess Ënnerstëtzer ginn</string>
+  <string name="newPatrons">Nei Ënnerstëtzer</string>
+  <string name="update">Update</string>
 </resources>
