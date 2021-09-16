@@ -49,6 +49,8 @@
   <string name="blackResigned">Qaralar tərk etdi</string>
   <string name="whiteLeftTheGame">Ağlar oyunu tərk etdi</string>
   <string name="blackLeftTheGame">Qaralar oyunu tərk etdi</string>
+  <string name="whiteDidntMove">Ağlar gediş oynamadı</string>
+  <string name="blackDidntMove">Qaralar gediş oynamadı</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların oyuna baxmasına icazə vermək üçün bu URL-i paylaşın</string>
   <string name="theComputerAnalysisHasFailed">Kompüter təhlili uğursuz oldu</string>
   <string name="viewTheComputerAnalysis">Kompüter təhlilinə baxın</string>
@@ -138,6 +140,7 @@
     <item quantity="one">%s oyunçu</item>
     <item quantity="other">%s oyunçu</item>
   </plurals>
+  <string name="drawByMutualAgreement">Qarşılıqlı razılıq əsasında heç-heçə</string>
   <string name="currentGames">Cari oyunlar</string>
   <plurals name="nbGames">
     <item quantity="one">%s oyun</item>
