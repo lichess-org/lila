@@ -11,7 +11,7 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
-    db: lila.db.AsyncDb @@ lila.db.JunkDb
+    db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem

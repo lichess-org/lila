@@ -10,7 +10,8 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.Lilakka
 
-trait JunkDb
+// weakly replicated DB for low value documents
+trait YoloDb
 
 @Module
 final class Env(
@@ -26,11 +27,11 @@ final class Env(
     driver = driver
   )
 
-  lazy val junkDb = new AsyncDb(
-    name = "junk",
-    uri = appConfig.get[String]("mongodb.junk.uri"),
+  lazy val yoloDb = new AsyncDb(
+    name = "yolo",
+    uri = appConfig.get[String]("mongodb.yolo.uri"),
     driver = driver
-  ).taggedWith[JunkDb]
+  ).taggedWith[YoloDb]
 
   def asyncDb(name: String, uri: String) =
     new AsyncDb(

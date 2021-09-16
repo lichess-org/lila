@@ -9,7 +9,7 @@ import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent
 
 final class Env(
-    db: lila.db.AsyncDb @@ lila.db.JunkDb,
+    db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
     forumPostApi: lila.forum.PostApi,
