@@ -90,6 +90,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mati %s di pertengahan langkah</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" dengan pembulatan, berdasarkan jumlah dari langkah setengah sampai ada langkah makan atau langkah pion</string>
   <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Penjelajah pembukaan</string>
