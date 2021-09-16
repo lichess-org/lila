@@ -28,6 +28,7 @@ object importGame {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
+        standardFlash(),
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value flatMap { pgn =>

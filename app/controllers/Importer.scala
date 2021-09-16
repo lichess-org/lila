@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
+import scala.util.{ Either, Left, Right }
 import play.api.mvc._
 import scala.concurrent.duration._
 import views._
@@ -41,7 +42,7 @@ final class Importer(env: Env) extends LilaController(env) {
           data =>
             ImportRateLimitPerIP(ctx.ip, cost = 1) {
               doImport(data, req, ctx.me) flatMap {
-                case Some(game) =>
+                case Right(game) =>
                   ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
                     env.fishnet.analyser(
                       game,
@@ -53,7 +54,7 @@ final class Importer(env: Env) extends LilaController(env) {
                       )
                     )
                   } inject Redirect(routes.Round.watcher(game.id, "white"))
-                case None => Redirect(routes.Importer.importGame).fuccess
+                case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).fuccess
               }
             }(rateLimitedFu)
         )
@@ -68,14 +69,14 @@ final class Importer(env: Env) extends LilaController(env) {
             err => BadRequest(apiFormError(err)).fuccess,
             data =>
               doImport(data, req, me) map {
-                _.fold(BadRequest(jsonError("The PGN could not be replayed"))) { game =>
+                case Left(error) => BadRequest(jsonError(error))
+                case Right(game) =>
                   JsonOk {
                     Json.obj(
                       "id"  -> game.id,
                       "url" -> s"${env.net.baseUrl}/${game.id}"
                     )
                   }
-                }
               }
           )
       }(rateLimitedFu)
@@ -89,14 +90,11 @@ final class Importer(env: Env) extends LilaController(env) {
       data: lila.importer.ImportData,
       req: RequestHeader,
       me: Option[lila.user.User]
-  ): Fu[Option[lila.game.Game]] =
+  ): Fu[Either[String, lila.game.Game]] =
     env.importer.importer(data, me.map(_.id)) flatMap { game =>
-      me.map(_.id).??(env.game.cached.clearNbImportedByCache) inject game.some
-    } recover { case e: Exception =>
-      lila
-        .log("importer")
-        .warn(s"Imported game validates but can't be replayed:\n${data.pgn}", e)
-      none
+      me.map(_.id).??(env.game.cached.clearNbImportedByCache) inject Right(game)
+    } recover { case _: Exception =>
+      Left("The PGN contains illegal and/or ambiguous moves.")
     }
 
   def masterGame(id: String, orientation: String) =
