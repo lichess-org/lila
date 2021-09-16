@@ -901,5 +901,27 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="simulDescription">Descripció de la simultània</string>
   <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
   <string name="markdownAvailable">%s és disponible per a formats més avançats.</string>
+  <string name="embedsAvailable">Enganxa un URL d\'un joc o d\'un capítol d\'estudi per incrustar-ho.</string>
+  <string name="inYourLocalTimezone">El la teva zona horària</string>
+  <string name="tournChat">Xat del tornament</string>
+  <string name="noChat">Desactivar xat</string>
+  <string name="onlyTeamLeaders">Només per líders de l\'equip</string>
+  <string name="onlyTeamMembers">Només per a membres de l\'equip</string>
+  <string name="navigateMoveTree">Navega la llista de moviments</string>
+  <string name="mouseTricks">Trucs amb el ratolí</string>
+  <string name="toggleLocalAnalysis">Activa/desactiva l\'anàlisi d\'ordinador al navegador</string>
+  <string name="toggleAllAnalysis">Activa/desactiva tot l\'anàlisi d\'ordinador</string>
+  <string name="playComputerMove">Juga el millor moviment suggerit per l\'ordinador</string>
+  <string name="analysisOptions">Opcions d\'anàlisi</string>
+  <string name="focusChat">Enfocar el xat</string>
+  <string name="showHelpDialog">Ensenya aquest missatge d\'ajuda</string>
+  <string name="reopenYourAccount">Torna a obrir el teu compte</string>
+  <string name="closedAccountChangedMind">Si has tancat el teu compte, però des de llavors has cambiat d\'opinió, tens una oportunitat per recuperar el teu compte.</string>
+  <string name="onlyWorksOnce">Això només funcionarà un cop.</string>
+  <string name="cantDoThisTwice">Si tanques el teu compte per segon cop, no hi haurà manera de recuperar-ho.</string>
+  <string name="emailAssociatedToaccount">Adreça de correu electrònic associat al teu compte</string>
+  <string name="sentEmailWithLink">T\'hem enviat un correu amb un enllaç.</string>
+  <string name="tournamentEntryCode">Codi per entrar el tornament</string>
+  <string name="hangOn">Un moment!</string>
   <string name="gameInProgress">Tens una partida començada amb %s.</string>
 </resources>
