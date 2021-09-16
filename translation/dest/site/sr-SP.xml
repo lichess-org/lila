@@ -786,6 +786,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Тренери</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Неважећи ФЕН</string>
 	<string name="error.minLength">Минимална дужина је %s</string>
 	<string name="error.maxLength">Максимална дужина је %s</string>

@@ -754,6 +754,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Afrigters</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Ongeldige FEN</string>
 	<string name="error.minLength">Minimum lengte is %s</string>
 	<string name="error.maxLength">Maximum lengte is %s</string>

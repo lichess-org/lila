@@ -818,6 +818,7 @@
 	<string name="chessBasics">Основы сёги</string>
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Некорректный FEN</string>
 	<string name="error.minLength">Минимальная длина — %s</string>
 	<string name="error.maxLength">Максимальная длина — %s</string>

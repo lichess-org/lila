@@ -885,6 +885,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">المدربين</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN غير صالح</string>
 	<string name="error.minLength">الحد الأدنى للطول هو %s</string>
 	<string name="error.maxLength">حد الطول الأقصى هو %s</string>

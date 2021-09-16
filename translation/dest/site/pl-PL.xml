@@ -819,6 +819,7 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	<string name="chessBasics">Podstawy shogi</string>
 	<string name="shogiResources">Materiały o shogi</string>
 	<string name="coaches">Trenerzy</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Nieprawidłowy FEN</string>
 	<string name="error.minLength">Minimalna długość to %s znaków</string>
 	<string name="error.maxLength">Maksymalna długość to %s znaków</string>

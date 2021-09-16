@@ -719,6 +719,7 @@
 	<string name="chessBasics">將棋基本</string>
 	<string name="shogiResources">將棋資源</string>
 	<string name="coaches">教練</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">無效的FEN</string>
 	<string name="error.minLength">%s 字以上</string>
 	<string name="error.maxLength">不超過 %s 字</string>

@@ -719,6 +719,7 @@
 	<string name="chessBasics">将棋基础知识</string>
 	<string name="shogiResources">将棋资料</string>
 	<string name="coaches">教练</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN无法识别</string>
 	<string name="error.minLength">最小长度：%s</string>
 	<string name="error.maxLength">最大长度：%s</string>

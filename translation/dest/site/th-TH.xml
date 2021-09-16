@@ -720,6 +720,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Invalid SFEN</string>
 	<string name="error.minLength">Minimum length is %s</string>
 	<string name="error.maxLength">Maximum length is %s</string>

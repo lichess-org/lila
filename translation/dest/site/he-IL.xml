@@ -822,6 +822,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">מאמנים</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN לא חוקי</string>
 	<string name="error.minLength">האורך המינימלי הוא %s</string>
 	<string name="error.maxLength">האורך המקסימלי הוא %s</string>

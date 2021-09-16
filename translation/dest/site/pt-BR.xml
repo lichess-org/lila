@@ -753,6 +753,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Professores</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN inválido</string>
 	<string name="error.minLength">O mínimo de caracteres é %s</string>
 	<string name="error.maxLength">O máximo de caracteres é %s</string>

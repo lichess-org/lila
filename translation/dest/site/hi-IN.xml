@@ -753,6 +753,7 @@
 	<string name="chessBasics">Shogi बेसिक्स (Shogi basics)</string>
 	<string name="shogiResources">Shogi संसाधन</string>
 	<string name="coaches">कोच</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">अमान्य SFEN</string>
 	<string name="error.minLength">न्यूनतम लंबाई %s है</string>
 	<string name="error.maxLength">अधिकतम लंबाई %s है</string>

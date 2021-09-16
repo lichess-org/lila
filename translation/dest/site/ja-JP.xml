@@ -720,6 +720,7 @@
 	<string name="chessBasics">将棋の基本</string>
 	<string name="shogiResources">将棋資料</string>
 	<string name="coaches">コーチ</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">無効な FEN</string>
 	<string name="error.minLength">最小の長さは %s 文字です</string>
 	<string name="error.maxLength">最大の長さは %s 文字です</string>

@@ -719,6 +719,7 @@
 	<string name="chessBasics">Shogi cơ bản</string>
 	<string name="shogiResources">Tài nguyên về Shogi</string>
 	<string name="coaches">Huấn luyện viên</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">PEN không hợp lệ</string>
 	<string name="error.minLength">Độ dài tối thiểu là %s</string>
 	<string name="error.maxLength">Độ dài tối đa là %s</string>

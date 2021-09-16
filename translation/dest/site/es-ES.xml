@@ -753,6 +753,7 @@ análisis por computadora, chat de juego y una URL para compartir.</string>
 	<string name="chessBasics">Fundamentos de shogi</string>
 	<string name="shogiResources">Recursos de shogi</string>
 	<string name="coaches">Entrenadores</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN inválido</string>
 	<string name="error.minLength">La longitud mínima es de %s</string>
 	<string name="error.maxLength">La longitud máxima es de %s</string>

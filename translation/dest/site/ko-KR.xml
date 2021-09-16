@@ -720,6 +720,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">코치</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">잘못된 FEN입니다.</string>
 	<string name="error.minLength">최소 길이는 %s입니다.</string>
 	<string name="error.maxLength">최대 길이는 %s입니다.</string>

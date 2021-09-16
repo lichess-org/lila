@@ -752,6 +752,7 @@
 	<string name="chessBasics">Shogi temelleri</string>
 	<string name="shogiResources">Shogi kaynakları</string>
 	<string name="coaches">Eğitmenler</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Geçersiz FEN</string>
 	<string name="error.minLength">Asgari uzunluk: %s</string>
 	<string name="error.maxLength">Azami uzunluk: %s</string>

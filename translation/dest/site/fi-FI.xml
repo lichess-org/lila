@@ -753,6 +753,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Valmentajat</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN ei kelpaa</string>
 	<string name="error.minLength">Vähimmäispituus on %s</string>
 	<string name="error.maxLength">Enimmäispituus on %s</string>

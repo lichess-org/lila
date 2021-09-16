@@ -73,5 +73,5 @@
   <string name="lishogiGames">取于lishogi对局</string>
   <string name="lishogiGamesDescription">从在lishogi平台上的对局抽取而产生的训练题。</string>
   <string name="otherSources">来自外部</string>
-  <string name="otherSourcesDescription">非常感谢所有提供或允许lishogi使用这些训练题的慷慨人士们！</string>
+  <string name="otherSourcesDescription">非常感谢所有提供或允许lishogi使用这些训练题的慷慨贡献者！</string>
 </resources>

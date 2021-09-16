@@ -756,6 +756,7 @@ en %3$s</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Entrenador</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN no vàlid</string>
 	<string name="error.minLength">La llargada mínima és de %s</string>
 	<string name="error.maxLength">La llargada máxima és de %s</string>

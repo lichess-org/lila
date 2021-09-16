@@ -818,6 +818,7 @@
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Trenéři</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">Neplatný formát FEN</string>
 	<string name="error.minLength">Minimální délka je %s</string>
 	<string name="error.maxLength">Maximální délka je %s</string>

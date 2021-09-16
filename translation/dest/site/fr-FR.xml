@@ -752,6 +752,7 @@
 	<string name="chessBasics">Bases du shogi</string>
 	<string name="shogiResources">Ressources pour le shogi</string>
 	<string name="coaches">Entraîneurs</string>
+	<string name="invalidKif">Invalid KIF</string>
 	<string name="invalidFen">FEN non valide</string>
 	<string name="error.minLength">Vous devez écrire au moins %s caractères</string>
 	<string name="error.maxLength">Vous pouvez écrire un maximum de %s caractères</string>
