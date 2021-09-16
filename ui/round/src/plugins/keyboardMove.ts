@@ -160,7 +160,7 @@ function readClocks(clockCtrl: any | undefined) {
       simplePlural(date.getUTCMinutes(), 'minute') +
       ' ' +
       simplePlural(date.getUTCSeconds(), 'second');
-    return `${color}: ${msg}`;
+    return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));
 }
