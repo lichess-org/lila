@@ -21,7 +21,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     net: NetConfig
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
 ) {
 
   import net.{ assetBaseUrl, baseUrl }
@@ -31,12 +32,13 @@ final class Env(
   val rankFactorSetting = settingStore[Int](
     "ublogRankFactor",
     default = 5,
-    text = "Ublog rank factor".some
+    text = "Ublog rank factor".some,
+    onSet = _ => rank.recomputeRankOfAllPosts
   ).taggedWith[UblogRankFactor]
 
   val topic = wire[UblogTopicApi]
 
-  val rank = wire[UblogRank]
+  val rank: UblogRank = wire[UblogRank]
 
   val api: UblogApi = wire[UblogApi]
 
@@ -55,7 +57,7 @@ final class Env(
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, v) =>
     api.setShadowban(userId, v) >>
-      rank.recomputeRankOfAllPosts(UblogBlog.Id.User(userId))
+      rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
     ()
   }
 }

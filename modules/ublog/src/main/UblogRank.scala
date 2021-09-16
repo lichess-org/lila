@@ -1,10 +1,11 @@
 package lila.ublog
 
-
+import akka.stream.scaladsl._
 import cats.implicits._
 import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import play.api.i18n.Lang
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import scala.concurrent.ExecutionContext
 
@@ -17,7 +18,7 @@ final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline,
     factor: SettingStore[Int] @@ UblogRankFactor
-)(implicit ec: ExecutionContext) {
+)(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
 
   import UblogBsonHandlers._
 
@@ -76,32 +77,44 @@ final class UblogRank(
         }
       }
 
-  def recomputeRankOfAllPosts(blogId: UblogBlog.Id): Funit =
+  def recomputeRankOfAllPostsOfBlog(blogId: UblogBlog.Id): Funit =
     colls.blog.byId[UblogBlog](blogId.full) flatMap {
-      _ ?? { blog =>
-        colls.post
-          .find(
-            $doc("blog" -> blog.id),
-            $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
-          )
-          .cursor[Bdoc]()
-          .list() flatMap { docs =>
-          lila.common.Future.applySequentially(docs) { doc =>
-            (
-              doc.string("_id"),
-              doc.getAsOpt[List[UblogTopic]]("topics"),
-              doc.getAsOpt[UblogPost.Likes]("likes"),
-              doc.getAsOpt[UblogPost.Recorded]("lived"),
-              doc.getAsOpt[Lang]("language")
-            ).tupled ?? { case (id, topics, likes, lived, language) =>
-              colls.post
-                .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
-                .void
-            }
-          }
+      _ ?? recomputeRankOfAllPostsOfBlog
+    }
+
+  def recomputeRankOfAllPostsOfBlog(blog: UblogBlog): Funit =
+    colls.post
+      .find(
+        $doc("blog" -> blog.id),
+        $doc("topics" -> true, "likes" -> true, "lived" -> true, "language" -> true).some
+      )
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .list() flatMap { docs =>
+      lila.common.Future.applySequentially(docs) { doc =>
+        (
+          doc.string("_id"),
+          doc.getAsOpt[List[UblogTopic]]("topics"),
+          doc.getAsOpt[UblogPost.Likes]("likes"),
+          doc.getAsOpt[UblogPost.Recorded]("lived"),
+          doc.getAsOpt[Lang]("language")
+        ).tupled ?? { case (id, topics, likes, lived, language) =>
+          colls.post
+            .updateField($id(id), "rank", computeRank(topics, likes, lived.at, language, blog.tier))
+            .void
         }
       }
     }
+
+  def recomputeRankOfAllPosts: Funit =
+    colls.blog
+      .find($empty)
+      .sort($sort desc "tier")
+      .cursor[UblogBlog](ReadPreference.secondaryPreferred)
+      .documentSource()
+      .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog)
+      .toMat(lila.common.LilaStream.sinkCount)(Keep.right)
+      .run()
+      .map(nb => println(s"Recomputed rank of $nb blogs"))
 
   def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.Rank] =
     post.lived map { lived =>
