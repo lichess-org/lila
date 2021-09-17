@@ -240,6 +240,10 @@
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%sઅભ્યાસ</item>
+    <item quantity="other">%s અભ્યાસ</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -303,9 +307,11 @@
   <string name="message">સંદેશ</string>
   <string name="reason">કારણ</string>
   <string name="insult">અપમાન</string>
+  <string name="blog">બ્લોગ</string>
   <string name="sound">ધ્વનિ</string>
   <string name="difficultyNormal">સામાન્ય</string>
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
+  <string name="studyMenu">અભ્યાસ</string>
   <string name="aboutX">%s વિશે</string>
   <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
   <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
@@ -320,6 +326,7 @@
   <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
   <string name="boardTheme">બોર્ડની પસંદગી</string>
   <string name="pieceSet">મહોરાંની પસંદગી</string>
+  <string name="coaches">કોચ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
