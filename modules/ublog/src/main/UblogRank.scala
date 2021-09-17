@@ -147,10 +147,10 @@ final class UblogRank(
         val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
 
         val tierMultiplier = tier match {
-          case UblogBlog.Tier.LOW    => 0.3
+          case UblogBlog.Tier.LOW    => 0.2
           case UblogBlog.Tier.NORMAL => 1
           case UblogBlog.Tier.HIGH   => 3
-          case UblogBlog.Tier.BEST   => 7
+          case UblogBlog.Tier.BEST   => 5
           case _                     => 0
         }
 
