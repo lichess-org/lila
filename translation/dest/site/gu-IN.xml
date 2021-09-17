@@ -308,6 +308,7 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="player">ખેલાડી</string>
   <string name="list">યાદી</string>
   <string name="graph">આલેખ</string>
   <plurals name="lessThanNbMinutes">
@@ -316,6 +317,7 @@
   </plurals>
   <string name="required">જરુરી.</string>
   <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
+  <string name="duration">અવધિ</string>
   <string name="winner">વિજેતા</string>
   <string name="createANewTournament">નવી પ્રતિયોગિતા બનાવો</string>
   <string name="tournamentCalendar">પ્રતિયોગિતા કૅલેન્ડર</string>
@@ -327,6 +329,7 @@
   <string name="points">અંકો</string>
   <string name="wins">જીત</string>
   <string name="losses">હાર</string>
+  <string name="createdBy">બનાવનાર</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
   <string name="movesPlayed">ચાલ રમ્યા</string>
   <string name="whiteWins">સફેદ ની જીત</string>
@@ -337,6 +340,7 @@
   <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
+  <string name="name">નામ</string>
   <string name="description">વર્ણન</string>
   <string name="no">નહીં</string>
   <string name="yes">હા</string>
@@ -347,6 +351,9 @@
   <string name="insult">અપમાન</string>
   <string name="blog">બ્લોગ</string>
   <string name="sound">ધ્વનિ</string>
+  <string name="fast">ઝડપી</string>
+  <string name="normal">સામાન્ય</string>
+  <string name="slow">ધીમું</string>
   <string name="difficultyNormal">સામાન્ય</string>
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
   <string name="studyMenu">અભ્યાસ</string>
