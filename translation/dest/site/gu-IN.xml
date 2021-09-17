@@ -240,6 +240,8 @@
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>
   </plurals>
+  <string name="tournament">પ્રતિયોગિતા</string>
+  <string name="tournaments">પ્રતિયોગિતાઓ</string>
   <plurals name="nbStudies">
     <item quantity="one">%sઅભ્યાસ</item>
     <item quantity="other">%s અભ્યાસ</item>
