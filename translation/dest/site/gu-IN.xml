@@ -246,6 +246,11 @@
   <string name="takeback">ચાલ પાછી લો</string>
   <string name="proposeATakeback">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલો</string>
   <string name="takebackPropositionSent">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલ્યો</string>
+  <string name="takebackPropositionDeclined">ચાલ પાછી લેવાનો પ્રસ્તાવ નકારાયો</string>
+  <string name="takebackPropositionAccepted">ચાલ પાછી લેવાનો પ્રસ્તાવ સ્વીકારાયો</string>
+  <string name="takebackPropositionCanceled">ચાલ પાછી લેવાનો પ્રસ્તાવ રદ કરો</string>
+  <string name="yourOpponentProposesATakeback">તમારા પ્રતિદ્વંદીએ ચાલ પાછી લેવાનો પ્રસ્તાવ કર્યો</string>
+  <string name="bookmarkThisGame">આ રમત સ્મૃતિમાં સાચવો</string>
   <string name="tournament">પ્રતિયોગિતા</string>
   <string name="tournaments">પ્રતિયોગિતાઓ</string>
   <string name="tournamentPoints">પ્રતિયોગિતાના અંકો</string>
@@ -257,6 +262,9 @@
     <item quantity="one">%sઅભ્યાસ</item>
     <item quantity="other">%s અભ્યાસ</item>
   </plurals>
+  <string name="viewTournament">Pratiyogita જુઓ</string>
+  <string name="backToTournament">પ્રતિયોગિતામાં પાછા જાઓ</string>
+  <string name="thematic">વિષયલક્ષી</string>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -300,6 +308,23 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="list">યાદી</string>
+  <string name="graph">આલેખ</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s કરતા ઓછી મિનિટ</item>
+    <item quantity="other">%s કરતા ઓછી મિનિટો</item>
+  </plurals>
+  <string name="required">જરુરી.</string>
+  <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
+  <string name="winner">વિજેતા</string>
+  <string name="createANewTournament">નવી પ્રતિયોગિતા બનાવો</string>
+  <string name="tournamentCalendar">પ્રતિયોગિતા કૅલેન્ડર</string>
+  <string name="conditionOfEntry">પ્રવેશ માટેની જરૂરિયાતો:</string>
+  <string name="advancedSettings">વિગતવાર સેટિંગ્સ</string>
+  <string name="safeTournamentName">પ્રતિયોગિતા માટે યોગ્ય નામ પસંદ કરો.</string>
+  <string name="join">ભાગ લો</string>
+  <string name="withdraw">છોડી દો</string>
+  <string name="points">અંકો</string>
   <string name="wins">જીત</string>
   <string name="losses">હાર</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
