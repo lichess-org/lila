@@ -30,14 +30,14 @@ final class ActivityReadApi(
 
   implicit private val ordering = scala.math.Ordering.Double.TotalOrdering
 
-  def recent(u: User, nb: Int = Activity.recentNb): Fu[Vector[ActivityView]] =
+  def recent(u: User): Fu[Vector[ActivityView]] =
     for {
       activities <-
         coll(
           _.find(regexId(u.id))
             .sort($sort desc "_id")
             .cursor[Activity](ReadPreference.secondaryPreferred)
-            .vector(nb)
+            .vector(Activity.recentNb)
         ).dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
