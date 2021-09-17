@@ -173,13 +173,13 @@ package timeline {
   case class PlanRenew(userId: String, months: Int) extends Atom("planRenew", true) {
     def userIds = List(userId)
   }
-  case class BlogPost(id: String, slug: String, title: String) extends Atom("blogPost", true) {
+  case class BlogPost(id: String, slug: String, title: String) extends Atom("blogPost", false) {
     def userIds = Nil
   }
-  case class UblogPostLike(userId: String, id: String, title: String) extends Atom("ublogPostLike", true) {
+  case class UblogPostLike(userId: String, id: String, title: String) extends Atom("ublogPostLike", false) {
     def userIds = List(userId)
   }
-  case class StreamStart(id: String, name: String) extends Atom("streamStart", true) {
+  case class StreamStart(id: String, name: String) extends Atom("streamStart", false) {
     def userIds = List(id)
   }
 
