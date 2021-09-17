@@ -152,8 +152,8 @@
     <item quantity="other">%s partides</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s marcada</item>
-    <item quantity="other">%s marcades</item>
+    <item quantity="one">%s preferida</item>
+    <item quantity="other">%s preferides</item>
   </plurals>
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tancar la sessió</string>
@@ -243,27 +243,27 @@
   <string name="casualTournament">Amistós</string>
   <string name="ratedTournament">Puntuat</string>
   <string name="thisGameIsRated">Aquesta partida és puntuada</string>
-  <string name="rematch">Revenja</string>
+  <string name="rematch">Oferir una revenja</string>
   <string name="rematchOfferSent">La petició de revenja s\'ha enviat</string>
   <string name="rematchOfferSentWhite">Blanques ofereixen jugar de nou</string>
   <string name="rematchOfferSentBlack">Negres ofereixen jugar de nou</string>
   <string name="rematchOfferAccepted">La petició de revenja s\'ha acceptat</string>
   <string name="rematchOfferCanceled">La petició de revenja s\'ha cancel·lat</string>
   <string name="rematchOfferDeclined">La petició de revenja s\'ha rebutjat</string>
-  <string name="cancelRematchOffer">Anul·la la petició de revenja</string>
-  <string name="viewRematch">Mira la partida de revenja</string>
-  <string name="confirmMove">Confirma el moviment</string>
-  <string name="play">Juga</string>
+  <string name="cancelRematchOffer">Anul·lar la petició de revenja</string>
+  <string name="viewRematch">Mirar la partida de revenja</string>
+  <string name="confirmMove">Confirmar la jugada</string>
+  <string name="play">Jugar</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
-  <string name="loginToChat">Entra al xat</string>
-  <string name="youHaveBeenTimedOut">S\'ha tancat la sessió.</string>
+  <string name="loginToChat">Inicia la sessió per entrar al xat</string>
+  <string name="youHaveBeenTimedOut">Has sigut mutejat.</string>
   <string name="spectatorRoom">Sala d\'espectadors</string>
-  <string name="composeMessage">Escriu un missatge</string>
+  <string name="composeMessage">Escriure un missatge</string>
   <string name="noNewMessages">No hi ha missatges nous</string>
-  <string name="subject">Tema</string>
+  <string name="subject">Assumpte</string>
   <string name="recipient">Destinatari</string>
-  <string name="send">Envia</string>
+  <string name="send">Enviar</string>
   <string name="incrementInSeconds">Increment en segons</string>
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <plurals name="nbRated">
@@ -300,20 +300,20 @@
   <string name="takebackPropositionDeclined">La proposta de desfer la jugada s\'ha rebutjat</string>
   <string name="takebackPropositionAccepted">La proposta de desfer la jugada s\'ha acceptat</string>
   <string name="takebackPropositionCanceled">La proposta de desfer la jugada s\'ha cancel·lat</string>
-  <string name="yourOpponentProposesATakeback">El teu oponent proposa desfer la jugada</string>
+  <string name="yourOpponentProposesATakeback">El teu adversari proposa desfer la jugada</string>
   <string name="bookmarkThisGame">Marca aquesta partida com a preferida</string>
   <string name="tournament">Torneig</string>
   <string name="tournaments">Tornejos</string>
   <string name="tournamentPoints">Punts de tornejos</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s punt del torneig</item>
-    <item quantity="other">%s punts del torneig</item>
+    <item quantity="one">%s punt de torneig</item>
+    <item quantity="other">%s punts de torneig</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s estudi</item>
     <item quantity="other">%s estudis</item>
   </plurals>
-  <string name="viewTournament">Mira el torneig</string>
+  <string name="viewTournament">Mirar el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
   <plurals name="moreThanNbRatedGames">
