@@ -48,12 +48,15 @@
   <string name="blackResigned">કાળા દ્વારા resign કરવામાં આવ્યું</string>
   <string name="whiteLeftTheGame">સફેદ એ ગેમ છોડી દીધી</string>
   <string name="blackLeftTheGame">કાળા એ ગેમ છોડી દીધી</string>
+  <string name="whiteDidntMove">સફેદ ચાલ ન ચાલ્યું</string>
+  <string name="blackDidntMove">કાળો ચાલ ન ચાલ્યું</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">આ url ને શેર કરો દર્શકો ની સાથે</string>
   <string name="theComputerAnalysisHasFailed">કમ્પ્યુટર વિશ્લેષણ થયું નથી</string>
   <string name="viewTheComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ જુઓ</string>
   <string name="requestAComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ કરો</string>
   <string name="computerAnalysis">કમ્પ્યુટર વિશ્લેષણ</string>
   <string name="computerAnalysisAvailable">કમ્પ્યુટર વિશ્લેષણ હાજર છે</string>
+  <string name="computerAnalysisDisabled">કમ્પ્યુટર વિશ્લેષણ બંધ છે</string>
   <string name="analysis">વિષ્લેષણ</string>
   <string name="depthX">ઊંડાઈ %s</string>
   <string name="usingServerAnalysis">સર્વર નું વિશ્લેષણ વપરાય છે</string>
@@ -240,8 +243,16 @@
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>
   </plurals>
+  <string name="takeback">ચાલ પાછી લો</string>
+  <string name="proposeATakeback">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલો</string>
+  <string name="takebackPropositionSent">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલ્યો</string>
   <string name="tournament">પ્રતિયોગિતા</string>
   <string name="tournaments">પ્રતિયોગિતાઓ</string>
+  <string name="tournamentPoints">પ્રતિયોગિતાના અંકો</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s પ્રતિયોગિતાનો અંક</item>
+    <item quantity="other">%s પ્રતિયોગિતાના અંકો</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%sઅભ્યાસ</item>
     <item quantity="other">%s અભ્યાસ</item>
