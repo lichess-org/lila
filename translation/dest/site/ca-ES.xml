@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Juga amb un amic</string>
   <string name="playWithTheMachine">Juga amb la màquina</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquesta URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'adversari</string>
   <string name="waiting">Esperant</string>
@@ -32,7 +32,7 @@
   <string name="variantEnding">Acabament de variant</string>
   <string name="newOpponent">Nou adversari</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
-  <string name="joinTheGame">Uneix-te a la partida</string>
+  <string name="joinTheGame">Unir-se a la partida</string>
   <string name="whitePlays">Les blanques juguen</string>
   <string name="blackPlays">Les negres juguen</string>
   <plurals name="opponentLeftCounter">
@@ -43,7 +43,7 @@
   <string name="makeYourOpponentResign">Reclama la victòria</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
-  <string name="talkInChat">Siusplau sigues amable al xat!</string>
+  <string name="talkInChat">Sigues amable en el xat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquesta URL jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
@@ -51,7 +51,7 @@
   <string name="blackLeftTheGame">Les negres han abandonat la partida</string>
   <string name="whiteDidntMove">Les blanques no van moure</string>
   <string name="blackDidntMove">Les negres no van moure</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparteix aquesta URL perquè els espectadors puguin veure la partida</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparteix aquest enllaç perquè els espectadors puguin veure la partida</string>
   <string name="theComputerAnalysisHasFailed">L\'anàlisi computeritzada ha fallat</string>
   <string name="viewTheComputerAnalysis">Veure l\'anàlisi computeritzada</string>
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
@@ -64,7 +64,7 @@
   <string name="loadingEngine">Carregant motor...</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
   <string name="goDeeper">Aprofundir</string>
-  <string name="showThreat">Mostra l\'amenaça</string>
+  <string name="showThreat">Mostrar amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="toggleLocalEvaluation">Activar anàlisi local</string>
   <string name="promoteVariation">Promoure variant</string>
@@ -72,7 +72,7 @@
   <string name="deleteFromHere">Esborrar d\'aquí</string>
   <string name="forceVariation">Forçar variant</string>
   <string name="move">Moviment</string>
-  <string name="variantLoss">Variant perdedora</string>
+  <string name="variantLoss">Derrota de variant</string>
   <string name="variantWin">Variant guanyadora</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Moviment de peó</string>
@@ -925,4 +925,6 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="hangOn">Un moment!</string>
   <string name="gameInProgress">Tens una partida començada amb %s.</string>
   <string name="abortTheGame">Avortar el joc</string>
+  <string name="resignTheGame">Rendir-se</string>
+  <string name="youCantStartNewGame">No pots començar un joc nou fins que aquest acabi.</string>
 </resources>
