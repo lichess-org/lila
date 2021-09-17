@@ -22,8 +22,8 @@
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
-  <string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
-  <string name="youPlayTheBlackPieces">Jugues les peces negres</string>
+  <string name="youPlayTheWhitePieces">Jugues les blanques</string>
+  <string name="youPlayTheBlackPieces">Jugues les negres</string>
   <string name="itsYourTurn">És el teu torn!</string>
   <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rei al centre</string>
@@ -36,10 +36,10 @@
   <string name="whitePlays">Juguen les blanques</string>
   <string name="blackPlays">Juguen les negres</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">El seu contrincant ha abandonat la partida. Pot reclamar la victòria en %s segons.</item>
-    <item quantity="other">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
+    <item quantity="one">El teu contrincant ha abandonat la partida. Pots reclamar la victòria en %s segon.</item>
+    <item quantity="other">El teu contrincant ha abandonat la partida. Pots reclamar la victòria en %s segons.</item>
   </plurals>
-  <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
+  <string name="opponentLeftChoices">El teu contrincant ha abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="makeYourOpponentResign">Reclama la victòria</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
@@ -57,7 +57,7 @@
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="computerAnalysisAvailable">Anàlisi de l\'ordinador disponible</string>
-  <string name="computerAnalysisDisabled">Anàlisi d\'ordinador desactivat</string>
+  <string name="computerAnalysisDisabled">Anàlisi computeritzada desactivada</string>
   <string name="analysis">Tauler d\'anàlisi</string>
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
@@ -94,19 +94,19 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més partides des d\'el menú de preferències?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pots incloure més partides des del menú de preferències</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'apertures i finals</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
   <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
-  <string name="winOr50MovesByPriorMistake">Victòria o empat per 50 moviments per un error anterior</string>
-  <string name="lossOr50MovesByPriorMistake">Perdùa o empat per un error anterior</string>
-  <string name="unknownDueToRounding">Victòria o pèrdua només garantida si la línia recomanada ha sigut seguida des de l\'última capture o moviment de peó, degut a possible arrodoniment.</string>
+  <string name="winOr50MovesByPriorMistake">Victòria o taules per 50 moviments a causa d\'un error anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Derrota o taules per 50 moviments a causa d\'un error anterior</string>
+  <string name="unknownDueToRounding">La victòria o derrota només és garantida si la línia recomanada ha sigut seguida des de l\'última captura o moviment de peó, degut a possibles arrodoniments.</string>
   <string name="allSet">Tot a punt!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Suprimir</string>
-  <string name="deleteThisImportedGame">Voleu suprimir aquesta partida importada?</string>
+  <string name="deleteThisImportedGame">Vols suprimir aquesta partida importada?</string>
   <string name="replayMode">Mode de reproducció</string>
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
@@ -114,7 +114,7 @@
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
-  <string name="multipleLines">Línies múltiples</string>
+  <string name="multipleLines">Múltiples línies</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi il·limitat</string>
@@ -144,7 +144,7 @@
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadors</item>
   </plurals>
-  <string name="drawByMutualAgreement">Taules per mutu acord</string>
+  <string name="drawByMutualAgreement">Taules per acord</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta moviments sense progressar</string>
   <string name="currentGames">Partides en joc</string>
   <plurals name="nbGames">
@@ -152,12 +152,12 @@
     <item quantity="other">%s partides</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Marcadors</item>
-    <item quantity="other">%s Marcadors</item>
+    <item quantity="one">%s marcada</item>
+    <item quantity="other">%s marcades</item>
   </plurals>
   <string name="viewInFullSize">Veure a mida completa</string>
-  <string name="logOut">Tanca la sessió</string>
-  <string name="signIn">Inicia la sessió</string>
+  <string name="logOut">Tancar la sessió</string>
+  <string name="signIn">Iniciar la sessió</string>
   <string name="youNeedAnAccountToDoThat">Necessites un compte per a fer això</string>
   <string name="signUp">Registra\'t</string>
   <string name="computersAreNotAllowedToPlay">No els està permès jugar ni als ordinadors ni als jugadors assistits per ordinador. Per favor, no utilitzis l\'ajuda de programes informàtics d\'escacs, de bases de dades o d\'altres jugadors mentre juguis. També tingues en compte que la creació de múltiples comptes és severament descoratjada i que tal activitat pot comportar el que el teu compte sigui suspès.</string>
