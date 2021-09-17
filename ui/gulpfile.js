@@ -22,6 +22,10 @@ const destination = () => gulp.dest('../public/css/');
 const sourcesGlob = './*/css/**/*.scss';
 const buildsGlob = './*/css/build/*.scss';
 
+const onSassError = err => {
+  throw new PluginError('sass', err.messageFormatted, { showProperties: false });
+};
+
 const build = () =>
   gulp
     .src(sourcesGlob)
@@ -32,11 +36,7 @@ const build = () =>
     //filter out internal imports (folders and files starting with "_" )
     .pipe(filter(file => !/\/_/.test(file.path) || !/^_/.test(file.relative)))
     .pipe(sourcemaps.init())
-    .pipe(
-      sass(sassOptions).on('error', err => {
-        throw new PluginError('sass', err.messageFormatted, { showProperties: false });
-      })
-    )
+    .pipe(sass(sassOptions).on('error', onSassError))
     .pipe(sourcemaps.write())
     .pipe(renameAs('dev'))
     .pipe(destination());
@@ -57,7 +57,7 @@ gulp.task('css-prod', () =>
       sass({
         ...sassOptions,
         ...{ outputStyle: 'compressed' },
-      }).on('error', sass.logError)
+      }).on('error', onSassError)
     )
     .pipe(autoprefixer())
     .pipe(renameAs('min'))
