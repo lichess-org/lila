@@ -1,7 +1,6 @@
 package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
-import reactivemongo.api.ReadPreference
 
 import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
@@ -36,7 +35,7 @@ final class ActivityReadApi(
         coll(
           _.find(regexId(u.id))
             .sort($sort desc "_id")
-            .cursor[Activity](ReadPreference.secondaryPreferred)
+            .cursor[Activity]()
             .vector(Activity.recentNb)
         ).dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
@@ -147,7 +146,7 @@ final class ActivityReadApi(
     coll(
       _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
         .sort($sort desc "_id")
-        .cursor[Activity](ReadPreference.secondaryPreferred)
+        .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>
       toSwissesView(activities.flatMap(_.swisses.??(_.value)))
