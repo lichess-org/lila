@@ -99,24 +99,24 @@ private object BSONHandlers {
     def writes(w: lila.db.BSON.Writer, r: Streak) = BSONDocument("r" -> r.runs, "s" -> r.score)
   }
 
-  implicit private lazy val learnHandler =
+  implicit lazy val learnHandler =
     typedMapHandler[Learn.Stage, Int](Iso.string(Learn.Stage.apply, _.value))
       .as[Learn](Learn.apply, _.value)
 
-  implicit private lazy val practiceHandler =
+  implicit lazy val practiceHandler =
     typedMapHandler[Study.Id, Int](Iso.string[Study.Id](Study.Id.apply, _.value))
       .as[Practice](Practice.apply, _.value)
 
-  implicit private lazy val simulIdHandler = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
-  implicit private lazy val simulsHandler =
+  implicit lazy val simulIdHandler = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
+  implicit lazy val simulsHandler =
     isoHandler[Simuls, List[SimulId]]((s: Simuls) => s.value, Simuls.apply _)
 
-  implicit lazy val corresHandler         = Macros.handler[Corres]
-  implicit private lazy val patronHandler = BSONIntegerHandler.as[Patron](Patron.apply, _.months)
+  implicit lazy val corresHandler = Macros.handler[Corres]
+  implicit lazy val patronHandler = BSONIntegerHandler.as[Patron](Patron.apply, _.months)
 
-  implicit private lazy val followListHandler = Macros.handler[FollowList]
+  implicit lazy val followListHandler = Macros.handler[FollowList]
 
-  implicit private lazy val followsHandler = new lila.db.BSON[Follows] {
+  implicit lazy val followsHandler = new lila.db.BSON[Follows] {
     def reads(r: lila.db.BSON.Reader) =
       Follows(
         in = r.getO[FollowList]("i").filterNot(_.isEmpty),
@@ -129,16 +129,16 @@ private object BSONHandlers {
       )
   }
 
-  implicit private lazy val studiesHandler =
+  implicit lazy val studiesHandler =
     isoHandler[Studies, List[Study.Id]]((s: Studies) => s.value, Studies.apply _)
-  implicit private lazy val teamsHandler =
+  implicit lazy val teamsHandler =
     isoHandler[Teams, List[String]]((s: Teams) => s.value, Teams.apply _)
 
   implicit lazy val swissRankHandler = new lila.db.BSON[SwissRank] {
     def reads(r: lila.db.BSON.Reader)                = SwissRank(Swiss.Id(r.str("i")), r.intD("r"))
     def writes(w: lila.db.BSON.Writer, s: SwissRank) = BSONDocument("i" -> s.id, "r" -> s.rank)
   }
-  implicit private lazy val swissesHandler =
+  implicit lazy val swissesHandler =
     isoHandler[Swisses, List[SwissRank]]((s: Swisses) => s.value, Swisses.apply _)
 
   object ActivityFields {

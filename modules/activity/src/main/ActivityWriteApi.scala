@@ -16,138 +16,81 @@ final class ActivityWriteApi(
   import activities._
   import model._
 
-  def game(game: Game): Funit = withColl { coll =>
-    game.userIds
-      .flatMap { userId =>
-        for {
-          pt     <- game.perfType
-          player <- game playerByUserId userId
-        } yield for {
-          a <- getOrCreate(userId)
-          setGames = !game.isCorrespondence ?? $doc(
-            ActivityFields.games -> a.games.orDefault
-              .add(pt, Score.make(game wonBy player.color, RatingProg make player))
-          )
-          setCorres = game.hasCorrespondenceClock ?? $doc(
-            ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
-          )
-          setters = setGames ++ setCorres
-          _ <- (!setters.isEmpty) ?? coll.update.one($id(a.id), $set(setters), upsert = true).void
-        } yield ()
-      }
-      .sequenceFu
-      .void
-  }
+  def game(game: Game): Funit =
+    (for {
+      userId <- game.userIds
+      pt     <- game.perfType
+      player <- game playerByUserId userId
+    } yield update(userId) { a =>
+      val setGames = !game.isCorrespondence ?? $doc(
+        ActivityFields.games -> a.games.orDefault
+          .add(pt, Score.make(game wonBy player.color, RatingProg make player))
+      )
+      val setCorres = game.hasCorrespondenceClock ?? $doc(
+        ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
+      )
+      setGames ++ setCorres
+    }).sequenceFu.void
 
-  def forumPost(post: lila.forum.Post): Funit = withColl { coll =>
+  def forumPost(post: lila.forum.Post): Funit =
     post.userId.filter(User.lichessId !=) ?? { userId =>
-      getOrCreate(userId) flatMap { a =>
-        coll.update
-          .one(
-            $id(a.id),
-            $set(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id))),
-            upsert = true
-          )
-          .void
+      update(userId) { a =>
+        $doc(ActivityFields.forumPosts -> (~a.forumPosts + ForumPostId(post.id)))
       }
     }
+
+  def ublogPost(post: lila.ublog.UblogPost): Funit = update(post.created.by) { a =>
+    $doc(ActivityFields.ublogPosts -> (~a.ublogPosts + UblogPostId(post.id.value)))
   }
 
-  def ublogPost(post: lila.ublog.UblogPost): Funit = withColl { coll =>
-    getOrCreate(post.created.by) flatMap { a =>
-      coll.update
-        .one(
-          $id(a.id),
-          $set(ActivityFields.ublogPosts -> (~a.ublogPosts + UblogPostId(post.id.value))),
-          upsert = true
-        )
-        .void
-    }
+  def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = update(res.userId) { a =>
+    $doc(ActivityFields.puzzles -> {
+      ~a.puzzles + Score.make(
+        res = res.result.win.some,
+        rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+      )
+    })
   }
 
-  def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = withColl { coll =>
-    getOrCreate(res.userId) flatMap { a =>
-      coll.update
-        .one(
-          $id(a.id),
-          $set(ActivityFields.puzzles -> {
-            ~a.puzzles + Score.make(
-              res = res.result.win.some,
-              rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
-            )
-          }),
-          upsert = true
-        )
-        .void
-    }
+  def storm(userId: User.ID, score: Int): Funit = update(userId) { a =>
+    $doc(ActivityFields.storm -> { ~a.storm + score })
   }
 
-  def storm(userId: User.ID, score: Int): Funit = withColl { coll =>
-    getOrCreate(userId) flatMap { a =>
-      coll.update
-        .one(
-          $id(a.id),
-          $set(ActivityFields.storm -> { ~a.storm + score }),
-          upsert = true
-        )
-        .void
-    }
+  def racer(userId: User.ID, score: Int): Funit = update(userId) { a =>
+    $doc(ActivityFields.racer -> { ~a.racer + score })
   }
 
-  def racer(userId: User.ID, score: Int): Funit = withColl { coll =>
-    getOrCreate(userId) flatMap { a =>
-      coll.update
-        .one(
-          $id(a.id),
-          $set(ActivityFields.racer -> { ~a.racer + score }),
-          upsert = true
-        )
-        .void
-    }
+  def streak(userId: User.ID, score: Int): Funit = update(userId) { a =>
+    $doc(ActivityFields.streak -> { ~a.streak + score })
   }
 
-  def streak(userId: User.ID, score: Int): Funit = withColl { coll =>
-    getOrCreate(userId) flatMap { a =>
-      coll.update
-        .one(
-          $id(a.id),
-          $set(ActivityFields.streak -> { ~a.streak + score }),
-          upsert = true
-        )
-        .void
-    }
+  def learn(userId: User.ID, stage: String) = update(userId) { a =>
+    $doc(ActivityFields.learn -> { ~a.learn + Learn.Stage(stage) })
   }
 
-  def learn(userId: User.ID, stage: String) =
-    update(userId) { a =>
-      a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some
-    }
-
-  def practice(prog: lila.practice.PracticeProgress.OnComplete) =
-    update(prog.userId) { a =>
-      a.copy(practice = Some(~a.practice + prog.studyId)).some
-    }
+  def practice(prog: lila.practice.PracticeProgress.OnComplete) = update(prog.userId) { a =>
+    $doc(ActivityFields.practice -> { ~a.practice + prog.studyId })
+  }
 
   def simul(simul: lila.simul.Simul) =
-    simulParticipant(simul, simul.hostId) >>
-      simul.pairings.map(_.player.user).map { simulParticipant(simul, _) }.sequenceFu.void
-
-  def corresMove(gameId: Game.ID, userId: User.ID) =
-    update(userId) { a =>
-      a.copy(corres = Some((~a.corres).add(GameId(gameId), moved = true, ended = false))).some
+    lila.common.Future.applySequentially(simul.hostId :: simul.pairings.map(_.player.user)) {
+      simulParticipant(simul, _)
     }
 
-  def plan(userId: User.ID, months: Int) =
-    update(userId) { a =>
-      a.copy(patron = Some(Patron(months))).some
-    }
+  def corresMove(gameId: Game.ID, userId: User.ID) = update(userId) { a =>
+    $doc(ActivityFields.corres -> { (~a.corres).add(GameId(gameId), moved = true, ended = false) })
+  }
+
+  def plan(userId: User.ID, months: Int) = update(userId) { a =>
+    $doc(ActivityFields.patron -> Patron(months))
+  }
 
   def follow(from: User.ID, to: User.ID) =
     update(from) { a =>
-      a.copy(follows = Some(~a.follows addOut to)).some
+      $doc(ActivityFields.follows -> { ~a.follows addOut to })
     } >>
       update(to) { a =>
-        a.copy(follows = Some(~a.follows addIn from)).some
+        $doc(ActivityFields.follows -> { ~a.follows addIn from })
       }
 
   def unfollowAll(from: User, following: Set[User.ID]) =
@@ -176,36 +119,47 @@ final class ActivityWriteApi(
     studyApi byId id flatMap {
       _.filter(_.isPublic) ?? { s =>
         update(s.ownerId) { a =>
-          a.copy(studies = Some(~a.studies + s.id)).some
+          $doc(ActivityFields.studies -> { ~a.studies + s.id })
         }
       }
     }
 
   def team(id: String, userId: User.ID) =
     update(userId) { a =>
-      a.copy(teams = Some(~a.teams + id)).some
+      $doc(ActivityFields.teams -> { ~a.teams + id })
     }
 
   def streamStart(userId: User.ID) =
-    update(userId) { _.copy(stream = true).some }
+    update(userId) { _ =>
+      $doc(ActivityFields.stream -> true)
+    }
 
   def swiss(id: lila.swiss.Swiss.Id, ranking: lila.swiss.Ranking) =
-    ranking.map { case (userId, rank) =>
-      update(userId) { a => a.copy(swisses = Some(~a.swisses + SwissRank(id, rank))).some }
-    }.sequenceFu
-
-  private def simulParticipant(simul: lila.simul.Simul, userId: String) =
-    update(userId) { a =>
-      a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some
+    lila.common.Future.applySequentially(ranking.toList) { case (userId, rank) =>
+      update(userId) { a =>
+        $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
+      }
     }
 
-  private def get(userId: User.ID)         = withColl(_.byId[Activity, Id](Id today userId))
-  private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
-  private def save(activity: Activity) = withColl(
-    _.update.one($id(activity.id), activity, upsert = true).void
-  )
-  private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =
-    getOrCreate(userId) flatMap { old =>
-      f(old) ?? save
+  private def simulParticipant(simul: lila.simul.Simul, userId: User.ID) = update(userId) { a =>
+    $doc(ActivityFields.simuls -> { ~a.simuls + SimulId(simul.id) })
+  }
+
+  private def update(userId: User.ID)(makeSetters: Activity => Bdoc): Funit =
+    withColl { coll =>
+      coll.byId[Activity, Id](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
+        val setters = makeSetters(activity)
+        !setters.isEmpty ?? {
+          coll.update
+            .one($id(activity.id), $set(setters), upsert = true)
+            .flatMap { res =>
+              (res.upserted.nonEmpty ?? truncate(coll, activity.id.userId))
+            }
+            .void
+        }
+      }
     }
+
+  private def truncate(coll: Coll, userId: User.ID) = funit
+
 }
