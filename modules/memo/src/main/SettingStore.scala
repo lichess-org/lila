@@ -103,6 +103,7 @@ object SettingStore {
     )
     implicit val booleanFormable = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
     implicit val intFormable     = new Formable[Int](v => Form(single("v" -> number)) fill v)
+    implicit val floatFormable   = new Formable[Float](v => Form(single("v" -> bigDecimal)) fill v)
     implicit val stringFormable  = new Formable[String](v => Form(single("v" -> text)) fill v)
     implicit val stringsFormable = new Formable[lila.common.Strings](v =>
       Form(single("v" -> text)) fill Strings.stringsIso.to(v)

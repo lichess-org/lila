@@ -17,7 +17,7 @@ import lila.user.User
 final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline,
-    factor: SettingStore[Int] @@ UblogRankFactor
+    factor: SettingStore[Float] @@ UblogRankFactor
 )(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
 
   import UblogBsonHandlers._
@@ -128,25 +128,33 @@ final class UblogRank(
       language: Lang,
       tier: UblogBlog.Tier
   ) = UblogPost.Rank {
-    liveAt plusHours {
-      val tierLikes = likes.value + ((tier - 2) * 5).atLeast(0) // initial boost
-      val likeHours =
-        if (tierLikes < 1) 0
-        else (5 * math.log(tierLikes) + 1).toInt.atMost(tierLikes) * factor.get()
-      val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
-        case 0 => 0.3
-        case 1 => 1
-        case _ => 1.2
+    if (tier < UblogBlog.Tier.LOW) liveAt minusMonths 1
+    else
+      liveAt plusHours {
+
+        val boostedLikes = likes.value.toFloat + ((tier - 2) * 10).atLeast(0) // initial boost
+
+        val baseHours =
+          if (boostedLikes < 1) 0
+          else (3 * math.log(boostedLikes) + 1).toFloat.atMost(boostedLikes)
+
+        val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
+          case 0 => 0.3
+          case 1 => 1
+          case _ => 1.2
+        }
+
+        val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
+
+        val tierMultiplier = tier match {
+          case UblogBlog.Tier.LOW    => 0.3
+          case UblogBlog.Tier.NORMAL => 1
+          case UblogBlog.Tier.HIGH   => 3
+          case UblogBlog.Tier.BEST   => 7
+          case _                     => 0
+        }
+
+        (baseHours * topicsMultiplier * langMultiplier * tierMultiplier * factor.get()).toInt
       }
-      val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
-      val tiered = tier match {
-        case UblogBlog.Tier.LOW    => likeHours * 0.3 * topicsMultiplier * langMultiplier
-        case UblogBlog.Tier.NORMAL => likeHours * topicsMultiplier * langMultiplier
-        case UblogBlog.Tier.HIGH   => likeHours * 3 * topicsMultiplier * langMultiplier
-        case UblogBlog.Tier.BEST   => likeHours * 7 * topicsMultiplier * langMultiplier
-        case _                     => -99999
-      }
-      tiered.toInt
-    }
   }
 }

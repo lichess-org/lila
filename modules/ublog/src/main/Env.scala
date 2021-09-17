@@ -29,9 +29,9 @@ final class Env(
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
-  val rankFactorSetting = settingStore[Int](
+  val rankFactorSetting = settingStore[Float](
     "ublogRankFactor",
-    default = 5,
+    default = 1d,
     text = "Ublog rank factor".some,
     onSet = _ => rank.recomputeRankOfAllPosts
   ).taggedWith[UblogRankFactor]
