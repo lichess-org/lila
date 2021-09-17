@@ -152,14 +152,26 @@ final class ActivityWriteApi(
         !setters.isEmpty ?? {
           coll.update
             .one($id(activity.id), $set(setters), upsert = true)
-            .flatMap { res =>
-              (res.upserted.nonEmpty ?? truncate(coll, activity.id.userId))
+            .flatMap {
+              _.upserted.nonEmpty ?? truncateAfterInserting(coll, activity.id)
             }
             .void
         }
       }
     }
 
-  private def truncate(coll: Coll, userId: User.ID) = funit
+  private def truncateAfterInserting(coll: Coll, id: Activity.Id): Funit = {
+    // no need to do it every day
+    (id.userId.hashCode % 3) == (id.day.value % 3)
+  } ?? coll
+    .find(regexId(id.userId), $id(true).some)
+    .sort($sort desc "_id")
+    .skip(Activity.recentNb)
+    .one[Bdoc]
+    .flatMap {
+      _.flatMap(_.getAsOpt[Activity.Id]("_id")) ?? { oldId =>
+        coll.delete.one($doc("_id" $lte oldId)).void
+      }
+    }
 
 }

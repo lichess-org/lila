@@ -30,9 +30,7 @@ final class ActivityReadApi(
 
   implicit private val ordering = scala.math.Ordering.Double.TotalOrdering
 
-  private val recentNb = 7
-
-  def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] =
+  def recent(u: User, nb: Int = Activity.recentNb): Fu[Vector[ActivityView]] =
     for {
       activities <-
         coll(
@@ -171,7 +169,7 @@ final class ActivityReadApi(
       case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
       case ((found, as), a)                           => (found, as :+ a)
     }
-    if (!found && views.sizeIs < recentNb && DateTime.now.minusDays(8).isBefore(at))
+    if (!found && views.sizeIs < Activity.recentNb && DateTime.now.minusDays(8).isBefore(at))
       views :+ ActivityView(
         interval = new Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
         signup = true
