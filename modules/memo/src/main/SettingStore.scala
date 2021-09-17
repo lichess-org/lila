@@ -67,6 +67,7 @@ object SettingStore {
       case _                            => none
     })
     implicit val intReader                          = new StringReader[Int](_.toIntOption)
+    implicit val floatReader                        = new StringReader[Float](_.toFloatOption)
     implicit val stringReader                       = new StringReader[String](some)
     def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
   }
