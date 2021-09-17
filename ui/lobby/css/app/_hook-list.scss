@@ -106,13 +106,13 @@
 
       // player name
       &:nth-child(2) {
-        @include elipsis;
+        @include ellipsis;
         max-width: 25vw;
       }
 
       // rated/casual
       &:last-child {
-        @include elipsis;
+        @include ellipsis;
         max-width: 10vw;
       }
     }
