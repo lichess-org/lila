@@ -4,7 +4,7 @@ lichess.ratingHistoryChart = function (data, { singlePerfName, perfIndex }) {
     if (!data.length) return [];
     
     // If last rating wasn't today, add to the array
-    var today = new Date().setUTCHours(0,0,0,0);
+    var today = new Date().setUTCHours(0, 0, 0, 0);
     var lastRating = data[data.length - 1];
     if (lastRating[0] != today) {
       data.push([today, lastRating[1]]);
