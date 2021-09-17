@@ -49,8 +49,8 @@ object post {
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
             a(
-              href := routes.Ublog.index(user.username),
-              cls := userClass(user.id, none, withOnline = true),
+              href     := routes.Ublog.index(user.username),
+              cls      := userClass(user.id, none, withOnline = true),
               dataHref := routes.User.show(user.username)
             )(
               lineIcon(user),
@@ -62,7 +62,7 @@ object post {
                 )(UblogBlog.Tier.name(blog.tier))
             ),
             iconTag("")(
-              cls := "ublog-post__meta__disclaimer",
+              cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
             ),
             post.lived map { live =>
@@ -112,8 +112,8 @@ object post {
     }
 
   private def editButton(post: UblogPost)(implicit ctx: Context) = a(
-    href := editUrlOfPost(post),
-    cls := "button button-empty text",
+    href     := editUrlOfPost(post),
+    cls      := "button button-empty text",
     dataIcon := ""
   )(trans.edit())
 
@@ -124,7 +124,7 @@ object post {
       "ublog-post__like--liked" -> liked
     ),
     dataRel := post.id.value,
-    title := trans.study.like.txt()
+    title   := trans.study.like.txt()
   )(span(cls := "ublog-post__like__nb")(post.likes.value))
 
   private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
@@ -139,9 +139,9 @@ object post {
         ("no", trans.follow, routes.Relation.follow _, "")
       ).map { case (role, text, route, icon) =>
         button(
-          cls := s"ublog-post__follow__$role button button-big",
+          cls      := s"ublog-post__follow__$role button button-big",
           dataIcon := icon,
-          dataRel := route(user.id)
+          dataRel  := route(user.id)
         )(
           span(cls := "button-label")(text.txt(), " ", user.titleUsername)
         )
@@ -154,7 +154,7 @@ object post {
       showAuthor: Boolean = false,
       showIntro: Boolean = true
   )(implicit ctx: Context) =
-    a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
+    a(cls                          := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
@@ -165,7 +165,7 @@ object post {
     )
 
   def miniCard(post: UblogPost.BasePost)(implicit ctx: Context) =
-    span(cls := "ublog-post-card ublog-post-card--mini")(
+    span(cls                       := "ublog-post-card ublog-post-card--mini")(
       thumbnail(post, _.Small)(cls := "ublog-post-card__image"),
       h3(cls := "ublog-post-card__title")(post.title)
     )
@@ -179,18 +179,18 @@ object post {
 
   private[ublog] def newPostLink(implicit ctx: Context) = ctx.me map { u =>
     a(
-      href := routes.Ublog.form(u.username),
-      cls := "button button-green",
+      href     := routes.Ublog.form(u.username),
+      cls      := "button button-green",
       dataIcon := "",
-      title := trans.ublog.newPost.txt()
+      title    := trans.ublog.newPost.txt()
     )
   }
 
   object thumbnail {
     def apply(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       img(
-        cls := "ublog-post-image",
-        widthA := size(UblogPost.thumbnail).width,
+        cls     := "ublog-post-image",
+        widthA  := size(UblogPost.thumbnail).width,
         heightA := size(UblogPost.thumbnail).height
       )(src := url(post, size))
 

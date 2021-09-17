@@ -10,7 +10,7 @@ import scala.concurrent.Promise
 import scala.util.chaining._
 
 import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
+import lila.game.{ Event, Game, GameRepo, Player => GamePlayer, Pov, Progress }
 import lila.hub.actorApi.round.{
   Abort,
   BotPlay,

@@ -24,7 +24,7 @@ object blog {
       ),
       title = title,
       atomLinkTag = link(
-        href := routes.Ublog.userAtom(user.username),
+        href     := routes.Ublog.userAtom(user.username),
         st.title := title
       ).some,
       robots = netConfig.crawlable && blog.listed
@@ -44,9 +44,9 @@ object blog {
                 frag(
                   isGranted(_.ModerateBlog) option tierForm(blog),
                   a(
-                    cls := "atom",
+                    cls      := "atom",
                     st.title := "Atom RSS feed",
-                    href := routes.Ublog.userAtom(user.username),
+                    href     := routes.Ublog.userAtom(user.username),
                     dataIcon := ""
                   )
                 )

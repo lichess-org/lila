@@ -56,8 +56,8 @@ object userAnalysis {
             chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
               a(
                 dataIcon := iconByVariant(v),
-                cls := (pov.game.variant == v).option("current"),
-                href := routes.UserAnalysis.parseArg(v.key)
+                cls      := (pov.game.variant == v).option("current"),
+                href     := routes.UserAnalysis.parseArg(v.key)
               )(v.name)
             }
           )

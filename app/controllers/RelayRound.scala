@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 
 // import lila.common.config.MaxPerSecond
-import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
+import lila.relay.{ RelayRound => RoundModel, RelayRoundForm, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
 import views._
 

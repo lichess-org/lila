@@ -81,8 +81,8 @@ object games {
               tr(
                 sortNoneTh(
                   input(
-                    tpe := "checkbox",
-                    name := s"game[]",
+                    tpe      := "checkbox",
+                    name     := s"game[]",
                     st.value := "all"
                   )
                 ),
@@ -102,8 +102,8 @@ object games {
                 tr(
                   td(cls := pov.game.analysable.option("input"))(
                     pov.game.analysable option input(
-                      tpe := "checkbox",
-                      name := s"game[]",
+                      tpe      := "checkbox",
+                      name     := s"game[]",
                       st.value := pov.gameId
                     )
                   ),
@@ -124,15 +124,15 @@ object games {
                     pov.game.tournamentId map { tourId =>
                       a(
                         dataIcon := "",
-                        href := routes.Tournament.show(tourId).url,
-                        title := tournamentIdToName(tourId)
+                        href     := routes.Tournament.show(tourId).url,
+                        title    := tournamentIdToName(tourId)
                       )
                     },
                     pov.game.swissId map { swissId =>
                       a(
                         dataIcon := "",
-                        href := routes.Swiss.show(swissId).url,
-                        title := s"Swiss #${swissId}"
+                        href     := routes.Swiss.show(swissId).url,
+                        title    := s"Swiss #${swissId}"
                       )
                     }
                   ),

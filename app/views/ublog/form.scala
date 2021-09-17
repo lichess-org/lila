@@ -55,12 +55,12 @@ object form {
           imageForm(post),
           inner(f, Right(post), none),
           postForm(
-            cls := "ublog-post-form__delete",
+            cls    := "ublog-post-form__delete",
             action := routes.Ublog.delete(post.id.value)
           )(
             form3.action(
               submitButton(
-                cls := "button button-red button-empty confirm",
+                cls   := "button button-red button-empty confirm",
                 title := "Delete this blog post definitively"
               )(trans.delete())
             )
@@ -71,8 +71,8 @@ object form {
 
   private def imageForm(post: UblogPost)(implicit ctx: Context) =
     postForm(
-      cls := "ublog-post-form__image",
-      action := routes.Ublog.image(post.id.value),
+      cls     := "ublog-post-form__image",
+      action  := routes.Ublog.image(post.id.value),
       enctype := "multipart/form-data"
     )(
       form3.split(
@@ -114,7 +114,7 @@ object form {
       implicit ctx: Context
   ) =
     postForm(
-      cls := "form3",
+      cls    := "form3",
       action := post.fold(_ => routes.Ublog.create, p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
@@ -173,8 +173,8 @@ object form {
     p(
       a(
         dataIcon := "",
-        href := routes.Page.loneBookmark("blog-etiquette"),
-        cls := "text",
+        href     := routes.Page.loneBookmark("blog-etiquette"),
+        cls      := "text",
         targetBlank
       )("Blog Etiquette")
     ),
@@ -183,8 +183,8 @@ object form {
 
   def tips(implicit ctx: Context) = a(
     dataIcon := "",
-    href := routes.Page.loneBookmark("blog-tips"),
-    cls := "text",
+    href     := routes.Page.loneBookmark("blog-tips"),
+    cls      := "text",
     targetBlank
   )("Our simple tips to write great blog posts")
 }

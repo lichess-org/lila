@@ -43,23 +43,23 @@ object mod {
         isGranted(_.UserEvaluate) option {
           postForm(
             action := routes.Mod.refreshUserAssess(u.username),
-            title := "Collect data and ask irwin",
-            cls := "xhr"
+            title  := "Collect data and ask irwin",
+            cls    := "xhr"
           )(
             submitButton(cls := "btn-rack__btn")("Evaluate")
           )
         },
         isGranted(_.Hunter) option {
           a(
-            cls := "btn-rack__btn",
-            href := routes.GameMod.index(u.username),
+            cls   := "btn-rack__btn",
+            href  := routes.GameMod.index(u.username),
             title := "View games"
           )("Games")
         },
         isGranted(_.Shadowban) option {
           a(
-            cls := "btn-rack__btn",
-            href := routes.Mod.communicationPublic(u.id),
+            cls   := "btn-rack__btn",
+            href  := routes.Mod.communicationPublic(u.id),
             title := "View communications"
           )("Comms")
         }
@@ -68,8 +68,8 @@ object mod {
         isGranted(_.CloseAccount) option {
           postForm(
             action := routes.Mod.alt(u.username, !u.marks.alt),
-            title := "Preemptively close unauthorized alt.",
-            cls := "xhr"
+            title  := "Preemptively close unauthorized alt.",
+            cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.alt))("Alt")
           )
@@ -77,8 +77,8 @@ object mod {
         isGranted(_.MarkEngine) option {
           postForm(
             action := routes.Mod.engine(u.username, !u.marks.engine),
-            title := "This user is clearly cheating.",
-            cls := "xhr"
+            title  := "This user is clearly cheating.",
+            cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.engine))("Engine")
           )
@@ -86,8 +86,8 @@ object mod {
         isGranted(_.MarkBooster) option {
           postForm(
             action := routes.Mod.booster(u.username, !u.marks.boost),
-            title := "Marks the user as a booster or sandbagger.",
-            cls := "xhr"
+            title  := "Marks the user as a booster or sandbagger.",
+            cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost))("Booster")
           )
@@ -95,8 +95,8 @@ object mod {
         isGranted(_.Shadowban) option {
           postForm(
             action := routes.Mod.troll(u.username, !u.marks.troll),
-            title := "Enable/disable communication features for this user.",
-            cls := "xhr"
+            title  := "Enable/disable communication features for this user.",
+            cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
           )
@@ -104,8 +104,8 @@ object mod {
         (u.marks.troll && isGranted(_.Shadowban)) option {
           postForm(
             action := routes.Mod.deletePmsAndChats(u.username),
-            title := "Delete all PMs and public chat messages",
-            cls := "xhr"
+            title  := "Delete all PMs and public chat messages",
+            cls    := "xhr"
           )(
             submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
           )
@@ -113,8 +113,8 @@ object mod {
         isGranted(_.SetKidMode) option {
           postForm(
             action := routes.Mod.kid(u.username),
-            title := "Activate kid mode if not already the case",
-            cls := "xhr"
+            title  := "Activate kid mode if not already the case",
+            cls    := "xhr"
           )(
             submitButton(cls := "btn-rack__btn confirm", cls := u.kid.option("active"))("Kid")
           )
@@ -122,8 +122,8 @@ object mod {
         isGranted(_.RemoveRanking) option {
           postForm(
             action := routes.Mod.rankban(u.username, !u.marks.rankban),
-            title := "Include/exclude this user from the rankings.",
-            cls := "xhr"
+            title  := "Include/exclude this user from the rankings.",
+            cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
           )
@@ -131,8 +131,8 @@ object mod {
         isGranted(_.ReportBan) option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),
-            title := "Enable/disable the report feature for this user.",
-            cls := "xhr"
+            title  := "Enable/disable the report feature for this user.",
+            cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban))("Reportban")
           )
@@ -143,8 +143,8 @@ object mod {
           isGranted(_.CloseAccount) option {
             postForm(
               action := routes.Mod.closeAccount(u.username),
-              title := "Disables this account.",
-              cls := "xhr"
+              title  := "Disables this account.",
+              cls    := "xhr"
             )(
               submitButton(cls := "btn-rack__btn")("Close")
             )
@@ -155,8 +155,8 @@ object mod {
           isGranted(_.CloseAccount) option {
             postForm(
               action := routes.Mod.reopenAccount(u.username),
-              title := "Re-activates this account.",
-              cls := "xhr"
+              title  := "Re-activates this account.",
+              cls    := "xhr"
             )(
               submitButton(cls := "btn-rack__btn active")("Closed")
             )
@@ -167,8 +167,8 @@ object mod {
         (u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) option {
           postForm(
             action := routes.Mod.disableTwoFactor(u.username),
-            title := "Disables two-factor authentication for this account.",
-            cls := "xhr"
+            title  := "Disables two-factor authentication for this account.",
+            cls    := "xhr"
           )(
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
@@ -200,9 +200,9 @@ object mod {
       (isGranted(_.Admin) && isGranted(_.SetEmail)) ?? frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
-            tpe := "email",
-            value := emails.current.??(_.value),
-            name := "email",
+            tpe         := "email",
+            value       := emails.current.??(_.value),
+            name        := "email",
             placeholder := "Email address"
           ),
           submitButton(cls := "button", dataIcon := "")
@@ -228,7 +228,7 @@ object mod {
           pref.botCompatible option li(
             strong(
               a(
-                cls := "text",
+                cls      := "text",
                 dataIcon := "",
                 href := lila.common.String.base64
                   .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
@@ -561,14 +561,14 @@ object mod {
             isGranted(_.Admin) option th("Email"),
             sortNumberTh(dataSortDefault)("Same"),
             th("Games"),
-            sortNumberTh(playban)(cls := "i", title := "Playban"),
-            sortNumberTh(alt)(cls := "i", title := "Alt"),
-            sortNumberTh(shadowban)(cls := "i", title := "Shadowban"),
-            sortNumberTh(boosting)(cls := "i", title := "Boosting"),
-            sortNumberTh(engine)(cls := "i", title := "Engine"),
-            sortNumberTh(closed)(cls := "i", title := "Closed"),
-            sortNumberTh(reportban)(cls := "i", title := "Reportban"),
-            sortNumberTh(notesText)(cls := "i", title := "Notes"),
+            sortNumberTh(playban)(cls      := "i", title := "Playban"),
+            sortNumberTh(alt)(cls          := "i", title := "Alt"),
+            sortNumberTh(shadowban)(cls    := "i", title := "Shadowban"),
+            sortNumberTh(boosting)(cls     := "i", title := "Boosting"),
+            sortNumberTh(engine)(cls       := "i", title := "Engine"),
+            sortNumberTh(closed)(cls       := "i", title := "Closed"),
+            sortNumberTh(reportban)(cls    := "i", title := "Reportban"),
+            sortNumberTh(notesText)(cls    := "i", title := "Notes"),
             sortNumberTh(iconTag(""))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
@@ -582,7 +582,7 @@ object mod {
             val userAppeal = appeals.find(_.isAbout(o.id))
             tr(
               dataTags := s"${other.ips.map(renderIp).mkString(" ")} ${other.fps.mkString(" ")}",
-              cls := (o == u) option "same"
+              cls      := (o == u) option "same"
             )(
               if (o == u || Granter.canViewAltUsername(mod, o))
                 td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
@@ -611,7 +611,7 @@ object mod {
                   a(href := s"${routes.User.show(o.username)}?notes")(
                     notesText(
                       title := s"Notes from ${userNotes.map(_.from).map(titleNameOrId).mkString(", ")}",
-                      cls := "is-green"
+                      cls   := "is-green"
                     ),
                     userNotes.size
                   )
@@ -636,7 +636,7 @@ object mod {
               td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
               isGranted(_.CloseAccount) option td(
                 !o.marks.alt option button(
-                  cls := "button button-empty button-thin button-red mark-alt",
+                  cls  := "button button-empty button-thin button-red mark-alt",
                   href := routes.Mod.alt(o.id, !o.marks.alt)
                 )("ALT")
               )

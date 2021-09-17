@@ -60,7 +60,7 @@ object timeline {
           trans.xPostedInForumY(
             userLink(userId),
             a(
-              href := routes.ForumPost.redirect(postId),
+              href  := routes.ForumPost.redirect(postId),
               title := topicName
             )(shorten(topicName, 30))
           )
@@ -96,9 +96,9 @@ object timeline {
             case None        => trans.drawVsYInZ
           })(
             a(
-              href := routes.Round.player(playerId),
+              href     := routes.Round.player(playerId),
               dataIcon := perf.iconChar,
-              cls := "text glpt"
+              cls      := "text glpt"
             )(win match {
               case Some(true)  => trans.victory()
               case Some(false) => trans.defeat()

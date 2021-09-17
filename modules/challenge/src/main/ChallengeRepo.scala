@@ -28,7 +28,7 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
     coll.insert.one(c) >> c.challengerUser.?? { challenger =>
       createdByChallengerId()(challenger.id).flatMap {
         case challenges if challenges.sizeIs <= maxPerUser.value => funit
-        case challenges                                          => challenges.drop(maxPerUser.value).map(_.id).map(remove).sequenceFu.void
+        case challenges => challenges.drop(maxPerUser.value).map(_.id).map(remove).sequenceFu.void
       }
     }
 

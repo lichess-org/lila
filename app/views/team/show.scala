@@ -80,8 +80,8 @@ object show {
               ),
               info.ledByMe option a(
                 dataIcon := "",
-                href := routes.Page.loneBookmark("team-etiquette"),
-                cls := "text"
+                href     := routes.Page.loneBookmark("team-etiquette"),
+                cls      := "text"
               )("Team Etiquette")
             ),
             (t.enabled && chatOption.isDefined) option frag(
@@ -106,7 +106,7 @@ object show {
               ),
               ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>
                 postForm(
-                  cls := "team-show__subscribe form3",
+                  cls    := "team-show__subscribe form3",
                   action := routes.Team.subscribe(t.id)
                 )(
                   div(
@@ -121,8 +121,8 @@ object show {
                 ),
               t.enabled && info.ledByMe option frag(
                 a(
-                  href := routes.Tournament.teamBattleForm(t.id),
-                  cls := "button button-empty text",
+                  href     := routes.Tournament.teamBattleForm(t.id),
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -131,8 +131,8 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Tournament.form}?team=${t.id}",
-                  cls := "button button-empty text",
+                  href     := s"${routes.Tournament.form}?team=${t.id}",
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -141,8 +141,8 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Swiss.form(t.id)}",
-                  cls := "button button-empty text",
+                  href     := s"${routes.Swiss.form(t.id)}",
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -151,8 +151,8 @@ object show {
                   )
                 ),
                 a(
-                  href := routes.Team.pmAll(t.id),
-                  cls := "button button-empty text",
+                  href     := routes.Team.pmAll(t.id),
+                  cls      := "button button-empty text",
                   dataIcon := ""
                 )(
                   span(
@@ -167,7 +167,7 @@ object show {
                 ),
               ((isGranted(_.ManageTeam) || isGranted(_.ChatTimeout)) && !requestedModView) option a(
                 href := routes.Team.show(t.id, 1, mod = true),
-                cls := "button button-red"
+                cls  := "button button-red"
               )(
                 "View team as Mod"
               )

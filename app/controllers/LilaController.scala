@@ -17,7 +17,7 @@ import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
-import lila.user.{ UserContext, User => UserModel, Holder }
+import lila.user.{ Holder, User => UserModel, UserContext }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController

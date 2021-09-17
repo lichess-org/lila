@@ -17,7 +17,7 @@ object embed {
       title = replay titleOf pov,
       cssModule = "analyse.embed"
     )(
-      div(cls := "is2d")(
+      div(cls    := "is2d")(
         main(cls := "analyse")
       ),
       footer {
