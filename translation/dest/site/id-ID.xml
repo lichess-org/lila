@@ -48,6 +48,8 @@
   <string name="blackResigned">Hitam menyerah</string>
   <string name="whiteLeftTheGame">Putih meninggalkan permainan</string>
   <string name="blackLeftTheGame">Hitam meninggalkan permainan</string>
+  <string name="whiteDidntMove">Putih tidak melangkah</string>
+  <string name="blackDidntMove">Hitam tidak melangkah</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Berbagi URL ini untuk mengundang orang menonton permainan</string>
   <string name="theComputerAnalysisHasFailed">Analisa komputer gagal dilakukan</string>
   <string name="viewTheComputerAnalysis">Lihat analisa komputer</string>
@@ -88,6 +90,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mati %s di pertengahan langkah</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" dengan pembulatan, berdasarkan jumlah dari langkah setengah sampai ada langkah makan atau langkah pion</string>
   <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Penjelajah pembukaan</string>

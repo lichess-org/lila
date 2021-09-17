@@ -68,7 +68,7 @@
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
   <string name="promoteVariation">Προώθηση βαριάντας</string>
-  <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
+  <string name="makeMainLine">Δημιουργία κύριας γραμμής</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="move">Κίνηση</string>

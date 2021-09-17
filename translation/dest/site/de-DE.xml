@@ -860,7 +860,7 @@
   <string name="invitedYouToX">hat dich zu \"%1$s\" eingeladen.</string>
   <string name="xInvitedYouToY">%1$s hat dich zu \"%2$s\" eingeladen.</string>
   <string name="youAreNowPartOfTeam">Du bist nun Teammitglied.</string>
-  <string name="youHaveJoinedTeamX">Du bist jetzt \"%1$s\" beigetreten.</string>
+  <string name="youHaveJoinedTeamX">Du bist \"%1$s\" beigetreten.</string>
   <string name="someoneYouReportedWasBanned">Jemand, den du gemeldet hast, wurde gebannt</string>
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>

@@ -92,6 +92,7 @@
     <item quantity="one">Xeque-mate em %s meio-movimento</item>
     <item quantity="other">Xeque-mate em %s meio-movimentos</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' com arredondamento, baseado no número de meios-movimentos até à próxima captura ou movimento de peão</string>
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
+  <string name="winOr50MovesByPriorMistake">Vitória ou 50 movimentos por engano anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Vitória ou 50 movimentos por engano anterior</string>
+  <string name="unknownDueToRounding">Vitória/derrota garantida apenas se a linha da tabela recomendada tiver sido seguida desde a última captura ou movimento de peão, devido a possível arredondamento.</string>
   <string name="allSet">Tudo a postos!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Eliminar</string>
