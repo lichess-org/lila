@@ -38,7 +38,7 @@
   th {
     @extend %roboto;
 
-    padding: 1em;
+    padding: 1em 0.7em;
 
     &.sortable {
       cursor: pointer;
@@ -60,12 +60,12 @@
     }
 
     @include breakpoint($mq-not-xx-small) {
-      &:nth-child(2) {
-        max-width: 7ch;
+      padding: 1em 0.4em;
+
+      &:nth-child(3) {
+        max-width: 13vw;
         direction: rtl;
         text-align: left;
-        padding-right: 0;
-        padding-left: 0;
       }
     }
   }
@@ -108,12 +108,6 @@
       &:nth-child(2) {
         @include ellipsis;
         max-width: 25vw;
-      }
-
-      // rated/casual
-      &:last-child {
-        @include ellipsis;
-        max-width: 10vw;
       }
     }
   }
