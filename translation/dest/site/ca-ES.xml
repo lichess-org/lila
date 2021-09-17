@@ -22,8 +22,8 @@
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
-  <string name="youPlayTheWhitePieces">Jugues amb les peces blanques</string>
-  <string name="youPlayTheBlackPieces">Jugues amb les peces negres</string>
+  <string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
+  <string name="youPlayTheBlackPieces">Jugues les peces negres</string>
   <string name="itsYourTurn">És el teu torn!</string>
   <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rei al centre</string>
@@ -33,8 +33,8 @@
   <string name="newOpponent">Nou adversari</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
   <string name="joinTheGame">Unir-se a la partida</string>
-  <string name="whitePlays">Les blanques juguen</string>
-  <string name="blackPlays">Les negres juguen</string>
+  <string name="whitePlays">Juguen les blanques</string>
+  <string name="blackPlays">Juguen les negres</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">El seu contrincant ha abandonat la partida. Pot reclamar la victòria en %s segons.</item>
     <item quantity="other">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
@@ -44,7 +44,7 @@
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
   <string name="talkInChat">Sigues amable en el xat!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquesta URL jugarà amb tu.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona en visitar aquest enllaç jugarà amb tu.</string>
   <string name="whiteResigned">Les blanques s\'han rendit</string>
   <string name="blackResigned">Les negres s\'han rendit</string>
   <string name="whiteLeftTheGame">Les blanques han abandonat la partida</string>
@@ -61,7 +61,7 @@
   <string name="analysis">Tauler d\'anàlisi</string>
   <string name="depthX">Profunditat %s</string>
   <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
-  <string name="loadingEngine">Carregant motor...</string>
+  <string name="loadingEngine">Carregant màquina...</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
   <string name="goDeeper">Aprofundir</string>
   <string name="showThreat">Mostrar amenaça</string>
@@ -69,18 +69,18 @@
   <string name="toggleLocalEvaluation">Activar anàlisi local</string>
   <string name="promoteVariation">Promoure variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
-  <string name="deleteFromHere">Esborrar d\'aquí</string>
-  <string name="forceVariation">Forçar variant</string>
+  <string name="deleteFromHere">Esborrar des d\'aquí</string>
+  <string name="forceVariation">Forçar variació</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Derrota de variant</string>
   <string name="variantWin">Variant guanyadora</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Moviment de peó</string>
   <string name="capture">Captura</string>
-  <string name="close">Tanca</string>
+  <string name="close">Tancar</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Taules</string>
+  <string name="drawn">Empatat</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
@@ -93,7 +93,7 @@
     <item quantity="other">Mat en %s mig-moviments</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
-  <string name="noGameFound">No s\'ha trobat cap joc</string>
+  <string name="noGameFound">No s\'ha trobat cap partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més partides des d\'el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="openingEndgameExplorer">Explorador d\'apertures i finals</string>
@@ -111,15 +111,15 @@
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
   <string name="openStudy">Obrir estudi</string>
-  <string name="enable">Habilita</string>
-  <string name="bestMoveArrow">Fletxa del millor moviment</string>
+  <string name="enable">Habilitar</string>
+  <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="multipleLines">Línies múltiples</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
-  <string name="infiniteAnalysis">Anàlisi infinit</string>
-  <string name="removesTheDepthLimit">Treu el límit de profunditat i manté el seu ordinador calent</string>
-  <string name="blunder">Error greu</string>
+  <string name="infiniteAnalysis">Anàlisi il·limitat</string>
+  <string name="removesTheDepthLimit">Treu el límit de profunditat i calenta el teu ordinador</string>
+  <string name="blunder">Errada greu</string>
   <string name="mistake">Errada</string>
   <string name="inaccuracy">Imprecisió</string>
   <plurals name="nbBlunders">
@@ -135,10 +135,10 @@
     <item quantity="other">%s imprecisions</item>
   </plurals>
   <string name="moveTimes">Temps dels moviments</string>
-  <string name="flipBoard">Gira el tauler</string>
+  <string name="flipBoard">Girar el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>
-  <string name="claimADraw">Reclama taules</string>
-  <string name="offerDraw">Ofereix taules</string>
+  <string name="claimADraw">Reclamar taules</string>
+  <string name="offerDraw">Oferir taules</string>
   <string name="draw">Taules</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s jugador</item>
@@ -215,7 +215,7 @@
     <item quantity="one">%s partides amb tu</item>
     <item quantity="other">%s partides amb tu</item>
   </plurals>
-  <string name="cancel">Cancel·la</string>
+  <string name="cancel">Cancel·lar</string>
   <string name="whiteTimeOut">Les blanques han exhaurit el seu temps</string>
   <string name="blackTimeOut">Les negres han exhaurit el seu temps</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
