@@ -357,6 +357,7 @@
   <string name="difficultyNormal">સામાન્ય</string>
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
   <string name="studyMenu">અભ્યાસ</string>
+  <string name="practice">મહાવરો</string>
   <string name="aboutX">%s વિશે</string>
   <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
   <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
