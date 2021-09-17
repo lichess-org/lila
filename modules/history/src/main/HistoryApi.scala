@@ -3,7 +3,6 @@ package lila.history
 import chess.Speed
 import org.joda.time.{ DateTime, Days }
 import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.AsyncCollFailingSilently
@@ -85,8 +84,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
     withColl(
       _.optionsByOrderedIds[Bdoc, User.ID](
         users.map(_.id),
-        $doc(perfType.key -> true).some,
-        ReadPreference.secondaryPreferred
+        $doc(perfType.key -> true).some
       )(~_.string("_id")) map { hists =>
         users zip hists map { case (user, doc) =>
           val current      = user.perfs(perfType).intRating
@@ -119,7 +117,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userRepo: UserRepo, c
                 s"${perf.key}.$d" -> BSONBoolean(true)
               }
             }
-            withColl(_.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
+            withColl(_.find($id(user.id), project.some).one[Bdoc].map {
               _.flatMap {
                 _.child(perf.key) map {
                   _.elements.foldLeft(currentRating) {
