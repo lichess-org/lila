@@ -203,6 +203,13 @@ private[tournament] case class TournamentSetup(
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
+  // prevent berserk tournament abuse with TC like 1+60,
+  // where perf is Classical but berserked games are Hyperbullet.
+  private def timeControlPreventsBerserk =
+    clockConfig.incrementSeconds > clockConfig.limitInMinutes * 2
+
+  def isBerserkable = ~berserkable && !timeControlPreventsBerserk
+
   // update all fields and use default values for missing fields
   // meant for HTML form updates
   def updateAll(old: Tournament): Tournament = {
@@ -220,7 +227,7 @@ private[tournament] case class TournamentSetup(
           if (old.isCreated || old.position.isDefined) realPosition
           else old.position
         },
-        noBerserk = !(~berserkable),
+        noBerserk = !isBerserkable,
         noStreak = !(~streakable),
         teamBattle = old.teamBattle,
         description = description,
@@ -245,7 +252,7 @@ private[tournament] case class TournamentSetup(
           if (position.isDefined && (old.isCreated || old.position.isDefined)) realPosition
           else old.position
         },
-        noBerserk = berserkable.fold(old.noBerserk)(!_),
+        noBerserk = berserkable.fold(old.noBerserk)(!_) || timeControlPreventsBerserk,
         noStreak = streakable.fold(old.noStreak)(!_),
         teamBattle = old.teamBattle,
         description = description.fold(old.description)(_.some.filter(_.nonEmpty)),

@@ -19,18 +19,18 @@ private object BSONHandlers {
   import activities._
   import model._
 
-  def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId:"
+  val idSep                          = ':'
+  def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId$idSep"
 
   implicit lazy val activityIdHandler = {
-    val sep = ':'
     tryHandler[Id](
       { case BSONString(v) =>
-        v split sep match {
+        v split idSep match {
           case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
           case _                     => handlerBadValue(s"Invalid activity id $v")
         }
       },
-      id => BSONString(s"${id.userId}$sep${id.day.value}")
+      id => BSONString(s"${id.userId}$idSep${id.day.value}")
     )
   }
 

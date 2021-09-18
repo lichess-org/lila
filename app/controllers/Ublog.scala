@@ -235,7 +235,7 @@ final class Ublog(env: Env) extends LilaController(env) {
   def community(code: String, page: Int) = Open { implicit ctx =>
     NotForKids {
       val l = Lang.get(code).filter(LangList.popularNoRegion.contains)
-      Reasonable(page, 20) {
+      Reasonable(page, 8) {
         env.ublog.paginator.liveByCommunity(l, page) map { posts =>
           Ok(html.ublog.index.community(l, posts))
         }
@@ -265,7 +265,7 @@ final class Ublog(env: Env) extends LilaController(env) {
 
   def topic(str: String, page: Int) = Open { implicit ctx =>
     NotForKids {
-      Reasonable(page, 15) {
+      Reasonable(page, 5) {
         lila.ublog.UblogTopic.fromUrl(str) ?? { top =>
           env.ublog.paginator.liveByTopic(top, page) map { posts =>
             Ok(html.ublog.index.topic(top, posts))

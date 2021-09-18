@@ -2,6 +2,14 @@ lichess.ratingHistoryChart = function (data, { singlePerfName, perfIndex }) {
   var oneDay = 86400000;
   function smoothDates(data) {
     if (!data.length) return [];
+    
+    // If last rating wasn't today, add to the array
+    var today = new Date().setUTCHours(0, 0, 0, 0);
+    var lastRating = data[data.length - 1];
+    if (lastRating[0] != today) {
+      data.push([today, lastRating[1]]);
+    }
+
     var begin = data[0][0];
     var end = data[data.length - 1][0];
     var reversed = data.slice().reverse();
