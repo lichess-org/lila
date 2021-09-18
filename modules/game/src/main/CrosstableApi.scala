@@ -53,7 +53,7 @@ final class CrosstableApi(
       } yield (s1 + s2) / 10)
     }
 
-  def add(game: Game): Funit = enabled() ?? {
+  def add(game: Game): Funit =
     game.userIds.distinct.sorted match {
       case List(u1, u2) =>
         val result     = Result(game.id, game.winnerUserId)
@@ -66,7 +66,7 @@ final class CrosstableApi(
           }
         val inc1 = incScore(u1)
         val inc2 = incScore(u2)
-        val updateCrosstable = coll.update
+        val updateCrosstable = enabled() ?? coll.update
           .one(
             select(u1, u2),
             $inc(
@@ -79,6 +79,7 @@ final class CrosstableApi(
               )
             )
           )
+          .void
         val updateMatchup =
           matchupColl.update.one(
             select(u1, u2),
@@ -93,12 +94,11 @@ final class CrosstableApi(
         updateCrosstable zip updateMatchup void
       case _ => funit
     }
-  }
 
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
-    enabled() ?? matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
+    matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
   private def create(u1: User.ID, u2: User.ID): Fu[Crosstable] = {
     val crosstable = Crosstable.empty(u1, u2)
