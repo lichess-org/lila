@@ -152,9 +152,9 @@ final class ActivityWriteApi(
         !setters.isEmpty ?? {
           coll.update
             .one($id(activity.id), $set(setters), upsert = true)
-            .flatMap {
-              _.upserted.nonEmpty ?? truncateAfterInserting(coll, activity.id)
-            }
+            // .flatMap {
+            //   _.upserted.nonEmpty ?? truncateAfterInserting(coll, activity.id)
+            // }
             .void
         }
       }
