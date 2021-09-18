@@ -48,12 +48,15 @@
   <string name="blackResigned">કાળા દ્વારા resign કરવામાં આવ્યું</string>
   <string name="whiteLeftTheGame">સફેદ એ ગેમ છોડી દીધી</string>
   <string name="blackLeftTheGame">કાળા એ ગેમ છોડી દીધી</string>
+  <string name="whiteDidntMove">સફેદ ચાલ ન ચાલ્યું</string>
+  <string name="blackDidntMove">કાળો ચાલ ન ચાલ્યું</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">આ url ને શેર કરો દર્શકો ની સાથે</string>
   <string name="theComputerAnalysisHasFailed">કમ્પ્યુટર વિશ્લેષણ થયું નથી</string>
   <string name="viewTheComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ જુઓ</string>
   <string name="requestAComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ કરો</string>
   <string name="computerAnalysis">કમ્પ્યુટર વિશ્લેષણ</string>
   <string name="computerAnalysisAvailable">કમ્પ્યુટર વિશ્લેષણ હાજર છે</string>
+  <string name="computerAnalysisDisabled">કમ્પ્યુટર વિશ્લેષણ બંધ છે</string>
   <string name="analysis">વિષ્લેષણ</string>
   <string name="depthX">ઊંડાઈ %s</string>
   <string name="usingServerAnalysis">સર્વર નું વિશ્લેષણ વપરાય છે</string>
@@ -240,6 +243,28 @@
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>
   </plurals>
+  <string name="takeback">ચાલ પાછી લો</string>
+  <string name="proposeATakeback">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલો</string>
+  <string name="takebackPropositionSent">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલ્યો</string>
+  <string name="takebackPropositionDeclined">ચાલ પાછી લેવાનો પ્રસ્તાવ નકારાયો</string>
+  <string name="takebackPropositionAccepted">ચાલ પાછી લેવાનો પ્રસ્તાવ સ્વીકારાયો</string>
+  <string name="takebackPropositionCanceled">ચાલ પાછી લેવાનો પ્રસ્તાવ રદ કરો</string>
+  <string name="yourOpponentProposesATakeback">તમારા પ્રતિદ્વંદીએ ચાલ પાછી લેવાનો પ્રસ્તાવ કર્યો</string>
+  <string name="bookmarkThisGame">આ રમત સ્મૃતિમાં સાચવો</string>
+  <string name="tournament">પ્રતિયોગિતા</string>
+  <string name="tournaments">પ્રતિયોગિતાઓ</string>
+  <string name="tournamentPoints">પ્રતિયોગિતાના અંકો</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s પ્રતિયોગિતાનો અંક</item>
+    <item quantity="other">%s પ્રતિયોગિતાના અંકો</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%sઅભ્યાસ</item>
+    <item quantity="other">%s અભ્યાસ</item>
+  </plurals>
+  <string name="viewTournament">Pratiyogita જુઓ</string>
+  <string name="backToTournament">પ્રતિયોગિતામાં પાછા જાઓ</string>
+  <string name="thematic">વિષયલક્ષી</string>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -283,8 +308,28 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="player">ખેલાડી</string>
+  <string name="list">યાદી</string>
+  <string name="graph">આલેખ</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s કરતા ઓછી મિનિટ</item>
+    <item quantity="other">%s કરતા ઓછી મિનિટો</item>
+  </plurals>
+  <string name="required">જરુરી.</string>
+  <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
+  <string name="duration">અવધિ</string>
+  <string name="winner">વિજેતા</string>
+  <string name="createANewTournament">નવી પ્રતિયોગિતા બનાવો</string>
+  <string name="tournamentCalendar">પ્રતિયોગિતા કૅલેન્ડર</string>
+  <string name="conditionOfEntry">પ્રવેશ માટેની જરૂરિયાતો:</string>
+  <string name="advancedSettings">વિગતવાર સેટિંગ્સ</string>
+  <string name="safeTournamentName">પ્રતિયોગિતા માટે યોગ્ય નામ પસંદ કરો.</string>
+  <string name="join">ભાગ લો</string>
+  <string name="withdraw">છોડી દો</string>
+  <string name="points">અંકો</string>
   <string name="wins">જીત</string>
   <string name="losses">હાર</string>
+  <string name="createdBy">બનાવનાર</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
   <string name="movesPlayed">ચાલ રમ્યા</string>
   <string name="whiteWins">સફેદ ની જીત</string>
@@ -295,6 +340,7 @@
   <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
+  <string name="name">નામ</string>
   <string name="description">વર્ણન</string>
   <string name="no">નહીં</string>
   <string name="yes">હા</string>
@@ -303,9 +349,15 @@
   <string name="message">સંદેશ</string>
   <string name="reason">કારણ</string>
   <string name="insult">અપમાન</string>
+  <string name="blog">બ્લોગ</string>
   <string name="sound">ધ્વનિ</string>
+  <string name="fast">ઝડપી</string>
+  <string name="normal">સામાન્ય</string>
+  <string name="slow">ધીમું</string>
   <string name="difficultyNormal">સામાન્ય</string>
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
+  <string name="studyMenu">અભ્યાસ</string>
+  <string name="practice">મહાવરો</string>
   <string name="aboutX">%s વિશે</string>
   <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
   <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
@@ -320,6 +372,7 @@
   <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
   <string name="boardTheme">બોર્ડની પસંદગી</string>
   <string name="pieceSet">મહોરાંની પસંદગી</string>
+  <string name="coaches">કોચ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
