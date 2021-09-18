@@ -171,7 +171,7 @@ function textareaHook(ctrl: AnalyseCtrl, field: 'deviation' | 'hint'): Hooks {
     insert(vnode: VNode) {
       const el = vnode.elm as HTMLInputElement;
       el.value = value;
-      el.onkeyup = el.onpaste = () => {
+      el.oninput = () => {
         const node = ctrl.node;
         node.gamebook = node.gamebook || {};
         node.gamebook[field] = el.value.trim();
