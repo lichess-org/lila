@@ -32,7 +32,11 @@
   }
 }
 
-#mask {
+.spinner {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+
   path:nth-child(1) {
     animation: mask1 2s cubic-bezier(0.417, 0.086, 0.741, 0.452) infinite;
   }
@@ -42,15 +46,8 @@
   path:nth-child(3) {
     animation: mask3 2s cubic-bezier(0, 0, 0.431, 1) infinite;
   }
-}
-
-.spinner {
-  width: 70px;
-  height: 70px;
-  margin: auto;
 
   .white & path {
-    fill: #fff;
     stroke: #fff;
   }
 }
