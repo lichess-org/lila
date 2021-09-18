@@ -25,7 +25,7 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private lazy val coll = db(CollName("activity")).failingSilently()
+  private lazy val coll = db(CollName("activity2")).failingSilently()
 
   lazy val write: ActivityWriteApi = wire[ActivityWriteApi]
 

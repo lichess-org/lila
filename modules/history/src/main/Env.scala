@@ -17,7 +17,7 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private lazy val coll = db(CollName("history3")).failingSilently()
+  private lazy val coll = db(CollName("history4")).failingSilently()
 
   lazy val api = wire[HistoryApi]
 
