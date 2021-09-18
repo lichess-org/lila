@@ -6,6 +6,7 @@
     <item quantity="other">멤버 %s명</item>
   </plurals>
   <string name="allTeams">모든 팀</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">당신이 이끄는 팀</string>
   <string name="newTeam">팀 만들기</string>
   <string name="myTeams">소속된 팀</string>
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
@@ -25,6 +26,7 @@
   </plurals>
   <string name="willBeReviewed">팀 운영자가 가입 요청을 검토할 것입니다.</string>
   <string name="beingReviewed">팀 운영자가 가입 요청을 검토하고 있습니다.</string>
+  <string name="requestDeclined">당신의 가입 요청이 팀 리더에 의해 거절되었습니다.</string>
   <string name="subToTeamMessages">팀 메시지 구독하기</string>
   <string name="teamBattle">팀 배틀</string>
   <string name="teamBattleOverview">각각의 플레이어가 팀의 점수를 올리는 여러 팀간의 대결</string>
@@ -46,4 +48,5 @@
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTourns">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">거절된 요청</string>
 </resources>
