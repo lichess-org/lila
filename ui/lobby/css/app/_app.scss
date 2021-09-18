@@ -76,10 +76,14 @@
   }
 }
 
-.lreal_time,
-.lseeks .hooks__list {
-  @include breakpoint($mq-not-xx-small) {
+@include breakpoint($mq-not-xx-small) {
+  .lreal_time,
+  .lseeks .hooks__list {
     font-size: 0.9em;
+  }
+
+  .lobby__app .toggle {
+    padding: 0.4em;
   }
 }
 
