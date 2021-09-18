@@ -24,7 +24,8 @@ final class Dev(env: Env) extends LilaController(env) {
     env.apiTimelineSetting,
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
-    env.prizeTournamentMakers
+    env.prizeTournamentMakers,
+    env.game.crosstableEnable
   )
 
   def settings =

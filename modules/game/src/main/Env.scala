@@ -27,6 +27,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
+    settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -52,9 +53,16 @@ final class Env(
 
   lazy val pgnDump = wire[PgnDump]
 
+  val crosstableEnable = settingStore[Boolean](
+    "crosstableEnable",
+    default = false,
+    text = "Enable read/write crosstables"
+  )
+
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
-    matchupColl = db(config.matchupColl)
+    matchupColl = db(config.matchupColl),
+    enabled = crosstableEnable.get _
   )
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]

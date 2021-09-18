@@ -8,7 +8,8 @@ import lila.user.User
 
 final class CrosstableApi(
     coll: Coll,
-    matchupColl: Coll
+    matchupColl: Coll,
+    enabled: () => Boolean
 )(implicit ec: ExecutionContext) {
 
   import Crosstable.{ Matchup, Result }
@@ -32,13 +33,13 @@ final class CrosstableApi(
       Crosstable.WithMatchup(crosstable, matchup)
     }
 
-  def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] =
+  def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] = enabled() ??
     coll.one[Crosstable](select(u1, u2))
 
   def fetchOrEmpty(u1: User.ID, u2: User.ID): Fu[Crosstable] =
     justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
 
-  def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
+  def nbGames(u1: User.ID, u2: User.ID): Fu[Int] = enabled() ??
     coll
       .find(
         select(u1, u2),
@@ -65,18 +66,20 @@ final class CrosstableApi(
           }
         val inc1 = incScore(u1)
         val inc2 = incScore(u2)
-        val updateCrosstable = coll.update.one(
-          select(u1, u2),
-          $inc(
-            F.score1 -> inc1,
-            F.score2 -> inc2
-          ) ++ $push(
-            Crosstable.BSONFields.results -> $doc(
-              "$each"  -> List(bsonResult),
-              "$slice" -> -Crosstable.maxGames
+        val updateCrosstable = enabled() ?? coll.update
+          .one(
+            select(u1, u2),
+            $inc(
+              F.score1 -> inc1,
+              F.score2 -> inc2
+            ) ++ $push(
+              Crosstable.BSONFields.results -> $doc(
+                "$each"  -> List(bsonResult),
+                "$slice" -> -Crosstable.maxGames
+              )
             )
           )
-        )
+          .void
         val updateMatchup =
           matchupColl.update.one(
             select(u1, u2),
@@ -99,7 +102,9 @@ final class CrosstableApi(
 
   private def create(u1: User.ID, u2: User.ID): Fu[Crosstable] = {
     val crosstable = Crosstable.empty(u1, u2)
-    coll.insert.one(crosstable) recover lila.db.recoverDuplicateKey(_ => ()) inject crosstable
+    enabled() ?? {
+      coll.insert.one(crosstable).void recover lila.db.ignoreDuplicateKey
+    } inject crosstable
   }
 
   private def select(u1: User.ID, u2: User.ID) =
