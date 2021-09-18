@@ -24,7 +24,7 @@ final class RatingChartApi(
     } map JsArray.apply
 
   private val cache = cacheApi[User.ID, String](4096, "history.rating") {
-    _.expireAfterAccess(10 minutes)
+    _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
       .buildAsyncFuture { userId =>
         build(userId).dmap(~_)
