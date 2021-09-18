@@ -48,6 +48,8 @@
   <string name="blackResigned">흑색 기권</string>
   <string name="whiteLeftTheGame">백색이 게임을 나갔습니다</string>
   <string name="blackLeftTheGame">흑색이 게임을 나갔습니다</string>
+  <string name="whiteDidntMove">백이 두지 않음</string>
+  <string name="blackDidntMove">흑이 두지 않음</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">이 URL을 공유해서 관전할 수 있게 하세요.</string>
   <string name="theComputerAnalysisHasFailed">컴퓨터 분석에 실패하였습니다</string>
   <string name="viewTheComputerAnalysis">컴퓨터 분석 보기</string>
