@@ -112,10 +112,7 @@ export function view(root: AnalyseCtrl): VNode {
             insert(vnode) {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
-              function onChange() {
-                setTimeout(() => ctrl.submit(el.value), 50);
-              }
-              el.onkeyup = el.onpaste = onChange;
+              el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
             },
             postpatch: (old, vnode) => setupTextarea(vnode, old),
           },

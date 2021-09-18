@@ -102,7 +102,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
         h('textarea#form-control.desc-text.' + id, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : ctrl.text || '';
-            el.onkeyup = el.onpaste = () => {
+            el.oninput = () => {
               ctrl.save(el.value.trim());
             };
             el.focus();
