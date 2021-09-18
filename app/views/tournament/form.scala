@@ -84,6 +84,9 @@ object form {
               form3.submit(trans.save(), icon = "".some)
             )
           ),
+          hr,
+          br,
+          br,
           postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
               trans.cancelTournament()
