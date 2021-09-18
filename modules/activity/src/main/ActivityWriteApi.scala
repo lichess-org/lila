@@ -1,5 +1,7 @@
 package lila.activity
 
+import reactivemongo.api.bson._
+
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.game.Game
@@ -152,9 +154,9 @@ final class ActivityWriteApi(
         !setters.isEmpty ?? {
           coll.update
             .one($id(activity.id), $set(setters), upsert = true)
-            // .flatMap {
-            //   _.upserted.nonEmpty ?? truncateAfterInserting(coll, activity.id)
-            // }
+            .flatMap {
+              _.upserted.nonEmpty ?? truncateAfterInserting(coll, activity.id)
+            }
             .void
         }
       }
@@ -170,8 +172,16 @@ final class ActivityWriteApi(
     .one[Bdoc]
     .flatMap {
       _.flatMap(_.getAsOpt[Activity.Id]("_id")) ?? { oldId =>
-        coll.delete.one($doc("_id" $lte oldId)).void
+        coll.delete
+          .one(
+            $doc(
+              "_id" -> $doc(
+                "$lte"   -> oldId,
+                "$regex" -> BSONRegex(s"^${id.userId}$idSep", "")
+              )
+            )
+          )
+          .void
       }
     }
-
 }
