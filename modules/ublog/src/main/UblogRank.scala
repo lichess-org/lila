@@ -148,9 +148,9 @@ final class UblogRank(
 
         val tierMultiplier = tier match {
           case UblogBlog.Tier.LOW    => 0.2
-          case UblogBlog.Tier.NORMAL => 1
-          case UblogBlog.Tier.HIGH   => 3
-          case UblogBlog.Tier.BEST   => 5
+          case UblogBlog.Tier.NORMAL => 2
+          case UblogBlog.Tier.HIGH   => 5
+          case UblogBlog.Tier.BEST   => 8
           case _                     => 0
         }
 
