@@ -11,6 +11,8 @@ final class BlogApi(
     config: BlogConfig
 )(implicit ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient) {
 
+  import BlogApi.looksLikePrismicId
+
   private def collection = config.collection
 
   def recent(
@@ -37,7 +39,7 @@ final class BlogApi(
     recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
-    api
+    looksLikePrismicId(id) ?? api
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
@@ -112,4 +114,8 @@ object BlogApi {
   case class Context(api: Api, ref: String, linkResolver: DocumentLinkResolver) {
     def maybeRef = Option(ref).filterNot(_ == api.master.ref)
   }
+
+  private val idRegex = """^[\w-]{16}$""".r
+
+  def looksLikePrismicId(id: String) = idRegex.matches(id)
 }
