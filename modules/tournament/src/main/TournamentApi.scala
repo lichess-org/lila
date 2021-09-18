@@ -74,7 +74,7 @@ final class TournamentApi(
       password = setup.password,
       variant = setup.realVariant,
       position = setup.realPosition,
-      berserkable = setup.berserkable | true,
+      berserkable = setup.isBerserkable,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
       description = setup.description,
