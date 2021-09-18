@@ -37,7 +37,7 @@ final class Env(
   lazy val indexFlowSetting = settingStore[Boolean](
     "explorerIndexFlow",
     default = false,
-    text = "Explorer: index new games as soon as they complete".some
+    text = "Explorer: index new games as soon as they complete"
   )
 
   lila.common.Bus.subscribeFun("finishGame") {

@@ -30,6 +30,6 @@ private object IrwinThresholds {
     store[IrwinThresholds](
       "irwinThresholds",
       default = defaultThresholds,
-      text = "Irwin report and mark thresholds, separated with a comma. Set to 101 to disable.".some
+      text = "Irwin report and mark thresholds, separated with a comma. Set to 101 to disable."
     )
 }

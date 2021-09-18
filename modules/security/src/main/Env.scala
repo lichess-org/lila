@@ -71,7 +71,7 @@ final class Env(
   lazy val ugcArmedSetting = settingStore[Boolean](
     "ugcArmed",
     default = true,
-    text = "Enable the user garbage collector".some
+    text = "Enable the user garbage collector"
   )
 
   lazy val printBan = new PrintBan(db(config.collection.printBan))
@@ -130,7 +130,7 @@ final class Env(
   lazy val spamKeywordsSetting = settingStore[Strings](
     "spamKeywords",
     default = Strings(Nil),
-    text = "Spam keywords separated by a comma".some
+    text = "Spam keywords separated by a comma"
   )
 
   lazy val spam = new Spam(spamKeywordsSetting.get _)

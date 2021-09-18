@@ -23,7 +23,7 @@ object dev {
           p("Tread lightly."),
           settings.map { s =>
             postForm(action := routes.Dev.settingsPost(s.id))(
-              p(s.text | s.id),
+              p(s.text),
               s.form.value match {
                 case Some(v: Boolean) =>
                   div(

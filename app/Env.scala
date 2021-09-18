@@ -103,24 +103,22 @@ final class Env(
   lazy val apiTimelineSetting = memo.settingStore[Int](
     "apiTimelineEntries",
     default = 10,
-    text = "API timeline entries to serve".some
+    text = "API timeline entries to serve"
   )
   lazy val noDelaySecretSetting = memo.settingStore[Strings](
     "noDelaySecrets",
     default = Strings(Nil),
-    text =
-      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
+    text = "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas."
   )
   lazy val featuredTeamsSetting = memo.settingStore[Strings](
     "featuredTeams",
     default = Strings(Nil),
-    text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
+    text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas."
   )
   lazy val prizeTournamentMakers = memo.settingStore[UserIds](
     "prizeTournamentMakers ",
     default = UserIds(Nil),
-    text =
-      "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+    text = "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas."
   )
 
   lazy val preloader     = wire[mashup.Preload]

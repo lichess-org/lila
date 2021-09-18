@@ -33,13 +33,13 @@ private object ReportThresholds {
     store[ScoreThresholds](
       "reportScoreThresholds",
       default = defaultScoreThresholds,
-      text = "Report score mid and high thresholds, separated with a comma.".some
+      text = "Report score mid and high thresholds, separated with a comma."
     )
 
   def makeDiscordSetting(store: lila.memo.SettingStore.Builder) =
     store[Int](
       "discordScoreThreshold",
       default = 80,
-      text = "Discord score threshold. Comm reports with higher scores are notified in Discord".some
+      text = "Discord score threshold. Comm reports with higher scores are notified in Discord"
     )
 }

@@ -44,13 +44,13 @@ final class Env(
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
     default = 0,
-    text = "Monthly donation goal in USD from https://lichess.org/costs".some
+    text = "Monthly donation goal in USD from https://lichess.org/costs"
   )
 
   val paymentMethodsSetting = settingStore[Strings](
     "paymentMethods",
     default = Strings(List("card")),
-    text = "Stripe payment methods, separated by commas".some
+    text = "Stripe payment methods, separated by commas"
   )
 
   private lazy val patronColl = db(config.patronColl)

@@ -11,7 +11,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     coll: Coll,
     val id: String,
     val default: A,
-    val text: Option[String],
+    val text: String,
     persist: Boolean,
     init: SettingStore.Init[A],
     onSet: A => Funit
@@ -51,7 +51,7 @@ object SettingStore {
     def apply[A: BSONHandler: StringReader: Formable](
         id: String,
         default: A,
-        text: Option[String] = None,
+        text: String,
         persist: Boolean = true,
         init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value,
         onSet: A => Funit = (_: A) => funit

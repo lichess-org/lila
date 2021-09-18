@@ -47,8 +47,7 @@ final class Env(
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),
-      text =
-        "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+      text = "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma"
     )
   }
 
@@ -56,7 +55,7 @@ final class Env(
     settingStore[Int](
       "streamerHomepageMax",
       default = 6,
-      text = "Max streamers on homepage".some
+      text = "Max streamers on homepage"
     )
 
   lazy val api: StreamerApi = wire[StreamerApi]

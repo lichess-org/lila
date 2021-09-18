@@ -32,7 +32,7 @@ final class Env(
   val rankFactorSetting = settingStore[Float](
     "ublogRankFactor",
     default = 1f,
-    text = "Ublog rank factor".some,
+    text = "Ublog rank factor",
     onSet = _ => rank.recomputeRankOfAllPosts
   ).taggedWith[UblogRankFactor]
 

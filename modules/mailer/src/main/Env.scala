@@ -28,7 +28,7 @@ final class Env(
   lazy val mailerSecondaryPermilleSetting = settingStore[Int](
     "mailerSecondaryPermille",
     default = 0,
-    text = "Permille of mails to send using secondary SMTP configuration".some
+    text = "Permille of mails to send using secondary SMTP configuration"
   )
 
   lazy val mailer = new Mailer(

@@ -23,13 +23,13 @@ final class ModPresetsApi(
   lazy val pmPresets = settingStore[ModPresets](
     "modPmPresets",
     default = ModPresets(Nil),
-    text = "Moderator PM presets".some
+    text = "Moderator PM presets"
   )
 
   lazy val appealPresets = settingStore[ModPresets](
     "modAppealPresets",
     default = ModPresets(Nil),
-    text = "Moderator appeal presets".some
+    text = "Moderator appeal presets"
   )
 }
 

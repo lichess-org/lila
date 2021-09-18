@@ -10,7 +10,7 @@ final class Env(settingStore: lila.memo.SettingStore.Builder) {
   lazy val ratingFactorsSetting = settingStore[RatingFactors](
     "ratingFactor",
     default = Map.empty,
-    text = "Rating gain factor per perf type".some
+    text = "Rating gain factor per perf type"
   )
 
   val getFactors = ratingFactorsSetting.get _
