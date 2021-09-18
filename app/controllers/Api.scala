@@ -173,7 +173,7 @@ final class Api(
       CrosstableRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         import lila.user.User.normalize
         val (u1, u2) = (normalize(name1), normalize(name2))
-        env.game.crosstableApi.fetchOrEmpty(u1, u2) flatMap { ct =>
+        env.game.crosstableApi(u1, u2) flatMap { ct =>
           (ct.results.nonEmpty && getBool("matchup", req)).?? {
             env.game.crosstableApi.getMatchup(u1, u2)
           } map { matchup =>
