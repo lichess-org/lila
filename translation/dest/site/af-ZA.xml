@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Jy speel met die wit stukke</string>
   <string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
   <string name="itsYourTurn">Dit is jou beurt!</string>
+  <string name="cheatDetected">BedrogOpgespoor</string>
   <string name="kingInTheCenter">Koning in die middel</string>
   <string name="threeChecks">Drie maal skaak</string>
   <string name="raceFinished">Race klaar</string>
@@ -48,6 +49,7 @@
   <string name="blackResigned">Swart gee oor</string>
   <string name="whiteLeftTheGame">Wit het die spel verlaat</string>
   <string name="blackLeftTheGame">Swart het die spel verlaat</string>
+  <string name="whiteDidntMove">WitHetniebeweegnie</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel die URL vir toeskouers</string>
   <string name="theComputerAnalysisHasFailed">Die rekenaaranalise het misluk</string>
   <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>

@@ -44,7 +44,7 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
   <string name="tiebreaksCalculationA">A %s alapján.
-Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelek pontjainak felét.</string>
+Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelei pontjainak felét.</string>
   <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
@@ -71,7 +71,7 @@ Ennek az az oka, hogy nem tudjuk tisztességesen kezelni a versenyből idő elő
 Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon sok forduló van. Ilyenkor az összes lehetséges párosítást lejátsszák, mielőtt a verseny véget ér.</string>
   <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
   <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
-  <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes akinek a legtöbb pontot szerezte az összes fordulóban. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
+  <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes az, aki a legtöbb pontot szerezte a fordulókban összesen. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
   <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
 %1$s, hogy részt vehess svájci rendszerű versenyben.</string>
   <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
