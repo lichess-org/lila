@@ -17,7 +17,7 @@ final class Pref(env: Env) extends LilaController(env) {
         JsonOk {
           import play.api.libs.json._
           import lila.pref.JsonView._
-          Json.obj("prefs" -> prefs)
+          Json.obj("prefs" -> prefs).add("language" -> me.lang)
         }
       }
     }
