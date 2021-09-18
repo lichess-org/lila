@@ -37,7 +37,7 @@ final private class MsgSecurity(
       if (u.isApiHog) hog
       else if (u.isVerified) verified
       else if (u isDaysOld 3) normal
-      else if (u isHoursOld 3) normal * 2
+      else if (u isHoursOld 12) normal * 2
       else normal * 4
   }
 
