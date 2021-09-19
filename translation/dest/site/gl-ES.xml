@@ -92,6 +92,7 @@
     <item quantity="one">Mate en %s xogadas</item>
     <item quantity="other">Mate en %s xogadas</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de movementos intermedios ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
   <string name="openingExplorer">Abrir o explorador</string>
@@ -99,6 +100,9 @@
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
   <string name="winPreventedBy50MoveRule">Victoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
+  <string name="winOr50MovesByPriorMistake">Victoria ou 50 movementos a causa dun erro anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
+  <string name="unknownDueToRounding">A victoria ou derrota só está garantida se a liña recomendada seguiuse desde a última captura ou mevemento de peón, debido a un posible redondeo.</string>
   <string name="allSet">Todo listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
