@@ -187,5 +187,7 @@
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
+  <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
+  <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
 </resources>
