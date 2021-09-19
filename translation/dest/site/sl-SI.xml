@@ -435,6 +435,8 @@
   <string name="follow">Sledi</string>
   <string name="following">Igralcu že sledite</string>
   <string name="unfollow">Nehajte slediti</string>
+  <string name="followX">Sledite %s</string>
+  <string name="unfollowX">Prenehaj spremljati %s</string>
   <string name="block">Blokiraj</string>
   <string name="blocked">Blokiran</string>
   <string name="unblock">Odblokiraj</string>
