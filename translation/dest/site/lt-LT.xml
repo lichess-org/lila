@@ -436,6 +436,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="follow">Sekti</string>
   <string name="following">Sekamas</string>
   <string name="unfollow">Nebesekti</string>
+  <string name="followX">Sekti %s</string>
+  <string name="unfollowX">Nebesekti %s</string>
   <string name="block">Blokuoti</string>
   <string name="blocked">Užblokuotas</string>
   <string name="unblock">Atblokuoti</string>
