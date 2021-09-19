@@ -48,9 +48,6 @@ object header {
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(
-          a(cls := "nm-item", href := routes.Relation.followers(u.username))(
-            splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))
-          ),
           u.noBot option a(
             href := routes.UserTournament.path(u.username, "recent"),
             cls := "nm-item tournament_stats",
@@ -231,6 +228,8 @@ object header {
                     a(href := routes.Account.profile, title := trans.editProfile.txt())(
                       trans.profileCompletion(s"${profile.completionPercent}%")
                     ),
+                    br,
+                    a(href := routes.Relation.following(u.username))(trans.friends()),
                     br,
                     a(href := routes.User.opponents)(trans.favoriteOpponents())
                   ),

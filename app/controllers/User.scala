@@ -512,7 +512,7 @@ final class User(
               }
             }
             .sequenceFu
-      } yield html.user.opponents(me, relateds)
+      } yield html.relation.bits.opponents(me, relateds)
     }
 
   def perfStat(username: String, perfKey: String) =
