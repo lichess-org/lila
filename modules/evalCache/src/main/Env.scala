@@ -2,6 +2,7 @@ package lila.evalCache
 
 import chess.variant.Variant
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import play.api.Configuration
 
 import lila.common.Bus
@@ -13,15 +14,16 @@ import lila.socket.Socket.Sri
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
-    db: lila.db.Db,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     cacheApi: lila.memo.CacheApi,
     scheduler: akka.actor.Scheduler
 )(implicit
     ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
     mode: play.api.Mode
 ) {
 
-  private lazy val coll = db(appConfig.get[CollName]("evalCache.collection.evalCache"))
+  private lazy val coll = yoloDb(appConfig.get[CollName]("evalCache.collection.evalCache")).failingSilently()
 
   private lazy val truster = wire[EvalCacheTruster]
 
