@@ -26,6 +26,8 @@ Den zousätzleche Punkt fir \"Berserk\" kriss du just wann du an der Partie op m
 Wann zwee oder méi Spiller déi selwecht Punktzuel hunn ass d\'Turnéierperformance den Tiebreaker.</string>
   <string name="howDoesPairingWork">Wéi funktionéieren d\'Puerungen?</string>
   <string name="howDoesItEnd">Wéi hält et op?</string>
+  <string name="howDoesItEndAnswer">Den Turnéier huet en Countdown-Timer. Wann dësen Null erreecht, gëtt d\'Turnéierranglëscht agefruer an den Gewënner annoncéiert.
+Partien déi nach lafen mussen fäerdeg gespillt ginn, mee zielen net méi fir den Turnéier.</string>
   <string name="otherRules">Aner wichteg Reegelen</string>
   <string name="thereIsACountdown">Et leeft een Countdown fir den éischten Zuch. Keen Zuch an dësem Zäitraum ze spillen heecht, seng Partie duerch Forfait opzeginn.</string>
   <plurals name="drawingWithinNbMoves">
