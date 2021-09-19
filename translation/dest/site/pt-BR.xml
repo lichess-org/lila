@@ -94,7 +94,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" com arredondamento, baseado no número de meias-jogadas até a próxima captura ou jogada de peão</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos através do menu de preferências?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
