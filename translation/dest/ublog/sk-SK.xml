@@ -2,4 +2,5 @@
 <resources>
   <string name="saveDraft">Uložiť koncept</string>
   <string name="latestBlogPosts">Najnovšie príspevky na blogu</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternatívny popis obrázka</string>
 </resources>
