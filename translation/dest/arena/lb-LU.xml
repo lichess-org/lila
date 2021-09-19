@@ -33,7 +33,10 @@ Den zousätzleche Punkt fir \"Berserk\" kriss du just wann du an der Partie op m
     <item quantity="other">All %s Ekippen ukucken</item>
   </plurals>
   <string name="newTeamBattle">Neien Ekippenkampf</string>
+  <string name="customStartDate">Benotzerdefinéierten Startdatum</string>
+  <string name="customStartDateHelp">An denger eegener, lokaler Zäitzon. Iwwerschreift d\'Astellung \"Zäit bis Turnéier ufänkt\"</string>
   <string name="allowBerserk">Berserk erlaben</string>
+  <string name="allowBerserkHelp">Spiller hir Auer halbéieren loossen fir en Extrapunkt ze kréien</string>
   <string name="allowChatHelp">Spiller am Chatraum diskutéieren loossen</string>
   <string name="arenaStreaks">Arena Serien</string>
   <string name="arenaStreaksHelp">No 2 Victoirë hannerteneen kriss du 4 Punkten statt 2.</string>
