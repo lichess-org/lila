@@ -260,7 +260,7 @@ final class MsgApi(
                             "$not" -> $doc(
                               "$regexMatch" -> $doc(
                                 "input" -> "$text",
-                                "regex" -> "You received this because you are subscribed to messages of the team"
+                                "regex" -> "You received this because you are (subscribed to messages|part) of the team"
                               )
                             )
                           )
