@@ -9,6 +9,7 @@ import lila.common.Bus
 import lila.common.Heapsort.implicits._
 import lila.db.dsl._
 import lila.db.paginator._
+import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.hub.actors
 import lila.memo.CacheApi._
 import lila.relation.BSONHandlers._
@@ -17,6 +18,7 @@ import lila.user.User
 final class RelationApi(
     val coll: Coll,
     repo: RelationRepo,
+    timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
@@ -145,6 +147,7 @@ final class RelationApi(
                 repo.follow(u1, u2) >> limitFollow(u1) >>- {
                   countFollowersCache.update(u2, 1 +)
                   countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
+                  timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
                   Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
                   lila.mon.relation.follow.increment().unit
                 }

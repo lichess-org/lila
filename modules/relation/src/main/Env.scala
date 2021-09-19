@@ -19,6 +19,7 @@ private class RelationConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
+    timeline: actors.Timeline,
     userRepo: lila.user.UserRepo,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
