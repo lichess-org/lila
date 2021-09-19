@@ -1,6 +1,6 @@
 function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
-    var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
+    var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'dark' : 'default');
     lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
     lichess.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
       lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
