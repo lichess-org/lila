@@ -6,4 +6,13 @@
   <string name="aboutMe">Iwwert mech</string>
   <string name="playingExperience">Spillererfarung</string>
   <string name="teachingExperience">Trainererfarung</string>
+  <string name="otherExperiences">Aner Erfarungen</string>
+  <string name="bestSkills">Gréissten Talenter</string>
+  <string name="teachingMethod">Trainermethoden</string>
+  <string name="publicStudies">Ëffentlech Etüd</string>
+  <string name="youtubeVideos">Youtube Videoen</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Eng Schülerrezensioun</item>
+    <item quantity="other">%s Schülerrezensiounen</item>
+  </plurals>
 </resources>
