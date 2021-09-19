@@ -135,15 +135,15 @@ object post {
       )
     )(
       List(
-        ("yes", trans.following, routes.Relation.unfollow _, ""),
-        ("no", trans.follow, routes.Relation.follow _, "")
+        ("yes", trans.unfollowX, routes.Relation.unfollow _, ""),
+        ("no", trans.followX, routes.Relation.follow _, "")
       ).map { case (role, text, route, icon) =>
         button(
           cls := s"ublog-post__follow__$role button button-big",
           dataIcon := icon,
           dataRel := route(user.id)
         )(
-          span(cls := "button-label")(text.txt(), " ", user.titleUsername)
+          span(cls := "button-label")(text(user.titleUsername))
         )
       }
     )

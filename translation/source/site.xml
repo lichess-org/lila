@@ -382,6 +382,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="follow">Follow</string>
   <string name="following">Following</string>
   <string name="unfollow">Unfollow</string>
+  <string name="followX">Follow %s</string>
+  <string name="unfollowX">Unfollow %s</string>
   <string name="block">Block</string>
   <string name="blocked">Blocked</string>
   <string name="unblock">Unblock</string>
