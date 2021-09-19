@@ -22,11 +22,19 @@ Fir Partien ouni Grondbedenkzäit (0+1, 0+2) ass \"Berserk\" net disponibel.
 
 Den zousätzleche Punkt fir \"Berserk\" kriss du just wann du an der Partie op mannst siwen Zich gespillt hues.</string>
   <string name="howIsTheWinnerDecided">Wéi gëtt den Gewënner bestëmmt?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Den Spiller oder d\'Spiller mat den meeschten Punkten zum Schluss vum Turnéier ginn zum Gewënner ernannt.
+Wann zwee oder méi Spiller déi selwecht Punktzuel hunn ass d\'Turnéierperformance den Tiebreaker.</string>
   <string name="howDoesPairingWork">Wéi funktionéieren d\'Puerungen?</string>
   <string name="howDoesItEnd">Wéi hält et op?</string>
   <string name="otherRules">Aner wichteg Reegelen</string>
+  <string name="thereIsACountdown">Et leeft een Countdown fir den éischten Zuch. Keen Zuch an dësem Zäitraum ze spillen heecht, seng Partie duerch Forfait opzeginn.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">En Remis innerhalb vun %s Zuch wäert kengem Spiller Punkten bréngen.</item>
+    <item quantity="other">En Remis innerhalb vun den éischten %s Zich wäert kengem Spiller Punkten bréngen.</item>
+  </plurals>
   <string name="thisIsPrivate">Dësen Turnéier ass privat</string>
   <string name="shareUrl">Deel dës URL, dass aner Leit bäitrieden kënnen: %s</string>
+  <string name="drawStreak">Remis-Serien: Wann een Spiller konsekutiv Remis spillt, kritt hien just fir dat éischt Resultat en Punkt oder awer wann en Remis méi wéi %s Zich huet. Eng Remis-Serie kann just duerch eng Victoire gebrach ginn, net duerch eng Defaite oder en Remis.</string>
   <string name="history">Arena-Geschicht</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ekipp ukucken</item>
