@@ -7,7 +7,20 @@
   <string name="isNotRated">Dësen Turnéier ass *net* gewäert an beaflosst déng Wäertung *net*.</string>
   <string name="someRated">Verschidden Turnéier sinn gewäert an beaflossen deng Wäertung.</string>
   <string name="howAreScoresCalculated">Wéi ginn d\'Punkten berechent?</string>
+  <string name="howAreScoresCalculatedAnswer">Grondsätzlech gëtt et fir eng Victoire 2 Punkten, 1 Punkt fir Remis an 0 Punkten fir eng Defaite.
+Gewënns du zwou Partien hannerteneen, fängs du eng Serie mat duebeler Punktzuel un, duergestellt duerch en Flamensymbol.
+Fir déi Partien dono kriss du also soulang duebelt souvill Punkten bis du eng Partie net gewënns.
+Dat heecht eng Victoire ass 4 Punkten wäert, fir Remis ginn et 2 Punkten an fir eng Defaite keng.
+
+Zum Beispill, zwou Victoirë, gefolgt vun engem Remis sinn 6 Punkten wäert: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Wann een Spiller den \"Berserk\"-Knäppchen um Ufank vun der Partie dréckt, verléiert hien d\'Hallschent vun der Zäit op senger Auer, mee eng Victoire gëtt mat engem zousätzlechen Arenapunkt honoréiert. 
+
+An engem Zäitmodus mat Inkrement annuléiert \"Berserk\" dësen Inkrement. (1+2 ass eng Ausnam, et gëtt zu 1+0.)
+
+Fir Partien ouni Grondbedenkzäit (0+1, 0+2) ass \"Berserk\" net disponibel.
+
+Den zousätzleche Punkt fir \"Berserk\" kriss du just wann du an der Partie op mannst siwen Zich gespillt hues.</string>
   <string name="howIsTheWinnerDecided">Wéi gëtt den Gewënner bestëmmt?</string>
   <string name="howDoesPairingWork">Wéi funktionéieren d\'Puerungen?</string>
   <string name="howDoesItEnd">Wéi hält et op?</string>
@@ -21,4 +34,7 @@
   </plurals>
   <string name="newTeamBattle">Neien Ekippenkampf</string>
   <string name="allowBerserk">Berserk erlaben</string>
+  <string name="allowChatHelp">Spiller am Chatraum diskutéieren loossen</string>
+  <string name="arenaStreaks">Arena Serien</string>
+  <string name="arenaStreaksHelp">No 2 Victoirë hannerteneen kriss du 4 Punkten statt 2.</string>
 </resources>
