@@ -30,5 +30,5 @@
     <item quantity="one">E Bäitrag uweisen</item>
     <item quantity="other">%s Bäiträg uweisen</item>
   </plurals>
-  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">E Bild fir däin Bäitrag eroplueden</string>
+  <string name="uploadAnImageForYourPost">E Bild fir däin Bäitrag eroplueden</string>
 </resources>
