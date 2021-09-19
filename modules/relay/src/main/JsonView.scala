@@ -84,7 +84,7 @@ object JsonView {
       "log"     -> s.log.events
     ) ++
       s.upstream.?? {
-        case RelayRound.Sync.UpstreamUrl(url) => Json.obj("url" -> url)
+        case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
         case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
       }
   }
