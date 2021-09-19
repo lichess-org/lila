@@ -102,6 +102,9 @@
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
   <string name="winPreventedBy50MoveRule">50 gājienu noteikums novērsa uzvaru</string>
   <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
+  <string name="winOr50MovesByPriorMistake">Uzvara vai 50-gājienu neizšķirts iepriekšējas kļūdas dēļ</string>
+  <string name="lossOr50MovesByPriorMistake">Zaudējums vai 50-gājienu neizšķirts iepriekšējas kļūdas dēļ</string>
+  <string name="unknownDueToRounding">Uzvara/zaudējums garantēts tikai tad, ja veikti ieteiktie gājieni kopš pēdējā sitiena vai bandinieka gājiena.</string>
   <string name="allSet">Gatavs!</string>
   <string name="importPgn">Importēt PGN</string>
   <string name="delete">Dzēst</string>
