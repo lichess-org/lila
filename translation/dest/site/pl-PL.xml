@@ -435,6 +435,8 @@
   <string name="follow">Obserwuj</string>
   <string name="following">Obserwowany</string>
   <string name="unfollow">Przestań obserwować</string>
+  <string name="followX">Obserwuj %s</string>
+  <string name="unfollowX">Przestań obserwować %s</string>
   <string name="block">Zablokuj</string>
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
