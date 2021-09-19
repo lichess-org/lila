@@ -3,12 +3,13 @@ package lila.game
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.user.User
 
 final class CrosstableApi(
     coll: Coll,
-    matchupColl: Coll
+    matchupColl: AsyncCollFailingSilently
 )(implicit ec: ExecutionContext) {
 
   import Crosstable.{ Matchup, Result }
@@ -75,17 +76,20 @@ final class CrosstableApi(
           ),
           upsert = true
         )
-        val updateMatchup =
-          matchupColl.update.one(
-            select(u1, u2),
-            $inc(
-              F.score1 -> inc1,
-              F.score2 -> inc2
-            ) ++ $set(
-              F.lastPlayed -> DateTime.now
-            ),
-            upsert = true
-          )
+        val updateMatchup = matchupColl {
+          _.update
+            .one(
+              select(u1, u2),
+              $inc(
+                F.score1 -> inc1,
+                F.score2 -> inc2
+              ) ++ $set(
+                F.lastPlayed -> DateTime.now
+              ),
+              upsert = true
+            )
+            .void
+        }
         updateCrosstable zip updateMatchup void
       case _ => funit
     }
@@ -93,7 +97,7 @@ final class CrosstableApi(
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
+    matchupColl(_.find(select(u1, u2), matchupProjection.some).one[Matchup])
 
   private def select(u1: User.ID, u2: User.ID) =
     $id(Crosstable.makeKey(u1, u2))
