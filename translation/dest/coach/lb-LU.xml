@@ -2,4 +2,5 @@
 <resources>
   <string name="lichessCoaches">Lichess Trainer</string>
   <string name="lichessCoach">Lichess Trainer</string>
+  <string name="languages">Sproochen</string>
 </resources>
