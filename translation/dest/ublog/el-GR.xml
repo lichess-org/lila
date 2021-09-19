@@ -31,4 +31,5 @@
     <item quantity="other">Δείτε όλες τις συνολικά %s δημοσιεύσεις</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Μεταφορτώστε μια εικόνα στη δημοσίευσή σας</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alt text εικόνας</string>
 </resources>
