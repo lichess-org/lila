@@ -100,13 +100,11 @@ final class PersonalDataExport(
     val privateGameChats =
       Source(List(textTitle("Private game chat messages"))) concat
         gameChatsLookup(
-          $doc(
-            "$lookup" -> $doc(
-              "from"         -> chatEnv.coll.name,
-              "as"           -> "chat",
-              "localField"   -> "_id",
-              "foreignField" -> "_id"
-            )
+          $lookup.simple(
+            from = chatEnv.coll,
+            as = "chat",
+            local = "_id",
+            foreign = "_id"
           )
         )
 
@@ -180,7 +178,7 @@ final class PersonalDataExport(
       ublogPosts,
       forumPosts,
       privateMessages,
-      privateGameChats,
+      // privateGameChats,
       spectatorGameChats,
       gameNotes,
       outro
