@@ -68,6 +68,8 @@ Aqui está o link para acederes à aula.</string>
   <string name="releaseDesc1">Uma conta libertada não pode ser administrada novamente. O aluno será capaz de alternar o modo de criança e redefinir a palavra-passe por si mesmo.</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviar-lhe-emos um e-mail de confirmação, com um link para libertar a conta.</string>
+  <string name="closeStudent">Encerrar a conta</string>
+  <string name="closeTheAccount">Encerrar permanentemente a conta do aluno.</string>
   <string name="teachers">Professores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Professor(a)</item>
