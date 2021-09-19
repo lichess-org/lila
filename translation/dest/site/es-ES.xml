@@ -92,6 +92,7 @@
     <item quantity="one">Mate en %s medio movimiento</item>
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' con redondeo, basado en el número de movimientos intermedios hasta la próxima captura o movimiento de peón</string>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas</string>
@@ -377,8 +378,8 @@
   <string name="follow">Seguir</string>
   <string name="following">Siguiendo</string>
   <string name="unfollow">Dejar de seguir</string>
-  <string name="followX">Seguir a %s</string>
-  <string name="unfollowX">Dejar de seguir a %s</string>
+  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Seguir a %s</string>
+  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Dejar de seguir a %s</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
