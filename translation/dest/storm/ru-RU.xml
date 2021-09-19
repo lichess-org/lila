@@ -17,9 +17,9 @@
     <item quantity="other">%s попыток</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Сыграна одна серия в %2$s</item>
+    <item quantity="one">Сыграна %1$s серия в %2$s</item>
     <item quantity="few">Сыграны %1$s серии в %2$s</item>
-    <item quantity="many">Сыграно %1$s серий в %2$s</item>
+    <item quantity="many">Сыграны %1$s серий в %2$s</item>
     <item quantity="other">Сыграно %1$s серий в %2$s</item>
   </plurals>
   <string name="highscoreX">Рекорд: %s</string>
