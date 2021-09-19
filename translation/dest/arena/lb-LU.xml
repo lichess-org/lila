@@ -25,6 +25,9 @@ Den zousätzleche Punkt fir \"Berserk\" kriss du just wann du an der Partie op m
   <string name="howIsTheWinnerDecidedAnswer">Den Spiller oder d\'Spiller mat den meeschten Punkten zum Schluss vum Turnéier ginn zum Gewënner ernannt.
 Wann zwee oder méi Spiller déi selwecht Punktzuel hunn ass d\'Turnéierperformance den Tiebreaker.</string>
   <string name="howDoesPairingWork">Wéi funktionéieren d\'Puerungen?</string>
+  <string name="howDoesPairingWorkAnswer">Um Ufank vum Turnéier ginn Spiller op Grondlag vun hiren Wäertungen zougedeelt.
+Soubaal deng Partie fäerdeg ass, kanns du zeréck an d\'Turnéieriwwersicht: du wäers dann engem Spiller ob engem ähnlechen Rang zougedeelt ginn. Doduerch gëtt eng minimal Waardezäit erreecht, mee et kann sinn dass du net géint jiddereen am Turnéier spills.
+Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spillen an méi Punkten ze kréien.</string>
   <string name="howDoesItEnd">Wéi hält et op?</string>
   <string name="howDoesItEndAnswer">Den Turnéier huet en Countdown-Timer. Wann dësen Null erreecht, gëtt d\'Turnéierranglëscht agefruer an den Gewënner annoncéiert.
 Partien déi nach lafen mussen fäerdeg gespillt ginn, mee zielen net méi fir den Turnéier.</string>
