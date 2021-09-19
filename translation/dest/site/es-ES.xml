@@ -377,6 +377,8 @@
   <string name="follow">Seguir</string>
   <string name="following">Siguiendo</string>
   <string name="unfollow">Dejar de seguir</string>
+  <string name="followX">Seguir a %s</string>
+  <string name="unfollowX">Dejar de seguir a %s</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
