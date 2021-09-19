@@ -33,8 +33,10 @@
   &.gamebook-play {
     @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
       grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
-      grid-template-rows: auto 2.5rem;
-      grid-template-areas: 'board tools' 'board controls';
+      grid-template-rows: auto 3rem;
+      grid-template-areas:
+        'board tools'
+        'board controls';
     }
   }
 }
@@ -55,11 +57,21 @@
 }
 
 .analyse.variant-crazyhouse {
-  grid-template-rows: 60px auto 2.5rem 60px;
+  grid-template-areas:
+    'pocket-top'
+    'board'
+    'pocket-bot'
+    'tools'
+    'controls';
+  grid-template-rows: auto 100vw auto 1fr 3rem;
+  height: calc(100vh - 2.5rem);
 
-  body.supports-max-content & {
-    grid-template-rows: max-content auto 2.5rem max-content;
+  @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
+    grid-template-rows: auto 1fr 3rem auto;
+    grid-template-areas:
+      'board pocket-top'
+      'board tools'
+      'board controls'
+      'board pocket-bot';
   }
-
-  grid-template-areas: 'board pocket-top' 'board tools' 'board controls' 'board pocket-bot';
 }
