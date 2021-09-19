@@ -77,6 +77,9 @@
       }
     }
   }
+  &__views {
+    white-space: nowrap;
+  }
   &__image {
     @extend %box-neat-force;
     width: 100%;
