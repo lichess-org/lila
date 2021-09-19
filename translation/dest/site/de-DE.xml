@@ -381,6 +381,8 @@
   <string name="follow">Folgen</string>
   <string name="following">Folge ich</string>
   <string name="unfollow">Nicht mehr folgen</string>
+  <string name="followX">%s folgen</string>
+  <string name="unfollowX">%s nicht mehr folgen</string>
   <string name="block">Blockieren</string>
   <string name="blocked">Blockiert</string>
   <string name="unblock">Nicht mehr blockieren</string>
