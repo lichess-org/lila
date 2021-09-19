@@ -382,6 +382,7 @@
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>
   <string name="unfollow">Κατάργηση παρακολούθησης</string>
+  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Ακολουθήστε τον %s</string>
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
