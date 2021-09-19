@@ -31,8 +31,10 @@
     <item quantity="other">%s Memberen</item>
   </plurals>
   <string name="inviteToTheStudy">An d\'Etüd alueden</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Wannechgelift invitéier just Leit déi du kenns an déi aktiv un der Etüd matwierken wëllen.</string>
   <string name="searchByUsername">No Benotzernumm sichen</string>
   <string name="spectator">Zuschauer</string>
+  <string name="contributor">Matwierkenden</string>
   <string name="kick">Rausgehéien</string>
   <string name="leaveTheStudy">Etüd verloossen</string>
   <string name="youAreNowAContributor">Du bass elo e Contributeur</string>
@@ -57,17 +59,28 @@
   <string name="downloadGame">Partie eroflueden</string>
   <string name="studyUrl">Etüd URL</string>
   <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
+  <string name="startAtInitialPosition">Mat Startpositioun ufänken</string>
+  <string name="startAtX">Bei %s ufänken</string>
+  <string name="embedInYourWebsite">An Websäit anbetten</string>
   <string name="open">Opmaachen</string>
   <string name="studyNotFound">Etüd net fonnt</string>
   <string name="editChapter">Kapitel editéieren</string>
   <string name="newChapter">Neit Kapitel</string>
   <string name="orientation">Orientatioun</string>
   <string name="analysisMode">Analysemodus</string>
+  <string name="pinnedChapterComment">Ugepinnten Kapitelkommentar</string>
   <string name="saveChapter">Kapitel späicheren</string>
+  <string name="clearAnnotations">Annotatiounen läschen</string>
   <string name="deleteChapter">Kapitel läschen</string>
+  <string name="deleteThisChapter">Kapitel läschen? Et gëtt keen zeréck!</string>
+  <string name="rightUnderTheBoard">Direkt ënnert dem Briet</string>
+  <string name="noPinnedComment">Keng</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Eidel</string>
   <string name="editor">Editor</string>
+  <string name="loadAGameByUrl">Partien mat URL lueden</string>
+  <string name="loadAPositionFromFen">Positioun aus FEN lueden</string>
+  <string name="loadAGameFromPgn">Partien aus PGN lueden</string>
   <string name="automatic">Automatesch</string>
   <string name="createChapter">Kapitel kréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
@@ -79,11 +92,13 @@
   <string name="allowCloning">Klonen erlaaben</string>
   <string name="nobody">Keen</string>
   <string name="onlyMe">Just ech</string>
+  <string name="contributors">Matwierkendender</string>
   <string name="members">Memberen</string>
   <string name="everyone">Jiddereen</string>
   <string name="enableSync">Synchronisatioun aktivéieren</string>
   <string name="start">Lass</string>
   <string name="save">Späicheren</string>
+  <string name="clearChat">Chat läschen</string>
   <string name="deleteStudy">Etüd läschen</string>
   <string name="goodMove">Gudden Zuch</string>
   <string name="mistake">Feeler</string>
@@ -101,6 +116,7 @@
   <string name="blackIsBetter">Schwaarz ass besser</string>
   <string name="whiteIsWinning">Wéiss steet op Gewënn</string>
   <string name="blackIsWinning">Schwaarz steet op Gewënn</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neiheet</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwécklung</string>
   <string name="initiative">Initiativ</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ugrëff</string>
@@ -109,4 +125,5 @@
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mat Kompensatioun</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mat der Iddi</string>
   <string name="nextChapter">Nächst Kapitel</string>
+  <string name="prevChapter">Kapitel virdrun</string>
 </resources>
