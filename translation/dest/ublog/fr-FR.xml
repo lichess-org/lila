@@ -30,5 +30,5 @@
     <item quantity="one">Voir la publication</item>
     <item quantity="other">Voir les %s publications</item>
   </plurals>
-  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Téléverser une image pour votre publication</string>
+  <string name="uploadAnImageForYourPost">Téléverser une image pour votre publication</string>
 </resources>
