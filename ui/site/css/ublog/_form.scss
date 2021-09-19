@@ -1,6 +1,35 @@
 @import 'flash';
 
 .ublog-post-form {
+  padding-bottom: 5vh;
+
+  &__main .form-split,
+  &__main > .form-group,
+  &__main .form-actions,
+  &__delete .form-actions,
+  &__image {
+    padding-left: var(--box-padding);
+    padding-right: var(--box-padding);
+  }
+  &__image {
+    background: $c-bg-zebra;
+    padding-top: 5vh;
+  }
+  &__image-text {
+    background: $c-bg-zebra;
+    margin-bottom: 5vh;
+    border-bottom: $border;
+    font-size: 0.9em;
+    .form-group {
+      display: none;
+    }
+    &.visible {
+      height: auto;
+      .form-group {
+        display: block;
+      }
+    }
+  }
   .ublog-post-image {
     max-width: 100%;
     height: auto;
@@ -13,10 +42,8 @@
   }
   &__image {
     .form-group {
-      text-align: center;
       @extend %flex-column;
       justify-content: center;
-      align-items: center;
     }
     img {
       @extend %box-neat;

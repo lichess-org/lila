@@ -44,7 +44,12 @@ object post {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, (if (ctx is user) "mine" else "community").some),
         div(cls := "page-menu__content box box-pad ublog-post")(
-          post.image.isDefined option thumbnail(post, _.Large)(cls := "ublog-post__image"),
+          post.image.map { image =>
+            frag(
+              thumbnail(post, _.Large)(cls := "ublog-post__image"),
+              image.credit.map { p(cls := "ublog-post__image-credit")(_) }
+            )
+          },
           ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash(),
           h1(cls := "ublog-post__title")(post.title),
           div(cls := "ublog-post__meta")(
@@ -191,12 +196,13 @@ object post {
       img(
         cls := "ublog-post-image",
         widthA := size(UblogPost.thumbnail).width,
-        heightA := size(UblogPost.thumbnail).height
+        heightA := size(UblogPost.thumbnail).height,
+        alt := post.image.flatMap(_.alt)
       )(src := url(post, size))
 
     def url(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
       post.image match {
-        case Some(image) => UblogPost.thumbnail(picfitUrl, image, size)
+        case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
         case _           => assetUrl("images/user-blog-default.png")
       }
   }

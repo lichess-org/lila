@@ -84,6 +84,11 @@
     @extend %box-neat-force;
     width: 100%;
     height: auto;
+    &-credit {
+      font-size: 0.9em;
+      color: $c-font-dim;
+      text-align: right;
+    }
   }
   &__intro {
     @extend %break-word;

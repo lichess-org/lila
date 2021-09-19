@@ -28,11 +28,16 @@ const setupTopics = (el: HTMLTextAreaElement) =>
   });
 
 const setupImage = (form: HTMLFormElement) => {
+  const showText = () =>
+    $('.ublog-post-form__image-text').toggleClass('visible', $('.ublog-post-image').hasClass('user-image'));
   const submit = () => {
     const replace = (html: string) => $(form).find('.ublog-post-image').replaceWith(html);
     const wrap = (html: string) => '<div class="ublog-post-image">' + html + '</div>';
     xhr.formToXhr(form).then(
-      html => replace(html),
+      html => {
+        replace(html);
+        showText();
+      },
       err => replace(wrap(`<bad>${err}</bad>`))
     );
     replace(wrap(spinner));
@@ -40,6 +45,7 @@ const setupImage = (form: HTMLFormElement) => {
   };
   $(form).on('submit', submit);
   $(form).find('input[name="image"]').on('change', submit);
+  showText();
 };
 
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {

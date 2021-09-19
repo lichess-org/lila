@@ -25,6 +25,7 @@ private object UblogBsonHandlers {
     .afterRead(_.filter(t => UblogTopic.exists(t.value)))
   implicit val langBsonHandler        = stringAnyValHandler[Lang](_.code, Lang.apply)
   implicit val recordedBSONHandler    = Macros.handler[Recorded]
+  implicit val imageBSONHandler       = Macros.handler[UblogImage]
   implicit val likesBSONHandler       = intAnyValHandler[Likes](_.value, Likes)
   implicit val viewsBSONHandler       = intAnyValHandler[Views](_.value, Views)
   implicit val rankBSONHandler        = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank, _.value))

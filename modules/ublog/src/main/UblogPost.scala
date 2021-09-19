@@ -13,7 +13,7 @@ case class UblogPost(
     intro: String,
     markdown: String,
     language: Lang,
-    image: Option[PicfitImage.Id],
+    image: Option[UblogImage],
     topics: List[UblogTopic],
     live: Boolean,
     created: UblogPost.Recorded,
@@ -27,6 +27,8 @@ case class UblogPost(
 
   def indexable = live && topics.exists(t => UblogTopic.chessExists(t.value))
 }
+
+case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 
 object UblogPost {
 
@@ -50,7 +52,7 @@ object UblogPost {
     val blog: UblogBlog.Id
     val title: String
     val intro: String
-    val image: Option[PicfitImage.Id]
+    val image: Option[UblogImage]
     val created: Recorded
     val lived: Option[Recorded]
     def id   = _id
@@ -62,7 +64,7 @@ object UblogPost {
       blog: UblogBlog.Id,
       title: String,
       intro: String,
-      image: Option[PicfitImage.Id],
+      image: Option[UblogImage],
       created: Recorded,
       lived: Option[Recorded]
   ) extends BasePost

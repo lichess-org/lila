@@ -31,4 +31,6 @@
     <item quantity="other">View all %s posts</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Upload an image for your post</string>
+  <string name="imageAlt">Image alternative text</string>
+  <string name="imageCredit">Image credit</string>
 </resources>
