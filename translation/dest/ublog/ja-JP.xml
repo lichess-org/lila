@@ -27,5 +27,5 @@
   <plurals name="viewAllNbPosts">
     <item quantity="other">%s 件の投稿を表示</item>
   </plurals>
-  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">投稿記事のトップ画像をアップロード</string>
+  <string name="uploadAnImageForYourPost">投稿記事のトップ画像をアップロード</string>
 </resources>
