@@ -30,5 +30,5 @@
     <item quantity="one">Se et indlæg</item>
     <item quantity="other">Se alle %s indlæg</item>
   </plurals>
-  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Upload et billede til dit indlæg</string>
+  <string name="uploadAnImageForYourPost">Upload et billede til dit indlæg</string>
 </resources>
