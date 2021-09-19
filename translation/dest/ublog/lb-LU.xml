@@ -31,4 +31,6 @@
     <item quantity="other">%s Bäiträg uweisen</item>
   </plurals>
   <string name="uploadAnImageForYourPost">E Bild fir däin Bäitrag eroplueden</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternativen Bildtext</string>
+  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Bildquell</string>
 </resources>
