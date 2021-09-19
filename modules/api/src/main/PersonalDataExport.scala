@@ -183,6 +183,7 @@ final class PersonalDataExport(
       gameNotes,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
+      .keepAlive(15 seconds, () => " ")
   }
 
   private val bigSep = "\n------------------------------------------\n"
