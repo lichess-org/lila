@@ -123,4 +123,5 @@
   <string name="healthyMixDescription">Kao i u pravim partijama - budi spreman i očekuj bilo što! Kombinacija svih navedenih vrsta zadataka.</string>
   <string name="playerGames">Igračeve partije</string>
   <string name="playerGamesDescription">Pogledaj zadatke generirate iz vlastitih partija ili iz partija određenog igrača.</string>
+  <string name="puzzleDownloadInformation">Ovi zadaci su u javnom vlasništvu i mogu biti preuzeti sa %s.</string>
 </resources>
