@@ -382,8 +382,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Deixar de seguir</string>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Segue a %s</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Deixar de seguir a %s</string>
+  <string name="followX">Segue a %s</string>
+  <string name="unfollowX">Deixar de seguir a %s</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
