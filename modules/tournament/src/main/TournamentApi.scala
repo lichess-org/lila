@@ -668,7 +668,12 @@ final class TournamentApi(
         }
       }
 
-  def byOwnerStream(owner: User, status: List[Int], perSecond: MaxPerSecond, nb: Int): Source[Tournament, _] =
+  def byOwnerStream(
+      owner: User,
+      status: List[Status],
+      perSecond: MaxPerSecond,
+      nb: Int
+  ): Source[Tournament, _] =
     tournamentRepo
       .sortedCursor(owner, status, perSecond.value)
       .documentSource(nb)

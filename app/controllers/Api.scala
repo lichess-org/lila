@@ -272,12 +272,12 @@ final class Api(
   def tournamentsByOwner(name: String, status: List[Int]) =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      (name != "lichess") ?? env.user.repo.named(name) flatMap {
+      (name != lila.user.User.lichessId) ?? env.user.repo.named(name) flatMap {
         _ ?? { user =>
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
             env.tournament.api
-              .byOwnerStream(user, status, MaxPerSecond(20), nb)
+              .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
               .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           }.fuccess
         }
