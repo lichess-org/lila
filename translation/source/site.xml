@@ -102,7 +102,7 @@
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
   <string name="lossOr50MovesByPriorMistake">Loss or 50 moves by prior mistake</string>
-  <string name="unknownDueToRounding">Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding.</string>
+  <string name="unknownDueToRounding">Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
