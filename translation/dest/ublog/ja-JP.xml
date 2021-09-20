@@ -28,4 +28,5 @@
     <item quantity="other">%s 件の投稿を表示</item>
   </plurals>
   <string name="uploadAnImageForYourPost">投稿記事のトップ画像をアップロード</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">画像代替テキスト</string>
 </resources>
