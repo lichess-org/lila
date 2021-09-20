@@ -146,6 +146,7 @@
   <string name="apply">ଜମା କରନ୍ତୁ</string>
   <string name="pasteTheFenStringHere">FEN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
+  <string name="toStudy">ଅଧ୍ୟୟନ</string>
   <string name="importGame">ଖେଳ ଆମଦାନୀ କରନ୍ତୁ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
@@ -170,6 +171,7 @@
   <string name="victory">ବିଜୟ</string>
   <string name="timeline">ସମୟରେଖା</string>
   <string name="starting">ଆରମ୍ଭ:</string>
+  <string name="allInformationIsPublicAndOptional">ସମସ୍ତ ସୂଚନା ସାର୍ବଜନୀନ ଏବଂ ବୈକଳ୍ପିକ ଅଟେ।</string>
   <string name="studyMenu">ଅଧ୍ୟୟନ</string>
   <string name="practice">ଅଭ୍ୟାସ</string>
   <string name="sharePGN">PGN ଅଂଶୀଦାର କରନ୍ତୁ</string>
@@ -197,5 +199,6 @@
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
+  <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
 </resources>
