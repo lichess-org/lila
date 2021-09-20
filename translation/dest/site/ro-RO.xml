@@ -407,8 +407,8 @@
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>
   <string name="unfollow">Opriți urmărirea</string>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Urmărește utilizatorul %s</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Nu mai urmări utilizatorul %s</string>
+  <string name="followX">Urmărește utilizatorul %s</string>
+  <string name="unfollowX">Nu mai urmări utilizatorul %s</string>
   <string name="block">Blocare</string>
   <string name="blocked">Blocat</string>
   <string name="unblock">Deblocare</string>
