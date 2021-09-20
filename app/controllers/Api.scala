@@ -73,7 +73,7 @@ final class Api(
 
   def usersStatus =
     ApiRequest { req =>
-      val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
+      val ids = get("ids", req).??(_.split(',').take(100).toList map lila.user.User.normalize)
       env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
         val streamingIds = env.streamer.liveStreamApi.userIds
         toApiResult {
