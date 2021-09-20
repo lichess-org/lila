@@ -378,6 +378,8 @@
   <string name="follow">Seuraa</string>
   <string name="following">Seurataan</string>
   <string name="unfollow">Älä seuraa</string>
+  <string name="followX">Seuraa %s</string>
+  <string name="unfollowX">Lopeta käyttäjän %s seuraaminen</string>
   <string name="block">Estä</string>
   <string name="blocked">Estetty</string>
   <string name="unblock">Poista esto</string>

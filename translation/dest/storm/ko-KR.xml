@@ -48,4 +48,6 @@
   <string name="skip">건너뛰기</string>
   <string name="skipHelp">레이스 당 한 번 건너뛸 수 있습니다:</string>
   <string name="skipExplanation">이 수를 건너뛰고 콤보 기록을 보존하세요! 한 레이스에 한 번만 가능합니다.</string>
+  <string name="failedPuzzles">실패한 퍼즐</string>
+  <string name="slowPuzzles">느린 퍼즐</string>
 </resources>

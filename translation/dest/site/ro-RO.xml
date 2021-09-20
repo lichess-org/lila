@@ -149,6 +149,8 @@
     <item quantity="few">%s jucători</item>
     <item quantity="other">%s jucători</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remiză prin acord reciproc</string>
+  <string name="fiftyMovesWithoutProgress">Cincizeci de mișcări fără progres</string>
   <string name="currentGames">Partide active</string>
   <plurals name="nbGames">
     <item quantity="one">%s partidă</item>
@@ -405,6 +407,8 @@
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>
   <string name="unfollow">Opriți urmărirea</string>
+  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Urmărește utilizatorul %s</string>
+  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Nu mai urmări utilizatorul %s</string>
   <string name="block">Blocare</string>
   <string name="blocked">Blocat</string>
   <string name="unblock">Deblocare</string>
@@ -472,6 +476,7 @@
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Așează tabla</string>
   <string name="popularOpenings">Deschideri populare</string>
+  <string name="endgamePositions">Poziții de sfârșit</string>
   <string name="chess960StartPosition">Poziție de start Chess960: %s</string>
   <string name="startPosition">Poziția de start</string>
   <string name="clearBoard">Curăță tabla</string>

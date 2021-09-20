@@ -431,6 +431,8 @@
   <string name="follow">Подписаться</string>
   <string name="following">Подписаны</string>
   <string name="unfollow">Отписаться</string>
+  <string name="followX">Подписаться на %s</string>
+  <string name="unfollowX">Отписаться от %s</string>
   <string name="block">Заблокировать</string>
   <string name="blocked">Заблокированные</string>
   <string name="unblock">Разблокировать</string>

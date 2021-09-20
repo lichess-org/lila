@@ -46,6 +46,7 @@
   <string name="createDesc2">이메일 주소가 필요하지 않습니다. 생성된 비밀번호를 학생에게 보내면 로그인할 수 있습니다.</string>
   <string name="createDesc3">중요: 학생은 다중 계정을 가질 수 없습니다.</string>
   <string name="createDesc4">이미 계정이 있다면 초대 양식을 사용해주세요.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">계정 생성은 실제 학생을 위해서만 해야 합니다. 다중 계정 운용을 위해 사용할 경우 차단될 수 있습니다.</string>
   <string name="lichessUsername">Lichess 유저이름</string>
   <string name="generateANewUsername">새 유저이름 생성</string>
   <string name="welcomeToClass">%s, 수업에 오신 것을 환영합니다.

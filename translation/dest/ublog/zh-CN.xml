@@ -24,5 +24,5 @@
   <string name="noPostsInThisBlogYet">此博客中尚无文章</string>
   <string name="noDrafts">无可展示的草稿。</string>
   <string name="latestBlogPosts">最新博客文章</string>
-  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">上传一张图片</string>
+  <string name="uploadAnImageForYourPost">上传一张图片</string>
 </resources>

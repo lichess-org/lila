@@ -35,5 +35,5 @@
     <item quantity="many">Переглянути %s дописів</item>
     <item quantity="other">Переглянути %s дописів</item>
   </plurals>
-  <string name="uploadAnImageForYourPost" comment="uploadAnImageForYourPost&#10;&#10;The image in question is a banner image shown at the top of each post.">Завантажити зображення для вашого допису</string>
+  <string name="uploadAnImageForYourPost">Завантажити зображення для вашого допису</string>
 </resources>

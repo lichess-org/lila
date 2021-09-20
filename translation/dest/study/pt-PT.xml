@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Data em que foi adicionado (mais antigo)</string>
   <string name="recentlyUpdated">Atualizado recentemente</string>
   <string name="mostPopular">Mais popular</string>
+  <string name="alphabetical">Ordem alfabética</string>
   <string name="addNewChapter">Adicionar um novo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capítulo</item>
@@ -127,7 +128,9 @@
   <string name="deleteStudy">Eliminar estudo</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Eliminar todo o estudo? Não há volta atrás! Digite o nome do estudo para confirmar: %s</string>
   <string name="whereDoYouWantToStudyThat">Onde queres estudar isso?</string>
+  <string name="goodMove">Boa jogada</string>
   <string name="mistake">Erro</string>
+  <string name="brilliantMove">Jogada brilhante</string>
   <string name="blunder">Erro grave</string>
   <string name="interestingMove">Lance interessante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lance duvidoso</string>

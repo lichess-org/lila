@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">A túa petición de ingreso vai ser revisada por un Líder de equipo.</string>
   <string name="beingReviewed">A túa petición de ingreso vai ser revisada por un Líder de equipo.</string>
+  <string name="requestDeclined">A túa petición de ingreso foi declinada por un Líder de equipo.</string>
   <string name="subToTeamMessages">Subscríbete ás mensaxes de equipo</string>
   <string name="teamBattle">Batalla por equipos</string>
   <string name="teamBattleOverview">Unha batalla de múltiples equipos, cada xogador/a anota puntos para o seu equipo</string>
@@ -52,4 +53,5 @@ Os xogadores/as aos que non lles guste recibir as túas mensaxes poden abandoar 
   <string name="teamAlreadyExists">Este nome xa existe.</string>
   <string name="upcomingTourns">Torneos vindeiros</string>
   <string name="completedTourns">Torneos completos</string>
+  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Solicitudes rexeitadas</string>
 </resources>

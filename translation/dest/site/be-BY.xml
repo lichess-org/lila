@@ -431,6 +431,8 @@
   <string name="follow">Падпісацца</string>
   <string name="following">Вы падпісаны</string>
   <string name="unfollow">Адпісацца</string>
+  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Падпісацца на %s</string>
+  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Адпісацца ад %s</string>
   <string name="block">Заблакіраваць</string>
   <string name="blocked">Заблакіраваны</string>
   <string name="unblock">Разблакіраваць</string>

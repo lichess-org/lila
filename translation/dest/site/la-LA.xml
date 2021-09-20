@@ -363,6 +363,8 @@
   <string name="follow">Spectare</string>
   <string name="following">Spectans</string>
   <string name="unfollow">Non Spectare</string>
+  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%s sequi</string>
+  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%s sequi desinere</string>
   <string name="block">Excludere</string>
   <string name="blocked">Clausus est</string>
   <string name="unblock">Admittere</string>

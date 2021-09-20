@@ -382,6 +382,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="follow">Fylgj</string>
   <string name="following">Fylgjer</string>
   <string name="unfollow">Slutt å fylgja</string>
+  <string name="followX">Følg %s</string>
+  <string name="unfollowX">Slutt å følgja %s</string>
   <string name="block">Blokkér</string>
   <string name="blocked">Blokkert</string>
   <string name="unblock">Fjern blokkering</string>

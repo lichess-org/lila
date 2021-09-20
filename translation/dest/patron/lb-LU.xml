@@ -4,6 +4,14 @@
   <string name="lichessPatron">Lichess Ënnerstëtzer</string>
   <string name="freeAccount">Gratis Account</string>
   <string name="becomePatron">Lichess Ënnerstëtzer ginn</string>
+  <string name="xBecamePatron">%s ass en Lichess Ennerstëtzer ginn</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s ennerstëtzt Lichess säit %2$s Mount</item>
+    <item quantity="other">%1$s ennerstëtzt Lichess säit %2$s Méint</item>
+  </plurals>
   <string name="newPatrons">Nei Ënnerstëtzer</string>
+  <string name="freeChess">Gratis Schach fir jiddereen, fir ëmmer!</string>
+  <string name="noAdsNoSubs">Ken Reklammen, keng Abonnementer; mee Open-Source an Passioun.</string>
+  <string name="thankYou">Merci fir deng Spend!</string>
   <string name="update">Update</string>
 </resources>
