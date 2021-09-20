@@ -66,7 +66,7 @@ object side {
         if (verdicts.relevant)
           st.section(
             dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
-                         else ""),
+                         else ""),
             cls := List(
               "conditions" -> true,
               "accepted"   -> (ctx.isAuth && verdicts.accepted),
