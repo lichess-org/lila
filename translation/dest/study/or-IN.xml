@@ -2,6 +2,12 @@
 <resources>
   <string name="private">ବ୍ୟକ୍ତିଗତ</string>
   <string name="myStudies">ମୋର ଅଧ୍ୟୟନ</string>
+  <string name="pgnTags">PGN ଟ୍ୟାଗ୍</string>
   <string name="shareAndExport">ଅଂଶୀଦାର ଓ ରପ୍ତାନି</string>
+  <string name="studyPgn">ଅଧ୍ୟୟନର PGN</string>
+  <string name="chapterPgn">ଅଧ୍ୟାୟର PGN</string>
+  <string name="embedInYourWebsite">ଆପଣଙ୍କ ୱେବସାଇଟ୍ ରେ ଗ୍ରନ୍ଥନ କରନ୍ତୁ</string>
+  <string name="readMoreAboutEmbedding">ଗ୍ରନ୍ଥନ ବିଷୟରେ ଅଧିକ ପଢ଼ନ୍ତୁ</string>
+  <string name="automatic">ସ୍ୱୟଂଚାଳିତ</string>
   <string name="start">ଆରମ୍ଭ କର</string>
 </resources>
