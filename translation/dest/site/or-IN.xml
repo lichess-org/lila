@@ -143,6 +143,10 @@
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%sଟିଏ ଅଧ୍ୟୟନ</item>
+    <item quantity="other">%sଟି ଅଧ୍ୟୟନ</item>
+  </plurals>
   <string name="apply">ଜମା କରନ୍ତୁ</string>
   <string name="pasteTheFenStringHere">FEN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
@@ -152,8 +156,8 @@
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
+  <string name="followX">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
+  <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
