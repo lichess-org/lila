@@ -160,6 +160,8 @@
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="toStudy">ଅଧ୍ୟୟନ</string>
   <string name="importGame">ଖେଳ ଆମଦାନୀ କରନ୍ତୁ</string>
+  <string name="retry">ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ</string>
+  <string name="reconnecting">ପୁନଃସଂଯୋଗ ହେଉଛି</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
@@ -171,9 +173,18 @@
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
+  <string name="profile">ପ୍ରୋଫାଇଲ୍</string>
   <string name="editProfile">ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା</string>
+  <string name="firstName">ଦିଆଯାଇଥିବା ନାମ</string>
+  <string name="biography">ଜୀବନୀ</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ଦେଶ କିମ୍ୱା ପତାକା</string>
+  <string name="thankYou">ଧନ୍ୟବାଦ!</string>
+  <string name="name">ନାମ</string>
+  <string name="description">ବର୍ଣ୍ଣନା</string>
+  <string name="no">ନାହିଁ</string>
+  <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
+  <string name="createANewTopic">ଏକ ନୂତନ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
