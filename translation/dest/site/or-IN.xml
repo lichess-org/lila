@@ -71,6 +71,7 @@
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
   <string name="deleteThisImportedGame">ଏହି ଆମଦାନୀ ହୋଇଥିବା ଖେଳ ବିଲୋପ କରିବେ କି?</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
+  <string name="openStudy">ଖୋଲା ଅଧ୍ୟୟନ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
   <string name="evaluationGauge">ମୂଲ୍ୟାଙ୍କନ ଗେଜ୍</string>
   <string name="multipleLines">ଏକାଧିକ ରେଖା</string>
@@ -195,5 +196,6 @@
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
+  <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
 </resources>
