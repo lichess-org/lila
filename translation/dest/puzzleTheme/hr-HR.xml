@@ -121,4 +121,6 @@
   <string name="zugzwangDescription">Protivnik je prisiljen odigrati potez koji mu pogoršava poziciju.</string>
   <string name="healthyMix">Pomalo svega</string>
   <string name="healthyMixDescription">Kao i u pravim partijama - budi spreman i očekuj bilo što! Kombinacija svih navedenih vrsta zadataka.</string>
+  <string name="playerGames">Igračeve partije</string>
+  <string name="playerGamesDescription">Pogledaj zadatke generirate iz vlastitih partija ili iz partija određenog igrača.</string>
 </resources>
