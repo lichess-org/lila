@@ -19,6 +19,7 @@
   <string name="rule2">Uklonite ključnu riječ kada emitirate sadržaj koji nije vezan za Lichess.</string>
   <string name="rule3">Lichess će automatski otkriti Vaše emitiranje i omogućiti sljedeće prednosti:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Pročitaj %s da bi osiguro poštenu igru za sve u tvom prijenosu.</string>
+  <string name="streamingFairplayFAQ">Često postavljana pitanja o poštenoj igri tijekom prijenosa</string>
   <string name="perks">Prednosti emitiranja sa ključnom riječi</string>
   <string name="perk1">Dobiti ćete vatrenu ikonicu emitera na svom Lichess profilu.</string>
   <string name="perk2">Probiti ćete se na vrh liste emitera.</string>
