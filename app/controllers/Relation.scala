@@ -118,7 +118,8 @@ final class Relation(
           RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
             negotiate(
               html = {
-                if (ctx is user) Ok(html.relation.bits.friends(user, pag)).fuccess
+                if (ctx.is(user) || isGranted(_.CloseAccount))
+                  Ok(html.relation.bits.friends(user, pag)).fuccess
                 else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).fuccess)
               },
               api = _ => Ok(jsonRelatedPaginator(pag)).fuccess

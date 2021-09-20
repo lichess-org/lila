@@ -224,12 +224,15 @@ object header {
                   info.completionRatePercent.map { c =>
                     p(cls := "thin")(trans.gameCompletionRate(s"$c%"))
                   },
-                  ctx is u option frag(
+                  ctx is u option
                     a(href := routes.Account.profile, title := trans.editProfile.txt())(
                       trans.profileCompletion(s"${profile.completionPercent}%")
                     ),
+                  ctx.is(u) || isGranted(_.CloseAccount) option frag(
                     br,
-                    a(href := routes.Relation.following(u.username))(trans.friends()),
+                    a(href := routes.Relation.following(u.username))(trans.friends())
+                  ),
+                  ctx is u option frag(
                     br,
                     a(href := routes.User.opponents)(trans.favoriteOpponents())
                   ),
