@@ -143,6 +143,10 @@
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%sଟିଏ ଅଧ୍ୟୟନ</item>
+    <item quantity="other">%sଟି ଅଧ୍ୟୟନ</item>
+  </plurals>
   <string name="apply">ଜମା କରନ୍ତୁ</string>
   <string name="pasteTheFenStringHere">FEN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
@@ -152,12 +156,14 @@
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
+  <string name="followX">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
+  <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
+  <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
+  <string name="editProfile">ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ଦେଶ କିମ୍ୱା ପତାକା</string>
   <string name="help">ସହାୟତା:</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
@@ -195,6 +201,7 @@
   <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
+  <string name="edit">ସମ୍ପାଦନା</string>
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
