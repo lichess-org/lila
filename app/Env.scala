@@ -187,7 +187,7 @@ final class Env(
       }
     }
 
-  system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
+  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("app.renderer.name"))
 }
 
 final class EnvBoot(

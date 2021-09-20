@@ -1,12 +1,12 @@
 package lila.app
-package actor
+package templating
 
 import akka.actor._
 
 import lila.game.Pov
 import views.{ html => V }
 
-final private[app] class Renderer extends Actor {
+final private[app] class RendererActor extends Actor {
 
   def receive = {
 
