@@ -39,6 +39,7 @@ GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey: S
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
+GET   /api/rel/following               controllers.Relation.apiFollowing
 POST  /api/rel/follow/:userId          controllers.Relation.apiFollow(userId: String)
 POST  /api/rel/unfollow/:userId        controllers.Relation.apiUnfollow(userId: String)
 POST  /rel/block/:userId               controllers.Relation.block(userId: String)
@@ -642,7 +643,6 @@ GET   /api/puzzle/dashboard/:days      controllers.Puzzle.apiDashboard(days: Int
 GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
-GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/user/:name/current-game     controllers.User.tvExport(name: String)
