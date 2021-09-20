@@ -42,6 +42,11 @@
   <string name="easiest">Najlakše</string>
   <string name="harder">Teže</string>
   <string name="hardest">Najteže</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">%s bod iznad tvog rejtinga iz zadataka</item>
+    <item quantity="few">%s bodova iznad tvog rejtinga iz zadataka</item>
+    <item quantity="other">%s bodova iznad tvog rejtinga iz zadataka</item>
+  </plurals>
   <string name="example">Primjer</string>
   <string name="addAnotherTheme">Dodaj novu kategoriju</string>
   <string name="jumpToNextPuzzleImmediately">Automatski učitaj nove zadatke</string>
@@ -51,7 +56,13 @@
   <string name="history">Povijest zadataka</string>
   <string name="solved">riješeno</string>
   <string name="failed">neuspješno</string>
+  <string name="streakDescription">Stvori pobjednički niz rješavajući sve teže zadatke bez vremenskog ograničenja. Jedan krivi potez i igraje gotova! Dozvoljeno je preskočiti jedan potez u sesiji.</string>
   <string name="yourStreakX">Tvoj niz: %s</string>
+  <string name="streakSkipExplanation">Preskoči ovaj potez da zadržiš pobjednički niz! Dozvoljeno je jedno preskakanje po sesiji.</string>
   <string name="continueTheStreak">Nastavite niz</string>
   <string name="newStreak">Novi niz</string>
+  <string name="fromMyGames">Iz mojih partija</string>
+  <string name="lookupOfPlayer">Pronađi zadatke iz igračevih partija</string>
+  <string name="fromXGames">Zadatci iz partija igrača %s</string>
+  <string name="searchPuzzles">Pretraži zadatke</string>
 </resources>
