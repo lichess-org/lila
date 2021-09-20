@@ -8,10 +8,11 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.rating.{ Glicko, Perf, PerfType }
+import lila.db.AsyncCollFailingSilently
 
 final class RankingApi(
     userRepo: UserRepo,
-    coll: Coll,
+    coll: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
@@ -26,50 +27,53 @@ final class RankingApi(
     }
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2) ?? coll.update
-      .one(
-        $id(makeId(user.id, perfType)),
-        $doc(
-          "perf"      -> perfType.id,
-          "rating"    -> perf.intRating,
-          "prog"      -> perf.progress,
-          "stable"    -> perf.rankable(PerfType variantOf perfType),
-          "expiresAt" -> DateTime.now.plusDays(7)
-        ),
-        upsert = true
-      )
-      .void
+    (user.rankable && perf.nb >= 2) ?? coll {
+      _.update
+        .one(
+          $id(makeId(user.id, perfType)),
+          $doc(
+            "perf"      -> perfType.id,
+            "rating"    -> perf.intRating,
+            "prog"      -> perf.progress,
+            "stable"    -> perf.rankable(PerfType variantOf perfType),
+            "expiresAt" -> DateTime.now.plusDays(7)
+          ),
+          upsert = true
+        )
+        .void
+    }
 
   def remove(userId: User.ID): Funit =
-    coll.delete
-      .one($doc("_id" $startsWith s"$userId:"))
-      .void
+    coll {
+      _.delete.one($doc("_id" $startsWith s"$userId:")).void
+    }
 
   private def makeId(userId: User.ID, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
-      coll
-        .find($doc("perf" -> perfId, "stable" -> true))
-        .sort($doc("rating" -> -1))
-        .cursor[Ranking](ReadPreference.secondaryPreferred)
-        .list(nb)
-        .flatMap {
-          _.map { r =>
-            lightUser(r.user).map {
-              _ map { light =>
-                User.LightPerf(
-                  user = light,
-                  perfKey = perfKey,
-                  rating = r.rating,
-                  progress = ~r.prog
-                )
+      coll {
+        _.find($doc("perf" -> perfId, "stable" -> true))
+          .sort($doc("rating" -> -1))
+          .cursor[Ranking](ReadPreference.secondaryPreferred)
+          .list(nb)
+          .flatMap {
+            _.map { r =>
+              lightUser(r.user).map {
+                _ map { light =>
+                  User.LightPerf(
+                    user = light,
+                    perfKey = perfKey,
+                    rating = r.rating,
+                    progress = ~r.prog
+                  )
+                }
               }
-            }
-          }.sequenceFu
-            .dmap(_.flatten)
-        }
+            }.sequenceFu
+              .dmap(_.flatten)
+          }
+      }
     }
 
   private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
@@ -125,12 +129,11 @@ final class RankingApi(
         }
     }
 
-    private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] =
-      coll
-        .find(
-          $doc("perf" -> pt.id, "stable" -> true),
-          $doc("_id" -> true).some
-        )
+    private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] = coll {
+      _.find(
+        $doc("perf" -> pt.id, "stable" -> true),
+        $doc("_id" -> true).some
+      )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
         .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
@@ -141,6 +144,7 @@ final class RankingApi(
           }
         }
         .map(_._2.result())
+    }
   }
 
   object weeklyRatingDistribution {
@@ -163,28 +167,27 @@ final class RankingApi(
 
     // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
-      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
-        coll
-          .aggregateList(
-            maxDocs = Int.MaxValue,
-            ReadPreference.secondaryPreferred
-          ) { framework =>
-            import framework._
-            Match($doc("perf" -> perfId)) -> List(
-              Project(
-                $doc(
-                  "_id" -> false,
-                  "r" -> $doc(
-                    "$subtract" -> $arr(
-                      "$rating",
-                      $doc("$mod" -> $arr("$rating", Stat.group))
-                    )
+      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? coll {
+        _.aggregateList(
+          maxDocs = Int.MaxValue,
+          ReadPreference.secondaryPreferred
+        ) { framework =>
+          import framework._
+          Match($doc("perf" -> perfId)) -> List(
+            Project(
+              $doc(
+                "_id" -> false,
+                "r" -> $doc(
+                  "$subtract" -> $arr(
+                    "$rating",
+                    $doc("$mod" -> $arr("$rating", Stat.group))
                   )
                 )
-              ),
-              GroupField("r")("nb" -> SumAll)
-            )
-          }
+              )
+            ),
+            GroupField("r")("nb" -> SumAll)
+          )
+        }
           .map { res =>
             val hash: Map[Int, NbUsers] = res.view
               .flatMap { obj =>
