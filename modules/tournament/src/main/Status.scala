@@ -10,7 +10,7 @@ sealed abstract private[tournament] class Status(val id: Int) extends Ordered[St
   def is(f: Status.type => Status): Boolean = is(f(Status))
 }
 
-private[tournament] object Status {
+object Status {
 
   case object Created  extends Status(10)
   case object Started  extends Status(20)
