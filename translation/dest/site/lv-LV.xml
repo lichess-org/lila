@@ -408,8 +408,8 @@
   <string name="follow">Sekot</string>
   <string name="following">Sekotie</string>
   <string name="unfollow">Beigt sekot</string>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Sekot %s</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Nesekot %s</string>
+  <string name="followX">Sekot %s</string>
+  <string name="unfollowX">Nesekot %s</string>
   <string name="block">Bloķēt</string>
   <string name="blocked">Bloķētie</string>
   <string name="unblock">Atbloķēt</string>
