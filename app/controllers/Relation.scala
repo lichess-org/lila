@@ -142,18 +142,13 @@ final class Relation(
       )
     }
 
-  def apiFollowing(name: String) =
-    Action.async { implicit req =>
-      env.user.repo.enabledNamed(name) flatMap {
-        _ ?? { user =>
-          apiC.jsonStream {
-            env.relation.stream
-              .follow(user, Direction.Following, MaxPerSecond(20))
-              .map(env.api.userApi.one)
-          }.fuccess
-        }
-      }
-    }
+  def apiFollowing = Scoped() { implicit req => me =>
+    apiC.jsonStream {
+      env.relation.stream
+        .follow(me, Direction.Following, MaxPerSecond(30))
+        .map(env.api.userApi.one(_, withOnline = false))
+    }.fuccess
+  }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
     import lila.user.JsonView.nameWrites

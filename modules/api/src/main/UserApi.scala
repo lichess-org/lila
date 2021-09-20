@@ -20,11 +20,8 @@ final private[api] class UserApi(
     net: NetConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def pagerJson(pag: Paginator[User]): JsObject =
-    Json.obj("paginator" -> PaginatorJson(pag mapResults one))
-
-  def one(u: User): JsObject =
-    addPlayingStreaming(jsonView(u), u.id) ++
+  def one(u: User, withOnline: Boolean): JsObject =
+    addStreaming(jsonView(u, withOnline = withOnline), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(username: String, as: Option[User], withFollows: Boolean): Fu[Option[JsObject]] =
@@ -62,7 +59,7 @@ final private[api] class UserApi(
             case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),completionRate)=>
             // format: on
-          jsonView(u) ++ {
+          jsonView(u, withOnline = true) ++ {
             Json
               .obj(
                 "url"            -> makeUrl(s"@/${u.username}"), // for app BC
@@ -99,7 +96,7 @@ final private[api] class UserApi(
         }
     }
 
-  private def addPlayingStreaming(js: JsObject, id: User.ID) =
+  private def addStreaming(js: JsObject, id: User.ID) =
     js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"

@@ -12,15 +12,15 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
   implicit private val profileWrites  = Json.writes[Profile]
   implicit private val playTimeWrites = Json.writes[PlayTime]
 
-  def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject =
+  def apply(u: User, onlyPerf: Option[PerfType] = None, withOnline: Boolean): JsObject =
     Json
       .obj(
         "id"        -> u.id,
         "username"  -> u.username,
-        "online"    -> isOnline(u.id),
         "perfs"     -> perfs(u, onlyPerf),
         "createdAt" -> u.createdAt
       )
+      .add("online" -> withOnline.option(isOnline(u.id)))
       .add("disabled" -> u.disabled)
       .add("tosViolation" -> u.lame)
       .add("profile" -> u.profile.map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull))
