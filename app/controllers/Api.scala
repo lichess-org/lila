@@ -44,8 +44,11 @@ final class Api(
 
   def user(name: String) =
     CookieBasedApiRequest { ctx =>
-      userApi.extended(name, ctx.me) map toApiResult
+      userApi.extended(name, ctx.me, userWithFollows(ctx.req)) map toApiResult
     }
+
+  private[controllers] def userWithFollows(req: RequestHeader) =
+    HTTPRequest.apiVersion(req).exists(_ < 6) && !getBool("noFollows", req)
 
   private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
     key = "users.api.ip",

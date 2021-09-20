@@ -99,8 +99,8 @@ final class Account(
     }
 
   def apiMe =
-    Scoped() { _ => me =>
-      env.api.userApi.extended(me, me.some) dmap { JsonOk(_) }
+    Scoped() { req => me =>
+      env.api.userApi.extended(me, me.some, withFollows = apiC.userWithFollows(req)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying =
