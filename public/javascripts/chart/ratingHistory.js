@@ -2,7 +2,7 @@ lichess.ratingHistoryChart = function (data, { singlePerfName, perfIndex }) {
   var oneDay = 86400000;
   function smoothDates(data) {
     if (!data.length) return [];
-    
+
     // If last rating wasn't today, add to the array
     var today = new Date().setUTCHours(0, 0, 0, 0);
     var lastRating = data[data.length - 1];

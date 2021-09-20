@@ -17,14 +17,16 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
 
   private val base =
     mapping(
-      "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 80),
-      "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
-      "language" -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
-      "topics"   -> optional(text),
-      "live"     -> boolean,
-      "gameId"   -> text,
-      "move"     -> text
+      "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
+      "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
+      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
+      "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+      "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+      "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
+      "topics"      -> optional(text),
+      "live"        -> boolean,
+      "gameId"      -> text,
+      "move"        -> text
     )(UblogPostData.apply)(UblogPostData.unapply)
 
   val create = Form(
@@ -37,6 +39,8 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         title = post.title,
         intro = post.intro,
         markdown = post.markdown,
+        imageAlt = post.image.flatMap(_.alt),
+        imageCredit = post.image.flatMap(_.credit),
         language = post.language.code.some,
         topics = post.topics.map(_.value).mkString(", ").some,
         live = post.live,
@@ -52,6 +56,8 @@ object UblogForm {
       title: String,
       intro: String,
       markdown: String,
+      imageAlt: Option[String],
+      imageCredit: Option[String],
       language: Option[String],
       topics: Option[String],
       live: Boolean,
@@ -84,6 +90,9 @@ object UblogForm {
         title = title,
         intro = intro,
         markdown = markdown,
+        image = prev.image.map { i =>
+          i.copy(alt = imageAlt, credit = imageCredit)
+        },
         language = LangList.removeRegion(realLanguage | prev.language),
         topics = topics ?? UblogTopic.fromStrList,
         live = live,

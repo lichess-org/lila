@@ -117,8 +117,9 @@ final class Relation(
         OptionFuResult(env.user.repo named username) { user =>
           RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
             negotiate(
-              html = api countFollowers user.id map { nbFollowers =>
-                Ok(html.relation.bits.following(user, pag, nbFollowers))
+              html = {
+                if (ctx is user) Ok(html.relation.bits.friends(user, pag)).fuccess
+                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).fuccess)
               },
               api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
             )
@@ -129,18 +130,15 @@ final class Relation(
 
   def followers(username: String, page: Int) =
     Open { implicit ctx =>
-      Reasonable(page, 20) {
-        OptionFuResult(env.user.repo named username) { user =>
-          RelatedPager(api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
-            negotiate(
-              html = api countFollowing user.id map { nbFollowing =>
-                Ok(html.relation.bits.followers(user, pag, nbFollowing))
-              },
-              api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
-            )
+      negotiate(
+        html = notFound,
+        api = _ =>
+          Reasonable(page, 20) {
+            RelatedPager(api.followersPaginatorAdapter(UserModel normalize username), page) flatMap { pag =>
+              Ok(jsonRelatedPaginator(pag)).fuccess
+            }
           }
-        }
-      }
+      )
     }
 
   def apiFollowing(name: String) = apiRelation(name, Direction.Following)

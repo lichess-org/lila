@@ -87,7 +87,7 @@ final class IrcApi(
 
   def chatPanic(mod: Holder, v: Boolean): Funit =
     zulip(_.mod.log, "chat panic")(
-      s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("mod/chat-panic", " Chat Panic")}"
+      s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
     )
 
   def garbageCollector(msg: String): Funit =

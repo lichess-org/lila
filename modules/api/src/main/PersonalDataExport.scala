@@ -161,7 +161,7 @@ final class PersonalDataExport(
               "title"  -> post.title,
               "intro"  -> post.intro,
               "body"   -> post.markdown,
-              "image"  -> post.image.??(lila.ublog.UblogPost.thumbnail(picfitUrl, _, _.Large)),
+              "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
               "topics" -> post.topics.map(_.value).mkString(", ")
             ).map { case (k, v) =>
               s"$k: $v"

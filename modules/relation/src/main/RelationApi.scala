@@ -80,9 +80,8 @@ final class RelationApi(
   def fetchAreFriends(u1: ID, u2: ID): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = cacheApi[ID, Int](8192, "relation.count.following") {
-    _.expireAfterAccess(10 minutes)
-      .maximumSize(32768)
+  private val countFollowingCache = cacheApi[ID, Int](8_192, "relation.count.following") {
+    _.maximumSize(8_192)
       .buildAsyncFuture { userId =>
         coll.countSel($doc("u1" -> userId, "r" -> Follow))
       }
@@ -92,9 +91,8 @@ final class RelationApi(
 
   def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (config.maxFollow <=)
 
-  private val countFollowersCache = cacheApi[ID, Int](131_072, "relation.count.followers") {
-    _.expireAfterAccess(10 minutes)
-      .maximumSize(131_072)
+  private val countFollowersCache = cacheApi[ID, Int](32_768, "relation.count.followers") {
+    _.maximumSize(32_768)
       .buildAsyncFuture { userId =>
         coll.secondaryPreferred.countSel($doc("u2" -> userId, "r" -> Follow))
       }
@@ -147,7 +145,7 @@ final class RelationApi(
                 repo.follow(u1, u2) >> limitFollow(u1) >>- {
                   countFollowersCache.update(u2, 1 +)
                   countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
-                  timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
+                  timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
                   Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
                   lila.mon.relation.follow.increment().unit
                 }

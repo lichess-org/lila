@@ -26,7 +26,7 @@ object form {
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
-        div(cls := "page-menu__content box box-pad ublog-post-form")(
+        div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
           h1(trans.ublog.newPost()),
           etiquette,
@@ -43,7 +43,7 @@ object form {
     ) {
       main(cls := "page-menu page-small")(
         views.html.blog.bits.menu(none, "mine".some),
-        div(cls := "page-menu__content box box-pad ublog-post-form")(
+        div(cls := "page-menu__content box ublog-post-form")(
           standardFlash(),
           div(cls := "box__top")(
             h1(
@@ -108,32 +108,41 @@ object form {
       )
     )
 
-  def formImage(post: UblogPost) = postView.thumbnail(post, _.Small)
+  def formImage(post: UblogPost) =
+    postView.thumbnail(post, _.Small)(cls := post.image.isDefined.option("user-image"))
 
   private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(
       implicit ctx: Context
   ) =
     postForm(
-      cls := "form3",
+      cls := "form3 ublog-post-form__main",
       action := post.fold(_ => routes.Ublog.create, p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
-      post.isRight option form3.split(
-        form3.checkbox(
-          form("live"),
-          trans.ublog.publishOnYourBlog(),
-          help = trans.ublog.publishHelp().some,
-          half = true
-        ),
-        form3.group(form("language"), trans.language(), half = true) { field =>
-          form3.select(
-            field,
-            LangList.popularNoRegion.map { l =>
-              l.code -> l.toLocale.getDisplayLanguage
+      post.toOption.map { p =>
+        frag(
+          form3.split(
+            form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
+            form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
+          )(cls := s"ublog-post-form__image-text ${p.image.isDefined ?? "visible"}"),
+          form3.split(
+            form3.checkbox(
+              form("live"),
+              trans.ublog.publishOnYourBlog(),
+              help = trans.ublog.publishHelp().some,
+              half = true
+            ),
+            form3.group(form("language"), trans.language(), half = true) { field =>
+              form3.select(
+                field,
+                LangList.popularNoRegion.map { l =>
+                  l.code -> l.toLocale.getDisplayLanguage
+                }
+              )
             }
           )
-        }
-      ),
+        )
+      },
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
       form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
       form3.group(
