@@ -46,6 +46,7 @@ Lozinka: %3$s</string>
   <string name="createDesc2">Nije potrebna adresa e-pošte. Stvorit će se lozinka i morat ćete ju poslati studentu kako bi se mogao prijaviti.</string>
   <string name="createDesc3">Važno: student ne smije imati više računa.</string>
   <string name="createDesc4">Ako ih već ima, umjesto toga upotrijebi obrazac za poziv.</string>
+  <string name="createStudentWarning" comment="createStudentWarning&#10;&#10;A warning to people that may look to abuse special teacher accounts (https://lichess.org/class).">Kreiraj račune isključivo za prave učenike. Nemoj koristiti ovu funkcionalnost za izradu višestrukih vlastitih računa. Zabraniti ćemo ti pristup Lichessu.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Stvori novo korisničko ime</string>
   <string name="welcomeToClass">Dobrodošao u tvoj razred: %s. Ovdje je link za pristup predavanju.</string>
@@ -67,6 +68,10 @@ Lozinka: %3$s</string>
   <string name="releaseDesc1">Objavljeni račun se ne može ponovno vratiti na upravljanje. Student će imati slobodu uključivanja dječjeg načina rada i resetiranja lozinke.</string>
   <string name="releaseDesc2">Nakon što je račun objavljen, student će ostati u razredu.</string>
   <string name="realUniqueEmail">Stvarna email adresa studenta. Poslat će se potvrdna e-pošta s linkom za objavljivanje računa.</string>
+  <string name="closeStudent">Zatvori račun</string>
+  <string name="closeTheAccount">Zatvori učenikov račun zauvijek.</string>
+  <string name="closeDesc1">Učenik više nikada neće moći koristiti ovaj račun. Zatvaranje je konačno. Pobrinite se da učenik to razumije i da se slaže s time.</string>
+  <string name="closeDesc2">Umjesto zatvaranja možda želite dati učeniku kontrolu nad računom tako da ga može nastaviti koristiti.</string>
   <string name="teachers">Nastavnici</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s nastavnik</item>
