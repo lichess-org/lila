@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">ଅଗ୍ରାଧିକାରସମୂହ</string>
+  <string name="gameDisplay">ଖେଳ ପ୍ରଦର୍ଶନ</string>
   <string name="giveMoreTime">ଅଧିକ ସମୟ ଦିଅନ୍ତୁ</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">ଖେଳ ଆଚରଣ</string>
   <string name="yourPreferencesHaveBeenSaved">ଆପଣଙ୍କ ଅଗ୍ରାଧିକାର ସଞ୍ଚୟ ହୋଇଛି।</string>
 </resources>
