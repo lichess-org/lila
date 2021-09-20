@@ -67,6 +67,7 @@
   <string name="recentGames">ସାମ୍ପ୍ରତିକ ଖେଳଗୁଡିକ</string>
   <string name="topGames">ଶୀର୍ଷ ଖେଳଗୁଡିକ</string>
   <string name="noGameFound">କୌଣସି ଖେଳ ମିଳିଲା ନାହି</string>
+  <string name="importPgn">PGN ଆମଦାନି କରନ୍ତୁ</string>
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
   <string name="deleteThisImportedGame">ଏହି ଆମଦାନୀ ହୋଇଥିବା ଖେଳ ବିଲୋପ କରିବେ କି?</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
@@ -142,13 +143,15 @@
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
   <string name="apply">ଜମା କରନ୍ତୁ</string>
-  <string name="pasteTheFenStringHere">ଏଠାରେ FEN ପାଠ୍ୟ ଲେପନ କରନ୍ତୁ</string>
+  <string name="pasteTheFenStringHere">FEN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
+  <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
+  <string name="importGame">ଖେଳ ଆମଦାନୀ କରନ୍ତୁ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
-  <string name="followX">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
-  <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
+  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
+  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
@@ -168,6 +171,7 @@
   <string name="starting">ଆରମ୍ଭ:</string>
   <string name="studyMenu">ଅଧ୍ୟୟନ</string>
   <string name="practice">ଅଭ୍ୟାସ</string>
+  <string name="sharePGN">PGN ଅଂଶୀଦାର କରନ୍ତୁ</string>
   <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
@@ -178,6 +182,7 @@
   <string name="language">ଭାଷା</string>
   <string name="light">ହାଲୁକା</string>
   <string name="dark">ଗାଢ଼</string>
+  <string name="invalidPgn">ଅବୈଧ PGN</string>
   <string name="invalidFen">ଅବୈଧ FEN</string>
   <string name="solution">ସମାଧାନ</string>
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
