@@ -31,4 +31,6 @@
     <item quantity="other">Alli %s Posts zeigä</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Äs Bild für din Post ufäladä</string>
+  <string name="imageAlt">Alternativer Bildtext</string>
+  <string name="imageCredit">Bildherkunft</string>
 </resources>
