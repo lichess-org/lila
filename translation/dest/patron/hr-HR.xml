@@ -5,6 +5,11 @@
   <string name="freeAccount">Besplatni račun</string>
   <string name="becomePatron">Postanite Lichess donator</string>
   <string name="xBecamePatron">%s je postao Lichess donator</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s je Lichess donator %2$s mjesec</item>
+    <item quantity="few">%1$s je Lichess donator %2$s mjeseca</item>
+    <item quantity="other">%1$s je Lichess donator %2$s mjeseci</item>
+  </plurals>
   <string name="newPatrons">Novi donatori</string>
   <string name="freeChess">Besplatni šah za sve, zauvijek!</string>
   <string name="noAdsNoSubs">Bez oglasa, bez pretplate, s otvorenim kodom i strasti.</string>
@@ -22,6 +27,7 @@
   <string name="onetime">Jednokratno</string>
   <string name="singleDonation">Jedna donacija koja Vam dodjeljuje pokroviteljska krila na jedan mjesec.</string>
   <string name="otherAmount">Ostali</string>
+  <string name="pleaseEnterAmountInX">Molimo unesite iznos u Američkim dolarima (%s)</string>
   <string name="withCreditCard">Kreditna Kartica</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi smo maleni tim, stoga vaša podrška čini veliku razliku!</string>
@@ -54,6 +60,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nextPayment">Naredna uplata</string>
   <string name="youWillBeChargedXOnY">Biti će Vam naplaćeno %1$s na %2$s.</string>
   <string name="makeAdditionalDonation">Dajte sada dodatnu donaciju</string>
+  <string name="giftPatronWings">Doniraj krila drugom igraču</string>
   <string name="update">Ažuriranje</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>
   <string name="cancelSupport">otkažite Vašu podršku</string>
@@ -70,4 +77,5 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nowLifetime">Od sada ste doživotni Lichess Pokrovitelj!</string>
   <string name="nowOneMonth">Upravo ste postali Lichess Pokrovitelj na period od mjesec dana!</string>
   <string name="downgradeNextMonth">Nakon isticanja perioda od mjesec dana, naplata se NEĆE ponovo procesirati, a status pokrovitelja će Vam se besplatno ukinuti.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Promijeni valutu</string>
 </resources>
