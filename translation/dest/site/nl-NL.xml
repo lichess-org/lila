@@ -381,6 +381,8 @@
   <string name="follow">Volgen</string>
   <string name="following">Volgend</string>
   <string name="unfollow">Stop met volgen</string>
+  <string name="followX">Volg %s</string>
+  <string name="unfollowX">%s ontvolgen</string>
   <string name="block">Blokkeren</string>
   <string name="blocked">Geblokkeerd</string>
   <string name="unblock">Deblokkeren</string>
