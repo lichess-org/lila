@@ -40,6 +40,7 @@
   <string name="raceComplete">Utrka završena!</string>
   <string name="spectating">Promatrate</string>
   <string name="joinTheRace">Pridruži se utrci!</string>
+  <string name="startTheRace">Započni utrku</string>
   <string name="yourRankX">Vaš rang: %s</string>
   <string name="waitForRematch">Pričekajte revanš</string>
   <string name="nextRace">Sljedeća utrka</string>
@@ -51,4 +52,6 @@
   <string name="skip">preskoči</string>
   <string name="skipHelp">Možete preskočiti jedan potez po utrci:</string>
   <string name="skipExplanation">Preskočite ovaj potez da biste zadržali niz! Jedan preskok po utrci.</string>
+  <string name="failedPuzzles">Krivo riješeni zadaci</string>
+  <string name="slowPuzzles">Presporo riješeni zadaci</string>
 </resources>
