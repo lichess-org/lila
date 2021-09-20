@@ -398,5 +398,4 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .sort($sort desc "startsAt")
       .batchSize(batchSize)
       .cursor[Tournament](readPreference)
-
 }
