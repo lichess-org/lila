@@ -185,12 +185,16 @@
   <string name="yes">ହଁ</string>
   <string name="help">ସହାୟତା:</string>
   <string name="createANewTopic">ଏକ ନୂତନ ବିଷୟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+  <string name="user">ଉପଭୋକ୍ତା</string>
+  <string name="reason">କାରଣ</string>
+  <string name="whatIsIheMatter">ମାମଲା କ\'ଣ?</string>
   <string name="invalidUsernameOrPassword">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ନାମ କିମ୍ୱା ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="incorrectPassword">ଭୁଲ୍ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="currentPassword">ଏବେକାର ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="newPassword">ନୁତନ ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="newPasswordAgain">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ (ପୁନଃ)</string>
   <string name="newPasswordsDontMatch">ନୂତନ ପାସ୍ଓ୍ୱାର୍ଡ଼ଗୁଡ଼ିକ ମେଳ ଖାଉ ନାହିଁ</string>
+  <string name="privacy">ଗୋପନୀୟତା</string>
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
   <string name="victory">ବିଜୟ</string>
