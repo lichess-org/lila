@@ -104,7 +104,7 @@
   <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
   <string name="winOr50MovesByPriorMistake">Uzvara vai 50-gājienu neizšķirts iepriekšējas kļūdas dēļ</string>
   <string name="lossOr50MovesByPriorMistake">Zaudējums vai 50-gājienu neizšķirts iepriekšējas kļūdas dēļ</string>
-  <string name="unknownDueToRounding">Uzvara/zaudējums garantēts tikai tad, ja veikti ieteiktie gājieni kopš pēdējā sitiena vai bandinieka gājiena.</string>
+  <string name="unknownDueToRounding">Uzvara/zaudējums garantēts tikai tad, ja veikti ieteiktie gājieni kopš pēdējā sitiena vai bandinieka gājiena tādēļ, ka iespējama DTZ vērtību noapaļošana \"Syzygy\" tabulās.</string>
   <string name="allSet">Gatavs!</string>
   <string name="importPgn">Importēt PGN</string>
   <string name="delete">Dzēst</string>
