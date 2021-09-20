@@ -135,9 +135,13 @@
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
+  <string name="username">ଉପଭୋକ୍ତାଙ୍କ ନାମ</string>
+  <string name="usernameOrEmail">ଉପଭୋକ୍ତା ନାମ କିମ୍ୱା ଇମେଲ୍</string>
   <string name="changeUsername">ଉପଭୋକ୍ତା ନାମ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="password">ପାସ୍ଓ୍ୱାର୍ଡ଼</string>
   <string name="changePassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
+  <string name="changeEmail">ଇମେଲ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
+  <string name="email">ଇମେଲ୍</string>
   <string name="passwordReset">ପାସ୍ଓ୍ୱାର୍ଡ଼ ପୁନଃସେଟ୍ କର</string>
   <string name="forgotPassword">ପାସ୍ଓ୍ୱାର୍ଡ଼ ଭୁଲିଯାଇଛନ୍ତି କି?</string>
   <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
