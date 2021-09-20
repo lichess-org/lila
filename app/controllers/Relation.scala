@@ -142,17 +142,13 @@ final class Relation(
       )
     }
 
-  def apiFollowing(name: String) = apiRelation(name, Direction.Following)
-
-  def apiFollowers(name: String) = apiRelation(name, Direction.Followers)
-
-  private def apiRelation(name: String, direction: Direction) =
+  def apiFollowing(name: String) =
     Action.async { implicit req =>
-      env.user.repo.named(name) flatMap {
+      env.user.repo.enabledNamed(name) flatMap {
         _ ?? { user =>
           apiC.jsonStream {
             env.relation.stream
-              .follow(user, direction, MaxPerSecond(20))
+              .follow(user, Direction.Following, MaxPerSecond(20))
               .map(env.api.userApi.one)
           }.fuccess
         }
