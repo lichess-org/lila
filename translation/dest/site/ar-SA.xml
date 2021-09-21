@@ -489,6 +489,8 @@
   <string name="follow">تابع</string>
   <string name="following">متابع</string>
   <string name="unfollow">إالغاء المتابعة</string>
+  <string name="followX">متابعة %s</string>
+  <string name="unfollowX">إلغاء متابعة%s</string>
   <string name="block">حظر</string>
   <string name="blocked">محظور</string>
   <string name="unblock">إلغاء الحظر</string>
