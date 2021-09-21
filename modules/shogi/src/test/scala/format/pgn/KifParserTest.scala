@@ -205,6 +205,19 @@ class KifParserTest extends ShogiTest {
         san.metas.comments must_== List("such a neat comment", "one more", "comment on termination?")
       }
     }
+    "comments in header" in {
+      parser("""*HEADER COMMENT
+      *HEADER2
+      手合割：平手
+      手数----指手---------消費時間--
+      * H3
+      1 ７六歩(77)
+      * Something comments
+      2 ３四歩(33)
+      3 投了""") must beSuccess.like { case ParsedPgn(init, _, _) =>
+        init must_== List("HEADER COMMENT", "HEADER2", "H3")
+      }
+    }
   }
 
   "times" should {

@@ -74,9 +74,9 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         boardStr = splitted3._2
         preTags     <- TagParser(metaStr)
         parsedMoves <- MovesParser(movesStr)
-        init              = parsedMoves._1
-        strMoves          = parsedMoves._2
-        terminationOption = parsedMoves._3
+        strMoves          = parsedMoves._1
+        terminationOption = parsedMoves._2
+        init              <- getComments(headerStr)
         parsedVariations <- VariationParser(variationStr)
         variations  = createVariations(parsedVariations)
         boardOption = KifUtils readBoard boardStr orElse preTags(_.Handicap).flatMap(KifUtils handicapToFen _)
@@ -232,12 +232,11 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     override val whiteSpace = """(\s|\t|\r?\n)+""".r
 
-    def apply(kifMoves: String): Valid[(InitialPosition, List[StrMove], Option[Tag])] = {
+    def apply(kifMoves: String): Valid[(List[StrMove], Option[Tag])] = {
       parseAll(strMoves, kifMoves) match {
-        case Success((init, moves, termination), _) =>
+        case Success((moves, termination), _) =>
           succezz(
             (
-              init,
               moves,
               termination map { r =>
                 Tag(_.Termination, r)
@@ -248,10 +247,10 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
     }
 
-    def strMoves: Parser[(InitialPosition, List[StrMove], Option[String])] =
+    def strMoves: Parser[(List[StrMove], Option[String])] =
       as("moves") {
-        (commentary *) ~ (strMove *) ~ (termination *) ~ (commentary *) ^^ { case coms ~ sans ~ term ~ coms2 =>
-          (InitialPosition(cleanComments(coms)), updateLastComments(sans, coms2), term.headOption)
+        (strMove *) ~ (termination *) ~ (commentary *) ^^ { case sans ~ term ~ coms =>
+          (updateLastComments(sans, coms), term.headOption)
         }
       }
 
@@ -405,9 +404,16 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
   }
 
+  private def getComments(kif: String): Valid[InitialPosition] =
+    augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line => 
+      line.startsWith("*") || line.startsWith("＊")
+    } match {
+      case (comms) => succezz(InitialPosition(comms.map(_.drop(1))))
+    }
+
   private def splitHeaderAndRest(kif: String): Valid[(String, String)] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
-      !((moveOrDropLineRegex.matches(line)) || (line lift 0 contains '*') || (line lift 0 contains '＊')) // Matches first move or comment
+      !(moveOrDropLineRegex.matches(line))
     } match {
       case (headerLines, moveLines) => succezz(headerLines.mkString("\n") -> moveLines.mkString("\n"))
     }
