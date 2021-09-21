@@ -6,7 +6,7 @@
   "main": "dist/main.js",
   "types": "dist/main",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "webrtc"
   ],

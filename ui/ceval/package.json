@@ -6,7 +6,7 @@
   "main": "dist/src/main.js",
   "types": "dist/src/main",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "play",
     "replay"

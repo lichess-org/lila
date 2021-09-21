@@ -5,7 +5,7 @@
   "description": "lishogi.org simul",
   "main": "src/main.js",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "simul"
   ],

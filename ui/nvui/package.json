@@ -6,7 +6,7 @@
   "main": "dist/main.js",
   "types": "dist/main",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "non-visual",
     "blind",
@@ -24,7 +24,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "chess": "2.0.0",
+    "shogi": "2.0.0",
     "shogiground": "^7.8.1",
     "shogiops": "^0.2.6",
     "snabbdom": "^0.7.4"

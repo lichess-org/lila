@@ -5,7 +5,7 @@
   "description": "lishogi.org lobby",
   "main": "src/main.js",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "lobby",
     "seek"

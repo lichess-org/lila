@@ -5,7 +5,7 @@
   "description": "lishogi.org common utils",
   "main": "common.js",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi"
   ],
   "author": "Thibault Duplessis",
@@ -17,10 +17,10 @@
   },
   "devDependencies": {
     "@types/lishogi": "2.0.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "shogiground": "7.8.1",
-    "shogiops": "^0.2.1"
+    "shogiops": "^0.2.6"
   }
 }

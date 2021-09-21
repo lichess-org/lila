@@ -6,7 +6,7 @@
   "main": "dist/main.js",
   "types": "dist/main",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi",
     "non-visual",
     "speech synthesis",
@@ -15,7 +15,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "chess": "2.0.0"
+    "shogi": "2.0.0"
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",

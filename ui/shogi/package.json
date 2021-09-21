@@ -1,12 +1,12 @@
 {
-  "name": "chess",
+  "name": "shogi",
   "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org chess utils",
+  "description": "lishogi.org shogi utils",
   "main": "dist/main.js",
   "typings": "dist/main",
   "keywords": [
-    "chess",
+    "shogi",
     "lishogi"
   ],
   "author": "Thibault Duplessis",

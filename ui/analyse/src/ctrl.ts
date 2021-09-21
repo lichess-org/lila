@@ -8,7 +8,7 @@ import { Ctrl as ActionMenuCtrl } from './actionMenu';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
-import * as chessUtil from 'chess';
+import * as shogiUtil from 'shogi';
 import { defined, prop, Prop } from 'common';
 import throttle from 'common/throttle';
 import { storedProp, StoredBooleanProp } from 'common/storage';
@@ -292,8 +292,8 @@ export default class AnalyseCtrl {
   makeCgOpts(): ShogigroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = chessUtil.readDests(this.node.dests),
-      drops = chessUtil.readDrops(this.node.drops),
+      dests = shogiUtil.readDests(this.node.dests),
+      drops = shogiUtil.readDrops(this.node.drops),
       movableColor =
         this.practice || this.gamebookPlay()
           ? this.bottomColor()
