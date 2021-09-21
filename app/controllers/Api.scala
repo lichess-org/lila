@@ -345,7 +345,10 @@ final class Api(
   private def gamesByUsers(max: Int)(req: Request[String]) =
     GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
       addKeepAlive(
-        env.game.gamesByUsersStream(req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet)
+        env.game.gamesByUsersStream(
+          userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet,
+          withCurrentGames = getBool("withCurrentGames", req)
+        )
       )
     )(sourceToNdJsonOption).fuccess
 
