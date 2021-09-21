@@ -66,7 +66,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     },
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
-      if (!role || role == 'pawn') return;
+      if (!role || role == 'pawn' || (role == 'king' && root.data.game.variant.key !== 'antichess')) return;
       root.chessground.cancelMove();
       promote(root.chessground, dest, role);
       root.sendMove(orig, dest, role, { premove: false });
