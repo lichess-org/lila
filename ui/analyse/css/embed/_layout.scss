@@ -35,7 +35,7 @@
 
   @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
     grid-template-columns: minmax(100px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
-    grid-template-rows: max-content auto 2.5rem max-content;
+    grid-template-rows: max-content 1fr 2.5rem max-content;
     grid-template-areas:
       'board pocket-top'
       'board tools'
