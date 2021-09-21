@@ -289,25 +289,26 @@ final class TournamentApi(
       promise: Option[Promise[Tournament.JoinResult]]
   ): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
-      playerRepo.exists(tour.id, me.id) flatMap { playerExists =>
+      playerRepo.find(tour.id, me.id) flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongEntryCode)
+          if (prevPlayer.isEmpty && tour.password.exists(p => !password.has(p)))
+            fuccess(JoinResult.WrongEntryCode)
           else
-            getVerdicts(tour, me.some, getUserTeamIds, playerExists) flatMap { verdicts =>
+            getVerdicts(tour, me.some, getUserTeamIds, prevPlayer.isDefined) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
               else {
                 def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
-                  playerRepo.join(tour.id, me, tour.perfType, team) >>
+                  playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
                     updateNbPlayers(tour.id) >>- {
                       socket.reload(tour.id)
                       publish()
                     } inject JoinResult.Ok
                 withTeamId match {
-                  case None if tour.isTeamBattle && playerExists => proceedWithTeam(none)
-                  case None if tour.isTeamBattle                 => fuccess(JoinResult.MissingTeam)
-                  case None                                      => proceedWithTeam(none)
+                  case None if tour.isTeamBattle && prevPlayer.isDefined => proceedWithTeam(none)
+                  case None if tour.isTeamBattle                         => fuccess(JoinResult.MissingTeam)
+                  case None                                              => proceedWithTeam(none)
                   case Some(team) =>
                     tour.teamBattle match {
                       case Some(battle) if battle.teams contains team =>
