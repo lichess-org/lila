@@ -102,7 +102,7 @@
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="winOr50MovesByPriorMistake">Seier eller 50 trekk etter tidligere feil</string>
   <string name="lossOr50MovesByPriorMistake">Tap eller 50 trekk etter tidligere feil</string>
-  <string name="unknownDueToRounding">Seier/tap bare garantert dersom anbefalte trekk fra tabellbasen er fulgt siden siste slag eller bondetrekk, grunnet mulig avrunding.</string>
+  <string name="unknownDueToRounding">Seier/tap bare garantert dersom anbefalte trekk fra tabellbasen er fulgt siden siste slag eller bondetrekk, grunnet mulig avrunding av DTZ-verdier i Syzygy-tabellbaser.</string>
   <string name="allSet">Alt klart!</string>
   <string name="importPgn">Importér PGN-fil</string>
   <string name="delete">Slett</string>
@@ -381,6 +381,8 @@
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
   <string name="unfollow">Slutt å følge</string>
+  <string name="followX">Følg %s</string>
+  <string name="unfollowX">Slutt å følge %s</string>
   <string name="block">Blokker</string>
   <string name="blocked">Blokkert</string>
   <string name="unblock">Fjern blokkering</string>

@@ -2,4 +2,5 @@
 <resources>
   <string name="published">Publicat</string>
   <string name="latestBlogPosts">Les últimes publicacions en el blog</string>
+  <string name="imageCredit">Crèdits de la imatge</string>
 </resources>

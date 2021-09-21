@@ -355,8 +355,8 @@
   <string name="follow">フォローする</string>
   <string name="following">フォローしています</string>
   <string name="unfollow">フォローをやめる</string>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%s をフォロー</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">%s のフォローを外す</string>
+  <string name="followX">%s をフォロー</string>
+  <string name="unfollowX">%s のフォローを外す</string>
   <string name="block">ブロックする</string>
   <string name="blocked">ブロック済</string>
   <string name="unblock">ブロックを外す</string>

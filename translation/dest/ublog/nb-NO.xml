@@ -31,4 +31,6 @@
     <item quantity="other">Vis alle %s innleggene</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Last opp et bilde til innlegget ditt</string>
+  <string name="imageAlt">Alternativ tekst for bildet</string>
+  <string name="imageCredit">Bildekreditering</string>
 </resources>

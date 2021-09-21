@@ -351,6 +351,8 @@
   <string name="follow">Ikuti</string>
   <string name="following">Mengikuti</string>
   <string name="unfollow">Tidak mengikuti</string>
+  <string name="followX">Ikuti %s</string>
+  <string name="unfollowX">Stop mengikuti %s</string>
   <string name="block">Blokir</string>
   <string name="blocked">Diblokir</string>
   <string name="unblock">Buka blokir</string>

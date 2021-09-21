@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Juga amb un amic</string>
+  <string name="playWithAFriend">Jugar amb un amic</string>
   <string name="playWithTheMachine">Juga amb la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
@@ -381,6 +381,8 @@
   <string name="follow">Segueix</string>
   <string name="following">Seguint</string>
   <string name="unfollow">Deixa de seguir</string>
+  <string name="followX">Segueix a %s</string>
+  <string name="unfollowX">Deixa de seguir a %s</string>
   <string name="block">Bloqueja</string>
   <string name="blocked">Bloquejat</string>
   <string name="unblock">Desbloqueja</string>

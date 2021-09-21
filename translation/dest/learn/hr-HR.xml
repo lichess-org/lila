@@ -187,6 +187,12 @@ Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju.</string>
   <string name="queenOverBishop">Uzmi figure
 s najvećom vrijednošću!
 Dama &gt; Lovac</string>
+  <string name="pieceValueExchange">Uzmi figuru s najvećom vrijednošću!
+Ne mijenjaj
+figuru veće vrijednosti za figuru manje vrijednosti.</string>
+  <string name="pieceValueLegal">Uzmi figuru
+s najvećom vrijednošću!
+Pobrini se da je potez dozvoljen!</string>
   <string name="takeThePieceWithTheHighestValue">Uzmi figuru 
 s najvećom vrijednošću!</string>
   <string name="pieceValueComplete">Čestitke! Znaš vrijednost materijala!

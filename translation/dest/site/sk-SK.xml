@@ -421,8 +421,8 @@
   <string name="follow">Sledovať</string>
   <string name="following">Sledujete</string>
   <string name="unfollow">Zrušiť sledovanie</string>
-  <string name="followX" comment="followX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Sledovať %s</string>
-  <string name="unfollowX" comment="unfollowX&#10;&#10;%s is the username of the poster.&#10;&#10;A self-explanatory button that appears at the bottom of community blog posts: https://lichess.org/blog/community">Prestať sledovať %s</string>
+  <string name="followX">Sledovať %s</string>
+  <string name="unfollowX">Prestať sledovať %s</string>
   <string name="block">Blokovať</string>
   <string name="blocked">Blokovaný</string>
   <string name="unblock">Odblokovať</string>
