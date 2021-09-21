@@ -198,8 +198,8 @@ object Schedule {
   }
 
   sealed abstract class Speed(val id: Int) {
-    val name = toString
-    val key  = lila.common.String lcfirst name
+    val name                               = toString
+    val key                                = lila.common.String lcfirst name
     def trans(implicit lang: Lang): String = Speed.toPerfType(this).trans
   }
   object Speed {
