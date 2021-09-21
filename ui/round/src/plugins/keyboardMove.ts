@@ -6,7 +6,7 @@ const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
 const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqNBRQ]$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 
 interface Opts {
   input: HTMLInputElement;
