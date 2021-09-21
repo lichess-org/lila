@@ -269,17 +269,14 @@ final class TournamentApi(
   def getVerdicts(
       tour: Tournament,
       me: Option[User],
-      getUserTeamIds: User => Fu[List[TeamID]]
+      getUserTeamIds: User => Fu[List[TeamID]],
+      playerExists: Boolean
   ): Fu[Condition.All.WithVerdicts] =
     me match {
       case None => fuccess(tour.conditions.accepted)
       case Some(user) =>
-        {
-          tour.isStarted ?? playerRepo.exists(tour.id, user.id)
-        } flatMap {
-          case true => verify.rejoin(tour.conditions, user, getUserTeamIds)
-          case _    => verify(tour.conditions, user, getUserTeamIds)
-        }
+        if (tour.isStarted && playerExists) verify.rejoin(tour.conditions, user, getUserTeamIds)
+        else verify(tour.conditions, user, getUserTeamIds)
     }
 
   private[tournament] def join(
@@ -297,7 +294,7 @@ final class TournamentApi(
         val fuResult: Fu[JoinResult] =
           if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongEntryCode)
           else
-            getVerdicts(tour, me.some, getUserTeamIds) flatMap { verdicts =>
+            getVerdicts(tour, me.some, getUserTeamIds, playerExists) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
               else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
               else {

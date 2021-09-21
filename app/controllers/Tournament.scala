@@ -9,11 +9,10 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, Preload }
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
-import lila.tournament.TournamentForm
-import lila.tournament.{ VisibleTournaments, Tournament => Tour }
+import lila.tournament.{ TournamentForm, VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 
 final class Tournament(
@@ -101,7 +100,8 @@ final class Tournament(
           html = tourOption
             .fold(tournamentNotFound.fuccess) { tour =>
               for {
-                verdicts <- api.getVerdicts(tour, ctx.me, getUserTeamIds)
+                myInfo   <- ctx.me.?? { jsonView.fetchMyInfo(tour, _) }
+                verdicts <- api.getVerdicts(tour, ctx.me, getUserTeamIds, myInfo.isDefined)
                 version  <- env.tournament.version(tour.id)
                 json <- jsonView(
                   tour = tour,
@@ -111,7 +111,8 @@ final class Tournament(
                   getTeamName = env.team.getTeamName,
                   playerInfoExt = none,
                   socketVersion = version.some,
-                  partial = false
+                  partial = false,
+                  myInfo = Preload(myInfo)
                 )
                 chat <- loadChat(tour, json)
                 _ <- tour.teamBattle ?? { b =>

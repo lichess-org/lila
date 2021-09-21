@@ -142,3 +142,11 @@ case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal
 
 case class Template(value: String) extends AnyVal
+
+case class Preload[A](value: Option[A]) extends AnyVal {
+  def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)
+}
+object Preload {
+  def apply[A](value: A): Preload[A] = Preload(value.some)
+  def none[A]                        = Preload[A](None)
+}

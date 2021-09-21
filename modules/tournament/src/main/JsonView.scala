@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.Json._
-import lila.common.{ GreatPlayer, LightUser, Uptime }
+import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
@@ -50,11 +50,12 @@ final class JsonView(
       getTeamName: TeamID => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
-      partial: Boolean
+      partial: Boolean,
+      myInfo: Preload[Option[MyInfo]] = Preload.none
   )(implicit lang: Lang): Fu[JsObject] =
     for {
       data   <- cachableData get tour.id
-      myInfo <- me ?? { fetchMyInfo(tour, _) }
+      myInfo <- myInfo.orLoad(me ?? { fetchMyInfo(tour, _) })
       pauseDelay = me flatMap { u =>
         pause.remainingDelay(u.id, tour)
       }
