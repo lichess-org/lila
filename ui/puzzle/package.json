@@ -14,14 +14,16 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/chart.js": "^2.9.29",
-    "@types/lishogi": "2.0.0"
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "ceval": "2.0.0",
     "chart.js": "^2.9",
     "common": "2.0.0",
     "shogiground": "^7.8.1",
-    "shogiops": "^0.2.2",
+    "shogiops": "^0.2.6",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"
   },

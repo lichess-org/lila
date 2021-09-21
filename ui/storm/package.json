@@ -13,7 +13,9 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lishogi": "2.0.0"
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "common": "2.0.0",

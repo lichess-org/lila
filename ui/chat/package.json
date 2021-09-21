@@ -13,11 +13,14 @@
     "prod": "yarn run compile && rollup --config --config-prod"
   },
   "dependencies": {
+    "common": "2.0.0",
     "snabbdom": "^0.7.4"
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lishogi": "2.0.0"
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   }
 }

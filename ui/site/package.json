@@ -14,7 +14,7 @@
     "gulp-terser": "^1",
     "request": "^2",
     "tsify": "^4.0.0",
-    "typescript": "^4.1.3",
+    "typescript": "^4.4.3",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^2",
     "watchify": "^3"
@@ -24,7 +24,7 @@
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
-    "shogiops": "^0.2.5",
+    "shogiops": "^0.2.6",
     "tablesort": "^5.1"
   },
   "scripts": {

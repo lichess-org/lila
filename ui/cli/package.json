@@ -5,10 +5,15 @@
   "description": "lishogi.org command line interface",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "common": "2.0.0"
+  },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lishogi": "2.0.0"
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "dev": "rollup --config",

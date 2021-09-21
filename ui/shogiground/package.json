@@ -7,22 +7,18 @@
   "typings": "shogiground.d.ts",
   "dependencies": {},
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-typescript": "^5.0.1",
-    "@typescript-eslint/eslint-plugin": "^3.4.0",
-    "@typescript-eslint/parser": "^3.4.0",
-    "eslint": "^7.3.1",
-    "rollup": "^2.18.1",
-    "rollup-plugin-terser": "^6.1.0",
-    "tslib": "^2.0.0",
-    "typescript": "^3.9.6"
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "rollup": "^2.56.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc --outDir . --sourceMap --declaration",
     "prepare": "yarn run compile",
     "dev": "yarn run compile",
     "prod": "yarn run compile",
-    "lint": "eslint src/*.ts",
     "dist": "rollup --config"
   },
   "files": [
