@@ -12,7 +12,8 @@ const expandMentions = (html: string) =>
   );
 
 // ported from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-const urlRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lishogi\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+const urlRegex =
+  /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lishogi\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 const expandUrls = (html: string) =>
   html.replace(urlRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
 

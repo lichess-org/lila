@@ -112,12 +112,12 @@ lishogi.advantageChart = function (data, trans, el, notation) {
           tooltip: {
             pointFormatter: function (format) {
               format = format.replace('{series.name}', trans('advantage'));
-              var eval = data.treeParts[this.x + 1].eval;
-              if (!eval) return;
-              else if (eval.mate) {
-                return format.replace('{point.y}', '#' + eval.mate);
-              } else if (typeof eval.cp !== 'undefined') {
-                var e = Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99);
+              var m_eval = data.treeParts[this.x + 1].eval;
+              if (!m_eval) return;
+              else if (m_eval.mate) {
+                return format.replace('{point.y}', '#' + m_eval.mate);
+              } else if (typeof m_eval.cp !== 'undefined') {
+                var e = Math.max(Math.min(Math.round(m_eval.cp / 10) / 10, 99), -99);
                 if (e > 0) e = '+' + e;
                 return format.replace('{point.y}', e);
               }

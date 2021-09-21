@@ -169,7 +169,8 @@ function toTwitchEmbedUrl(url: string) {
   return undefined;
 }
 
-const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
+const commentYoutubeRegex =
+  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
 const commentTwitchRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)(?:\?|&|)(\S*)/i;
 const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)/i;
 const newLineRegex = /\n/g;
@@ -191,7 +192,8 @@ export function enrichText(text: string, allowNewlines: boolean = true): string 
 }
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+const linkRegex =
+  /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 
 export function autolink(str: string, callback: (str: string) => string): string {
   return str.replace(linkRegex, (_, space, url) => space + callback(url));
