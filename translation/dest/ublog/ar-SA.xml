@@ -43,4 +43,6 @@
     <item quantity="other">عرض %s مقال</item>
   </plurals>
   <string name="uploadAnImageForYourPost">تحميل صورة لمقالتك</string>
+  <string name="imageAlt">نص بديل الصورة</string>
+  <string name="imageCredit">حقوق الصورة</string>
 </resources>
