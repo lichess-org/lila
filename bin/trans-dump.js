@@ -1,7 +1,9 @@
 const { readFile, writeFile } = require('fs/promises');
 const { parseString } = require('xml2js');
+const path = require('path');
 
-const baseDir = 'translation/source';
+const lilaDir = path.resolve(__dirname, '..');
+const baseDir = path.resolve(lilaDir, 'translation/source');
 const dbs =
   'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog'.split(
     ' '
@@ -16,7 +18,7 @@ function xmlName(name) {
 }
 
 function keyListFrom(name) {
-  return readFile(`${baseDir}/${xmlName(name)}.xml`, { encoding: 'utf8' }).then(txt => {
+  return readFile(path.resolve(baseDir, `${xmlName(name)}.xml`), { encoding: 'utf8' }).then(txt => {
     return new Promise((resolve, reject) =>
       parseString(txt, (_, xml) => {
         const strings = (xml.resources.string || []).map(e => e['$'].name);
@@ -27,7 +29,7 @@ function keyListFrom(name) {
           name,
           code:
             keys
-              .map(k => `val \`${k}\` = new I18nKey('${name === 'site' ? '' : xmlName(name) + ':'}${k}')`)
+              .map(k => `val \`${k}\` = new I18nKey("${name === 'site' ? '' : xmlName(name) + ':'}${k}")`)
               .join('\n') + '\n',
         });
       })
@@ -49,5 +51,5 @@ ${objs.map(dbCode).join('\n')}
 }
 `;
 
-  return writeFile('modules/i18n/src/main/I18nKeys.scala', code);
+  return writeFile(path.resolve(lilaDir, 'modules/i18n/src/main/I18nKeys.scala'), code);
 });

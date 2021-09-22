@@ -11,7 +11,6 @@
   <string name="level">Level</string>
   <string name="strength">Strength</string>
   <string name="toggleTheChat">Toggle the chat</string>
-  <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
   <string name="resign">Resign</string>
   <string name="checkmate">Checkmate</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Your opponent left the game. You can claim victory in %s seconds.</item>
   </plurals>
   <string name="opponentLeftChoices">Your opponent left the game. You can claim victory, call the game a draw, or wait.</string>
-  <string name="makeYourOpponentResign">Make your opponent resign</string>
   <string name="forceResignation">Claim victory</string>
   <string name="forceDraw">Call draw</string>
   <string name="talkInChat">Please be nice in the chat!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Black left the game</string>
   <string name="whiteDidntMove">White didn't move</string>
   <string name="blackDidntMove">Black didn't move</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Share this URL to let spectators see the game</string>
-  <string name="theComputerAnalysisHasFailed">The computer analysis has failed</string>
-  <string name="viewTheComputerAnalysis">View the computer analysis</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>
@@ -219,7 +214,6 @@
   <string name="whiteTimeOut">White time out</string>
   <string name="blackTimeOut">Black time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
-  <string name="drawOfferDeclined">Draw offer declined</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
   <string name="drawOfferCanceled">Draw offer cancelled</string>
   <string name="whiteOffersDraw">White offers draw</string>
@@ -245,8 +239,6 @@
   <string name="thisGameIsRated">This game is rated</string>
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
-  <string name="rematchOfferSentWhite">White offers rematch</string>
-  <string name="rematchOfferSentBlack">Black offers rematch</string>
   <string name="rematchOfferAccepted">Rematch offer accepted</string>
   <string name="rematchOfferCanceled">Rematch offer cancelled</string>
   <string name="rematchOfferDeclined">Rematch offer declined</string>
@@ -260,9 +252,7 @@
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
   <string name="composeMessage">Compose message</string>
-  <string name="noNewMessages">No new messages</string>
   <string name="subject">Subject</string>
-  <string name="recipient">Recipient</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
@@ -376,8 +366,6 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="one">%s friend online</item>
     <item quantity="other">%s friends online</item>
   </plurals>
-  <string name="noFriendsOnline">No friends online</string>
-  <string name="findFriends">Find friends</string>
   <string name="favoriteOpponents">Favourite opponents</string>
   <string name="follow">Follow</string>
   <string name="following">Following</string>
@@ -428,7 +416,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="points">Points</string>
   <string name="wins">Wins</string>
   <string name="losses">Losses</string>
-  <string name="winStreak">Win streak</string>
   <string name="createdBy">Created by</string>
   <string name="tournamentIsStarting">The tournament is starting</string>
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
@@ -444,7 +431,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="draws">Draws</string>
   <string name="nextXTournament">Next %s tournament:</string>
   <string name="averageOpponent">Average opponent</string>
-  <string name="membersOnly">Members only</string>
   <string name="boardEditor">Board editor</string>
   <string name="setTheBoard">Set the board</string>
   <string name="popularOpenings">Popular openings</string>
@@ -452,7 +438,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="chess960StartPosition">Chess960 start position: %s</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
-  <string name="savePosition">Save position</string>
   <string name="loadPosition">Load position</string>
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Report %s to moderators</string>
@@ -469,10 +454,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="inlineNotation">Inline notation</string>
-  <string name="watchLichessTV">Watch Lichess TV</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
-  <string name="activeToday">Active today</string>
   <string name="activePlayers">Active players</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
   <string name="success">Success</string>
@@ -483,7 +466,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
-  <string name="latestUpdates">Latest updates</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
@@ -515,9 +497,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
   <string name="by">by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
-  <string name="theming">Theming</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Questions &amp; Answers</string>
   <string name="notes">Notes</string>
   <string name="typePrivateNotesHere">Type private notes here</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
@@ -546,13 +526,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
-  <string name="difficultyEasy">Easy</string>
-  <string name="difficultyNormal">Normal</string>
-  <string name="difficultyHard">Hard</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
-  <string name="xAskedY">%1$s asked %2$s</string>
-  <string name="xAnsweredY">%1$s answered %2$s</string>
-  <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
@@ -561,7 +535,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
-  <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
   <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favourite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s character.</item>
@@ -576,13 +549,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
   <string name="clock">Clock</string>
-  <string name="unauthorizedError">Access is unauthorised.</string>
-  <string name="noInternetConnection">No internet connection. You can still play offline from the menu.</string>
-  <string name="connectedToLichess">You are now connected to lichess.org</string>
-  <string name="signedOut">You have been signed out</string>
-  <string name="loginSuccessful">You are now signed in</string>
-  <string name="playOnTheBoardOffline">Over the board</string>
-  <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Opponent</string>
   <string name="learnMenu">Learn</string>
   <string name="studyMenu">Study</string>
@@ -590,16 +556,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
-  <string name="sharePGN">Share PGN</string>
-  <string name="playOnline">Play online</string>
-  <string name="playOffline">Play offline</string>
-  <string name="allowAnalytics">Allow anonymous statistics</string>
-  <string name="shareGameURL">Share game URL</string>
   <string name="error.required">This field is required</string>
-  <string name="error.email">This email address is invalid</string>
-  <string name="error.email_acceptable">This email address is not acceptable. Please double-check it, and try again.</string>
-  <string name="error.email_unique">Email address invalid or already taken</string>
-  <string name="error.email_different">This is already your email address</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyExistingConversations">Only existing conversations</string>
   <string name="onlyFriends">Only friends</string>
@@ -647,7 +604,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="simulHostExtraTime">Host extra clock time</string>
   <string name="lichessTournaments">Lichess tournaments</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
-  <string name="tournamentOfficial">Official</string>
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>
   <string name="averageCentipawnLoss">Average centipawn loss</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
@@ -685,7 +641,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="downloadAnnotated">Download annotated</string>
   <string name="downloadRaw">Download raw</string>
   <string name="downloadImported">Download imported</string>
-  <string name="printFriendlyPDF">Print-friendly PDF</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
@@ -696,7 +651,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
@@ -725,7 +679,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="xHostsY">%1$s hosts %2$s</string>
   <string name="xJoinsY">%1$s joins %2$s</string>
   <string name="xLikesY">%1$s likes %2$s</string>
-  <string name="xCreatesStudyY">%1$s creates study %2$s</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymous</string>
@@ -746,17 +699,11 @@ computer analysis, game chat and shareable URL.</string>
   <string name="usernameSuffixInvalid">The username must end with a letter or a number.</string>
   <string name="usernameCharsInvalid">The username must only contain letters, numbers, underscores, and hyphens. Consecutive underscores and hyphens are not allowed.</string>
   <string name="usernameUnacceptable">This username is not acceptable.</string>
-  <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Invalid PGN</string>
   <string name="invalidFen">Invalid FEN</string>
-  <string name="error.minLength">Minimum length is %s</string>
-  <string name="error.maxLength">Maximum length is %s</string>
-  <string name="error.min">Must be greater or equal to %s</string>
-  <string name="error.max">Must be less or equal to %s</string>
-  <string name="error.unknown">Error</string>
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
   <string name="perfRatingX">Rating: %s</string>
