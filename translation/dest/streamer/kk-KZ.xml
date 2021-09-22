@@ -48,11 +48,5 @@
   <string name="xStreamerPicture">%s стримердің суреті</string>
   <string name="changePicture">Суретті өзгерту/жою</string>
   <string name="uploadPicture">Суретті жүктеп салу</string>
-  <string name="deletePicture">Суретті жою</string>
   <string name="maxSize">Өлшемнің шегі: %s</string>
-  <string name="installBlocker">Зиянкестен қорғаушыны орнатыңыз!</string>
-  <string name="beSafe">Twitch пен YouTube-ті шарлап жүрген
-жарнама мен трекерлерден сақ болыңыз.
-Личес uBlock Origin програмын ұсынады,
-ол тегін әрі коды ашық.</string>
 </resources>
