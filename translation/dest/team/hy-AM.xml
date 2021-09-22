@@ -19,7 +19,6 @@
     <item quantity="one">Թիմի ղեկավար</item>
     <item quantity="other">Թիմի ղեկավարներ</item>
   </plurals>
-  <string name="teamBestPlayers">Թիմի լավագույն խաղացողները</string>
   <string name="teamRecentMembers">Թիմի անդամները</string>
   <string name="kickSomeone">Ինչ-որ մեկին հեռացնել թիմից</string>
   <string name="whoToKick">Ո՞ւմ եք ցանկանում հեռացնել թիմից։</string>
