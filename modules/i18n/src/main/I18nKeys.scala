@@ -3,7 +3,6 @@ package lila.i18n
 
 // format: OFF
 object I18nKeys {
-
 val `playWithAFriend` = new I18nKey("playWithAFriend")
 val `playWithTheMachine` = new I18nKey("playWithTheMachine")
 val `toInviteSomeoneToPlayGiveThisUrl` = new I18nKey("toInviteSomeoneToPlayGiveThisUrl")
@@ -15,7 +14,6 @@ val `aiNameLevelAiLevel` = new I18nKey("aiNameLevelAiLevel")
 val `level` = new I18nKey("level")
 val `strength` = new I18nKey("strength")
 val `toggleTheChat` = new I18nKey("toggleTheChat")
-val `toggleSound` = new I18nKey("toggleSound")
 val `chat` = new I18nKey("chat")
 val `resign` = new I18nKey("resign")
 val `checkmate` = new I18nKey("checkmate")
@@ -40,7 +38,6 @@ val `joinTheGame` = new I18nKey("joinTheGame")
 val `whitePlays` = new I18nKey("whitePlays")
 val `blackPlays` = new I18nKey("blackPlays")
 val `opponentLeftChoices` = new I18nKey("opponentLeftChoices")
-val `makeYourOpponentResign` = new I18nKey("makeYourOpponentResign")
 val `forceResignation` = new I18nKey("forceResignation")
 val `forceDraw` = new I18nKey("forceDraw")
 val `talkInChat` = new I18nKey("talkInChat")
@@ -51,9 +48,6 @@ val `whiteLeftTheGame` = new I18nKey("whiteLeftTheGame")
 val `blackLeftTheGame` = new I18nKey("blackLeftTheGame")
 val `whiteDidntMove` = new I18nKey("whiteDidntMove")
 val `blackDidntMove` = new I18nKey("blackDidntMove")
-val `shareThisUrlToLetSpectatorsSeeTheGame` = new I18nKey("shareThisUrlToLetSpectatorsSeeTheGame")
-val `theComputerAnalysisHasFailed` = new I18nKey("theComputerAnalysisHasFailed")
-val `viewTheComputerAnalysis` = new I18nKey("viewTheComputerAnalysis")
 val `requestAComputerAnalysis` = new I18nKey("requestAComputerAnalysis")
 val `computerAnalysis` = new I18nKey("computerAnalysis")
 val `computerAnalysisAvailable` = new I18nKey("computerAnalysisAvailable")
@@ -171,7 +165,6 @@ val `cancel` = new I18nKey("cancel")
 val `whiteTimeOut` = new I18nKey("whiteTimeOut")
 val `blackTimeOut` = new I18nKey("blackTimeOut")
 val `drawOfferSent` = new I18nKey("drawOfferSent")
-val `drawOfferDeclined` = new I18nKey("drawOfferDeclined")
 val `drawOfferAccepted` = new I18nKey("drawOfferAccepted")
 val `drawOfferCanceled` = new I18nKey("drawOfferCanceled")
 val `whiteOffersDraw` = new I18nKey("whiteOffersDraw")
@@ -197,8 +190,6 @@ val `ratedTournament` = new I18nKey("ratedTournament")
 val `thisGameIsRated` = new I18nKey("thisGameIsRated")
 val `rematch` = new I18nKey("rematch")
 val `rematchOfferSent` = new I18nKey("rematchOfferSent")
-val `rematchOfferSentWhite` = new I18nKey("rematchOfferSentWhite")
-val `rematchOfferSentBlack` = new I18nKey("rematchOfferSentBlack")
 val `rematchOfferAccepted` = new I18nKey("rematchOfferAccepted")
 val `rematchOfferCanceled` = new I18nKey("rematchOfferCanceled")
 val `rematchOfferDeclined` = new I18nKey("rematchOfferDeclined")
@@ -212,7 +203,6 @@ val `loginToChat` = new I18nKey("loginToChat")
 val `youHaveBeenTimedOut` = new I18nKey("youHaveBeenTimedOut")
 val `spectatorRoom` = new I18nKey("spectatorRoom")
 val `composeMessage` = new I18nKey("composeMessage")
-val `noNewMessages` = new I18nKey("noNewMessages")
 val `subject` = new I18nKey("subject")
 val `recipient` = new I18nKey("recipient")
 val `send` = new I18nKey("send")
@@ -271,8 +261,6 @@ val `whiteCheckmatesInOneMove` = new I18nKey("whiteCheckmatesInOneMove")
 val `blackCheckmatesInOneMove` = new I18nKey("blackCheckmatesInOneMove")
 val `retry` = new I18nKey("retry")
 val `reconnecting` = new I18nKey("reconnecting")
-val `noFriendsOnline` = new I18nKey("noFriendsOnline")
-val `findFriends` = new I18nKey("findFriends")
 val `favoriteOpponents` = new I18nKey("favoriteOpponents")
 val `follow` = new I18nKey("follow")
 val `following` = new I18nKey("following")
@@ -327,7 +315,6 @@ val `blackWins` = new I18nKey("blackWins")
 val `draws` = new I18nKey("draws")
 val `nextXTournament` = new I18nKey("nextXTournament")
 val `averageOpponent` = new I18nKey("averageOpponent")
-val `membersOnly` = new I18nKey("membersOnly")
 val `boardEditor` = new I18nKey("boardEditor")
 val `setTheBoard` = new I18nKey("setTheBoard")
 val `popularOpenings` = new I18nKey("popularOpenings")
@@ -335,7 +322,6 @@ val `endgamePositions` = new I18nKey("endgamePositions")
 val `chess960StartPosition` = new I18nKey("chess960StartPosition")
 val `startPosition` = new I18nKey("startPosition")
 val `clearBoard` = new I18nKey("clearBoard")
-val `savePosition` = new I18nKey("savePosition")
 val `loadPosition` = new I18nKey("loadPosition")
 val `isPrivate` = new I18nKey("isPrivate")
 val `reportXToModerators` = new I18nKey("reportXToModerators")
@@ -352,17 +338,14 @@ val `countryOrFlag` = new I18nKey("countryOrFlag")
 val `thankYou` = new I18nKey("thankYou")
 val `socialMediaLinks` = new I18nKey("socialMediaLinks")
 val `inlineNotation` = new I18nKey("inlineNotation")
-val `watchLichessTV` = new I18nKey("watchLichessTV")
 val `previouslyOnLichessTV` = new I18nKey("previouslyOnLichessTV")
 val `onlinePlayers` = new I18nKey("onlinePlayers")
-val `activeToday` = new I18nKey("activeToday")
 val `activePlayers` = new I18nKey("activePlayers")
 val `bewareTheGameIsRatedButHasNoClock` = new I18nKey("bewareTheGameIsRatedButHasNoClock")
 val `success` = new I18nKey("success")
 val `automaticallyProceedToNextGameAfterMoving` = new I18nKey("automaticallyProceedToNextGameAfterMoving")
 val `autoSwitch` = new I18nKey("autoSwitch")
 val `puzzles` = new I18nKey("puzzles")
-val `latestUpdates` = new I18nKey("latestUpdates")
 val `tournamentWinners` = new I18nKey("tournamentWinners")
 val `name` = new I18nKey("name")
 val `description` = new I18nKey("description")
@@ -394,9 +377,7 @@ val `reportDescriptionHelp` = new I18nKey("reportDescriptionHelp")
 val `error.provideOneCheatedGameLink` = new I18nKey("error.provideOneCheatedGameLink")
 val `by` = new I18nKey("by")
 val `thisTopicIsNowClosed` = new I18nKey("thisTopicIsNowClosed")
-val `theming` = new I18nKey("theming")
 val `blog` = new I18nKey("blog")
-val `questionsAndAnswers` = new I18nKey("questionsAndAnswers")
 val `notes` = new I18nKey("notes")
 val `typePrivateNotesHere` = new I18nKey("typePrivateNotesHere")
 val `invalidUsernameOrPassword` = new I18nKey("invalidUsernameOrPassword")
@@ -425,13 +406,7 @@ val `outsideTheBoard` = new I18nKey("outsideTheBoard")
 val `onSlowGames` = new I18nKey("onSlowGames")
 val `always` = new I18nKey("always")
 val `never` = new I18nKey("never")
-val `difficultyEasy` = new I18nKey("difficultyEasy")
-val `difficultyNormal` = new I18nKey("difficultyNormal")
-val `difficultyHard` = new I18nKey("difficultyHard")
 val `xCompetesInY` = new I18nKey("xCompetesInY")
-val `xAskedY` = new I18nKey("xAskedY")
-val `xAnsweredY` = new I18nKey("xAnsweredY")
-val `xCommentedY` = new I18nKey("xCommentedY")
 val `victory` = new I18nKey("victory")
 val `defeat` = new I18nKey("defeat")
 val `victoryVsYInZ` = new I18nKey("victoryVsYInZ")
@@ -440,20 +415,12 @@ val `drawVsYInZ` = new I18nKey("drawVsYInZ")
 val `timeline` = new I18nKey("timeline")
 val `starting` = new I18nKey("starting")
 val `allInformationIsPublicAndOptional` = new I18nKey("allInformationIsPublicAndOptional")
-val `yourCityRegionOrDepartment` = new I18nKey("yourCityRegionOrDepartment")
 val `biographyDescription` = new I18nKey("biographyDescription")
 val `listBlockedPlayers` = new I18nKey("listBlockedPlayers")
 val `human` = new I18nKey("human")
 val `computer` = new I18nKey("computer")
 val `side` = new I18nKey("side")
 val `clock` = new I18nKey("clock")
-val `unauthorizedError` = new I18nKey("unauthorizedError")
-val `noInternetConnection` = new I18nKey("noInternetConnection")
-val `connectedToLichess` = new I18nKey("connectedToLichess")
-val `signedOut` = new I18nKey("signedOut")
-val `loginSuccessful` = new I18nKey("loginSuccessful")
-val `playOnTheBoardOffline` = new I18nKey("playOnTheBoardOffline")
-val `playOfflineComputer` = new I18nKey("playOfflineComputer")
 val `opponent` = new I18nKey("opponent")
 val `learnMenu` = new I18nKey("learnMenu")
 val `studyMenu` = new I18nKey("studyMenu")
@@ -461,11 +428,6 @@ val `practice` = new I18nKey("practice")
 val `community` = new I18nKey("community")
 val `tools` = new I18nKey("tools")
 val `increment` = new I18nKey("increment")
-val `sharePGN` = new I18nKey("sharePGN")
-val `playOnline` = new I18nKey("playOnline")
-val `playOffline` = new I18nKey("playOffline")
-val `allowAnalytics` = new I18nKey("allowAnalytics")
-val `shareGameURL` = new I18nKey("shareGameURL")
 val `error.required` = new I18nKey("error.required")
 val `error.email` = new I18nKey("error.email")
 val `error.email_acceptable` = new I18nKey("error.email_acceptable")
@@ -514,7 +476,6 @@ val `simulAddExtraTime` = new I18nKey("simulAddExtraTime")
 val `simulHostExtraTime` = new I18nKey("simulHostExtraTime")
 val `lichessTournaments` = new I18nKey("lichessTournaments")
 val `tournamentFAQ` = new I18nKey("tournamentFAQ")
-val `tournamentOfficial` = new I18nKey("tournamentOfficial")
 val `timeBeforeTournamentStarts` = new I18nKey("timeBeforeTournamentStarts")
 val `averageCentipawnLoss` = new I18nKey("averageCentipawnLoss")
 val `keyboardShortcuts` = new I18nKey("keyboardShortcuts")
@@ -548,7 +509,6 @@ val `timeToProcessAMoveOnLichessServer` = new I18nKey("timeToProcessAMoveOnLiche
 val `downloadAnnotated` = new I18nKey("downloadAnnotated")
 val `downloadRaw` = new I18nKey("downloadRaw")
 val `downloadImported` = new I18nKey("downloadImported")
-val `printFriendlyPDF` = new I18nKey("printFriendlyPDF")
 val `crosstable` = new I18nKey("crosstable")
 val `youCanAlsoScrollOverTheBoardToMoveInTheGame` = new I18nKey("youCanAlsoScrollOverTheBoardToMoveInTheGame")
 val `scrollOverComputerVariationsToPreviewThem` = new I18nKey("scrollOverComputerVariationsToPreviewThem")
@@ -559,7 +519,6 @@ val `shareYourInsightsData` = new I18nKey("shareYourInsightsData")
 val `withNobody` = new I18nKey("withNobody")
 val `withFriends` = new I18nKey("withFriends")
 val `withEverybody` = new I18nKey("withEverybody")
-val `youHaveAlreadyRegisteredTheEmail` = new I18nKey("youHaveAlreadyRegisteredTheEmail")
 val `kidMode` = new I18nKey("kidMode")
 val `kidModeExplanation` = new I18nKey("kidModeExplanation")
 val `inKidModeTheLichessLogoGetsIconX` = new I18nKey("inKidModeTheLichessLogoGetsIconX")
@@ -584,7 +543,6 @@ val `gameAnalysis` = new I18nKey("gameAnalysis")
 val `xHostsY` = new I18nKey("xHostsY")
 val `xJoinsY` = new I18nKey("xJoinsY")
 val `xLikesY` = new I18nKey("xLikesY")
-val `xCreatesStudyY` = new I18nKey("xCreatesStudyY")
 val `quickPairing` = new I18nKey("quickPairing")
 val `lobby` = new I18nKey("lobby")
 val `anonymous` = new I18nKey("anonymous")
@@ -605,7 +563,6 @@ val `usernamePrefixInvalid` = new I18nKey("usernamePrefixInvalid")
 val `usernameSuffixInvalid` = new I18nKey("usernameSuffixInvalid")
 val `usernameCharsInvalid` = new I18nKey("usernameCharsInvalid")
 val `usernameUnacceptable` = new I18nKey("usernameUnacceptable")
-val `directlySupportLichess` = new I18nKey("directlySupportLichess")
 val `playChessInStyle` = new I18nKey("playChessInStyle")
 val `chessBasics` = new I18nKey("chessBasics")
 val `coaches` = new I18nKey("coaches")
@@ -615,7 +572,6 @@ val `error.minLength` = new I18nKey("error.minLength")
 val `error.maxLength` = new I18nKey("error.maxLength")
 val `error.min` = new I18nKey("error.min")
 val `error.max` = new I18nKey("error.max")
-val `error.unknown` = new I18nKey("error.unknown")
 val `custom` = new I18nKey("custom")
 val `notifications` = new I18nKey("notifications")
 val `perfRatingX` = new I18nKey("perfRatingX")
@@ -845,6 +801,7 @@ val `arenaStreaks` = new I18nKey("arena:arenaStreaks")
 val `arenaStreaksHelp` = new I18nKey("arena:arenaStreaksHelp")
 val `drawingWithinNbMoves` = new I18nKey("arena:drawingWithinNbMoves")
 val `viewAllXTeams` = new I18nKey("arena:viewAllXTeams")
+
 }
 
 object emails {
@@ -863,6 +820,7 @@ val `logInToLichess` = new I18nKey("emails:logInToLichess")
 val `common_orPaste` = new I18nKey("emails:common_orPaste")
 val `common_note` = new I18nKey("emails:common_note")
 val `common_contact` = new I18nKey("emails:common_contact")
+
 }
 
 object learn {
@@ -1039,6 +997,7 @@ val `next` = new I18nKey("learn:next")
 val `backToMenu` = new I18nKey("learn:backToMenu")
 val `puzzleFailed` = new I18nKey("learn:puzzleFailed")
 val `retry` = new I18nKey("learn:retry")
+
 }
 
 object activity {
@@ -1063,6 +1022,7 @@ val `competedInNbTournaments` = new I18nKey("activity:competedInNbTournaments")
 val `rankedInTournament` = new I18nKey("activity:rankedInTournament")
 val `competedInNbSwissTournaments` = new I18nKey("activity:competedInNbSwissTournaments")
 val `joinedNbTeams` = new I18nKey("activity:joinedNbTeams")
+
 }
 
 object coordinates {
@@ -1076,6 +1036,7 @@ val `talkToYourChessFriends` = new I18nKey("coordinates:talkToYourChessFriends")
 val `youCanAnalyseAGameMoreEffectively` = new I18nKey("coordinates:youCanAnalyseAGameMoreEffectively")
 val `aSquareNameAppears` = new I18nKey("coordinates:aSquareNameAppears")
 val `startTraining` = new I18nKey("coordinates:startTraining")
+
 }
 
 object study {
@@ -1222,6 +1183,7 @@ val `nbChapters` = new I18nKey("study:nbChapters")
 val `nbGames` = new I18nKey("study:nbGames")
 val `nbMembers` = new I18nKey("study:nbMembers")
 val `pasteYourPgnTextHereUpToNbGames` = new I18nKey("study:pasteYourPgnTextHereUpToNbGames")
+
 }
 
 object clas {
@@ -1275,7 +1237,6 @@ val `generateANewUsername` = new I18nKey("class:generateANewUsername")
 val `welcomeToClass` = new I18nKey("class:welcomeToClass")
 val `invitationToClass` = new I18nKey("class:invitationToClass")
 val `clickToViewInvitation` = new I18nKey("class:clickToViewInvitation")
-val `noPendingInvitations` = new I18nKey("class:noPendingInvitations")
 val `onlyVisibleToTeachers` = new I18nKey("class:onlyVisibleToTeachers")
 val `lastActiveDate` = new I18nKey("class:lastActiveDate")
 val `managed` = new I18nKey("class:managed")
@@ -1310,6 +1271,7 @@ val `newsEdit3` = new I18nKey("class:newsEdit3")
 val `nbPendingInvitations` = new I18nKey("class:nbPendingInvitations")
 val `nbTeachers` = new I18nKey("class:nbTeachers")
 val `nbStudents` = new I18nKey("class:nbStudents")
+
 }
 
 object contact {
@@ -1386,6 +1348,7 @@ val `creditAppreciated` = new I18nKey("contact:creditAppreciated")
 val `noneOfTheAbove` = new I18nKey("contact:noneOfTheAbove")
 val `sendEmailAt` = new I18nKey("contact:sendEmailAt")
 val `explainYourRequest` = new I18nKey("contact:explainYourRequest")
+
 }
 
 object patron {
@@ -1456,6 +1419,7 @@ val `downgradeNextMonth` = new I18nKey("patron:downgradeNextMonth")
 val `changeCurrency` = new I18nKey("patron:changeCurrency")
 val `xIsPatronForNbMonths` = new I18nKey("patron:xIsPatronForNbMonths")
 val `patronForMonths` = new I18nKey("patron:patronForMonths")
+
 }
 
 object coach {
@@ -1488,6 +1452,7 @@ val `xWillApproveIt` = new I18nKey("coach:xWillApproveIt")
 val `reviewCoach` = new I18nKey("coach:reviewCoach")
 val `describeExperienceWith` = new I18nKey("coach:describeExperienceWith")
 val `studentReviews` = new I18nKey("coach:studentReviews")
+
 }
 
 object broadcast {
@@ -1516,6 +1481,7 @@ val `broadcastUrl` = new I18nKey("broadcast:broadcastUrl")
 val `currentRoundUrl` = new I18nKey("broadcast:currentRoundUrl")
 val `currentGameUrl` = new I18nKey("broadcast:currentGameUrl")
 val `downloadAllRounds` = new I18nKey("broadcast:downloadAllRounds")
+
 }
 
 object streamer {
@@ -1562,11 +1528,9 @@ val `longDescription` = new I18nKey("streamer:longDescription")
 val `xStreamerPicture` = new I18nKey("streamer:xStreamerPicture")
 val `changePicture` = new I18nKey("streamer:changePicture")
 val `uploadPicture` = new I18nKey("streamer:uploadPicture")
-val `deletePicture` = new I18nKey("streamer:deletePicture")
 val `maxSize` = new I18nKey("streamer:maxSize")
-val `installBlocker` = new I18nKey("streamer:installBlocker")
-val `beSafe` = new I18nKey("streamer:beSafe")
 val `keepItShort` = new I18nKey("streamer:keepItShort")
+
 }
 
 object tfa {
@@ -1583,6 +1547,7 @@ val `disableTwoFactor` = new I18nKey("tfa:disableTwoFactor")
 val `twoFactorEnabled` = new I18nKey("tfa:twoFactorEnabled")
 val `twoFactorDisable` = new I18nKey("tfa:twoFactorDisable")
 val `openTwoFactorApp` = new I18nKey("tfa:openTwoFactorApp")
+
 }
 
 object settings {
@@ -1593,6 +1558,7 @@ val `cantOpenSimilarAccount` = new I18nKey("settings:cantOpenSimilarAccount")
 val `changedMindDoNotCloseAccount` = new I18nKey("settings:changedMindDoNotCloseAccount")
 val `closeAccountExplanation` = new I18nKey("settings:closeAccountExplanation")
 val `thisAccountIsClosed` = new I18nKey("settings:thisAccountIsClosed")
+
 }
 
 object preferences {
@@ -1641,6 +1607,7 @@ val `snapArrowsToValidMoves` = new I18nKey("preferences:snapArrowsToValidMoves")
 val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingOrDrawing")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
 val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardToReplayMoves")
+
 }
 
 object team {
@@ -1655,7 +1622,6 @@ val `joinTeam` = new I18nKey("team:joinTeam")
 val `quitTeam` = new I18nKey("team:quitTeam")
 val `manuallyReviewAdmissionRequests` = new I18nKey("team:manuallyReviewAdmissionRequests")
 val `manuallyReviewAdmissionRequestsHelp` = new I18nKey("team:manuallyReviewAdmissionRequestsHelp")
-val `teamBestPlayers` = new I18nKey("team:teamBestPlayers")
 val `teamRecentMembers` = new I18nKey("team:teamRecentMembers")
 val `kickSomeone` = new I18nKey("team:kickSomeone")
 val `whoToKick` = new I18nKey("team:whoToKick")
@@ -1687,6 +1653,7 @@ val `declinedRequests` = new I18nKey("team:declinedRequests")
 val `nbMembers` = new I18nKey("team:nbMembers")
 val `teamLeaders` = new I18nKey("team:teamLeaders")
 val `xJoinRequests` = new I18nKey("team:xJoinRequests")
+
 }
 
 object perfStat {
@@ -1720,6 +1687,7 @@ val `gamesInARow` = new I18nKey("perfStat:gamesInARow")
 val `lessThanOneHour` = new I18nKey("perfStat:lessThanOneHour")
 val `maxTimePlaying` = new I18nKey("perfStat:maxTimePlaying")
 val `now` = new I18nKey("perfStat:now")
+
 }
 
 object search {
@@ -1744,9 +1712,9 @@ val `evaluation` = new I18nKey("search:evaluation")
 val `maxNumber` = new I18nKey("search:maxNumber")
 val `maxNumberExplanation` = new I18nKey("search:maxNumberExplanation")
 val `include` = new I18nKey("search:include")
-val `generateURL` = new I18nKey("search:generateURL")
 val `searchInXGames` = new I18nKey("search:searchInXGames")
 val `xGamesFound` = new I18nKey("search:xGamesFound")
+
 }
 
 object tourname {
@@ -1790,12 +1758,11 @@ val `classicalShieldArena` = new I18nKey("tourname:classicalShieldArena")
 val `classicalShield` = new I18nKey("tourname:classicalShield")
 val `xShieldArena` = new I18nKey("tourname:xShieldArena")
 val `xShield` = new I18nKey("tourname:xShield")
-val `openingRapidArena` = new I18nKey("tourname:openingRapidArena")
-val `openingRapid` = new I18nKey("tourname:openingRapid")
 val `xTeamBattle` = new I18nKey("tourname:xTeamBattle")
 val `eliteXArena` = new I18nKey("tourname:eliteXArena")
 val `eliteX` = new I18nKey("tourname:eliteX")
 val `xArena` = new I18nKey("tourname:xArena")
+
 }
 
 object faq {
@@ -1841,7 +1808,6 @@ val `fideHandbookX` = new I18nKey("faq:fideHandbookX")
 val `discoveringEnPassant` = new I18nKey("faq:discoveringEnPassant")
 val `explainingEnPassant` = new I18nKey("faq:explainingEnPassant")
 val `goodIntroduction` = new I18nKey("faq:goodIntroduction")
-val `officialRulesPDF` = new I18nKey("faq:officialRulesPDF")
 val `lichessTraining` = new I18nKey("faq:lichessTraining")
 val `threefoldRepetition` = new I18nKey("faq:threefoldRepetition")
 val `threefoldRepetitionExplanation` = new I18nKey("faq:threefoldRepetitionExplanation")
@@ -1899,6 +1865,7 @@ val `howToThreeDots` = new I18nKey("faq:howToThreeDots")
 val `enableDisableNotificationPopUps` = new I18nKey("faq:enableDisableNotificationPopUps")
 val `viewSiteInformationPopUp` = new I18nKey("faq:viewSiteInformationPopUp")
 val `lichessCanOptionnalySendPopUps` = new I18nKey("faq:lichessCanOptionnalySendPopUps")
+
 }
 
 object lag {
@@ -1915,6 +1882,7 @@ val `networkBetweenLichessAndYouExplanation` = new I18nKey("lag:networkBetweenLi
 val `youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername` = new I18nKey("lag:youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername")
 val `lagCompensation` = new I18nKey("lag:lagCompensation")
 val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
+
 }
 
 object swiss {
@@ -1972,8 +1940,6 @@ val `pairingSystem` = new I18nKey("swiss:pairingSystem")
 val `pairingSystemArena` = new I18nKey("swiss:pairingSystemArena")
 val `pairingSystemSwiss` = new I18nKey("swiss:pairingSystemSwiss")
 val `pairingWaitTime` = new I18nKey("swiss:pairingWaitTime")
-val `pairingWaitTimeFast` = new I18nKey("swiss:pairingWaitTimeFast")
-val `pairingWaitTimeSlow` = new I18nKey("swiss:pairingWaitTimeSlow")
 val `identicalPairing` = new I18nKey("swiss:identicalPairing")
 val `possibleButNotConsecutive` = new I18nKey("swiss:possibleButNotConsecutive")
 val `identicalForbidden` = new I18nKey("swiss:identicalForbidden")
@@ -1990,6 +1956,7 @@ val `oneRoundEveryXDays` = new I18nKey("swiss:oneRoundEveryXDays")
 val `xSecondsBetweenRounds` = new I18nKey("swiss:xSecondsBetweenRounds")
 val `xMinutesBetweenRounds` = new I18nKey("swiss:xMinutesBetweenRounds")
 val `ongoingGames` = new I18nKey("swiss:ongoingGames")
+
 }
 
 object puzzle {
@@ -2060,6 +2027,7 @@ val `nbPointsBelowYourPuzzleRating` = new I18nKey("puzzle:nbPointsBelowYourPuzzl
 val `nbPointsAboveYourPuzzleRating` = new I18nKey("puzzle:nbPointsAboveYourPuzzleRating")
 val `nbPlayed` = new I18nKey("puzzle:nbPlayed")
 val `nbToReplay` = new I18nKey("puzzle:nbToReplay")
+
 }
 
 object puzzleTheme {
@@ -2187,6 +2155,7 @@ val `healthyMixDescription` = new I18nKey("puzzleTheme:healthyMixDescription")
 val `playerGames` = new I18nKey("puzzleTheme:playerGames")
 val `playerGamesDescription` = new I18nKey("puzzleTheme:playerGamesDescription")
 val `puzzleDownloadInformation` = new I18nKey("puzzleTheme:puzzleDownloadInformation")
+
 }
 
 object challenge {
@@ -2212,6 +2181,7 @@ val `declineStandard` = new I18nKey("challenge:declineStandard")
 val `declineVariant` = new I18nKey("challenge:declineVariant")
 val `declineNoBot` = new I18nKey("challenge:declineNoBot")
 val `declineOnlyBot` = new I18nKey("challenge:declineOnlyBot")
+
 }
 
 object storm {
@@ -2261,6 +2231,7 @@ val `failedPuzzles` = new I18nKey("storm:failedPuzzles")
 val `slowPuzzles` = new I18nKey("storm:slowPuzzles")
 val `xRuns` = new I18nKey("storm:xRuns")
 val `playedNbRunsOfPuzzleStorm` = new I18nKey("storm:playedNbRunsOfPuzzleStorm")
+
 }
 
 object ublog {
@@ -2288,6 +2259,7 @@ val `imageCredit` = new I18nKey("ublog:imageCredit")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 val `nbViews` = new I18nKey("ublog:nbViews")
 val `viewAllNbPosts` = new I18nKey("ublog:viewAllNbPosts")
+
 }
 
 }

@@ -19,7 +19,6 @@
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
   </plurals>
-  <string name="teamBestPlayers">Best players</string>
   <string name="teamRecentMembers">Recent members</string>
   <string name="kickSomeone">Kick someone out of the team</string>
   <string name="whoToKick">Who do you want to kick out of the team?</string>
