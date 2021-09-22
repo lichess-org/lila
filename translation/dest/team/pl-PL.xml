@@ -23,7 +23,6 @@
     <item quantity="many">Liderzy klubu</item>
     <item quantity="other">Liderzy klubu</item>
   </plurals>
-  <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
   <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
   <string name="whoToKick">Kogo chcesz wyrzucić z klubu?</string>
