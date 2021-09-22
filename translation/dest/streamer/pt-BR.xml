@@ -50,9 +50,5 @@ Se a sua transmissão for em Inglês, não há a necessidade de incluir uma etiq
   <string name="xStreamerPicture">Foto do streamer %s</string>
   <string name="changePicture">Alterar/excluir sua foto</string>
   <string name="uploadPicture">Enviar uma imagem</string>
-  <string name="deletePicture">Excluir foto</string>
   <string name="maxSize">Tamanho máximo: %s</string>
-  <string name="installBlocker">Instale um antivírus!</string>
-  <string name="beSafe">Livre-se dos anúncios e trackers que infestam a Twitch e o YouTube.
-O Lichess recomenda uBlock Origin, que é grátis e de código aberto.</string>
 </resources>
