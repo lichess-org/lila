@@ -59,7 +59,6 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="many">%s gcuireadh ar feitheamh</item>
     <item quantity="other">%s cuireadh ar feitheamh</item>
   </plurals>
-  <string name="noPendingInvitations">Gan cuireadh ar feitheamh</string>
   <string name="onlyVisibleToTeachers">Le feiceáil ag na múinteoirí ranga amháín</string>
   <string name="lastActiveDate">Gníomhach</string>
   <string name="managed">Faoi bhainistíocht</string>
