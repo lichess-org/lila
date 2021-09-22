@@ -16,7 +16,6 @@
     <item quantity="one">Pinuno ng koponan</item>
     <item quantity="other">Mga pinuno ng koponan</item>
   </plurals>
-  <string name="teamBestPlayers">Pinakamagaling na mga manlalaro</string>
   <string name="teamRecentMembers">Mga bagong miyembro</string>
   <string name="kickSomeone">Sibakin ang isa mula sa koponan</string>
   <string name="whoToKick">Sino ang gusto mong/ninyong sibakin mula sa koponan?</string>
