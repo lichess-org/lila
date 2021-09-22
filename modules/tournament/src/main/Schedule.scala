@@ -5,6 +5,8 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 
+import lila.i18n.I18nKeys
+
 import lila.rating.PerfType
 
 case class Schedule(
@@ -198,9 +200,13 @@ object Schedule {
   }
 
   sealed abstract class Speed(val id: Int) {
-    val name                               = toString
-    val key                                = lila.common.String lcfirst name
-    def trans(implicit lang: Lang): String = Speed.toPerfType(this).trans
+    val name = toString
+    val key  = lila.common.String lcfirst name
+    def trans(implicit lang: Lang): String = this match {
+      case Speed.Rapid     => I18nKeys.rapid.txt()
+      case Speed.Classical => I18nKeys.classical.txt()
+      case _               => name
+    }
   }
   object Speed {
     case object UltraBullet extends Speed(5)
