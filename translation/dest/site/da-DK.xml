@@ -11,7 +11,6 @@
   <string name="level">Niveau</string>
   <string name="strength">Styrke</string>
   <string name="toggleTheChat">Skjul/Vis chat</string>
-  <string name="toggleSound">Slå lyd til/fra</string>
   <string name="chat">Chat</string>
   <string name="resign">Giv op</string>
   <string name="checkmate">Skakmat</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Din modstander har forladt partiet. Du kan kræve sejr om %s sekunder.</item>
   </plurals>
   <string name="opponentLeftChoices">Din modstander har forladt partiet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
-  <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
   <string name="forceDraw">Kræv remis</string>
   <string name="talkInChat">Husk den gode tone i chatten!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Sort forlod partiet</string>
   <string name="whiteDidntMove">Hvid flyttede ikke</string>
   <string name="blackDidntMove">Sort flyttede ikke</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Del denne URL for at lade tilskuere se partiet</string>
-  <string name="theComputerAnalysisHasFailed">Computeranalysen slog fejl</string>
-  <string name="viewTheComputerAnalysis">Se computeranalysen</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse klar</string>
@@ -219,7 +214,6 @@
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
-  <string name="drawOfferDeclined">Remistilbud afslået</string>
   <string name="drawOfferAccepted">Remistilbud accepteret</string>
   <string name="drawOfferCanceled">Remistilbud trukket tilbage</string>
   <string name="whiteOffersDraw">Hvid tilbyder remis</string>
@@ -245,8 +239,6 @@
   <string name="thisGameIsRated">Dette parti er ratet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Tilbud om revanche sendt</string>
-  <string name="rematchOfferSentWhite">Hvid tilbyder revanche</string>
-  <string name="rematchOfferSentBlack">Sort tilbyder revanche</string>
   <string name="rematchOfferAccepted">Tilbud om revanche accepteret</string>
   <string name="rematchOfferCanceled">Tilbud om revanche trukket tilbage</string>
   <string name="rematchOfferDeclined">Tilbud om revanche afslået</string>
@@ -260,9 +252,7 @@
   <string name="youHaveBeenTimedOut">Du er sat til timeout.</string>
   <string name="spectatorRoom">Tilskuerrum</string>
   <string name="composeMessage">Skriv besked</string>
-  <string name="noNewMessages">Ingen nye beskeder</string>
   <string name="subject">Emne</string>
-  <string name="recipient">Modtager</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tillæg i sekunder</string>
   <string name="freeOnlineChess">Gratis Online-skak</string>
@@ -375,8 +365,6 @@
     <item quantity="one">%s ven online</item>
     <item quantity="other">%s venner online</item>
   </plurals>
-  <string name="noFriendsOnline">Ingen venner er online</string>
-  <string name="findFriends">Find venner</string>
   <string name="favoriteOpponents">Favoritmodstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
@@ -427,7 +415,6 @@
   <string name="points">Points</string>
   <string name="wins">Gevinster</string>
   <string name="losses">Tabte</string>
-  <string name="winStreak">Sejrsrække</string>
   <string name="createdBy">Oprettet af</string>
   <string name="tournamentIsStarting">Turneringen er begyndt</string>
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
@@ -443,7 +430,6 @@
   <string name="draws">Remiser</string>
   <string name="nextXTournament">Næste %s turnering:</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
-  <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Opstilling</string>
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
@@ -451,7 +437,6 @@
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
-  <string name="savePosition">Gem stilling</string>
   <string name="loadPosition">Indlæs stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
@@ -468,10 +453,8 @@
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
-  <string name="watchLichessTV">Se Lichess TV</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
-  <string name="activeToday">Aktiv i dag</string>
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
   <string name="success">Fuldført</string>
@@ -482,7 +465,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Opgaver</string>
-  <string name="latestUpdates">Seneste opdateringer</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
@@ -514,9 +496,7 @@
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
-  <string name="theming">Tema</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Spørgsmål &amp; svar</string>
   <string name="notes">Noter</string>
   <string name="typePrivateNotesHere">Skriv private noter her</string>
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
@@ -545,13 +525,7 @@
   <string name="onSlowGames">I langsomme spil</string>
   <string name="always">Altid</string>
   <string name="never">Aldrig</string>
-  <string name="difficultyEasy">Nemt</string>
-  <string name="difficultyNormal">Normalt</string>
-  <string name="difficultyHard">Svært</string>
   <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
-  <string name="xAskedY">%1$s spurgte %2$s</string>
-  <string name="xAnsweredY">%1$s svarede %2$s</string>
-  <string name="xCommentedY">%1$s kommenterede %2$s</string>
   <string name="victory">Sejr</string>
   <string name="defeat">Nederlag</string>
   <string name="victoryVsYInZ">%1$s mod %2$s i %3$s</string>
@@ -560,7 +534,6 @@
   <string name="timeline">Tidslinje</string>
   <string name="starting">Begynder:</string>
   <string name="allInformationIsPublicAndOptional">Al information er offentlig og valgfri.</string>
-  <string name="yourCityRegionOrDepartment">Din by, region eller provins</string>
   <string name="biographyDescription">Fortæl om dig selv, dine interesser, hvad kan du lide ved skak, dine favoritåbninger, spillere, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s tegn.</item>
@@ -575,13 +548,6 @@
   <string name="computer">Computer</string>
   <string name="side">Side</string>
   <string name="clock">Ur</string>
-  <string name="unauthorizedError">Adgang ikke givet.</string>
-  <string name="noInternetConnection">Ingen internetforbindelse. Du kan stadig spille offline fra menuen.</string>
-  <string name="connectedToLichess">Du er nu forbundet til lichess.org</string>
-  <string name="signedOut">Du er blevet logget ud</string>
-  <string name="loginSuccessful">Du er nu logget ind</string>
-  <string name="playOnTheBoardOffline">Spil offline, brug som bræt</string>
-  <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Modstander</string>
   <string name="learnMenu">Lær</string>
   <string name="studyMenu">Studie</string>
@@ -589,16 +555,7 @@
   <string name="community">Fællesskab</string>
   <string name="tools">Værktøjer</string>
   <string name="increment">Forøgelse</string>
-  <string name="sharePGN">Del PGN</string>
-  <string name="playOnline">Spil online</string>
-  <string name="playOffline">Spil offline</string>
-  <string name="allowAnalytics">Tillad anonym statistik</string>
-  <string name="shareGameURL">Del spillets URL</string>
   <string name="error.required">Dette felt skal udfyldes</string>
-  <string name="error.email">Email-adressen er ugyldig</string>
-  <string name="error.email_acceptable">Email-adressen er ikke accepteret</string>
-  <string name="error.email_unique">Email-adressen er allerede taget</string>
-  <string name="error.email_different">Dette er allerede din e-mail-adresse</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
   <string name="onlyExistingConversations">Kun eksisterende samtaler</string>
   <string name="onlyFriends">Kun venner</string>
@@ -646,7 +603,6 @@
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
   <string name="tournamentFAQ">Arenaturnering FAQ</string>
-  <string name="tournamentOfficial">Officiel</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gennemsnitligt centibonde-tab</string>
   <string name="keyboardShortcuts">Tastaturgenveje</string>
@@ -684,7 +640,6 @@
   <string name="downloadAnnotated">Download kommenteret</string>
   <string name="downloadRaw">Download rå</string>
   <string name="downloadImported">Download importeret</string>
-  <string name="printFriendlyPDF">Print-venlig PDF</string>
   <string name="crosstable">Krydstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
@@ -695,7 +650,6 @@
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med venner</string>
   <string name="withEverybody">Med alle</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
   <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér dette for dine børn eller skoleelever for at beskytte dem mod andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
@@ -724,7 +678,6 @@
   <string name="xHostsY">%1$s er vært for %2$s</string>
   <string name="xJoinsY">%1$s melder sig til %2$s</string>
   <string name="xLikesY">%1$s synes godt om %2$s</string>
-  <string name="xCreatesStudyY">%1$s opretter studie %2$s</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
   <string name="anonymous">Anonym</string>
@@ -745,17 +698,11 @@
   <string name="usernameSuffixInvalid">Brugernavnet skal afsluttes med et bogstav eller et tal.</string>
   <string name="usernameCharsInvalid">Brugernavnet må kun indeholde bogstaver, tal, underscore og bindestreger.</string>
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
-  <string name="directlySupportLichess">Støt Lichess direkte</string>
   <string name="playChessInStyle">Spil skak med stil</string>
   <string name="chessBasics">Grundlæggende skak</string>
   <string name="coaches">Skaktrænere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
-  <string name="error.minLength">Minimumslængde er %s</string>
-  <string name="error.maxLength">Maksimumslængde er %s</string>
-  <string name="error.min">Skal være større eller lig med %s</string>
-  <string name="error.max">Skal være mindre end eller lig med %s</string>
-  <string name="error.unknown">Fejl</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Meddelelser</string>
   <string name="perfRatingX">Rating: %s</string>
