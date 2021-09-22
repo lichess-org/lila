@@ -56,7 +56,6 @@
     <item quantity="one">Една покана во исчекување</item>
     <item quantity="other">%s покани во исчекување</item>
   </plurals>
-  <string name="noPendingInvitations">Нема покани во исчекување</string>
   <string name="onlyVisibleToTeachers">Видливо само за инструкторите на часот</string>
   <string name="lastActiveDate">Пријавен/а</string>
   <string name="managed">Раководена</string>
