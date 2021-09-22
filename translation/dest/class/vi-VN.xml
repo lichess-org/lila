@@ -55,7 +55,6 @@ Mật khẩu: %3$s</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s lời mời đang chờ</item>
   </plurals>
-  <string name="noPendingInvitations">Không có lời mời đang chờ</string>
   <string name="onlyVisibleToTeachers">Chỉ hiển thị cho các giáo viên</string>
   <string name="lastActiveDate">Hoạt động</string>
   <string name="managed">Quản lý</string>
