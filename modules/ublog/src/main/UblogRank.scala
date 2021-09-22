@@ -132,14 +132,14 @@ final class UblogRank(
     else
       liveAt plusHours {
 
-        val boostedLikes = likes.value.toFloat + ((tier - 2) * 10).atLeast(0) // initial boost
+        val boostedLikes = likes.value.toFloat + ((tier - 2) * 15).atLeast(0) // initial boost
 
         val baseHours =
           if (boostedLikes < 1) 0
           else (3 * math.log(boostedLikes) + 1).toFloat.atMost(boostedLikes)
 
         val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
-          case 0 => 0.3
+          case 0 => 0.2
           case 1 => 1
           case _ => 1.2
         }
@@ -148,8 +148,8 @@ final class UblogRank(
 
         val tierMultiplier = tier match {
           case UblogBlog.Tier.LOW    => 0.2
-          case UblogBlog.Tier.NORMAL => 2
-          case UblogBlog.Tier.HIGH   => 5
+          case UblogBlog.Tier.NORMAL => 3
+          case UblogBlog.Tier.HIGH   => 6
           case UblogBlog.Tier.BEST   => 8
           case _                     => 0
         }
