@@ -83,8 +83,6 @@ Então o sistema irá retirar o jogador do torneio, para não perder mais jogos.
   <string name="pairingSystemArena">Qualquer opositor disponível com um ranking similar</string>
   <string name="pairingSystemSwiss">Melhor emparelhamento baseado em pontos e desempates</string>
   <string name="pairingWaitTime">Tempo de espera para emparelhamento</string>
-  <string name="pairingWaitTimeFast">Rápido: não espera por todos os jogadores</string>
-  <string name="pairingWaitTimeSlow">Lento: espera por todos os jogadores</string>
   <string name="identicalPairing">Emparelhamento idêntico</string>
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
