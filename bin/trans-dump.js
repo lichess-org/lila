@@ -4,7 +4,6 @@ const path = require('path');
 
 const lilaDir = path.resolve(__dirname, '..');
 const baseDir = path.resolve(lilaDir, 'translation/source');
-console.log(baseDir)
 const dbs =
   'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog'.split(
     ' '

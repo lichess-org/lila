@@ -87,11 +87,12 @@ def main() -> None:
         for path in SOURCE_DIR.iterdir():
             if not path.is_file():
                 continue
-            r = subprocess.run(["sed","-i", "", f"/{unused}/d", path], capture_output=True)
+            # Does not remove automatically multiple lines keys
+            r = subprocess.run(["sed","-i", "", f"/{unused}.*</d", path], capture_output=True)
+            print(r)
 
 
     r = subprocess.run(["node",TRANS_DUMP], capture_output=True)
-    print(r)
     sys.exit(r.returncode)
 
 
