@@ -19,7 +19,6 @@
     <item quantity="one">Líder da equipa</item>
     <item quantity="other">Líderes da equipa</item>
   </plurals>
-  <string name="teamBestPlayers">Melhores jogadores</string>
   <string name="teamRecentMembers">Novos membros</string>
   <string name="kickSomeone">Expulsar alguém da equipa</string>
   <string name="whoToKick">Quem é que queres expulsar da equipa?</string>
@@ -49,5 +48,5 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que os novos membros devem saber para se juntarem a esta equipa.</string>
   <string name="incorrectEntryCode">Código incorreto.</string>
   <string name="teamAlreadyExists">Esta equipa já existe.</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Pedidos Recusados</string>
+  <string name="declinedRequests">Pedidos Recusados</string>
 </resources>
