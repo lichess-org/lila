@@ -11,7 +11,6 @@
   <string name="level">ସ୍ତର</string>
   <string name="strength">ଶକ୍ତି</string>
   <string name="toggleTheChat">ଚାଟ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
-  <string name="toggleSound">ଶବ୍ଦ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="chat">ଚାଟ୍</string>
   <string name="resign">ଇସ୍ତଫା ଦିଅନ୍ତୁ</string>
   <string name="checkmate">ଚେକମେଟ</string>
@@ -35,7 +34,6 @@
   <string name="whitePlays">ଧଳାର ପାଳି</string>
   <string name="blackPlays">କଳାର ପାଳି</string>
   <string name="opponentLeftChoices">ତୁମର ପ୍ରତିଦ୍ୱନ୍ଦୀ ଖେଳ ଛାଡିଥିଲେ | ଆପଣ ବିଜୟ ଦାବି କରିପାରିବେ, ଖେଳକୁ ଡ୍ର ବୋଲି କହିପାରିବେ କିମ୍ବା ଅପେକ୍ଷା କରିପାରିବେ |</string>
-  <string name="makeYourOpponentResign">ତୁମର ପ୍ରତିଦ୍ୱନ୍ଦୀଙ୍କୁ ଇସ୍ତଫା ଦିଅ</string>
   <string name="forceResignation">ବିଜୟ ଦାବି କରନ୍ତୁ</string>
   <string name="forceDraw">କଲ୍ ଡ୍ର</string>
   <string name="talkInChat">ଦୟାକରି ଚାଟରେ ଭଲ ହୁଅନ୍ତୁ!</string>
@@ -44,9 +42,6 @@
   <string name="blackResigned">କଳା ଇସ୍ତଫା ଦେଇଛନ୍ତି</string>
   <string name="whiteLeftTheGame">ଧଳା ଖେଳ ଛାଡିଥିଲେ</string>
   <string name="blackLeftTheGame">କଳା ଖେଳ ଛାଡିଥିଲେ</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ଦର୍ଶକଙ୍କୁ ଖେଳ ଦେଖିବାକୁ ଏହି URL ଅଂଶୀଦାର କରନ୍ତୁ |</string>
-  <string name="theComputerAnalysisHasFailed">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ବିଫଳ ହୋଇଛି</string>
-  <string name="viewTheComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଦେଖନ୍ତୁ</string>
   <string name="requestAComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ପାଇଁ ଅନୁରୋଧ</string>
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
@@ -201,11 +196,8 @@
   <string name="timeline">ସମୟରେଖା</string>
   <string name="starting">ଆରମ୍ଭ:</string>
   <string name="allInformationIsPublicAndOptional">ସମସ୍ତ ସୂଚନା ସାର୍ବଜନୀନ ଏବଂ ବୈକଳ୍ପିକ ଅଟେ।</string>
-  <string name="noInternetConnection">କୌଣସି ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ନାହିଁ। ଆପଣ ତଥାପି ମେନୁରୁ ଅଫଲାଇନ୍ ଖେଳିପାରିବେ।</string>
   <string name="studyMenu">ଅଧ୍ୟୟନ</string>
   <string name="practice">ଅଭ୍ୟାସ</string>
-  <string name="sharePGN">PGN ଅଂଶୀଦାର କରନ୍ତୁ</string>
-  <string name="allowAnalytics">ଅଜ୍ଞାତ ପରିସଂଖ୍ୟାନକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
