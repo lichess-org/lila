@@ -45,7 +45,7 @@ Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
   <string name="tiebreaksCalculationA">Mit dem %s.
 Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen die der Spieler remisiert.</string>
   <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
-  <string name="dutchSystem">Niederländischen System</string>
+  <string name="dutchSystem">Niederländisches System</string>
   <string name="FIDEHandbook">FIDE-Handbuch</string>
   <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
@@ -86,8 +86,6 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="pairingSystemArena">Jeder verfügbare Gegner mit ähnlichem Rang</string>
   <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Feinwertungen</string>
   <string name="pairingWaitTime">Wartezeit für die Paarung</string>
-  <string name="pairingWaitTimeFast">Schnell: wartet nicht auf alle Spieler</string>
-  <string name="pairingWaitTimeSlow">Langsam: wartet auf alle Spieler</string>
   <string name="identicalPairing">Gleiche Paarung mehrmals</string>
   <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
   <string name="identicalForbidden">Verboten</string>
