@@ -11,7 +11,6 @@
   <string name="level">Մակարդակ</string>
   <string name="strength">Ուժ</string>
   <string name="toggleTheChat">Թաքցնել/ցուցադրել զրուցարանը</string>
-  <string name="toggleSound">Անջատել/Միացնել ձայնը</string>
   <string name="chat">Զրուցարան</string>
   <string name="resign">Հանձնվել</string>
   <string name="checkmate">Շախ և մատ</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ %s վարկյանից։</item>
   </plurals>
   <string name="opponentLeftChoices">Հակառակորդը լքել է խաղը։ Դուք կարող եք պահանջել հաղթանակ, ոչ-ոքի կամ սպասել։</string>
-  <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <string name="forceResignation">Պահանջել հաղթանակ</string>
   <string name="forceDraw">Պահանջել ոչ-ոքի</string>
   <string name="talkInChat">Խնդրում ենք զրուցարանում լինել բարեհամբույր:</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Սևերը լքեցին խաղը</string>
   <string name="whiteDidntMove">Սպիտակները քայլ չեն կատարել</string>
   <string name="blackDidntMove">Սևերը քայլ չեն կատարել</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Տարածել այս հղումը, որպեսզի հանդիսատեսները տեսնեն խաղի ընթացքը</string>
-  <string name="theComputerAnalysisHasFailed">Համակարգչային վերլուծությունը չստացվեց</string>
-  <string name="viewTheComputerAnalysis">Ցույց տալ համակարգչային վերլուծությունը</string>
   <string name="requestAComputerAnalysis">Համակարգչային վերլուծություն պատվիրել</string>
   <string name="computerAnalysis">Համակարգչային վերլուծություն</string>
   <string name="computerAnalysisAvailable">Առկա է համակարգչի վերլուծություն</string>
@@ -214,7 +209,6 @@
   <string name="whiteTimeOut">Սպիտակների ժամանակը սպառվեց</string>
   <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
-  <string name="drawOfferDeclined">Ոչ-ոքի առաջարկը մերժվել է</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>
   <string name="drawOfferCanceled">Ոչ-ոքի առաջարկը հերքվել է</string>
   <string name="whiteOffersDraw">Սպիտակներն առաջարկում են ոչ-ոքի</string>
@@ -240,8 +234,6 @@
   <string name="thisGameIsRated">Խաղը Վարկանիշային է</string>
   <string name="rematch">Կրկին խաղալ</string>
   <string name="rematchOfferSent">Ռևանշի առաջարկը ուղարկված է</string>
-  <string name="rematchOfferSentWhite">Սպիտակներն առաջարկում են ոչ-ոքի</string>
-  <string name="rematchOfferSentBlack">Սևերն առաջարկում են ոչ-ոքի</string>
   <string name="rematchOfferAccepted">Ռևանշի առաջարկը ընդունված է</string>
   <string name="rematchOfferCanceled">Ռևանշի առաջարկը կասեցված է</string>
   <string name="rematchOfferDeclined">Ռևանշի առաջարկը մերժված է</string>
@@ -255,9 +247,7 @@
   <string name="youHaveBeenTimedOut">Զրուցարանը ժամանակավորապես անհասանելի Ձեզ համար։</string>
   <string name="spectatorRoom">Հանդիսատեսների սենյակ</string>
   <string name="composeMessage">Գրել հաղորդագրություն</string>
-  <string name="noNewMessages">Դեռևս նամակներ չունեք</string>
   <string name="subject">Թեմա</string>
-  <string name="recipient">Ընդունող</string>
   <string name="send">Ուղարկել</string>
   <string name="incrementInSeconds">Ավելացումը ըստ վայրկյանների</string>
   <string name="freeOnlineChess">Անվճար օնլայն շախմատ</string>
@@ -366,8 +356,6 @@
     <item quantity="one">%s ընկեր առցանց է</item>
     <item quantity="other">%s ընկեր առցանց է</item>
   </plurals>
-  <string name="noFriendsOnline">Օնլայն ընկեր չկան</string>
-  <string name="findFriends">Փնտրել ընկերներ</string>
   <string name="favoriteOpponents">Սիրելի հակառակորդներ</string>
   <string name="follow">Հետևել</string>
   <string name="following">Հետևում եք</string>
@@ -418,7 +406,6 @@
   <string name="points">Միավորներ</string>
   <string name="wins">Հաղթանակներ</string>
   <string name="losses">Պարտություններ</string>
-  <string name="winStreak">Անընդմեջ հաղթանակներ</string>
   <string name="createdBy">Ստեղծող՝</string>
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
   <string name="tournamentPairingsAreNowClosed">Մրցաշարի վիճակահանությունն ավարտված է։</string>
@@ -434,7 +421,6 @@
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
-  <string name="membersOnly">Միայն անդամները</string>
   <string name="boardEditor">Խաղատախտակի խմբագրիչ</string>
   <string name="setTheBoard">Տեղադրել դիրքը</string>
   <string name="popularOpenings">Հանրաճանաչ սկզբնախաղեր</string>
@@ -442,7 +428,6 @@
   <string name="chess960StartPosition">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
   <string name="startPosition">Սկզբնական դիրք</string>
   <string name="clearBoard">Մաքրել տախտակը</string>
-  <string name="savePosition">Պահպանել դիրքը</string>
   <string name="loadPosition">Բեռնել դիրք</string>
   <string name="isPrivate">Անձնական</string>
   <string name="reportXToModerators">Տեղեկացնել %s մոդերատորներին</string>
@@ -459,10 +444,8 @@
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="inlineNotation">Տողային նոտագրություն</string>
-  <string name="watchLichessTV">Դիտել Lichess TV</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
-  <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է, սակայն առանց ժամանակի</string>
   <string name="success">Հաջողված է</string>
@@ -473,7 +456,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">խնդիրներ</string>
-  <string name="latestUpdates">վերջին թարմացումները</string>
   <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
@@ -502,9 +484,7 @@
   <string name="other">այլ</string>
   <string name="by">ըստ %s</string>
   <string name="thisTopicIsNowClosed">Այս թեման այժմ փակ է։</string>
-  <string name="theming">Թեմայի կարգավորումներ</string>
   <string name="blog">Բլոգ</string>
-  <string name="questionsAndAnswers">Հարցեր և պատասխաններ</string>
   <string name="notes">Նշումներ</string>
   <string name="typePrivateNotesHere">Մասնավոր նշումները մուտքագրեք այստեղ</string>
   <string name="invalidUsernameOrPassword">Սխալ օգտանուն կամ գաղտնաբառ</string>
@@ -532,12 +512,7 @@
   <string name="onSlowGames">Դանդաղ խաղերում</string>
   <string name="always">Միշտ</string>
   <string name="never">Երբեք</string>
-  <string name="difficultyEasy">Հեշտ</string>
-  <string name="difficultyNormal">Նորմալ</string>
-  <string name="difficultyHard">Բարդ</string>
   <string name="xCompetesInY">%1$s որոշել է մասնակցել %2$s-ին</string>
-  <string name="xAnsweredY">%1$s-ը պատասխանեց %2$s հարցին</string>
-  <string name="xCommentedY">%1$s-ը մեկնաբանեց %2$s հարցը</string>
   <string name="victory">Հաղթանակ</string>
   <string name="defeat">Պարտություն</string>
   <string name="victoryVsYInZ">%1$s-ն ընդդեմ %2$s-ի %3$s-ում</string>
@@ -546,7 +521,6 @@
   <string name="timeline">Ժամանակացույց</string>
   <string name="starting">Սկիզբը՝</string>
   <string name="allInformationIsPublicAndOptional">Այստեղ նշվող բոլոր տեղեկությունները հասանելի են լինելու բոլորին, ավելացրեք դրանք սեփական ցանկությամբ։</string>
-  <string name="yourCityRegionOrDepartment">Ձեր քաղաքը, մարզը կամ շրջանը։</string>
   <string name="biographyDescription">Պատմեք Ձեր մասին. ինչն եք սիրում շախմատում, որոնք են Ձեր սիրելի սկզբնախաղերը, պարտիաները, շախմատիստները…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Առավելագույնը՝ %s նշան։</item>
@@ -557,13 +531,6 @@
   <string name="computer">Համակարգիչ</string>
   <string name="side">Կողմ</string>
   <string name="clock">Ժամացույց</string>
-  <string name="unauthorizedError">Մուտքն արգելված է։</string>
-  <string name="noInternetConnection">Չկա ինտերնետ կապ: Դուք առայժմ կարող եք խաղալ օֆլայն մենյուից։</string>
-  <string name="connectedToLichess">Այժմ Դուք միացած եք lichess.org կայքին</string>
-  <string name="signedOut">Դուք դուրս եկաք</string>
-  <string name="loginSuccessful">Դուք մտաք</string>
-  <string name="playOnTheBoardOffline">Երկուսով խաղատախտակի առջև</string>
-  <string name="playOfflineComputer">Համակարգիչ</string>
   <string name="opponent">Մրցակից</string>
   <string name="learnMenu">Ուսուցում</string>
   <string name="studyMenu">Ստուդիա</string>
@@ -571,16 +538,7 @@
   <string name="community">Համայնք</string>
   <string name="tools">Գործիքներ</string>
   <string name="increment">Ավելացում</string>
-  <string name="sharePGN">Տարածել PGN-ն</string>
-  <string name="playOnline">Խաղալ առցանց</string>
-  <string name="playOffline">Խաղալ օֆլայն</string>
-  <string name="allowAnalytics">Թույլատրել վիճակագրության անանուն հավաքում</string>
-  <string name="shareGameURL">Տարածել խաղի հղումը</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
-  <string name="error.email">Այս էլ-փոստի հասցեն սխալ է</string>
-  <string name="error.email_acceptable">Այս էլ. փոստի հասցեն վավեր չէ</string>
-  <string name="error.email_unique">Այս էլ. փոստի հասցեն արդեն գրանցված է</string>
-  <string name="error.email_different">Սա առանց այդ էլ Ձեր էլեկտրոնային փոստի հասցեն է</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
   <string name="onlyExistingConversations">Միայն գոյություն ունեցող քննարկումները</string>
   <string name="onlyFriends">Միայն ընկերները</string>
@@ -628,7 +586,6 @@
   <string name="simulHostExtraTime">Խաղաշար անցկացնողի լրացուցիչ ժամանակը</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
-  <string name="tournamentOfficial">Պաշտոնական</string>
   <string name="timeBeforeTournamentStarts">Ժամանակ մինչև մրցաշարի սկսվելը</string>
   <string name="averageCentipawnLoss">Միջինը հարյուրերորդական զինվորի կորուստ</string>
   <string name="keyboardShortcuts">Ստեղնաշարի դյուրանցումներ</string>
@@ -657,14 +614,12 @@
   <string name="glicko2Rating">Glicko-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ձեզ նամակ ենք ուղարկել։ Մասնակցային հաշիվն ակտիվացնելու համար սեղմեք նամակում եղած հղումը։</string>
-  <string name="printFriendlyPDF">Բեռնել PDF ձևաչափով</string>
   <string name="crosstable">Հաշիվ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Քայլերը թերթելու համար կարելի է մկնիկի անիվը պտտել տախտակի վրա։</string>
   <string name="analysisShapesHowTo">Խաղատախտակի վրա շրջանակներ և սլաքներ պատկերելու համար օգտագործեք Shift+մկնիկի ձախ կոճակը կամ աջ կոճակը։</string>
   <string name="withNobody">Ոչ մեկի հետ</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Դուք արդեն գրանցել եք էլեկտրոնային փոստի %s հասցեն։</string>
   <string name="kidMode">Մանկական ռեժիմ</string>
   <string name="kidModeExplanation">Սա անվտանգության համար է։ Մանկական ռեժիմում անջատված են կայքի հաղորդակցության բոլոր միջոցները։ Միացրեք այս ռեժիմը ձեր երեխաների և աշակերտների համար` նրանց այլ օգտատերերից պաշտպանելու համար։</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում Lichess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
@@ -704,17 +659,11 @@
   <string name="usernameSuffixInvalid">Մասնակցային անունը պետք է վերջանա տառով կամ թվով։</string>
   <string name="usernameCharsInvalid">Մասնակցային անունը պետք է բաղկացած լինի միայն տառերից, թվերից, ընդգծումներից և գծիկներից։</string>
   <string name="usernameUnacceptable">Մասնակցային այս անունն արդեն զբաղված է կամ անթույլատրելի է։.</string>
-  <string name="directlySupportLichess">Աջակցել Lichess-ին։</string>
   <string name="playChessInStyle">Շախմատային ոճով</string>
   <string name="chessBasics">Շախմատի հիմունքներ</string>
   <string name="coaches">Մարզիչներ</string>
   <string name="invalidPgn">Ոչ կոռեկտ PGN</string>
   <string name="invalidFen">Ոչ կոռեկտ PGN</string>
-  <string name="error.minLength">Նվազագույն երկարությունը՝ %s</string>
-  <string name="error.maxLength">Նվազագույն երկարությունը՝ %s</string>
-  <string name="error.min">Արժեքը պետք է լինի մեծ կամ հավասար %s-ին</string>
-  <string name="error.max">Արժեքը պետք է լինի մեծ կամ հավասար %s-ին</string>
-  <string name="error.unknown">Սխալ</string>
   <string name="custom">Սեփական խաղ</string>
   <string name="notifications">Ծանուցումներ</string>
   <string name="perfRatingX">Վարկանիշ՝ %s</string>
