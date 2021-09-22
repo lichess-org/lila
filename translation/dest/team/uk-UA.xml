@@ -23,7 +23,6 @@
     <item quantity="many">Лідери команд</item>
     <item quantity="other">Лідер команди</item>
   </plurals>
-  <string name="teamBestPlayers">Найліпші гравці команди</string>
   <string name="teamRecentMembers">Нові гравці команди</string>
   <string name="kickSomeone">Виключити когось з команди</string>
   <string name="whoToKick">Кого Ви хочете виключити з команди?</string>
@@ -59,5 +58,5 @@
   <string name="teamAlreadyExists">Така команда вже існує.</string>
   <string name="upcomingTourns">Майбутні турніри</string>
   <string name="completedTourns">Завершені турніри</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Відхилені запити</string>
+  <string name="declinedRequests">Відхилені запити</string>
 </resources>
