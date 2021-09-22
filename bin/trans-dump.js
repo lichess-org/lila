@@ -1,52 +1,51 @@
-const fs = require('fs').promises;
-const parseString = require('xml2js').parseString;
+const { readFile, writeFile } = require('fs/promises');
+const { parseString } = require('xml2js');
 
 const baseDir = 'translation/source';
 const dbs =
-  'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog'.split(
-    ' '
-  );
+  'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog'
+    .split(' ');
 
 function ucfirst(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return s[0].toUpperCase() + s.slice(1);
 }
 
 function xmlName(name) {
-  return name == 'clas' ? 'class' : name;
+  return name === 'clas' ? 'class' : name;
 }
 
 function keyListFrom(name) {
-  return fs.readFile(`${baseDir}/${xmlName(name)}.xml`, { encoding: 'utf8' }).then(txt => {
+  return readFile(`${baseDir}/${xmlName(name)}.xml`, { encoding: 'utf8' }).then((txt) => {
     return new Promise((resolve, reject) =>
       parseString(txt, (_, xml) => {
-        const strings = (xml.resources.string || []).map(e => e['$'].name);
-        const plurals = (xml.resources.plurals || []).map(e => e['$'].name);
+        const strings = (xml.resources.string || []).map((e) => e['$'].name);
+        const plurals = (xml.resources.plurals || []).map((e) => e['$'].name);
         const keys = strings.concat(plurals);
+
         resolve({
-          name: name,
-          code:
-            keys
-              .map(k => 'val `' + k + '` = new I18nKey("' + (name == 'site' ? '' : xmlName(name) + ':') + k + '")')
-              .join('\n') + '\n',
+          name,
+          code: keys
+            .map((k) => `val \`${k}\` = new I18nKey('${(name === 'site' ? '' : xmlName(name) + ':')}${k}')`)
+            .join('\n') + '\n'
         });
       })
     );
   });
 }
 
-Promise.all(dbs.map(keyListFrom)).then(objs => {
+Promise.all(dbs.map(keyListFrom)).then((objs) => {
   function dbCode(obj) {
-    return obj.name === 'site' ? obj.code : `object ${obj.name} {\n${obj.code}}\n`;
+    return obj.name === 'site' ? obj.code : `object ${obj.name} {\n${obj.code}\n}\n`;
   }
+
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n
 
 // format: OFF
 object I18nKeys {
-
 ${objs.map(dbCode).join('\n')}
 }
 `;
 
-  return fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
+  return writeFile('modules/i18n/src/main/I18nKeys.scala', code);
 });
