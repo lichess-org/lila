@@ -11,7 +11,6 @@
   <string name="level">ระดับ</string>
   <string name="strength">ความแข็งแกร่ง</string>
   <string name="toggleTheChat">เปิด/ปิดการสนทนา</string>
-  <string name="toggleSound">เปิด/ปิดเสียง</string>
   <string name="chat">สนทนา</string>
   <string name="resign">ยอมแพ้</string>
   <string name="checkmate">รุกจน</string>
@@ -39,7 +38,6 @@
     <item quantity="other">คู่แข่งของคุณทิ้งเกมไปแล้ว คุณสามารถใช้สิทธิ์ชนะได้ในอีก %s วินาที</item>
   </plurals>
   <string name="opponentLeftChoices">คู่แข่งอาจทิ้งเกมไปแล้ว คุณสามารถถือสิทธิ์ให้ตัวเองชนะ ถือสิทธิ์ให้เกมเสมอ หรือรอคู่แข่ง</string>
-  <string name="makeYourOpponentResign">ทำให้คู่แข่งยอมแพ้</string>
   <string name="forceResignation">ถือสิทธิ์ชนะ</string>
   <string name="forceDraw">ถือสิทธิ์เสมอ</string>
   <string name="talkInChat">กรุณาสนทนาอย่างสุภาพ</string>
@@ -48,9 +46,6 @@
   <string name="blackResigned">ดำยอมแพ้</string>
   <string name="whiteLeftTheGame">ขาวทิ้งเกม</string>
   <string name="blackLeftTheGame">ดำทิ้งเกม</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ให้ URL นี้เพื่อให้คนเข้ามาดูเกม</string>
-  <string name="theComputerAnalysisHasFailed">การวิเคราะห์ด้วยคอมพิวเตอร์ล้มเหลว</string>
-  <string name="viewTheComputerAnalysis">ดูผลการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="requestAComputerAnalysis">ขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>
@@ -196,7 +191,6 @@
   <string name="whiteTimeOut">ขาวหมดเวลา</string>
   <string name="blackTimeOut">ดำหมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
-  <string name="drawOfferDeclined">การขอเสมอถูกปฏิเสธ</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
   <string name="drawOfferCanceled">การขอเสมอถูกยกเลิก</string>
   <string name="whiteOffersDraw">ขาวขอเสมอ</string>
@@ -222,8 +216,6 @@
   <string name="thisGameIsRated">เกมนี้คิดแต้ม</string>
   <string name="rematch">ท้าดวลอีกครั้ง</string>
   <string name="rematchOfferSent">ส่งการขอท้าดวลแล้ว</string>
-  <string name="rematchOfferSentWhite">ขาวท้าดวลอีกครั้ง</string>
-  <string name="rematchOfferSentBlack">ดำท้าดวลอีกครั้ง</string>
   <string name="rematchOfferAccepted">ยอมรับการท้าดวลแล้ว</string>
   <string name="rematchOfferCanceled">การท้าดวลถูกยกเลิก</string>
   <string name="rematchOfferDeclined">การท้าดวลถูกปฏิเสธ</string>
@@ -237,9 +229,7 @@
   <string name="youHaveBeenTimedOut">คุณถูกระงับเวลาแชทช่วงหนึ่ง</string>
   <string name="spectatorRoom">กรอบผู้สังเกตการณ์</string>
   <string name="composeMessage">เขียนข้อความ</string>
-  <string name="noNewMessages">ไม่มีข้อความใหม่</string>
   <string name="subject">หัวข้อ</string>
-  <string name="recipient">ผู้รับ</string>
   <string name="send">ส่ง</string>
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
   <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
@@ -338,8 +328,6 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">เพื่อนออนไลน์ %s คน</item>
   </plurals>
-  <string name="noFriendsOnline">ไม่มีเพื่อนออนไลน์</string>
-  <string name="findFriends">ค้นหาเพื่อน</string>
   <string name="favoriteOpponents">คู่แข่งที่ชอบ</string>
   <string name="follow">ติดตาม</string>
   <string name="following">กำลังติดตาม</string>
@@ -385,7 +373,6 @@
   <string name="points">แต้ม</string>
   <string name="wins">ชนะ</string>
   <string name="losses">แพ้</string>
-  <string name="winStreak">ชนะรวด</string>
   <string name="createdBy">สร้างโดย</string>
   <string name="tournamentIsStarting">ทัวร์นาเมนต์กำลังเริ่มต้น</string>
   <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ทัวร์นาเมนต์ได้ปิดแล้ว</string>
@@ -401,13 +388,11 @@
   <string name="draws">เสมอ</string>
   <string name="nextXTournament">ทัวร์นาเมนต์ %s ถัดไป:</string>
   <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
-  <string name="membersOnly">เฉพาะสมาชิก</string>
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
   <string name="setTheBoard">จัดค่ากระดาน</string>
   <string name="popularOpenings">การเปิดหมากยอดนิยม</string>
   <string name="startPosition">ตำแหน่งเริ่มต้น</string>
   <string name="clearBoard">ล้างกระดาน</string>
-  <string name="savePosition">บันทึกตำแหน่ง</string>
   <string name="loadPosition">โหลดตำแหน่ง</string>
   <string name="isPrivate">ส่วนตัว</string>
   <string name="reportXToModerators">ร้องเรียน %s สู่ผู้ดูแล</string>
@@ -424,10 +409,8 @@
   <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
-  <string name="watchLichessTV">ดู Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
-  <string name="activeToday">ขยันในวันนี้</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
   <string name="success">สำเร็จ</string>
@@ -437,7 +420,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ดำเนินสู่เกมถัดไปอัตโนมัติหลังจากการเดิน</string>
   <string name="autoSwitch">สลับอัตโนมัติ</string>
   <string name="puzzles">ปริศนา</string>
-  <string name="latestUpdates">อัปเดตล่าสุด</string>
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
@@ -467,9 +449,7 @@
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="thisTopicIsNowClosed">หัวข้อนี้ถูกปิดแล้ว</string>
-  <string name="theming">รูปลักษณ์</string>
   <string name="blog">บล็อก</string>
-  <string name="questionsAndAnswers">คำถาม-คำตอบ</string>
   <string name="notes">หมายเหตุ</string>
   <string name="typePrivateNotesHere">พิมพ์หมายเหตุส่วนตัวตรงนี้</string>
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
@@ -498,13 +478,7 @@
   <string name="onSlowGames">ในเกมรูปแบบช้า</string>
   <string name="always">เสมอ</string>
   <string name="never">ไม่ต้อง</string>
-  <string name="difficultyEasy">ง่าย</string>
-  <string name="difficultyNormal">ปกติ</string>
-  <string name="difficultyHard">ยาก</string>
   <string name="xCompetesInY">%1$s แข่งขันใน %2$s</string>
-  <string name="xAskedY">%1$s ได้ถาม %2$s</string>
-  <string name="xAnsweredY">%1$s ได้ตอบ %2$s</string>
-  <string name="xCommentedY">%1$s ได้แสดงความคิดเห็น %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
   <string name="victoryVsYInZ">%1$s vs %2$s ใน %3$s</string>
@@ -513,7 +487,6 @@
   <string name="timeline">ไทม์ไลน์</string>
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
-  <string name="yourCityRegionOrDepartment">เมือง, ภูมิภาค, หรือจังหวัดของคุณ</string>
   <string name="biographyDescription">บอกเกี่ยวกับตัวคุณว่าชอบอะไรในหมากรุก เช่น การเปิดหมาก, เกม, หรือผู้เล่นที่ชอบ ฯลฯ</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">สูงสุด: %s ตัวอักษร</item>
@@ -526,13 +499,6 @@
   <string name="computer">คอมพิวเตอร์</string>
   <string name="side">ฝ่าย</string>
   <string name="clock">นาฬิกา</string>
-  <string name="unauthorizedError">สิทธิ์เข้าถึงยังไม่ถูกต้อง</string>
-  <string name="noInternetConnection">ไม่มีการเชื่อมต่ออินเตอร์เน็ต แต่คุณสามารถเล่นออฟไลน์ได้จากเมนู</string>
-  <string name="connectedToLichess">ขณะนี้คุณเชื่อมต่ออยู่กับ lichess.org</string>
-  <string name="signedOut">คุณได้ลงชื่อออกแล้ว</string>
-  <string name="loginSuccessful">ตอนนี้คุณลงชื่อเข้าแล้ว</string>
-  <string name="playOnTheBoardOffline">เล่นกระดานเดียวกัน</string>
-  <string name="playOfflineComputer">คอมพิวเตอร์</string>
   <string name="opponent">คู่แข่ง</string>
   <string name="learnMenu">เรียนรู้</string>
   <string name="studyMenu">ศึกษา</string>
@@ -540,16 +506,7 @@
   <string name="community">ชุมชน</string>
   <string name="tools">เครื่องมือ</string>
   <string name="increment">เพิ่มขึ้น</string>
-  <string name="sharePGN">แชร์ PGN</string>
-  <string name="playOnline">เล่นออนไลน์</string>
-  <string name="playOffline">เล่นออฟไลน์</string>
-  <string name="allowAnalytics">อนุญาตสถิติผู้ใช้นิรนาม</string>
-  <string name="shareGameURL">แชร์ URL เกม</string>
   <string name="error.required">ช่องนี้จำเป็น</string>
-  <string name="error.email">ที่อยู่อีเมลนี้ไม่ถูกต้อง</string>
-  <string name="error.email_acceptable">ที่อยู่อีเมลนี้ไม่ถูกยอมรับ</string>
-  <string name="error.email_unique">ที่อยู่อีเมลนี้ถูกใช้ไปแล้ว</string>
-  <string name="error.email_different">นี่เป็นที่อยู่อีเมลของคุณอยู่แล้ว</string>
   <string name="ifRatingIsPlusMinusX">ถ้าระดับคะแนน ± %s</string>
   <string name="onlyFriends">เฉพาะเพื่อน</string>
   <string name="menu">เมนู</string>
@@ -595,7 +552,6 @@
   <string name="simulHostExtraTime">เวลานาฬิกาพิเศษโฮสต์</string>
   <string name="lichessTournaments">ทัวร์นาเมนต์ Lichess</string>
   <string name="tournamentFAQ">ถามตอบสนามทัวร์นาเมนต์</string>
-  <string name="tournamentOfficial">เป็นทางการ</string>
   <string name="timeBeforeTournamentStarts">เวลาก่อนทัวร์นาเมนต์จะเริ่ม</string>
   <string name="averageCentipawnLoss">เบี้ยร้อยละที่เสียโดยเฉลี่ย</string>
   <string name="keyboardShortcuts">ปุ่มลัดแป้นพิมพ์</string>
@@ -631,7 +587,6 @@
   <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
-  <string name="printFriendlyPDF">พิมพ์เป็นแฟ้ม PDF</string>
   <string name="crosstable">ตารางผลแข่ง</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="analysisShapesHowTo">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
@@ -640,7 +595,6 @@
   <string name="withNobody">ไม่มีใคร</string>
   <string name="withFriends">กับเพื่อนๆ</string>
   <string name="withEverybody">กับทุกคน</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">คุณได้ลงทะเบียนอีเมลไว้แล้ว: %s</string>
   <string name="kidMode">โหมดเด็ก</string>
   <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
   <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
@@ -667,7 +621,6 @@
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
-  <string name="xCreatesStudyY">%1$s สร้างกรณีศึกษา %2$s</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
   <string name="anonymous">นิรนาม</string>
@@ -688,17 +641,11 @@
   <string name="usernameSuffixInvalid">ชื่อผู้ใช้ที่ต้องลงท้ายด้วยตัวอักษรหรือตัวเลข</string>
   <string name="usernameCharsInvalid">ชื่อผู้ใช้ประกอบด้วยตัวอักษร, ตัวเลข, ขีดล่าง และเครื่องหมายขีด เท่านั้น</string>
   <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
-  <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
   <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
   <string name="chessBasics">พื้นฐานหมากรุก</string>
   <string name="coaches">ผู้ฝึกสอน</string>
   <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
   <string name="invalidFen">FEN ไม่ถูกต้อง</string>
-  <string name="error.minLength">ความยาวต่ำสุดคือ %s</string>
-  <string name="error.maxLength">ความยาวสูงสุดคือ %s</string>
-  <string name="error.min">ต้องมากกว่า หรือเท่ากับ %s</string>
-  <string name="error.max">ต้องน้อยกว่า หรือเท่ากับ %s</string>
-  <string name="error.unknown">ผิดพลาด</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
