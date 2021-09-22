@@ -56,7 +56,6 @@
     <item quantity="one">एक लंबित निमंत्रण</item>
     <item quantity="other">%s लंबित आमंत्रण</item>
   </plurals>
-  <string name="noPendingInvitations">कोई लंबित आमंत्रण नहीं</string>
   <string name="onlyVisibleToTeachers">केवल कक्षा शिक्षकों को दिखाई देगा</string>
   <string name="lastActiveDate">सक्रिय</string>
   <string name="managed">प्रबंधित</string>
