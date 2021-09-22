@@ -205,7 +205,7 @@ private[tournament] case class TournamentSetup(
 
   // prevent berserk tournament abuse with TC like 1+60,
   // where perf is Classical but berserked games are Hyperbullet.
-  private def timeControlPreventsBerserk =
+  def timeControlPreventsBerserk =
     clockConfig.incrementSeconds > clockConfig.limitInMinutes * 2
 
   def isBerserkable = ~berserkable && !timeControlPreventsBerserk
