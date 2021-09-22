@@ -40,8 +40,6 @@
   <string name="classicalShield">Klassinen Kilpi</string>
   <string name="xShieldArena">%s Kilpi-areena</string>
   <string name="xShield">%s Kilpi</string>
-  <string name="openingRapidArena">Nopea %s -areena</string>
-  <string name="openingRapid">Nopea %s</string>
   <string name="xTeamBattle">%s -joukkuetaisto</string>
   <string name="eliteXArena">Valioiden ­%s-areena</string>
   <string name="eliteX">Valio-%s</string>
