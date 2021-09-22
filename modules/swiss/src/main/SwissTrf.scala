@@ -63,13 +63,15 @@ final class SwissTrf(
           99 -> {
             import SwissSheet._
             outcome match {
-              case Absent  => "-"
-              case Late    => "H"
-              case Bye     => "U"
-              case Draw    => "="
-              case Win     => "1"
-              case Loss    => "0"
-              case Ongoing => "Z"
+              case Absent      => "-"
+              case Late        => "H"
+              case Bye         => "U"
+              case Draw        => "="
+              case Win         => "1"
+              case Loss        => "0"
+              case Ongoing     => "Z"
+              case ForfeitLoss => "-"
+              case ForfeitWin  => "+"
             }
           }
         ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
