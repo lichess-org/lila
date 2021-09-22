@@ -35,7 +35,6 @@
     <item quantity="one">یک دعوت‌نامه منتظر پاسخ</item>
     <item quantity="other">%s دعوت‌نامه منتظر پاسخ</item>
   </plurals>
-  <string name="noPendingInvitations">هیچ دعوت‌نامه منتظر پاسخی وجود ندارد</string>
   <string name="onlyVisibleToTeachers">قابل مشاهده فقط برای معلم‌های کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">دسترسی کاربری مدیریت‌شده</string>
