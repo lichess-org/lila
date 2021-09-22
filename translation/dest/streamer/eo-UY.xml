@@ -28,6 +28,5 @@
   <string name="xStreamerPicture">%s filmprezentisto-bildo</string>
   <string name="changePicture">Ŝanĝi/forigi vian bildon</string>
   <string name="uploadPicture">Alŝuti bildon</string>
-  <string name="deletePicture">Forigi bildon</string>
   <string name="maxSize">Maksimuma grandeco: %s</string>
 </resources>
