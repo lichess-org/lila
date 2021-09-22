@@ -11,7 +11,6 @@
   <string name="level">Úroveň</string>
   <string name="strength">Sila</string>
   <string name="toggleTheChat">Prepínač okna rozhovoru</string>
-  <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Rozhovor</string>
   <string name="resign">Vzdať sa</string>
   <string name="checkmate">Mat</string>
@@ -42,7 +41,6 @@
     <item quantity="other">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
   </plurals>
   <string name="opponentLeftChoices">Váš súper zrejme opustil túto partiu. Môžete požadovať výhru, vyhlásiť partiu za remízu alebo počkať.</string>
-  <string name="makeYourOpponentResign">Vynútiť si výhru v partii</string>
   <string name="forceResignation">Požadovať výhru</string>
   <string name="forceDraw">Vyhlásiť za remízu</string>
   <string name="talkInChat">Prosím, buďte v chate ohľaduplní!</string>
@@ -53,9 +51,6 @@
   <string name="blackLeftTheGame">Čierny opustil partiu</string>
   <string name="whiteDidntMove">Biely nepotiahol</string>
   <string name="blackDidntMove">Čierny nepotiahol</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ukážte partiu ostatným pomocou zdieľania tejto adresy</string>
-  <string name="theComputerAnalysisHasFailed">Počítačová analýza zlyhala</string>
-  <string name="viewTheComputerAnalysis">Zobraziť počítačovú analýzu</string>
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
@@ -231,7 +226,6 @@
   <string name="whiteTimeOut">Bielemu došiel čas</string>
   <string name="blackTimeOut">Čiernemu došiel čas</string>
   <string name="drawOfferSent">Ponuka remízy odoslaná</string>
-  <string name="drawOfferDeclined">Ponuka remízy odmietnutá</string>
   <string name="drawOfferAccepted">Ponuka remízy prijatá</string>
   <string name="drawOfferCanceled">Ponuka remízy zrušená</string>
   <string name="whiteOffersDraw">Biely ponúka remízu</string>
@@ -257,8 +251,6 @@
   <string name="thisGameIsRated">Táto hra je hodnotená</string>
   <string name="rematch">Odveta</string>
   <string name="rematchOfferSent">Zaslaná ponuka na odvetu</string>
-  <string name="rematchOfferSentWhite">Biely ponúka odvetu</string>
-  <string name="rematchOfferSentBlack">Čierny ponúka odvetu</string>
   <string name="rematchOfferAccepted">Prijatá ponuka na odvetu</string>
   <string name="rematchOfferCanceled">Ponuka na odvetu zrušená</string>
   <string name="rematchOfferDeclined">Ponuka na odvetu odmietnutá</string>
@@ -272,9 +264,7 @@
   <string name="youHaveBeenTimedOut">Boli ste automaticky odhlásení.</string>
   <string name="spectatorRoom">Divácka miestnosť</string>
   <string name="composeMessage">Napísať správu</string>
-  <string name="noNewMessages">Žiadne nové správy</string>
   <string name="subject">Predmet</string>
-  <string name="recipient">Príjemca</string>
   <string name="send">Poslať</string>
   <string name="incrementInSeconds">Prírastok v sekundách</string>
   <string name="freeOnlineChess">Online šach zdarma</string>
@@ -415,8 +405,6 @@
     <item quantity="many">%s priateľov online</item>
     <item quantity="other">%s priateľov online</item>
   </plurals>
-  <string name="noFriendsOnline">Žiadni priatelia online</string>
-  <string name="findFriends">Nájsť priateľov</string>
   <string name="favoriteOpponents">Obľúbení súperi</string>
   <string name="follow">Sledovať</string>
   <string name="following">Sledujete</string>
@@ -473,7 +461,6 @@
   <string name="points">Bodov</string>
   <string name="wins">Výhier</string>
   <string name="losses">Prehier</string>
-  <string name="winStreak">Séria výhier</string>
   <string name="createdBy">Vytvorené</string>
   <string name="tournamentIsStarting">Turnaj sa začína</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
@@ -489,13 +476,11 @@
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
-  <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upraviť šachovnicu</string>
   <string name="popularOpenings">Populárne otvorenia</string>
   <string name="startPosition">Štartovacia pozícia</string>
   <string name="clearBoard">Vyčistiť šachovnicu</string>
-  <string name="savePosition">Uložiť pozíciu</string>
   <string name="loadPosition">Načítať pozíciu</string>
   <string name="isPrivate">Súkromný</string>
   <string name="reportXToModerators">Nahlásiť %s moderátorom</string>
@@ -512,10 +497,8 @@
   <string name="thankYou">Ďakujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
-  <string name="watchLichessTV">Sledovať Lichess TV</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
   <string name="onlinePlayers">Pripojení hráči</string>
-  <string name="activeToday">Dnešná aktivita</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
   <string name="success">Úspešne vyriešené</string>
@@ -528,7 +511,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">po ťahu automaticky prejdite k ďalšej hre</string>
   <string name="autoSwitch">Prepnite automaticky</string>
   <string name="puzzles">Šachové úlohy</string>
-  <string name="latestUpdates">Posledné aktualizácie</string>
   <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>
   <string name="description">Popis</string>
@@ -560,9 +542,7 @@
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Táto téma je uzavretá.</string>
-  <string name="theming">Motívy</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Otázky a Odpovede</string>
   <string name="notes">Poznámky</string>
   <string name="typePrivateNotesHere">Sem píšte súkromné správy</string>
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
@@ -591,13 +571,7 @@
   <string name="onSlowGames">Pri pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>
-  <string name="difficultyEasy">Ľahký</string>
-  <string name="difficultyNormal">Normálna</string>
-  <string name="difficultyHard">Ťažký</string>
   <string name="xCompetesInY">%1$s súťaží v %2$s</string>
-  <string name="xAskedY">%1$s opýtaných %2$s</string>
-  <string name="xAnsweredY">%1$s odpovedí %2$s</string>
-  <string name="xCommentedY">%1$s komentárov %2$s</string>
   <string name="victory">Výhra</string>
   <string name="defeat">Porážka</string>
   <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
@@ -606,7 +580,6 @@
   <string name="timeline">Rozvrh</string>
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
-  <string name="yourCityRegionOrDepartment">Vaše mesto, región alebo oblasť</string>
   <string name="biographyDescription">Napíšte niečo o sebe, čo sa Vám v šachu páči, Vaše obľúbené otvorenia, partie, hráči…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s znak.</item>
@@ -625,13 +598,6 @@
   <string name="computer">Počítač</string>
   <string name="side">Farba</string>
   <string name="clock">Tempo</string>
-  <string name="unauthorizedError">Prístup zamietnutý.</string>
-  <string name="noInternetConnection">Žiadny prístup k Internetu. Stále môžete hrať offline z menu.</string>
-  <string name="connectedToLichess">Práve ste sa pripojili k lichess.org</string>
-  <string name="signedOut">Práve ste sa úspešne odhlásili</string>
-  <string name="loginSuccessful">Teraz ste prihlásený</string>
-  <string name="playOnTheBoardOffline">Hrať bez pripojenia</string>
-  <string name="playOfflineComputer">Počítač</string>
   <string name="opponent">Protihráč</string>
   <string name="learnMenu">Učiť sa</string>
   <string name="studyMenu">Študuj</string>
@@ -639,16 +605,7 @@
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
-  <string name="sharePGN">Zdieľať PGN</string>
-  <string name="playOnline">Hrať online</string>
-  <string name="playOffline">Hrať offline</string>
-  <string name="allowAnalytics">Povoliť anonymné štatistiky</string>
-  <string name="shareGameURL">Zdieľať URL partie</string>
   <string name="error.required">Povinné pole</string>
-  <string name="error.email">Neplatná emailová adresa</string>
-  <string name="error.email_acceptable">Neprístupná emailová adresa</string>
-  <string name="error.email_unique">tento email sa už používa</string>
-  <string name="error.email_different">Táto emailová adresa je už Vaša</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
@@ -698,7 +655,6 @@
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
   <string name="lichessTournaments">Lichess turnaje</string>
   <string name="tournamentFAQ">Často kladené otázky pre turnajovú arénu</string>
-  <string name="tournamentOfficial">Oficiálny</string>
   <string name="timeBeforeTournamentStarts">Čas do štartu turnaja</string>
   <string name="averageCentipawnLoss">Priemerná strata (v stotinách pešiaka)</string>
   <string name="keyboardShortcuts">Klávesové skratky</string>
@@ -738,7 +694,6 @@
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>
   <string name="downloadImported">Stiahnuť importované</string>
-  <string name="printFriendlyPDF">Tlačiteľné PDF</string>
   <string name="crosstable">Tabuľka</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
@@ -747,7 +702,6 @@
   <string name="withNobody">S nikým</string>
   <string name="withFriends">S priateľmi</string>
   <string name="withEverybody">S každým</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Ste registrovaný na tento e-mail: %s</string>
   <string name="kidMode">Detský režim</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
@@ -778,7 +732,6 @@
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s sa pridal k %2$s</string>
   <string name="xLikesY">%1$s lajkol %2$s</string>
-  <string name="xCreatesStudyY">%1$s vytvoril štúdiu %2$s</string>
   <string name="quickPairing">Rýchle nájdenie súpera</string>
   <string name="lobby">Výzvy hráčov</string>
   <string name="anonymous">Anonymný</string>
@@ -799,17 +752,11 @@
   <string name="usernameSuffixInvalid">Užívateľské meno musí končiť písmenom alebo číslom.</string>
   <string name="usernameCharsInvalid">Užívateľské meno musí obsahovať iba písmená, čísla, podčiarkovník a pomlčku.</string>
   <string name="usernameUnacceptable">Toto užívateľské meno nie je prijateľné.</string>
-  <string name="directlySupportLichess">Podporte Lichess priamo</string>
   <string name="playChessInStyle">Hrajte šach štýlovo</string>
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
   <string name="invalidPgn">Neplatný formát PGN</string>
   <string name="invalidFen">Neplatný formát FEN</string>
-  <string name="error.minLength">Minimálna dĺžka je %s</string>
-  <string name="error.maxLength">Maximálna dĺžka je %s</string>
-  <string name="error.min">Musí byť väčšie alebo rovné %s</string>
-  <string name="error.max">Musí byť menšie alebo rovné %s</string>
-  <string name="error.unknown">Chyba</string>
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
   <string name="perfRatingX">Rating: %s</string>
