@@ -21,7 +21,6 @@
     <item quantity="one">Komandas vadītājs</item>
     <item quantity="other">Komandas vadītāji</item>
   </plurals>
-  <string name="teamBestPlayers">Labākie spēlētāji</string>
   <string name="teamRecentMembers">Jaunākie dalībnieki</string>
   <string name="kickSomeone">Izmest kādu no komandas</string>
   <string name="whoToKick">Kuru vēlaties izmest no komandas?</string>
