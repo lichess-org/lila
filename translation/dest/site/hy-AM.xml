@@ -372,6 +372,8 @@
   <string name="follow">Հետևել</string>
   <string name="following">Հետևում եք</string>
   <string name="unfollow">Չհետևել</string>
+  <string name="followX">Հետևել %s-ին</string>
+  <string name="unfollowX">Չհետևել %s-ին</string>
   <string name="block">Արգելափակել</string>
   <string name="blocked">Արգելափակված է</string>
   <string name="unblock">Հանել արգելափակումը</string>
@@ -444,8 +446,10 @@
   <string name="loadPosition">Բեռնել դիրք</string>
   <string name="isPrivate">Անձնական</string>
   <string name="reportXToModerators">Տեղեկացնել %s մոդերատորներին</string>
+  <string name="profileCompletion">Մասնակցային էջը լրացված է %s-ով</string>
   <string name="xRating">%s վարկանիշ</string>
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
+  <string name="gameCompletionRate">Ավարտված պարտիաներ` %s</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
   <string name="firstName">Անուն</string>
