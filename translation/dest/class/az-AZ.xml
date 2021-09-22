@@ -56,7 +56,6 @@ Sinfə daxil olmaq üçün link.</string>
     <item quantity="one">Bir gözlənən dəvət</item>
     <item quantity="other">%s gözlənən dəvət</item>
   </plurals>
-  <string name="noPendingInvitations">Gözlənən dəvət yoxdur</string>
   <string name="onlyVisibleToTeachers">Yalnız sinif müəllimlərinə görünür</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">İdarə Edilən</string>
