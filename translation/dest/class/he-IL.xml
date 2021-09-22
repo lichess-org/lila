@@ -58,7 +58,6 @@
     <item quantity="many">%s הזמנות ממתינות</item>
     <item quantity="other">%s הזמנות ממתינות</item>
   </plurals>
-  <string name="noPendingInvitations">אין הזמנות ממתינות</string>
   <string name="onlyVisibleToTeachers">נראה רק מורי הכיתה</string>
   <string name="lastActiveDate">פעיל</string>
   <string name="managed">מנוהל</string>
