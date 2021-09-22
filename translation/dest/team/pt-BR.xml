@@ -19,7 +19,6 @@
     <item quantity="one">Líder da equipe</item>
     <item quantity="other">Líderes da equipe</item>
   </plurals>
-  <string name="teamBestPlayers">Melhores jogadores</string>
   <string name="teamRecentMembers">Últimos membros</string>
   <string name="kickSomeone">Expulsar alguém da equipe</string>
   <string name="whoToKick">Quem você quer expulsar da equipe?</string>
@@ -53,5 +52,5 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
   <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Pedidos recusados</string>
+  <string name="declinedRequests">Pedidos recusados</string>
 </resources>
