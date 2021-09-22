@@ -24,13 +24,13 @@ object bits {
       )
     }
 
-  def enterable(tours: List[Tournament])(implicit ctx: Context) =
+  def enterable(tours: List[Tournament]) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(
-              tour.name(full = false)
+              tour.name
             )
           ),
           tour.schedule.fold(td) { s =>
