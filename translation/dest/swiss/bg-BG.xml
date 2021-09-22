@@ -52,8 +52,6 @@
   <string name="tournDuration">Продължителност на турнира</string>
   <string name="numberOfGames">Брой партии</string>
   <string name="pairingSystem">Система за съчетаване</string>
-  <string name="pairingWaitTimeFast">Бързо: не се изчакват всички играчи</string>
-  <string name="pairingWaitTimeSlow">Бавно: изчакват се всички играчи</string>
   <string name="identicalPairing">Идентични съчетавания</string>
   <string name="possibleButNotConsecutive">Възможни, но не последователни</string>
   <string name="identicalForbidden">Забранени</string>
