@@ -52,9 +52,5 @@ To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve pr
   <string name="xStreamerPicture">Slika voditelja prenosa %s</string>
   <string name="changePicture">Zamenjajte/izbrišite vašo sliko</string>
   <string name="uploadPicture">Naloži fotografijo</string>
-  <string name="deletePicture">Izbriši sliko</string>
   <string name="maxSize">Največja velikost: %s</string>
-  <string name="installBlocker">Namestite blokator zlonamerne programske opreme!</string>
-  <string name="beSafe">Bodite varni pred oglasi in sledilci, okužbami Twitch in YouTube.
-Lichess priporoča uBlock Origin, ki je brezplačen in odprtokoden.</string>
 </resources>
