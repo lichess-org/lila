@@ -19,7 +19,6 @@
     <item quantity="one">Holdleder</item>
     <item quantity="other">Holdledere</item>
   </plurals>
-  <string name="teamBestPlayers">De bedste spillere på holdet</string>
   <string name="teamRecentMembers">Nye holdmedlemmer</string>
   <string name="kickSomeone">Smid nogen af holdet</string>
   <string name="whoToKick">Hvem vil du smide af holdet?</string>
@@ -53,5 +52,5 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="teamAlreadyExists">Dette hold findes allerede.</string>
   <string name="upcomingTourns">Kommende turneringer</string>
   <string name="completedTourns">Afsluttede turneringer</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Afviste anmodninger</string>
+  <string name="declinedRequests">Afviste anmodninger</string>
 </resources>
