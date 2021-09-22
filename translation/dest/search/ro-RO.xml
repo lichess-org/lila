@@ -31,5 +31,4 @@
   <string name="maxNumber">Număr maxim</string>
   <string name="maxNumberExplanation">Numărul maxim de jocuri returnate</string>
   <string name="include">Include</string>
-  <string name="generateURL">Generare URL</string>
 </resources>
