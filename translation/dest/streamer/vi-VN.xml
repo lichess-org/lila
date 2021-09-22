@@ -47,9 +47,5 @@ Nếu stream của bạn dùng tiếng Anh, bạn không cần thêm thẻ ngôn
   <string name="xStreamerPicture">Ảnh streamer của %s</string>
   <string name="changePicture">Thay đổi/xóa ảnh của bạn</string>
   <string name="uploadPicture">Tải lên hình ảnh</string>
-  <string name="deletePicture">Xóa hình ảnh</string>
   <string name="maxSize">Kích cỡ tối đa: %s</string>
-  <string name="installBlocker">Cài phần mềm chặn mã độc!</string>
-  <string name="beSafe">An toàn trước quảng cáo và trình theo dõi tấn công Twitch và YouTube.
-Lichess đề xuất uBlock Origin miễn phí và mã nguồn mở.</string>
 </resources>
