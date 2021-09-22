@@ -47,11 +47,5 @@
   <string name="xStreamerPicture">%s агым рәсеме</string>
   <string name="changePicture">Алыштырырга/бетерергә сезнең рәсемне</string>
   <string name="uploadPicture">Кертергә рәсам</string>
-  <string name="deletePicture">Рәсемне бетерергә</string>
   <string name="maxSize">Зурлыкның азагы %s</string>
-  <string name="installBlocker">Зыянлы программа блокеры урнаштырыгыз!</string>
-  <string name="beSafe">Рекламалардан һәм трекерлардан сакланыгыз
-Twitch һәм YouTube.
-Lichess uBlock Origin тәкъдим итә
-ирекле һәм ачык чыганак.</string>
 </resources>
