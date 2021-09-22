@@ -408,7 +408,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line => 
       line.startsWith("*") || line.startsWith("＊")
     } match {
-      case (comms) => succezz(InitialPosition(comms.map(_.drop(1))))
+      case (comms) => succezz(InitialPosition(comms.map(_.drop(1).trim)))
     }
 
   private def splitHeaderAndRest(kif: String): Valid[(String, String)] =
