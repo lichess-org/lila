@@ -17,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">领队</item>
   </plurals>
-  <string name="teamBestPlayers">本队最佳棋手</string>
   <string name="teamRecentMembers">本队新成员</string>
   <string name="kickSomeone">把一个用户退出团队</string>
   <string name="whoToKick">您想把谁退出团队？</string>
@@ -50,5 +49,5 @@
   <string name="teamAlreadyExists">该团队已经存在。</string>
   <string name="upcomingTourns">即将开始的锦标赛</string>
   <string name="completedTourns">已完成的锦标赛</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">被拒的请求</string>
+  <string name="declinedRequests">被拒的请求</string>
 </resources>
