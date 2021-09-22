@@ -11,7 +11,6 @@
   <string name="level">Узровень</string>
   <string name="strength">Складанасць</string>
   <string name="toggleTheChat">Укл./адкл. чат</string>
-  <string name="toggleSound">Укл./адкл. гук</string>
   <string name="chat">Чат</string>
   <string name="resign">Здацца</string>
   <string name="checkmate">Мат</string>
@@ -42,7 +41,6 @@
     <item quantity="other">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
   </plurals>
   <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
-  <string name="makeYourOpponentResign">Прымусіць суперніка здацца</string>
   <string name="forceResignation">Абвясціць перамогу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
@@ -53,9 +51,6 @@
   <string name="blackLeftTheGame">Гулец з боку чорных выйшаў з гульні</string>
   <string name="whiteDidntMove">Белыя не пахадзілі</string>
   <string name="blackDidntMove">Чорныя не пахадзілі</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Каб запрасіць назіральнікаў, падзяліцеся з імі гэтай спасылкай</string>
-  <string name="theComputerAnalysisHasFailed">Камп\'ютарны аналіз не ўдаўся</string>
-  <string name="viewTheComputerAnalysis">Прагледзець камп\'ютарны аналіз</string>
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарны аналіз</string>
   <string name="computerAnalysis">Камп’ютарны аналіз</string>
   <string name="computerAnalysisAvailable">Даступны камп’ютарны аналіз</string>
@@ -241,7 +236,6 @@
   <string name="whiteTimeOut">Час белых скончыўся</string>
   <string name="blackTimeOut">Час чорных скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
-  <string name="drawOfferDeclined">Прапанова нічыі адхілена</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
   <string name="drawOfferCanceled">Прапанова нічыі скасаваная</string>
   <string name="whiteOffersDraw">Белыя прапануюць нічыю</string>
@@ -267,8 +261,6 @@
   <string name="thisGameIsRated">Гульня на рэйтынг</string>
   <string name="rematch">Рэванш</string>
   <string name="rematchOfferSent">Прапанова рэваншу даслана</string>
-  <string name="rematchOfferSentWhite">Белыя прапануюць рэванш</string>
-  <string name="rematchOfferSentBlack">Чорныя прапануюць рэванш</string>
   <string name="rematchOfferAccepted">Прапанова рэваншу прынятая</string>
   <string name="rematchOfferCanceled">Прапанова рэваншу скасаваная</string>
   <string name="rematchOfferDeclined">Прапанова рэваншу адхіленая</string>
@@ -282,9 +274,7 @@
   <string name="youHaveBeenTimedOut">Вы былі адключаны.</string>
   <string name="spectatorRoom">Пакой назіральнікаў</string>
   <string name="composeMessage">Напісаць паведамленне</string>
-  <string name="noNewMessages">Няма новых паведамленьняў</string>
   <string name="subject">Тэма</string>
-  <string name="recipient">Атрымальнік</string>
   <string name="send">Даслаць</string>
   <string name="incrementInSeconds">Дадаванне секунд за ход</string>
   <string name="freeOnlineChess">Бясплатныя шахматы онлайн</string>
@@ -425,8 +415,6 @@
     <item quantity="many">%s сяброў у сетцы</item>
     <item quantity="other">%s сяброў у сетцы</item>
   </plurals>
-  <string name="noFriendsOnline">Няма сяброў анлайн</string>
-  <string name="findFriends">Знайсці сяброў</string>
   <string name="favoriteOpponents">Улюбленыя супернікі</string>
   <string name="follow">Падпісацца</string>
   <string name="following">Вы падпісаны</string>
@@ -483,7 +471,6 @@
   <string name="points">Балы</string>
   <string name="wins">Перамогі</string>
   <string name="losses">Паразы</string>
-  <string name="winStreak">Серыя перамог</string>
   <string name="createdBy">Стварыў</string>
   <string name="tournamentIsStarting">Турнір пачынаецца</string>
   <string name="tournamentPairingsAreNowClosed">Лёсаванне турніру скончана.</string>
@@ -499,7 +486,6 @@
   <string name="draws">Нічыіх</string>
   <string name="nextXTournament">Наступны турнір %s:</string>
   <string name="averageOpponent">Сярэдні рэйтынг суперніка</string>
-  <string name="membersOnly">Патрабуецца рэгістрацыя</string>
   <string name="boardEditor">Рэдактар дошкі</string>
   <string name="setTheBoard">Абраць пазіцыю</string>
   <string name="popularOpenings">Папулярныя дэбюты</string>
@@ -507,7 +493,6 @@
   <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
   <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
-  <string name="savePosition">Захаваць пазіцыю</string>
   <string name="loadPosition">Загрузіць пазіцыю</string>
   <string name="isPrivate">Прыватна</string>
   <string name="reportXToModerators">Паведаміць пра %s мадэратару</string>
@@ -524,10 +509,8 @@
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
-  <string name="watchLichessTV">Глядзець Lichess TV</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
-  <string name="activeToday">Гулялі сёння</string>
   <string name="activePlayers">Актыўныя гульцы</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
   <string name="success">Поспех</string>
@@ -540,7 +523,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
   <string name="puzzles">Задачы</string>
-  <string name="latestUpdates">Апошнія абнаўленні</string>
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
@@ -572,9 +554,7 @@
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку сама менш на адну гульню, дзе, на вашу думку, былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
-  <string name="theming">Тэмы</string>
   <string name="blog">Блог</string>
-  <string name="questionsAndAnswers">Пытанні і адказы</string>
   <string name="notes">Нататкі</string>
   <string name="typePrivateNotesHere">Тут можна зрабіць асабістыя нататкі аб гульні</string>
   <string name="invalidUsernameOrPassword">Няправільнае імя карыстальніка або пароль</string>
@@ -603,13 +583,7 @@
   <string name="onSlowGames">У павольных гульнях</string>
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
-  <string name="difficultyEasy">Лёгкая</string>
-  <string name="difficultyNormal">Сярэдняя</string>
-  <string name="difficultyHard">Цяжкая</string>
   <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
-  <string name="xAskedY">%1$s пытаецца: %2$s</string>
-  <string name="xAnsweredY">%1$s адказаў на %2$s</string>
-  <string name="xCommentedY">%1$s пракаментаваў %2$s</string>
   <string name="victory">Перамога!</string>
   <string name="defeat">Параза</string>
   <string name="victoryVsYInZ">%1$s супраць %2$s у %3$s</string>
@@ -618,7 +592,6 @@
   <string name="timeline">Храналогія</string>
   <string name="starting">Пачатак:</string>
   <string name="allInformationIsPublicAndOptional">Уся гэтая інфармацыя будзе даступна публічна. Вы можаце не пазначаць тут нічога.</string>
-  <string name="yourCityRegionOrDepartment">Ваш горад, вобласць ці акруга</string>
   <string name="biographyDescription">Раскажыце пра сябе, вашы інтарэсы, што падабаецца ў шахматах, ўлюбляныя дэбюты, гульцы...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максімум: %s сімвал.</item>
@@ -637,13 +610,6 @@
   <string name="computer">Камп\'ютар</string>
   <string name="side">Бок</string>
   <string name="clock">Гадзіньнік</string>
-  <string name="unauthorizedError">Няма доступу.</string>
-  <string name="noInternetConnection">Няма злучэння з інтэрнэтам. Вы ўсё яшчэ можаце згуляць афлайн з мэню.</string>
-  <string name="connectedToLichess">Ты цяпер падлучаны да lichess.org</string>
-  <string name="signedOut">Ты выйшаў з свайго акаўту</string>
-  <string name="loginSuccessful">Ты ўвайшоў у свой акаўнт</string>
-  <string name="playOnTheBoardOffline">Ля дошкі</string>
-  <string name="playOfflineComputer">Камп\'ютар</string>
   <string name="opponent">Апанэнт</string>
   <string name="learnMenu">Вучыцца</string>
   <string name="studyMenu">Навучанні</string>
@@ -651,16 +617,7 @@
   <string name="community">Супольнасць</string>
   <string name="tools">Інструменты</string>
   <string name="increment">Прырост</string>
-  <string name="sharePGN">Падзяліцца PGN</string>
-  <string name="playOnline">Гуляць анлайн</string>
-  <string name="playOffline">Гуляць афлайн</string>
-  <string name="allowAnalytics">Дазволіць збор ананімнай статыстыкі</string>
-  <string name="shareGameURL">Падзяліцца спасылкай на гульню</string>
   <string name="error.required">Абавязковае поле</string>
-  <string name="error.email">Памылковы адрас электроннай пошты</string>
-  <string name="error.email_acceptable">Недапушчальны адрас электроннай пошты</string>
-  <string name="error.email_unique">Гэты адрас ужо заняты</string>
-  <string name="error.email_different">Гэты адрас ужо пазначаны як ваш бягучы</string>
   <string name="ifRatingIsPlusMinusX">Калі рэйтынг ± %s</string>
   <string name="onlyExistingConversations">Толькі існыя размовы</string>
   <string name="onlyFriends">Толькі з сябрамі</string>
@@ -710,7 +667,6 @@
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
   <string name="tournamentFAQ">FAQ турніру</string>
-  <string name="tournamentOfficial">Афіцыйны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
   <string name="averageCentipawnLoss">У сярэднім страчана сотых пешкі</string>
   <string name="keyboardShortcuts">Скароты</string>
@@ -750,7 +706,6 @@
   <string name="downloadAnnotated">Спампаваць з анатацыямі</string>
   <string name="downloadRaw">Спампаваць без анатацый</string>
   <string name="downloadImported">Спампаваць у арыгінальным выглядзе</string>
-  <string name="printFriendlyPDF">Спампаваць у PDF</string>
   <string name="crosstable">Лік</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вы таксама можаце гартаць хады колцам мышы, калі навядзецеся на дошку.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
@@ -761,7 +716,6 @@
   <string name="withNobody">Ніхто</string>
   <string name="withFriends">Сябры</string>
   <string name="withEverybody">Усе</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Вы ўжо рэгістравалі гэты адрас: %s</string>
   <string name="kidMode">Дзіцячы рэжым</string>
   <string name="kidModeExplanation">Гэта для бяспекі. У дзіцячым рэжыме адключаны ўсе камунікацыі на сайце. Уключыце гэта для вашых дзяцей і школьнікаў, каб абараніць іх ад іншых карыстачоў Інтэрнэту.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дзіцячым рэжыме лагатып lichess атрымвае значок у выглядзе %s, так што вы ведаеце, што вашы дзеці знаходзяцца ў бяспецы.</string>
@@ -792,7 +746,6 @@
   <string name="xHostsY">%1$s стварыў %2$s</string>
   <string name="xJoinsY">%1$s далучыўся да %2$s</string>
   <string name="xLikesY">%1$s упадабаў %2$s</string>
-  <string name="xCreatesStudyY">%1$s стварыў даследаванне %2$s</string>
   <string name="quickPairing">Хуткі старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Ананімны гулец</string>
@@ -813,17 +766,11 @@
   <string name="usernameSuffixInvalid">Імя карыстальніка павінна сканчацца на лічбу або літару.</string>
   <string name="usernameCharsInvalid">Імя карыстальніка можа ўтрымліваць толькі літары, лічбы, ніжнія падкрэсліванні і злучок.</string>
   <string name="usernameUnacceptable">Недапушчальнае імя карыстальніка.</string>
-  <string name="directlySupportLichess">Падтрымайце Lichess</string>
   <string name="playChessInStyle">Гуляйце стылёва!</string>
   <string name="chessBasics">Асновы шахмат</string>
   <string name="coaches">Трэнеры</string>
   <string name="invalidPgn">Некарэктны PGN</string>
   <string name="invalidFen">Некарэктны FEN</string>
-  <string name="error.minLength">Мінімальная даўжыня — %s</string>
-  <string name="error.maxLength">Максімальная даўжыня — %s</string>
-  <string name="error.min">Значэнне павінна быць больш або роўным да %s</string>
-  <string name="error.max">Значэнне павінна быць менш або роўным да %s</string>
-  <string name="error.unknown">Памылка</string>
   <string name="custom">Свая гульня</string>
   <string name="notifications">Апавяшчэнні</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
