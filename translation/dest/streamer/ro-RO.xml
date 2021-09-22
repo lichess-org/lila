@@ -50,11 +50,5 @@ Dacă streamul tău este în Engleză, nu este nevoie să incluzi o etichetă.</
   <string name="xStreamerPicture">%s poza streamerului</string>
   <string name="changePicture">Schimbă/șterge imaginea</string>
   <string name="uploadPicture">Încarcă o imagine</string>
-  <string name="deletePicture">Șterge imaginea</string>
   <string name="maxSize">Dimensiune maximă: %s</string>
-  <string name="installBlocker">Instalează un malware blocker!</string>
-  <string name="beSafe">Protejează-te împotriva reclamelor și agenților de urmărire
-care infestează Twitch și Youtube.
-Lichess recomandă uBlock Origin
-care este gratis și cu sursă deschisă.</string>
 </resources>
