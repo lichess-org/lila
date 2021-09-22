@@ -56,7 +56,6 @@ Hemen dago bertara sartzeko lotura.</string>
     <item quantity="one">Gonbidapen bat zain</item>
     <item quantity="other">%s gonbidapen zain</item>
   </plurals>
-  <string name="noPendingInvitations">Ez dago gonbidapenik zain</string>
   <string name="onlyVisibleToTeachers">Klase honen irakasleek bakarrik ikusi dezakete</string>
   <string name="lastActiveDate">Aktibo</string>
   <string name="managed">Kudeatuta</string>
