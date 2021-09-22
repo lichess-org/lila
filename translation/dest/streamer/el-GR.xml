@@ -50,11 +50,5 @@
   <string name="xStreamerPicture">%s εικόνα streamer</string>
   <string name="changePicture">Αλλαγή/διαγραφή της εικόνας σας</string>
   <string name="uploadPicture">Μεταφόρτωση εικόνας</string>
-  <string name="deletePicture">Διαγραφή εικόνας</string>
   <string name="maxSize">Μέγιστο μέγεθος: %s</string>
-  <string name="installBlocker">Εγκαταστήστε ένα πρόγραμμα αποκλεισμού κακόβουλου λογισμικού!</string>
-  <string name="beSafe">Για να είστε ασφαλείς από διαφημίσεις και
-ιχνηλάτες από το Twitch και το YouTube.
-To Lichess προτείνει το uBlock Origin που είναι
-δωρεάν και ανοικτού κώδικα λογισμικό.</string>
 </resources>
