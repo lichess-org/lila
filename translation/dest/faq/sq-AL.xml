@@ -38,7 +38,6 @@ Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5*60 + 40*3 =42
   <string name="eightVariants">8 variante të shahut</string>
   <string name="whatIsACPL">Sa është mesatarja e humbjes së centipawnit (ACPL)?</string>
   <string name="insufficientMaterial">Humbje nga koha, remi edhe material i mangët</string>
-  <string name="officialRulesPDF">rregullorja zyrtare (PDF)</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
   <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojëtaret mund te barazojnë, permes %1$s. Lichess i aplikon rregullat zyrtare të FIDE, sipas artikullit 9.2 (d) të %2$s.</string>
   <string name="threefoldRepetitionLowerCase">përsëritje e trefishtë</string>
