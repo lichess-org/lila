@@ -40,8 +40,6 @@
   <string name="classicalShield">Scudo classico</string>
   <string name="xShieldArena">%s Scudo Arena</string>
   <string name="xShield">Scudo %ss</string>
-  <string name="openingRapidArena">%s Rapid Arena</string>
-  <string name="openingRapid">%s Rapido</string>
   <string name="xTeamBattle">%s Battaglia a squadre</string>
   <string name="eliteXArena">Elite %s Arena</string>
   <string name="eliteX">Elite %s</string>
