@@ -48,11 +48,5 @@ As jou uitsending in Engels is, hoef daar nie \'n taal etiket bygevoeg te word n
   <string name="xStreamerPicture">%s aanbieder foto</string>
   <string name="changePicture">Verander/verwyder jou prent</string>
   <string name="uploadPicture">Laai prent op</string>
-  <string name="deletePicture">Verwyder prent</string>
   <string name="maxSize">Maksimum grootte: %s</string>
-  <string name="installBlocker">Instaleer \'n muur teen malware!</string>
-  <string name="beSafe">Wees veilig teen advertensies en koekies
-wat Twitch en YouTube kontamineer.
-Lichess stel uBlock Origin voor
-wat gratis en oop-bron is.</string>
 </resources>
