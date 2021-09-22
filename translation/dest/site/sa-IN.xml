@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s अवस्था %2$s</string>
   <string name="level">अवस्था</string>
   <string name="toggleTheChat">संभाषणम् परिवर्तयस्व</string>
-  <string name="toggleSound">नादम् परिवर्तयस्व</string>
   <string name="chat">संलपति</string>
   <string name="resign">विजहातु</string>
   <string name="checkmate">संरोधः</string>
@@ -34,7 +33,6 @@
   <string name="whitePlays">श्वेत​: क्रीडति</string>
   <string name="blackPlays">कृष्ण​: क्रीडति</string>
   <string name="opponentLeftChoices">इतर​: प्रतियोगी द्यूतम् विहातवान् भवेत्। भवान् विजयम् स्वीकर्तुम् अनिर्णायकम् प्रवदितुम् प्रतीक्षितुम् वा अर्हति</string>
-  <string name="makeYourOpponentResign">मित्रेण सह  क्रीडतु</string>
   <string name="forceResignation">मित्रेण सह  क्रीडतु</string>
   <string name="forceDraw">मित्रेण सह  क्रीडतु</string>
   <string name="talkInChat">मित्रेण सह  क्रीडतु</string>
@@ -43,9 +41,6 @@
   <string name="blackResigned">मित्रेण सह  क्रीडतु</string>
   <string name="whiteLeftTheGame">मित्रेण सह  क्रीडतु</string>
   <string name="blackLeftTheGame">मित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतु</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">मित्रेण सह  क्रीडतु</string>
-  <string name="theComputerAnalysisHasFailed">सङ्गणकयन्त्रस्य विश्लेषणम् विच्युतम् जातम् |</string>
-  <string name="viewTheComputerAnalysis">सङ्गणकयन्त्रस्य विश्लेषणम् दर्श |</string>
   <string name="requestAComputerAnalysis">सङ्गणकयन्त्र-विश्लेषणस्य आवेदनम् कुरु |</string>
   <string name="computerAnalysis">सङ्गणकयन्त्र-विश्लेषणम्</string>
   <string name="computerAnalysisAvailable">सङ्गणकयन्त्र-विश्लेषणम् विद्यते |</string>
