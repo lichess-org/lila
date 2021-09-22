@@ -115,11 +115,11 @@ object HTTPRequest {
     }
   }
 
-  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
+  private def isDataDump(req: RequestHeader)    = req.path == "/account/personal-data"
+  private def isAppeal(req: RequestHeader)      = req.path.startsWith("/appeal")
+  private def isStudyExport(req: RequestHeader) = "^/study/by/[^/]{2,}/export.pgn$".r matches req.path
 
-  private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
-
-  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req)
+  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req) || isStudyExport(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers
