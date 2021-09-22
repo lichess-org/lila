@@ -11,7 +11,6 @@
   <string name="level">レベル</string>
   <string name="strength">強さ</string>
   <string name="toggleTheChat">チャットのオン・オフ</string>
-  <string name="toggleSound">音声のオン・オフ</string>
   <string name="chat">チャット</string>
   <string name="resign">投了</string>
   <string name="checkmate">チェックメイト</string>
@@ -39,7 +38,6 @@
     <item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
   </plurals>
   <string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
-  <string name="makeYourOpponentResign">相手を投了させる</string>
   <string name="forceResignation">投了させる</string>
   <string name="forceDraw">引き分けにする</string>
   <string name="talkInChat">チャットでは礼儀を忘れず</string>
@@ -50,9 +48,6 @@
   <string name="blackLeftTheGame">黒が退席しました</string>
   <string name="whiteDidntMove">白、手を指さず</string>
   <string name="blackDidntMove">黒、手を指さず</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">誰かに対局を見てほしい場合、この URL を共有してください。</string>
-  <string name="theComputerAnalysisHasFailed">コンピューター解析に失敗しました</string>
-  <string name="viewTheComputerAnalysis">コンピューター解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
@@ -206,7 +201,6 @@
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">ドローの提案を送信しました</string>
-  <string name="drawOfferDeclined">ドロー提案が拒否されました</string>
   <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
   <string name="drawOfferCanceled">ドローの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
@@ -232,8 +226,6 @@
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
   <string name="rematchOfferSent">再対局の提案が来ました</string>
-  <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
-  <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
   <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
@@ -247,9 +239,7 @@
   <string name="youHaveBeenTimedOut">チャットは一時禁止中</string>
   <string name="spectatorRoom">観戦席</string>
   <string name="composeMessage">メッセージを作成する</string>
-  <string name="noNewMessages">メッセージはありません</string>
   <string name="subject">件名</string>
-  <string name="recipient">受信者</string>
   <string name="send">送信する</string>
   <string name="incrementInSeconds">１手ごとに増える秒数</string>
   <string name="freeOnlineChess">無料オンラインチェス</string>
@@ -349,8 +339,6 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s 人の友達が接続中</item>
   </plurals>
-  <string name="noFriendsOnline">接続中の友達はいません</string>
-  <string name="findFriends">友達を探す</string>
   <string name="favoriteOpponents">お気に入りの対戦相手</string>
   <string name="follow">フォローする</string>
   <string name="following">フォローしています</string>
@@ -398,7 +386,6 @@
   <string name="points">ポイント</string>
   <string name="wins">勝</string>
   <string name="losses">敗</string>
-  <string name="winStreak">連勝数</string>
   <string name="createdBy">トーナメント作成者</string>
   <string name="tournamentIsStarting">トーナメント開始</string>
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
@@ -414,7 +401,6 @@
   <string name="draws">ドロー</string>
   <string name="nextXTournament">次の %s トーナメント:</string>
   <string name="averageOpponent">対局相手の平均</string>
-  <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
@@ -422,7 +408,6 @@
   <string name="chess960StartPosition">チェス960 開始局面: %s</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
-  <string name="savePosition">盤面を保存</string>
   <string name="loadPosition">局面を読み込む</string>
   <string name="isPrivate">プライベート</string>
   <string name="reportXToModerators">モデレーターに%sを通報する。</string>
@@ -439,10 +424,8 @@
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
-  <string name="watchLichessTV">Lichess TV を観戦</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
-  <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
   <string name="success">成功</string>
@@ -452,7 +435,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに切り替える</string>
   <string name="autoSwitch">自動切り替え</string>
   <string name="puzzles">タクティクス問題</string>
-  <string name="latestUpdates">最新情報</string>
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
@@ -484,9 +466,7 @@
   <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
   <string name="thisTopicIsNowClosed">このトピックは閉鎖されました。</string>
-  <string name="theming">デザインテーマ</string>
   <string name="blog">ブログ</string>
-  <string name="questionsAndAnswers">Q&amp;A</string>
   <string name="notes">メモ</string>
   <string name="typePrivateNotesHere">自分用のメモ欄</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
@@ -515,13 +495,7 @@
   <string name="onSlowGames">長時間の対局のみ</string>
   <string name="always">常に有効</string>
   <string name="never">無効</string>
-  <string name="difficultyEasy">易しい</string>
-  <string name="difficultyNormal">並み</string>
-  <string name="difficultyHard">難しい</string>
   <string name="xCompetesInY">%1$s が %2$s で対局しました。</string>
-  <string name="xAskedY">%1$s が %2$s に質問しました。</string>
-  <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
-  <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
   <string name="victory">勝ち</string>
   <string name="defeat">負け</string>
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
@@ -530,7 +504,6 @@
   <string name="timeline">タイムライン</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
-  <string name="yourCityRegionOrDepartment">居住地の市、地域、または県</string>
   <string name="biographyDescription">自己紹介（チェスの好きな点、お気に入りの戦法、ゲーム、選手など）</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最大: %s 文字</item>
@@ -543,13 +516,6 @@
   <string name="computer">コンピューター</string>
   <string name="side">先手後手</string>
   <string name="clock">対局時計</string>
-  <string name="unauthorizedError">アクセス権限がありません。</string>
-  <string name="noInternetConnection">インターネット接続なし。メニューからオフラインで対局できます。</string>
-  <string name="connectedToLichess">lichess.org に接続しています。</string>
-  <string name="signedOut">サインアウトしました。</string>
-  <string name="loginSuccessful">ログインしました</string>
-  <string name="playOnTheBoardOffline">オフライン（2人対局）</string>
-  <string name="playOfflineComputer">オフラインで CPU と対局する</string>
   <string name="opponent">対局相手</string>
   <string name="learnMenu">学ぶ</string>
   <string name="studyMenu">研究</string>
@@ -557,16 +523,7 @@
   <string name="community">コミュニティ</string>
   <string name="tools">ツール</string>
   <string name="increment">追加時間</string>
-  <string name="sharePGN">PGNを表示</string>
-  <string name="playOnline">オンラインで対局する</string>
-  <string name="playOffline">オフラインで対局する</string>
-  <string name="allowAnalytics">無名な統計情報を許す？</string>
-  <string name="shareGameURL">ゲームのURLを共有</string>
   <string name="error.required">この欄は入力必須です</string>
-  <string name="error.email">このメールアドレスは無効です</string>
-  <string name="error.email_acceptable">このメールアドレスは認められません</string>
-  <string name="error.email_unique">このメールアドレスはすでに使用されています</string>
-  <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
@@ -613,7 +570,6 @@
   <string name="simulHostExtraTime">ホスト延長時間</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>
-  <string name="tournamentOfficial">公式</string>
   <string name="timeBeforeTournamentStarts">開始までの時間</string>
   <string name="averageCentipawnLoss">平均センチポーン差</string>
   <string name="keyboardShortcuts">キーボード・ショートカット</string>
@@ -650,7 +606,6 @@
   <string name="downloadAnnotated">解説つきダウンロード</string>
   <string name="downloadRaw">棋譜のみダウンロード</string>
   <string name="downloadImported">インポート分のダウンロード</string>
-  <string name="printFriendlyPDF">印刷用PDF</string>
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
@@ -661,7 +616,6 @@
   <string name="withNobody">誰にも見せない</string>
   <string name="withFriends">友達にだけ</string>
   <string name="withEverybody">誰にでも</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">あなたは既にメールアドレスを登録しています: %s</string>
   <string name="kidMode">キッズモード</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
@@ -689,7 +643,6 @@
   <string name="xHostsY">%1$sが %2$s を作成しました</string>
   <string name="xJoinsY">%1$sが %2$s に参加</string>
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
-  <string name="xCreatesStudyY">%1$s が研究 %2$s を作成</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="anonymous">匿名</string>
@@ -710,17 +663,11 @@
   <string name="usernameSuffixInvalid">ユーザー名の最後は英字か数字でなくてはなりません。</string>
   <string name="usernameCharsInvalid">ユーザー名に使えるのは英字、数字、アンダースコア、ハイフンだけです。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
-  <string name="directlySupportLichess">Lichess を支援（寄付）</string>
   <string name="playChessInStyle">グッズ購入</string>
   <string name="chessBasics">チェスの基本</string>
   <string name="coaches">コーチ</string>
   <string name="invalidPgn">無効な PGN</string>
   <string name="invalidFen">無効な FEN</string>
-  <string name="error.minLength">最小の長さは %s 文字です</string>
-  <string name="error.maxLength">最大の長さは %s 文字です</string>
-  <string name="error.min">%s 以上にしてください</string>
-  <string name="error.max">%s 以下にしてください</string>
-  <string name="error.unknown">エラー</string>
   <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
   <string name="perfRatingX">レーティング: %s</string>
