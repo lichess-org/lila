@@ -58,7 +58,6 @@
   <string name="numberOfGames">تعداد بازی‌ها</string>
   <string name="pairingSystem">روش تعیین حریف</string>
   <string name="pairingWaitTime">زمان انتظار برای حریف‌یابی</string>
-  <string name="pairingWaitTimeFast">سریع: برای همه بازیکنان صبر نمی‌کند</string>
   <string name="identicalForbidden">ممنوع</string>
   <string name="lateJoin">ورود با تاخیر</string>
   <string name="pause">درنگ</string>
