@@ -15,5 +15,5 @@
   <string name="closeTeamDescription">အသင်းကို ထာဝရ ဖျက်သည်။</string>
   <string name="entryCode">အသင်းသို့ ဝင်ရန် စကားဝှက်။</string>
   <string name="incorrectEntryCode">စကားဝှက် မမှန်ပါ။</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">ငြင်းပယ်ထားသော တောင်းဆိုမှုများ</string>
+  <string name="declinedRequests">ငြင်းပယ်ထားသော တောင်းဆိုမှုများ</string>
 </resources>
