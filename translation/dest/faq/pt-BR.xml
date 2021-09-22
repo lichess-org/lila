@@ -60,7 +60,6 @@ O movimento é descrito na seção 3. (d) do %2$s:
 
 Veja o %3$s sobre este movimento para praticá-lo.</string>
   <string name="goodIntroduction">boa introdução</string>
-  <string name="officialRulesPDF">regras oficiais (PDF)</string>
   <string name="lichessTraining">treino do Lichess</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
