@@ -16,7 +16,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">Ketua Tim</item>
   </plurals>
-  <string name="teamBestPlayers">Pemain terbaik</string>
   <string name="teamRecentMembers">Anggota terkini</string>
   <string name="kickSomeone">Keluarkan seseorang dari tim</string>
   <string name="whoToKick">Siapa yang ingin Anda keluarkan dari tim?</string>
