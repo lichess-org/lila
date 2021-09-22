@@ -17,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">チームリーダー</item>
   </plurals>
-  <string name="teamBestPlayers">チームのベストプレイヤー</string>
   <string name="teamRecentMembers">最新チームメンバー</string>
   <string name="kickSomeone">チームから追放</string>
   <string name="whoToKick">誰をチームから追放しますか？</string>
@@ -50,5 +49,5 @@
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTourns">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">却下した申請</string>
+  <string name="declinedRequests">却下した申請</string>
 </resources>
