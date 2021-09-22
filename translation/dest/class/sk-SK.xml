@@ -58,7 +58,6 @@ Tu je link pre prístup ku kurzu.</string>
     <item quantity="many">%s čakajúcich pozvánok</item>
     <item quantity="other">%s čakajúcich pozvánok</item>
   </plurals>
-  <string name="noPendingInvitations">Žiadne čakajúce pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditeľné iba pre učiteľov kurzu</string>
   <string name="lastActiveDate">Aktívny</string>
   <string name="managed">Spravovaný</string>
