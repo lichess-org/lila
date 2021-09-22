@@ -11,7 +11,6 @@
   <string name="level">Niveau</string>
   <string name="strength">Sterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
-  <string name="toggleSound">Geluid aan-/uitzetten</string>
   <string name="chat">Chat</string>
   <string name="resign">Geef op</string>
   <string name="checkmate">Schaakmat</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Je tegenstander speelt niet verder. Je kunt de overwinning opeisen over %s seconden.</item>
   </plurals>
   <string name="opponentLeftChoices">De andere speler is weggegaan. U kunt de winst opeisen, remise claimen of wachten.</string>
-  <string name="makeYourOpponentResign">U wint de partij</string>
   <string name="forceResignation">Eis de overwinning op</string>
   <string name="forceDraw">Dwing remise af</string>
   <string name="talkInChat">Wees a.u.b. vriendelijk in de chat!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Zwart is weggegaan</string>
   <string name="whiteDidntMove">Wit heeft niet gezet</string>
   <string name="blackDidntMove">Zwart heeft niet gezet</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel deze link om anderen de partij te laten zien</string>
-  <string name="theComputerAnalysisHasFailed">De computeranalyse is mislukt</string>
-  <string name="viewTheComputerAnalysis">Bekijk de computeranalyse</string>
   <string name="requestAComputerAnalysis">Verzoek een computeranalyse</string>
   <string name="computerAnalysis">Analyse door de computer</string>
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>
@@ -219,7 +214,6 @@
   <string name="whiteTimeOut">Tijd om voor wit</string>
   <string name="blackTimeOut">Tijd om voor zwart</string>
   <string name="drawOfferSent">Remiseaanbod verstuurd</string>
-  <string name="drawOfferDeclined">Remiseaanbod geweigerd</string>
   <string name="drawOfferAccepted">Remiseaanbod geaccepteerd</string>
   <string name="drawOfferCanceled">Remiseaanbod geannuleerd</string>
   <string name="whiteOffersDraw">Wit biedt remise aan</string>
@@ -245,8 +239,6 @@
   <string name="thisGameIsRated">Deze partij telt mee voor rating</string>
   <string name="rematch">Opnieuw spelen</string>
   <string name="rematchOfferSent">Uitnodiging voor nieuwe partij verstuurd</string>
-  <string name="rematchOfferSentWhite">Wit vraagt revanche</string>
-  <string name="rematchOfferSentBlack">Zwart vraagt revanche</string>
   <string name="rematchOfferAccepted">Uitnodiging voor nieuwe partij geaccepteerd</string>
   <string name="rematchOfferCanceled">Uitnodiging voor nieuwe partij geannuleerd</string>
   <string name="rematchOfferDeclined">Uitnodiging voor nieuwe partij geweigerd</string>
@@ -260,9 +252,7 @@
   <string name="youHaveBeenTimedOut">Je mag even niet chatten.</string>
   <string name="spectatorRoom">Toeschouwersruimte</string>
   <string name="composeMessage">Een nieuw bericht schrijven</string>
-  <string name="noNewMessages">Geen nieuwe berichten</string>
   <string name="subject">Onderwerp</string>
-  <string name="recipient">Ontvanger</string>
   <string name="send">Verstuur</string>
   <string name="incrementInSeconds">Seconden extra per zet</string>
   <string name="freeOnlineChess">Gratis online schaken</string>
@@ -375,8 +365,6 @@
     <item quantity="one">%s vriend online</item>
     <item quantity="other">%s vrienden online</item>
   </plurals>
-  <string name="noFriendsOnline">Geen vrienden online</string>
-  <string name="findFriends">Vind vrienden</string>
   <string name="favoriteOpponents">Favoriete tegenstanders</string>
   <string name="follow">Volgen</string>
   <string name="following">Volgend</string>
@@ -427,7 +415,6 @@
   <string name="points">Punten</string>
   <string name="wins">Gewonnen</string>
   <string name="losses">Verloren</string>
-  <string name="winStreak">Overwinningsreeks</string>
   <string name="createdBy">Gemaakt door</string>
   <string name="tournamentIsStarting">Het toernooi begint</string>
   <string name="tournamentPairingsAreNowClosed">De toernooiparingen zijn nu gesloten.</string>
@@ -443,7 +430,6 @@
   <string name="draws">Remises</string>
   <string name="nextXTournament">Volgend %s-toernooi:</string>
   <string name="averageOpponent">Gemiddelde tegenstander</string>
-  <string name="membersOnly">Alleen voor leden</string>
   <string name="boardEditor">Bordbewerker</string>
   <string name="setTheBoard">Zet het bord op</string>
   <string name="popularOpenings">Populaire openingen</string>
@@ -451,7 +437,6 @@
   <string name="chess960StartPosition">Beginstelling Chess960: %s</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
-  <string name="savePosition">Sla de stelling op</string>
   <string name="loadPosition">Laad een stelling</string>
   <string name="isPrivate">Privé</string>
   <string name="reportXToModerators">Rapporteer %s aan de toezichthouders</string>
@@ -468,10 +453,8 @@
   <string name="thankYou">Bedankt!</string>
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="watchLichessTV">Kijk Lichess TV</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
-  <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
   <string name="success">Succes</string>
@@ -482,7 +465,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Na je zet direct doorgaan naar de volgende partij</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="puzzles">Puzzels</string>
-  <string name="latestUpdates">Laatste updates</string>
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
@@ -514,9 +496,7 @@
   <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
   <string name="by">door %s</string>
   <string name="thisTopicIsNowClosed">Dit onderwerp is nu gesloten.</string>
-  <string name="theming">Thema</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Vragen &amp; Antwoorden</string>
   <string name="notes">Notities</string>
   <string name="typePrivateNotesHere">Type privénotities hier</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
@@ -545,13 +525,7 @@
   <string name="onSlowGames">Alleen bij langzame partijen</string>
   <string name="always">Altijd</string>
   <string name="never">Nooit</string>
-  <string name="difficultyEasy">Gemakkelijk</string>
-  <string name="difficultyNormal">Normaal</string>
-  <string name="difficultyHard">Moeilijk</string>
   <string name="xCompetesInY">%1$s neemt deel aan %2$s</string>
-  <string name="xAskedY">%1$s vroeg %2$s</string>
-  <string name="xAnsweredY">%1$s antwoordde %2$s</string>
-  <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
   <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
   <string name="victoryVsYInZ">%1$s vs. %2$s in %3$s</string>
@@ -560,7 +534,6 @@
   <string name="timeline">Tijdslijn</string>
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
-  <string name="yourCityRegionOrDepartment">Je stad, regio of provincie.</string>
   <string name="biographyDescription">Vertel over jezelf, wat je aantrekt in schaken, je favoriete openingen, partijen, spelers…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximaal: %s teken.</item>
@@ -575,13 +548,6 @@
   <string name="computer">Computer</string>
   <string name="side">Kleur</string>
   <string name="clock">Klok</string>
-  <string name="unauthorizedError">Toegang geweigerd</string>
-  <string name="noInternetConnection">Geen internetverbinding. U kan nog wel offline spelen vanuit het menu.</string>
-  <string name="connectedToLichess">U bent nu verbonden met lichess.org</string>
-  <string name="signedOut">U bent uitgelogd</string>
-  <string name="loginSuccessful">Inloggen succesvol</string>
-  <string name="playOnTheBoardOffline">Speel offline</string>
-  <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Tegenstander</string>
   <string name="learnMenu">Leren</string>
   <string name="studyMenu">Studie</string>
@@ -589,16 +555,7 @@
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
-  <string name="sharePGN">Deel PGN</string>
-  <string name="playOnline">Speel online</string>
-  <string name="playOffline">Speel offline</string>
-  <string name="allowAnalytics">Sta anonieme statistieken toe</string>
-  <string name="shareGameURL">Deel partij URL</string>
   <string name="error.required">Dit invullen is verplicht</string>
-  <string name="error.email">Dit emailadres is ongeldig</string>
-  <string name="error.email_acceptable">Dit emailadres is onacceptabel</string>
-  <string name="error.email_unique">Dit emailadres is al in gebruik</string>
-  <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
@@ -646,7 +603,6 @@
   <string name="simulHostExtraTime">Extra tijd voor de simultaangever</string>
   <string name="lichessTournaments">Lichess toernooien</string>
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
-  <string name="tournamentOfficial">Officieel</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
   <string name="averageCentipawnLoss">Gemiddeld centipionverlies</string>
   <string name="keyboardShortcuts">Toetsenbordsnelkoppelingen</string>
@@ -684,7 +640,6 @@
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
   <string name="downloadRaw">Download PGN</string>
   <string name="downloadImported">Download de geïmporteerde partij</string>
-  <string name="printFriendlyPDF">Printvriendelijke PDF</string>
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Beweeg de muis over computervarianten om ze te bekijken.</string>
@@ -695,7 +650,6 @@
   <string name="withNobody">Met niemand</string>
   <string name="withFriends">Met vrienden</string>
   <string name="withEverybody">Met iedereen</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Je hebt je al geregistreerd via deze email: %s</string>
   <string name="kidMode">Kindvriendelijke modus</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
@@ -724,7 +678,6 @@
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
-  <string name="xCreatesStudyY">%1$s heeft de studie %2$s aangemaakt</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anoniem</string>
@@ -745,17 +698,11 @@
   <string name="usernameSuffixInvalid">De gebruikersnaam moet eindigen met een letter of een cijfer.</string>
   <string name="usernameCharsInvalid">De gebruikersnaam mag alleen letters, cijfers, underscores, en koppeltekens bevatten.</string>
   <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
-  <string name="directlySupportLichess">Lichess direct ondersteunen</string>
   <string name="playChessInStyle">Speel schaken in stijl</string>
   <string name="chessBasics">Basis schaken</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Ongeldige PGN</string>
   <string name="invalidFen">Ongeldige FEN</string>
-  <string name="error.minLength">Minimumlengte is %s tekens</string>
-  <string name="error.maxLength">Maximumlengte is %s tekens</string>
-  <string name="error.min">Moet groter dan of gelijk aan %s zijn</string>
-  <string name="error.max">Moet kleiner dan of gelijk aan %s zijn</string>
-  <string name="error.unknown">Fout</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
   <string name="perfRatingX">Rating: %s</string>
