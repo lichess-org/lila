@@ -90,8 +90,6 @@ De Gewënner ass de Participant mat de meeschte Gesamtpunkte, déi aus alle Ronn
   <string name="pairingSystemArena">All verfügbare Géigner mat änleche Rang</string>
   <string name="pairingSystemSwiss">Bescht Puerung baséiert op Punkte an Tie-Breaks</string>
   <string name="pairingWaitTime">Waardezäit fir d\'Puerung</string>
-  <string name="pairingWaitTimeFast">Schnell: Waart net op all Spilelr</string>
-  <string name="pairingWaitTimeSlow">Lues: Waart op all Spiller</string>
   <string name="identicalPairing">Identesch Puerung</string>
   <string name="possibleButNotConsecutive">Méiglech, mee net noeneen</string>
   <string name="identicalForbidden">Verbueden</string>
