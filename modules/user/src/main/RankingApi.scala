@@ -2,7 +2,6 @@ package lila.user
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -56,7 +55,7 @@ final class RankingApi(
       coll {
         _.find($doc("perf" -> perfId, "stable" -> true))
           .sort($doc("rating" -> -1))
-          .cursor[Ranking](ReadPreference.secondaryPreferred)
+          .cursor[Ranking]()
           .list(nb)
           .flatMap {
             _.map { r =>
@@ -135,7 +134,7 @@ final class RankingApi(
         $doc("_id" -> true).some
       )
         .sort($doc("rating" -> -1))
-        .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+        .cursor[Bdoc]()
         .fold(1 -> Map.newBuilder[User.ID, Rank]) { case (state @ (rank, b), doc) =>
           doc.string("_id").fold(state) { id =>
             val user = id takeWhile (':' !=)
@@ -168,10 +167,7 @@ final class RankingApi(
     // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? coll {
-        _.aggregateList(
-          maxDocs = Int.MaxValue,
-          ReadPreference.secondaryPreferred
-        ) { framework =>
+        _.aggregateList(maxDocs = Int.MaxValue) { framework =>
           import framework._
           Match($doc("perf" -> perfId)) -> List(
             Project(
