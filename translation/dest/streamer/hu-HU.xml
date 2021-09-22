@@ -50,11 +50,5 @@ Ha a közvetítés angol nyelvű, akkor nem szükséges feltüntetni az országk
   <string name="xStreamerPicture">%s közvetítői képe</string>
   <string name="changePicture">Kép szerkesztése/törlése</string>
   <string name="uploadPicture">Kép feltöltése</string>
-  <string name="deletePicture">Kép törlése</string>
   <string name="maxSize">Maximális méret: %s</string>
-  <string name="installBlocker">Telepíts reklámblokkolót!</string>
-  <string name="beSafe">Tartsd távol a reklámokat és követőket
-amik ellepik a Twitch-et és YouTube-ot.
-A Lichess a uBlock Origin-t ajánlja
-ami ingyenes és nyílt forrású.</string>
 </resources>
