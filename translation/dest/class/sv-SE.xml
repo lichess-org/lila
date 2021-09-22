@@ -56,7 +56,6 @@ Här är länken för att komma till klassen.</string>
     <item quantity="one">En väntande inbjudan</item>
     <item quantity="other">%s väntande inbjudningar</item>
   </plurals>
-  <string name="noPendingInvitations">Inga väntande inbjudningar</string>
   <string name="onlyVisibleToTeachers">Endast synlig för klasslärarna</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Hanterad</string>
