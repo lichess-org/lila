@@ -60,7 +60,11 @@ object String {
       // decorative chars ꧁ ꧂ and svastikas
       (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
       // pretty quranic chars ۩۞
-      (c >= '\u06d6' && c <= '\u06ff')
+      (c >= '\u06d6' && c <= '\u06ff') ||
+      // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
+      (c >= '\u1d00' && c <= '\u1d7f') ||
+      // IPA extensions https://www.compart.com/en/unicode/block/U+0250
+      (c >= '\u0250' && c <= '\u02af')
 
   object normalize {
 

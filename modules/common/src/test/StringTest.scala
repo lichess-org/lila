@@ -28,6 +28,9 @@ class StringTest extends Specification {
         dgc(txt) must_== Set.empty
       }
     }
+    "detect phonetic extensions" in {
+      dgc("ᴀᴛᴏᴍɪᴄ") must_== Set('ᴀ', 'ᴛ', 'ᴏ', 'ᴍ', 'ɪ', 'ᴄ')
+    }
   }
 
   "remove garbage chars" should {
