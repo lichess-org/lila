@@ -55,8 +55,6 @@ Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více ko
   <string name="pairingSystemArena">Jakýkoli soupeř s podobným hodnocením</string>
   <string name="pairingSystemSwiss">Nejlepší párování založené na bodech a remízách</string>
   <string name="pairingWaitTime">Čekání na spárování</string>
-  <string name="pairingWaitTimeFast">Rychle: nečeká se na všechny hráče</string>
-  <string name="pairingWaitTimeSlow">Pomalu: čeká se ns všechny hráče</string>
   <string name="identicalForbidden">Zakázané</string>
   <string name="lateJoin">Pozdní připojení</string>
   <string name="lateJoinUntil">Ano, dokud nezačne více než polovina kol</string>
