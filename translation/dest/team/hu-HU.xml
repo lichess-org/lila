@@ -19,7 +19,6 @@
     <item quantity="one">Csapatvezető</item>
     <item quantity="other">Csapatvezetők</item>
   </plurals>
-  <string name="teamBestPlayers">Legjobb játékosok</string>
   <string name="teamRecentMembers">Új tagok</string>
   <string name="kickSomeone">Valamelyik csapattag kizárása</string>
   <string name="whoToKick">Kit akarsz kizárni a csapatból?</string>
