@@ -47,6 +47,4 @@ Nëse transmetimi juaj është në anglisht, nuk ka nevojë të përfshini një 
   <string name="longDescription">Përshkrimi i gjatë</string>
   <string name="changePicture">Ndrysho/fshij pikturën</string>
   <string name="uploadPicture">Ngarko një pikturë</string>
-  <string name="deletePicture">Fshije pikturën</string>
-  <string name="installBlocker">Instalo një AntiVirus!</string>
 </resources>
