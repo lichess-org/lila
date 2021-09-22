@@ -11,6 +11,5 @@
   <string name="noTeamFound">آپ کسی ٹیم کے میں شامل نہیں</string>
   <string name="joinTeam">ٹیم میں شامل ہوں</string>
   <string name="quitTeam">ٹیم چھوڑ دیں</string>
-  <string name="teamBestPlayers">بہترین کھلاڑی</string>
   <string name="teamRecentMembers">حالیہ اراکین</string>
 </resources>
