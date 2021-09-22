@@ -48,11 +48,5 @@
   <string name="xStreamerPicture">%s स्ट्रीमर तस्वीर</string>
   <string name="changePicture">अपनी तस्वीर बदलें / हटाएं</string>
   <string name="uploadPicture">तसवीर अपलोड करें</string>
-  <string name="deletePicture">तस्वीर मिटाएं</string>
   <string name="maxSize">अधिकतम आकार:%s</string>
-  <string name="installBlocker">मैलवेयर अवरोधक स्थापित करें!</string>
-  <string name="beSafe">विज्ञापनों और ट्रैकर्स से सुरक्षित रहें
-infesting Twitch और YouTube ।
-लिचेस सलाह देता है uBlock Origin
-जो स्वतंत्र और खुला स्रोत है।</string>
 </resources>
