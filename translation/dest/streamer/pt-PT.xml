@@ -50,11 +50,5 @@ Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta
   <string name="xStreamerPicture">Imagem do streamer %s</string>
   <string name="changePicture">Alterar/apagar a tua imagem</string>
   <string name="uploadPicture">Adicionar uma imagem</string>
-  <string name="deletePicture">Apagar a imagem</string>
   <string name="maxSize">Tamanho máximo: %s</string>
-  <string name="installBlocker">Instala um bloqueador de malware!</string>
-  <string name="beSafe">Mantém-te seguro contra anúncios e rastreadores
-infestando a Twitch e o YouTube.
-O Lichess recomenda uBlock Origin,
-que é gratuito e open-source.</string>
 </resources>
