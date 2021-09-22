@@ -60,7 +60,6 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 
 请查看 %3$s 以练习这个着法。</string>
   <string name="goodIntroduction">不错的介绍</string>
-  <string name="officialRulesPDF">官方规则 (pdf)</string>
   <string name="lichessTraining">Lichess 训练</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lichess执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
