@@ -26,55 +26,55 @@ case class Schedule(
           (freq, speed) match {
             case (Hourly, Rapid) if full      => hourlyRapidArena.txt()
             case (Hourly, Rapid)              => hourlyRapid.txt()
-            case (Hourly, speed) if full      => hourlyXArena.txt(speed.trans)
-            case (Hourly, speed)              => hourlyX.txt(speed.trans)
+            case (Hourly, speed) if full      => hourlyXArena.txt(speed.name)
+            case (Hourly, speed)              => hourlyX.txt(speed.name)
             case (Daily, Rapid) if full       => dailyRapidArena.txt()
             case (Daily, Rapid)               => dailyRapid.txt()
             case (Daily, Classical) if full   => dailyClassicalArena.txt()
             case (Daily, Classical)           => dailyClassical.txt()
-            case (Daily, speed) if full       => dailyXArena.txt(speed.trans)
-            case (Daily, speed)               => dailyX.txt(speed.trans)
+            case (Daily, speed) if full       => dailyXArena.txt(speed.name)
+            case (Daily, speed)               => dailyX.txt(speed.name)
             case (Eastern, Rapid) if full     => easternRapidArena.txt()
             case (Eastern, Rapid)             => easternRapid.txt()
             case (Eastern, Classical) if full => easternClassicalArena.txt()
             case (Eastern, Classical)         => easternClassical.txt()
-            case (Eastern, speed) if full     => easternXArena.txt(speed.trans)
-            case (Eastern, speed)             => easternX.txt(speed.trans)
+            case (Eastern, speed) if full     => easternXArena.txt(speed.name)
+            case (Eastern, speed)             => easternX.txt(speed.name)
             case (Weekly, Rapid) if full      => weeklyRapidArena.txt()
             case (Weekly, Rapid)              => weeklyRapid.txt()
             case (Weekly, Classical) if full  => weeklyClassicalArena.txt()
             case (Weekly, Classical)          => weeklyClassical.txt()
-            case (Weekly, speed) if full      => weeklyXArena.txt(speed.trans)
-            case (Weekly, speed)              => weeklyX.txt(speed.trans)
+            case (Weekly, speed) if full      => weeklyXArena.txt(speed.name)
+            case (Weekly, speed)              => weeklyX.txt(speed.name)
             case (Monthly, Rapid) if full     => monthlyRapidArena.txt()
             case (Monthly, Rapid)             => monthlyRapid.txt()
             case (Monthly, Classical) if full => monthlyClassicalArena.txt()
             case (Monthly, Classical)         => monthlyClassical.txt()
-            case (Monthly, speed) if full     => monthlyXArena.txt(speed.trans)
-            case (Monthly, speed)             => monthlyX.txt(speed.trans)
+            case (Monthly, speed) if full     => monthlyXArena.txt(speed.name)
+            case (Monthly, speed)             => monthlyX.txt(speed.name)
             case (Yearly, Rapid) if full      => yearlyRapidArena.txt()
             case (Yearly, Rapid)              => yearlyRapid.txt()
             case (Yearly, Classical) if full  => yearlyClassicalArena.txt()
             case (Yearly, Classical)          => yearlyClassical.txt()
-            case (Yearly, speed) if full      => yearlyXArena.txt(speed.trans)
-            case (Yearly, speed)              => yearlyX.txt(speed.trans)
+            case (Yearly, speed) if full      => yearlyXArena.txt(speed.name)
+            case (Yearly, speed)              => yearlyX.txt(speed.name)
             case (Shield, Rapid) if full      => rapidShieldArena.txt()
             case (Shield, Rapid)              => rapidShield.txt()
             case (Shield, Classical) if full  => classicalShieldArena.txt()
             case (Shield, Classical)          => classicalShield.txt()
-            case (Shield, speed) if full      => xShieldArena.txt(speed.trans)
-            case (Shield, speed)              => xShield.txt(speed.trans)
-            case _ if full                    => xArena.txt(s"${freq.toString} ${speed.trans}")
-            case _                            => s"${freq.toString} ${speed.trans}"
+            case (Shield, speed) if full      => xShieldArena.txt(speed.name)
+            case (Shield, speed)              => xShield.txt(speed.name)
+            case _ if full                    => xArena.txt(s"${freq.toString} ${speed.name}")
+            case _                            => s"${freq.toString} ${speed.name}"
           }
-        case (Some(_), _) if full   => eliteXArena.txt(speed.trans)
-        case (Some(_), _)           => eliteX.txt(speed.trans)
-        case (_, Some(max)) if full => s"<${max.rating} ${xArena.txt(speed.trans)}"
-        case (_, Some(max))         => s"<${max.rating} ${speed.trans}"
+        case (Some(_), _) if full   => eliteXArena.txt(speed.name)
+        case (Some(_), _)           => eliteX.txt(speed.name)
+        case (_, Some(max)) if full => s"<${max.rating} ${xArena.txt(speed.name)}"
+        case (_, Some(max))         => s"<${max.rating} ${speed.name}"
       }
     else if (variant.standard) {
-      val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
-        s"${pos.shortName} ${speed.trans}"
+      val n = position.flatMap(Thematic.byFen).fold(speed.name) { pos =>
+        s"${pos.shortName} ${speed.name}"
       }
       if (full) xArena.txt(n) else n
     } else
@@ -198,9 +198,8 @@ object Schedule {
   }
 
   sealed abstract class Speed(val id: Int) {
-    val name                               = toString
-    val key                                = lila.common.String lcfirst name
-    def trans(implicit lang: Lang): String = Speed.toPerfType(this).trans
+    val name = toString
+    val key  = lila.common.String lcfirst name
   }
   object Speed {
     case object UltraBullet extends Speed(5)
