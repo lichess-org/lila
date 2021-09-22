@@ -46,11 +46,5 @@ Ak je Váš stream v Angličtine, netreba zahrnúť označenie.</string>
   <string name="xStreamerPicture">%s streamerský obrázok</string>
   <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
   <string name="uploadPicture">Nahrať obrázok</string>
-  <string name="deletePicture">Odstrániť obrázok</string>
   <string name="maxSize">Maximálna veľkosť: %s</string>
-  <string name="installBlocker">Nainštalujte si bloker malwareov!</string>
-  <string name="beSafe">Chráňte sa pred reklamami a trackermi
-zamorujucich Twitch a YouTube.
-Lichess odporúča uBlock Origin
-ktorý je bezplatný a otvorený.</string>
 </resources>
