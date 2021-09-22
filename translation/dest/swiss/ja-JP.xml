@@ -83,8 +83,6 @@
   <string name="pairingSystemArena">手の空いている近い順位の相手</string>
   <string name="pairingSystemSwiss">スコアとタイブレークによる最適の組み合わせ</string>
   <string name="pairingWaitTime">ペアリング待ち時間</string>
-  <string name="pairingWaitTimeFast">短い。全員の対局終了を待たない</string>
-  <string name="pairingWaitTimeSlow">長い。全員の対局終了を待つ</string>
   <string name="identicalPairing">同じ相手との対戦</string>
   <string name="possibleButNotConsecutive">あり（ただし連続はしない）</string>
   <string name="identicalForbidden">なし</string>
