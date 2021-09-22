@@ -18,7 +18,6 @@
     <item quantity="one">Capitán de l\'equipo</item>
     <item quantity="other">Liders de l\'equipo</item>
   </plurals>
-  <string name="teamBestPlayers">Millors chugadors</string>
   <string name="teamRecentMembers">Miembros recients</string>
   <string name="kickSomeone">Espachar a belún de l\'equipo</string>
   <string name="whoToKick">A quí quiers espachar de l\'equipo?</string>
