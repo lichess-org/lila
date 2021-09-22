@@ -17,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
   </plurals>
-  <string name="teamBestPlayers">팀 내 최고 플레이어</string>
   <string name="teamRecentMembers">최근 가입 멤버</string>
   <string name="kickSomeone">클럽에서 누군가 제거</string>
   <string name="whoToKick">클럽에서 누구를 제외하고 싶습니까?</string>
@@ -48,5 +47,5 @@
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTourns">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">거절된 요청</string>
+  <string name="declinedRequests">거절된 요청</string>
 </resources>
