@@ -11,11 +11,11 @@
   font-family: 'Roboto';
   font-weight: 600;
 }
-%chess-font {
+%shogi-font {
   font-family: 'Noto Shogi', 'Noto Sans'; // shogi font sometimes?
 }
 %san {
-  @extend %chess-font;
+  @extend %shogi-font;
   .piece-letter & {
     @extend %base-font;
   }
