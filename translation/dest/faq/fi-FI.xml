@@ -60,7 +60,6 @@ Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
 Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="goodIntroduction">hyvä johdanto</string>
-  <string name="officialRulesPDF">virallisten sääntöjen (PDF)</string>
   <string name="lichessTraining">Lichess-harjoittelu</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
