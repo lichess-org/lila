@@ -8,6 +8,7 @@ Print i18n keys that are used nowhere in the code.
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 
@@ -30,13 +31,14 @@ TRANS_DUMP = LILA_DIR / "bin" / "trans-dump.js"
 #############
 
 def is_key_used(key: str) -> bool:
+    key = re.escape(key)
     if key.islower(): # One word key
-        key_regex = f".{key}*" # Put a dot in front to reduce change of finding the word in commments. Will be not enough for very common keys such as `performance`
+        key_regex = f"\.{key}|{key}[\(,\"']" # Put a dot in front to reduce change of finding the word in commments. Will be not enough for very common keys such as `performance`
     else: # Multiple word key, such as `invitationToClass`, missmatch with over variable names considered negligible
-        key_regex = f"{key}*"
+        key_regex = f"{key}"
     for dir_ in [APP_DIR, MODULE_DIR]: # Check App/ first because the majority of the translations are there
-        # grep -nr 'openingRapid*' modules --exclude=I18nKeys.scala --exclude-dir target
-        r = subprocess.run(["grep", "-n", "-r", "-q", key_regex, dir_, "--exclude=I18nKeys.scala", "--exclude-dir=target"])
+        # grep -nr '.error.max*' modules --exclude=I18nKeys.scala --exclude-dir target
+        r = subprocess.run(["grep", "-n", "-r", "-q", "-E", key_regex, dir_, "--exclude=I18nKeys.scala", "--exclude-dir=target"])
         if r.returncode == 0:
             return True
     return False
@@ -89,7 +91,6 @@ def main() -> None:
                 continue
             # Does not remove automatically multiple lines keys
             r = subprocess.run(["sed","-i", "", f"/{unused}.*</d", path], capture_output=True)
-            print(r)
 
 
     r = subprocess.run(["node",TRANS_DUMP], capture_output=True)
@@ -105,5 +106,3 @@ def main() -> None:
 if __name__ == "__main__":
     print('#'*80)
     main()
-
-
