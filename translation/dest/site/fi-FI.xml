@@ -11,7 +11,6 @@
   <string name="level">Taso</string>
   <string name="strength">Vahvuus</string>
   <string name="toggleTheChat">Keskustelu päälle / pois</string>
-  <string name="toggleSound">Ääni päälle / pois</string>
   <string name="chat">Keskustelu</string>
   <string name="resign">Luovuta</string>
   <string name="checkmate">Shakkimatti</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi %s sekunnin kuluttua.</item>
   </plurals>
   <string name="opponentLeftChoices">Vastustajasi on poistunut pelistä. Voit julistautua voittajaksi, sopia tasapelin tai odottaa häntä.</string>
-  <string name="makeYourOpponentResign">Pakota luovutus</string>
   <string name="forceResignation">Julistaudu voittajaksi</string>
   <string name="forceDraw">Pakota tasapeli</string>
   <string name="talkInChat">Kirjoita keskusteluun. Ole kohtelias!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Musta lähti pelistä</string>
   <string name="whiteDidntMove">Valkea ei siirtänyt</string>
   <string name="blackDidntMove">Musta ei siirtänyt</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Jaa tämä linkki pelin katsojille</string>
-  <string name="theComputerAnalysisHasFailed">Tietokoneanalyysi epäonnistui</string>
-  <string name="viewTheComputerAnalysis">Katso tietokoneanalyysi</string>
   <string name="requestAComputerAnalysis">Pyydä tietokoneanalyysiä</string>
   <string name="computerAnalysis">Tietokoneanalyysi</string>
   <string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
@@ -216,7 +211,6 @@
   <string name="whiteTimeOut">Valkealta loppui aika</string>
   <string name="blackTimeOut">Mustalta loppui aika</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
-  <string name="drawOfferDeclined">Tasapeliehdotus hylätty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
   <string name="drawOfferCanceled">Tasapeliehdotus peruttu</string>
   <string name="whiteOffersDraw">Valkea ehdottaa tasapeliä</string>
@@ -242,8 +236,6 @@
   <string name="thisGameIsRated">Tämä peli on pisteytetty</string>
   <string name="rematch">Revanssi</string>
   <string name="rematchOfferSent">Revanssipyyntö lähetetty</string>
-  <string name="rematchOfferSentWhite">Valkea ehdottaa revanssia</string>
-  <string name="rematchOfferSentBlack">Musta ehdottaa revanssia</string>
   <string name="rematchOfferAccepted">Revanssipyyntö hyväksytty</string>
   <string name="rematchOfferCanceled">Revanssipyyntö peruttu</string>
   <string name="rematchOfferDeclined">Revanssipyyntö hylätty</string>
@@ -257,9 +249,7 @@
   <string name="youHaveBeenTimedOut">Olet jäähyllä.</string>
   <string name="spectatorRoom">Katsojienhuone</string>
   <string name="composeMessage">Luo viesti</string>
-  <string name="noNewMessages">Ei uusia viestejä</string>
   <string name="subject">Aihe</string>
-  <string name="recipient">Vastaanottaja</string>
   <string name="send">Lähetä</string>
   <string name="incrementInSeconds">Lisäaika sekunteina</string>
   <string name="freeOnlineChess">Maksutonta shakkia verkossa</string>
@@ -372,8 +362,6 @@
     <item quantity="one">%s kaveri paikalla</item>
     <item quantity="other">%s kaveria paikalla</item>
   </plurals>
-  <string name="noFriendsOnline">Ei kavereita paikalla</string>
-  <string name="findFriends">Etsi kavereita</string>
   <string name="favoriteOpponents">Suosikkivastustajat</string>
   <string name="follow">Seuraa</string>
   <string name="following">Seurataan</string>
@@ -424,7 +412,6 @@
   <string name="points">Pisteet</string>
   <string name="wins">Voitot</string>
   <string name="losses">Tappiot</string>
-  <string name="winStreak">Voittoputki</string>
   <string name="createdBy">Tekijä:</string>
   <string name="tournamentIsStarting">Turnaus alkaa</string>
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
@@ -440,7 +427,6 @@
   <string name="draws">Tasapelejä</string>
   <string name="nextXTournament">Seuraava %s-turnaus:</string>
   <string name="averageOpponent">Keskimääräinen vastustaja</string>
-  <string name="membersOnly">Vain jäsenet</string>
   <string name="boardEditor">Lautaeditori</string>
   <string name="setTheBoard">Asettele lauta</string>
   <string name="popularOpenings">Suosittuja avauksia</string>
@@ -448,7 +434,6 @@
   <string name="chess960StartPosition">Shakki960-alkuasema: %s</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
-  <string name="savePosition">Tallenna asema</string>
   <string name="loadPosition">Lataa asema</string>
   <string name="isPrivate">Yksityinen</string>
   <string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
@@ -465,10 +450,8 @@
   <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
-  <string name="watchLichessTV">Katso Lichess TV:tä</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
   <string name="onlinePlayers">Paikalla olevat pelaajat</string>
-  <string name="activeToday">Aktiivisena tänään</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
   <string name="success">Onnistuit</string>
@@ -479,7 +462,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Avaa heti seuraavan pelisi tehtyäsi siirron</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
-  <string name="latestUpdates">Viimeisimmät päivitykset</string>
   <string name="tournamentWinners">Turnausvoittajat</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
@@ -511,9 +493,7 @@
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Tämä aihe on nyt suljettu.</string>
-  <string name="theming">Teemat</string>
   <string name="blog">Blogi</string>
-  <string name="questionsAndAnswers">Kysymykset ja vastaukset</string>
   <string name="notes">Muistiinpanot</string>
   <string name="typePrivateNotesHere">Kirjoita yksityisiä muistiinpanoja tähän</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
@@ -542,13 +522,7 @@
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>
-  <string name="difficultyEasy">Helppo</string>
-  <string name="difficultyNormal">Keskitaso</string>
-  <string name="difficultyHard">Vaikea</string>
   <string name="xCompetesInY">%1$s kilpailee turnauksessa %2$s</string>
-  <string name="xAskedY">%1$s kysyi %2$s</string>
-  <string name="xAnsweredY">%1$s vastasi %2$s</string>
-  <string name="xCommentedY">%1$s kommentoi %2$s</string>
   <string name="victory">Voitto</string>
   <string name="defeat">Tappio</string>
   <string name="victoryVsYInZ">%1$s %3$s-pelissä %2$s vastaan</string>
@@ -557,7 +531,6 @@
   <string name="timeline">Tapahtunutta aikajärjestyksessä</string>
   <string name="starting">Alkamassa:</string>
   <string name="allInformationIsPublicAndOptional">Kaikki informaatio on julkista ja vapaaehtoista.</string>
-  <string name="yourCityRegionOrDepartment">Kaupunkisi, alueesi tai maakuntasi.</string>
   <string name="biographyDescription">Kerro itsestäsi, parhaista asioista shakissa tai suosikkiavauksistasi, -peleistäsi, -pelaajistasi…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimi: %s merkkiä.</item>
@@ -572,13 +545,6 @@
   <string name="computer">Tietokone</string>
   <string name="side">Puoli</string>
   <string name="clock">Kello</string>
-  <string name="unauthorizedError">Pääsy evätty.</string>
-  <string name="noInternetConnection">Ei Internet-yhteyttä. Voit silti pelata offline-tilassa.</string>
-  <string name="connectedToLichess">Nyt olet yhteydessä lichess.org:iin</string>
-  <string name="signedOut">Olet kirjautunut ulos</string>
-  <string name="loginSuccessful">Olet nyt kirjautuneena sisään</string>
-  <string name="playOnTheBoardOffline">Pelaa offline-tilassa kaveria vastaan</string>
-  <string name="playOfflineComputer">Pelaa tietokonetta vastaan</string>
   <string name="opponent">Vastapelaaja</string>
   <string name="learnMenu">Opi</string>
   <string name="studyMenu">Tutki</string>
@@ -586,16 +552,7 @@
   <string name="community">Yhteisö</string>
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
-  <string name="sharePGN">Jaa PGN</string>
-  <string name="playOnline">Pelaa verkossa</string>
-  <string name="playOffline">Pelaa paikallisesti</string>
-  <string name="allowAnalytics">Salli anonyymit tilastot</string>
-  <string name="shareGameURL">Jaa pelin URL</string>
   <string name="error.required">Tämä kenttä vaaditaan</string>
-  <string name="error.email">Tämä sähköpostiosoite on virheellinen</string>
-  <string name="error.email_acceptable">Tämä sähköpostiosoite ei ole hyväksyttävä</string>
-  <string name="error.email_unique">Tämä sähköpostiosoite on jo käytössä</string>
-  <string name="error.email_different">Tämä on jo nyt sähköpostiosoitteesi</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
@@ -643,7 +600,6 @@
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
   <string name="tournamentFAQ">Areenaturnausten FAQ</string>
-  <string name="tournamentOfficial">Virallinen</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
   <string name="averageCentipawnLoss">Keskimääräinen sadasosasotilaan menetys</string>
   <string name="keyboardShortcuts">Pikanäppäimet</string>
@@ -681,7 +637,6 @@
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
-  <string name="printFriendlyPDF">Tulostusystävällinen PDF</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>
@@ -692,7 +647,6 @@
   <string name="withNobody">Ei kenellekään</string>
   <string name="withFriends">Kavereille</string>
   <string name="withEverybody">Kaikille</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Olet jo rekisteröinyt sähköpostiosoitteen: %s</string>
   <string name="kidMode">Lapsitila</string>
   <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-kuvake, josta tiedät lastesi olevan turvassa.</string>
@@ -721,7 +675,6 @@
   <string name="xHostsY">%1$s isännöi %2$s</string>
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
-  <string name="xCreatesStudyY">%1$s loi tutkielman %2$s</string>
   <string name="quickPairing">Nopeasti peliin</string>
   <string name="lobby">Aula</string>
   <string name="anonymous">Nimetön</string>
@@ -742,17 +695,11 @@
   <string name="usernameSuffixInvalid">Käyttäjänimen täytyy loppua kirjaimeen tai numeroon.</string>
   <string name="usernameCharsInvalid">Käyttäjänimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja väliviivoja.</string>
   <string name="usernameUnacceptable">Käyttäjänimi ei kelpaa.</string>
-  <string name="directlySupportLichess">Lahjoita Lichessille</string>
   <string name="playChessInStyle">Tyylikästä shakinpeluuta</string>
   <string name="chessBasics">Shakin perusteet</string>
   <string name="coaches">Valmentajat</string>
   <string name="invalidPgn">PGN ei kelpaa</string>
   <string name="invalidFen">FEN ei kelpaa</string>
-  <string name="error.minLength">Vähimmäispituus on %s</string>
-  <string name="error.maxLength">Enimmäispituus on %s</string>
-  <string name="error.min">Täytyy olla vähintään %s</string>
-  <string name="error.max">Saa olla enintään %s</string>
-  <string name="error.unknown">Virhe</string>
   <string name="custom">Mukautettu</string>
   <string name="notifications">Ilmoitukset</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
