@@ -72,6 +72,7 @@ case class Challenge(
   def openDest = destUser.isEmpty
   def online   = status == Status.Created
   def active   = online || status == Status.Offline
+  def canceled = status == Status.Canceled
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 

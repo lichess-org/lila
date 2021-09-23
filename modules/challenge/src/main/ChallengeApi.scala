@@ -89,7 +89,8 @@ final class ChallengeApi(
       color: Option[chess.Color] = None
   ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
-      if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
+      if (c.canceled) fuccess(Invalid("The challenge has been canceled."))
+      else if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
         fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
         repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)

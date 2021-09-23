@@ -132,7 +132,10 @@ final class Challenge(
         _.filter(isForMe(_, me.some)) match {
           case None                  => tryRematch
           case Some(c) if c.accepted => tryRematch
-          case Some(challenge)       => api.accept(challenge, me.some, none) inject jsonOkResult
+          case Some(c) =>
+            api.accept(c, me.some, none) map {
+              _.fold(BadRequest(_), _ => jsonOkResult)
+            }
         }
       }
     }
