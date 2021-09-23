@@ -10,8 +10,6 @@ const truncateFen = (fen: Fen): string => fen.split(' ')[0];
 export function subscribe(ctrl: RoundController): void {
   // allow everyone to cheat against the AI
   if (ctrl.data.opponent.ai) return;
-  // allow registered players to use assistance in casual games
-  if (!ctrl.data.game.rated && ctrl.opts.userId) return;
   // bots can cheat alright
   if (ctrl.data.player.user?.title == 'BOT') return;
 
