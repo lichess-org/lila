@@ -353,7 +353,7 @@ final class ChatApi(
     private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1"
 
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
-    private val multilineRegex                    = """\n\n{2,}+""".r
-    private def multiline(str: String)            = multilineRegex.replaceAllIn(str, """\n\n""")
+    private val multilineRegex                    = """\n\n{1,}+""".r
+    private def multiline(str: String)            = multilineRegex.replaceAllIn(str, " ")
   }
 }
