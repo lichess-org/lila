@@ -108,7 +108,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         {
           attrs: {
             'data-icon': '',
-            href: `/study/${studyId}.pgn`,
+            href: ctrl.relay ? `${ctrl.relay.roundPath()}.pgn` : `/study/${studyId}.pgn`,
             download: true,
           },
         },
@@ -140,8 +140,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
     h('form.form3', [
       ...(ctrl.relay
         ? [
-            ['broadcastUrl', `${ctrl.relay.tourPath()}`],
-            ['currentRoundUrl', `${ctrl.relay.roundPath()}`],
+            ['broadcastUrl', ctrl.relay.tourPath()],
+            ['currentRoundUrl', ctrl.relay.roundPath()],
             ['currentGameUrl', `${ctrl.relay.roundPath()}/${chapter.id}`],
           ]
         : [
