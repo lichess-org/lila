@@ -2,7 +2,7 @@ rs.secondaryOk();
 const dryRun = true;
 const maxPerSecond = 600;
 const flushEvery = 100;
-const parseLineRegex = /^([\w-~]+)([ !&\?])(.*)$/;
+const parseLineRegex = /^([\w-~]+)([ !&\?])(.*)(\n|$)/;
 
 const isChatGarbage = chat =>
   chat.l.every(l => {
