@@ -13,7 +13,7 @@ object publicChat {
 
   def apply(
       tourChats: List[(lila.tournament.Tournament, UserChat)],
-      simulChats: List[(lila.simul.Simul, UserChat)]
+      swissChats: List[(lila.swiss.Swiss, UserChat)]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Public Chats",
@@ -33,11 +33,11 @@ object publicChat {
               }
             ),
             div(
-              h2("Simul Chats"),
+              h2("Swiss Chats"),
               div(cls := "player_chats")(
-                simulChats.map { case (simul, chat) =>
-                  div(cls := "game", dataChan := "simul", dataRoom := simul.id)(
-                    chatOf(routes.Simul.show(simul.id), simul.name, chat)
+                swissChats.map { case (swiss, chat) =>
+                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id.value)(
+                    chatOf(routes.Swiss.show(swiss.id.value), swiss.name, chat)
                   )
                 }
               )

@@ -181,7 +181,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation, report, notifyModule, history, perfStat, irc),
+  Seq(common, db, user, hub, security, tournament, swiss, game, analyse, evaluation, report, notifyModule, history, perfStat, irc),
   reactivemongo.bundle
 )
 
@@ -226,7 +226,7 @@ lazy val pool = module("pool",
 )
 
 lazy val activity = module("activity",
-  Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, swiss, practice, team, ublog),
+  Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, simul, swiss, practice, team, ublog),
   reactivemongo.bundle
 )
 

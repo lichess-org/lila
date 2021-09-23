@@ -59,8 +59,8 @@ final class Mod(
 
   def publicChat =
     Secure(_.PublicChatView) { implicit ctx => _ =>
-      env.mod.publicChat.all map { case (tournamentsAndChats, simulsAndChats) =>
-        Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
+      env.mod.publicChat.all map { case (tournamentsAndChats, swissesAndChats) =>
+        Ok(html.mod.publicChat(tournamentsAndChats, swissesAndChats))
       }
     }
 
