@@ -340,6 +340,17 @@ object contact {
               )
             ),
             Leaf(
+              "dmca",
+              "DMCA / Intellectual Property Take Down Notice",
+              p(
+                a(
+                  href := "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform"
+                )("Complete this form"),
+                " ",
+                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
+              )
+            ),
+            Leaf(
               "contact-other",
               noneOfTheAbove(),
               frag(
