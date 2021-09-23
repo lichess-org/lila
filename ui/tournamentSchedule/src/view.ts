@@ -70,9 +70,15 @@ function group(arr: Tournament[], grouper: (t: Tournament) => number): Lane[] {
     });
 }
 
+function truncSeconds(epoch: number): number {
+  return epoch - (epoch % (60*1000));
+}
+
 function fitLane(lane: Lane, tour2: Tournament) {
   return !lane.some(function (tour1: Tournament) {
-    return !(tour1.finishesAt <= tour2.startsAt || tour2.finishesAt <= tour1.startsAt);
+    const r = !(truncSeconds(tour1.finishesAt) <= truncSeconds(tour2.startsAt) || truncSeconds(tour2.finishesAt) <= truncSeconds(tour1.startsAt));
+    if (r) console.log("r=", r, tour1, tour2);
+    return r;
   });
 }
 
