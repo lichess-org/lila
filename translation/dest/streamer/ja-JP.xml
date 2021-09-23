@@ -46,8 +46,5 @@
   <string name="xStreamerPicture">%s 配信者画像</string>
   <string name="changePicture">写真の変更／削除</string>
   <string name="uploadPicture">写真をアップロード</string>
-  <string name="deletePicture">写真を削除</string>
   <string name="maxSize">最大サイズ：%s</string>
-  <string name="installBlocker">マルウェア対策ソフトをインストールして！</string>
-  <string name="beSafe">Twitch、YouTube に蔓延する広告やトラッカーを防ぎましょう。Lichess では無料でオープンソースの「uBlock Origin」を推奨しています。</string>
 </resources>

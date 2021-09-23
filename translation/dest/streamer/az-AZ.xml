@@ -48,11 +48,5 @@ Bunu Lichess yayım tənzimləmələrində yox, YouTube və ya Twitch səhifəni
   <string name="xStreamerPicture">%s yayımçı şəkli</string>
   <string name="changePicture">Şəkli dəyişdir/sil</string>
   <string name="uploadPicture">Şəkil yüklə</string>
-  <string name="deletePicture">Şəkli sil</string>
   <string name="maxSize">Maks ölçü: %s</string>
-  <string name="installBlocker">Zərərli proqram əngəlləyici quraşdırın!</string>
-  <string name="beSafe">YouTube və Twitch-i bürümüş
-reklam və izləyicilərdən qorunun.
-Lichess ödənişsiz və açıq mənbəli
-uBlock Origin-i tövsiyə edir.</string>
 </resources>

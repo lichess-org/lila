@@ -17,6 +17,5 @@
     <item quantity="one">Legionis dux</item>
     <item quantity="other">Legionis duces</item>
   </plurals>
-  <string name="teamBestPlayers">Meliores legionis lusores</string>
   <string name="teamRecentMembers">Nuper conventi sodales</string>
 </resources>

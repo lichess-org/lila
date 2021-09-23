@@ -11,7 +11,6 @@
   <string name="level">ધોરણ</string>
   <string name="strength">શક્તિ</string>
   <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
-  <string name="toggleSound">અવાજ ટૉગલ કરો</string>
   <string name="chat">વાત ચીત</string>
   <string name="resign">રાજીનામું</string>
   <string name="checkmate">ચેકમેટ</string>
@@ -39,7 +38,6 @@
     <item quantity="other">તમારી સામેના ખેલાડી એ રમત છોડી દીધી છે તો તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
   </plurals>
   <string name="opponentLeftChoices">અન્ય ખેલાડીએ રમત છોડી દીધી છે. તમે વિજયનો દાવો કરી શકો છો, તમે તેને ડ્રો કહી શકો છો અથવા તમે રાહ જોઇ શકો છો.</string>
-  <string name="makeYourOpponentResign">તમારા વિરોધી ને રાજીનામું અપાવડાવો</string>
   <string name="forceResignation">વિજયનો દાવો કરો</string>
   <string name="forceDraw">ફોર્સ ડ્રો</string>
   <string name="talkInChat">કૃપા કરીને ચેટમાં સભ્યતા રાખવી!</string>
@@ -50,9 +48,6 @@
   <string name="blackLeftTheGame">કાળા એ ગેમ છોડી દીધી</string>
   <string name="whiteDidntMove">સફેદ ચાલ ન ચાલ્યું</string>
   <string name="blackDidntMove">કાળો ચાલ ન ચાલ્યું</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">આ url ને શેર કરો દર્શકો ની સાથે</string>
-  <string name="theComputerAnalysisHasFailed">કમ્પ્યુટર વિશ્લેષણ થયું નથી</string>
-  <string name="viewTheComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ જુઓ</string>
   <string name="requestAComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ કરો</string>
   <string name="computerAnalysis">કમ્પ્યુટર વિશ્લેષણ</string>
   <string name="computerAnalysisAvailable">કમ્પ્યુટર વિશ્લેષણ હાજર છે</string>
@@ -208,8 +203,6 @@
   <string name="thisGameIsRated">આ રમત ક્રમિત છે</string>
   <string name="rematch">ફરીથી મેચ કરો</string>
   <string name="rematchOfferSent">ફરીથી મેચ કરવાની માગણી મોકલી</string>
-  <string name="rematchOfferSentWhite">હરીફે ફરીથી મેચ રમવાની માગણી મોકલી</string>
-  <string name="rematchOfferSentBlack">હરિફે ફરીથી મેચ રમવાની માગણી મોકલી</string>
   <string name="rematchOfferAccepted">ફરીથી મેચ રમવાની માગણી સ્વીકારાઈ</string>
   <string name="rematchOfferCanceled">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
   <string name="rematchOfferDeclined">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
@@ -222,7 +215,6 @@
   <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
   <string name="spectatorRoom">દર્શકોનો ખંડ</string>
   <string name="subject">વિષય</string>
-  <string name="recipient">મેળવનાર</string>
   <string name="send">મોકલો</string>
   <string name="incrementInSeconds">સેકંડોમાં વૃદ્ધિ</string>
   <string name="freeOnlineChess">મફત ઓનલાઇન શતરંજ</string>
@@ -299,8 +291,6 @@
     <item quantity="one">%s મિત્ર ઓનલાઇન</item>
     <item quantity="other">%s મિત્રો ઓનલાઇન</item>
   </plurals>
-  <string name="noFriendsOnline">બધા મિત્રો ઑફલાઈન</string>
-  <string name="findFriends">મિત્રો શોધો</string>
   <string name="favoriteOpponents">પ્રિય વિરોધીઓ</string>
   <string name="follow">અનુસરો</string>
   <string name="following">ફોલોવિંગ</string>
@@ -336,7 +326,6 @@
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
   <string name="thankYou">આભાર!</string>
-  <string name="watchLichessTV">Lichess TV જુઓ</string>
   <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
@@ -354,8 +343,6 @@
   <string name="fast">ઝડપી</string>
   <string name="normal">સામાન્ય</string>
   <string name="slow">ધીમું</string>
-  <string name="difficultyNormal">સામાન્ય</string>
-  <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
   <string name="studyMenu">અભ્યાસ</string>
   <string name="practice">મહાવરો</string>
   <string name="aboutX">%s વિશે</string>

@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">အဆင့်</string>
   <string name="toggleTheChat">Toggle the chat</string>
-  <string name="toggleSound">Toggle sound</string>
   <string name="chat">စကားပြောရန်</string>
   <string name="resign">အရှုံးပေးသည်</string>
   <string name="checkmate">ဘုရင်ကိုဖမ်းမည်</string>
@@ -37,7 +36,6 @@
     <item quantity="other">သင့်ရဲ့ပြိုင်ဘက် ဂိမ်းမှထွက်ခွာသွားပါပြီ. %s တွင် သင့်ကို အနိုင််ပေးပါမည်.</item>
   </plurals>
   <string name="opponentLeftChoices">သင့်ရဲ့ပြိုင်ဘက် ဂိမ်းမှထွက်ခွာသွားပါပြီ. လက်ရှိပွဲကို အနိုင်ယူမည်လား သရေကျပေးမည်လား သို့မဟုတ် စောင့်ဆိုင််းဦးမလား.</string>
-  <string name="makeYourOpponentResign">သင့်ရဲ့ပြိုင်ဘက်ကိုအရံှုးပေးပါ</string>
   <string name="forceResignation">အောင်ပွဲရသည်</string>
   <string name="forceDraw">သရေပေးမည်လား</string>
   <string name="talkInChat">Please be nice in the chat!</string>
@@ -48,9 +46,6 @@
   <string name="blackLeftTheGame">အမည်းရောင်သည်ဂိမ်းးမှထွက်ခွာသွားသည်</string>
   <string name="whiteDidntMove">အဖြူ စ, မရွှေ့ခဲ့</string>
   <string name="blackDidntMove">အနက် မရွှေ့ခဲ့</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Share this URL to let spectators see the game</string>
-  <string name="theComputerAnalysisHasFailed">The computer analysis has failed</string>
-  <string name="viewTheComputerAnalysis">View the computer analysis</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>

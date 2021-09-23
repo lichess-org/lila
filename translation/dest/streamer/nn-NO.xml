@@ -50,11 +50,5 @@ Om du strøymer på engelsk treng du ikkje merke språket.</string>
   <string name="xStreamerPicture">%s profilbilete</string>
   <string name="changePicture">Endre/slette profilbiletet</string>
   <string name="uploadPicture">Last opp eit bilete</string>
-  <string name="deletePicture">Slett bilete</string>
   <string name="maxSize">Maks storleik: %s</string>
-  <string name="installBlocker">Installer ein skadevareblokkerar!</string>
-  <string name="beSafe">Vern deg mot reklame og sporsamlarar
-som infiserar Twitch og YouTube.
-Lichess tilå uBlock Origin
-som er fritt tilgjengeleg og open-kjeldekode.</string>
 </resources>

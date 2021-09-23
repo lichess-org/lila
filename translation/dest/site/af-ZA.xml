@@ -11,7 +11,6 @@
   <string name="level">Vlak</string>
   <string name="strength">Krag</string>
   <string name="toggleTheChat">Wissel klets</string>
-  <string name="toggleSound">Wissel klank</string>
   <string name="chat">Klets</string>
   <string name="resign">Gee oor</string>
   <string name="checkmate">Skaakmat</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
   </plurals>
   <string name="opponentLeftChoices">Ander speler het die spel verlaat. Jy kan ’n oorwinning verklaar, gelykspel eis, of wag.</string>
-  <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Eis die oorwinning</string>
   <string name="forceDraw">Eis \'n gelykop</string>
   <string name="talkInChat">Wees asseblief vriendelik!</string>
@@ -50,9 +48,6 @@
   <string name="whiteLeftTheGame">Wit het die spel verlaat</string>
   <string name="blackLeftTheGame">Swart het die spel verlaat</string>
   <string name="whiteDidntMove">WitHetniebeweegnie</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel die URL vir toeskouers</string>
-  <string name="theComputerAnalysisHasFailed">Die rekenaaranalise het misluk</string>
-  <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar analise</string>
   <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
@@ -198,7 +193,6 @@
   <string name="whiteTimeOut">Wit tyd verstreke</string>
   <string name="blackTimeOut">Swart time-out</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
-  <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
   <string name="drawOfferAccepted">Gelykop aanbod aanvaar</string>
   <string name="drawOfferCanceled">Gelykop aanbod gekanselleer</string>
   <string name="whiteOffersDraw">Wit maak gelykspel aanbod</string>
@@ -224,8 +218,6 @@
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
   <string name="rematch">Speel weer</string>
   <string name="rematchOfferSent">Speel weer aanbod gestuur</string>
-  <string name="rematchOfferSentWhite">Wit daag jou weer uit</string>
-  <string name="rematchOfferSentBlack">Swart daag jou weer uit</string>
   <string name="rematchOfferAccepted">Speel weer aanbod aanvaar</string>
   <string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
   <string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
@@ -239,9 +231,7 @@
   <string name="youHaveBeenTimedOut">Jy het nie nou toegang tot die kletskamer nie.</string>
   <string name="spectatorRoom">Toeskouer kamer</string>
   <string name="composeMessage">Tik boodskap</string>
-  <string name="noNewMessages">Geen nuwe booskappe</string>
   <string name="subject">Onderwerp</string>
-  <string name="recipient">Ontvanger</string>
   <string name="send">Stuur</string>
   <string name="incrementInSeconds">Inkrement in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
@@ -355,8 +345,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
     <item quantity="one">%s aanlyn vriend</item>
     <item quantity="other">%s aanlyn vriende</item>
   </plurals>
-  <string name="noFriendsOnline">Geen vriende aanlyn</string>
-  <string name="findFriends">Vind friende</string>
   <string name="favoriteOpponents">Gunsteling opponente</string>
   <string name="follow">Volg</string>
   <string name="following">Besig om te volg</string>
@@ -405,7 +393,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="points">Punte</string>
   <string name="wins">Oorwinnings</string>
   <string name="losses">Verliese</string>
-  <string name="winStreak">Segetog</string>
   <string name="createdBy">Geskep deur</string>
   <string name="tournamentIsStarting">Toernooi gaan nou begin</string>
   <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
@@ -421,13 +408,11 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="draws">Gelykop gespeel</string>
   <string name="nextXTournament">Volgende %s toernooi:</string>
   <string name="averageOpponent">Gemmidelde opponent</string>
-  <string name="membersOnly">Slegs lede</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="setTheBoard">Pak die bord</string>
   <string name="popularOpenings">Gewilde openinge</string>
   <string name="startPosition">Begin posisie</string>
   <string name="clearBoard">Maak bord skoon</string>
-  <string name="savePosition">Stoor posisie</string>
   <string name="loadPosition">Laai posisie</string>
   <string name="isPrivate">Privaat</string>
   <string name="reportXToModerators">Raporteer %s aan moderators</string>
@@ -443,10 +428,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
   <string name="inlineNotation">Binnelyn notasie</string>
-  <string name="watchLichessTV">Kyk Lichess TV</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
   <string name="onlinePlayers">Aanlyn spelers</string>
-  <string name="activeToday">Aktief vandag</string>
   <string name="activePlayers">Aktiewe spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pasop, dié spel is gegradeer, maar sonder \'n klok!</string>
   <string name="success">Sukses</string>
@@ -457,7 +440,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Gaan outomaties voort na die volgende spel ná jy skuif</string>
   <string name="autoSwitch">Outomatiese oorskakel</string>
   <string name="puzzles">Kopkrappers</string>
-  <string name="latestUpdates">Onlangste bywerkings</string>
   <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>
   <string name="description">Beskrywing</string>
@@ -486,9 +468,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou gesluit.</string>
-  <string name="theming">Versiering</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Vrae &amp; Antwoorde</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Tik private notas hier in</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wagwoord</string>
@@ -517,13 +497,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="onSlowGames">Op stadig spelle</string>
   <string name="always">Altyd</string>
   <string name="never">Nooit</string>
-  <string name="difficultyEasy">Maklik</string>
-  <string name="difficultyNormal">Normaal</string>
-  <string name="difficultyHard">Moeilik</string>
   <string name="xCompetesInY">%1$s kompeteer in %2$s</string>
-  <string name="xAskedY">%1$s het gevra %2$s</string>
-  <string name="xAnsweredY">%1$s antwoord %2$s</string>
-  <string name="xCommentedY">%1$s lewer kommentaar op %2$s</string>
   <string name="victory">Oorwinning</string>
   <string name="defeat">Nederlaag</string>
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
@@ -532,7 +506,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="timeline">Tydlyn</string>
   <string name="starting">Aanvang:</string>
   <string name="allInformationIsPublicAndOptional">Alle besonderhede is openbaar en nie-verpligtend.</string>
-  <string name="yourCityRegionOrDepartment">Jou stad, streek of provinsie.</string>
   <string name="biographyDescription">Vertel oor jouself, jou belangstellings, jou skaak passies, jou gunsteling openinge, spelers, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s karakter.</item>
@@ -547,13 +520,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="computer">Rekenaar</string>
   <string name="side">Kant</string>
   <string name="clock">Klok</string>
-  <string name="unauthorizedError">Toegang is verbode.</string>
-  <string name="noInternetConnection">Geen internet koppeling. Jy kan steeds vanlyn speel van die kieslys.</string>
-  <string name="connectedToLichess">Jy is nou verbind aan lichess.org</string>
-  <string name="signedOut">Jy is uitgeteken</string>
-  <string name="loginSuccessful">Jy is nou ingeteken</string>
-  <string name="playOnTheBoardOffline">Oor die bord</string>
-  <string name="playOfflineComputer">Rekenaar</string>
   <string name="opponent">Opponent</string>
   <string name="learnMenu">Verryking</string>
   <string name="studyMenu">Studies</string>
@@ -561,16 +527,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="community">Gemeenskap</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Inkrement</string>
-  <string name="sharePGN">Deel PGN</string>
-  <string name="playOnline">Speel aanlyn</string>
-  <string name="playOffline">Speel vanlyn</string>
-  <string name="allowAnalytics">Laat anonieme statistieke toe</string>
-  <string name="shareGameURL">Deel spel URL</string>
   <string name="error.required">Dié veld word vereis</string>
-  <string name="error.email">Dié e-pos address is ongeldig</string>
-  <string name="error.email_acceptable">Dié e-pos address is onaanvaarbaar</string>
-  <string name="error.email_unique">Dié e-pos address is reeds geneem</string>
-  <string name="error.email_different">Hierdie is reeds jou e-pos adres</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
@@ -617,7 +574,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="simulHostExtraTime">Gasheer ekstra kloktyd</string>
   <string name="lichessTournaments">Lichess toernooie</string>
   <string name="tournamentFAQ">Arena toernooi Vrae</string>
-  <string name="tournamentOfficial">Amptelik</string>
   <string name="timeBeforeTournamentStarts">Tydsduur tot aanvang van toernooi</string>
   <string name="averageCentipawnLoss">Gemiddelde sentipion verlies</string>
   <string name="keyboardShortcuts">Sleutelbord kortpaaie</string>
@@ -655,7 +611,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
   <string name="downloadRaw">Laai rou af</string>
   <string name="downloadImported">Aflaai ingevoer</string>
-  <string name="printFriendlyPDF">Druk-vriendelike PDF</string>
   <string name="crosstable">Kruistabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Jy kan ook blaai oor die bord om te beweeg in die spel.</string>
   <string name="analysisShapesHowTo">Druk shift+klik of regs-kliek om sirkels en pyle te trek op die bord.</string>
@@ -664,7 +619,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="withNobody">Met niemand</string>
   <string name="withFriends">Met vriende</string>
   <string name="withEverybody">Met almal</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Jy het reeds die e-pos geregistreer:%s</string>
   <string name="kidMode">Kinder mode</string>
   <string name="kidModeExplanation">Hierdie gaan oor veiligheid. In kindermodus, alle webwerf kommunikasie word afgeskakel. Skakel dit aan vir jou kinders en skoliere, om hulle te beskerm teen ander internet gebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindermodus kry die Lichess handelsmerk \'n %s ikoon, sodat jy weet jou kinders is veilig.</string>
@@ -692,7 +646,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="xHostsY">%1$s bied %2$s aan</string>
   <string name="xJoinsY">%1$s sluit by %2$s aan</string>
   <string name="xLikesY">%1$s hou van %2$s</string>
-  <string name="xCreatesStudyY">%1$s skep studie genaamd %2$s</string>
   <string name="quickPairing">Vinnige plasing</string>
   <string name="lobby">Ontvangs</string>
   <string name="anonymous">Anoniem</string>
@@ -713,17 +666,11 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="usernameSuffixInvalid">Die gebruikersnaam moet met \'n letter of nommer eindig.</string>
   <string name="usernameCharsInvalid">Die gebruikersnaam mag net letters, nommers, onderstrepings en koppeltekens bevat.</string>
   <string name="usernameUnacceptable">Hierdie gebruikersnaam is nie aanvaarbaar nie.</string>
-  <string name="directlySupportLichess">Ondersteun Lichess direk</string>
   <string name="playChessInStyle">Speel skaak in styl</string>
   <string name="chessBasics">Grondbeginsels</string>
   <string name="coaches">Afrigters</string>
   <string name="invalidPgn">Ongeldige PGN</string>
   <string name="invalidFen">Ongeldige FEN</string>
-  <string name="error.minLength">Minimum lengte is %s</string>
-  <string name="error.maxLength">Maximum lengte is %s</string>
-  <string name="error.min">Moet groter of gelykaan %s wees</string>
-  <string name="error.max">Moet kleiner of gelykaan %s wees</string>
-  <string name="error.unknown">Oepsie</string>
   <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
   <string name="perfRatingX">Gradering: %s</string>

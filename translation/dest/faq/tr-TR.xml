@@ -63,7 +63,6 @@ Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
 
 Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</string>
   <string name="goodIntroduction">güzel bir açıklama</string>
-  <string name="officialRulesPDF">resmî kurallar (PDF)</string>
   <string name="lichessTraining">Lichess egzersizlerine</string>
   <string name="threefoldRepetition">Üç konum tekrarı</string>
   <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>

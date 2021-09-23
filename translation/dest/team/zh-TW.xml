@@ -14,7 +14,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">隊長</item>
   </plurals>
-  <string name="teamBestPlayers">最佳棋手</string>
   <string name="teamRecentMembers">新成員</string>
   <string name="kickSomeone">踢除團隊裡的指定玩家</string>
   <string name="whoToKick">您想要踢除在團隊裡的哪一位玩家?</string>

@@ -20,7 +20,6 @@
     <item quantity="few">Vođe tima</item>
     <item quantity="other">Vođe tima</item>
   </plurals>
-  <string name="teamBestPlayers">Najbolji igrači tima</string>
   <string name="teamRecentMembers">Nedavni članovi tima</string>
   <string name="kickSomeone">Izbaci nekoga iz tima</string>
   <string name="whoToKick">Koga želiš izbaciti iz tima?</string>

@@ -20,7 +20,6 @@
     <item quantity="many">מובילי הקבוצה</item>
     <item quantity="other">מובילי הקבוצה</item>
   </plurals>
-  <string name="teamBestPlayers">השחקנים הטובים ביותר של הקבוצה</string>
   <string name="teamRecentMembers">השחקנים האחרונים שהצטרפו לקבוצה</string>
   <string name="kickSomeone">הסר מישהו מהקבוצה</string>
   <string name="whoToKick">את מי אתה רוצה להסיר מהקבוצה?</string>

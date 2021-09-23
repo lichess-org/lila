@@ -88,8 +88,6 @@ Il più vicino a un Round Robin cui ci si possa avvicinare online è giocare un 
   <string name="pairingSystemArena">Ogni rivale disponibile con livello simile</string>
   <string name="pairingSystemSwiss">Miglior abbinamento basato sui punti e i tie break</string>
   <string name="pairingWaitTime">Tempo d\'attesa dell\'abbinamento</string>
-  <string name="pairingWaitTimeFast">Veloce: non attendere tutti i giocatori</string>
-  <string name="pairingWaitTimeSlow">Lento: attendi tutti i giocatori</string>
   <string name="identicalPairing">Abbinamento identico</string>
   <string name="possibleButNotConsecutive">Possibile, ma non consecutivo</string>
   <string name="identicalForbidden">Proibito</string>

@@ -22,7 +22,6 @@
     <item quantity="many">Vedoucí týmu</item>
     <item quantity="other">Vedoucí týmu</item>
   </plurals>
-  <string name="teamBestPlayers">Nejlepší hráči týmu</string>
   <string name="teamRecentMembers">Nedávní členové týmu</string>
   <string name="kickSomeone">Vyřadit někoho z týmu</string>
   <string name="whoToKick">Koho chcete vyřadit z týmu?</string>

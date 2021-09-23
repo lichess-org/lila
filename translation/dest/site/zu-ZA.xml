@@ -11,7 +11,6 @@
   <string name="level">Izinga</string>
   <string name="strength">Amandla</string>
   <string name="toggleTheChat">Guqula ingxoxo</string>
-  <string name="toggleSound">Shintsha umsindo</string>
   <string name="chat">Ingxoxo</string>
   <string name="resign">Yeka</string>
   <string name="checkmate">Mui_season_name_76</string>
@@ -35,7 +34,6 @@
   <string name="whitePlays">Mhlophe ukuze udlale</string>
   <string name="blackPlays">Okumnyama ukudlala</string>
   <string name="opponentLeftChoices">Omunye umdlali kungenzeka ukuthi ushiye lo mdlalo. Ungacela ukunqoba, shayela umdlalo umdwebo, noma ulinde.</string>
-  <string name="makeYourOpponentResign">Yenza umphikisi wakho ashiye</string>
   <string name="forceResignation">Imangalo yokunqoba</string>
   <string name="forceDraw">Dweba ucingo</string>
   <string name="talkInChat">Sicela ujabule engxoxweni!</string>
@@ -44,9 +42,6 @@
   <string name="blackResigned">Okumnyama kususwe</string>
   <string name="whiteLeftTheGame">Umhlophe ushiye umdlalo</string>
   <string name="blackLeftTheGame">Omnyama ushiye umdlalo</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Yabelana ngale URL ukuze ababukeli babone umdlalo</string>
-  <string name="theComputerAnalysisHasFailed">Ukuhlaziywa kwekhompuyutha kuhlulekile</string>
-  <string name="viewTheComputerAnalysis">Buka ukuhlaziywa kwekhompyutha</string>
   <string name="requestAComputerAnalysis">Cela ukuhlaziywa kwekhompyutha</string>
   <string name="computerAnalysis">Ukuhlaziywa kwekhompyutha</string>
   <string name="computerAnalysisAvailable">Ukuhlaziywa kwekhompyutha kuyatholakala</string>
@@ -184,7 +179,6 @@
   <string name="whiteTimeOut">Isikhathi siphelili elimhlophe</string>
   <string name="blackTimeOut">Isikhathi siphelili mnyama</string>
   <string name="drawOfferSent">Dweba okunikezwayo kuthunyelwe</string>
-  <string name="drawOfferDeclined">Ukunikezwa komdwebo kunqatshiwe</string>
   <string name="drawOfferAccepted">Dweba okunikezwayo okwamukelwe</string>
   <string name="drawOfferCanceled">Dweba ukunikezwa kukhanseliwe</string>
   <string name="whiteOffersDraw">White unikeza ukudweba</string>
@@ -210,8 +204,6 @@
   <string name="thisGameIsRated">Kukalwe lo mdlalo</string>
   <string name="rematch">Phinda ubuke</string>
   <string name="rematchOfferSent">Ukuphinda kunikezwe kuthunyelwe</string>
-  <string name="rematchOfferSentWhite">I-White inikeza ukuphinda uyiqonde</string>
-  <string name="rematchOfferSentBlack">Okumnyama kunikeza ukuphinda uphinde</string>
   <string name="rematchOfferAccepted">Ukuphinda kunikezwe kwamukelwe</string>
   <string name="rematchOfferCanceled">Ukuphinda okunikezwayo kukhanseliwe</string>
   <string name="rematchOfferDeclined">Ukunikezwa okuphindwayo kunqatshiwe</string>
@@ -225,9 +217,7 @@
   <string name="youHaveBeenTimedOut">Uphelelwe isikhathi.</string>
   <string name="spectatorRoom">Igumbi lokubuka</string>
   <string name="composeMessage">Qamba umyalezo</string>
-  <string name="noNewMessages">Ayikho imilayezo emisha</string>
   <string name="subject">Isihloko</string>
-  <string name="recipient">Umamukeli</string>
   <string name="send">Thumela</string>
   <string name="incrementInSeconds">Ukwanda ngamasekhondi</string>
   <string name="freeOnlineChess">I-Chess Yamahhala e-Inthanethi</string>

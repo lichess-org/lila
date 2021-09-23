@@ -19,7 +19,6 @@
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
   </plurals>
-  <string name="teamBestPlayers">Best players</string>
   <string name="teamRecentMembers">Recent members</string>
   <string name="kickSomeone">Kick someone out of the team</string>
   <string name="whoToKick">Who do you want to kick out of the team?</string>
@@ -53,5 +52,5 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTourns">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Declined Requests</string>
+  <string name="declinedRequests">Declined Requests</string>
 </resources>

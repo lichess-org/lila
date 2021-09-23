@@ -48,11 +48,5 @@ Zure emanaldia ingelesez bada, ez duzu zertan hizkuntza etiketa gehitu.</string>
   <string name="xStreamerPicture">%s streamerraren argazkiak</string>
   <string name="changePicture">Zure argazkiak aldatu/ezabatu</string>
   <string name="uploadPicture">Argazkia kargatu</string>
-  <string name="deletePicture">Argazkia ezabatu</string>
   <string name="maxSize">Gehienezko tamaina: %s</string>
-  <string name="installBlocker">Malware blokeatzailea instalatu!</string>
-  <string name="beSafe">Twitch eta YouTuben dauden
-iragarki eta trackerrengandik babestu.
-Lichessek uBlock Origin erabiltzea
-gomendatzen dizu, doakoa eta librea da.</string>
 </resources>

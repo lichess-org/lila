@@ -19,7 +19,6 @@
     <item quantity="one">Taldearen kapitaina</item>
     <item quantity="other">Taldearen kapitainak</item>
   </plurals>
-  <string name="teamBestPlayers">Jokalari onenak</string>
   <string name="teamRecentMembers">Kide berriak</string>
   <string name="kickSomeone">Norbait taldetik bota</string>
   <string name="whoToKick">Nor nahi duzu taldetik bota?</string>

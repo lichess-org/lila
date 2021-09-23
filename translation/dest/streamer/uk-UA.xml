@@ -51,11 +51,5 @@
   <string name="xStreamerPicture">%s зображення стрімера</string>
   <string name="changePicture">Змінити/видалити своє зображення</string>
   <string name="uploadPicture">Завантажити зображення</string>
-  <string name="deletePicture">Видалити зображення</string>
   <string name="maxSize">Максимальний розмір: %s</string>
-  <string name="installBlocker">Встановіть блокувальник зловмисних програм!</string>
-  <string name="beSafe">Будьте в безпеці від реклами і трекерів,
-якими наповнені Twitch і YouTube.
-Lichess рекомендує uBlock Origin,
-який є безкоштовним і має відкритий код.</string>
 </resources>

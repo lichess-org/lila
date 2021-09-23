@@ -10,7 +10,6 @@
   <string name="level">پلە</string>
   <string name="strength">هێز</string>
   <string name="toggleTheChat">چەسپاندنی چاتەکە</string>
-  <string name="toggleSound">چەسپاندنی دەنگەکە</string>
   <string name="chat">دەمەتەقێ</string>
   <string name="resign">خۆبەدەستەوەدان</string>
   <string name="checkmate">کش مات</string>
@@ -34,7 +33,6 @@
   <string name="whitePlays">یاری بە داشە سپیەکه بکه</string>
   <string name="blackPlays">یاری بە داشە ڕەشەکە بکە</string>
   <string name="opponentLeftChoices">لایەنی بەرامبەر چووە دەرەوە لە یارییەکە. دەتوانی ببی بە براوە یان یەکسان بوون هەڵبژێری, یاخود چاوەڕێ بیت.</string>
-  <string name="makeYourOpponentResign">وا لە ڕکابەرەکەت بکه دەست هەڵبگرێت</string>
   <string name="forceResignation">بردنەوە بە دەست بێنە</string>
   <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
   <string name="talkInChat">تکایە بەرێزەوە دەمەتەقێ بکە!</string>
@@ -43,9 +41,6 @@
   <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
   <string name="whiteLeftTheGame">سپی وازیهێنا لە یاریکردن</string>
   <string name="blackLeftTheGame">ڕەش وازیهێنا لە یاریکردن</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ئەم لینکە بڵاو بکەوە بۆ ئەوەی بینەران چاودێری یاریەکە بن</string>
-  <string name="theComputerAnalysisHasFailed">شیکردنەوەی کۆمپیوتەری سەرکەوتوو نەبوو</string>
-  <string name="viewTheComputerAnalysis">پشاندانی شیکاری کۆمپیوتەری</string>
   <string name="requestAComputerAnalysis">داواکردنی شیکاری کۆمپیوتەری</string>
   <string name="computerAnalysis">شیکاری کۆمپیوتەری</string>
   <string name="computerAnalysisAvailable">شیکاری کۆمپیوتەری بەردەستە</string>

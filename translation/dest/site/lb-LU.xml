@@ -11,7 +11,6 @@
   <string name="level">Level</string>
   <string name="strength">Stäerkt</string>
   <string name="toggleTheChat">Chat uweisen/ausblenden</string>
-  <string name="toggleSound">Toun umaachen/ausmaachen</string>
   <string name="chat">So eppes</string>
   <string name="resign">Opginn</string>
   <string name="checkmate">Schachmatt</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Däin Géigner huet d\'Partie verlooss. Du kanns an %s Sekonnen d\'Victoire reklaméieren.</item>
   </plurals>
   <string name="opponentLeftChoices">Däin Géigner huet d\'Partie verlooss. Du kanns d\'Victoire reklaméieren, Remis erklären, oder waarden.</string>
-  <string name="makeYourOpponentResign">Forcéier däin Géigner opzegin</string>
   <string name="forceResignation">Victoire reklaméieren</string>
   <string name="forceDraw">Remis erklären</string>
   <string name="talkInChat">Wannechgelift sief frëndlech am Chat!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Schwaarz huet d\'Partie verlooss</string>
   <string name="whiteDidntMove">Wäiss huet net gezunn</string>
   <string name="blackDidntMove">Schwaarz huet net gezunn</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deelt dës URL fir Spectateuren ze invitéieren</string>
-  <string name="theComputerAnalysisHasFailed">D\'Computer Analyse huet net fonctionéiert</string>
-  <string name="viewTheComputerAnalysis">D\'Computer Analyse ukucken</string>
   <string name="requestAComputerAnalysis">Eng Computer Analyse ufroen</string>
   <string name="computerAnalysis">Computer Analyse</string>
   <string name="computerAnalysisAvailable">Computer Analyse disponibel</string>
@@ -219,7 +214,6 @@
   <string name="whiteTimeOut">Zäitiwwerschreidung vun Wäiss</string>
   <string name="blackTimeOut">Zäitiwwerschreidung vun Schwaarz</string>
   <string name="drawOfferSent">Remis Offer geschéckt</string>
-  <string name="drawOfferDeclined">Remis Offer ofgeleent</string>
   <string name="drawOfferAccepted">Remis Offer ugeholl</string>
   <string name="drawOfferCanceled">Remis Offer annuléiert</string>
   <string name="whiteOffersDraw">Wäiss bitt Remis un</string>
@@ -245,8 +239,6 @@
   <string name="thisGameIsRated">Dës Partie ass gewäert</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Revanche Offer geschéckt</string>
-  <string name="rematchOfferSentWhite">Wäiss bitt Revanche un</string>
-  <string name="rematchOfferSentBlack">Schwaarz bitt Revanche un</string>
   <string name="rematchOfferAccepted">Revanche Offer ugeholl</string>
   <string name="rematchOfferCanceled">Revanche Offer annuléiert</string>
   <string name="rematchOfferDeclined">Revanche Offer ofgeleent</string>
@@ -260,9 +252,7 @@
   <string name="youHaveBeenTimedOut">Du krus eng Auszeit.</string>
   <string name="spectatorRoom">Spectateur Raum</string>
   <string name="composeMessage">Message schreiwen</string>
-  <string name="noNewMessages">Keng nei Messagen</string>
   <string name="subject">Betreff</string>
-  <string name="recipient">Empfänger</string>
   <string name="send">Schécken</string>
   <string name="incrementInSeconds">Inkrement an Sekonnen</string>
   <string name="freeOnlineChess">Gratis Online Schach</string>
@@ -375,8 +365,6 @@
     <item quantity="one">%s Frënd online</item>
     <item quantity="other">%s Frënn online</item>
   </plurals>
-  <string name="noFriendsOnline">Keng Frënn online</string>
-  <string name="findFriends">Fann Frënn</string>
   <string name="favoriteOpponents">Lieblingsgéigner</string>
   <string name="follow">Followen</string>
   <string name="following">Folgend</string>
@@ -427,7 +415,6 @@
   <string name="points">Punkten</string>
   <string name="wins">Victoiren</string>
   <string name="losses">Defaiten</string>
-  <string name="winStreak">Erfollegsserie</string>
   <string name="createdBy">Kreéiert vum</string>
   <string name="tournamentIsStarting">Den Turnéier geet lass</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
@@ -443,7 +430,6 @@
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
-  <string name="membersOnly">Just Memberen</string>
   <string name="boardEditor">Briet Editor</string>
   <string name="setTheBoard">Briet opbauen</string>
   <string name="popularOpenings">Beléift Eröffnungen</string>
@@ -451,7 +437,6 @@
   <string name="chess960StartPosition">Chess960 Start Positioun: %s</string>
   <string name="startPosition">Start Positioun</string>
   <string name="clearBoard">Briet opraumen</string>
-  <string name="savePosition">Positioun späicheren</string>
   <string name="loadPosition">Positioun lueden</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">%s den Moderatoren mellen</string>
@@ -468,10 +453,8 @@
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="inlineNotation">Inline-Notatioun</string>
-  <string name="watchLichessTV">Lichess TV ukucken</string>
   <string name="previouslyOnLichessTV">Virdrun op Lichess TV</string>
   <string name="onlinePlayers">Online Spiller</string>
-  <string name="activeToday">Haut aktiv</string>
   <string name="activePlayers">Aktiv Spiller</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pass op, d\'Partie ass gewäert mee huet keng Auer!</string>
   <string name="success">Succès</string>
@@ -482,7 +465,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatesch bei déi nächst Partie goen nom Zéien</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="latestUpdates">Lescht Updates</string>
   <string name="tournamentWinners">Turnéier Gewënner</string>
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
@@ -514,9 +496,7 @@
   <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>
   <string name="by">vum %s</string>
   <string name="thisTopicIsNowClosed">Dësen Thema ass elo zou.</string>
-  <string name="theming">Design</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Froen &amp; Äntweren</string>
   <string name="notes">Notten</string>
   <string name="typePrivateNotesHere">Schreiw hei deng privat Notten</string>
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
@@ -545,13 +525,7 @@
   <string name="onSlowGames">An luesen Partien</string>
   <string name="always">Ëmmer</string>
   <string name="never">Nie</string>
-  <string name="difficultyEasy">Einfach</string>
-  <string name="difficultyNormal">Normal</string>
-  <string name="difficultyHard">Schwéier</string>
   <string name="xCompetesInY">%1$s hëlt deel bei %2$s</string>
-  <string name="xAskedY">%1$s freet %2$s</string>
-  <string name="xAnsweredY">%1$s äntwert %2$s</string>
-  <string name="xCommentedY">%1$s kommentéiert %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Defaite</string>
   <string name="victoryVsYInZ">%1$s vs %2$s an %3$s</string>
@@ -560,7 +534,6 @@
   <string name="timeline">Verlaf</string>
   <string name="starting">Start:</string>
   <string name="allInformationIsPublicAndOptional">All Infourmatioun ass ëffentlech an optional.</string>
-  <string name="yourCityRegionOrDepartment">Deng Stad, Regioun, oder Provënz.</string>
   <string name="biographyDescription">Erziehl eppes iwer dech, deng Interessen, wat dir um Schach gefällt, deng Lieblingseröffnungen oder -spiller, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s Buschtaw.</item>
@@ -575,13 +548,6 @@
   <string name="computer">Computer</string>
   <string name="side">Säit</string>
   <string name="clock">Auer</string>
-  <string name="unauthorizedError">Accès net autoriséiert.</string>
-  <string name="noInternetConnection">Keng Internetverbindung. Du kanns emmer nach offline vum Menü aus spillen.</string>
-  <string name="connectedToLichess">Du verbënns dech mat lichess.org</string>
-  <string name="signedOut">Du goufs ofgemellt</string>
-  <string name="loginSuccessful">Du bass elo ugemellt</string>
-  <string name="playOnTheBoardOffline">Lokal Partie</string>
-  <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Géigner</string>
   <string name="learnMenu">Léieren</string>
   <string name="studyMenu">Léieren</string>
@@ -589,16 +555,7 @@
   <string name="community">Gemeinschaft</string>
   <string name="tools">Tools</string>
   <string name="increment">Inkrement</string>
-  <string name="sharePGN">PGN deelen</string>
-  <string name="playOnline">Online spillen</string>
-  <string name="playOffline">Offline spillen</string>
-  <string name="allowAnalytics">Anonym Statistiken erlaaben</string>
-  <string name="shareGameURL">URL vun der Partie deelen</string>
   <string name="error.required">Dëst Feld ass obligatoresch</string>
-  <string name="error.email">Dës Email ass ongëlteg</string>
-  <string name="error.email_acceptable">Dës Email Adress ass net akzeptabel. Iwwerpréif se wannechgelift an probéier nach eng Kéier.</string>
-  <string name="error.email_unique">Email Adress ongëlteg oder schon benotzt</string>
-  <string name="error.email_different">Dat ass schon deng Email Adress</string>
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
   <string name="onlyFriends">Just Frënn</string>
@@ -646,7 +603,6 @@
   <string name="simulHostExtraTime">Host extra Zäit</string>
   <string name="lichessTournaments">Lichess Turnéier</string>
   <string name="tournamentFAQ">Arena Turnéier FAQ</string>
-  <string name="tournamentOfficial">Offiziell</string>
   <string name="timeBeforeTournamentStarts">Zäit bis den Turnéier ufänkt</string>
   <string name="averageCentipawnLoss">Ø-Verloscht vun 1/100-Bauer p. Zuch</string>
   <string name="keyboardShortcuts">Tastaturkürzel</string>
@@ -684,7 +640,6 @@
   <string name="downloadAnnotated">Download kommentéiert</string>
   <string name="downloadRaw">Download onkommentéiert</string>
   <string name="downloadImported">Importéiert Partie eroflueden</string>
-  <string name="printFriendlyPDF">Drockfrëndlechen PDF</string>
   <string name="crosstable">Matchverlaf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kanns och um Briet scrollen fir duerch d\'Partie ze goen.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll iwwer Computer Varianten fir eng Virschau ze kréien.</string>
@@ -695,7 +650,6 @@
   <string name="withNobody">Mat kengem</string>
   <string name="withFriends">Mat Frënn</string>
   <string name="withEverybody">Mat jidderengem</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">D\'Email %s ass schon registréiert</string>
   <string name="kidMode">Kannermodus</string>
   <string name="kidModeExplanation">Eng Sécherheetsastellung. Am Kannermodus sin all Kommunikatiounsweeër blockéiert. Aktivéier dës Optioun fir Kanner an Schüler virun Internetbenotzer ze schützen.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Am Kannermodus huet den Lichess logo en %s Icon, sou weess du dass däin Kand sécher ass.</string>
@@ -724,7 +678,6 @@
   <string name="xHostsY">%1$s huet %2$s kreéiert</string>
   <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
-  <string name="xCreatesStudyY">%1$s huet Etüd %2$s kreéiert</string>
   <string name="quickPairing">Schnell Paarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
@@ -745,17 +698,11 @@
   <string name="usernameSuffixInvalid">De Benotzernumm muss mat engem Buschtaf oder enger Zuel ophalen.</string>
   <string name="usernameCharsInvalid">De Benotzernumm däerf just Buschtawen, Zuelen, Ënner- an Bindestricher enthalen. Konsekutiv Ënner- an Bindestricher sinn net erlaabt.</string>
   <string name="usernameUnacceptable">Dësen Benotzernumm ass net akzeptabel.</string>
-  <string name="directlySupportLichess">Lichess direkt ennerstëtzen</string>
   <string name="playChessInStyle">Mat Style Schach spillen</string>
   <string name="chessBasics">Schach Grondlagen</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Ongëlteg PGN</string>
   <string name="invalidFen">Ongëlteg FEN</string>
-  <string name="error.minLength">Mindestens %s Zeechen</string>
-  <string name="error.maxLength">Maximal %s Zeechen</string>
-  <string name="error.min">Muss mindestens %s sinn</string>
-  <string name="error.max">Däerf maximal %s sinn</string>
-  <string name="error.unknown">Feeler</string>
   <string name="custom">Personaliséiert</string>
   <string name="notifications">Notificatiounen</string>
   <string name="perfRatingX">Wäertung: %s</string>

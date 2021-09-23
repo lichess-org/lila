@@ -11,7 +11,6 @@
   <string name="level">רמה</string>
   <string name="strength">רמת קושי</string>
   <string name="toggleTheChat">הפעל/כבה את הצ\'אט</string>
-  <string name="toggleSound">הפעל/כבה צלילים</string>
   <string name="chat">צ\'אט</string>
   <string name="resign">פרוש</string>
   <string name="checkmate">מט</string>
@@ -42,7 +41,6 @@
     <item quantity="other">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
   </plurals>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
-  <string name="makeYourOpponentResign">הכרז על ניצחון</string>
   <string name="forceResignation">קח את הניצחון</string>
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
@@ -51,9 +49,6 @@
   <string name="blackResigned">השחור פרש</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
   <string name="blackLeftTheGame">השחור עזב את המשחק</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">שתף כתובת זו כדי לאפשר לצופים לראות את המשחק</string>
-  <string name="theComputerAnalysisHasFailed">הניתוח הממוחשב נכשל</string>
-  <string name="viewTheComputerAnalysis">צפה בניתוח הממוחשב</string>
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
@@ -235,7 +230,6 @@
   <string name="whiteTimeOut">נגמר הזמן ללבן</string>
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
-  <string name="drawOfferDeclined">הצעת התיקו נדחתה</string>
   <string name="drawOfferAccepted">הצעת התיקו התקבלה</string>
   <string name="drawOfferCanceled">הצעת התיקו בוטלה</string>
   <string name="whiteOffersDraw">לבן מציע תיקו</string>
@@ -261,8 +255,6 @@
   <string name="thisGameIsRated">משחק זה מדורג</string>
   <string name="rematch">משחק חוזר</string>
   <string name="rematchOfferSent">הצעה למשחק חוזר נשלחה</string>
-  <string name="rematchOfferSentWhite">לבן מציע משחק חוזר</string>
-  <string name="rematchOfferSentBlack">שחור מציע משחק חוזר</string>
   <string name="rematchOfferAccepted">הצעה למשחק חוזר התקבלה</string>
   <string name="rematchOfferCanceled">בקשת משחק חוזר בוטלה</string>
   <string name="rematchOfferDeclined">בקשת משחק חוזר נדחתה</string>
@@ -276,9 +268,7 @@
   <string name="youHaveBeenTimedOut">עבר הזמן הקצוב והתנתקת.</string>
   <string name="spectatorRoom">חדר צופים</string>
   <string name="composeMessage">כתוב הודעה</string>
-  <string name="noNewMessages">אין הודעות כרגע</string>
   <string name="subject">נושא</string>
-  <string name="recipient">נמען</string>
   <string name="send">שלח</string>
   <string name="incrementInSeconds">תוספת בשניות</string>
   <string name="freeOnlineChess">שחמט חינמי ברשת</string>
@@ -419,8 +409,6 @@
     <item quantity="many">%s חברים מחוברים</item>
     <item quantity="other">%s חברים מחוברים</item>
   </plurals>
-  <string name="noFriendsOnline">אין חברים מחוברים</string>
-  <string name="findFriends">מצא חברים</string>
   <string name="favoriteOpponents">יריבים מועדפים</string>
   <string name="follow">עקוב</string>
   <string name="following">עוקבים</string>
@@ -475,7 +463,6 @@
   <string name="points">נקודות</string>
   <string name="wins">ניצחונות</string>
   <string name="losses">הפסדים</string>
-  <string name="winStreak">רצף נצחונות</string>
   <string name="createdBy">נוצר ע\"י</string>
   <string name="tournamentIsStarting">הטורניר מתחיל</string>
   <string name="tournamentPairingsAreNowClosed">התאמת זוגות בטורניר הסתיימה.</string>
@@ -491,13 +478,11 @@
   <string name="draws">תוצאות תיקו</string>
   <string name="nextXTournament">טורניר ה%s הבא:</string>
   <string name="averageOpponent">יריב ממוצע</string>
-  <string name="membersOnly">לרשומים בלבד</string>
   <string name="boardEditor">עריכת לוח</string>
   <string name="setTheBoard">הכן את הלוח</string>
   <string name="popularOpenings">פתיחות פופולריות</string>
   <string name="startPosition">מצב התחלתי</string>
   <string name="clearBoard">נקה לוח</string>
-  <string name="savePosition">שמור מצב</string>
   <string name="loadPosition">טען מיקום</string>
   <string name="isPrivate">פרטי</string>
   <string name="reportXToModerators">%s דווח למנהלים על</string>
@@ -514,10 +499,8 @@
   <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
-  <string name="watchLichessTV">צפה בטלוויזיה של ליצ\'ס TV</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
-  <string name="activeToday">הכי פעילים היום</string>
   <string name="activePlayers">הכי פעילים</string>
   <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
   <string name="success">הצלחה</string>
@@ -530,7 +513,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">המשך אוטומטית למשחק הבא אחרי מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
   <string name="puzzles">חידות</string>
-  <string name="latestUpdates">עדכונים אחרונים</string>
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="name">שם</string>
   <string name="description">תיאור</string>
@@ -562,9 +544,7 @@
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על-ידי %s</string>
   <string name="thisTopicIsNowClosed">הנושא סגור עכשיו</string>
-  <string name="theming">הופעה</string>
   <string name="blog">בלוג</string>
-  <string name="questionsAndAnswers">שאלות ותשובות</string>
   <string name="notes">הערות</string>
   <string name="typePrivateNotesHere">הכנס הערות פרטיות כאן</string>
   <string name="invalidUsernameOrPassword">שגיאה בשם משתמש או בסיסמא</string>
@@ -593,13 +573,7 @@
   <string name="onSlowGames">במשחקים איטיים</string>
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>
-  <string name="difficultyEasy">קל</string>
-  <string name="difficultyNormal">רגיל</string>
-  <string name="difficultyHard">קשה</string>
   <string name="xCompetesInY">%1$s משחק ב-%2$s</string>
-  <string name="xAskedY">%1$s שאל %2$s</string>
-  <string name="xAnsweredY">%1$s עלה על %2$s</string>
-  <string name="xCommentedY">%1$s כתב %2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
   <string name="victoryVsYInZ">%1$s נגד %2$s
@@ -611,7 +585,6 @@
   <string name="timeline">ציר הזמן</string>
   <string name="starting">מתחיל:</string>
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>
-  <string name="yourCityRegionOrDepartment">העיר, האזור,המדינה, או המחוז שלך</string>
   <string name="biographyDescription">ספר/י על עצמך, מה את/ה אוהב/ת בשחמט, הפתיחה המועדפת עליך, משחקים, שחקנים…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">מספר תווים מירבי: %s</item>
@@ -630,13 +603,6 @@
   <string name="computer">מחשב</string>
   <string name="side">צד</string>
   <string name="clock">שעון</string>
-  <string name="unauthorizedError">גישה לא מורשה</string>
-  <string name="noInternetConnection">אין חיבור לאינטרנט. ניתן עדיין לשחק דרך התפריט.</string>
-  <string name="connectedToLichess">התחברת ל-lichess.org</string>
-  <string name="signedOut">יצאת</string>
-  <string name="loginSuccessful">נכנסת</string>
-  <string name="playOnTheBoardOffline">מעל הלוח</string>
-  <string name="playOfflineComputer">מחשב</string>
   <string name="opponent">יריב</string>
   <string name="learnMenu">למד</string>
   <string name="studyMenu">לימודים</string>
@@ -644,16 +610,7 @@
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>
-  <string name="sharePGN">שתף PGN</string>
-  <string name="playOnline">משחק רשת</string>
-  <string name="playOffline">משחק מקומי</string>
-  <string name="allowAnalytics">אפשר דגימה אנונימית</string>
-  <string name="shareGameURL">URL שתף</string>
   <string name="error.required">שדה חובה</string>
-  <string name="error.email">כתובת דוא״ל זו אינה תקינה</string>
-  <string name="error.email_acceptable">כתובת המייל אינה קבילה</string>
-  <string name="error.email_unique">כתובת דוא״ל זו כבר תפוסה</string>
-  <string name="error.email_different">זאת כתובת הדוא״ל שלך כבר</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
@@ -703,7 +660,6 @@
   <string name="simulHostExtraTime">זמן נוסף למארח</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי זירת הטורנירים</string>
-  <string name="tournamentOfficial">רשמי</string>
   <string name="timeBeforeTournamentStarts">זמן לפני שהטורניר מתחיל</string>
   <string name="averageCentipawnLoss">אובדן מאית חייל ממוצעת</string>
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
@@ -743,7 +699,6 @@
   <string name="downloadAnnotated">להוריד עם פרשנויות</string>
   <string name="downloadRaw">להוריד בלי פרשנויות</string>
   <string name="downloadImported">להוריד את המקור</string>
-  <string name="printFriendlyPDF">PDF להוריד</string>
   <string name="crosstable">חשבון נקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול בכדי להתקדם במשחק.</string>
   <string name="analysisShapesHowTo">הקש \"שיפט\" ולחץ מקש עכבר שמאלי או לחץ מקש עכבר ימני כדי לצייר חצים ועיגולים על הלוח.</string>
@@ -752,7 +707,6 @@
   <string name="withNobody">עם אף אחד</string>
   <string name="withFriends">עם חברים</string>
   <string name="withEverybody">עם כולם</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">אתה כבר נרשמת עם הדוא\"ל: %s</string>
   <string name="kidMode">הגדרות ילדים</string>
   <string name="kidModeExplanation">זהו נושא בטיחותי, במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעל אופציה זו עבור ילדייך ותלמידי בית ספר, זאת על מנת להגן עליהם מפני משתמשים אחרים.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'אס מקבל אייקון %s, כדי שתדע שילדייך מוגנים.</string>
@@ -782,7 +736,6 @@
   <string name="xHostsY">%1$s מארח %2$s</string>
   <string name="xJoinsY">%1$s מצטרף %2$s</string>
   <string name="xLikesY">%1$s אוהב %2$s</string>
-  <string name="xCreatesStudyY">%1$s יוצר מחקר %2$s</string>
   <string name="quickPairing">הצטרפות מהירה</string>
   <string name="lobby">לובי</string>
   <string name="anonymous">אנונימי</string>
@@ -803,17 +756,11 @@
   <string name="usernameSuffixInvalid">שם המשתמש חייב להסתיים באות או מספר.</string>
   <string name="usernameCharsInvalid">שם המשתמש חייב להכיל רק אותיות, מספרים, מקפים תחתונים ומקפים.</string>
   <string name="usernameUnacceptable">שם המשתמש הזה לא מקובל.</string>
-  <string name="directlySupportLichess">תמוך ישירות ב-Lichess</string>
   <string name="playChessInStyle">שחק שחמט בסגנון</string>
   <string name="chessBasics">יסודות השחמט</string>
   <string name="coaches">מאמנים</string>
   <string name="invalidPgn">PGN לא חוקי</string>
   <string name="invalidFen">FEN לא חוקי</string>
-  <string name="error.minLength">האורך המינימלי הוא %s</string>
-  <string name="error.maxLength">האורך המקסימלי הוא %s</string>
-  <string name="error.min">חייב להיות גדול או שווה ל%s</string>
-  <string name="error.max">חייב להיות פחות או שווה ל%s</string>
-  <string name="error.unknown">שגיאה</string>
   <string name="custom">התאמה אישית</string>
   <string name="notifications">התראות</string>
   <string name="perfRatingX">דירוג: %s</string>

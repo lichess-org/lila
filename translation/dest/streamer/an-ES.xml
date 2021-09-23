@@ -48,11 +48,5 @@ Si la tuya emisión ye en anglés, no cal que incluigas una etiqueta d\'idioma.<
   <string name="xStreamerPicture">Imachen de presentador %s</string>
   <string name="changePicture">Cambia/elimina la tuya imachen</string>
   <string name="uploadPicture">Puyar una imachen</string>
-  <string name="deletePicture">Eliminar imachen</string>
   <string name="maxSize">Grandaria maxima: %s</string>
-  <string name="installBlocker">Instala un blocador de malware!</string>
-  <string name="beSafe">Sé a resguardo d\'os anuncios y rastreadores
-que infestan Twitch y YouTube.
-Lichess recomienda uBlock Origin
-que ye gratis y de codigo ubierto.</string>
 </resources>

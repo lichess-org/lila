@@ -56,7 +56,6 @@ Siin on link klassi sisenemiseks.</string>
     <item quantity="one">Üks ootel kutse</item>
     <item quantity="other">%s ootel kutset</item>
   </plurals>
-  <string name="noPendingInvitations">Ootel kutseid pole</string>
   <string name="onlyVisibleToTeachers">Nähtav ainult klassi õpetajate poolt</string>
   <string name="lastActiveDate">Aktiivne</string>
   <string name="managed">Õnnestus</string>

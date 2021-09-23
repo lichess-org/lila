@@ -11,7 +11,6 @@
   <string name="level">Деңгей</string>
   <string name="strength">Күші</string>
   <string name="toggleTheChat">Чат батырмасы</string>
-  <string name="toggleSound">Дыбыс батырмасы</string>
   <string name="chat">Чат</string>
   <string name="resign">Берілу</string>
   <string name="checkmate">Мат</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Қарсылас ойыннан шықты. Сіз %s секундтан кейін жеңісті талап ете аласыз.</item>
   </plurals>
   <string name="opponentLeftChoices">Қарсылас ойыннан шықты. Сіз жеңісті не теңдікті талап ете аласыз, немесе күтіңіз.</string>
-  <string name="makeYourOpponentResign">Қарсылас берілді деп шешу</string>
   <string name="forceResignation">Жеңіс болсын</string>
   <string name="forceDraw">Теңдік болсын</string>
   <string name="talkInChat">Сөйлескенде, әдеп сақтаңыз!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
   <string name="whiteDidntMove">Ақтар жүрмеді</string>
   <string name="blackDidntMove">Қаралар жүрмеді</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемені жіберіңіз</string>
-  <string name="theComputerAnalysisHasFailed">Компьютерлік талдау ақауға ұшырады</string>
-  <string name="viewTheComputerAnalysis">Компьютерлік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға жіберу</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
   <string name="computerAnalysisAvailable">Компьютерлік талдау ашық</string>
@@ -216,7 +211,6 @@
   <string name="whiteTimeOut">Ақтың уақыты бітті</string>
   <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
-  <string name="drawOfferDeclined">Тепе-теңдікке келіспеді</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
   <string name="drawOfferCanceled">Тепе-теңдік сұрау тоқтатылды</string>
   <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
@@ -242,8 +236,6 @@
   <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
   <string name="rematchOfferSent">Қайта ойнау сұралуда</string>
-  <string name="rematchOfferSentWhite">Ақ қайта ойнауды сұрауда</string>
-  <string name="rematchOfferSentBlack">Қара қайта ойнауды сұрауда</string>
   <string name="rematchOfferAccepted">Қайта ойнауға келісті</string>
   <string name="rematchOfferCanceled">Қайта ойнау сұранысы тоқтатылды</string>
   <string name="rematchOfferDeclined">Қайта ойнауға келіспеді</string>
@@ -257,9 +249,7 @@
   <string name="youHaveBeenTimedOut">Сіз шектеуге шалдықтыңыз.</string>
   <string name="spectatorRoom">Көрермендер бөлмесі</string>
   <string name="composeMessage">Хат жазу</string>
-  <string name="noNewMessages">Жаңа хат жоқ</string>
   <string name="subject">Тақырып</string>
-  <string name="recipient">Алушы</string>
   <string name="send">Жіберу</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
@@ -372,8 +362,6 @@
     <item quantity="one">%s дос желіде</item>
     <item quantity="other">%s дос желіде</item>
   </plurals>
-  <string name="noFriendsOnline">Желіде достар жоқ</string>
-  <string name="findFriends">Дос табу</string>
   <string name="favoriteOpponents">Қалаулы қарсыластар</string>
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
@@ -422,7 +410,6 @@
   <string name="points">Ұпайлар</string>
   <string name="wins">Жеңіс</string>
   <string name="losses">Ұтылыс</string>
-  <string name="winStreak">Жеңістер тізбегі</string>
   <string name="createdBy">Жасаған</string>
   <string name="tournamentIsStarting">Жарыс басталуда</string>
   <string name="tournamentPairingsAreNowClosed">Жарысқа жұпталу аяқталды.</string>
@@ -438,7 +425,6 @@
   <string name="draws">Тепе-теңдік</string>
   <string name="nextXTournament">Келесі %s жарыс:</string>
   <string name="averageOpponent">Орташа қарсылас</string>
-  <string name="membersOnly">Тіркелгендер ғана</string>
   <string name="boardEditor">Еркін тақта</string>
   <string name="setTheBoard">Тақтаны орнатыңыз</string>
   <string name="popularOpenings">Танымал бастаулар</string>
@@ -446,7 +432,6 @@
   <string name="chess960StartPosition">Шахмат960 бастапқы күйі: %s</string>
   <string name="startPosition">Бастапқы күй</string>
   <string name="clearBoard">Тақтаны жинау</string>
-  <string name="savePosition">Күйді сақтау</string>
   <string name="loadPosition">Күйді жүктеп алу</string>
   <string name="isPrivate">Жасырын</string>
   <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
@@ -463,10 +448,8 @@
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
   <string name="inlineNotation">Бір жолды хаттама</string>
-  <string name="watchLichessTV">Личес TВ-ны көру</string>
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
-  <string name="activeToday">Бүгінгі белсенділер</string>
   <string name="activePlayers">Белсенділер</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
   <string name="success">Бәрі дұрыс!</string>
@@ -477,7 +460,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Жүрістен кейін келесі ойынға автоматты түрде өту</string>
   <string name="autoSwitch">Авто қосу</string>
   <string name="puzzles">Жұмбақтар</string>
-  <string name="latestUpdates">Кейінгі жаңартулар</string>
   <string name="tournamentWinners">Жарыс женімпаздары</string>
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
@@ -509,9 +491,7 @@
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
   <string name="thisTopicIsNowClosed">Бұл тақырып жабылды.</string>
-  <string name="theming">Тақырып қою</string>
   <string name="blog">Блог</string>
-  <string name="questionsAndAnswers">Сұрақ пен Жауап</string>
   <string name="notes">Жазбалар</string>
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
@@ -540,13 +520,7 @@
   <string name="onSlowGames">Ұзақ ойындар кезінде</string>
   <string name="always">Әрқашан</string>
   <string name="never">Ешқашан</string>
-  <string name="difficultyEasy">Оңай</string>
-  <string name="difficultyNormal">Қалыпты</string>
-  <string name="difficultyHard">Ауыр</string>
   <string name="xCompetesInY">%1$s %2$s-та жарысты</string>
-  <string name="xAskedY">%1$s %2$s деп сұрады</string>
-  <string name="xAnsweredY">%1$s %2$s деп жауап берді</string>
-  <string name="xCommentedY">%1$s %2$s деп пікір айтты</string>
   <string name="victory">Жеңіс</string>
   <string name="defeat">Жеңіліс</string>
   <string name="victoryVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
@@ -555,7 +529,6 @@
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
   <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет – жалпыға ашық, әрі оны көрсету – сіздің өз еркіңіз.</string>
-  <string name="yourCityRegionOrDepartment">Сіз тұратын қала, облыс немесе аймақ.</string>
   <string name="biographyDescription">Өзіңіз туралы айтып беріңізші: айналысатын істеріңіз, неге шахматпен шұғылданасыз, ұнайтын бастаулар, ойыншылар, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Ең көбі: %s таңба.</item>
@@ -570,13 +543,6 @@
   <string name="computer">Компьютер</string>
   <string name="side">Жақ</string>
   <string name="clock">Сағат-құрал</string>
-  <string name="unauthorizedError">Кіру рұқсаты жоқ.</string>
-  <string name="noInternetConnection">Интернетпен байланыс жоқ. Сіз әлі де мәзірден таңдап, оффлайн ойнай аласыз.</string>
-  <string name="connectedToLichess">Личес-ке енді қосылдыңыз</string>
-  <string name="signedOut">Сіз шықтыңыз</string>
-  <string name="loginSuccessful">Сіз кірдіңіз</string>
-  <string name="playOnTheBoardOffline">Тақтаны жаю</string>
-  <string name="playOfflineComputer">Компьютермен</string>
   <string name="opponent">Қарсылас</string>
   <string name="learnMenu">Үйрену</string>
   <string name="studyMenu">Зерттеу</string>
@@ -584,16 +550,7 @@
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
   <string name="increment">Қосылғыш</string>
-  <string name="sharePGN">PGN бөлісу</string>
-  <string name="playOnline">Онлайн ойнау</string>
-  <string name="playOffline">Оффлайн ойнау</string>
-  <string name="allowAnalytics">Жасырын статистикаға рұқсат</string>
-  <string name="shareGameURL">Ойын сілтемесімен бөлісу</string>
   <string name="error.required">Бұл жолды толтырыңыз</string>
-  <string name="error.email">Бұл пошта мекенжайы қате</string>
-  <string name="error.email_acceptable">Бұл пошта мекенжайы қолжетімсіз. Оны қайта тексеріп көріңіз.</string>
-  <string name="error.email_unique">Бұл пошта тіркелген</string>
-  <string name="error.email_different">Бұл сіздің бұрынғы поштаңыз</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
@@ -641,7 +598,6 @@
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
   <string name="lichessTournaments">Личес жарыстары</string>
   <string name="tournamentFAQ">Алаң жарысының ЖҚС</string>
-  <string name="tournamentOfficial">Ресми</string>
   <string name="timeBeforeTournamentStarts">Жарыс басталуына қалған уақыт</string>
   <string name="averageCentipawnLoss">Қателіктердің орташа мәні</string>
   <string name="keyboardShortcuts">Пернетақта пәрмендері</string>
@@ -679,7 +635,6 @@
   <string name="downloadAnnotated">Жазбасы барды алу</string>
   <string name="downloadRaw">Қарасын алу</string>
   <string name="downloadImported">Жүктеп салынғанды алу</string>
-  <string name="printFriendlyPDF">Қағазға бастыруға лайық PDF</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Компьютердің ойын тармағын көру үшін үстіне меңзер апарыңыз.</string>
@@ -690,7 +645,6 @@
   <string name="withNobody">Ешкіммен</string>
   <string name="withFriends">Достармен</string>
   <string name="withEverybody">Бәрімен</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">%s деген поштаны сіз өткенде тіркегенсіз</string>
   <string name="kidMode">Балалық нұсқа</string>
   <string name="kidModeExplanation">Бұл қауіпсіздік үшін жасалынды. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Балалар мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау мақсатында осы нұсқаны іске қосыңыз.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
@@ -719,7 +673,6 @@
   <string name="xHostsY">%1$s %2$s-ны бастады</string>
   <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
   <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
-  <string name="xCreatesStudyY">%1$s %2$s деген зерттеуді құрды</string>
   <string name="quickPairing">Дайын қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="anonymous">Аноним</string>
@@ -740,17 +693,11 @@
   <string name="usernameSuffixInvalid">Атыңыз әріп не санмен аяқталуы керек.</string>
   <string name="usernameCharsInvalid">Атты тек қана әріптер, сандар, төменгі сызықтар мен сызықтардан құрастыруға рұқсат.</string>
   <string name="usernameUnacceptable">Бұл атты қолдануға болмайды.</string>
-  <string name="directlySupportLichess">Личесті тікелей қолдау</string>
   <string name="playChessInStyle">Сәнді бола ойнаңыз</string>
   <string name="chessBasics">Шахмат әліппесі</string>
   <string name="coaches">Бапкерлер</string>
   <string name="invalidPgn">Қате PGN</string>
   <string name="invalidFen">Қате FEN</string>
-  <string name="error.minLength">Кем дегенде %s таңба керек</string>
-  <string name="error.maxLength">%s таңбадан аспаңыз</string>
-  <string name="error.min">%s мөлшерінен үлкен не тең болу керек</string>
-  <string name="error.max">%s мөлшерінен кіші не тең болу керек</string>
-  <string name="error.unknown">Қателік</string>
   <string name="custom">Қалыпты</string>
   <string name="notifications">Хабарлама</string>
   <string name="perfRatingX">Рейтинг: %s</string>

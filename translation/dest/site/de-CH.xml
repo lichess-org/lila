@@ -11,7 +11,6 @@
   <string name="level">Schtufä</string>
   <string name="strength">Schpiilstärchi</string>
   <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
-  <string name="toggleSound">Ton ii/uus schalte</string>
   <string name="chat">Tschätt</string>
   <string name="resign">Ufgää</string>
   <string name="checkmate">Schachmatt</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verloh. Du chasch de Siig beaschpruchä, es Unentschidä machä oder wartä.</string>
-  <string name="makeYourOpponentResign">Din Gägner zum Ufgää zwingä</string>
   <string name="forceResignation">Dä Siig beaschpruchä</string>
   <string name="forceDraw">Remis erchläre</string>
   <string name="talkInChat">Sig bitte fründlich im Tschätt!</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Schwarz hät d\'Partii verlaa</string>
   <string name="whiteDidntMove">Wiis hät nöt zogä</string>
   <string name="blackDidntMove">Schwarz hät nöt zogä</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teil dä URL, zum Zuäschauer zum zuäluägä iizladä</string>
-  <string name="theComputerAnalysisHasFailed">D Kompianalysä isch bachab</string>
-  <string name="viewTheComputerAnalysis">D\'Kompianalysä aaluägä</string>
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
   <string name="computerAnalysis">Kompianalysä</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
@@ -102,7 +97,7 @@
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züge durch vorherigen Fehler</string>
   <string name="lossOr50MovesByPriorMistake">Verlust oder 50 Züge durch vorherigen Fehler</string>
-  <string name="unknownDueToRounding">Gewinn/Verlust ist nur garantiert, falls die empfohlene Datenbank-Zugfolge seit dem letzten Schlag- oder Bauernzug befolgt wurde, da möglicherweise gerundet wird.</string>
+  <string name="unknownDueToRounding">Gewinn/Verlust ist nur garantiert, falls die empfohlene Datenbank-Zugfolge seit dem letzten Schlag- oder Bauernzug befolgt wurde, da möglicherweise DTZ-Werte in den Syzygy-Datenbanken gerundet sind.</string>
   <string name="allSet">Färtig!</string>
   <string name="importPgn">PGN importierä</string>
   <string name="delete">Löschä</string>
@@ -219,7 +214,6 @@
   <string name="whiteTimeOut">Ziitüberschriitig vo Wiis</string>
   <string name="blackTimeOut">Ziitüberschriitig vo Schwarz</string>
   <string name="drawOfferSent">Remisaagebot gsändät</string>
-  <string name="drawOfferDeclined">Remisaagebot abglehnt</string>
   <string name="drawOfferAccepted">Remisaagebot aagnoh</string>
   <string name="drawOfferCanceled">Remisaagebot zruggzogä</string>
   <string name="whiteOffersDraw">Wiis büütet Remis</string>
@@ -245,8 +239,6 @@
   <string name="thisGameIsRated">Das Schpiil isch gwärtät</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Aagebot zur Revanche gsändät</string>
-  <string name="rematchOfferSentWhite">Wiis bütet ä Revanche aa</string>
-  <string name="rematchOfferSentBlack">Schwarz bütet ä Revanche aa</string>
   <string name="rematchOfferAccepted">Aagebot zur Revanche isch aktzeptiärt</string>
   <string name="rematchOfferCanceled">Aagebot zur Revanche isch zruggzogä wordä</string>
   <string name="rematchOfferDeclined">Aagebot zur Revanche isch abglehnt wordä</string>
@@ -260,9 +252,7 @@
   <string name="youHaveBeenTimedOut">Du machsch etz mol Pausä.</string>
   <string name="spectatorRoom">Zuäschauärruum</string>
   <string name="composeMessage">Nochricht verfassä</string>
-  <string name="noNewMessages">Kei neui Nochrichtä</string>
   <string name="subject">Beträff</string>
-  <string name="recipient">Empfänger</string>
   <string name="send">Sändä</string>
   <string name="incrementInSeconds">Inkremänt in Sekundä</string>
   <string name="freeOnlineChess">Choschtälooses Online-Schach</string>
@@ -375,14 +365,12 @@
     <item quantity="one">%s Fründ online</item>
     <item quantity="other">%s Fründä online</item>
   </plurals>
-  <string name="noFriendsOnline">Kein Fründ online</string>
-  <string name="findFriends">Fründä findä</string>
   <string name="favoriteOpponents">Hüfigschti Gägner</string>
   <string name="follow">Folgä</string>
   <string name="following">Folg ich</string>
   <string name="unfollow">Nümä folgä</string>
-  <string name="followX">%s folgen</string>
-  <string name="unfollowX">%s nicht mehr folgen</string>
+  <string name="followX">%s folgä</string>
+  <string name="unfollowX">%s entfolgä</string>
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Nümä blockiärä</string>
@@ -427,7 +415,6 @@
   <string name="points">Pünkt</string>
   <string name="wins">Siig</string>
   <string name="losses">Niderlagä</string>
-  <string name="winStreak">Siigessträhnä</string>
   <string name="createdBy">Erschtellt vo</string>
   <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Äs wärdäd kei neui Turniärschpiil meh gschtartät.</string>
@@ -443,7 +430,6 @@
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nöchschts %s Turniär:</string>
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
-  <string name="membersOnly">Nur für Mitgliidär</string>
   <string name="boardEditor">Schtellig ufbouä</string>
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
@@ -451,7 +437,6 @@
   <string name="chess960StartPosition">Fischer Random Aafangsschtellig: %s</string>
   <string name="startPosition">Aafangsposition</string>
   <string name="clearBoard">Brätt löschä</string>
-  <string name="savePosition">Schtellig schpeichärä</string>
   <string name="loadPosition">Schtellig ladä</string>
   <string name="isPrivate">Privaat</string>
   <string name="reportXToModerators">Mäld %s dä Moderatorä</string>
@@ -468,10 +453,8 @@
   <string name="thankYou">Vilä Dank!</string>
   <string name="socialMediaLinks">Soziali-Mediä-Links</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="watchLichessTV">Lichess-TV aaluägä</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Schpiller/-innä online</string>
-  <string name="activeToday">Hüt aktiv</string>
   <string name="activePlayers">Aktivi Schpiller/-innä</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Obacht, das Schpiil isch gwärtät, hät aber keis Ziitlimit!</string>
   <string name="success">Jawoll</string>
@@ -482,7 +465,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nochämä Zug automatisch zur nöchschtä Partii goh</string>
   <string name="autoSwitch">Automatischä Wächsäl</string>
   <string name="puzzles">Ufgoobä</string>
-  <string name="latestUpdates">Neuschti Updates</string>
   <string name="tournamentWinners">Turniärsiiger</string>
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
@@ -514,9 +496,7 @@
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens ein Link zumnä Spiel aa, wo drin bschisse worde isch.</string>
   <string name="by">vo %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch gschlossä wordä.</string>
-  <string name="theming">Design</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Fragä &amp; Antwortä</string>
   <string name="notes">Notizä</string>
   <string name="typePrivateNotesHere">Privati Notizä da iigäh</string>
   <string name="invalidUsernameOrPassword">Ungültigä Benutzernamä oder Passwort</string>
@@ -545,13 +525,7 @@
   <string name="onSlowGames">Bi langsamä Partiiä</string>
   <string name="always">Schtändig</string>
   <string name="never">Niä</string>
-  <string name="difficultyEasy">Locker</string>
-  <string name="difficultyNormal">Normaal</string>
-  <string name="difficultyHard">Härt</string>
   <string name="xCompetesInY">%1$s nimmt bi %2$s teil</string>
-  <string name="xAskedY">%1$s hät %2$s gfrögt</string>
-  <string name="xAnsweredY">%1$s hät %2$s beantwortät</string>
-  <string name="xCommentedY">%1$s hät %2$s kommentiärt</string>
   <string name="victory">Siig</string>
   <string name="defeat">Niderlag</string>
   <string name="victoryVsYInZ">%1$s gäg %2$s in %3$s</string>
@@ -560,7 +534,6 @@
   <string name="timeline">Värlauf</string>
   <string name="starting">Schtartät:</string>
   <string name="allInformationIsPublicAndOptional">Alli Informationä sind öffentlich und freiwillig.</string>
-  <string name="yourCityRegionOrDepartment">Dini Stadt, Region oder Kanton.</string>
   <string name="biographyDescription">Verzell über dich, was du a Schach gärn häsch, dini Lieblingseröffnigä, Partiiä, Schpiller/-innä, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Höchschtens %s Zeichä.</item>
@@ -575,13 +548,6 @@
   <string name="computer">Kompi</string>
   <string name="side">Farb</string>
   <string name="clock">Uhr</string>
-  <string name="unauthorizedError">Zuägriff verweigärät.</string>
-  <string name="noInternetConnection">Kei Intärnet-Verbindig. Offline spielä isch möglich.</string>
-  <string name="connectedToLichess">Verbindig hergschtellt</string>
-  <string name="signedOut">Erfolgriich uusgloggt</string>
-  <string name="loginSuccessful">Du bist jetzt iigloggt</string>
-  <string name="playOnTheBoardOffline">Schpill offline gäg än Mänsch</string>
-  <string name="playOfflineComputer">Schpill offline gäg än Kompi</string>
   <string name="opponent">Gägner</string>
   <string name="learnMenu">Lärnä</string>
   <string name="studyMenu">Schtuudiä</string>
@@ -589,16 +555,7 @@
   <string name="community">Gmeinschaft</string>
   <string name="tools">Wärchzüüg</string>
   <string name="increment">Inkremänt</string>
-  <string name="sharePGN">PGN teilä</string>
-  <string name="playOnline">Online schpilä</string>
-  <string name="playOffline">Offline schpilä</string>
-  <string name="allowAnalytics">Anonymi Schtatistikä schickä</string>
-  <string name="shareGameURL">Partiä-URL teilä</string>
   <string name="error.required">Das Fäld isch Pflicht</string>
-  <string name="error.email">Diä E-Mail-Adrässä isch ungültig</string>
-  <string name="error.email_acceptable">Diä E-Mail-Adrässe wird nöd akzeptiärt. Bitte überprüäf si und probiär dänn nomol.</string>
-  <string name="error.email_unique">Diä E-Mail-Adrässe isch invalid oder scho vergäh</string>
-  <string name="error.email_different">Das isch scho dini E-Mail-Adrässä</string>
   <string name="ifRatingIsPlusMinusX">Nur, wänn d\'Wärtigszahl ± %s isch</string>
   <string name="onlyExistingConversations">Nur bestehändi Konversazionä</string>
   <string name="onlyFriends">Nur Fründä</string>
@@ -646,7 +603,6 @@
   <string name="simulHostExtraTime">Extra Bedenkziit vom Veraastalter</string>
   <string name="lichessTournaments">Lichess Turniär</string>
   <string name="tournamentFAQ">Arena FAQ</string>
-  <string name="tournamentOfficial">Offiziell</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turniär schtartät</string>
   <string name="averageCentipawnLoss">Ø-Verluscht vo Centipuurä pro Zug</string>
   <string name="keyboardShortcuts">Taschtächürzel</string>
@@ -684,7 +640,6 @@
   <string name="downloadAnnotated">Download mit Kommentär</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
   <string name="downloadImported">Importiärts Schpiil abäladä</string>
-  <string name="printFriendlyPDF">Druckfründlichs PDF</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du chasch au ufäm Brätt scrollä, zum diä Partii duräzgoh.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll über Kompivariantä, zum ä Vorschau uf si z\'ärhaltä.</string>
@@ -695,7 +650,6 @@
   <string name="withNobody">Mit niämärtäm</string>
   <string name="withFriends">Mit Fründä</string>
   <string name="withEverybody">Mit dä ganzä Wält</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Du häsch di folgände Emailadrässö scho regischtriärt: %s</string>
   <string name="kidMode">Chindermodus</string>
   <string name="kidModeExplanation">Das isch ä Sicherheitsiischtellig. Im Chindermodus sind alli Kommunikationsmöglichkeitä deaktiviärt. Aktiviär diä Option, zum Chind und Schüäler/innä vor andärnä Internetbenutzer/-innä z\'schützä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chindermodus bechunnt s\'Lichess-Logo än %s-Icon, däm du aagsehsch, dass dini Chind gschützt sind.</string>
@@ -724,7 +678,6 @@
   <string name="xHostsY">%1$s hät %2$s ärschtellt</string>
   <string name="xJoinsY">%1$s isch %2$s biiträtä</string>
   <string name="xLikesY">%1$s gfallt %2$s</string>
-  <string name="xCreatesStudyY">%1$s hät Schtuudiä %2$s ärschtellt</string>
   <string name="quickPairing">Schnälls Schpiil</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymä/-i Schpiller/-in</string>
@@ -745,17 +698,11 @@
   <string name="usernameSuffixInvalid">Dä Benutzernamä muäs mitämä Buächschtabä oder mitärä Zahl ändä.</string>
   <string name="usernameCharsInvalid">Dä Benutzernamä dörf nu Buächschtabä, Zahlä, Understrich und Bindestrich beinhaltä.</string>
   <string name="usernameUnacceptable">Dä Benutzernamä isch nöd akzeptabäl.</string>
-  <string name="directlySupportLichess">Lichess direkt underschtützä</string>
   <string name="playChessInStyle">Schachschpillä mit Style</string>
   <string name="chessBasics">Grundlagä</string>
   <string name="coaches">Trääner</string>
   <string name="invalidPgn">Fählerhafts PGN</string>
   <string name="invalidFen">FEN isch ungültig</string>
-  <string name="error.minLength">Mindeschtens %s Zeichä</string>
-  <string name="error.maxLength">Höchschtens %s Zeichä</string>
-  <string name="error.min">Muäs mindeschtens %s sii</string>
-  <string name="error.max">Dörf höchschtens %s sii</string>
-  <string name="error.unknown">Fähler</string>
   <string name="custom">Anderi Bedänkziit</string>
   <string name="notifications">Benochrichtigungä</string>
   <string name="perfRatingX">Wärtig: %s</string>

@@ -59,7 +59,6 @@
 
 Δείτε την %3$s σε αυτή την κίνηση για να εξασκηθείτε.</string>
   <string name="goodIntroduction">καλή εισαγωγή</string>
-  <string name="officialRulesPDF">επίσημοι κανόνες (PDF)</string>
   <string name="lichessTraining">εκπαίδευση του Lichess</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="threefoldRepetitionExplanation">Αν μια θέση επαναληφθεί τρεις φορές, οι παίκτες μπορούν να ισχυριστούν ισοπαλία από τον κανόνα της %1$s. Το Lichess εφαρμόζει τους επίσημους κανόνες FIDE, όπως περιγράφονται στο άρθρο 9.2 (d) του %2$s.</string>

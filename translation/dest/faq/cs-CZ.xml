@@ -58,7 +58,6 @@ Braní mimochodem je také popsáno v článku 3.7 (d) %2$s:
 \"Pěšec ohrožující pole, které přešel soupeřův pěšec, jenž ze základního pole postoupil jedním tahem o dvě pole, může tohoto soupeřova pěšce brát, jako by tento pěšec postoupil pouze o jedno pole. Toto braní lze provést pouze jako bezprostřední odpověď a nazývá se „braní mimochodem“.\"
 Pro procvičení můžete použít %3$s.</string>
   <string name="goodIntroduction">dobré zahájení</string>
-  <string name="officialRulesPDF">oficiální pravidla (PDF)</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
   <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>

@@ -56,7 +56,6 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
     <item quantity="one">%s invitació pendent</item>
     <item quantity="other">%s invitacions pendents</item>
   </plurals>
-  <string name="noPendingInvitations">Ni hi ha invitacions pendents</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
   <string name="lastActiveDate">Actiu</string>
   <string name="managed">Gestionada</string>

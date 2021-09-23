@@ -11,7 +11,6 @@
   <string name="level">Tahap</string>
   <string name="strength">Malay</string>
   <string name="toggleTheChat">Togol bual</string>
-  <string name="toggleSound">Bunyi togel</string>
   <string name="chat">Sembang</string>
   <string name="resign">Menyerah kalah</string>
   <string name="checkmate">Checkmate</string>
@@ -39,7 +38,6 @@
     <item quantity="other">Your opponent left the game. You can claim victory in %s seconds.</item>
   </plurals>
   <string name="opponentLeftChoices">Pemain lain mungkin meninggalkan permainan.Anda boleh menuntut kemenangan, dan tuntut seri, atau tunggu jap.</string>
-  <string name="makeYourOpponentResign">Membuat lawan anda menyerah kalah</string>
   <string name="forceResignation">Tuntut kemenangan</string>
   <string name="forceDraw">Paksa seri</string>
   <string name="talkInChat">Sila jadi baik di ruangan sembang</string>
@@ -48,9 +46,6 @@
   <string name="blackResigned">Hitam telah menyerah kalah</string>
   <string name="whiteLeftTheGame">Putih telah meninggalkan perlawanan</string>
   <string name="blackLeftTheGame">Hitam telah meninggalkan perlawanan</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Kongsi URL ini untuk membenarkan penonton lihat perlawanan</string>
-  <string name="theComputerAnalysisHasFailed">Analisis Komputer gagal</string>
-  <string name="viewTheComputerAnalysis">Lihat analisis komputer</string>
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>
@@ -187,7 +182,6 @@
   <string name="whiteTimeOut">White time out</string>
   <string name="blackTimeOut">Black time out</string>
   <string name="drawOfferSent">Tawaran seri dihantar</string>
-  <string name="drawOfferDeclined">Tawaran seri ditolak</string>
   <string name="drawOfferAccepted">Tawaran seri diterima</string>
   <string name="drawOfferCanceled">Tawaran seri dibatalkan</string>
   <string name="whiteOffersDraw">Pemain putih tawar seri</string>
@@ -213,8 +207,6 @@
   <string name="thisGameIsRated">Permainan ini termasuk dalam rated</string>
   <string name="rematch">Lawan semula</string>
   <string name="rematchOfferSent">Tawaran lawan semula dihantar</string>
-  <string name="rematchOfferSentWhite">Pemain putih tawar lawan semula</string>
-  <string name="rematchOfferSentBlack">Pemain hitam tawar lawan semula</string>
   <string name="rematchOfferAccepted">Tawaran lawan semula diterima</string>
   <string name="rematchOfferCanceled">Tawaran lawan semula dibatalkan</string>
   <string name="rematchOfferDeclined">Tawaran lawan semula ditolak</string>
@@ -228,9 +220,7 @@
   <string name="youHaveBeenTimedOut">Anda telah dilog keluar.</string>
   <string name="spectatorRoom">Ruang penonton</string>
   <string name="composeMessage">Mengarang mesej</string>
-  <string name="noNewMessages">Tiada mesej baru</string>
   <string name="subject">Subjek</string>
-  <string name="recipient">Penerima</string>
   <string name="send">Hantar</string>
   <string name="incrementInSeconds">Penaikan dalam saat</string>
   <string name="freeOnlineChess">Catur Percuma Dalam Talian</string>
@@ -301,8 +291,6 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s rakan dalam talian</item>
   </plurals>
-  <string name="noFriendsOnline">Tiada rakan dalam talian</string>
-  <string name="findFriends">Cari rakan</string>
   <string name="follow">Ikut</string>
   <string name="following">Senarai yang diikuti</string>
   <string name="unfollow">Berhenti mengikuti</string>
@@ -347,7 +335,6 @@
   <string name="points">Mata</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
-  <string name="winStreak">Menang berturut</string>
   <string name="createdBy">Dibuat oleh</string>
   <string name="tournamentIsStarting">Pertandingan ini akan bermula</string>
   <string name="tournamentPairingsAreNowClosed">Keseimbangan pertandingan sekarang ditutup.</string>
@@ -361,10 +348,8 @@
   <string name="whiteWins">Buah putih menang</string>
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
-  <string name="membersOnly">Ahli sahaja</string>
   <string name="startPosition">Posisi permulaan</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
-  <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">
@@ -373,7 +358,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Digerakan ke permainan seterusnya secara automatik selepas gerakan</string>
   <string name="autoSwitch">Tukar secara automatik</string>
   <string name="puzzles">Teka-teki</string>
-  <string name="latestUpdates">Perkembangan terkini</string>
   <string name="tournamentWinners">Pemenang pertandingan</string>
   <string name="name">Nama</string>
   <string name="description">Huraian</string>
@@ -402,9 +386,7 @@
   <string name="error.provideOneCheatedGameLink">Tolong berikan sekurangnya satu link kepada game yang dicurigai ditipu.</string>
   <string name="by">oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini sekarang ditutup.</string>
-  <string name="theming">Tema</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Soalan &amp; Jawapan</string>
   <string name="notes">Nota</string>
   <string name="typePrivateNotesHere">Tulis nota peribadi di sini</string>
   <string name="invalidUsernameOrPassword">Nama pengguna atau kata kunci tidak sah</string>
@@ -423,9 +405,6 @@
   <string name="fast">Laju</string>
   <string name="normal">Biasa</string>
   <string name="slow">Perlahan</string>
-  <string name="difficultyEasy">Mudah</string>
-  <string name="difficultyNormal">Biasa</string>
-  <string name="difficultyHard">Susah</string>
   <string name="victory">Menang</string>
   <string name="defeat">Kalah</string>
   <string name="opponent">Lawan</string>
@@ -435,16 +414,7 @@
   <string name="community">Komuniti</string>
   <string name="tools">Peralatan</string>
   <string name="increment">Tokokan</string>
-  <string name="sharePGN">Kongsi PGN</string>
-  <string name="playOnline">Main dalam talian</string>
-  <string name="playOffline">Main tanpa talian</string>
-  <string name="allowAnalytics">Benarkan statistik tidak dikenali</string>
-  <string name="shareGameURL">Kongsi URL permainan</string>
   <string name="error.required">Ruangan ini perlu diisi</string>
-  <string name="error.email">Emel ini tidak sah</string>
-  <string name="error.email_acceptable">Emel ini tidak diterima</string>
-  <string name="error.email_unique">Emel ini sudah berdaftar</string>
-  <string name="error.email_different">Emel ini sudah menjadi emel anda</string>
   <string name="ifRatingIsPlusMinusX">Jika rating adalah ± %s</string>
   <string name="onlyFriends">Hanya rakan-rakan</string>
   <string name="menu">Menu</string>
@@ -483,7 +453,6 @@
   <string name="withNobody">Dengan tiada siapa-siapa</string>
   <string name="withFriends">Dengan rakan-rakan</string>
   <string name="withEverybody">Dengan semua</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Anda telah mendaftarkan emel ini: %s</string>
   <string name="kidMode">Mod kanak-kanak</string>
   <string name="kidModeExplanation">Hal ini adalah untuk keselamatan. Dalam mod kanak-kanak, semua komunikasi ditutup. Pasang tetapan ini untuk kanak-kanak dan pelajar sekolah untuk melindungi mereka daripada pengguna siber yang lain.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dalam mod kanak-kanak, logo Lichess akan mendapat %s icon, jadi anda tahu kanak-kanak anda selamat.</string>
@@ -510,7 +479,6 @@
   <string name="xHostsY">%1$s meng\'host\' %2$s</string>
   <string name="xJoinsY">%1$s menyertai %2$s</string>
   <string name="xLikesY">%1$s menyukai%2$s</string>
-  <string name="xCreatesStudyY">%1$s membuat selidik %2$s</string>
   <string name="quickPairing">Seimbangan pantas</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Nyah-identiti</string>

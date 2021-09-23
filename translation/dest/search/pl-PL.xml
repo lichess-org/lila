@@ -33,5 +33,4 @@
   <string name="maxNumber">Maksymalna liczba</string>
   <string name="maxNumberExplanation">Maksymalna liczba partii do zwrócenia</string>
   <string name="include">Dołącz</string>
-  <string name="generateURL">Generuj adres URL</string>
 </resources>

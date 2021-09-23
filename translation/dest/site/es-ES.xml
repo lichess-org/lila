@@ -11,7 +11,6 @@
   <string name="level">Nivel</string>
   <string name="strength">Nivel</string>
   <string name="toggleTheChat">Mostrar/Ocultar chat</string>
-  <string name="toggleSound">Activar/Desactivar sonido</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
   <string name="checkmate">Jaque mate</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
-  <string name="makeYourOpponentResign">Reclamar la victoria por abandono del oponente</string>
   <string name="forceResignation">Reclamar la victoria</string>
   <string name="forceDraw">Declarar tablas</string>
   <string name="talkInChat">Por favor, sé amable en el chat</string>
@@ -51,9 +49,6 @@
   <string name="blackLeftTheGame">Las negras han dejado la partida</string>
   <string name="whiteDidntMove">Las blancas no han jugado</string>
   <string name="blackDidntMove">Las negras no han jugado</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparte este enlace para invitar espectadores a ver la partida</string>
-  <string name="theComputerAnalysisHasFailed">El análisis del ordenador ha fallado</string>
-  <string name="viewTheComputerAnalysis">Ver el análisis del ordenador</string>
   <string name="requestAComputerAnalysis">Solicitar un análisis del ordenador</string>
   <string name="computerAnalysis">Análisis del ordenador</string>
   <string name="computerAnalysisAvailable">Análisis del ordenador disponible</string>
@@ -216,7 +211,6 @@
   <string name="whiteTimeOut">Las blancas agotaron su tiempo</string>
   <string name="blackTimeOut">Las negras agotaron su tiempo</string>
   <string name="drawOfferSent">Oferta de tablas enviada</string>
-  <string name="drawOfferDeclined">Oferta de tablas rechazada</string>
   <string name="drawOfferAccepted">Oferta de tablas aceptada</string>
   <string name="drawOfferCanceled">Oferta de tablas cancelada</string>
   <string name="whiteOffersDraw">Las blancas ofrecen tablas</string>
@@ -242,8 +236,6 @@
   <string name="thisGameIsRated">Esta partida es por puntos</string>
   <string name="rematch">Revancha</string>
   <string name="rematchOfferSent">Oferta de revancha enviada</string>
-  <string name="rematchOfferSentWhite">Las blancas ofrecen jugar de nuevo</string>
-  <string name="rematchOfferSentBlack">Las negras ofrecen jugar de nuevo</string>
   <string name="rematchOfferAccepted">Oferta de revancha aceptada</string>
   <string name="rematchOfferCanceled">Oferta de revancha cancelada</string>
   <string name="rematchOfferDeclined">Oferta de revancha rechazada</string>
@@ -257,9 +249,7 @@
   <string name="youHaveBeenTimedOut">Has sido silenciado temporalmente.</string>
   <string name="spectatorRoom">Chat de espectador</string>
   <string name="composeMessage">Escribir mensaje</string>
-  <string name="noNewMessages">No hay mensajes nuevos</string>
   <string name="subject">Asunto</string>
-  <string name="recipient">Destinatario</string>
   <string name="send">Enviar</string>
   <string name="incrementInSeconds">Segundos de incremento</string>
   <string name="freeOnlineChess">Ajedrez en línea gratis</string>
@@ -372,8 +362,6 @@
     <item quantity="one">%s amigo conectado</item>
     <item quantity="other">%s amigos conectados</item>
   </plurals>
-  <string name="noFriendsOnline">Ningún amigo conectado</string>
-  <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Siguiendo</string>
@@ -424,7 +412,6 @@
   <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Derrotas</string>
-  <string name="winStreak">Victorias consecutivas</string>
   <string name="createdBy">Creado por</string>
   <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
@@ -440,7 +427,6 @@
   <string name="draws">Tablas</string>
   <string name="nextXTournament">Siguiente torneo %s:</string>
   <string name="averageOpponent">Oponente promedio</string>
-  <string name="membersOnly">Sólo para miembros</string>
   <string name="boardEditor">Editor de tablero</string>
   <string name="setTheBoard">Configurar tablero</string>
   <string name="popularOpenings">Aperturas populares</string>
@@ -448,7 +434,6 @@
   <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
-  <string name="savePosition">Guardar posición</string>
   <string name="loadPosition">Cargar posicion</string>
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Denunciar a %s a los moderadores</string>
@@ -465,10 +450,8 @@
   <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="watchLichessTV">Ver Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>
   <string name="onlinePlayers">Jugadores conectados</string>
-  <string name="activeToday">Activos hoy</string>
   <string name="activePlayers">Jugadores activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">¡Cuidado, el juego es por puntos pero sin límite de tiempo!</string>
   <string name="success">Éxito</string>
@@ -479,7 +462,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automáticamente a la siguiente partida después de mover</string>
   <string name="autoSwitch">Cambio automático</string>
   <string name="puzzles">Ejercicios</string>
-  <string name="latestUpdates">Últimas actualizaciones</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
@@ -511,9 +493,7 @@
   <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está cerrado.</string>
-  <string name="theming">Apariencia</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Preguntas y respuestas</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe aquí tus notas privadas</string>
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
@@ -542,13 +522,7 @@
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
-  <string name="difficultyEasy">Fácil</string>
-  <string name="difficultyNormal">Normal</string>
-  <string name="difficultyHard">Difícil</string>
   <string name="xCompetesInY">%1$s compite en %2$s</string>
-  <string name="xAskedY">%1$s preguntó %2$s</string>
-  <string name="xAnsweredY">%1$s contestó %2$s</string>
-  <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Derrota</string>
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
@@ -557,7 +531,6 @@
   <string name="timeline">Cronología</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
-  <string name="yourCityRegionOrDepartment">Tu ciudad, región o provincia.</string>
   <string name="biographyDescription">Cuéntanos sobre ti, qué te gusta del ajedrez, tus aperturas favoritas, partidas, jugadores…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s carácter.</item>
@@ -572,13 +545,6 @@
   <string name="computer">Ordenador</string>
   <string name="side">Color</string>
   <string name="clock">Reloj</string>
-  <string name="unauthorizedError">Acceso no autorizado.</string>
-  <string name="noInternetConnection">No tienes conexión a Internet. Puedes jugar sin conexión desde el menú.</string>
-  <string name="connectedToLichess">Estás conectado a lichess.org</string>
-  <string name="signedOut">Has cerrado la sesión</string>
-  <string name="loginSuccessful">Conectado</string>
-  <string name="playOnTheBoardOffline">Jugar sin conexión</string>
-  <string name="playOfflineComputer">Jugar vs CPU sin conexión</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudiar</string>
@@ -586,16 +552,7 @@
   <string name="community">Comunidad</string>
   <string name="tools">Herramientas</string>
   <string name="increment">Incremento</string>
-  <string name="sharePGN">Compartir PGN</string>
-  <string name="playOnline">Jugar en línea</string>
-  <string name="playOffline">Jugar sin conexión</string>
-  <string name="allowAnalytics">Permitir estadísticas anónimas</string>
-  <string name="shareGameURL">Compartir el enlace del juego</string>
   <string name="error.required">Este campo es obligatorio</string>
-  <string name="error.email">Este correo no es válido</string>
-  <string name="error.email_acceptable">Este correo no es aceptable</string>
-  <string name="error.email_unique">Este correo ya está en uso</string>
-  <string name="error.email_different">Esta es el mismo correo que tiene actualmente</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="onlyExistingConversations">Solo conversaciones existentes</string>
   <string name="onlyFriends">Sólo amigos</string>
@@ -643,7 +600,6 @@
   <string name="simulHostExtraTime">Tiempo extra del anfitrión</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
-  <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
   <string name="averageCentipawnLoss">Pérdida promedio en centipeones</string>
   <string name="keyboardShortcuts">Atajos del teclado</string>
@@ -681,7 +637,6 @@
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida sin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
-  <string name="printFriendlyPDF">Imprimir en formato PDF</string>
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
@@ -692,7 +647,6 @@
   <string name="withNobody">Con nadie</string>
   <string name="withFriends">Con mis amigos</string>
   <string name="withEverybody">Con todo el mundo</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Ya has registrado el correo electrónico: %s</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Por seguridad, en el modo infantil se desactivan todas las comunicaciones con otros usuarios. Activa esto para proteger a los menores de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
@@ -721,7 +675,6 @@
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
-  <string name="xCreatesStudyY">%1$s creó el estudio %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
@@ -742,17 +695,11 @@
   <string name="usernameSuffixInvalid">El nombre de usuario debe finalizar con una letra o un número.</string>
   <string name="usernameCharsInvalid">El nombre de usuario debe contener sólo letras, números, guiones bajos y guiones.</string>
   <string name="usernameUnacceptable">Este nombre de usuario no es válido.</string>
-  <string name="directlySupportLichess">Apoyar económicamente a Lichess</string>
   <string name="playChessInStyle">Juega al ajedrez con estilo</string>
   <string name="chessBasics">Fundamentos de ajedrez</string>
   <string name="coaches">Entrenadores</string>
   <string name="invalidPgn">PGN inválido</string>
   <string name="invalidFen">FEN inválido</string>
-  <string name="error.minLength">La longitud mínima es de %s</string>
-  <string name="error.maxLength">La longitud máxima es de %s</string>
-  <string name="error.min">Debe ser mayor o igual a %s</string>
-  <string name="error.max">Debe ser menor o igual a %s</string>
-  <string name="error.unknown">Error</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
   <string name="perfRatingX">Puntuación: %s</string>

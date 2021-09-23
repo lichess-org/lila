@@ -19,7 +19,6 @@
     <item quantity="one">رهبر گروه</item>
     <item quantity="other">رهبران گروه</item>
   </plurals>
-  <string name="teamBestPlayers">بهترین بازیکنان</string>
   <string name="teamRecentMembers">اعضای اخیر</string>
   <string name="kickSomeone">آیا می خواهید {0} را از تیم اخراج کنید</string>
   <string name="whoToKick">چه کسی را می خواهید از تیم اخراج کنید?</string>

@@ -18,7 +18,6 @@
     <item quantity="one">समूह का नेता</item>
     <item quantity="other">टीम के नेता</item>
   </plurals>
-  <string name="teamBestPlayers">समूह के सबसे अच्छे खिलाडी</string>
   <string name="teamRecentMembers">समूह के नए सदस्य</string>
   <string name="kickSomeone">किसी को टीम से बाहर करे</string>
   <string name="whoToKick">आप किसे टीम से बाहर करना चाहते हैं?</string>

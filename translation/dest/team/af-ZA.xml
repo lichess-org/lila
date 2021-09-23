@@ -18,7 +18,6 @@
     <item quantity="one">Spanleier</item>
     <item quantity="other">Spanleiers</item>
   </plurals>
-  <string name="teamBestPlayers">Beste spanlede</string>
   <string name="teamRecentMembers">Onlangse spanlede</string>
   <string name="kickSomeone">Skop iemand uit die span uit</string>
   <string name="whoToKick">Wie wil jy uit die span uit skop?</string>

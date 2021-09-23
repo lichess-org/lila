@@ -56,7 +56,6 @@
     <item quantity="one">Бір жауапсыз шақыру</item>
     <item quantity="other">%s жауапсыз шақыру</item>
   </plurals>
-  <string name="noPendingInvitations">Жауапсыз шақырулар жоқ</string>
   <string name="onlyVisibleToTeachers">Тек үйірме ұстаздарына көрінеді</string>
   <string name="lastActiveDate">Белсенді</string>
   <string name="managed">Байлаулы</string>

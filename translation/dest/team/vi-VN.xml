@@ -16,7 +16,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">Đội trưởng</item>
   </plurals>
-  <string name="teamBestPlayers">Người giỏi nhất đội</string>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="kickSomeone">Loại ai đó ra khỏi đội</string>
   <string name="whoToKick">Ai là người bạn muốn loại khỏi đội?</string>

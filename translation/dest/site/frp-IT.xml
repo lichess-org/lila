@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s nivèł %2$s</string>
   <string name="level">Nivèł</string>
   <string name="toggleTheChat">Sacòrre la visibilità d’o barjacàjo</string>
-  <string name="toggleSound">Toggle klank</string>
   <string name="chat">Barjacàjo</string>
   <string name="resign">Depitar</string>
   <string name="checkmate">Echec é Mat</string>
@@ -26,7 +25,6 @@
   <string name="whitePlays">Bllanc joya</string>
   <string name="blackPlays">Nèyr joya</string>
   <string name="opponentLeftChoices">L\'autro joyor a modà la passa. Te pòs lo fàre depitar u l\'atèndre.</string>
-  <string name="makeYourOpponentResign">Fàre depitar l\'adverséro</string>
   <string name="forceResignation">Fàre depitar</string>
   <string name="talkInChat">Devesar dèns lo barjacàjo</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La permèri persona que brete cetà passa joye avoy-t’.</string>
@@ -34,7 +32,6 @@
   <string name="blackResigned">Nèyr a depità</string>
   <string name="whiteLeftTheGame">Bllanc a modà la passa</string>
   <string name="blackLeftTheGame">Nèyr a modà la passa</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partàji cetì lèm per lassèr de spector véyre dèns la passa</string>
   <string name="flipBoard">Virèr la tràbla</string>
   <string name="threefoldRepetition">Tripla repeticion</string>
   <string name="claimADraw">Cllamar l\'egalità</string>

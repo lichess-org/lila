@@ -19,7 +19,6 @@
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
   </plurals>
-  <string name="teamBestPlayers">Takımın en iyileri</string>
   <string name="teamRecentMembers">Son katılan üyeler</string>
   <string name="kickSomeone">Birini takımdan at</string>
   <string name="whoToKick">Takımdan kimi atmak istiyorsunuz?</string>

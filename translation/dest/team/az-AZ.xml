@@ -18,7 +18,6 @@
     <item quantity="one">Komanda lideri</item>
     <item quantity="other">Komanda liderləri</item>
   </plurals>
-  <string name="teamBestPlayers">Ən yaxşı oyunçular</string>
   <string name="teamRecentMembers">Son qoşulan üzvlər</string>
   <string name="kickSomeone">Kimisə komandadan qov</string>
   <string name="whoToKick">Kimi komandadan qovmaq istəyirsiniz?</string>

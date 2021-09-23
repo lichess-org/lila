@@ -12,7 +12,6 @@
     <item quantity="one">ଦଳ ନାୟକ</item>
     <item quantity="other">ଦଳର ନେତାମାନେ</item>
   </plurals>
-  <string name="teamBestPlayers">ସର୍ବୋତ୍ତମ ଖେଳାଳି</string>
   <string name="teamRecentMembers">ସମ୍ପ୍ରତି ସଦସ୍ୟମାନେ</string>
   <string name="kickSomeone">କାହାକୁ ଦଳରୁ ବାହାର କରିଦିଅ</string>
   <string name="whoToKick">ଆପଣ କାହାକୁ ଦଳରୁ ବାହାର କରିବାକୁ ଚାହୁଁଛନ୍ତି?</string>

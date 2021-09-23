@@ -58,7 +58,6 @@ Zde je odkaz pro přístup ke třídě.</string>
     <item quantity="many">%s čekajících pozvánek</item>
     <item quantity="other">%s čekajících pozvánek</item>
   </plurals>
-  <string name="noPendingInvitations">Žádné čekající pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditelné pouze pro učitele třídy</string>
   <string name="lastActiveDate">Aktivní</string>
   <string name="managed">Spravovaný</string>

@@ -51,11 +51,5 @@ Ja straume ir angliski, nav nepieciešams pievienot valodas etiķeti.</string>
   <string name="xStreamerPicture">%s straumētāja attēls</string>
   <string name="changePicture">Mainīt/dzēst savu attēlu</string>
   <string name="uploadPicture">Augšupielādēt attēlu</string>
-  <string name="deletePicture">Dzēst attēlu</string>
   <string name="maxSize">Maks. izmērs: %s</string>
-  <string name="installBlocker">Instalējiet pretļaunatūras programmu!</string>
-  <string name="beSafe">Esiet drošībā no reklāmām un trekeriem,
-kas apsēž platformas Twitch un YouTube.
-Lichess iesaka uBlock Origin,
-kas ir bezmaksas un atvērtā koda.</string>
 </resources>

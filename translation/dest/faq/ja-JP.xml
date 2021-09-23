@@ -52,7 +52,6 @@
 「相手のポーンが元のマスから 1 手で 2 マス進んだ時、この相手のポーンと同じランクで隣のファイルにいるポーンは、相手のポーンが 1 マス進んだ時と同じように相手のポーンを取ることができる。これは相手のポーンが進んだ直後の手でしか行えず、『アンパッサン』と呼ばれる」
 %3$sでアンパッサンを練習することができます。</string>
   <string name="goodIntroduction">参考</string>
-  <string name="officialRulesPDF">公式ルール (pdf)</string>
   <string name="lichessTraining">Lichess のトレーニング機能</string>
   <string name="threefoldRepetition">同形三復について</string>
   <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>

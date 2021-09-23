@@ -60,7 +60,6 @@ Het wordt beschreven in sectie 3. (d) van de %2$s:
 
 Zie de %3$s over deze zet om er wat mee te oefenen.</string>
   <string name="goodIntroduction">goede inleiding</string>
-  <string name="officialRulesPDF">officiële regels (pdf)</string>
   <string name="lichessTraining">Lichess-training</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>

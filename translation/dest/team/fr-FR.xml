@@ -19,7 +19,6 @@
     <item quantity="one">Chef d\'équipe</item>
     <item quantity="other">Chefs d\'équipe</item>
   </plurals>
-  <string name="teamBestPlayers">Meilleurs joueurs de l\'équipe</string>
   <string name="teamRecentMembers">Membres récents de l\'équipe</string>
   <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
   <string name="whoToKick">Qui voulez-vous expulser de l\'équipe?</string>

@@ -11,7 +11,6 @@
   <string name="level">Level</string>
   <string name="strength">Hugoni</string>
   <string name="toggleTheChat">Kuchinja pekutaura</string>
-  <string name="toggleSound">Kuchinja sound</string>
   <string name="chat">Kutaura</string>
   <string name="resign">Siya game</string>
   <string name="checkmate">Wadyiwa</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Munhu abuda mumutambo.Unogona kutora win nema seconds anoti %s.</item>
   </plurals>
   <string name="opponentLeftChoices">Munhu abuda mumutambo.Unogona kutora win, kutora draw, kana kumumirira</string>
-  <string name="makeYourOpponentResign">Muitise kuti asiye mutambo</string>
   <string name="forceResignation">Tora win</string>
   <string name="forceDraw">Daidza draw</string>
   <string name="talkInChat">Taura zvakanaka nevamwe!</string>
@@ -49,9 +47,6 @@
   <string name="blackResigned">Itema yaregera</string>
   <string name="whiteLeftTheGame">Ichena yabuda mumutambo</string>
   <string name="blackLeftTheGame">Itema yabuda mumutambo</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ipa URL kuti navhu vakwanise kuona game rako</string>
-  <string name="theComputerAnalysisHasFailed">Mushini watadza kuAnalysa</string>
-  <string name="viewTheComputerAnalysis">Tarisa analysis yemushini</string>
   <string name="requestAComputerAnalysis">Kumbira analysis yemushini</string>
   <string name="computerAnalysis">Analysis yemushini</string>
   <string name="computerAnalysisAvailable">Analysis yemushini iripo</string>

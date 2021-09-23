@@ -10,6 +10,5 @@
   <string name="noTeamFound">Пӗр ушкӑн та ҫук</string>
   <string name="joinTeam">Ушкӑна хутшӑн</string>
   <string name="quitTeam">Ушкӑнтан тух</string>
-  <string name="teamBestPlayers">Чи вӑйлӑ вӑйӑҫӑ</string>
   <string name="teamRecentMembers">Тин хутшӑннӑ пайташсем</string>
 </resources>

@@ -22,7 +22,6 @@
     <item quantity="many">Mistri ar skipailh</item>
     <item quantity="other">Mistri ar skipailh</item>
   </plurals>
-  <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="kickSomeone">Skarzhañ unan er-maez eus ar skipailh</string>
   <string name="whoToKick">Piv a vo skarzhet er-maez deus ar skipailh ganeoc\'h?</string>

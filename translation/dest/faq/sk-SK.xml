@@ -60,7 +60,6 @@ Je to opísané v časti 3.7(d) z %2$s:
 
 Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="goodIntroduction">dobrý úvod</string>
-  <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
   <string name="lichessTraining">Lichess tréning</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
   <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 (d) %2$s.</string>

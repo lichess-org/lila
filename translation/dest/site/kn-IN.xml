@@ -11,7 +11,6 @@
   <string name="level">ಮಟ್ಟ</string>
   <string name="strength">ಶಕ್ತಿ</string>
   <string name="toggleTheChat">ಮಾತಾಡುವುದು ಬೇಕೇ?</string>
-  <string name="toggleSound">ಧ್ವನಿ ಬೇಕೇ?</string>
   <string name="chat">ಮಾತಾಡುವುದು</string>
   <string name="resign">ರಾಜೀನಾಮೆ</string>
   <string name="checkmate">ಕಟ್ಟಿಹಾಕುವುದು</string>
@@ -39,7 +38,6 @@
     <item quantity="other">ನಿಮ್ಮ ಎದುರಾಳಿಯು ಆಟವನ್ನು ತೊರೆದನು. ನೀವು %s ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಗೆಲ್ಲಬಹುದು.</item>
   </plurals>
   <string name="opponentLeftChoices">ಇತರ ಆಟಗಾರ ಆಟದ ಬಿಟ್ಟಿದ್ದಾರೆ. ನೀವು ಆಟಗಾರರ ರಾಜೀನಾಮೆ ಒತ್ತಾಯಿಸಲು ಅಥವಾ ನಿರೀಕ್ಷಿಸಿ.</string>
-  <string name="makeYourOpponentResign">ನಿಮ್ಮ ಎದುರಾಳಿಯ ಬಿಟ್ಟುಬಿಡುತ್ತಾರೆ ಮಾಡಿ</string>
   <string name="forceResignation">ಫೋರ್ಸ್ ರಾಜೀನಾಮೆ</string>
   <string name="forceDraw">ಫೋರ್ಸ್ ಡ್ರಾ</string>
   <string name="talkInChat">ಚಾಟ್ ನಲ್ಲಿ ಮಾತಾಡಿ</string>
@@ -48,9 +46,6 @@
   <string name="blackResigned">ಕರಿ ತಂಡದ ಆಟಗಾರ ಸೋಲನ್ನ ಒಪ್ಪಿದ್ದಾರೆ</string>
   <string name="whiteLeftTheGame">ಬಿಳಿ ಆಟ ಬಿಟ್ಟಿದೆ</string>
   <string name="blackLeftTheGame">ಕಪ್ಪು ಆಟ ಬಿಟ್ಟಿದೆ</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ಆಟವನ್ನು ವೀಕ್ಷಕರು ನೋಡಲು ಈ URL ಹಂಚಿ</string>
-  <string name="theComputerAnalysisHasFailed">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿಫಲವಾಗಿದೆ</string>
-  <string name="viewTheComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವೀಕ್ಷಿಸಿ</string>
   <string name="requestAComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿನಂತಿಸಿ</string>
   <string name="computerAnalysis">ಗಣಕಯಂತ್ರದ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="computerAnalysisAvailable">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಲಭ್ಯವಿದೆ</string>

@@ -27,7 +27,6 @@
     <item quantity="many">قائد للفريق</item>
     <item quantity="other">قادة الفريق</item>
   </plurals>
-  <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
   <string name="whoToKick">من تريد طرده من الفريق؟</string>
@@ -65,5 +64,5 @@
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
   <string name="upcomingTourns">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">الطلبات المرفوضة</string>
+  <string name="declinedRequests">الطلبات المرفوضة</string>
 </resources>

@@ -50,11 +50,5 @@
   <string name="xStreamerPicture">تصویر استریمر %s</string>
   <string name="changePicture">تصویر خود را تغییر دهید / حذف کنید</string>
   <string name="uploadPicture">بارگذاری تصویر</string>
-  <string name="deletePicture">پاک کردن تصویر</string>
   <string name="maxSize">بیشترین اندازه یا حجم: %s</string>
-  <string name="installBlocker">یک بلاکر بدافزار نصب کنید!</string>
-  <string name="beSafe">از تبلیغات و ردیابها ایمن باشید
-Twitch و YouTube را آلوده کنید.
-لیچسuBlock Orig را توصیه می کند
-رایگان و منبع باز است</string>
 </resources>

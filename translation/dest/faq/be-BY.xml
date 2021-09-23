@@ -60,7 +60,6 @@
 
 Паспрабуйце %3$s для гэтага ходу, каб папрактывацца.</string>
   <string name="goodIntroduction">добрае тлумачэнне</string>
-  <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="lichessTraining">Lichess практыку</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>

@@ -20,7 +20,6 @@
     <item quantity="few">Lideri de echipa</item>
     <item quantity="other">Lideri de echipa</item>
   </plurals>
-  <string name="teamBestPlayers">Cei mai buni jucători</string>
   <string name="teamRecentMembers">Cei mai recenţi membri</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
   <string name="whoToKick">Pe cine vrei să dai afară din echipă?</string>

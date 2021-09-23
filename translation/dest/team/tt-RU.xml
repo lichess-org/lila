@@ -16,7 +16,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">Төркем җитәкчеләре</item>
   </plurals>
-  <string name="teamBestPlayers">Иң яхшы уенчылар</string>
   <string name="teamRecentMembers">Яңа кушылган уенчылар</string>
   <string name="kickSomeone">Җәмәгадән куып чыгарырга</string>
   <string name="whoToKick">Кемне куып чыгарырга телисез җәмәгадән?</string>

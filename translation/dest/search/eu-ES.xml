@@ -29,5 +29,4 @@
   <string name="maxNumber">Zenbaki maximoa</string>
   <string name="maxNumberExplanation">Itzuli beharreko gehienezko partida kopurua</string>
   <string name="include">Sartu</string>
-  <string name="generateURL">Sortu URL helbidea</string>
 </resources>

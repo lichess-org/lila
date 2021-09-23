@@ -56,7 +56,6 @@ Her er leinkið til atgongdina til flokkin.</string>
     <item quantity="one">Ein innbjóðing bíðar</item>
     <item quantity="other">%s innbjóðingar bíða</item>
   </plurals>
-  <string name="noPendingInvitations">Ongar bíðandi innbjóðingar</string>
   <string name="onlyVisibleToTeachers">Bert sjónligt fyri lærarar hjá flokkinum</string>
   <string name="lastActiveDate">Virkin</string>
   <string name="managed">Umsitið</string>

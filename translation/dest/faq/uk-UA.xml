@@ -60,7 +60,6 @@
 
 Перегляньте %3$s і попрактикуйтесь.</string>
   <string name="goodIntroduction">хороше введення</string>
-  <string name="officialRulesPDF">офіційні правила (PDF)</string>
   <string name="lichessTraining">Тренування Lichess</string>
   <string name="threefoldRepetition">Потрійне повторення</string>
   <string name="threefoldRepetitionExplanation">Якщо позиція відбудеться тричі, гравці можуть оголосити нічию %1$s. Lichess впроваджує офіційні правила FIDE, як описано в статті 9.2 (d) від %2$s.</string>

@@ -25,7 +25,6 @@
     <item quantity="many">Ceannairí foirne</item>
     <item quantity="other">Ceannairí foirne</item>
   </plurals>
-  <string name="teamBestPlayers">Ficheallaithe is fearr</string>
   <string name="teamRecentMembers">Baill le déanaí</string>
   <string name="kickSomeone">Caith duine as an bhfoireann</string>
   <string name="whoToKick">Cé atá tú ag iarraidh a chaitheamh amach ón bhfoireann?</string>

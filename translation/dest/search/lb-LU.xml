@@ -26,8 +26,7 @@
   <string name="onlyAnalysed">Just Partien wou Computer Analyse disponibel ass</string>
   <string name="color">Faarf</string>
   <string name="evaluation">Evaluatioun</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Maximal Unzuel</string>
+  <string name="maxNumber">Maximal Unzuel</string>
   <string name="maxNumberExplanation">Maximal Unzuehl un Partien déi zeréckginn wäerten</string>
-  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Abegraff</string>
-  <string name="generateURL">URL generéieren</string>
+  <string name="include">Abegraff</string>
 </resources>

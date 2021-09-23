@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Дараҷаи</string>
   <string name="toggleTheChat">Чатро нишон додан</string>
-  <string name="toggleSound">Хомуш кардани садо</string>
   <string name="chat">Чат</string>
   <string name="resign">Таслим</string>
   <string name="checkmate">Мот</string>
@@ -31,7 +30,6 @@
   <string name="whitePlays">Гашти сафедҳо</string>
   <string name="blackPlays">Гашти сиеҳҳо</string>
   <string name="opponentLeftChoices">Ҳарифи шумо аз бози баромад. Шумо метованед ғалаба ё дуранг эълон кунед.</string>
-  <string name="makeYourOpponentResign">Ғалабаро эълон кардан</string>
   <string name="forceResignation">Ғалаба</string>
   <string name="forceDraw">Дуранг</string>
   <string name="talkInChat">Дар диалог якдигарро эҳтиром кунед!</string>
@@ -40,5 +38,4 @@
   <string name="blackResigned">Сиеҳҳо таслим кардан</string>
   <string name="whiteLeftTheGame">Сафедҳо аз бози баромадан</string>
   <string name="blackLeftTheGame">Сиеҳҳо аз бози баромадан</string>
-  <string name="viewTheComputerAnalysis">Анализи компютериро тамошо кардан</string>
 </resources>

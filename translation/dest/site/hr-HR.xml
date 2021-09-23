@@ -11,7 +11,6 @@
   <string name="level">Razina</string>
   <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
-  <string name="toggleSound">Uključi/isključi zvuk</string>
   <string name="chat">Chat</string>
   <string name="resign">Predaj partiju</string>
   <string name="checkmate">Šah mat</string>
@@ -41,7 +40,6 @@
     <item quantity="other">Tvoj protivnik je napustio igru. Možes potvrditi pobjedu za %s sekundi.</item>
   </plurals>
   <string name="opponentLeftChoices">Drugi igrač je napustio partiju. Možeš proglasiti pobjedu, proglasiti partiju remijem ili ga pričekati.</string>
-  <string name="makeYourOpponentResign">Forsiraj pobjedu</string>
   <string name="forceResignation">Proglasi pobjedu</string>
   <string name="forceDraw">Forsiranje remija</string>
   <string name="talkInChat">Pristojno se ponašaj u chatu!</string>
@@ -50,9 +48,6 @@
   <string name="blackResigned">Crni predaje</string>
   <string name="whiteLeftTheGame">Bijeli je napustio partiju</string>
   <string name="blackLeftTheGame">Crni je napustio partiju</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podijeli ovaj URL ukoliko želiš da gledatelji vide ovu partiju</string>
-  <string name="theComputerAnalysisHasFailed">Računalna analiza nije uspjela</string>
-  <string name="viewTheComputerAnalysis">Pogledaj računalnu analizu</string>
   <string name="requestAComputerAnalysis">Zatraži računalnu analizu</string>
   <string name="computerAnalysis">Računalna analiza</string>
   <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
@@ -208,7 +203,6 @@
   <string name="whiteTimeOut">Bijelom je isteklo vrijeme</string>
   <string name="blackTimeOut">Crnom je isteklo vrijeme</string>
   <string name="drawOfferSent">Ponuda remija poslana</string>
-  <string name="drawOfferDeclined">Ponuda remija odbijena</string>
   <string name="drawOfferAccepted">Ponuda remija prihvaćena</string>
   <string name="drawOfferCanceled">Opozvana ponuda remija</string>
   <string name="whiteOffersDraw">Bijeli nudi remi</string>
@@ -234,8 +228,6 @@
   <string name="thisGameIsRated">Ovo je partija za bodove</string>
   <string name="rematch">Revanš</string>
   <string name="rematchOfferSent">Ponuda za revanš poslana</string>
-  <string name="rematchOfferSentWhite">Bijeli nudi revanš</string>
-  <string name="rematchOfferSentBlack">Crni nudi revanš</string>
   <string name="rematchOfferAccepted">Ponuda za revanš prihvaćena</string>
   <string name="rematchOfferCanceled">Ponuda za revanš otkazana</string>
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
@@ -249,9 +241,7 @@
   <string name="youHaveBeenTimedOut">Trenutno ne možeš pričati u chatu.</string>
   <string name="spectatorRoom">Soba za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
-  <string name="noNewMessages">Nema novih poruka</string>
   <string name="subject">Tema</string>
-  <string name="recipient">Primatelj</string>
   <string name="send">Pošalji</string>
   <string name="incrementInSeconds">Dodatak u sekundama</string>
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
@@ -379,8 +369,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="few">%s prijatelja online</item>
     <item quantity="other">%s prijatelja online</item>
   </plurals>
-  <string name="noFriendsOnline">Nema online prijatelja</string>
-  <string name="findFriends">Nađi prijatelje</string>
   <string name="favoriteOpponents">Omiljeni protivnici</string>
   <string name="follow">Prati</string>
   <string name="following">Pratiš</string>
@@ -432,7 +420,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="points">Bodovi</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
-  <string name="winStreak">Niz pobjeda</string>
   <string name="createdBy">Kreirao</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
@@ -448,13 +435,11 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="draws">Remi</string>
   <string name="nextXTournament">Sljedeći %s turnir:</string>
   <string name="averageOpponent">Prosječni protivnik</string>
-  <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
   <string name="setTheBoard">Postavi ploču</string>
   <string name="popularOpenings">Popularna otvaranja</string>
   <string name="startPosition">Početna pozicija</string>
   <string name="clearBoard">Očisti ploču</string>
-  <string name="savePosition">Spremi poziciju</string>
   <string name="loadPosition">Učitaj poziciju</string>
   <string name="isPrivate">Privatno</string>
   <string name="reportXToModerators">Prijavi %s moderatorima</string>
@@ -471,10 +456,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
-  <string name="watchLichessTV">Gledaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
-  <string name="activeToday">Danas aktivni</string>
   <string name="activePlayers">Aktivni igrači</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oprez, igra se za bodove ali ne i na vrijeme!</string>
   <string name="success">Uspjeh</string>
@@ -486,7 +469,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
   <string name="puzzles">Problemi</string>
-  <string name="latestUpdates">Zadnje obavijesti</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
@@ -515,9 +497,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link igre u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>
-  <string name="theming">Izgled</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Pitanja &amp; Odgovori</string>
   <string name="notes">Zabilješke</string>
   <string name="typePrivateNotesHere">Upiši privatne zabilješke ovdje</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
@@ -546,13 +526,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="onSlowGames">U sporim partijama</string>
   <string name="always">Uvijek</string>
   <string name="never">Nikad</string>
-  <string name="difficultyEasy">Lagano</string>
-  <string name="difficultyNormal">Normalno</string>
-  <string name="difficultyHard">Teško</string>
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
-  <string name="xAskedY">%1$s je pitao %2$s</string>
-  <string name="xAnsweredY">%1$s je odgovorio na pitanje %2$s</string>
-  <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="victory">Pobjeda</string>
   <string name="defeat">Poraz</string>
   <string name="victoryVsYInZ">%1$s vs %2$s u %3$s</string>
@@ -561,7 +535,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="timeline">Vremenska crta</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
-  <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
   <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimalno: %s znak.</item>
@@ -578,13 +551,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="computer">Računalo</string>
   <string name="side">Strana</string>
   <string name="clock">Sat</string>
-  <string name="unauthorizedError">Pristup neodobren.</string>
-  <string name="noInternetConnection">Nedostupna internetska veza. Možeš i dalje igrati bez internetske veze preko izbornika.</string>
-  <string name="connectedToLichess">Spojen/a si na lichess.org</string>
-  <string name="signedOut">Odjavljen/a si</string>
-  <string name="loginSuccessful">Prijavljen/a si</string>
-  <string name="playOnTheBoardOffline">Igraj bez mreže, preko uređaja</string>
-  <string name="playOfflineComputer">Igraj protiv računala</string>
   <string name="opponent">Protivnik</string>
   <string name="learnMenu">Uči</string>
   <string name="studyMenu">Uči</string>
@@ -592,16 +558,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
-  <string name="sharePGN">Podijeli PGN</string>
-  <string name="playOnline">Igraj na mreži</string>
-  <string name="playOffline">Igraj izvan mreže</string>
-  <string name="allowAnalytics">Dozvoli anonimnu statistiku</string>
-  <string name="shareGameURL">Podijeli URL partije</string>
   <string name="error.required">Ovo polje je obavezno</string>
-  <string name="error.email">Ova email adresa je neispravna</string>
-  <string name="error.email_acceptable">Ova email adresa nije prihvatljiva</string>
-  <string name="error.email_unique">Ova email adresa je već iskorištena</string>
-  <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
   <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
@@ -650,7 +607,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
   <string name="lichessTournaments">Lichess turniri</string>
   <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
-  <string name="tournamentOfficial">Službeno</string>
   <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
   <string name="averageCentipawnLoss">Prosječni gubitak u stotim dijelovima pješaka</string>
   <string name="keyboardShortcuts">Kratice na tipkovnici</string>
@@ -689,7 +645,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
   <string name="downloadRaw">Preuzmi bez bilješki</string>
   <string name="downloadImported">Preuzmi uvezeno</string>
-  <string name="printFriendlyPDF">Preuzmi PDF igre</string>
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
@@ -698,7 +653,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="withNobody">Ni sa kime</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
   <string name="kidMode">Dječji način</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
@@ -727,7 +681,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="xHostsY">%1$s održava %2$s</string>
   <string name="xJoinsY">%1$s se pridružuje %2$s</string>
   <string name="xLikesY">%1$s se sviđa %2$s</string>
-  <string name="xCreatesStudyY">%1$s kreira studiju %2$s</string>
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anoniman igrač</string>
@@ -748,17 +701,11 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="usernameSuffixInvalid">Korisničko ime mora završiti sa slovom ili brojem.</string>
   <string name="usernameCharsInvalid">Korisničko ime može sadržavati samo slova, brojeve, podvlake i crtice.</string>
   <string name="usernameUnacceptable">Ovo korisničko ime nije prihvatljivo.</string>
-  <string name="directlySupportLichess">Direktno podrži Lichess</string>
   <string name="playChessInStyle">Igraj šah u stilu</string>
   <string name="chessBasics">Šahovske osnove</string>
   <string name="coaches">Treneri</string>
   <string name="invalidPgn">Nevaljan PGN</string>
   <string name="invalidFen">Nevaljan FEN</string>
-  <string name="error.minLength">Minimalna dužina je %s znakova</string>
-  <string name="error.maxLength">Maksimalna dužina je %s znakova</string>
-  <string name="error.min">Mora biti veće ili jednako %s</string>
-  <string name="error.max">Mora biti manje ili jednako %s</string>
-  <string name="error.unknown">Pogreška</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
   <string name="perfRatingX">Rejting: %s</string>

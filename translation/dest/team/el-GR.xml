@@ -19,7 +19,6 @@
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>
   </plurals>
-  <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
   <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
@@ -53,5 +52,5 @@
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Απορριφθέντα αιτήματα</string>
+  <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
 </resources>

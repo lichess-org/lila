@@ -60,7 +60,6 @@
 
  Посмотрите %3$s и попрактикуйтесь.</string>
   <string name="goodIntroduction">хорошее объяснение</string>
-  <string name="officialRulesPDF">официальные правила (pdf)</string>
   <string name="lichessTraining">практику на Lichess</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="threefoldRepetitionExplanation">Если позиция на доске повторилась три раза, любой из игроков может объявить ничью %1$s. В Lichess реализованы официальные правила ФИДЕ, как описано в статье 9.2 (d) of the %2$s.</string>

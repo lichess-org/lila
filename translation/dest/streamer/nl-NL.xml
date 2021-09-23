@@ -50,11 +50,5 @@ Als je in het Engels is streamt is het niet nodig om een taaltag toe te voegen.<
   <string name="xStreamerPicture">%s streamer afbeelding</string>
   <string name="changePicture">Wijzig/verwijder je foto</string>
   <string name="uploadPicture">Upload een foto</string>
-  <string name="deletePicture">Foto verwijderen</string>
   <string name="maxSize">Maximale grootte: %s</string>
-  <string name="installBlocker">Installeer een malware blocker!</string>
-  <string name="beSafe">Wees beschermd voor advertenties en trackers
-die Twitch en YouTube onveilig maken.
-Lichess beveelt uBlock Origin aan
-wat gratis en open-source is.</string>
 </resources>

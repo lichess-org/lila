@@ -19,7 +19,6 @@
     <item quantity="one">Líder do equipo</item>
     <item quantity="other">Líder do equipo</item>
   </plurals>
-  <string name="teamBestPlayers">Mellores xogadores</string>
   <string name="teamRecentMembers">Membros recentes</string>
   <string name="kickSomeone">Botar a alguén fóra do equipo</string>
   <string name="whoToKick">A quen queres botar fóra do equipo?</string>
@@ -53,5 +52,5 @@ Os xogadores/as aos que non lles guste recibir as túas mensaxes poden abandoar 
   <string name="teamAlreadyExists">Este nome xa existe.</string>
   <string name="upcomingTourns">Torneos vindeiros</string>
   <string name="completedTourns">Torneos completos</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Solicitudes rexeitadas</string>
+  <string name="declinedRequests">Solicitudes rexeitadas</string>
 </resources>

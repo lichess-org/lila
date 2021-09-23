@@ -19,7 +19,6 @@
     <item quantity="one">Joukkueen johtaja</item>
     <item quantity="other">Joukkueen johtajat</item>
   </plurals>
-  <string name="teamBestPlayers">Parhaat pelaajat</string>
   <string name="teamRecentMembers">Joukkueen viimeaikaiset jäsenet</string>
   <string name="kickSomeone">Poista joku joukkueesta</string>
   <string name="whoToKick">Kenet haluat poistaa joukkueesta?</string>
@@ -53,5 +52,5 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="teamAlreadyExists">Tämä joukkue on jo olemassa.</string>
   <string name="upcomingTourns">Tulevat turnaukset</string>
   <string name="completedTourns">Päättyneet turnaukset</string>
-  <string name="declinedRequests" comment="declinedRequests&#10;&#10;Visible to team leaders - requests to join the team that have been declined.">Hylätyt pyynnöt</string>
+  <string name="declinedRequests">Hylätyt pyynnöt</string>
 </resources>
