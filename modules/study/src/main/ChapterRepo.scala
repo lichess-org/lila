@@ -62,6 +62,15 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
       }
     }
 
+  def byIdsSource(ids: Iterable[Chapter.Id]): Source[Chapter, _] =
+    Source futureSource {
+      coll map {
+        _.find($inIds(ids))
+          .cursor[Chapter](readPreference = readPref)
+          .documentSource()
+      }
+    }
+
   // loads all study chapters in memory!
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
     coll {

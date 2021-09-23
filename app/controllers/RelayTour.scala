@@ -131,7 +131,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
       env.relay.api tourById TourModel.Id(id) map {
         _ ?? { tour =>
           apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-            env.relay.pgnStream(tour)
+            env.relay.pgnStream.exportFullTour(tour)
           ) { source =>
             asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn")(
               Ok chunked source as pgnContentType

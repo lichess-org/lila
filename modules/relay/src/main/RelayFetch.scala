@@ -82,7 +82,7 @@ final private class RelayFetch(
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map { res =>
               res -> rt.round
-                .withSync(_ addLog SyncLog.event(res.moves, none))
+                .withSync(_ addLog SyncLog.event(res.nbMoves, none))
                 .copy(finished = games.forall(_.end.isDefined))
             }
         }
@@ -102,9 +102,10 @@ final private class RelayFetch(
 
   def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
     result match {
-      case SyncResult.Ok(0, _) => continueRelay(rt)
-      case SyncResult.Ok(nbMoves, _) =>
-        lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(nbMoves)
+      case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
+      case result: SyncResult.Ok =>
+        continueRelay(rt)
+        lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(result.nbMoves)
         continueRelay(rt.round.ensureStarted.resume withTour rt.tour)
       case _ => continueRelay(rt)
     }

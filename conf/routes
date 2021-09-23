@@ -213,6 +213,7 @@ GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundI
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: String)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: String)
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId: String)
+GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index

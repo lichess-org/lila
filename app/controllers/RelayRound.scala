@@ -11,10 +11,12 @@ import lila.app._
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
 import lila.user.{ User => UserModel }
 import views._
+import lila.common.HTTPRequest
 
 final class RelayRound(
     env: Env,
-    studyC: => Study
+    studyC: => Study,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def form(tourId: String) =
@@ -161,6 +163,22 @@ final class RelayRound(
           }
     )
 
+  def stream(id: String) = AnonOrScoped() { req => me =>
+    env.relay.api.byIdWithStudy(id) flatMap {
+      _ ?? { rt =>
+        studyC.CanView(rt.study, me) {
+          apiC
+            .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+              env.relay.pgnStream.streamRoundGames(rt)
+            ) { source =>
+              noProxyBuffer(Ok chunked source.keepAlive(60.seconds, () => " ") as pgnContentType)
+            }
+            .fuccess
+        }(Unauthorized.fuccess, Forbidden.fuccess)
+      }
+    }
+  }
+
   def chapter(ts: String, rs: String, id: String, chapterId: String) =
     Open { implicit ctx =>
       WithRoundAndTour(ts, rs, id) { rt =>
@@ -250,7 +268,7 @@ final class RelayRound(
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(lila.common.HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
         create
       }(fail.fuccess)
     }(fail.fuccess)

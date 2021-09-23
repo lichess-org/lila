@@ -23,18 +23,20 @@ final private class RelaySync(
           case None =>
             lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
-                case Some(chapter) => updateChapter(rt.tour, study, chapter, game)
+                case Some(chapter) => updateChapter(rt.tour, study, chapter, game).dmap(chapter.id -> _)
                 case None =>
                   createChapter(study, game) flatMap { chapter =>
                     chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
                       studyApi.deleteChapter(study.id, initial.id) {
                         actorApi.Who(study.ownerId, sri)
                       }
-                    } inject chapter.root.mainline.size
+                    } inject (chapter.id -> chapter.root.mainline.size)
                   }
               }
-            } map { _.sum } flatMap { moves =>
-              tourRepo.setSyncedNow(rt.tour) inject SyncResult.Ok(moves, games)
+            } flatMap { moves =>
+              val result = SyncResult.Ok(moves.toMap, games)
+              lila.common.Bus.publish(result, SyncResult busChannel rt.round.id)
+              tourRepo.setSyncedNow(rt.tour) inject result
             }
         }
       }
@@ -212,7 +214,8 @@ sealed trait SyncResult {
   val reportKey: String
 }
 object SyncResult {
-  case class Ok(moves: Int, games: RelayGames) extends SyncResult {
+  case class Ok(moves: Map[Chapter.Id, Int], games: RelayGames) extends SyncResult {
+    def nbMoves   = moves.values.sum
     val reportKey = "ok"
   }
   case object Timeout extends Exception with SyncResult {
@@ -222,4 +225,6 @@ object SyncResult {
   case class Error(msg: String) extends SyncResult {
     val reportKey = "error"
   }
+
+  def busChannel(roundId: RelayRound.Id) = s"relaySyncResult:$roundId"
 }

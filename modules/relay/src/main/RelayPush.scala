@@ -32,7 +32,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
       .flatMap { games =>
         sync(rt, games)
           .map { res =>
-            SyncLog.event(res.moves, none)
+            SyncLog.event(res.nbMoves, none)
           }
           .recover { case e: Exception =>
             SyncLog.event(0, e.some)
