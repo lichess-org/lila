@@ -76,9 +76,7 @@ function truncSeconds(epoch: number): number {
 
 function fitLane(lane: Lane, tour2: Tournament) {
   return !lane.some(function (tour1: Tournament) {
-    const r = !(truncSeconds(tour1.finishesAt) <= truncSeconds(tour2.startsAt) || truncSeconds(tour2.finishesAt) <= truncSeconds(tour1.startsAt));
-    if (r) console.log("r=", r, tour1, tour2);
-    return r;
+    return !(truncSeconds(tour1.finishesAt) <= truncSeconds(tour2.startsAt) || truncSeconds(tour2.finishesAt) <= truncSeconds(tour1.startsAt));
   });
 }
 
