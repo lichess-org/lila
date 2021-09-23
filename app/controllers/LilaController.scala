@@ -122,21 +122,20 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
-      anon: RequestHeader => Fu[Result],
-      scoped: RequestHeader => UserModel => Fu[Result]
+      f: RequestHeader => Option[UserModel] => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
-      else anon(req)
+      if (HTTPRequest isOAuth req) handleScoped(selectors)((req: RequestHeader) => me => f(req)(me.some))(req)
+      else f(req)(none)
     }
 
   protected def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
-      anon: Request[A] => Fu[Result],
-      scoped: Request[A] => UserModel => Fu[Result]
+      f: Request[A] => Option[UserModel] => Fu[Result]
   ): Action[A] =
     Action.async(parser) { req =>
-      if (HTTPRequest isOAuth req) ScopedBody(parser)(selectors)(scoped)(req)
-      else anon(req)
+      if (HTTPRequest isOAuth req)
+        ScopedBody(parser)(selectors)((req: Request[A]) => me => f(req)(me.some))(req)
+      else f(req)(none)
     }
 
   protected def AuthOrScoped(selectors: OAuthScope.Selector*)(

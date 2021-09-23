@@ -439,21 +439,16 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  def apiPgn(id: String) = {
-    def handle(me: Option[lila.user.User], req: RequestHeader): Fu[Result] =
-      env.study.api.byId(id).map {
-        _.fold(NotFound(jsonError("Study not found"))) { study =>
-          PgnRateLimitPerIp(HTTPRequest ipAddress req) {
-            CanView(study, me) {
-              doPgn(study, req)
-            }(privateUnauthorizedJson, privateForbiddenJson)
-          }(rateLimitedJson)
-        }
+  def apiPgn(id: String) = AnonOrScoped(_.Study.Read) { req => me =>
+    env.study.api.byId(id).map {
+      _.fold(NotFound(jsonError("Study not found"))) { study =>
+        PgnRateLimitPerIp(HTTPRequest ipAddress req) {
+          CanView(study, me) {
+            doPgn(study, req)
+          }(privateUnauthorizedJson, privateForbiddenJson)
+        }(rateLimitedJson)
       }
-    AnonOrScoped(_.Study.Read)(
-      anon = req => handle(none, req),
-      scoped = req => me => handle(me.some, req)
-    )
+    }
   }
 
   private def doPgn(study: StudyModel, req: RequestHeader) = {

@@ -324,10 +324,17 @@ final class Api(
   }
 
   def gamesByUsersStream =
-    AnonOrScopedBody(parse.tolerantText)()(
-      anon = gamesByUsers(300),
-      scoped = req => u => gamesByUsers(if (u.id == "lichess4545") 900 else 500)(req)
-    )
+    AnonOrScopedBody(parse.tolerantText)() { req => me =>
+      val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
+      GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+        addKeepAlive(
+          env.game.gamesByUsersStream(
+            userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet,
+            withCurrentGames = getBool("withCurrentGames", req)
+          )
+        )
+      )(sourceToNdJsonOption).fuccess
+    }
 
   def cloudEval =
     Action.async { req =>
@@ -341,16 +348,6 @@ final class Api(
         )
       }
     }
-
-  private def gamesByUsers(max: Int)(req: Request[String]) =
-    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-      addKeepAlive(
-        env.game.gamesByUsersStream(
-          userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet,
-          withCurrentGames = getBool("withCurrentGames", req)
-        )
-      )
-    )(sourceToNdJsonOption).fuccess
 
   def eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>

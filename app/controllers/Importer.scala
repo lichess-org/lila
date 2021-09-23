@@ -60,8 +60,8 @@ final class Importer(env: Env) extends LilaController(env) {
         )
     }
 
-  def apiSendGame = {
-    def commonImport(req: Request[_], me: Option[lila.user.User]): Fu[Result] =
+  def apiSendGame =
+    AnonOrScopedBody(parse.anyContent)() { req => me =>
       ImportRateLimitPerIP(HTTPRequest ipAddress req, cost = if (me.isDefined) 1 else 2) {
         env.importer.forms.importForm
           .bindFromRequest()(req, formBinding)
@@ -80,11 +80,7 @@ final class Importer(env: Env) extends LilaController(env) {
               }
           )
       }(rateLimitedFu)
-    AnonOrScopedBody(parse.anyContent)()(
-      anon = req => commonImport(req, none),
-      scoped = req => me => commonImport(req, me.some)
-    )
-  }
+    }
 
   private def doImport(
       data: lila.importer.ImportData,
