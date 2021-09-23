@@ -51,7 +51,7 @@ final class Messenger(api: ChatApi) {
     "Good game",
     "Well played",
     "Thank you",
-    "I\"ve got to go",
+    "I've got to go",
     "Bye!"
   )
 
