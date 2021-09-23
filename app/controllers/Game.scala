@@ -43,7 +43,6 @@ final class Game(
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
       case None => NotFound.fuccess
       case Some(game) =>
-        lila.mon.export.pgn.game.increment()
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported", req),

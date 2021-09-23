@@ -669,11 +669,6 @@ object mon {
     }
   }
   object export {
-    object pgn {
-      val game         = counter("export.pgn").withTag("type", "game")
-      val study        = counter("export.pgn").withTag("type", "study")
-      val studyChapter = counter("export.pgn").withTag("type", "studyChapter")
-    }
     object png {
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")

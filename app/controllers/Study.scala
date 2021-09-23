@@ -452,7 +452,6 @@ final class Study(
   }
 
   private def doPgn(study: StudyModel, req: RequestHeader) = {
-    lila.mon.export.pgn.study.increment()
     Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
@@ -463,7 +462,6 @@ final class Study(
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
-            lila.mon.export.pgn.studyChapter.increment()
             env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
               Ok(pgn.toString)
                 .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
