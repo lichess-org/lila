@@ -36,8 +36,7 @@
   <string name="forbiddenPairingsHelp">Benutzernamä vo Schpiller/-innä, wo nöd gegänand schpilä dörfäd (zum Biischpiil Gschwüschtärti). Zwei Benutzernamä pro Ziilä, trännt dur äs Läärzeichä.</string>
   <string name="newSwiss">Neus Turniär noch Schwiizär Syschtem</string>
   <string name="swissVsArenaQ">Wänn sölläd Turniär noch Schwiizer Syschtem anschtatt Arena-Turniär verwändät wärdä?</string>
-  <string name="swissVsArenaA">Bei einem Turnier nach Schweizer System spielen alle Teilnehmer die gleiche Anzahl von Spielen und können nur einmal gegeneinander spielen.
-Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
+  <string name="swissVsArenaA">Imänä Turniär mit Schwiiizer System, spiiläd alli glich viil partie und jede spielt nur einisch gege jede andär. Ds chöönt ä guäti Waal si für Cklubs und offiziäli Turniär.</string>
   <string name="pointsCalculationQ">Wiä wärdäd Pünkt berächnät?</string>
   <string name="pointsCalculationA">Ein Sieg ist einen Punkt wert, ein Remis einen halben Punkt, und eine Niederlage null Punkte. Wenn ein Spieler während einer Runde keinem anderen Spieler zugeteilt werden kann, erhält er einen Punkt.</string>
   <string name="tiebreaksCalculationQ">Wie wärdäd Tie-Breaks berächnät?</string>
