@@ -168,7 +168,8 @@ final class StudyApi(
             chatApi.userChat.system(
               Chat.Id(study.id.value),
               s"Cloned from lichess.org/study/${prev.id}",
-              _.Study
+              _.Study,
+              expire = false
             ) inject study.some
         }
     }

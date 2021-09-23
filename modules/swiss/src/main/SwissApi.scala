@@ -602,7 +602,7 @@ final class SwissApi(
       }
 
   private def systemChat(id: Swiss.Id, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, volatile)
+    chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, isVolatile = volatile, expire = false)
 
   def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
     colls.swiss

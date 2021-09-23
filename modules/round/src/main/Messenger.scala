@@ -13,16 +13,11 @@ final class Messenger(api: ChatApi) {
   def volatile(game: Game, message: String): Unit =
     system(persistent = false)(game, message)
 
-  def system(persistent: Boolean)(game: Game, message: String): Unit = {
-    val apiCall =
-      if (persistent) api.userChat.system _
-      else api.userChat.volatile _
-    apiCall(watcherId(Chat.Id(game.id)), message, _.Round)
-    if (game.nonAi) apiCall(Chat.Id(game.id), message, _.Round)
+  def system(persistent: Boolean)(game: Game, message: String): Unit = if (game.nonAi) {
+    api.userChat.volatile(watcherId(Chat.Id(game.id)), message, _.Round)
+    if (persistent) api.userChat.system(Chat.Id(game.id), message, _.Round, expire = true)
+    else api.userChat.volatile(Chat.Id(game.id), message, _.Round)
   }.unit
-
-  def systemForOwners(chatId: Chat.Id, message: String): Unit =
-    api.userChat.system(chatId, message, _.Round).unit
 
   def watcher(gameId: Game.Id, userId: User.ID, text: String) =
     api.userChat.write(watcherId(gameId), userId, text, PublicSource.Watcher(gameId.value).some, _.Round)
