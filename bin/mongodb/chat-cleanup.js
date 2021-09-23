@@ -8,17 +8,20 @@ const isChatGarbage = chat =>
   chat.l.every(l => {
     try {
       const [_, author, flag, text] = l.match(parseLineRegex);
-      return author == 'lichess' || isFlagGarbage(flag) || isTextGarbage(text.trim().toLowerCase());
+      return isAuthorGarbage(author) || isFlagGarbage(flag) || isTextGarbage(text.trim().toLowerCase());
     } catch (e) {
-      print(e);
-      print(l);
+      print(`${chat._id} ${e} ${l}`);
+      return false;
     }
   });
 
+// system, anon, bots
+const isAuthorGarbage = author => author == 'lichess' || author == 'w' || author == 'b' || author.indexOf('BOT~') == 0;
+
+// shadowbanned and deleted
 const isFlagGarbage = flag => flag == '!' || flag == '?';
 
 const presets = new Set([
-  'hello',
   'good luck',
   'have fun!',
   'you too!',
@@ -26,7 +29,6 @@ const presets = new Set([
   'well played',
   'thank you',
   "i've got to go",
-  'bye!',
 ]);
 
 const isTextGarbage = text => text.indexOf(' ') < 0 || presets.has(text);
@@ -55,9 +57,15 @@ const flushBuffer = () => {
     print(`${numberFormat(deleted)} / ${numberFormat(read)} - ${Math.round((deleted * 100) / read)}%`);
 };
 
-db.chat.find().forEach(chat => {
-  read++;
-  if (isChatGarbage(chat)) deleteChat(chat);
-});
+db.chat
+  .find()
+  // .skip(240 * 1000 * 1000)
+  .forEach(chat => {
+    read++;
+    if (isChatGarbage(chat)) {
+      deleteChat(chat);
+      if (read % 100000 == 0) printjson(chat);
+    }
+  });
 
 flushBuffer();
