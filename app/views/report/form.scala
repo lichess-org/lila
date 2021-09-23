@@ -26,8 +26,15 @@ object form {
           action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
-            a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
-              "Read more about Lichess reports"
+            p(
+              a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
+                "Read more about Lichess reports"
+              )
+            ),
+            ctx.req.queryString.contains("postUrl") option p(
+              "Here for DMCA or Intellectual Property Take Down Notice? ",
+              a(href := views.html.site.contact.dmcaUrl)("Complete this form instead"),
+              "."
             )
           ),
           form3.globalError(form),

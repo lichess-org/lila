@@ -343,9 +343,7 @@ object contact {
               "dmca",
               "DMCA / Intellectual Property Take Down Notice",
               p(
-                a(
-                  href := "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform"
-                )("Complete this form"),
+                a(href := dmcaUrl)("Complete this form"),
                 " ",
                 "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
               )
@@ -362,6 +360,9 @@ object contact {
         )
       )
     )
+
+  val dmcaUrl =
+    "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform"
 
   def apply()(implicit ctx: Context) =
     page.layout(
