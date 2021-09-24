@@ -45,7 +45,11 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentr
     <item quantity="few">Vezi toate cele %s echipe</item>
     <item quantity="other">Vezi toate cele %s de echipe</item>
   </plurals>
+  <string name="newTeamBattle">Luptă în echipă</string>
   <string name="customStartDate">Data de început personalizată</string>
+  <string name="customStartDateHelp">În fusul orar local. Acest lucru înlocuiește setarea \"Timp înainte de începerea turneului\"</string>
+  <string name="allowBerserk">Permite Berserk</string>
   <string name="allowBerserkHelp">Lăsați jucătorii să își înjumătățească timpul pentru a obține un punct în plus</string>
   <string name="allowChatHelp">Permiteți jucătorilor să discute într-o cameră de chat</string>
+  <string name="arenaStreaksHelp">După 2 partide câştigate, câştigurile consecutive aduc 4 puncte în loc de 2.</string>
 </resources>
