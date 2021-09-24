@@ -868,9 +868,11 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="cancelTournament">Anulează turneul</string>
   <string name="tournDescription">Descrierea turneului</string>
   <string name="tournDescriptionHelp">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Partidele sunt evaluate
+și vor avea ca rezultat modificarea ratingului</string>
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>
   <string name="noRestriction">Fără restricții</string>
-  <string name="minimumRatedGames">Numar minim de partide jucate</string>
+  <string name="minimumRatedGames">Numar minim de partide evaluate jucate</string>
   <string name="minimumRating">Rating minim</string>
   <string name="maximumWeeklyRating">Rating săptămânal maxim</string>
   <string name="onlyTitled">Doar jucători titrati</string>
@@ -888,7 +890,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
   <string name="embedsAvailable">Lipește un URL al jocului sau un URL de capitol de studiu pentru a-l încorpora.</string>
   <string name="inYourLocalTimezone">În fusul orar local</string>
-  <string name="tournChat">Chat de turneu</string>
+  <string name="tournChat">Conversatie</string>
   <string name="noChat">Fără conversație</string>
   <string name="onlyTeamLeaders">Doar lideri de echipă</string>
   <string name="onlyTeamMembers">Doar membrii echipei</string>
