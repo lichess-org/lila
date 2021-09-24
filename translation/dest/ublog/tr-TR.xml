@@ -31,4 +31,5 @@
     <item quantity="other">%s gönderinin hepsini görüntüle</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Gönderinize bir görsel ekleyin</string>
+  <string name="imageAlt">Alternatif resim metni</string>
 </resources>
