@@ -69,6 +69,10 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="tournDuration">Durata turneului</string>
   <string name="predefinedDuration">Durată predefinită în minute</string>
   <string name="durationUnknown">Runde maxime predefinite, dar durata nu este cunoscută</string>
+  <string name="identicalForbidden">Interzis</string>
   <string name="lateJoin">Aderare tardivă</string>
   <string name="lateJoinUntil">Da, însă doar înainte să înceapă mai mult de jumătate din numărul rundelor</string>
+  <string name="pause">Pauză</string>
+  <string name="pauseSwiss">Da, dar ar putea reduce numărul de runde</string>
+  <string name="unlimitedAndFree">Nelimitat și gratuit</string>
 </resources>
