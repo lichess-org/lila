@@ -73,6 +73,7 @@
   <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess încă te iubește foarte mult.
 Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle al tău adăugat!</string>
   <string name="fromXGamesFound">%1$s puzzle-uri găsite în %2$s jocuri</string>
+  <string name="puzzleDashboardDescription">Antrenează, analizează, îmbunătățește</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jucat</item>
     <item quantity="few">%s jucate</item>
@@ -85,4 +86,5 @@ Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle a
   </plurals>
   <string name="percentSolved">%s rezolvate</string>
   <string name="noPuzzlesToShow">Nimic de arătat, joacă mai întâi câteva puzzle-uri!</string>
+  <string name="improvementAreasDescription">Antreneaza-te pentru a-ti optimiza progresul!</string>
 </resources>
