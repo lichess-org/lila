@@ -6,7 +6,15 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess-ը live/light/libre և chess բառերի համադրությունից է` կենդանի, թեթև և ազատ շախմատ։ Lichess-ն արտասանվում է %1$s։</string>
   <string name="leechess">լի֊չես</string>
   <string name="hearItPronouncedBySpecialist">Լսեք մասնագետի կատարմամբ։</string>
+  <string name="howCanIContributeToLichess">Ինչպե՞ս կարող եմ ներդրում ունենալ Lichess-ում։</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess-ը գոյություն ունի խաղացողների նվիրատվություններով և մշակվում է կամավորների թիմի կողմից։</string>
+  <string name="beingAPatron">դառնալ հովանավոր</string>
+  <string name="breakdownOfOurCosts">ծախսերի հաշվետվություն</string>
+  <string name="otherWaysToHelp">օգնելու այլ ձևեր</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess-ի վրա հիմնված այլ կայքեր կա՞ն։</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Այո, կան։ Շատ կայքեր ոգեշնչվել են Lichess-ից և օգտագործում են մեր %1$s-ը, %2$s-ը և %3$s-ը։</string>
   <string name="fairPlay">Արդար խաղ</string>
+  <string name="whenAmIEligibleRatinRefund">Եթե պարզվի, որ ես պատվել եմ խարդախին, իմ վարկանիշը կվերադարձնե՞ն։</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>
   <string name="threefoldRepetitionLowerCase">եռակի կրկնություն</string>
   <string name="configure">կարգավորել</string>
