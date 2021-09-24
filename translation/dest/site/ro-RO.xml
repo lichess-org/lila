@@ -92,7 +92,7 @@
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Nu a fost găsit nici un joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
-  <string name="openingExplorer">Cercetarea deschiderilor</string>
+  <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
   <string name="winPreventedBy50MoveRule">Victoria partidei a fost împiedicată de regula celor 50 de mutări</string>
@@ -373,7 +373,7 @@
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
-  <string name="importGameExplanation">Inserați un joc în format PGN pentru a obțineți o reluare dinamică, o analiză a computerului, un chat și un URL pentru distribuire.</string>
+  <string name="importGameExplanation">Copiați o partidă în format PGN pentru a putea apoi sa o rejucati, sa cereti o analiză a computerului, sa folositi functia de chat și sa obtineti un URL pentru distribuire.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
