@@ -29,4 +29,6 @@
     <item quantity="other">Vezi toate cele %s de postări</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Încarcă o imagine pentru postarea ta</string>
+  <string name="imageAlt">Text alternativ imagine</string>
+  <string name="imageCredit">Sursa imagine</string>
 </resources>
