@@ -330,17 +330,17 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s meci evaluat</item>
     <item quantity="few">%s meciuri evaluate</item>
-    <item quantity="other">%s meciuri evaluate</item>
+    <item quantity="other">%s partide evaluate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">%1$s %2$s meci jucat</item>
     <item quantity="few">%1$s %2$s meciuri jucate</item>
-    <item quantity="other">%1$s %2$s meciuri jucate</item>
+    <item quantity="other">%1$s %2$s partide jucate</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Trebuie să joci încă %1$s meci in variantă %2$s</item>
     <item quantity="few">Trebuie să joci încă %1$s meciuri in variantă %2$s</item>
-    <item quantity="other">Trebuie să joci încă %1$s meciuri %2$s evaluate</item>
+    <item quantity="other">Trebuie să joci încă %1$s partide %2$s evaluate</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Trebuie să joci încă %s meci evaluat</item>
@@ -625,7 +625,7 @@
   <string name="noSimulExplanation">Acest simultan nu există.</string>
   <string name="returnToSimulHomepage">Înapoi la pagina simultanului</string>
   <string name="aboutSimul">Simultanele înseamnă un singur jucător în fața mai multor jucători în același timp.</string>
-  <string name="aboutSimulImage">Din 50 de oponenți, Fischer a câștigat 47 de meciuri, a făcut remiză în 2 meciuri și a pierdut 1 meci.</string>
+  <string name="aboutSimulImage">Din 50 de oponenți, Fischer a câștigat 47 de partide, a făcut remiză în 2 partide și a pierdut 1 partida.</string>
   <string name="aboutSimulRealLife">Conceptul provine din evenimentele din lumea reală. În viața reală, jucătorul care acordă un simultan se deplasează de la o tablă la alta pentru a juca la fiecare câte o singură mutare.</string>
   <string name="aboutSimulRules">Când simultanul începe, fiecare jucător începe jocul cu gazda și va juca cu piesele albe. Simultanul se termină când toate jocurile sunt complete.</string>
   <string name="aboutSimulSettings">Simultanele sunt tot timpul amicale. Revanșele, mutările înapoi și opțiunea \"mai mult timp\" sunt dezactivate.</string>
@@ -809,13 +809,13 @@
   <string name="howToAvoidThis">Cum puteți preveni suspendarea?</string>
   <string name="playEveryGame">Jucați fiecare meci pe care-l începeți.</string>
   <string name="tryToWin">Încercați să câștigați (sau măcar să faceți remiză) fiecare meci pe care-l jucați.</string>
-  <string name="resignLostGames">Abandonați meciurile pierdute (nu lăsați timpul să expire).</string>
+  <string name="resignLostGames">Abandonați partidele pierdute (nu lăsați timpul să expire).</string>
   <string name="temporaryInconvenience">Ne pare rău pentru neplăcerile temporare</string>
-  <string name="wishYouGreatGames">și vă dorim meciuri deosebite pe Lichess.org.</string>
+  <string name="wishYouGreatGames">și vă dorim partide deosebite pe Lichess.org.</string>
   <string name="thankYouForReading">Îți mulțumim pentru atenție!</string>
   <string name="lifetimeScore">Scorul total</string>
   <string name="currentMatchScore">Scorul curent</string>
-  <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul meciurilor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
+  <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul partidelor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
   <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
@@ -823,12 +823,12 @@
   <string name="edit">Modifică</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Clasic</string>
-  <string name="ultraBulletDesc">Meciuri incredibil de rapide: mai puțin de 30 de secunde</string>
-  <string name="bulletDesc">Meciuri foarte rapide: mai puțin de 3 minute</string>
-  <string name="blitzDesc">Meciuri rapide: între 3 și 8 minute</string>
-  <string name="rapidDesc">Meciuri destul de rapide: între 8 și 25 de minute</string>
-  <string name="classicalDesc">Meciuri clasice: 25 de minute sau mai mult</string>
-  <string name="correspondenceDesc">Meciuri de corespondență: o mutare la una sau mai multe zile</string>
+  <string name="ultraBulletDesc">Partide incredibil de rapide: mai puțin de 30 de secunde</string>
+  <string name="bulletDesc">Partide foarte rapide: mai puțin de 3 minute</string>
+  <string name="blitzDesc">Partide rapide: între 3 și 8 minute</string>
+  <string name="rapidDesc">Partide destul de rapide: între 8 și 25 de minute</string>
+  <string name="classicalDesc">Partide clasice: 25 de minute sau mai mult</string>
+  <string name="correspondenceDesc">Partide prin corespondență: o mutare la una sau mai multe zile</string>
   <string name="puzzleDesc">Antrenor de tactici de șah</string>
   <string name="important">Important</string>
   <string name="yourQuestionMayHaveBeenAnswered">Este posibil ca întrebarea ta să aibă deja un răspuns %1$s</string>
