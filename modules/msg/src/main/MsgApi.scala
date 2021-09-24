@@ -214,14 +214,19 @@ final class MsgApi(
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
     colls.msg
       .find(
-        $doc("tid" -> threadId, "del" $ne me.id) ++ before.?? { b =>
+        $doc("tid" -> threadId) ++ before.?? { b =>
           $doc("date" $lt b)
         },
         msgProjection
       )
       .sort($sort desc "date")
-      .cursor[Msg]()
+      .cursor[Bdoc]()
       .list(msgsPerPage.value)
+      .map {
+        _.flatMap { doc =>
+          doc.getAsOpt[List[User.ID]]("del").fold(true)(!_.has(me.id)) ?? doc.asOpt[Msg]
+        }
+      }
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: User.ID): Funit =
     colls.thread.updateField(
