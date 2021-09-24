@@ -71,26 +71,31 @@ Cei care s-au alăturat cu întârziere primesc o singură pauză, chiar dacă a
 Motivul este că nu are un mod corect de a trata persoanele care părăsesc turneul mai devreme. Nu ne putem aștepta ca toți jucătorii să își joace toate jocurile într-un eveniment online. Pur și simplu, acest lucru nu se va întâmpla şi, ca urmare, majoritatea turneelor de tip Round Robin ar fi nedrepte, ceea ce ar fi contrar scopului pentru care a fost creat turneul.
 Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu elvețian cu un număr foarte mare de runde. Astfel vor fi jucate toate perechile posibile înainte de terminarea turneului.</string>
   <string name="otherSystemsQ">Cum rămâne cu alte sisteme de turnee?</string>
-  <string name="otherSystemsA">Nu intenţionăm să adăugăm mai multe sisteme de turnee la Lichess în acest moment.</string>
+  <string name="otherSystemsA">Nu intenţionăm să adăugăm mai multe tipuri de turnee la Lichess în acest moment.</string>
   <string name="swissDescription">Într-un turneu elvețian %1$s, fiecare concurent nu joacă neapărat cu toți ceilalți inscrisi. Concurenții se întâlnesc unu la unu în fiecare rundă și sunt asociați utilizând un set de reguli concepute pentru a se asigura că fiecare concurent joacă adversari cu un scor similar, dar nu cu același adversar de mai multe ori. Câștigătorul este concurentul cu cele mai multe puncte câștigate cumulat în toate rundele. Toți concurenții joacă în fiecare rundă, cu excepția cazului în care există un număr impar de jucători.”</string>
-  <string name="teamOnly">Turneurile elvețiene pot fi create doar de liderii echipei, și pot fi jucate doar de membrii echipei.           
-%1$s pentru a începe să se joace în turneuri elvețiene.</string>
+  <string name="teamOnly">Turneurile elvețiene pot fi create doar de liderii de echipe și pot fi jucate doar de membrii unei echipe.           
+%1$s pentru a începe să joci într-un turneu elvețian.</string>
   <string name="joinOrCreateTeam">Alătură-te sau creează o echipă</string>
   <string name="nowPlaying">Acum se joacă</string>
   <string name="startingSoon">Începe în curând</string>
   <string name="comparison">Comparaţie</string>
   <string name="tournDuration">Durata turneului</string>
   <string name="predefinedDuration">Durată predefinită în minute</string>
-  <string name="durationUnknown">Runde maxime predefinite, dar durata nu este cunoscută</string>
-  <string name="numberOfGames">Numărul de partide</string>
+  <string name="durationUnknown">Număr maxim de runde predefinit, dar durata nu este cunoscută</string>
+  <string name="numberOfGames">Număr de partide</string>
   <string name="numberOfGamesAsManyAsPossible">Cât de multe pot fi jucate pe durata atribuită</string>
   <string name="numberOfGamesPreDefined">Decisă în avans, la fel pentru toți jucătorii</string>
   <string name="pairingSystem">Sistem de asociere</string>
   <string name="pairingSystemArena">Orice oponent disponibil cu rang similar</string>
+  <string name="pairingWaitTime">Timp de aşteptare pentru asociere</string>
+  <string name="identicalPairing">Asociere repetata (daca jucati cu aceeasi persoana de mai multe ori)</string>
+  <string name="possibleButNotConsecutive">Posibil, dar nu consecutiv</string>
   <string name="identicalForbidden">Interzis</string>
   <string name="lateJoin">Aderare tardivă</string>
   <string name="lateJoinUntil">Da, însă doar înainte să înceapă mai mult de jumătate din numărul rundelor</string>
   <string name="pause">Pauză</string>
   <string name="pauseSwiss">Da, dar ar putea reduce numărul de runde</string>
+  <string name="streaksAndBerserk">Serii de victorii si Berserk</string>
+  <string name="similarToOTB">Similar turneelor oficiale</string>
   <string name="unlimitedAndFree">Nelimitat și gratuit</string>
 </resources>
