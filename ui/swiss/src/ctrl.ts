@@ -69,18 +69,17 @@ export default class SwissCtrl {
     }, delay);
   };
 
-  scrollToMe = () => {
-    const page = myPage(this);
-    if (page && page !== this.page) this.setPage(page);
-  };
+  scrollToMe = () => this.setPage(myPage(this));
 
   loadPage = (data: Standing) => {
     this.pages[data.page] = this.readStanding(data).players;
   };
 
-  setPage = (page: number) => {
-    this.page = page;
-    xhr.loadPage(this, page);
+  setPage = (page: number | undefined) => {
+    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
+      this.page = page;
+      xhr.loadPage(this, page);
+    }
   };
 
   toggleFocusOnMe = () => {

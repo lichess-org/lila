@@ -94,8 +94,8 @@ export default class TournamentController {
     if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   };
 
-  setPage = (page: number) => {
-    if (page != this.page && page >= 1 && page <= players(this).nbPages) {
+  setPage = (page: number | undefined) => {
+    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
       this.page = page;
       xhr.loadPage(this, page);
     }
@@ -162,10 +162,7 @@ export default class TournamentController {
     }
   };
 
-  scrollToMe = () => {
-    const page = myPage(this);
-    if (page) this.setPage(page);
-  };
+  scrollToMe = () => this.setPage(myPage(this));
 
   toggleFocusOnMe = () => {
     if (!this.data.me) return;
