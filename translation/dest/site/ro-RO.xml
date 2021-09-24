@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">Joci cu albele</string>
   <string name="youPlayTheBlackPieces">Joci cu negrele</string>
   <string name="itsYourTurn">E rândul tău!</string>
+  <string name="cheatDetected">S-a trişat</string>
   <string name="kingInTheCenter">Regele în centru</string>
   <string name="threeChecks">Trei șahuri</string>
   <string name="raceFinished">Competiție terminată</string>
@@ -676,6 +677,7 @@
   <string name="downloadImported">Descarcă importat</string>
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poți acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeți pe tablă.</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
   <string name="receiveForumNotifications">Primește notificări atunci când ești menționat în forum</string>
@@ -861,11 +863,14 @@
   <string name="welcome">Bine ați venit!</string>
   <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
+  <string name="coachManager">Setări pentru antrenor</string>
+  <string name="streamerManager">Setări pentru streamer</string>
   <string name="cancelTournament">Anulează turneul</string>
   <string name="tournDescription">Descrierea turneului</string>
   <string name="tournDescriptionHelp">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>
   <string name="noRestriction">Fără restricții</string>
+  <string name="minimumRatedGames">Numar minim de partide jucate</string>
   <string name="minimumRating">Rating minim</string>
   <string name="maximumWeeklyRating">Rating săptămânal maxim</string>
   <string name="onlyTitled">Doar jucători titrati</string>
@@ -874,12 +879,16 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
 Funcționează doar pentru jocuri standard, nu si pentru variante.
 Puteți utiliza %s pentru a genera o poziție FEN, apoi lipiți-o aici.
 Lăsați gol pentru a începe jocurile din poziția inițială normală.</string>
+  <string name="cancelSimul">Anulează simul</string>
   <string name="simulHostcolor">Culoare gazdă pentru fiecare joc</string>
   <string name="estimatedStart">Timp de începere estimat</string>
+  <string name="simulFeaturedHelp">Arătați-vă simul tuturor de pe %s. Dezactivați pentru simul private.</string>
+  <string name="simulDescription">Descriere Simul</string>
   <string name="simulDescriptionHelp">Ce vrei să spui participanţilor?</string>
   <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
   <string name="embedsAvailable">Lipește un URL al jocului sau un URL de capitol de studiu pentru a-l încorpora.</string>
   <string name="inYourLocalTimezone">În fusul orar local</string>
+  <string name="tournChat">Chat de turneu</string>
   <string name="noChat">Fără conversație</string>
   <string name="onlyTeamLeaders">Doar lideri de echipă</string>
   <string name="onlyTeamMembers">Doar membrii echipei</string>
