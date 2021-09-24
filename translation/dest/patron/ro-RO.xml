@@ -6,9 +6,9 @@
   <string name="becomePatron">Devino un Patron Lichess</string>
   <string name="xBecamePatron">%s a devenit un Patron Lichess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s este un Patron Lichess timp de %2$s lună</item>
+    <item quantity="one">%1$s este un Patron Lichess de %2$s lună</item>
     <item quantity="few">%1$s este un Patron Lichess timp de %2$s luni</item>
-    <item quantity="other">%1$s este un Patron Lichess timp de %2$s de luni</item>
+    <item quantity="other">%1$s este un Patron Lichess de %2$s luni</item>
   </plurals>
   <string name="newPatrons">Patroni noi</string>
   <string name="freeChess">Șah gratuit pentru toată lumea, pentru totdeauna!</string>
@@ -77,5 +77,5 @@ Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lâng
   <string name="nowLifetime">Acum ești Patron Lichess pe viață!</string>
   <string name="nowOneMonth">Acum ești Patron Lichess pentru o lună!</string>
   <string name="downgradeNextMonth">Într-o lună, NU vei fi taxat din nou, iar contul tău de Lichess va fi înapoi un cont normal.</string>
-  <string name="changeCurrency">Schimbă moneda</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Schimbă moneda</string>
 </resources>
