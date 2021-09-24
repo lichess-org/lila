@@ -392,7 +392,7 @@
     <item quantity="few">%s prieteni online</item>
     <item quantity="other">%s prieteni online</item>
   </plurals>
-  <string name="favoriteOpponents">Oponenți favoriți</string>
+  <string name="favoriteOpponents">Adversari preferați</string>
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>
   <string name="unfollow">Opriți urmărirea</string>
@@ -581,7 +581,7 @@
   <string name="computer">Calculator</string>
   <string name="side">Parte</string>
   <string name="clock">Ceas</string>
-  <string name="opponent">Oponent</string>
+  <string name="opponent">Adversar</string>
   <string name="learnMenu">Învață</string>
   <string name="studyMenu">Studiază</string>
   <string name="practice">Antrenează-te</string>
@@ -884,6 +884,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="cancelSimul">Anulează simul</string>
   <string name="simulHostcolor">Culoare gazdă pentru fiecare joc</string>
   <string name="estimatedStart">Timp de începere estimat</string>
+  <string name="simulFeatured">Recomandat de %s</string>
   <string name="simulFeaturedHelp">Arătați-vă simul tuturor de pe %s. Dezactivați pentru simul private.</string>
   <string name="simulDescription">Descriere Simul</string>
   <string name="simulDescriptionHelp">Ce vrei să spui participanţilor?</string>
