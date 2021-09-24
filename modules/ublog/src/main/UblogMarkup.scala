@@ -30,7 +30,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
     unescapeAtUsername.apply andThen
     renderer(s"ublog:${post.id}") andThen
     imageParagraph andThen
-    unescapeAtUsername.apply
+    unescapeUnderscoreInLinks.apply
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs {
