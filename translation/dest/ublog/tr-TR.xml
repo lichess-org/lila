@@ -32,4 +32,5 @@
   </plurals>
   <string name="uploadAnImageForYourPost">Gönderinize bir görsel ekleyin</string>
   <string name="imageAlt">Alternatif resim metni</string>
+  <string name="imageCredit">Resim kaynağı</string>
 </resources>
