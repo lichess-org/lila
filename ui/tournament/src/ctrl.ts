@@ -95,8 +95,10 @@ export default class TournamentController {
   };
 
   setPage = (page: number) => {
-    this.page = page;
-    xhr.loadPage(this, page);
+    if (page != this.page && page >= 1 && page <= players(this).nbPages) {
+      this.page = page;
+      xhr.loadPage(this, page);
+    }
   };
 
   jumpToPageOf = (name: string) => {
@@ -162,7 +164,7 @@ export default class TournamentController {
 
   scrollToMe = () => {
     const page = myPage(this);
-    if (page && page !== this.page) this.setPage(page);
+    if (page) this.setPage(page);
   };
 
   toggleFocusOnMe = () => {
