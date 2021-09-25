@@ -879,6 +879,15 @@
   <string name="streamerManager">Správca streamov</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
+  <string name="toggleAllAnalysis">Pripnúť všetky počítačové analýzy</string>
+  <string name="playComputerMove">Hrať najlepší ťah podľa počítača</string>
+  <string name="analysisOptions">Možnosti analýzy</string>
+  <string name="focusChat">Zamerať sa na daný rozhovor</string>
+  <string name="showHelpDialog">Zobrazenie tohto dialógového okna s nápovedou</string>
+  <string name="reopenYourAccount">Opätovné otvorenie účtu</string>
+  <string name="closedAccountChangedMind">Ak ste váš účet zatvorili, ale potom ste si to nakoniec rozmysleli, dostali ste poslednú šancu vrátiť sa späť k vášmu účtu.</string>
+  <string name="onlyWorksOnce">Toto bude fungovať iba raz.</string>
+  <string name="sentEmailWithLink">Poslali sme vám e-mail s prepojením.</string>
   <string name="tournamentEntryCode">Vstupný kód do turnaja</string>
   <string name="hangOn">Počkaj!</string>
   <string name="gameInProgress">Máte rozohranú partiu s %s.</string>
