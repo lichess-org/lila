@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Švajčiarske turnaje</string>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s kolo</item>
+    <item quantity="few">%s kolá</item>
+    <item quantity="many">%s kôl</item>
+    <item quantity="other">%s kôl</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Jedno kolo za deň</item>
+    <item quantity="few">Jedno kolo za %s dni</item>
+    <item quantity="many">Jedno kolo za %s dní</item>
+    <item quantity="other">Jedno kolo za %s dní</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Kolá sa začínajú ručne</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekunda medzi kolami</item>
+    <item quantity="few">%s sekundy medzi kolami</item>
+    <item quantity="many">%s sekúnd medzi kolami</item>
+    <item quantity="other">%s sekúnd medzi kolami</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minúta medzi kolami</item>
+    <item quantity="few">%s minúty medzi kolami</item>
+    <item quantity="many">%s minút medzi kolami</item>
+    <item quantity="other">%s minút medzi kolami</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Začína o</string>
+  <string name="nextRound">Ďalšie kolo</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Prebiehajúca partia</item>
+    <item quantity="few">Prebiehajúce partie</item>
+    <item quantity="many">Prebiehajúcich partií</item>
+    <item quantity="other">Prebiehajúcich partií</item>
+  </plurals>
+  <string name="tournStartDate">Dátum začiatku turnaja</string>
+  <string name="numberOfRounds">Počet kôl</string>
+  <string name="pointsCalculationQ">Ako sa počítajú body?</string>
+  <string name="tiebreaksCalculationQ">Ako sa počíta rovnosť bodov?</string>
+  <string name="sonnebornBergerScore">Sonnenborg-Berger skóre</string>
+  <string name="dutchSystem">Holandský systém</string>
+  <string name="FIDEHandbook">Príručka FIDE</string>
+  <string name="nowPlaying">Práve sa hrá</string>
+  <string name="comparison">Porovnanie</string>
 </resources>
