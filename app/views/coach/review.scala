@@ -24,7 +24,7 @@ object review {
           isGranted(_.DisapproveCoachReview) option
             postForm(cls := "disapprove", action := routes.Coach.modReview(r.id))(
               submitButton(
-                cls := "button button-empty button-red button-thin confirm",
+                cls   := "button button-empty button-red button-thin confirm",
                 title := "Instructs the coach to reject the review, or to ask the author to rephrase it."
               )("Disapprove")
             )
@@ -46,8 +46,8 @@ object review {
         textarea(
           name := "text",
           required,
-          minlength := 3,
-          maxlength := 2000,
+          minlength   := 3,
+          maxlength   := 2000,
           placeholder := describeExperienceWith.txt(c.user.realNameOrUsername)
         )(mine.map(_.text)),
         submitButton(cls := "button")(trans.apply())
@@ -59,7 +59,7 @@ object review {
 
   def barRating(selected: Option[Int], enabled: Boolean) =
     if (enabled)
-      select(cls := "rate", name := "score", required)(
+      select(cls     := "rate", name := "score", required)(
         option(value := ""),
         List(1, 2, 3, 4, 5).map { score =>
           option(value := score, selected.contains(score) option st.selected)(score)

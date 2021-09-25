@@ -437,8 +437,8 @@ object WMMatching {
         // obtained its label initially.
         val entrychild = inblossom(endpoint(labelend(b) ^ 1))
         // Decide in which direction we will go round the blossom.
-        var j                  = blossomchilds(b).indexOf(entrychild)
-        val l1                 = blossomchilds(b).length - 1
+        var j  = blossomchilds(b).indexOf(entrychild)
+        val l1 = blossomchilds(b).length - 1
         val (jstep, endptrick) =
           // Start index is odd; go forward and wrap.
           if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else j + 1 }, 0)

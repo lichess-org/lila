@@ -40,8 +40,8 @@ object ratingDistribution {
                 PerfType.leaderboardable map { pt =>
                   a(
                     dataIcon := pt.iconChar,
-                    cls := (perfType == pt).option("current"),
-                    href := routes.Stat.ratingDistribution(pt.key)
+                    cls      := (perfType == pt).option("current"),
+                    href     := routes.Stat.ratingDistribution(pt.key)
                   )(pt.trans)
                 }
               )

@@ -62,7 +62,7 @@ object show {
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")
+          div(cls    := "puzzle__side__metas")
         ),
         div(cls := "puzzle__board main-board")(chessgroundBoard),
         div(cls := "puzzle__tools"),

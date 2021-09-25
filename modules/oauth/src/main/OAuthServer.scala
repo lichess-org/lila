@@ -56,7 +56,7 @@ object OAuthServer {
   case object NoSuchToken                              extends AuthError("No such token")
   case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
-  case object OneUserWithTwoTokens                     extends AuthError("Both tokens belong to the same user")
+  case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
 
   def responseHeaders(acceptedScopes: Seq[OAuthScope], availableScopes: Seq[OAuthScope])(
       res: Result

@@ -25,17 +25,17 @@ object create {
     ) {
       div(cls := "study-create")(
         postForm(action := routes.Study.create)(
-          input(tpe := "hidden", name := "gameId", value := data.gameId),
-          input(tpe := "hidden", name := "orientation", value := data.orientationStr),
-          input(tpe := "hidden", name := "fen", value := data.fen.map(_.value)),
-          input(tpe := "hidden", name := "pgn", value := data.pgnStr),
-          input(tpe := "hidden", name := "variant", value := data.variantStr),
+          input(tpe     := "hidden", name := "gameId", value      := data.gameId),
+          input(tpe     := "hidden", name := "orientation", value := data.orientationStr),
+          input(tpe     := "hidden", name := "fen", value         := data.fen.map(_.value)),
+          input(tpe     := "hidden", name := "pgn", value         := data.pgnStr),
+          input(tpe     := "hidden", name := "variant", value     := data.variantStr),
           h2(trans.study.whereDoYouWantToStudyThat()),
           p(
             submitButton(
-              name := "as",
-              value := "study",
-              cls := "submit button large new text",
+              name     := "as",
+              value    := "study",
+              cls      := "submit button large new text",
               dataIcon := ""
             )(trans.study.createStudy())
           ),
