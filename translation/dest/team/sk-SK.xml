@@ -46,10 +46,10 @@ Toto môžete použiť na zavolanie hráčov do turnaja alebo tímového súboja
 Hráči, ktorí nemajú radi prijímanie vašich správ, môžu opustiť váš tím.</string>
   <string name="teamsIlead">Tímy ktoré vediem</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možno by ste chceli prepojiť jeden z týchto nadchádzajúcich turnajov?</string>
-  <string name="usersWhoCanManageThisTeam">Užívatelia, ktorí môžu spravovať tento tím</string>
-  <string name="leadersChat">Čet lídrov</string>
-  <string name="closeTeam">Rozpustiť tím</string>
-  <string name="closeTeamDescription">Nevratne rozpustí tím.</string>
-  <string name="teamAlreadyExists">Tento tím už existuje.</string>
+  <string name="usersWhoCanManageThisTeam">Užívatelia, ktorí môžu spravovať toto družstvo</string>
+  <string name="leadersChat">Diskusia vedúcich</string>
+  <string name="closeTeam">Zrušiť družstvo</string>
+  <string name="closeTeamDescription">Zruší družstvo natrvalo.</string>
+  <string name="teamAlreadyExists">Toto družstvo už existuje.</string>
   <string name="declinedRequests">Zamietnuté žiadosti</string>
 </resources>
