@@ -52,7 +52,12 @@
   <string name="history">História úloh</string>
   <string name="solved">vyriešené</string>
   <string name="failed">zlyhané</string>
-  <string name="fromXGames">Úlohy z %s\' partií</string>
+  <string name="yourStreakX">Vaša séria výhier: %s</string>
+  <string name="continueTheStreak">Pokračovať v sérii výhier</string>
+  <string name="newStreak">Nová séria výhier</string>
+  <string name="fromMyGames">Z mojich partií</string>
+  <string name="lookupOfPlayer">Vyhľadávanie úloh z partií hráča</string>
+  <string name="fromXGames">Úlohy z partí hráča %s</string>
   <string name="searchPuzzles">Hľadať úlohy</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte sa</string>
   <plurals name="nbPlayed">
