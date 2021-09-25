@@ -19,7 +19,7 @@
   <string name="toGetPersonalizedPuzzles">Získajte úlohy šité na mieru:</string>
   <string name="puzzleId">Úloha %s</string>
   <string name="puzzleOfTheDay">Úloha dňa</string>
-  <string name="clickToSolve">Kliknutím vyriešte</string>
+  <string name="clickToSolve">Kliknutím vyriešiť</string>
   <string name="goodMove">Dobrý ťah</string>
   <string name="bestMove">Najlepší ťah!</string>
   <string name="keepGoing">Pokračujte…</string>
@@ -52,6 +52,8 @@
   <string name="history">História úloh</string>
   <string name="solved">vyriešené</string>
   <string name="failed">zlyhané</string>
+  <string name="fromXGames">Úlohy z %s\' partií</string>
+  <string name="searchPuzzles">Hľadať úlohy</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte sa</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s hraná</item>
