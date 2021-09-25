@@ -115,6 +115,12 @@
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepresnosť</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s hrubá chyba</item>
+    <item quantity="few">%s hrubé chyby</item>
+    <item quantity="many">%s hrubých chýb</item>
+    <item quantity="other">%s hrubých chýb</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s chyba</item>
     <item quantity="few">%s chyby</item>
@@ -869,6 +875,7 @@
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="streamerManager">Správca streamov</string>
+  <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="hangOn">Počkaj!</string>
   <string name="gameInProgress">Máte rozohranú partiu s %s.</string>
   <string name="abortTheGame">Zrušiť partiu</string>
