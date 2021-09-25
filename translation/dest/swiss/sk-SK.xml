@@ -36,11 +36,21 @@
   </plurals>
   <string name="tournStartDate">Dátum začiatku turnaja</string>
   <string name="numberOfRounds">Počet kôl</string>
+  <string name="numberOfRoundsHelp">Nepárny počet kôl umožňuje optimálne rozloženie farieb.</string>
+  <string name="roundInterval">Interval medzi kolami</string>
+  <string name="forbiddenPairings">Zakázané párovania</string>
+  <string name="forbiddenPairingsHelp">Užívateľské mená hráčov, ktorí nesmú hrať spolu (napríklad súrodenci). Dve užívateľské mená na riadok, oddelené medzerou.</string>
+  <string name="newSwiss">Nový turnaj švajčiarskym systémom</string>
   <string name="pointsCalculationQ">Ako sa počítajú body?</string>
   <string name="tiebreaksCalculationQ">Ako sa počíta rovnosť bodov?</string>
   <string name="sonnebornBergerScore">Sonnenborg-Berger skóre</string>
   <string name="dutchSystem">Holandský systém</string>
   <string name="FIDEHandbook">Príručka FIDE</string>
+  <string name="roundRobinQ">A čo kruhový turnaj?</string>
+  <string name="joinOrCreateTeam">Pripojiť sa alebo založiť družstvo</string>
   <string name="nowPlaying">Práve sa hrá</string>
+  <string name="startingSoon">O chvíľu sa začína</string>
   <string name="comparison">Porovnanie</string>
+  <string name="tournDuration">Trvanie turnaja</string>
+  <string name="predefinedDuration">Predvolené trvanie v minútach</string>
 </resources>
