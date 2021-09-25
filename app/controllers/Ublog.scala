@@ -156,9 +156,11 @@ final class Ublog(env: Env) extends LilaController(env) {
     }
 
   def like(id: String, v: Boolean) = Auth { implicit ctx => me =>
-    NotForKids {
-      env.ublog.rank.like(UblogPost.Id(id), me, v) map { likes =>
-        Ok(likes.value)
+    NoBot {
+      NotForKids {
+        env.ublog.rank.like(UblogPost.Id(id), me, v) map { likes =>
+          Ok(likes.value)
+        }
       }
     }
   }
