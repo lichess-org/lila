@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Požiadať o počítačovú analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">K dispozícii je aj počítačová analýza partie</string>
+  <string name="computerAnalysisDisabled">Počítačová analýza vypnutá</string>
   <string name="analysis">Analýza partie</string>
   <string name="depthX">Hĺbka %s</string>
   <string name="usingServerAnalysis">Používa sa analýza servera</string>
@@ -93,6 +94,7 @@
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možno vyberte viac partií z menu preferencií?</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
+  <string name="openingEndgameExplorer">Prieskumník otvorení/koncoviek</string>
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
   <string name="winPreventedBy50MoveRule">Výhre zabránilo pravidlo 50-tich ťahov</string>
   <string name="lossSavedBy50MoveRule">Od prehry zachránilo pravidlo 50-tich ťahov</string>
@@ -876,6 +878,8 @@
   <string name="welcome">Vitajte!</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
+  <string name="tournChat">Turnajová diskusia</string>
+  <string name="tournamentEntryCode">Vstupný kód do turnaja</string>
   <string name="hangOn">Počkaj!</string>
   <string name="gameInProgress">Máte rozohranú partiu s %s.</string>
   <string name="abortTheGame">Zrušiť partiu</string>
