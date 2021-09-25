@@ -878,6 +878,7 @@
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="noRestriction">Bez obmedzenia</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
