@@ -49,7 +49,7 @@ final private class ChapterMaker(
         parsed
           .tags(_.Black)
           .ifTrue {
-            data.name.value.isEmpty || data.isDefaultName
+            data.name.value.isEmpty || Chapter.isDefaultName(data.name)
           }
           .map { black =>
             Chapter.Name(s"$white - $black")
