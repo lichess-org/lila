@@ -18,4 +18,9 @@ final class Notify(env: Env) extends LilaController(env) {
         }
       }
     }
+
+  def clear =
+    Auth { implicit ctx => me =>
+      XhrOrRedirectHome { (env.notifyM.api.remove(Notifies(me.id))) }
+    }
 }

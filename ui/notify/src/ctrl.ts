@@ -1,4 +1,5 @@
 import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+import * as xhr from 'common/xhr';
 import notify from 'common/notification';
 import { asText } from './view';
 
@@ -83,6 +84,29 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
       });
   }
 
+  const emptyNotifyData = {
+    pager: {
+      currentPage: 1,
+      maxPerPage: 1,
+      currentPageResults: [],
+      nbResults: 0,
+      nbPages: 1,
+    },
+    unread: 0,
+    i18n: {},
+  };
+
+  function clear() {
+    xhr
+      .text('/notify/clear', {
+        method: 'post',
+      })
+      .then(
+        _ => update(emptyNotifyData, false),
+        _ => window.lishogi.announce({ msg: 'Failed to clear notifications' })
+      );
+  }
+
   return {
     data: () => data,
     initiating: () => initiating,
@@ -93,5 +117,6 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     loadPage,
     setVisible,
     setMsgRead,
+    clear,
   };
 }

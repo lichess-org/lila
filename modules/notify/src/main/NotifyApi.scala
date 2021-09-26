@@ -67,7 +67,7 @@ final class NotifyApi(
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
 
-  def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
+  def remove(notifies: Notification.Notifies, selector: Bdoc = $empty): Funit =
     repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
 
   def markRead(notifies: Notification.Notifies, selector: Bdoc): Funit =
