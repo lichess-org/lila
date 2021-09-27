@@ -708,6 +708,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom aby Vám napísali správu</string>
+  <string name="receiveForumNotifications">Dostávať upozornenia keď ťa niekto spomenie na fóre</string>
   <string name="shareYourInsightsData">Zdieľať výsledky analýz Vašich partií</string>
   <string name="withNobody">S nikým</string>
   <string name="withFriends">S priateľmi</string>
@@ -874,6 +875,7 @@
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
   <string name="subscribe">Prihlásiť sa k odberu</string>
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
+  <string name="xMentionedYouInY">%1$s ťa spomenul v \"%2$s\".</string>
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
@@ -883,6 +885,7 @@
   <string name="noRestriction">Bez obmedzenia</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
+  <string name="onlyTeamMembers">Iba členovia tímu</string>
   <string name="navigateMoveTree">Navigovať na všetky ťahy vo forme stromu</string>
   <string name="toggleLocalAnalysis">Prepnúť počítačové analýzy lokálneho počítača</string>
   <string name="toggleAllAnalysis">Prepnúť všetky počítačové analýzy</string>
