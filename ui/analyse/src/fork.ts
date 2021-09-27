@@ -53,7 +53,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
     highlight(it) {
       if (!displayed() || !defined(it)) {
         root.explorer.setHovering(root.node.fen, null);
-        return
+        return;
       }
 
       const nodeUci = root.node.children[it]?.uci;
@@ -65,12 +65,11 @@ export function make(root: AnalyseCtrl): ForkCtrl {
       if (displayed()) {
         it = defined(it) ? it : selected;
 
-        const childNode = root.node.children[it]
+        const childNode = root.node.children[it];
         if (defined(childNode)) {
           root.userJumpIfCan(root.path + childNode.id);
           return true;
         }
-
       }
       return undefined;
     },
@@ -99,7 +98,7 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
             it = parseInt(
               (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
             );
-            root.fork.highlight(it);
+          root.fork.highlight(it);
         });
         el.addEventListener('mouseout', _ => {
           root.fork.highlight();
