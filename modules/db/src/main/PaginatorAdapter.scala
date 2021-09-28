@@ -44,6 +44,8 @@ final class Adapter[A: BSONDocumentReader](
       }
       .cursor[A](readPreference)
       .list(length)
+
+  def withNbResults(nb: Fu[Int]) = new CachedAdapter(this, nb)
 }
 
 final class StaticAdapter[A](results: Seq[A])(implicit ec: ExecutionContext) extends AdapterLike[A] {

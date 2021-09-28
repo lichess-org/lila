@@ -145,7 +145,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       projection = none,
       sort = $sort desc "startsAt",
       readPreference = ReadPreference.secondaryPreferred
-    )
+    ).withNbResults(fuccess(Int.MaxValue))
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
