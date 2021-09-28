@@ -54,9 +54,6 @@ final class PgnDump(
   def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
 
-  private val customStartPosition: Set[chess.variant.Variant] =
-    Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
-
   private def eventOf(game: Game) = {
     val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))
     game.tournamentId.map { id =>
@@ -131,9 +128,9 @@ final class PgnDump(
               }
             }
           ).some
-        ).flatten ::: customStartPosition(game.variant).??(
+        ).flatten ::: initialFen.??(fen =>
           List(
-            Tag(_.FEN, (initialFen | Forsyth.initial).value),
+            Tag(_.FEN, fen),
             Tag("SetUp", "1")
           )
         )
