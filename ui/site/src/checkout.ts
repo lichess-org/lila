@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import contactEmail from './component/contactEmail';
 
 export interface Pricing {
   currency: string;
@@ -9,6 +10,8 @@ export interface Pricing {
 }
 
 export default function (publicKey: string, pricing: Pricing) {
+  contactEmail();
+
   const $checkout = $('div.plan_checkout');
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');

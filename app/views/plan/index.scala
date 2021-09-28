@@ -317,13 +317,13 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
           a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
           ".",
           br,
-          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
+          views.html.site.contact.contactEmailLinkEmpty(bankTransfers()),
           ".",
           br,
           bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8")),
           ".",
           br,
-          "Please note that only the donation form above will grant the Patron status."
+          strong("Please note that only the donation form above will grant the Patron status.")
         )
       ),
       dl(
