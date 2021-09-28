@@ -38,7 +38,7 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
       UblogPostData(
         title = post.title,
         intro = post.intro,
-        markdown = post.markdown,
+        markdown = removeLatex(post.markdown),
         imageAlt = post.image.flatMap(_.alt),
         imageCredit = post.image.flatMap(_.credit),
         language = post.language.code.some,
@@ -48,6 +48,10 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
         move = ""
       )
     )
+
+  // $$something$$ breaks the TUI editor WYSIWYG
+  private val latexRegex               = s"""\\$${2,}+ *([^\\$$]+) *\\$${2,}+""".r
+  private def removeLatex(str: String) = latexRegex.replaceAllIn(str, """\$\$ $1 \$\$""")
 }
 
 object UblogForm {
