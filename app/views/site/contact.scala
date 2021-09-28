@@ -15,10 +15,10 @@ object contact {
 
   private lazy val contactEmailBase64 = lila.common.String.base64.encode(contactEmailInClear)
 
+  def contactEmailLinkEmpty =
+    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)
   def contactEmailLink(implicit ctx: Context) =
-    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)(
-      trans.clickToRevealEmailAddress()
-    )
+    contactEmailLinkEmpty(trans.clickToRevealEmailAddress())
 
   private def reopenLeaf(prefix: String)(implicit ctx: Context) =
     Leaf(

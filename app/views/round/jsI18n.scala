@@ -71,6 +71,7 @@ object jsI18n {
     trans.thisAccountViolatedTos,
     trans.gameAborted,
     trans.checkmate,
+    trans.cheatDetected,
     trans.whiteResigned,
     trans.blackResigned,
     trans.whiteDidntMove,
