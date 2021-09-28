@@ -37,7 +37,7 @@ object UblogPost {
   case class Recorded(by: User.ID, at: DateTime)
 
   case class Likes(value: Int)     extends AnyVal
-  case class Views(value: Int)     extends AnyVal
+  case class Views(value: Int)     extends AnyVal { def inc = Views(value + 1) }
   case class Rank(value: DateTime) extends AnyVal
 
   case class Create(post: UblogPost) extends AnyVal
