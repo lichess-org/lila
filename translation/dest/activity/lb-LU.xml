@@ -16,7 +16,7 @@
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Huet %1$s Partie %2$s gespillt</item>
-    <item quantity="other">Huet %1$s Partie %2$s gespillt</item>
+    <item quantity="other">Huet %1$s Partien %2$s gespillt</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Huet %1$s Noriicht an %2$s geschriwwen</item>
