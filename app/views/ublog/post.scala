@@ -130,7 +130,7 @@ object post {
     ),
     dataRel := post.id.value,
     title := trans.study.like.txt()
-  )(span(cls := "ublog-post__like__nb")(post.likes.value))
+  )(span(cls := "ublog-post__like__nb")(post.likes.value.localize))
 
   private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
     div(
