@@ -92,6 +92,7 @@
     <item quantity="other">PGN Text hei asetzen, bis zu %s Partien</item>
   </plurals>
   <string name="urlOfTheGame">URL vun den Partien, eng pro Zeil</string>
+  <string name="loadAGameFromXOrY">Partien vun %1$s oder %2$s lueden</string>
   <string name="createChapter">Kapitel kréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
   <string name="editStudy">Etüd änneren</string>
