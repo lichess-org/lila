@@ -434,8 +434,10 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def initialFen(game: Game): Fu[Option[FEN]] =
     if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
-      case None if game.variant == chess.variant.Chess960 => Forsyth.initial.some
-      case fen                                            => fen
+      case None if game.variant == chess.variant.Chess960    => Forsyth.initial.some
+      case None if game.variant == chess.variant.Horde       => chess.variant.Horde.initialFen.some
+      case None if game.variant == chess.variant.RacingKings => chess.variant.RacingKings.initialFen.some
+      case fen                                               => fen
     }
     else fuccess(none)
 
