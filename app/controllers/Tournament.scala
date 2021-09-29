@@ -57,7 +57,10 @@ final class Tournament(
         api = _ =>
           for {
             (visible, _) <- upcomingCache.getUnit
-            scheduleJson <- env.tournament apiJsonView visible
+            teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
+            allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
+            teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
+            scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
           } yield Ok(scheduleJson)
       )
     }
