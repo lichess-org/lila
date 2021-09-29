@@ -76,6 +76,11 @@ export function make(root: AnalyseCtrl): ForkCtrl {
   };
 }
 
+const eventToIndex = (e: MouseEvent): number | undefined => {
+  const target = e.target as HTMLElement;
+  return parseInt((target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || '');
+};
+
 export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
   if (root.embed || root.retro) return;
   const state = root.fork.state();
@@ -86,23 +91,11 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
     {
       hook: onInsert(el => {
         el.addEventListener('click', e => {
-          const target = e.target as HTMLElement,
-            it = parseInt(
-              (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
-            );
-          root.fork.proceed(it);
+          root.fork.proceed(eventToIndex(e));
           root.redraw();
         });
-        el.addEventListener('mouseover', e => {
-          const target = e.target as HTMLElement,
-            it = parseInt(
-              (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
-            );
-          root.fork.highlight(it);
-        });
-        el.addEventListener('mouseout', _ => {
-          root.fork.highlight();
-        });
+        el.addEventListener('mouseover', e => root.fork.highlight(eventToIndex(e)));
+        el.addEventListener('mouseout', () => root.fork.highlight());
       }),
     },
     state.node.children.map((node, it) => {
