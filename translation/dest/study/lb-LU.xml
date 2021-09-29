@@ -46,6 +46,7 @@
   <string name="commentThisMove">Kommentéier dësen Zuch</string>
   <string name="annotateWithGlyphs">Mat Symboler kommentéieren</string>
   <string name="theChapterIsTooShortToBeAnalysed">D\'Kapitel ass ze kuerz fir analyséiert ze ginn.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Just Etüden Matwierkender kënnen eng Computer Analyse ufroen.</string>
   <string name="playing">Lafend Partie</string>
   <string name="first">Éischt Säit</string>
   <string name="previous">Zeréck</string>
@@ -75,13 +76,23 @@
   <string name="deleteThisChapter">Kapitel läschen? Et gëtt keen zeréck!</string>
   <string name="rightUnderTheBoard">Direkt ënnert dem Briet</string>
   <string name="noPinnedComment">Keng</string>
+  <string name="normalAnalysis">Normal Analyse</string>
+  <string name="hideNextMoves">Nächst Zich verstoppen</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Eidel</string>
+  <string name="startFromInitialPosition">Aus Startpositioun ufänken</string>
   <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Aus benotzerdefinéierter Positioun ufänken</string>
   <string name="loadAGameByUrl">Partien mat URL lueden</string>
   <string name="loadAPositionFromFen">Positioun aus FEN lueden</string>
   <string name="loadAGameFromPgn">Partien aus PGN lueden</string>
   <string name="automatic">Automatesch</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">PGN Text hei asetzen, bis zu %s Partie</item>
+    <item quantity="other">PGN Text hei asetzen, bis zu %s Partien</item>
+  </plurals>
+  <string name="urlOfTheGame">URL vun den Partien, eng pro Zeil</string>
+  <string name="loadAGameFromXOrY">Partien vun %1$s oder %2$s lueden</string>
   <string name="createChapter">Kapitel kréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
   <string name="editStudy">Etüd änneren</string>
@@ -96,10 +107,13 @@
   <string name="members">Memberen</string>
   <string name="everyone">Jiddereen</string>
   <string name="enableSync">Synchronisatioun aktivéieren</string>
+  <string name="pinnedStudyComment">Ugepinnten Etüdenkommentar</string>
   <string name="start">Lass</string>
   <string name="save">Späicheren</string>
   <string name="clearChat">Chat läschen</string>
+  <string name="deleteTheStudyChatHistory">Etüdenchat läschen? Et gëtt keen zeréck!</string>
   <string name="deleteStudy">Etüd läschen</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Komplett Etüd läschen? Et gëett keen zeréck! Tipp den Numm vun der Etüd an fir ze konfirméieren: %s</string>
   <string name="goodMove">Gudden Zuch</string>
   <string name="mistake">Feeler</string>
   <string name="brilliantMove">Brillianten Zuch</string>

@@ -46,6 +46,8 @@
   <string name="blackResigned">黑方认输</string>
   <string name="whiteLeftTheGame">白方离开了棋局</string>
   <string name="blackLeftTheGame">黑方离开了棋局</string>
+  <string name="whiteDidntMove">白方没有走棋</string>
+  <string name="blackDidntMove">黑方没有走棋</string>
   <string name="requestAComputerAnalysis">请求电脑分析</string>
   <string name="computerAnalysis">电脑分析</string>
   <string name="computerAnalysisAvailable">电脑分析可用</string>
@@ -336,6 +338,8 @@
   <string name="follow">关注</string>
   <string name="following">已关注</string>
   <string name="unfollow">取消关注</string>
+  <string name="followX">关注 %s</string>
+  <string name="unfollowX">取消关注 %s</string>
   <string name="block">加入黑名单</string>
   <string name="blocked">已加入黑名单</string>
   <string name="unblock">移出黑名单</string>

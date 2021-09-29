@@ -8,6 +8,7 @@
     <item quantity="other">%s membri</item>
   </plurals>
   <string name="allTeams">Toate echipele</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Echipe pe care le conduci</string>
   <string name="newTeam">Echipă nouă</string>
   <string name="myTeams">Echipele mele</string>
   <string name="noTeamFound">Nu s-a găsit nicio echipă</string>
@@ -36,6 +37,7 @@
   <string name="teamBattleOverview">O bătălie între mai multe echipe, fiecare jucator adună puncte pentru echipa sa</string>
   <string name="teamTournament">Turneu de echipă</string>
   <string name="teamTournamentOverview">Un turneu de arenă în care doar membri echipei tale pot intra</string>
+  <string name="swissTournamentOverview">Un turneu elvețian în care doar membrii echipei tale se pot alătura</string>
   <string name="messageAllMembers">Trimite un mesaj tuturor membrilor</string>
   <string name="messageAllMembersOverview">Trimite un mesaj privat fiecărui membru a echipei tale</string>
   <string name="messageAllMembersLongDescription">Trimite un mesaj privat tuturor membrilor echipei tale.

@@ -43,13 +43,13 @@
   <string name="waitForRematch">Espera para la revancha</string>
   <string name="nextRace">Próxima carrera</string>
   <string name="joinRematch">Unirse a la revancha</string>
-  <string name="waitingToStart">Esperando a que empiece</string>
+  <string name="waitingToStart">Calentando motores</string>
   <string name="createNewGame">Crear una nueva carrera</string>
   <string name="joinPublicRace">Unirse a una carrera pública</string>
   <string name="raceYourFriends">Compite con tus amigos</string>
   <string name="skip">omitir</string>
   <string name="skipHelp">Puedes omitir un movimiento por carrera:</string>
-  <string name="skipExplanation">¡Omite este movimiento para conservar tu combo! Sólo funciona una vez por carrera.</string>
+  <string name="skipExplanation">¡Omite este movimiento para conservar tu racha! Sólo funciona una vez por carrera.</string>
   <string name="failedPuzzles">Ejercicios fallidos</string>
   <string name="slowPuzzles">Ejercicios lentos</string>
 </resources>

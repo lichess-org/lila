@@ -70,7 +70,7 @@
   <string name="fromMyGamesNone">Äs befindäd sich kei Ufgoobä vo dir idä Datäbank, aber Lichess schätzt dich immer no sehr.
 Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgoob vo dinä Partiiä hinzuäzfüägä!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
-  <string name="puzzleDashboardDescription">Trainiere, analysiere, verbessere</string>
+  <string name="puzzleDashboardDescription">Träniär, analüsiär und werd bessär</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gschpillt</item>
     <item quantity="other">%s gschpillt</item>
@@ -81,6 +81,6 @@ Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgo
   </plurals>
   <string name="percentSolved">%s glöst</string>
   <string name="noPuzzlesToShow">Nüt z\'zeigä, spill zersch äs paar Ufgoobä!</string>
-  <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
-  <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
+  <string name="improvementAreasDescription">Üäb diä zum din Vortschritt z\'optimiärä!</string>
+  <string name="strengthDescription">Dini Leistig isch am bestä i denä Themänä</string>
 </resources>

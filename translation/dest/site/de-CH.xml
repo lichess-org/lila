@@ -96,7 +96,7 @@
   <string name="winPreventedBy50MoveRule">Sieg dur d 50-Züg-Reglä verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züge durch vorherigen Fehler</string>
-  <string name="lossOr50MovesByPriorMistake">Verlust oder 50 Züge durch vorherigen Fehler</string>
+  <string name="lossOr50MovesByPriorMistake">Verlust odär 50 Züüg dur en vorherigä Fählär</string>
   <string name="unknownDueToRounding">Gewinn/Verlust ist nur garantiert, falls die empfohlene Datenbank-Zugfolge seit dem letzten Schlag- oder Bauernzug befolgt wurde, da möglicherweise DTZ-Werte in den Syzygy-Datenbanken gerundet sind.</string>
   <string name="allSet">Färtig!</string>
   <string name="importPgn">PGN importierä</string>

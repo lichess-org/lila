@@ -365,6 +365,8 @@
   <string name="follow">Takip et</string>
   <string name="following">Takip ediyorsun</string>
   <string name="unfollow">Takibi bırak</string>
+  <string name="followX">%s Takip Et</string>
+  <string name="unfollowX">%s Takibi Bırak</string>
   <string name="block">Engelle</string>
   <string name="blocked">Engellendi</string>
   <string name="unblock">Engeli kaldır</string>

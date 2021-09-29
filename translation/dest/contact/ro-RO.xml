@@ -52,6 +52,7 @@
   <string name="knightMate">Este posibil șah mat-ul cu doar un cal sau un nebun, dacă oponentul are mai mult de un rege pe masă.</string>
   <string name="noRatingPoints">Nu au fost acordate puncte de scor</string>
   <string name="ratedGame">Asigură-te ca ai jucat un meci oficial. Jocurile neoficiale nu sunt afectate de scorurile jucătorilor.</string>
+  <string name="botRatingAbuse">În anumite circumstanțe, atunci când se joacă cu un cont de bot, un joc evaluat nu poate acorda puncte dacă se stabilește că jucătorul abuzează de bot pentru a obține puncte de evaluare.</string>
   <string name="errorPage">Pagina de eroare</string>
   <string name="reportErrorPage">Dacă ai primit o pagină de eroare, o poți raporta:</string>
   <string name="banAppeal">Aplică pentru un ban sau restricție de IP</string>
