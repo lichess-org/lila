@@ -13,6 +13,7 @@ export interface ForkCtrl {
   };
   next: () => boolean | undefined;
   prev: () => boolean | undefined;
+  highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
 }
 
@@ -49,11 +50,26 @@ export function make(root: AnalyseCtrl): ForkCtrl {
       }
       return undefined;
     },
+    highlight(it) {
+      if (!displayed() || !defined(it)) {
+        root.explorer.setHovering(root.node.fen, null);
+        return;
+      }
+
+      const nodeUci = root.node.children[it]?.uci;
+      const uci = defined(nodeUci) ? nodeUci : null;
+
+      root.explorer.setHovering(root.node.fen, uci);
+    },
     proceed(it) {
       if (displayed()) {
         it = defined(it) ? it : selected;
-        root.userJumpIfCan(root.path + root.node.children[it].id);
-        return true;
+
+        const childNode = root.node.children[it];
+        if (defined(childNode)) {
+          root.userJumpIfCan(root.path + childNode.id);
+          return true;
+        }
       }
       return undefined;
     },
@@ -76,6 +92,16 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
             );
           root.fork.proceed(it);
           root.redraw();
+        });
+        el.addEventListener('mouseover', e => {
+          const target = e.target as HTMLElement,
+            it = parseInt(
+              (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
+            );
+          root.fork.highlight(it);
+        });
+        el.addEventListener('mouseout', _ => {
+          root.fork.highlight();
         });
       }),
     },

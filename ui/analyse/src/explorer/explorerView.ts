@@ -58,12 +58,6 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
           if (uci) ctrl.explorerMove(uci);
         });
       },
-      postpatch(old: VNode) {
-        setTimeout(() => {
-          const el = old.elm as HTMLElement;
-          ctrl.explorer.setHovering($(el).attr('data-fen')!, $(el).find('tr:hover').attr('data-uci'));
-        }, 100);
-      },
     },
   };
 }
