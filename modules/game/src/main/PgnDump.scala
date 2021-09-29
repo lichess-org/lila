@@ -132,9 +132,11 @@ final class PgnDump(
             }
           ).some
         ).flatten ::: customStartPosition(game.variant).??(
-          List(
-            Tag(_.FEN, (initialFen | Forsyth.initial).value),
-            Tag("SetUp", "1")
+          initialFen.??(fen =>
+            List(
+              Tag(_.FEN, fen.value),
+              Tag("SetUp", "1")
+            )
           )
         )
       }
