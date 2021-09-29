@@ -12,4 +12,9 @@ final class Notify(env: Env) extends LilaController(env) {
           .getNotificationsAndCount(Notifies(me.id), page) map env.notifyM.jsonHandlers.apply map JsonOk
       }
     }
+
+  def clear =
+    Auth { implicit ctx => me =>
+      XhrOrRedirectHome { (env.notifyM.api.remove(Notifies(me.id))) }
+    }
 }

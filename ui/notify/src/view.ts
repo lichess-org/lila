@@ -31,6 +31,20 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
       })
     );
 
+  if (nb > 0 && pager.currentPage == 1)
+    nodes.push(
+      h(
+        'div.clear',
+        h('button.delete.button.button-empty', {
+          attrs: {
+            'data-icon': '',
+            title: 'Clear',
+          },
+          hook: clickHook(ctrl.clear),
+        })
+      )
+    );
+
   nodes.push(nb ? recentNotifications(d, ctrl.scrolling()) : empty());
 
   if (pager.nextPage)
