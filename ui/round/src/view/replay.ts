@@ -8,7 +8,7 @@ import throttle from 'common/throttle';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
-import { Step, MaybeVNodes, RoundData } from '../interfaces';
+import { Step, MaybeVNodes } from '../interfaces';
 
 const scrollMax = 99999,
   moveTag = 'u8t',
@@ -200,12 +200,13 @@ function renderButtons(ctrl: RoundController) {
   );
 }
 
-function initMessage(d: RoundData, trans: TransNoArg) {
-  return game.playable(d) && d.game.turns === 0 && !d.player.spectator
+function initMessage(ctrl: RoundController) {
+  const d = ctrl.data;
+  return (ctrl.replayEnabledByPref() || !isCol1()) && game.playable(d) && d.game.turns === 0 && !d.player.spectator
     ? h('div.message', util.justIcon(''), [
         h('div', [
-          trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
-          ...(d.player.color === 'white' ? [h('br'), h('strong', trans('itsYourTurn'))] : []),
+          ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
+          ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
         ]),
       ])
     : null;
@@ -259,7 +260,7 @@ export function render(ctrl: RoundController): VNode | undefined {
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
-        initMessage(d, ctrl.trans.noarg) ||
+        initMessage(ctrl) ||
           (moves
             ? isCol1()
               ? h('div.col1-moves', [
