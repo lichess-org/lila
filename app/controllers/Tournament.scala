@@ -41,28 +41,24 @@ final class Tournament(
 
   def home =
     Open { implicit ctx =>
-      negotiate(
-        html = for {
-          (visible, scheduled) <- upcomingCache.getUnit
-          finished             <- api.notableFinished
-          winners              <- env.tournament.winners.all
-          teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-          allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
-          teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-          scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
-        } yield NoCache {
-          pageHit
-          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
-        },
-        api = _ =>
-          for {
-            (visible, _) <- upcomingCache.getUnit
-            teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-            allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
-            teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-            scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
-          } yield Ok(scheduleJson)
-      )
+      for {
+        (visible, scheduled) <- upcomingCache.getUnit
+        teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
+        allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
+        teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
+        scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
+        response <- negotiate(
+          html = for {
+            finished <- api.notableFinished
+            winners  <- env.tournament.winners.all
+            teamIds  <- ctx.userId.??(env.team.cached.teamIdsList)
+          } yield NoCache {
+            pageHit
+            Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
+          },
+          api = _ => Ok(scheduleJson).fuccess
+        )
+      } yield response
     }
 
   def help(@nowarn("cat=unused") sysStr: Option[String]) =
