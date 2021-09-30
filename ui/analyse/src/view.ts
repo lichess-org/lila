@@ -3,7 +3,15 @@ import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
-import { bind, bindNonPassive, bindMobileMousedown, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
+import {
+  bind,
+  bindNonPassive,
+  bindMobileMousedown,
+  MaybeVNode,
+  MaybeVNodes,
+  onInsert,
+  dataIcon,
+} from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
