@@ -219,7 +219,14 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
       h('span', ctrl.noarg('learnFromYourMistakes')),
-      h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
+      h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
+      h('button.fbt', {
+        hook: bind('click', root.toggleRetro, root.redraw),
+        attrs: {
+          'data-icon': '',
+          'aria-label': 'Close learn window',
+        },
+      }),
     ]),
     h('div.feedback.' + fb, renderFeedback(root, fb)),
   ]);
