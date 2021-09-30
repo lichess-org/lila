@@ -271,7 +271,6 @@
 		<item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους Όρους Χρήσης του Lishogi</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
 	<string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
 	<string name="takeback">Ανάκληση κίνησης</string>
 	<string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>

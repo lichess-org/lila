@@ -271,7 +271,6 @@
 		<item quantity="other">Dóna %s segons</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lishogi</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
 	<string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
 	<string name="takeback">Desfés la jugada</string>
 	<string name="proposeATakeback">Proposa desfer la jugada</string>

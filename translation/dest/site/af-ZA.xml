@@ -271,7 +271,6 @@
 		<item quantity="other">Gee %s sekondes</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">This account violated the Lishogi Terms of Service</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
 	<string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
 	<string name="takeback">Terug-vat</string>
 	<string name="proposeATakeback">Stel terug-vat voor</string>

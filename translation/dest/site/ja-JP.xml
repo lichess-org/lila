@@ -256,7 +256,6 @@
 		<item quantity="other">%s 秒を与える</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">このアカウントは Lishogi の利用規約に違反しました</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
 	<string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
 	<string name="takeback">待った</string>
 	<string name="proposeATakeback">待ったのお願い</string>

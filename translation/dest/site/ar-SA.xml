@@ -331,7 +331,6 @@
 		<item quantity="other">منح %s ثانية</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">This account violated the Lishogi Terms of Service</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
 	<string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
 	<string name="takeback">تراجع</string>
 	<string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>

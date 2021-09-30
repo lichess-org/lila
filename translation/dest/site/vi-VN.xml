@@ -256,7 +256,6 @@
 		<item quantity="other">Cho thêm %s giây</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Tài khoản này đã vi phạm điều khoản dịch vụ của Lishogi</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Kỳ thủ này đã tăng hệ số một cách giả tạo</string>
 	<string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
 	<string name="takeback">Đi lại</string>
 	<string name="proposeATakeback">Đề nghị lùi một nước</string>

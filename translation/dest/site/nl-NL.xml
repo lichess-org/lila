@@ -271,7 +271,6 @@
 		<item quantity="other">Geef %s seconden</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Deze account heeft de Lishogi Servicevoorwaarden geschonden</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
 	<string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
 	<string name="takeback">Neem zet terug</string>
 	<string name="proposeATakeback">Stel zet terugnemen voor</string>

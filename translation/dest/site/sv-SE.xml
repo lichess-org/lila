@@ -271,7 +271,6 @@
 		<item quantity="other">Ge %s sekunder</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för Lishogi</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren manipulerar sin rating</string>
 	<string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
 	<string name="takeback">Gör om drag</string>
 	<string name="proposeATakeback">Fråga om du får göra om draget</string>

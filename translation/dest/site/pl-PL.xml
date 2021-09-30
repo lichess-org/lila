@@ -301,7 +301,6 @@
 		<item quantity="other">Dodaj %s sekund</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">To konto naruszyło warunki korzystania z Lishogi</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
 	<string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
 	<string name="takeback">Cofnij ruch</string>
 	<string name="proposeATakeback">Poproś o cofnięcie ruchu</string>

@@ -301,7 +301,6 @@
 		<item quantity="other">Додати %s секунд</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Ця обліківка порулиша умови користування Lishogi</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно змінює свій щабель</string>
 	<string name="openingExplorerAndTablebase">Збірка початків і кінцівок</string>
 	<string name="takeback">Верни хід</string>
 	<string name="proposeATakeback">Попроси вернути хід</string>

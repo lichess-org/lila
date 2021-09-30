@@ -286,7 +286,6 @@
 		<item quantity="other">Додај %s секунди</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">This account violated the Lishogi Terms of Service</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
 	<string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
 	<string name="takeback">Повлачење потеза</string>
 	<string name="proposeATakeback">Предложи повлачење потеза</string>

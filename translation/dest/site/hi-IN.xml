@@ -271,7 +271,6 @@
 		<item quantity="other">%s सेकंड दें</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">इस खाते ने सेवा की शर्तों का उल्लंघन किया</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">यह खिलाड़ी धोखे से अपने अंक बदलता है</string>
 	<string name="openingExplorerAndTablebase">ओपनिंग एक्सप्लोरर &amp; टेबलबेस</string>
 	<string name="takeback">चाल को वापस लें</string>
 	<string name="proposeATakeback">चाल को वापस लेने की प्रस्ताव को भेजें</string>

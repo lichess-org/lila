@@ -271,7 +271,6 @@
 		<item quantity="other">Dem Gegner %s Sekunden geben</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Dieses Konto hat gegen die Lishogi-Nutzungsbedingungen verstoßen</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
 	<string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
 	<string name="takeback">Zugrücknahme</string>
 	<string name="proposeATakeback">Zugrücknahme vorschlagen</string>

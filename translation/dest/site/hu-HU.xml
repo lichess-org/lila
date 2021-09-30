@@ -271,7 +271,6 @@
 		<item quantity="other">Adj %s másodpercet</item>
 	</plurals>
 	<string name="thisAccountViolatedTos">Ez a fiók megsértette a Lishogi Felhasználási Feltételeit</string>
-	<string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti az értékszámát</string>
 	<string name="openingExplorerAndTablebase">Megnyitás- és állásböngésző</string>
 	<string name="takeback">Visszalépés</string>
 	<string name="proposeATakeback">Visszalépés kérése</string>
