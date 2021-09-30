@@ -90,7 +90,7 @@ final class Main(
     }
 
   private lazy val glyphsResult: Result = {
-    import shogi.format.pgn.Glyph
+    import shogi.format.Glyph
     import lila.tree.Node.glyphWriter
     Ok(
       Json.obj(

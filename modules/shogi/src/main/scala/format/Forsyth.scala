@@ -3,13 +3,6 @@ package format
 
 import variant.{ Standard, Variant }
 
-/** Transform a game to standard Forsyth Edwards Notation
-  * http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
-  *
-  * Crazyhouse & Threecheck extensions:
-  * https://github.com/ddugovic/Stockfish/wiki/FEN-extensions
-  * http://scidb.sourceforge.net/help/en/FEN.html#ThreeCheck
-  */
 object Forsyth {
 
   val initial = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"

@@ -1,20 +1,19 @@
 package shogi
-package format.pgn
+package format
 
-case class ParsedPgn(
+case class ParsedNotation(
     initialPosition: InitialPosition,
     tags: Tags,
-    sans: Sans
+    parsedMoves: ParsedMoves
 )
 
-case class Sans(value: List[San]) extends AnyVal
+case class ParsedMoves(value: List[ParsedMove]) extends AnyVal
 
-object Sans {
-  val empty = Sans(Nil)
+object ParsedMoves {
+  val empty = ParsedMoves(Nil)
 }
 
-// Standard Algebraic Notation
-sealed trait San {
+sealed trait ParsedMove {
 
   def apply(situation: Situation): Valid[MoveOrDrop]
 
@@ -22,25 +21,81 @@ sealed trait San {
 
   def metas: Metas
 
-  def withMetas(m: Metas): San
+  def withMetas(m: Metas): ParsedMove
 
-  def withSuffixes(s: Suffixes): San = withMetas(metas withSuffixes s)
+  def withSuffixes(s: Suffixes): ParsedMove = withMetas(metas withSuffixes s)
 
-  def withComments(s: List[String]): San = withMetas(metas withComments s)
+  def withComments(s: List[String]): ParsedMove = withMetas(metas withComments s)
 
-  def withVariations(s: List[Sans]): San = withMetas(metas withVariations s)
+  def withVariations(s: List[ParsedMoves]): ParsedMove = withMetas(metas withVariations s)
 
-  def withTimeSpent(ts: Option[Centis]): San = withMetas(metas withTimeSpent ts)
+  def withTimeSpent(ts: Option[Centis]): ParsedMove = withMetas(metas withTimeSpent ts)
 
-  def withTimeTotal(tt: Option[Centis]): San = withMetas(metas withTimeTotal tt)
+  def withTimeTotal(tt: Option[Centis]): ParsedMove = withMetas(metas withTimeTotal tt)
 
-  def mergeGlyphs(glyphs: Glyphs): San =
+  def mergeGlyphs(glyphs: Glyphs): ParsedMove =
     withMetas(
       metas.withGlyphs(metas.glyphs merge glyphs)
     )
 }
 
-case class Std(
+case class KifStd(
+    dest: Pos,
+    orig: Pos,
+    role: Role,
+    promotion: Boolean = false,
+    metas: Metas = Metas.empty
+) extends ParsedMove {
+
+  def apply(situation: Situation) = move(situation) map Left.apply
+
+  def withMetas(m: Metas) = copy(metas = m)
+
+  def getDest = dest
+
+  def move(situation: Situation): Valid[shogi.Move] =
+    situation.board.actorAt(orig) flatMap { a =>
+      a.trustedMoves() find { m =>
+        m.dest == dest && a.board.variant.kingSafety(a, m)
+      }
+    } match {
+      case None => {
+        s"No move found: $this\n$situation".failureNel
+      }
+      case Some(move) => move withPromotion (Role.promotesTo(role), promotion) toValid "Wrong promotion"
+    }
+
+}
+
+case class CsaStd(
+    dest: Pos,
+    orig: Pos,
+    role: Role,
+    metas: Metas = Metas.empty
+) extends ParsedMove {
+
+  def apply(situation: Situation) = move(situation) map Left.apply
+
+  def withMetas(m: Metas) = copy(metas = m)
+
+  def getDest = dest
+
+  def move(situation: Situation): Valid[shogi.Move] =
+    situation.board.actorAt(orig) flatMap { a =>
+      a.trustedMoves() find { m =>
+        m.dest == dest && a.board.variant.kingSafety(a, m)
+      }
+    } match {
+      case None => {
+        s"No move found: $this\n$situation".failureNel
+      }
+      case Some(move) =>
+        move withPromotion (Role.promotesTo(role), role != move.piece.role) toValid "Wrong promotion"
+    }
+
+}
+
+case class PGNStd(
     dest: Pos,
     role: Role,
     capture: Boolean = false,
@@ -48,7 +103,7 @@ case class Std(
     rank: Option[Int] = None,
     promotion: Boolean = false,
     metas: Metas = Metas.empty
-) extends San {
+) extends ParsedMove {
 
   def apply(situation: Situation) = move(situation) map Left.apply
 
@@ -84,11 +139,12 @@ case class Std(
   private def compare[A](a: Option[A], b: A) = a.fold(true)(b ==)
 }
 
+// All notations can share drop
 case class Drop(
     role: Role,
     pos: Pos,
     metas: Metas = Metas.empty
-) extends San {
+) extends ParsedMove {
 
   def apply(situation: Situation) = drop(situation) map Right.apply
 
@@ -109,7 +165,7 @@ case class Metas(
     checkmate: Boolean,
     comments: List[String],
     glyphs: Glyphs,
-    variations: List[Sans],
+    variations: List[ParsedMoves],
     timeSpent: Option[Centis],
     timeTotal: Option[Centis]
 ) {
@@ -123,7 +179,7 @@ case class Metas(
 
   def withComments(c: List[String]) = copy(comments = c)
 
-  def withVariations(v: List[Sans]) = copy(variations = v)
+  def withVariations(v: List[ParsedMoves]) = copy(variations = v)
 
   def withTimeSpent(ts: Option[Centis]) = copy(timeSpent = ts)
 

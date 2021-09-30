@@ -1,8 +1,7 @@
 package lila.round
 
 import shogi.Centis
-import shogi.format.pgn.Glyphs
-import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
+import shogi.format.{ FEN, Forsyth, Glyphs, Uci, UciCharPair }
 import shogi.opening._
 import shogi.variant.Variant
 import JsonView.WithFlags

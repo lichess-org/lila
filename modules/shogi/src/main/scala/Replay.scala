@@ -1,8 +1,7 @@
 package shogi
 
-import shogi.format.pgn.San
-import shogi.format.{ FEN, Forsyth, Uci }
-import format.pgn.{ Parser, Reader, Tag, Tags }
+import shogi.format.{ FEN, Forsyth, ParsedMove, Reader, Tag, Tags, Uci }
+import format.pgn.Parser
 import scalaz.Validation.FlatMap._
 import scalaz.Validation.{ failureNel, success }
 
@@ -45,8 +44,8 @@ object Replay {
       )
     }
 
-  private def recursiveGames(game: Game, sans: List[San]): Valid[List[Game]] =
-    sans match {
+  private def recursiveGames(game: Game, parsedMoves: List[ParsedMove]): Valid[List[Game]] =
+    parsedMoves match {
       case Nil => success(Nil)
       case san :: rest =>
         san(game.situation) flatMap { moveOrDrop =>
@@ -71,7 +70,7 @@ object Replay {
       initialFen: String,
       variant: shogi.variant.Variant
   ): (Game, List[(Game, Uci.WithSan)], Option[ErrorMessage]) = {
-    def mk(g: Game, moves: List[(San, String)]): (List[(Game, Uci.WithSan)], Option[ErrorMessage]) = {
+    def mk(g: Game, moves: List[(ParsedMove, String)]): (List[(Game, Uci.WithSan)], Option[ErrorMessage]) = {
       moves match {
         case (san, sanStr) :: rest =>
           san(g.situation).fold(
@@ -98,8 +97,8 @@ object Replay {
     }
   }
 
-  private def recursiveSituations(sit: Situation, sans: List[San]): Valid[List[Situation]] =
-    sans match {
+  private def recursiveSituations(sit: Situation, parsedMoves: List[ParsedMove]): Valid[List[Situation]] =
+    parsedMoves match {
       case Nil => success(Nil)
       case san :: rest =>
         san(sit) flatMap { moveOrDrop =>
@@ -186,8 +185,8 @@ object Replay {
       val atFenTruncated           = truncateFen(atFen)
       def compareFen(fen: String)  = truncateFen(fen) == atFenTruncated
 
-      def recursivePlyAtFen(sit: Situation, sans: List[San], ply: Int): Valid[Int] =
-        sans match {
+      def recursivePlyAtFen(sit: Situation, parsedMoves: List[ParsedMove], ply: Int): Valid[Int] =
+        parsedMoves match {
           case Nil => failureNel(s"Can't find $atFenTruncated, reached ply $ply")
           case san :: rest =>
             san(sit) flatMap { moveOrDrop =>

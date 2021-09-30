@@ -163,37 +163,4 @@ L SGKGS L
       }
     }
   }
-
-  "move comment" should {
-    "simple" in {
-      Move("Pe4", List("Some comment")).toString must_== "Pe4 { Some comment }"
-    }
-    "one line break" in {
-      Move(
-        "Pe4",
-        List("""Some
-comment""")
-      ).toString must_== """Pe4 { Some
-comment }"""
-    }
-    "two line breaks" in {
-      Move(
-        "Pe4",
-        List("""Some
-
-comment""")
-      ).toString must_== """Pe4 { Some
-comment }"""
-    }
-    "three line breaks" in {
-      Move(
-        "Pe4",
-        List("""Some
-
-
-comment""")
-      ).toString must_== """Pe4 { Some
-comment }"""
-    }
-  }
 }

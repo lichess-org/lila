@@ -1,7 +1,6 @@
 package lila.study
 
-import shogi.format.pgn.Glyphs
-import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
+import shogi.format.{ FEN, Forsyth, Glyphs, Uci, UciCharPair }
 import play.api.libs.json._
 import scala.concurrent.duration._
 

@@ -1,44 +1,27 @@
 package lila.analyse
 
-import shogi.format.pgn.{ Glyphs, KifMove, Tag, Kif }
+import shogi.format.{ Glyphs, Notation, Tag }
 import shogi.opening._
 import shogi.{ Color, Status }
 
-final class Annotator(netDomain: lila.common.config.NetDomain) {
+final class Annotator {
 
   def apply(
-      k: Kif,
-      analysis: Option[Analysis],
-      opening: Option[FullOpening.AtPly],
-      winner: Option[Color],
-      status: Status
-  ): Kif =
-    annotateStatus(winner, status) {
-      annotateMoves(
-        k, analysis ?? (_.advices)
-      ).copy(
-        tags = k.tags + Tag(_.Annotator, netDomain)
-      )
-    }
+      k: Notation,
+      analysis: Option[Analysis]
+  ): Notation =
+    annotateMoves(
+      k,
+      analysis ?? (_.advices)
+    )
 
-  private def annotateStatus(winner: Option[Color], status: Status)(k: Kif) = {
-    k.tags(_.Termination).fold(
-      lila.game.StatusText(status, winner, shogi.variant.Standard) match {
-        case ""   => k
-        case text => k.updateLastPly(move => move.copy(comments = text :: move.comments))
-      }
-    ){ t =>
-      k.updateLastPly(_.copy(result = t.some)) 
-    }
-  }
-
-  private def annotateMoves(k: Kif, advices: List[Advice]): Kif =
+  private def annotateMoves(k: Notation, advices: List[Advice]): Notation =
     advices.foldLeft(k) { case (kif, advice) =>
       kif.updatePly(
         advice.ply,
         move =>
           move.copy(
-            comments = advice.makeComment(true, true) :: move.comments,
+            comments = advice.makeComment(true, true) :: move.comments
             //variations = makeVariation(advice.ply, advice) :: Nil
           )
       )

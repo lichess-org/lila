@@ -1,20 +1,20 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.format.pgn.{ Glyphs, Initial, Tag, Tags, Kif }
-import shogi.format.{ Forsyth, pgn => shogiPgn }
+import shogi.format.kif.Kif
+import shogi.format.{ Forsyth, Glyphs, Initial, NotationMove, Tag, Tags }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
 
-final class PgnDump(
+final class NotationDump(
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
 ) {
 
-  import PgnDump._
+  import NotationDump._
 
   def apply(study: Study, flags: WithFlags): Source[String, _] =
     chapterRepo
@@ -28,9 +28,10 @@ final class PgnDump(
       tags = makeTags(study, chapter),
       moves = toMoves(chapter.root)(flags).toList,
       initial = Initial(
-        renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(chapter.root.shapes).toList
-      ),
-      variant = chapter.setup.variant
+        renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
+          chapter.root.shapes
+        ).toList
+      )
     )
 
   private val fileR = """[\s,]""".r
@@ -62,7 +63,7 @@ final class PgnDump(
     Tags {
       val opening = chapter.opening
       val genTags = List(
-        Tag(_.Event, s"${study.name}: ${chapter.name}"),
+        Tag(_.Event, s"${study.name} - ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
         Tag(_.Annotator, ownerName(study))
       ) ::: (!Forsyth.compareTruncated(chapter.root.fen.value, Forsyth.initial)).??(
@@ -70,7 +71,8 @@ final class PgnDump(
           Tag(_.FEN, chapter.root.fen.value)
         )
       )
-      opening.fold(genTags)(o => Tag(_.Opening, o.eco) :: genTags)
+      opening
+        .fold(genTags)(o => Tag(_.Opening, o.eco) :: genTags)
         .foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
           if (tags.exists(t => tag.name == t.name)) tags
           else tag :: tags
@@ -79,17 +81,19 @@ final class PgnDump(
     }
 }
 
-object PgnDump {
+object NotationDump {
 
   case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean)
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  private def node2move(node: Node, variations: Variations, startingPly: Int, showAuthors: Boolean)(implicit flags: WithFlags) =
-    shogiPgn.KifMove(
+  private def node2move(node: Node, variations: Variations, startingPly: Int, showAuthors: Boolean)(implicit
+      flags: WithFlags
+  ) =
+    NotationMove(
       san = node.move.san,
-      uci = node.move.uci.uci,
+      uci = node.move.uci,
       ply = node.ply - startingPly,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {
@@ -100,7 +104,7 @@ object PgnDump {
         variations.view.map { child =>
           toMoves(child.mainline, noVariations, startingPly, showAuthors).toList
         }.toList
-      },
+      }
       //secondsSpent = flags.clocks ?? node.clock.map(_.roundSeconds)
       //secondsTotal = flags.clocks ?? node.clock.map(_.roundSeconds)
     )
@@ -142,20 +146,18 @@ object PgnDump {
     comments.list.map(c => s"${showAuthors ?? s"${getName(c.by)}"}${c.text.value}")
   }
 
-  def toMoves(root: Node.Root)(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =
+  def toMoves(root: Node.Root)(implicit flags: WithFlags): Vector[NotationMove] =
     toMoves(root.mainline, root.children.variations, root.ply, root.hasMultipleCommentAuthors)
 
   def toMoves(
-    line: Vector[Node],
-    variations: Variations,
-    startingPly: Int,
-    showAuthors: Boolean
-  )(implicit flags: WithFlags): Vector[shogiPgn.KifMove] =
+      line: Vector[Node],
+      variations: Variations,
+      startingPly: Int,
+      showAuthors: Boolean
+  )(implicit flags: WithFlags): Vector[NotationMove] =
     line
-      .foldLeft(variations -> Vector.empty[shogiPgn.KifMove]) { case variations ~ moves ~ first =>
-        first
-          .children
-          .variations -> (node2move(first, variations, startingPly, showAuthors) +: moves)
+      .foldLeft(variations -> Vector.empty[NotationMove]) { case variations ~ moves ~ first =>
+        first.children.variations -> (node2move(first, variations, startingPly, showAuthors) +: moves)
       }
       ._2
       .reverse

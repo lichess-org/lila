@@ -1,7 +1,11 @@
 package shogi
-package format.pgn
+package format
 
 import scalaz.Validation.{ failure, success }
+
+import kif.KifParser
+//import csa.CsaParser
+import pgn.Parser
 
 object Reader {
 
@@ -24,20 +28,20 @@ object Reader {
   def moves(moveStrs: Iterable[String], tags: Tags): Valid[Result] =
     movesWithSans(moveStrs, identity, tags)
 
-  def fullWithSans(pgn: String, op: Sans => Sans, tags: Tags = Tags.empty): Valid[Result] =
+  def fullWithSans(pgn: String, op: ParsedMoves => ParsedMoves, tags: Tags = Tags.empty): Valid[Result] =
     Parser.full(cleanUserInput(pgn)) map { parsed =>
-      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.sans))
+      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.parsedMoves))
     }
 
-  def fullWithKif(kif: String, op: Sans => Sans, tags: Tags = Tags.empty): Valid[Result] =
+  def fullWithKif(kif: String, op: ParsedMoves => ParsedMoves, tags: Tags = Tags.empty): Valid[Result] =
     KifParser.full(cleanUserInput(kif)) map { parsed =>
-      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.sans))
+      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.parsedMoves))
     }
 
-  def fullWithSans(parsed: ParsedPgn, op: Sans => Sans): Result =
-    makeReplay(makeGame(parsed.tags), op(parsed.sans))
+  def fullWithSans(parsed: ParsedNotation, op: ParsedMoves => ParsedMoves): Result =
+    makeReplay(makeGame(parsed.tags), op(parsed.parsedMoves))
 
-  def movesWithSans(moveStrs: Iterable[String], op: Sans => Sans, tags: Tags): Valid[Result] =
+  def movesWithSans(moveStrs: Iterable[String], op: ParsedMoves => ParsedMoves, tags: Tags): Valid[Result] =
     Parser.moves(moveStrs, tags.variant | variant.Variant.default) map { moves =>
       makeReplay(makeGame(tags), op(moves))
     }
@@ -45,8 +49,8 @@ object Reader {
   // remove invisible byte order mark
   def cleanUserInput(str: String) = str.replace(s"\ufeff", "")
 
-  private def makeReplay(game: Game, sans: Sans): Result =
-    sans.value.foldLeft[Result](Result.Complete(Replay(game))) {
+  private def makeReplay(game: Game, parsedMoves: ParsedMoves): Result =
+    parsedMoves.value.foldLeft[Result](Result.Complete(Replay(game))) {
       case (Result.Complete(replay), san) =>
         san(replay.state.situation).fold(
           err => Result.Incomplete(replay, err),

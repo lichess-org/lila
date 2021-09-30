@@ -427,12 +427,12 @@ final class Study(
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
-            Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
+            Ok.chunked(env.study.notationDump(study, requestNotationFlags(ctx.req)))
               .withHeaders(
                 noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.kif"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump filename study}.kif"
               )
-              .as(kifContentType)
+              .as(notationContentType)
               .fuccess
           }
         }
@@ -445,19 +445,19 @@ final class Study(
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanViewResult(study) {
             lila.mon.export.pgn.studyChapter.increment()
-            Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
+            Ok(env.study.notationDump.ofChapter(study, requestNotationFlags(ctx.req))(chapter).toString)
               .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.kif"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.kif"
               )
-              .as(kifContentType)
+              .as(notationContentType)
               .fuccess
           }
         }
       }
     }
 
-  private def requestPgnFlags(req: RequestHeader) =
-    lila.study.PgnDump.WithFlags(
+  private def requestNotationFlags(req: RequestHeader) =
+    lila.study.NotationDump.WithFlags(
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
       clocks = getBoolOpt("clocks", req) | true
@@ -472,7 +472,7 @@ final class Study(
               Ok.chunked(stream)
                 .withHeaders(
                   noProxyBufferHeader,
-                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
+                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.gif"
                 ) as "image/gif"
             }
           }

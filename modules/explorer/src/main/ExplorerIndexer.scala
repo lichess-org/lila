@@ -1,7 +1,7 @@
 package lila.explorer
 
 import akka.stream.scaladsl._
-import shogi.format.pgn.Tag
+import shogi.format.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import lila.common.ThreadLocalRandom.nextFloat
@@ -9,7 +9,7 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.common.LilaStream
 import lila.db.dsl._
-import lila.game.{ Game, GameRepo, PgnDump, Player, Query }
+import lila.game.{ Game, GameRepo, NotationDump, Player, Query }
 import lila.user.{ User, UserRepo }
 
 final private class ExplorerIndexer(
@@ -146,7 +146,7 @@ final private class ExplorerIndexer(
         val fenTags = initialFen.?? { fen =>
           List(s"[FEN $fen]")
         }
-        val timeControl = Tag.timeControl(game.clock.map(_.config)).value
+        val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
         val otherTags = List(
           s"[LishogiID ${game.id}]",
           s"[Variant ${game.variant.name}]",
@@ -155,7 +155,7 @@ final private class ExplorerIndexer(
           s"[Gote ${username(shogi.Gote)}]",
           s"[SenteElo $senteRating]",
           s"[GoteElo $goteRating]",
-          s"[Result ${PgnDump.result(game)}]",
+          s"[Result ${NotationDump.result(game)}]",
           s"[Start ${pgnDateFormat.print(game.createdAt)}]"
         )
         val allTags = fenTags ::: otherTags

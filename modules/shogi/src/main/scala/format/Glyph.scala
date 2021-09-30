@@ -1,5 +1,5 @@
 package shogi
-package format.pgn
+package format
 
 case class Glyph(id: Int, symbol: String, name: String) {
 

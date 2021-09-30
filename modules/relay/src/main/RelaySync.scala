@@ -2,7 +2,7 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import shogi.format.pgn.{ Tag, Tags }
+import shogi.format.{ Tag, Tags }
 import lila.socket.Socket.Sri
 import lila.study._
 

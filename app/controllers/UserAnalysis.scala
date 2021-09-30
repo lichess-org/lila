@@ -54,9 +54,9 @@ final class UserAnalysis(
 
   private[controllers] def makePov(fen: Option[FEN], variant: Variant, imported: Boolean = false): Pov = {
     val sitFrom = fen.filter(_.value.nonEmpty).flatMap { f =>
-        Forsyth.<<<@(variant, f.value)
-      } | SituationPlus(Situation(variant), 1)
-    makePov(sitFrom , imported)
+      Forsyth.<<<@(variant, f.value)
+    } | SituationPlus(Situation(variant), 1)
+    makePov(sitFrom, imported)
   }
 
   private[controllers] def makePov(from: SituationPlus, imported: Boolean): Pov =

@@ -24,7 +24,7 @@ final class Page(
   val impasse = explanation("impasse")
   val tsume   = explanation("tsume")
 
-  val kif     = kifExplanation("kif")
+  val kif = kifExplanation("kif")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>

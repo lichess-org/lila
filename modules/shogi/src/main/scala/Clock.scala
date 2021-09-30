@@ -305,7 +305,7 @@ object Clock {
     else parseIntOption(str.filterNot(_ == '秒'))
   }
 
-  val kifTime = """(?:\d+(?:秒|分|時間)?)+"""
+  val kifTime          = """(?:\d+(?:秒|分|時間)?)+"""
   lazy val KifClkRegex = raw"""($kifTime)(?:[\+|\|]($kifTime))?(?:\((\d)\))?(?:[\+|\|]($kifTime))?""".r
 
   // 持ち時間: 10分|20秒(1)+10 -> 600 init, 10inc, 20 byo, 1 per
@@ -320,6 +320,22 @@ object Clock {
         } yield Config(init, inc, byo, per)
       case _ => none
     }
+
+  def readCsaConfig(str: String): Option[Config] =
+   str.split('+') match {
+     case Array(initStr, byoStr) =>
+        for {
+          init <- initStr.toIntOption
+          byo  <- byoStr.toIntOption
+        } yield Config(init, 0, byo, 1)
+     case Array(initStr, byoStr, incStr) =>
+        for {
+          init <- initStr.toIntOption
+          byo  <- byoStr.toIntOption
+          inc  <- incStr.toIntOption
+        } yield Config(init, inc, byo, 1)
+     case _ => none
+   }
 
   def apply(limit: Int, increment: Int, byoyomi: Int, periods: Int): Clock = {
     apply(Config(limit, increment, byoyomi, periods))

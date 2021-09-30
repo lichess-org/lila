@@ -3,22 +3,22 @@ package lila.game
 import org.joda.time.DateTime
 import scalaz.Validation.FlatMap._
 
-import shogi.format.{ FEN, pgn => shogiPgn }
+import shogi.format.{ FEN, ParsedMoves, Reader, Tag, Tags }
 
 object Rewind {
 
   private def createTags(fen: Option[FEN], game: Game) = {
-    val variantTag = Some(shogiPgn.Tag(_.Variant, game.variant.name))
-    val fenTag     = fen map (f => shogiPgn.Tag(_.FEN, f.value))
+    val variantTag = Some(Tag(_.Variant, game.variant.name))
+    val fenTag     = fen map (f => Tag(_.FEN, f.value))
 
-    shogiPgn.Tags(List(variantTag, fenTag).flatten)
+    Tags(List(variantTag, fenTag).flatten)
   }
 
   def apply(game: Game, initialFen: Option[FEN]): Valid[Progress] =
-    shogiPgn.Reader
+    Reader
       .movesWithSans(
         moveStrs = game.pgnMoves,
-        op = sans => shogiPgn.Sans(sans.value.dropRight(1)),
+        op = parsedMoves => ParsedMoves(parsedMoves.value.dropRight(1)),
         tags = createTags(initialFen, game)
       )
       .flatMap(_.valid) map { replay =>

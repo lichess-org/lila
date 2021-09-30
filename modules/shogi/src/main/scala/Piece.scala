@@ -10,6 +10,7 @@ case class Piece(color: Color, role: Role) {
 
   def forsyth: Char       = if (color == Sente) role.forsythUpper else role.forsyth
   def forsythFull: String = if (color == Sente) role.forsythFullUpper else role.forsythFull
+  def csa: String         = if (color == Sente) s"+${role.csa}" else s"-${role.csa}"
 
   // attackable positions assuming empty board
   def eyes(from: Pos, to: Pos): Boolean =
@@ -65,6 +66,11 @@ object Piece {
   def fromChar(c: Char): Option[Piece] =
     Role.allByPgn get c.toUpper map {
       Piece(Color(c.isUpper), _)
+    }
+
+  def fromCsa(s: String): Option[Piece] =
+    Role.allByCsa get s.drop(1) map {
+      Piece(Color(s.take(1) == "+"), _)
     }
 
 }

@@ -39,14 +39,14 @@ final class Game(
       case Some(game) =>
         lila.mon.export.pgn.game.increment()
         val config = GameApiV2.OneConfig(
-          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.KIF,
+          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.NOTATION,
           imported = getBool("imported", req),
-          flags = requestPgnFlags(req, extended = true),
+          flags = requestNotationFlags(req, extended = true),
           noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
           playerFile = get("players", req)
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
-          env.api.gameApiV2.filename(game, config.format) map { filename =>
+          env.api.gameApiV2.filename(game, config) map { filename =>
             Ok(content)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=$filename"
@@ -87,7 +87,7 @@ final class Game(
             color = get("color", req) flatMap shogi.Color.apply,
             analysed = getBoolOpt("analysed", req),
             ongoing = getBool("ongoing", req),
-            flags = requestPgnFlags(req, extended = false).copy(literate = false),
+            flags = requestNotationFlags(req, extended = false).copy(literate = false),
             perSecond = MaxPerSecond(me match {
               case Some(m) if m is user.id => 60
               case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
@@ -116,7 +116,7 @@ final class Game(
       val config = GameApiV2.ByIdsConfig(
         ids = req.body.split(',').view.take(300).toSeq,
         format = GameApiV2.Format byRequest req,
-        flags = requestPgnFlags(req, extended = false),
+        flags = requestNotationFlags(req, extended = false),
         perSecond = MaxPerSecond(20),
         playerFile = get("players", req)
       )
@@ -143,20 +143,21 @@ final class Game(
         }
     }
 
-  private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
-    lila.game.PgnDump.WithFlags(
+  private[controllers] def requestNotationFlags(req: RequestHeader, extended: Boolean) =
+    lila.game.NotationDump.WithFlags(
+      csa = getBoolOpt("csa", req) | false,
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
       clocks = getBoolOpt("clocks", req) | extended,
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
-      pgnInJson = getBoolOpt("pgnInJson", req) | false
+      notationInJson = getBoolOpt("notationInJson", req) | false
     )
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match {
-      case GameApiV2.Format.KIF => kifContentType
+      case GameApiV2.Format.NOTATION => notationContentType
       case GameApiV2.Format.JSON =>
         config match {
           case _: GameApiV2.OneConfig => JSON

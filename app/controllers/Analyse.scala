@@ -7,7 +7,7 @@ import shogi.format.FEN
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.game.{ PgnDump, Pov }
+import lila.game.{ NotationDump, Pov }
 import lila.round.JsonView.WithFlags
 import views._
 
@@ -46,11 +46,11 @@ final class Analyse(
             roundC.getWatcherChat(pov.game) zip
             (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
             env.bookmark.api.exists(pov.game, ctx.me) zip
-            env.api.pgnDump(
+            env.api.notationDump(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = false)
+              NotationDump.WithFlags(clocks = false)
             ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ kif =>
               env.api.roundApi.review(
                 pov,
@@ -67,20 +67,13 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
-                val finalKif = env.analyse.annotator(
-                  kif,
-                  analysis,
-                  pov.game.opening,
-                  pov.game.winnerColor,
-                  pov.game.status
-                )
                 EnableSharedArrayBuffer(
                   Ok(
                     html.analyse.replay(
                       pov,
                       data,
                       initialFen,
-                      finalKif.render,
+                      kif.render,
                       analysis,
                       analysisInProgress,
                       simul,
@@ -135,14 +128,12 @@ final class Analyse(
       analysis   <- env.analyse.analyser get pov.game
       simul      <- pov.game.simulId ?? env.simul.repo.find
       crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-      kif        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+      kif        <- env.api.notationDump(pov.game, initialFen, analysis, NotationDump.WithFlags(clocks = false))
     } yield Ok(
       html.analyse.replayBot(
         pov,
         initialFen,
-        env.analyse
-          .annotator(kif, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-          .toString,
+        kif.render,
         simul,
         crosstable
       )

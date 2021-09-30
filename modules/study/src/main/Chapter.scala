@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.pgn.{ Glyph, Tags }
+import shogi.format.{ Glyph, Tags }
 import shogi.variant.Variant
 import shogi.{ Centis, Color }
 import org.joda.time.DateTime

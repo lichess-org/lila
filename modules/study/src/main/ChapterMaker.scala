@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.pgn.Tags
+import shogi.format.Tags
 import shogi.Hands
 import shogi.format.{ FEN, Forsyth }
 import shogi.variant.Variant
@@ -14,7 +14,7 @@ final private class ChapterMaker(
     chatApi: ChatApi,
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,
-    pgnDump: lila.game.PgnDump
+    notationDump: lila.game.NotationDump
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import ChapterMaker._
@@ -125,7 +125,7 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for {
       root <- game2root(game, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
+      tags <- notationDump.tags(game, initialFen, none, withOpening = true, csa = false)
       name <- {
         if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply

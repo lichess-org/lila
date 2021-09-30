@@ -1,7 +1,7 @@
 package lila.importer
 
-import shogi.format.pgn.{ KifParser, ParsedPgn, Reader, Tag, TagType, Tags }
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.kif.KifParser
+import shogi.format.{ FEN, Forsyth, ParsedNotation, Reader, Tag, TagType, Tags }
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
@@ -27,14 +27,14 @@ case class Preprocessed(
     game: NewGame,
     replay: Replay,
     initialFen: Option[FEN],
-    parsed: ParsedPgn
+    parsed: ParsedNotation
 )
 
 case class ImportData(kif: String, analyse: Option[String]) {
 
   private type TagPicker = Tag.type => TagType
 
-  private val maxPlies = 600
+  private val maxPlies  = 600
   private val maxLength = 32768 // only for storage
 
   private def evenIncomplete(result: Reader.Result): Replay =
@@ -47,7 +47,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
     KifParser.full(kif) flatMap { parsed =>
       Reader.fullWithKif(
         kif,
-        sans => sans.copy(value = sans.value take maxPlies),
+        parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies),
         Tags.empty
       ) map evenIncomplete map { case replay @ Replay(_, _, state) =>
         val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)

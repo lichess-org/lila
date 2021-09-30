@@ -5,8 +5,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import shogi.format.FEN
-import shogi.format.pgn.Tag
+import shogi.format.{ FEN, Tag }
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
@@ -14,13 +13,13 @@ import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl._
 import lila.team.GameTeams
 import lila.game.JsonView._
-import lila.game.PgnDump.WithFlags
+import lila.game.NotationDump.WithFlags
 import lila.game.{ Game, PerfPicker, Query }
 import lila.tournament.Tournament
 import lila.user.User
 
 final class GameApiV2(
-    pgnDump: PgnDump,
+    notationDump: NotationDump,
     gameRepo: lila.game.GameRepo,
     tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
@@ -53,50 +52,55 @@ final class GameApiV2(
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           export <- config.format match {
             case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
-            case Format.KIF =>
-              pgnDump(
+            case Format.NOTATION =>
+              notationDump(
                 game,
                 initialFen,
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
-              ) dmap pgnDump.toKifString
+              ) dmap notationDump.toNotationString
           }
         } yield export
     }
   }
 
+  private def fileType(configInput: Config) = configInput.format match {
+    case Format.NOTATION => if (configInput.flags.csa) "csa" else "kif"
+    case Format.JSON     => Format.toString.toLowerCase
+  }
+
   private val fileR = """[\s,]""".r
-  def filename(game: Game, format: Format): Fu[String] =
+  def filename(game: Game, configInput: Config): Fu[String] =
     gameLightUsers(game) map { case (wu, bu) =>
       fileR.replaceAllIn(
-        "lishogi_kif_%s_%s_vs_%s.%s.%s".format(
+        "lishogi_game_%s_%s_vs_%s.%s.%s".format(
           Tag.UTCDate.format.print(game.createdAt),
-          pgnDump.dumper.player(game.sentePlayer, wu),
-          pgnDump.dumper.player(game.gotePlayer, bu),
+          notationDump.dumper.player(game.sentePlayer, wu),
+          notationDump.dumper.player(game.gotePlayer, bu),
           game.id,
-          format.toString.toLowerCase
+          fileType(configInput)
         ),
         "_"
       )
     }
-  def filename(tour: Tournament, format: Format): String =
+  def filename(tour: Tournament, configInput: Config): String =
     fileR.replaceAllIn(
       "lishogi_tournament_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(tour.startsAt),
         tour.id,
         lila.common.String.slugify(tour.name),
-        format.toString.toLowerCase
+        fileType(configInput)
       ),
       "_"
     )
-  def filename(swiss: lila.swiss.Swiss, format: Format): String =
+  def filename(swiss: lila.swiss.Swiss, configInput: Config): String =
     fileR.replaceAllIn(
       "lishogi_swiss_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(swiss.startsAt),
         swiss.id,
         lila.common.String.slugify(swiss.name),
-        format.toString.toLowerCase
+        fileType(configInput)
       ),
       "_"
     )
@@ -171,7 +175,7 @@ final class GameApiV2(
           }
           .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
             config.format match {
-              case Format.KIF => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
+              case Format.NOTATION => notationDump.formatter(config.flags)(game, fen, analysis, teams, none)
               case Format.JSON =>
                 def addBerserk(color: shogi.Color)(json: JsObject) =
                   if (pairing berserkOf color)
@@ -202,7 +206,7 @@ final class GameApiV2(
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4) { case (game, fen, analysis) =>
         config.format match {
-          case Format.KIF => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
+          case Format.NOTATION => notationDump.formatter(config.flags)(game, fen, analysis, none, none)
           case Format.JSON =>
             toJson(game, fen, analysis, config.flags, None) dmap { json =>
               s"${Json.stringify(json)}\n"
@@ -226,14 +230,14 @@ final class GameApiV2(
 
   private def formatterFor(config: Config) =
     config.format match {
-      case Format.KIF  => pgnDump.formatter(config.flags)
-      case Format.JSON => jsonFormatter(config.flags)
+      case Format.NOTATION => notationDump.formatter(config.flags)
+      case Format.JSON     => jsonFormatter(config.flags)
     }
 
   private def emptyMsgFor(config: Config) =
     config.format match {
-      case Format.KIF  => "\n"
-      case Format.JSON => "{}\n"
+      case Format.NOTATION => "\n"
+      case Format.JSON     => "{}\n"
     }
 
   private def jsonFormatter(flags: WithFlags) =
@@ -258,9 +262,9 @@ final class GameApiV2(
     for {
       lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
       kif <-
-        withFlags.pgnInJson ?? pgnDump
+        withFlags.notationInJson ?? notationDump
           .apply(g, initialFen, analysisOption, withFlags)
-          .dmap(pgnDump.toKifString)
+          .dmap(notationDump.toNotationString)
           .dmap(some)
     } yield Json
       .obj(
@@ -312,9 +316,9 @@ object GameApiV2 {
 
   sealed trait Format
   object Format {
-    case object KIF  extends Format
-    case object JSON extends Format
-    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else KIF
+    case object NOTATION extends Format
+    case object JSON     extends Format
+    def byRequest(req: play.api.mvc.RequestHeader) = if (HTTPRequest acceptsNdJson req) JSON else NOTATION
   }
 
   sealed trait Config {

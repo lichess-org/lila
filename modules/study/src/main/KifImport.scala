@@ -1,7 +1,7 @@
 package lila.study
 
-import shogi.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
-import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
+import shogi.format.pgn.Dumper
+import shogi.format.{ FEN, Forsyth, Glyphs, ParsedMove, ParsedNotation, Tags, Uci, UciCharPair }
 import shogi.Replay
 
 import shogi.Centis
@@ -29,9 +29,9 @@ object PgnImport {
 
   def apply(kif: String, contributors: List[LightUser]): Valid[Result] =
     ImportData(kif, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedPgn) =>
-        val annotator = findAnnotator(parsedPgn, contributors)
-        parseComments(parsedPgn.initialPosition.comments, annotator) match {
+      case Preprocessed(game, replay, initialFen, parsedNotation) =>
+        val annotator = findAnnotator(parsedNotation, contributors)
+        parseComments(parsedNotation.initialPosition.comments, annotator) match {
           case (shapes, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
@@ -40,13 +40,13 @@ object PgnImport {
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.tags.clockConfig.map(_.limit),
+              clock = parsedNotation.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children = Node.Children {
-                val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
+                val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
-                  sans = parsedPgn.sans.value,
+                  parsedMoves = parsedNotation.parsedMoves.value,
                   annotator = annotator
                 ).fold(variations)(_ :: variations).toVector
               }
@@ -68,7 +68,7 @@ object PgnImport {
             Result(
               root = commented,
               variant = game.variant,
-              tags = PgnTags(parsedPgn.tags),
+              tags = PgnTags(parsedNotation.tags),
               end = end
             )
         }
@@ -76,9 +76,9 @@ object PgnImport {
 
   def userAnalysis(kif: String): Valid[(Game, Option[FEN], Node.Root, Tags)] =
     ImportData(kif, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedPgn) =>
-        val annotator = findAnnotator(parsedPgn, Nil)
-        parseComments(parsedPgn.initialPosition.comments, annotator) match {
+      case Preprocessed(game, replay, initialFen, parsedNotation) =>
+        val annotator = findAnnotator(parsedNotation, Nil)
+        parseComments(parsedNotation.initialPosition.comments, annotator) match {
           case (shapes, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
@@ -87,23 +87,23 @@ object PgnImport {
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.tags.clockConfig.map(_.limit),
+              clock = parsedNotation.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children = Node.Children {
-                val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
+                val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
-                  sans = parsedPgn.sans.value,
+                  parsedMoves = parsedNotation.parsedMoves.value,
                   annotator = annotator
                 ).fold(variations)(_ :: variations).toVector
               }
             )
-            (game withId "synthetic", initialFen, root, parsedPgn.tags)
+            (game withId "synthetic", initialFen, root, parsedNotation.tags)
         }
     }
 
-  private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
-    pgn tags "annotator" map { a =>
+  private def findAnnotator(kif: ParsedNotation, contributors: List[LightUser]): Option[Comment.Author] =
+    kif tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
         c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
@@ -119,8 +119,12 @@ object PgnImport {
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lishogi)
   }
 
-  private def makeVariations(sans: List[San], game: shogi.Game, annotator: Option[Comment.Author]) =
-    sans.headOption.?? {
+  private def makeVariations(
+      parsedMoves: List[ParsedMove],
+      game: shogi.Game,
+      annotator: Option[Comment.Author]
+  ) =
+    parsedMoves.headOption.?? {
       _.metas.variations.flatMap { variation =>
         makeNode(game, variation.value, annotator)
       }
@@ -144,9 +148,13 @@ object PgnImport {
       }
     }
 
-  private def makeNode(prev: shogi.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
+  private def makeNode(
+      prev: shogi.Game,
+      parsedMoves: List[ParsedMove],
+      annotator: Option[Comment.Author]
+  ): Option[Node] =
     try {
-      sans match {
+      parsedMoves match {
         case Nil => none
         case san :: rest =>
           san(prev.situation).fold(

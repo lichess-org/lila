@@ -8,7 +8,7 @@ final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker,
-    pgnDump: lila.game.PgnDump
+    notationDump: lila.game.NotationDump
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
@@ -49,7 +49,7 @@ final private class StudyMaker(
   ): Fu[Study.WithChapter] = {
     for {
       root <- chapterMaker.game2root(pov.game, initialFen)
-      tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true)
+      tags <- notationDump.tags(pov.game, initialFen, none, withOpening = true, csa = false)
       name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async) dmap Chapter.Name.apply
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
       chapter = Chapter.make(

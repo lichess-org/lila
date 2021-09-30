@@ -219,13 +219,13 @@ final class Api(
           val config = GameApiV2.ByTournamentConfig(
             tournamentId = tour.id,
             format = GameApiV2.Format byRequest req,
-            flags = gameC.requestPgnFlags(req, extended = false),
+            flags = gameC.requestNotationFlags(req, extended = false),
             perSecond = MaxPerSecond(20)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
             env.api.gameApiV2.exportByTournament(config)
           ) { source =>
-            val filename = env.api.gameApiV2.filename(tour, config.format)
+            val filename = env.api.gameApiV2.filename(tour, config)
             Ok.chunked(source)
               .withHeaders(
                 noProxyBufferHeader,
@@ -290,13 +290,13 @@ final class Api(
           val config = GameApiV2.BySwissConfig(
             swissId = swiss.id,
             format = GameApiV2.Format byRequest req,
-            flags = gameC.requestPgnFlags(req, extended = false),
+            flags = gameC.requestNotationFlags(req, extended = false),
             perSecond = MaxPerSecond(20)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
             env.api.gameApiV2.exportBySwiss(config)
           ) { source =>
-            val filename = env.api.gameApiV2.filename(swiss, config.format)
+            val filename = env.api.gameApiV2.filename(swiss, config)
             Ok.chunked(source)
               .withHeaders(
                 noProxyBufferHeader,

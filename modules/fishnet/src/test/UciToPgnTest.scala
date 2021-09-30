@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import shogi.Replay
-import shogi.format.pgn.Reader
+import shogi.format.Reader
 import org.specs2.mutable._
 
 import lila.analyse.{ Analysis, Info }

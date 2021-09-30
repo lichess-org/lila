@@ -1,5 +1,6 @@
 package shogi
-package format.pgn
+package format
+package pgn
 
 import variant.Variant
 
@@ -17,7 +18,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       variations: List[List[StrMove]]
   )
 
-  def full(pgn: String): Valid[ParsedPgn] =
+  def full(pgn: String): Valid[ParsedNotation] =
     try {
       val preprocessed = augmentString(pgn).linesIterator
         .map(_.trim)
@@ -41,39 +42,39 @@ object Parser extends scalaz.syntax.ToTraverseOps {
         resultOption = parsedMoves._3
         tags         = resultOption.filterNot(_ => preTags.exists(_.Result)).foldLeft(preTags)(_ + _)
         sans <- objMoves(strMoves, tags.variant | Variant.default)
-      } yield ParsedPgn(init, tags, sans)
+      } yield ParsedNotation(init, tags, sans)
     } catch {
       case _: StackOverflowError =>
         println(pgn)
         sys error "### StackOverflowError ### in PGN parser"
     }
 
-  def moves(str: String, variant: Variant): Valid[Sans] = {
+  def moves(str: String, variant: Variant): Valid[ParsedMoves] = {
     moves(
       str.split(' ').toList,
       variant
     )
   }
-  def moves(strMoves: Iterable[String], variant: Variant): Valid[Sans] = {
+  def moves(strMoves: Iterable[String], variant: Variant): Valid[ParsedMoves] = {
     objMoves(
       strMoves.map { StrMove(_, Glyphs.empty, Nil, Nil) }.to(List),
       variant
     )
   }
-  def objMoves(strMoves: List[StrMove], variant: Variant): Valid[Sans] = {
+  def objMoves(strMoves: List[StrMove], variant: Variant): Valid[ParsedMoves] = {
     strMoves.map { case StrMove(san, glyphs, comments, variations) =>
       (
         MoveParser(san, variant) map { m =>
           m withComments comments withVariations {
             variations
               .map { v =>
-                objMoves(v, variant) | Sans.empty
+                objMoves(v, variant) | ParsedMoves.empty
               }
               .filter(_.value.nonEmpty)
           } mergeGlyphs glyphs
         }
-      ): Valid[San]
-    }.sequence map Sans.apply
+      ): Valid[ParsedMove]
+    }.sequence map ParsedMoves.apply
   }
 
   trait Logging { self: Parsers =>
@@ -174,13 +175,13 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     private val MoveR = """^(N|B|R|G|S|L|U|M|A|H|D|T|K|P)([a-i]?)([1-9]?)(x?)([a-i][0-9])(\+|=)?$""".r
     private val DropR = """^(N|B|R|L|S|G|P)\*([a-i][1-9])$""".r
 
-    def apply(str: String, variant: Variant): Valid[San] = {
+    def apply(str: String, variant: Variant): Valid[ParsedMove] = {
       str match {
         case MoveR(role, file, rank, capture, pos, prom) => {
           role.headOption.fold[Option[Role]](Some(Pawn))(variant.rolesByPgn.get) flatMap { role =>
             Pos posAt pos map { dest =>
               succezz(
-                Std(
+                PGNStd(
                   dest = dest,
                   role = role,
                   capture = capture != "",
@@ -225,14 +226,14 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
     }
 
-    private def slow(str: String): Valid[San] = {
+    private def slow(str: String): Valid[ParsedMove] = {
       parseAll(standard, str) match {
         case Success(san, _) => succezz(san)
         case err             => "Cannot parse move: %s\n%s".format(err.toString, str).failureNel
       }
     }
 
-    def standard: Parser[San] =
+    def standard: Parser[ParsedMove] =
       as("standard") {
         (disambiguated | ambiguous | drop) ~ suffixes ^^ { case std ~ suf =>
           std withSuffixes suf
@@ -240,10 +241,10 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
 
     // Bg5
-    def ambiguous: Parser[Std] =
+    def ambiguous: Parser[PGNStd] =
       as("ambiguous") {
         role ~ x ~ dest ^^ { case ro ~ ca ~ de =>
-          Std(dest = de, role = ro, capture = ca)
+          PGNStd(dest = de, role = ro, capture = ca)
         }
       }
 
@@ -256,10 +257,10 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
 
     // Ba2c3 Ba2xc3
-    def disambiguated: Parser[Std] =
+    def disambiguated: Parser[PGNStd] =
       as("disambiguated") {
         role ~ opt(file) ~ opt(rank) ~ x ~ dest ^^ { case ro ~ fi ~ ra ~ ca ~ de =>
-          Std(
+          PGNStd(
             dest = de,
             role = ro,
             capture = ca,

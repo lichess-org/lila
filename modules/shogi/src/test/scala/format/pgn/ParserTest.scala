@@ -1,5 +1,6 @@
 package shogi
-package format.pgn
+package format
+package pgn
 import variant.Standard
 
 class ParserTest extends ShogiTest {
@@ -12,7 +13,7 @@ class ParserTest extends ShogiTest {
   "basic" should {
     "drop" in {
       parser("P*e5") must beSuccess.like { case a =>
-        a.sans.value.headOption must beSome.like { case d: Drop =>
+        a.parsedMoves.value.headOption must beSome.like { case d: Drop =>
           d.role must_== Pawn
           d.pos must_== Pos.E5
         }
@@ -23,13 +24,13 @@ class ParserTest extends ShogiTest {
   "promotion" should {
     "as a true" in {
       parser("Pb8+") must beSuccess.like { case a =>
-        a.sans.value.headOption must beSome.like { case san: Std =>
+        a.parsedMoves.value.headOption must beSome.like { case san: PGNStd =>
           san.promotion must_== true
         }
       }
     }
     "disambigued" in {
-      parseMove("Be5g7+") must beSuccess.like { case a: Std =>
+      parseMove("Be5g7+") must beSuccess.like { case a: PGNStd =>
         a.dest === Pos.G7
         a.role === Bishop
         a.promotion === true
@@ -37,7 +38,7 @@ class ParserTest extends ShogiTest {
     }
     "as a false" in {
       parser("Pb8=") must beSuccess.like { case a =>
-        a.sans.value.headOption must beSome.like { case san: Std =>
+        a.parsedMoves.value.headOption must beSome.like { case san: PGNStd =>
           san.promotion must_== false
         }
       }
@@ -46,9 +47,9 @@ class ParserTest extends ShogiTest {
 
   "glyphs" in {
     parseMove("Pe4") must beSuccess.like { case a =>
-      a must_== Std(Pos.E4, Pawn)
+      a must_== PGNStd(Pos.E4, Pawn)
     }
-    parseMove("Pe4!") must beSuccess.like { case a: Std =>
+    parseMove("Pe4!") must beSuccess.like { case a: PGNStd =>
       a.dest === Pos.E4
       a.role === Pawn
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.good.some, None, Nil)
@@ -63,19 +64,19 @@ class ParserTest extends ShogiTest {
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)
     }
 
-    parseMove("Be5g7?!") must beSuccess.like { case a: Std =>
+    parseMove("Be5g7?!") must beSuccess.like { case a: PGNStd =>
       a.dest === Pos.G7
       a.role === Bishop
       a.promotion === false
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)
     }
-    parseMove("Be5g7+?!") must beSuccess.like { case a: Std =>
+    parseMove("Be5g7+?!") must beSuccess.like { case a: PGNStd =>
       a.dest === Pos.G7
       a.role === Bishop
       a.promotion === true
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)
     }
-    parseMove("Be5g7=?!") must beSuccess.like { case a: Std =>
+    parseMove("Be5g7=?!") must beSuccess.like { case a: PGNStd =>
       a.dest === Pos.G7
       a.role === Bishop
       a.promotion === false
@@ -85,13 +86,14 @@ class ParserTest extends ShogiTest {
   }
 
   "comments" in {
-    parser("Ne5f7+! {such a neat comment}") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
-      san.metas.comments must_== List("such a neat comment")
+    parser("Ne5f7+! {such a neat comment}") must beSuccess.like {
+      case ParsedNotation(_, _, ParsedMoves(List(san))) =>
+        san.metas.comments must_== List("such a neat comment")
     }
   }
 
   "first move variation" in {
-    parser("1. Pe4 (1. Pd4)") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
+    parser("1. Pe4 (1. Pd4)") must beSuccess.like { case ParsedNotation(_, _, ParsedMoves(List(san))) =>
       san.metas.variations.headOption must beSome.like { case variation =>
         variation.value must haveSize(1)
       }
@@ -100,7 +102,7 @@ class ParserTest extends ShogiTest {
 
   "disambiguated" in {
     parser(disambiguated) must beSuccess.like { case a =>
-      a.sans.value.size must_== 7
+      a.parsedMoves.value.size must_== 7
     }
   }
 

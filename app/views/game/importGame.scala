@@ -44,21 +44,21 @@ object importGame {
                 disabled = ctx.isAnon
               ),
               form3.action(form3.submit(trans.importGame(), "/".some))
-            ),
+            )
           ),
           form("kif").value flatMap { kif =>
-              lila.importer
-                .ImportData(kif, none)
-                .preprocess(none)
-                .fold(
-                  err =>
-                    frag(
-                      pre(cls := "error")(err.toList mkString "\n"),
-                      br,
-                      br
-                    ).some,
-                  _ => none
-                )
+            lila.importer
+              .ImportData(kif, none)
+              .preprocess(none)
+              .fold(
+                err =>
+                  frag(
+                    pre(cls := "error")(err.toList mkString "\n"),
+                    br,
+                    br
+                  ).some,
+                _ => none
+              )
           }
         )
       )

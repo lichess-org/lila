@@ -1,14 +1,13 @@
 package lila.api
 
-import shogi.format.FEN
-import shogi.format.pgn.Kif
+import shogi.format.{ FEN, Notation }
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
-import lila.game.PgnDump.WithFlags
+import lila.game.NotationDump.WithFlags
 import lila.team.GameTeams
 
-final class PgnDump(
-    val dumper: lila.game.PgnDump,
+final class NotationDump(
+    val dumper: lila.game.NotationDump,
     annotator: Annotator,
     simulApi: lila.simul.SimulApi,
     getTournamentName: lila.tournament.GetTourName,
@@ -24,31 +23,31 @@ final class PgnDump(
       flags: WithFlags,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
-  ): Fu[Kif] =
-    dumper(game, initialFen, flags, teams) flatMap { kif =>
+  ): Fu[Notation] =
+    dumper(game, initialFen, flags, teams) flatMap { notation =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
         simulName
           .orElse(game.tournamentId flatMap getTournamentName.get)
           .orElse(game.swissId map lila.swiss.Swiss.Id flatMap getSwissName.apply)
-          .fold(kif)(kif.withEvent)
+          .fold(notation)(notation.withEvent)
       }
-      else fuccess(kif)
-    } map { kif =>
-      val evaled = analysis.ifTrue(flags.evals).fold(kif)(addEvals(kif, _))
-      if (flags.literate) annotator(evaled, analysis, game.opening, game.winnerColor, game.status)
+      else fuccess(notation)
+    } map { notation =>
+      val evaled = analysis.ifTrue(flags.evals).fold(notation)(addEvals(notation, _))
+      if (flags.literate) annotator(evaled, analysis)
       else evaled
-    } map { kif =>
-      realPlayers.fold(kif)(_.update(game, kif))
+    } map { notation =>
+      realPlayers.fold(notation)(_.update(game, notation))
     }
 
-  private def addEvals(p: Kif, analysis: Analysis): Kif =
-    analysis.infos.foldLeft(p) { case (kif, info) =>
-      kif.updatePly(
+  private def addEvals(p: Notation, analysis: Analysis): Notation =
+    analysis.infos.foldLeft(p) { case (notation, info) =>
+      notation.updatePly(
         info.ply,
         move => {
           val comment = info.cp
             .map(_.pawns.toString)
-            .orElse(info.mate.map(m => s"#${m.value}"))
+            .orElse(info.mate.map(m => s"mate${m.value}"))
           move.copy(
             comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
           )
@@ -63,9 +62,9 @@ final class PgnDump(
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
-    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap toKifString
+    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap toNotationString
 
-  def toKifString(kif: Kif) = {
-    s"$kif\n\n\n"
+  def toNotationString(notation: Notation) = {
+    s"$notation\n\n\n"
   }
 }

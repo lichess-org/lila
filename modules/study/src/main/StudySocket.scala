@@ -2,7 +2,7 @@ package lila.study
 
 import actorApi.Who
 import shogi.Centis
-import shogi.format.pgn.{ Glyph, Glyphs }
+import shogi.format.{ Glyph, Glyphs }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -395,7 +395,7 @@ final private class StudySocket(
         "ply" -> ply.map(_.value)
       )
     )
-  def setTags(chapterId: Chapter.Id, tags: shogi.format.pgn.Tags, who: Who) =
+  def setTags(chapterId: Chapter.Id, tags: shogi.format.Tags, who: Who) =
     version(
       "setTags",
       Json.obj(

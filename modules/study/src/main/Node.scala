@@ -1,8 +1,7 @@
 package lila.study
 
 import shogi.Hands
-import shogi.format.pgn.{ Glyph, Glyphs }
-import shogi.format.{ FEN, Uci, UciCharPair }
+import shogi.format.{ FEN, Glyph, Glyphs, Uci, UciCharPair }
 
 import shogi.Centis
 import lila.tree.Eval.Score

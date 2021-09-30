@@ -7,8 +7,7 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
-    net: NetConfig
+    gameRepo: lila.game.GameRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val analysisRepo = new AnalysisRepo(db(CollName("analysis2")))
@@ -17,5 +16,5 @@ final class Env(
 
   lazy val analyser = wire[Analyser]
 
-  lazy val annotator = new Annotator(net.domain)
+  lazy val annotator = new Annotator
 }

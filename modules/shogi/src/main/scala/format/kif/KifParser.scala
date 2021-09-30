@@ -1,5 +1,6 @@
 package shogi
-package format.pgn
+package format
+package kif
 
 import variant.Variant
 
@@ -34,13 +35,13 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   val moveOrDropLineRegex =
     raw"""(${numbersS}[\s\.。]{1,})?(${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(((${promotionS})?(${parsS})?${positionS}(${parsS})?)|${dropS})""".r.unanchored
- 
-  val commentRegex = 
+
+  val commentRegex =
     raw"""\*|＊""".r
 
   case class StrMove(
       turnNumber: Option[Int],
-      san: String,
+      move: String,
       comments: List[String],
       timeSpent: Option[Centis] = None,
       timeTotal: Option[Centis] = None
@@ -52,7 +53,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       variations: List[StrVariation]
   )
 
-  def full(kif: String): Valid[ParsedPgn] =
+  def full(kif: String): Valid[ParsedNotation] =
     try {
       val preprocessed = augmentString(kif).linesIterator
         .map(_.split("#|&").head.trim) // remove # and & comments and trim
@@ -72,26 +73,33 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         splitted3 <- splitMetaAndBoard(headerStr)
         metaStr  = splitted3._1
         boardStr = splitted3._2
-        preTags     <- TagParser(metaStr)
+        preTags <- TagParser(metaStr)
+        variant = preTags.variant | Variant.default
         parsedMoves <- MovesParser(movesStr)
         strMoves          = parsedMoves._1
         terminationOption = parsedMoves._2
-        init              <- getComments(headerStr)
+        init             <- getComments(headerStr)
         parsedVariations <- VariationParser(variationStr)
-        variations  = createVariations(parsedVariations)
-        boardOption = KifUtils readBoard boardStr orElse preTags(_.Handicap).flatMap(KifUtils handicapToFen _)
-        termTags    = terminationOption.filterNot(_ => preTags.exists(_.Termination)).foldLeft(preTags)(_ + _)
-        boardTags   = boardOption.filterNot(_ => termTags.exists(_.FEN)).foldLeft(termTags)(_ + _)
-        tags = KifUtils
+        variations = createVariations(parsedVariations)
+        situation <- KifParserHelper.parseSituation(boardStr, preTags(_.Handicap), variant)
+        termTags = terminationOption.filterNot(_ => preTags.exists(_.Termination)).foldLeft(preTags)(_ + _)
+        sfen     = Forsyth.exportSituation(situation)
+        boardTags = sfen.some
+          .filterNot(Forsyth.compareTruncated(_, Forsyth.initial))
+          .map(s => Tag(_.FEN, s))
+          .foldLeft(termTags)(_ + _)
+        tags = KifParserHelper
           .createResult(
             boardTags,
-            Color((strMoves.size + { if (boardOption.fold(false)(_.value contains " w")) 1 else 0 }) % 2 == 0)
+            Color((strMoves.size + { if (situation.color == Gote) 1 else 0 }) % 2 == 0)
           )
           .filterNot(_ => preTags.exists(_.Result))
           .foldLeft(boardTags)(_ + _)
-        sans <- objMoves(strMoves, tags.variant | Variant.default, variations)
-        _ <- if (kif.isEmpty || sans.value.nonEmpty || tags.exists(_.FEN)) succezz(true) else "No moves nor initial position".failureNel
-      } yield ParsedPgn(init, tags, sans)
+        parsedMoves <- objMoves(strMoves, variant, variations)
+        _ <-
+          if (kif.isEmpty || parsedMoves.value.nonEmpty || tags.exists(_.FEN)) succezz(true)
+          else "No moves nor initial position".failureNel
+      } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>
         println(kif)
@@ -104,35 +112,36 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       variations: List[StrVariation],
       startDest: Option[Pos] = None,
       startNum: Int = 1
-  ): Valid[Sans] = {
+  ): Valid[ParsedMoves] = {
     // No need to store 0s that mean nothing
-    val uselessTimes = strMoves.forall(m => m.timeSpent.fold(true)(_ == Centis(0)) && m.timeTotal.fold(true)(_ == Centis(0)))
-    
-    var lastDest: Option[Pos] = startDest
-    var bMoveNumber           = startNum
-    var res: List[Valid[San]] = List()
+    val uselessTimes =
+      strMoves.forall(m => m.timeSpent.fold(true)(_ == Centis(0)) && m.timeTotal.fold(true)(_ == Centis(0)))
 
-    for (StrMove(moveNumber, san, comments, timeSpent, timeTotal) <- strMoves) {
-      val move: Valid[San] = MoveParser(san, lastDest, variant) map { m =>
+    var lastDest: Option[Pos]        = startDest
+    var bMoveNumber                  = startNum
+    var res: List[Valid[ParsedMove]] = List()
+
+    for (StrMove(moveNumber, moveStr, comments, timeSpent, timeTotal) <- strMoves) {
+      val move: Valid[ParsedMove] = MoveParser(moveStr, lastDest, variant) map { m =>
         val m1 = m withComments comments withVariations {
           variations
             .filter(_.variationStart == moveNumber.getOrElse(bMoveNumber))
             .map { v =>
-              objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) | Sans.empty
+              objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) | ParsedMoves.empty
             }
             .filter(_.value.nonEmpty)
         }
-        if(uselessTimes) m1
-        else 
+        if (uselessTimes) m1
+        else
           m1 withTimeSpent timeSpent withTimeTotal timeTotal
       }
-      move map { m: San =>
+      move map { m: ParsedMove =>
         lastDest = m.getDest.some
       }
       bMoveNumber += 1
       res = move :: res
     }
-    res.reverse.sequence map Sans.apply
+    res.reverse.sequence map ParsedMoves.apply
   }
 
   def createVariations(vs: List[StrVariation]): List[StrVariation] = {
@@ -151,10 +160,14 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
       StrVariation(parent.variationStart, parent.moves, res)
     }
-    // Obtain first depth variations - that's what we want to use in objMoves 
+    // Obtain first depth variations - that's what we want to use in objMoves
     val ch = vs.zipWithIndex
       .foldLeft(List[(StrVariation, Int)]()) { case (acc, cur) =>
-        if (acc.headOption.fold(false)(v => (v._1.variationStart < cur._1.variationStart) && ((v._1.variationStart + v._1.moves.size) > cur._1.variationStart))) acc
+        if (
+          acc.headOption.fold(false)(v =>
+            (v._1.variationStart < cur._1.variationStart) && ((v._1.variationStart + v._1.moves.size) > cur._1.variationStart)
+          )
+        ) acc
         else cur :: acc
       }
       .reverse
@@ -196,8 +209,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       as("move") {
         (commentary *) ~>
           (opt(number) ~ moveOrDropRegex ~ opt(clock) ~ rep(commentary)) <~
-          (moveExtras *) ^^ { case num ~ san ~ _ ~ comments =>
-            StrMove(num, san, cleanComments(comments))
+          (moveExtras *) ^^ { case num ~ moveStr ~ _ ~ comments =>
+            StrMove(num, moveStr, cleanComments(comments))
           }
       }
 
@@ -249,8 +262,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def strMoves: Parser[(List[StrMove], Option[String])] =
       as("moves") {
-        (strMove *) ~ (termination *) ~ (commentary *) ^^ { case sans ~ term ~ coms =>
-          (updateLastComments(sans, coms), term.headOption)
+        (strMove *) ~ (termination *) ~ (commentary *) ^^ { case parsedMoves ~ term ~ coms =>
+          (updateLastComments(parsedMoves, coms), term.headOption)
         }
       }
 
@@ -258,8 +271,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       as("move") {
         (commentary *) ~>
           (opt(number) ~ moveOrDropRegex ~ opt(clock) ~ rep(commentary)) <~
-          (moveExtras *) ^^ { case num ~ san ~ clk ~ comments =>
-            StrMove(num, san, cleanComments(comments), clk.flatMap(_._1), clk.flatMap(_._2))
+          (moveExtras *) ^^ { case num ~ moveStr ~ clk ~ comments =>
+            StrMove(num, moveStr, cleanComments(comments), clk.flatMap(_._1), clk.flatMap(_._2))
           }
       }
 
@@ -332,53 +345,47 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     override def skipWhitespace = false
 
-    def apply(str: String, lastDest: Option[Pos], variant: Variant): Valid[San] = {
+    def apply(str: String, lastDest: Option[Pos], variant: Variant): Valid[ParsedMove] = {
       str.map(KifUtils toDigit _) match {
-        case MoveRegex(pos, role, prom, orig) => {
-          (variant.rolesByEverything get role) flatMap { role =>
-            (if (pos == "同") lastDest else (Pos.numberAllKeys get pos)) map { dest =>
-              succezz(
-                Std(
-                  dest = dest,
-                  role = role,
-                  file = Pos.numberAllKeys.get(orig).map(_.x),
-                  rank = Pos.numberAllKeys.get(orig).map(_.y),
-                  promotion = if (prom == "成" || prom == "+") true else false,
-                  metas = Metas(
-                    check = false,
-                    checkmate = false,
-                    comments = Nil,
-                    glyphs = Glyphs.empty,
-                    variations = Nil,
-                    timeSpent = None,
-                    timeTotal = None
-                  )
-                )
+        case MoveRegex(destS, roleS, promS, origS) => 
+          for {
+            role <- variant.rolesByEverything get roleS toValid s"Unknown role in move: $str"
+            destOpt = if (destS == "同") lastDest else (Pos.numberAllKeys get destS)
+            dest <- destOpt toValid s"Cannot parse destination square in move: $str"
+            orig <- Pos.numberAllKeys get origS toValid s"Cannot parse origin square in move: $str"  
+          } yield KifStd(
+              dest = dest,
+              role = role,
+              orig = orig,
+              promotion = if (promS == "成" || promS == "+") true else false,
+              metas = Metas(
+                check = false,
+                checkmate = false,
+                comments = Nil,
+                glyphs = Glyphs.empty,
+                variations = Nil,
+                timeSpent = None,
+                timeTotal = None
               )
-            }
-          } getOrElse "Cannot parse move: %s\n".format(str).failureNel
-        }
+            )
         case DropRegex(posS, roleS) =>
-          (variant.rolesByEverything get roleS) flatMap { role =>
-            Pos.numberAllKeys get posS map { pos =>
-              succezz(
-                Drop(
-                  role = role,
-                  pos = pos,
-                  metas = Metas(
-                    check = false,
-                    checkmate = false,
-                    comments = Nil,
-                    glyphs = Glyphs.empty,
-                    variations = Nil,
-                    timeSpent = None,
-                    timeTotal = None
-                  )
-                )
+          for {
+            role <- variant.rolesByEverything get roleS toValid s"Unknown role in drop: $str"
+            pos <- Pos.numberAllKeys get posS toValid s"Cannot parse destination square in drop: $str"
+          } yield Drop(
+              role = role,
+              pos = pos,
+              metas = Metas(
+                check = false,
+                checkmate = false,
+                comments = Nil,
+                glyphs = Glyphs.empty,
+                variations = Nil,
+                timeSpent = None,
+                timeTotal = None
               )
-            }
-          } getOrElse "Cannot parse move: %s\n".format(str).failureNel
-        case _ => "Cannot parse move: %s\n".format(str).failureNel
+            )
+        case _ => "Cannot parse move/drop: %s\n".format(str).failureNel
       }
     }
   }
@@ -400,12 +407,14 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     def tag: Parser[Tag] =
       """.+(:).*""".r ^^ { case line =>
         val s = line.split(":", 2).map(_.trim).toList
-        Tag(KifUtils.normalizeKifName(s.head), s.lift(1).getOrElse(""))
+        Tag(normalizeKifName(s.head), s.lift(1).getOrElse(""))
       }
   }
+  def normalizeKifName(str: String): String =
+    Tag.kifNameToTag.get(str).fold(str)(_.lowercase)
 
   private def getComments(kif: String): Valid[InitialPosition] =
-    augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line => 
+    augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line =>
       line.startsWith("*") || line.startsWith("＊")
     } match {
       case (comms) => succezz(InitialPosition(comms.map(_.drop(1).trim)))
@@ -426,7 +435,10 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     }
 
   private def splitMetaAndBoard(kif: String): Valid[(String, String)] =
-    augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) partition { line =>
+    augmentString(kif).linesIterator
+      .to(List)
+      .map(_.trim)
+      .filter(l => l.nonEmpty && !(l.startsWith("*") || l.startsWith("＊"))) partition { line =>
       (line contains ":") && !(line.tail startsWith "手の持駒")
     } match {
       case (metaLines, boardLines) => succezz(metaLines.mkString("\n") -> boardLines.mkString("\n"))

@@ -51,7 +51,7 @@ final class Env(
   val config = ApiConfig loadFrom appConfig
   import config.apiToken
 
-  lazy val pgnDump: PgnDump = wire[PgnDump]
+  lazy val notationDump: NotationDump = wire[NotationDump]
 
   lazy val userApi = wire[UserApi]
 

@@ -2,8 +2,7 @@ package lila.study
 
 import BSONHandlers._
 import shogi.Color
-import shogi.format.pgn.Tags
-import shogi.format.{ FEN, Uci }
+import shogi.format.{ FEN, Tags, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import JsonView._
 import play.api.libs.json._

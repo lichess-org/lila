@@ -1,6 +1,6 @@
 package lila.analyse
 
-import shogi.format.pgn.Glyph
+import shogi.format.Glyph
 import lila.tree.Eval._
 import scala.util.chaining._
 
@@ -37,14 +37,14 @@ sealed trait Advice {
   // We can't just show the move, so let's just work around it till san is reworked
   private def moveAdviceString(san: String): Option[String] = {
     val role = san.headOption.flatMap(shogi.Role.allByPgn.get _).map(_.name)
-    val dest = shogi.Pos.posAt(san.filterNot(c => c =='+' || c =='=').takeRight(2)).map(_.usiKey)
-    val orig = if(san.size > 4) shogi.Pos.posAt(san.drop(1).take(2)).map(_.usiKey) else None
+    val dest = shogi.Pos.posAt(san.filterNot(c => c == '+' || c == '=').takeRight(2)).map(_.usiKey)
+    val orig = if (san.size > 4) shogi.Pos.posAt(san.drop(1).take(2)).map(_.usiKey) else None
     for {
       roleStr <- role
       roleStr2 = roleStr.split("((?<=(promoted))|(?=(promoted)))").mkString(" ")
       destStr <- dest
       origStr = orig.fold("")(o => s" from $o")
-    } yield(s"$roleStr2$origStr to $destStr")
+    } yield s"$roleStr2$origStr to $destStr"
   }
 }
 

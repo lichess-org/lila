@@ -1,5 +1,5 @@
 package shogi
-package format.pgn
+package format
 
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
@@ -12,7 +12,8 @@ case class Tag(name: TagType, value: String) {
 sealed trait TagType {
   lazy val name      = toString
   lazy val lowercase = name.toLowerCase
-  lazy val kifName   = KifUtils.tagToKif.get(this).getOrElse(name)
+  lazy val kifName   = Tag.tagToKifName.get(this).getOrElse(name)
+  lazy val csaName   = Tag.tagToCsaName.get(this).getOrElse(name.toUpperCase)
   val isUnknown      = false
 }
 
@@ -29,8 +30,10 @@ case class Tags(value: List[Tag]) extends AnyVal {
   def clockConfig: Option[Clock.Config] = {
     val baseClk = value.collectFirst { case Tag(Tag.TimeControl, str) =>
       str
-    } flatMap Clock.readKifConfig
-    apply(_.Byoyomi).flatMap(Clock.parseJPTime _).fold(baseClk)(byo => baseClk.map(_.copy(byoyomiSeconds = byo)))
+    } flatMap { c => Clock.readKifConfig(c) orElse Clock.readCsaConfig(c) }
+    apply(_.Byoyomi)
+      .flatMap(Clock.parseJPTime _)
+      .fold(baseClk)(byo => baseClk.map(_.copy(byoyomiSeconds = byo)))
   }
 
   def variant: Option[shogi.variant.Variant] =
@@ -79,38 +82,38 @@ object Tag {
   case object UTCTime extends TagType {
     val format = DateTimeFormat forPattern "HH:mm:ss" withZone DateTimeZone.UTC
   }
-  case object Sente           extends TagType
-  case object Gote            extends TagType
-  case object TimeControl     extends TagType
-  case object SenteClock      extends TagType
-  case object GoteClock       extends TagType
-  case object SenteElo        extends TagType
-  case object GoteElo         extends TagType
-  case object SenteTitle      extends TagType
-  case object GoteTitle       extends TagType
-  case object SenteTeam       extends TagType
-  case object GoteTeam        extends TagType
-  case object Result          extends TagType
-  case object FEN             extends TagType
-  case object Variant         extends TagType
-  case object Opening         extends TagType
-  case object Termination     extends TagType
-  case object Annotator       extends TagType
-  case object Handicap        extends TagType
-  case object Byoyomi         extends TagType
+  case object Sente       extends TagType
+  case object Gote        extends TagType
+  case object TimeControl extends TagType
+  case object SenteClock  extends TagType
+  case object GoteClock   extends TagType
+  case object SenteElo    extends TagType
+  case object GoteElo     extends TagType
+  case object SenteTitle  extends TagType
+  case object GoteTitle   extends TagType
+  case object SenteTeam   extends TagType
+  case object GoteTeam    extends TagType
+  case object Result      extends TagType
+  case object FEN         extends TagType
+  case object Variant     extends TagType
+  case object Opening     extends TagType
+  case object Termination extends TagType
+  case object Annotator   extends TagType
+  case object Handicap    extends TagType
+  case object Byoyomi     extends TagType
   case class Unknown(n: String) extends TagType {
     override def toString  = n
     override val isUnknown = true
   }
   // Tsume tags
-  case object ProblemName         extends TagType
-  case object ProblemId           extends TagType
-  case object DateOfPublication   extends TagType
-  case object Composer            extends TagType
-  case object Publication         extends TagType
-  case object Collection          extends TagType
-  case object Length              extends TagType
-  case object Prize               extends TagType
+  case object ProblemName       extends TagType
+  case object ProblemId         extends TagType
+  case object DateOfPublication extends TagType
+  case object Composer          extends TagType
+  case object Publication       extends TagType
+  case object Collection        extends TagType
+  case object Length            extends TagType
+  case object Prize             extends TagType
 
   val tsumeTypes = List(
     ProblemName,
@@ -171,9 +174,52 @@ object Tag {
     )
 
   def tagType(name: String) =
-    (tagTypesByLowercase get KifUtils.normalizeKifName(name).toLowerCase) | Unknown(name)
+    (tagTypesByLowercase get (kifNameToTag.get(name).fold(name.toLowerCase)(_.lowercase))) | Unknown(name)
 
-  def timeControl(clock: Option[Clock.Config]) =
+  val tagToCsaName = Map[TagType, String](
+    Tag.Start       -> "START_TIME",
+    Tag.End         -> "END_TIME",
+    Tag.TimeControl -> "TIME_LIMIT",
+    Tag.Sente       -> "+",
+    Tag.Gote        -> "-"
+  )
+
+  val csaNameToTag =
+    tagToCsaName map { case (k, v) => v -> k }
+
+  val tagToKifName = Map[TagType, String](
+    Tag.Start             -> "開始日時",
+    Tag.End               -> "終了日時",
+    Tag.Event             -> "棋戦",
+    Tag.Site              -> "場所",
+    Tag.Opening           -> "戦型",
+    Tag.TimeControl       -> "持ち時間",
+    Tag.Byoyomi           -> "秒読み",
+    Tag.Handicap          -> "手合割",
+    Tag.Sente             -> "先手",
+    Tag.Gote              -> "後手",
+    Tag.SenteTeam         -> "先手のチーム",
+    Tag.GoteTeam          -> "後手のチーム",
+    Tag.Annotator         -> "注釈者",
+    Tag.Termination       -> "図",
+    Tag.ProblemName       -> "作品名",
+    Tag.ProblemId         -> "作品番号",
+    Tag.Composer          -> "作者",
+    Tag.DateOfPublication -> "発表年月",
+    Tag.Publication       -> "発表誌",
+    Tag.Collection        -> "出典",
+    Tag.Length            -> "手数",
+    Tag.Prize             -> "受賞"
+  )
+
+  val kifNameToTag =
+    (tagToKifName map { case (k, v) => v -> k }) ++ Map(
+      "下手"  -> Tag.Sente,
+      "上手"  -> Tag.Gote,
+      "対局日" -> Tag.Start
+    )
+
+  def timeControlKif(clock: Option[Clock.Config]) =
     Tag(
       TimeControl,
       clock.fold("") { c =>
@@ -187,9 +233,23 @@ object Tag {
           if (c.periods > 1) s"(${c.periods})"
           else ""
         val inc =
-          if(c.hasIncrement) s"+${c.increment.roundSeconds}秒"
+          if (c.hasIncrement) s"+${c.increment.roundSeconds}秒"
           else ""
         s"$init$byo$periods$inc"
+      }
+    )
+
+  def timeControlCsa(clock: Option[Clock.Config]) =
+    Tag(
+      TimeControl,
+      clock.fold("") { c =>
+        val init =
+          if (c.limit.roundSeconds % 60 == 0) f"00:${c.limit.roundSeconds / 60}%02d"
+          else f"00:00:${c.limit.roundSeconds}%02d"
+        val byo =
+          if (c.hasByoyomi) f"+${c.byoyomi.roundSeconds}%02d"
+          else ""
+        s"$init$byo"
       }
     )
 }

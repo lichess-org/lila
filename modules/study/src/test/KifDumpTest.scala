@@ -1,17 +1,17 @@
 package lila.study
 
-import shogi.format.pgn._
+import shogi.format.kif._
 import shogi.format.{ FEN, Uci, UciCharPair }
 import shogi.variant
 import shogi.Hands
 import Node._
 import org.specs2.mutable._
 
-class PgnDumpTest extends Specification {
+class KifDumpTest extends Specification {
 
-  implicit private val flags = PgnDump.WithFlags(true, true, true)
+  implicit private val flags = NotationDump.WithFlags(true, true, true)
 
-  val P = PgnDump
+  val P = NotationDump
 
   def node(ply: Int, uci: String, san: String, children: Children = emptyChildren) =
     Node(
@@ -96,9 +96,6 @@ class PgnDumpTest extends Specification {
           node(1, "c1d2", "Sd2")
         )
       )
-      P.toMoves(tree).mkString("\n").toString must_==
-        """   1   ５六歩(57)
-   2   ６四歩(63)"""
 
       P.toMoves(tree) must beLike { case Vector(sente, gote) =>
         sente.san must_== "Pe4"

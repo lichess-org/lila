@@ -29,7 +29,7 @@ private[study] object CommentParser {
     parseCircles(comment) match {
       case (circles, comment) =>
         parseArrows(comment) match {
-          case (arrows, comment) => 
+          case (arrows, comment) =>
             parsePieces(comment) match {
               case (pieces, comment) => (circles ++ arrows ++ pieces) -> comment
             }
@@ -68,10 +68,10 @@ private[study] object CommentParser {
       case piecesRegex(str) =>
         val pieces = str.split(',').toList.map(_.trim).flatMap { c =>
           for {
-            color <- c.headOption
-            pos   <- Pos.usiAllKeys.get(c.drop(1).take(2))
+            color     <- c.headOption
+            pos       <- Pos.usiAllKeys.get(c.drop(1).take(2))
             pieceChar <- c.lastOption
-            piece <- shogi.Piece.fromChar(pieceChar)
+            piece     <- shogi.Piece.fromChar(pieceChar)
           } yield Shape.Piece(toBrush(color), pos, piece)
         }
         Shapes(pieces) -> piecesRemoveRegex.replaceAllIn(comment, "").trim

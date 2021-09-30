@@ -2,8 +2,9 @@ package lila.game
 
 import shogi.Replay
 import shogi.format.Forsyth
-import shogi.format.pgn.{ KifParser, ParsedPgn, Pgn, Tag, TagType, Tags, Kif }
-import shogi.format.{ FEN, pgn => shogiPgn }
+import shogi.format.kif.{ Kif, KifParser }
+import shogi.format.csa.Csa
+import shogi.format.{ FEN, Notation, NotationMove, ParsedNotation, Tag, TagType, Tags }
 import shogi.{ Centis, Color }
 
 import lila.common.config.BaseUrl
@@ -11,32 +12,35 @@ import lila.common.LightUser
 
 import org.joda.time.DateTime
 
-final class PgnDump(
+final class NotationDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import PgnDump._
+  import NotationDump._
 
   def apply(
       game: Game,
       initialFen: Option[FEN],
       flags: WithFlags,
       teams: Option[Color.Map[String]] = None
-  ): Fu[Kif] = {
+  ): Fu[Notation] = {
     val imported = game.pgnImport.flatMap { kifi =>
       KifParser.full(kifi.kif).toOption
     }
     val tagsFuture =
-      if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening, teams = teams)
+      if (flags.tags)
+        tags(game, initialFen, imported, withOpening = flags.opening, csa = flags.csa, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val moves = flags.moves ?? {
         val clocksSpent: Vector[Centis] = (flags.clocks && !game.isCorrespondence) ?? {
           val movetimes = ~game.moveTimes
-          if(movetimes.forall(_==Centis(0))) Vector[Centis]() else movetimes
-        } 
-        val clocksTotal = clocksSpent.foldLeft(Vector[Centis]())((acc, cur) => acc :+ (acc.takeRight(2).headOption.getOrElse(Centis(0)) + cur))
+          if (movetimes.forall(_ == Centis(0))) Vector[Centis]() else movetimes
+        }
+        val clocksTotal = clocksSpent.foldLeft(Vector[Centis]())((acc, cur) =>
+          acc :+ (acc.takeRight(2).headOption.getOrElse(Centis(0)) + cur)
+        )
         val clockOffset = game.startColor.fold(0, 1)
         val extendedMoves = Replay.gameMoveWhileValid(
           game.pgnMoves,
@@ -45,11 +49,11 @@ final class PgnDump(
         ) match {
           case (_, games, _) =>
             games map { case (_, uciSan) =>
-              (uciSan.san, uciSan.uci.uci)
+              (uciSan.san, uciSan.uci)
             }
         }
         extendedMoves.zipWithIndex.map { case ((san, uci), index) =>
-          shogiPgn.KifMove(
+          NotationMove(
             ply = index + 1,
             san = san,
             uci = uci,
@@ -58,7 +62,23 @@ final class PgnDump(
           )
         }
       }
-      Kif(ts, moves)
+      val terminationMove =
+        if (flags.csa)
+          Csa.createTerminationMove(
+            game.status,
+            game.winnerColor.fold(false)(_ == game.turnColor),
+            game.winnerColor
+          )
+        else
+          Kif.createTerminationMove(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
+      val notation = if (flags.csa) Csa(ts, moves) else Kif(ts, moves)
+      terminationMove.fold(
+        notation.updateLastPly(
+          _.copy(comments = List(lila.game.StatusText(game.status, game.winnerColor, shogi.variant.Standard)))
+        )
+      ) { t =>
+        notation.updateLastPly(_.copy(result = t.some))
+      }
     }
   }
 
@@ -92,14 +112,15 @@ final class PgnDump(
   def tags(
       game: Game,
       initialFen: Option[FEN],
-      imported: Option[ParsedPgn],
+      imported: Option[ParsedNotation],
       withOpening: Boolean,
+      csa: Boolean,
       teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {
         // ugly
-        val importedOrNormal: List[Option[Tag]] = imported map { p: ParsedPgn  =>
+        val importedOrNormal: List[Option[Tag]] = imported map { p: ParsedNotation =>
           List(
             Tag(_.Event, imported.flatMap(_.tags(_.Event)) | "Import").some,
             p.tags.value.find(_.name == Tag.Start),
@@ -112,7 +133,10 @@ final class PgnDump(
             Tag(_.Event, eventOf(game)).some,
             Tag(_.Start, dateAndTime(game.createdAt)).some,
             Tag(_.End, dateAndTime(game.movedAt)).some,
-            Tag.timeControl(game.clock.map(_.config)).some
+            if (csa)
+              Tag.timeControlCsa(game.clock.map(_.config)).some
+            else
+              Tag.timeControlKif(game.clock.map(_.config)).some
           )
         }
         (List[Option[Tag]](
@@ -122,8 +146,7 @@ final class PgnDump(
           teams.map { t => Tag("SenteTeam", t.sente) },
           teams.map { t => Tag("GoteTeam", t.gote) },
           Tag(_.Variant, game.variant.name.capitalize).some,
-          withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco)),
-          shogi.format.pgn.KifUtils.createTerminationTag(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
+          withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco))
         ) ::: importedOrNormal).flatten ::: customStartPosition(game.variant).??(
           List(
             Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
@@ -133,16 +156,17 @@ final class PgnDump(
     }
 }
 
-object PgnDump {
+object NotationDump {
 
   case class WithFlags(
+      csa: Boolean = false,
       clocks: Boolean = true,
       moves: Boolean = true,
       tags: Boolean = true,
       evals: Boolean = true,
       opening: Boolean = true,
       literate: Boolean = false,
-      pgnInJson: Boolean = false,
+      notationInJson: Boolean = false,
       delayMoves: Int = 0
   )
 

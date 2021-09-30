@@ -14,7 +14,7 @@ object kifExplanation {
       main(cls := "page-small box box-pad page")(
         h1(doc.getText("doc.title")),
         div(cls := "body")(
-          raw(~doc.getText("doc.content")),
+          raw(~doc.getText("doc.content"))
         )
       )
     }
