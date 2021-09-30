@@ -68,15 +68,17 @@
 
   .content {
     flex: 0 1 100%;
+    overflow: hidden;
 
-    span:first-child {
-      @extend %flex-between;
-    }
+    span {
+      &:first-child {
+        @extend %flex-between;
+      }
 
-    span:last-child {
-      @extend %ellipsis;
-
-      display: block;
+      &:last-child {
+        @extend %ellipsis;
+        display: block;
+      }
     }
 
     time {
