@@ -89,9 +89,7 @@ final class NotifyApi(
     }
 
   /** Inserts notification into the repository.
-    *
     * If the user already has an unread notification on the topic, discard it.
-    *
     * If the user does not already have an unread notification on the topic, returns it unmodified.
     */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =

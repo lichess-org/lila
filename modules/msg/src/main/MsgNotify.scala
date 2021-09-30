@@ -80,7 +80,7 @@ final private class MsgNotify(
             Notification.Notifies(dest),
             PrivateMessage(
               PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 80))
+              PrivateMessage.Text(shorten(msg.text, 40))
             )
           )
         }
