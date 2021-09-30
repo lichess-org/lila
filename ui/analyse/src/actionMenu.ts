@@ -1,8 +1,7 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
-import { bind, bindNonPassive, dataIcon } from 'common/snabbdom';
+import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
-import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';

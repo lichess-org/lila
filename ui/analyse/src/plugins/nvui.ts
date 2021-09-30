@@ -4,7 +4,7 @@ import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
-import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
+import { Redraw, AnalyseData } from '../interfaces';
 import { Player } from 'game';
 import {
   renderSan,
@@ -32,7 +32,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';

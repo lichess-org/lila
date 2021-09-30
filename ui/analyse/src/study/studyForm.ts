@@ -1,10 +1,10 @@
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
-import { bindSubmit, bindNonPassive } from 'common/snabbdom';
+import { bindSubmit, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
 import { emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
-import { Redraw, MaybeVNodes } from '../interfaces';
+import { Redraw } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyFormCtrl {

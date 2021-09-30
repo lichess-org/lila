@@ -1,7 +1,7 @@
 import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { initialFen, fixCrazySan } from 'chess';
-import { MaybeVNodes } from './interfaces';
+import { MaybeVNodes } from 'common/snabbdom';
 
 interface PgnNode {
   ply: Ply;

@@ -3,7 +3,7 @@ import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
-import { MaybeVNodes } from '../interfaces';
+import { MaybeVNodes } from 'common/snabbdom';
 import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine, Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {

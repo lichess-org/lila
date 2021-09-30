@@ -1,9 +1,8 @@
 import { Outcome } from 'chessops/types';
 import { h, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import { PracticeCtrl, Comment } from './practiceCtrl';
 import AnalyseCtrl from '../ctrl';
-import { MaybeVNodes } from '../interfaces';
 
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best

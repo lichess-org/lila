@@ -1,8 +1,7 @@
-import { bind, bindNonPassive } from 'common/snabbdom';
+import { bind, bindNonPassive, MaybeVNodes } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { h, thunk, VNode } from 'snabbdom';
 import { boolSetting } from '../../boolSetting';
-import { MaybeVNodes } from '../../interfaces';
 import { option, plural, richHTML } from '../../util';
 import { view as descView } from '../description';
 import { StudyCtrl } from '../interfaces';
