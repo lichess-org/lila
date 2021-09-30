@@ -185,7 +185,7 @@ object layout {
           metaThemeColor,
           st.headTitle {
             if (ctx.blind) "lishogi"
-            else if (isProd && !isStage) fullTitle | s"$title • lishogi.org"
+            else if (isProd) fullTitle | s"$title • lishogi.org"
             else s"[dev] ${fullTitle | s"$title • lishogi.dev"}"
           },
           cssTag("site"),
@@ -267,12 +267,12 @@ object layout {
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           shogiground option jsTag("vendor/shogiground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
-          if (isProd)
-            jsAt(s"compiled/lishogi.site.min.js", defer = deferJs)
+          if (minifiedAssets)
+            jsModule("site", defer = deferJs)
           else
             frag(
-              jsAt(s"compiled/lishogi.deps.js", defer = deferJs),
-              jsAt(s"compiled/lishogi.site.js", defer = deferJs)
+              jsModule("deps", defer = deferJs),
+              jsModule("site", defer = deferJs)
             ),
           moreJs,
           embedJsUnsafe(s"""lishogi.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
@@ -319,7 +319,7 @@ object layout {
             else ctx.isBot option botImage,
             a(href := "/")(
               "lishogi",
-              span(if (isProd && !isStage) ".org" else ".dev"),
+              span(if (isProd) ".org" else ".dev"),
               span(style := "position: relative; top: -12px; margin-left: 5px; font-size: 14px;")("beta")
             )
           ),

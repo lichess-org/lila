@@ -30,6 +30,7 @@ object Permission {
   case object SetTitle              extends Permission("SET_TITLE", List(UserSpy), "Set/unset title")
   case object SetEmail              extends Permission("SET_EMAIL", List(UserSpy), "Set email address")
   case object SeeReport             extends Permission("SEE_REPORT", "See reports")
+  case object Appeals               extends Permission("APPEAL", "Handle appeals")
   case object ModLog                extends Permission("MOD_LOG", "See mod log")
   case object SeeInsight            extends Permission("SEE_INSIGHT", "View player insights")
   case object PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
@@ -80,6 +81,7 @@ object Permission {
           UserSpy,
           UserEvaluate,
           SeeReport,
+          Appeals,
           ModLog,
           SeeInsight,
           UserSearch,
@@ -185,6 +187,7 @@ object Permission {
     ),
     "Misc mod" -> List(
       SeeReport,
+      Appeals,
       UserSearch,
       MonitoredMod,
       ModNote,

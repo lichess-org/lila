@@ -1,0 +1,51 @@
+.appeal {
+  &__help {
+    margin-bottom: 2em;
+  }
+
+  &__status {
+    @extend %box-radius;
+
+    padding: 1em 1.5em;
+    margin-bottom: 2em;
+    background: $c-bg-zebra;
+
+    &::before {
+      @extend %data-icon;
+
+      content: '';
+      font-size: 2em;
+      margin-right: 0.4em;
+    }
+  }
+
+  &__msg {
+    padding: 1.5em;
+    margin-bottom: 2em;
+
+    &__header {
+      @extend %flex-between;
+
+      margin-bottom: 2em;
+    }
+
+    &--mod {
+      background: $c-bg-zebra;
+    }
+
+    &--suspect {
+      border-right: 10px solid $c-bg-zebra;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    padding-top: 2em;
+    border-top: $border;
+    margin-top: 2em;
+
+    .button {
+      margin-right: 1em;
+    }
+  }
+}

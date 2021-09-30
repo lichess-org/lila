@@ -21,7 +21,7 @@ object home {
         s"lishogi.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
-        jsAt(s"compiled/lishogi.lobby${isProd ?? ".min"}.js", defer = true),
+        jsModule("lobby", defer = true),
         embedJsUnsafe(
           s"""lishogi=window.lishogi||{};customWS=true;lishogi_lobby=${safeJsonValue(
             Json.obj(

@@ -328,7 +328,10 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
-        val modLog = env.mod.logApi.userHistory(user.id).map(view.modLog)
+        val modLog = for {
+          history <- env.mod.logApi.userHistory(user.id)
+          appeal  <- env.appeal.api.get(user)
+        } yield view.modLog(history, appeal)
 
         val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
 

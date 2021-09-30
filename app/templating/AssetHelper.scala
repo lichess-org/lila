@@ -10,6 +10,9 @@ import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
+  def isStage: Boolean
+
+  def minifiedAssets = isProd || isStage
 
   def netDomain: lila.common.config.NetDomain
   lazy val assetDomain    = env.net.assetDomain
@@ -33,10 +36,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     cssTagWithTheme(name, ctx.currentBg)
 
   def cssTagWithTheme(name: String, theme: String): Frag =
-    cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
+    cssAt(s"css/$name.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
-    cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
 
   private def cssAt(path: String): Frag =
     link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
@@ -53,19 +56,19 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       src := assetUrl(path)
     )
 
-  def jsModule(name: String): Frag =
-    jsAt(s"compiled/${name}${isProd ?? ".min"}.js", defer = true)
+  def jsModule(name: String, defer: Boolean = false): Frag =
+    jsAt(s"compiled/lishogi.$name${minifiedAssets ?? ".min"}.js", defer = defer)
 
   lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag = jsAt(s"compiled/lishogi.round${isProd ?? ".min"}.js", defer = true)
+  def roundTag = jsAt(s"compiled/lishogi.round${minifiedAssets ?? ".min"}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) =
     ctx.blind option
       jsAt(s"compiled/lishogi.round.nvui.min.js", defer = true)
 
-  def analyseTag = jsAt(s"compiled/lishogi.analyse${isProd ?? ".min"}.js")
+  def analyseTag = jsAt(s"compiled/lishogi.analyse${minifiedAssets ?? ".min"}.js")
   def analyseNvuiTag(implicit ctx: Context) =
     ctx.blind option
       jsAt(s"compiled/lishogi.analyse.nvui.min.js")

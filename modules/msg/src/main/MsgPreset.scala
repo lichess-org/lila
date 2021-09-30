@@ -43,6 +43,12 @@ In order to report players for bad behavior, please visit https://lishogi.org/re
 
 """, /* ---------------------------------------------------------------*/ """
 
+Use /appeal
+
+Your account has been restricted due to continuous violation of Lishogi's Terms of Service. If you would like to contest this mark or apologize for your wrongdoings, please appeal to Lishogi at https://lishogi.org/appeal and we might lift the mark.
+
+""", /* ---------------------------------------------------------------*/ """
+
 Warning: Accusations
 
 Accusing other players of using computer assistance or otherwise cheating is not acceptable on Lishogi. If you are confident that a player is cheating, use the report button on their profile page to report them to the moderators.
@@ -72,7 +78,7 @@ The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for L
 
 Account marked for computer assistance
 
-Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark or apologize for your wrongdoings, please send an email to Lishogi Contact contact@lishogi.org and we might lift the mark. If you are a very strong player, like a high-ranking amateur or professional player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license. The proof of identity can also happen through Shogi Club 24, if you have an active account there. You can verify your playing strength by contacting us at contact@lishogi.org.
+Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark or apologize for your wrongdoings, please appeal to Lishogi at https://lishogi.org/appeal and we might lift the mark. If you are a very strong player, like a high-ranking amateur or professional player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license. The proof of identity can also happen through Shogi Club 24, if you have an active account there. You can verify your playing strength by contacting us at contact@lishogi.org.
 
 """, /* ---------------------------------------------------------------*/ """
 

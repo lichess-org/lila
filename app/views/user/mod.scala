@@ -1,19 +1,16 @@
 package views.html.user
 
-import play.api.i18n.Lang
-
+import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ Permission, UserSpy }
 import lila.playban.RageSit
+import lila.security.{ Permission, UserSpy }
 import lila.user.User
-
-import controllers.routes
+import play.api.i18n.Lang
 
 object mod {
-
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
 
   def menu =
@@ -238,28 +235,45 @@ object mod {
       )
     }
 
-  def modLog(history: List[lila.mod.Modlog])(implicit lang: Lang) =
+  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
     mzSection("mod_log")(
-      strong(cls := "text", dataIcon := "!")(
-        "Moderation history",
-        history.isEmpty option ": nothing to show"
-      ),
-      history.nonEmpty ?? frag(
-        ul(
-          history.map { e =>
-            li(
-              userIdLink(e.mod.some, withTitle = false),
-              " ",
-              b(e.showAction),
-              " ",
-              e.details,
-              " ",
-              momentFromNowServer(e.date)
-            )
-          }
+      div(cls := "mod_log mod_log--history")(
+        strong(cls := "text", dataIcon := "!")(
+          "Moderation history",
+          history.isEmpty option ": nothing to show"
         ),
-        br
-      )
+        history.nonEmpty ?? frag(
+          ul(
+            history.map { e =>
+              li(
+                userIdLink(e.mod.some, withTitle = false),
+                " ",
+                b(e.showAction),
+                " ",
+                e.details,
+                " ",
+                momentFromNowServer(e.date)
+              )
+            }
+          ),
+          br
+        )
+      ),
+      appeal map { a =>
+        frag(
+          div(cls := "mod_log mod_log--appeal")(
+            st.a(href := routes.Appeal.show(a.id))(
+              strong(cls := "text", dataIcon := "!")(
+                "Appeal status: ",
+                a.status.toString
+              )
+            ),
+            br,
+            a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
+            a.msgs.size > 1 option frag("and", pluralize("more message", a.msgs.size - 1))
+          )
+        )
+      }
     )
 
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =

@@ -50,11 +50,15 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
-  override lazy val httpErrorHandler = {
-    @nowarn def someRouter = router.some
-    @nowarn def mapper     = devContext.map(_.sourceMapper)
-    wire[lila.app.http.ErrorHandler]
-  }
+  override lazy val httpErrorHandler =
+    new lila.app.http.ErrorHandler(
+      environment = ctx.environment,
+      config = configuration,
+      sourceMapper = devContext.map(_.sourceMapper),
+      router = router,
+      mainC = main,
+      lobbyC = lobby
+    )
 
   implicit def system = actorSystem
   implicit def ws     = wsClient
@@ -71,6 +75,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
+  lazy val appeal: Appeal                 = wire[Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val bookmark: Bookmark             = wire[Bookmark]

@@ -152,6 +152,7 @@ object Report {
   }
 
   private[report] val spontaneousText = "Spontaneous inquiry"
+  private[report] val appealText      = "Appeal"
 
   def make(c: Candidate.Scored, existing: Option[Report]) =
     c match {

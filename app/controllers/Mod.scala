@@ -1,8 +1,5 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.mvc._
 import scala.annotation.nowarn
 
 import lila.api.{ BodyContext, Context }
@@ -14,6 +11,9 @@ import lila.report.{ Suspect, Mod => AsMod }
 import lila.security.{ FingerHash, Permission }
 import lila.user.{ User => UserModel, Title }
 import ornicar.scalalib.Zero
+import play.api.data._
+import play.api.data.Forms._
+import play.api.mvc._
 import views._
 
 final class Mod(
@@ -293,7 +293,15 @@ final class Mod(
   def spontaneousInquiry(username: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        env.report.api.inquiries.spontaneous(AsMod(me), Suspect(user)) inject redirect(user.username, true)
+        env.appeal.api.exists(user) flatMap { isAppeal =>
+          val f =
+            if (isAppeal) env.report.api.inquiries.appeal _
+            else env.report.api.inquiries.spontaneous _
+          f(AsMod(me), Suspect(user)) inject {
+            if (isAppeal) Redirect(routes.Appeal.show(user.username))
+            else redirect(user.username, true)
+          }
+        }
       }
     }
 

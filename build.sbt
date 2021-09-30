@@ -50,7 +50,7 @@ lazy val modules = Seq(
   analyse, mod, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
-  history, video, shutup, push,
+  history, video, shutup, push, appeal,
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
@@ -401,6 +401,11 @@ lazy val bookmark = module("bookmark",
 
 lazy val report = module("report",
   Seq(common, db, user, game, security, playban),
+  reactivemongo.bundle
+)
+
+lazy val appeal = module("appeal",
+  Seq(common, db, user),
   reactivemongo.bundle
 )
 

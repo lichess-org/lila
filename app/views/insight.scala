@@ -25,7 +25,7 @@ object insight {
       moreJs = frag(
         highchartsLatestTag,
         jsAt("vendor/multiple-select/multiple-select.js"),
-        jsAt(s"compiled/lishogi.insight${isProd ?? ".min"}.js"),
+        jsModule("insight"),
         jsTag("insight-refresh.js"),
         jsTag("insight-tour.js"),
         embedJsUnsafe(s"""

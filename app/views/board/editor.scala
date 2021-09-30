@@ -18,7 +18,7 @@ object editor {
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
-        jsAt(s"compiled/lishogi.editor${isProd ?? ".min"}.js"),
+        jsModule("editor"),
         embedJsUnsafe(
           s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
 LishogiEditor(document.getElementById('board-editor'), data);"""

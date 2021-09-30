@@ -23,7 +23,7 @@ object show {
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
       moreJs = frag(
-        jsAt(s"compiled/lishogi.simul${isProd ?? ".min"}.js"),
+        jsModule("simul"),
         embedJsUnsafe(s"""lishogi.simul=${safeJsonValue(
           Json.obj(
             "data"          -> data,

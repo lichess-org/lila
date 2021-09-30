@@ -1,14 +1,14 @@
 package lila.report
 
-import com.softwaremill.macwire._
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
+import com.softwaremill.macwire._
+import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.common.Bus
 import lila.user.{ User, UserRepo }
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 final class ReportApi(
     val coll: Coll,
@@ -497,9 +497,19 @@ final class ReportApi(
         name = "report.inquiries"
       )
 
-    def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
+    def allBySuspect: Fu[Map[User.ID, Report.Inquiry]] =
+      coll.list[Report]($doc("inquiry.mod" $exists true)) map {
+        _.view.flatMap { r =>
+          r.inquiry map { i =>
+            r.user -> i
+          }
+        }.toMap
+      }
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
+
+    def ofSuspectId(suspectId: User.ID): Fu[Option[Report.Inquiry]] =
+      coll.primitiveOne[Report.Inquiry]($doc("inquiry.mod" $exists true, "user" -> suspectId), "inquiry")
 
     /*
      * If the mod has no current inquiry, just start this one.
@@ -513,7 +523,9 @@ final class ReportApi(
 
     private def doToggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
       for {
-        report  <- coll.byId[Report](id) orFail s"No report $id found"
+        report <- coll.byId[Report](id) orElse coll.one[Report](
+          $doc("user" -> id, "inquiry.mod" $exists true)
+        ) orFail s"No report $id found"
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
         _ <-
@@ -547,6 +559,12 @@ final class ReportApi(
           .void
 
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] =
+      openOther(mod, sus, Report.spontaneousText)
+
+    def appeal(mod: Mod, sus: Suspect): Fu[Report] =
+      openOther(mod, sus, Report.appealText)
+
+    private def openOther(mod: Mod, sus: Suspect, name: String): Fu[Report] =
       ofModId(mod.user.id) flatMap { current =>
         current.??(cancel(mod)) >> {
           val report = Report
@@ -555,7 +573,7 @@ final class ReportApi(
                 Reporter(mod.user),
                 sus,
                 Reason.Other,
-                Report.spontaneousText
+                name
               ) scored Report.Score(0),
               none
             )

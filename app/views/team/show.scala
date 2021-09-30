@@ -39,7 +39,7 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsAt(s"compiled/lishogi.chat${isProd ?? ".min"}.js"),
+          jsModule("chat"),
           embedJsUnsafe(s"""lishogi.team=${safeJsonValue(
             Json.obj(
               "id"            -> t.id,

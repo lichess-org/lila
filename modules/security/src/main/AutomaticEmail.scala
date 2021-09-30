@@ -132,5 +132,17 @@ ${Mailgun.txt.serviceNote}
       )
     }
 
+  def onAppealReply(user: User): Funit = {
+      val body = s"""Hello,
+
+      Your appeal has received a response from the moderation team: ${baseUrl}/appeal
+
+$regards
+"""
+
+      lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
+      funit
+    }
+
   private def userLang(user: User) = user.realLang | lila.i18n.defaultLang
 }

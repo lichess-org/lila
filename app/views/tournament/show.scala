@@ -25,7 +25,7 @@ object show {
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
-        jsAt(s"compiled/lishogi.tournament${isProd ?? ".min"}.js"),
+        jsModule("tournament"),
         embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.tournament=${safeJsonValue(
           Json.obj(
             "data"   -> data,

@@ -13,7 +13,7 @@ object msg {
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
-        jsAt(s"compiled/lishogi.msg${isProd ?? ".min"}.js"),
+        jsModule("msg"),
         embedJsUnsafe(
           s"""$$(() =>LishogiMsg(document.querySelector('.msg-app'), ${safeJsonValue(
             Json.obj(

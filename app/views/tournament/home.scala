@@ -24,7 +24,7 @@ object home {
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,
-        jsAt(s"compiled/lishogi.tournamentSchedule${isProd ?? ".min"}.js"),
+        jsModule("tournamentSchedule"),
         embedJsUnsafe(
           s"""var app=LishogiTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
             Json.obj(

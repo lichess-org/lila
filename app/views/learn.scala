@@ -17,7 +17,7 @@ object index {
     views.html.base.layout(
       title = s"${learnShogi.txt()} - ${byPlaying.txt()}",
       moreJs = frag(
-        jsAt(s"compiled/lishogi.learn${isProd ?? ".min"}.js"),
+        jsModule("learn"),
         embedJsUnsafe(s"""$$(function() {
 LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
           Json.obj(

@@ -13,7 +13,7 @@ object calendar {
     views.html.base.layout(
       title = "Tournament calendar",
       moreJs = frag(
-        jsAt(s"compiled/lishogi.tournamentCalendar${isProd ?? ".min"}.js"),
+        jsModule("tournamentCalendar"),
         embedJsUnsafe(
           s"""LishogiTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
             Json.obj(

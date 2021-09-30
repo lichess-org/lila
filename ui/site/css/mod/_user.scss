@@ -455,6 +455,17 @@
 }
 
 #mz_mod_log {
+  @extend %flex-wrap;
+
   max-height: 50vh;
   overflow-y: auto;
+
+  .mod_log {
+    flex: 1 0 50ch;
+    overflow-y: auto;
+
+    &:first-child {
+      margin-right: 1em;
+    }
+  }
 }

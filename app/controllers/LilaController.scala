@@ -547,7 +547,7 @@ abstract private[controllers] class LilaController(val env: Env)
   type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     env.security.api restoreUser req dmap {
-      case Some(d) if !env.isProdReally =>
+      case Some(d) if !env.isProd =>
         d.copy(user =
           d.user
             .addRole(lila.security.Permission.Beta.dbKey)

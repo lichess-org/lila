@@ -535,6 +535,14 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
 GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
 
+# Appeal
+GET   /appeal                          controllers.Appeal.home
+POST  /appeal                          controllers.Appeal.post
+GET   /appeal/queue                    controllers.Appeal.queue
+GET   /appeal/:username                controllers.Appeal.show(username: String)
+POST  /appeal/:username                controllers.Appeal.reply(username: String)
+POST  /appeal/:username/act/:action    controllers.Appeal.act(username: String, action: String)
+
 # Stats
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
 
