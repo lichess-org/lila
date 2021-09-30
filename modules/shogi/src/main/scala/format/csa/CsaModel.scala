@@ -1,0 +1,168 @@
+package shogi
+package format
+package csa
+
+import scala._
+
+case class Csa(
+    tags: Tags,
+    moves: List[NotationMove],
+    initial: Initial = Initial.empty
+) extends Notation {
+
+  def withMoves(moves: List[NotationMove]) =
+    copy(moves = moves)
+
+  def withTags(tags: Tags) =
+    copy(tags = tags)
+
+  private def renderMainline(moveline: List[NotationMove], turn: Color): String =
+    moveline
+      .foldLeft((List[String](), turn)) { case ((acc, curTurn), cur) =>
+        ((Csa.renderNotationMove(cur, curTurn.some) :: acc), !curTurn)
+      }
+      ._1
+      .reverse mkString "\n"
+
+  def render: String = {
+    val initStr =
+      if (initial.comments.nonEmpty)
+        initial.comments.map(Csa.fixComment _).mkString("") //.mkString("'", "\n'", "\n")
+      else ""
+    val header = Csa renderHeader tags
+    val setup  = (Forsyth << (tags.fen.fold(Forsyth.initial)(_.value))).fold("")(Csa renderSituation _)
+    val startColor: Color = tags.fen.fold[Color](Sente) { fen =>
+      Forsyth.getColor(fen.value).getOrElse(Sente)
+    }
+    val movesStr = renderMainline(moves, startColor)
+    //s"$header\n$initStr$movesStr"
+    List(
+      header,
+      setup,
+      initStr,
+      movesStr
+    ).mkString("\n")
+  }.trim
+
+  override def toString = render
+}
+
+object Csa {
+
+  def renderNotationMove(cur: NotationMove, turn: Option[Color]) = {
+    val csaMove     = renderCsaMove(cur.uci, cur.san, turn)
+    val timeStr     = clockString(cur).getOrElse("")
+    val commentsStr = cur.comments.map { text => s"\n'${fixComment(text)}" }.mkString("")
+    val resultStr   = cur.result.fold("")(t => s"\n$t")
+    s"$csaMove$timeStr$commentsStr$resultStr"
+  }
+
+  def renderCsaMove(uci: Uci, san: String, turn: Option[Color]) =
+    uci match {
+      case Uci.Drop(role, pos) =>
+        s"${turn.fold("")(_.fold("+", "-"))}00${makeSquare(pos)}${role.csa}"
+      case Uci.Move(orig, dest, prom) => {
+        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $uci, $san") { r =>
+          val finalRole = if (prom) Role.promotesTo(r).getOrElse(r) else r
+          s"${turn.fold("")(_.fold("+", "-"))}${makeSquare(orig)}${makeSquare(dest)}${finalRole.csa}"
+        }
+      }
+    }
+
+  def renderHeader(tags: Tags): String =
+    csaHeaderTags
+      .map { ct =>
+        if (ct == Tag.Sente || ct == Tag.Gote) {
+          tags(ct.name).fold("")(tagValue => s"N${ct.csaName}:${if (tagValue == "?") "" else tagValue}")
+        } else {
+          tags(ct.name).fold("")(tagValue => {
+            if (tagValue != "?" && tagValue != "") s"$$${ct.csaName}:$tagValue"
+            else ""
+          })
+        }
+      }
+      .filter(_.nonEmpty)
+      .mkString("\n")
+
+  def renderSituation(sit: Situation): String = {
+    val csaBoard = new scala.collection.mutable.StringBuilder(256)
+    for (y <- 9 to 1 by -1) {
+      csaBoard append ("P" + (10 - y))
+      for (x <- 1 to 9) {
+        sit.board(x, y) match {
+          case None => csaBoard append " * "
+          case Some(piece) =>
+            csaBoard append s"${piece.csa}"
+        }
+      }
+      if (y > 1) csaBoard append '\n'
+    }
+    List(
+      csaBoard.toString,
+      sit.board.crazyData.fold("")(hs => renderHand(hs(Sente), "P+")),
+      sit.board.crazyData.fold("")(hs => renderHand(hs(Gote), "P-")),
+      if (sit.color == Gote) "-" else "+"
+    ).filter(_.nonEmpty).mkString("\n")
+  }
+
+  private def renderHand(hand: Hand, prefix: String): String = {
+    if (hand.size == 0) ""
+    else
+      Role.handRoles
+        .map { r =>
+          val cnt = hand(r)
+          s"00${r.csa}".repeat(Math.min(cnt, 81))
+        }
+        .filter(_.nonEmpty)
+        .mkString(prefix, "", "")
+  }
+
+  def createTerminationMove(
+      status: Status,
+      winnerTurn: Boolean,
+      winnerColor: Option[Color]
+  ): Option[String] = {
+    import Status._
+    status match {
+      case Aborted | NoStart                                                         => "%CHUDAN".some
+      case Timeout | Outoftime                                                       => "%TIME_UP".some
+      case Resign if !winnerTurn                                                     => "%TORYO".some
+      case PerpetualCheck if winnerColor.exists(_ == Sente)                          => "%-ILLEGAL_ACTION".some
+      case PerpetualCheck                                                            => "%+ILLEGAL_ACTION".some
+      case Mate if winnerTurn && winnerColor.exists(_ == Sente)                      => "%-ILLEGAL_ACTION".some // pawn checkmate
+      case Mate if winnerTurn                                                        => "%+ILLEGAL_ACTION".some // pawn checkmate
+      case Mate | Stalemate                                                          => "%TSUMI".some
+      case Draw                                                                      => "%SENNICHITE".some
+      case Impasse27                                                                 => "%KACHI".some
+      case Created | Started | UnknownFinish | VariantEnd | TryRule | Cheat | Resign => None
+      case _                                                                         => None
+    }
+  }
+
+  // tags we render in header
+  private val csaHeaderTags = List(
+    Tag.Sente,
+    Tag.Gote,
+    Tag.Event,
+    Tag.Site,
+    Tag.Start,
+    Tag.End,
+    Tag.TimeControl,
+    Tag.SenteTeam,
+    Tag.GoteTeam,
+    Tag.Opening,
+    Tag.FEN
+  )
+
+  private def makeSquare(sq: Pos): String =
+    s"${10 - sq.x}${10 - sq.y}"
+
+  private def clockString(cur: NotationMove): Option[String] =
+    cur.secondsSpent.map(spent => s"\nT$spent")
+
+  private val noDoubleLineBreakRegex = "(\r?\n){2,}".r
+
+  private def fixComment(txt: String) =
+    noDoubleLineBreakRegex.replaceAllIn(txt, "\n").replace("\n", "\n'")
+
+}

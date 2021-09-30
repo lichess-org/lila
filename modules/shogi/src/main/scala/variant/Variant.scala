@@ -275,8 +275,14 @@ abstract class Variant private[variant] (
     }
     .to(Map)
 
+  lazy val rolesByCsa: Map[String, Role] = roles
+    .map { r =>
+      (r.csa, r)
+    }
+    .to(Map)
+
   lazy val rolesByEverything: Map[String, Role] =
-    Role.allByKif ++ rolesByFullForsyth
+    Role.allByKif ++ rolesByFullForsyth ++ rolesByCsa
 
   override def toString = s"Variant($name)"
 

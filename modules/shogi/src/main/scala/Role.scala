@@ -4,6 +4,7 @@ import Pos.posAt
 
 sealed trait Role {
   val kif: String
+  val csa: String
   val forsyth: Char
   lazy val forsythUpper: Char = forsyth.toUpper
   val forsythFull: String
@@ -18,6 +19,7 @@ sealed trait Role {
 
 case object King extends Role {
   val kif                      = "玉"
+  val csa                      = "OU"
   val forsyth                  = 'k'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = Rook.dirs ::: Bishop.dirs
@@ -27,6 +29,7 @@ case object King extends Role {
 }
 case object Rook extends Role {
   val kif                      = "飛"
+  val csa                      = "HI"
   val forsyth                  = 'r'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up, _.down, _.left, _.right)
@@ -45,6 +48,7 @@ case object Rook extends Role {
 }
 case object Bishop extends Role {
   val kif                      = "角"
+  val csa                      = "KA"
   val forsyth                  = 'b'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.upLeft, _.upRight, _.downLeft, _.downRight)
@@ -63,6 +67,7 @@ case object Bishop extends Role {
 }
 case object Knight extends Role {
   val kif         = "桂"
+  val csa         = "KE"
   val forsyth     = 'n'
   val forsythFull = forsyth.toString
   val dirs: Directions = List(
@@ -78,6 +83,7 @@ case object Knight extends Role {
 }
 case object Pawn extends Role {
   val kif                      = "歩"
+  val csa                      = "FU"
   val forsyth                  = 'p'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up)
@@ -87,6 +93,7 @@ case object Pawn extends Role {
 }
 case object Gold extends Role {
   val kif                      = "金"
+  val csa                      = "KI"
   val forsyth                  = 'g'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight)
@@ -96,6 +103,7 @@ case object Gold extends Role {
 }
 case object Silver extends Role {
   val kif                      = "銀"
+  val csa                      = "GI"
   val forsyth                  = 's'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up, _.upLeft, _.upRight, _.downLeft, _.downRight)
@@ -105,6 +113,7 @@ case object Silver extends Role {
 }
 case object Lance extends Role {
   val kif                      = "香"
+  val csa                      = "KY"
   val forsyth                  = 'l'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up)
@@ -120,6 +129,7 @@ case object Lance extends Role {
 }
 case object Tokin extends Role {
   val kif                                        = "と"
+  val csa                                        = "TO"
   val forsyth                                    = 't'
   val forsythFull                                = "+p"
   val dirs: Directions                           = Gold.dirs
@@ -129,6 +139,7 @@ case object Tokin extends Role {
 }
 case object PromotedSilver extends Role {
   val kif                                        = "成銀"
+  val csa                                        = "NG"
   val forsyth                                    = 'a'
   val forsythFull                                = "+s"
   val dirs: Directions                           = Gold.dirs
@@ -138,6 +149,7 @@ case object PromotedSilver extends Role {
 }
 case object PromotedKnight extends Role {
   val kif                                        = "成桂"
+  val csa                                        = "NK"
   val forsyth: Char                              = 'm'
   val forsythFull                                = "+n"
   val dirs: Directions                           = Gold.dirs
@@ -147,6 +159,7 @@ case object PromotedKnight extends Role {
 }
 case object PromotedLance extends Role {
   val kif                                        = "成香"
+  val csa                                        = "NY"
   val forsyth: Char                              = 'u'
   val forsythFull                                = "+l"
   val dirs: Directions                           = Gold.dirs
@@ -156,6 +169,7 @@ case object PromotedLance extends Role {
 }
 case object Horse extends Role {
   val kif                      = "馬"
+  val csa                      = "UM"
   val forsyth: Char            = 'h'
   val forsythFull              = "+b"
   val dirs: Directions         = Bishop.dirs // only long range
@@ -165,6 +179,7 @@ case object Horse extends Role {
 }
 case object Dragon extends Role {
   val kif                                        = "龍"
+  val csa                                        = "RY"
   val forsyth: Char                              = 'd'
   val forsythFull                                = "+r"
   val dirs: Directions                           = Rook.dirs // only long range
@@ -238,6 +253,9 @@ object Role {
     (r.kif, r)
   } toMap) ++ singleKifs
 
+  val allByCsa: Map[String, Role] = all map { r =>
+    (r.csa, r)
+  } toMap
 
   val allByFullForsyth: Map[String, Role] = (all map { r =>
     (r.forsythFull, r)
