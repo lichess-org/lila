@@ -3,7 +3,7 @@ import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
-import { bind, bindNonPassive, bindMobileMousedown, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
+import { bind, bindNonPassive, bindMobileMousedown, MaybeVNode, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
@@ -300,7 +300,8 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
   return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 }
 
-function analysisDisabled(ctrl: AnalyseCtrl): VNode {
+function analysisDisabled(ctrl: AnalyseCtrl): MaybeVNode {
+  if (!ctrl.ceval.possible || !ctrl.ceval.allowed()) return;
   return h('div.comp-off__hint', [
     h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
     h(
