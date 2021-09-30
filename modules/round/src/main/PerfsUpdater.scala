@@ -114,21 +114,29 @@ final class PerfsUpdater(
     )
 
   private def updateRatings(white: Rating, black: Rating, game: Game): Unit = {
-    val result = game.winnerColor match {
-      case Some(chess.White) => Glicko.Result.Win
-      case Some(chess.Black) => Glicko.Result.Loss
-      case None              => Glicko.Result.Draw
-    }
-    val results = new RatingPeriodResults()
-    result match {
-      case Glicko.Result.Draw => results.addDraw(white, black)
-      case Glicko.Result.Win  => results.addResult(white, black)
-      case Glicko.Result.Loss => results.addResult(black, white)
-    }
-    try {
-      Glicko.system.updateRatings(results, true)
-    } catch {
-      case e: Exception => logger.error(s"update ratings #${game.id}", e)
+    // if the winner is rated more than 500 higher, leave both ratings untouched.
+    // this helps prevent farming and keeping deviation low by playing 1500? players
+    val isObviousResult = game.winnerColor.?? {
+      case chess.White => white.getRating - black.getRating
+      case chess.Black => black.getRating - white.getRating
+    } > 500
+    if (!isObviousResult) {
+      val result = game.winnerColor match {
+        case Some(chess.White) => Glicko.Result.Win
+        case Some(chess.Black) => Glicko.Result.Loss
+        case None              => Glicko.Result.Draw
+      }
+      val results = new RatingPeriodResults()
+      result match {
+        case Glicko.Result.Draw => results.addDraw(white, black)
+        case Glicko.Result.Win  => results.addResult(white, black)
+        case Glicko.Result.Loss => results.addResult(black, white)
+      }
+      try {
+        Glicko.system.updateRatings(results, true)
+      } catch {
+        case e: Exception => logger.error(s"update ratings #${game.id}", e)
+      }
     }
   }
 
