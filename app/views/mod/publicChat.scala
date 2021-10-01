@@ -28,7 +28,7 @@ object publicChat {
             div(cls := "player_chats")(
               tourChats.map { case (tournament, chat) =>
                 div(cls := "game", dataChan := "tournament", dataRoom := tournament.id)(
-                  chatOf(routes.Tournament.show(tournament.id), tournament.name, chat)
+                  chatOf(tournamentTitleFrag(routes.Tournament.show(tournament.id), tournament), chat)
                 )
               }
             ),
@@ -37,7 +37,7 @@ object publicChat {
               div(cls := "player_chats")(
                 swissChats.map { case (swiss, chat) =>
                   div(cls := "game", dataChan := "swiss", dataRoom := swiss.id.value)(
-                    chatOf(routes.Swiss.show(swiss.id.value), swiss.name, chat)
+                    chatOf(swissTitleFrag(routes.Swiss.show(swiss.id.value), swiss.name), chat)
                   )
                 }
               )
@@ -59,9 +59,9 @@ object publicChat {
   private val dataRoom = attr("data-room")
   private val dataChan = attr("data-chan")
 
-  private def chatOf(url: Call, name: String, chat: UserChat)(implicit ctx: Context) =
+  private def chatOf(titleFragment: Frag, chat: UserChat)(implicit ctx: Context) =
     frag(
-      a(cls := "title", href := url)(name),
+      titleFragment,
       div(cls := "chat")(
         chat.lines.filter(_.isVisible).map { line =>
           div(
@@ -77,4 +77,29 @@ object publicChat {
         }
       )
     )
+
+  private def swissTitleFrag(url: Call, name: String) =
+    frag(
+      a(cls := "title", href := url)(name)
+    )
+
+  private def tournamentTitleFrag(url: Call, tournament: lila.tournament.Tournament) = {
+
+    frag(
+      div(
+        cls := "title-time-container",
+        div(cls := "title-container", a(cls := "title", href := url)(tournament.name)),
+        div(
+          cls := "time-container",
+          span(
+            cls := List(
+              "tournament-time finished"    -> tournament.isFinished,
+              "tournament-time in-progress" -> tournament.isStarted,
+              "tournament-time starting"    -> (!tournament.isFinished && !tournament.isStarted)
+            )
+          )(tournament.countdown)
+        )
+      )
+    )
+  }
 }

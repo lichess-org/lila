@@ -30,4 +30,42 @@
       background: fade-out($c-accent, 0.8);
     }
   }
+
+  .player_chats .game .title-time-container {
+    overflow: hidden;
+    padding: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .player_chats .game .title-time-container .title-container {
+    flex-grow: 70;
+    border-bottom: $border;
+  }
+
+  .player_chats .game .title-time-container .time-container {
+    flex-grow: 30;
+    border: $border;
+    background-color: $time-container-bg;
+  }
+
+  .player_chats .game .title-time-container .time-container .tournament-time {
+    text-align: center;
+    font-weight: bolder;
+    display: block;
+    padding: 6px;
+  }
+
+  .player_chats .game .title-time-container .time-container .tournament-time.starting {
+    color: $c-warn;
+  }
+
+  .player_chats .game .title-time-container .time-container .tournament-time.in-progress {
+    color: $c-good;
+  }
+
+  .player_chats .game .title-time-container .time-container .tournament-time.finished {
+    color: $c-bad;
+  }
 }
