@@ -5,6 +5,8 @@ $color-scheme: 'light';
 $theme-light: true;
 $theme-dark: false;
 
+$time-container-bg: #00000008;
+
 @mixin metal-bg {
   background: linear-gradient(to bottom, hsl(0, 0, 96) 0%, hsl(0, 0, 93) 100%);
 }
