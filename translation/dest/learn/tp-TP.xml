@@ -73,7 +73,7 @@ taso, sina ken awen e ijo sina!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">o pali e ni: jan musi ante li
 ken ala anpa e ijo musi sina!</string>
   <string name="combat">utala</string>
-  <string name="captureAndDefendPieces">o anpa en awen e ijo musi</string>
+  <string name="captureAndDefendPieces">o anpa e ijo musi. o awen e ijo musi</string>
   <string name="combatIntro">jan utala pona li sona e utala, e awen!</string>
   <string name="combatComplete">pona a! sina sona e nasin utala pi ijo musi!</string>
   <string name="checkInOne">jan lawa li ken moli lon tawa wan</string>
