@@ -45,7 +45,7 @@
   <string name="swissVsArenaA">Šveices turnīrā, visi dalībnieki izspēlēs vienādu skaitu spēļu, un pret katru pretinieku var spēlēt tikai vienreiz.
 Šī var būt laba izvēle klubiem un oficiāliem turnīriem.</string>
   <string name="pointsCalculationQ">Kā tiek aprēķināti punkti?</string>
-  <string name="pointsCalculationA">Par uzvaru piešķir vienu punktu, par neizšķirtu puspunktu savukārt par zaudējumu nulle punktu. Ja spēlētājam neizdodas atrast raunda pretinieku, tad tam piešķir vienu punktu par tehnisko uzvaru.</string>
+  <string name="pointsCalculationA">Par uzvaru piešķir vienu punktu, par neizšķirtu puspunktu savukārt par zaudējumu nulle punktu. Ja spēlētājam neizdodas atrast kārtas pretinieku, tad tam piešķir vienu punktu par tehnisko uzvaru.</string>
   <string name="tiebreaksCalculationQ">Kā izšķir vienādu punktu skaitus?</string>
   <string name="sonnebornBergerScore">Zonnenborna—Bergera koeficientu</string>
   <string name="tiebreaksCalculationA">Ar %s.
@@ -66,6 +66,8 @@ Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumi
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
 Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="lateJoinQ">Vai spēlētāji var pievienoties ar aizkavēšanos?</string>
+  <string name="lateJoinA">Jā, līdz kamēr aizvadīti vairāk nekā puse kārtu. Piemēram, 11 kārtu turnīrā spēlētāji var pievienoties pirms 6. kārtas un 12 kārtu turnīrā pirms 7. kārtas.
+Tie kur pievienojas vēlāk tiek kompensēti pat tad ja ir izlaistas vairākas kārtas.</string>
   <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ">Kādas ir iespējas apļa sistēmas turnīriem?</string>
