@@ -28,10 +28,17 @@
   <string name="goodIntroduction">pana pona pi sona lili</string>
   <string name="lichessTraining">kama sona pi ilo Lichess</string>
   <string name="threefoldRepetition">sama supa pi tenpo tu wan</string>
+  <string name="threefoldRepetitionExplanation">supa li sama lon tenpo tu wan la jan li ken kama jo e pini sama tan %1$s. ilo Lichess li kepeken nasin lon pi kulupu FIDE. nasin ni li lon lipu Article 9.2 (d) lon %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">sama supa pi tenpo tu wan</string>
   <string name="positions">lon</string>
   <string name="configure">ante</string>
   <string name="accounts">lipu sina</string>
+  <string name="titlesAvailableOnLichess">nimi jan seme pi sona musi li lon ilo Lichess?</string>
   <string name="noUpperCaseDot">ala.</string>
+  <string name="whatUsernameCanIchoose">nimi jan mi li ken seme?</string>
+  <string name="usernamesNotOffensive">nimi jan o ike ala. nimi jan o sama lukin ala nimi pi jan ante. nimi jan o wile esun ala. %1$s la sina ken lukin e sitelen.</string>
   <string name="guidelines">nasin pi nimi jan</string>
+  <string name="canIChangeMyUsername">mi ken ala ken ante e nimi jan mi?</string>
+  <string name="lichessRatings">nanpa wawa pi ilo Lichess</string>
   <string name="howToThreeDots">...nasin seme?</string>
 </resources>
