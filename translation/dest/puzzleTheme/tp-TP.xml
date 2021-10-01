@@ -13,7 +13,12 @@
   <string name="equality">sama wawa pi nasin ijo</string>
   <string name="equalityDescription">nasin pi ijo musi sina li ike. taso, sina ken sama e ona tawa jan ante.</string>
   <string name="endgame">pini musi</string>
+  <string name="knightEndgame">pini musi pi soweli tawa</string>
+  <string name="knightEndgameDescription">pini musi ni li jo taso e soweli tawa e jan utala.</string>
+  <string name="long">musi lili pi tenpo suli</string>
   <string name="longDescription">o kama pona lon tenpo tawa tu wan.</string>
+  <string name="master">musi pi jan pi sona musi</string>
+  <string name="masterDescription">musi lili tan musi pi jan pi sona musi.</string>
   <string name="mateIn1">moli lon tenpo tawa 1</string>
   <string name="mateIn1Description">o moli e jan lawa ante lon tenpo tawa wan.</string>
   <string name="mateIn2">moli lon tenpo tawa 2</string>
