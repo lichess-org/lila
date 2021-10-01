@@ -28,7 +28,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       .add("patron" -> u.isPatron)
       .add("playTime" -> u.playTime)
       .add("title" -> u.title)
-      .add("verified" -> u.isVerifiedOrAdmin)
+      .add("verified" -> u.isVerified)
 
   def minimal(u: User, onlyPerf: Option[PerfType]) =
     Json
@@ -45,7 +45,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
         Json.obj("country" -> country)
       })
       .add("patron" -> u.isPatron)
-      .add("verified" -> u.isVerifiedOrAdmin)
+      .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
