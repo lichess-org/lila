@@ -45,7 +45,7 @@
   <string name="swissVsArenaA">Šveices turnīrā, visi dalībnieki izspēlēs vienādu skaitu spēļu, un pret katru pretinieku var spēlēt tikai vienreiz.
 Šī var būt laba izvēle klubiem un oficiāliem turnīriem.</string>
   <string name="pointsCalculationQ">Kā tiek aprēķināti punkti?</string>
-  <string name="pointsCalculationA">Par uzvaru piešķir vienu punktu, par neizšķirtu puspunktu savukārt par zaudējumu nulle punktu. Ja spēlētājam neizdodas atrast raunda pretinieku, tad tam uz atvadām piešķir vienu punktu.</string>
+  <string name="pointsCalculationA">Par uzvaru piešķir vienu punktu, par neizšķirtu puspunktu savukārt par zaudējumu nulle punktu. Ja spēlētājam neizdodas atrast raunda pretinieku, tad tam piešķir vienu punktu par tehnisko uzvaru.</string>
   <string name="tiebreaksCalculationQ">Kā izšķir vienādu punktu skaitus?</string>
   <string name="sonnebornBergerScore">Zonnenborna—Bergera koeficientu</string>
   <string name="tiebreaksCalculationA">Ar %s.
@@ -59,7 +59,8 @@ Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu preti
   <string name="restrictedToTeamsQ">Kāpēc tas ir tikai komandām?</string>
   <string name="restrictedToTeamsA">Šveices turnīri nav domāti interneta šaham. Tie pieprasa spēlētāju punktualitāti, apņemšanos un pacietību.
 Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumiem nekā neierobežotu turnīru dalībnieki.</string>
-  <string name="numberOfByesQ">Cik reizes var saņemt punktus uz atvadām?</string>
+  <string name="numberOfByesQ">Cik reižu var saņemt tehnisko uzvaru?</string>
+  <string name="numberOfByesA">Spēlētājs saņem punktu par tehnisko uzvaru ik reizi kad sistēma nevar piemeklēt pretinieku. Papildus tiek piešķirts tehniskais puspunkts ja spēlētājs nokavē turnīra sākumu.</string>
   <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
   <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
