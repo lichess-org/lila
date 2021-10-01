@@ -21,7 +21,6 @@ fi
 java_env="-Dreactivemongo.api.bson.document.strict=false"
 
 cat << "BANNER"
-
 .   _/\_                                                         
 .  //o o\\                              
 .  ||    ||   | (_)___| |__   ___   __ _(_)  ___  _ __ __ _ 
