@@ -207,6 +207,7 @@ object Countries {
     C("PW", "Palau"),
     C("PY", "Paraguay"),
     C("QA", "Qatar"),
+    C("QB", "Quebec"),
     C("RE", "Reunion"),
     C("RO", "Romania"),
     C("RS", "Serbia"),
