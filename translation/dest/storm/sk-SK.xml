@@ -39,4 +39,6 @@
   <string name="createNewGame">Vytvoriť nové preteky</string>
   <string name="joinPublicRace">Zapojiť sa do verejných pretekov</string>
   <string name="raceYourFriends">Pretekajte sa s priateľmi</string>
+  <string name="skipHelp">Počas každých pretekov môžete raz vynechať ťah:</string>
+  <string name="skipExplanation">Vynechajte tento ťah aby ste neprišli o kombo! Je možné len raz počas pretekov.</string>
 </resources>
