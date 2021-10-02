@@ -33,9 +33,8 @@ final class ChatApi(
     // only use for public, multi-user chats - tournaments, simuls
     object cached {
 
-      private val cache = cacheApi[Chat.Id, UserChat](128, "chat.user") {
-        _.expireAfterAccess(1 minute)
-          .buildAsyncFuture(find)
+      private val cache = cacheApi[Chat.Id, UserChat](1024, "chat.user") {
+        _.expireAfterWrite(1 minute).buildAsyncFuture(find)
       }
 
       def invalidate = cache.invalidate _
