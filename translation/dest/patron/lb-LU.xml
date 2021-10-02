@@ -32,8 +32,12 @@
   <string name="weAreSmallTeam">Mir sinn eng kleng Ekipp, also mécht all Ënnerstëtzung en groussen Ënnerscheed!</string>
   <string name="celebratedPatrons">Eis gefeiert Ënnerstëtzer déi Lichess méiglech maachen</string>
   <string name="whereMoneyGoes">Wou ginn d\'Suen hinn?</string>
+  <string name="serversAndDeveloper">Virun allem fir staark Server.
+Dann bezuelen mir och en Vollzäit-Entwéckler: %s, den Grënner vun Lichess.</string>
+  <string name="costBreakdown">Detailléiert Käschtenzesummenstellung kucken</string>
   <string name="officialNonProfit">Ass Lichess eng offiziell Non-Profit?</string>
   <string name="actOfCreation">Jo, hei ass den acte de création (op Franséisch)</string>
+  <string name="changeMonthlySupport">Kann ech meng méintlech Ënnerstëtzung änneren/annuléieren?</string>
   <string name="changeOrContact">Jo, zu all Zäitpunkt, op dëser Säit.
 Oder du kanns %s.</string>
   <string name="contactSupport">de Lichess Support kontaktéieren</string>
@@ -41,10 +45,20 @@ Oder du kanns %s.</string>
   <string name="bankTransfers">Mir akzeptéieren och Bank-Transferten</string>
   <string name="bitcoin">An hei ass eis Bitcoin Adress: %s</string>
   <string name="patronFeatures">Sinn verschidden Funktiounen just fir Ënnerstëtzer?</string>
+  <string name="noPatronFeatures">Nee, well Lichess komplett gratis ass, fir ëmmer an fir jiddereen. Dat ass versprach.
+Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flilleken-Icon ze bretzen.</string>
+  <string name="featuresComparison">Detailléierten Funktionen-Vergläich kucken</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Ënnerstëtzer säit engem Mount</item>
+    <item quantity="other">Lichess Ënnerstëtzer säit %s Méint</item>
+  </plurals>
+  <string name="youSupportWith">Du ënnerstëtzs lichess.org mat %s pro Mount.</string>
+  <string name="tyvm">Villmols merci fir deng Hëllef. Du rocks!</string>
   <string name="currentStatus">Aktuellen Status</string>
   <string name="nextPayment">Nächst Zuelung</string>
   <string name="giftPatronWings">Engem Spiller Ënnerstëtzer-Flilleken schenken</string>
   <string name="update">Update</string>
+  <string name="viewOthers">Aner Lichess Ënnerstëtzer gesinn</string>
   <string name="date">Datum</string>
   <string name="amount">Montant</string>
   <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung änneren</string>
