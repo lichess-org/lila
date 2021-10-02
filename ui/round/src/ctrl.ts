@@ -533,6 +533,14 @@ export default class RoundController {
     d.game.status = o.status;
     d.game.boosted = o.boosted;
     this.userJump(this.lastPly());
+    // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
+    if (
+      o.status.name === 'outoftime' &&
+      d.player.color !== o.winner &&
+      this.chessground.state.turnColor === d.opponent.color
+    ) {
+      this.reload(d);
+    }
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
