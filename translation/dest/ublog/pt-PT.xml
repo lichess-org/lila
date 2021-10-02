@@ -11,6 +11,14 @@
   <string name="published">Publicado</string>
   <string name="publishOnYourBlog">Publicar no seu blog</string>
   <string name="publishHelp">Se for marcada, a publicação será listada no seu blog. Se não, ficará privada nos seus rascunhos de publicações</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publicou uma mensagem no blog</item>
+    <item quantity="other">Publicou %s mensagens no blog</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Uma visualização</item>
+    <item quantity="other">%s visualizações</item>
+  </plurals>
   <string name="xPublishedY">%1$s publicou %2$s</string>
   <string name="thisPostIsPublished">Esta publicação foi publicada</string>
   <string name="thisIsADraft">Isto é um rascunho</string>
@@ -18,6 +26,10 @@
   <string name="noPostsInThisBlogYet">Ainda não há publicações neste blog.</string>
   <string name="noDrafts">Sem rascunhos para mostrar.</string>
   <string name="latestBlogPosts">Últimas publicações no fórum</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ver uma publicação</item>
+    <item quantity="other">Ver todas as %s mensagens</item>
+  </plurals>
   <string name="uploadAnImageForYourPost">Enviar uma imagem para a sua publicação</string>
   <string name="imageAlt">Texto alternativo à imagem</string>
   <string name="imageCredit">Crédito da imagem</string>
