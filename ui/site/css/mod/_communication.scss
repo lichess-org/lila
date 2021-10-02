@@ -43,6 +43,7 @@
 
   .player_chats {
     @extend %break-word;
+    @extend %flex-wrap;
 
     overflow: hidden;
   }
