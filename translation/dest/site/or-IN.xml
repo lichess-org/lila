@@ -42,6 +42,8 @@
   <string name="blackResigned">କଳା ଇସ୍ତଫା ଦେଇଛନ୍ତି</string>
   <string name="whiteLeftTheGame">ଧଳା ଖେଳ ଛାଡିଥିଲେ</string>
   <string name="blackLeftTheGame">କଳା ଖେଳ ଛାଡିଥିଲେ</string>
+  <string name="whiteDidntMove">ଧଳା ଘୁଞ୍ଚିଲା ନାହିଁ</string>
+  <string name="blackDidntMove">କଳା ଘୁଞ୍ଚିଲା ନାହିଁ</string>
   <string name="requestAComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ପାଇଁ ଅନୁରୋଧ</string>
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
