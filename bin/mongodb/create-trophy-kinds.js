@@ -93,7 +93,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'contentTeam',
   name: 'Lichess Content Team',
-  icon: '', 
+  icon: '',
   klass: 'icon3d',
   order: NumberInt(103),
   withCustomImage: false,
