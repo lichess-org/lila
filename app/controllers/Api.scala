@@ -218,6 +218,7 @@ final class Api(
     Action.async { req =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
+          val onlyUserId = get("player", req) map lila.user.User.normalize
           val config = GameApiV2.ByTournamentConfig(
             tournamentId = tour.id,
             format = GameApiV2.Format byRequest req,
@@ -225,7 +226,7 @@ final class Api(
             perSecond = MaxPerSecond(20)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-            env.api.gameApiV2.exportByTournament(config)
+            env.api.gameApiV2.exportByTournament(config, onlyUserId)
           ) { source =>
             val filename = env.api.gameApiV2.filename(tour, config.format)
             Ok.chunked(source)

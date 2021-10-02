@@ -195,11 +195,12 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
 
   def sortedCursor(
       tournamentId: Tournament.ID,
+      userId: Option[User.ID],
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Pairing] =
     coll
-      .find(selectTour(tournamentId))
+      .find(selectTour(tournamentId) ++ userId.??(selectUser))
       .sort(recentSort)
       .batchSize(batchSize)
       .cursor[Pairing](readPreference)

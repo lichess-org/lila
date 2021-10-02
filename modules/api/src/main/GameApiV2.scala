@@ -144,12 +144,13 @@ final class GameApiV2(
       }
     }
 
-  def exportByTournament(config: ByTournamentConfig): Source[String, _] =
+  def exportByTournament(config: ByTournamentConfig, onlyUserId: Option[User.ID]): Source[String, _] =
     Source futureSource {
       tournamentRepo.isTeamBattle(config.tournamentId) map { isTeamBattle =>
         pairingRepo
           .sortedCursor(
             tournamentId = config.tournamentId,
+            userId = onlyUserId,
             batchSize = config.perSecond.value
           )
           .documentSource()

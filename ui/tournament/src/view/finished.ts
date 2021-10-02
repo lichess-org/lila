@@ -64,6 +64,18 @@ function stats(data: TournamentData, trans: Trans): VNode | undefined {
         },
         'Download all games'
       ),
+      data.me &&
+        h(
+          'a.text',
+          {
+            attrs: {
+              'data-icon': '',
+              href: `/api/tournament/${data.id}/games?player=${data.me.username}`,
+              download: true,
+            },
+          },
+          'Download my games'
+        ),
       h(
         'a.text',
         {
