@@ -553,6 +553,10 @@
   <string name="tools">Herramientas</string>
   <string name="increment">Incremento</string>
   <string name="error.required">Este campo es obligatorio</string>
+  <string name="error.email">Esta dirección de correo electrónico es inválida</string>
+  <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e inténtalo de nuevo.</string>
+  <string name="error.email_unique">Dirección de correo inválida o en uso</string>
+  <string name="error.email_different">Esta ya es tu dirección de correo electrónico</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="onlyExistingConversations">Solo conversaciones existentes</string>
   <string name="onlyFriends">Sólo amigos</string>
