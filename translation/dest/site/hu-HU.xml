@@ -550,6 +550,9 @@
   <string name="tools">Eszközök</string>
   <string name="increment">Többletidő</string>
   <string name="error.required">A mező kitöltése kötelező</string>
+  <string name="error.email">Érvénytelen email cím</string>
+  <string name="error.email_unique">Érvénytelen vagy már foglalt email cím</string>
+  <string name="error.email_different">Már ez az email címed</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
