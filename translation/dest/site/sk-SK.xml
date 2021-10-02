@@ -616,6 +616,7 @@
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
   <string name="error.required">Povinné pole</string>
+  <string name="error.email">Táto emailová adresa je neplatná</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
