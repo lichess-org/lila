@@ -11,6 +11,8 @@ final private class FishnetLimiter(
     requesterApi: lila.analyse.RequesterApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  import FishnetLimiter._
+
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean, ownGame: Boolean): Fu[Boolean] =
     (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
       case false => fuFalse
@@ -38,9 +40,6 @@ final private class FishnetLimiter(
       case _ => fuFalse
     }
 
-  private val maxPerDay  = 35
-  private val maxPerWeek = 160
-
   private def perDayCheck(sender: Work.Sender) =
     sender match {
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
@@ -55,4 +54,9 @@ final private class FishnetLimiter(
         }
       case _ => fuFalse
     }
+}
+
+object FishnetLimiter {
+  val maxPerDay  = 40
+  val maxPerWeek = 200
 }
