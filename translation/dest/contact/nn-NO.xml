@@ -9,7 +9,7 @@
   <string name="forgotPassword">Eg har gløymd passordet mitt</string>
   <string name="forgotUsername">Eg har gløymd brukarnamnet mitt</string>
   <string name="youCanLoginWithEmail">Du kan logge inn med den e-postadressa du registrerte deg med</string>
-  <string name="lost2FA">Eg har mista tilgangen til mine totrinns stadfestingskoder</string>
+  <string name="lost2FA">Eg har mista tilgjenget til tofaktorautentiseringskodane mine</string>
   <string name="doPasswordReset">Nullstill passordet for å fjerne din andre faktor</string>
   <string name="accountSupport">Eg treng kontosupport</string>
   <string name="wantTitle">Eg vil gjerne at tittelen min vert synt fram på Lichess</string>

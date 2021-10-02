@@ -161,7 +161,7 @@
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
-  <string name="followX">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
+  <string name="followX">ଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
   <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>

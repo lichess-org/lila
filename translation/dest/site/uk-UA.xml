@@ -420,6 +420,8 @@
   <string name="follow">Спостерігати</string>
   <string name="following">Спостерігаю</string>
   <string name="unfollow">Відмовитися</string>
+  <string name="followX">Стежити за %s</string>
+  <string name="unfollowX">Не слідкувати за %s</string>
   <string name="block">Блокувати</string>
   <string name="blocked">Заблокований</string>
   <string name="unblock">Розблокувати</string>
@@ -936,4 +938,8 @@
   <string name="emailAssociatedToaccount">Адреса електронної пошти, пов\'язана з обліковим записом</string>
   <string name="sentEmailWithLink">Ми надіслали вам електронний лист із посиланням.</string>
   <string name="tournamentEntryCode">Код входу до турніру</string>
+  <string name="hangOn">Зачекайте!</string>
+  <string name="gameInProgress">У вас є активна гра з %s.</string>
+  <string name="abortTheGame">Скасувати гру</string>
+  <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
 </resources>

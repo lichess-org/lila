@@ -126,8 +126,8 @@
     <item quantity="other">%s feil</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s unøyaktigheit</item>
-    <item quantity="other">%s unøyaktigheitar</item>
+    <item quantity="one">%s upresist trekk</item>
+    <item quantity="other">%s upresise trekk</item>
   </plurals>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
