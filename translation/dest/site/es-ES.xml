@@ -554,7 +554,7 @@
   <string name="increment">Incremento</string>
   <string name="error.required">Este campo es obligatorio</string>
   <string name="error.email">Esta dirección de correo electrónico es inválida</string>
-  <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e inténtalo de nuevo.</string>
+  <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e intenta de nuevo.</string>
   <string name="error.email_unique">Dirección de correo inválida o en uso</string>
   <string name="error.email_different">Esta ya es tu dirección de correo electrónico</string>
   <string name="error.minLength">La longitud mínima es %s</string>
