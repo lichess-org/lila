@@ -556,6 +556,8 @@
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
   <string name="error.required">Este campo deve ser preenchido</string>
+  <string name="error.email">Este endereço de e-mail é inválido</string>
+  <string name="error.email_acceptable">Este endereço de email não é válido. Verifique e tente novamente.</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
   <string name="onlyExistingConversations">Apenas conversas iniciadas</string>
   <string name="onlyFriends">Apenas amigos</string>
