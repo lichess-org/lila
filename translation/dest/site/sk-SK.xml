@@ -885,6 +885,8 @@
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
   <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
+  <string name="gameVsX">v partii proti %1$s</string>
+  <string name="resVsX">%1$s proti %2$s</string>
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
