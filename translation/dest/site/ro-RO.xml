@@ -589,6 +589,14 @@
   <string name="tools">Unelte</string>
   <string name="increment">Suplimentar</string>
   <string name="error.required">Acest camp este necesar</string>
+  <string name="error.email">Această adresă de e-mail nu este validă</string>
+  <string name="error.email_acceptable">Această adresă de e-mail nu este acceptată. Te rugăm să o verifici și să încerci din nou.</string>
+  <string name="error.email_unique">Adresa de e-mail nu este validă sau este deja folosită</string>
+  <string name="error.email_different">Aceasta este deja adresa dvs. de e-mail</string>
+  <string name="error.minLength">Lungimea minimă e %s</string>
+  <string name="error.maxLength">Lungimea maximă este %s</string>
+  <string name="error.min">Trebuie să fie mai mare sau egal cu %s</string>
+  <string name="error.max">Trebuie să fie mai mic sau egal cu %s</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
   <string name="onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
