@@ -42,7 +42,7 @@ object homepageSpotlight {
           )
         )
       )
-    } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
+    } getOrElse a(href                    := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
       iconTag(tour.perfType.iconChar)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tour.name()),

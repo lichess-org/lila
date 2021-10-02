@@ -27,16 +27,16 @@ object tour {
         div(cls := "box__top")(
           h1(liveBroadcasts()),
           a(
-            href := routes.RelayTour.form,
-            cls := "new button button-empty",
-            title := newBroadcast.txt(),
+            href     := routes.RelayTour.form,
+            cls      := "new button button-empty",
+            title    := newBroadcast.txt(),
             dataIcon := ""
           )
         ),
         st.section(
           active.map { tr =>
             div(cls := "relay-widget relay-widget--active", dataIcon := "")(
-              a(cls := "overlay", href := tr.path),
+              a(cls := "overlay", href                               := tr.path),
               div(
                 h2(tr.tour.name),
                 div(cls := "relay-widget__info")(
@@ -55,7 +55,7 @@ object tour {
         st.section(cls := "infinite-scroll")(
           pager.currentPageResults map { rt =>
             div(cls := "relay-widget paginated", dataIcon := "")(
-              a(cls := "overlay", href := rt.path),
+              a(cls := "overlay", href                    := rt.path),
               div(
                 h2(rt.tour.name),
                 div(cls := "relay-widget__info")(

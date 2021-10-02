@@ -42,7 +42,7 @@ object WMMatchingTest {
 }
 
 class WMMatchingTest extends Specification {
-  import WMMatchingTest.{ check0 }
+  import WMMatchingTest.check0
   "WMMatching" should {
     "create S-blossom and use it for augmentation" in {
       check0(Array((1, 2, 8), (1, 3, 9), (2, 3, 10), (3, 4, 7)), false, List(-1, 2, 1, 4, 3)) must beTrue

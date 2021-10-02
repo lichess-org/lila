@@ -205,8 +205,8 @@ trait dsl {
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
 
-  /** Represents the initial state of the expression which has only the name of the field.
-    * It does not know the value of the expression.
+  /** Represents the initial state of the expression which has only the name of the field. It does not know
+    * the value of the expression.
     */
   trait ElementBuilder {
     def field: String
@@ -235,8 +235,8 @@ trait dsl {
   /** Expressions of this type can be cascaded. Examples:
     *
     * {{{
-    *  "age" $gt 50 $lt 60
-    *  "age" $gte 50 $lte 60
+    *   "age" $gt 50 $lt 60
+    *   "age" $gte 50 $lte 60
     * }}}
     */
   case class CompositeExpression(field: String, value: Bdoc)

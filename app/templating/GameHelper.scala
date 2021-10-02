@@ -1,14 +1,14 @@
 package lila.app
 package templating
 
-import chess.{ Status => S, Color, Black, White, Clock, Mode }
+import chess.{ Black, Clock, Color, Mode, Status => S, White }
 import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
-import lila.i18n.{ I18nKeys => trans, defaultLang }
+import lila.i18n.{ defaultLang, I18nKeys => trans }
 import lila.user.Title
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
@@ -139,7 +139,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case Some(user) =>
         frag(
           (if (link) a else span)(
-            cls := userClass(user.id, cssClass, withOnline),
+            cls  := userClass(user.id, cssClass, withOnline),
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
@@ -148,7 +148,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
               frag(" ", showRatingDiff(d))
             },
             engine option span(
-              cls := "tos_violation",
+              cls   := "tos_violation",
               title := trans.thisAccountViolatedTos.txt()
             )
           ),

@@ -36,16 +36,16 @@ object forms {
                   renderInput(field),
                   input(
                     name := s"${field.name}_range_min",
-                    tpe := "range",
-                    cls := "range rating-range__min"
+                    tpe  := "range",
+                    cls  := "range rating-range__min"
                   ),
                   span(cls := "rating-min"),
                   "/",
                   span(cls := "rating-max"),
                   input(
                     name := s"${field.name}_range_max",
-                    tpe := "range",
-                    cls := "range rating-range__max"
+                    tpe  := "range",
+                    cls  := "range rating-range__max"
                   )
                 )
               }
@@ -143,8 +143,8 @@ object forms {
             action := route,
             novalidate,
             dataRandomColorVariants,
-            dataType := typ,
-            dataAnon := ctx.isAnon.option("1"),
+            dataType          := typ,
+            dataAnon          := ctx.isAnon.option("1"),
             dataForceTimeMode := forceTimeMode.option("1")
           )(
             fields,
@@ -154,10 +154,10 @@ object forms {
                 translatedSideChoices.map { case (key, name, _) =>
                   submitButton(
                     (typ == "hook") option disabled,
-                    title := name,
-                    cls := s"color-submits__button button button-metal $key",
+                    title   := name,
+                    cls     := s"color-submits__button button button-metal $key",
                     st.name := "color",
-                    value := key
+                    value   := key
                   )(i)
                 }
               )

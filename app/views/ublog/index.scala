@@ -93,7 +93,7 @@ object index {
                   .map { case (code, name) =>
                     a(
                       href := routes.Ublog.community(code),
-                      cls := (code == lang.fold("all")(_.code)).option("current")
+                      cls  := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                   }
               )

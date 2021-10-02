@@ -71,8 +71,8 @@ object request {
             td(cls := "process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
                 input(
-                  tpe := "hidden",
-                  name := "url",
+                  tpe   := "hidden",
+                  name  := "url",
                   value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
                 ),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
