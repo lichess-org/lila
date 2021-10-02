@@ -168,7 +168,7 @@ object UserInfo {
               Granter(_.PublicMod)(user),
               Granter(_.Developer)(user),
               Granter(_.Verified)(user),
-              Granter(_.Creator)(user)
+              Granter(_.ContentTeam)(user)
             ),
             shields = shields,
             revolutions = revols,

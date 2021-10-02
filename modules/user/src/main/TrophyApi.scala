@@ -35,7 +35,7 @@ final class TrophyApi(
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean, isCreator: Boolean): List[Trophy] =
+  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean, isContentTeam: Boolean): List[Trophy] =
     List(
       isPublicMod option Trophy(
         _id = "",
@@ -58,10 +58,10 @@ final class TrophyApi(
         date = org.joda.time.DateTime.now,
         url = none
       ),
-      isCreator option Trophy(
+      isContentTeam option Trophy(
         _id = "",
         user = user.id,
-        kind = kindCache sync TrophyKind.creator,
+        kind = kindCache sync TrophyKind.contentTeam,
         date = org.joda.time.DateTime.now,
         url = none
       )
