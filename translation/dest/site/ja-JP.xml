@@ -524,6 +524,9 @@
   <string name="tools">ツール</string>
   <string name="increment">追加時間</string>
   <string name="error.required">この欄は入力必須です</string>
+  <string name="error.email">このメールアドレスは無効です</string>
+  <string name="error.email_acceptable">このメールアドレスは使用できません。確認してもう一度どうぞ。</string>
+  <string name="error.email_unique">メールアドレスが無効かすでに使われています</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
