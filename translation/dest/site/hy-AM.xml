@@ -539,6 +539,7 @@
   <string name="tools">Գործիքներ</string>
   <string name="increment">Ավելացում</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
+  <string name="error.email">Էլ. փոստի այս հասցեն սխալ է:</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
   <string name="onlyExistingConversations">Միայն գոյություն ունեցող քննարկումները</string>
   <string name="onlyFriends">Միայն ընկերները</string>
