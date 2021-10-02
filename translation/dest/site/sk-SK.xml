@@ -617,6 +617,11 @@
   <string name="increment">Prírastok</string>
   <string name="error.required">Povinné pole</string>
   <string name="error.email">Táto emailová adresa je neplatná</string>
+  <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
+  <string name="error.email_unique">Emailová adresa je neplatná alebo sa už používa</string>
+  <string name="error.email_different">Túto emailovú adresu už používate</string>
+  <string name="error.minLength">Minimálna dĺžka je %s</string>
+  <string name="error.maxLength">Maximálna dĺžka je %s</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
