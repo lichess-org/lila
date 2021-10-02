@@ -36,7 +36,7 @@ object TrophyKind {
   val moderator              = "moderator"
   val developer              = "developer"
   val verified               = "verified"
-  val creator                = "creator"
+  val contentTeam            = "contentTeam"
   val zugMiracle             = "zugMiracle"
 
   object Unknown

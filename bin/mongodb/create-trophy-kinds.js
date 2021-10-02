@@ -91,11 +91,11 @@ db.trophyKind.insert({
   withCustomImage: false,
 });
 db.trophyKind.insert({
-  _id: 'creator',
-  name: 'Lichess content creator',
+  _id: 'contentTeam',
+  name: 'Lichess Content Team',
   icon: '', 
   klass: 'icon3d',
-  order: NumberInt(103), // find number int
+  order: NumberInt(103),
   withCustomImage: false,
 });
 db.trophyKind.insert({
