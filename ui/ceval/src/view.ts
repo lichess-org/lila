@@ -355,7 +355,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
               const uciList = getElUciList(e);
-              if (uciList.length > (pvIndex ?? 0)) {
+              if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
                 ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
                 e.preventDefault();
               }
