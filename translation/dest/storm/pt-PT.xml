@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Faz um lance para começar</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Joga com as peças brancas em todos os problemas</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Joga com as peças pretas em todos os problemas</string>
-  <string name="puzzlesSolved">Problema Resolvido!</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Tu ogas com as peças brancas em todos os problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Tu jogas com as peças pretas em todos os problemas</string>
+  <string name="puzzlesSolved">problemas resolvidos</string>
   <string name="newDailyHighscore">Novo recorde diário!</string>
   <string name="newWeeklyHighscore">Novo recorde semanal!</string>
   <string name="newMonthlyHighscore">Novo recorde mensal!</string>
   <string name="newAllTimeHighscore">Novo recorde!</string>
-  <string name="previousHighscoreWasX">A pontuação anterior foi %s</string>
+  <string name="previousHighscoreWasX">O recorde anterior era %s</string>
   <string name="playAgain">Jogar novamente</string>
   <plurals name="xRuns">
     <item quantity="one">1 partida</item>
-    <item quantity="other">%s partidas</item>
+    <item quantity="other">%s tentativas</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Jogou uma partida de %2$s</item>
