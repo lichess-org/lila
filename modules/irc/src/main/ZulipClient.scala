@@ -27,12 +27,15 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
 
   def sendAndGetLink(stream: ZulipClient.stream.Selector, topic: String)(
       content: String
+  ): Fu[Option[String]] = sendAndGetLink(stream(ZulipClient.stream), topic)(content)
+
+  def sendAndGetLink(stream: String, topic: String)(
+      content: String
   ): Fu[Option[String]] = {
-    val streamString = stream(ZulipClient.stream)
-    send(ZulipMessage(stream = streamString, topic = topic, content = content)).map {
+    send(ZulipMessage(stream = stream, topic = topic, content = content)).map {
       // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
       _.map { msgId =>
-        s"https://${config.domain}/#narrow/stream/${urlencode(streamString)}/topic/${urlencode(topic)}/near/$msgId"
+        s"https://${config.domain}/#narrow/stream/${urlencode(stream)}/topic/${urlencode(topic)}/near/$msgId"
       }
     }
   }
