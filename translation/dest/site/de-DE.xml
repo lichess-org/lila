@@ -556,6 +556,12 @@
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Dieses Feld muss ausgefüllt werden</string>
+  <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
+  <string name="error.email_acceptable">Diese E-Mail-Adresse ist nicht akzeptabel. Bitte überprüfe sie und versuche es erneut.</string>
+  <string name="error.email_unique">E-Mail-Adresse ungültig oder bereits vergeben</string>
+  <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
+  <string name="error.minLength">Mindestlänge ist %s</string>
+  <string name="error.maxLength">Maximallänge ist %s</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
   <string name="onlyExistingConversations">Nur bestehende Konversationen</string>
   <string name="onlyFriends">Nur Freunde</string>
