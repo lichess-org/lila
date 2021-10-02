@@ -2,4 +2,10 @@
 <resources>
   <string name="twoFactorAuth">Zwee-Faktor-Authentifizéierung</string>
   <string name="twoFactorHelp">Zwee-Faktor-Authentifizéierung füügt dengem Account eng zousätzlech Schicht Sécherheet hin zou.</string>
+  <string name="twoFactorApp">Huel der eng App fir Zwee-Faktor-Authentifizéierung, zum Beispill andOTP fir %1$s oder Google Authenticator fir%2$s.</string>
+  <string name="scanTheCode">Scan den QR Code mat der App.</string>
+  <string name="authenticationCode">Authentifizéierungscode</string>
+  <string name="enableTwoFactor">Zwee-Faktor-Authentifizéierung aktivéieren</string>
+  <string name="disableTwoFactor">Zwee-Faktor-Authentifizéierung desaktivéieren</string>
+  <string name="twoFactorEnabled">Zwee-Faktor-Authentifizéierung aktivéiert</string>
 </resources>
