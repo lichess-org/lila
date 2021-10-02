@@ -13,15 +13,12 @@ final class TrophyApi(
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
+  implicit private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 
   val kindCache = cacheApi.sync[String, TrophyKind](
     name = "trophy.kind",
     initialCapacity = 32,
-    compute = id =>
-      kindColl.byId(id)(trophyKindObjectBSONHandler) map { k =>
-        k.getOrElse(TrophyKind.Unknown)
-      },
+    compute = id => kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown),
     default = _ => TrophyKind.Unknown,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterWrite(1 hour)
@@ -35,7 +32,13 @@ final class TrophyApi(
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean, isCreator: Boolean): List[Trophy] =
+  def roleBasedTrophies(
+      user: User,
+      isPublicMod: Boolean,
+      isDev: Boolean,
+      isVerified: Boolean,
+      isCreator: Boolean
+  ): List[Trophy] =
     List(
       isPublicMod option Trophy(
         _id = "",
