@@ -22,11 +22,19 @@
   <string name="wantChangeUsername">Ech wëll mäin Benotzernumm änneren</string>
   <string name="wantReport">Ech wëll een Spiller mellen</string>
   <string name="wantReportBug">Ech wëll een Bug mellen</string>
+  <string name="illegalPawnCapture">Illegalen Bauerenschlagzuch</string>
+  <string name="illegalCastling">Illegal oder onméiglech Rochade</string>
+  <string name="insufficientMaterial">Ongenügend Mattmaterial</string>
+  <string name="noRatingPoints">Keng Wäertungspunkten goufen verdeelt</string>
   <string name="errorPage">Feelersäit</string>
   <string name="banAppeal">Asproch géint een Bann oder eng IP Restriktioun</string>
+  <string name="engineAppeal">Engine- oder Bedruchsmarkéierung</string>
+  <string name="sendAppealTo">Du kanns däin Asproch un %s schécken.</string>
+  <string name="otherRestriction">Aner Aschränkung</string>
   <string name="collaboration">Zesummenaarbecht, Legales, Kommerzielles</string>
   <string name="monetizing">Lichess monetiséieren</string>
   <string name="buyingLichess">Lichess kafen</string>
+  <string name="authorizationToUse">Authorisatioun fir Lichess ze benotzen</string>
   <string name="noneOfTheAbove">Näischt dovun</string>
   <string name="sendEmailAt">Schéck eis eng Email un %s.</string>
 </resources>
