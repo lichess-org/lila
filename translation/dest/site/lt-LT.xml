@@ -623,6 +623,14 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>
   <string name="error.required">Šį laukelį būtina užpildyti</string>
+  <string name="error.email">Neteisingas el. pašto adresas</string>
+  <string name="error.email_acceptable">Nepriimtinas el. pašto adresas. Patikrinkite ir bandykite dar kartą.</string>
+  <string name="error.email_unique">El. pašto adresas neteisingas arba jau užimtas</string>
+  <string name="error.email_different">Tai jau yra jūsų el. pašto adresas</string>
+  <string name="error.minLength">Minimalus ilgis yra %s</string>
+  <string name="error.maxLength">Maksimalus ilgis yra %s</string>
+  <string name="error.min">Turi būti didesnis arba lygus %s</string>
+  <string name="error.max">Turi būti mažesnis arba lygus %s</string>
   <string name="ifRatingIsPlusMinusX">Jei reitingas yra ± %s</string>
   <string name="onlyExistingConversations">Tik esami pokalbiai</string>
   <string name="onlyFriends">Tik draugai</string>
