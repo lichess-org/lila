@@ -552,6 +552,7 @@
   <string name="tools">Araçlar</string>
   <string name="increment">Artış</string>
   <string name="error.required">Bu alan gerekli</string>
+  <string name="error.email">Bu e-posta adresi geçersiz</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
   <string name="onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
