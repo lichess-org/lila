@@ -911,6 +911,10 @@
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
   <string name="onlyTitled">Тільки титуловані гравці</string>
   <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
+  <string name="positionInputHelp">Вставте правильний FEN для початку кожної гри з даної позиції.
+Він працює тільки з стандартними іграми, а не з варіантами.
+Для генерації позиції FEN ви можете використати %s щоб вставити його тут.
+Залиште пустим, щоб почати гру з початкової позиції.</string>
   <string name="cancelSimul">Відмінити сеанс</string>
   <string name="simulHostcolor">Колір сеансера для кожної гри</string>
   <string name="estimatedStart">Приблизний час початку</string>
@@ -918,6 +922,8 @@
   <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
+  <string name="markdownAvailable">%s доступний для більш детального форматування.</string>
+  <string name="embedsAvailable">Вставте URL-адресу гри чи розділ дослідження, щоб вставити його.</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
   <string name="tournChat">Турнірний чат</string>
   <string name="noChat">Без чату</string>
@@ -941,5 +947,6 @@
   <string name="hangOn">Зачекайте!</string>
   <string name="gameInProgress">У вас є активна гра з %s.</string>
   <string name="abortTheGame">Скасувати гру</string>
+  <string name="resignTheGame">Здатися</string>
   <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
 </resources>
