@@ -204,6 +204,8 @@
   <string name="error.email_different">ଏହା ପୂର୍ବରୁ ଆପଣଙ୍କର ଇମେଲ୍ ଠିକଣା ଅଟେ</string>
   <string name="error.minLength">ସର୍ବନିମ୍ନ ଦୈର୍ଘ୍ୟ ହେଉଛି %s</string>
   <string name="error.maxLength">ସର୍ବାଧିକ ଦୈର୍ଘ୍ୟ ହେଉଛି %s</string>
+  <string name="error.min">%s ରୁ ଅଧିକ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
+  <string name="error.max">%s ରୁ କମ୍ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
