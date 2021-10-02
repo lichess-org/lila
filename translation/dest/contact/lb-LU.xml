@@ -9,7 +9,10 @@
   <string name="forgotPassword">Ech hunn mäin Passwuert vergiess</string>
   <string name="forgotUsername">Ech hun mäin Benotzernumm vergiess</string>
   <string name="accountSupport">Ech brauch Benotzerkonto-Ënnerstëtzung</string>
+  <string name="wantCloseAccount">Ech wëll mäin Konto zoumaachen</string>
   <string name="wantReport">Ech wëll een Spiller mellen</string>
+  <string name="wantReportBug">Ech wëll een Bug mellen</string>
+  <string name="errorPage">Feelersäit</string>
   <string name="banAppeal">Asproch géint een Bann oder eng IP Restriktioun</string>
   <string name="collaboration">Zesummenaarbecht, Legales, Kommerzielles</string>
 </resources>
