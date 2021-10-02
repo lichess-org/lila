@@ -46,7 +46,7 @@ object post {
         (!post.erased || canModCateg) option div(
           authorLink(
             post = post,
-            cssClass = s"author${if (topic.userId == post.userId) " author__op" else ""}".some
+            cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
           ),
           a(href := url)(
             post.updatedAt
