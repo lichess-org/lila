@@ -527,6 +527,11 @@
   <string name="error.email">このメールアドレスは無効です</string>
   <string name="error.email_acceptable">このメールアドレスは使用できません。確認してもう一度どうぞ。</string>
   <string name="error.email_unique">メールアドレスが無効かすでに使われています</string>
+  <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
+  <string name="error.minLength">最小の長さは %s です</string>
+  <string name="error.maxLength">最大の長さは %s です</string>
+  <string name="error.min">%s 以上にしてください</string>
+  <string name="error.max">%s 以下にしてください</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
