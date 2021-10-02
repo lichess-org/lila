@@ -47,10 +47,13 @@
   <string name="requestAComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ପାଇଁ ଅନୁରୋଧ</string>
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
+  <string name="computerAnalysisDisabled">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଅକ୍ଷମ ହୋଇଛି</string>
   <string name="analysis">ବୋର୍ଡର ବିଶ୍ଳେଷଣ</string>
+  <string name="depthX">ଗଭୀରତା %s</string>
   <string name="usingServerAnalysis">ସର୍ଭର ବିଶ୍ଳେଷଣ ବ୍ୟବହାର ହେଉଛି</string>
   <string name="loadingEngine">ଇଞ୍ଜିନ୍ ଲୋଡ୍ ହେଉଛି ...</string>
   <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
+  <string name="goDeeper">ଗଭୀରକୁ ଯାଆନ୍ତୁ</string>
   <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
   <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
   <string name="makeMainLine">ମୁଖ୍ୟ ରେଖା ବୋନାନ୍ତୁ</string>
@@ -235,6 +238,7 @@
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
+  <string name="newPendingReview">ନୂଆ ବିଚାରାଧୀନ ସମୀକ୍ଷା</string>
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
