@@ -5,6 +5,7 @@ import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
+import lila.security.{ Permission, Granter => Master }
 import lila.forum.Post
 
 trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
@@ -25,7 +26,8 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
       post: Post,
       cssClass: Option[String] = None,
       withOnline: Boolean = true
-  )(implicit lang: Lang): Frag =
-    if (post.erased) span(cls := "author")("<erased>")
-    else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)
+  )(implicit ctx: Context): Frag =
+    if (!(ctx.me ?? Master(Permission.ModerateForum)) && post.erased) span(cls := "author")("<erased>")
+    else
+      userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = ~post.modIcon)(ctx.lang)
 }
