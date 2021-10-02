@@ -17,6 +17,13 @@
       margin-right: 1rem;
     }
 
+    a.author__op {
+      padding: 0.2em;
+      padding-right: 1em;
+      border-radius: 0.3em;
+      background: mix($c-primary, $c-bg-box, 12%);
+    }
+
     .anchor {
       @extend %break-nope;
 
