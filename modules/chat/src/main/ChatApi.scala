@@ -1,7 +1,6 @@
 package lila.chat
 
 import chess.Color
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
@@ -94,7 +93,7 @@ final class ChatApi(
               logger.info(s"Link check rejected $line in $publicSource")
               funit
             case true =>
-              (persist ?? persistLine(chatId, line, expire = publicSource.isEmpty)) >>- {
+              (persist ?? persistLine(chatId, line)) >>- {
                 if (persist) {
                   if (publicSource.isDefined) cached invalidate chatId
                   shutup ! {
@@ -121,9 +120,9 @@ final class ChatApi(
 
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String, busChan: BusChan.Select, expire: Boolean): Funit = {
+    def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
       val line = UserLine(systemUserId, None, false, text, troll = false, deleted = false)
-      persistLine(chatId, line, expire) >>- {
+      persistLine(chatId, line) >>- {
         cached.invalidate(chatId)
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
       }
@@ -135,15 +134,8 @@ final class ChatApi(
       publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
 
-    def service(
-        chatId: Chat.Id,
-        text: String,
-        busChan: BusChan.Select,
-        isVolatile: Boolean,
-        expire: Boolean
-    ): Unit = {
-      if (isVolatile) volatile(chatId, text, busChan) else system(chatId, text, busChan, expire)
-    }.unit
+    def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
+      (if (isVolatile) volatile _ else system _)(chatId, text, busChan).unit
 
     def timeout(
         chatId: Chat.Id,
@@ -288,7 +280,7 @@ final class ChatApi(
 
     def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
-        persistLine(chatId, line, expire = true) >>- {
+        persistLine(chatId, line) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment().unit
         }
@@ -310,7 +302,7 @@ final class ChatApi(
 
   def removeAll(chatIds: List[Chat.Id]) = coll.delete.one($inIds(chatIds)).void
 
-  private def persistLine(chatId: Chat.Id, line: Line, expire: Boolean): Funit =
+  private def persistLine(chatId: Chat.Id, line: Line): Funit =
     coll.update
       .one(
         $id(chatId),
@@ -323,13 +315,8 @@ final class ChatApi(
           )
         ),
         upsert = true
-      ) map { res =>
-      (expire && res.upserted.nonEmpty) ?? coll.updateFieldUnchecked(
-        $id(chatId),
-        Chat.BSONFields.expire,
-        DateTime.now plusMonths 6
       )
-    }
+      .void
 
   private object Writer {
 

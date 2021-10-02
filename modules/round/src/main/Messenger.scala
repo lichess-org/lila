@@ -15,7 +15,7 @@ final class Messenger(api: ChatApi) {
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = if (game.nonAi) {
     api.userChat.volatile(watcherId(Chat.Id(game.id)), message, _.Round)
-    if (persistent) api.userChat.system(Chat.Id(game.id), message, _.Round, expire = true)
+    if (persistent) api.userChat.system(Chat.Id(game.id), message, _.Round)
     else api.userChat.volatile(Chat.Id(game.id), message, _.Round)
   }.unit
 
