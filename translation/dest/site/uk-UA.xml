@@ -884,7 +884,7 @@
   <string name="invitedYouToX">запросив вас до \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s запросив вас до \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ви тепер частина команди.</string>
-  <string name="youHaveJoinedTeamX" comment="youHaveJoinedTeamX&#10;&#10;%1$s stands for the name of a team.&#10;&#10;This is the text in a notification informing the user that they have joined a team.">Ви приєдналися до \"%1$s\".</string>
+  <string name="youHaveJoinedTeamX">Ви приєдналися до \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Хтось на кого ви поскаржились був забанений</string>
   <string name="congratsYouWon">Вітання, ви виграли!</string>
   <string name="gameVsX">Гра проти %1$s</string>
