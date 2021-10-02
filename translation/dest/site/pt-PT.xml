@@ -557,6 +557,13 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
   <string name="error.required">Este campo tem de ser preenchido</string>
+  <string name="error.email">Este e-mail é inválido</string>
+  <string name="error.email_acceptable">Este endereço de e-mail não é aceitável. Por favor verifica-o e tenta outra vez.</string>
+  <string name="error.email_unique">Endereço de e-mail inválido ou já utilizado</string>
+  <string name="error.email_different">Este já é o teu endereço de e-mail</string>
+  <string name="error.minLength">O comprimento mínimo é %s</string>
+  <string name="error.maxLength">O comprimento máximo é %s</string>
+  <string name="error.min">Tem de ser maior ou igual a %s</string>
   <string name="ifRatingIsPlusMinusX">Se a pontuação for ± %s</string>
   <string name="onlyExistingConversations">Apenas conversas existentes</string>
   <string name="onlyFriends">Apenas amigos</string>
