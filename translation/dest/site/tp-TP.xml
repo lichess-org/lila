@@ -802,7 +802,7 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="invitedYouToX">li sin e sina tawa musi pi kama sona \"%1$s\".</string>
   <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
-  <string name="youHaveJoinedTeamX" comment="youHaveJoinedTeamX&#10;&#10;%1$s stands for the name of a team.&#10;&#10;This is the text in a notification informing the user that they have joined a team.">sina kama tawa kulupu \"%1$s\".</string>
+  <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">sina toki e ni: jan musi ante li ike. jan lawa li weka wawa e ona</string>
   <string name="congratsYouWon">sina anpa e jan musi ante!</string>
   <string name="gameVsX">musi pi jan %1$s</string>
