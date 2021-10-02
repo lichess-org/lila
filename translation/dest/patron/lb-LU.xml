@@ -29,5 +29,23 @@
   <string name="pleaseEnterAmountInX">Montant an %s aginn</string>
   <string name="withCreditCard">Kreditkaart</string>
   <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Mir sinn eng kleng Ekipp, also mécht all Ënnerstëtzung en groussen Ënnerscheed!</string>
+  <string name="celebratedPatrons">Eis gefeiert Ënnerstëtzer déi Lichess méiglech maachen</string>
+  <string name="whereMoneyGoes">Wou ginn d\'Suen hinn?</string>
+  <string name="officialNonProfit">Ass Lichess eng offiziell Non-Profit?</string>
+  <string name="actOfCreation">Jo, hei ass den acte de création (op Franséisch)</string>
+  <string name="changeOrContact">Jo, zu all Zäitpunkt, op dëser Säit.
+Oder du kanns %s.</string>
+  <string name="contactSupport">de Lichess Support kontaktéieren</string>
+  <string name="otherMethods">Aner Weeër ze spenden?</string>
+  <string name="bankTransfers">Mir akzeptéieren och Bank-Transferten</string>
+  <string name="bitcoin">An hei ass eis Bitcoin Adress: %s</string>
+  <string name="patronFeatures">Sinn verschidden Funktiounen just fir Ënnerstëtzer?</string>
+  <string name="currentStatus">Aktuellen Status</string>
+  <string name="nextPayment">Nächst Zuelung</string>
+  <string name="giftPatronWings">Engem Spiller Ënnerstëtzer-Flilleken schenken</string>
   <string name="update">Update</string>
+  <string name="date">Datum</string>
+  <string name="amount">Montant</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung änneren</string>
 </resources>
