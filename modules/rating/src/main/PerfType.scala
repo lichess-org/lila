@@ -234,6 +234,7 @@ object PerfType {
     Horde,
     RacingKings
   )
+  val isLeaderboardable = leaderboardable.toSet
   val variants: List[PerfType] =
     List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)

@@ -27,7 +27,7 @@ final class RankingApi(
     }
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2) ?? coll {
+    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) ?? coll {
       _.update
         .one(
           $id(makeId(user.id, perfType)),
@@ -52,7 +52,7 @@ final class RankingApi(
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
-    PerfType.id2key(perfId).filter(PerfType.leaderboardable.contains) ?? { perfKey =>
+    PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) ?? { perfKey =>
       coll {
         _.find($doc("perf" -> perfId, "stable" -> true))
           .sort($doc("rating" -> -1))
