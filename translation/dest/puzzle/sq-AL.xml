@@ -13,7 +13,6 @@
   <string name="specialMoves">Lëvizjet speciale</string>
   <string name="didYouLikeThisPuzzle">Te pëlqeu ky ushtrimi?</string>
   <string name="voteToLoadNextOne">Voto për të vazhduar!</string>
-  <string name="yourPuzzleRatingX">Vlerësimi juaj i ushtrimeve: %s</string>
   <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
   <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
   <string name="toGetPersonalizedPuzzles">Për te marrë ushtrime te personalizuara:</string>
