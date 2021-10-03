@@ -49,6 +49,8 @@
   <string name="blackResigned">Černý se vzdal</string>
   <string name="whiteLeftTheGame">Bílý opustil hru</string>
   <string name="blackLeftTheGame">Černý opustil hru</string>
+  <string name="whiteDidntMove">Bílý netáhl</string>
+  <string name="blackDidntMove">Černý netáhl</string>
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Analýza počítače k dispozici</string>
@@ -934,6 +936,8 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
   <string name="mouseTricks">Klávesové zkratky</string>
+  <string name="toggleLocalAnalysis">Zapnout/vypnout lokální počítačovou analýzu</string>
+  <string name="toggleAllAnalysis">Zapnout/vypnout všechny počítačové analýzy</string>
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
