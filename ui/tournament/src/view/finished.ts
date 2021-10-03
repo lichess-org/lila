@@ -19,9 +19,11 @@ function confetti(data: TournamentData): VNode | undefined {
   return undefined;
 }
 
-function stats(data: TournamentData, trans: Trans): VNode | undefined {
+function stats(ctrl: TournamentController): VNode | undefined {
+  const data = ctrl.data,
+    trans = ctrl.trans,
+    noarg = trans.noarg;
   if (!data.stats) return undefined;
-  const noarg = trans.noarg;
   const tableData = [
     numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
     numberRow(noarg('gamesPlayed'), data.stats.games),
@@ -70,7 +72,7 @@ function stats(data: TournamentData, trans: Trans): VNode | undefined {
           {
             attrs: {
               'data-icon': '',
-              href: `/api/tournament/${data.id}/games?player=${data.me.username}`,
+              href: `/api/tournament/${data.id}/games?player=${ctrl.opts.userId}`,
               download: true,
             },
           },
@@ -126,9 +128,5 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 }
 
 export function table(ctrl: TournamentController): VNode | undefined {
-  return ctrl.playerInfo.id
-    ? playerInfo(ctrl)
-    : ctrl.teamInfo.requested
-    ? teamInfo(ctrl)
-    : stats(ctrl.data, ctrl.trans);
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : ctrl.teamInfo.requested ? teamInfo(ctrl) : stats(ctrl);
 }
