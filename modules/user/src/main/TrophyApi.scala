@@ -32,7 +32,13 @@ final class TrophyApi(
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean, isContentTeam: Boolean): List[Trophy] =
+  def roleBasedTrophies(
+      user: User,
+      isPublicMod: Boolean,
+      isDev: Boolean,
+      isVerified: Boolean,
+      isContentTeam: Boolean
+  ): List[Trophy] =
     List(
       isPublicMod option Trophy(
         _id = "",
