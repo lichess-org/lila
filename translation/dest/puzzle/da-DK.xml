@@ -13,7 +13,6 @@
   <string name="specialMoves">Særlige træk</string>
   <string name="didYouLikeThisPuzzle">Kunne du lide denne opgave?</string>
   <string name="voteToLoadNextOne">Stem for at indlæse den næste!</string>
-  <string name="yourPuzzleRatingX">Din opgave-rating: %s</string>
   <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
   <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
   <string name="toGetPersonalizedPuzzles">For at få personlige opgaver:</string>
