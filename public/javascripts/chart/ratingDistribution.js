@@ -85,6 +85,7 @@ lichess.ratingDistributionChart = function (data) {
               rotation: -45,
             },
             gridLineWidth: 1,
+            gridZIndex: -1,
             tickInterval: 100,
             plotLines: (function (v) {
               var right = v > 1800;
@@ -117,6 +118,7 @@ lichess.ratingDistributionChart = function (data) {
               title: {
                 text: trans.noarg('players'),
               },
+              gridZIndex: -1,
             },
             {
               // cumulative
