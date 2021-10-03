@@ -34,7 +34,6 @@ final class PerfStatApi(
           (u.enabled && (!u.lame || by.exists(u.is))) || by.??(Granter(_.UserModView))
         } ?? { u =>
           for {
-            ranks       <- rankingsOf(u.id)
             oldPerfStat <- get(u, perfType)
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
             distribution <- u.perfs(perfType).established ?? {
@@ -47,7 +46,7 @@ final class PerfStatApi(
             }
             _ = lightUserApi preloadUser u
             _ <- lightUserApi preloadMany perfStat.userIds.map(_.value)
-          } yield PerfStatData(u, perfStat, ranks, percentile).some
+          } yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile).some
         }
       }
     }

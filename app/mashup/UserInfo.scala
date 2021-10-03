@@ -148,14 +148,13 @@ object UserInfo {
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
-        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
-        userCached.rankingsOf(user.id) map {
+        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
           // format: off
-          case ((((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          case (((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul) =>
           // format: on
           new UserInfo(
             user = user,
-            ranks = ranks,
+            ranks = userCached.rankingsOf(user.id),
             nbs = nbs,
             hasSimul = hasSimul,
             ratingChart = ratingChart,

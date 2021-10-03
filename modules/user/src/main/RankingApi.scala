@@ -3,11 +3,12 @@ package lila.user
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
+import scala.util.Success
 
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.rating.{ Glicko, Perf, PerfType }
-import lila.db.AsyncCollFailingSilently
 
 final class RankingApi(
     userRepo: UserRepo,
@@ -15,7 +16,7 @@ final class RankingApi(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import RankingApi._
   implicit private val rankingBSONHandler = Macros.handler[Ranking]
@@ -110,11 +111,13 @@ final class RankingApi(
 
     private type Rank = Int
 
-    def of(userId: User.ID): Fu[Map[PerfType, Rank]] =
-      cache.getUnit map { all =>
-        all.flatMap { case (pt, ranking) =>
-          ranking get userId map (pt -> _)
-        }
+    def of(userId: User.ID): Map[PerfType, Rank] =
+      cache.getUnit.value match {
+        case Some(Success(all)) =>
+          all.flatMap { case (pt, ranking) =>
+            ranking get userId map (pt -> _)
+          }
+        case _ => Map.empty
       }
 
     private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
@@ -124,7 +127,7 @@ final class RankingApi(
             .linear(PerfType.leaderboardable) { pt =>
               compute(pt).dmap(pt -> _)
             }
-            .dmap(_.toMap)
+            .map(_.toMap)
             .chronometer
             .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
             .result
