@@ -614,6 +614,9 @@
   <string name="tools">Nástroje</string>
   <string name="increment">Navýšení</string>
   <string name="error.required">Toto pole je povinné</string>
+  <string name="error.email">Emailová adresa je neplatná</string>
+  <string name="error.email_unique">E-mailová adresa je neplatná nebo je již obsazena</string>
+  <string name="error.email_different">Toto je již Vaše emailová adresa</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
   <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
