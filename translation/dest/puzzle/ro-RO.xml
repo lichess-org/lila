@@ -13,6 +13,7 @@
   <string name="specialMoves">Mutări speciale</string>
   <string name="didYouLikeThisPuzzle">Ți-a plăcut această problemă?</string>
   <string name="voteToLoadNextOne">Votează pentru a-l încărca pe următorul!</string>
+  <string name="yourPuzzleRatingWillNotChange">Evaluarea ta de puzzle-uri nu se va schimba. Reține că puzzle-urile nu sunt o competiție. Evaluarea ajută la selectarea celor mai bune puzzle-uri pentru nivelul tău.</string>
   <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb.</string>
   <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru.</string>
   <string name="toGetPersonalizedPuzzles">Pentru a primi probleme de șah personalizate:</string>
