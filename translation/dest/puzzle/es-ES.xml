@@ -13,6 +13,7 @@
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
   <string name="voteToLoadNextOne">¡Vota para pasar al siguiente!</string>
+  <string name="yourPuzzleRatingWillNotChange">Tu puntuación de ejercicios no cambiará. Nota que los ejercicios no son una competición. La puntuación indica los ejercicios que se adecuan a tus habilidades.</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir ejercicios personalizados:</string>
