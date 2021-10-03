@@ -13,7 +13,6 @@
   <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne oppgåva?</string>
   <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
-  <string name="yourPuzzleRatingX">Problemløysar-ratinga di: %s</string>
   <string name="findTheBestMoveForWhite">Finn det beste trekket for kvit.</string>
   <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
   <string name="toGetPersonalizedPuzzles">For å få personleg tilpassa oppgåver:</string>
