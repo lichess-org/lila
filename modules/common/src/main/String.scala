@@ -55,8 +55,10 @@ object String {
       (c >= '\u2028' && c <= '\u202F') ||
       // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
       // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
+      // and chess symbols https://www.compart.com/en/unicode/block/U+2600
       (c >= '\u2100' && c <= '\u21FF') ||
-      (c >= '\u2300' && c <= '\u2C5F') ||
+      (c >= '\u2300' && c <= '\u2653') ||
+      (c >= '\u2660' && c <= '\u2C5F') ||
       // decorative chars ꧁ ꧂ and svastikas
       (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
       // pretty quranic chars ۩۞
