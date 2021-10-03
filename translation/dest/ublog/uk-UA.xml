@@ -2,7 +2,7 @@
 <resources>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
-  <string name="editYourBlogPost">Редагувати ваш блог</string>
+  <string name="editYourBlogPost">Редагувати ваш запис</string>
   <string name="saveDraft">Зберегти чернетку</string>
   <string name="postTitle">Заголовок допису</string>
   <string name="postIntro">Вступ допису</string>
@@ -37,4 +37,6 @@
     <item quantity="other">Переглянути %s дописів</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Завантажити зображення для вашого допису</string>
+  <string name="imageAlt">Альтернативний текст зображення</string>
+  <string name="imageCredit">Права на зображення</string>
 </resources>
