@@ -15,39 +15,33 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
   def full(u: User, onlyPerf: Option[PerfType] = None, withOnline: Boolean): JsObject =
     if (u.disabled) disabled(u)
     else
-      Json
-        .obj(
-          "id"        -> u.id,
-          "username"  -> u.username,
-          "perfs"     -> perfs(u, onlyPerf),
-          "createdAt" -> u.createdAt
-        )
+      base(u, onlyPerf) ++ Json
+        .obj("createdAt" -> u.createdAt)
         .add("online" -> withOnline.option(isOnline(u.id)))
-        .add("tosViolation" -> u.lame)
         .add("profile" -> u.profile.map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull))
         .add("seenAt" -> u.seenAt)
-        .add("patron" -> u.isPatron)
         .add("playTime" -> u.playTime)
-        .add("title" -> u.title)
-        .add("verified" -> u.isVerified)
 
-  def minimal(u: User, onlyPerf: Option[PerfType]) =
+  def roundPlayer(u: User, onlyPerf: Option[PerfType]) =
     if (u.disabled) disabled(u)
     else
-      Json
-        .obj(
-          "id"       -> u.id,
-          "username" -> u.username,
-          "online"   -> isOnline(u.id),
-          "perfs"    -> perfs(u, onlyPerf)
-        )
-        .add("title" -> u.title)
-        .add("tosViolation" -> u.lame)
+      base(u, onlyPerf) ++ Json
+        .obj("online" -> isOnline(u.id))
         .add("profile" -> u.profile.flatMap(_.country).map { country =>
           Json.obj("country" -> country)
         })
-        .add("patron" -> u.isPatron)
-        .add("verified" -> u.isVerified)
+
+  private def base(u: User, onlyPerf: Option[PerfType]) =
+    Json
+      .obj(
+        "id"       -> u.id,
+        "username" -> u.username,
+        "perfs"    -> perfs(u, onlyPerf)
+      )
+      .add("title" -> u.title)
+      .add("tosViolation" -> u.lame)
+      .add("patron" -> u.isPatron)
+      .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
