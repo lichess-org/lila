@@ -562,6 +562,8 @@
   <string name="error.email_different">Dette er allerede e-postadressen din</string>
   <string name="error.minLength">Minste tillatte lengde er %s</string>
   <string name="error.maxLength">Største tillatte lengde er %s</string>
+  <string name="error.min">Må være større enn eller lik %s</string>
+  <string name="error.max">Må være mindre enn eller lik %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
   <string name="onlyExistingConversations">Bare eksisterende samtaler</string>
   <string name="onlyFriends">Bare venner</string>
