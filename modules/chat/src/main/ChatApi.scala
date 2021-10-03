@@ -161,7 +161,11 @@ final class ChatApi(
           reason = reason,
           scope = ChatTimeout.Scope.Global,
           text = data.text,
-          busChan = if (data.chan == "tournament") _.Tournament else _.Simul
+          busChan = data.chan match {
+            case "tournament" => _.Tournament
+            case "swiss"      => _.Swiss
+            case _            => _.Simul
+          }
         )
       }
 
