@@ -122,9 +122,12 @@ final class RankingApi(
         .buildAsyncFuture { _ =>
           lila.common.Future
             .linear(PerfType.leaderboardable) { pt =>
-              compute(pt) dmap (pt -> _)
+              compute(pt).dmap(pt -> _)
             }
             .dmap(_.toMap)
+            .chronometer
+            .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
+            .result
         }
     }
 
