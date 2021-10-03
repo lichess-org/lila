@@ -21,7 +21,7 @@ final private[api] class UserApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def one(u: User, withOnline: Boolean): JsObject =
-    addStreaming(jsonView(u, withOnline = withOnline), u.id) ++
+    addStreaming(jsonView.full(u, withOnline = withOnline), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(username: String, as: Option[User], withFollows: Boolean): Fu[Option[JsObject]] =
@@ -30,14 +30,8 @@ final private[api] class UserApi(
     }
 
   def extended(u: User, as: Option[User], withFollows: Boolean): Fu[JsObject] =
-    if (u.disabled) fuccess {
-      Json.obj(
-        "id"       -> u.id,
-        "username" -> u.username,
-        "closed"   -> true
-      )
-    }
-    else {
+    if (u.disabled) fuccess(jsonView disabled u)
+    else
       gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
         (as.filter(u !=) ?? { me =>
           crosstableApi.nbGames(me.id, u.id)
@@ -59,7 +53,7 @@ final private[api] class UserApi(
             case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),completionRate)=>
             // format: on
-          jsonView(u, withOnline = true) ++ {
+          jsonView.full(u, withOnline = true) ++ {
             Json
               .obj(
                 "url"            -> makeUrl(s"@/${u.username}"), // for app BC
@@ -94,7 +88,6 @@ final private[api] class UserApi(
               )
           }.noNull
         }
-    }
 
   private def addStreaming(js: JsObject, id: User.ID) =
     js.add("streaming", liveStreamApi.isStreaming(id))
