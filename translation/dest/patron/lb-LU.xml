@@ -47,7 +47,7 @@ Oder du kanns %s.</string>
   <string name="patronFeatures">Sinn verschidden Funktiounen just fir Ënnerstëtzer?</string>
   <string name="noPatronFeatures">Nee, well Lichess komplett gratis ass, fir ëmmer an fir jiddereen. Dat ass versprach.
 Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flilleken-Icon ze bretzen.</string>
-  <string name="featuresComparison">Detailléierten Funktionen-Vergläich kucken</string>
+  <string name="featuresComparison">Detailléierten Funktiounen-Vergläich kucken</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Ënnerstëtzer säit engem Mount</item>
     <item quantity="other">Lichess Ënnerstëtzer säit %s Méint</item>
@@ -72,5 +72,8 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="transactionCompleted">Deng Transaktion ass ofgeschloss and du kriss eng Email mat enger Quittung vun denger Spend.</string>
   <string name="permanentPatron">Du hues elo en liewenslaangen Ënnerstëtzer-Konto.</string>
   <string name="checkOutProfile">Besich deng Profilsäit!</string>
+  <string name="nowLifetime">Du bass elo en liewenslaangen Lichess Ënnerstëtzer!</string>
+  <string name="nowOneMonth">Du bass elo en Lichess Ënnerstëtzer fir ee Mount!</string>
+  <string name="downgradeNextMonth">An engem Mount, gëss du NET nei verrechent an däin Lichess Konto wäert rëm zu engem regulären Konto ginn.</string>
   <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung änneren</string>
 </resources>
