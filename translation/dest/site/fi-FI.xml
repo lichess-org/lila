@@ -97,6 +97,7 @@
   <string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
   <string name="winOr50MovesByPriorMistake">Voitto tai 50 siirtoa edeltävän virheen seurauksena</string>
   <string name="lossOr50MovesByPriorMistake">Tappio tai 50 siirtoa edeltävän virheen seurauksena</string>
+  <string name="unknownDueToRounding">Voitto tai tappio on varma vain, jos tietokannan suosittamaa jatkoa on noudatettu viimeisestä nappulan lyönnistä tai sotilaan siirrosta lähtien. Tämä johtuu DTZ-arvojen mahdollisesta pyöristymisestä Syzygy-tietokannoissa.</string>
   <string name="allSet">Valmis!</string>
   <string name="importPgn">Tuo PGN</string>
   <string name="delete">Poista</string>
