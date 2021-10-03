@@ -396,9 +396,8 @@ final class Mod(
     }
 
   protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
-    val query = UserSearch exact q
-    env.mod.search(query) map { users =>
-      Ok(html.mod.search(me, UserSearch.form fill query, users))
+    env.mod.search(q) map { users =>
+      Ok(html.mod.search(me, UserSearch.form fill q, users))
     }
   }
 
@@ -491,7 +490,7 @@ final class Mod(
             .map(EmailAddress.apply) flatMap env.security.emailAddressValidator.validate
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-            env.mod.search(UserSearch.exact(q)) flatMap {
+            env.mod.search(q) flatMap {
               case List(UserModel.WithEmails(user, _)) =>
                 (!user.everLoggedIn).?? {
                   lila.mon.user.register.modConfirmEmail.increment()
