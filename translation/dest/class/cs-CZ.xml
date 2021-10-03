@@ -72,6 +72,7 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="closeStudent">Zrušit účet</string>
   <string name="closeTheAccount">Trvale zrušit účet studenta.</string>
   <string name="closeDesc1">Váš student se k tomuto účtu již nikdy nebude moc přihlásit. Uzavření účtu je konečné, proto se ujistěte, že student ví a souhlasí se zrušením účtu.</string>
+  <string name="closeDesc2">Můžete místo toho předat studentovi vlastnictví účtu, aby ho mohli i nadále používat.</string>
   <string name="teachers">Učitelé</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učitel</item>
