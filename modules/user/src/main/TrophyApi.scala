@@ -13,16 +13,19 @@ final class TrophyApi(
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
+  val kindCache = {
+    // careful of collisions with trophyKindStringBSONHandler
+    val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 
-  val kindCache = cacheApi.sync[String, TrophyKind](
-    name = "trophy.kind",
-    initialCapacity = 32,
-    compute = id => kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown),
-    default = _ => TrophyKind.Unknown,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour)
-  )
+    cacheApi.sync[String, TrophyKind](
+      name = "trophy.kind",
+      initialCapacity = 32,
+      compute = id => kindColl.byId[TrophyKind](id)(trophyKindObjectBSONHandler).dmap(_ | TrophyKind.Unknown),
+      default = _ => TrophyKind.Unknown,
+      strategy = Syncache.WaitAfterUptime(20 millis),
+      expireAfter = Syncache.ExpireAfterWrite(1 hour)
+    )
+  }
 
   implicit private val trophyKindStringBSONHandler =
     BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
