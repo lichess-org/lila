@@ -29,6 +29,7 @@
     <item quantity="other">%s Schülerrezensiounen</item>
   </plurals>
   <string name="thankYouForReview">Merci fir deng Rezensioun!</string>
+  <string name="xWillApproveIt">%s wäert et geschwënn accordéieren, oder een Moderator kuckt et sech un.</string>
   <string name="reviewCoach">Dësen Trainer bewäerten</string>
   <string name="describeExperienceWith">Beschreif deng Trainingsexperienz mam %s</string>
 </resources>
