@@ -120,24 +120,42 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
   );
 
 export const userBox = (ctrl: Controller): VNode => {
-  const data = ctrl.getData();
+  const data = ctrl.getData(),
+    noarg = ctrl.trans.noarg;
   if (!data.user)
     return h('div.puzzle__side__user', [
-      h('p', ctrl.trans.noarg('toGetPersonalizedPuzzles')),
-      h('a.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
+      h('p', noarg('toGetPersonalizedPuzzles')),
+      h('a.button', { attrs: { href: '/signup' } }, noarg('signUp')),
     ]);
-  const diff = ctrl.vm.round?.ratingDiff;
+  const diff = ctrl.vm.round?.ratingDiff,
+    ratedId = 'puzzle-toggle-rated';
   return h('div.puzzle__side__user', [
+    !data.replay && !ctrl.streak && data.user
+      ? h('div.puzzle__side__config__toggle', [
+          h('div.switch', [
+            h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
+              attrs: {
+                type: 'checkbox',
+                checked: ctrl.rated(),
+              },
+              hook: {
+                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
+              },
+            }),
+            h('label', { attrs: { for: ratedId } }),
+          ]),
+          h('label', { attrs: { for: ratedId } }, noarg('rated')),
+        ])
+      : undefined,
     h(
       'div.puzzle__side__user__rating',
-      ctrl.trans.vdom(
-        'yourPuzzleRatingX',
-        h('strong', [
-          data.user.rating - (diff || 0),
-          ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
-          ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
-        ])
-      )
+      ctrl.rated()
+        ? h('strong', [
+            data.user.rating - (diff || 0),
+            ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+            ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
+          ])
+        : h('p.puzzle__side__user__rating__casual', noarg('yourPuzzleRatingWillNotChange'))
     ),
   ]);
 };
@@ -177,11 +195,13 @@ export function replay(ctrl: Controller): MaybeVNode {
 }
 
 export function config(ctrl: Controller): MaybeVNode {
-  const id = 'puzzle-toggle-autonext';
+  const autoNextId = 'puzzle-toggle-autonext',
+    noarg = ctrl.trans.noarg,
+    data = ctrl.getData();
   return h('div.puzzle__side__config', [
-    h('div.puzzle__side__config__jump', [
+    h('div.puzzle__side__config__toggle', [
       h('div.switch', [
-        h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+        h(`input#${autoNextId}.cmn-toggle.cmn-toggle--subtle`, {
           attrs: {
             type: 'checkbox',
             checked: ctrl.autoNext(),
@@ -191,11 +211,11 @@ export function config(ctrl: Controller): MaybeVNode {
               (vnode.elm as HTMLElement).addEventListener('change', () => ctrl.autoNext(!ctrl.autoNext())),
           },
         }),
-        h('label', { attrs: { for: id } }),
+        h('label', { attrs: { for: autoNextId } }),
       ]),
-      h('label', { attrs: { for: id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately')),
+      h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
     ]),
-    !ctrl.getData().replay && !ctrl.streak && ctrl.difficulty ? renderDifficultyForm(ctrl) : null,
+    !data.replay && !ctrl.streak && ctrl.difficulty ? renderDifficultyForm(ctrl) : null,
     h('div.puzzle__side__config__toggles', [
       h(
         'a.puzzle__side__config__zen.button.button-empty',
@@ -205,7 +225,7 @@ export function config(ctrl: Controller): MaybeVNode {
             title: 'Keyboard: z',
           },
         },
-        ctrl.trans.noarg('zenMode')
+        noarg('zenMode')
       ),
       h(
         'a.puzzle__side__config__flip.button',
@@ -216,7 +236,7 @@ export function config(ctrl: Controller): MaybeVNode {
             title: 'Keyboard: f',
           },
         },
-        ctrl.trans.noarg('flipBoard')
+        noarg('flipBoard')
       ),
     ]),
   ]);
