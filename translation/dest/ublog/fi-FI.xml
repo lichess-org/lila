@@ -31,4 +31,6 @@
     <item quantity="other">Näytä kaikki %s kirjoitusta</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Lataa kirjoitukseesi kuva</string>
+  <string name="imageAlt">Vaihtoehtoinen kuvateksti</string>
+  <string name="imageCredit">Kuvan lähde</string>
 </resources>
