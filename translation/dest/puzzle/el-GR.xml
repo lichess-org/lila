@@ -13,7 +13,6 @@
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="voteToLoadNextOne">Ψηφίστε για να προχωρήσετε στο επόμενο!</string>
-  <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας: %s</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
   <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένους γρίφους:</string>
