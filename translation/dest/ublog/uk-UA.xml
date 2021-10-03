@@ -2,6 +2,7 @@
 <resources>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
+  <string name="editYourBlogPost">Редагувати ваш блог</string>
   <string name="saveDraft">Зберегти чернетку</string>
   <string name="postTitle">Заголовок допису</string>
   <string name="postIntro">Вступ допису</string>
