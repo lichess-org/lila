@@ -58,6 +58,7 @@ export interface AnalysePref {
   highlight?: boolean;
   showCaptured?: boolean;
   animationDuration?: number;
+  moveEvent: Prefs.MoveEvent;
 }
 
 export interface ServerEvalData {
