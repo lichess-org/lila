@@ -5,7 +5,6 @@ $player-height: 30px;
 @include breakpoint($mq-col2-uniboard) {
   .round__app {
     grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-    grid-template-rows: $player-height 1fr $material-height $expiration-height $moves-height $controls-height $expiration-height $material-height 1fr $player-height;
     grid-template-areas: 'user-top .' 'board .' 'board mat-top' 'board expi-top' 'board moves' 'board controls' 'board expi-bot' 'board mat-bot' 'board .' 'user-bot .' 'kb-move .';
 
     margin-top: -0.5em;
