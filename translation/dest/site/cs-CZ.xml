@@ -89,6 +89,7 @@
     <item quantity="many">Mat v %s půltazích</item>
     <item quantity="other">Mat v %s půltazích</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' s zaokrouhlením na základě počtu půltahů do dalšího braní nebo tahu pěšcem</string>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
@@ -96,6 +97,9 @@
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
   <string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
   <string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
+  <string name="winOr50MovesByPriorMistake">Výhra nebo 50 tahů po předchozí chybě</string>
+  <string name="lossOr50MovesByPriorMistake">Prohra nebo 50 tahů po předchozí chybě</string>
+  <string name="unknownDueToRounding">Výhra/prohra zaručena pouze v případě, že byla dodržena doporučená série tahů z tablebase od posledního braní nebo tahu pěšcem, vzhledem k možnému zaokrouhlení hodnot DTZ v tabulkách Syzygy.</string>
   <string name="allSet">Vše nastaveno!</string>
   <string name="importPgn">Vložit PGN</string>
   <string name="delete">Smazat</string>
@@ -417,6 +421,8 @@
   <string name="follow">Sledovat</string>
   <string name="following">Sledován</string>
   <string name="unfollow">Přestat sledovat</string>
+  <string name="followX">Sledovat %s</string>
+  <string name="unfollowX">Přestat sledovat %s</string>
   <string name="block">Blokovat</string>
   <string name="blocked">Blokován</string>
   <string name="unblock">Odblokovat</string>
