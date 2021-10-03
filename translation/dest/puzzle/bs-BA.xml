@@ -12,7 +12,6 @@
   <string name="specialMoves">Specijalni potezi</string>
   <string name="didYouLikeThisPuzzle">Je li Vam se svidio ovaj problem?</string>
   <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
-  <string name="yourPuzzleRatingX">Vaš rejting u problemima: %s</string>
   <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
