@@ -97,6 +97,7 @@
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota o 50 movimientos por error anterior</string>
+  <string name="unknownDueToRounding">Victoria/derrota garantizada apenas si la línea de movimientos recomendados fue seguida desde el último movimiento de captura o de peón, a causa del posible redondeo.</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
