@@ -13,7 +13,6 @@
   <string name="specialMoves">Nước đi đặc biệt</string>
   <string name="didYouLikeThisPuzzle">Bạn có thích câu đố này?</string>
   <string name="voteToLoadNextOne">Bình chọn để mở câu đố tiếp theo!</string>
-  <string name="yourPuzzleRatingX">Hệ số giải bài tập của bạn: %s</string>
   <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
   <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
   <string name="toGetPersonalizedPuzzles">Để có được các câu đố dành riêng cho bạn:</string>
