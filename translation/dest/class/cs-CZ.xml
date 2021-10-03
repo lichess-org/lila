@@ -46,6 +46,7 @@ Heslo: %3$s</string>
   <string name="createDesc2">Není vyžadována žádná e-mailová adresa. Bude vygenerováno heslo a budete ho muset předat studentovi, aby se mohl přihlásit.</string>
   <string name="createDesc3">Důležité: student nesmí mít více účtů.</string>
   <string name="createDesc4">Pokud již nějaký má, použijte místo toho formulář pro pozvánky.</string>
+  <string name="createStudentWarning">Vytvořte účty pouze pro skutečné studenty. Nepoužívejte je k vytváření více účtů pro sebe, jinak budete zablokováni.</string>
   <string name="lichessUsername">Lichess uživatelské jméno</string>
   <string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
   <string name="welcomeToClass">Vítejte ve vaší třídě: %s.
