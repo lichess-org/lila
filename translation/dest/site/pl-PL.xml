@@ -622,6 +622,14 @@
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
   <string name="error.required">To pole jest wymagane</string>
+  <string name="error.email">Ten adres e-mail jest nieprawidłowy</string>
+  <string name="error.email_acceptable">Ten adres e-mail jest niedopuszczalny. Sprawdź go i spróbuj ponownie.</string>
+  <string name="error.email_unique">Adres e-mail jest nieprawidłowy lub jest już w użyciu</string>
+  <string name="error.email_different">To jest już Twój adres e-mail</string>
+  <string name="error.minLength">Minimalna długość to %s</string>
+  <string name="error.maxLength">Maksymalna długość to %s</string>
+  <string name="error.min">Musi być dłuższe lub równe %s</string>
+  <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>

@@ -556,6 +556,14 @@
   <string name="tools">Værktøjer</string>
   <string name="increment">Forøgelse</string>
   <string name="error.required">Dette felt skal udfyldes</string>
+  <string name="error.email">Denne e-mailadresse er ugyldig</string>
+  <string name="error.email_acceptable">Denne e-mailadresse kan ikke accepteres. Dobbelttjek den, og prøv igen.</string>
+  <string name="error.email_unique">E-mailadresse ugyldig eller allerede brugt</string>
+  <string name="error.email_different">Dette er allerede din e-mailadresse</string>
+  <string name="error.minLength">Minimumslængde er %s</string>
+  <string name="error.maxLength">Maksimumslængde er %s</string>
+  <string name="error.min">Skal være større eller lig med %s</string>
+  <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
   <string name="onlyExistingConversations">Kun eksisterende samtaler</string>
   <string name="onlyFriends">Kun venner</string>

@@ -29,10 +29,12 @@
   <string name="willBeReviewed">O teu pedido de adesão será revisto pelo líder da equipa.</string>
   <string name="beingReviewed">O teu pedido de adesão está a ser revisto pelo líder da equipa.</string>
   <string name="requestDeclined">O seu pedido de adesão foi recusado por um líder de equipa.</string>
+  <string name="subToTeamMessages">Subscrever mensagens de equipa</string>
   <string name="teamBattle">Batalha de Equipas</string>
   <string name="teamBattleOverview">Uma batalha de várias equipas, cada jogador ganha pontos para a sua equipa</string>
   <string name="teamTournament">Torneio de equipa</string>
   <string name="teamTournamentOverview">Um torneio em arena em que só podem entrar membros da tua equipa</string>
+  <string name="swissTournamentOverview">Um torneio suiço em que só podem entrar membros da tua equipa</string>
   <string name="messageAllMembers">Enviar uma mensagem a todos os membros</string>
   <string name="messageAllMembersOverview">Enviar uma mensagem privada para todos os membros da equipa</string>
   <string name="messageAllMembersLongDescription">Enviar uma mensagem privada para todos os membros da equipa.
@@ -48,5 +50,7 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que os novos membros devem saber para se juntarem a esta equipa.</string>
   <string name="incorrectEntryCode">Código incorreto.</string>
   <string name="teamAlreadyExists">Esta equipa já existe.</string>
+  <string name="upcomingTourns">Próximos torneios</string>
+  <string name="completedTourns">Torneios concluídos</string>
   <string name="declinedRequests">Pedidos Recusados</string>
 </resources>

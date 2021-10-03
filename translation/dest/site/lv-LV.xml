@@ -589,6 +589,14 @@
   <string name="tools">Rīki</string>
   <string name="increment">Pieaugums</string>
   <string name="error.required">Šis lauks ir obligāts</string>
+  <string name="error.email">Šī e-pasta adrese nav derīga</string>
+  <string name="error.email_acceptable">Šī e-pasta adrese nav pieņemama. Lūdzu pārbaudiet to un mēģiniet vēlreiz.</string>
+  <string name="error.email_unique">E-pasta adrese jau ir aizņemta vai nav derīga</string>
+  <string name="error.email_different">Šī jau ir jūsu e-pasta adrese</string>
+  <string name="error.minLength">Minimālais garums ir %s</string>
+  <string name="error.maxLength">Maksimālais garums ir %s</string>
+  <string name="error.min">Jābūt vismaz %s</string>
+  <string name="error.max">Nedrīkst būt lielāks par %s</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
   <string name="onlyExistingConversations">Tikai iesāktajās sarunās</string>
   <string name="onlyFriends">Tikai draugi</string>

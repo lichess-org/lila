@@ -3,10 +3,14 @@
   <string name="broadcasts">Vysielanie</string>
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
+  <string name="addRound">Pridať kolo</string>
   <string name="ongoing">Prebiehajúci</string>
   <string name="upcoming">Nasledujúce</string>
   <string name="completed">Ukončené</string>
+  <string name="roundName">Názov kola</string>
   <string name="roundNumber">Číslo kola</string>
+  <string name="tournamentName">Názov turnaja</string>
+  <string name="tournamentDescription">Krátky popis turnaja</string>
   <string name="fullDescription">Dlhý popis udalosti</string>
   <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
   <string name="sourceUrlOrGameIds">Zdrojová URL alebo ID partií</string>
@@ -15,4 +19,10 @@
   <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
   <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
   <string name="credits">Kreditujte zdroj</string>
+  <string name="resetRound">Resetovať toto kolo</string>
+  <string name="deleteRound">Vymazať toto kolo</string>
+  <string name="broadcastUrl">Adresa URL pre sledovanie</string>
+  <string name="currentRoundUrl">Adresa URL aktuálneho kola</string>
+  <string name="currentGameUrl">Adresa URL aktuálnej partie</string>
+  <string name="downloadAllRounds">Stiahnuť všetky kolá</string>
 </resources>

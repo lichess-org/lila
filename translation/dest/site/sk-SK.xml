@@ -616,6 +616,12 @@
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
   <string name="error.required">Povinné pole</string>
+  <string name="error.email">Táto emailová adresa je neplatná</string>
+  <string name="error.email_acceptable">Táto emailová adresa nie je akceptovateľná. Ešte raz ju prosím skontrolujte a skúste zadať znova.</string>
+  <string name="error.email_unique">Emailová adresa je neplatná alebo sa už používa</string>
+  <string name="error.email_different">Túto emailovú adresu už používate</string>
+  <string name="error.minLength">Minimálna dĺžka je %s</string>
+  <string name="error.maxLength">Maximálna dĺžka je %s</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
@@ -879,6 +885,8 @@
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
   <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
+  <string name="gameVsX">v partii proti %1$s</string>
+  <string name="resVsX">%1$s proti %2$s</string>
   <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
@@ -895,6 +903,7 @@
   <string name="noChat">Vypnutý chat</string>
   <string name="onlyTeamMembers">Iba členovia tímu</string>
   <string name="navigateMoveTree">Navigovať na všetky ťahy vo forme stromu</string>
+  <string name="mouseTricks">Finty s myšou</string>
   <string name="toggleLocalAnalysis">Prepnúť počítačové analýzy lokálneho počítača</string>
   <string name="toggleAllAnalysis">Prepnúť všetky počítačové analýzy</string>
   <string name="playComputerMove">Hrať najlepší ťah podľa počítača</string>

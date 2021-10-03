@@ -618,6 +618,14 @@
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
   <string name="error.required">Это обязательное поле</string>
+  <string name="error.email">Неверный адрес электронной почты</string>
+  <string name="error.email_acceptable">Этот адрес электронной почты недопустим. Проверьте его и повторите попытку.</string>
+  <string name="error.email_unique">Адрес электронной почты недействителен или уже занят</string>
+  <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
+  <string name="error.minLength">Минимальная длина — %s</string>
+  <string name="error.maxLength">Максимальная длина — %s</string>
+  <string name="error.min">Значение должно быть больше либо равным %s</string>
+  <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyExistingConversations">Только существующие обсуждения</string>
   <string name="onlyFriends">Только друзьям</string>

@@ -61,9 +61,14 @@ Além disso, é atribuído um único bye de meio ponto quando um jogador entra a
   <string name="whatIfOneDoesntPlayA">O seu relógio vai contar, serão sinalizados e perderão o jogo.
 Então o sistema irá retirar o jogador do torneio, para não perder mais jogos. Podem entrar novamente no torneio a qualquer momento.</string>
   <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>
+  <string name="lateJoinA">Sim, até que mais de metade das rondas tenham começado; por exemplo: num torneio suiço de 11 rondas, os jogadores podem entrar antes que a ronda 6 comece, e num torneio de 12 pessoas, até antes que a ronda 7 comece.
+Jogadores que entraram mais tarde só têm um bye, mesmo que tenham perdido várias rondas.</string>
   <string name="willSwissReplaceArenasQ">Os Suíços irão substituir os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. São características complementares.</string>
   <string name="roundRobinQ">E no que diz respeito ao Round Robin?</string>
+  <string name="roundRobinA">Nós gostávemos de adiconá-lo, mas infelizmente o Round robin não funciona online.
+A razão é porque não há maneira justa de ligar com pessoas a abandonar o torneio mais cedo. Não podemos esperar que todos jogadores joguem todas as suas partidas num evento online. Simplesmente não vai acontecer, e como resultado, a maior parte dos torneios Round Robin seriam injustos, o que vai contra a sua existência.
+O mais perto que podes ter do Round Robin é jogar um torneio suiço com um número muito elevado de rondas. Depois todos os emparelhamentos possíveis serão jogadas antes do torneio acabar.</string>
   <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
   <string name="otherSystemsA">De momento não planeamos adicionar mais sistemas de torneio ao Lichess.</string>
   <string name="swissDescription">Num torneio suíço %1$s, cada competidor não joga necessariamente contra todos os outros participantes. Os competidores encontram-se individualmente em cada ronda e são emparelhados usando um conjunto de regras destinadas a garantir que cada um jogue contra adversários com uma pontuação semelhante, mas não com o mesmo adversário mais de uma vez. O vencedor é o competidor com o maior número de pontos acumulados conquistados em todas as rondas. Todos os concorrentes jogam em cada ronda, excepto se existir um número ímpar de jogadores.\"</string>

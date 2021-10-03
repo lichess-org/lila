@@ -5,6 +5,7 @@
   <string name="whyIsLichessCalledLichess">Firwat heescht Lichess Lichess?</string>
   <string name="howCanIContributeToLichess">Wéi kann ech zu Lichess bäidroen?</string>
   <string name="areThereWebsitesBasedOnLichess">Ginn et Websäiten déi op Lichess baséieren?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Jo. Lichess huet aner Open-Source Säiten inspiréiert déi eis %1$s, %2$s, oder %3$s benotzen.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Wéi qualifizéieren ech mech fir eng automatesch Wäertungsréckerstattung?</string>
   <string name="preventLeavingGameWithoutResigning">Wat geschitt mat Spiller, déi eng Partie verloossen, ouni opzeginn?</string>
@@ -21,6 +22,7 @@
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Wéieng Titel ginn et op Lichess?</string>
   <string name="canIbecomeLM">Kann ech den Lichess Meeschter (LM) Titel kréien?</string>
+  <string name="noUpperCaseDot">Nee.</string>
   <string name="whatUsernameCanIchoose">Wéi kann mäin Benotzernumm ausgesinn?</string>
   <string name="guidelines">Richtlinnen</string>
   <string name="canIChangeMyUsername">Kann ech mäin Benotzernumm änneren?</string>
@@ -32,5 +34,6 @@
   <string name="whyAreRatingHigher">Firwat sin Wäertungen méi héich wéi op aneren Plazen wéi FIDE, USCF oder ICC?</string>
   <string name="howToHideRatingWhilePlaying">Wéi kann ech Wäertungen wärend dem Spillen verstoppen?</string>
   <string name="connexionLostCanIGetMyRatingBack">Ech hunn eng Partie wéinst Lag/Verbindungsverloscht verluer. Kann ech meng Wäertungspunkten zeréckkréien?</string>
+  <string name="howToThreeDots">Wéi...</string>
   <string name="enableDisableNotificationPopUps">Notifikatiouns-Popups aktivéieren an desaktivéieren?</string>
 </resources>

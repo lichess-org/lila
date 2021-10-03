@@ -69,6 +69,8 @@ Aqui está o link para acederes à aula.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviar-lhe-emos um e-mail de confirmação, com um link para libertar a conta.</string>
   <string name="closeStudent">Encerrar a conta</string>
   <string name="closeTheAccount">Encerrar permanentemente a conta do aluno.</string>
+  <string name="closeDesc1">O aluno nunca mais vai poder usar esta conta. O encerramento é definitivo. Certifica-te que o aluno percebe e concorda.</string>
+  <string name="closeDesc2">Em vez disso, podes querer dar ao aluno controlo da sua conta, para que ele possa continuar a usá-la.</string>
   <string name="teachers">Professores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Professor(a)</item>

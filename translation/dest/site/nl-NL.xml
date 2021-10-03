@@ -556,6 +556,14 @@
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
   <string name="error.required">Dit invullen is verplicht</string>
+  <string name="error.email">Dit e-mailadres is ongeldig</string>
+  <string name="error.email_acceptable">Dit e-mailadres is niet acceptabel. Controleer het nogmaals en probeer het opnieuw.</string>
+  <string name="error.email_unique">E-mailadres ongeldig of al in gebruik</string>
+  <string name="error.email_different">Dit is al uw e-mailadres</string>
+  <string name="error.minLength">Minimumlengte is %s tekens</string>
+  <string name="error.maxLength">Maximumlengte is %s tekens</string>
+  <string name="error.min">Moet groter dan of gelijk zijn aan %s</string>
+  <string name="error.max">Moet kleiner dan of gelijk zijn aan %s</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
