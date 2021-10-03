@@ -13,7 +13,6 @@
   <string name="specialMoves">Спеціальні ходи</string>
   <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
   <string name="voteToLoadNextOne">Голосуйте, щоб завантажити наступний!</string>
-  <string name="yourPuzzleRatingX">Ваш рейтинг по задачах: %s</string>
   <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
   <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
   <string name="toGetPersonalizedPuzzles">Щоб отримати персоналізовані задачі:</string>
