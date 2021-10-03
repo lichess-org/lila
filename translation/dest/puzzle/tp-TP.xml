@@ -13,7 +13,6 @@
   <string name="specialMoves">tawa suli</string>
   <string name="didYouLikeThisPuzzle">musi lili ni li pona ala pona tawa sina?</string>
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
-  <string name="yourPuzzleRatingX">nanpa wawa sina pi musi lili li %s</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
