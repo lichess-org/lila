@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Суперник обмежений в своїх ходах, а кожен хід погіршує його позицію.</string>
   <string name="healthyMix">Здорова суміш</string>
   <string name="healthyMixDescription">По трошки від усього. Ти не знаєш чого очікувати, тому будь готовим до всього! Як в справжніх партіях.</string>
+  <string name="playerGames">Ігри гравця</string>
+  <string name="playerGamesDescription">Пошук головоломок згенерованих з ваших ігор або з ігор іншого гравця.</string>
+  <string name="puzzleDownloadInformation">Ці задачі є у публічному домені, і можуть бути завантажені з %s.</string>
 </resources>
