@@ -56,10 +56,21 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="tyvm">Villmols merci fir deng Hëllef. Du rocks!</string>
   <string name="currentStatus">Aktuellen Status</string>
   <string name="nextPayment">Nächst Zuelung</string>
+  <string name="youWillBeChargedXOnY">Dir ginn %1$s um %2$s berechent.</string>
+  <string name="makeAdditionalDonation">Eng zousätzlech Spend maachen</string>
   <string name="giftPatronWings">Engem Spiller Ënnerstëtzer-Flilleken schenken</string>
   <string name="update">Update</string>
+  <string name="changeMonthlyAmount">Méintlechen Montant änneren (%s)</string>
+  <string name="cancelSupport">deng Ënnerstëtzung ofbriechen</string>
+  <string name="xOrY">%1$s oder %2$s</string>
+  <string name="decideHowMuch">Decidéier wat Lichess dir wert ass:</string>
+  <string name="stopPayments">Kreditkaart zeréckzéien and Iwwerweisungen stoppen:</string>
+  <string name="noLongerSupport">Lichess net méi ënnerstëtzen</string>
   <string name="viewOthers">Aner Lichess Ënnerstëtzer gesinn</string>
   <string name="date">Datum</string>
   <string name="amount">Montant</string>
+  <string name="transactionCompleted">Deng Transaktion ass ofgeschloss and du kriss eng Email mat enger Quittung vun denger Spend.</string>
+  <string name="permanentPatron">Du hues elo en liewenslaangen Ënnerstëtzer-Konto.</string>
+  <string name="checkOutProfile">Besich deng Profilsäit!</string>
   <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung änneren</string>
 </resources>
