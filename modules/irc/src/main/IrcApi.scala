@@ -45,7 +45,13 @@ final class IrcApi(
       }
       .flatMap {
         _ ?? { ZulipLink =>
-          noteApi.write(user, s"$domain discussion: $ZulipLink", mod.user, modOnly = true, dox = false)
+          noteApi.write(
+            user,
+            s"$domain discussion: $ZulipLink",
+            mod.user,
+            modOnly = true,
+            dox = (domain == ModDomain.Admin)
+          )
         }
       }
   }
