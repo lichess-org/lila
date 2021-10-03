@@ -32,10 +32,9 @@ object search {
             input(
               name := "q",
               autofocus,
-              placeholder := "Search by IP, email, or username",
+              placeholder := "Search by IP, email, or username (exact match only)",
               value := form("q").value
-            ),
-            form3.select(form("as"), lila.mod.UserSearch.asChoices)
+            )
           ),
           userTable(mod, users)
         )
