@@ -163,8 +163,7 @@ final class ChatApi(
           text = data.text,
           busChan = data.chan match {
             case "tournament" => _.Tournament
-            case "swiss"      => _.Swiss
-            case _            => _.Simul
+            case _      => _.Swiss
           }
         )
       }
