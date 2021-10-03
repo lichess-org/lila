@@ -553,6 +553,14 @@
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
   <string name="error.required">Tämä kenttä vaaditaan</string>
+  <string name="error.email">Sähköpostiosoite on virheellinen</string>
+  <string name="error.email_acceptable">Sähköpostiosoite ei ole kelvollinen. Tarkista se, ja yritä uudelleen.</string>
+  <string name="error.email_unique">Sähköpostiosoite on virheellinen tai jo käytössä</string>
+  <string name="error.email_different">Tämä on jo nyt sähköpostiosoitteesi</string>
+  <string name="error.minLength">Vähimmäispituus on %s</string>
+  <string name="error.maxLength">Enimmäispituus on %s</string>
+  <string name="error.min">Luvun on oltava vähintään %s</string>
+  <string name="error.max">Luvun on oltava enintään %s</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
