@@ -63,4 +63,6 @@
   <string name="fromMyGamesNone">Ваших задач немає в базі даних, проте Lichess все одно дуже сильно вас любить.
 Грайте ігри в рапід або з класичною системою контролю часу, для того щоб збільшити можливість додання вашої задачі!</string>
   <string name="fromXGamesFound">%1$s задач знайдено в %2$s іграх</string>
+  <string name="percentSolved">%s вирішено</string>
+  <string name="strengthDescription">Ви показуєте найкращий результат в наступних темах</string>
 </resources>
