@@ -559,6 +559,11 @@
   <string name="error.email">हा ईमेल पत्ता अवैध आहे</string>
   <string name="error.email_acceptable">हा ईमेल पत्ता स्वीकार्य नाही. कृपया ते पुन्हा तपासा आणि पुन्हा प्रयत्न करा.</string>
   <string name="error.email_unique">ईमेल पत्ता अवैध किंवा आधीच घेतला आहे</string>
+  <string name="error.email_different">हा आधीच तुमचा ईमेल पत्ता आहे</string>
+  <string name="error.minLength">किमान लांबी %s आहे</string>
+  <string name="error.maxLength">कमाल लांबी %s आहे</string>
+  <string name="error.min">%s यापेक्षा मोठे किंवा समान असणे आवश्यक आहे</string>
+  <string name="error.max">%s यापेक्षा कमी किंवा समान असणे आवश्यक आहे</string>
   <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
   <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
@@ -829,4 +834,12 @@
 सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
   <string name="coachManager">प्रशिक्षक व्यवस्थापक</string>
   <string name="streamerManager">स्ट्रीमर व्यवस्थापक</string>
+  <string name="cancelTournament">स्पर्धेत परत या</string>
+  <string name="tournDescription">संपूर्ण स्पर्धेचे वर्णन</string>
+  <string name="tournDescriptionHelp">तुम्हाला सहभागींना काही विशेष सांगायचे आहे का? ते लहान ठेवण्याचा प्रयत्न करा. मार्कडाउन लिंक उपलब्ध आहेत: [नाव] (https: // url)</string>
+  <string name="ratedFormHelp">खेळ रेट केले आहेत
+आणि खेळाडूंच्या रेटिंगवर परिणाम होतो</string>
+  <string name="onlyMembersOfTeam">फक्त टीमचे सदस्य</string>
+  <string name="noRestriction">निर्बंध नाहीत</string>
+  <string name="minimumRatedGames">किमान रेट केलेले खेळ</string>
 </resources>
