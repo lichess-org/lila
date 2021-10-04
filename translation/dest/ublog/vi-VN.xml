@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">Nhật kí của %s</string>
+  <string name="xBlog">Bài viết của %s</string>
   <string name="newPost">Bài đăng mới</string>
+  <string name="editYourBlogPost">Chỉnh sửa bài đăng của bạn</string>
   <string name="saveDraft">Lưu nháp</string>
+  <string name="postTitle">Tiêu đề bài viết</string>
+  <string name="postIntro">Giới thiệu bài viết</string>
+  <string name="postBody">Nội dung bài viết</string>
   <string name="drafts">Nháp</string>
   <string name="published">Đã đăng</string>
   <plurals name="publishedNbBlogPosts">
@@ -13,4 +17,7 @@
   </plurals>
   <string name="xPublishedY">%1$s đã đăng %2$s bài</string>
   <string name="thisPostIsPublished">Bài này đã được đăng</string>
+  <string name="thisIsADraft">Nó là một bản nháp</string>
+  <string name="noDrafts">Không có bản nháp nào để hiển thị</string>
+  <string name="uploadAnImageForYourPost">Tải một bức ảnh cho bài viết của bạn</string>
 </resources>
