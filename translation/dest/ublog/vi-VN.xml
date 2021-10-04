@@ -4,4 +4,13 @@
   <string name="newPost">Bài đăng mới</string>
   <string name="saveDraft">Lưu nháp</string>
   <string name="drafts">Nháp</string>
+  <string name="published">Đã đăng</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">Đã đăng %s bài</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="other">%s lượt xem</item>
+  </plurals>
+  <string name="xPublishedY">%1$s đã đăng %2$s bài</string>
+  <string name="thisPostIsPublished">Bài này đã được đăng</string>
 </resources>
