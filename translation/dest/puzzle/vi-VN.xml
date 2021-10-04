@@ -48,6 +48,10 @@
   <string name="history">Lịch sử câu đố</string>
   <string name="solved">đã giải quyết</string>
   <string name="failed">thất bại</string>
+  <string name="yourStreakX">Chuỗi của bạn: %s</string>
+  <string name="newStreak">Chuỗi mới</string>
+  <string name="fromMyGames">Từ ván đấu của tôi</string>
+  <string name="lookupOfPlayer">Tím câu đố từ ván đấu của người khác</string>
   <string name="fromXGames">Câu đố của %s</string>
   <string name="searchPuzzles">Tìm câu đố</string>
   <plurals name="nbPlayed">
