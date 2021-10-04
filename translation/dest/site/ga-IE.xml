@@ -656,7 +656,13 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="increment">Incrimint</string>
   <string name="error.required">Tá an réimse seo riachtanach</string>
   <string name="error.email">Tá an seoladh ríomhphoist seo neamhbhailí</string>
+  <string name="error.email_acceptable">Ní ghlactar leis an seoladh ríomhphoist seo. Déan é a sheiceáil faoi dhó le do thoil, agus bain triail eile as.</string>
   <string name="error.email_unique">Seoladh ríomhphoist neamhbhailí nó tógtha cheana féin</string>
+  <string name="error.email_different">Seo do sheoladh ríomhphoist cheana féin</string>
+  <string name="error.minLength">Is é %s an fad íosta</string>
+  <string name="error.maxLength">Is é %s an fad uasta</string>
+  <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
+  <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
   <string name="onlyExistingConversations">Comhráite láithreach amháin</string>
   <string name="onlyFriends">Cairde amháin</string>
