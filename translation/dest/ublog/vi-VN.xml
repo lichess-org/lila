@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">Nhật kí của %s</string>
+  <string name="newPost">Bài đăng mới</string>
+  <string name="saveDraft">Lưu nháp</string>
+  <string name="drafts">Nháp</string>
+</resources>
