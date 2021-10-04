@@ -97,7 +97,7 @@ final private class GameProxy(
 
   private[this] var cache: Fu[Option[Game]] = fetch
 
-  private[this] def fetch = gameRepo game id
+  private[this] def fetch = gameRepo game id recoverDefault none
 }
 
 private object GameProxy {
