@@ -48,4 +48,11 @@
   <string name="history">Lịch sử câu đố</string>
   <string name="solved">đã giải quyết</string>
   <string name="failed">thất bại</string>
+  <string name="fromXGames">Câu đố của %s</string>
+  <string name="searchPuzzles">Tìm câu đố</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">Đã chơi %s câu đố</item>
+  </plurals>
+  <string name="percentSolved">Đã giải được %s câu đố</string>
+  <string name="strengthDescription">Bạn thể hiện tốt nhất vào những lĩnh vực này</string>
 </resources>
