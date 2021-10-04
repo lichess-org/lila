@@ -16,7 +16,7 @@
     <item quantity="other">%s lượt xem</item>
   </plurals>
   <string name="xPublishedY">%1$s đã đăng %2$s bài</string>
-  <string name="thisPostIsPublished">Bài này đã được đăng</string>
+  <string name="thisPostIsPublished">Bài viết này đã được đăng xuất bản</string>
   <string name="thisIsADraft">Nó là một bản nháp</string>
   <string name="noDrafts">Không có bản nháp nào để hiển thị</string>
   <string name="uploadAnImageForYourPost">Tải một bức ảnh cho bài viết của bạn</string>
