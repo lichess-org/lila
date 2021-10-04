@@ -37,14 +37,14 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
   def createdByChallengerId(max: Int = 50)(userId: String): Fu[List[Challenge]] =
     coll
       .find(selectCreated ++ $doc("challenger.id" -> userId))
-      .sort($doc("createdAt" -> 1))
+      .sort($sort asc "createdAt")
       .cursor[Challenge]()
       .list(max)
 
   def createdByDestId(max: Int = 50)(userId: String): Fu[List[Challenge]] =
     coll
       .find(selectCreated ++ $doc("destUser.id" -> userId))
-      .sort($doc("createdAt" -> 1))
+      .sort($doc($sort asc "createdAt"))
       .cursor[Challenge]()
       .list(max)
 
