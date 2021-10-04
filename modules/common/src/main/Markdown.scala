@@ -72,7 +72,7 @@ final class Markdown(
         }
       }
       .mon(_.markdown.time)
-      .logIfSlow(100, logger.branch(key))(_ => s"slow markdown size:${text.size}")
+      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.size}")
       .result
 }
 
