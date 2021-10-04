@@ -336,6 +336,7 @@
   <string name="follow">Theo dõi</string>
   <string name="following">Đang theo dõi</string>
   <string name="unfollow">Bỏ theo dõi</string>
+  <string name="followX">Theo dõi %s</string>
   <string name="block">Chặn</string>
   <string name="blocked">Đã chặn</string>
   <string name="unblock">Bỏ chặn</string>
