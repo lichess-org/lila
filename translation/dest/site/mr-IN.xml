@@ -47,6 +47,8 @@
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
+  <string name="whiteDidntMove">पांढरा नाही खेळला</string>
+  <string name="blackDidntMove">काळा खेळला नाही</string>
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
@@ -85,6 +87,7 @@
     <item quantity="one">%s अर्ध्याचालीत मात</item>
     <item quantity="other">%s अर्ध चालीत मात</item>
   </plurals>
+  <string name="dtzWithRounding">गोलाकार सह, पुढील कॅप्चर किंवा प्यादे हलवण्यापर्यंत अर्ध्या हालचालींच्या संख्येवर आधारित</string>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
   <string name="openingExplorer">ओपेनिग अन्वेषक</string>
@@ -92,6 +95,9 @@
   <string name="xOpeningExplorer">%s ओपेनिग अन्वेषक</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
+  <string name="winOr50MovesByPriorMistake">आधीच्या चूकाने विजय किंवा 50 चाली</string>
+  <string name="lossOr50MovesByPriorMistake">आधीच्या चुकीने नुकसान किंवा 50 चाली</string>
+  <string name="unknownDueToRounding">Syzygy tablebases मध्ये DTZ मूल्यांच्या संभाव्य गोलाकारपणामुळे, शेवटच्या कॅप्चर किंवा प्याद्याच्या हालचालींपासून शिफारस केलेल्या टेबलबेस लाइनचे पालन केले तरच जिंकणे/हारणे हमी आहे.</string>
   <string name="allSet">सर्व तयार!</string>
   <string name="importPgn">PGN आयात करा</string>
   <string name="delete">काढून टाका</string>
@@ -363,6 +369,8 @@
   <string name="follow">अनुसरण करा</string>
   <string name="following">अनुयायी</string>
   <string name="unfollow">अनुसरण रद्द</string>
+  <string name="followX">%S चे अनुसरण करा</string>
+  <string name="unfollowX">%S चे अनुसरण करणे रद्द करा</string>
   <string name="block">अडवा</string>
   <string name="blocked">अडवलेले</string>
   <string name="unblock">आड दूर करा</string>
@@ -548,6 +556,9 @@
   <string name="tools">साधने</string>
   <string name="increment">वाढ</string>
   <string name="error.required">ही माहिती अनिवार्य आहे</string>
+  <string name="error.email">हा ईमेल पत्ता अवैध आहे</string>
+  <string name="error.email_acceptable">हा ईमेल पत्ता स्वीकार्य नाही. कृपया ते पुन्हा तपासा आणि पुन्हा प्रयत्न करा.</string>
+  <string name="error.email_unique">ईमेल पत्ता अवैध किंवा आधीच घेतला आहे</string>
   <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
   <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
