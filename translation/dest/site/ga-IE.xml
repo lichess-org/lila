@@ -103,6 +103,7 @@
   <string name="lossSavedBy50MoveRule">Bac ar chaill mar gheall arriail an 50 bheart</string>
   <string name="winOr50MovesByPriorMistake">Bua nó 50 beart trí bhotún roimhe seo</string>
   <string name="lossOr50MovesByPriorMistake">Cailleadh nó 50 beart trí bhotún roimhe seo</string>
+  <string name="unknownDueToRounding">Ní ráthaítear bua / caillteanas ach má leanadh an líne mholta boird ón mbeart gabhála nó ceithearnach deireanach, mar gheall ar chothromú féideartha luachanna DTZ i mboscaí tábla Syzygy.</string>
   <string name="allSet">Réidh le himirt!</string>
   <string name="importPgn">Iompórtáil PGN</string>
   <string name="delete">Scrios</string>
