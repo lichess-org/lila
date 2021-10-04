@@ -5,7 +5,7 @@ import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.{ ReadPreference, WriteConcern }
+import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
 
 import lila.common.ThreadLocalRandom
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -154,6 +154,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Game] =
     coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
+
+  def byIdsCursor(ids: Iterable[Game.ID]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
   def goBerserk(pov: Pov): Funit =
     coll.update
