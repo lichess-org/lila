@@ -54,6 +54,7 @@
   <string name="lookupOfPlayer">Tím câu đố từ ván đấu của người khác</string>
   <string name="fromXGames">Câu đố của %s</string>
   <string name="searchPuzzles">Tìm câu đố</string>
+  <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>
   <plurals name="nbPlayed">
     <item quantity="other">Đã chơi %s câu đố</item>
   </plurals>
