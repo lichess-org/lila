@@ -520,6 +520,14 @@
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
   <string name="error.required">Isian di sini diperlukan</string>
+  <string name="error.email">Alamat e-mail ini tidak valid</string>
+  <string name="error.email_acceptable">Alamat e-mail ini tidak dapat diterma. Pastikan kembali e-mail Anda, lalu coba lagi.</string>
+  <string name="error.email_unique">Alamat e-mail tidak valid atau sudah dipakai</string>
+  <string name="error.email_different">Ini sudah menjadi alamat e-mail Anda</string>
+  <string name="error.minLength">Panjang minimum adalah %s</string>
+  <string name="error.maxLength">Panjang maksimum adalah %s</string>
+  <string name="error.min">Harus lebih besar atau sama dengan %s</string>
+  <string name="error.max">Harus kurang atau sama dengan %s</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
   <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
