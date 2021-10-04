@@ -13,7 +13,7 @@
   <string name="specialMoves">Posebne poteze</string>
   <string name="didYouLikeThisPuzzle">Ali ti je všeč šahovski problem?</string>
   <string name="voteToLoadNextOne">Glasujte za nalaganje naslednjega!</string>
-  <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Vaša ocena uganke se ne bo spremenila. Upoštevajte, da uganke niso tekmovanje. Ocena pomaga izbrati najboljše uganke za vaše trenutno znanje.</string>
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
   <string name="toGetPersonalizedPuzzles">Če želite prejeti uganke po meri:</string>

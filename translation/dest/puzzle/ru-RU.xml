@@ -13,7 +13,7 @@
   <string name="specialMoves">Особые ходы</string>
   <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
   <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>
-  <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Ваш рейтинг в решении задач не изменится. Решение задач — это не соревнование. Рейтинг помогает лучше подбирать для вас задачи по вашему уровню.</string>
   <string name="findTheBestMoveForWhite">Найдите лучший ход за белых.</string>
   <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
   <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>

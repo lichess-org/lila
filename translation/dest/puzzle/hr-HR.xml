@@ -13,7 +13,6 @@
   <string name="specialMoves">Specifični potezi</string>
   <string name="didYouLikeThisPuzzle">Sviđa li ti se ovaj zadatak?</string>
   <string name="voteToLoadNextOne">Ocijeni i prijeđi na sljedeći zadatak!</string>
-  <string name="yourPuzzleRatingX">Tvoj rejting zadataka %s</string>
   <string name="findTheBestMoveForWhite">Pronađi najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Pronađi najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Za personalizirane zadatke:</string>

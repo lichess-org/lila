@@ -5,6 +5,12 @@
   <string name="freeAccount">Безкоштовний обліковий запис</string>
   <string name="becomePatron">Стати Покровителем Lichess</string>
   <string name="xBecamePatron">%s став Покровителем Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s - Покровитель Lichess на %2$s місяць</item>
+    <item quantity="few">%1$s - Покровитель Lichess на %2$s місяці</item>
+    <item quantity="many">%1$s - Покровитель Lichess на %2$s місяці</item>
+    <item quantity="other">%1$s - Покровитель Lichess на %2$s місяців</item>
+  </plurals>
   <string name="newPatrons">Нові Спонсори</string>
   <string name="freeChess">Безкоштовні шахи для всіх, назавжди!</string>
   <string name="noAdsNoSubs">Без реклами та підписок, але з відкритим вихідним кодом і відданістю.</string>

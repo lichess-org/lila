@@ -3,4 +3,6 @@
   <string name="xPublishedY">%1$s publikoval %2$s</string>
   <string name="noPostsInThisBlogYet">Zatím v tomto blogu nejsou žádné příspěvky.</string>
   <string name="noDrafts">Žádné koncepty k zobrazení.</string>
+  <string name="uploadAnImageForYourPost">Nahrát obrázek pro váš příspěvek</string>
+  <string name="imageAlt">Alternativní text obrázku</string>
 </resources>

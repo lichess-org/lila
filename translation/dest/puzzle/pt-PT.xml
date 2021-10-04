@@ -13,7 +13,6 @@
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Gostaste deste problema?</string>
   <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>
-  <string name="yourPuzzleRatingX">A tua pontuação em problemas: %s</string>
   <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontra a melhor jogada para as pretas.</string>
   <string name="toGetPersonalizedPuzzles">Para obteres problemas personalizados:</string>

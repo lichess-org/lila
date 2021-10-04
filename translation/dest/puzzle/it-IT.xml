@@ -13,7 +13,6 @@
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
   <string name="voteToLoadNextOne">Vota per caricare la prossima!</string>
-  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
   <string name="toGetPersonalizedPuzzles">Per ottenere tattiche personalizzate:</string>

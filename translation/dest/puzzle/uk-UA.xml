@@ -13,7 +13,7 @@
   <string name="specialMoves">Спеціальні ходи</string>
   <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
   <string name="voteToLoadNextOne">Голосуйте, щоб завантажити наступний!</string>
-  <string name="yourPuzzleRatingX">Ваш рейтинг по задачах: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Ваш рейтинг у задачах не зміниться. Зверніть увагу, що рейтинг введений не для змагання. Рейтинг допомагає підбирати задачі за вашими вміннями.</string>
   <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
   <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
   <string name="toGetPersonalizedPuzzles">Щоб отримати персоналізовані задачі:</string>
@@ -64,4 +64,21 @@
   <string name="fromMyGamesNone">Ваших задач немає в базі даних, проте Lichess все одно дуже сильно вас любить.
 Грайте ігри в рапід або з класичною системою контролю часу, для того щоб збільшити можливість додання вашої задачі!</string>
   <string name="fromXGamesFound">%1$s задач знайдено в %2$s іграх</string>
+  <string name="puzzleDashboardDescription">Тренуйтеся, аналізуйте, покращуйте</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s зірано</item>
+    <item quantity="few">%s зіграно</item>
+    <item quantity="many">%s зіграно</item>
+    <item quantity="other">%s зіграно</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s можна переграти</item>
+    <item quantity="few">%s можна переграти</item>
+    <item quantity="many">%s можна переграти</item>
+    <item quantity="other">%s можна переграти</item>
+  </plurals>
+  <string name="percentSolved">%s вирішено</string>
+  <string name="noPuzzlesToShow">Немає що показати, спочатку спробуйте вирішити пару задач!</string>
+  <string name="improvementAreasDescription">Тренуйтеся, щоб покращити ваш прогрес!</string>
+  <string name="strengthDescription">Ви показуєте найкращий результат в наступних темах</string>
 </resources>

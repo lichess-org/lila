@@ -49,6 +49,8 @@
   <string name="blackResigned">Černý se vzdal</string>
   <string name="whiteLeftTheGame">Bílý opustil hru</string>
   <string name="blackLeftTheGame">Černý opustil hru</string>
+  <string name="whiteDidntMove">Bílý netáhl</string>
+  <string name="blackDidntMove">Černý netáhl</string>
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Analýza počítače k dispozici</string>
@@ -89,6 +91,7 @@
     <item quantity="many">Mat v %s půltazích</item>
     <item quantity="other">Mat v %s půltazích</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' s zaokrouhlením na základě počtu půltahů do dalšího braní nebo tahu pěšcem</string>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
@@ -96,6 +99,9 @@
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
   <string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
   <string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
+  <string name="winOr50MovesByPriorMistake">Výhra nebo 50 tahů po předchozí chybě</string>
+  <string name="lossOr50MovesByPriorMistake">Prohra nebo 50 tahů po předchozí chybě</string>
+  <string name="unknownDueToRounding">Výhra/prohra zaručena pouze v případě, že byla dodržena doporučená série tahů z tablebase od posledního braní nebo tahu pěšcem, vzhledem k možnému zaokrouhlení hodnot DTZ v tabulkách Syzygy.</string>
   <string name="allSet">Vše nastaveno!</string>
   <string name="importPgn">Vložit PGN</string>
   <string name="delete">Smazat</string>
@@ -417,6 +423,8 @@
   <string name="follow">Sledovat</string>
   <string name="following">Sledován</string>
   <string name="unfollow">Přestat sledovat</string>
+  <string name="followX">Sledovat %s</string>
+  <string name="unfollowX">Přestat sledovat %s</string>
   <string name="block">Blokovat</string>
   <string name="blocked">Blokován</string>
   <string name="unblock">Odblokovat</string>
@@ -614,6 +622,14 @@
   <string name="tools">Nástroje</string>
   <string name="increment">Navýšení</string>
   <string name="error.required">Toto pole je povinné</string>
+  <string name="error.email">Emailová adresa je neplatná</string>
+  <string name="error.email_acceptable">Tato emailová adresa je nepřijatelná. Prosím, zkontrolujte ji a zkuste to znovu.</string>
+  <string name="error.email_unique">E-mailová adresa je neplatná nebo je již obsazena</string>
+  <string name="error.email_different">Toto je již Vaše emailová adresa</string>
+  <string name="error.minLength">Minimální délka je %s</string>
+  <string name="error.maxLength">Maximální délka je %s</string>
+  <string name="error.min">Musí být větší nebo rovno %s</string>
+  <string name="error.max">Musí být menší nebo rovno %s</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
   <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
@@ -920,6 +936,8 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
   <string name="mouseTricks">Klávesové zkratky</string>
+  <string name="toggleLocalAnalysis">Zapnout/vypnout lokální počítačovou analýzu</string>
+  <string name="toggleAllAnalysis">Zapnout/vypnout všechny počítačové analýzy</string>
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>

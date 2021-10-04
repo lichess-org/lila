@@ -13,7 +13,6 @@
   <string name="specialMoves">Erilised käigud</string>
   <string name="didYouLikeThisPuzzle">Kas sulle meeldis see pusle?</string>
   <string name="voteToLoadNextOne">Hääleta, nii saad edasi!</string>
-  <string name="yourPuzzleRatingX">Sinu lahendamisskoor: %s</string>
   <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
   <string name="toGetPersonalizedPuzzles">Saa personaalseid puslesid:</string>

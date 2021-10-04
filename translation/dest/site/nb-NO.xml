@@ -556,6 +556,14 @@
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
   <string name="error.required">Dette feltet er påkrevet</string>
+  <string name="error.email">Denne e-postadressen er ugyldig</string>
+  <string name="error.email_acceptable">Denne e-postadressen godtas ikke. Dobbeltsjekk den og prøv på nytt.</string>
+  <string name="error.email_unique">E-postadressen er ugyldig eller allerede registrert</string>
+  <string name="error.email_different">Dette er allerede e-postadressen din</string>
+  <string name="error.minLength">Minste tillatte lengde er %s</string>
+  <string name="error.maxLength">Største tillatte lengde er %s</string>
+  <string name="error.min">Må være større enn eller lik %s</string>
+  <string name="error.max">Må være mindre enn eller lik %s</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
   <string name="onlyExistingConversations">Bare eksisterende samtaler</string>
   <string name="onlyFriends">Bare venner</string>

@@ -13,7 +13,6 @@
   <string name="specialMoves">Ypatingi ėjimai</string>
   <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
-  <string name="yourPuzzleRatingX">Jūsų užduočių reitingas: %s</string>
   <string name="findTheBestMoveForWhite">Raskite geriausią ėjimą baltiems.</string>
   <string name="findTheBestMoveForBlack">Raskite geriausią ėjimą juodiems.</string>
   <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintas užduotis:</string>

@@ -13,7 +13,7 @@
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
-  <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Je puzzelrating zal niet veranderen: puzzels zijn geen competitie. De rating helpt bij het selecteren van de beste puzzels voor je huidige vaardigheid.</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
   <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>

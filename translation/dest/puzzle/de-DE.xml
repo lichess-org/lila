@@ -13,7 +13,7 @@
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
-  <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Deine Puzzle-Wertung wird sich nicht ändern. Beachte, dass Aufgaben kein Wettbewerb sind. Deine Wertung hilft, die geeignetsten Aufgaben für deine aktuelle Fähigkeit auszuwählen.</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>

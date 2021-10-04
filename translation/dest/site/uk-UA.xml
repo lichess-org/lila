@@ -619,6 +619,13 @@
   <string name="tools">Інструменти</string>
   <string name="increment">Приріст</string>
   <string name="error.required">Це поле обов\'язкове</string>
+  <string name="error.email_acceptable">Ця адреса email не придатна. Будь-ласка, перевірте її і спробуйте знову.</string>
+  <string name="error.email_unique">Електронна адреса неправильна або вже використовується</string>
+  <string name="error.email_different">Це і так ваша адреса електронної пошти</string>
+  <string name="error.minLength">Мінімальна довжина - %s</string>
+  <string name="error.maxLength">Максимальна довжина - %s</string>
+  <string name="error.min">Має бути більше або дорівнювати %s</string>
+  <string name="error.max">Має бути менше або дорівнювати %s</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyExistingConversations">Тільки існуючі бесіди</string>
   <string name="onlyFriends">Тільки друзям</string>

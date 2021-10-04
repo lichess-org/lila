@@ -95,6 +95,9 @@
   <string name="xOpeningExplorer">%s -avaustietokanta</string>
   <string name="winPreventedBy50MoveRule">50 siirron sääntö estää voiton</string>
   <string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
+  <string name="winOr50MovesByPriorMistake">Voitto tai 50 siirtoa edeltävän virheen seurauksena</string>
+  <string name="lossOr50MovesByPriorMistake">Tappio tai 50 siirtoa edeltävän virheen seurauksena</string>
+  <string name="unknownDueToRounding">Voitto tai tappio on varma vain, jos tietokannan suosittamaa jatkoa on noudatettu viimeisestä nappulan lyönnistä tai sotilaan siirrosta lähtien. Tämä johtuu DTZ-arvojen mahdollisesta pyöristymisestä Syzygy-tietokannoissa.</string>
   <string name="allSet">Valmis!</string>
   <string name="importPgn">Tuo PGN</string>
   <string name="delete">Poista</string>
@@ -553,6 +556,14 @@
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
   <string name="error.required">Tämä kenttä vaaditaan</string>
+  <string name="error.email">Sähköpostiosoite on virheellinen</string>
+  <string name="error.email_acceptable">Sähköpostiosoite ei ole kelvollinen. Tarkista se, ja yritä uudelleen.</string>
+  <string name="error.email_unique">Sähköpostiosoite on virheellinen tai jo käytössä</string>
+  <string name="error.email_different">Tämä on jo nyt sähköpostiosoitteesi</string>
+  <string name="error.minLength">Vähimmäispituus on %s</string>
+  <string name="error.maxLength">Enimmäispituus on %s</string>
+  <string name="error.min">Luvun on oltava vähintään %s</string>
+  <string name="error.max">Luvun on oltava enintään %s</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
