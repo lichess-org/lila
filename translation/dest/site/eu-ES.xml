@@ -369,7 +369,7 @@
   <string name="follow">Jarraitu</string>
   <string name="following">Jarraitzen</string>
   <string name="unfollow">Jarraitzeari uztea</string>
-  <string name="followX">Jarraitu %</string>
+  <string name="followX">Jarraitu %s</string>
   <string name="unfollowX">Utzi %s jarraitzeari</string>
   <string name="block">Blokeatu</string>
   <string name="blocked">Blokeatuta</string>
