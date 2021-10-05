@@ -35,7 +35,7 @@ object dashboard {
           PuzzleTheme(key).name.txt()
         }
         frag(
-          jsModule("lishogi.puzzle.dashboard"),
+          jsModule("puzzle.dashboard", true),
           embedJsUnsafe(s"""$$(function() {
             LishogiPuzzleDashboard.renderRadar(${safeJsonValue(
             Json

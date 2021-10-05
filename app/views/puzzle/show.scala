@@ -22,7 +22,7 @@ object show {
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
-        jsModule("lishogi.puzzle"),
+        jsModule("puzzle", true),
         embedJsUnsafe(s"""$$(function() {
           LishogiPuzzle(${safeJsonValue(
           Json

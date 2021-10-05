@@ -18,7 +18,7 @@ object storm {
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
       moreJs = frag(
-        jsModule("lishogi.storm"),
+        jsModule("storm"),
         embedJsUnsafe(s"""$$(function() {
           LishogiStorm.start(${safeJsonValue(
           Json.obj(
