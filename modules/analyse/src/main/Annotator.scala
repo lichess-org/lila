@@ -7,17 +7,17 @@ import shogi.{ Color, Status }
 final class Annotator {
 
   def apply(
-      k: Notation,
+      n: Notation,
       analysis: Option[Analysis]
   ): Notation =
     annotateMoves(
-      k,
+      n,
       analysis ?? (_.advices)
     )
 
-  private def annotateMoves(k: Notation, advices: List[Advice]): Notation =
-    advices.foldLeft(k) { case (kif, advice) =>
-      kif.updatePly(
+  private def annotateMoves(n: Notation, advices: List[Advice]): Notation =
+    advices.foldLeft(n) { case (notation, advice) =>
+      notation.updatePly(
         advice.ply,
         move =>
           move.copy(

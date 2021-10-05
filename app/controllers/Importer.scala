@@ -10,8 +10,8 @@ final class Importer(env: Env) extends LilaController(env) {
   def importGame =
     OpenBody { implicit ctx =>
       fuccess {
-        val kif  = ctx.body.queryString.get("kif").flatMap(_.headOption).getOrElse("")
-        val data = lila.importer.ImportData(kif, None)
+        val notation = ctx.body.queryString.get("notation").flatMap(_.headOption).getOrElse("")
+        val data     = lila.importer.ImportData(notation, None)
         Ok(html.game.importGame(env.importer.forms.importForm.fill(data)))
       }
     }
@@ -25,7 +25,7 @@ final class Importer(env: Env) extends LilaController(env) {
           failure =>
             negotiate(
               html = Ok(html.game.importGame(failure)).fuccess,
-              api = _ => BadRequest(Json.obj("error" -> "Invalid KIF")).fuccess
+              api = _ => BadRequest(Json.obj("error" -> "Invalid notation")).fuccess
             ),
           data =>
             env.importer.importer(data, ctx.userId) flatMap { game =>
@@ -45,7 +45,7 @@ final class Importer(env: Env) extends LilaController(env) {
               lila
                 .log("importer")
                 .warn(
-                  s"Imported game validates but can't be replayed:\n${data.kif}",
+                  s"Imported game validates but can't be replayed:\n${data.notation}",
                   e
                 )
               Redirect(routes.Importer.importGame())

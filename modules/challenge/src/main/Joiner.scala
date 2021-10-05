@@ -46,7 +46,7 @@ final private class Joiner(
               mode = if (shogiGame.board.variant.fromPosition) Mode.Casual else c.mode,
               source = Source.Friend,
               daysPerTurn = c.daysPerTurn,
-              pgnImport = None
+              notationImport = None
             )
             .withId(c.id)
             .pipe { g =>

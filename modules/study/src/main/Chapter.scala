@@ -116,10 +116,11 @@ object Chapter {
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None,
-      fromKif: Option[Boolean] = None
+      fromNotation: Option[Boolean] = None
   ) {
-    def isFromFen = ~fromFen
-    def isFromKif = ~fromKif
+    def isFromFen      = ~fromFen
+    def isFromNotation = ~fromNotation
+
   }
 
   case class Relay(

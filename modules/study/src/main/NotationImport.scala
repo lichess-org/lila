@@ -11,7 +11,7 @@ import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import lila.game.Game
 
-object PgnImport {
+object NotationImport {
 
   case class Result(
       root: Node.Root,
@@ -27,8 +27,8 @@ object PgnImport {
       statusText: String
   )
 
-  def apply(kif: String, contributors: List[LightUser]): Valid[Result] =
-    ImportData(kif, analyse = none).preprocess(user = none).map {
+  def apply(notation: String, contributors: List[LightUser]): Valid[Result] =
+    ImportData(notation, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedNotation) =>
         val annotator = findAnnotator(parsedNotation, contributors)
         parseComments(parsedNotation.initialPosition.comments, annotator) match {
@@ -68,14 +68,14 @@ object PgnImport {
             Result(
               root = commented,
               variant = game.variant,
-              tags = PgnTags(parsedNotation.tags),
+              tags = KifTags(parsedNotation.tags),
               end = end
             )
         }
     }
 
-  def userAnalysis(kif: String): Valid[(Game, Option[FEN], Node.Root, Tags)] =
-    ImportData(kif, analyse = none).preprocess(user = none).map {
+  def userAnalysis(notation: String): Valid[(Game, Option[FEN], Node.Root, Tags)] =
+    ImportData(notation, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedNotation) =>
         val annotator = findAnnotator(parsedNotation, Nil)
         parseComments(parsedNotation.initialPosition.comments, annotator) match {
@@ -102,8 +102,8 @@ object PgnImport {
         }
     }
 
-  private def findAnnotator(kif: ParsedNotation, contributors: List[LightUser]): Option[Comment.Author] =
-    kif tags "annotator" map { a =>
+  private def findAnnotator(notation: ParsedNotation, contributors: List[LightUser]): Option[Comment.Author] =
+    notation tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
         c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")

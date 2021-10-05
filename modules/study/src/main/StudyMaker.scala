@@ -22,14 +22,14 @@ final private class StudyMaker(
 
   private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
-    chapterMaker.fromFenOrKifOrBlank(
+    chapterMaker.fromFenOrNotationOrBlank(
       study,
       ChapterMaker.Data(
         game = none,
         name = Chapter.Name("Chapter 1"),
         variant = data.form.variantStr,
         fen = data.form.fenStr,
-        kif = data.form.kifStr,
+        notation = data.form.notationStr,
         orientation = data.form.orientation.name,
         mode = ChapterMaker.Mode.Normal.key,
         initial = true
@@ -61,7 +61,7 @@ final private class StudyMaker(
           orientation = pov.color
         ),
         root = root,
-        tags = PgnTags(tags),
+        tags = KifTags(tags),
         order = 1,
         ownerId = user.id,
         practice = false,

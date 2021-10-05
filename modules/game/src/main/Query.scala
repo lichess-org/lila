@@ -38,7 +38,7 @@ object Query {
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
-  def imported(u: String): Bdoc = s"${F.pgnImport}.user" $eq u
+  def imported(u: String): Bdoc = s"${F.notationImport}.user" $eq u
 
   val friend: Bdoc = s"${F.source}" $eq Source.Friend.id
 

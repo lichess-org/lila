@@ -3,7 +3,7 @@ package lila.game
 import shogi.Replay
 import shogi.format.Forsyth
 import shogi.format.kif.{ Kif, KifParser }
-import shogi.format.csa.Csa
+import shogi.format.csa.{ Csa, CsaParser }
 import shogi.format.{ FEN, Notation, NotationMove, ParsedNotation, Tag, TagType, Tags }
 import shogi.{ Centis, Color }
 
@@ -25,8 +25,8 @@ final class NotationDump(
       flags: WithFlags,
       teams: Option[Color.Map[String]] = None
   ): Fu[Notation] = {
-    val imported = game.pgnImport.flatMap { kifi =>
-      KifParser.full(kifi.kif).toOption
+    val imported = game.notationImport.flatMap { ni =>
+      if (ni.isCsa) CsaParser.full(ni.notation).toOption else KifParser.full(ni.notation).toOption
     }
     val tagsFuture =
       if (flags.tags)
@@ -72,13 +72,17 @@ final class NotationDump(
         else
           Kif.createTerminationMove(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
       val notation = if (flags.csa) Csa(ts, moves) else Kif(ts, moves)
-      terminationMove.fold(
-        notation.updateLastPly(
-          _.copy(comments = List(lila.game.StatusText(game.status, game.winnerColor, shogi.variant.Standard)))
-        )
-      ) { t =>
-        notation.updateLastPly(_.copy(result = t.some))
-      }
+      if (game.finished) {
+        terminationMove.fold(
+          notation.updateLastPly(
+            _.copy(comments =
+              List(lila.game.StatusText(game.status, game.winnerColor, shogi.variant.Standard))
+            )
+          )
+        ) { t =>
+          notation.updateLastPly(_.copy(result = t.some))
+        }
+      } else notation
     }
   }
 

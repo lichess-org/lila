@@ -4,7 +4,7 @@ import scala.util.chaining._
 
 import shogi.format.{ Tag, TagType, Tags }
 
-object PgnTags {
+object KifTags {
 
   def apply(tags: Tags): Tags =
     tags pipe filterRelevant pipe removeContradictingTermination pipe sort

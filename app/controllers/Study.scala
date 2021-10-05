@@ -203,7 +203,7 @@ final class Study(
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
       _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
-      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant, chapter.setup.isFromKif)
+      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant, chapter.setup.isFromNotation)
       analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData = env.round.jsonView.userAnalysisJson(
@@ -312,16 +312,16 @@ final class Study(
       } inject Redirect(routes.Study.show(id))
     }
 
-  def importKif(id: String) =
+  def importNotation(id: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       get("sri") ?? { sri =>
-        lila.study.StudyForm.importPgn.form
+        lila.study.StudyForm.importNotation.form
           .bindFromRequest()
           .fold(
             jsonFormError,
             data =>
-              env.study.api.importPgns(
+              env.study.api.importNotations(
                 StudyModel.Id(id),
                 data.toChapterDatas,
                 sticky = data.sticky
@@ -415,22 +415,23 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  private val KifRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
+  private val NotationRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 1.minute,
-    key = "export.study.kif.ip"
+    key = "export.study.notation.ip"
   )
 
-  def kif(id: String) =
+  def notation(id: String, csa: Boolean = false) =
     Open { implicit ctx =>
-      KifRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
+      NotationRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
-            Ok.chunked(env.study.notationDump(study, requestNotationFlags(ctx.req)))
+            val flags = requestNotationFlags(ctx.req, csa)
+            Ok.chunked(env.study.notationDump(study, flags))
               .withHeaders(
                 noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump filename study}.kif"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump filename study}${fileType(flags)}"
               )
               .as(notationContentType)
               .fuccess
@@ -439,15 +440,17 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  def chapterKif(id: String, chapterId: String) =
+  def chapterNotation(id: String, chapterId: String, csa: Boolean = false) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanViewResult(study) {
             lila.mon.export.pgn.studyChapter.increment()
-            Ok(env.study.notationDump.ofChapter(study, requestNotationFlags(ctx.req))(chapter).toString)
+            val flags = requestNotationFlags(ctx.req, csa)
+            Ok(env.study.notationDump.ofChapter(study, flags)(chapter).toString)
               .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.kif"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump
+                  .filename(study, chapter)}${fileType(flags)}"
               )
               .as(notationContentType)
               .fuccess
@@ -456,8 +459,12 @@ final class Study(
       }
     }
 
-  private def requestNotationFlags(req: RequestHeader) =
+  private def fileType(flags: lila.study.NotationDump.WithFlags): String =
+    if (flags.csa) ".csa" else ".kif"
+
+  private def requestNotationFlags(req: RequestHeader, csa: Boolean) =
     lila.study.NotationDump.WithFlags(
+      csa = getBoolOpt("csa", req) | csa,
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
       clocks = getBoolOpt("clocks", req) | true

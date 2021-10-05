@@ -29,7 +29,7 @@ object show {
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,
             "i18n"     -> jsI18n(),
-            "tagTypes" -> lila.study.PgnTags.typesToString,
+            "tagTypes" -> lila.study.KifTags.typesToString,
             "userId"   -> ctx.userId,
             "chat" -> chatOption.map { c =>
               views.html.chat.json(

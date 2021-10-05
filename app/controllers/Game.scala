@@ -18,7 +18,7 @@ final class Game(
   def delete(gameId: String) =
     Auth { implicit ctx => me =>
       OptionFuResult(env.game.gameRepo game gameId) { game =>
-        if (game.pgnImport.flatMap(_.user) ?? (me.id.==)) {
+        if (game.notationImport.flatMap(_.user) ?? (me.id.==)) {
           env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
           (env.game.gameRepo remove game.id) >>
             (env.analyse.analysisRepo remove game.id) >>

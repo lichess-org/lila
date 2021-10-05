@@ -322,20 +322,20 @@ object Clock {
     }
 
   def readCsaConfig(str: String): Option[Config] =
-   str.split('+') match {
-     case Array(initStr, byoStr) =>
+    str.split('+') match {
+      case Array(initStr, byoStr) =>
         for {
           init <- initStr.toIntOption
           byo  <- byoStr.toIntOption
         } yield Config(init, 0, byo, 1)
-     case Array(initStr, byoStr, incStr) =>
+      case Array(initStr, byoStr, incStr) =>
         for {
           init <- initStr.toIntOption
           byo  <- byoStr.toIntOption
           inc  <- incStr.toIntOption
         } yield Config(init, inc, byo, 1)
-     case _ => none
-   }
+      case _ => none
+    }
 
   def apply(limit: Int, increment: Int, byoyomi: Int, periods: Int): Clock = {
     apply(Config(limit, increment, byoyomi, periods))

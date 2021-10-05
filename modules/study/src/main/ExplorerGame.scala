@@ -3,7 +3,8 @@ package lila.study
 import scala.util.chaining._
 
 import shogi.format.FEN
-import shogi.format.pgn.Parser
+import shogi.format.kif.KifParser
+import shogi.format.csa.CsaParser
 import lila.game.{ Game, Namer }
 import lila.tree.Node.Comment
 
@@ -66,7 +67,9 @@ final private class ExplorerGame(
   private def gameUrl(game: Game) = s"${net.baseUrl}/${game.id}"
 
   private def gameTitle(g: Game): String = {
-    val pgn    = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.kif).toOption)
+    val pgn = g.notationImport.flatMap(ni =>
+      if (ni.isCsa) CsaParser.full(ni.notation).toOption else KifParser.full(ni.notation).toOption
+    )
     val sente  = pgn.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
     val gote   = pgn.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
     val result = shogi.Color.showResult(g.winnerColor)

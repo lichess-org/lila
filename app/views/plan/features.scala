@@ -74,7 +74,7 @@ object features {
             //  )
             //),
             tr(check)(
-              "Download/Upload any game as KIF"
+              "Download/Upload any game as KIF or CSA"
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),

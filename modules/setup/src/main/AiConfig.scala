@@ -55,7 +55,7 @@ case class AiConfig(
           mode = shogi.Mode.Casual,
           source = if (shogiGame.board.variant.fromPosition) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
-          pgnImport = None
+          notationImport = None
         )
         .sloppy
     } start

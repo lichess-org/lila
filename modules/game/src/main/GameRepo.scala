@@ -357,7 +357,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         .filter(Forsyth.initial !=)
     }
     val checkInHours =
-      if (g2.isPgnImport) none
+      if (g2.isNotationImport) none
       else if (g2.hasClock) 1.some
       else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
       else (24 * 10).some
@@ -461,9 +461,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] =
+  def findNotationImport(notation: String): Fu[Option[Game]] =
     coll.one[Game](
-      $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
+      $doc(s"${F.notationImport}.h" -> NotationImport.hash(notation))
     )
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }

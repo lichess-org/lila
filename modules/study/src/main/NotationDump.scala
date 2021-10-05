@@ -2,6 +2,7 @@ package lila.study
 
 import akka.stream.scaladsl._
 import shogi.format.kif.Kif
+import shogi.format.csa.Csa
 import shogi.format.{ Forsyth, Glyphs, Initial, NotationMove, Tag, Tags }
 import org.joda.time.format.DateTimeFormat
 
@@ -23,16 +24,16 @@ final class NotationDump(
       .map(_.toString)
       .intersperse("\n\n\n")
 
-  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) =
-    Kif(
-      tags = makeTags(study, chapter),
-      moves = toMoves(chapter.root)(flags).toList,
-      initial = Initial(
-        renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
-          chapter.root.shapes
-        ).toList
-      )
+  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) = {
+    val tags  = makeTags(study, chapter)
+    val moves = toMoves(chapter.root)(flags).toList
+    val initial = Initial(
+      renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
+        chapter.root.shapes
+      ).toList
     )
+    if (flags.csa) Csa(tags, moves, initial) else Kif(tags, moves, initial)
+  }
 
   private val fileR = """[\s,]""".r
 
@@ -83,7 +84,7 @@ final class NotationDump(
 
 object NotationDump {
 
-  case class WithFlags(comments: Boolean, variations: Boolean, clocks: Boolean)
+  case class WithFlags(csa: Boolean, comments: Boolean, variations: Boolean, clocks: Boolean)
 
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty

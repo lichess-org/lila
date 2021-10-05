@@ -30,7 +30,7 @@ object widgets {
                 if (g.imported)
                   frag(
                     span("IMPORT"),
-                    g.pgnImport.flatMap(_.user).map { user =>
+                    g.notationImport.flatMap(_.user).map { user =>
                       frag(" ", trans.by(userIdLink(user.some, None, false)))
                     },
                     separator,
@@ -46,7 +46,7 @@ object widgets {
                     if (g.rated) trans.rated.txt() else trans.casual.txt()
                   )
               ),
-              g.pgnImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
+              g.notationImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
               g.tournamentId.map { tourId =>
                 frag(separator, tournamentLink(tourId))
               } orElse
@@ -97,8 +97,11 @@ object widgets {
           frag(br, br),
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
-          g.pgnImport.flatMap(_.user).map { user =>
-            div(cls := "metadata")("KIF import by ", userIdLink(user.some))
+          g.notationImport.flatMap(_.user).map { user =>
+            div(cls := "metadata")(
+              s"${if (g.isKifImport) "KIF" else "CSA"} import by ",
+              userIdLink(user.some)
+            )
           }
         )
       )

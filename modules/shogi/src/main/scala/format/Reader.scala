@@ -3,8 +3,6 @@ package format
 
 import scalaz.Validation.{ failure, success }
 
-import kif.KifParser
-//import csa.CsaParser
 import pgn.Parser
 
 object Reader {
@@ -23,25 +21,20 @@ object Reader {
   }
 
   def full(pgn: String, tags: Tags = Tags.empty): Valid[Result] =
-    fullWithSans(pgn, identity, tags)
+    fullWithPgn(pgn, identity, tags)
 
   def moves(moveStrs: Iterable[String], tags: Tags): Valid[Result] =
-    movesWithSans(moveStrs, identity, tags)
+    movesWithPgn(moveStrs, identity, tags)
 
-  def fullWithSans(pgn: String, op: ParsedMoves => ParsedMoves, tags: Tags = Tags.empty): Valid[Result] =
+  def fullWithPgn(pgn: String, op: ParsedMoves => ParsedMoves, tags: Tags = Tags.empty): Valid[Result] =
     Parser.full(cleanUserInput(pgn)) map { parsed =>
       makeReplay(makeGame(parsed.tags ++ tags), op(parsed.parsedMoves))
     }
 
-  def fullWithKif(kif: String, op: ParsedMoves => ParsedMoves, tags: Tags = Tags.empty): Valid[Result] =
-    KifParser.full(cleanUserInput(kif)) map { parsed =>
-      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.parsedMoves))
-    }
-
-  def fullWithSans(parsed: ParsedNotation, op: ParsedMoves => ParsedMoves): Result =
+  def fullWithParsedMoves(parsed: ParsedNotation, op: ParsedMoves => ParsedMoves): Result =
     makeReplay(makeGame(parsed.tags), op(parsed.parsedMoves))
 
-  def movesWithSans(moveStrs: Iterable[String], op: ParsedMoves => ParsedMoves, tags: Tags): Valid[Result] =
+  def movesWithPgn(moveStrs: Iterable[String], op: ParsedMoves => ParsedMoves, tags: Tags): Valid[Result] =
     Parser.moves(moveStrs, tags.variant | variant.Variant.default) map { moves =>
       makeReplay(makeGame(tags), op(moves))
     }

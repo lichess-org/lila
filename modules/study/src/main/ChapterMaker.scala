@@ -23,24 +23,31 @@ final private class ChapterMaker(
     data.game.??(parseGame) flatMap {
       case None =>
         data.game ?? pgnFetch.fromUrl flatMap {
-          case Some(kif) => fromFenOrKifOrBlank(study, data.copy(kif = kif.some), order, userId)
-          case _         => fromFenOrKifOrBlank(study, data, order, userId)
+          case Some(notation) =>
+            fromFenOrNotationOrBlank(study, data.copy(notation = notation.some), order, userId)
+          case _ => fromFenOrNotationOrBlank(study, data, order, userId)
         }
       case Some(game) => fromGame(study, game, data, order, userId)
     } map { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrKifOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
-    data.kif.filter(_.trim.nonEmpty) match {
-      case Some(kif) => fromKif(study, kif, data, order, userId)
-      case None      => fuccess(fromFenOrBlank(study, data, order, userId))
+  def fromFenOrNotationOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+    data.notation.filter(_.trim.nonEmpty) match {
+      case Some(notation) => fromNotation(study, notation, data, order, userId)
+      case None           => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromKif(study: Study, kif: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  private def fromNotation(
+      study: Study,
+      notation: String,
+      data: Data,
+      order: Int,
+      userId: User.ID
+  ): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(kif, contributors.flatten).future recoverWith { case e: Exception =>
+      parsed <- NotationImport(notation, contributors.flatten).future recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(
@@ -59,7 +66,7 @@ final private class ChapterMaker(
         none,
         parsed.variant,
         data.realOrientation,
-        fromKif = true.some
+        fromNotation = true.some
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -141,7 +148,7 @@ final private class ChapterMaker(
         data.realOrientation
       ),
       root = root,
-      tags = PgnTags(tags),
+      tags = KifTags(tags),
       order = order,
       ownerId = userId,
       practice = data.isPractice,
@@ -210,7 +217,7 @@ private[study] object ChapterMaker {
       game: Option[String] = None,
       variant: Option[String] = None,
       fen: Option[String] = None,
-      kif: Option[String] = None,
+      notation: Option[String] = None,
       orientation: String = "sente",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,

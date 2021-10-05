@@ -86,7 +86,7 @@ final private[round] class Titivate(
     case Right(game) =>
       game match {
 
-        case game if game.finished || game.isPgnImport || game.playedThenAborted =>
+        case game if game.finished || game.isNotationImport || game.playedThenAborted =>
           gameRepo unsetCheckAt game.id
 
         case game if game.outoftime(withGrace = true) =>

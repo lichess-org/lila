@@ -42,7 +42,7 @@ final class AutoPairing(
         gotePlayer = makePlayer(Gote, player2),
         mode = tour.mode,
         source = Source.Tournament,
-        pgnImport = None
+        notationImport = None
       )
       .withId(pairing.gameId)
       .withTournamentId(tour.id)

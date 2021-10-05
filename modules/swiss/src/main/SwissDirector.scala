@@ -98,7 +98,7 @@ final private class SwissDirector(
         gotePlayer = makePlayer(Gote, players get pairing.gote err s"Missing pairing gote $pairing"),
         mode = shogi.Mode(swiss.settings.rated),
         source = lila.game.Source.Swiss,
-        pgnImport = None
+        notationImport = None
       )
       .withId(pairing.gameId)
       .withSwissId(swiss.id.value)

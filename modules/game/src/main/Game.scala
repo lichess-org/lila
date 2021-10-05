@@ -213,7 +213,7 @@ case class Game(
       sentePlayer = copyPlayer(sentePlayer),
       gotePlayer = copyPlayer(gotePlayer),
       shogi = game,
-      binaryMoveTimes = (!isPgnImport && !shogi.clock.isDefined).option {
+      binaryMoveTimes = (!isNotationImport && !shogi.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
@@ -453,7 +453,7 @@ case class Game(
 
   def accountable = playedTurns >= 2 || isTournament
 
-  def replayable = isPgnImport || finished || (aborted && bothPlayersHaveMoved)
+  def replayable = isNotationImport || finished || (aborted && bothPlayersHaveMoved)
 
   def analysable =
     replayable && playedTurns > 4 &&
@@ -587,7 +587,7 @@ case class Game(
     if (playedTurns > 5) (player(color).blurs.nb * 100) / playerMoves(color)
     else 0
 
-  def isBeingPlayed = !isPgnImport && !finishedOrAborted
+  def isBeingPlayed = !isNotationImport && !finishedOrAborted
 
   def olderThan(seconds: Int) = movedAt isBefore DateTime.now.minusSeconds(seconds)
 
@@ -636,8 +636,10 @@ case class Game(
 
   def source = metadata.source
 
-  def pgnImport   = metadata.pgnImport
-  def isPgnImport = pgnImport.isDefined
+  def notationImport   = metadata.notationImport
+  def isNotationImport = notationImport.isDefined
+  def isKifImport      = notationImport.fold(false)(_.isKif)
+  def isCsaImport      = notationImport.fold(false)(_.isCsa)
 
   def resetTurns =
     copy(
@@ -750,7 +752,7 @@ object Game {
       gotePlayer: Player,
       mode: Mode,
       source: Source,
-      pgnImport: Option[PgnImport],
+      notationImport: Option[NotationImport],
       daysPerTurn: Option[Int] = None
   ): NewGame = {
     val createdAt = DateTime.now
@@ -765,7 +767,7 @@ object Game {
         mode = mode,
         metadata = Metadata(
           source = source.some,
-          pgnImport = pgnImport,
+          notationImport = notationImport,
           tournamentId = none,
           swissId = none,
           simulId = none,
@@ -780,7 +782,7 @@ object Game {
   def metadata(source: Source) =
     Metadata(
       source = source.some,
-      pgnImport = none,
+      notationImport = none,
       tournamentId = none,
       swissId = none,
       simulId = none,
@@ -819,7 +821,7 @@ object Game {
     val createdAt         = "ca"
     val movedAt           = "ua" // ua = updatedAt (bc)
     val source            = "so"
-    val pgnImport         = "pgni"
+    val notationImport    = "pgni"
     val tournamentId      = "tid"
     val swissId           = "iid"
     val simulId           = "sid"

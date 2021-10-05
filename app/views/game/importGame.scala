@@ -19,23 +19,23 @@ object importGame {
       moreJs = jsTag("importer.js"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Paste KIF shogi game",
+          title = "Paste KIF or CSA shogi game",
           url = s"$netBaseUrl${routes.Importer.importGame().url}",
-          description = trans.importGameKifuExplanation.txt()
+          description = trans.importGameKifCsaExplanation.txt()
         )
         .some
     ) {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
-        p(cls := "explanation")(trans.importGameKifuExplanation()),
+        p(cls := "explanation")(trans.importGameKifCsaExplanation()),
         postForm(cls := "form3 import", action := routes.Importer.sendGame())(
           div(cls := "import-top")(
             div(cls := "left")(
-              form3.group(form("kif"), trans.pasteTheKifStringHere())(form3.textarea(_)())
+              form3.group(form("notation"), trans.pasteTheKifCsaStringHere())(form3.textarea(_)())
             ),
             div(cls := "right")(
-              form3.group(form("kifFile"), raw("Or upload a KIF file"), klass = "upload") { f =>
-                form3.file.kif(f.name)
+              form3.group(form("notationFile"), raw("Or upload a KIF/CSA file"), klass = "upload") { f =>
+                form3.file.notation(f.name)
               },
               form3.checkbox(
                 form("analyse"),
@@ -46,9 +46,9 @@ object importGame {
               form3.action(form3.submit(trans.importGame(), "/".some))
             )
           ),
-          form("kif").value flatMap { kif =>
+          form("notation").value flatMap { notation =>
             lila.importer
-              .ImportData(kif, none)
+              .ImportData(notation, none)
               .preprocess(none)
               .fold(
                 err =>

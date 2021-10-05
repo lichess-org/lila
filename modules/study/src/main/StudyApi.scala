@@ -89,7 +89,7 @@ final class StudyApi(
       chapterRepo existsByStudy study.id flatMap {
         case true => funit
         case _ =>
-          chapterMaker.fromFenOrKifOrBlank(
+          chapterMaker.fromFenOrNotationOrBlank(
             study,
             ChapterMaker.Data(Chapter.Name("Chapter 1")),
             order = 1,
@@ -438,7 +438,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, setTag.chapterId) { case Study.WithChapter(study, chapter) =>
       logger.info(s"setTag $studyId $setTag")
       Contribute(who.u, study) {
-        doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+        doSetTags(study, chapter, KifTags(chapter.tags + setTag.tag), who)
       }
     }
 
@@ -453,7 +453,7 @@ final class StudyApi(
     val chapter = oldChapter.copy(tags = tags)
     (chapter.tags != oldChapter.tags) ?? {
       chapterRepo.setTagsFor(chapter) >> {
-        PgnTags.setRootClockFromTags(chapter) ?? { c =>
+        KifTags.setRootClockFromTags(chapter) ?? { c =>
           doSetClock(Study.WithChapter(study, c), Position(c, Path.root).ref, c.root.clock)(who)
         }
       } >>-
@@ -603,7 +603,7 @@ final class StudyApi(
       studyRepo.updateSomeFields(study) >>- indexStudy(study)
     }
 
-  def importPgns(studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean)(who: Who) =
+  def importNotations(studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean)(who: Who) =
     lila.common.Future.applySequentially(datas) { data =>
       addChapter(studyId, data, sticky)(who)
     }

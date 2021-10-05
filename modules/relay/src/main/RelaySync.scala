@@ -113,7 +113,7 @@ final private class RelaySync(
         gameTags + Tag(_.Result, end.resultText)
       }
     val chapterNewTags = tags.value.foldLeft(chapter.tags) { case (chapterTags, tag) =>
-      PgnTags(chapterTags + tag)
+      KifTags(chapterTags + tag)
     }
     (chapterNewTags != chapter.tags) ?? {
       if (vs(chapterNewTags) != vs(chapter.tags))

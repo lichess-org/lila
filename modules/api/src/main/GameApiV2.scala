@@ -44,8 +44,9 @@ final class GameApiV2(
         evals = configInput.flags.evals && !game.playable
       )
     )
-    game.pgnImport ifTrue config.imported match {
-      case Some(imported) => fuccess(imported.kif)
+    game.notationImport ifTrue config.imported match {
+      case Some(imported) if config.flags.csa && imported.isCsa   => fuccess(imported.notation)
+      case Some(imported) if !config.flags.csa && !imported.isCsa => fuccess(imported.notation)
       case None =>
         for {
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
@@ -261,7 +262,7 @@ final class GameApiV2(
   ): Fu[JsObject] =
     for {
       lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
-      kif <-
+      notation <-
         withFlags.notationInJson ?? notationDump
           .apply(g, initialFen, analysisOption, withFlags)
           .dmap(notationDump.toNotationString)
@@ -294,7 +295,7 @@ final class GameApiV2(
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
-      .add("kif" -> kif)
+      .add("notation" -> notation)
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
       .add("tournament" -> g.tournamentId)

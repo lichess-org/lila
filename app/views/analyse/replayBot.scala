@@ -17,7 +17,6 @@ object replayBot {
 
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
-      //moreCss = cssTag("analyse.round"),
       moreCss = frag(cssTag("analyse.round"), cssTag("analyse.zh")),
       openGraph = povOpenGraph(pov).some
     ) {
@@ -30,7 +29,7 @@ object replayBot {
         div(cls := "analyse__controls"),
         div(cls := "analyse__underboard")(
           div(cls := "analyse__underboard__panels")(
-            div(cls := "fen-kif active")(
+            div(cls := "fen-notation active")(
               div(
                 strong("SFEN"),
                 input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")

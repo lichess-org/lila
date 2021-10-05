@@ -225,7 +225,7 @@ final class SimulApi(
         gotePlayer = lila.game.Player.make(shogi.Gote, goteUser.some, perfPicker),
         mode = shogi.Mode.Casual,
         source = lila.game.Source.Simul,
-        pgnImport = None
+        notationImport = None
       )
       game2 =
         game1

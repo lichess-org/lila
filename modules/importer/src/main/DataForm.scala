@@ -1,6 +1,7 @@
 package lila.importer
 
 import shogi.format.kif.KifParser
+import shogi.format.csa.CsaParser
 import shogi.format.{ FEN, Forsyth, ParsedNotation, Reader, Tag, TagType, Tags }
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
@@ -14,12 +15,12 @@ final class DataForm {
 
   lazy val importForm = Form(
     mapping(
-      "kif"     -> nonEmptyText.verifying("invalidKif", p => checkKif(p).isSuccess),
-      "analyse" -> optional(nonEmptyText)
+      "notation" -> nonEmptyText.verifying("invalidNotation", p => checkNotation(p).isSuccess),
+      "analyse"  -> optional(nonEmptyText)
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkKif(kif: String): Valid[Preprocessed] = ImportData(kif, none).preprocess(none)
+  def checkNotation(notation: String): Valid[Preprocessed] = ImportData(notation, none).preprocess(none)
 }
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -30,7 +31,7 @@ case class Preprocessed(
     parsed: ParsedNotation
 )
 
-case class ImportData(kif: String, analyse: Option[String]) {
+case class ImportData(notation: String, analyse: Option[String]) {
 
   private type TagPicker = Tag.type => TagType
 
@@ -43,13 +44,40 @@ case class ImportData(kif: String, analyse: Option[String]) {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
+  // csa and kif together
+  private def createStatus(termination: String): Status =
+    termination match {
+      case "" | "投了" | "TORYO"                                                      => Status.Resign
+      case "詰み" | "TSUMI"                                                           => Status.Mate
+      case "中断" | "CHUDAN"                                                          => Status.Aborted
+      case "持将棋" | "千日手" | "JISHOGI" | "SENNICHITE" | "HIKIWAKE"                    => Status.Draw
+      case "入玉勝ち" | "KACHI"                                                         => Status.Impasse27
+      case "切れ負け" | "TIME-UP" | "TIME_UP"                                           => Status.Outoftime
+      case "反則勝ち" | "反則負け" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" => Status.Cheat
+      case _                                                                        => Status.UnknownFinish
+    }
+
+  private val isCsa: Boolean = {
+    val noKifComments = augmentString(notation).linesIterator
+      .to(List)
+      .map(_.split("#|\\*").headOption.getOrElse("").trim)
+      .mkString("\n")
+    val lines = augmentString(noKifComments.replace(",", "\n")).linesIterator.to(List)
+    lines.exists(l => l.startsWith("PI") || l.startsWith("P1") || CsaParser.moveOrDropRegex.matches(l))
+  }
+
+  private def parseNotation: Valid[ParsedNotation] =
+    if (isCsa)
+      CsaParser.full(notation).leftMap("CSA parsing error" <:: _)
+    else
+      KifParser.full(notation).leftMap("KIF parsing error" <:: _)
+
   def preprocess(user: Option[String]): Valid[Preprocessed] =
-    KifParser.full(kif) flatMap { parsed =>
-      Reader.fullWithKif(
-        kif,
-        parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies),
-        Tags.empty
-      ) map evenIncomplete map { case replay @ Replay(_, _, state) =>
+    parseNotation map { parsed =>
+      Reader.fullWithParsedMoves(
+        parsed,
+        parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
+      ) pipe evenIncomplete pipe { case replay @ Replay(_, _, state) =>
         val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
         val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
         val variant = {
@@ -67,16 +95,7 @@ case class ImportData(kif: String, analyse: Option[String]) {
           Forsyth.<<<@(variant, _)
         } map Forsyth.>> map FEN.apply
 
-        val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-          case Some("投了") | None              => Status.Resign
-          case Some("詰み")                     => Status.Mate
-          case Some("中断")                     => Status.Aborted
-          case Some("持将棋") | Some("千日手")      => Status.Draw
-          case Some("入玉勝ち")                   => Status.Impasse27
-          case Some("切れ負け") | Some("time-up") => Status.Outoftime
-          case Some("反則勝ち") | Some("反則負け")    => Status.Cheat
-          case Some(_)                        => Status.UnknownFinish
-        }
+        val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
 
         val date = parsed.tags.anyDate
 
@@ -85,6 +104,8 @@ case class ImportData(kif: String, analyse: Option[String]) {
             n + ~parsed.tags(whichRating).map(e => s" (${e take 8})")
           }
 
+        val notationTrunc = notation.take(maxLength)
+
         val dbGame = Game
           .make(
             shogi = game,
@@ -92,7 +113,14 @@ case class ImportData(kif: String, analyse: Option[String]) {
             gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
             source = Source.Import,
-            pgnImport = PgnImport.make(user = user, date = date, kif = kif.take(maxLength)).some
+            notationImport = NotationImport
+              .make(
+                user = user,
+                date = date,
+                kif = !isCsa option notationTrunc,
+                csa = isCsa option notationTrunc
+              )
+              .some
           )
           .sloppy
           .start pipe { dbGame =>

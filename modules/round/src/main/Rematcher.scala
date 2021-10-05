@@ -128,7 +128,7 @@ final private class Rematcher(
         mode = if (users.exists(_.lame)) shogi.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
-        pgnImport = None
+        notationImport = None
       ) withUniqueId idGenerator
     } yield game
 

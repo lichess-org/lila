@@ -41,7 +41,7 @@ object BSONHandlers {
   implicit val gameBSONHandler: BSON[Game] = new BSON[Game] {
 
     import Game.{ BSONFields => F }
-    import PgnImport.pgnImportBSONHandler
+    import NotationImport.notationImportBSONHandler
 
     def reads(r: BSON.Reader): Game = {
 
@@ -120,7 +120,7 @@ object BSONHandlers {
         movedAt = r.dateD(F.movedAt, createdAt),
         metadata = Metadata(
           source = r intO F.source flatMap Source.apply,
-          pgnImport = r.getO[PgnImport](F.pgnImport)(PgnImport.pgnImportBSONHandler),
+          notationImport = r.getO[NotationImport](F.notationImport)(NotationImport.notationImportBSONHandler),
           tournamentId = r strO F.tournamentId,
           swissId = r strO F.swissId,
           simulId = r strO F.simulId,
@@ -162,7 +162,7 @@ object BSONHandlers {
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),
         F.source            -> o.metadata.source.map(_.id),
-        F.pgnImport         -> o.metadata.pgnImport,
+        F.notationImport    -> o.metadata.notationImport,
         F.tournamentId      -> o.metadata.tournamentId,
         F.swissId           -> o.metadata.swissId,
         F.simulId           -> o.metadata.simulId,

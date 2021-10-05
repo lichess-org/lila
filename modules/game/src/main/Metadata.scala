@@ -5,16 +5,12 @@ import lila.db.ByteArray
 
 private[game] case class Metadata(
     source: Option[Source],
-    pgnImport: Option[PgnImport],
+    notationImport: Option[NotationImport],
     tournamentId: Option[String],
     swissId: Option[String],
     simulId: Option[String],
     analysed: Boolean
 ) {
-
-  def pgnDate = pgnImport flatMap (_.date)
-
-  def pgnUser = pgnImport flatMap (_.user)
 
   def isEmpty = this == Metadata.empty
 }
@@ -24,20 +20,26 @@ private[game] object Metadata {
   val empty = Metadata(None, None, None, None, None, false)
 }
 
-case class PgnImport(
+case class NotationImport(
     user: Option[String],
     date: Option[String],
-    kif: String,
+    kif: Option[String],
+    csa: Option[String],
     // hashed Kif for DB unicity
     h: Option[ByteArray]
-)
+) {
+  def isCsa = csa.isDefined
+  def isKif = kif.isDefined
 
-object PgnImport {
+  def notation: String = ~(kif.orElse(csa))
+}
 
-  def hash(kif: String) =
+object NotationImport {
+
+  def hash(notation: String) =
     ByteArray {
       MessageDigest getInstance "MD5" digest {
-        kif.linesIterator
+        notation.linesIterator
           .map(_.replace(" ", ""))
           .filter(_.nonEmpty)
           .to(List)
@@ -49,16 +51,18 @@ object PgnImport {
   def make(
       user: Option[String],
       date: Option[String],
-      kif: String
+      kif: Option[String],
+      csa: Option[String]
   ) =
-    PgnImport(
+    NotationImport(
       user = user,
       date = date,
       kif = kif,
-      h = hash(kif).some
+      csa = csa,
+      h = hash(~(kif.orElse(csa))).some
     )
 
   import reactivemongo.api.bson.Macros
   import ByteArray.ByteArrayBSONHandler
-  implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
+  implicit val notationImportBSONHandler = Macros.handler[NotationImport]
 }

@@ -74,13 +74,13 @@ object side {
                         }
                     )
                 ),
-                game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
+                game.notationImport.flatMap(_.date).map(frag(_)) getOrElse {
                   frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
                 }
               ),
-              game.pgnImport.exists(_.date.isDefined) option small(
+              game.notationImport.exists(_.date.isDefined) option small(
                 "Imported ",
-                game.pgnImport.flatMap(_.user).map { user =>
+                game.notationImport.flatMap(_.user).map { user =>
                   trans.by(userIdLink(user.some, None, false))
                 }
               )

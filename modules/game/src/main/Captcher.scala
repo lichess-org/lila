@@ -95,7 +95,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
 
     private def rewind(moves: PgnMoves): Option[ShogiGame] =
       Reader
-        .movesWithSans(
+        .movesWithPgn(
           moves,
           parsedMoves => ParsedMoves(safeInit(parsedMoves.value)),
           tags = Tags.empty

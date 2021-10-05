@@ -48,6 +48,7 @@ object userAnalysisI18n {
     trans.blackPlays,
     trans.gameOver,
     trans.importKif,
+    trans.importCsa,
     trans.requestAComputerAnalysis,
     trans.computerAnalysis,
     trans.learnFromYourMistakes,

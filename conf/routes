@@ -114,7 +114,7 @@ GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(usernam
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
-POST  /analysis/kif                    controllers.UserAnalysis.kif
+POST  /analysis/notation               controllers.UserAnalysis.notation
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
@@ -130,8 +130,10 @@ GET   /study/search                    controllers.Study.search(q: String ?= "",
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
-GET   /study/$id<\w{8}>.kif            controllers.Study.kif(id: String)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.kif controllers.Study.chapterKif(id: String, chapterId: String)
+GET   /study/$id<\w{8}>.kif            controllers.Study.notation(id: String, csa: Boolean ?= false)
+GET   /study/$id<\w{8}>.csa            controllers.Study.notation(id: String, csa: Boolean ?= true)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.kif controllers.Study.chapterNotation(id: String, chapterId: String, csa: Boolean ?= false)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.csa controllers.Study.chapterNotation(id: String, chapterId: String, csa: Boolean ?= true)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: String)
@@ -139,14 +141,14 @@ POST  /study/$id<\w{8}>/cloneAplly     controllers.Study.cloneApply(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: String, chapterId: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(id: String, chapterId: String)
 GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: String, chapterId: String)
-POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: String)
-POST  /study/$id<\w{8}>/import-kif     controllers.Study.importKif(id: String)
-GET   /study/$id<\w{8}>/multi-board    controllers.Study.multiBoard(id: String, page: Int ?= 1)
-POST  /study/$id<\w{8}>/admin          controllers.Study.admin(id: String)
-GET   /study/topic                     controllers.Study.topics
-POST  /study/topic                     controllers.Study.setTopics
-GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic: String, order: String, page: Int ?= 1)
-GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
+POST  /study/$id<\w{8}>/clear-chat      controllers.Study.clearChat(id: String)
+POST  /study/$id<\w{8}>/import-notation controllers.Study.importNotation(id: String)
+GET   /study/$id<\w{8}>/multi-board     controllers.Study.multiBoard(id: String, page: Int ?= 1)
+POST  /study/$id<\w{8}>/admin           controllers.Study.admin(id: String)
+GET   /study/topic                      controllers.Study.topics
+POST  /study/topic                      controllers.Study.setTopics
+GET   /study/topic/:topic/:order        controllers.Study.byTopic(topic: String, order: String, page: Int ?= 1)
+GET   /study/topic/autocomplete         controllers.Study.topicAutocomplete
 
 # Relay
 GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
@@ -691,6 +693,7 @@ GET   /explanation/impasse             controllers.Page.impasse
 GET   /explanation/storm               controllers.Page.storm
 GET   /explanation/tsume               controllers.Page.tsume
 GET   /explanation/kif                 controllers.Page.kif
+GET   /explanation/csa                 controllers.Page.csa
 
 # Variants
 GET   /variant                         controllers.Page.variantHome

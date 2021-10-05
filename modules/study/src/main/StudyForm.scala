@@ -7,6 +7,20 @@ import lila.common.Form.clean
 
 object StudyForm {
 
+  object importFree {
+
+    lazy val form = Form(
+      mapping(
+        "notation" -> nonEmptyText
+      )(Data.apply)(Data.unapply)
+    )
+
+    case class Data(
+        notation: String
+    )
+
+  }
+
   object importGame {
 
     lazy val form = Form(
@@ -14,7 +28,7 @@ object StudyForm {
         "gameId"      -> optional(nonEmptyText),
         "orientation" -> optional(nonEmptyText),
         "fen"         -> optional(nonEmptyText),
-        "kif"         -> optional(nonEmptyText),
+        "notation"    -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "as"          -> optional(nonEmptyText)
       )(Data.apply)(Data.unapply)
@@ -24,7 +38,7 @@ object StudyForm {
         gameId: Option[String] = None,
         orientationStr: Option[String] = None,
         fenStr: Option[String] = None,
-        kifStr: Option[String] = None,
+        notationStr: Option[String] = None,
         variantStr: Option[String] = None,
         asStr: Option[String] = None
     ) {
@@ -43,7 +57,7 @@ object StudyForm {
           game = gameId,
           variant = variantStr,
           fen = fenStr,
-          kif = kifStr,
+          notation = notationStr,
           orientation = orientation.name,
           mode = ChapterMaker.Mode.Normal.key,
           initial = false
@@ -55,7 +69,7 @@ object StudyForm {
     case class AsChapterOf(studyId: Study.Id) extends As
   }
 
-  object importPgn {
+  object importNotation {
 
     lazy val form = Form(
       mapping(
@@ -65,7 +79,7 @@ object StudyForm {
         "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
         "initial"     -> boolean,
         "sticky"      -> boolean,
-        "kif"         -> nonEmptyText
+        "notation"    -> nonEmptyText
       )(Data.apply)(Data.unapply)
     )
 
@@ -76,18 +90,18 @@ object StudyForm {
         mode: String,
         initial: Boolean,
         sticky: Boolean,
-        kif: String
+        notation: String
     ) {
 
       def orientation = orientationStr.flatMap(shogi.Color.apply) | shogi.Sente
 
       def toChapterDatas =
-        MultiPgn.split(kif, max = 20).value.zipWithIndex map { case (oneKif, index) =>
+        MultiPgn.split(notation, max = 20).value.zipWithIndex map { case (oneNotation, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
-            kif = oneKif.some,
+            notation = oneNotation.some,
             orientation = orientation.name,
             mode = mode,
             initial = initial && index == 0

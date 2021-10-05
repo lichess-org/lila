@@ -288,7 +288,7 @@ private object RelayFetch {
 
     private def compute(pgn: String): Try[Int => RelayGame] =
       lila.study
-        .PgnImport(pgn, Nil)
+        .NotationImport(pgn, Nil)
         .fold(
           err => Failure(LilaException(err)),
           res =>
