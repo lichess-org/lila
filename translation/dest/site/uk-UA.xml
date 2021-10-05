@@ -619,6 +619,7 @@
   <string name="tools">Інструменти</string>
   <string name="increment">Приріст</string>
   <string name="error.required">Це поле обов\'язкове</string>
+  <string name="error.email">Ця адреса електронної пошти є недійсна</string>
   <string name="error.email_acceptable">Ця адреса email не придатна. Будь-ласка, перевірте її і спробуйте знову.</string>
   <string name="error.email_unique">Електронна адреса неправильна або вже використовується</string>
   <string name="error.email_different">Це і так ваша адреса електронної пошти</string>
