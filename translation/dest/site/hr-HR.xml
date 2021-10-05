@@ -48,6 +48,8 @@
   <string name="blackResigned">Crni predaje</string>
   <string name="whiteLeftTheGame">Bijeli je napustio partiju</string>
   <string name="blackLeftTheGame">Crni je napustio partiju</string>
+  <string name="whiteDidntMove">Bijeli nije odigrao potez</string>
+  <string name="blackDidntMove">Crni nije odigrao potez</string>
   <string name="requestAComputerAnalysis">Zatraži računalnu analizu</string>
   <string name="computerAnalysis">Računalna analiza</string>
   <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
