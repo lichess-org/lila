@@ -90,7 +90,7 @@ case class CsaStd(
         s"No move found: $this\n$situation".failureNel
       }
       case Some(move) =>
-        move withPromotion (Role.promotesTo(role), role != move.piece.role) toValid "Wrong promotion"
+        move withPromotion (Role.promotesTo(move.piece.role), role != move.piece.role) toValid "Wrong promotion"
     }
 
 }
