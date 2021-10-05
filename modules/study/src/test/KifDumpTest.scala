@@ -9,7 +9,7 @@ import org.specs2.mutable._
 
 class KifDumpTest extends Specification {
 
-  implicit private val flags = NotationDump.WithFlags(true, true, true)
+  implicit private val flags = NotationDump.WithFlags(false, true, true, true)
 
   val P = NotationDump
 
