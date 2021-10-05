@@ -163,7 +163,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
               frag(" ", showRatingDiff(d))
             },
             engine option span(
-              cls := "engine_mark",
+              cls := "tos_violation",
               title := trans.thisAccountViolatedTos.txt()
             )
           ),

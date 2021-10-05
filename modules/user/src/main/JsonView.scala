@@ -22,7 +22,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
         "createdAt" -> u.createdAt
       )
       .add("disabled" -> u.disabled)
-      .add("engine" -> u.marks.engine)
       .add("tosViolation" -> u.lame)
       .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
       .add("seenAt" -> u.seenAt)
@@ -41,7 +40,6 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       )
       .add("title" -> u.title)
       .add("disabled" -> u.disabled)
-      .add("engine" -> u.marks.engine)
       .add("tosViolation" -> u.lame)
       .add("language" -> u.lang)
       .add("profile" -> u.profile.flatMap(_.country).map { country =>
@@ -80,11 +78,9 @@ object JsonView {
         "id"       -> u.id,
         "username" -> u.username,
         "title"    -> u.title,
-        "engine"   -> u.marks.engine,
-        "booster"  -> u.marks.boost,
-        "troll"    -> u.marks.troll,
         "games"    -> u.count.game
       )
+      .add("tos" -> u.marks.dirty)
       .add("title" -> u.title)
   }
 
