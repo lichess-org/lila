@@ -92,6 +92,7 @@
 	<string name="xOpeningExplorer">%s opening explorer</string>
 	<string name="allSet">All set!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Delete</string>
 	<string name="deleteThisImportedGame">Delete this imported game?</string>
 	<string name="replayMode">Replay mode</string>
@@ -333,12 +334,12 @@
 	<string name="leaderboard">Leaderboard</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Paste the FEN text here</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">From position</string>
 	<string name="continueFromHere">Continue from here</string>
 	<string name="toStudy">Study</string>
 	<string name="importGame">Import game</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s imported game</item>
@@ -754,6 +755,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">Invalid FEN</string>
 	<string name="error.minLength">Minimum length is %s</string>
 	<string name="error.maxLength">Maximum length is %s</string>

@@ -92,6 +92,7 @@
 	<string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
 	<string name="allSet">Εφαρμογή!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Διαγραφή</string>
 	<string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
 	<string name="replayMode">Επανάληψη</string>
@@ -333,12 +334,12 @@
 	<string name="leaderboard">Πίνακας βαθμολογίας</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Από συγκεκριμένη θέση</string>
 	<string name="continueFromHere">Συνέχεια από εδώ</string>
 	<string name="toStudy">Μελέτη</string>
 	<string name="importGame">Εισαγωγή παιχνιδιού</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s Εισαγόμενο παιχνίδι</item>
@@ -754,6 +755,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Προπονητές</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">Μη έγκυρο FEN</string>
 	<string name="error.minLength">Ελάχιστο μήκος είναι %s</string>
 	<string name="error.maxLength">Μέγιστο μήκος είναι %s</string>

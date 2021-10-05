@@ -94,6 +94,7 @@
 	<string name="xOpeningExplorer">חוקר פתיחות %s</string>
 	<string name="allSet">הכול מוכן!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">מחק</string>
 	<string name="deleteThisImportedGame">מחק את משחק העבר הזה?</string>
 	<string name="replayMode">מצב הרצת המסעים</string>
@@ -375,12 +376,12 @@
 	<string name="leaderboard">טבלת השחקנים המובילים</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">מהעמדה</string>
 	<string name="continueFromHere">המשך מכאן</string>
 	<string name="toStudy">לחקור</string>
 	<string name="importGame">ייבא משחק</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s משחק מיובא</item>
@@ -823,6 +824,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">מאמנים</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">FEN לא חוקי</string>
 	<string name="error.minLength">האורך המינימלי הוא %s</string>
 	<string name="error.maxLength">האורך המקסימלי הוא %s</string>

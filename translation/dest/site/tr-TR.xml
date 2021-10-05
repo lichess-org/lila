@@ -92,6 +92,7 @@
 	<string name="xOpeningExplorer">%s açılış kâşifi</string>
 	<string name="allSet">Her şey tamam!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Sil</string>
 	<string name="deleteThisImportedGame">Yüklediğiniz oyunu silmek istiyor musunuz?</string>
 	<string name="replayMode">Tekrar modu</string>
@@ -333,12 +334,13 @@
 	<string name="leaderboard">Lider Tablosu</string>
 	<string name="selectHandicap">Handikap seç</string>
 	<string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Özel pozisyondan</string>
 	<string name="continueFromHere">Bu pozisyondan devam et</string>
 	<string name="toStudy">Çalışma oluştur</string>
 	<string name="importGame">Oyun yükle</string>
-	<string name="importGameKifuExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun kifusu yapıştırın.</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s yüklenen oyun</item>
 		<item quantity="other">%s yüklenen oyun</item>
@@ -753,6 +755,7 @@
 	<string name="shogiResources">Shogi kaynakları</string>
 	<string name="coaches">Eğitmenler</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">Geçersiz FEN</string>
 	<string name="error.minLength">Asgari uzunluk: %s</string>
 	<string name="error.maxLength">Azami uzunluk: %s</string>

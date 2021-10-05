@@ -94,6 +94,7 @@
 	<string name="xOpeningExplorer">%s průzkumník zahájení</string>
 	<string name="allSet">Vše nastaveno!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Smazat</string>
 	<string name="deleteThisImportedGame">Opravdu chcete smazat tuto nahranou hru?</string>
 	<string name="replayMode">Mód přehrávání</string>
@@ -375,12 +376,13 @@
 	<string name="leaderboard">Žebříček</string>
 	<string name="selectHandicap">Vyberte znevýhodnění</string>
 	<string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Z pozice</string>
 	<string name="continueFromHere">Pokračovat zde</string>
 	<string name="toStudy">Do studie</string>
 	<string name="importGame">Importuj hru</string>
-	<string name="importGameKifuExplanation">Vložení partie ve kifu vám umožní přehrání partii, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s importovaná</item>
 		<item quantity="few">%s importované</item>
@@ -819,6 +821,7 @@
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Trenéři</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">Neplatný formát FEN</string>
 	<string name="error.minLength">Minimální délka je %s</string>
 	<string name="error.maxLength">Maximální délka je %s</string>

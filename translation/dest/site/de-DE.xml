@@ -92,6 +92,7 @@
 	<string name="xOpeningExplorer">%s Eröffnungsbuch</string>
 	<string name="allSet">Fertig!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Löschen</string>
 	<string name="deleteThisImportedGame">Dieses importierte Spiel löschen?</string>
 	<string name="replayMode">Wiedergabemodus</string>
@@ -333,12 +334,13 @@
 	<string name="leaderboard">Rangliste</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Von Stellung</string>
 	<string name="continueFromHere">Von hier aus weiterspielen</string>
 	<string name="toStudy">Studie</string>
 	<string name="importGame">Partie importieren</string>
-	<string name="importGameKifuExplanation">Wenn du ein Kifu einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s importierte Partie</item>
 		<item quantity="other">%s importierte Partien</item>
@@ -753,6 +755,7 @@
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Trainer</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">FEN ungültig</string>
 	<string name="error.minLength">Mindestens %s Zeichen</string>
 	<string name="error.maxLength">Höchstens %s Zeichen</string>

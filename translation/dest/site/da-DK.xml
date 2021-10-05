@@ -92,6 +92,7 @@
 	<string name="xOpeningExplorer">%s åbningsbog</string>
 	<string name="allSet">Klar!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Slet</string>
 	<string name="deleteThisImportedGame">Slet dette importerede spil?</string>
 	<string name="replayMode">Genafspilning</string>
@@ -333,12 +334,12 @@
 	<string name="leaderboard">Klassement</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Fra position</string>
 	<string name="continueFromHere">Fortsæt herfra</string>
 	<string name="toStudy">Studér</string>
 	<string name="importGame">Importér parti</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s importerede spil</item>
@@ -754,6 +755,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Skaktrænere</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">Ugyldig FEN</string>
 	<string name="error.minLength">Minimumslængde er %s</string>
 	<string name="error.maxLength">Maksimumslængde er %s</string>

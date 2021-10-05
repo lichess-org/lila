@@ -91,6 +91,7 @@
 	<string name="xOpeningExplorer">%s 序盤探索</string>
 	<string name="allSet">準備完了！</string>
 	<string name="importKif">KIFをインポート</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">削除</string>
 	<string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
 	<string name="replayMode">再現方式</string>
@@ -312,13 +313,13 @@
 	<string name="leaderboard">ランキング</string>
 	<string name="selectHandicap">手合割を選択</string>
 	<string name="pasteTheFenStringHere">ここにSFEN形式の局面をペースト</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">特定の局面から</string>
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
-	<string name="importGameKifuExplanation">ゲームの KIF を貼りつけると、ブラウザー上でのリプレイ、
-コンピューター解析、ゲームチャット、共有可能 URL が得られます。</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s 局をインポート</item>
 	</plurals>
@@ -721,6 +722,7 @@
 	<string name="shogiResources">将棋資料</string>
 	<string name="coaches">コーチ</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">無効な FEN</string>
 	<string name="error.minLength">最小の長さは %s 文字です</string>
 	<string name="error.maxLength">最大の長さは %s 文字です</string>

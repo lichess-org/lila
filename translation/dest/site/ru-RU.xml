@@ -94,6 +94,7 @@
 	<string name="xOpeningExplorer">База дебютов для %s</string>
 	<string name="allSet">Готово!</string>
 	<string name="importKif">Импортировать партию</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Удалить</string>
 	<string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
 	<string name="replayMode">Смотреть в повторе</string>
@@ -375,12 +376,13 @@
 	<string name="leaderboard">Лучшие игроки</string>
 	<string name="selectHandicap">Выберите фору</string>
 	<string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
-	<string name="pasteTheKifStringHere">Вставьте строчку в формате KIF</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">С позиции</string>
 	<string name="continueFromHere">Продолжить с этой позиции</string>
 	<string name="toStudy">Студия</string>
 	<string name="importGame">Импортировать игру</string>
-	<string name="importGameKifuExplanation">Вставьте кифу, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s импортированная</item>
 		<item quantity="few">%s импортированные</item>
@@ -819,6 +821,7 @@
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">Некорректный FEN</string>
 	<string name="error.minLength">Минимальная длина — %s</string>
 	<string name="error.maxLength">Максимальная длина — %s</string>

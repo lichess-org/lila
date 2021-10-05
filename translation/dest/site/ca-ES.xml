@@ -92,6 +92,7 @@
 	<string name="xOpeningExplorer">Explorador d\'obertures %s</string>
 	<string name="allSet">Tot a punt!</string>
 	<string name="importKif">Import KIF</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">Suprimir</string>
 	<string name="deleteThisImportedGame">Voleu suprimir aquest joc importat?</string>
 	<string name="replayMode">Mode de reproducció</string>
@@ -333,12 +334,12 @@
 	<string name="leaderboard">Llista de líders</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
-	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">Des de la posició</string>
 	<string name="continueFromHere">Continua des d\'aquí</string>
 	<string name="toStudy">Estudi</string>
 	<string name="importGame">Importa una partida</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s partides importades</item>
@@ -757,6 +758,7 @@ en %3$s</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Entrenador</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">FEN no vàlid</string>
 	<string name="error.minLength">La llargada mínima és de %s</string>
 	<string name="error.maxLength">La llargada máxima és de %s</string>

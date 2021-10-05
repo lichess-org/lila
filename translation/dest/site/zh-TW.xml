@@ -91,6 +91,7 @@
 	<string name="xOpeningExplorer">%s開局瀏覽器</string>
 	<string name="allSet">一切就緒！</string>
 	<string name="importKif">匯入 .KIF檔案</string>
+	<string name="importCsa">Import CSA</string>
 	<string name="delete">刪除</string>
 	<string name="deleteThisImportedGame">刪除這局匯入的棋局?</string>
 	<string name="replayMode">重播模式</string>
@@ -312,12 +313,13 @@
 	<string name="leaderboard">排行榜</string>
 	<string name="selectHandicap">選擇讓子</string>
 	<string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
-	<string name="pasteTheKifStringHere">請在此貼上.KIF檔案</string>
+	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
 	<string name="fromPosition">自定義局面</string>
 	<string name="continueFromHere">從此處繼續</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">導入棋局</string>
-	<string name="importGameKifuExplanation">貼上棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
+	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">已導入%s盤棋局</item>
 	</plurals>
@@ -720,6 +722,7 @@
 	<string name="shogiResources">將棋資源</string>
 	<string name="coaches">教練</string>
 	<string name="invalidKif">Invalid KIF</string>
+	<string name="invalidNotation">Invalid notation</string>
 	<string name="invalidFen">無效的FEN</string>
 	<string name="error.minLength">%s 字以上</string>
 	<string name="error.maxLength">不超過 %s 字</string>
