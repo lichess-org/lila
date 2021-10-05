@@ -47,25 +47,7 @@ object replay {
         palantir = ctx.me.exists(_.canPalantir)
       )
     }
-    val kifLinks = div(
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
-        trans.downloadAnnotated()
-      ),
-      a(
-        dataIcon := "x",
-        cls := "text",
-        href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
-        attr(
-          "download"
-        ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kif"
-      )(
-        trans.downloadRaw()
-      ),
-      game.isPgnImport option a(
-        dataIcon := "x",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?imported=1"
-      )(trans.downloadImported()),
+    val exportLinks = div(
       ctx.noBlind option frag(
         a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
           trans.embedInYourWebsite()
@@ -79,6 +61,57 @@ object replay {
           "Share as a GIF"
         )
       )
+    )
+    val kifLinks = div(
+      span(
+        a(
+          dataIcon := "x",
+          cls := "text",
+          href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
+          attr(
+            "download"
+          ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kif"
+        )(
+          trans.downloadRaw()
+        ),
+        a(
+          dataIcon := "x",
+          cls := "text jis",
+          href := s"data:text/plain;charset=shift-jis,${UriEncoding.encodePathSegment(kif, "Shift-JIS")}",
+          attr(
+            "download"
+          ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kif"
+        )(
+          "Shift-JIS"
+        )
+      ),
+      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
+        trans.downloadAnnotated()
+      ),
+      game.isKifImport option a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?imported=1"
+      )(
+        trans.downloadImported()
+      )
+    )
+    val csaLinks = div(
+      a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?csa=1&clocks=0"
+      )(
+        trans.downloadRaw()
+      ),
+      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1&csa=1")(
+        trans.downloadAnnotated()
+      ),
+      game.isCsaImport option a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?imported=1&csa=1"
+      )(trans.downloadImported())
     )
 
     bits.layout(
@@ -140,9 +173,9 @@ object replay {
                     )
                 ),
                 div(cls := "move-times")(
-                  (game.turns > 1 && !game.isPgnImport) option div(id := "movetimes-chart")
+                  (game.turns > 1 && !game.isNotationImport) option div(id := "movetimes-chart")
                 ),
-                div(cls := "fen-kif")(
+                div(cls := "fen-notation")(
                   div(
                     strong("SFEN"),
                     input(
@@ -151,9 +184,17 @@ object replay {
                       cls := "copyable autoselect analyse__underboard__fen"
                     )
                   ),
-                  div(cls := "kif-options")(
-                    strong("Kif"),
+                  div(cls := "notation-options")(
+                    strong("KIF"),
                     kifLinks
+                  ),
+                  div(cls := "notation-options")(
+                    strong("CSA"),
+                    csaLinks
+                  ),
+                  div(cls := "notation-options")(
+                    strong(trans.export()),
+                    exportLinks
                   ),
                   div(cls := "kif")(kif)
                 ),
@@ -172,19 +213,22 @@ object replay {
                       s"Provided by ${usernameOrId(a.providedBy)}"
                     }
                   )(trans.computerAnalysis()),
-                !game.isPgnImport option frag(
-                  (game.turns > 1 && !game.isCorrespondence) option span(dataPanel := "move-times")(trans.moveTimes()),
+                !game.isNotationImport option frag(
+                  (game.turns > 1 && !game.isCorrespondence) option span(dataPanel := "move-times")(
+                    trans.moveTimes()
+                  ),
                   cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
                 ),
-                span(dataPanel := "fen-kif")(raw("SFEN &amp; Kif"))
+                span(dataPanel := "fen-notation")(trans.export())
               )
             )
           )
         ),
         if (ctx.blind)
           div(cls := "blind-content none")(
-            h2("KIF downloads"),
-            kifLinks
+            h2("KIF/CSA"),
+            kifLinks,
+            csaLinks
           )
       )
     )
