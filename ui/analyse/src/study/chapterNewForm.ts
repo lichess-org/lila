@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode';
 import { defined, prop, Prop } from 'common';
 import { storedProp, StoredProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
-import { variants as xhrVariants, importKif } from './studyXhr';
+import { variants as xhrVariants, importNotation } from './studyXhr';
 import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
@@ -90,8 +90,8 @@ export function ctrl(
       const study = root.study!;
       d.initial = vm.initial();
       d.sticky = study.vm.mode.sticky;
-      if (!d.kif) send('addChapter', d);
-      else importKif(study.data.id, d);
+      if (!d.notation) send('addChapter', d);
+      else importNotation(study.data.id, d);
       close();
       setTab();
     },
@@ -154,7 +154,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
               isDefaultName: isDefaultName,
             };
-            'name game variant kif orientation mode'.split(' ').forEach(field => {
+            'name game variant notation orientation mode'.split(' ').forEach(field => {
               o[field] = fieldValue(e, field);
             });
             ctrl.submit(o);
@@ -191,7 +191,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
             makeTab('fen', 'SFEN', noarg('loadAPositionFromFen').replace('FEN', 'SFEN')),
-            makeTab('kif', 'KIF', noarg('loadAGameFromKif')),
+            makeTab('notation', 'KIF/CSA', noarg('loadAGameFromKifCsa')),
           ]),
           activeTab === 'edit'
             ? h(
@@ -249,18 +249,18 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 }),
               ])
             : null,
-          activeTab === 'kif'
+          activeTab === 'notation'
             ? h('div.form-groupabel', [
-                h('textarea#chapter-kif.form-control', {
+                h('textarea#chapter-notation.form-control', {
                   attrs: {
-                    placeholder: trans.noarg('pasteTheKifStringHere'),
+                    placeholder: trans.noarg('pasteTheKifCsaStringHere'),
                   },
                 }),
                 window.FileReader
-                  ? h('input#chapter-kif-file.form-control', {
+                  ? h('input#chapter-notation-file.form-control', {
                       attrs: {
                         type: 'file',
-                        accept: '.kif, .kifu',
+                        accept: '.kif, .kifu, .csa',
                       },
                       hook: bind('change', e => {
                         function readFile(file: File, encoding: string) {
@@ -274,7 +274,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                               );
                               readFile(file, 'shift-jis');
                             } else {
-                              (document.getElementById('chapter-kif') as HTMLTextAreaElement).value = res;
+                              (document.getElementById('chapter-notation') as HTMLTextAreaElement).value = res;
                             }
                           };
                           reader.readAsText(file, encoding);

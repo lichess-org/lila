@@ -6,10 +6,12 @@ import { ForecastStep } from './forecast/interfaces';
 import { ops as treeOps } from 'tree';
 
 import { makeKifHeader } from 'shogiops/kif';
+import { makeCsaHeader } from 'shogiops/csa';
 import { kifDestSquare, kifOrigSquare } from 'shogiops/kifUtil';
+import { makeCsaSquare } from 'shogiops/csaUtil';
 import { parseFen, INITIAL_FEN } from 'shogiops/fen';
 import { defined } from 'common';
-import { roleTo2Kanji } from 'shogiops/util';
+import { promote, roleTo2Kanji, roleToCsa } from 'shogiops/util';
 import { isDrop, Square, Role, Move } from 'shogiops/types';
 import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
 import { renderTime } from './clocks';
@@ -74,12 +76,12 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
   return res;
 }
 
-export function renderFullTxt(ctrl: AnalyseCtrl): string {
+export function renderFullKif(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
   const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
   const offset = ctrl.data.game.startedAtTurn % 2;
 
-  const txt = renderKifNodes(ctrl.tree.root, offset % 2).join('\n');
+  const moves = renderKifNodes(ctrl.tree.root, offset % 2).join('\n');
 
   const tags = ctrl.data.tags ?? [];
   // We either don't want to display these or we display them through other means
@@ -96,7 +98,60 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
     sente.join('：'),
     gote.join('：'),
     '手数----指手---------消費時間--',
-    txt,
+    moves,
+  ].join('\n');
+}
+
+
+function renderCsaTime(moveTime: number): string {
+  return ',T' + (Math.floor(moveTime / 100));
+}
+
+function renderCsaMove(move: Move, role: Role, color: Color): string {
+  if (isDrop(move)) {
+    return (color === 'sente' ? '+' : '-') + "00" + makeCsaSquare(move.to) + roleToCsa(role);
+  } else {
+    return (
+      (color === 'sente' ? '+' : '-') +
+      makeCsaSquare(move.from) +
+      makeCsaSquare(move.to) +
+      roleToCsa(move.promotion ?  promote(role) : role)
+    );
+  }
+}
+
+function renderCsaMainline(node: Tree.Node): string[] {
+  const res: string[] = [];
+
+  const mainline = treeOps.mainlineNodeList(node);
+
+  for (const m of mainline) {
+    if (defined(m.san) && defined(m.uci)) {
+      const move = parseLishogiUci(m.uci);
+      const role = lishogiCharToRole(m.san[0]);
+      if (defined(move) && defined(role)) {
+        const csaMove = renderCsaMove(move, role, (m.ply % 2) ? 'sente' : 'gote');
+        const csaTime = defined(m.clock) ? renderCsaTime(m.clock) : '';
+        res.push(csaMove + csaTime);
+      }
+    }
+    if (defined(m.comments)) {
+      for (const c of m.comments) {
+        res.push('\'' + c.text);
+      }
+    }
+  }
+
+  return res;
+}
+
+export function renderFullCsa(ctrl: AnalyseCtrl): string {
+  const g = ctrl.data.game;
+  const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
+  const moves = renderCsaMainline(ctrl.tree.root).join('\n');
+  return [
+    makeCsaHeader(setup),
+    moves
   ].join('\n');
 }
 

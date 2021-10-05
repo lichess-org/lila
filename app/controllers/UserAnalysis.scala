@@ -72,7 +72,7 @@ final class UserAnalysis(
           gotePlayer = lila.game.Player.make(shogi.Gote, none),
           mode = shogi.Mode.Casual,
           source = if (imported) lila.game.Source.Import else lila.game.Source.Api,
-          pgnImport = None
+          notationImport = None
         )
         .withId("synthetic"),
       from.situation.color
@@ -132,18 +132,18 @@ final class UserAnalysis(
     }
 
   // XHR only
-  def kif =
+  def notation =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.importer.forms.importForm
+      lila.study.StudyForm.importFree.form
         .bindFromRequest()
         .fold(
           jsonFormError,
           data =>
-            lila.study.PgnImport
-              .userAnalysis(data.kif)
+            lila.study.NotationImport
+              .userAnalysis(data.notation)
               .fold(
-                err => BadRequest(jsonError(err.toString)).fuccess,
+                err => BadRequest(err.toList mkString "\n").fuccess,
                 { case (game, initialFen, root, tags) =>
                   val pov = Pov(game, shogi.Sente)
                   val baseData = env.round.jsonView

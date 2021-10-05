@@ -14,7 +14,7 @@ import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
 import renderClocks from './clocks';
-import * as kifExport from './kifExport';
+import * as notationExport from './notationExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
@@ -149,13 +149,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             ...onInsert(el => {
               (el as HTMLTextAreaElement).value = defined(ctrl.kifInput)
                 ? ctrl.kifInput
-                : kifExport.renderFullTxt(ctrl);
+                : notationExport.renderFullKif(ctrl);
               el.addEventListener('input', e => (ctrl.kifInput = (e.target as HTMLTextAreaElement).value));
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.kifInput)
                 ? ctrl.kifInput
-                : kifExport.renderFullTxt(ctrl);
+                : notationExport.renderFullKif(ctrl);
             },
           },
         }),
@@ -167,12 +167,48 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               'click',
               _ => {
                 const kif = $('.copyables .kif textarea').val();
-                if (kif !== kifExport.renderFullTxt(ctrl)) ctrl.changeKif(kif);
+                if (kif !== notationExport.renderFullKif(ctrl)) ctrl.changeNotation(kif);
               },
               ctrl.redraw
             ),
           },
           ctrl.trans.noarg('importKif')
+        ),
+      ]),
+    ]),
+    h('div.csa', [
+      h('div.pair', [
+        h('label.name', 'CSA'),
+        h('textarea.copyable.autoselect', {
+          attrs: { spellCheck: false },
+          hook: {
+            ...onInsert(el => {
+              (el as HTMLTextAreaElement).value = defined(ctrl.csaInput)
+                ? ctrl.csaInput
+                : notationExport.renderFullCsa(ctrl);
+              el.addEventListener('input', e => (ctrl.csaInput = (e.target as HTMLTextAreaElement).value));
+            }),
+            postpatch: (_, vnode) => {
+              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.csaInput)
+                ? ctrl.csaInput
+                : notationExport.renderFullCsa(ctrl);
+            },
+          },
+        }),
+        h(
+          'button.button.button-thin.action.text',
+          {
+            attrs: dataIcon('G'),
+            hook: bind(
+              'click',
+              _ => {
+                const csa = $('.copyables .csa textarea').val();
+                if (csa !== notationExport.renderFullCsa(ctrl)) ctrl.changeNotation(csa);
+              },
+              ctrl.redraw
+            ),
+          },
+          ctrl.trans.noarg('importCsa')
         ),
       ]),
     ]),

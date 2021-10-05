@@ -86,7 +86,7 @@ export default class AnalyseCtrl {
   redirecting: boolean = false;
   onMainline: boolean = true;
   synthetic: boolean; // false if coming from a real game
-  imported: boolean; // true if coming from kif
+  imported: boolean; // true if coming from kif or csa
   ongoing: boolean; // true if real game is ongoing
 
   // display flags
@@ -107,6 +107,7 @@ export default class AnalyseCtrl {
   // underboard inputs
   fenInput?: string;
   kifInput?: string;
+  csaInput?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -218,6 +219,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.kifInput = undefined;
+    this.csaInput = undefined;
   };
 
   flip = () => {
@@ -446,20 +448,19 @@ export default class AnalyseCtrl {
     this.cgVersion.js++;
   }
 
-  changeKif(kif: string): void {
+  changeNotation(notation: string): void {
     this.redirecting = true;
     $.ajax({
-      url: '/analysis/kif',
+      url: '/analysis/notation',
       method: 'post',
-      data: { kif },
+      data: { notation },
       success: (data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
         this.redraw();
       },
       error: error => {
-        console.log(error);
-        alert('Invalid KIF');
+        alert(error.responseText);
         this.redirecting = false;
         this.redraw();
       },

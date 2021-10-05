@@ -178,22 +178,22 @@ export function view(ctrl: StudyShareCtrl): VNode {
         {
           attrs: {
             'data-icon': 'x',
-            href: `/study/${studyId}.kif`,
+            href: `/study/${studyId}/${chapter.id}.kif`,
             download: true,
           },
         },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyKif')
+        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterKif')
       ),
       h(
         'a.button.text',
         {
           attrs: {
             'data-icon': 'x',
-            href: `/study/${studyId}/${chapter.id}.kif`,
+            href: `/study/${studyId}/${chapter.id}.csa?csa=true`,
             download: true,
           },
         },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterKif')
+        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterCsa')
       ),
       h(
         'a.button.text',

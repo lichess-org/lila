@@ -23,15 +23,17 @@
     flex: 0 0 5ch;
     font-weight: bold;
     color: $c-font-dim;
+    margin-right: 0.5rem;
   }
   .copyable {
     flex: 1 1 auto;
   }
-  .kif {
-    margin: 1em 0;
+  .kif, .csa {
+    margin: 2em 0;
     textarea {
       min-height: 10em;
       white-space: pre-wrap;
+      word-break: break-all;
       overflow-x: hidden;
     }
   }
