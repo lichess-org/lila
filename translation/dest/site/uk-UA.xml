@@ -623,10 +623,10 @@
   <string name="error.email_acceptable">Ця адреса електронної пошти неприйнятна. Будь ласка, перевірте її та спробуйте знову.</string>
   <string name="error.email_unique">Електронна адреса недійсна або вже використана</string>
   <string name="error.email_different">Це ваша діюча електронна адреса</string>
-  <string name="error.minLength">Мінімальна довжина - %s</string>
-  <string name="error.maxLength">Максимальна довжина - %s</string>
-  <string name="error.min">Має бути більше або дорівнювати %s</string>
-  <string name="error.max">Має бути менше або дорівнювати %s</string>
+  <string name="error.minLength">Має бути принаймні %s символів</string>
+  <string name="error.maxLength">Повинно бути не більше %s символів</string>
+  <string name="error.min">Має бути принаймні %s</string>
+  <string name="error.max">Має бути щонайбільше %s</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyExistingConversations">Тільки існуючі бесіди</string>
   <string name="onlyFriends">Тільки друзям</string>
