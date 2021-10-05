@@ -251,6 +251,7 @@
 		<item quantity="other">%s đang chơi</item>
 	</plurals>
 	<string name="exportGames">Xuất biên bản</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Phạm vi Glicko</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">Cho thêm %s giây</item>

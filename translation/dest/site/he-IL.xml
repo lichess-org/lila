@@ -293,6 +293,7 @@
 		<item quantity="other">%s משחקים</item>
 	</plurals>
 	<string name="exportGames">ייצא משחקים</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">טווח דירוג</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">תן %s שנייה</item>

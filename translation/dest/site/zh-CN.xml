@@ -251,6 +251,7 @@
 		<item quantity="other">%s进行中</item>
 	</plurals>
 	<string name="exportGames">导出棋局</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">对方积分范围</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">添加对方%s秒</item>

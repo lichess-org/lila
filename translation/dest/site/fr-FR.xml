@@ -265,6 +265,7 @@
 		<item quantity="other">%s parties en cours</item>
 	</plurals>
 	<string name="exportGames">Exporter les parties</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Classement de vos adversaires</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Rajouter %s seconde</item>

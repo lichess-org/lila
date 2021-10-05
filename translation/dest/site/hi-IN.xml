@@ -265,6 +265,7 @@
 		<item quantity="other">%s खेल रहा है</item>
 	</plurals>
 	<string name="exportGames">खेल को निर्यात (एक्सपोर्ट) करें</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">रेटिंग दायरा</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">%s सेकंड दें</item>

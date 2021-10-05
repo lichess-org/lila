@@ -265,6 +265,7 @@
 		<item quantity="other">%s en joc</item>
 	</plurals>
 	<string name="exportGames">Exporta les partides</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Rang de puntuació</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Dóna %s segons</item>

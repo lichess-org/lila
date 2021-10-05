@@ -265,6 +265,7 @@
 		<item quantity="other">%s In Spel</item>
 	</plurals>
 	<string name="exportGames">Spelle aflaai (export)</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Gradering reeks</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Gee %s sekonde</item>

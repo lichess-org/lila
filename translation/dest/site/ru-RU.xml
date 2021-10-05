@@ -293,6 +293,7 @@
 		<item quantity="other">%s играются</item>
 	</plurals>
 	<string name="exportGames">Скачать игры</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Рейтинг соперника</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Дать %s секунду</item>

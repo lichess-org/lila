@@ -73,5 +73,5 @@
   <string name="lishogiGames">Von lishogi-Spielen</string>
   <string name="lishogiGamesDescription">Aufgaben generiert aus Spielen auf lishogi.</string>
   <string name="otherSources">Von anderen Quellen</string>
-  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
+  <string name="otherSourcesDescription">Vielen Dank an alle, die Puzzles eingereicht, oder lishogi erlaubt haben, diese zu nutzen!</string>
 </resources>

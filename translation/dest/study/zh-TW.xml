@@ -28,7 +28,7 @@
   </plurals>
   <string name="inviteToTheStudy">邀請加入研究</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">只邀請你所認識的人，以及願意積極投入的人來共同研究</string>
-  <string name="searchByUsername">透過用戶名稱搜尋</string>
+  <string name="searchByUsername">透過帳號名稱搜尋</string>
   <string name="spectator">觀眾</string>
   <string name="contributor">共同研究者</string>
   <string name="kick">踢出</string>
@@ -106,7 +106,7 @@
   <string name="unlisted">不公開</string>
   <string name="inviteOnly">僅限邀請</string>
   <string name="allowCloning">可以複製</string>
-  <string name="nobody">没有人</string>
+  <string name="nobody">沒有人</string>
   <string name="onlyMe">僅自己</string>
   <string name="contributors">共同研究者</string>
   <string name="members">成員</string>

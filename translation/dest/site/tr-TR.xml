@@ -265,6 +265,7 @@
 		<item quantity="other">%s şimdi oynanıyor</item>
 	</plurals>
 	<string name="exportGames">Oyunları indir</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Puan aralığı</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">%s saniye ver</item>

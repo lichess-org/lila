@@ -279,6 +279,7 @@
 		<item quantity="other">%s le joacă</item>
 	</plurals>
 	<string name="exportGames">Exportă partidele</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Nivel valoric</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Acordă %s secundă</item>

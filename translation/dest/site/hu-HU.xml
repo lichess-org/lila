@@ -265,6 +265,7 @@
 		<item quantity="other">%s folyamatban</item>
 	</plurals>
 	<string name="exportGames">Játszmák exportálása</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Értékszámtartomány</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Adj %s másodpercet</item>

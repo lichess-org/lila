@@ -293,6 +293,7 @@
 		<item quantity="other">%s se hraje</item>
 	</plurals>
 	<string name="exportGames">Exportovat partie</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Síla hráče</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Přidat %s sekundu</item>

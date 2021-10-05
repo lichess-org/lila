@@ -265,6 +265,7 @@
 		<item quantity="other">%s παίζονται</item>
 	</plurals>
 	<string name="exportGames">Εξαγωγή παιχνιδιών</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Εμβέλεια βαθμολογίας</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Προσθέστε %s δευτερόλεπτα</item>

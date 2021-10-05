@@ -265,6 +265,7 @@
 		<item quantity="other">%s naglalaro</item>
 	</plurals>
 	<string name="exportGames">I-export ang mga laro</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Rating range</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Give %s second</item>

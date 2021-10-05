@@ -293,6 +293,7 @@
 		<item quantity="other">%s в перебігу</item>
 	</plurals>
 	<string name="exportGames">Виніс ігор</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Щаблевий проміжок</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Додай %s секунду</item>

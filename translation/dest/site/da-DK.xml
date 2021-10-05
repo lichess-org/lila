@@ -265,6 +265,7 @@
 		<item quantity="other">%s spil i gang</item>
 	</plurals>
 	<string name="exportGames">Eksporter spil</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">Rating-interval</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Giv %s sekund</item>

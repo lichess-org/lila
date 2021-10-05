@@ -90,7 +90,7 @@
 	<string name="openingExplorer">序盤探索</string>
 	<string name="xOpeningExplorer">%s 序盤探索</string>
 	<string name="allSet">準備完了！</string>
-	<string name="importKif">Import KIF</string>
+	<string name="importKif">KIFをインポート</string>
 	<string name="delete">削除</string>
 	<string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
 	<string name="replayMode">再現方式</string>
@@ -251,6 +251,7 @@
 		<item quantity="other">%s 局進行中</item>
 	</plurals>
 	<string name="exportGames">対局をエクスポートする</string>
+	<string name="export">Export</string>
 	<string name="ratingRange">レーティングの範囲</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">%s 秒を与える</item>
