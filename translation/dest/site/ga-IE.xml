@@ -93,6 +93,7 @@
     <item quantity="many">Marbhsháinn i %s leath-bheart</item>
     <item quantity="other">Marbhsháinn i %s leath-bheart</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' le slánú, bunaithe ar líon na leathbheart go dtí an chéad ghabháil nó beart ceaithearnach</string>
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
@@ -100,6 +101,9 @@
   <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
   <string name="winPreventedBy50MoveRule">Bac ar bhua mar gheall ar riail an 50 bheart</string>
   <string name="lossSavedBy50MoveRule">Bac ar chaill mar gheall arriail an 50 bheart</string>
+  <string name="winOr50MovesByPriorMistake">Bua nó 50 beart trí bhotún roimhe seo</string>
+  <string name="lossOr50MovesByPriorMistake">Cailleadh nó 50 beart trí bhotún roimhe seo</string>
+  <string name="unknownDueToRounding">Ní ráthaítear bua / caillteanas ach má leanadh an líne mholta boird ón mbeart gabhála nó ceithearnach deireanach, mar gheall ar chothromú féideartha luachanna DTZ i mboscaí tábla Syzygy.</string>
   <string name="allSet">Réidh le himirt!</string>
   <string name="importPgn">Iompórtáil PGN</string>
   <string name="delete">Scrios</string>
@@ -447,6 +451,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="follow">Lean</string>
   <string name="following">Ag leanúint</string>
   <string name="unfollow">Dílean</string>
+  <string name="followX">Lean %s</string>
+  <string name="unfollowX">Dílean %s</string>
   <string name="block">Blocáil</string>
   <string name="blocked">Blocáilte</string>
   <string name="unblock">Bain bac de</string>
@@ -650,6 +656,14 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="tools">Uirlisí</string>
   <string name="increment">Incrimint</string>
   <string name="error.required">Tá an réimse seo riachtanach</string>
+  <string name="error.email">Tá an seoladh ríomhphoist seo neamhbhailí</string>
+  <string name="error.email_acceptable">Ní ghlactar leis an seoladh ríomhphoist seo. Déan é a sheiceáil faoi dhó le do thoil, agus bain triail eile as.</string>
+  <string name="error.email_unique">Seoladh ríomhphoist neamhbhailí nó tógtha cheana féin</string>
+  <string name="error.email_different">Seo do sheoladh ríomhphoist cheana féin</string>
+  <string name="error.minLength">Is é %s an fad íosta</string>
+  <string name="error.maxLength">Is é %s an fad uasta</string>
+  <string name="error.min">Caithfidh sé a bheith níos mó nó cothrom le %s</string>
+  <string name="error.max">Caithfidh sé a bheith níos lú nó cothrom le %s</string>
   <string name="ifRatingIsPlusMinusX">Más é ±%s an rátáil</string>
   <string name="onlyExistingConversations">Comhráite láithreach amháin</string>
   <string name="onlyFriends">Cairde amháin</string>

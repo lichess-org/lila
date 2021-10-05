@@ -3,6 +3,7 @@
   <string name="xBlog">%s erabiltzailearen Bloga</string>
   <string name="newPost">Sarrera berria</string>
   <string name="editYourBlogPost">Editatu blogeko sarrera</string>
+  <string name="saveDraft">Zirriborroa gorde</string>
   <string name="postTitle">Sarreraren izenburua</string>
   <string name="postIntro">Sarreraren laburpena</string>
   <string name="postBody">Sarreraren testu luzea</string>
@@ -29,4 +30,7 @@
     <item quantity="one">Sarrera bat ikusi</item>
     <item quantity="other">%s sarrera guztiak ikusi</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Kargatu zure sarreraren irudia</string>
+  <string name="imageAlt">Irudiaren ordezko testua</string>
+  <string name="imageCredit">Irudiaren oina</string>
 </resources>

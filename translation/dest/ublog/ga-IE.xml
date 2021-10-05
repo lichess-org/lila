@@ -39,4 +39,7 @@
     <item quantity="many">Féach ar %s post</item>
     <item quantity="other">Féach ar %s post</item>
   </plurals>
+  <string name="uploadAnImageForYourPost">Uaslódáil íomhá do do phost</string>
+  <string name="imageAlt">Íomhá téacs malartach</string>
+  <string name="imageCredit">Íomhá creidiúna</string>
 </resources>

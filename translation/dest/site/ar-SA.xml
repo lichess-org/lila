@@ -688,6 +688,7 @@
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>
   <string name="error.required">هذة الخانة ضرورية</string>
+  <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
   <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>

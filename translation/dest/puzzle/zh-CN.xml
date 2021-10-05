@@ -13,6 +13,7 @@
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
+  <string name="yourPuzzleRatingWillNotChange">您的拼图评分不会改变。 请注意，拼图不是比赛。 评分有助于为您当前的技能选择最好的谜题。</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>

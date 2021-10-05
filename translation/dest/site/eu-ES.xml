@@ -47,9 +47,12 @@
   <string name="blackResigned">Beltzak amore eman du</string>
   <string name="whiteLeftTheGame">Zuria partidatik atera da</string>
   <string name="blackLeftTheGame">Beltza partidatik atera da</string>
+  <string name="whiteDidntMove">Zuriak ez du mugitu</string>
+  <string name="blackDidntMove">Beltzak ez du mugitu</string>
   <string name="requestAComputerAnalysis">Ordenagailuaren analisia eskatu</string>
   <string name="computerAnalysis">Ordenagailuaren analisia</string>
   <string name="computerAnalysisAvailable">Ordenagailu bidezko analisia egin daiteke</string>
+  <string name="computerAnalysisDisabled">Ordenagailu bidezko analisia desaktibatuta dago</string>
   <string name="analysis">Analisi-taula</string>
   <string name="depthX">Sakonera %s</string>
   <string name="usingServerAnalysis">Zerbitzariko analisia erabiltzen ari da</string>
@@ -84,6 +87,7 @@
     <item quantity="one">Mate jokaldi erdi %sn</item>
     <item quantity="other">Mate %s jokaldi erditan</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' biribilkaketarekin, hurrengo harrapaketa edo peoi mugimendura arteko mugimendu erdietan oinarrituta</string>
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
   <string name="openingExplorer">Hasiera-arakatzailea</string>
@@ -91,6 +95,9 @@
   <string name="xOpeningExplorer">%s hasiera arakatzailea</string>
   <string name="winPreventedBy50MoveRule">50 jokaldien arauak ekidindako garaipena</string>
   <string name="lossSavedBy50MoveRule">50 jokaldien arauak ekidindako porrota</string>
+  <string name="winOr50MovesByPriorMistake">Irabazi edo 50 jokaldi aurrerago egindako akats bategatik</string>
+  <string name="lossOr50MovesByPriorMistake">Galdu edo 50 jokaldi aurrerago egindako akats bategatik</string>
+  <string name="unknownDueToRounding">Garaipena/porrota gomendatutako tablebasearen aukera azken harrapaketa edo peoiaren mugimendutik jarraitu bada, Syzygy tablebaseen DTZ balioaren biribilketa dela-eta.</string>
   <string name="allSet">Dena prest!</string>
   <string name="importPgn">PGNa inportatu</string>
   <string name="delete">Ezabatu</string>
@@ -132,6 +139,8 @@
     <item quantity="one">%s Jokalari</item>
     <item quantity="other">%s Jokalari</item>
   </plurals>
+  <string name="drawByMutualAgreement">Berdinketa horrela adostu delako</string>
+  <string name="fiftyMovesWithoutProgress">50 jokaldi aurrera egin gabe</string>
   <string name="currentGames">Oraingo partidak</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
@@ -360,6 +369,8 @@
   <string name="follow">Jarraitu</string>
   <string name="following">Jarraitzen</string>
   <string name="unfollow">Jarraitzeari uztea</string>
+  <string name="followX">Jarraitu %</string>
+  <string name="unfollowX">Utzi %s jarraitzeari</string>
   <string name="block">Blokeatu</string>
   <string name="blocked">Blokeatuta</string>
   <string name="unblock">Desblokeatu</string>
@@ -423,6 +434,7 @@
   <string name="setTheBoard">Xake-taula konfiguratu</string>
   <string name="popularOpenings">Hasiera ohikoenak</string>
   <string name="endgamePositions">Finalen posizioak</string>
+  <string name="chess960StartPosition">960Xakearen hasiera posizioa: %s</string>
   <string name="startPosition">Hasierako posizioa</string>
   <string name="clearBoard">Pieza guztiak kendu</string>
   <string name="loadPosition">Posizioa kargatu</string>
@@ -544,6 +556,14 @@
   <string name="tools">Tresnak</string>
   <string name="increment">Gehikuntza</string>
   <string name="error.required">Koadro hau betetzea nahitaezkoa da</string>
+  <string name="error.email">Posta elektronikoa ez da zuzena</string>
+  <string name="error.email_acceptable">Posta elektroniko hau ezin dugu onartu. Egiaztatu ezazu eta saiatu berriz.</string>
+  <string name="error.email_unique">Posta elektronikoa ez da zuzena edo norbaitek hartua du</string>
+  <string name="error.email_different">Hau zure posta elektronikoa da</string>
+  <string name="error.minLength">Gutxieneko luzera %s da</string>
+  <string name="error.maxLength">Gehieneko luzera %s da</string>
+  <string name="error.min">%s edo handiagoa izan behar da</string>
+  <string name="error.max">%s edo txikiagoa izan behar da</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
   <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
@@ -837,6 +857,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulDescription">Aldi-berekoaren deskribapena</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
   <string name="markdownAvailable">%s erabili dezakezu.</string>
+  <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
   <string name="inYourLocalTimezone">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>
   <string name="noChat">Txatik ez</string>
@@ -850,4 +871,16 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="analysisOptions">Analisiaren aukerak</string>
   <string name="focusChat">Eraman fokua txatera</string>
   <string name="showHelpDialog">Erakutsi laguntza leiho hau</string>
+  <string name="reopenYourAccount">Berreskuratu zure kontua</string>
+  <string name="closedAccountChangedMind">Zure kontua itxi bazenuen baina berreskuratu nahi baduzu, aukera bakarra duzu hori egiteko.</string>
+  <string name="onlyWorksOnce">Honek behin bakarrik funtzionatuko du.</string>
+  <string name="cantDoThisTwice">Zure kontua bigarren aldiz ixten baduzu ezingo duzu berriz berreskuratu.</string>
+  <string name="emailAssociatedToaccount">Posta elektronikoa ondo lotu da zure kontura</string>
+  <string name="sentEmailWithLink">Posta elektroniko bat bidali dizugu lotura batekin.</string>
+  <string name="tournamentEntryCode">Txapelketara sartzeko kodea</string>
+  <string name="hangOn">Itxaron!</string>
+  <string name="gameInProgress">%s erabiltzailearekin partida bat jokatzen ari zara.</string>
+  <string name="abortTheGame">Partida bertan behera utzi</string>
+  <string name="resignTheGame">Partida utzi</string>
+  <string name="youCantStartNewGame">Ezin duzu beste partidarik hasi hau bukatu arte.</string>
 </resources>

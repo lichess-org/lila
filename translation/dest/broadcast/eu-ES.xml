@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Zuzeneko emankizunaren URL helbidea</string>
   <string name="currentRoundUrl">Uneko txandaren URL helbidea</string>
   <string name="currentGameUrl">Uneko partidaren URL helbidea</string>
+  <string name="downloadAllRounds">Deskargatu txanda guztiak</string>
 </resources>
