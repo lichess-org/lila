@@ -90,6 +90,7 @@ final class Game(
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false).copy(literate = false),
+            sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
             perSecond = MaxPerSecond(me match {
               case Some(m) if m is user.id => 60
               case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)

@@ -114,7 +114,7 @@ final class GameApiV2(
           .sortedCursor(
             config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
               Query.createdBetween(config.since, config.until) ++ Query.finished,
-            Query.sortCreated,
+            config.sort.bson,
             batchSize = config.perSecond.value
           )
           .documentSource()
@@ -339,6 +339,10 @@ object GameApiV2 {
     val flags: WithFlags
   }
 
+  sealed abstract class GameSort(val bson: Bdoc)
+  case object DateAsc  extends GameSort(Query.sortChronological)
+  case object DateDesc extends GameSort(Query.sortAntiChronological)
+
   case class OneConfig(
       format: Format,
       imported: Boolean,
@@ -358,6 +362,7 @@ object GameApiV2 {
       analysed: Option[Boolean] = None,
       color: Option[chess.Color],
       flags: WithFlags,
+      sort: GameSort,
       perSecond: MaxPerSecond,
       playerFile: Option[String]
   ) extends Config {
