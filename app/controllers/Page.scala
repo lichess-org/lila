@@ -24,7 +24,8 @@ final class Page(
   val impasse = explanation("impasse")
   val tsume   = explanation("tsume")
 
-  val kif = kifExplanation("kif")
+  val kif = notationExplanation("kif")
+  val csa = notationExplanation("csa")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>
@@ -74,11 +75,11 @@ final class Page(
       }
     }
 
-  private def kifExplanation(uid: String) =
+  private def notationExplanation(uid: String) =
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, _) =>
-        views.html.site.kifExplanation(doc)
+        views.html.site.notationExplanation(doc)
       }
     }
 
