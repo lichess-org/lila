@@ -6,7 +6,7 @@ import variant.Standard
 
 class KifParserTest extends ShogiTest {
 
-  // import KifFixtures._
+  import KifFixtures._
 
   val parser                                               = KifParser.full _
   def parseMove(str: String, lastDest: Option[Pos] = None) = KifParser.MoveParser(str, lastDest, Standard)
@@ -202,6 +202,7 @@ class KifParserTest extends ShogiTest {
     }
     "comments in header" in {
       parser("""*HEADER COMMENT
+      後手：俺
       *HEADER2
       手合割：平手
       手数----指手---------消費時間--
@@ -211,6 +212,14 @@ class KifParserTest extends ShogiTest {
       2 ３四歩(33)
       3 投了""") must beSuccess.like { case ParsedNotation(InitialPosition(init), _, _) =>
         init must_== List("HEADER COMMENT", "HEADER2", "H3")
+      }
+    }
+    "multiple comments" in {
+      parser("""７7金(78)
+      * comment with hash # <- works
+      *
+      * or amp &, or something""") must beSuccess.like { case ParsedNotation(_, _, ParsedMoves(List(move))) =>
+        move.metas.comments must_== List("comment with hash # <- works", "or amp &, or something")
       }
     }
   }
@@ -273,6 +282,9 @@ class KifParserTest extends ShogiTest {
       ## double comments 
       # comments in # comments 
       & and bookmarks # This is not necessary
+      &
+      #
+##&
       先手：先手 # Mid-line
       1 ７六歩(77) (00:00/00:00:00)
       まで122手で中断
@@ -482,7 +494,7 @@ class KifParserTest extends ShogiTest {
 
 変化：7手
    7 ３三歩(34)
-    """) must beSuccess.like { case ParsedNotation(_, tags, ParsedMoves(parsedMoves)) =>
+    """) must beSuccess.like { case ParsedNotation(_, _, ParsedMoves(parsedMoves)) =>
       parsedMoves(0).metas.variations.headOption must beSome.like { case v =>
         v.value must haveSize(3)
         v.value(2).metas.variations.headOption must beSome.like { case vv =>
@@ -498,4 +510,26 @@ class KifParserTest extends ShogiTest {
       }
     }
   }
+
+  "kif fixture 1" in {
+    parser(kif1) must beSuccess.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
+      pm.size must_== 111
+      tags.size must_== 9
+    }
+  }
+
+  "kif fixture 2" in {
+    parser(kif2) must beSuccess.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
+      pm.size must_== 193
+      tags.size must_== 8
+    }
+  }
+
+  "kif fixture 3" in {
+    parser(kif3) must beSuccess.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
+      pm.size must_== 117
+      tags.size must_== 10
+    }
+  }
+
 }

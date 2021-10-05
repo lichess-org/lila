@@ -36,7 +36,7 @@ object KifParserHelper {
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
       } yield (Situation(board, Color(!goteTurn)))
     } else {
-      "Can't parse board setup starting with this line %s (not enough ranks provided %d/9)"
+      "Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
         .format(ranks.head, ranks.size)
         .failureNel
     }
@@ -57,7 +57,7 @@ object KifParserHelper {
         case ('成' | '+') :: rest => makePiecesList(rest, x, y, chars.headOption, gote)
         case sq :: rest =>
           for {
-            pos <- Pos.posAt(x, y) toValid s"Too many files in board setup: $x, $y"
+            pos <- Pos.posAt(x, y) toValid s"Too many files in board setup: $x"
             roleStr = prevPieceChar.fold("")(_.toString) + sq
             role   <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
             pieces <- makePiecesList(rest, x + 1, y, None, false)
@@ -74,7 +74,7 @@ object KifParserHelper {
   private def parseHand(str: String): Valid[Hand] = {
     def parseHandPiece(str: String, hand: Hand): Valid[Hand] =
       for {
-        roleStr <- str.headOption toValid "Can't parse hand"
+        roleStr <- str.headOption toValid "Cannot parse hand"
         num = KifUtils kanjiToInt str.tail
         role <- Role.allByEverything.get(roleStr.toString) toValid s"Unknown piece in hand: $roleStr"
       } yield (hand.store(role, num))
@@ -93,11 +93,11 @@ object KifParserHelper {
   private def parseHandicap(str: String, variant: Variant): Valid[Situation] =
     for {
       hPosition <- StartingPosition.searchByEco(str) toValid s"Unknown handicap: $str"
-      situation <- Forsyth.<<@(variant, hPosition.fen) toValid s"Can't parse handicap: $str"
+      situation <- Forsyth.<<@(variant, hPosition.fen) toValid s"Cannot parse handicap: $str"
     } yield situation
 
-  def createResult(tags: Tags, color: Color): Option[Tag] = {
-    tags(_.Termination).map(_.toLowerCase) match {
+  def createResult(termination: Option[Tag], color: Color): Option[Tag] = {
+    termination.map(_.value.toLowerCase) match {
       case Some("投了") | Some("反則負け") | Some("切れ負け") | Some("time-up") =>
         Tag(_.Result, color.fold("0-1", "1-0")).some
       case Some("入玉勝ち") | Some("詰み") | Some("反則勝ち") => Tag(_.Result, color.fold("1-0", "0-1")).some

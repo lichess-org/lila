@@ -327,6 +327,7 @@ object KifFixtures {
  192 ６四歩(63)   ( 0:23/)
  193 ５六玉(65)   ( 0:11/)
  194  Time-up   ( 0:0/)"""
+
   val kif3 = """#KIF version=2.0 encoding=Shift_JIS
 # ---- Kifu for Windows V7 V7.08 棋譜ファイル ----
 開始日時：2017/01/21

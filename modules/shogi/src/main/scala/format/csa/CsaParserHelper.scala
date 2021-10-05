@@ -13,7 +13,7 @@ object CsaParserHelper {
     val handicap     = lines.find(l => l.startsWith("PI"))
     val isBoardSetup = lines.exists(l => l.startsWith("P1"))
     if (handicap.isDefined && isBoardSetup)
-      "Both handicap (PI) and whole board position provided (P1, P2, ...)".failureNel
+      "Both handicap (PI) and whole board position (P1, P2, ...) provided".failureNel
     else if (!handicap.isDefined && !isBoardSetup)
       "No initial position provided (add 'PI' for standard position)".failureNel
     else {
@@ -34,13 +34,19 @@ object CsaParserHelper {
   private def parseHandicap(handicap: String, variant: Variant): Valid[PieceMap] = {
     def parseSquarePiece(squarePiece: String, pieces: PieceMap): Valid[PieceMap] = {
       for {
-        _ <- squarePiece.validIf(squarePiece.size == 4, s"Incorrect square piece format in handicap setup: $squarePiece")
+        _ <- squarePiece.validIf(
+          squarePiece.size == 4,
+          s"Incorrect square and piece format in handicap setup: $squarePiece"
+        )
         posStr  = squarePiece.slice(0, 2)
         roleStr = squarePiece.slice(2, 4)
         pos  <- Pos.numberAllKeys get posStr toValid s"Incorrect position in handicap setup: $posStr"
         _    <- pos.validIf(pieces contains pos, s"No piece to remove from $posStr in handicap setup")
         role <- Role.allByCsa get roleStr toValid s"Non existent piece role in handicap setup: $roleStr"
-        _    <- role.validIf(pieces.get(pos).exists(_.role == role), s"$role not present on $posStr in handicap setup")
+        _ <- role.validIf(
+          pieces.get(pos).exists(_.role == role),
+          s"$role not present on $posStr in handicap setup"
+        )
       } yield (pieces - pos)
     }
 
@@ -56,9 +62,9 @@ object CsaParserHelper {
     def parseSquare(sq: String, i: Int, pieces: PieceMap): Valid[PieceMap] =
       for {
         pos   <- Pos.posAt(i % 9 + 1, 10 - (i / 9 + 1)) toValid "Invalid board setup - too many squares"
-        piece <- Piece.fromCsa(sq) toValid s"Non existent piece $sq in board setup"
+        piece <- Piece.fromCsa(sq) toValid s"Non existent piece (${sq}) in board setup"
       } yield (pieces + (pos -> piece))
-    if (ranks.size != 9) "Incorrect number of board ranks provided: %d/9".format(ranks.size).failureNel
+    if (ranks.size != 9) "Incorrect number of board ranks in board setup: %d/9".format(ranks.size).failureNel
     else {
       val squares = ranks.flatMap(_.drop(2).grouped(3)).zipWithIndex
       squares.foldLeft(succezz(Map()): Valid[PieceMap]) { case (acc, cur) =>
@@ -91,22 +97,25 @@ object CsaParserHelper {
           succezz(board withCrazyData newHands)
         } else
           for {
-            _ <- str.validIf(str.size == 4, s"Incorrect format in $line: $str")
+            _ <- str.validIf(str.size == 4, s"Incorrect format (${str}) in: $line")
             roleStr = str.slice(2, 4)
-            role <- Role.allByCsa get roleStr toValid s"Non existent piece role in $line: $roleStr"
-            _    <- role.validIf(Role.handRoles.contains(role), s"Can't have $role in hand in $line")
+            role <- Role.allByCsa get roleStr toValid s"Non existent piece role (${roleStr}) in: $line"
+            _    <- role.validIf(Role.handRoles.contains(role), s"Can't have $role in hand: $line")
             hands = board.crazyData.getOrElse(Hands.init)
           } yield (board.withCrazyData(hands.store(Piece(!color, role))))
       }
       def parseBoardAddition(str: String, color: Color, board: Board): Valid[Board] = {
         for {
-          _ <- str.validIf(str.size == 4, s"Incorrect square piece format in $line: $str")
+          _ <- str.validIf(str.size == 4, s"Incorrect square piece format (${str}) in: $line")
           posStr  = str.slice(0, 2)
           roleStr = str.slice(2, 4)
-          pos  <- Pos.numberAllKeys get posStr toValid s"Incorrect position in $line: $posStr"
-          role <- Role.allByCsa get roleStr toValid s"Non existent piece role in $line: $roleStr"
+          pos  <- Pos.numberAllKeys get posStr toValid s"Incorrect position (${posStr}) in: $line"
+          role <- Role.allByCsa get roleStr toValid s"Non existent piece role (${roleStr}) in: $line"
           boardWithPiece <- board
-            .place(Piece(color, role), pos) toValid s"Cannot place $role on $posStr - already occupied ($line)"
+            .place(
+              Piece(color, role),
+              pos
+            ) toValid s"Cannot place $role on $posStr - already occupied - in: $line"
         } yield boardWithPiece
       }
 
@@ -139,13 +148,15 @@ object CsaParserHelper {
 
   }
 
-  def createResult(tags: Tags, color: Color): Option[Tag] =
-    tags(_.Termination).map(_.toLowerCase) match {
-      case Some("TORYO") | Some("反則負け") | Some("切れ負け") | Some("time-up") =>
+  def createResult(termination: Option[Tag], color: Color): Option[Tag] =
+    termination.map(_.value.toUpperCase) match {
+      case Some("TORYO") | Some("TIME_UP") | Some("ILLEGAL_MOVE") =>
         Tag(_.Result, color.fold("0-1", "1-0")).some
-      case Some("入玉勝ち") | Some("TSUMI") | Some("反則勝ち") => Tag(_.Result, color.fold("1-0", "0-1")).some
-      case Some("JISHOGI") | Some("千日手")               => Tag(_.Result, "1/2-1/2").some
-      case _                                           => None
+      case Some("+ILLEGAL_ACTION")                                 => Tag(_.Result, "1-0").some
+      case Some("-ILLEGAL_ACTION")                                 => Tag(_.Result, "0-1").some
+      case Some("KACHI") | Some("TSUMI")                           => Tag(_.Result, color.fold("1-0", "0-1")).some
+      case Some("JISHOGI") | Some("SENNICHITE") | Some("HIKIWAKE") => Tag(_.Result, "1/2-1/2").some
+      case _                                                       => None
     }
 
 }

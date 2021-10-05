@@ -55,14 +55,14 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   def full(kif: String): Valid[ParsedNotation] =
     try {
-      val preprocessed = augmentString(kif).linesIterator
-        .map(_.split("#|&").head.trim) // remove # and & comments and trim
-        .filter(l => l.nonEmpty && !(l.startsWith("まで")) && !commentRegex.matches(l))
+      val preprocessed = augmentString(cleanKif(kif)).linesIterator
+        .collect {
+          case l if !commentRegex.matches(l.trim.take(1)) =>
+            l.split("#|&").headOption.getOrElse("").trim
+          case l => l.trim
+        } // remove # or & comments, but keep them in * comments
+        .filterNot(l => l.isEmpty || l.startsWith("まで") || commentRegex.matches(l))
         .mkString("\n")
-        .replace("‑", "-")
-        .replace("–", "-")
-        .replace('　', ' ')
-        .replace("：", ":")
       for {
         splitted <- splitHeaderAndRest(preprocessed)
         headerStr = splitted._1
@@ -82,22 +82,10 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         parsedVariations <- VariationParser(variationStr)
         variations = createVariations(parsedVariations)
         situation <- KifParserHelper.parseSituation(boardStr, preTags(_.Handicap), variant)
-        termTags = terminationOption.filterNot(_ => preTags.exists(_.Termination)).foldLeft(preTags)(_ + _)
-        sfen     = Forsyth.exportSituation(situation)
-        boardTags = sfen.some
-          .filterNot(Forsyth.compareTruncated(_, Forsyth.initial))
-          .map(s => Tag(_.FEN, s))
-          .foldLeft(termTags)(_ + _)
-        tags = KifParserHelper
-          .createResult(
-            boardTags,
-            Color((strMoves.size + { if (situation.color == Gote) 1 else 0 }) % 2 == 0)
-          )
-          .filterNot(_ => preTags.exists(_.Result))
-          .foldLeft(boardTags)(_ + _)
+        tags = createTags(preTags, situation, strMoves.size, terminationOption)
         parsedMoves <- objMoves(strMoves, variant, variations)
         _ <-
-          if (kif.isEmpty || parsedMoves.value.nonEmpty || tags.exists(_.FEN)) succezz(true)
+          if (kif.isEmpty || parsedMoves.value.nonEmpty || tags(_.FEN).isDefined) succezz(true)
           else "No moves nor initial position".failureNel
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
@@ -177,7 +165,24 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     }
   }
 
-  def cleanComments(comments: List[String]) = comments.map(_.trim.take(2000)).filter(_.nonEmpty)
+  def createTags(
+      tags: Tags,
+      sit: Situation,
+      nbMoves: Int,
+      moveTermTag: Option[Tag]
+  ): Tags = {
+    val fenTag = Forsyth.exportSituation(sit).some.collect {
+      case sfen if !Forsyth.compareTruncated(sfen, Forsyth.initial) => Tag(_.FEN, sfen)
+    }
+    val termTag = (tags(_.Termination) orElse moveTermTag.map(_.value)).map(t => Tag(_.Termination, t))
+    val resultTag = KifParserHelper
+      .createResult(
+        termTag,
+        Color((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
+      )
+
+    List(fenTag, resultTag, termTag).flatten.foldLeft(tags)(_ + _)
+  }
 
   object VariationParser extends RegexParsers with Logging {
 
@@ -186,7 +191,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     def apply(kifVariations: String): Valid[List[StrVariation]] = {
       parseAll(variations, kifVariations.trim) match {
         case Success(vars, _) => succezz(vars)
-        case _                => "Cannot parse variations, man".failureNel
+        case _                => "Cannot parse variations".failureNel
       }
     }
 
@@ -256,7 +261,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
               }
             )
           )
-        case err => "Cannot parse moves from kif: %s\n%s".format(err.toString, kifMoves).failureNel
+        case err => "Cannot parse moves: %s\n%s".format(err.toString, kifMoves).failureNel
       }
     }
 
@@ -347,44 +352,44 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def apply(str: String, lastDest: Option[Pos], variant: Variant): Valid[ParsedMove] = {
       str.map(KifUtils toDigit _) match {
-        case MoveRegex(destS, roleS, promS, origS) => 
+        case MoveRegex(destS, roleS, promS, origS) =>
           for {
             role <- variant.rolesByEverything get roleS toValid s"Unknown role in move: $str"
             destOpt = if (destS == "同") lastDest else (Pos.numberAllKeys get destS)
             dest <- destOpt toValid s"Cannot parse destination square in move: $str"
-            orig <- Pos.numberAllKeys get origS toValid s"Cannot parse origin square in move: $str"  
+            orig <- Pos.numberAllKeys get origS toValid s"Cannot parse origin square in move: $str"
           } yield KifStd(
-              dest = dest,
-              role = role,
-              orig = orig,
-              promotion = if (promS == "成" || promS == "+") true else false,
-              metas = Metas(
-                check = false,
-                checkmate = false,
-                comments = Nil,
-                glyphs = Glyphs.empty,
-                variations = Nil,
-                timeSpent = None,
-                timeTotal = None
-              )
+            dest = dest,
+            role = role,
+            orig = orig,
+            promotion = if (promS == "成" || promS == "+") true else false,
+            metas = Metas(
+              check = false,
+              checkmate = false,
+              comments = Nil,
+              glyphs = Glyphs.empty,
+              variations = Nil,
+              timeSpent = None,
+              timeTotal = None
             )
+          )
         case DropRegex(posS, roleS) =>
           for {
             role <- variant.rolesByEverything get roleS toValid s"Unknown role in drop: $str"
-            pos <- Pos.numberAllKeys get posS toValid s"Cannot parse destination square in drop: $str"
+            pos  <- Pos.numberAllKeys get posS toValid s"Cannot parse destination square in drop: $str"
           } yield Drop(
-              role = role,
-              pos = pos,
-              metas = Metas(
-                check = false,
-                checkmate = false,
-                comments = Nil,
-                glyphs = Glyphs.empty,
-                variations = Nil,
-                timeSpent = None,
-                timeTotal = None
-              )
+            role = role,
+            pos = pos,
+            metas = Metas(
+              check = false,
+              checkmate = false,
+              comments = Nil,
+              glyphs = Glyphs.empty,
+              variations = Nil,
+              timeSpent = None,
+              timeTotal = None
             )
+          )
         case _ => "Cannot parse move/drop: %s\n".format(str).failureNel
       }
     }
@@ -394,9 +399,9 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def apply(kif: String): Valid[Tags] =
       parseAll(all, kif) match {
-        case f: Failure       => "Cannot parse kif tags: %s\n%s".format(f.toString, kif).failureNel
+        case f: Failure       => "Cannot parse KIF tags: %s\n%s".format(f.toString, kif).failureNel
         case Success(tags, _) => succezz(Tags(tags.filter(_.value.nonEmpty)))
-        case err              => "Cannot parse kif tags: %s\n%s".format(err.toString, kif).failureNel
+        case err              => "Cannot parse KIF tags: %s\n%s".format(err.toString, kif).failureNel
       }
 
     def all: Parser[List[Tag]] =
@@ -412,6 +417,16 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
   }
   def normalizeKifName(str: String): String =
     Tag.kifNameToTag.get(str).fold(str)(_.lowercase)
+
+  private def cleanKif(kif: String): String =
+    kif
+      .replace("‑", "-")
+      .replace("–", "-")
+      .replace('　', ' ')
+      .replace("：", ":")
+
+  private def cleanComments(comments: List[String]) =
+    comments.map(_.trim.take(2000)).filter(_.nonEmpty)
 
   private def getComments(kif: String): Valid[InitialPosition] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line =>

@@ -29,14 +29,13 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
 
   def full(csa: String): Valid[ParsedNotation] =
     try {
-      val preprocessed = augmentString(csa).linesIterator
-        .map(l => if ((l lift 0) != Some('\'')) l.replace(",", "\n").trim else l.trim) // keep ',' in comments
-        .filter(l => l.nonEmpty && l != "'")
+      val preprocessed = augmentString(cleanCsa(csa)).linesIterator
+        .collect {
+          case l if !l.trim.startsWith("'") => l.replace(",", "\n").trim
+          case l                            => l.trim // keep ',' in comments
+        }
+        .filterNot(l => l.isEmpty || l == "'" || l.startsWith("V")) // remove empty comments and version
         .mkString("\n")
-        .replace("‑", "-")
-        .replace("–", "-")
-        .replace('　', ' ')
-        .replace("：", ":")
       for {
         splitted <- splitHeaderAndMoves(preprocessed)
         headerStr = splitted._1
@@ -50,18 +49,10 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
         terminationOption = parsedMoves._2
         init      <- getComments(headerStr)
         situation <- CsaParserHelper.parseSituation(boardStr, variant.Standard)
-        termTags  = terminationOption.filterNot(_ => preTags.exists(_.Termination)).foldLeft(preTags)(_ + _)
-        boardTags = termTags + Tag(_.FEN, Forsyth.exportSituation(situation))
-        tags = CsaParserHelper
-          .createResult(
-            boardTags,
-            Color((strMoves.size + { if (situation.color == Gote) 1 else 0 }) % 2 == 0)
-          )
-          .filterNot(_ => preTags.exists(_.Result))
-          .foldLeft(boardTags)(_ + _)
+        tags = createTags(preTags, situation, strMoves.size, terminationOption)
         parsedMoves <- objMoves(strMoves, tags.variant | Variant.default)
         _ <-
-          if (csa.isEmpty || parsedMoves.value.nonEmpty || tags.exists(_.FEN)) succezz(true)
+          if (csa.isEmpty || parsedMoves.value.nonEmpty || tags(_.FEN).isDefined) succezz(true)
           else "No moves nor initial position".failureNel
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
@@ -80,7 +71,24 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
     }.sequence map ParsedMoves.apply
   }
 
-  def cleanComments(comments: List[String]) = comments.map(_.trim.take(2000)).filter(_.nonEmpty)
+  def createTags(
+      tags: Tags,
+      sit: Situation,
+      nbMoves: Int,
+      moveTermTag: Option[Tag]
+  ): Tags = {
+    val fenTag = Forsyth.exportSituation(sit).some.collect {
+      case sfen if !Forsyth.compareTruncated(sfen, Forsyth.initial) => Tag(_.FEN, sfen)
+    }
+    val termTag = (tags(_.Termination) orElse moveTermTag.map(_.value)).map(t => Tag(_.Termination, t))
+    val resultTag = CsaParserHelper
+      .createResult(
+        termTag,
+        Color((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
+      )
+
+    List(fenTag, resultTag, termTag).flatten.foldLeft(tags)(_ + _)
+  }
 
   trait Logging { self: Parsers =>
     protected val loggingEnabled = false
@@ -103,7 +111,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
               }
             )
           )
-        case err => "Cannot parse moves from csa: %s\n%s".format(err.toString, csaMoves).failureNel
+        case err => "Cannot parse moves: %s\n%s".format(err.toString, csaMoves).failureNel
       }
     }
 
@@ -171,7 +179,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
       }
 
     val termValue: Parser[String] =
-      "CHUDAN" | "TORYO" | "JISHOGI" | "SENNICHITE" | "TSUMI" | "TIME_UP" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" | "KACHI" | "HIKIWAKE" | "FUZUMI" | "ERROR"
+      "CHUDAN" | "TORYO" | "JISHOGI" | "SENNICHITE" | "TSUMI" | "TIME_UP" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" | "KACHI" | "HIKIWAKE" | "FUZUMI" | "MATTA" | "ERROR"
   }
 
   object MoveParser extends RegexParsers with Logging {
@@ -190,37 +198,37 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
             dest <- Pos.numberAllKeys get destS toValid s"Cannot parse destination sqaure in move: $str"
             orig <- Pos.numberAllKeys get origS toValid s"Cannot parse origin sqaure in move: $str"
           } yield CsaStd(
-              dest = dest,
-              role = role,
-              orig = orig,
-              metas = Metas(
-                check = false,
-                checkmate = false,
-                comments = Nil,
-                glyphs = Glyphs.empty,
-                variations = Nil,
-                timeSpent = None,
-                timeTotal = None
-              )
+            dest = dest,
+            role = role,
+            orig = orig,
+            metas = Metas(
+              check = false,
+              checkmate = false,
+              comments = Nil,
+              glyphs = Glyphs.empty,
+              variations = Nil,
+              timeSpent = None,
+              timeTotal = None
             )
+          )
         }
         case DropRegex(posS, roleS) =>
           for {
             role <- variant.rolesByCsa get roleS toValid s"Uknown role in drop: $str"
-            pos <- Pos.numberAllKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
+            pos  <- Pos.numberAllKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
           } yield Drop(
-              role = role,
-              pos = pos,
-              metas = Metas(
-                check = false,
-                checkmate = false,
-                comments = Nil,
-                glyphs = Glyphs.empty,
-                variations = Nil,
-                timeSpent = None,
-                timeTotal = None
-              )
+            role = role,
+            pos = pos,
+            metas = Metas(
+              check = false,
+              checkmate = false,
+              comments = Nil,
+              glyphs = Glyphs.empty,
+              variations = Nil,
+              timeSpent = None,
+              timeTotal = None
             )
+          )
         case _ => "Cannot parse move/drop: %s\n".format(str).failureNel
       }
     }
@@ -230,9 +238,9 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
 
     def apply(csa: String): Valid[Tags] =
       parseAll(all, csa) match {
-        case f: Failure       => "Cannot parse csa tags: %s\n%s".format(f.toString, csa).failureNel
+        case f: Failure       => "Cannot parse CSA tags: %s\n%s".format(f.toString, csa).failureNel
         case Success(tags, _) => succezz(Tags(tags.filter(_.value.nonEmpty)))
-        case err              => "Cannot parse csa tags: %s\n%s".format(err.toString, csa).failureNel
+        case err              => "Cannot parse CSA tags: %s\n%s".format(err.toString, csa).failureNel
       }
 
     def all: Parser[List[Tag]] =
@@ -254,6 +262,16 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
           Tag(normalizeCsaName(line.slice(0, 1)), line.drop(1))
         }
   }
+
+  private def cleanCsa(csa: String): String =
+    csa
+      .replace("‑", "-")
+      .replace("–", "-")
+      .replace('　', ' ')
+      .replace("：", ":")
+
+  private def cleanComments(comments: List[String]) =
+    comments.map(_.trim.take(2000)).filter(_.nonEmpty)
 
   private def normalizeCsaName(str: String): String =
     Tag.csaNameToTag.get(str).fold(str)(_.lowercase)

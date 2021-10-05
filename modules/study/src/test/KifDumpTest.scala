@@ -38,7 +38,7 @@ class KifDumpTest extends Specification {
       val tree = root.copy(children = children(node(1, "e3e4", "Pe4")))
       P.toMoves(tree) must beLike { case Vector(move) =>
         move.san must_== "Pe4"
-        move.uci must_== "e3e4"
+        move.uci.uci must_== "e3e4"
         move.variations must beEmpty
       }
     }
