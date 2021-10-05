@@ -14,7 +14,7 @@ object Dependencies {
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
   val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.1"   % "compile"
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.2.0"
-  val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.5.0"
+  val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.6.0"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.5.RELEASE"
   val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
