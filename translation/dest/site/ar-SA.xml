@@ -689,6 +689,13 @@
   <string name="increment">الزيادة</string>
   <string name="error.required">هذة الخانة ضرورية</string>
   <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
+  <string name="error.email_acceptable">هذا البريد الالكتروني غير مقبول. رجاءً تحقق منه مرة أخرى و حاول مرة ثانية.</string>
+  <string name="error.email_unique">هذا البريد الالكتروني غير صالح أو مأخوذ من قبل</string>
+  <string name="error.email_different">هذا بالفعل بريدك الالكتروني</string>
+  <string name="error.minLength">الحد الأدنى للطول هو%s</string>
+  <string name="error.maxLength">حد الطول الأقصى هو %s</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too short.&#10;&#10;Examples of forms with a minimum length requirement might be account or streamer names.">يجب أن يكون أكبر أو يساوي ل %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">يجب أن يكون أقل أو يساوي %s</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
   <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
