@@ -150,8 +150,7 @@ object Csa {
     Tag.TimeControl,
     Tag.SenteTeam,
     Tag.GoteTeam,
-    Tag.Opening,
-    Tag.FEN
+    Tag.Opening
   )
 
   private def makeSquare(sq: Pos): String =
