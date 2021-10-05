@@ -67,9 +67,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   const infos = data.history
     ? h(
         'div.infos.block',
-        [
-          window.lishogi.numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined
-        ]
+        [window.lishogi.numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
           .map(t => t && h('span', t))
           .concat([
             h(

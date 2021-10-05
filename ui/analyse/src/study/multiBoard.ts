@@ -151,7 +151,7 @@ function makePlayer(player: ChapterPreviewPlayer): VNode {
 }
 
 function uciToLastMove(lm?: string): Key[] | undefined {
-  return lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) as Key[] : undefined;
+  return lm ? ((lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) as Key[]) : undefined;
 }
 
 function makeCg(preview: ChapterPreview): VNode {

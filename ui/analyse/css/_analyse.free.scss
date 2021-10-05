@@ -28,7 +28,8 @@
   .copyable {
     flex: 1 1 auto;
   }
-  .kif, .csa {
+  .kif,
+  .csa {
     margin: 2em 0;
     textarea {
       min-height: 10em;

@@ -102,20 +102,19 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
   ].join('\n');
 }
 
-
 function renderCsaTime(moveTime: number): string {
-  return ',T' + (Math.floor(moveTime / 100));
+  return ',T' + Math.floor(moveTime / 100);
 }
 
 function renderCsaMove(move: Move, role: Role, color: Color): string {
   if (isDrop(move)) {
-    return (color === 'sente' ? '+' : '-') + "00" + makeCsaSquare(move.to) + roleToCsa(role);
+    return (color === 'sente' ? '+' : '-') + '00' + makeCsaSquare(move.to) + roleToCsa(role);
   } else {
     return (
       (color === 'sente' ? '+' : '-') +
       makeCsaSquare(move.from) +
       makeCsaSquare(move.to) +
-      roleToCsa(move.promotion ?  promote(role) : role)
+      roleToCsa(move.promotion ? promote(role) : role)
     );
   }
 }
@@ -130,14 +129,14 @@ function renderCsaMainline(node: Tree.Node): string[] {
       const move = parseLishogiUci(m.uci);
       const role = lishogiCharToRole(m.san[0]);
       if (defined(move) && defined(role)) {
-        const csaMove = renderCsaMove(move, role, (m.ply % 2) ? 'sente' : 'gote');
+        const csaMove = renderCsaMove(move, role, m.ply % 2 ? 'sente' : 'gote');
         const csaTime = defined(m.clock) ? renderCsaTime(m.clock) : '';
         res.push(csaMove + csaTime);
       }
     }
     if (defined(m.comments)) {
       for (const c of m.comments) {
-        res.push('\'' + c.text);
+        res.push("'" + c.text);
       }
     }
   }
@@ -149,10 +148,7 @@ export function renderFullCsa(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
   const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
   const moves = renderCsaMainline(ctrl.tree.root).join('\n');
-  return [
-    makeCsaHeader(setup),
-    moves
-  ].join('\n');
+  return [makeCsaHeader(setup), moves].join('\n');
 }
 
 export function renderNodesHtml(nodes: ForecastStep[], notation: number): MaybeVNodes {
