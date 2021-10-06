@@ -352,4 +352,12 @@
   <string name="topics">ವಿಷಯಗಳು</string>
   <string name="posts">ಪೋಸ್ಟ್ ಗಳು</string>
   <string name="lastPost">ಅಂತಿಮ ಪೋಸ್ಟ್</string>
+  <string name="replies">ಪ್ರತ್ಯುತ್ತರಗಳು</string>
+  <string name="replyToThisTopic">ಈ ವಿಷಯಕ್ಕೆ ಪ್ರತ್ಯುತ್ತರಿಸಿ</string>
+  <string name="reply">ಪ್ರತ್ಯುತ್ತರ</string>
+  <string name="message">ಸಂದೇಶ</string>
+  <string name="createTheTopic">ವಿಷಯ ರಚಿಸಿ</string>
+  <string name="reportAUser">ಒಂದು ಖಾತೆಯ ವಿರುದ್ಧ ದೂರು ಸಲ್ಲಿಸಿ</string>
+  <string name="user">ಖಾತೆಯ ಹೆಸರು</string>
+  <string name="reason">ಕಾರಣ</string>
 </resources>
