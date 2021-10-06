@@ -3,12 +3,16 @@ import debounce from 'common/debounce';
 export class WikiTheory {
   update = debounce(
     async (nodes: Tree.Node[]) => {
-      const path = nodes
-        .slice(1)
-        .map(n => `${this.plyPrefix(n)}${n.san}`)
-        .join('/');
+      const pathParts = nodes.slice(1).map(n => `${this.plyPrefix(n)}${n.san}`);
+      const path = pathParts.join('/');
       if (!path) this.show('');
       else if (this.cache.has(path)) this.show(this.cache.get(path)!);
+      else if (
+        Array.from({ length: pathParts.length }, (_, i) => -i - 1)
+          .map(i => pathParts.slice(0, i).join('/'))
+          .some(sub => this.cache.has(sub) && !this.cache.get(sub)!.length)
+      )
+        this.show('');
       else {
         const title = `Chess_Opening_Theory/${path}`;
         const url = `${wikiBooksUrl}/w/api.php?titles=${title}&${this.urlArgs}`;
@@ -30,8 +34,8 @@ export class WikiTheory {
   private cache = new Map<string, string>();
   private urlArgs = 'origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
   private plyPrefix = (node: Tree.Node) => `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
-  private el = () => $('.analyse__wiki');
-  private show = (html: string) => this.el().html(html);
+  private el = $('.analyse__wiki');
+  private show = (html: string) => this.el.html(html);
 }
 
 const wikiBooksUrl = 'https://en.wikibooks.org';
