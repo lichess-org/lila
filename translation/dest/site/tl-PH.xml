@@ -47,6 +47,8 @@
   <string name="blackResigned">Nagpatalo ang Itim</string>
   <string name="whiteLeftTheGame">Umalis sa laro ang puti</string>
   <string name="blackLeftTheGame">Umalis sa laro ang Itim</string>
+  <string name="whiteDidntMove">Hindi gumalaw si White</string>
+  <string name="blackDidntMove">Hindi gumalaw si Black</string>
   <string name="requestAComputerAnalysis">Humingi ng pagsusuri ng kompyuter</string>
   <string name="computerAnalysis">Pagsusuri ng kompyuter</string>
   <string name="computerAnalysisAvailable">Magagamit na ang pagsusuri ng Kompyuter</string>
@@ -85,6 +87,7 @@
     <item quantity="one">Namate sa %s kalahating galaw</item>
     <item quantity="other">Namate sa %s kalahating mga galaw</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50 \"na may pag-ikot, batay sa bilang ng mga kalahating ilipat hanggang sa susunod na pagkuha o paglipat ng pawn</string>
   <string name="noGameFound">Walang nakitang laro</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maaring magsama ng maraming laro mula sa ginustong menu?</string>
   <string name="openingExplorer">Pagbubukas ng tagalakbay</string>
@@ -92,6 +95,9 @@
   <string name="xOpeningExplorer">%s pagbubukas ng tagalakbay</string>
   <string name="winPreventedBy50MoveRule">Nanalo na pinigilan ng 50-alituntunin ng galaw</string>
   <string name="lossSavedBy50MoveRule">Natalo naisave sa 50-alituntunin ng galaw</string>
+  <string name="winOr50MovesByPriorMistake">Manalo o 50 gumagalaw sa pamamagitan ng dating pagkakamali</string>
+  <string name="lossOr50MovesByPriorMistake">Pagkawala o 50 paggalaw sa pamamagitan ng dating pagkakamali</string>
+  <string name="unknownDueToRounding">Ginagarantiyahan lamang ang panalo / pagkawala kung ang inirekumendang linya ng baseng talahanayan ay sinundan mula pa noong huling pag-capture o pawn na paglipat, dahil sa posibleng pag-ikot ng mga halaga ng DTZ sa mga tableya ng Syzygy.</string>
   <string name="allSet">Lahat ay natakda na!</string>
   <string name="importPgn">Magluwas ng PGN</string>
   <string name="delete">Burahin</string>
@@ -351,6 +357,8 @@
   <string name="follow">Sundan</string>
   <string name="following">Sinusundan</string>
   <string name="unfollow">Wag sundan</string>
+  <string name="followX">Sundin mo siya %s</string>
+  <string name="unfollowX">I-unfollow siya %s</string>
   <string name="block">Harangan</string>
   <string name="blocked">Naharangan</string>
   <string name="unblock">Huwag harangan</string>
@@ -536,6 +544,14 @@
   <string name="tools">Mga Kagamitan</string>
   <string name="increment">Pagdagdag</string>
   <string name="error.required">Ang patlang na ito ay kailangan</string>
+  <string name="error.email">Ang email address na ito ay hindi wasto</string>
+  <string name="error.email_acceptable">Hindi katanggap-tanggap ang email address na ito. Mangyaring i-double check ito, at subukang muli.</string>
+  <string name="error.email_unique">Ito na ang iyong email address</string>
+  <string name="error.email_different">Ito na ang iyong email address</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Dapat na hindi bababa sa %s mga character ang haba</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Dapat na hindi hihigit sa %s mga character ang haba</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Dapat ay hindi bababa sa %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Dapat nasa mos %s</string>
   <string name="ifRatingIsPlusMinusX">Kung ang marka ay ± %s</string>
   <string name="onlyExistingConversations">Mga nabubuhay na pagsasalitaan lamang</string>
   <string name="onlyFriends">Mga kaibigan lamang</string>
