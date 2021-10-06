@@ -344,4 +344,12 @@
   <string name="recommendNotTouching">ಇದನ್ನು ಬದಲಾಯಿಸಬೇಡಿ ಎಂದು ಶಿಫಾರಸ್ಸು ಮಾಡುತ್ತೇವೆ.</string>
   <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
   <string name="showAdvancedSettings">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ</string>
+  <string name="blackWins">ಕಪ್ಪು ದಳದ ಗೆಲುವು</string>
+  <string name="no">ಬೇಡ</string>
+  <string name="yes">ಹೌದು</string>
+  <string name="help">ಸಹಾಯ:</string>
+  <string name="createANewTopic">ಹೊಸ ವಿಷಯ ರಚಿಸಿ</string>
+  <string name="topics">ವಿಷಯಗಳು</string>
+  <string name="posts">ಪೋಸ್ಟ್ ಗಳು</string>
+  <string name="lastPost">ಅಂತಿಮ ಪೋಸ್ಟ್</string>
 </resources>
