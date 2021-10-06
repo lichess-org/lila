@@ -339,4 +339,8 @@
   <string name="conditionOfEntry">ಪ್ರವೇಶಾರ್ಹತೆ:</string>
   <string name="advancedSettings">ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳು</string>
   <string name="safeTournamentName">ಪಂದ್ಯಾವಳಿಗೆ ಸುರಕ್ಷಿತ ಹಾಗೂ ಅಪಾಯವಿಲ್ಲದ ಹೆಸರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.</string>
+  <string name="inappropriateNameWarning">ಕೇವಲ ಸಣ್ಣಮಟ್ಟಿನ ಅನುಚಿತ ಅಥವಾ ಅಸಮಂಜಸ ಹೆಸರುಗಳೂ ಕೂಡ ನಿಮ್ಮ ಖಾತೆಯ ನಿಷೇದಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು.</string>
+  <string name="emptyTournamentName">ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಯನ್ನು ಯಾವುದೋ ಒಬ್ಬರು ಪ್ರಸಿದ್ಧ ಚೆಸ್ ಆಟಗಾರರ ಹೆಸರಿನಲ್ಲಿ ನಾಮಕರಣಗೊಳಿಸಬೇಕೆಂದಿದ್ದರೆ, ಹೆಸರಿನ ಭಾಗವನ್ನು ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ.</string>
+  <string name="recommendNotTouching">ಇದನ್ನು ಬದಲಾಯಿಸಬೇಡಿ ಎಂದು ಶಿಫಾರಸ್ಸು ಮಾಡುತ್ತೇವೆ.</string>
+  <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
 </resources>
