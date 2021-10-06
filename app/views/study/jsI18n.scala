@@ -56,6 +56,7 @@ object jsI18n {
       studyKif,
       downloadAllGames,
       chapterKif,
+      chapterCsa,
       downloadGame,
       studyUrl,
       broadcastUrl,
