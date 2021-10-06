@@ -52,6 +52,7 @@
   <string name="requestAComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿನಂತಿಸಿ</string>
   <string name="computerAnalysis">ಗಣಕಯಂತ್ರದ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="computerAnalysisAvailable">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಲಭ್ಯವಿದೆ</string>
+  <string name="computerAnalysisDisabled">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ತಡೆಹಿಡಿಯಲಾಗಿದೆ</string>
   <string name="analysis">ವಿಶ್ಲೇಷಣಾ ಫಲಕ</string>
   <string name="depthX">ಆಳ %s</string>
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
@@ -119,11 +120,15 @@
   <string name="moveTimes">ನಡೆಗೆ ಬಳಸಿದ ಸಮಯ</string>
   <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
   <string name="threefoldRepetition">Threefold repetition</string>
+  <string name="claimADraw">ಡ್ರಾ ಪಡೆದುಕೊಳ್ಳಿ</string>
+  <string name="offerDraw">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಪ್ರಸ್ತಾವಿಸಿ</string>
   <string name="draw">ಡ್ರಾ</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s ಆಟಗಾರ</item>
     <item quantity="other">%s ಆಟಗಾರರು</item>
   </plurals>
+  <string name="drawByMutualAgreement">ಪರಸ್ಪರ ಸಮ್ಮತದಿಂದ ಡ್ರಾ ಘೋಷಿಸಲಾಗಿದೆ</string>
+  <string name="fiftyMovesWithoutProgress">ಪ್ರಗತಿ ರಹಿತ ಐವತ್ತು ನಡೆಗಳು</string>
   <string name="currentGames">ಪ್ರಸ್ತುತ ಆಟ</string>
   <plurals name="nbGames">
     <item quantity="one">%s ಆಟ</item>
