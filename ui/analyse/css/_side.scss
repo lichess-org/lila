@@ -20,10 +20,13 @@
     @extend %flex-column;
     align-self: auto;
   }
-  .analyse__wiki {
+  &__wiki {
     margin-top: 2vh;
-    padding: 0.5em 1em 0 0;
-    flex: 1 1 0;
+    flex: 1 1 auto;
+    @include breakpoint($mq-col3) {
+      flex: 1 1 0;
+      padding: 0.5em 1em 0 0;
+    }
     overflow-y: auto;
     p {
       text-align: justify;
