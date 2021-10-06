@@ -308,4 +308,21 @@
   <string name="unfollowX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
   <string name="block">ನಿಷೇಧಿಸಿ</string>
   <string name="blocked">ನಿಷೇಧಿಸಲಾಗಿದೆ</string>
+  <string name="unblock">ನಿಷೇಧವನ್ನು ತೆಗೆ</string>
+  <string name="followsYou">ನಿಮ್ಮನ್ನು ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</string>
+  <string name="xStartedFollowingY">%1$s ಅವರು %2$s ಅವರನ್ನು ಹಿಂಬಾಲಿಸಲು ಆರಂಭಿಸಿದ್ದಾರೆ</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s ಹಿಂಬಾಲಕರು</item>
+    <item quantity="other">%s ಹಿಂಬಾಲಕರು</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</item>
+  </plurals>
+  <string name="more">ಇನ್ನಷ್ಟು</string>
+  <string name="memberSince">ಸದಸ್ಯತ್ವ</string>
+  <string name="lastSeenActive">ಸಕ್ರಿಯತೆ %s</string>
+  <string name="player">ಆಟದ ವ್ಯಕ್ತಿ</string>
+  <string name="list">ಪಟ್ಟಿ</string>
+  <string name="graph">ರೇಖಾನಕ್ಷೆ</string>
 </resources>
