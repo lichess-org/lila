@@ -122,6 +122,10 @@ object inquiry {
             postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
               textarea(name := "text", placeholder := "Write a mod note"),
               input(tpe := "hidden", name := "mod", value := "true"),
+              isGranted(_.Admin) option div(cls := "note-dox")(
+                div(form3.cmnToggle("note-dox", "dox", checked = false)),
+                label(`for` := "note-dox")("Doxing info")
+              ),
               div(cls := "submission")(
                 submitButton(cls := "button thin")("SEND")
               )
