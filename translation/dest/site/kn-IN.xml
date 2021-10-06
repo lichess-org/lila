@@ -156,6 +156,14 @@
   <string name="correspondence">ಒಪ್ಪಂದ</string>
   <string name="daysPerTurn">ಪ್ರತಿ ಸರದಿಗೆ ಇರುವ ದಿನಗಳು</string>
   <string name="oneDay">ಒಂದು ದಿನ</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ದಿನ</item>
+    <item quantity="other">%s ದಿನಗಳು</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ಘಂಟೆ</item>
+    <item quantity="other">%s ಘಂಟೆಗಳು</item>
+  </plurals>
   <string name="time">ಅವಧಿ</string>
   <string name="rating">ಮಟ್ಟ</string>
   <string name="ratingStats">ಮಟ್ಟ ವ್ಯತ್ಯಾಸ</string>
@@ -186,6 +194,11 @@
     <item quantity="other">%s ಆಟಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
   </plurals>
   <string name="cancel">ರದ್ದುಪಡಿಸು</string>
+  <string name="whiteTimeOut">ಬಿಳಿ ದಳದ ನಿಗದಿತ ಸಮಯ ಮುಕ್ತಾಯ</string>
+  <string name="blackTimeOut">ಕಪ್ಪು ದಳದ ನಿಗದಿತ ಸಮಯ ಮುಕ್ತಾಯ</string>
+  <string name="drawOfferSent">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
+  <string name="drawOfferAccepted">ಡ್ರಾ ಮನವಿಯನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+  <string name="drawOfferCanceled">ಡ್ರಾ ಮನವಿಯನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
   <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
   <string name="subject">ವಿಷಯ</string>
   <string name="send">ಕಳುಹಿಸು</string>
