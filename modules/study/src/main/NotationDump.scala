@@ -41,17 +41,23 @@ final class NotationDump(
 
   def filename(study: Study): String = {
     val date = dateFormat.print(study.createdAt)
-    fileR.replaceAllIn(
-      s"lishogi_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}",
-      ""
+    java.net.URLEncoder.encode(
+      fileR.replaceAllIn(
+        s"lishogi_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}",
+        ""
+      ),
+      "UTF-8"
     )
   }
 
   def filename(study: Study, chapter: Chapter): String = {
     val date = dateFormat.print(chapter.createdAt)
-    fileR.replaceAllIn(
-      s"lishogi_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}",
-      ""
+    java.net.URLEncoder.encode(
+      fileR.replaceAllIn(
+        s"lishogi_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}",
+        ""
+      ),
+      "UTF-8"
     )
   }
 

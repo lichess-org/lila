@@ -74,36 +74,45 @@ final class GameApiV2(
   private val fileR = """[\s,]""".r
   def filename(game: Game, configInput: Config): Fu[String] =
     gameLightUsers(game) map { case (wu, bu) =>
-      fileR.replaceAllIn(
-        "lishogi_game_%s_%s_vs_%s.%s.%s".format(
-          Tag.UTCDate.format.print(game.createdAt),
-          notationDump.dumper.player(game.sentePlayer, wu),
-          notationDump.dumper.player(game.gotePlayer, bu),
-          game.id,
-          fileType(configInput)
+      java.net.URLEncoder.encode(
+        fileR.replaceAllIn(
+          "lishogi_game_%s_%s_vs_%s.%s.%s".format(
+            Tag.UTCDate.format.print(game.createdAt),
+            notationDump.dumper.player(game.sentePlayer, wu),
+            notationDump.dumper.player(game.gotePlayer, bu),
+            game.id,
+            fileType(configInput)
+          ),
+          "_"
         ),
-        "_"
+        "UTF-8"
       )
     }
   def filename(tour: Tournament, configInput: Config): String =
-    fileR.replaceAllIn(
-      "lishogi_tournament_%s_%s_%s.%s".format(
-        Tag.UTCDate.format.print(tour.startsAt),
-        tour.id,
-        lila.common.String.slugify(tour.name),
-        fileType(configInput)
+    java.net.URLEncoder.encode(
+      fileR.replaceAllIn(
+        "lishogi_tournament_%s_%s_%s.%s".format(
+          Tag.UTCDate.format.print(tour.startsAt),
+          tour.id,
+          lila.common.String.slugify(tour.name),
+          fileType(configInput)
+        ),
+        "_"
       ),
-      "_"
+      "UTF-8"
     )
   def filename(swiss: lila.swiss.Swiss, configInput: Config): String =
-    fileR.replaceAllIn(
-      "lishogi_swiss_%s_%s_%s.%s".format(
-        Tag.UTCDate.format.print(swiss.startsAt),
-        swiss.id,
-        lila.common.String.slugify(swiss.name),
-        fileType(configInput)
+    java.net.URLEncoder.encode(
+      fileR.replaceAllIn(
+        "lishogi_swiss_%s_%s_%s.%s".format(
+          Tag.UTCDate.format.print(swiss.startsAt),
+          swiss.id,
+          lila.common.String.slugify(swiss.name),
+          fileType(configInput)
+        ),
+        "_"
       ),
-      "_"
+      "UTF-8"
     )
 
   def exportByUser(config: ByUserConfig): Source[String, _] =
