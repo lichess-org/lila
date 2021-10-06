@@ -143,8 +143,8 @@
     <item quantity="other">%s ಆಟಗಳು</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s ಗುರುತು ಸಂಗ್ರಹ</item>
-    <item quantity="other">%s ಗುರುತು ಸಂಗ್ರಹಗಳು</item>
+    <item quantity="one">%s ಗುರುತುಸಂಗ್ರಹ</item>
+    <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
   </plurals>
   <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
   <string name="logOut">ಸೈನ್ ಔಟ್</string>
@@ -274,4 +274,26 @@
     <item quantity="other">%s ಸೆಕೆಂಡುಗಳನ್ನು ಕೊಡಿ</item>
   </plurals>
   <string name="thisAccountViolatedTos">ಈ ಖಾತೆಯು ಲೀಚೆಸ್ ಅನುಷ್ಠಾನದ ಷರತ್ತು ಮತ್ತು ನಿಬಂಧನೆಗಳನ್ನು ಉಲ್ಲಂಘಿಸಿರುತ್ತದೆ</string>
+  <string name="openingExplorerAndTablebase">ಪ್ರಾರಂಭಿಕ ನಡೆ ಅನ್ವೇಷಕ &amp; ಟೇಬಲ್ ಬೇಸ್</string>
+  <string name="takeback">ನಡೆ ಹಿಂದಕ್ಕೆ ಪಡೆ</string>
+  <string name="proposeATakeback">ನಡೆ ಹಿಂಪಡೆಯಲು ಮನವಿ ಮಾಡು</string>
+  <string name="takebackPropositionSent">ನಡೆ ಹಿಂಪಡೆಯಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
+  <string name="takebackPropositionDeclined">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
+  <string name="takebackPropositionAccepted">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+  <string name="takebackPropositionCanceled">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ರದ್ದುಪಡಿಸಲಾಗಿದೆ</string>
+  <string name="yourOpponentProposesATakeback">ನಿಮ್ಮ ಎದುರಾಳಿ, ಅವರ ನಡೆ ಹಿಂಪಡೆದುಕೊಳ್ಳಲು ಅನುಮತಿ ಕೇಳುತ್ತಿದ್ದಾರೆ</string>
+  <string name="bookmarkThisGame">ಈ ಆಟವನ್ನು ಗುರುತುಸಂಗ್ರಹಕ್ಕೆ ಸೇರಿಸು</string>
+  <string name="tournament">ಪಂದ್ಯಾವಳಿ</string>
+  <string name="tournaments">ಪಂದ್ಯಾವಳಿಗಳು</string>
+  <string name="tournamentPoints">ಪಂದ್ಯಾವಳಿ ಅಂಕಗಳು</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ಪಂದ್ಯಾವಳಿ ಅಂಕ</item>
+    <item quantity="other">%s ಪಂದ್ಯಾವಳಿ ಅಂಕಗಳು</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s ಅಧ್ಯಯನ</item>
+    <item quantity="other">%s ಅಧ್ಯಯನಗಳು</item>
+  </plurals>
+  <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
+  <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
 </resources>
