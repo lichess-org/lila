@@ -214,6 +214,7 @@
   <string name="gameAborted">ಆಟವನ್ನು ತ್ಯಜಿಸಲಾಗಿದೆ</string>
   <string name="standard">ಸಾಮಾನ್ಯ</string>
   <string name="unlimited">ಸಮಯದ ಮಿತಿಯಿಲ್ಲ</string>
+  <string name="mode">ಆಟದ ಪ್ರಕಾರ</string>
   <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
   <string name="subject">ವಿಷಯ</string>
   <string name="send">ಕಳುಹಿಸು</string>
