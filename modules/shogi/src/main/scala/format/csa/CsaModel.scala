@@ -35,13 +35,12 @@ case class Csa(
       Forsyth.getColor(fen.value).getOrElse(Sente)
     }
     val movesStr = renderMainline(moves, startColor)
-    //s"$header\n$initStr$movesStr"
     List(
       header,
       setup,
       initStr,
       movesStr
-    ).mkString("\n")
+    ).filter(_.nonEmpty).mkString("\n")
   }.trim
 
   override def toString = render
