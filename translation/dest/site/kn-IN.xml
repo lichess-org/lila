@@ -199,6 +199,15 @@
   <string name="drawOfferSent">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
   <string name="drawOfferAccepted">ಡ್ರಾ ಮನವಿಯನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
   <string name="drawOfferCanceled">ಡ್ರಾ ಮನವಿಯನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
+  <string name="whiteOffersDraw">ಬಿಳಿ ದಳ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದೆ</string>
+  <string name="blackOffersDraw">ಕಪ್ಪು ದಳ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದೆ</string>
+  <string name="whiteDeclinesDraw">ಬಿಳಿ ದಳ ಡ್ರಾ ನಿರಾಕರಿಸಿದೆ</string>
+  <string name="blackDeclinesDraw">ಕಪ್ಪು ದಳ ಡ್ರಾ ನಿರಾಕರಿಸಿದೆ</string>
+  <string name="yourOpponentOffersADraw">ನಿಮ್ಮ ಎದುರಾಳಿ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದ್ದಾರೆ</string>
+  <string name="accept">ಸ್ವೀಕರಿಸು</string>
+  <string name="decline">ನಿರಾಕರಿಸು</string>
+  <string name="playingRightNow">ಆಟ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
+  <string name="eventInProgress">ಆಟಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ</string>
   <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
   <string name="subject">ವಿಷಯ</string>
   <string name="send">ಕಳುಹಿಸು</string>
