@@ -238,8 +238,11 @@
   <string name="confirmMove">ನಡೆಯನ್ನು ಖಚಿತಪಡಿಸು</string>
   <string name="play">ಆಟ ಆಡು</string>
   <string name="inbox">ಅಂಚೆ ಪೆಟ್ಟಿಗೆ</string>
-  <string name="chatRoom">ಹರಟೆ ಕೋಣೆ</string>
+  <string name="chatRoom">ಹರಟೆಕೋಣೆ</string>
+  <string name="loginToChat">ಹರಟೆಕೋಣೆ ಪ್ರವೇಶಿಸಿ</string>
+  <string name="youHaveBeenTimedOut">ನಿಮ್ಮನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷೇಧಿಸಲಾಗಿದೆ.</string>
   <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
+  <string name="composeMessage">ಸಂದೇಶ ರಚಿಸು</string>
   <string name="subject">ವಿಷಯ</string>
   <string name="send">ಕಳುಹಿಸು</string>
   <string name="incrementInSeconds">ಸಮಯ ಏರಿಕೆಯ ಪ್ರಮಾಣ, ಸೆಕೆಂಡುಗಳಲ್ಲಿ</string>
@@ -264,4 +267,11 @@
     <item quantity="one">%s ಚಾಲ್ತಿಯಲ್ಲಿದೆ</item>
     <item quantity="other">%s ಚಾಲ್ತಿಯಲ್ಲಿವೆ</item>
   </plurals>
+  <string name="exportGames">ಆಟಗಳನ್ನು ರಫ್ತುಮಾಡು</string>
+  <string name="ratingRange">ಧಾರಣೆ ವ್ಯಾಪ್ತಿ</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s ಸೆಕೆಂಡು ಕೊಡಿ</item>
+    <item quantity="other">%s ಸೆಕೆಂಡುಗಳನ್ನು ಕೊಡಿ</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">ಈ ಖಾತೆಯು ಲೀಚೆಸ್ ಅನುಷ್ಠಾನದ ಷರತ್ತು ಮತ್ತು ನಿಬಂಧನೆಗಳನ್ನು ಉಲ್ಲಂಘಿಸಿರುತ್ತದೆ</string>
 </resources>
