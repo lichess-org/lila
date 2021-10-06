@@ -191,4 +191,24 @@
   <string name="send">ಕಳುಹಿಸು</string>
   <string name="incrementInSeconds">ಸಮಯ ಏರಿಕೆಯ ಪ್ರಮಾಣ, ಸೆಕೆಂಡುಗಳಲ್ಲಿ</string>
   <string name="freeOnlineChess">ಉಚಿತ ಆನ್ಲೈನ್ ಚದುರಂಗ</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s ಧಾರಣೆ ಆಧಾರಿತ</item>
+    <item quantity="other">%s ಧಾರಣೆ ಆಧಾರಿತ</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s ಗೆಲುವು</item>
+    <item quantity="other">%s ಗೆಲುವುಗಳು</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ಸೋಲು</item>
+    <item quantity="other">%s ಸೋಲುಗಳು</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ಡ್ರಾ</item>
+    <item quantity="other">%s ಡ್ರಾ ಗಳು</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ಚಾಲ್ತಿಯಲ್ಲಿದೆ</item>
+    <item quantity="other">%s ಚಾಲ್ತಿಯಲ್ಲಿವೆ</item>
+  </plurals>
 </resources>
