@@ -208,6 +208,8 @@
   <string name="decline">ನಿರಾಕರಿಸು</string>
   <string name="playingRightNow">ಆಟ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
   <string name="eventInProgress">ಆಟಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ</string>
+  <string name="finished">ಮುಕ್ತಾಯಗೊಂಡಿದೆ</string>
+  <string name="finishesX">%s ಗಳಲ್ಲಿ ಮುಕ್ತಾಯಗೊಳ್ಳಲಿದೆ</string>
   <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
   <string name="subject">ವಿಷಯ</string>
   <string name="send">ಕಳುಹಿಸು</string>
