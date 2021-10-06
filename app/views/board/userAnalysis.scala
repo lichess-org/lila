@@ -33,11 +33,12 @@ object userAnalysis {
             "explorer" -> Json.obj(
               "endpoint"          -> explorerEndpoint,
               "tablebaseEndpoint" -> tablebaseEndpoint
-            )
+            ),
+            "wiki" -> pov.game.variant.standard
           )
         )}""")
       ),
-      csp = defaultCsp.withWebAssembly.some,
+      csp = defaultCsp.withWebAssembly.withWikiBooks.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -48,7 +49,12 @@ object userAnalysis {
         .some,
       zoomable = true
     ) {
-      main(cls := "analyse")(
+      main(
+        cls := List(
+          "analyse"       -> true,
+          "analyse--wiki" -> pov.game.variant.standard
+        )
+      )(
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
@@ -60,7 +66,8 @@ object userAnalysis {
                 href := routes.UserAnalysis.parseArg(v.key)
               )(v.name)
             }
-          )
+          ),
+          pov.game.variant.standard option div(cls := "analyse__wiki")
         ),
         div(cls := "analyse__board main-board")(chessgroundBoard),
         div(cls := "analyse__tools"),

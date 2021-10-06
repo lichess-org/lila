@@ -69,6 +69,8 @@ case class ContentSecurityPolicy(
 
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
+  def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,
