@@ -117,6 +117,14 @@
     <item quantity="one">%s ಪ್ರಮಾದ</item>
     <item quantity="other">%sಪ್ರಮಾದ</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ತಪ್ಪು</item>
+    <item quantity="other">%s ತಪ್ಪುಗಳು</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ಅಸ್ಪಷ್ಟತೆ</item>
+    <item quantity="other">%s ಅಸ್ಪಷ್ಟತೆಗಳು</item>
+  </plurals>
   <string name="moveTimes">ನಡೆಗೆ ಬಳಸಿದ ಸಮಯ</string>
   <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
   <string name="threefoldRepetition">Threefold repetition</string>
@@ -133,6 +141,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s ಗುರುತು ಸಂಗ್ರಹ</item>
+    <item quantity="other">%s ಗುರುತು ಸಂಗ್ರಹಗಳು</item>
   </plurals>
   <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
   <string name="logOut">ಸೈನ್ ಔಟ್</string>
