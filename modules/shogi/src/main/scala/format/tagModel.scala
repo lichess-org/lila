@@ -57,6 +57,8 @@ case class Tags(value: List[Tag]) extends AnyVal {
   def resultColor: Option[Option[Color]] =
     apply(_.Result).filter("*" !=) map Color.fromResult
 
+  def knownTypes: Tags = Tags(value.filter(Tag.tagTypes contains _.name))
+
   def ++(tags: Tags) = tags.value.foldLeft(this)(_ + _)
 
   def +(tag: Tag) = Tags(value.filterNot(_.name == tag.name) :+ tag)
@@ -185,7 +187,10 @@ object Tag {
   )
 
   val csaNameToTag =
-    tagToCsaName map { case (k, v) => v -> k }
+    (tagToCsaName map { case (k, v) => v -> k }) ++ Map(
+      "Name+" -> Tag.Sente,
+      "Name-" -> Tag.Gote
+    )
 
   val tagToKifName = Map[TagType, String](
     Tag.Start             -> "開始日時",

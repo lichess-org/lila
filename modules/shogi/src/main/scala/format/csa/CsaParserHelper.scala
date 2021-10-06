@@ -61,7 +61,10 @@ object CsaParserHelper {
   private def parseWholeBoard(ranks: List[String]): Valid[PieceMap] = {
     def parseSquare(sq: String, i: Int, pieces: PieceMap): Valid[PieceMap] =
       for {
-        pos   <- Pos.posAt(i % 9 + 1, 10 - (i / 9 + 1)) toValid "Invalid board setup - too many squares"
+        pos <- Pos.posAt(
+          i % 9 + 1,
+          10 - (i / 9 + 1)
+        ) toValid s"Invalid board setup - too many squares on rank: ${(i / 9 + 1)}"
         piece <- Piece.fromCsa(sq) toValid s"Non existent piece (${sq}) in board setup"
       } yield (pieces + (pos -> piece))
     if (ranks.size != 9) "Incorrect number of board ranks in board setup: %d/9".format(ranks.size).failureNel

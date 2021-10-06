@@ -32,7 +32,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
       val preprocessed = augmentString(cleanCsa(csa)).linesIterator
         .collect {
           case l if !l.trim.startsWith("'") => l.replace(",", "\n").trim
-          case l                            => l.trim // keep ',' in comments
+          case l                            => l.trim // try to keep ',' in comments
         }
         .filterNot(l => l.isEmpty || l == "'" || l.startsWith("V")) // remove empty comments and version
         .mkString("\n")
@@ -52,8 +52,8 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
         parsedMoves <- objMoves(strMoves, tags.variant | Variant.default)
         _ <-
-          if (csa.isEmpty || parsedMoves.value.nonEmpty || tags(_.FEN).isDefined) succezz(true)
-          else "No moves nor initial position".failureNel
+          if (csa.isEmpty || parsedMoves.value.nonEmpty || tags.value.nonEmpty) succezz(true)
+          else "No moves or valid tags provided".failureNel
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>

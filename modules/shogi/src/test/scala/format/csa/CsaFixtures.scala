@@ -2,10 +2,9 @@ package shogi
 package format
 package csa
 
-
 // from https://github.com/mogproject/mog-core-scala/tree/45232a53d29b5f52c90bc6b153b53c5dd742c937/jvm/src/test/resources/csa/game
 object CsaFixtures {
-    val csa1 = """V2.2
+  val csa1 = """V2.2
 N+鈴木大介 九段
 N-深浦康市 九段
 $EVENT:王座戦
@@ -135,7 +134,7 @@ P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
 +2333UM
 %TORYO"""
 
-val csa2 = """V2.2
+  val csa2 = """V2.2
 N+elmo YaneuraOu 4.57
 N-yaselmo YaneuraOu 4.73
 P1-KY-KE-GI-KI-OU-KI-GI-KE-KY

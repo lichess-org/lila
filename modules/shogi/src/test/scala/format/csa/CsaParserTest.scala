@@ -193,7 +193,7 @@ P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
       }
     }
   }
-  
+
   "csa fixture 1" in {
     parser(csa1) must beSuccess.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
       pm.size must_== 111

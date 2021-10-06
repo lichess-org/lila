@@ -85,8 +85,9 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
         parsedMoves <- objMoves(strMoves, variant, variations)
         _ <-
-          if (kif.isEmpty || parsedMoves.value.nonEmpty || tags(_.FEN).isDefined) succezz(true)
-          else "No moves nor initial position".failureNel
+          if (kif.isEmpty || parsedMoves.value.nonEmpty || tags.knownTypes.value.nonEmpty)
+            succezz(true)
+          else "No moves, non-standard starting position or valid tags provided".failureNel
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>

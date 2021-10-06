@@ -57,7 +57,7 @@ object KifParserHelper {
         case ('成' | '+') :: rest => makePiecesList(rest, x, y, chars.headOption, gote)
         case sq :: rest =>
           for {
-            pos <- Pos.posAt(x, y) toValid s"Too many files in board setup: $x"
+            pos <- Pos.posAt(x, y) toValid s"Too many files in board setup: $x/9"
             roleStr = prevPieceChar.fold("")(_.toString) + sq
             role   <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
             pieces <- makePiecesList(rest, x + 1, y, None, false)
