@@ -58,6 +58,7 @@
   <string name="downloadGame">下载棋局</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">研究链接</string>
   <string name="broadcastUrl">直播链接</string>
   <string name="currentChapterUrl">当前章节链接</string>

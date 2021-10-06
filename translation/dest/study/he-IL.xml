@@ -67,6 +67,7 @@
   <string name="downloadGame">Download game</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">כתובת האינטרנט של המחקר</string>
   <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>

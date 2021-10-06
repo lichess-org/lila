@@ -61,6 +61,7 @@
   <string name="downloadGame">Baixar partida</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="broadcastUrl">URL de transmissão</string>
   <string name="currentChapterUrl">URL atual do capítulo</string>

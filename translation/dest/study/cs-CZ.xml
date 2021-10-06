@@ -67,6 +67,7 @@
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">URL studie</string>
   <string name="broadcastUrl">Adresa vysílání</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>

@@ -67,6 +67,7 @@
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="broadcastUrl">Посилання на трансляцію</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>

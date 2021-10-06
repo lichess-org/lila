@@ -64,6 +64,7 @@
   <string name="downloadGame">Download game</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="broadcastUrl">Broadcast URL</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>

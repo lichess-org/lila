@@ -61,6 +61,7 @@
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="broadcastUrl">Yayın URL’si</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>

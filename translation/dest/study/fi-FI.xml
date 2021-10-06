@@ -61,6 +61,7 @@
   <string name="downloadGame">Lataa peli</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="broadcastUrl">Lähetyksen URL</string>
   <string name="currentChapterUrl">Nykyisen luvun URL</string>

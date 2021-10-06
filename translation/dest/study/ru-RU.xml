@@ -67,6 +67,7 @@
   <string name="downloadGame">Скачать партию</string>
   <string name="studyKif">Студия KIF</string>
   <string name="chapterKif">Глава KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="broadcastUrl">Интернет-адрес трансляции</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>

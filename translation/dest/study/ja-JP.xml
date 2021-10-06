@@ -58,6 +58,7 @@
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyKif">Study KIF</string>
   <string name="chapterKif">Chapter KIF</string>
+  <string name="chapterCsa">Chapter CSA</string>
   <string name="studyUrl">研究の URL</string>
   <string name="broadcastUrl">ブロードキャスト URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
