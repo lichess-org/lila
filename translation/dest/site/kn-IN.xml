@@ -186,4 +186,9 @@
     <item quantity="other">%s ಆಟಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
   </plurals>
   <string name="cancel">ರದ್ದುಪಡಿಸು</string>
+  <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
+  <string name="subject">ವಿಷಯ</string>
+  <string name="send">ಕಳುಹಿಸು</string>
+  <string name="incrementInSeconds">ಸಮಯ ಏರಿಕೆಯ ಪ್ರಮಾಣ, ಸೆಕೆಂಡುಗಳಲ್ಲಿ</string>
+  <string name="freeOnlineChess">ಉಚಿತ ಆನ್ಲೈನ್ ಚದುರಂಗ</string>
 </resources>
