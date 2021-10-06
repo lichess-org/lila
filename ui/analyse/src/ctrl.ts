@@ -42,7 +42,7 @@ import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
-import { WikiTheory } from './wiki';
+import wikiTheory, { WikiTheory } from './wiki';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -124,7 +124,7 @@ export default class AnalyseCtrl {
     this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
-    if (this.opts.wiki) this.wiki = new WikiTheory();
+    if (this.opts.wiki) this.wiki = wikiTheory();
 
     if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
 
@@ -214,7 +214,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
-    this.wiki?.update(this.nodeList);
+    if (this.wiki) this.wiki(this.nodeList);
   };
 
   flip = () => {
