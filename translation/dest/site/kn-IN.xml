@@ -163,6 +163,7 @@
   <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು ಅಥವಾ ಇ-ಅಂಚೆ</string>
   <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
   <string name="changeUsernameNotSame">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ \"case\" ಮಾತ್ರ ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, \"johndoe\" ದಿಂದ \"JohnDoe\" ಕ್ಕೆ ಬದಲಾಯಿಸಬಹುದು.</string>
+  <string name="changeUsernameDescription">ನಿಮ್ಮ ಖಾತೆಯ ಹೆಸರು, ಅಂದರೆ username, ಅನ್ನು ಬದಲಾಯಿಸಿ. ಈ ಬದಲಾವಣೆಯನ್ನು ಕೇವಲ ಒಂದೇ ಬಾರಿ ಮಾಡಲು ಅವಕಾಶವಿದೆಯಷ್ಟೆ. ಹಾಗೂ, ಈ ಅವಕಾಶ ಕೇವಲ ನಿಮ್ಮ \"username\" ನಲ್ಲಿರುವ \"case\" ಬದಲಾವಣೆಗಷ್ಟೇ ಸೀಮಿತಗೊಳಿಸಲಾಗಿದೆ.</string>
   <string name="password">ಗುಪ್ತಪದ</string>
   <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸು</string>
   <string name="changeEmail">ಇ-ಆಂಚೆಯನ್ನು ಬದಲಾಯಿಸು</string>
@@ -171,5 +172,18 @@
   <string name="forgotPassword">ಗುಪ್ತಪದ ಮರೆತು ಹೋಯಿತು?</string>
   <string name="rank">ಶ್ರೇಣಿ</string>
   <string name="rankX">ಶ್ರೇಣಿ %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">ಶ್ರೇಣಿಯು ಪ್ರತಿ ನಿಮಷಕ್ಕೊಮ್ಮೆ ಪರಿಷ್ಕೃತಗೊಳ್ಳುತ್ತದೆ</item>
+    <item quantity="other">ಶ್ರೇಣಿಯು ಪ್ರತಿ %s ನಿಮಷಕ್ಕೊಮ್ಮೆ ಪರಿಷ್ಕೃತಗೊಳ್ಳುತ್ತದೆ</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ಒಗಟು</item>
+    <item quantity="other">%s ಒಗಟುಗಳು</item>
+  </plurals>
   <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s ಆಟವನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ಆಟಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
+  </plurals>
+  <string name="cancel">ರದ್ದುಪಡಿಸು</string>
 </resources>
