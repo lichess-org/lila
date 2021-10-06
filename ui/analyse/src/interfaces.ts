@@ -142,6 +142,7 @@ export interface AnalyseOpts {
     parseMoves: boolean;
     instance?: Promise<ChatCtrl>;
   };
+  wiki?: boolean;
 }
 
 export interface JustCaptured extends cg.Piece {
