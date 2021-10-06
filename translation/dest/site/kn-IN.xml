@@ -296,4 +296,16 @@
   </plurals>
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
+  <string name="thematic">ವಿಶೇಷ ವಿಷಯಾಧಾರಿತ</string>
+  <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
+  <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ಗೆಳೆಯ/ತಿ ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
+    <item quantity="other">%s ಗೆಳೆಯ/ತಿಯರು ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
+  </plurals>
+  <string name="unfollow">ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
+  <string name="followX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸಿ</string>
+  <string name="unfollowX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
+  <string name="block">ನಿಷೇಧಿಸಿ</string>
+  <string name="blocked">ನಿಷೇಧಿಸಲಾಗಿದೆ</string>
 </resources>
