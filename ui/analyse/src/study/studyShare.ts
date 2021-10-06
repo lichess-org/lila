@@ -189,7 +189,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         {
           attrs: {
             'data-icon': 'x',
-            href: `/study/${studyId}/${chapter.id}.csa?csa=true`,
+            href: `/study/${studyId}/${chapter.id}.csa`,
             download: true,
           },
         },
