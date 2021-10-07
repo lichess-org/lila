@@ -95,6 +95,7 @@
   <string name="xOpeningExplorer">%s ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
   <string name="winPreventedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಗೆಲುವು ತಪ್ಪಿದೆ</string>
   <string name="lossSavedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಸೋಲು ತಪ್ಪಿದೆ</string>
+  <string name="unknownDueToRounding">Syzygy tablebases ನಲ್ಲಿ DTZ ಮೌಲ್ಯವು ಹತ್ತಿರದ ಪೂರ್ಣಾಂಕಕ್ಕೆ ಪರಿವರ್ತನೆಯಾಗಿರುವ ಸಾಧ್ಯತೆ ಇದೆ. ಹಾಗಾಗಿ, ಇತ್ತೀಚಿನ ಸೆರೆಹಿಡಿತ (capture) ಅಥವಾ ಕಾಲಾಳು-ನಡೆಯ(pawn move) ನಂತರ, tablebase ಶಿಫಾರಸ್ಸು ಮಾಡಿದ ಮಾರ್ಗವನ್ನು ಅನುಸರಿಸಿದರೆ ಮಾತ್ರ ಸೋಲು/ಗೆಲುವು ಖಚಿತವಾಗುವುದು.</string>
   <string name="allSet">ಸಿದ್ಧವಾಗಿದೆ!</string>
   <string name="importPgn">PGN ಆಮದು</string>
   <string name="delete">ಅಳಿಸಿ</string>
