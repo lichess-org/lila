@@ -322,6 +322,8 @@
     <item quantity="one">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟವನ್ನು ಆಡಬೇಕು</item>
     <item quantity="other">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳನ್ನು ಆಡಬೇಕು</item>
   </plurals>
+  <string name="yourPerfRatingIsTooHigh">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಹೆಚ್ಚಿದೆ</string>
+  <string name="yourPerfRatingIsTooLow">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಕಡಿಮೆಯಿದೆ</string>
   <string name="ratedMoreThanInPerf">%2$s ನಲ್ಲಿ ಧಾರಣೆ ≥ %1$s</string>
   <string name="ratedLessThanInPerf">ಹಿಂದಿನ ಒಂದು ವಾರದಲ್ಲಿ, %2$s ನಲ್ಲಿ ಧಾರಣೆ ≤ %1$s ಇರಬೇಕು</string>
   <string name="mustBeInTeam">ನೀವು %s ತಂಡದಲ್ಲಿರಬೇಕು</string>
@@ -417,5 +419,7 @@
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
+  <string name="minimumRatedGames">ಬೇಕಾಗಿರುವ ಕನಿಷ್ಠ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
 </resources>
