@@ -310,6 +310,12 @@
   <string name="reset">ಮರುಜೋಡಿಸಿ</string>
   <string name="apply">ಸಲ್ಲಿಸಿ</string>
   <string name="save">ಉಳಿಸಿ</string>
+  <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
+  <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
+  <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
+  <string name="toStudy">ಅಧ್ಯಯನ</string>
   <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
   <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
   <plurals name="nbFriendsOnline">
