@@ -539,8 +539,13 @@
   <string name="noSimulFound">Simul ಸಿಗುತ್ತಿಲ್ಲ</string>
   <string name="noSimulExplanation">ಈ simul ಅಂದರೆ ಏಕಕಾಲಿಕ ಆಟದ ಪ್ರದರ್ಶನ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.</string>
   <string name="returnToSimulHomepage">Simul ನ ಮುಖಪುಟಕ್ಕೆ ಹಿಂದಿರುಗಿ</string>
+  <string name="aboutSimul">Simuls ಅಂದರೆ ಒಬ್ಬರು ಆಟಗಾರರು, ಹಲವಾರು ಆಟಗಾರರನ್ನು ಏಕಕಾಲದಲ್ಲಿ ಎದುರಿಸುತ್ತಾರೆ.</string>
+  <string name="aboutSimulImage">೫೦ ಎದುರಾಳಿಗಳಲ್ಲಿ, ಫಿಷರ್ ಅವರು ೪೭ ಆಟಗಳಲ್ಲಿ ಗೆದ್ದು, ೨ ರಲ್ಲಿ ಡ್ರಾ ಸಾಧಿಸಿ, ಒಂದರಲ್ಲಿ ಸೋತರು.</string>
+  <string name="aboutSimulRealLife">ಈ ಪರಿಕಲ್ಪನೆಯನ್ನು ನಿಜ ಜೀವನದ ಘಟನೆಗಳಿಂದ ತೆಗೆದುಕೊಳ್ಳಲಾಗಿದೆ. ನಿಜ ಜೀವನದಲ್ಲಿ, simul ನಡೆಸುವ ಆತಿಥೇಯ ಆಟಗಾರರು ಒಂದು ಚೆಸ್ ಮಣೆಯ ಮೇಜಿನಿಂದ ಇನ್ನೊಂದು ಮೇಜಿಗೆ ಹೋಗಿ, ಪ್ರತಿ ನಡೆಯನ್ನು ಒಂದೊಂದಾಗಿ ಆಡುತ್ತ ಬರುತ್ತಾರೆ.</string>
+  <string name="aboutSimulRules">Simul ಪ್ರಾರಂಭವಾಗುವಾಗ, ಪ್ರತಿ ಎದುರಾಳಿ ಆಟಗಾರರೂ ಆತಿಥೇಯ ಆಟಗಾರರೊಂದಿಗೆ ಪಂದ್ಯ ಆರಂಭಿಸುತ್ತಾರೆ. ಎಲ್ಲಾ ಆಟಗಳು ಮುಕ್ತಾಯ ಆದ ಮೇಲೆಯೇ simul ಮುಗಿಯುತ್ತದೆ.</string>
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
+  <string name="whenCreateSimul">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
   <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
