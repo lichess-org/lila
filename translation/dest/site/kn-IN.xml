@@ -356,12 +356,18 @@
   <string name="thisIsAChessCaptcha">ಇದೊಂದು ಚೆಸ್ CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">ಚೆಸ್ ಮಣೆಯ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ ನಿಮ್ಮ ನಡೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸುವ ಮೂಲಕ ನೀವು ಒಬ್ಬ ಮನುಷ್ಯ ಎಂದು ಸಾಧಿಸಿ.</string>
   <string name="captcha.fail">ದಯವಿಟ್ಟು ಈ ಚೆಸ್ captcha ವನ್ನು ಪರಿಹರಿಸಿ.</string>
+  <string name="notACheckmate">ಚೆಕ್ ಮೇಟ್ ಅಲ್ಲ</string>
+  <string name="whiteCheckmatesInOneMove">ಬಿಳಿ ದಳವು ಒಂದೇ ನಡೆಯಲ್ಲಿ ಚೆಕ್ ಮೇಟ್ ಮಾಡಬೇಕು</string>
+  <string name="blackCheckmatesInOneMove">ಕಪ್ಪು ದಳವು ಒಂದೇ ನಡೆಯಲ್ಲಿ ಚೆಕ್ ಮೇಟ್ ಮಾಡಬೇಕು</string>
   <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
   <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ಗೆಳೆಯ/ತಿ ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
     <item quantity="other">%s ಗೆಳೆಯ/ತಿಯರು ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
   </plurals>
+  <string name="favoriteOpponents">ಅಚ್ಚುಮೆಚ್ಚಿನ ಎದುರಾಳಿ</string>
+  <string name="follow">ಹಿಂಬಾಲಿಸಿ</string>
+  <string name="following">ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</string>
   <string name="unfollow">ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
   <string name="followX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸಿ</string>
   <string name="unfollowX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
@@ -403,6 +409,14 @@
   <string name="recommendNotTouching">ಇದನ್ನು ಬದಲಾಯಿಸಬೇಡಿ ಎಂದು ಶಿಫಾರಸ್ಸು ಮಾಡುತ್ತೇವೆ.</string>
   <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
   <string name="showAdvancedSettings">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ</string>
+  <string name="makePrivateTournament">ಈ ಪಂದ್ಯಾವಳಿಯನ್ನು ಖಾಸಗಿಯಾಗಿಸಿ, ಹಾಗೂ ಕೀಲಿಪದ ಅಂದರೆ ಪಾಸ್ವರ್ಡ್ ಬಳಸಿ ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸಿ</string>
+  <string name="join">ಸೇರಿ</string>
+  <string name="withdraw">ಹಿಂಪಡೆಯಿರಿ</string>
+  <string name="points">ಅಂಕಗಳು</string>
+  <string name="wins">ಗೆಲುವುಗಳು</string>
+  <string name="losses">ಸೋಲುಗಳು</string>
+  <string name="createdBy">ರಚಿಸಿದವರು</string>
+  <string name="tournamentIsStarting">ಈ ಪಂದ್ಯಾವಳಿಯು ಆರಂಭವಾಗುತ್ತಿದೆ</string>
   <string name="blackWins">ಕಪ್ಪು ದಳದ ಗೆಲುವು</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
   <string name="no">ಬೇಡ</string>
