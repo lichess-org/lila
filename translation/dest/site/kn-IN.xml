@@ -314,6 +314,16 @@
     <item quantity="one">≥ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟ</item>
     <item quantity="other">≥ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟಗಳು</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">ನೀವು ಇನ್ನೂ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟವನ್ನು ಆಡಬೇಕು</item>
+    <item quantity="other">ನೀವು ಇನ್ನೂ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟಗಳನ್ನು ಆಡಬೇಕು</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟವನ್ನು ಆಡಬೇಕು</item>
+    <item quantity="other">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳನ್ನು ಆಡಬೇಕು</item>
+  </plurals>
+  <string name="ratedMoreThanInPerf">%2$s ನಲ್ಲಿ ಧಾರಣೆ ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">ಹಿಂದಿನ ಒಂದು ವಾರದಲ್ಲಿ, %2$s ನಲ್ಲಿ ಧಾರಣೆ ≤ %1$s ಇರಬೇಕು</string>
   <string name="mustBeInTeam">ನೀವು %s ತಂಡದಲ್ಲಿರಬೇಕು</string>
   <string name="youAreNotInTeam">ನೀವು %s ತಂಡದಲ್ಲಿಲ್ಲ</string>
   <string name="backToGame">ಆಟದ ಮಣೆಗೆ ಹಿಂದಿರುಗಿ</string>
@@ -381,6 +391,7 @@
   <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
   <string name="showAdvancedSettings">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ</string>
   <string name="blackWins">ಕಪ್ಪು ದಳದ ಗೆಲುವು</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
   <string name="no">ಬೇಡ</string>
   <string name="yes">ಹೌದು</string>
   <string name="help">ಸಹಾಯ:</string>
