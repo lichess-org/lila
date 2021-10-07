@@ -156,7 +156,7 @@ object Csa {
     s"${10 - sq.x}${10 - sq.y}"
 
   private def clockString(cur: NotationMove): Option[String] =
-    cur.secondsSpent.map(spent => s"\nT$spent")
+    cur.secondsSpent.map(spent => s",T$spent")
 
   private val noDoubleLineBreakRegex = "(\r?\n){2,}".r
 
