@@ -6,7 +6,7 @@
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯ ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="waiting">ನಿರೀಕ್ಷೆ ಎದುರಾಳಿಯ ತಿರುವು</string>
-  <string name="yourTurn">ನಿಮ್ಮ ತಿರುವು</string>
+  <string name="yourTurn">ನಿಮ್ಮ ಸರದಿ</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
   <string name="level">ಮಟ್ಟ</string>
   <string name="strength">ಶಕ್ತಿ</string>
@@ -18,12 +18,13 @@
   <string name="white">ಬಿಳಿ</string>
   <string name="black">ಕಪ್ಪು</string>
   <string name="randomColor">ಯಾದೃಚ್ಛಿಕ ಬಣ್ಣ</string>
-  <string name="createAGame">ಒಂದು ಆಟ</string>
+  <string name="createAGame">ಆಟ ರಚಿಸಿ</string>
   <string name="whiteIsVictorious">ಬಿಳಿ ಜಯಶಾಲಿಯಾಗಿದ್ದಾರೆ</string>
   <string name="blackIsVictorious">ಕಪ್ಪು ಜಯಶಾಲಿಯಾಗಿದ್ದಾರೆ</string>
   <string name="youPlayTheWhitePieces">ನೀವು ಬಿಳಿ ತುಂಡುಗಳನ್ನು ಆಡುತ್ತೀರಿ</string>
   <string name="youPlayTheBlackPieces">ನೀವು ಕಪ್ಪು ತುಂಡುಗಳನ್ನು ಆಡುತ್ತೀರಿ</string>
   <string name="itsYourTurn">ಈಗ ನಿನ್ನ ಸರದಿ!</string>
+  <string name="cheatDetected">ಮೋಸದಾಟ ಪತ್ತೆಹಚ್ಚಲಾಗಿದೆ</string>
   <string name="kingInTheCenter">ರಾಜ ಮಧ್ಯದಲ್ಲಿ</string>
   <string name="threeChecks">ಮೂರು ಚೆಕ್</string>
   <string name="raceFinished">ಪಂದ್ಯವನ್ನು ಮುಗಿಸಿದವು</string>
@@ -46,15 +47,18 @@
   <string name="blackResigned">ಕರಿ ತಂಡದ ಆಟಗಾರ ಸೋಲನ್ನ ಒಪ್ಪಿದ್ದಾರೆ</string>
   <string name="whiteLeftTheGame">ಬಿಳಿ ಆಟ ಬಿಟ್ಟಿದೆ</string>
   <string name="blackLeftTheGame">ಕಪ್ಪು ಆಟ ಬಿಟ್ಟಿದೆ</string>
+  <string name="whiteDidntMove">ಬಿಳಿ ದಳ ಆಡಲಿಲ್ಲ</string>
+  <string name="blackDidntMove">ಕಪ್ಪು ದಳ ಆಡಲಿಲ್ಲ</string>
   <string name="requestAComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ವಿನಂತಿಸಿ</string>
   <string name="computerAnalysis">ಗಣಕಯಂತ್ರದ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="computerAnalysisAvailable">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಲಭ್ಯವಿದೆ</string>
+  <string name="computerAnalysisDisabled">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ತಡೆಹಿಡಿಯಲಾಗಿದೆ</string>
   <string name="analysis">ವಿಶ್ಲೇಷಣಾ ಫಲಕ</string>
   <string name="depthX">ಆಳ %s</string>
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
   <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
   <string name="cloudAnalysis">ಮೋಡ ವಿಶ್ಲೇಷಣೆ</string>
-  <string name="goDeeper">ಆಳ ಇಳಿ</string>
+  <string name="goDeeper">ಆಳಕ್ಕೆ ಇಳಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
   <string name="inLocalBrowser">ಸ್ಥಳೀಯ ಬ್ರೌಸರ್ ನಲ್ಲಿ</string>
   <string name="toggleLocalEvaluation">ಸ್ಥಳೀಯ ಮೌಲ್ಯಮಾಪನ ಅದಲುಬದಲಿಸಿ</string>
@@ -78,11 +82,12 @@
   <string name="averageRatingX">ಸರಾಸರಿ ಮೌಲ್ಯ: %s</string>
   <string name="recentGames">ಇತ್ತೀಚಿನ ಆಟಗಳು</string>
   <string name="topGames">ಅತ್ಯುತ್ತಮ ಆಟಗಳು</string>
-  <string name="masterDbExplanation">%2$s ಇಂದ %3$s ವರೆಗಿನ %1$s+ FIDE ಮೌಲ್ಯ ಆಟಗಾರ ಇಪ್ಪತ್ತು ಲಕ್ಷ ಒ.ಟಿ.ಬಿ ಆಟಗಳು</string>
+  <string name="masterDbExplanation">%2$s ಇಂದ %3$s ವರೆಗಿನ %1$s+ FIDE ಧಾರಣೆಯ ಆಟಗಾರರ ಇಪ್ಪತ್ತು ಲಕ್ಷ O. T. B ಆಟಗಳು</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s ಅರ್ಧ-ಚಲನೆಯಲ್ಲಿ ಸಂಗಾತಿ</item>
     <item quantity="other">%s ಅರ್ಧ-ಚಲನೆಗಳಲ್ಲಿ ಸಂಗಾತಿ</item>
   </plurals>
+  <string name="dtzWithRounding">ಮುಂದಿನ ಸೆರೆಹಿಡಿತ (capture) ಅಥವಾ ಕಾಲಾಳು-ನಡೆ(pawn move)ಯವರೆಗಿನ ಅರ್ಧ-ನಡೆಗಳ ಸಂಖ್ಯೆಯ ಆಧಾರದ ಮೇಲೆ, DTZ50\'\' ಉಪಯೋಗಿಸಿ ಪೂರ್ಣಾಂಕಕ್ಕೆ ತರಲಾಗಿದೆ</string>
   <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ಆದ್ಯತೆಯ ಮೆನುವಿನಿಂದ ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಸೇರಿಸಬಹುದೇ?</string>
   <string name="openingExplorer">ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
@@ -90,6 +95,9 @@
   <string name="xOpeningExplorer">%s ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
   <string name="winPreventedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಗೆಲುವು ತಪ್ಪಿದೆ</string>
   <string name="lossSavedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಸೋಲು ತಪ್ಪಿದೆ</string>
+  <string name="winOr50MovesByPriorMistake">ಗೆಲುವು ಅಥವಾ ಹಿಂದಿನ ತಪ್ಪುಗಳಿಂದ ಉಂಟಾದ ೫೦-ನಡೆಗಳ ನಿಯಮದ ಅನಿರ್ದಿಷ್ಟತೆ</string>
+  <string name="lossOr50MovesByPriorMistake">ಸೋಲು ಅಥವಾ ಹಿಂದಿನ ತಪ್ಪುಗಳಿಂದ ಉಂಟಾದ ೫೦-ನಡೆಗಳ ನಿಯಮದ ಅನಿರ್ದಿಷ್ಟತೆ</string>
+  <string name="unknownDueToRounding">Syzygy tablebases ನಲ್ಲಿ DTZ ಮೌಲ್ಯವು ಹತ್ತಿರದ ಪೂರ್ಣಾಂಕಕ್ಕೆ ಪರಿವರ್ತನೆಯಾಗಿರುವ ಸಾಧ್ಯತೆ ಇದೆ. ಹಾಗಾಗಿ, ಇತ್ತೀಚಿನ ಸೆರೆಹಿಡಿತ (capture) ಅಥವಾ ಕಾಲಾಳು-ನಡೆಯ(pawn move) ನಂತರ, tablebase ಶಿಫಾರಸ್ಸು ಮಾಡಿದ ಮಾರ್ಗವನ್ನು ಅನುಸರಿಸಿದರೆ ಮಾತ್ರ ಸೋಲು/ಗೆಲುವು ಖಚಿತವಾಗುವುದು.</string>
   <string name="allSet">ಸಿದ್ಧವಾಗಿದೆ!</string>
   <string name="importPgn">PGN ಆಮದು</string>
   <string name="delete">ಅಳಿಸಿ</string>
@@ -113,25 +121,45 @@
     <item quantity="one">%s ಪ್ರಮಾದ</item>
     <item quantity="other">%sಪ್ರಮಾದ</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ತಪ್ಪು</item>
+    <item quantity="other">%s ತಪ್ಪುಗಳು</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ಅಸ್ಪಷ್ಟತೆ</item>
+    <item quantity="other">%s ಅಸ್ಪಷ್ಟತೆಗಳು</item>
+  </plurals>
+  <string name="moveTimes">ನಡೆಗೆ ಬಳಸಿದ ಸಮಯ</string>
   <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
   <string name="threefoldRepetition">Threefold repetition</string>
+  <string name="claimADraw">ಡ್ರಾ ಪಡೆದುಕೊಳ್ಳಿ</string>
+  <string name="offerDraw">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಪ್ರಸ್ತಾವಿಸಿ</string>
   <string name="draw">ಡ್ರಾ</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s ಆಟಗಾರ</item>
     <item quantity="other">%s ಆಟಗಾರರು</item>
   </plurals>
+  <string name="drawByMutualAgreement">ಪರಸ್ಪರ ಸಮ್ಮತದಿಂದ ಡ್ರಾ ಘೋಷಿಸಲಾಗಿದೆ</string>
+  <string name="fiftyMovesWithoutProgress">ಪ್ರಗತಿ ರಹಿತ ಐವತ್ತು ನಡೆಗಳು</string>
   <string name="currentGames">ಪ್ರಸ್ತುತ ಆಟ</string>
   <plurals name="nbGames">
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s ಗುರುತುಸಂಗ್ರಹ</item>
+    <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
   </plurals>
   <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
   <string name="logOut">ಸೈನ್ ಔಟ್</string>
   <string name="signIn">ಸೈನ್ ಇನ್</string>
   <string name="youNeedAnAccountToDoThat">ಅದನ್ನು ಮಾಡಲು ನಿಮಗೆ ಖಾತೆ ಇರಬೇಕು</string>
   <string name="signUp">ನೋಂದಣಿ</string>
+  <string name="computersAreNotAllowedToPlay">ಕಂಪ್ಯೂಟರ್ ಅಥವಾ ಕಂಪ್ಯೂಟರ್-ಸಹಾಯಿತ ಆಟಗಾರರಿಗೆ ಆಡಲು ಅನುಮತಿ ಇಲ್ಲ. ಆಟ ಆಡುವ ಸಮಯದಲ್ಲಿ ದಯವಿಟ್ಟು ಯಾವುದೇ ಕಂಪ್ಯೂಟರ್-ಇಂಜಿನ್, ಕಂಪ್ಯೂಟರ್-ದತ್ತಸಂಚಯ, ಅಥವಾ ಬೇರೆ ಆಟಗಾರರ ಸಹಾಯ ಪಡೆಯಬೇಡಿ. ಹಾಗೂ ಗಮನಿಸಿ, ಒಂದೇ ವ್ಯಕ್ತಿ ಅನೇಕ ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದನ್ನು ಖಡ್ಡಾಯವಾಗಿ ವಿರೋಧಿಸಲಾಗಿದೆ. ಅನೇಕ ಖಾತೆಗಳನ್ನು ತೆರೆದಿರುವುದು ಕಂಡುಬಂದಲ್ಲಿ, ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿಷೇಧಿಸಲಾಗುವುದು.</string>
   <string name="games">ಆಟಗಳು</string>
   <string name="forum">ವೇದಿಕೆಗಳು</string>
+  <string name="xPostedInForumY">%1$s ಅವರು %2$s ವಿಷಯದಡಿಯಲ್ಲಿ ಹೊಸ ವಿಚಾರ ಪ್ರಕಟಿಸಿದ್ದಾರೆ</string>
+  <string name="latestForumPosts">ವೇದಿಕೆಯಲ್ಲಿ ಇತ್ತೀಚಿನ ಪ್ರಕಟಣೆಗಳು</string>
   <string name="players">ಆಟಗಾರರು</string>
   <string name="friends">ಸ್ನೇಹಿತರು</string>
   <string name="discussions">ಸಂಭಾಷಣೆಗಳು</string>
@@ -145,12 +173,22 @@
   <string name="correspondence">ಒಪ್ಪಂದ</string>
   <string name="daysPerTurn">ಪ್ರತಿ ಸರದಿಗೆ ಇರುವ ದಿನಗಳು</string>
   <string name="oneDay">ಒಂದು ದಿನ</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ದಿನ</item>
+    <item quantity="other">%s ದಿನಗಳು</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ಘಂಟೆ</item>
+    <item quantity="other">%s ಘಂಟೆಗಳು</item>
+  </plurals>
   <string name="time">ಅವಧಿ</string>
   <string name="rating">ಮಟ್ಟ</string>
   <string name="ratingStats">ಮಟ್ಟ ವ್ಯತ್ಯಾಸ</string>
   <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು</string>
   <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು ಅಥವಾ ಇ-ಅಂಚೆ</string>
   <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
+  <string name="changeUsernameNotSame">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ \"case\" ಮಾತ್ರ ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, \"johndoe\" ದಿಂದ \"JohnDoe\" ಕ್ಕೆ ಬದಲಾಯಿಸಬಹುದು.</string>
+  <string name="changeUsernameDescription">ನಿಮ್ಮ ಖಾತೆಯ ಹೆಸರು, ಅಂದರೆ username, ಅನ್ನು ಬದಲಾಯಿಸಿ. ಈ ಬದಲಾವಣೆಯನ್ನು ಕೇವಲ ಒಂದೇ ಬಾರಿ ಮಾಡಲು ಅವಕಾಶವಿದೆಯಷ್ಟೆ. ಹಾಗೂ, ಈ ಅವಕಾಶ ಕೇವಲ ನಿಮ್ಮ \"username\" ನಲ್ಲಿರುವ \"case\" ಬದಲಾವಣೆಗಷ್ಟೇ ಸೀಮಿತಗೊಳಿಸಲಾಗಿದೆ.</string>
   <string name="password">ಗುಪ್ತಪದ</string>
   <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸು</string>
   <string name="changeEmail">ಇ-ಆಂಚೆಯನ್ನು ಬದಲಾಯಿಸು</string>
@@ -159,5 +197,230 @@
   <string name="forgotPassword">ಗುಪ್ತಪದ ಮರೆತು ಹೋಯಿತು?</string>
   <string name="rank">ಶ್ರೇಣಿ</string>
   <string name="rankX">ಶ್ರೇಣಿ %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">ಶ್ರೇಣಿಯು ಪ್ರತಿ ನಿಮಷಕ್ಕೊಮ್ಮೆ ಪರಿಷ್ಕೃತಗೊಳ್ಳುತ್ತದೆ</item>
+    <item quantity="other">ಶ್ರೇಣಿಯು ಪ್ರತಿ %s ನಿಮಷಕ್ಕೊಮ್ಮೆ ಪರಿಷ್ಕೃತಗೊಳ್ಳುತ್ತದೆ</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ಒಗಟು</item>
+    <item quantity="other">%s ಒಗಟುಗಳು</item>
+  </plurals>
   <string name="gamesPlayed">ಆಡಿದ ಆಟಗಳು</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s ಆಟವನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ಆಟಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಡಿದ್ದಾರೆ</item>
+  </plurals>
+  <string name="cancel">ರದ್ದುಪಡಿಸು</string>
+  <string name="whiteTimeOut">ಬಿಳಿ ದಳದ ನಿಗದಿತ ಸಮಯ ಮುಕ್ತಾಯ</string>
+  <string name="blackTimeOut">ಕಪ್ಪು ದಳದ ನಿಗದಿತ ಸಮಯ ಮುಕ್ತಾಯ</string>
+  <string name="drawOfferSent">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
+  <string name="drawOfferAccepted">ಡ್ರಾ ಮನವಿಯನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+  <string name="drawOfferCanceled">ಡ್ರಾ ಮನವಿಯನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
+  <string name="whiteOffersDraw">ಬಿಳಿ ದಳ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದೆ</string>
+  <string name="blackOffersDraw">ಕಪ್ಪು ದಳ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದೆ</string>
+  <string name="whiteDeclinesDraw">ಬಿಳಿ ದಳ ಡ್ರಾ ನಿರಾಕರಿಸಿದೆ</string>
+  <string name="blackDeclinesDraw">ಕಪ್ಪು ದಳ ಡ್ರಾ ನಿರಾಕರಿಸಿದೆ</string>
+  <string name="yourOpponentOffersADraw">ನಿಮ್ಮ ಎದುರಾಳಿ ಡ್ರಾ ಸ್ವೀಕರಿಸಲು ಮನವಿ ಮಾಡುತ್ತಿದ್ದಾರೆ</string>
+  <string name="accept">ಸ್ವೀಕರಿಸು</string>
+  <string name="decline">ನಿರಾಕರಿಸು</string>
+  <string name="playingRightNow">ಆಟ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
+  <string name="eventInProgress">ಆಟಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ</string>
+  <string name="finished">ಮುಕ್ತಾಯಗೊಂಡಿದೆ</string>
+  <string name="finishesX">%s ಗಳಲ್ಲಿ ಮುಕ್ತಾಯಗೊಳ್ಳಲಿದೆ</string>
+  <string name="abortGame">ಆಟವನ್ನು ತ್ಯಜಿಸು</string>
+  <string name="gameAborted">ಆಟವನ್ನು ತ್ಯಜಿಸಲಾಗಿದೆ</string>
+  <string name="standard">ಸಾಮಾನ್ಯ</string>
+  <string name="unlimited">ಸಮಯದ ಮಿತಿಯಿಲ್ಲ</string>
+  <string name="mode">ಆಟದ ಪ್ರಕಾರ</string>
+  <string name="casual">ಧಾರಣೆ-ರಹಿತ</string>
+  <string name="rated">ಧಾರಣೆ-ಸಹಿತ</string>
+  <string name="casualTournament">ಧಾರಣೆ-ರಹಿತ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="ratedTournament">ಧಾರಣೆ-ಸಹಿತ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="thisGameIsRated">ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿರುತ್ತದೆ</string>
+  <string name="rematch">ಪುನಃ ಆಡು</string>
+  <string name="rematchOfferSent">ಪುನಃ ಆಡಲು ಆಹ್ವಾನ ಕಳುಹಿಸಲಾಗಿದೆ</string>
+  <string name="rematchOfferAccepted">ಪುನಃ ಆಡಲು ಕಳುಹಿಸಿದ ಆಹ್ವಾನವನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+  <string name="rematchOfferCanceled">ಪುನಃ ಆಡಲು ಕಳುಹಿಸಿದ ಆಹ್ವಾನವನ್ನು ಅಳಿಸಲಾಗಿದೆ</string>
+  <string name="rematchOfferDeclined">ಪುನಃ ಆಡಲು ಕಳುಹಿಸಿದ ಆಹ್ವಾನವನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
+  <string name="cancelRematchOffer">ಪುನಃ ಆಡಲು ಕಳುಹಿಸಿದ ಆಹ್ವಾನವನ್ನು ಅಳಿಸು</string>
+  <string name="viewRematch">ಮರುಪಂದ್ಯವನ್ನು ವೀಕ್ಷಿಸು</string>
+  <string name="confirmMove">ನಡೆಯನ್ನು ಖಚಿತಪಡಿಸು</string>
+  <string name="play">ಆಟ ಆಡು</string>
+  <string name="inbox">ಅಂಚೆ ಪೆಟ್ಟಿಗೆ</string>
+  <string name="chatRoom">ಹರಟೆಕೋಣೆ</string>
+  <string name="loginToChat">ಹರಟೆಕೋಣೆ ಪ್ರವೇಶಿಸಿ</string>
+  <string name="youHaveBeenTimedOut">ನಿಮ್ಮನ್ನು ತಾತ್ಕಾಲಿಕವಾಗಿ ನಿಷೇಧಿಸಲಾಗಿದೆ.</string>
+  <string name="spectatorRoom">ಪ್ರೇಕ್ಷಕರ ಕೊಠಡಿ</string>
+  <string name="composeMessage">ಸಂದೇಶ ರಚಿಸು</string>
+  <string name="subject">ವಿಷಯ</string>
+  <string name="send">ಕಳುಹಿಸು</string>
+  <string name="incrementInSeconds">ಸಮಯ ಏರಿಕೆಯ ಪ್ರಮಾಣ, ಸೆಕೆಂಡುಗಳಲ್ಲಿ</string>
+  <string name="freeOnlineChess">ಉಚಿತ ಆನ್ಲೈನ್ ಚದುರಂಗ</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s ಧಾರಣೆ ಆಧಾರಿತ</item>
+    <item quantity="other">%s ಧಾರಣೆ ಆಧಾರಿತ</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s ಗೆಲುವು</item>
+    <item quantity="other">%s ಗೆಲುವುಗಳು</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ಸೋಲು</item>
+    <item quantity="other">%s ಸೋಲುಗಳು</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ಡ್ರಾ</item>
+    <item quantity="other">%s ಡ್ರಾ ಗಳು</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ಚಾಲ್ತಿಯಲ್ಲಿದೆ</item>
+    <item quantity="other">%s ಚಾಲ್ತಿಯಲ್ಲಿವೆ</item>
+  </plurals>
+  <string name="exportGames">ಆಟಗಳನ್ನು ರಫ್ತುಮಾಡು</string>
+  <string name="ratingRange">ಧಾರಣೆ ವ್ಯಾಪ್ತಿ</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s ಸೆಕೆಂಡು ಕೊಡಿ</item>
+    <item quantity="other">%s ಸೆಕೆಂಡುಗಳನ್ನು ಕೊಡಿ</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">ಈ ಖಾತೆಯು ಲೀಚೆಸ್ ಅನುಷ್ಠಾನದ ಷರತ್ತು ಮತ್ತು ನಿಬಂಧನೆಗಳನ್ನು ಉಲ್ಲಂಘಿಸಿರುತ್ತದೆ</string>
+  <string name="openingExplorerAndTablebase">ಪ್ರಾರಂಭಿಕ ನಡೆ ಅನ್ವೇಷಕ &amp; ಟೇಬಲ್ ಬೇಸ್</string>
+  <string name="takeback">ನಡೆ ಹಿಂದಕ್ಕೆ ಪಡೆ</string>
+  <string name="proposeATakeback">ನಡೆ ಹಿಂಪಡೆಯಲು ಮನವಿ ಮಾಡು</string>
+  <string name="takebackPropositionSent">ನಡೆ ಹಿಂಪಡೆಯಲು ಮನವಿ ಮಾಡಲಾಗಿದೆ</string>
+  <string name="takebackPropositionDeclined">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
+  <string name="takebackPropositionAccepted">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
+  <string name="takebackPropositionCanceled">ನಡೆ ಹಿಂಪಡೆಯಲು ಮಾಡಿದ ಮನವಿ ರದ್ದುಪಡಿಸಲಾಗಿದೆ</string>
+  <string name="yourOpponentProposesATakeback">ನಿಮ್ಮ ಎದುರಾಳಿ, ಅವರ ನಡೆ ಹಿಂಪಡೆದುಕೊಳ್ಳಲು ಅನುಮತಿ ಕೇಳುತ್ತಿದ್ದಾರೆ</string>
+  <string name="bookmarkThisGame">ಈ ಆಟವನ್ನು ಗುರುತುಸಂಗ್ರಹಕ್ಕೆ ಸೇರಿಸು</string>
+  <string name="tournament">ಪಂದ್ಯಾವಳಿ</string>
+  <string name="tournaments">ಪಂದ್ಯಾವಳಿಗಳು</string>
+  <string name="tournamentPoints">ಪಂದ್ಯಾವಳಿ ಅಂಕಗಳು</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ಪಂದ್ಯಾವಳಿ ಅಂಕ</item>
+    <item quantity="other">%s ಪಂದ್ಯಾವಳಿ ಅಂಕಗಳು</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s ಅಧ್ಯಯನ</item>
+    <item quantity="other">%s ಅಧ್ಯಯನಗಳು</item>
+  </plurals>
+  <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
+  <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
+  <string name="thematic">ವಿಶೇಷ ವಿಷಯಾಧಾರಿತ</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s ಧಾರಣೆ-ಸಹಿತ ಆಟ</item>
+    <item quantity="other">≥ %s ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟ</item>
+    <item quantity="other">≥ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟಗಳು</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">ನೀವು ಇನ್ನೂ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟವನ್ನು ಆಡಬೇಕು</item>
+    <item quantity="other">ನೀವು ಇನ್ನೂ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟಗಳನ್ನು ಆಡಬೇಕು</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟವನ್ನು ಆಡಬೇಕು</item>
+    <item quantity="other">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳನ್ನು ಆಡಬೇಕು</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">ನಿಮ್ಮ %s ಧಾರಣೆಯು ತಾತ್ಕಾಲಿಕವಾಗಿದೆ</string>
+  <string name="yourPerfRatingIsTooHigh">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಹೆಚ್ಚಿದೆ</string>
+  <string name="yourPerfRatingIsTooLow">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಕಡಿಮೆಯಿದೆ</string>
+  <string name="ratedMoreThanInPerf">%2$s ನಲ್ಲಿ ಧಾರಣೆ ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">ಹಿಂದಿನ ಒಂದು ವಾರದಲ್ಲಿ, %2$s ನಲ್ಲಿ ಧಾರಣೆ ≤ %1$s ಇರಬೇಕು</string>
+  <string name="mustBeInTeam">ನೀವು %s ತಂಡದಲ್ಲಿರಬೇಕು</string>
+  <string name="youAreNotInTeam">ನೀವು %s ತಂಡದಲ್ಲಿಲ್ಲ</string>
+  <string name="backToGame">ಆಟದ ಮಣೆಗೆ ಹಿಂದಿರುಗಿ</string>
+  <string name="siteDescription">ಜಾಲತಾಣದಲ್ಲಿ ಉಚಿತವಾಗಿ ಚೆಸ್ (ಚದುರಂಗ) ಆಡುವ ವ್ಯವಸ್ಥೆ. ಸರಳ ಮತ್ತು ಶುಭ್ರವಾದ ಇಂಟರ್ಫೇಸ್ ನಲ್ಲಿ ಚೆಸ್ ಆಡಿ. ಯಾವುದೇ ರೀತಿಯ ನೋಂದಾವಣೆಯ ಅಗತ್ಯವಿಲ್ಲ. ಯಾವುದೇ ಜಾಹೀರಾತು ಅಥವಾ ಹೆಚ್ಚಿನ ಸಾಫ್ಟ್ ವೇರ್ (plugin) ಗಳ ಅವಶ್ಯಕತೆಯಿಲ್ಲ. ಕಂಪ್ಯೂಟರ್, ಗೆಳೆಯ/ಗೆಳತಿಯರು, ಅಥವಾ ಯಾವುದೋ ಆಗಂತುಕ ಎದುರಾಳಿಯೊಂದಿಗೆ ಚೆಸ್ ಆಡಿ.</string>
+  <string name="xJoinedTeamY">%1$s ಅವರು %2$s ತಂಡಕ್ಕೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
+  <string name="xCreatedTeamY">%1$s ಅವರು %2$s ಎಂಬ ತಂಡವನ್ನು ರಚಿಸಿದ್ದಾರೆ</string>
+  <string name="xStartedStreaming">%s ಅವರು ನೇರಪ್ರಸಾರ ಮಾಡಲು ಆರಂಭಿಸಿದ್ದಾರೆ</string>
+  <string name="averageElo">ಸರಾಸರಿ ಧಾರಣೆ</string>
+  <string name="location">ಸ್ಥಳ</string>
+  <string name="filterGames">ಆಟಗಳನ್ನು ಶೋಧಿಸಿ</string>
+  <string name="reset">ಮರುಜೋಡಿಸಿ</string>
+  <string name="apply">ಸಲ್ಲಿಸಿ</string>
+  <string name="save">ಉಳಿಸಿ</string>
+  <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
+  <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
+  <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
+  <string name="toStudy">ಅಧ್ಯಯನ</string>
+  <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
+  <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ಗೆಳೆಯ/ತಿ ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
+    <item quantity="other">%s ಗೆಳೆಯ/ತಿಯರು ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
+  </plurals>
+  <string name="unfollow">ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
+  <string name="followX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸಿ</string>
+  <string name="unfollowX">%s ಅವರನ್ನು ಹಿಂಬಾಲಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
+  <string name="block">ನಿಷೇಧಿಸಿ</string>
+  <string name="blocked">ನಿಷೇಧಿಸಲಾಗಿದೆ</string>
+  <string name="unblock">ನಿಷೇಧವನ್ನು ತೆಗೆ</string>
+  <string name="followsYou">ನಿಮ್ಮನ್ನು ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</string>
+  <string name="xStartedFollowingY">%1$s ಅವರು %2$s ಅವರನ್ನು ಹಿಂಬಾಲಿಸಲು ಆರಂಭಿಸಿದ್ದಾರೆ</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s ಹಿಂಬಾಲಕರು</item>
+    <item quantity="other">%s ಹಿಂಬಾಲಕರು</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</item>
+  </plurals>
+  <string name="more">ಇನ್ನಷ್ಟು</string>
+  <string name="memberSince">ಸದಸ್ಯತ್ವ</string>
+  <string name="lastSeenActive">ಸಕ್ರಿಯತೆ %s</string>
+  <string name="player">ಆಟದ ವ್ಯಕ್ತಿ</string>
+  <string name="list">ಪಟ್ಟಿ</string>
+  <string name="graph">ರೇಖಾನಕ್ಷೆ</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s ನಿಮಿಷಕ್ಕಿಂತ ಕಡಿಮೆ</item>
+    <item quantity="other">%s ನಿಮಿಷಗಳಿಗಿಂತ ಕಡಿಮೆ</item>
+  </plurals>
+  <string name="required">ಅವಶ್ಯಕವಾಗಿದೆ.</string>
+  <string name="openTournaments">ಮುಕ್ತ ಪಂದ್ಯಾವಳಿಗಳು</string>
+  <string name="duration">ಕಾಲಾವಧಿ</string>
+  <string name="winner">ಜಯಶಾಲಿ</string>
+  <string name="standing">ಸ್ಥಾನ</string>
+  <string name="createANewTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ ರಚಿಸಿ</string>
+  <string name="tournamentCalendar">ಪಂದ್ಯಾವಳಿಯ ವೇಳಾಪಟ್ಟಿ</string>
+  <string name="conditionOfEntry">ಪ್ರವೇಶಾರ್ಹತೆ:</string>
+  <string name="advancedSettings">ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳು</string>
+  <string name="safeTournamentName">ಪಂದ್ಯಾವಳಿಗೆ ಸುರಕ್ಷಿತ ಹಾಗೂ ಅಪಾಯವಿಲ್ಲದ ಹೆಸರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.</string>
+  <string name="inappropriateNameWarning">ಕೇವಲ ಸಣ್ಣಮಟ್ಟಿನ ಅನುಚಿತ ಅಥವಾ ಅಸಮಂಜಸ ಹೆಸರುಗಳೂ ಕೂಡ ನಿಮ್ಮ ಖಾತೆಯ ನಿಷೇದಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು.</string>
+  <string name="emptyTournamentName">ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಯನ್ನು ಯಾವುದೋ ಒಬ್ಬರು ಪ್ರಸಿದ್ಧ ಚೆಸ್ ಆಟಗಾರರ ಹೆಸರಿನಲ್ಲಿ ನಾಮಕರಣಗೊಳಿಸಬೇಕೆಂದಿದ್ದರೆ, ಹೆಸರಿನ ಭಾಗವನ್ನು ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ.</string>
+  <string name="recommendNotTouching">ಇದನ್ನು ಬದಲಾಯಿಸಬೇಡಿ ಎಂದು ಶಿಫಾರಸ್ಸು ಮಾಡುತ್ತೇವೆ.</string>
+  <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
+  <string name="showAdvancedSettings">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ</string>
+  <string name="blackWins">ಕಪ್ಪು ದಳದ ಗೆಲುವು</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
+  <string name="no">ಬೇಡ</string>
+  <string name="yes">ಹೌದು</string>
+  <string name="help">ಸಹಾಯ:</string>
+  <string name="createANewTopic">ಹೊಸ ವಿಷಯ ರಚಿಸಿ</string>
+  <string name="topics">ವಿಷಯಗಳು</string>
+  <string name="posts">ಪೋಸ್ಟ್ ಗಳು</string>
+  <string name="lastPost">ಅಂತಿಮ ಪೋಸ್ಟ್</string>
+  <string name="replies">ಪ್ರತ್ಯುತ್ತರಗಳು</string>
+  <string name="replyToThisTopic">ಈ ವಿಷಯಕ್ಕೆ ಪ್ರತ್ಯುತ್ತರಿಸಿ</string>
+  <string name="reply">ಪ್ರತ್ಯುತ್ತರ</string>
+  <string name="message">ಸಂದೇಶ</string>
+  <string name="createTheTopic">ವಿಷಯ ರಚಿಸಿ</string>
+  <string name="reportAUser">ಒಂದು ಖಾತೆಯ ವಿರುದ್ಧ ದೂರು ಸಲ್ಲಿಸಿ</string>
+  <string name="user">ಖಾತೆಯ ಹೆಸರು</string>
+  <string name="reason">ಕಾರಣ</string>
+  <string name="letOtherPlayersInviteYouToStudy">ತಮ್ಮ ಅಧ್ಯಯನಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಲು ಇತರೆ ಆಟಗಾರರಿಗೆ ಅವಕಾಶ ಕೊಡಿ</string>
+  <string name="studyMenu">ಅಧ್ಯಯನ</string>
+  <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
+  <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
+  <string name="create">ರಚಿಸಿ</string>
+  <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
+  <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
+  <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
+  <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
+  <string name="minimumRatedGames">ಬೇಕಾಗಿರುವ ಕನಿಷ್ಠ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
+  <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
 </resources>
