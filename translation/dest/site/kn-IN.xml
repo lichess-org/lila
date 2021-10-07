@@ -461,6 +461,14 @@
     <item quantity="one">%s ಆಟ ನಡೆಯುತ್ತಿದೆ</item>
     <item quantity="other">%s ಆಟಗಳು ನಡೆಯುತ್ತಿವೆ</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">ಒಂದು ನಡೆ ಆಡಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಮುಂದಿನ ಆಟಕ್ಕೆ ಹೋಗಿ</string>
+  <string name="autoSwitch">ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಬದಲಾಗಲಿ</string>
+  <string name="puzzles">ಒಗಟುಗಳು</string>
+  <string name="tournamentWinners">ಪಂದ್ಯಾವಳಿಯ ವಿಜೇತರು</string>
+  <string name="name">ಹೆಸರು</string>
+  <string name="description">ವಿವರಣೆ</string>
+  <string name="descPrivate">ಖಾಸಗಿ ವಿವರಣೆಗಳು</string>
+  <string name="descPrivateHelp">ತಂಡದ ಸದಸ್ಯರಿಗೆ ಮಾತ್ರ ಕಾಣುವಂತಹ ಟಿಪ್ಪಣಿಗಳು. ಖಾಸಗಿ ಟಿಪ್ಪಣಿಯನ್ನು ಭರ್ತಿ ಮಾಡಿದ್ದರೆ, ತಂಡದ ಎಲ್ಲಾ ಸದಸ್ಯರಿಗೆ ಸಾರ್ವಜನಿಕ-ಟಿಪ್ಪಣಿಯ ಬದಲು ಈ ಖಾಸಗಿ-ಟಿಪ್ಪಣಿ ಕಾಣುವುದು.</string>
   <string name="no">ಬೇಡ</string>
   <string name="yes">ಹೌದು</string>
   <string name="help">ಸಹಾಯ:</string>
@@ -468,6 +476,7 @@
   <string name="topics">ವಿಷಯಗಳು</string>
   <string name="posts">ಪೋಸ್ಟ್ ಗಳು</string>
   <string name="lastPost">ಅಂತಿಮ ಪೋಸ್ಟ್</string>
+  <string name="views">ವೀಕ್ಷಣೆಗಳು</string>
   <string name="replies">ಪ್ರತ್ಯುತ್ತರಗಳು</string>
   <string name="replyToThisTopic">ಈ ವಿಷಯಕ್ಕೆ ಪ್ರತ್ಯುತ್ತರಿಸಿ</string>
   <string name="reply">ಪ್ರತ್ಯುತ್ತರ</string>
@@ -476,6 +485,8 @@
   <string name="reportAUser">ಒಂದು ಖಾತೆಯ ವಿರುದ್ಧ ದೂರು ಸಲ್ಲಿಸಿ</string>
   <string name="user">ಖಾತೆಯ ಹೆಸರು</string>
   <string name="reason">ಕಾರಣ</string>
+  <string name="whatIsIheMatter">ವಿಷಯ ಅಥವಾ ಸಮಸ್ಯೆ ಏನು?</string>
+  <string name="cheat">ಮೋಸದಾಟ</string>
   <string name="letOtherPlayersInviteYouToStudy">ತಮ್ಮ ಅಧ್ಯಯನಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಲು ಇತರೆ ಆಟಗಾರರಿಗೆ ಅವಕಾಶ ಕೊಡಿ</string>
   <string name="sound">ಶಬ್ದ</string>
   <string name="none">ಏನೂ ಇಲ್ಲ</string>
