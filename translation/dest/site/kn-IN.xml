@@ -58,7 +58,7 @@
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
   <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
   <string name="cloudAnalysis">ಮೋಡ ವಿಶ್ಲೇಷಣೆ</string>
-  <string name="goDeeper">ಆಳ ಇಳಿ</string>
+  <string name="goDeeper">ಆಳಕ್ಕೆ ಇಳಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
   <string name="inLocalBrowser">ಸ್ಥಳೀಯ ಬ್ರೌಸರ್ ನಲ್ಲಿ</string>
   <string name="toggleLocalEvaluation">ಸ್ಥಳೀಯ ಮೌಲ್ಯಮಾಪನ ಅದಲುಬದಲಿಸಿ</string>
@@ -82,7 +82,7 @@
   <string name="averageRatingX">ಸರಾಸರಿ ಮೌಲ್ಯ: %s</string>
   <string name="recentGames">ಇತ್ತೀಚಿನ ಆಟಗಳು</string>
   <string name="topGames">ಅತ್ಯುತ್ತಮ ಆಟಗಳು</string>
-  <string name="masterDbExplanation">%2$s ಇಂದ %3$s ವರೆಗಿನ %1$s+ FIDE ಮೌಲ್ಯ ಆಟಗಾರ ಇಪ್ಪತ್ತು ಲಕ್ಷ ಒ.ಟಿ.ಬಿ ಆಟಗಳು</string>
+  <string name="masterDbExplanation">%2$s ಇಂದ %3$s ವರೆಗಿನ %1$s+ FIDE ಧಾರಣೆಯ ಆಟಗಾರರ ಇಪ್ಪತ್ತು ಲಕ್ಷ O. T. B ಆಟಗಳು</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s ಅರ್ಧ-ಚಲನೆಯಲ್ಲಿ ಸಂಗಾತಿ</item>
     <item quantity="other">%s ಅರ್ಧ-ಚಲನೆಗಳಲ್ಲಿ ಸಂಗಾತಿ</item>
