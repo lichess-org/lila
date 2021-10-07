@@ -445,6 +445,8 @@
   <string name="gameCompletionRate">ಆಟವನ್ನು ಪೂರ್ತಿಗೊಳಿಸುವ ದರ: %s</string>
   <string name="profile">ಪ್ರೊಫೈಲು</string>
   <string name="editProfile">ಪ್ರೊಫೈಲ್ ಪರಿಷ್ಕರಿಸಿ</string>
+  <string name="firstName">ಹೆಸರು</string>
+  <string name="lastName">ಕುಟುಂಬನಾಮ (surname)</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
   <string name="no">ಬೇಡ</string>
   <string name="yes">ಹೌದು</string>
