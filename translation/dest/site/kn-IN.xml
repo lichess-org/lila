@@ -473,6 +473,8 @@
   <string name="always">ಯಾವಾಗಲೂ</string>
   <string name="never">ಯಾವತ್ತೂ ಬೇಡ</string>
   <string name="xCompetesInY">%1$s ಅವರು %2$s ನಲ್ಲಿ ಸ್ಪರ್ಧಿಸುತ್ತಿದ್ದಾರೆ</string>
+  <string name="victory">ಗೆಲುವು</string>
+  <string name="defeat">ಸೋಲು</string>
   <string name="studyMenu">ಅಧ್ಯಯನ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
