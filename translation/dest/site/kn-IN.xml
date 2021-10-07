@@ -546,6 +546,17 @@
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
   <string name="whenCreateSimul">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
+  <string name="simulVariantsHint">ನೀವು ಹಲವಾರು ಆಟದ ವಿಧಗಳನ್ನು ಅಂದರೆ ವೇರಿಯೆಂಟ್ ಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದರೆ, ಪ್ರತಿ ಎದುರಾಳಿಗೂ ಆ ಆಯ್ಕೆಗಳಿಂದ ಒಂದನ್ನು ಆರಿಸುವ ಅವಕಾಶ ದೊರೆಯುತ್ತದೆ.</string>
+  <string name="simulClockHint">ಫಿಷರ್ ಗಡಿಯಾರದ ಸಿದ್ಧತೆ. ಎಷ್ಟು ಹೆಚ್ಚು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತೀರೋ, ಅಷ್ಟೇ ಹೆಚ್ಚಿನ ಸಮಯ ನಿಮಗೆ ಬೇಕಾಗಬಹುದು.</string>
+  <string name="simulAddExtraTime">ನಿಮಗೆ ಬೇಕಾದರೆ, simul ನಿಭಾಯಿಸುವ ಸಲುವಾಗಿ, ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಹೆಚ್ಚಿನ ಸಮಯವನ್ನು ಸೇರಿಸಿಕೊಳ್ಳಬಹುದು.</string>
+  <string name="simulHostExtraTime">ಆತಿಥೇಯರ ಗಡಿಯಾರದಲ್ಲಿನ ಅಧಿಕ ಸಮಯ</string>
+  <string name="lichessTournaments">ಲೀಚೆಸ್ ಪಂದ್ಯಾವಳಿಗಳು</string>
+  <string name="tournamentFAQ">ಅಖಾಡ ಪಂದ್ಯಾವಳಿಗೆ ಸಂಬಂಧಿಸಿ ಹೆಚ್ಚಾಗಿ ಕೇಳಿ ಬರುವ ಪ್ರಶ್ನೆಗಳು</string>
+  <string name="timeBeforeTournamentStarts">ಪಂದ್ಯಾವಳಿ ಆರಂಭವಾಗಲು ಉಳಿದಿರುವ ಸಮಯ</string>
+  <string name="averageCentipawnLoss">ಸರಾಸರಿ ಸೆಂಟಿಪಾನ್ ನಷ್ಟ</string>
+  <string name="keyboardShortcuts">ಕೀಲಿಮಣೆಯ ಒಳದಾರಿ</string>
+  <string name="keyMoveBackwardOrForward">ಹಿಂದೆ ಅಥವಾ ಮುಂದೆ ಚಲಿಸಿ</string>
+  <string name="keyGoToStartOrEnd">ಆರಂಭ/ಅಂತ್ಯಕ್ಕೆ ಹೋಗಿ</string>
   <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
