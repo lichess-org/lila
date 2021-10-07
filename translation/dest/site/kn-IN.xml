@@ -430,6 +430,13 @@
   <string name="draws">ಡ್ರಾಗಳು</string>
   <string name="nextXTournament">ಮುಂದಿನ %s ಪಂದ್ಯಾವಳಿ:</string>
   <string name="averageOpponent">ಸರಾಸರಿ ಎದುರಾಳಿ</string>
+  <string name="boardEditor">ಚೆಸ್ ಮಣೆ ಸಂಪಾದಕ</string>
+  <string name="setTheBoard">ಚೆಸ್ ಮಣೆ ಜೋಡಿಸಿ</string>
+  <string name="popularOpenings">ಜನಪ್ರಿಯ ಪ್ರಾರಂಭಿಕ ನಡೆಗಳು</string>
+  <string name="endgamePositions">ಕೊನೆಯಾಟದ ಸನ್ನಿವೇಶಗಳು</string>
+  <string name="chess960StartPosition">Chess960 ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ: %s</string>
+  <string name="startPosition">ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ</string>
+  <string name="clearBoard">ಚೆಸ್ ಮಣೆಯನ್ನು ಖಾಲಿ ಮಾಡಿ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
   <string name="no">ಬೇಡ</string>
   <string name="yes">ಹೌದು</string>
