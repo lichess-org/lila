@@ -417,6 +417,10 @@
   <string name="losses">ಸೋಲುಗಳು</string>
   <string name="createdBy">ರಚಿಸಿದವರು</string>
   <string name="tournamentIsStarting">ಈ ಪಂದ್ಯಾವಳಿಯು ಆರಂಭವಾಗುತ್ತಿದೆ</string>
+  <string name="tournamentPairingsAreNowClosed">ಈ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ ಎದುರಾಳಿಗಳನ್ನು ಹೊಂದಿಸುವ ಕಾರ್ಯ ಈಗ ನಿಲ್ಲಿಸಲಾಗಿದೆ.</string>
+  <string name="standByX">ನಿರೀಕ್ಷಿಸುತ್ತಿರಿ %s, ಎದುರಾಳಿಗಳನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ, ಸಿದ್ಧವಾಗಿರಿ!</string>
+  <string name="youArePlaying">ನೀವು ಆಡುತ್ತಿದ್ದೀರಿ!</string>
+  <string name="winRate">ಗೆಲುವಿನ ದರ</string>
   <string name="blackWins">ಕಪ್ಪು ದಳದ ಗೆಲುವು</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
   <string name="no">ಬೇಡ</string>
