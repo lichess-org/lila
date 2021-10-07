@@ -27,6 +27,7 @@ export function boolSetting(o: BoolSetting, trans: Trans, redraw: Redraw) {
           attrs: {
             type: 'checkbox',
             checked: o.checked,
+            disabled: !!o.disabled,
           },
           hook: bind('change', e => o.change((e.target as HTMLInputElement).checked), redraw),
         }),
