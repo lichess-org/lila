@@ -379,4 +379,9 @@
   <string name="reportAUser">ಒಂದು ಖಾತೆಯ ವಿರುದ್ಧ ದೂರು ಸಲ್ಲಿಸಿ</string>
   <string name="user">ಖಾತೆಯ ಹೆಸರು</string>
   <string name="reason">ಕಾರಣ</string>
+  <string name="letOtherPlayersInviteYouToStudy">ತಮ್ಮ ಅಧ್ಯಯನಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಲು ಇತರೆ ಆಟಗಾರರಿಗೆ ಅವಕಾಶ ಕೊಡಿ</string>
+  <string name="studyMenu">ಅಧ್ಯಯನ</string>
+  <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
+  <string name="create">ರಚಿಸಿ</string>
+  <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
 </resources>
