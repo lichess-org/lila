@@ -141,6 +141,17 @@ final class IrcApi(
     case Victory(msg) => publishVictory(msg)
   }
 
+  def signupAfterTryingDisposableEmail(
+      user: User,
+      email: EmailAddress,
+      ip: IpAddress,
+      previous: Set[EmailAddress]
+  ) =
+    zulip(_.mod.adminLog, "disposable email")(
+      s"${markdown userLink user} signed up with ${email.value} on $ip, after trying disposable emails: ${previous
+        .map(_.value) mkString ", "}"
+    )
+
   private def publishError(msg: String): Funit =
     zulip(_.general, "lila")(s":lightning: ${markdown linkifyUsers msg}")
 
