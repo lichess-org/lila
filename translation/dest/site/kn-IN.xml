@@ -297,6 +297,8 @@
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
   <string name="thematic">ವಿಶೇಷ ವಿಷಯಾಧಾರಿತ</string>
+  <string name="mustBeInTeam">ನೀವು %s ತಂಡದಲ್ಲಿರಬೇಕು</string>
+  <string name="youAreNotInTeam">ನೀವು %s ತಂಡದಲ್ಲಿಲ್ಲ</string>
   <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
   <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
   <plurals name="nbFriendsOnline">
