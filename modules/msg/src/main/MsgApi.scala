@@ -187,19 +187,18 @@ final class MsgApi(
             .cursor[Msg]()
             .list(11)
             .flatMap { msgs =>
-              lightUserApi async thread.other(user) map { contact =>
-                ModMsgConvo(
-                  MsgConvo(
-                    contact | LightUser.fallback(thread other user),
+              userRepo named thread.other(user) map {
+                _.map { contact =>
+                  ModMsgConvo(
+                    contact,
                     msgs.take(10),
                     lila.relation.Relations(none, none),
-                    postable = false
-                  ),
-                  msgs.length == 11
-                )
+                    msgs.length == 11
+                  )
+                }
               }
             }
-        }.sequenceFu
+        }.sequenceFu.map(_.flatten)
       }
 
   def deleteAllBy(user: User): Funit =

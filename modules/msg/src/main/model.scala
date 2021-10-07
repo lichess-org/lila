@@ -1,6 +1,7 @@
 package lila.msg
 
 import lila.common.LightUser
+import lila.user.User
 import lila.relation.Relations
 
 case class MsgConvo(
@@ -11,6 +12,8 @@ case class MsgConvo(
 )
 
 case class ModMsgConvo(
-    convo: MsgConvo,
+    contact: User,
+    msgs: List[Msg],
+    relations: Relations,
     truncated: Boolean
 )
