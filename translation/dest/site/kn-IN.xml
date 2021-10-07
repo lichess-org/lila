@@ -322,6 +322,7 @@
     <item quantity="one">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟವನ್ನು ಆಡಬೇಕು</item>
     <item quantity="other">ನೀವು ಇನ್ನೂ %s ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳನ್ನು ಆಡಬೇಕು</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">ನಿಮ್ಮ %s ಧಾರಣೆಯು ತಾತ್ಕಾಲಿಕವಾಗಿದೆ</string>
   <string name="yourPerfRatingIsTooHigh">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಹೆಚ್ಚಿದೆ</string>
   <string name="yourPerfRatingIsTooLow">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಕಡಿಮೆಯಿದೆ</string>
   <string name="ratedMoreThanInPerf">%2$s ನಲ್ಲಿ ಧಾರಣೆ ≥ %1$s</string>
