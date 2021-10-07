@@ -87,6 +87,7 @@
     <item quantity="one">%s ಅರ್ಧ-ಚಲನೆಯಲ್ಲಿ ಸಂಗಾತಿ</item>
     <item quantity="other">%s ಅರ್ಧ-ಚಲನೆಗಳಲ್ಲಿ ಸಂಗಾತಿ</item>
   </plurals>
+  <string name="dtzWithRounding">ಮುಂದಿನ ಸೆರೆಹಿಡಿತ (capture) ಅಥವಾ ಕಾಲಾಳು-ನಡೆ(pawn move)ಯವರೆಗಿನ ಅರ್ಧ-ನಡೆಗಳ ಸಂಖ್ಯೆಯ ಆಧಾರದ ಮೇಲೆ, DTZ50\'\' ಉಪಯೋಗಿಸಿ ಪೂರ್ಣಾಂಕಕ್ಕೆ ತರಲಾಗಿದೆ</string>
   <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ಆದ್ಯತೆಯ ಮೆನುವಿನಿಂದ ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಸೇರಿಸಬಹುದೇ?</string>
   <string name="openingExplorer">ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
