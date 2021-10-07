@@ -557,8 +557,12 @@
   <string name="keyboardShortcuts">ಕೀಲಿಮಣೆಯ ಒಳದಾರಿ</string>
   <string name="keyMoveBackwardOrForward">ಹಿಂದೆ ಅಥವಾ ಮುಂದೆ ಚಲಿಸಿ</string>
   <string name="keyGoToStartOrEnd">ಆರಂಭ/ಅಂತ್ಯಕ್ಕೆ ಹೋಗಿ</string>
+  <string name="keyShowOrHideComments">ಅಭಿಪ್ರಾಯಗಳನ್ನು ತೋರಿಸಿ/ಅಡಗಿಸಿ</string>
+  <string name="keyEnterOrExitVariation">ಕವಲುದಾರಿ ಪ್ರವೇಶಿಸಿ/ನಿರ್ಗಮಿಸಿ</string>
+  <string name="newTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ</string>
   <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
+  <string name="lobby">ಚಾವಡಿ</string>
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
