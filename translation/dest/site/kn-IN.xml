@@ -324,6 +324,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">ನಿಮ್ಮ %s ಧಾರಣೆಯು ತಾತ್ಕಾಲಿಕವಾಗಿದೆ</string>
   <string name="yourPerfRatingIsTooHigh">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಹೆಚ್ಚಿದೆ</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s ನಲ್ಲಿ ನಿಮ್ಮ ಸಾಪ್ತಾಹಿಕ ಅಗ್ರ ಧಾರಣೆಯು (%2$s) ಅತೀ ಹೆಚ್ಚಿದೆ</string>
   <string name="yourPerfRatingIsTooLow">ನಿಮ್ಮ %1$s ಧಾರಣೆ (%2$s) ಅತೀ ಕಡಿಮೆಯಿದೆ</string>
   <string name="ratedMoreThanInPerf">%2$s ನಲ್ಲಿ ಧಾರಣೆ ≥ %1$s</string>
   <string name="ratedLessThanInPerf">ಹಿಂದಿನ ಒಂದು ವಾರದಲ್ಲಿ, %2$s ನಲ್ಲಿ ಧಾರಣೆ ≤ %1$s ಇರಬೇಕು</string>
@@ -346,6 +347,15 @@
   <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
   <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
   <string name="toStudy">ಅಧ್ಯಯನ</string>
+  <string name="importGame">ಆಟವನ್ನು ಆಮದು ಮಾಡಿ</string>
+  <string name="importGameExplanation">ಒಂದು ಆಟದ PGN ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, ಬ್ರೌಸ್ ಮಾಡಲರ್ಹ ರಿಪ್ಲೇಗಳು, ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ, ಹಾಗೂ ಆಟದ ಚಾಟ್ ಅಥವಾ ಹರಟೆ, ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಬಹುದಾದ URL ಪಡೆಯಿರಿ.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s ಆಮದು ಮಾಡಿದ ಆಟ</item>
+    <item quantity="other">%s ಆಮದು ಮಾಡಿದ ಆಟಗಳು</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">ಇದೊಂದು ಚೆಸ್ CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">ಚೆಸ್ ಮಣೆಯ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ ನಿಮ್ಮ ನಡೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸುವ ಮೂಲಕ ನೀವು ಒಬ್ಬ ಮನುಷ್ಯ ಎಂದು ಸಾಧಿಸಿ.</string>
+  <string name="captcha.fail">ದಯವಿಟ್ಟು ಈ ಚೆಸ್ captcha ವನ್ನು ಪರಿಹರಿಸಿ.</string>
   <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
   <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
   <plurals name="nbFriendsOnline">
