@@ -97,7 +97,8 @@ $col2-panel-height: 240px;
         @extend %flex-wrap;
         width: 100%;
       }
-      a, span {
+      a,
+      span {
         display: flex;
         flex: 0 0 50%;
         line-height: 1.6em;
