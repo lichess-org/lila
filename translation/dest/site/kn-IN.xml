@@ -303,6 +303,13 @@
   <string name="siteDescription">ಜಾಲತಾಣದಲ್ಲಿ ಉಚಿತವಾಗಿ ಚೆಸ್ (ಚದುರಂಗ) ಆಡುವ ವ್ಯವಸ್ಥೆ. ಸರಳ ಮತ್ತು ಶುಭ್ರವಾದ ಇಂಟರ್ಫೇಸ್ ನಲ್ಲಿ ಚೆಸ್ ಆಡಿ. ಯಾವುದೇ ರೀತಿಯ ನೋಂದಾವಣೆಯ ಅಗತ್ಯವಿಲ್ಲ. ಯಾವುದೇ ಜಾಹೀರಾತು ಅಥವಾ ಹೆಚ್ಚಿನ ಸಾಫ್ಟ್ ವೇರ್ (plugin) ಗಳ ಅವಶ್ಯಕತೆಯಿಲ್ಲ. ಕಂಪ್ಯೂಟರ್, ಗೆಳೆಯ/ಗೆಳತಿಯರು, ಅಥವಾ ಯಾವುದೋ ಆಗಂತುಕ ಎದುರಾಳಿಯೊಂದಿಗೆ ಚೆಸ್ ಆಡಿ.</string>
   <string name="xJoinedTeamY">%1$s ಅವರು %2$s ತಂಡಕ್ಕೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xCreatedTeamY">%1$s ಅವರು %2$s ಎಂಬ ತಂಡವನ್ನು ರಚಿಸಿದ್ದಾರೆ</string>
+  <string name="xStartedStreaming">%s ಅವರು ನೇರಪ್ರಸಾರ ಮಾಡಲು ಆರಂಭಿಸಿದ್ದಾರೆ</string>
+  <string name="averageElo">ಸರಾಸರಿ ಧಾರಣೆ</string>
+  <string name="location">ಸ್ಥಳ</string>
+  <string name="filterGames">ಆಟಗಳನ್ನು ಶೋಧಿಸಿ</string>
+  <string name="reset">ಮರುಜೋಡಿಸಿ</string>
+  <string name="apply">ಸಲ್ಲಿಸಿ</string>
+  <string name="save">ಉಳಿಸಿ</string>
   <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
   <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
   <plurals name="nbFriendsOnline">
