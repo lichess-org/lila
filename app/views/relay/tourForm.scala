@@ -62,11 +62,11 @@ object tourForm {
       ).some
     )(form3.textarea(_)(rows := 10)),
     if (isGranted(_.Relay))
-      form3.checkbox(
-        form("official"),
-        raw("Official Lichess broadcast"),
+      form3.group(
+        form("tier"),
+        raw("Official Lichess broadcast tier"),
         help = raw("Feature on /broadcast - for admins only").some
-      )
-    else form3.hidden(form("official"))
+      )(form3.select(_, RelayTour.Tier.options))
+    else form3.hidden(form("tier"))
   )
 }

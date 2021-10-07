@@ -85,6 +85,7 @@ final class RelayApi(
       .aggregateList(20) { framework =>
         import framework._
         Match(tourRepo.selectors.official ++ tourRepo.selectors.active) -> List(
+          Sort(Descending("tier")),
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
