@@ -489,6 +489,9 @@
   <string name="cheat">ಮೋಸದಾಟ</string>
   <string name="insult">ಅವಮಾನಿಸಿದ್ದಾರೆ</string>
   <string name="troll">ಉಪದ್ರವಿ</string>
+  <string name="ratingManipulation">ಧಾರಣೆಯಲ್ಲಿ ವಂಚನೆ</string>
+  <string name="other">ಇತರೆ</string>
+  <string name="reportDescriptionHelp">ಮೋಸ ನಡೆದಿದೆ ಎಂಬ ಸಂಶಯವಿರುವ ಆಟದ (ಆಟಗಳ) ಕೊಂಡಿ ಅಥವಾ ಲಿಂಕ್ ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ. ಹಾಗೂ, ಈ ವ್ಯಕ್ತಿಯ ಅಥವಾ ಖಾತೆಯ ವರ್ತನೆಯಲ್ಲಿ ಏನು ಸಮಸ್ಯೆ ಇದೆ ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ವಿವರಿಸಿ. ಕೇವಲ \"ಅವರು ಮೋಸ ಮಾಡಿದ್ದಾರೆ\" ಎಂದಷ್ಟೇ ಬರೆದು ಬಿಡಬೇಡಿ. ಬದಲಾಗಿ, ಹೇಗೆ ಈ ನಿರ್ಧಾರಕ್ಕೆ ಬಂದಿರಿ ಎಂಬುದನ್ನು ವಿವರಿಸಿ. ನಿಮ್ಮ ದೂರು ಇಂಗ್ಲಿಷ್ ಭಾಷೆಯಲ್ಲಿದ್ದರೆ ಬೇಗನೆಯೇ ಪರಿಹಾರ ಸಿಗುವ ಸಾಧ್ಯತೆ ಇದೆ.</string>
   <string name="letOtherPlayersInviteYouToStudy">ತಮ್ಮ ಅಧ್ಯಯನಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಲು ಇತರೆ ಆಟಗಾರರಿಗೆ ಅವಕಾಶ ಕೊಡಿ</string>
   <string name="sound">ಶಬ್ದ</string>
   <string name="none">ಏನೂ ಇಲ್ಲ</string>
