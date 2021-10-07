@@ -113,7 +113,9 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
-              Query.createdBetween(config.since, config.until) ++ Query.finished,
+              Query.createdBetween(config.since, config.until) ++ {
+                !config.ongoing ?? Query.finished
+              },
             config.sort.bson,
             batchSize = config.perSecond.value
           )
@@ -364,7 +366,8 @@ object GameApiV2 {
       flags: WithFlags,
       sort: GameSort,
       perSecond: MaxPerSecond,
-      playerFile: Option[String]
+      playerFile: Option[String],
+      ongoing: Boolean = false
   ) extends Config {
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
