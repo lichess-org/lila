@@ -232,8 +232,11 @@
   <string name="standard">ಸಾಮಾನ್ಯ</string>
   <string name="unlimited">ಸಮಯದ ಮಿತಿಯಿಲ್ಲ</string>
   <string name="mode">ಆಟದ ಪ್ರಕಾರ</string>
-  <string name="casual">ಧಾರಣೆ ರಹಿತ</string>
-  <string name="casualTournament">ಧಾರಣೆ ರಹಿತ</string>
+  <string name="casual">ಧಾರಣೆ-ರಹಿತ</string>
+  <string name="rated">ಧಾರಣೆ-ಸಹಿತ</string>
+  <string name="casualTournament">ಧಾರಣೆ-ರಹಿತ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="ratedTournament">ಧಾರಣೆ-ಸಹಿತ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="thisGameIsRated">ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿರುತ್ತದೆ</string>
   <string name="rematch">ಪುನಃ ಆಡು</string>
   <string name="rematchOfferSent">ಪುನಃ ಆಡಲು ಆಹ್ವಾನ ಕಳುಹಿಸಲಾಗಿದೆ</string>
   <string name="rematchOfferAccepted">ಪುನಃ ಆಡಲು ಕಳುಹಿಸಿದ ಆಹ್ವಾನವನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ</string>
@@ -303,6 +306,14 @@
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
   <string name="thematic">ವಿಶೇಷ ವಿಷಯಾಧಾರಿತ</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s ಧಾರಣೆ-ಸಹಿತ ಆಟ</item>
+    <item quantity="other">≥ %s ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟ</item>
+    <item quantity="other">≥ %1$s ಧಾರಣೆ-ಸಹಿತ %2$s ಆಟಗಳು</item>
+  </plurals>
   <string name="mustBeInTeam">ನೀವು %s ತಂಡದಲ್ಲಿರಬೇಕು</string>
   <string name="youAreNotInTeam">ನೀವು %s ತಂಡದಲ್ಲಿಲ್ಲ</string>
   <string name="backToGame">ಆಟದ ಮಣೆಗೆ ಹಿಂದಿರುಗಿ</string>
@@ -388,10 +399,11 @@
   <string name="letOtherPlayersInviteYouToStudy">ತಮ್ಮ ಅಧ್ಯಯನಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಲು ಇತರೆ ಆಟಗಾರರಿಗೆ ಅವಕಾಶ ಕೊಡಿ</string>
   <string name="studyMenu">ಅಧ್ಯಯನ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
-  <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
+  <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
   <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
+  <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
