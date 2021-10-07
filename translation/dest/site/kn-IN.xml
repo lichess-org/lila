@@ -383,5 +383,9 @@
   <string name="studyMenu">ಅಧ್ಯಯನ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="create">ರಚಿಸಿ</string>
+  <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
+  <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
+  <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
+  <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
 </resources>
