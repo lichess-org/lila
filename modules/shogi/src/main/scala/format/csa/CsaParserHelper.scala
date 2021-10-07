@@ -64,12 +64,13 @@ object CsaParserHelper {
         pos <- Pos.posAt(
           i % 9 + 1,
           10 - (i / 9 + 1)
-        ) toValid s"Invalid board setup - too many squares on rank: ${(i / 9 + 1)}"
+        ) toValid s"Invalid board setup - too many squares"
         piece <- Piece.fromCsa(sq) toValid s"Non existent piece (${sq}) in board setup"
       } yield (pieces + (pos -> piece))
+    val squares = ranks.flatMap(_.drop(2).grouped(3)).zipWithIndex
     if (ranks.size != 9) "Incorrect number of board ranks in board setup: %d/9".format(ranks.size).failureNel
+    else if (squares.size != 81) "Incorrect number of squares in board setup: %d/81".format(squares.size).failureNel
     else {
-      val squares = ranks.flatMap(_.drop(2).grouped(3)).zipWithIndex
       squares.foldLeft(succezz(Map()): Valid[PieceMap]) { case (acc, cur) =>
         acc match {
           case scalaz.Success(pieces) =>
