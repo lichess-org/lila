@@ -144,11 +144,42 @@ function renderCsaMainline(node: Tree.Node): string[] {
   return res;
 }
 
+function processCsaTags(tags: string[][]): string[] {
+  function kifTagToCsaTag(kifTag: string[]): string {
+    switch (kifTag[0]) {
+      case '開始日時':
+        return `$START_TIME:${kifTag[1]}`;
+      case '終了日時':
+        return `$END_TIME:${kifTag[1]}`;
+      case '棋戦':
+        return `$EVENT:${kifTag[1]}`;
+      case '場所':
+        return `$SITE:${kifTag[1]}`;
+      case '持ち時間':
+        return `$TIME_LIMIT:${kifTag[1].replace(/[^\d+\|]/g, '')}`;
+      case '戦型':
+        return `$OPENING:${kifTag[1]}`;
+      case '先手':
+        return `+N:${kifTag[1]}`;
+      case '後手':
+        return `-N:${kifTag[1]}`;
+      default:
+        return '';
+    }
+  }
+  const asciiTags = tags.filter(t => /[\x00-\x7F]+/.test(t[0])).map(t => `$${t[0]}:${t[1]}`);
+  return tags
+    .map(t => kifTagToCsaTag(t))
+    .filter(t => t.length > 0)
+    .concat(asciiTags);
+}
+
 export function renderFullCsa(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
+  const tags = processCsaTags(ctrl.data.tags ?? []);
   const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
   const moves = renderCsaMainline(ctrl.tree.root).join('\n');
-  return [makeCsaHeader(setup), moves].join('\n');
+  return [...tags, makeCsaHeader(setup), moves].join('\n');
 }
 
 export function renderNodesHtml(nodes: ForecastStep[], notation: number): MaybeVNodes {
