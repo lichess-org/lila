@@ -160,16 +160,19 @@ function processCsaTags(tags: string[][]): string[] {
       case '戦型':
         return `$OPENING:${kifTag[1]}`;
       case '先手':
-        return `+N:${kifTag[1]}`;
+        return `N+${kifTag[1]}`;
       case '後手':
-        return `-N:${kifTag[1]}`;
+        return `N-${kifTag[1]}`;
       default:
         return '';
     }
   }
-  const asciiTags = tags.filter(t => /[\x00-\x7F]+/.test(t[0])).map(t => `$${t[0]}:${t[1]}`);
+  const asciiTags = tags
+    .filter(t => /[\x00-\x7F]+/.test(t[0]) && !['FEN', 'Result'].includes(t[0]))
+    .map(t => `$${t[0]}:${t[1]}`);
   return tags
     .map(t => kifTagToCsaTag(t))
+    .sort((a, b) => (a[0] === 'N' ? (b[0] === 'N' ? 0 : -1) : 1)) // so we have names on top
     .filter(t => t.length > 0)
     .concat(asciiTags);
 }
