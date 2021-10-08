@@ -660,6 +660,9 @@
   <string name="withEverybody">ಎಲ್ಲರೊಂದಿಗೂ</string>
   <string name="kidMode">ಮಕ್ಕಳಿಗಾಗಿ</string>
   <string name="kidModeExplanation">ಇದು ಸುರಕ್ಷತೆಯ ಕುರಿತಾಗಿದೆ. ಕಿಡ್ ಮೋಡ್ ನಲ್ಲಿ, ಎಲ್ಲಾ ಸಂವಹನ ಸಲಕರಣೆಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿಡಲಾಗುತ್ತದೆ. ನಿಮ್ಮ ಮಕ್ಕಳು ಮತ್ತು ಶಾಲಾ ವಿದ್ಯಾರ್ಥಿ ಗಳು ಆಡುವಾಗ, ಅವರನ್ನು ಅಂತರ್ಜಾಲದಲ್ಲಿನ ಇತರೆ ವ್ಯಕ್ತಿಗಳಿಂದ ರಕ್ಷಿಸಲು ಈ ಮೋಡ್ ಅನ್ನು ಬಳಸಿ.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">ಕಿಡ್ ಮೋಡ್ ನಲ್ಲಿ, ಲೀಚೆಸ್ ಲಾಂಛನವು %s ಚಿತ್ರವನ್ನು ತೋರಿಸುತ್ತದೆ. ಇದರಿಂದಾಗಿ, ನಿಮ್ಮ ಮಕ್ಕಳು ಸುರಕ್ಷಿತವಾಗಿದ್ದಾರೆ ಎಂದು ನೀವು ಸುಲಭವಾಗಿ ತಿಳಿದುಕೊಳ್ಳಬಹುದು.</string>
+  <string name="enableKidMode">ಕಿಡ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+  <string name="disableKidMode">ಕಿಡ್ ಮೋಡ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="security">ಭದ್ರತೆ</string>
   <string name="sessions">ಲಾಗಿನ್ ಆಗಿರುವ ಜಾಗಗಳು</string>
   <string name="revokeAllSessions">ಎಲ್ಲ ಸೆಷನ್ಸ್ ಗಳನ್ನೂ ಅಳಿಸಿಬಿಡಿ</string>
@@ -669,9 +672,24 @@
   <string name="everybodyGetsAllFeaturesForFree">ಪ್ರತಿಯೊಬ್ಬರೂ, ಎಲ್ಲಾ ಸೌಕರ್ಯಗಳನ್ನೂ ಉಚಿತವಾಗಿಯೇ ಪಡೆಯುತ್ತಾರೆ</string>
   <string name="zeroAdvertisement">ಯಾವುದೇ ಜಾಹೀರಾತುಗಳಿಲ್ಲ</string>
   <string name="fullFeatured">ಸಂಪೂರ್ಣ ಸೌಕರ್ಯಗಳ ಸಹಿತ</string>
+  <string name="phoneAndTablet">ಫೋನ್ ಮತ್ತು ಟ್ಯಾಬ್ಲೆಟ್</string>
+  <string name="bulletBlitzClassical">ಬುಲೆಟ್, ಬ್ಲಿಟ್ಜ್, ಹಾಗೂ ಶಾಸ್ತ್ರೀಯ</string>
+  <string name="correspondenceChess">ಒಪ್ಪಂದದ ಮೇರೆಗಿನ ಚೆಸ್</string>
+  <string name="onlineAndOfflinePlay">ಆನ್ಲೈನ್ ಮತ್ತು ಆಫ್ಲೈನ್ ಆಟ</string>
+  <string name="viewTheSolution">ಉತ್ತರವನ್ನು ನೋಡಿ</string>
+  <string name="followAndChallengeFriends">ಗೆಳೆಯ(ತಿ)ಯರನ್ನು ಹಿಂಬಾಲಿಸಿ ಮತ್ತು ಸವಾಲು ಎಸೆಯಿರಿ</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s ಭಾಷೆಯಲ್ಲಿ ಲಭ್ಯವಿದೆ!</item>
+    <item quantity="other">%s ಭಾಷೆಗಳಲ್ಲಿ ಲಭ್ಯವಿದೆ!</item>
+  </plurals>
+  <string name="gameAnalysis">ಆಟದ ವಿಶ್ಲೇಷಣೆ</string>
+  <string name="xHostsY">%1$s ಅವರು %2$s ಅನ್ನು ರಚಿಸಿದ್ದಾರೆ</string>
   <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>
+  <string name="quickPairing">ಕ್ಷಿಪ್ರ ಕದನ</string>
   <string name="lobby">ಚಾವಡಿ</string>
+  <string name="anonymous">ಅನಾಮಿಕ</string>
+  <string name="yourScore">ನಿಮ್ಮ ಅಂಕಗಳು: %s</string>
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
   <string name="doItAgain">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
   <string name="reviewBlackMistakes">ಕಪ್ಪು ದಳದ ತಪ್ಪುಗಳನ್ನು ವಿಮರ್ಶಿಸಿ</string>
