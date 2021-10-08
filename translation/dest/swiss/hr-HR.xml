@@ -6,4 +6,17 @@
     <item quantity="few">Pogledajte sva %s kola</item>
     <item quantity="other">Pogledajte sva %s kola</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s krug</item>
+    <item quantity="few">%s kruga</item>
+    <item quantity="other">%s krugova</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Jedno kolo dnevno</item>
+    <item quantity="few">Jedno kolo svaka %s dana</item>
+    <item quantity="other">Jedno kolo svakih %s dana</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Kola se pokreću ručno</string>
+  <string name="startingIn" comment="Displayed above a timer">Počinje za</string>
+  <string name="nextRound">Slijedeće kolo</string>
 </resources>
