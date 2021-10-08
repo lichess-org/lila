@@ -527,6 +527,17 @@
   <string name="xCompetesInY">%1$s ಅವರು %2$s ನಲ್ಲಿ ಸ್ಪರ್ಧಿಸುತ್ತಿದ್ದಾರೆ</string>
   <string name="victory">ಗೆಲುವು</string>
   <string name="defeat">ಸೋಲು</string>
+  <string name="victoryVsYInZ">%3$s ನಲ್ಲಿ %2$s ಅವರ ವಿರುದ್ಧ %1$s</string>
+  <string name="defeatVsYInZ">%3$s ನಲ್ಲಿ %2$s ಅವರ ವಿರುದ್ಧ %1$s</string>
+  <string name="drawVsYInZ">%3$s ನಲ್ಲಿ %2$s ಅವರ ವಿರುದ್ಧ %1$s</string>
+  <string name="timeline">ಕಾಲರೇಖೆ</string>
+  <string name="starting">ಪ್ರಾರಂಭವಾಗಲಿದೆ:</string>
+  <string name="allInformationIsPublicAndOptional">ಈ ಎಲ್ಲಾ ಮಾಹಿತಿಗಳು ಸಾರ್ವಜನಿಕವಾಗಿ ಕಾಣಿಸುಕೊಳ್ಳುತ್ತವೆ. ಆದರೆ ಈ ಮಾಹಿತಿಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳುವುದು ಖಡ್ಡಾಯವೇನೂ ಅಲ್ಲ.</string>
+  <string name="biographyDescription">ನಿಮ್ಮ ಬಗ್ಗೆ ಸ್ವಲ್ಪ ತಿಳಿಸಿ. ನಿಮ್ಮ ಆಸಕ್ತಿಗಳು, ಹವ್ಯಾಸಗಳು, ಚೆಸ್ ನಲ್ಲಿ ನೀವು ಏನು ಇಷ್ಟ ಪಡುತ್ತೀರಾ, ನಿಮ್ಮ ಇಷ್ಟದ ಪ್ರಾರಂಭಿಕ ನಡೆಗಳು, ನೆಚ್ಚಿನ ಆಟಗಾರರು, ಇತ್ಯಾದಿ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">ಗರಿಷ್ಠ: %s ಅಕ್ಷರ.</item>
+    <item quantity="other">ಗರಿಷ್ಠ: %s ಅಕ್ಷರಗಳು.</item>
+  </plurals>
   <string name="studyMenu">ಅಧ್ಯಯನ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="termsOfService">ಸೇವೆಯ ನಿಯಮಗಳು</string>
