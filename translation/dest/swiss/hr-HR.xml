@@ -30,4 +30,12 @@
   <string name="swissVsArenaA">Na švicarskom turniru svi sudionici igraju isti broj partija i mogu igrati međusobno samo jedanput.
 To može biti dobra opcija za klubove i službene turnire.</string>
   <string name="pointsCalculationQ">Kako se rezultati računaju?</string>
+  <string name="pointsCalculationA">Pobjeda vrijedi jedan bod, remi je pola boda, a gubitak nula bodova.
+Kad se igrač ne može upariti tijekom runde, on je odbačen i prima jedan bod.</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger rezultat</string>
+  <string name="tiebreaksCalculationA">S %s.
+Dodajte rezultate svakog protivnika kojeg igrač pobijedi i polovicu rezultata svakog protivnika kojeg igrač izvuče.</string>
+  <string name="pairingsQ">Kako se odlučuju uparenja?</string>
+  <string name="dutchSystem">Nizozemski sistem</string>
+  <string name="FIDEHandbook">FIDE priručnik</string>
 </resources>
