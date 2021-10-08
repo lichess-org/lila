@@ -33,7 +33,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def titleGame(g: Game) = {
     val speed   = shogi.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic ?? s" ${g.variant.name}"
-    s"$speed$variant Shogi • ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
+    s"$speed$variant Shogi - ${playerText(g.sentePlayer)} vs ${playerText(g.gotePlayer)}"
   }
 
   def describePov(pov: Pov) = {
@@ -298,7 +298,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         c.destUser.fold(s"Challenge from $challenger") { dest =>
           s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
         }
-    s"$speed$variant ${c.mode.name} Shogi • $players"
+    s"$speed$variant ${c.mode.name} Shogi - $players"
   }
 
   def challengeOpenGraph(c: lila.challenge.Challenge) =
