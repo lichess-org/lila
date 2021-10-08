@@ -1,6 +1,7 @@
 package views.html.analyse
 
 import shogi.variant.Standard
+import shogi.format.Tag
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import play.utils.UriEncoding
@@ -10,7 +11,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.game.Pov
+import lila.game.{ Player, Pov }
 
 import controllers.routes
 
@@ -19,6 +20,9 @@ object replay {
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${pov.game.opening
       .fold(trans.analysis.txt())(_.opening.ecoName)}"
+
+  private def playerName(p: Player): String =
+    p.aiLevel.fold(p.userId | (p.name | lila.user.User.anonymous))("lishogi AI level " + _)
 
   def apply(
       pov: Pov,
@@ -49,9 +53,6 @@ object replay {
     }
     val exportLinks = div(
       ctx.noBlind option frag(
-        a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
-          trans.embedInYourWebsite()
-        ),
         a(
           dataIcon := "$",
           cls := "text",
@@ -59,6 +60,9 @@ object replay {
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
         )(
           "Share as a GIF"
+        ),
+        a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
+          trans.embedInYourWebsite()
         )
       )
     )
@@ -70,7 +74,7 @@ object replay {
           href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
           attr(
             "download"
-          ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kif"
+          ) := s"lishogi_game_${Tag.UTCDate.format.print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
         )(
           trans.downloadRaw()
         ),
@@ -80,7 +84,7 @@ object replay {
           href := s"data:text/plain;charset=shift-jis,${UriEncoding.encodePathSegment(kif, "Shift-JIS")}",
           attr(
             "download"
-          ) := s"${game.createdAt}-${game.sentePlayer.userId | "Anonymous"}-vs-${game.gotePlayer.userId | "Anonymous"}.kif"
+          ) := s"lishogi_game_${Tag.UTCDate.format.print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
         )(
           "Shift-JIS"
         )
