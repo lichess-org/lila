@@ -107,12 +107,14 @@ case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]) {
   def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
     if (cont) inc(pov, v)
     else {
-      val at = GameAt(pov.game.createdAt, pov.gameId).some
-      Streak(v, at, at)
+      val at  = GameAt(pov.game.createdAt, pov.gameId).some
+      val end = GameAt(pov.game.movedAt, pov.gameId).some
+      Streak(v, at, end)
     }
   private def inc(pov: Pov, by: Int) = {
-    val at = GameAt(pov.game.createdAt, pov.gameId).some
-    Streak(v + by, from orElse at, at)
+    val at  = GameAt(pov.game.createdAt, pov.gameId).some
+    val end = GameAt(pov.game.movedAt, pov.gameId).some
+    Streak(v + by, from orElse at, end)
   }
   def period = new Period(v * 1000L)
 }
