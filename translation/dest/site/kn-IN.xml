@@ -647,6 +647,13 @@
   <string name="timeToProcessAMoveOnLichessServer">ಲೀಚೆಸ್ ಸರ್ವರ್ ನ ಒಳಗೆ ನಿಮ್ಮ ನಡೆಯನ್ನು ಸಂಸ್ಕರಿಸಲು ಬೇಕಾದ ಸಮಯ</string>
   <string name="downloadAnnotated">ಟಿಪ್ಪಣಿಸಹಿತವಾಗಿ ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
   <string name="downloadRaw">ಮೂಲರೂಪದಲ್ಲಿ ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
+  <string name="downloadImported">ಆಮದನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿ</string>
+  <string name="crosstable">ಕದನ ಪಟ್ಟಿ</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ಚೆಸ್ ಮಣೆಯ ಮೇಲೆ ಮೌಸ್ ಅನ್ನು ಸ್ಕ್ರೋಲ್ ಮಾಡುವ ಮೂಲಕ ಆಟದ ನಡೆಯನ್ನು ಮುಂದುವರೆಸಿ.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">ಕಂಪ್ಯೂಟರ್ ವೇರಿಯೇಷನ್ ನ ಮೇಲೆ ಮೌಸ್ ಸ್ಕ್ರೋಲ್ ಮಾಡುವ ಮೂಲಕ ಆಟದ ಮುನ್ನೋಟ ಪಡೆಯಿರಿ.</string>
+  <string name="analysisShapesHowTo">Shift+click ಅಥವಾ right-click ಮಾಡುವ ಮೂಲಕ ವೃತ್ತಾಕಾರ ಅಥವಾ ಬಾಣದ ಚಿತ್ರವನ್ನು ಚೆಸ್ ಮಣೆಯ ಮೇಲೆ ಬಿಡಿಸಬಹುದು.</string>
+  <string name="letOtherPlayersMessageYou">ಇತರೆ ಆಟಗಾರರು ನಿಮಗೆ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು ಅವಕಾಶ ಕೊಡಿ</string>
+  <string name="receiveForumNotifications">ಚರ್ಚೆಕೋಣೆಯಲ್ಲಿ ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿದರೆ ನೋಟಿಫಿಕೇಶನ್ ಪಡೆಯಿರಿ</string>
   <string name="withNobody">ಯಾರೊಂದಿಗೂ ಬೇಡ</string>
   <string name="withFriends">ಗೆಳೆಯ(ತಿ) ಯಾರೊಡನೆ ಮಾತ್ರ</string>
   <string name="withEverybody">ಎಲ್ಲರೊಂದಿಗೂ</string>
