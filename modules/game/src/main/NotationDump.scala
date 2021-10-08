@@ -130,7 +130,8 @@ final class NotationDump(
             p.tags.value.find(_.name == Tag.Start),
             p.tags.value.find(_.name == Tag.End),
             p.tags.value.find(_.name == Tag.TimeControl),
-            p.tags.value.find(_.name == Tag.Byoyomi)
+            p.tags.value.find(_.name == Tag.Byoyomi),
+            p.tags.value.find(_.name == Tag.Opening)
           )
         } getOrElse {
           List(
@@ -149,8 +150,9 @@ final class NotationDump(
           Tag(_.Gote, player(game.gotePlayer, bu)).some,
           teams.map { t => Tag("SenteTeam", t.sente) },
           teams.map { t => Tag("GoteTeam", t.gote) },
-          Tag(_.Variant, game.variant.name.capitalize).some,
-          withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco))
+          Tag(_.Variant, game.variant.name.capitalize).some
+          // when we implement openings...
+          // withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco))
         ) ::: importedOrNormal).flatten ::: customStartPosition(game.variant).??(
           List(
             Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
