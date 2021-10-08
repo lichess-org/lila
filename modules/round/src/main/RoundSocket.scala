@@ -218,6 +218,7 @@ final class RoundSocket(
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
   private def preloadRoundsWithVersions(rooms: Iterable[(Game.ID, SocketVersion)]) = {
+    val bootLog = lila log "boot"
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
     val gamePromises: Map[Game.ID, Promise[Option[Game]]] = rooms.view.map { case (id, version) =>
@@ -243,27 +244,34 @@ final class RoundSocket(
                 gamePromises.get(game.id).foreach(_ success game.some)
                 ids + game.id
               },
-            Cursor.ContOnError { (_, err) => logger.error("Can't load round game", err) }
-          ) addEffect { loadedIds =>
-          logger.info(s"Loaded ${loadedIds.size}/${ids.size} round games")
-        } recover { case e: Exception =>
-          logger.error(s"Can't load ${ids.size} round games", e)
-          Set.empty
-        }
+            Cursor.ContOnError { (_, err) => bootLog.error("Can't load round game", err) }
+          )
+          .recover { case e: Exception =>
+            bootLog.error(s"RoundSocket Can't load ${ids.size} round games", e)
+            Set.empty
+          }
+          .chronometer
+          .log(bootLog)(loadedIds => s"RoundSocket Loaded ${loadedIds.size}/${ids.size} round games")
+          .result
       }
       .sequenceFu
-      .map(_.flatten)
-      .addEffect { loadedIds =>
-        val missingIds = gamePromises.keySet -- loadedIds
-        if (missingIds.nonEmpty) {
-          logger.warn(
-            s"${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
-          )
-          missingIds.foreach { id =>
-            gamePromises.get(id).foreach(_ success none)
+      .map(_.flatten.toSet)
+      .andThen {
+        case scala.util.Success(loadedIds) =>
+          val missingIds = gamePromises.keySet -- loadedIds
+          if (missingIds.nonEmpty) {
+            bootLog.warn(
+              s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
+            )
+            missingIds.foreach { id =>
+              gamePromises.get(id).foreach(_ success none)
+            }
           }
-        } else logger.info("All round games loaded")
+        case scala.util.Failure(err) =>
+          bootLog.error(s"RoundSocket Can't load ${gamePromises.size} round games", err)
       }
+      .chronometer
+      .log(bootLog)(ids => s"RoundSocket Done loading ${ids.size}/${gamePromises.size} round games")
   }
 }
 
