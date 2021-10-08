@@ -166,8 +166,8 @@
   <string name="today">ಇವತ್ತು</string>
   <string name="yesterday">ನಿನ್ನೆ</string>
   <string name="minutesPerSide">ಪ್ರತಿ ಪರಕ್ಕೆ ಇರುವ ನಿಮಿಷಗಳು</string>
-  <string name="variant">ಇತರೆ ರೂಪ</string>
-  <string name="variants">ಇತರೆ ರೂಪಗಳು</string>
+  <string name="variant">ಶೈಲಿ</string>
+  <string name="variants">ಶೈಲಿಗಳು</string>
   <string name="timeControl">ನಿಗದಿತ ಅವಧಿ</string>
   <string name="realTime">ವಾಸ್ತವ</string>
   <string name="correspondence">ಒಪ್ಪಂದ</string>
@@ -619,6 +619,18 @@
   <string name="keyShowOrHideComments">ಅಭಿಪ್ರಾಯಗಳನ್ನು ತೋರಿಸಿ/ಅಡಗಿಸಿ</string>
   <string name="keyEnterOrExitVariation">ಕವಲುದಾರಿ ಪ್ರವೇಶಿಸಿ/ನಿರ್ಗಮಿಸಿ</string>
   <string name="newTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="tournamentNotFound">ಪಂದ್ಯಾವಳಿ ಕಂಡು ಬರುತ್ತಿಲ್ಲ</string>
+  <string name="tournamentDoesNotExist">ಈ ಪಂದ್ಯಾವಳಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.</string>
+  <string name="tournamentMayHaveBeenCanceled">ಈ ಪಂದ್ಯಾವಳಿಯು ರದ್ದಾಗಿರಬಹುದು ಅಥವಾ ಪಂದ್ಯಾವಳಿ ಆರಂಭವಾಗುವ ಮೊದಲೇ ಎಲ್ಲಾ ಆಟಗಾರರು ಬಿಟ್ಟು ಹೋಗಿರಬಹುದು.</string>
+  <string name="returnToTournamentsHomepage">ಪಂದ್ಯಾವಳಿಯ ಮುಖಪುಟಕ್ಕೆ ಹಿಂದಿರುಗಿ</string>
+  <string name="weeklyPerfTypeRatingDistribution">ಸಾಪ್ತಾಹಿಕ %s ಧಾರಣೆ ಹಂಚಿಕೆ</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s ಆಟಗಾರ ಈ ವಾರ.</item>
+    <item quantity="other">%1$s %2$s ಆಟಗಾರರು ಈ ವಾರ.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">%1$s ನಲ್ಲಿ ನಿಮ್ಮ ಧಾರಣೆ %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s ಶೈಲಿಯಲ್ಲಿ ನೀವು %1$s ರಷ್ಟು ಆಟಗಾರಿಗಿಂತ ಚೆನ್ನಾಗಿ ಆಡುತ್ತೀರಿ.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ಅವರು %3$s ಶೈಲಿಯಲ್ಲಿ %2$s ರಷ್ಟು ಆಟಗಾರರಿಗಿಂತ ಚೆನ್ನಾಗಿ ಆಡುತ್ತಾರೆ.</string>
   <string name="yourRating">ನಿಮ್ಮ ಧಾರಣೆ</string>
   <string name="cumulative">ಒಟ್ಟು</string>
   <string name="glicko2Rating">Glicko-2 ಧಾರಣೆ</string>
