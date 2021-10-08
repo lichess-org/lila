@@ -256,7 +256,9 @@ final class RoundSocket(
       .addEffect { loadedIds =>
         val missingIds = gamePromises.keySet -- loadedIds
         if (missingIds.nonEmpty) {
-          logger.warn(s"${missingIds.size} round games could not be loaded")
+          logger.warn(
+            s"${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
+          )
           missingIds.foreach { id =>
             gamePromises.get(id).foreach(_ success none)
           }
