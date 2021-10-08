@@ -437,6 +437,7 @@
   <string name="chess960StartPosition">Chess960 ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ: %s</string>
   <string name="startPosition">ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ</string>
   <string name="clearBoard">ಚೆಸ್ ಮಣೆಯನ್ನು ಖಾಲಿ ಮಾಡಿ</string>
+  <string name="loadPosition">ಸನ್ನಿವೇಶವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="isPrivate">ಖಾಸಗಿ</string>
   <string name="reportXToModerators">%s ಅವರ ಖಾತೆಯ ಬಗ್ಗೆ ಲೀಚೆಸ್ ನಿಯಂತ್ರಕರಿಗೆ ದೂರು ಸಲ್ಲಿಸಿ</string>
   <string name="profileCompletion">ಪ್ರೊಫೈಲ್ ಪೂರ್ಣತೆ: %s</string>
@@ -574,6 +575,16 @@
     <item quantity="one">%s ಚರ್ಚೆಮನೆ ಪ್ರಕಟಣೆ</item>
     <item quantity="other">%s ಚರ್ಚೆಮನೆ ಪ್ರಕಟಣೆಗಳು</item>
   </plurals>
+  <string name="tpTimeSpentPlaying">ಆಟ ಆಡುತ್ತಾ ವ್ಯಯಿಸಿದ ಸಮಯ: %s</string>
+  <string name="watchGames">ಆಟಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
+  <string name="tpTimeSpentOnTV">ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ ಕಾಣಿಸಿಕೊಂಡ ಒಟ್ಟು ಸಮಯ:%s</string>
+  <string name="watch">ವೀಕ್ಷಿಸಿ</string>
+  <string name="videoLibrary">ವಿಡಿಯೋ ಸಂಗ್ರಹ</string>
+  <string name="streamersMenu">ನೇರಪ್ರಸಾರಕರು</string>
+  <string name="mobileApp">ಮೊಬೈಲ್ ಅಪ್ಲಿಕೇಶನ್</string>
+  <string name="webmasters">ವೆಬ್ ಮಾಸ್ತರುಗಳು</string>
+  <string name="about">ಕುರಿತು</string>
+  <string name="aboutX">%s ನ ಬಗ್ಗೆ</string>
   <string name="termsOfService">ಸೇವೆಯ ನಿಯಮಗಳು</string>
   <string name="sourceCode">ಮೂಲ ಸಂಕೇತ ಅಥವಾ ಸೊರ್ಸ್ ಕೋಡ್</string>
   <string name="simultaneousExhibitions">ಏಕಕಾಲಿಕ ಆಟದ ಪ್ರದರ್ಶನ</string>
