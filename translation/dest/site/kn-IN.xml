@@ -676,6 +676,8 @@
   <string name="correspondenceDesc">ಒಪ್ಪಂದದ ಆಟಗಳು: ಒಂದು ಅಥವಾ ಹಲವಾರು ದಿನಗಳು ತೆಗೆದುಕೊಳ್ಳಬಹುದು ಪ್ರತಿ ನಡೆಗೆ</string>
   <string name="puzzleDesc">ಚೆಸ್ ತಂತ್ರಗಳ ತರಬೇತುದಾರ</string>
   <string name="important">ಪ್ರಮುಖ ಸೂಚನೆ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">ನಿಮ್ಮ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರ ಈಗಾಗಲೇ ದೊರಕಿರಬಹುದು %1$s</string>
+  <string name="inTheFAQ">F . A. Q ನಲ್ಲಿ</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
