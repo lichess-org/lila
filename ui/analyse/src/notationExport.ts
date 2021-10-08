@@ -167,8 +167,10 @@ function processCsaTags(tags: string[][]): string[] {
         return '';
     }
   }
+  // CSA shouldn't contain non-ascii characters (except for comments)
+  // allow non-ascii characters in values, but not in keys
   const asciiTags = tags
-    .filter(t => /[\x00-\x7F]+/.test(t[0]) && !['FEN', 'Result'].includes(t[0]))
+    .filter(t => /^[\x20-\x7F]+$/.test(t[0]) && !['FEN', 'Result'].includes(t[0]))
     .map(t => `$${t[0]}:${t[1]}`);
   return tags
     .map(t => kifTagToCsaTag(t))
