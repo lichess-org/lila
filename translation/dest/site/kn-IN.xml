@@ -566,6 +566,14 @@
   <string name="ifRatingIsPlusMinusX">ಧಾರಣೆ ± %s ಇದ್ದರೆ ಮಾತ್ರ</string>
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
+  <string name="menu">ಮೆನು</string>
+  <string name="castling">ಕ್ಯಾಸಲಿಂಗ್</string>
+  <string name="whiteCastlingKingside">ಬಿಳಿ ದಳ O-O</string>
+  <string name="blackCastlingKingside">ಕಪ್ಪು ದಳ O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s ಚರ್ಚೆಮನೆ ಪ್ರಕಟಣೆ</item>
+    <item quantity="other">%s ಚರ್ಚೆಮನೆ ಪ್ರಕಟಣೆಗಳು</item>
+  </plurals>
   <string name="termsOfService">ಸೇವೆಯ ನಿಯಮಗಳು</string>
   <string name="sourceCode">ಮೂಲ ಸಂಕೇತ ಅಥವಾ ಸೊರ್ಸ್ ಕೋಡ್</string>
   <string name="simultaneousExhibitions">ಏಕಕಾಲಿಕ ಆಟದ ಪ್ರದರ್ಶನ</string>
