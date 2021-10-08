@@ -654,10 +654,12 @@
   <string name="analysisShapesHowTo">Shift+click ಅಥವಾ right-click ಮಾಡುವ ಮೂಲಕ ವೃತ್ತಾಕಾರ ಅಥವಾ ಬಾಣದ ಚಿತ್ರವನ್ನು ಚೆಸ್ ಮಣೆಯ ಮೇಲೆ ಬಿಡಿಸಬಹುದು.</string>
   <string name="letOtherPlayersMessageYou">ಇತರೆ ಆಟಗಾರರು ನಿಮಗೆ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು ಅವಕಾಶ ಕೊಡಿ</string>
   <string name="receiveForumNotifications">ಚರ್ಚೆಕೋಣೆಯಲ್ಲಿ ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿದರೆ ನೋಟಿಫಿಕೇಶನ್ ಪಡೆಯಿರಿ</string>
+  <string name="shareYourInsightsData">ನಿಮ್ಮ ಚೆಸ್ ಆಟದ ಬಗೆಗಿನ ಒಳದೃಷ್ಟಿಯ ದತ್ತಾಂಶವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
   <string name="withNobody">ಯಾರೊಂದಿಗೂ ಬೇಡ</string>
   <string name="withFriends">ಗೆಳೆಯ(ತಿ) ಯಾರೊಡನೆ ಮಾತ್ರ</string>
   <string name="withEverybody">ಎಲ್ಲರೊಂದಿಗೂ</string>
   <string name="kidMode">ಮಕ್ಕಳಿಗಾಗಿ</string>
+  <string name="kidModeExplanation">ಇದು ಸುರಕ್ಷತೆಯ ಕುರಿತಾಗಿದೆ. ಕಿಡ್ ಮೋಡ್ ನಲ್ಲಿ, ಎಲ್ಲಾ ಸಂವಹನ ಸಲಕರಣೆಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿಡಲಾಗುತ್ತದೆ. ನಿಮ್ಮ ಮಕ್ಕಳು ಮತ್ತು ಶಾಲಾ ವಿದ್ಯಾರ್ಥಿ ಗಳು ಆಡುವಾಗ, ಅವರನ್ನು ಅಂತರ್ಜಾಲದಲ್ಲಿನ ಇತರೆ ವ್ಯಕ್ತಿಗಳಿಂದ ರಕ್ಷಿಸಲು ಈ ಮೋಡ್ ಅನ್ನು ಬಳಸಿ.</string>
   <string name="security">ಭದ್ರತೆ</string>
   <string name="sessions">ಲಾಗಿನ್ ಆಗಿರುವ ಜಾಗಗಳು</string>
   <string name="revokeAllSessions">ಎಲ್ಲ ಸೆಷನ್ಸ್ ಗಳನ್ನೂ ಅಳಿಸಿಬಿಡಿ</string>
