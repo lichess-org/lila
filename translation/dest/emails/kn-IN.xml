@@ -2,4 +2,9 @@
 <resources>
   <string name="emailConfirm_subject">ನಿಮ್ಮ lichess.org ಖಾತೆ, %s ಅನ್ನು ದೃಢೀಕರಿಸಿ</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">ಈ ಕೊಂಡಿಯನ್ನು ಒತ್ತುವ ಮೂಲಕ ನಿಮ್ಮ ಲೀಚೆಸ್ ಖಾತೆಯನ್ನು ಸಕ್ರಿಯವಾಗಿಸಿ:</string>
+  <string name="emailConfirm_ignore">ಲೀಚೆಸ್ ಅಂದರೆ Lichess ನಲ್ಲಿ ನೀವು ನೋಂದಾಯಿಸಲು ಪ್ರಯತ್ನಿಸಿಲ್ಲ ಎಂದಾದರೆ ಈ ಸಂದೇಶವನ್ನು ನೀವು ನಿರ್ಲಕ್ಷಿಸಬಹುದು.</string>
+  <string name="passwordReset_subject">%s ಅವರೇ, ನಿಮ್ಮ lichess.org ಖಾತೆಯ ಗುಪ್ತಪದ ಅಂದರೆ ಫಾಸ್ವರ್ಡ್ ಅನ್ನು ಬದಲಾಯಿಸಿ</string>
+  <string name="passwordReset_intro">ನಿಮ್ಮ ಖಾತೆಯ ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರಿ ಎಂಬ ವಿನಂತಿಯನ್ನು ನಾವು ಪಡೆದಿದ್ದೇವೆ.</string>
+  <string name="passwordReset_clickOrIgnore">ಈ ವಿನಂತಿಯನ್ನು ನೀವೇ ಕಳುಹಿಸಿದ್ದೀರಿ ಎಂದಾದರೆ, ಕೆಳಗೆ ಸೂಚಿಸಿರುವ ಕೊಂಡಿಯನ್ನು ಒತ್ತಿ. ಅಲ್ಲವಾದರೆ, ಈ ಇಮೇಲ್ ಅನ್ನು ನಿರ್ಲಕ್ಷಿಸಿ.</string>
+  <string name="emailChange_subject">ನಿಮ್ಮ ಹೊಸ ಇಮೇಲ್ ವಿಳಾಸ %s ವನ್ನು ದೃಢೀಕರಿಸಿ</string>
 </resources>
