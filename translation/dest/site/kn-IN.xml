@@ -27,7 +27,7 @@
   <string name="cheatDetected">ಮೋಸದಾಟ ಪತ್ತೆಹಚ್ಚಲಾಗಿದೆ</string>
   <string name="kingInTheCenter">ರಾಜ ಮಧ್ಯದಲ್ಲಿ</string>
   <string name="threeChecks">ಮೂರು ಚೆಕ್</string>
-  <string name="raceFinished">ಪಂದ್ಯವನ್ನು ಮುಗಿಸಿದವು</string>
+  <string name="raceFinished">ಓಟಸ್ಪರ್ಧೆ ಮುಕ್ತಯವಾಗಿದೆ</string>
   <string name="variantEnding">ಭಿನ್ನ ಅಂತ್ಯ</string>
   <string name="newOpponent">ಹೊಸ ಎದುರಾಳಿಯ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">ನಿಮ್ಮ ಎದುರಾಳಿಯ ನೀವು ಒಂದು ಹೊಸ ಆಟ ಬಯಸಿದೆ</string>
@@ -605,7 +605,7 @@
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
   <string name="whenCreateSimul">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
-  <string name="simulVariantsHint">ನೀವು ಹಲವಾರು ಆಟದ ವಿಧಗಳನ್ನು ಅಂದರೆ ವೇರಿಯೆಂಟ್ ಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದರೆ, ಪ್ರತಿ ಎದುರಾಳಿಗೂ ಆ ಆಯ್ಕೆಗಳಿಂದ ಒಂದನ್ನು ಆರಿಸುವ ಅವಕಾಶ ದೊರೆಯುತ್ತದೆ.</string>
+  <string name="simulVariantsHint">ನೀವು ಹಲವಾರು ಆಟದ ಶೈಲಿಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದರೆ, ಪ್ರತಿ ಎದುರಾಳಿಗೂ ಆ ಆಯ್ಕೆಗಳಿಂದ ಒಂದನ್ನು ಆರಿಸುವ ಅವಕಾಶ ದೊರೆಯುತ್ತದೆ.</string>
   <string name="simulClockHint">ಫಿಷರ್ ಗಡಿಯಾರದ ಸಿದ್ಧತೆ. ಎಷ್ಟು ಹೆಚ್ಚು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತೀರೋ, ಅಷ್ಟೇ ಹೆಚ್ಚಿನ ಸಮಯ ನಿಮಗೆ ಬೇಕಾಗಬಹುದು.</string>
   <string name="simulAddExtraTime">ನಿಮಗೆ ಬೇಕಾದರೆ, simul ನಿಭಾಯಿಸುವ ಸಲುವಾಗಿ, ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಹೆಚ್ಚಿನ ಸಮಯವನ್ನು ಸೇರಿಸಿಕೊಳ್ಳಬಹುದು.</string>
   <string name="simulHostExtraTime">ಆತಿಥೇಯರ ಗಡಿಯಾರದಲ್ಲಿನ ಅಧಿಕ ಸಮಯ</string>
@@ -619,6 +619,8 @@
   <string name="keyShowOrHideComments">ಅಭಿಪ್ರಾಯಗಳನ್ನು ತೋರಿಸಿ/ಅಡಗಿಸಿ</string>
   <string name="keyEnterOrExitVariation">ಕವಲುದಾರಿ ಪ್ರವೇಶಿಸಿ/ನಿರ್ಗಮಿಸಿ</string>
   <string name="newTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="tournamentHomeTitle">ವಿವಿಧ ಸಮಯದ ನಿಯಂತ್ರಣ ಹಾಗೂ ವಿವಿಧ ಶೈಲಿಗಳನ್ನು ಹೊಂದಿದ ಚೆಸ್ ಪಂದ್ಯಾವಳಿ</string>
+  <string name="tournamentHomeDescription">ವೇಗ-ಗತಿಯ ಚೆಸ್ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಆಡಿ! ಅಧಿಕೃತ ನಿಗದಿತ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಸೇರಿ, ಅಥವಾ ನಿಮ್ಮದೇ ಸ್ವಂತ ಪಂದ್ಯಾವಳಿ ರಚಿಸಿ. ಅಪರಿಮಿತ ಚೆಸ್ ಆನಂದಕ್ಕಾಗಿ ಬುಲೆಟ್, ಬ್ಲಿಟ್ಜ್, ಶಾಸ್ತ್ರೀಯ, Chess೯೬೦, ಬೆಟ್ಟದ ರಾಜ, ತ್ರೀಚೆಕ್, ಹಾಗೂ ಇನ್ನೂ ಅಧಿಕ ಆಯ್ಕೆಗಳಿಂದ ಆಯ್ದುಕೊಳ್ಳಿ.</string>
   <string name="tournamentNotFound">ಪಂದ್ಯಾವಳಿ ಕಂಡು ಬರುತ್ತಿಲ್ಲ</string>
   <string name="tournamentDoesNotExist">ಈ ಪಂದ್ಯಾವಳಿ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.</string>
   <string name="tournamentMayHaveBeenCanceled">ಈ ಪಂದ್ಯಾವಳಿಯು ರದ್ದಾಗಿರಬಹುದು ಅಥವಾ ಪಂದ್ಯಾವಳಿ ಆರಂಭವಾಗುವ ಮೊದಲೇ ಎಲ್ಲಾ ಆಟಗಾರರು ಬಿಟ್ಟು ಹೋಗಿರಬಹುದು.</string>
