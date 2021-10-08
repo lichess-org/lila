@@ -51,9 +51,6 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
         situation <- CsaParserHelper.parseSituation(boardStr, variant.Standard)
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
         parsedMoves <- objMoves(strMoves, tags.variant | Variant.default)
-        _ <-
-          if (csa.isEmpty || parsedMoves.value.nonEmpty || tags.value.nonEmpty) succezz(true)
-          else "No moves or valid tags provided".failureNel
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>

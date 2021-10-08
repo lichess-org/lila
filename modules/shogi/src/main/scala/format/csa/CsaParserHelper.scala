@@ -69,7 +69,10 @@ object CsaParserHelper {
       } yield (pieces + (pos -> piece))
     val squares = ranks.flatMap(_.drop(2).grouped(3)).zipWithIndex
     if (ranks.size != 9) "Incorrect number of board ranks in board setup: %d/9".format(ranks.size).failureNel
-    else if (squares.size != 81) "Incorrect number of squares in board setup: %d/81".format(squares.size).failureNel
+    else if (squares.size != 81)
+      "Incorrect number of squares in board setup: %d/81 (%s)"
+        .format(squares.size, ranks.filter(_.size > (2 + 9 * 3)).map(_.take(2)).mkString(","))
+        .failureNel
     else {
       squares.foldLeft(succezz(Map()): Valid[PieceMap]) { case (acc, cur) =>
         acc match {
