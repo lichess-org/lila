@@ -557,11 +557,11 @@
   <string name="increment">Inkrement</string>
   <string name="error.required">Dieses Feld muss ausgefüllt werden</string>
   <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
-  <string name="error.email_acceptable">Diese E-Mail-Adresse ist nicht genehmigungsfähig. Bitte überprüfe sie und versuche es erneut.</string>
+  <string name="error.email_acceptable">Diese E-Mail-Adresse wurde nicht akzeptiert. Bitte überprüfe sie und versuche es erneut.</string>
   <string name="error.email_unique">E-Mail-Adresse ungültig oder bereits vergeben</string>
   <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Mindestlänge beträgt %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maximallänge beträgt %s</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Mindestlänge beträgt %s Zeichen</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maximallänge beträgt %s Zeichen</string>
   <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Muss mindestens %s sein</string>
   <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Darf höchstens %s sein</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
@@ -612,7 +612,7 @@
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
-  <string name="averageCentipawnLoss">Ø-Verlust von 1/100-Bauern p. Zug</string>
+  <string name="averageCentipawnLoss">Durchschnittlicher Centibauer-Verlust</string>
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
