@@ -19,4 +19,15 @@
   <string name="roundsAreStartedManually">Kola se pokreću ručno</string>
   <string name="startingIn" comment="Displayed above a timer">Počinje za</string>
   <string name="nextRound">Slijedeće kolo</string>
+  <string name="tournStartDate">Turnir započinje za</string>
+  <string name="numberOfRounds">Broj kola</string>
+  <string name="numberOfRoundsHelp">Neparan broj kola omogućuje optimalni balans boja.</string>
+  <string name="roundInterval">Vremenski interval između kola</string>
+  <string name="forbiddenPairings">Zabranjena uparenja</string>
+  <string name="forbiddenPairingsHelp">Korisnička imena igrača koji ne smiju igrati zajedno (braća i sestre, na primjer). Dva korisnička imena po retku, odvojena razmakom.</string>
+  <string name="newSwiss">Novi Švicarski turnir</string>
+  <string name="swissVsArenaQ">Kada koristiti švicarske turnire umjesto arena?</string>
+  <string name="swissVsArenaA">Na švicarskom turniru svi sudionici igraju isti broj partija i mogu igrati međusobno samo jedanput.
+To može biti dobra opcija za klubove i službene turnire.</string>
+  <string name="pointsCalculationQ">Kako se rezultati računaju?</string>
 </resources>
