@@ -538,7 +538,27 @@
     <item quantity="one">ಗರಿಷ್ಠ: %s ಅಕ್ಷರ.</item>
     <item quantity="other">ಗರಿಷ್ಠ: %s ಅಕ್ಷರಗಳು.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</item>
+    <item quantity="other">%s ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</item>
+  </plurals>
+  <string name="listBlockedPlayers">ನೀವು ನಿರ್ಬಂಧಿಸಿರುವ ಆಟಗಾರರ ಪಟ್ಟಿಮಾಡಿ</string>
+  <string name="human">ಮಾನವ</string>
+  <string name="computer">ಕಂಪ್ಯೂಟರ್</string>
+  <string name="side">ಬದಿ</string>
+  <string name="clock">ಗಡಿಯಾರ</string>
+  <string name="opponent">ಎದುರಾಳಿ</string>
+  <string name="learnMenu">ಕಲಿಯಿರಿ</string>
   <string name="studyMenu">ಅಧ್ಯಯನ</string>
+  <string name="practice">ಅಭ್ಯಾಸ ಮಾಡಿ</string>
+  <string name="community">ಸಮುದಾಯ</string>
+  <string name="tools">ಸಲಕರಣೆಗಳು</string>
+  <string name="increment">ಹೆಚ್ಚಳ</string>
+  <string name="error.required">ಈ ಮಾಹಿತಿ ಖಡ್ಡಾಯವಾಗಿದೆ</string>
+  <string name="error.email">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಅಮಾನ್ಯವಾಗಿದೆ</string>
+  <string name="error.email_acceptable">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸ್ವೀಕಾರಾರ್ಹವಲ್ಲ. ದಯವಿಟ್ಟು ಮರುಪರಿಶೀಲಿಸಿ ನೋಡಿ, ಹಾಗೂ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
+  <string name="error.email_unique">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸರಿ ಇಲ್ಲ ಅಥವಾ ಬೇರೆ ಯಾರೋ ಈಗಾಗಲೇ ಉಪಯೋಗಿಸುತ್ತಿದ್ದಾರೆ</string>
+  <string name="error.email_different">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಅದಾಗಲೇ ನಿಮ್ಮದಾಗಿದೆ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="termsOfService">ಸೇವೆಯ ನಿಯಮಗಳು</string>
   <string name="sourceCode">ಮೂಲ ಸಂಕೇತ ಅಥವಾ ಸೊರ್ಸ್ ಕೋಡ್</string>
