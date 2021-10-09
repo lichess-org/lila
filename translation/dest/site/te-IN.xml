@@ -319,6 +319,10 @@ Translation results
   <string name="siteDescription">ఉచిత ఆన్‌లైన్ చెస్ సర్వర్. శుభ్రమైన ఇంటర్‌ఫేస్‌లో చదరంగం ఆడండి. నమోదు లేదు, ప్రకటనలు లేవు, ప్లగ్ఇన్ అవసరం లేదు. కంప్యూటర్, స్నేహితులు లేదా యాదృచ్ఛిక ప్రత్యర్థులతో చెస్ ఆడండి.</string>
   <string name="xJoinedTeamY">%1$s జట్టులో చేరారు %2$s</string>
   <string name="xCreatedTeamY">%1$s బృందాన్ని సృష్టించారు %2$s</string>
+  <string name="xStartedStreaming">%s ప్రసారం చేయడం ప్రారంభించింది</string>
+  <string name="averageElo">సగటు రేటింగ్</string>
+  <string name="location">స్థానం</string>
+  <string name="filterGames">ఫిల్టర్ గేమ్‌లు</string>
   <string name="graph">గ్రాఫ్</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
