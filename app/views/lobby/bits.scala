@@ -102,7 +102,7 @@ object bits {
           )
         )
       },
-      uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) }
+      ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
