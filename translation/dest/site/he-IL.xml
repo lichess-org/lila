@@ -491,6 +491,7 @@
   <string name="setTheBoard">הכן את הלוח</string>
   <string name="popularOpenings">פתיחות פופולריות</string>
   <string name="endgamePositions">עמדות סיום</string>
+  <string name="chess960StartPosition">Chess960 עמדת פתיחה: %s</string>
   <string name="startPosition">מצב התחלתי</string>
   <string name="clearBoard">נקה לוח</string>
   <string name="loadPosition">טען מיקום</string>
@@ -621,6 +622,10 @@
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>
   <string name="error.required">שדה חובה</string>
+  <string name="error.email">כתובת דוא״ל זו אינה תקינה</string>
+  <string name="error.email_acceptable">כתובת דוא״ל זו אינה קבילה. אנא בדוק שנית ונסה שוב.</string>
+  <string name="error.email_unique">כתובת דוא״ל לא חוקית או תפוסה כבר</string>
+  <string name="error.email_different">זאת כתובת הדוא״ל שלך כבר</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
   <string name="onlyExistingConversations">שיחה קיימת בלבד</string>
   <string name="onlyFriends">חברים בלבד</string>
