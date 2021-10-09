@@ -43,9 +43,12 @@
   <string name="blackResigned">నలుపు రాజు రాజీనామా చేసేశారు</string>
   <string name="whiteLeftTheGame">తెలుపు రాజు ఆట వదిలి వెళ్లిపోయారు</string>
   <string name="blackLeftTheGame">నలుపు రాజు ఆట వదిలి వెళ్లిపోయారు</string>
+  <string name="whiteDidntMove">వైట్ ప్లేయర్ కదలలేదు</string>
+  <string name="blackDidntMove">బ్లాక్ ప్లేయర్ కదలలేదు</string>
   <string name="requestAComputerAnalysis">కంప్యూటర్ విశ్లేషణను అభ్యర్థించండి</string>
   <string name="computerAnalysis">కంప్యూటర్ విశ్లేషణ</string>
   <string name="computerAnalysisAvailable">కంప్యూటర్ విశ్లేషణ ఉంది</string>
+  <string name="computerAnalysisDisabled">కంప్యూటర్ విశ్లేషణ నిలిపివేయబడింది</string>
   <string name="analysis">విశ్లేషణా పటము</string>
   <string name="depthX">లోతు %s</string>
   <string name="usingServerAnalysis">సర్వర్ విశ్లేషణ వాడుతున్నాం</string>
@@ -83,6 +86,7 @@
   <string name="noGameFound">ఆట దొరకలేదు</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ఇష్టాయిష్టాల పట్టిక నుంచి మరిన్ని ఆటలను కలుపుకోవచ్చునేమో?</string>
   <string name="openingExplorer">మొదటి ఎత్తుగడల పరిశీలన</string>
+  <string name="openingEndgameExplorer">ఓపెనింగ్/ఎండ్ గేమ్ ఎక్స్‌ప్లోరర్</string>
   <string name="xOpeningExplorer">%s రకపు మొదటి ఎత్తుగడల పరిశీలన</string>
   <string name="winPreventedBy50MoveRule">50 ఎత్తుగడల నియమం చేత గెలుపు భంగం</string>
   <string name="lossSavedBy50MoveRule">50 ఎత్తుగడల నియమం చేత ఓటమి నుంచి రక్షణ</string>
