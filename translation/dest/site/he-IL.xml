@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
+  <string name="computerAnalysisDisabled">ניתוח מחשב לא זמין</string>
   <string name="analysis">לוח ניתוחים</string>
   <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
@@ -90,9 +91,11 @@
     <item quantity="many">מט בעוד %s חצאי מהלכים</item>
     <item quantity="other">מט בעוד %s חצאי מהלך</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' עם עיגול, בהתבסס על מספר חצאי-המסעים עד ההכאה הבאה או מסע עם חייל</string>
   <string name="noGameFound">אין משחק זמין</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
   <string name="openingExplorer">סייר הפתיחות</string>
+  <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפעת כלל 50 המהלכים</string>
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
@@ -145,6 +148,8 @@
     <item quantity="many">%s שחקנים</item>
     <item quantity="other">%s שחקנים</item>
   </plurals>
+  <string name="drawByMutualAgreement">תיקו על ידי הסכמה הדדית</string>
+  <string name="fiftyMovesWithoutProgress">50 מסעים בלי התקדמות</string>
   <string name="currentGames">המשחקים הנוכחיים</string>
   <plurals name="nbGames">
     <item quantity="one">%s משחקים</item>
@@ -415,6 +420,8 @@
   <string name="follow">עקוב</string>
   <string name="following">עוקבים</string>
   <string name="unfollow">הפסק מעקב</string>
+  <string name="followX">עקוב אחר %s</string>
+  <string name="unfollowX">הפסק לעקוב אחר %s</string>
   <string name="block">חסום</string>
   <string name="blocked">חסום</string>
   <string name="unblock">בטל חסימה</string>
@@ -483,6 +490,7 @@
   <string name="boardEditor">עריכת לוח</string>
   <string name="setTheBoard">הכן את הלוח</string>
   <string name="popularOpenings">פתיחות פופולריות</string>
+  <string name="endgamePositions">עמדות סיום</string>
   <string name="startPosition">מצב התחלתי</string>
   <string name="clearBoard">נקה לוח</string>
   <string name="loadPosition">טען מיקום</string>
