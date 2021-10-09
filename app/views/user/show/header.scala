@@ -195,7 +195,7 @@ object header {
                     trans.thisAccountViolatedTos()
                   )
                 ),
-                ctx.noKid && !hideTroll option frag(
+                ctx.noKid && !hideTroll && !u.kid option frag(
                   profile.nonEmptyRealName map { name =>
                     strong(cls := "name")(name)
                   },
