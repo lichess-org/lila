@@ -28,7 +28,7 @@ object publicChat {
             div(cls := "player_chats")(
               tourChats.map { case (tournament, chat) =>
                 div(cls := "game", dataChan := "tournament", dataRoom := tournament.id)(
-                  chatOf(tournamentTitleFrag(routes.Tournament.show(tournament.id), tournament), chat)
+                  chatOf(tournamentTitle(tournament), chat)
                 )
               }
             ),
@@ -37,7 +37,7 @@ object publicChat {
               div(cls := "player_chats")(
                 swissChats.map { case (swiss, chat) =>
                   div(cls := "game", dataChan := "swiss", dataRoom := swiss.id.value)(
-                    chatOf(swissTitleFrag(routes.Swiss.show(swiss.id.value), swiss.name), chat)
+                    chatOf(swissTitle(swiss), chat)
                   )
                 }
               )
@@ -78,28 +78,25 @@ object publicChat {
       )
     )
 
-  private def swissTitleFrag(url: Call, name: String) =
-    frag(
-      a(cls := "title", href := url)(name)
-    )
+  private def swissTitle(swiss: lila.swiss.Swiss) =
+      a(cls := "title", href := routes.Swiss.show(swiss.id.value))(swiss.name)
+    
 
-  private def tournamentTitleFrag(url: Call, tournament: lila.tournament.Tournament) = {
-
-    frag(
+  private def tournamentTitle(tournament: lila.tournament.Tournament) =         
       div(
         cls := "title-time-container",
-        div(cls := "title-container", a(cls := "title", href := url)(tournament.name)),
+        div(cls := "title-container", a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name)),
         div(
           cls := "time-container",
           span(
             cls := List(
-              "tournament-time finished"    -> tournament.isFinished,
-              "tournament-time in-progress" -> tournament.isStarted,
-              "tournament-time starting"    -> (!tournament.isFinished && !tournament.isStarted)
+              "tournament-status"    -> true,
+              tournament.status.name.toLowerCase -> true
             )
-          )(tournament.countdown)
+          )(tournament.status.name)
         )
       )
-    )
-  }
+    
+  
+  
 }
