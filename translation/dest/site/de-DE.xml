@@ -612,7 +612,7 @@
   <string name="lichessTournaments">Lichess Turniere</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
-  <string name="averageCentipawnLoss">Durchschnittlicher Centibauer-Verlust</string>
+  <string name="averageCentipawnLoss">Durchschnittlicher Zentibauer-Verlust</string>
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
