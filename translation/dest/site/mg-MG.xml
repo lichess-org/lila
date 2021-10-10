@@ -51,6 +51,7 @@
   <string name="requestAComputerAnalysis">Angataho ny fanadihadian\'ny solosaina</string>
   <string name="computerAnalysis">Fanadihadian\'ny solosaina</string>
   <string name="computerAnalysisAvailable">Misy ny fandinihan\'ny solosaina</string>
+  <string name="computerAnalysisDisabled">Mijanona ny fandinihan\'ny solosaina</string>
   <string name="analysis">Solaitra fanadihadiana</string>
   <string name="depthX">Alalina %s</string>
   <string name="usingServerAnalysis">Mampiasa ny fandinihan\'ny mpizara</string>
