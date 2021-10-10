@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">Milalao ny fotsy ianao</string>
   <string name="youPlayTheBlackPieces">Milalao ny mainty ianao</string>
   <string name="itsYourTurn">Anjaranao izao!</string>
+  <string name="cheatDetected">Halatra Tsikaritra</string>
   <string name="kingInTheCenter">Mpanjakalahy eo afoavoany</string>
   <string name="threeChecks">In-telo \"checks\"</string>
   <string name="raceFinished">Vita  ny hazakazaka</string>
@@ -45,6 +46,8 @@
   <string name="blackResigned">Nanaiky resy ny maintsy</string>
   <string name="whiteLeftTheGame">Nandao ny lalao ny fotsy</string>
   <string name="blackLeftTheGame">Nandao ny lalao ny mainty</string>
+  <string name="whiteDidntMove">Tsy nihetsika ny fotsy</string>
+  <string name="blackDidntMove">Tsy nihetsika ny mainty</string>
   <string name="requestAComputerAnalysis">Angataho ny fanadihadian\'ny solosaina</string>
   <string name="computerAnalysis">Fanadihadian\'ny solosaina</string>
   <string name="computerAnalysisAvailable">Misy ny fandinihan\'ny solosaina</string>
