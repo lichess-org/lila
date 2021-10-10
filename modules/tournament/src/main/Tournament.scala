@@ -121,24 +121,6 @@ case class Tournament(
       "%02d:%02d".format(s / 60, s % 60)
     }
 
-  private def optionalHours(s: Int) = if (s / 3600 > 0) (s / 3600).toString + "h " else ""
-  private def minutes(s: Int)       = (s % 3600) / 60;
-
-  private def startsIn: String =
-    secondsToStart pipe { s =>
-      "-%s%2dm".format(optionalHours(s), minutes(s))
-    }
-
-  private def endsIn: String =
-    secondsToFinish pipe { s =>
-      "%s%2dm".format(optionalHours(s), minutes(s))
-    }
-
-  def countdown: String =
-    if (isFinished) "Over"
-    else if (isStarted) endsIn
-    else startsIn
-
   def schedulePair = schedule map { this -> _ }
 
   def winner =

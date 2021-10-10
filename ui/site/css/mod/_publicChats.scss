@@ -50,22 +50,22 @@
     background-color: $time-container-bg;
   }
 
-  .player_chats .game .title-time-container .time-container .tournament-time {
+  .player_chats .game .title-time-container .time-container .tournament-status {
     text-align: center;
     font-weight: bolder;
     display: block;
     padding: 6px;
   }
 
-  .player_chats .game .title-time-container .time-container .tournament-time.starting {
+  .player_chats .game .title-time-container .time-container .tournament-status.created {
     color: $c-warn;
   }
 
-  .player_chats .game .title-time-container .time-container .tournament-time.in-progress {
+  .player_chats .game .title-time-container .time-container .tournament-status.started {
     color: $c-good;
   }
 
-  .player_chats .game .title-time-container .time-container .tournament-time.finished {
+  .player_chats .game .title-time-container .time-container .tournament-status.finished {
     color: $c-bad;
   }
 }
