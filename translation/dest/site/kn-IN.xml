@@ -830,6 +830,8 @@
   <string name="clickToRevealEmailAddress">[ಇಮೇಲ್ ವಿಳಾಸ ತೋರಿಸಲು ಇಲ್ಲಿ ಒತ್ತಿ]</string>
   <string name="download">ಡೌನ್ಲೋಡ್</string>
   <string name="welcome">ಸುಸ್ವಾಗತ!</string>
+  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
+ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
   <string name="minimumRatedGames">ಬೇಕಾಗಿರುವ ಕನಿಷ್ಠ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
