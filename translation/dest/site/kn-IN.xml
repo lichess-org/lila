@@ -130,8 +130,8 @@
     <item quantity="other">%s ಅಸ್ಪಷ್ಟತೆಗಳು</item>
   </plurals>
   <string name="moveTimes">ನಡೆಗೆ ಬಳಸಿದ ಸಮಯ</string>
-  <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
-  <string name="threefoldRepetition">Threefold repetition</string>
+  <string name="flipBoard">ಚೆಸ್ ಮಣೆಯ ದಿಕ್ಕು ಅದಲುಬದಲು ಮಾಡಿ</string>
+  <string name="threefoldRepetition">ಮೂರು-ಬಾರಿ ಪುನರಾವರ್ತನೆ</string>
   <string name="claimADraw">ಡ್ರಾ ಪಡೆದುಕೊಳ್ಳಿ</string>
   <string name="offerDraw">ಡ್ರಾ ಮಾಡಿಕೊಳ್ಳಲು ಪ್ರಸ್ತಾವಿಸಿ</string>
   <string name="draw">ಡ್ರಾ</string>
@@ -151,8 +151,8 @@
     <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
   </plurals>
   <string name="viewInFullSize">ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ವೀಕ್ಷಿಸಿ</string>
-  <string name="logOut">ಸೈನ್ ಔಟ್</string>
-  <string name="signIn">ಸೈನ್ ಇನ್</string>
+  <string name="logOut">ಹೊರನಡೆಯಿರಿ</string>
+  <string name="signIn">ಒಳಗೆ ಪ್ರವೇಶಿಸಿ</string>
   <string name="youNeedAnAccountToDoThat">ಅದನ್ನು ಮಾಡಲು ನಿಮಗೆ ಖಾತೆ ಇರಬೇಕು</string>
   <string name="signUp">ನೋಂದಣಿ</string>
   <string name="computersAreNotAllowedToPlay">ಕಂಪ್ಯೂಟರ್ ಅಥವಾ ಕಂಪ್ಯೂಟರ್-ಸಹಾಯಿತ ಆಟಗಾರರಿಗೆ ಆಡಲು ಅನುಮತಿ ಇಲ್ಲ. ಆಟ ಆಡುವ ಸಮಯದಲ್ಲಿ ದಯವಿಟ್ಟು ಯಾವುದೇ ಕಂಪ್ಯೂಟರ್-ಇಂಜಿನ್, ಕಂಪ್ಯೂಟರ್-ದತ್ತಸಂಚಯ, ಅಥವಾ ಬೇರೆ ಆಟಗಾರರ ಸಹಾಯ ಪಡೆಯಬೇಡಿ. ಹಾಗೂ ಗಮನಿಸಿ, ಒಂದೇ ವ್ಯಕ್ತಿ ಅನೇಕ ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದನ್ನು ಖಡ್ಡಾಯವಾಗಿ ವಿರೋಧಿಸಲಾಗಿದೆ. ಅನೇಕ ಖಾತೆಗಳನ್ನು ತೆರೆದಿರುವುದು ಕಂಡುಬಂದಲ್ಲಿ, ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿಷೇಧಿಸಲಾಗುವುದು.</string>
@@ -161,11 +161,11 @@
   <string name="xPostedInForumY">%1$s ಅವರು %2$s ವಿಷಯದಡಿಯಲ್ಲಿ ಹೊಸ ವಿಚಾರ ಪ್ರಕಟಿಸಿದ್ದಾರೆ</string>
   <string name="latestForumPosts">ವೇದಿಕೆಯಲ್ಲಿ ಇತ್ತೀಚಿನ ಪ್ರಕಟಣೆಗಳು</string>
   <string name="players">ಆಟಗಾರರು</string>
-  <string name="friends">ಸ್ನೇಹಿತರು</string>
+  <string name="friends">ಗೆಳೆಯ(ತಿ) ಯರು</string>
   <string name="discussions">ಸಂಭಾಷಣೆಗಳು</string>
   <string name="today">ಇವತ್ತು</string>
   <string name="yesterday">ನಿನ್ನೆ</string>
-  <string name="minutesPerSide">ಪ್ರತಿ ಪರಕ್ಕೆ ಇರುವ ನಿಮಿಷಗಳು</string>
+  <string name="minutesPerSide">ಪ್ರತಿ ಆಟಗಾರರಿಗೆ ಇರುವ ನಿಮಿಷಗಳು</string>
   <string name="variant">ಶೈಲಿ</string>
   <string name="variants">ಶೈಲಿಗಳು</string>
   <string name="timeControl">ನಿಗದಿತ ಅವಧಿ</string>
@@ -183,18 +183,18 @@
   </plurals>
   <string name="time">ಅವಧಿ</string>
   <string name="rating">ಮಟ್ಟ</string>
-  <string name="ratingStats">ಮಟ್ಟ ವ್ಯತ್ಯಾಸ</string>
-  <string name="username">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು</string>
-  <string name="usernameOrEmail">ಬಳಸಲು ಇಚ್ಛಿಸುವ ಗುರುತು ಅಥವಾ ಇ-ಅಂಚೆ</string>
+  <string name="ratingStats">ಧಾರಣೆ ಅಂಕಿಅಂಶ</string>
+  <string name="username">ಖಾತೆಯ ಹೆಸರು (ಗುರುತು)</string>
+  <string name="usernameOrEmail">ಖಾತೆಯ ಹೆಸರು (ಗುರುತು) ಅಥವಾ ಇಮೇಲ್ ವಿಳಾಸ</string>
   <string name="changeUsername">ಗುರುತು ಬದಲಾವಣೆ</string>
   <string name="changeUsernameNotSame">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ \"case\" ಮಾತ್ರ ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, \"johndoe\" ದಿಂದ \"JohnDoe\" ಕ್ಕೆ ಬದಲಾಯಿಸಬಹುದು.</string>
   <string name="changeUsernameDescription">ನಿಮ್ಮ ಖಾತೆಯ ಹೆಸರು, ಅಂದರೆ username, ಅನ್ನು ಬದಲಾಯಿಸಿ. ಈ ಬದಲಾವಣೆಯನ್ನು ಕೇವಲ ಒಂದೇ ಬಾರಿ ಮಾಡಲು ಅವಕಾಶವಿದೆಯಷ್ಟೆ. ಹಾಗೂ, ಈ ಅವಕಾಶ ಕೇವಲ ನಿಮ್ಮ \"username\" ನಲ್ಲಿರುವ \"case\" ಬದಲಾವಣೆಗಷ್ಟೇ ಸೀಮಿತಗೊಳಿಸಲಾಗಿದೆ.</string>
   <string name="password">ಗುಪ್ತಪದ</string>
-  <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸು</string>
-  <string name="changeEmail">ಇ-ಆಂಚೆಯನ್ನು ಬದಲಾಯಿಸು</string>
-  <string name="email">ಇ-ಆಂಚೆ</string>
-  <string name="passwordReset">ಗುಪ್ತಪದವನ್ನು ಮರುಹೊಂದಿಸು</string>
-  <string name="forgotPassword">ಗುಪ್ತಪದ ಮರೆತು ಹೋಯಿತು?</string>
+  <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
+  <string name="changeEmail">ಇಮೇಲ್ ವಿಳಾಸ ಬದಲಿಸಿ</string>
+  <string name="email">ಇಮೇಲ್</string>
+  <string name="passwordReset">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
+  <string name="forgotPassword">ಗುಪ್ತಪದ ಮರೆತು ಹೋಯಿತೇ?</string>
   <string name="rank">ಶ್ರೇಣಿ</string>
   <string name="rankX">ಶ್ರೇಣಿ %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
