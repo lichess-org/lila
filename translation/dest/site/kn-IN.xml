@@ -845,7 +845,13 @@
   <string name="maximumWeeklyRating">ಗರಿಷ್ಠ ಸಾಪ್ತಾಹಿಕ ಧಾರಣೆ</string>
   <string name="onlyTitled">ಬಿರುದಾಂಕಿತ ಆಟಗಾರರಿಗೆ ಮಾತ್ರ</string>
   <string name="onlyTitledHelp">ಅಧಿಕೃತ ಬಿರುದು ಇದ್ದವರಿಗೆ ಮಾತ್ರ ಈ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ ಪ್ರವೇಶ ಸಿಗುವುದು</string>
+  <string name="positionInputHelp">ಒಂದು ನಿರ್ಧಿಷ್ಟ ಸನ್ನಿವೇಶದಿಂದ ಪ್ರತಿ ಆತ ಆರಂಭಿಸಲು, ಸರಿಯಾದ FEN ಒಂದನ್ನು ಅಂಟಿಸಿ.
+ಇದು ಕೇವಲ ರೂಢಿಯಲ್ಲಿರುವ ಸಾಮಾನ್ಯ ಆಟದ ವಿಧಾನದಲ್ಲಿ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ. ಬೇರೆ ಯಾವುದೇ ಆವೃತ್ತಿಯ ಚೆಸ್ ಗೆ ಇದು ಸಾಧ್ಯವಿಲ್ಲ.
+ನೀವು %s ಬಳಸಿ ಹೊಸ FEN ಸನ್ನಿವೇಶಗಳನ್ನು ರಚಿಸಬಹುದು, ಹಾಗೂ ಅದನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಬಹುದು.
+ಈ ಭಾಗವನ್ನು ಖಾಲಿ ಬಿಟ್ಟರೆ, ಆಟಗಳು ಮಾಮೂಲಿ ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನದಿಂದ ಆರಂಭವಾಗುವುದು.</string>
   <string name="cancelSimul">ಸೈಮಲ್ ಅನ್ನು ರದ್ದುಗೊಳಿಸಿ</string>
   <string name="simulHostcolor">ಪ್ರತಿ ಆಟಕ್ಕೆ ಆತಿಥೇಯರ ದಳದ ಬಣ್ಣ</string>
+  <string name="estimatedStart">ಅಂದಾಜು ಪ್ರಾರಂಭವಾಗುವ ಸಮಯ</string>
+  <string name="simulFeatured">%s ನಲ್ಲಿ ಪ್ರದರ್ಶಿಸಿ</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
 </resources>
