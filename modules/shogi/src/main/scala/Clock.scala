@@ -322,7 +322,7 @@ object Clock {
     }
 
   def readCsaConfig(str: String): Option[Config] =
-    str.split('+') match {
+    str.split("""\+|\|""") match {
       case Array(initStr, byoStr) =>
         for {
           init <- initStr.toIntOption
