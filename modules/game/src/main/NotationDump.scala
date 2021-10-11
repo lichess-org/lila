@@ -25,12 +25,9 @@ final class NotationDump(
       flags: WithFlags,
       teams: Option[Color.Map[String]] = None
   ): Fu[Notation] = {
-    val imported = game.notationImport.flatMap { ni =>
-      if (ni.isCsa) CsaParser.full(ni.notation).toOption else KifParser.full(ni.notation).toOption
-    }
     val tagsFuture =
       if (flags.tags)
-        tags(game, initialFen, imported, withOpening = flags.opening, csa = flags.csa, teams = teams)
+        tags(game, initialFen, withOpening = flags.opening, csa = flags.csa, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val moves = flags.moves ?? {
@@ -116,44 +113,43 @@ final class NotationDump(
   def tags(
       game: Game,
       initialFen: Option[FEN],
-      imported: Option[ParsedNotation],
       withOpening: Boolean,
       csa: Boolean,
       teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
       Tags {
-        // ugly
-        val importedOrNormal: List[Option[Tag]] = imported map { p: ParsedNotation =>
-          List(
-            Tag(_.Event, imported.flatMap(_.tags(_.Event)) | "Import").some,
-            p.tags.value.find(_.name == Tag.Start),
-            p.tags.value.find(_.name == Tag.End),
-            p.tags.value.find(_.name == Tag.TimeControl),
-            p.tags.value.find(_.name == Tag.Byoyomi),
-            p.tags.value.find(_.name == Tag.Opening)
+        val imported = game.notationImport flatMap { _.parseNotation }
+
+        List(
+          Tag(_.Site, gameUrl(game.id)),
+          Tag(_.Sente, player(game.sentePlayer, wu)),
+          Tag(_.Gote, player(game.gotePlayer, bu)),
+          Tag(_.Variant, game.variant.name.capitalize),
+          Tag(
+            _.Event,
+            imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
           )
-        } getOrElse {
-          List(
-            Tag(_.Event, eventOf(game)).some,
-            Tag(_.Start, dateAndTime(game.createdAt)).some,
-            Tag(_.End, dateAndTime(game.movedAt)).some,
-            if (csa)
-              Tag.timeControlCsa(game.clock.map(_.config)).some
-            else
-              Tag.timeControlKif(game.clock.map(_.config)).some
-          )
-        }
-        (List[Option[Tag]](
-          Tag(_.Site, gameUrl(game.id)).some,
-          Tag(_.Sente, player(game.sentePlayer, wu)).some,
-          Tag(_.Gote, player(game.gotePlayer, bu)).some,
-          teams.map { t => Tag("SenteTeam", t.sente) },
-          teams.map { t => Tag("GoteTeam", t.gote) },
-          Tag(_.Variant, game.variant.name.capitalize).some
-          // when we implement openings...
-          // withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.eco))
-        ) ::: importedOrNormal).flatten ::: customStartPosition(game.variant).??(
+        ) ::: {
+          imported map { p =>
+            List(
+              p.tags.value.find(_.name == Tag.Start),
+              p.tags.value.find(_.name == Tag.End),
+              p.tags.value.find(_.name == Tag.TimeControl),
+              p.tags.value.find(_.name == Tag.Byoyomi), // not used in CSA
+              p.tags.value.find(_.name == Tag.Opening)
+            ).flatten
+          } getOrElse {
+            List(
+              Tag(_.Start, dateAndTime(game.createdAt)),
+              Tag(_.End, dateAndTime(game.movedAt)),
+              if (csa)
+                Tag.timeControlCsa(game.clock.map(_.config))
+              else
+                Tag.timeControlKif(game.clock.map(_.config))
+            )
+          }
+        } ::: customStartPosition(game.variant).??(
           List(
             Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
           )

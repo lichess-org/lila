@@ -1,5 +1,9 @@
 package lila.game
 
+import shogi.format.kif.KifParser
+import shogi.format.csa.CsaParser
+import shogi.format.ParsedNotation
+
 import java.security.MessageDigest
 import lila.db.ByteArray
 
@@ -32,6 +36,12 @@ case class NotationImport(
   def isKif = kif.isDefined
 
   def notation: String = ~(kif.orElse(csa))
+
+  def parseNotation: Option[ParsedNotation] =
+    if (isCsa)
+      CsaParser.full(notation).toOption
+    else
+      KifParser.full(notation).toOption
 }
 
 object NotationImport {
