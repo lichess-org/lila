@@ -773,6 +773,8 @@
   <string name="timeoutExpires">ನಿಮ್ಮ ನಿಷೇಧ ಕೊನೆಗೊಳ್ಳಲು ಇರುವ ಬಾಕಿ ಸಮಯ %s.</string>
   <string name="why">ಯಾಕೆ?</string>
   <string name="pleasantChessExperience">ಎಲ್ಲರಿಗೂ ಆನಂದದಾಯಕವಾದ ಚೆಸ್ ಅನುಭವವನ್ನು ಕೊಡಬೇಕು ಎಂಬುದು ನಮ್ಮ ಆಶಯವಾಗಿದೆ.</string>
+  <string name="goodPractice">ಅದರ ಸಲುವಾಗಿ, ಎಲ್ಲಾ ಆಟಗಾರರೂ ಒಳ್ಳೆಯ ಅಭ್ಯಾಸಗಳನ್ನು ಅನುಸರಿಸುತ್ತಿದ್ದಾರೆ ಎಂಬುದನ್ನು ನಾವು ಖಚಿತಪಡಿಸಬೇಕಾಗಿದೆ.</string>
+  <string name="potentialProblem">ಏನಾದರೂ ಸಮಸ್ಯೆ ಇರುವ ಸಂಭಾವ್ಯತೆ ಕಂಡು ಬಂದರೆ, ನಾವು ಈ ಸಂದೇಶವನ್ನು ತೋರಿಸುತ್ತೇವೆ.</string>
   <string name="howToAvoidThis">ಇಂತ ಸನ್ನಿವೇಶ ಬಾರದಂತೆ ಹೇಗೆ ನೋಡಿಕೊಳ್ಳಬಹುದು?</string>
   <string name="playEveryGame">ಪ್ರಾರಂಭಿಸಿದ ಪ್ರತಿ ಆಟವನ್ನೂ ಆಡಿ.</string>
   <string name="tryToWin">ಆಡುವ ಪ್ರತಿ ಆಟವನ್ನೂ ಗೆಲ್ಲಲು ಪ್ರಯತ್ನಿಸಿ (ಕಡೇ ಪಕ್ಷ ಡ್ರಾ ಆದರೂ ಸಾಧಿಸಲು ಯತ್ನಿಸಿ).</string>
@@ -782,6 +784,10 @@
   <string name="thankYouForReading">ಇದನ್ನೆಲ್ಲಾ ಓದಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು!</string>
   <string name="lifetimeScore">ಜೀವಿತಾವಧಿಯ ಅಂಕಗಳು</string>
   <string name="currentMatchScore">ಸಧ್ಯದ ಪಂದ್ಯದ ಅಂಕಗಳು</string>
+  <string name="agreementAssistance">ಚೆಸ್ ಆಟ ಆಡುತ್ತಿರುವ ಸಮಯದಲ್ಲಿ ನಾನು ಯಾವುದೇ (ಚೆಸ್ ಕಂಪ್ಯೂಟರ್, ಪುಸ್ತಕಗಳು, ಡೇಟಾಬೇಸ್, ಅಥವಾ ಇನ್ಯಾವುದೇ ವ್ಯಕ್ತಿಯಿಂದ) ಸಹಾಯವನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
+  <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
+  <string name="agreementAccount">ಹಲವಾರು ಲೀಚೆಸ್ ಖಾತೆಗಳನ್ನು ನಾನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
+  <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="rapid">ತ್ವರಿತ</string>
   <string name="classical">ಶಾಸ್ತ್ರೀಯ</string>
   <string name="ultraBulletDesc">ಅಂಕೆ ಮೀರಿದ ಅತೀ ವೇಗದ ಆಟಗಳು: ೩೦ ಸೆಕೆಂಡುಗಳಿಗಿಂತಲೂ ಕಡಿಮೆ ಸಮಯ</string>
