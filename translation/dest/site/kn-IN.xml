@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಗೆಳಯ/ಗೆಳತಿಯೊಡನೆ  ಆಡಿ</string>
+  <string name="playWithAFriend">ಗೆಳಯ(ತಿ) ಯೊಡನೆ ಆಡಿ</string>
   <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
@@ -869,4 +869,18 @@
   <string name="toggleAllAnalysis">ಎಲ್ಲಾ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಬೇಕು/ಬೇಡ</string>
   <string name="playComputerMove">ಕಂಪ್ಯೂಟರ್ ಸೂಚಿಸುವ ಅತ್ಯುತ್ತಮ ನಡೆ ಆಡಿ</string>
   <string name="analysisOptions">ವಿಶ್ಲೇಷಣೆಯ ಆಯ್ಕೆಗಳು</string>
+  <string name="focusChat">ಹರಟೆ ಕೋಣೆಯ ಮೇಲೆ ದೃಷ್ಟಿ ಹಾಯಿಸಿ</string>
+  <string name="showHelpDialog">ಈ ವಿಷಯದ ಮೇಲೆ ಸಹಾಯ ತೋರಿಸಿ</string>
+  <string name="reopenYourAccount">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಮರು-ತೆರೆಯಿರಿ</string>
+  <string name="closedAccountChangedMind">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನೀವು ರದ್ದುಗೊಳಿಸಿದ್ದರೆ, ಅದಾದ ನಂತರ ನೀವು ಮತ್ತೆ ಮನಸ್ಸು ಬದಲಾಯಿಸಿದ್ದೀರಿ ಎಂದಾದರೆ, ನಿಮಗೆ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಪುನಃ ಪಡೆಯಲು ಇನ್ನೊಂದು ಅವಕಾಶ ಕೊಡಲಾಗುತ್ತದೆ.</string>
+  <string name="onlyWorksOnce">ಇದು ಕೇವಲ ಒಂದೇ ಒಂದು ಬಾರಿ ಕೆಲಸ ಮಾಡುವುದು.</string>
+  <string name="cantDoThisTwice">ಎಲ್ಲಿಯಾದರೂ ನೀವು ಎರಡನೇ ಬಾರಿಗೆ ನೀವು ನಿಮ್ಮ ಖಾತೆಯನ್ನು ರದ್ದುಗೊಳಿಸಿದರೆ, ಮತ್ತೆಂದಿಗೂ ನಿಮಗೆ ಖಾತೆಯನ್ನು ಮರಳಿ ಪಡೆಯುವ ವ್ಯವಸ್ಥೆ ಇರುವುದಿಲ್ಲ.</string>
+  <string name="emailAssociatedToaccount">ಖಾತೆಗೆ ಸಂಬಂಧಿಸಿದ ಇಮೇಲ್ ವಿಳಾಸ</string>
+  <string name="sentEmailWithLink">ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸಕ್ಕೆ ಕೊಂಡಿಯೊಂದನ್ನು ಕಳುಹಿಸಿದ್ದೇವೆ.</string>
+  <string name="tournamentEntryCode">ಪಂದ್ಯಾವಳಿಯ ಪ್ರವೇಶ ಸಂಕೇತ</string>
+  <string name="hangOn">ನಿರೀಕ್ಷಿಸಿ!</string>
+  <string name="gameInProgress">ಈಗಾಗಲೇ ನಿಮ್ಮ ಒಂದು ಆಟ %s ಅವರೊಂದಿಗೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ.</string>
+  <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
+  <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
+  <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
 </resources>
