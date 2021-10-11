@@ -832,7 +832,20 @@
   <string name="welcome">ಸುಸ್ವಾಗತ!</string>
   <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
 ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
+  <string name="coachManager">ಕೋಚ್ ಪ್ರೊಫೈಲ್ ಸಲಕರಣೆಗಳು</string>
+  <string name="streamerManager">ನೇರಪ್ರಸಾರ ವ್ಯವಸ್ಥಾಪಕ</string>
+  <string name="cancelTournament">ಪಂದ್ಯಾವಳಿಯನ್ನು ರದ್ದುಪಡಿಸಿ</string>
+  <string name="tournDescription">ಪಂದ್ಯಾವಳಿಯ ವಿವರ</string>
+  <string name="tournDescriptionHelp">ಸ್ಪರ್ಧಾರ್ಥಿಗಳಿಗೆ ಏನಾದರೂ ವಿಶೇಷವಾಗಿ ಹೇಳಬಯಸುತ್ತೀರಾ? ಚಿಕ್ಕದಾಗಿ, ಚೊಕ್ಕವಾಗಿ ಬರೆಯಿರಿ. Markdown ಕೊಂಡಿಗಳು ಇಲ್ಲಿ ಲಭ್ಯವಿದೆ: [name] (https://url)</string>
   <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
+  <string name="onlyMembersOfTeam">ತಂಡದ ಸದಸ್ಯರಿಗೆ ಮಾತ್ರ</string>
+  <string name="noRestriction">ಯಾವುದೇ ನಿರ್ಬಂಧವಿಲ್ಲ</string>
   <string name="minimumRatedGames">ಬೇಕಾಗಿರುವ ಕನಿಷ್ಠ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
+  <string name="minimumRating">ಕನಿಷ್ಠ ಧಾರಣೆ</string>
+  <string name="maximumWeeklyRating">ಗರಿಷ್ಠ ಸಾಪ್ತಾಹಿಕ ಧಾರಣೆ</string>
+  <string name="onlyTitled">ಬಿರುದಾಂಕಿತ ಆಟಗಾರರಿಗೆ ಮಾತ್ರ</string>
+  <string name="onlyTitledHelp">ಅಧಿಕೃತ ಬಿರುದು ಇದ್ದವರಿಗೆ ಮಾತ್ರ ಈ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ ಪ್ರವೇಶ ಸಿಗುವುದು</string>
+  <string name="cancelSimul">ಸೈಮಲ್ ಅನ್ನು ರದ್ದುಗೊಳಿಸಿ</string>
+  <string name="simulHostcolor">ಪ್ರತಿ ಆಟಕ್ಕೆ ಆತಿಥೇಯರ ದಳದ ಬಣ್ಣ</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
 </resources>
