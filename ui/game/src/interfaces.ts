@@ -122,6 +122,7 @@ export interface Clock {
   running: boolean;
   initial: number;
   increment: number;
+  byoyomi: number;
 }
 export interface CorrespondenceClock {
   daysPerTurn: number;
