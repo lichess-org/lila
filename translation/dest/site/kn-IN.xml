@@ -822,6 +822,14 @@
   <string name="congratsYouWon">ಅಭಿನಂದನೆಗಳು, ನೀವು ಗೆದ್ದಿದ್ದೀರಿ!</string>
   <string name="gameVsX">%1$s ಅವರ ವಿರುದ್ಧ</string>
   <string name="resVsX">%1$s ವಿರುದ್ಧ %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">ನಿಮ್ಮ ಕೋಚ್ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಯಾರೋ ವಿಶ್ಲೇಷಿಸಿದ್ದಾರೆ.</string>
+  <string name="newPendingReview">ಹೊಸದಾಗಿ ಬಾಕಿ ಇರುವ ವಿಶ್ಲೇಷಣೆ</string>
+  <string name="lostAgainstTOSViolator">ಲೀಚೆಸ್ ನಿಯಮಾವಳಿಗಳನ್ನು ಉಲ್ಲಂಘಿಸಿದ ಯಾರೋ ಒಬ್ಬರ ವಿರುದ್ಧ ನೀವು ಸೋತಿದ್ದೀರಿ</string>
+  <string name="refundXpointsTimeControlY">ಮರುಪಾವತಿ: %1$s %2$s ಧಾರಣೆ ಅಂಕಗಳು.</string>
+  <string name="timeAlmostUp">ಸಮಯ ಮುಗಿಯುತ್ತಾ ಬರುತ್ತಿದೆ!</string>
+  <string name="clickToRevealEmailAddress">[ಇಮೇಲ್ ವಿಳಾಸ ತೋರಿಸಲು ಇಲ್ಲಿ ಒತ್ತಿ]</string>
+  <string name="download">ಡೌನ್ಲೋಡ್</string>
+  <string name="welcome">ಸುಸ್ವಾಗತ!</string>
   <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
   <string name="minimumRatedGames">ಬೇಕಾಗಿರುವ ಕನಿಷ್ಠ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
