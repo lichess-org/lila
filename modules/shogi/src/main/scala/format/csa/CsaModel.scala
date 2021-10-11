@@ -73,11 +73,14 @@ object Csa {
       .map { ct =>
         if (ct == Tag.Sente || ct == Tag.Gote) {
           tags(ct.name).fold("")(tagValue =>
-            s"N${ct.csaName}${if (!isValidTagValue(tagValue)) "" else tagValue}"
+            if (isValidTagValue(tagValue))
+              s"N${ct.csaName}${tagValue.replace(",", ";")}"
+            else
+              ""
           )
         } else {
           tags(ct.name).fold("")(tagValue => {
-            if (isValidTagValue(tagValue)) s"$$${ct.csaName}:$tagValue"
+            if (isValidTagValue(tagValue)) s"$$${ct.csaName}:${tagValue.replace(",", ";")}"
             else ""
           })
         }
