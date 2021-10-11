@@ -711,6 +711,24 @@
   <string name="coaches">ಚೆಸ್ ಗುರುಗಳು</string>
   <string name="invalidPgn">PGN ಸರಿ ಇಲ್ಲ</string>
   <string name="invalidFen">FEN ಸರಿ ಇಲ್ಲ</string>
+  <string name="custom">ಸ್ವಂತೀಕರಿಸಿ</string>
+  <string name="notifications">ಅಧಿಸೂಚನೆಗಳು</string>
+  <string name="perfRatingX">ಧಾರಣೆ: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s ಸೆಕೆಂಡು ಬಾಕಿ ಇದೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>
+    <item quantity="other">%s ಸೆಕೆಂಡುಗಳು ಬಾಕಿ ಇವೆ, ಮೊದಲ ನಡೆ ಆಡಲು</item>
+  </plurals>
+  <string name="practiceWithComputer">ಕಂಪ್ಯೂಟರ್ ಜೊತೆಗೆ ಅಭ್ಯಾಸ ಮಾಡಿ</string>
+  <string name="anotherWasX">ಪರ್ಯಾಯ ನಡೆ: %s</string>
+  <string name="bestWasX">ಉತ್ತಮ ನಡೆ ಇದಾಗಿತ್ತು: %s</string>
+  <string name="youBrowsedAway">ನೀವು ಬ್ರೌಸರ್ ನ ಈ ಜಾಗದಿಂದ ಹೊರ ಹೋಗಿದ್ದೀರಿ</string>
+  <string name="resumePractice">ಅಭ್ಯಾಸ ಮುಂದುವರೆಸಿ</string>
+  <string name="theGameIsADraw">ಈ ಪಂದ್ಯವು ಡ್ರಾ ಆಗಿದೆ.</string>
+  <string name="computerThinking">ಕಂಪ್ಯೂಟರ್ ಯೋಚಿಸುತ್ತಿದೆ ...</string>
+  <string name="seeBestMove">ಅತ್ಯುತ್ತಮ ನಡೆಯನ್ನು ನೋಡಿ</string>
+  <string name="hideBestMove">ಅತ್ಯುತ್ತಮ ನಡೆಯನ್ನು ಅಡಗಿಸಿ</string>
+  <string name="getAHint">ಒಂದು ಸುಳಿವು ಪಡೆದುಕೊಳ್ಳಿ</string>
+  <string name="evaluatingYourMove">ನಿಮ್ಮ ನಡೆಯನ್ನು ವಿಶ್ಲೇಷಿಸಲಾಗುತ್ತಿದೆ...</string>
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
   <string name="doItAgain">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
   <string name="reviewBlackMistakes">ಕಪ್ಪು ದಳದ ತಪ್ಪುಗಳನ್ನು ವಿಮರ್ಶಿಸಿ</string>
