@@ -72,7 +72,7 @@ object Csa {
     csaHeaderTags
       .map { ct =>
         if (ct == Tag.Sente || ct == Tag.Gote) {
-          tags(ct.name).fold("")(tagValue => s"N${ct.csaName}:${if (tagValue == "?") "" else tagValue}")
+          tags(ct.name).fold("")(tagValue => s"N${ct.csaName}${if (tagValue == "?") "" else tagValue}")
         } else {
           tags(ct.name).fold("")(tagValue => {
             if (tagValue != "?" && tagValue != "") s"$$${ct.csaName}:$tagValue"
