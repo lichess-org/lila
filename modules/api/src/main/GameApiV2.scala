@@ -45,9 +45,8 @@ final class GameApiV2(
       )
     )
     game.notationImport ifTrue config.imported match {
-      case Some(imported) if config.flags.csa && imported.isCsa   => fuccess(imported.notation)
-      case Some(imported) if !config.flags.csa && !imported.isCsa => fuccess(imported.notation)
-      case None =>
+      case Some(imported) if config.flags.csa == imported.isCsa => fuccess(imported.notation)
+      case _ =>
         for {
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
           (game, initialFen, analysis) <- enrich(config.flags)(game)

@@ -74,7 +74,8 @@ object replay {
           href := s"data:text/plain;charset=utf-8,${UriEncoding.encodePathSegment(kif, "UTF-8")}",
           attr(
             "download"
-          ) := s"lishogi_game_${Tag.UTCDate.format.print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
+          ) := s"lishogi_game_${Tag.UTCDate.format
+            .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
         )(
           trans.downloadRaw()
         ),
@@ -84,7 +85,8 @@ object replay {
           href := s"data:text/plain;charset=shift-jis,${UriEncoding.encodePathSegment(kif, "Shift-JIS")}",
           attr(
             "download"
-          ) := s"lishogi_game_${Tag.UTCDate.format.print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
+          ) := s"lishogi_game_${Tag.UTCDate.format
+            .print(game.createdAt)}_${playerName(game.sentePlayer)}_vs_${playerName(game.gotePlayer)}_${game.id}.kif"
         )(
           "Shift-JIS"
         )
