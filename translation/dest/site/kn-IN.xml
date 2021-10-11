@@ -788,6 +788,8 @@
   <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementAccount">ಹಲವಾರು ಲೀಚೆಸ್ ಖಾತೆಗಳನ್ನು ನಾನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
+  <string name="searchOrStartNewDiscussion">ಹುಡುಕಿ ಅಥವಾ ಹೊಸ ಸಂಭಾಷಣೆ ಆರಂಭಿಸಿ</string>
+  <string name="edit">ತಿದ್ದಿ</string>
   <string name="rapid">ತ್ವರಿತ</string>
   <string name="classical">ಶಾಸ್ತ್ರೀಯ</string>
   <string name="ultraBulletDesc">ಅಂಕೆ ಮೀರಿದ ಅತೀ ವೇಗದ ಆಟಗಳು: ೩೦ ಸೆಕೆಂಡುಗಳಿಗಿಂತಲೂ ಕಡಿಮೆ ಸಮಯ</string>
@@ -800,6 +802,10 @@
   <string name="important">ಪ್ರಮುಖ ಸೂಚನೆ</string>
   <string name="yourQuestionMayHaveBeenAnswered">ನಿಮ್ಮ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರ ಈಗಾಗಲೇ ದೊರಕಿರಬಹುದು %1$s</string>
   <string name="inTheFAQ">F . A. Q ನಲ್ಲಿ</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">ಒಬ್ಬರು ಆಟಗಾರರ ವಿರುದ್ಧ ಮೋಸದಾಟ ಅಥವಾ ಕೆಟ್ಟ ನಡತೆಯ ಬಗ್ಗೆ ದೂರು ಸಲ್ಲಿಸಿ, %1$s</string>
+  <string name="useTheReportForm">ದೂರು ಸಲ್ಲಿಸುವ ಅರ್ಜಿಯನ್ನು ಬಳಸಿ</string>
+  <string name="toRequestSupport">ಸಹಾಯ ಕೇಳಲು, %1$s</string>
+  <string name="tryTheContactPage">ಸಂಪರ್ಕದ ವಿವರ ಇರುವ ಪುಟದಲ್ಲಿ ಪ್ರಯತ್ನಿಸಿ</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="ratedFormHelp">ಆಟಗಳು ಧಾರಣೆ-ಸಹಿತವಾಗಿವೆ ಹಾಗೂ ಆಟಗಾರರ ಧಾರಣೆಯ ಮೇಲೆ ಪ್ರಭಾವ ಬೀರುತ್ತವೆ</string>
