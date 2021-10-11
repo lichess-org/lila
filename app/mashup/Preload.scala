@@ -24,6 +24,7 @@ final class Preload(
     liveStreamApi: lila.streamer.LiveStreamApi,
     dailyPuzzle: lila.puzzle.DailyPuzzle.Try,
     lobbyApi: lila.api.LobbyApi,
+    lobbySocket: lila.lobby.LobbySocket,
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
@@ -82,7 +83,8 @@ final class Preload(
                 playban,
                 currentGame,
                 simulIsFeaturable,
-                blindGames
+                blindGames,
+                lobbySocket.counters
               )
             }
       }
@@ -132,7 +134,8 @@ object Preload {
       playban: Option[TempBan],
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
-      blindGames: List[Pov]
+      blindGames: List[Pov],
+      counters: lila.lobby.LobbyCounters
   )
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)

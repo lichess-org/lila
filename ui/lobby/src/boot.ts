@@ -4,12 +4,8 @@ export default function boot(cfg, element) {
     //{ id: "1+0", lim: 1, inc: 0, perf: "Bullet" }
   ];
   let lobby;
-  const nbRoundSpread = spreadNumber(document.querySelector('#nb_games_in_play > strong'), 8, function () {
-      return window.lishogi.socket.pingInterval();
-    }),
-    nbUserSpread = spreadNumber(document.querySelector('#nb_connected_players > strong'), 10, function () {
-      return window.lishogi.socket.pingInterval();
-    }),
+  const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
+    nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
     getParameterByName = name => {
       var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -130,14 +126,11 @@ export default function boot(cfg, element) {
   }
 }
 
-function spreadNumber(el, nbSteps, getDuration) {
-  let previous, displayed;
+function spreadNumber(selector: string, nbSteps: number) {
+  const el = document.querySelector(selector) as HTMLElement;
+  let previous = parseInt(el.getAttribute('data-count')!);
   const display = function (prev, cur, it) {
-    var val = window.lishogi.numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
-    if (val !== displayed) {
-      el.textContent = val;
-      displayed = val;
-    }
+    el.textContent = window.lishogi.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
   };
   let timeouts: number[] = [];
   return function (nb, overrideNbSteps?) {
@@ -145,9 +138,9 @@ function spreadNumber(el, nbSteps, getDuration) {
     if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);
     timeouts = [];
-    let prev = previous === 0 ? 0 : previous || nb;
+    const interv = Math.abs(window.lishogi.socket.pingInterval() / nbSteps);
+    const prev = previous || nb;
     previous = nb;
-    let interv = Math.abs(getDuration() / nbSteps);
     for (let i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
   };
