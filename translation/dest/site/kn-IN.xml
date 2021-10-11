@@ -704,6 +704,13 @@
   <string name="usernameAlreadyUsed">ಈ ಹೆಸರಿನ ಖಾತೆ ಈಗಾಗಲೇ ಉಪಯೋಗದಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಬೇರೆ ಹೆಸರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.</string>
   <string name="usernamePrefixInvalid">ಖಾತೆಯ ಹೆಸರು ಅಂದರೆ, username, ಅಕ್ಷರದಿಂದಲೇ ಆರಂಭವಾಗಬೇಕು.</string>
   <string name="usernameSuffixInvalid">ಖಾತೆಯ ಹೆಸರು ಅಂದರೆ, username, ಅಕ್ಷರ ಅಥವಾ ಅಂಕೆಯಿಂದಲೇ ಕೊನೆಯಾಗಬೇಕು.</string>
+  <string name="usernameCharsInvalid">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ ಅಕ್ಷರಗಳು, ಸಂಖ್ಯೆಗಳು, ಕೆಳಗೆರೆ(ಅಂಡರ್ಸ್ಕೋರ್), ಮತ್ತು ಕೂಡುಗೆರೆ(ಹೈಫೆನ್ಸ್) ಗಳು ಮಾತ್ರ ಇರಬಹುದಾಗಿದೆ. ಜೊತೆ ಜೊತೆಯಲ್ಲಿ ಬರೆದ ಕೆಳಗೆರೆ ಮತ್ತು ಜೊತೆ ಜೊಯೆಯಲ್ಲಿ ಬರೆದ ಕೂಡುಗೆರೆಗಳನ್ನೂ ಬಿಡಲಾಗುವುದಿಲ್ಲ - ಅದು ಅಮಾನ್ಯ ಎಂದು ತಿಳಿಯಲಾಗುವುದು.</string>
+  <string name="usernameUnacceptable">ಈ ಹೆಸರು ಸ್ವೀಕಾರಾರ್ಹವಲ್ಲ.</string>
+  <string name="playChessInStyle">ಗತ್ತಿನಿಂದ ಚೆಸ್ ಆಡಿ</string>
+  <string name="chessBasics">ಚೆಸ್ ಆಟದ ಅಡಿಪಾಯ</string>
+  <string name="coaches">ಚೆಸ್ ಗುರುಗಳು</string>
+  <string name="invalidPgn">PGN ಸರಿ ಇಲ್ಲ</string>
+  <string name="invalidFen">FEN ಸರಿ ಇಲ್ಲ</string>
   <string name="youCanDoBetter">ಇದಕ್ಕಿಂತಲೂ ಒಳ್ಳೆ ನಡೆಯನ್ನು ನೀವು ಆಡಬಲ್ಲಿರಿ</string>
   <string name="doItAgain">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
   <string name="reviewBlackMistakes">ಕಪ್ಪು ದಳದ ತಪ್ಪುಗಳನ್ನು ವಿಮರ್ಶಿಸಿ</string>
