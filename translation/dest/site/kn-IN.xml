@@ -764,7 +764,13 @@
   <string name="playVariationToCreateConditionalPremoves">ಷರತ್ತುಬದ್ಧ ಪೂರ್ವನಿರ್ಧಾರಿತ ನಡೆಗಳನ್ನೂ ರಚಿಸಲು, ಒಂದು ವೇರಿಯೇಷನ್ ಅನ್ನು ಆಡಿ</string>
   <string name="noConditionalPremoves">ಯಾವುದೇ ಷರತ್ತುಬದ್ಧ ಪೂರ್ವನಿರ್ಧಾರಿತ ನಡೆಗಳಿಲ್ಲ</string>
   <string name="playX">%s ಅನ್ನು ಆಡಿ</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ಮತ್ತು %s ಪ್ರಿ-ಮೂವ್ ಅನ್ನು ಉಳಿಸಿ</item>
+    <item quantity="other">ಮತ್ತು %s ಪ್ರಿ-ಮೂವ್ ಗಳನ್ನು ಉಳಿಸಿ</item>
+  </plurals>
   <string name="sorry">ಕ್ಷಮಿಸಿ :(</string>
+  <string name="weHadToTimeYouOutForAWhile">ನಿಮ್ಮ ಪ್ರವೇಶವನ್ನು ಸ್ವಲ್ಪ ಹೊತ್ತು ತಡೆಹಿಡಿಯಬೇಕಾಗಿ ಬಂದಿದೆ.</string>
+  <string name="timeoutExpires">ನಿಮ್ಮ ನಿಷೇಧ ಕೊನೆಗೊಳ್ಳಲು ಇರುವ ಬಾಕಿ ಸಮಯ %s.</string>
   <string name="why">ಯಾಕೆ?</string>
   <string name="howToAvoidThis">ಇಂತ ಸನ್ನಿವೇಶ ಬಾರದಂತೆ ಹೇಗೆ ನೋಡಿಕೊಳ್ಳಬಹುದು?</string>
   <string name="playEveryGame">ಪ್ರಾರಂಭಿಸಿದ ಪ್ರತಿ ಆಟವನ್ನೂ ಆಡಿ.</string>
