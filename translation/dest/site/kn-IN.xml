@@ -853,5 +853,20 @@
   <string name="simulHostcolor">ಪ್ರತಿ ಆಟಕ್ಕೆ ಆತಿಥೇಯರ ದಳದ ಬಣ್ಣ</string>
   <string name="estimatedStart">ಅಂದಾಜು ಪ್ರಾರಂಭವಾಗುವ ಸಮಯ</string>
   <string name="simulFeatured">%s ನಲ್ಲಿ ಪ್ರದರ್ಶಿಸಿ</string>
+  <string name="simulFeaturedHelp">ನಿಮ್ಮ ಸೈಮಲ್ ಅನ್ನು ಎಲ್ಲರಿಗೂ %s ದಲ್ಲಿ ತೋರಿಸಿ. ಖಾಸಗಿ ಸೈಮಲ್ ಗಳ ಸಮಯದಲ್ಲಿ ಇದನ್ನು ಆಫ್ ಮಾಡಿ.</string>
+  <string name="simulDescription">ಸೈಮಲ್ ನ ವಿವರಣೆ</string>
+  <string name="simulDescriptionHelp">ಸ್ಪರ್ಧಾರ್ಥಿಗಳಿಗೆ ಏನಾದರೂ ಹೇಳಬಯಸುತ್ತೀರಾ?</string>
+  <string name="markdownAvailable">ಹೆಚ್ಚಿನ ಅಕ್ಷರ ಅಲಂಕಾರಕ್ಕಾಗಿ %s ಲಭ್ಯವಿದೆ.</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
+  <string name="inYourLocalTimezone">ನಿಮ್ಮ ಸ್ಥಳೀಯ ಸಮಯ-ವಲಯದಲ್ಲಿ</string>
+  <string name="tournChat">ಪಂದ್ಯಾವಳಿಯ ಹರಟೆ ಕೋಣೆ</string>
+  <string name="noChat">ಯಾವುದೇ ಚಾಟ್ ಗಳು ಬೇಡ</string>
+  <string name="onlyTeamLeaders">ತಂಡದ ನಾಯಕರು ಮಾತ್ರ</string>
+  <string name="onlyTeamMembers">ತಂಡದ ಸದಸ್ಯರು ಮಾತ್ರ</string>
+  <string name="navigateMoveTree">ಚೆಸ್ ನಡೆಗಳ ಸರಪಳಿಯ ಮೂಲಕ ಚಲಿಸಿ</string>
+  <string name="mouseTricks">ಮೌಸ್ ಆಧಾರಿತ ಉಪಾಯಗಳು</string>
+  <string name="toggleLocalAnalysis">ಸ್ಥಳೀಯ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಬೇಕು/ಬೇಡ</string>
+  <string name="toggleAllAnalysis">ಎಲ್ಲಾ ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ ಬೇಕು/ಬೇಡ</string>
+  <string name="playComputerMove">ಕಂಪ್ಯೂಟರ್ ಸೂಚಿಸುವ ಅತ್ಯುತ್ತಮ ನಡೆ ಆಡಿ</string>
+  <string name="analysisOptions">ವಿಶ್ಲೇಷಣೆಯ ಆಯ್ಕೆಗಳು</string>
 </resources>
