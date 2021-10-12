@@ -659,7 +659,7 @@ object mod {
   ): Frag = {
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
-    val canLocate = isGranted(_.Admin) || user.lameOrTrollOrAlt
+    val canLocate = isGranted(_.Admin)
     mzSection("identification")(
       canLocate option div(cls := "spy_locs")(
         table(cls := "slist slist--sort")(
