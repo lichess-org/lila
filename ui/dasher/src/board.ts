@@ -25,7 +25,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     () =>
       xhr
         .text('/pref/zoom?v=' + readZoom(), { method: 'post' })
-        .catch(() => lichess.announce({ msg: 'Failed to save zoom' })),
+        .catch(() => lichess.announce({ msg: 'Failed to save board size' })),
     1000
   );
 
