@@ -130,7 +130,7 @@ function spreadNumber(selector: string, nbSteps: number) {
   const el = document.querySelector(selector) as HTMLElement;
   let previous = parseInt(el.getAttribute('data-count')!);
   const display = function (prev, cur, it) {
-    el.textContent = window.lishogi.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    el.textContent = window.lishogi.numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
   };
   let timeouts: number[] = [];
   return function (nb, overrideNbSteps?) {
