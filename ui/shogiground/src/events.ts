@@ -12,10 +12,7 @@ type StateMouchBind = (d: State, e: cg.MouchEvent) => void;
 export function bindBoard(s: State, boundsUpdated: () => void): void {
   const boardEl = s.dom.elements.board;
 
-  if (!s.dom.relative && s.resizable && 'ResizeObserver' in window) {
-    const observer = new (window as any)['ResizeObserver'](boundsUpdated);
-    observer.observe(boardEl);
-  }
+  if (!s.dom.relative && s.resizable && 'ResizeObserver' in window) new ResizeObserver(boundsUpdated).observe(boardEl);
 
   if (s.viewOnly) return;
 

@@ -10,42 +10,36 @@
 
 .mini-board.no-pockets {
   @extend %square;
-  cg-helper {
-    bottom: 0;
+  cg-container {
+    top: 0;
   }
 }
 
 .mini-board {
   @extend %mini-board-square;
-  cg-helper {
-    bottom: calc(100% / 11);
+  cg-container {
+    top: calc(100% / 11);
+    height: auto;
+    padding-bottom: 100%;
     cg-pocket {
       .pocket {
         margin: 0;
         &-top {
           border-radius: 3px 3px 0px 0px;
           position: absolute;
-          top: -900%;
-          height: 100%;
+          top: calc(-100% / 9);
+          height: calc(100% / 9);
         }
         &-bottom {
           border-radius: 0px 0px 3px 3px;
           position: absolute;
-          height: 100%;
-          top: 100%;
-        }
-        @include breakpoint($mq-col2-uniboard) {
-          /*
-          &-top {
-          }
-          &-bottom {
-          }
-        */
+          height: calc(100% / 9);
+          bottom: calc(-100% / 9);
         }
         @extend %box-radius;
         display: flex;
         justify-content: center;
-        width: 900%;
+        width: 100%;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
         @if $theme-light {
           background: #b3b3b3;
@@ -76,7 +70,7 @@
             line-height: 0.9em;
             padding: 3px 0.3em;
             font-weight: bold;
-            font-size: 1.4em;
+            font-size: 1.5em;
           }
           &[data-nb='0'] {
             cursor: auto;

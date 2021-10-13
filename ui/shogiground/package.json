@@ -2,12 +2,11 @@
   "name": "shogiground",
   "version": "7.8.1",
   "description": "lishogi.org shogi ui",
-  "type": "commonjs",
-  "main": "shogiground.js",
+  "type": "module",
+  "module": "shogiground.js",
   "typings": "shogiground.d.ts",
   "dependencies": {},
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-typescript": "^8.2.5",
     "rollup": "^2.56.2",
     "rollup-plugin-terser": "^7.0.2",
@@ -19,7 +18,7 @@
     "prepare": "yarn run compile",
     "dev": "yarn run compile",
     "prod": "yarn run compile",
-    "dist": "rollup --config"
+    "dist": "rollup --config && cp ./dist/shogiground.min.js ../../public/javascripts/vendor/"
   },
   "files": [
     "/*.js",

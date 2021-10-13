@@ -5,8 +5,7 @@ import { createElement as createSVG } from './svg';
 
 export function renderWrap(element: HTMLElement, s: State, relative: boolean): Elements {
   // .cg-wrap (element passed to Shogiground)
-  //   cg-helper (12.5%)
-  //     cg-container (800%)
+  //     cg-container
   //       cg-board
   //       svg
   //       coords.ranks
@@ -24,28 +23,25 @@ export function renderWrap(element: HTMLElement, s: State, relative: boolean): E
   for (const c of colors) element.classList.toggle('orientation-' + c, s.orientation === c);
   element.classList.toggle('manipulable', !s.viewOnly);
 
-  const helper = createEl('cg-helper');
-  element.appendChild(helper);
-
   const container = createEl('cg-container');
-  helper.appendChild(container);
+  element.appendChild(container);
+
+  const board = createEl('cg-board');
+  container.appendChild(board);
 
   let pockets;
 
   if (isMiniBoard(element)) {
     if (s.pockets) {
       pockets = [createEl('cg-pocket'), createEl('cg-pocket')];
-      helper.insertBefore(pockets[s.orientation === 'sente' ? 1 : 0], container);
-      helper.insertBefore(pockets[s.orientation === 'sente' ? 0 : 1], container.nextSibling);
+      container.insertBefore(pockets[s.orientation === 'sente' ? 1 : 0], board);
+      container.insertBefore(pockets[s.orientation === 'sente' ? 0 : 1], board.nextSibling);
     } else {
       element.classList.add('no-pockets');
     }
   } else {
     delete s.pockets;
   }
-
-  const board = createEl('cg-board');
-  container.appendChild(board);
 
   let svg: SVGElement | undefined;
   if (s.drawable.visible && !relative) {

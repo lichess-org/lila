@@ -5,7 +5,7 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "removeComments": true,
-    "module": "commonjs",
+    "module": "esnext",
     "target": "ES2016",
     "lib": ["DOM", "ES2016"]
   }

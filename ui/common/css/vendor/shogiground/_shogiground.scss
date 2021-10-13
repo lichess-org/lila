@@ -92,19 +92,12 @@ piece {
   }
 }
 
-cg-helper {
-  position: absolute;
-  width: calc(100% / 9);
-  padding-bottom: calc(100% / 9);
-  bottom: 0;
-}
-
 cg-container {
   position: absolute;
-  width: 900%;
-  height: 900%;
+  width: 100%;
+  height: 100%;
   display: block;
-  bottom: 0;
+  top: 0;
 }
 
 .cg-wrap svg {

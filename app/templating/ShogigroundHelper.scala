@@ -10,10 +10,9 @@ import lila.game.Pov
 trait ShogigroundHelper {
 
   private val cgWrap      = div(cls := "cg-wrap")
-  private val cgHelper    = tag("cg-helper")
   private val cgContainer = tag("cg-container")
   private val cgBoard     = tag("cg-board")
-  val cgWrapContent       = cgHelper(cgContainer(cgBoard))
+  val cgWrapContent       = cgContainer(cgBoard)
 
   def shogiground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag =
     div(cls := s"cg-wrap orientation-${orient.name}") {
@@ -50,10 +49,8 @@ trait ShogigroundHelper {
 
   private def wrap(content: Frag): Frag =
     cgWrap {
-      cgHelper {
-        cgContainer {
-          content
-        }
+      cgContainer {
+        content
       }
     }
 
