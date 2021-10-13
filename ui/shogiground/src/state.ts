@@ -14,7 +14,6 @@ export interface State {
   lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
   selected?: cg.Key; // square currently selected "a1"
   coordinates: boolean; // include coords attributes
-  autoCastle: boolean; // immediately complete the castle by moving the rook after king move
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu: boolean; // because who needs a context menu on a chessboard
   resizable: boolean; // listens to shogiground.resize on document.body to clear bounds cache
@@ -42,7 +41,6 @@ export interface State {
   premovable: {
     enabled: boolean; // allow premoves for color that can not move
     showDests: boolean; // whether to add the premove-dest class on squares
-    castle: boolean; // whether to allow king castle premoves
     dests?: cg.Key[]; // premove destinations for the current selection
     current?: cg.KeyPair; // keys of the current saved premove ["e2" "e4"]
     events: {
@@ -109,7 +107,6 @@ export function defaults(): Partial<State> {
     orientation: 'sente',
     turnColor: 'sente',
     coordinates: true,
-    autoCastle: true,
     viewOnly: false,
     disableContextMenu: false,
     resizable: true,
@@ -132,7 +129,6 @@ export function defaults(): Partial<State> {
     premovable: {
       enabled: true,
       showDests: true,
-      castle: true,
       events: {},
     },
     predroppable: {

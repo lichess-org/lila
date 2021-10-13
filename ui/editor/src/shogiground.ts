@@ -125,7 +125,6 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'sente',
     coordinates: !ctrl.cfg.embed,
-    autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,

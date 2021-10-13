@@ -60,7 +60,6 @@ export function makeConfig(ctrl: RoundController): Config {
     premovable: {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination,
-      castle: false,
       events: {
         set: hooks.onPremove,
         unset: hooks.onCancelPremove,
