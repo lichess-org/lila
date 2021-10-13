@@ -85,8 +85,6 @@ $border: $border-width $border-style $c-border;
 $c-font-shadow: black;
 $text-shadow: none;
 
-$time-container-bg: none;
-
 @mixin metal-bg {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
 }

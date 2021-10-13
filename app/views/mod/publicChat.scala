@@ -79,24 +79,11 @@ object publicChat {
     )
 
   private def swissTitle(swiss: lila.swiss.Swiss) =
-      a(cls := "title", href := routes.Swiss.show(swiss.id.value))(swiss.name)
-    
+    a(cls := "title", href := routes.Swiss.show(swiss.id.value))(swiss.name)
 
-  private def tournamentTitle(tournament: lila.tournament.Tournament) =         
-      div(
-        cls := "title-time-container",
-        div(cls := "title-container", a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name)),
-        div(
-          cls := "time-container",
-          span(
-            cls := List(
-              "tournament-status"    -> true,
-              tournament.status.name.toLowerCase -> true
-            )
-          )(tournament.status.name)
-        )
-      )
-    
-  
-  
+  private def tournamentTitle(tournament: lila.tournament.Tournament) =
+    div(cls := "title-time")(
+      a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
+      span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)
+    )
 }
