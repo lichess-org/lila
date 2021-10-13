@@ -13,6 +13,7 @@
   <string name="specialMoves">ವಿಶೇಷ ನಡೆಗಳು</string>
   <string name="didYouLikeThisPuzzle">ನಿಮಗೆ ಈ ಸಮಸ್ಯೆ ಇಷ್ಟವಾಯಿತೇ?</string>
   <string name="voteToLoadNextOne">ಮುಂದಿನದ್ದಕ್ಕೆ ಆಯ್ಕೆ ಮಾಡಿ!</string>
+  <string name="yourPuzzleRatingWillNotChange">ನಿಮ್ಮ ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆ ಬದಲಾಗುವುದಿಲ್ಲ. ಒಗಟು ಅಂದರೆ ಸ್ಪರ್ಧೆ ಅಲ್ಲ ಅನ್ನುವುದನ್ನು ಗಮನಿಸಿ. ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆಯು ನಿಮ್ಮ ನೈಪುಣ್ಯತೆಗೆ ಅನುಗುಣವಾಗಿರುವ ಅತ್ಯುತ್ತಮ ಒಗಟನ್ನು ಆಯ್ಕೆ ಮಾಡಲಷ್ಟೇ ಸಹಾಯಿಸುತ್ತದೆ.</string>
   <string name="findTheBestMoveForWhite">ಬಿಳಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="findTheBestMoveForBlack">ಕಪ್ಪಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="toGetPersonalizedPuzzles">ನಿಮಗೆ ಅನುಗುಣವಾದ ಸಮಸ್ಯೆಗಳಿಗೆ:</string>
