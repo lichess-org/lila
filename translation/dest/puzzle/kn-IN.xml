@@ -39,8 +39,16 @@
   <string name="normal">ಸಾಧಾರಣ</string>
   <string name="easier">ಸುಲಭ</string>
   <string name="easiest">ಅತೀ ಸುಲಭ</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಯಿಂದ ಒಂದು ಅಂಕ ಕೆಳಗೆ ಇದೆ</item>
+    <item quantity="other">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಗಿಂತ %s ಅಂಕಗಳು ಕೆಳಗೆ ಇದೆ</item>
+  </plurals>
   <string name="harder">ಕ್ಲಿಷ್ಟ</string>
   <string name="hardest">ಅತೀ ಕ್ಲಿಷ್ಟ</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಗಿಂತ ಒಂದು ಅಂಕ ಮೇಲೆ ಇದೆ</item>
+    <item quantity="other">ನಿಮ್ಮ ಒಗಟು ಧಾರಣೆಗಿಂತ %s ಅಂಕಗಳು ಮೇಲೆ ಇದೆ</item>
+  </plurals>
   <string name="example">ಉದಾಹರಣೆ</string>
   <string name="addAnotherTheme">ಮತ್ತೊಂದು ವರ್ಗ ಸೇರಿಸಿ</string>
   <string name="jumpToNextPuzzleImmediately">ಮುಂದಿನ ಸಮಸ್ಯೆಗೆ ತಕ್ಷಣ ಹೋಗಲು</string>
