@@ -141,7 +141,7 @@
   </plurals>
   <string name="drawByMutualAgreement">ಪರಸ್ಪರ ಸಮ್ಮತದಿಂದ ಡ್ರಾ ಘೋಷಿಸಲಾಗಿದೆ</string>
   <string name="fiftyMovesWithoutProgress">ಪ್ರಗತಿ ರಹಿತ ಐವತ್ತು ನಡೆಗಳು</string>
-  <string name="currentGames">ಪ್ರಸ್ತುತ ಆಟ</string>
+  <string name="currentGames">ಪ್ರಸ್ತುತ ಆಟಗಳು</string>
   <plurals name="nbGames">
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
@@ -783,7 +783,7 @@
   <string name="wishYouGreatGames">ಹಾಗೂ ಇನ್ನೂ ಉತ್ತಮ ಆಟಗಳು ನಿಮಗೆ lichess.org ನಲ್ಲಿ ಸಿಗಲಿ ಎಂದು ಹಾರೈಸುತ್ತೇವೆ.</string>
   <string name="thankYouForReading">ಇದನ್ನೆಲ್ಲಾ ಓದಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು!</string>
   <string name="lifetimeScore">ಜೀವಿತಾವಧಿಯ ಅಂಕಗಳು</string>
-  <string name="currentMatchScore">ಸಧ್ಯದ ಪಂದ್ಯದ ಅಂಕಗಳು</string>
+  <string name="currentMatchScore">ಪ್ರಸ್ತುತ ಪಂದ್ಯದ ಅಂಕಗಳು</string>
   <string name="agreementAssistance">ಚೆಸ್ ಆಟ ಆಡುತ್ತಿರುವ ಸಮಯದಲ್ಲಿ ನಾನು ಯಾವುದೇ (ಚೆಸ್ ಕಂಪ್ಯೂಟರ್, ಪುಸ್ತಕಗಳು, ಡೇಟಾಬೇಸ್, ಅಥವಾ ಇನ್ಯಾವುದೇ ವ್ಯಕ್ತಿಯಿಂದ) ಸಹಾಯವನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementAccount">ಹಲವಾರು ಲೀಚೆಸ್ ಖಾತೆಗಳನ್ನು ನಾನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
