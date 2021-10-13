@@ -58,4 +58,13 @@
   <string name="history">ಮುಂಚಿನ ಸಮಸ್ಯೆಗಳು</string>
   <string name="solved">ಬಿಡಿಸಿದ</string>
   <string name="failed">ವಿಫಲಗೊಂಡ</string>
+  <string name="streakDescription">ನೀವು ಉತ್ತರಿಸುತ್ತಾ ಹೋದಂತೆ ಕಠಿಣವಾಗುವ ಒಗಟುಗಳನ್ನು ಬಿಡಿಸಿ ಹಾಗೂ ಆ ಮೂಲಕ ಗೆಲುವಿನ ಸರಣಿಯನ್ನು ಕಟ್ಟುತ್ತಾ ಹೋಗಿ. ಇದಕ್ಕೆ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ, ಆದ್ದರಿಂದ ಆರಾಮವಾಗಿ ಯೋಚಿಸಿ ಉತ್ತರಿಸಿ. ಒಂದು ತಪ್ಪು ನಡೆ, ಅಷ್ಟೇ, ಆಟ ಮುಗಿಯಿತು ಅಲ್ಲಿಗೆ! ಆದರೆ ಪ್ರತಿ ಸೆಷನ್ ಗೆ ಒಂದು ಬಾರಿ ನೀವು ಮುಂದಿನ ಒಗಟಿಗೆ ಜಿಗಿಯಬಹುದು.</string>
+  <string name="yourStreakX">ನಿಮ್ಮ ಸರಣಿ: %s</string>
+  <string name="streakSkipExplanation">ನಿಮ್ಮ ಸರಣಿಯನ್ನು ರಕ್ಷಿಸಲು ಈ ನಡೆಯನ್ನು ಬಿಟ್ಟು ಮುಂದೆ ಹೋಗಿ! ನೆನಪಿರಲಿ, ಇದು ಪ್ರತಿ ಓಟಕ್ಕೆ ಒಂದು ಬಾರಿ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>
+  <string name="continueTheStreak">ಸರಣಿಯನ್ನು ಮುಂದುವರೆಸಿ</string>
+  <string name="newStreak">ಹೊಸ ಸರಣಿ</string>
+  <string name="fromMyGames">ನನ್ನದೇ ಆಟಗಳಿಂದ</string>
+  <string name="lookupOfPlayer">ಒಬ್ಬರು ಆಟಗಾರರ ಆಟಗಳಿಂದ ಒಗಟು ಹುಡುಕಿ ತೆಗೆಯಿರಿ</string>
+  <string name="fromXGames">%s ಅವರ ಆಗಳಿಂದ ಹೆಕ್ಕಿದ ಒಗಟುಗಳು</string>
+  <string name="searchPuzzles">ಒಗಟುಗಳನ್ನು ಹುಡುಕಿ</string>
 </resources>
