@@ -909,6 +909,11 @@ export default class AnalyseCtrl {
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
+  editorUrl = (): string =>
+    this.data.userAnalysis
+      ? '/editor?' + new URLSearchParams({ fen: this.node.fen, variant: this.data.game.variant.key })
+      : '/' + this.data.game.id + '/edit?fen=' + this.node.fen;
+
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined => {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
     return undefined;

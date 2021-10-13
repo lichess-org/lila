@@ -49,13 +49,17 @@ export const bind = (ctrl: AnalyseCtrl) => {
 
   if (ctrl.embed) return;
 
-  kbd.bind('space', () => {
-    const gb = ctrl.gamebookPlay();
-    if (gb) gb.onSpace();
-    else if (ctrl.practice || ctrl.studyPractice) return;
-    else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-    else ctrl.toggleCeval();
-  });
+  kbd
+    .bind('space', () => {
+      const gb = ctrl.gamebookPlay();
+      if (gb) gb.onSpace();
+      else if (ctrl.practice || ctrl.studyPractice) return;
+      else if (ctrl.ceval.enabled()) ctrl.playBestMove();
+      else ctrl.toggleCeval();
+    })
+    .bind('b', () => {
+      if (!ctrl.ongoing) window.location = ctrl.editorUrl();
+    });
 
   if (ctrl.studyPractice) return;
 

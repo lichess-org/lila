@@ -40,6 +40,7 @@ object help {
           row(frag(k("space")), trans.playComputerMove()),
           row(frag(k("x")), trans.showThreat()),
           row(frag(k("e")), trans.openingEndgameExplorer()),
+          row(frag(k("b")), trans.boardEditor()),
           row(frag(k("f")), trans.flipBoard()),
           row(frag(k("c")), trans.focusChat()),
           row(frag(k("shift"), k("C")), trans.keyShowOrHideComments()),

@@ -181,9 +181,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             'a.button.button-empty',
             {
               attrs: {
-                href: d.userAnalysis
-                  ? '/editor?' + new URLSearchParams({ fen: ctrl.node.fen, variant: d.game.variant.key })
-                  : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
+                href: ctrl.editorUrl(),
                 'data-icon': '',
                 ...(ctrl.embed
                   ? {
