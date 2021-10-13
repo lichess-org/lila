@@ -519,6 +519,14 @@
   <string name="tools">工具</string>
   <string name="increment">每步加秒</string>
   <string name="error.required">本项必填</string>
+  <string name="error.email">该电子邮件地址无效</string>
+  <string name="error.email_acceptable">该电子邮件地址是不可用。请重新检查后重试。</string>
+  <string name="error.email_unique">电子邮件地址无效或已被使用</string>
+  <string name="error.email_different">这已经是您的电子邮件地址</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">最少 %s 个字符</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">最长 %s 个字符</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">最少不小于 %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">最大不能超过 %s</string>
   <string name="ifRatingIsPlusMinusX">允许等级分范围±%s</string>
   <string name="onlyExistingConversations">仅现有的对话</string>
   <string name="onlyFriends">仅好友</string>
