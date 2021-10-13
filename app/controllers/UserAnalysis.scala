@@ -28,8 +28,9 @@ final class UserAnalysis(
       case Array(key) => load("", Variant orDefault key)
       case Array(key, fen) =>
         Variant.byKey get key match {
-          case Some(variant)                              => load(fen, variant)
+          case Some(variant) if variant != Standard       => load(fen, variant)
           case _ if FEN.clean(fen) == Standard.initialFen => load(arg, Standard)
+          case Some(Standard)                             => load(fen, FromPosition)
           case _                                          => load(arg, FromPosition)
         }
       case _ => load("", Standard)
