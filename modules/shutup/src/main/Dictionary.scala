@@ -43,6 +43,7 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
+cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
@@ -77,7 +78,7 @@ lesbo
 lo+ser
 masturbat(e|ion|ing)
 milf
-molest
+molest(er|)
 moron
 mother(fuc?k(er|)|)
 mthrfckr
@@ -241,6 +242,7 @@ gaa?nd
   def fr = dict("""
 fdp
 pd
+pute
 triche(ur|)
 """)
 
