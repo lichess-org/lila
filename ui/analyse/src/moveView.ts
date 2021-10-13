@@ -54,7 +54,6 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
     ),
   ]
     .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
-    .concat(defined(moveTime) ? [h('movetime', renderTime(moveTime, false))] : [])
     .concat(
       ctx.showEval
         ? defined(ev.cp)
@@ -63,7 +62,8 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
           ? [renderEval('#' + ev.mate)]
           : []
         : []
-    );
+    )
+    .concat(defined(moveTime) ? [h('movetime', renderTime(moveTime, false))] : []);
 }
 
 export function renderIndexAndMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] | undefined {
