@@ -1,3 +1,5 @@
+@import 'user-marks';
+
 #communication {
   h1 {
     @extend %flex-between;
@@ -85,6 +87,10 @@
 
   .player_chats .game:hover .chat {
     overflow-y: auto;
+  }
+
+  .user_marks i {
+    @include user_marks;
   }
 
   .player_chats .line,

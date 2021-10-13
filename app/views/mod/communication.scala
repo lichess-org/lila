@@ -156,17 +156,17 @@ object communication {
             h2("Recent inbox messages"),
             convos.map { modConvo =>
               div(cls := "thread")(
-                p(cls := "title")(strong(lightUserLink(modConvo.convo.contact))),
+                p(cls := "title")(strong(userLink(modConvo.contact), showSbMark(modConvo.contact))),
                 table(cls := "slist")(
                   tbody(
                     modConvo.truncated option div(cls := "truncated-convo")(
-                      s"Truncated, showing last ${modConvo.convo.msgs.length} messages"
+                      s"Truncated, showing last ${modConvo.msgs.length} messages"
                     ),
-                    modConvo.convo.msgs.reverse.map { msg =>
+                    modConvo.msgs.reverse.map { msg =>
                       val author = msg.user == u.id
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
-                        td(strong(if (author) u.username else modConvo.convo.contact.name)),
+                        td(strong(if (author) u.username else modConvo.contact.username)),
                         td(cls := "message")(highlightBad(msg.text))
                       )
                     }
@@ -189,4 +189,6 @@ object communication {
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
     }
   }
+
+  private def showSbMark(u: User) = u.marks.troll option span(cls := "user_marks")(iconTag(""))
 }
