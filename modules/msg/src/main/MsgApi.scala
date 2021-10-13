@@ -180,6 +180,8 @@ final class MsgApi(
         Match($doc("users" -> user.id)) -> List(
           Sort(Descending("lastMsg.date")),
           Limit(nb),
+          UnwindField("users"),
+          Match($doc("users" $ne user.id)),
           PipelineOperator(
             $lookup.pipeline(
               from = colls.msg,
@@ -193,8 +195,6 @@ final class MsgApi(
               )
             )
           ),
-          UnwindField("users"),
-          Match($doc("users" $ne user.id)),
           PipelineOperator(
             $lookup.simple(
               from = userRepo.coll,
