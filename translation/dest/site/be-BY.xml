@@ -208,7 +208,7 @@
   <string name="password">Пароль</string>
   <string name="changePassword">Змяніць пароль</string>
   <string name="changeEmail">Змяніць адрас электроннай пошты</string>
-  <string name="email">Адрас электроннай пошты</string>
+  <string name="email">Электронная пошта</string>
   <string name="passwordReset">Скінуць пароль</string>
   <string name="forgotPassword">Забыліся на пароль?</string>
   <string name="rank">Ранг</string>
@@ -618,6 +618,8 @@
   <string name="tools">Інструменты</string>
   <string name="increment">Прырост</string>
   <string name="error.required">Абавязковае поле</string>
+  <string name="error.email_unique">Адрас электронай пошты немагчымы або ўжо заняты</string>
+  <string name="error.email_different">Гэта ўжо ваш адрас электронай пошты</string>
   <string name="ifRatingIsPlusMinusX">Калі рэйтынг ± %s</string>
   <string name="onlyExistingConversations">Толькі існыя размовы</string>
   <string name="onlyFriends">Толькі з сябрамі</string>
