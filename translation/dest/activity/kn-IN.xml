@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">ಚಟುವಟಿಕೆ</string>
+  <string name="hostedALiveStream">ನೇರಪ್ರಸಾರ ನಡೆಸಿದರು</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">%2$s ಆಗಿ lichess.org ಅನ್ನು %1$s ತಿಂಗಳು ಪ್ರೋತ್ಸಾಹಿಸಿದ್ದಾರೆ</item>
+    <item quantity="other">%2$s ಆಗಿ lichess.org ಅನ್ನು %1$s ತಿಂಗಳುಗಳಷ್ಟು ಪ್ರೋತ್ಸಾಹಿಸಿದ್ದಾರೆ</item>
+  </plurals>
 </resources>
