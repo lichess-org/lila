@@ -100,7 +100,7 @@ final class ClasApi(
                 as = "clas",
                 local = "clasId",
                 foreign = "_id",
-                pipeline = List(
+                pipe = List(
                   $doc(
                     "$match" -> $doc(
                       "$expr" -> $doc("$in" -> $arr(teacher, "$teachers"))

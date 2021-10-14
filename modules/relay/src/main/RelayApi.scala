@@ -257,7 +257,7 @@ final class RelayApi(
               as = "rounds",
               local = "_id",
               foreign = "tourId",
-              pipeline = List(
+              pipe = List(
                 $doc("$sort" -> $doc("startedAt" -> 1, "startsAt" -> 1, "name" -> 1))
               )
             )

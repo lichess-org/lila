@@ -188,7 +188,7 @@ final class MsgApi(
               as = "msgs",
               local = "_id",
               foreign = "tid",
-              pipeline = List(
+              pipe = List(
                 $doc("$sort"    -> $sort.desc("date")),
                 $doc("$limit"   -> 11),
                 $doc("$project" -> msgProjection)

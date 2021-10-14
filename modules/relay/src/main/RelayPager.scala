@@ -30,7 +30,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(impli
                     as = "round",
                     local = "_id",
                     foreign = "tourId",
-                    pipeline = List(
+                    pipe = List(
                       $doc(
                         "$sort" -> $doc(
                           "startedAt" -> -1,

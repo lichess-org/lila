@@ -58,24 +58,16 @@ final private[puzzle] class DailyPuzzle(
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
             PipelineOperator(
-              $doc(
-                "$lookup" -> $doc(
-                  "from" -> colls.puzzle.name.value,
-                  "as"   -> "puzzle",
-                  "let"  -> $doc("id" -> "$ids"),
-                  "pipeline" -> $arr(
-                    $doc(
-                      "$match" -> $doc(
-                        "$expr" -> $doc(
-                          $doc("$eq" -> $arr("$_id", "$$id"))
-                        )
-                      )
-                    ),
-                    $doc(
-                      "$match" -> $doc(
-                        Puzzle.BSONFields.day $exists false,
-                        Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
-                      )
+              $lookup.pipeline(
+                from = colls.puzzle,
+                as = "puzzle",
+                local = "ids",
+                foreign = "_id",
+                pipe = List(
+                  $doc(
+                    "$match" -> $doc(
+                      Puzzle.BSONFields.day $exists false,
+                      Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
                     )
                   )
                 )
