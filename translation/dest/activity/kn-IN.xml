@@ -10,6 +10,14 @@
     <item quantity="one">%2$s ವಿಭಾಗದಲ್ಲಿ %1$s ಸನ್ನಿವೇಶವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿದ್ದಾರೆ</item>
     <item quantity="other">%2$s ವಿಭಾಗದಲ್ಲಿ %1$s ಸನ್ನಿವೇಶಗಳನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿದ್ದಾರೆ</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s ಚತುರ ಒಗಟಗನ್ನು ಬಿಡಿಸಿದ್ದಾರೆ</item>
+    <item quantity="other">%s ಚತುರ ಒಗಟುಗಳನ್ನು ಬಿಡಿಸಿದ್ದಾರೆ</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s ಆಟವನ್ನು ಆಡಿದ್ದಾರೆ</item>
+    <item quantity="other">%1$s %2$s ಆಟಗಳನ್ನು ಆಡಿದ್ದಾರೆ</item>
+  </plurals>
   <string name="signedUp">Lichess.org ನಲ್ಲಿ ನೋಂದಾಯಿಸಿಕೊಂಡಿದ್ದಾರೆ</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s ತಂಡಕ್ಕೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</item>
