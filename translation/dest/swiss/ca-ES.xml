@@ -10,8 +10,19 @@
   <string name="nextRound">Següent ronda</string>
   <string name="tournStartDate">Data d\'inici del torneig</string>
   <string name="numberOfRounds">Nombre de rondes</string>
+  <string name="numberOfRoundsHelp">Un nombre senar de rondes permet un equilibri de color òptim.</string>
   <string name="roundInterval">Interval entre rondes</string>
   <string name="forbiddenPairings">Aparellaments prohibits</string>
   <string name="forbiddenPairingsHelp">Nom d\'usuari dels jugadors que no han de jugar junts (Germans, per exemple). Dos noms d\'usuari per línia, separats per un espai.</string>
   <string name="newSwiss">Nou torneig Suís</string>
+  <string name="comparison">Comparació</string>
+  <string name="pairingWaitTime">Aparellament idèntic</string>
+  <string name="identicalPairing">Aparellament idèntic</string>
+  <string name="possibleButNotConsecutive">Possible, però no consecutiva</string>
+  <string name="identicalForbidden">Prohibit</string>
+  <string name="lateJoin">Uneix-te tard</string>
+  <string name="lateJoinUntil">Sí, fins que més de la meitat de les rondes han començat</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sí, però podria reduir el nombre de rondes</string>
+  <string name="unlimitedAndFree">Il·limitat i gratuït</string>
 </resources>
