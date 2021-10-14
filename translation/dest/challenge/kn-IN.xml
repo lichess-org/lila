@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">ಸವಾಲುಗಳು</string>
+  <string name="challengeToPlay">ಆಡಲು ಸವಾಲು ಮಾಡಿ</string>
+  <string name="challengeDeclined">ಸವಾಲನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ</string>
+  <string name="challengeAccepted">ಸವಾಲನ್ನು ಸ್ವೀಕರಿಸಲಾಗಿದೆ!</string>
+  <string name="challengeCanceled">ಸವಾಲು ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.</string>
+  <string name="registerToSendChallenges">ಸವಾಲುಗಳನ್ನು ಕಳುಹಿಸಲು ದಯವಿಟ್ಟು ನೋಂದಾಯಿಸಿ.</string>
+</resources>
