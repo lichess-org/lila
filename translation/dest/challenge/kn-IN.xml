@@ -16,4 +16,10 @@
   <string name="declineTooFast">ಈ ಸಮಯದ ನಿಂಬಂಧನೆ ನನ್ನ ಮಟ್ಟಿಗೆ ಅತೀ ವೇಗ ಅನಿಸುತ್ತಿದೆ, ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ನಿಧಾನದ ಆಟಕ್ಕೆ ಸವಾಲು ಹಾಕಿ.</string>
   <string name="declineTooSlow">ಈ ಸಮಯದ ನಿಬಂಧನೆ ನನಗೆ ತೀರಾ ನಿಧಾನ ಅನಿಸುತ್ತಿದೆ, ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ವೇಗದ ಆಟಕ್ಕೆ ಸವಾಲು ಕಳುಹಿಸಿ.</string>
   <string name="declineTimeControl">ಈ ರೀತಿಯ ಸಮಯದ ನಿಬಂಧನೆಯುಳ್ಳ ಸವಾಲುಗಳನ್ನು ನಾನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
+  <string name="declineRated">ಇದರ ಬದಲಾಗಿ, ದಯವಿಟ್ಟು ಧಾರಣೆ-ಸಹಿತ ಆಟದ ಸವಾಲನ್ನು ಕಳುಹಿಸಿ.</string>
+  <string name="declineCasual">ಇದರ ಬದಲಾಗಿ, ದಯವಿಟ್ಟು ಧಾರಣೆ-ರಹಿತ ಆಟದ ಸವಾಲನ್ನು ಕಳುಹಿಸಿ.</string>
+  <string name="declineStandard">ನಾನು ಸಧ್ಯಕ್ಕೆ ಯಾವುದೇ ವೇರಿಯಂಟ್ ವಿಧಾನದ ಸವಾಲುಗಳನ್ನು ಸ್ವೀಕರಿಸುತ್ತಿಲ್ಲ.</string>
+  <string name="declineVariant">ಸಧ್ಯಕ್ಕೆ ಈ ವಿಧಾನದ ಆಟ ಆಡಲು ನನಗೆ ಇಷ್ಟ ಇಲ್ಲ.</string>
+  <string name="declineNoBot">ನಾನು ರೋಬೋಟ್ (BOT) ಗಳಿಂದ ಯಾವುದೇ ಸವಾಲುಗಳನ್ನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ.</string>
+  <string name="declineOnlyBot">ನಾನು ಕೇವಲ ರೋಬೋಟ್ (BOT) ಗಳಿಂದ ಮಾತ್ರ ಸವಾಲುಗಳನ್ನು ಸ್ವೀಕರಿಸುತ್ತೇನೆ.</string>
 </resources>
