@@ -92,9 +92,10 @@ final class Game(
             flags = requestPgnFlags(req, extended = false).copy(literate = false),
             sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
             perSecond = MaxPerSecond(me match {
-              case Some(m) if m is user.id => 60
-              case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
-              case _                       => 20
+              case Some(m) if m.id == "openingexplorer" => 300
+              case Some(m) if m is user.id              => 60
+              case Some(_) if oauth                     => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                                    => 20
             }),
             playerFile = get("players", req),
             ongoing = getBool("ongoing", req)
