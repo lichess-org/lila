@@ -122,6 +122,11 @@ final class Env(
     text =
       "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
   )
+  lazy val apiExplorerGamesPerSecond = memo.settingStore[Int](
+    "apiExplorerGamesPerSecond ",
+    default = 200,
+    text = "Opening explorer games per second".some
+  )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
