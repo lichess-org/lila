@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Un pezzo che attacca o difende una casa attraverso un pezzo nemico.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'avversario è limitato nella sua scelta della mossa, e tutte le mosse possibili peggiorano la sua posizione.</string>
-  <string name="healthyMix">Sano misto</string>
+  <string name="healthyMix">Mix generale</string>
   <string name="healthyMixDescription">Un po\' di tutto. Nessuna aspettativa, affinché si possa rimanere pronti a qualsiasi cosa! Proprio come nelle partite vere.</string>
   <string name="playerGames">Giochi del giocatore</string>
   <string name="playerGamesDescription">Cerca rompicapo generati dalle tue partite o dalle partite di un altro giocatore.</string>
