@@ -39,17 +39,17 @@
   <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro solo una volta.
 Può essere una buona opzione per i gruppi e per i tornei ufficiali.</string>
   <string name="pointsCalculationQ">Come sono calcolati i punti?</string>
-  <string name="pointsCalculationA">Una vittoria vale un punto, un pareggio mezzo punto e una perdita zero.
-Quando un giocatore non è accoppiabile durante un turno, ricevono un bye dal valore di un punto.</string>
-  <string name="tiebreaksCalculationQ">Come sono calcolati i tie break?</string>
-  <string name="sonnebornBergerScore">Punteggio di Sonneborn-Berger</string>
+  <string name="pointsCalculationA">Una vittoria vale un punto, un pareggio mezzo punto e una sconfitta zero punti.
+Quando a un giocatore non è possibile trovare un avversario per un turno, si riceve un bye dal valore di un punto.</string>
+  <string name="tiebreaksCalculationQ">Come sono calcolati gli spareggi?</string>
+  <string name="sonnebornBergerScore">Punteggio Sonneborn-Berger</string>
   <string name="tiebreaksCalculationA">Con il %s.
-Aggiungi i punteggi di ogni rivale battuto dal giocatore e metà del punteggio di ogni rivale che pareggia con il giocatore.</string>
-  <string name="pairingsQ">Come sono decise le patte?</string>
+Si sommano i punti fatti dagli avversari battuti con la metà dei punti fatti dagli avversari con cui si ha pattato.</string>
+  <string name="pairingsQ">Come sono decisi gli abbinamenti?</string>
   <string name="dutchSystem">Sistema olandese</string>
   <string name="FIDEHandbook">Manuale FIDE</string>
   <string name="pairingsA">Con il %1$s, implementato da %2$s, in conformità con il %3$s.</string>
-  <string name="moreRoundsThanPlayersQ">Che succede se il torneo ha più turni che giocatori?</string>
+  <string name="moreRoundsThanPlayersQ">Cosa succede se il torneo ha più turni che giocatori?</string>
   <string name="moreRoundsThanPlayersA">Quando tutti gli abbinamenti possibili sono stati giocati, il torneo sarà terminato e un vincitore sarà dichiarato.</string>
   <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
   <string name="restrictedToTeamsA">I tornei svizzeri non sono stati progettati per gli scacchi online. Chiedono puntualità, dedizione e pazienza dai giocatori.
