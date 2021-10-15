@@ -65,7 +65,7 @@
   <string name="masterDescription">Tattiche da partite giocate da scacchisti titolati.</string>
   <string name="masterVsMaster">Partite fra Maestri</string>
   <string name="masterVsMasterDescription">Tattiche da partite giocate fra due scacchisti titolati.</string>
-  <string name="mate">Matto</string>
+  <string name="mate">Scacco matto</string>
   <string name="mateDescription">Vinci la partita con stile.</string>
   <string name="mateIn1">Matto in 1</string>
   <string name="mateIn1Description">Dai scacco matto in una mossa.</string>
