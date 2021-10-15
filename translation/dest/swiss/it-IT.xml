@@ -61,9 +61,9 @@ Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadr
 Il giocatore sarà squalificato dal torneo, così da non perdere altre partite.
 Potrà riprendere a giocare nel torneo in qualsiasi momento.</string>
   <string name="lateJoinQ">I giocatori possono entrare in ritardo?</string>
-  <string name="lateJoinA">Sì, finché più di metà dei turni sono iniziati; ad esempio in un 11 turni svizzero i giocatori possono unirsi prima che inizi il turno 6 e in un 12 turni prima dell\'inizio del turno 7.
-I partecipanti tardivi ottengono un singolo bye, anche se si sono persi diversi turni.</string>
-  <string name="willSwissReplaceArenasQ">Lo svizzero sostituirà i tornei dell\'arena?</string>
+  <string name="lateJoinA">Sì, finché sono stati giocati meno della metà dei turni; ad esempio in un torneo svizzero a 11 turni i giocatori possono entrare prima che inizi il turno 6 e in un torneo a 12 turni prima dell\'inizio del turno 7.
+I partecipanti tardivi ottengono un singolo bye, anche se si sono persi più turni.</string>
+  <string name="willSwissReplaceArenasQ">I tornei svizzeri sostituiranno i tornei arena?</string>
   <string name="willSwissReplaceArenasA">No. Sono caratteristiche complementari.</string>
   <string name="roundRobinQ">E i Round Robin?</string>
   <string name="roundRobinA">Vorremmo aggiungerlo, ma purtroppo Round Robin non funziona online.
