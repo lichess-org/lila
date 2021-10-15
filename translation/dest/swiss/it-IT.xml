@@ -6,7 +6,7 @@
     <item quantity="other">Visualizza tutti i %s round</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s turno</item>
+    <item quantity="one">%s turni</item>
     <item quantity="other">%s turni</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
