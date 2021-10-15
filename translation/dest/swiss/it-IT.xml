@@ -30,14 +30,14 @@
   </plurals>
   <string name="tournStartDate">Data d\'inizio del torneo</string>
   <string name="numberOfRounds">Numero di turni</string>
-  <string name="numberOfRoundsHelp">Un numero dispari di turni consente un equilibrio cromatico ottimale.</string>
+  <string name="numberOfRoundsHelp">Un numero dispari di turni consente un\'alternanza tra Bianco e Nero ottimale.</string>
   <string name="roundInterval">Intervallo tra i turni</string>
-  <string name="forbiddenPairings">Abbinamenti proibiti</string>
-  <string name="forbiddenPairingsHelp">Nomi utenti dei giocatori che non devono giocare insieme (Gemelli, ad esempio). Due nomi utenti per riga, separati da uno spazio.</string>
+  <string name="forbiddenPairings">Abbinamenti non consentiti</string>
+  <string name="forbiddenPairingsHelp">I nomi utente dei giocatori che non devono giocare insieme (fratelli, ad esempio). Due nomi utente per riga, separati da uno spazio.</string>
   <string name="newSwiss">Nuovo torneo svizzero</string>
   <string name="swissVsArenaQ">Quando usare i tornei svizzeri invece delle arene?</string>
-  <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro una volta.
-Può essere una buona opzione per i club e per i tornei ufficiali.</string>
+  <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro solo una volta.
+Può essere una buona opzione per i gruppi e per i tornei ufficiali.</string>
   <string name="pointsCalculationQ">Come sono calcolati i punti?</string>
   <string name="pointsCalculationA">Una vittoria vale un punto, un pareggio mezzo punto e una perdita zero.
 Quando un giocatore non è accoppiabile durante un turno, ricevono un bye dal valore di un punto.</string>
