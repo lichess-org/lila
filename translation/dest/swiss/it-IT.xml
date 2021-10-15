@@ -57,10 +57,10 @@ Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadr
   <string name="numberOfByesQ">Quanti bye può ottenere un giocatore?</string>
   <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
   <string name="whatIfOneDoesntPlayQ">Cosa succede se un giocatore non gioca una partita?</string>
-  <string name="whatIfOneDoesntPlayA">Il loro timer scadrà, saranno segnalati e perderanno la partita.
-Allora il sistema preleverà il giocatore dal torneo, così che non perderà altre partite.
- Possono unirsi nuovamente al torneo in qualsiasi momento.</string>
-  <string name="lateJoinQ">I giocatori possono unirsi in ritardo?</string>
+  <string name="whatIfOneDoesntPlayA">Il suo orologio verrà fatto partire e la partita verrà persa per tempo.
+Il giocatore sarà squalificato dal torneo, così da non perdere altre partite.
+Potrà riprendere a giocare nel torneo in qualsiasi momento.</string>
+  <string name="lateJoinQ">I giocatori possono entrare in ritardo?</string>
   <string name="lateJoinA">Sì, finché più di metà dei turni sono iniziati; ad esempio in un 11 turni svizzero i giocatori possono unirsi prima che inizi il turno 6 e in un 12 turni prima dell\'inizio del turno 7.
 I partecipanti tardivi ottengono un singolo bye, anche se si sono persi diversi turni.</string>
   <string name="willSwissReplaceArenasQ">Lo svizzero sostituirà i tornei dell\'arena?</string>
