@@ -54,9 +54,9 @@ Si sommano i punti fatti dagli avversari battuti con la metà dei punti fatti da
   <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
   <string name="restrictedToTeamsA">I tornei svizzeri non sono stati progettati per gli scacchi online. Chiedono puntualità, dedizione e pazienza dai giocatori.
 Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadra piuttosto che nei tornei globali.</string>
-  <string name="numberOfByesQ">Quanti bye sono ottenibili da ogni giocatore?</string>
+  <string name="numberOfByesQ">Quanti bye può ottenere un giocatore?</string>
   <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
-  <string name="whatIfOneDoesntPlayQ">Che succede se un giocatore non gioca una partita?</string>
+  <string name="whatIfOneDoesntPlayQ">Cosa succede se un giocatore non gioca una partita?</string>
   <string name="whatIfOneDoesntPlayA">Il loro timer scadrà, saranno segnalati e perderanno la partita.
 Allora il sistema preleverà il giocatore dal torneo, così che non perderà altre partite.
  Possono unirsi nuovamente al torneo in qualsiasi momento.</string>
