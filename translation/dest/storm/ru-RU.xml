@@ -60,4 +60,6 @@
   <string name="thisMonth">В этом месяце</string>
   <string name="allTime">За всё время</string>
   <string name="clickToReload">Нажмите, чтобы перезагрузить</string>
+  <string name="thisRunHasExpired">Время этой серии истекло!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Эта серия была открыта в другой вкладке!</string>
 </resources>
