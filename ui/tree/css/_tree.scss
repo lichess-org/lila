@@ -18,6 +18,10 @@ $c-blunder: #df5353;
   move {
     @extend %move;
 
+    @media (hover: none) {
+      user-select: none;
+    }
+
     &.inaccuracy {
       color: $c-inaccuracy;
     }
