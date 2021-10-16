@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="puzzles">ପ୍ରହେଳିକା</string>
+  <string name="puzzleThemes">ପ୍ରହେଳିକାର ଥିମ୍</string>
   <string name="advanced">ବିକଶିତ</string>
+  <string name="didYouLikeThisPuzzle">ଆପଣଙ୍କୁ ଏହି ପ୍ରହେଳିକା ଭଲ ଲାଗିଲା କି?</string>
+  <string name="puzzleId">ପ୍ରହେଳିକା %s</string>
+  <string name="puzzleOfTheDay">ଆଜିର ପ୍ରହେଳିକା</string>
+  <string name="puzzleComplete">ପ୍ରହେଳିକା ସଂପୂର୍ଣ୍ଣ ହେଲା!</string>
+  <string name="history">ପ୍ରହେଳିକା ଇତିବୃତ୍ତି</string>
 </resources>
