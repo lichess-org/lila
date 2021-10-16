@@ -157,7 +157,7 @@ to speed things up!</string>
 वज़ीर = 9
 हाथी = 5
 ऊँट = 3
-घोडा = 3
+घोड़ा = 3
 प्यादा = 1
 राजा अनमोल है! इसे खोने का मतलब है खेल को खोना।</string>
   <string name="queenOverBishop">उच्च मूल्य वाले मोहरे को लेवे रानी &gt; ऊंट</string>
@@ -165,9 +165,9 @@ to speed things up!</string>
   <string name="pieceValueLegal">उच्चतम मूल्य के साथ वाला मोहर ले लो! सुनिश्चित करें कि आपका कदम कानूनी है!</string>
   <string name="takeThePieceWithTheHighestValue">उच्च मूल्य वाले मोहरे को लेवे!</string>
   <string name="pieceValueComplete">बधाई हो! आप मोहरों का मूल्य जानते हैं!
-रानी = 9
+वज़ीर = 9
 हाथी = 5
-ऊंट = 3
+ऊँट = 3
 घोड़ा = 3
 प्यादा = 1</string>
   <string name="checkInTwo">दो चाल मैं शह</string>
