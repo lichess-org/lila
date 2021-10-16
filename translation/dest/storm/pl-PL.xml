@@ -58,5 +58,8 @@
   <string name="slowPuzzles">Zadania bez limitu czasu</string>
   <string name="thisWeek">W tym tygodniu</string>
   <string name="thisMonth">W tym miesiącu</string>
+  <string name="allTime">Od początku</string>
   <string name="clickToReload">Kliknij, aby przeładować</string>
+  <string name="thisRunHasExpired">To uruchomienie wygasło!</string>
+  <string name="thisRunWasOpenedInAnotherTab">To uruchomienie zostało już otwarte w innej karcie!</string>
 </resources>
