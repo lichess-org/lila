@@ -18,4 +18,8 @@
   <string name="lookupOfPlayer">ଜଣେ ଖେଳାଳିଙ୍କ ଖେଳରୁ ପ୍ରହେଳିକା ଦେଖନ୍ତୁ</string>
   <string name="fromXGames">%sଙ୍କ ଖେଳରୁ ପ୍ରହେଳିକା</string>
   <string name="searchPuzzles">ପ୍ରହେଳିକା ଖୋଜନ୍ତୁ</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%sଟିଏ ଖେଳିଛନ୍ତି</item>
+    <item quantity="other">%sଟି ଖେଳିଛନ୍ତି</item>
+  </plurals>
 </resources>
