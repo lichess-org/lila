@@ -55,4 +55,6 @@
   <string name="thisWeek">Esta semana</string>
   <string name="thisMonth">Este mês</string>
   <string name="clickToReload">Clique para recarregar</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Esta sessão expirou!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Esta sessão foi aberta noutra aba!</string>
 </resources>
