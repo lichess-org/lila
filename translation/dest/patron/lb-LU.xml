@@ -75,5 +75,5 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="nowLifetime">Du bass elo en liewenslaangen Lichess Ënnerstëtzer!</string>
   <string name="nowOneMonth">Du bass elo en Lichess Ënnerstëtzer fir ee Mount!</string>
   <string name="downgradeNextMonth">An engem Mount, gëss du NET nei verrechent an däin Lichess Konto wäert rëm zu engem regulären Konto ginn.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung änneren</string>
+  <string name="changeCurrency">Währung änneren</string>
 </resources>
