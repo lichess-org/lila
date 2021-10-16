@@ -95,6 +95,9 @@
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
+  <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
+  <string name="lossOr50MovesByPriorMistake">Derrota o 50 movimientos por error anterior</string>
+  <string name="unknownDueToRounding">Victoria/derrota garantizada apenas si la línea de movimientos recomendados fue seguida desde el último movimiento de captura o de peón, a causa del posible redondeo.</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -553,6 +556,14 @@
   <string name="tools">Herramientas</string>
   <string name="increment">Incremento</string>
   <string name="error.required">Este campo es obligatorio</string>
+  <string name="error.email">Esta dirección de correo electrónico es inválida</string>
+  <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e intenta de nuevo.</string>
+  <string name="error.email_unique">Dirección de correo inválida o en uso</string>
+  <string name="error.email_different">Esta ya es tu dirección de correo electrónico</string>
+  <string name="error.minLength">La longitud mínima es %s</string>
+  <string name="error.maxLength">La longitud máxima es %s</string>
+  <string name="error.min">Debe ser mayor o igual a %s</string>
+  <string name="error.max">Debe ser menor o igual a %s</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="onlyExistingConversations">Solo conversaciones existentes</string>
   <string name="onlyFriends">Sólo amigos</string>

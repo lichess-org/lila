@@ -215,24 +215,26 @@ final class Mod(
       env.report.api.inquiries ofModId me.id flatMap {
         case None => Redirect(routes.Report.list).fuccess
         case Some(report) =>
-          env.user.lightUserApi asyncFallback report.user flatMap { user =>
-            import lila.report.Room
-            import lila.irc.IrcApi.ModDomain
-            env.irc.api.inquiry(
-              user = user,
-              mod = me,
-              domain = report.room match {
-                case Room.Cheat | Room.Boost => ModDomain.Hunt
-                case Room.Comm               => ModDomain.Comm
-                // spontaneous inquiry
-                case _ if Granter(_.Admin)(me.user)   => ModDomain.Admin
-                case _ if Granter(_.Hunter)(me.user)  => ModDomain.Hunt // heuristic
-                case _ if Granter(_.Shusher)(me.user) => ModDomain.Comm
-                case _                                => ModDomain.Admin
+          env.user.repo named report.user flatMap {
+            _ ?? { user =>
+              import lila.report.Room
+              import lila.irc.IrcApi.ModDomain
+              env.irc.api.inquiry(
+                user = user,
+                mod = me,
+                domain = report.room match {
+                  case Room.Cheat | Room.Boost => ModDomain.Hunt
+                  case Room.Comm               => ModDomain.Comm
+                  // spontaneous inquiry
+                  case _ if Granter(_.Admin)(me.user)   => ModDomain.Admin
+                  case _ if Granter(_.Hunter)(me.user)  => ModDomain.Hunt // heuristic
+                  case _ if Granter(_.Shusher)(me.user) => ModDomain.Comm
+                  case _                                => ModDomain.Admin
 
-              },
-              room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
-            ) inject NoContent
+                },
+                room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
+              ) inject NoContent
+            }
           }
       }
     }
@@ -394,9 +396,8 @@ final class Mod(
     }
 
   protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
-    val query = UserSearch exact q
-    env.mod.search(query) map { users =>
-      Ok(html.mod.search(me, UserSearch.form fill query, users))
+    env.mod.search(q) map { users =>
+      Ok(html.mod.search(me, UserSearch.form fill q, users))
     }
   }
 
@@ -489,7 +490,7 @@ final class Mod(
             .map(EmailAddress.apply) flatMap env.security.emailAddressValidator.validate
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-            env.mod.search(UserSearch.exact(q)) flatMap {
+            env.mod.search(q) flatMap {
               case List(UserModel.WithEmails(user, _)) =>
                 (!user.everLoggedIn).?? {
                   lila.mon.user.register.modConfirmEmail.increment()

@@ -61,7 +61,7 @@ final class ChallengeApi(
   def cancel(c: Challenge) =
     repo.cancel(c) >>- {
       uncacheAndNotify(c)
-      Bus.publish(Event.Cancel(c), "challenge")
+      Bus.publish(Event.Cancel(c.cancel), "challenge")
     }
 
   private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)

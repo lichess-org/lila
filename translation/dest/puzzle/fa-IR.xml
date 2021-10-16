@@ -15,7 +15,6 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
-  <string name="yourPuzzleRatingX">امتیاز شما در معماها: %s</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>

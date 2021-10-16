@@ -42,13 +42,18 @@
   <string name="blackResigned">କଳା ଇସ୍ତଫା ଦେଇଛନ୍ତି</string>
   <string name="whiteLeftTheGame">ଧଳା ଖେଳ ଛାଡିଥିଲେ</string>
   <string name="blackLeftTheGame">କଳା ଖେଳ ଛାଡିଥିଲେ</string>
+  <string name="whiteDidntMove">ଧଳା ଘୁଞ୍ଚିଲା ନାହିଁ</string>
+  <string name="blackDidntMove">କଳା ଘୁଞ୍ଚିଲା ନାହିଁ</string>
   <string name="requestAComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ପାଇଁ ଅନୁରୋଧ</string>
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
+  <string name="computerAnalysisDisabled">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଅକ୍ଷମ ହୋଇଛି</string>
   <string name="analysis">ବୋର୍ଡର ବିଶ୍ଳେଷଣ</string>
+  <string name="depthX">ଗଭୀରତା %s</string>
   <string name="usingServerAnalysis">ସର୍ଭର ବିଶ୍ଳେଷଣ ବ୍ୟବହାର ହେଉଛି</string>
   <string name="loadingEngine">ଇଞ୍ଜିନ୍ ଲୋଡ୍ ହେଉଛି ...</string>
   <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
+  <string name="goDeeper">ଗଭୀରକୁ ଯାଆନ୍ତୁ</string>
   <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
   <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
   <string name="makeMainLine">ମୁଖ୍ୟ ରେଖା ବୋନାନ୍ତୁ</string>
@@ -161,7 +166,7 @@
     <item quantity="one">%s ବନ୍ଧୁ ଅନଲାଇନ୍</item>
     <item quantity="other">%s ଜଣ ବନ୍ଧୁ ଅନଲାଇନ୍</item>
   </plurals>
-  <string name="followX">%sଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
+  <string name="followX">ଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
   <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
@@ -198,6 +203,14 @@
   <string name="allInformationIsPublicAndOptional">ସମସ୍ତ ସୂଚନା ସାର୍ବଜନୀନ ଏବଂ ବୈକଳ୍ପିକ ଅଟେ।</string>
   <string name="studyMenu">ଅଧ୍ୟୟନ</string>
   <string name="practice">ଅଭ୍ୟାସ</string>
+  <string name="error.email">ଏହି ଇମେଲ୍ ଠିକଣା ଅବୈଧ ଅଟେ</string>
+  <string name="error.email_acceptable">ଏହି ଇମେଲ୍ ଠିକଣା ଗ୍ରହଣୀୟ ନୁହେଁ। ଦୟାକରି ଏହାକୁ ଦୁଇଥର ଯାଞ୍ଚ କରନ୍ତୁ, ଏବଂ ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ.</string>
+  <string name="error.email_unique">ଇମେଲ୍ ଠିକଣା ଅବୈଧ କିମ୍ୱା ପୂର୍ବରୁ ବ୍ୟବହୃତ</string>
+  <string name="error.email_different">ଏହା ପୂର୍ବରୁ ଆପଣଙ୍କର ଇମେଲ୍ ଠିକଣା ଅଟେ</string>
+  <string name="error.minLength">ସର୍ବନିମ୍ନ ଦୈର୍ଘ୍ୟ ହେଉଛି %s</string>
+  <string name="error.maxLength">ସର୍ବାଧିକ ଦୈର୍ଘ୍ୟ ହେଉଛି %s</string>
+  <string name="error.min">%s ରୁ ଅଧିକ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
+  <string name="error.max">%s ରୁ କମ୍ କିମ୍ବା ସମାନ ହେବା ଆବଶ୍ୟକ</string>
   <string name="onlyFriends">କେବଳ ବନ୍ଧୁଗଣ</string>
   <string name="termsOfService">ସେବାର ସର୍ତ୍ତାବଳୀ</string>
   <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
@@ -225,6 +238,7 @@
   <string name="classical">ଶାସ୍ତ୍ରୀୟ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
+  <string name="newPendingReview">ନୂଆ ବିଚାରାଧୀନ ସମୀକ୍ଷା</string>
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>

@@ -46,6 +46,8 @@
   <string name="blackResigned">Hitam telah menyerah kalah</string>
   <string name="whiteLeftTheGame">Putih telah meninggalkan perlawanan</string>
   <string name="blackLeftTheGame">Hitam telah meninggalkan perlawanan</string>
+  <string name="whiteDidntMove">Putih tidak bergerak</string>
+  <string name="blackDidntMove">Hitam tidak bergerak</string>
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>

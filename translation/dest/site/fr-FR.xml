@@ -556,6 +556,14 @@
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
   <string name="error.required">Ce champ est requis</string>
+  <string name="error.email">Cette adresse courriel est invalide</string>
+  <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>
+  <string name="error.email_unique">Adresse courriel invalide ou déjà utilisée</string>
+  <string name="error.email_different">Vous utilisez déjà cette adresse courriel</string>
+  <string name="error.minLength">La longueur minimale est %s</string>
+  <string name="error.maxLength">La longueur maximale est %s</string>
+  <string name="error.min">Doit être supérieur(e) ou égal(e) à %s</string>
+  <string name="error.max">Doit être inférieur(e) ou égal(e) à %s</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
   <string name="onlyExistingConversations">Conversations en cours seulement</string>
   <string name="onlyFriends">Seulement les amis</string>

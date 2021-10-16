@@ -13,7 +13,6 @@
   <string name="specialMoves">বিশেশ চাল</string>
   <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
   <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>
-  <string name="yourPuzzleRatingX">আপনার পাজল রেটিংস %s</string>
   <string name="findTheBestMoveForWhite">সাদার জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="toGetPersonalizedPuzzles">আপনার ব্যাক্তিগত পাজল পেতে:</string>

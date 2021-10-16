@@ -77,6 +77,13 @@
   <string name="newPasswordsDontMatch">စကားဝှက် အသစ်တို့ အချင်းချင်း မကိုက်ညီပါ</string>
   <string name="newPasswordStrength">စကားဝှက် အားကောင်းမှု</string>
   <string name="privacyPolicy">ပုဂ္ဂိုလ်ဆိုင်ရာ အချက်အလက် လုံခြုံရေး မူဝါဒ</string>
+  <string name="error.email">ဤအီးမေးလ် လိပ်စာ ချွတ်ယွင်းနေပါသည်</string>
+  <string name="error.email_acceptable">ဤအီးမေလ်း လိပ်စာကို လက်ခံ၍ မရပါ။ နောက်တစ်ခါ စစ်ဆေးပြီး ထပ်မံ ကြိုးစားပါ။</string>
+  <string name="error.email_unique">အီးမေးလ် လိပ်စာ ချွတ်ယွင်းနေပါသည် သို့မဟုတ် သူတပါးက အသုံးပြုပြီး ဖြစ်ပါသည်</string>
+  <string name="error.email_different">ယခု ပေးသော လိပ်စာမှာ လူကြီးမင်း၏ အီးမေးလ် လိပ်စာ ဖြစ်ပြီး ဖြစ်ပါသည်</string>
+  <string name="error.maxLength">အက္ခရာ အများဆုံး %s လုံး သာပါရှိနိုင်သည်</string>
+  <string name="error.min">အက္ခရာ အနည်းဆုံး %s လုံး ပါရှိရမည်</string>
+  <string name="error.max">အက္ခရာ အများဆုံး %s လုံးသာ ပါရှိနိုင်သည်</string>
   <string name="readAboutOur">ကျွန်ုပ်တို့၏ %s အကြောင်း ဖတ်ရှုပါ။</string>
   <string name="important">အရေးကြီးပါသည်</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s တွင် အဖြေ ရှိပြီး ဖြစ်နိုင်ပါသည်။</string>

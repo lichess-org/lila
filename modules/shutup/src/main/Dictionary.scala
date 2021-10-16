@@ -1,13 +1,14 @@
 package lila.shutup
 
-/** - words are automatically pluralized. "tit" will also match "tits"
-  * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
+/** - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
   * - words do not partial match. "anal" will NOT match "analysis".
+  * - en, es and de words are automatically pluralized. "tit" will also match "tits", "cabron" will also match "cabrones" etc.
+  * - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
 private object Dictionary {
 
   def en = dict("""
-(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
+(f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|)
 (f|ph)agg?([oi]t|)
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -32,7 +33,7 @@ bugger
 buk?kake
 bull?shit
 cancer
-cheat(ing|ed|er|)
+cheat(ing|er|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -42,6 +43,7 @@ cock(suc?k(er|ing)|)
 condom
 coon
 coward?
+cry(baby|ing|)
 cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
@@ -49,7 +51,7 @@ dogg?ystyle
 douche(bag|)
 dyke
 engine
-fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
+fck(er|r|u|k|t|ing?|ign|tard?|face|off?|)
 foreskin
 gangbang
 gay
@@ -76,7 +78,7 @@ lesbo
 lo+ser
 masturbat(e|ion|ing)
 milf
-molest
+molest(er|)
 moron
 mother(fuc?k(er|)|)
 mthrfckr
@@ -240,6 +242,7 @@ gaa?nd
   def fr = dict("""
 fdp
 pd
+pute
 triche(ur|)
 """)
 

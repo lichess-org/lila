@@ -24,4 +24,5 @@
   <string name="broadcastUrl">URL adresa přenosu</string>
   <string name="currentRoundUrl">URL aktuálního kola</string>
   <string name="currentGameUrl">URL adresa právě probíhající partie</string>
+  <string name="downloadAllRounds">Stáhnout hry ze všech kol</string>
 </resources>

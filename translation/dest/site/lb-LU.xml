@@ -556,6 +556,14 @@
   <string name="tools">Tools</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Dëst Feld ass obligatoresch</string>
+  <string name="error.email">Dës Email ass ongëlteg</string>
+  <string name="error.email_acceptable">Dës Email Adress ass net akzeptabel. Iwwerpréif se wannechgelift an probéier nach eng Kéier.</string>
+  <string name="error.email_unique">Email Adress ongëlteg oder schon benotzt</string>
+  <string name="error.email_different">Dat ass schon deng Email Adress</string>
+  <string name="error.minLength">Mindestens %s Zeechen</string>
+  <string name="error.maxLength">Maximal %s Zeechen</string>
+  <string name="error.min">Muss mindestens %s sinn</string>
+  <string name="error.max">Däerf maximal %s sinn</string>
   <string name="ifRatingIsPlusMinusX">Falls Wäertung ± %s</string>
   <string name="onlyExistingConversations">Just lafend Konversatiounen</string>
   <string name="onlyFriends">Just Frënn</string>
@@ -823,7 +831,7 @@
   <string name="download">Download</string>
   <string name="welcome">Wëllkomm!</string>
   <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
-All Betriebskäschten, Entwécklung and Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
+All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="coachManager">Coach Manager</string>
   <string name="streamerManager">Stream Manager</string>
   <string name="cancelTournament">Turnéier annuléieren</string>

@@ -71,6 +71,18 @@ const sound: SoundI = new (class {
     else doPlay();
   }
 
+  playOnce(name: string): void {
+    // increase chances that the first tab can put a local storage lock
+    const doIt = () => {
+      const storage = lichess.storage.make('just-played');
+      if (Date.now() - parseInt(storage.get()!, 10) < 1000) return;
+      storage.set('' + Date.now());
+      this.play(name);
+    };
+    if (document.hasFocus()) doIt();
+    else setTimeout(doIt, 10 + Math.random() * 500);
+  }
+
   setVolume = this.volumeStorage.set;
 
   getVolume = () => {

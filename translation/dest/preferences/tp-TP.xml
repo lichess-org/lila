@@ -26,7 +26,7 @@
   <string name="clickTwoSquares">o pilin e selo tu</string>
   <string name="dragPiece">o tawa e ijo</string>
   <string name="bothClicksAndDrag">ale</string>
-  <string name="premovesPlayingDuringOpponentTurn">tawa lon tenpo kama (sina tawa e ijo tenpo sama la jan ante li musi)</string>
+  <string name="premovesPlayingDuringOpponentTurn">tawa lon tenpo kama (sina tawa e ijo lon tenpo musi pi jan ante)</string>
   <string name="takebacksWithOpponentApproval">o weka e tawa (la jan ante li pilin pona)</string>
   <string name="inCasualGamesOnly">taso lon musi pi nanpa ala</string>
   <string name="promoteToQueenAutomatically">o kama e lawa meli la ilo sona li tawa</string>
@@ -44,4 +44,5 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">mi sitelen e palisa lon supa musi la, o pali ala pali e ni: palisa li nasin tawa tawa ken taso?</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">mi pini ike anu pini pi anpa ala e musi la, o toki \"musi pona, sina pona\" (toki Inli)</string>
   <string name="yourPreferencesHaveBeenSaved">wile sina li awen.</string>
+  <string name="scrollOnTheBoardToReplayMoves">ilo sike li tawa la o lukin sin e tawa</string>
 </resources>

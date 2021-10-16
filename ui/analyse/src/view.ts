@@ -398,6 +398,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': !!tour,
         'analyse-hunter': ctrl.opts.hunter,
+        'analyse--wiki': !!ctrl.wiki,
       },
     },
     [

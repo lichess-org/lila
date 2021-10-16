@@ -89,6 +89,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
     }
 
+  def named(usernames: List[String]): Fu[List[User]] =
+    coll.byIds[User](usernames filter User.noGhost map normalize)
+
   def enabledNameds(usernames: List[String]): Fu[List[User]] =
     coll
       .find($inIds(usernames map normalize) ++ enabledSelect)

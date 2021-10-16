@@ -58,6 +58,7 @@ export interface AnalysePref {
   highlight?: boolean;
   showCaptured?: boolean;
   animationDuration?: number;
+  moveEvent: Prefs.MoveEvent;
 }
 
 export interface ServerEvalData {
@@ -141,6 +142,7 @@ export interface AnalyseOpts {
     parseMoves: boolean;
     instance?: Promise<ChatCtrl>;
   };
+  wiki?: boolean;
 }
 
 export interface JustCaptured extends cg.Piece {

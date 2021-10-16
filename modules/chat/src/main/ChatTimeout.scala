@@ -100,7 +100,7 @@ object ChatTimeout {
   val form = Form(
     mapping(
       "roomId" -> nonEmptyText,
-      "chan"   -> lila.common.Form.stringIn(Set("tournament", "simul")),
+      "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss")),
       "userId" -> nonEmptyText,
       "reason" -> nonEmptyText,
       "text"   -> nonEmptyText

@@ -61,6 +61,10 @@ body {
   }
 
   --meta-height: auto;
+  --chat-height: fit-content(0);
+  &--wiki {
+    --chat-height: 0;
+  }
 
   grid-template-rows: auto auto minmax(20em, 30vh);
   grid-template-areas:

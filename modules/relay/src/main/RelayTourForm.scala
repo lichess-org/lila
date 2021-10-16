@@ -21,7 +21,7 @@ final class RelayTourForm {
       "name"        -> cleanText(minLength = 3, maxLength = 80),
       "description" -> cleanText(minLength = 3, maxLength = 400),
       "markup"      -> optional(cleanText(maxLength = 20_000)),
-      "official"    -> optional(boolean)
+      "tier"        -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST))
     )(Data.apply)(Data.unapply)
   )
 
@@ -36,7 +36,7 @@ object RelayTourForm {
       name: String,
       description: String,
       markup: Option[String],
-      official: Option[Boolean]
+      tier: Option[RelayTour.Tier]
   ) {
 
     def update(tour: RelayTour, user: User) =
@@ -44,7 +44,7 @@ object RelayTourForm {
         name = name,
         description = description,
         markup = markup,
-        official = ~official && Granter(_.Relay)(user)
+        tier = tier ifTrue Granter(_.Relay)(user)
       )
 
     def make(user: User) =
@@ -54,7 +54,7 @@ object RelayTourForm {
         description = description,
         markup = markup,
         ownerId = user.id,
-        official = ~official && Granter(_.Relay)(user),
+        tier = tier ifTrue Granter(_.Relay)(user),
         active = false,
         createdAt = DateTime.now,
         syncedAt = none
@@ -68,7 +68,7 @@ object RelayTourForm {
         name = tour.name,
         description = tour.description,
         markup = tour.markup,
-        official = tour.official option true
+        tier = tour.tier
       )
   }
 }

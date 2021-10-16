@@ -361,8 +361,7 @@ object contact {
       )
     )
 
-  val dmcaUrl =
-    "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform"
+  val dmcaUrl = "/dmca"
 
   def apply()(implicit ctx: Context) =
     page.layout(

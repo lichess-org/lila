@@ -86,7 +86,7 @@ final class UblogPaginator(
             as = "blog",
             local = "blog",
             foreign = "_id",
-            pipeline = List(
+            pipe = List(
               $doc(
                 "$match" -> $doc(
                   "$expr" -> $doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW))

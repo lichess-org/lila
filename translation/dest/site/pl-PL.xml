@@ -112,11 +112,11 @@
   <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
-  <string name="evaluationGauge">Wskaźnik oszacowania</string>
+  <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
-  <string name="infiniteAnalysis">Nieograniczona analiza</string>
+  <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
   <string name="mistake">Pomyłka</string>
@@ -469,7 +469,7 @@
   <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
   <string name="fewerPlayers">Ustawienie warunków wstępu sprawi, że do turnieju przystąpi mniej osób.</string>
   <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
-  <string name="makePrivateTournament">Uczyń turniej prywatnym ograniczając dostęp za pomocą hasła</string>
+  <string name="makePrivateTournament">Ustaw turniej jako prywatny i ogranicz dostęp za pomocą hasła</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
@@ -622,6 +622,14 @@
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
   <string name="error.required">To pole jest wymagane</string>
+  <string name="error.email">Ten adres e-mail jest nieprawidłowy</string>
+  <string name="error.email_acceptable">Ten adres e-mail jest niedopuszczalny. Sprawdź go i spróbuj ponownie.</string>
+  <string name="error.email_unique">Adres e-mail jest nieprawidłowy lub jest już w użyciu</string>
+  <string name="error.email_different">To jest już Twój adres e-mail</string>
+  <string name="error.minLength">Minimalna długość to %s</string>
+  <string name="error.maxLength">Maksymalna długość to %s</string>
+  <string name="error.min">Musi być dłuższe lub równe %s</string>
+  <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>

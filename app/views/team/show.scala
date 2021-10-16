@@ -189,9 +189,7 @@ object show {
           div(cls := "team-show__content__col2")(
             standardFlash(),
             st.section(cls := "team-show__desc")(
-              markdown {
-                t.descPrivate.ifTrue(info.mine) | t.description
-              }
+              markdown(t, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
@@ -246,7 +244,7 @@ object show {
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
       .build[String, String]()
-    def apply(text: String): Frag = raw(cache.get(text, renderer("team")))
+    def apply(team: Team, text: String): Frag = raw(cache.get(text, renderer(s"team:${team.id}")))
   }
 
   // handle special teams here

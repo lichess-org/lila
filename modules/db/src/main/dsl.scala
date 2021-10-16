@@ -355,10 +355,10 @@ trait dsl {
       simple(from.name, as, local, foreign)
     def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
       simple(from.name.value, as, local, foreign)
-    def pipeline(from: Coll, as: String, local: String, foreign: String, pipeline: List[Bdoc]): Bdoc =
+    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       $doc(
         "$lookup" -> $doc(
-          "from" -> from.name,
+          "from" -> from,
           "as"   -> as,
           "let"  -> $doc("local" -> s"$$$local"),
           "pipeline" -> {
@@ -366,10 +366,14 @@ trait dsl {
               "$match" -> $doc(
                 "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
               )
-            ) :: pipeline
+            ) :: pipe
           }
         )
       )
+    def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipeline(from.name, as, local, foreign, pipe)
+    def pipeline(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipeline(from.name.value, as, local, foreign, pipe)
   }
 
   implicit class ElementBuilderLike(val field: String)

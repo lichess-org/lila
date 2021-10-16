@@ -557,6 +557,14 @@
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
   <string name="error.required">Αυτό το πεδίο είναι υποχρεωτικό</string>
+  <string name="error.email">Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη</string>
+  <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή. Ελέγξτε την και προσπαθήστε ξανά.</string>
+  <string name="error.email_unique">Η διεύθυνση ηλεκτρονικού ταχυδρομείου είναι άκυρη ή υπάρχει ήδη</string>
+  <string name="error.email_different">Έχετε ήδη αυτήν την διεύθυνση ηλ. ταχυδρομείου</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Πρέπει να περιέχει τουλάχιστον %s χαρακτήρες</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Πρέπει να περιέχει το πολύ %s χαρακτήρες</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Πρέπει να είναι τουλάχιστον %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Πρέπει να είναι το πολύ %s</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
   <string name="onlyExistingConversations">Μόνο υπάρχουσες συνομιλίες</string>
   <string name="onlyFriends">Μόνο φίλοι</string>

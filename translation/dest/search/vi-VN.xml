@@ -22,4 +22,7 @@
   <string name="sortBy">Sắp xếp theo</string>
   <string name="analysis">Phân tích</string>
   <string name="onlyAnalysed">Chỉ những game mà máy tính phân tích sẵn sàng</string>
+  <string name="color">Màu sắc</string>
+  <string name="maxNumber">Số lượng tối đa</string>
+  <string name="maxNumberExplanation">Số trận đấu tối đa để tải</string>
 </resources>

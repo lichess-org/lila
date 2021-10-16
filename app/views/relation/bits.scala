@@ -88,6 +88,6 @@ object bits {
           },
           pagerNextTable(pager, np => addQueryParameter(call.url, "page", np))
         )
-      else tbody(tr(td(colspan := 2)("None found.", br)))
+      else tbody(tr(td(colspan := 2)(trans.none())))
     )
 }

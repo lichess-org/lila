@@ -11,13 +11,13 @@
     padding: 2rem 0;
   }
 
-  .clear {
-    display: flex;
-    justify-content: flex-end;
-    button {
-      &:hover {
-        color: $c-bad;
-      }
+  .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    &:hover {
+      color: $c-bad;
     }
   }
 

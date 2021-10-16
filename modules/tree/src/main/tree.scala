@@ -150,7 +150,7 @@ object Node {
     def sanitize(text: String) =
       Text {
         lila.common.String
-          .fullCleanUp(text)
+          .softCleanUp(text)
           .take(4000)
           .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
           .replaceAll("""(?m)(^ *| +(?= |$))""", "")

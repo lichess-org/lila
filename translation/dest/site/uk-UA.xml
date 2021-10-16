@@ -420,6 +420,8 @@
   <string name="follow">Спостерігати</string>
   <string name="following">Спостерігаю</string>
   <string name="unfollow">Відмовитися</string>
+  <string name="followX">Стежити за %s</string>
+  <string name="unfollowX">Не слідкувати за %s</string>
   <string name="block">Блокувати</string>
   <string name="blocked">Заблокований</string>
   <string name="unblock">Розблокувати</string>
@@ -617,6 +619,14 @@
   <string name="tools">Інструменти</string>
   <string name="increment">Приріст</string>
   <string name="error.required">Це поле обов\'язкове</string>
+  <string name="error.email">Ця адреса електронної пошти є недійсна</string>
+  <string name="error.email_acceptable">Ця адреса електронної пошти неприйнятна. Будь ласка, перевірте її та спробуйте знову.</string>
+  <string name="error.email_unique">Електронна адреса недійсна або вже використана</string>
+  <string name="error.email_different">Це ваша діюча електронна адреса</string>
+  <string name="error.minLength">Має бути принаймні %s символів</string>
+  <string name="error.maxLength">Повинно бути не більше %s символів</string>
+  <string name="error.min">Має бути принаймні %s</string>
+  <string name="error.max">Має бути щонайбільше %s</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyExistingConversations">Тільки існуючі бесіди</string>
   <string name="onlyFriends">Тільки друзям</string>
@@ -909,6 +919,10 @@
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
   <string name="onlyTitled">Тільки титуловані гравці</string>
   <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
+  <string name="positionInputHelp">Вставте правильний FEN для початку кожної гри з даної позиції.
+Він працює тільки з стандартними іграми, а не з варіантами.
+Для генерації позиції FEN ви можете використати %s щоб вставити його тут.
+Залиште пустим, щоб почати гру з початкової позиції.</string>
   <string name="cancelSimul">Відмінити сеанс</string>
   <string name="simulHostcolor">Колір сеансера для кожної гри</string>
   <string name="estimatedStart">Приблизний час початку</string>
@@ -916,6 +930,8 @@
   <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
+  <string name="markdownAvailable">%s доступний для більш детального форматування.</string>
+  <string name="embedsAvailable">Вставте URL-адресу гри чи розділ дослідження, щоб вставити його.</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
   <string name="tournChat">Турнірний чат</string>
   <string name="noChat">Без чату</string>
@@ -936,4 +952,9 @@
   <string name="emailAssociatedToaccount">Адреса електронної пошти, пов\'язана з обліковим записом</string>
   <string name="sentEmailWithLink">Ми надіслали вам електронний лист із посиланням.</string>
   <string name="tournamentEntryCode">Код входу до турніру</string>
+  <string name="hangOn">Зачекайте!</string>
+  <string name="gameInProgress">У вас є активна гра з %s.</string>
+  <string name="abortTheGame">Скасувати гру</string>
+  <string name="resignTheGame">Здатися</string>
+  <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
 </resources>

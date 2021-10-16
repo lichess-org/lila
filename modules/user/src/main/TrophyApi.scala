@@ -13,19 +13,19 @@ final class TrophyApi(
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
+  val kindCache = {
+    // careful of collisions with trophyKindStringBSONHandler
+    val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 
-  val kindCache = cacheApi.sync[String, TrophyKind](
-    name = "trophy.kind",
-    initialCapacity = 32,
-    compute = id =>
-      kindColl.byId(id)(trophyKindObjectBSONHandler) map { k =>
-        k.getOrElse(TrophyKind.Unknown)
-      },
-    default = _ => TrophyKind.Unknown,
-    strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour)
-  )
+    cacheApi.sync[String, TrophyKind](
+      name = "trophy.kind",
+      initialCapacity = 32,
+      compute = id => kindColl.byId[TrophyKind](id)(trophyKindObjectBSONHandler).dmap(_ | TrophyKind.Unknown),
+      default = _ => TrophyKind.Unknown,
+      strategy = Syncache.WaitAfterUptime(20 millis),
+      expireAfter = Syncache.ExpireAfterWrite(1 hour)
+    )
+  }
 
   implicit private val trophyKindStringBSONHandler =
     BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
@@ -35,7 +35,13 @@ final class TrophyApi(
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): List[Trophy] =
+  def roleBasedTrophies(
+      user: User,
+      isPublicMod: Boolean,
+      isDev: Boolean,
+      isVerified: Boolean,
+      isContentTeam: Boolean
+  ): List[Trophy] =
     List(
       isPublicMod option Trophy(
         _id = "",
@@ -55,6 +61,13 @@ final class TrophyApi(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.verified,
+        date = org.joda.time.DateTime.now,
+        url = none
+      ),
+      isContentTeam option Trophy(
+        _id = "",
+        user = user.id,
+        kind = kindCache sync TrophyKind.contentTeam,
         date = org.joda.time.DateTime.now,
         url = none
       )

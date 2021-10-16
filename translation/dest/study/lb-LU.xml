@@ -47,6 +47,10 @@
   <string name="annotateWithGlyphs">Mat Symboler kommentéieren</string>
   <string name="theChapterIsTooShortToBeAnalysed">D\'Kapitel ass ze kuerz fir analyséiert ze ginn.</string>
   <string name="onlyContributorsCanRequestAnalysis">Just Etüden Matwierkender kënnen eng Computer Analyse ufroen.</string>
+  <string name="getAFullComputerAnalysis">Vollstänneg serversäiteg Computeranalyse vun der Haaptvariant erhalen.</string>
+  <string name="makeSureTheChapterIsComplete">Stell sécher dass d\'Kapitel vollstänneg ass. Du kanns eng Analyse just eemol ufroen.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">All SYNC Memberen gesinn déi selwecht Positioun</string>
+  <string name="shareChanges">Deel Ännerungen mat den Zuschauer an späicher se um Server</string>
   <string name="playing">Lafend Partie</string>
   <string name="first">Éischt Säit</string>
   <string name="previous">Zeréck</string>
@@ -60,10 +64,14 @@
   <string name="downloadGame">Partie eroflueden</string>
   <string name="studyUrl">Etüd URL</string>
   <string name="currentChapterUrl">Aktuellt Kapitel URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Zum Anbetten an een Forum oder Blog afügen</string>
   <string name="startAtInitialPosition">Mat Startpositioun ufänken</string>
   <string name="startAtX">Bei %s ufänken</string>
   <string name="embedInYourWebsite">An Websäit anbetten</string>
+  <string name="readMoreAboutEmbedding">Méi iwwer Anbetten liesen</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Just ëffentlech Etüden kënnen angebett ginn!</string>
   <string name="open">Opmaachen</string>
+  <string name="xBroughtToYouByY">%1$s, presentéiert vum %2$s</string>
   <string name="studyNotFound">Etüd net fonnt</string>
   <string name="editChapter">Kapitel editéieren</string>
   <string name="newChapter">Neit Kapitel</string>
@@ -74,10 +82,12 @@
   <string name="clearAnnotations">Annotatiounen läschen</string>
   <string name="deleteChapter">Kapitel läschen</string>
   <string name="deleteThisChapter">Kapitel läschen? Et gëtt keen zeréck!</string>
+  <string name="clearAllCommentsInThisChapter">All Kommentarer, Symboler an Zeechnungsformen an dësem Kapitel läschen?</string>
   <string name="rightUnderTheBoard">Direkt ënnert dem Briet</string>
   <string name="noPinnedComment">Keng</string>
   <string name="normalAnalysis">Normal Analyse</string>
   <string name="hideNextMoves">Nächst Zich verstoppen</string>
+  <string name="interactiveLesson">Interaktiv Übung</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Eidel</string>
   <string name="startFromInitialPosition">Aus Startpositioun ufänken</string>
@@ -94,6 +104,7 @@
   <string name="urlOfTheGame">URL vun den Partien, eng pro Zeil</string>
   <string name="loadAGameFromXOrY">Partien vun %1$s oder %2$s lueden</string>
   <string name="createChapter">Kapitel kréieren</string>
+  <string name="configureLiveBroadcast">Live Iwwerdroung konfiguréieren</string>
   <string name="createStudy">Etüd kreéieren</string>
   <string name="editStudy">Etüd änneren</string>
   <string name="visibility">Visibilitéit</string>
@@ -107,6 +118,8 @@
   <string name="members">Memberen</string>
   <string name="everyone">Jiddereen</string>
   <string name="enableSync">Synchronisatioun aktivéieren</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Jo: Jiddereen op der selwechter Positioun halen</string>
+  <string name="noLetPeopleBrowseFreely">Nee: Leit individuell browsen loossen</string>
   <string name="pinnedStudyComment">Ugepinnten Etüdenkommentar</string>
   <string name="start">Lass</string>
   <string name="save">Späicheren</string>
@@ -114,6 +127,7 @@
   <string name="deleteTheStudyChatHistory">Etüdenchat läschen? Et gëtt keen zeréck!</string>
   <string name="deleteStudy">Etüd läschen</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Komplett Etüd läschen? Et gëett keen zeréck! Tipp den Numm vun der Etüd an fir ze konfirméieren: %s</string>
+  <string name="whereDoYouWantToStudyThat">Wéieng Etüd wëlls du benotzen?</string>
   <string name="goodMove">Gudden Zuch</string>
   <string name="mistake">Feeler</string>
   <string name="brilliantMove">Brillianten Zuch</string>
@@ -140,4 +154,5 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mat der Iddi</string>
   <string name="nextChapter">Nächst Kapitel</string>
   <string name="prevChapter">Kapitel virdrun</string>
+  <string name="studyActions">Etüden-Aktiounen</string>
 </resources>

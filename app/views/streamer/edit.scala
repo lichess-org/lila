@@ -49,7 +49,7 @@ object edit {
               )
             )
           else views.html.streamer.header(s),
-          div(cls := "box__pad") {
+          div(cls := "box-pad") {
             val granted = s.streamer.approval.granted
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(

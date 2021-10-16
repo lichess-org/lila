@@ -105,6 +105,8 @@ case class Challenge(
     declineReason = reason.some
   )
 
+  def cancel = copy(status = Status.Canceled)
+
   def isBoardCompatible: Boolean = speed >= Speed.Blitz
   def isBotCompatible: Boolean   = speed >= Speed.Bullet
 }

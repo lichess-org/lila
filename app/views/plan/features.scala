@@ -42,11 +42,11 @@ object features {
               "Standard chess and ",
               a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
-            tr(custom("35 per day"))(
+            tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
               "Deep Stockfish 14+ server analysis"
             ),
             tr(unlimited)(
-              "Instant local Stockfish 14+ analysis"
+              "Instant local Stockfish 14+ analysis (depth 99)"
             ),
             tr(unlimited)(
               a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(

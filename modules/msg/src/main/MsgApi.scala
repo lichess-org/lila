@@ -175,32 +175,48 @@ final class MsgApi(
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
     colls.thread
-      .find($doc("users" -> user.id))
-      .sort($sort desc "lastMsg.date")
-      .cursor[MsgThread]()
-      .list(nb)
-      .flatMap {
-        _.map { thread =>
-          colls.msg
-            .find($doc("tid" -> thread.id), msgProjection)
-            .sort($sort desc "date")
-            .cursor[Msg]()
-            .list(11)
-            .flatMap { msgs =>
-              lightUserApi async thread.other(user) map { contact =>
-                ModMsgConvo(
-                  MsgConvo(
-                    contact | LightUser.fallback(thread other user),
-                    msgs.take(10),
-                    lila.relation.Relations(none, none),
-                    postable = false
-                  ),
-                  msgs.length == 11
-                )
-              }
-            }
-        }.sequenceFu
-      }
+      .aggregateList(nb) { framework =>
+        import framework._
+        Match($doc("users" -> user.id)) -> List(
+          Sort(Descending("lastMsg.date")),
+          Limit(nb),
+          UnwindField("users"),
+          Match($doc("users" $ne user.id)),
+          PipelineOperator(
+            $lookup.pipeline(
+              from = colls.msg,
+              as = "msgs",
+              local = "_id",
+              foreign = "tid",
+              pipe = List(
+                $doc("$sort"    -> $sort.desc("date")),
+                $doc("$limit"   -> 11),
+                $doc("$project" -> msgProjection)
+              )
+            )
+          ),
+          PipelineOperator(
+            $lookup.simple(
+              from = userRepo.coll,
+              as = "contact",
+              local = "users",
+              foreign = "_id"
+            )
+          ),
+          UnwindField("contact")
+        )
+      } map { docs =>
+      for {
+        doc     <- docs
+        msgs    <- doc.getAsOpt[List[Msg]]("msgs")
+        contact <- doc.getAsOpt[User]("contact")
+      } yield ModMsgConvo(
+        contact,
+        msgs take 10,
+        lila.relation.Relations(none, none),
+        msgs.length == 11
+      )
+    }
 
   def deleteAllBy(user: User): Funit =
     colls.thread.list[MsgThread]($doc("users" -> user.id)) flatMap { threads =>
@@ -209,7 +225,7 @@ final class MsgApi(
         notifier.deleteAllBy(threads, user)
     }
 
-  private val msgProjection = $doc("_id" -> false, "tid" -> false).some
+  private val msgProjection = $doc("_id" -> false, "tid" -> false)
 
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
     colls.msg
@@ -217,7 +233,7 @@ final class MsgApi(
         $doc("tid" -> threadId) ++ before.?? { b =>
           $doc("date" $lt b)
         },
-        msgProjection
+        msgProjection.some
       )
       .sort($sort desc "date")
       .cursor[Bdoc]()

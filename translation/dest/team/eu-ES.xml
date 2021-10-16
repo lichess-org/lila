@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Zure eskaera taldearen arduradunak gainbegiratuko du.</string>
   <string name="beingReviewed">Taldearen arduraduna zure eskaera gainbegiratzen ari da.</string>
+  <string name="requestDeclined">Zure eskaera taldearen arduradunak ukatu egin du.</string>
   <string name="subToTeamMessages">Harpidetu taldearen mezuetara</string>
   <string name="teamBattle">Taldeen arteko txapelketa</string>
   <string name="teamBattleOverview">Hainbat talderen arteko txapelketa, jokalari bakoitzak bere taldearentzat irabazten ditu puntuak</string>
@@ -51,4 +52,5 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="teamAlreadyExists">Talde hau badago.</string>
   <string name="upcomingTourns">Hurrengo Txapelketak</string>
   <string name="completedTourns">Amaitutako txapelketak</string>
+  <string name="declinedRequests">Ukatutako eskaerak</string>
 </resources>

@@ -37,6 +37,7 @@
   </plurals>
   <string name="willBeReviewed">Déanfaidh do ceannaire foirne athbhreithniú ar d’iarratas isteach.</string>
   <string name="beingReviewed">Tá ceannaire foirne ag athbhreithniú d’iarratas ar bheith páirteach.</string>
+  <string name="requestDeclined">Dhiúltaigh ceannaire foirne d’iarratas ar bhallraíocht.</string>
   <string name="subToTeamMessages">Liostáil le teachtaireachtaí foirne</string>
   <string name="teamBattle">Cath Foirne</string>
   <string name="teamBattleOverview">Cath ilfhoirne, scórálann gach ficheallaí pointí dá bhfoireann</string>
@@ -60,4 +61,5 @@ D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoire
   <string name="teamAlreadyExists">Tá an foireann seo ann cheana féin.</string>
   <string name="upcomingTourns">Comórtais le teacht</string>
   <string name="completedTourns">Comórtais críochnaithe</string>
+  <string name="declinedRequests">Iarrataí Diúltaithe</string>
 </resources>

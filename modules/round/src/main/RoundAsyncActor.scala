@@ -30,7 +30,8 @@ import lila.user.User
 final private[round] class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: Game.ID,
-    socketSend: String => Unit
+    socketSend: String => Unit,
+    private var version: SocketVersion
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     proxy: GameProxy
@@ -41,8 +42,6 @@ final private[round] class RoundAsyncActor(
   import dependencies._
 
   private var takebackSituation: Option[TakebackSituation] = None
-
-  private var version = SocketVersion(0)
 
   private var mightBeSimul = true // until proven otherwise
 

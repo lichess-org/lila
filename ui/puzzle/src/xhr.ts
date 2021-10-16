@@ -3,20 +3,23 @@ import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
+import { StoredBooleanProp } from 'common/storage';
 
 export function complete(
   puzzleId: string,
   theme: ThemeKey,
   win: boolean,
+  rated: StoredBooleanProp,
   replay?: PuzzleReplay,
   streak?: PuzzleStreak
-): Promise<PuzzleResult | undefined> {
+): Promise<PuzzleResult> {
   return xhr.json(`/training/complete/${theme}/${puzzleId}`, {
     method: 'POST',
     body: xhr.form({
       win,
       ...(replay ? { replayDays: replay.days } : {}),
       ...(streak ? { streakId: streak.nextId(), streakScore: streak.data.index } : {}),
+      rated: rated(),
     }),
   });
 }

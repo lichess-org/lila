@@ -36,19 +36,15 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
                     Unwind("puzzleId"),
                     Sample(nb),
                     PipelineOperator(
-                      $doc(
-                        "$lookup" -> $doc(
-                          "from"         -> colls.puzzle.name.value,
-                          "localField"   -> "puzzleId",
-                          "foreignField" -> "_id",
-                          "as"           -> "puzzle"
-                        )
+                      $lookup.simple(
+                        from = colls.puzzle,
+                        local = "puzzleId",
+                        foreign = "_id",
+                        as = "puzzle"
                       )
                     ),
                     PipelineOperator(
-                      $doc(
-                        "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0))
-                      )
+                      $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
                     )
                   )
                 }.map {

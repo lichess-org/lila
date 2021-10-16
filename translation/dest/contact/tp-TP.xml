@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">toki</string>
+  <string name="contactLichess">o toki tawa jan pi ilo Lichess</string>
+  <string name="noRatingPoints">nanpa wawa li ante ala</string>
   <string name="errorPage">lipu pakala</string>
 </resources>

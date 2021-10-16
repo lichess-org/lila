@@ -207,7 +207,7 @@ final class User(
               Json.toJson(
                 users
                   .take(getInt("nb", req).fold(10)(_ min max))
-                  .map(env.user.jsonView(_, withOnline = false))
+                  .map(env.user.jsonView.full(_, withOnline = false))
               )
             )
           }
