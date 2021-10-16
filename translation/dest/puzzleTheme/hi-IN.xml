@@ -15,7 +15,7 @@
   <string name="backRankMate">पीछे की पंक्ति पर मात</string>
   <string name="backRankMateDescription">होम पंक्ति पर राजा को मात दे, जब वह अपने टुकड़ों से वहां फंस गया हो।</string>
   <string name="bishopEndgame">ऊँट का एंडगेम</string>
-  <string name="bishopEndgameDescription">केवल ऊंट और प्यादे के साथ एक एंडगेम।</string>
+  <string name="bishopEndgameDescription">केवल ऊँट और प्यादे के साथ एक एंडगेम।</string>
   <string name="bodenMate">बोडेन का मात</string>
   <string name="bodenMateDescription">क्राइस-क्रॉसिंग विकर्णों पर दो हमलावर बिशप मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="castling">कैसलिंग</string>
@@ -24,7 +24,7 @@
   <string name="capturingDefenderDescription">एक टुकड़े को निकालना जो दूसरे टुकड़े की रक्षा के लिए महत्वपूर्ण है, जिससे अब अपरिभाषित टुकड़ा को निम्नलिखित चाल पर कब्जा करने की अनुमति मिलती है।</string>
   <string name="crushing">मुंहतोड़</string>
   <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी की बड़ी भूल को ढूंढे । (eval ≥ 600cp)</string>
-  <string name="doubleBishopMate">डबल बिशप मात</string>
+  <string name="doubleBishopMate">डबल ऊँट मात</string>
   <string name="doubleBishopMateDescription">आसन्न विकर्णों पर दो हमलावर बिशप मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="dovetailMate">डव्टेल मात</string>
   <string name="dovetailMateDescription">एक रानी एक समीपवर्ती राजा को चेकमेट वितरित करती है, जिसके केवल दो भागने वाले वर्ग मैत्रीपूर्ण टुकड़ों द्वारा बाधित होते हैं।</string>
@@ -112,7 +112,7 @@
   <string name="trappedPiece">फँसा हुआ मोहरा</string>
   <string name="trappedPieceDescription">एक मोहरा बचने में असमर्थ है क्योंकि सीमित चालें हैं।</string>
   <string name="underPromotion">सामर्थ्य से कम उन्नति</string>
-  <string name="underPromotionDescription">एक नाइट, बिशप, या बदमाश को बढ़ावा देना।</string>
+  <string name="underPromotionDescription">एक घोड़े, ऊँट, या हाथी में पदोन्नति।</string>
   <string name="veryLong">बहुत लंबी पहेली</string>
   <string name="veryLongDescription">जीतने के लिए चार चाल या उससे अधिक।</string>
   <string name="xRayAttack">एक्स-रे हमला</string>
