@@ -14,11 +14,10 @@
   padding: 1em 0;
 
   .variant {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
 
     color: $c-font;
     height: 6em;
-    flex-flow: row;
 
     @include transition;
 
