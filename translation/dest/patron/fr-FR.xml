@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Faire un don</string>
+  <string name="donateAsX">Faire un don en tant que %s</string>
   <string name="lichessPatron">Mécène Lichess</string>
   <string name="freeAccount">Compte gratuit</string>
   <string name="becomePatron">Devenir un mécène de Lichess</string>
