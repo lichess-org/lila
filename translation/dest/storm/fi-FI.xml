@@ -52,4 +52,7 @@
   <string name="skipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin kilvan aikana vain kerran.</string>
   <string name="failedPuzzles">Epäonnistuneet tehtävät</string>
   <string name="slowPuzzles">Hitaat tehtävät</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Tällä viikolla</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Tässä kuussa</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Paras koskaan</string>
 </resources>
