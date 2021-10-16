@@ -47,6 +47,8 @@
   <string name="blackResigned">I neri tralascianu</string>
   <string name="whiteLeftTheGame">I bianchi lascianu a partita</string>
   <string name="blackLeftTheGame">I neri lascianu a partita</string>
+  <string name="whiteDidntMove">I bianchi ùn anu ghjucatu</string>
+  <string name="blackDidntMove">I neri ùn anu ghjucatu</string>
   <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
   <string name="computerAnalysis">Analisa di l\' urdinatore</string>
   <string name="computerAnalysisAvailable">L\' analisa di l\' urdinatore hè pronta</string>
@@ -363,6 +365,8 @@
   <string name="follow">Segue</string>
   <string name="following">Seguendu</string>
   <string name="unfollow">Ùn segue</string>
+  <string name="followX">Segue à %s</string>
+  <string name="unfollowX">Ùn più segue à %s</string>
   <string name="block">Bluccà</string>
   <string name="blocked">Bluccatu</string>
   <string name="unblock">Sbluccà</string>
@@ -548,6 +552,10 @@
   <string name="tools">Arnese</string>
   <string name="increment">Raghjunta di tempu</string>
   <string name="error.required">U duminiu hè nicissariu</string>
+  <string name="error.email">St\' indirizzu mail ùn hè valida</string>
+  <string name="error.email_acceptable">St\' indirizzu mail ùn pò esse accettata. Verificate lu è provate da torna.</string>
+  <string name="error.email_unique">St\' indirizzu mail ùn esista o hè dighjà pigliata</string>
+  <string name="error.email_different">Hè dighjà u vostru indirizzu mai</string>
   <string name="ifRatingIsPlusMinusX">S\' è a classifica hè ± %s</string>
   <string name="onlyExistingConversations">Soltantu è chjachjere principiate</string>
   <string name="onlyFriends">Soltantu amichi</string>
@@ -840,6 +848,7 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="simulDescription">Descrizzione di a simultanea</string>
   <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>
   <string name="markdownAvailable">%s hè disponibule pè una synttax più cumplessa.</string>
+  <string name="embedsAvailable">Incollate l\' indirizzu URL di a partita o d\' un capitulu per impurtà lu.</string>
   <string name="inYourLocalTimezone">In u vostru circondu</string>
   <string name="tournChat">Chjachjera di a ghjustra</string>
   <string name="noChat">Senza chjachjera</string>
@@ -860,4 +869,9 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="emailAssociatedToaccount">Indirizzu mail liati à u contu</string>
   <string name="sentEmailWithLink">Vi avemu mandatu un mail cù una leia.</string>
   <string name="tournamentEntryCode">Codice per arregistrà si in u turneu</string>
+  <string name="hangOn">Aspettate!</string>
+  <string name="gameInProgress">Ghjuccate una partita contru à %s.</string>
+  <string name="abortTheGame">Aburtì a partita</string>
+  <string name="resignTheGame">Lascià corre a partita</string>
+  <string name="youCantStartNewGame">Ùn pudete principià una partita nova senza finì una prima.</string>
 </resources>
