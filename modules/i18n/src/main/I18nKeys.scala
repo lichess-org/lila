@@ -1351,6 +1351,7 @@ val `explainYourRequest` = new I18nKey("contact:explainYourRequest")
 
 object patron {
 val `donate` = new I18nKey("patron:donate")
+val `donateAsX` = new I18nKey("patron:donateAsX")
 val `lichessPatron` = new I18nKey("patron:lichessPatron")
 val `freeAccount` = new I18nKey("patron:freeAccount")
 val `becomePatron` = new I18nKey("patron:becomePatron")
