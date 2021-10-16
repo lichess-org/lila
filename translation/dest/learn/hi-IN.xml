@@ -18,12 +18,12 @@
   <string name="useTwoRooks">Use two rooks
 to speed things up!</string>
   <string name="rookComplete">बधाई हो! आपने हाथियों का प्रयोग करना सफलतापूर्वक सीख लिया है</string>
-  <string name="theBishop">ऊंट</string>
+  <string name="theBishop">ऊँट</string>
   <string name="itMovesDiagonally">यह तिरछे चलता है</string>
   <string name="bishopIntro">अब हम ऊंट के चाल को सीखेंगे</string>
   <string name="youNeedBothBishops">आपको दोनों सफ़ेद और काले रंग के ऊंट की ज़रूरत पड़ेगी</string>
   <string name="bishopComplete">बधाई हो! आपने ऊंट की चाल चलना सीख लिया है</string>
-  <string name="theQueen">रानी</string>
+  <string name="theQueen">वज़ीर</string>
   <string name="queenCombinesRookAndBishop">रानी = हाथी + ऊंट</string>
   <string name="queenIntro">क्वीन की जानकारी</string>
   <string name="queenComplete">बधाई हो! रानी आपके लिए कोई रहस्य नहीं है।</string>
