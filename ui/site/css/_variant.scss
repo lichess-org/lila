@@ -18,6 +18,7 @@
 
     color: $c-font;
     height: 6em;
+    flex-flow: row;
 
     @include transition;
 
