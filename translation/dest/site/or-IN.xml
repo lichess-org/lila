@@ -119,7 +119,7 @@
   <string name="players">ଖେଳାଳିମାନେ</string>
   <string name="friends">ବନ୍ଧୁଗଣ</string>
   <string name="discussions">ବାର୍ତ୍ତାଳାପ ଗୁଡିକ</string>
-  <string name="today">ଆଜି</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">ଆଜି</string>
   <string name="yesterday">ଗତକାଲି</string>
   <string name="minutesPerSide">ପ୍ରତୀ ପାର୍ଶ୍ୱର ମିନିଟ୍</string>
   <string name="variant">ପ୍ରକାର</string>
@@ -164,6 +164,7 @@
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="toStudy">ଅଧ୍ୟୟନ</string>
   <string name="importGame">ଖେଳ ଆମଦାନୀ କରନ୍ତୁ</string>
+  <string name="notACheckmate">ଚେକମେଟ୍ ନୁହେଁ</string>
   <string name="retry">ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ</string>
   <string name="reconnecting">ପୁନଃସଂଯୋଗ ହେଉଛି</string>
   <plurals name="nbFriendsOnline">
