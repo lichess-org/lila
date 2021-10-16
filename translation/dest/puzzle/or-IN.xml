@@ -8,4 +8,7 @@
   <string name="puzzleOfTheDay">ଆଜିର ପ୍ରହେଳିକା</string>
   <string name="puzzleComplete">ପ୍ରହେଳିକା ସଂପୂର୍ଣ୍ଣ ହେଲା!</string>
   <string name="history">ପ୍ରହେଳିକା ଇତିବୃତ୍ତି</string>
+  <string name="lookupOfPlayer">ଜଣେ ଖେଳାଳିଙ୍କ ଖେଳରୁ ପ୍ରହେଳିକା ଦେଖନ୍ତୁ</string>
+  <string name="fromXGames">%sଙ୍କ ଖେଳରୁ ପ୍ରହେଳିକା</string>
+  <string name="searchPuzzles">ପ୍ରହେଳିକା ଖୋଜନ୍ତୁ</string>
 </resources>
