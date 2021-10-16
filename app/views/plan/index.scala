@@ -111,7 +111,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           checked,
                           value := "me"
                         ),
-                        label(`for` := "dest_me")(donateAs(me.username))
+                        label(`for` := "dest_me")(donateAsX(me.username))
                       ),
                       div(
                         input(
