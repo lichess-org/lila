@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ziedot</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Ziedojums no %s</string>
   <string name="lichessPatron">Lichess Sponsors</string>
   <string name="freeAccount">Bezmaksas konts</string>
   <string name="becomePatron">Kļūstiet par Lichess Sponsoru</string>
