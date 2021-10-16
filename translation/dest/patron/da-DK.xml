@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donér</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;%s leads to the Patron information page">Donér som %s</string>
+  <string name="donateAsX">Donér som %s</string>
   <string name="lichessPatron">Lichess Protektor</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bliv Lichess Protektor</string>
