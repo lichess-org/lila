@@ -49,14 +49,14 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         },
       })
     );
-  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
   return t;
 }
 
 function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
   if (!threat) return ctrl.trans.noarg('loadingEngine');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
-  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
   return t;
 }
 
