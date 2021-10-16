@@ -5,4 +5,6 @@
   <string name="thisMonth">ଏହି ମାସ</string>
   <string name="allTime">ସର୍ବକାଳୀନ</string>
   <string name="clickToReload">ପୁନଃଲୋଡ୍ କରିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ</string>
+  <string name="thisRunHasExpired">ଏହି ରନ୍ ସମୟ ସମାପ୍ତ ହୋଇଛି!</string>
+  <string name="thisRunWasOpenedInAnotherTab">ଏହି ରନ୍ ଅନ୍ୟ ଏକ ଟ୍ୟାବରେ ଖୋଲା ଯାଇଥିଲା!</string>
 </resources>
