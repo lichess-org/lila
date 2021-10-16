@@ -52,4 +52,10 @@
   <string name="skipExplanation">Omite este movemento para conservar o teu combo. Só funciona unha vez por corrida.</string>
   <string name="failedPuzzles">Problemas errados</string>
   <string name="slowPuzzles">Problemas lentos</string>
+  <string name="thisWeek">Esta semana</string>
+  <string name="thisMonth">Este mes</string>
+  <string name="allTime">Todo</string>
+  <string name="clickToReload">Toca para recargar</string>
+  <string name="thisRunHasExpired">Esta ronda rematou!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Esta ronda foi aberta noutra pestaña!</string>
 </resources>
