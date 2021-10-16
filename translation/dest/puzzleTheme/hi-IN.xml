@@ -5,7 +5,7 @@
   <string name="advantage">लाभ</string>
   <string name="advantageDescription">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
   <string name="anastasiaMate">अनास्तासिया के मात</string>
-  <string name="anastasiaMateDescription">बोर्ड के किनारे और एक अनुकूल टुकड़े के बीच विरोधी राजा को फंसाने के लिए एक नाइट और रूक या रानी टीम।</string>
+  <string name="anastasiaMateDescription">बोर्ड के किनारे और एक अनुकूल टुकड़े के बीच विरोधी राजा को फंसाने के लिए एक घोड़ा और हाथी या वज़ीर टीम।</string>
   <string name="arabianMate">अरेबियन मात</string>
   <string name="arabianMateDescription">बोर्ड के एक कोने पर विरोधी राजा को फंसाने के लिए एक नाइट और एक रूक टीम।</string>
   <string name="attackingF2F7">F2 या f7 पर हमला करना</string>
@@ -27,7 +27,7 @@
   <string name="doubleBishopMate">डबल ऊँट मात</string>
   <string name="doubleBishopMateDescription">आसन्न विकर्णों पर दो हमलावर ऊँट मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="dovetailMate">डव्टेल मात</string>
-  <string name="dovetailMateDescription">एक रानी एक समीपवर्ती राजा को चेकमेट वितरित करती है, जिसके केवल दो भागने वाले वर्ग मैत्रीपूर्ण टुकड़ों द्वारा बाधित होते हैं।</string>
+  <string name="dovetailMateDescription">एक वज़ीर एक समीपवर्ती राजा को चेकमेट वितरित करती है, जिसके केवल दो भागने वाले वर्ग मैत्रीपूर्ण टुकड़ों द्वारा बाधित होते हैं।</string>
   <string name="equality">समानता</string>
   <string name="equalityDescription">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
   <string name="kingsideAttack">किंगसाइड का हमला</string>
@@ -91,10 +91,10 @@
   <string name="promotionDescription">प्रचार करने या धमकी देने वाला मोहरा रणनीति की कुंजी है।</string>
   <string name="queenEndgame">वज़ीर एंडगेम</string>
   <string name="queenEndgameDescription">केवल वज़ीरों और प्यादों के साथ एक एंडगेम।</string>
-  <string name="queenRookEndgame">रानी और रूक एंडगेम</string>
-  <string name="queenRookEndgameDescription">केवल रानियों, बदमाशों और प्यादों के साथ एक एंडगेम।</string>
-  <string name="queensideAttack">क्वीन्साइड हमला</string>
-  <string name="queensideAttackDescription">रानी के पक्ष में जाने के बाद, प्रतिद्वंद्वी के राजा पर हमला।</string>
+  <string name="queenRookEndgame">वज़ीर और हाथी</string>
+  <string name="queenRookEndgameDescription">केवल वज़ीरों, हाथी और प्यादों के साथ एक एंडगेम।</string>
+  <string name="queensideAttack">वज़ीर साइड हमला</string>
+  <string name="queensideAttackDescription">वज़ीर के पक्ष में जाने के बाद, प्रतिद्वंद्वी के राजा पर हमला।</string>
   <string name="quietMove">शांत चाल</string>
   <string name="quietMoveDescription">एक चाल जो एक चेक या कैप्चर नहीं करता है, लेकिन बाद के कदम के लिए एक अपरिहार्य खतरा तैयार करता है।</string>
   <string name="rookEndgame">रूक एंडगेम</string>
