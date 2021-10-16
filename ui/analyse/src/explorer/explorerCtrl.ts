@@ -41,10 +41,6 @@ export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
   return pieceCount(fen) <= tablebasePieces(variant);
 }
 
-function tablebaseRelevant(variant: VariantKey, fen: Fen) {
-  return pieceCount(fen) - 1 <= tablebasePieces(variant);
-}
-
 export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean): ExplorerCtrl {
   const allowed = prop(allow),
     enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
@@ -117,6 +113,10 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
     fen: '',
     opening: root.data.game.opening,
   };
+
+  function tablebaseRelevant(variant: VariantKey, fen: Fen) {
+    return pieceCount(fen) - 1 <= tablebasePieces(variant) && root.ceval.possible;
+  }
 
   function setNode() {
     if (!enabled()) return;
