@@ -43,7 +43,7 @@
   <string name="waitForRematch">Espera para la revancha</string>
   <string name="nextRace">Próxima carrera</string>
   <string name="joinRematch">Unirse a la revancha</string>
-  <string name="waitingToStart">Calentando motores</string>
+  <string name="waitingToStart">Esperando a que empiece</string>
   <string name="createNewGame">Crear una nueva carrera</string>
   <string name="joinPublicRace">Unirse a una carrera pública</string>
   <string name="raceYourFriends">Compite con tus amigos</string>
