@@ -213,20 +213,18 @@ function initMessage(ctrl: RoundController) {
 }
 
 function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
-  return disabled
-    ? null
-    : h('button.fbt', {
-        attrs: {
-          disabled: disabled,
-          'data-icon': icon,
-          'data-ply': ctrl.ply + dir,
-        },
-        hook: util.bind('mousedown', e => {
-          e.preventDefault();
-          ctrl.userJump(ctrl.ply + dir);
-          ctrl.redraw();
-        }),
-      });
+  return h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir,
+    },
+    hook: util.bind('mousedown', e => {
+      e.preventDefault();
+      ctrl.userJump(ctrl.ply + dir);
+      ctrl.redraw();
+    }),
+  });
 }
 
 export function render(ctrl: RoundController): VNode | undefined {
@@ -256,19 +254,18 @@ export function render(ctrl: RoundController): VNode | undefined {
         },
         renderMoves(ctrl)
       );
+  const renderMovesOrResult = moves ? moves : renderResult(ctrl);
   return ctrl.nvui
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
         initMessage(ctrl) ||
-          (moves
-            ? isCol1()
-              ? h('div.col1-moves', [
-                  col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
-                  moves,
-                  col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
-                ])
-              : moves
-            : renderResult(ctrl)),
+          (isCol1()
+            ? h('div.col1-moves', [
+                col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
+                renderMovesOrResult,
+                col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
+              ])
+            : renderMovesOrResult),
       ]);
 }
