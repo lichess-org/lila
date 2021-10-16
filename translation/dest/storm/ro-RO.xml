@@ -56,6 +56,8 @@
   <string name="slowPuzzles">Probleme lente</string>
   <string name="thisWeek">Săptămâna aceasta</string>
   <string name="thisMonth">Luna aceasta</string>
-  <string name="allTime">Din tot timpul</string>
+  <string name="allTime">De la început</string>
   <string name="clickToReload">Click pentru a reîncărca</string>
+  <string name="thisRunHasExpired">Această rundă a expirat!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Runda a fost deschisă într-o altă filă!</string>
 </resources>
