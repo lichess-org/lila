@@ -52,4 +52,7 @@
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Fungere berre ein gong for kvart race.</string>
   <string name="failedPuzzles">Mislukka oppgåveløysingar</string>
   <string name="slowPuzzles">Langsame oppgåver</string>
+  <string name="thisWeek">Denne veka</string>
+  <string name="thisMonth">Denne månaden</string>
+  <string name="allTime">Frå starten av</string>
 </resources>
