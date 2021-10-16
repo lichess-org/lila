@@ -44,15 +44,17 @@ final class Importer(env: Env) extends LilaController(env) {
               doImport(data, req, ctx.me) flatMap {
                 case Right(game) =>
                   ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
-                    env.fishnet.analyser(
-                      game,
-                      lila.fishnet.Work.Sender(
-                        userId = me.id,
-                        ip = ctx.ip.some,
-                        mod = isGranted(_.Hunter) || isGranted(_.Relay),
-                        system = false
+                    env.fishnet
+                      .analyser(
+                        game,
+                        lila.fishnet.Work.Sender(
+                          userId = me.id,
+                          ip = ctx.ip.some,
+                          mod = isGranted(_.Hunter) || isGranted(_.Relay),
+                          system = false
+                        )
                       )
-                    )
+                      .void
                   } inject Redirect(routes.Round.watcher(game.id, "white"))
                 case Left(error) => Redirect(routes.Importer.importGame).flashFailure(error).fuccess
               }

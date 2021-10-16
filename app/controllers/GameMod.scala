@@ -69,15 +69,17 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
   private def multipleAnalysis(me: Holder, gameIds: Seq[lila.game.Game.ID])(implicit ctx: Context) =
     env.game.gameRepo.unanalysedGames(gameIds).flatMap { games =>
       games.map { game =>
-        env.fishnet.analyser(
-          game,
-          lila.fishnet.Work.Sender(
-            userId = me.id,
-            ip = ctx.ip.some,
-            mod = true,
-            system = false
+        env.fishnet
+          .analyser(
+            game,
+            lila.fishnet.Work.Sender(
+              userId = me.id,
+              ip = ctx.ip.some,
+              mod = true,
+              system = false
+            )
           )
-        )
+          .void
       }.sequenceFu >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
