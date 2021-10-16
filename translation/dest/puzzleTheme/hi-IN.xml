@@ -17,7 +17,7 @@
   <string name="bishopEndgame">ऊँट का एंडगेम</string>
   <string name="bishopEndgameDescription">केवल ऊँट और प्यादे के साथ एक एंडगेम।</string>
   <string name="bodenMate">बोडेन का मात</string>
-  <string name="bodenMateDescription">क्राइस-क्रॉसिंग विकर्णों पर दो हमलावर बिशप मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
+  <string name="bodenMateDescription">क्राइस-क्रॉसिंग विकर्णों पर दो हमलावर ऊँट मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="castling">कैसलिंग</string>
   <string name="castlingDescription">राजा को सुरक्षा के लिए लाएँ, और हमले के लिए हाथी तैनात करें।</string>
   <string name="capturingDefender">रक्षक को पकड़ना</string>
@@ -25,7 +25,7 @@
   <string name="crushing">मुंहतोड़</string>
   <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी की बड़ी भूल को ढूंढे । (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">डबल ऊँट मात</string>
-  <string name="doubleBishopMateDescription">आसन्न विकर्णों पर दो हमलावर बिशप मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
+  <string name="doubleBishopMateDescription">आसन्न विकर्णों पर दो हमलावर ऊँट मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="dovetailMate">डव्टेल मात</string>
   <string name="dovetailMateDescription">एक रानी एक समीपवर्ती राजा को चेकमेट वितरित करती है, जिसके केवल दो भागने वाले वर्ग मैत्रीपूर्ण टुकड़ों द्वारा बाधित होते हैं।</string>
   <string name="equality">समानता</string>
@@ -89,7 +89,7 @@
   <string name="pinDescription">एक टैक्टिक जिसमें पिन शामिल होता है, जहां एक टुकड़ा उच्च मूल्य के टुकड़े पर हमले का खुलासा किए बिना स्थानांतरित करने में असमर्थ होता है।</string>
   <string name="promotion">पदोन्नति</string>
   <string name="promotionDescription">प्रचार करने या धमकी देने वाला मोहरा रणनीति की कुंजी है।</string>
-  <string name="queenEndgame">रानी एंडगेम</string>
+  <string name="queenEndgame">वज़ीर एंडगेम</string>
   <string name="queenEndgameDescription">केवल रानियों और प्यादों के साथ एक एंडगेम।</string>
   <string name="queenRookEndgame">रानी और रूक एंडगेम</string>
   <string name="queenRookEndgameDescription">केवल रानियों, बदमाशों और प्यादों के साथ एक एंडगेम।</string>
