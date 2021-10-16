@@ -125,7 +125,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         if (res.ok) startAdvantageChart();
         else
           res.text().then(t => {
-            alert(t);
+            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
             lichess.reload();
           });
       });
