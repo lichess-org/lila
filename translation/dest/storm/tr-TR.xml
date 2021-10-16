@@ -56,4 +56,6 @@
   <string name="thisMonth">Bu ay</string>
   <string name="allTime">Hep</string>
   <string name="clickToReload">Tekrar yüklemek için tıkla</string>
+  <string name="thisRunHasExpired">Bu çalışmanın süresi doldu!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Bu çalışma başka sekmede açılmış!</string>
 </resources>
