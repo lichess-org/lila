@@ -28,9 +28,11 @@ final class Analyse(
             mod = isGranted(_.Hunter) || isGranted(_.Relay),
             system = false
           )
-        ) map {
-          case true  => NoContent
-          case false => Unauthorized
+        ) map { result =>
+          result.error match {
+            case None        => NoContent
+            case Some(error) => BadRequest(error)
+          }
         }
       }
     }
