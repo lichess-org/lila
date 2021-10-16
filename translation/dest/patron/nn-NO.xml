@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donér</string>
+  <string name="donateAsX">Gje som %s</string>
   <string name="lichessPatron">Bidragsytar til Lichess</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli ein bidragsytar til Lichess</string>
