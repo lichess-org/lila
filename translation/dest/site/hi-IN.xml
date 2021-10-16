@@ -13,7 +13,7 @@
   <string name="toggleTheChat">चैट को टोग्ल करें</string>
   <string name="chat">बातचीत</string>
   <string name="resign">हार मान लें</string>
-  <string name="checkmate">शह और मात</string>
+  <string name="checkmate">शाहमात</string>
   <string name="stalemate">गतिरोध (स्टेलमेट )</string>
   <string name="white">सफेद</string>
   <string name="black">काला</string>
@@ -157,7 +157,7 @@
   <string name="players">शतरंज खिलाड़ी</string>
   <string name="friends">मित्र</string>
   <string name="discussions">वार्तालाप</string>
-  <string name="today">आज</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">आज</string>
   <string name="yesterday">एक दिन पूर्व</string>
   <string name="minutesPerSide">मिनट प्रति खिलाड़ी</string>
   <string name="variant">प्रकार</string>
