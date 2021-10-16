@@ -59,4 +59,5 @@
   <string name="allTime">Visa laika</string>
   <string name="clickToReload">Klikšķiniet, lai pārlādētu</string>
   <string name="thisRunHasExpired">Šai pužļu spēlei beidzies termiņš!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Šī pužļu spēle tikusi atvērta citā cilnē!</string>
 </resources>
