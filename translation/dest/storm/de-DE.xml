@@ -54,6 +54,8 @@
   <string name="slowPuzzles">Langsame Aufgaben</string>
   <string name="thisWeek">Diese Woche</string>
   <string name="thisMonth">Dieser Monat</string>
-  <string name="allTime">Gesamt</string>
-  <string name="clickToReload">Neu starten</string>
+  <string name="allTime">Insgesamt</string>
+  <string name="clickToReload">Klicke, um neu zu laden</string>
+  <string name="thisRunHasExpired">Dieser Durchgang ist abgelaufen!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Dieser Durchgang wurde in einem anderem Fenster geöffnet!</string>
 </resources>
