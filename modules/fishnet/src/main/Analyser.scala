@@ -141,8 +141,8 @@ object Analyser {
     case object AlreadyAnalysed    extends Result("This game is already analysed".some)
     case object NotAnalysable      extends Result("This game is not analysable".some)
     case object ConcurrentAnalysis extends Result("You already have an ongoing requested analysis".some)
-    case object WeeklyLimit        extends Result(s"You have reached the weekly analysis limit".some)
-    case object DailyLimit         extends Result(s"You have reached the daily analysis limit".some)
-    case object DailyIpLimit       extends Result(s"You have reached the daily analysis limit on this IP".some)
+    case object WeeklyLimit        extends Result("You have reached the weekly analysis limit".some)
+    case object DailyLimit         extends Result("You have reached the daily analysis limit".some)
+    case object DailyIpLimit       extends Result("You have reached the daily analysis limit on this IP".some)
   }
 }
