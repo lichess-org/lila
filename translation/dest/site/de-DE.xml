@@ -163,7 +163,7 @@
   <string name="players">Spieler</string>
   <string name="friends">Freunde</string>
   <string name="discussions">Konversationen</string>
-  <string name="today">Heute</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Heute</string>
   <string name="yesterday">Gestern</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>
   <string name="activePlayers">Aktive Spieler</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
   <string name="success">Korrekt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufende Partie</item>
