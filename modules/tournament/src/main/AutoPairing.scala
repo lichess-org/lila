@@ -32,9 +32,7 @@ final class AutoPairing(
             },
             fen = tour.position
           )
-          .copy(
-            clock = clock.some
-          ),
+          .copy(clock = clock.some),
         whitePlayer = makePlayer(White, player1),
         blackPlayer = makePlayer(Black, player2),
         mode = tour.mode,
