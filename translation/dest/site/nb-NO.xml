@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Merk at spillet er rangert, men har ingen tidskontroll!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Legg merke til at partiet er ratet, men ikke tidsbegrenset!</string>
   <string name="success">Vellykket</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spilles</item>
