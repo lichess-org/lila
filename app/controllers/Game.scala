@@ -67,11 +67,7 @@ final class Game(
     )
 
   def apiExportByUser(username: String) =
-    AnonOrScoped() { req => me =>
-      me.fold(handleExport(username, none, req, oauth = false)) { u =>
-        handleExport(username, u.some, req, oauth = true)
-      }
-    }
+    AnonOrScoped() { req => me => handleExport(username, me, req, oauth = me.isDefined) }
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     env.user.repo named username flatMap {
