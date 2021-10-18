@@ -3,6 +3,7 @@
   <string name="theRook">ଡଙ୍ଗା</string>
   <string name="theBishop">ହାତୀ</string>
   <string name="theQueen">ରାଣୀ</string>
+  <string name="queenCombinesRookAndBishop">ରାଣୀ = ଡଙ୍ଗା + ହାତୀ</string>
   <string name="theKing">ରଜା</string>
   <string name="theKnight">ଘୋଡ଼ା</string>
   <string name="thePawn">ସୈନିକ</string>
