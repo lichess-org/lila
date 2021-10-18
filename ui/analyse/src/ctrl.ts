@@ -590,7 +590,7 @@ export default class AnalyseCtrl {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => (n.eval ? n.eval.best : undefined));
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
   }
 
   setAutoShapes = (): void => {
@@ -831,7 +831,7 @@ export default class AnalyseCtrl {
   }
 
   playBestMove() {
-    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    const uci = this.node.ceval?.pvs[0].moves[0] || this.nextNodeBest();
     if (uci) this.playUci(uci);
   }
 
