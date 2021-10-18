@@ -25,12 +25,20 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = lila.memo.RateLimit.composite[IpAddress](
+  private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
+    5,
+    1.minute,
     key = "setup.post",
+    enforce = env.net.rateLimit.value,
+    log = false
+  )
+
+  private[controllers] val AnonHookRateLimit = lila.memo.RateLimit.composite[IpAddress](
+    key = "setup.hook.anon",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 5, 1.minute),
-    ("slow", 500, 1.day)
+    ("fast", 8, 1.minute),
+    ("slow", 300, 1.day)
   )
 
   def aiForm =
@@ -164,25 +172,27 @@ final class Setup(
     OpenBody { implicit ctx =>
       NoBot {
         implicit val req = ctx.body
-        PostRateLimit(ctx.ip) {
-          NoPlaybanOrCurrent {
-            forms
-              .hook(ctx)
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                userConfig =>
-                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
-                    processor.hook(
-                      userConfig withinLimits ctx.me,
-                      Sri(sri),
-                      HTTPRequest sid req,
-                      blocking
-                    ) map hookResponse
-                  }
-              )
-          }
-        }(rateLimitedFu)
+        NoPlaybanOrCurrent {
+          forms
+            .hook(ctx)
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              userConfig =>
+                PostRateLimit(ctx.ip) {
+                  AnonHookRateLimit(ctx.ip, cost = ctx.isAnon ?? 1) {
+                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                      processor.hook(
+                        userConfig withinLimits ctx.me,
+                        Sri(sri),
+                        HTTPRequest sid req,
+                        blocking
+                      ) map hookResponse
+                    }
+                  }(rateLimitedFu)
+                }(rateLimitedFu)
+            )
+        }
       }
     }
 
