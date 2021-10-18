@@ -27,6 +27,7 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="pairingsQ">Jak se losují soupeři?</string>
   <string name="dutchSystem">Holandský systém</string>
   <string name="FIDEHandbook">Příručka FIDE</string>
+  <string name="pairingsA">Využívá se %1$s, realizován pomocí %2$s, v souladu s dokumentem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
   <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
   <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
