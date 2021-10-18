@@ -152,7 +152,7 @@ object inquiry {
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
           iconTag(""),
           div(
-            env.mod.presets.pmPresets.get().value.map { preset =>
+            env.mod.presets.getPmPresets(ctx.me).value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
                 submitButton(cls := "fbt", title := preset.text)(preset.name),
                 autoNextInput

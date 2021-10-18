@@ -401,7 +401,7 @@ final class User(
         val rageSit = env.playban.api.getRageSit(user.id).map(view.showRageSit)
 
         val actions = env.user.repo.isErased(user) map { erased =>
-          html.user.mod.actions(user, emails, erased, env.mod.presets.pmPresets.get())
+          html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))
         }
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val others = for {
@@ -450,7 +450,7 @@ final class User(
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
-          Ok(html.user.mod.actions(user, emails, erased, env.mod.presets.pmPresets.get()))
+          Ok(html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(ctx.me)))
         }
     }
 
