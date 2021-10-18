@@ -38,7 +38,7 @@ object bits {
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.load("")}",
         "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
         "is3d"      -> ctx.pref.is3d,
-        "i18n"      -> i18nJsObject(i18nKeyes)
+        "i18n"      -> i18nJsObject(i18nKeys)
       )
       .add("fen" -> fen)
 
@@ -48,7 +48,7 @@ object bits {
     "tablebaseEndpoint" -> tablebaseEndpoint
   )
 
-  private val i18nKeyes = List(
+  private val i18nKeys = List(
     trans.setTheBoard,
     trans.boardEditor,
     trans.startPosition,
