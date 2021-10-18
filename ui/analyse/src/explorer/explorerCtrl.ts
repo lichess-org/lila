@@ -78,7 +78,12 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
           ? xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen)
           : xhr.opening({
               endpoint: opts.endpoint,
+              endpoint3: opts.endpoint3,
               db: config.data.db.selected() as ExplorerDb,
+              personal: {
+                player: config.data.playerName.value(),
+                color: root.getOrientation(),
+              },
               variant: effectiveVariant,
               rootFen: root.nodeList[0].fen,
               play: root.nodeList.slice(1).map(s => s.uci!),
@@ -180,6 +185,7 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
         return xhr
           .opening({
             endpoint: opts.endpoint,
+            endpoint3: opts.endpoint3,
             db: 'masters',
             rootFen: fen,
             play: [],

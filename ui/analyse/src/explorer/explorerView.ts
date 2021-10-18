@@ -426,7 +426,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     {
       class: {
         loading,
-        config: configOpened,
+        explorer__config: configOpened,
         reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2),
       },
       hook: {

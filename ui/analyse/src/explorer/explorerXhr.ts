@@ -3,7 +3,12 @@ import * as xhr from 'common/xhr';
 
 interface OpeningXhrOpts {
   endpoint: string;
+  endpoint3: string;
   db: ExplorerDb;
+  personal?: {
+    player: string;
+    color: Color;
+  };
   rootFen: Fen;
   play: string[];
   fen: Fen;
@@ -14,7 +19,8 @@ interface OpeningXhrOpts {
 }
 
 export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
-  const url = new URL(opts.db === 'lichess' ? '/lichess' : '/master', opts.endpoint);
+  const endpoint = opts.db == 'player' ? opts.endpoint3 : opts.endpoint;
+  const url = new URL(opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master', endpoint);
   const params = url.searchParams;
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
@@ -22,6 +28,11 @@ export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
     params.set('variant', opts.variant || 'standard');
     if (opts.speeds) for (const speed of opts.speeds) params.append('speeds[]', speed);
     if (opts.ratings) for (const rating of opts.ratings) params.append('ratings[]', rating.toString());
+  }
+  if (opts.db === 'player' && opts.personal) {
+    params.set('player', opts.personal.player);
+    params.set('color', opts.personal.color);
+    // params.set('update', 'true');
   }
   if (!opts.withGames) {
     params.set('topGames', '0');

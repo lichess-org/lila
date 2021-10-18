@@ -6,12 +6,17 @@ export interface Hovering {
   uci: Uci;
 }
 
-export type ExplorerDb = 'lichess' | 'masters';
+export type ExplorerDb = 'lichess' | 'masters' | 'player';
 
 export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
 
+export interface PlayerOpts {
+  name: string;
+}
+
 export interface ExplorerOpts {
   endpoint: string;
+  endpoint3: string;
   tablebaseEndpoint: string;
 }
 
@@ -28,6 +33,10 @@ export interface ExplorerConfigData {
   speed: {
     available: ExplorerSpeed[];
     selected: StoredJsonProp<ExplorerSpeed[]>;
+  };
+  playerName: {
+    open: Prop<boolean>;
+    value: StoredProp<string>;
   };
 }
 

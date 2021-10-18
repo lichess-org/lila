@@ -28,13 +28,10 @@ object userAnalysis {
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess.userAnalysis=${safeJsonValue(
           Json.obj(
-            "data" -> data,
-            "i18n" -> userAnalysisI18n(withForecast = withForecast),
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
-            "wiki" -> pov.game.variant.standard
+            "data"     -> data,
+            "i18n"     -> userAnalysisI18n(withForecast = withForecast),
+            "explorer" -> bits.explorerEndpoints,
+            "wiki"     -> pov.game.variant.standard
           )
         )}""")
       ),

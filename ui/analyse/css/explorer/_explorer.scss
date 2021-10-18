@@ -1,3 +1,5 @@
+@import './config';
+
 .explorer-box {
   position: relative;
   flex: 2.5 1 0px;
@@ -290,62 +292,5 @@
   .message.masters i {
     font-size: 40px;
     margin: 10px 0;
-  }
-
-  .config {
-    section {
-      margin: 0.4em $block-gap 0 $block-gap;
-    }
-
-    section.save {
-      text-align: center;
-      padding: 15px 0 10px 0;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      line-height: 2em;
-    }
-
-    .choices {
-      display: flex;
-
-      button {
-        @extend %metal;
-        flex-grow: 1;
-        padding: 5px 0;
-        text-align: center;
-        cursor: pointer;
-
-        @include transition;
-
-        border: $border;
-        border-width: 1px 0 1px 1px;
-        text-transform: capitalize;
-
-        &:first-child {
-          @extend %box-radius-left;
-        }
-
-        &:last-child {
-          @extend %box-radius-right;
-
-          border-right-width: 1px;
-        }
-
-        &:hover {
-          @extend %metal-hover;
-        }
-
-        &[aria-pressed='true'] {
-          background: $c-secondary;
-          color: $c-secondary-over;
-          text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
-          font-weight: bold;
-          box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset;
-        }
-      }
-    }
   }
 }
