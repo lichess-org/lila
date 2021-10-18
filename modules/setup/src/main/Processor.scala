@@ -40,7 +40,7 @@ final private[setup] class Processor(
     config.hook(sri, ctx.me, sid, blocking) match {
       case Left(hook) =>
         fuccess {
-          Bus.publish(AddHook(hook), "lobbyTrouper")
+          Bus.publish(AddHook(hook), "lobbyActor")
           Created(hook.id)
         }
       case Right(Some(seek)) =>
@@ -57,7 +57,7 @@ final private[setup] class Processor(
       import Processor.HookResult._
       if (maxPlaying <= nbPlaying) Refused
       else {
-        Bus.publish(AddSeek(seek), "lobbyTrouper")
+        Bus.publish(AddSeek(seek), "lobbyActor")
         Created(seek.id)
       }
     }
