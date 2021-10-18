@@ -43,10 +43,6 @@
     h2 {
       @extend %flex-between;
       margin-bottom: 1rem;
-      strong {
-        letter-spacing: 0.5ch;
-        font-weight: normal;
-      }
       span {
         font-size: 1rem;
       }

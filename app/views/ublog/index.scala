@@ -123,7 +123,7 @@ object index {
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
                 h2(
-                  strong(topic.value),
+                  topic.value,
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
