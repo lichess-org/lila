@@ -24,20 +24,15 @@ final class AutoPairing(
     val clock   = tour.clock.toClock
     val game = Game
       .make(
-        chess = chess.Game(
-          variantOption = Some {
-            if (tour.position.isEmpty) tour.variant
-            else chess.variant.FromPosition
-          },
-          fen = tour.position
-        ) pipe { g =>
-          val turns = g.player.fold(0, 1)
-          g.copy(
-            clock = clock.some,
-            turns = turns,
-            startedAtTurn = turns
+        chess = chess
+          .Game(
+            variantOption = Some {
+              if (tour.position.isEmpty) tour.variant
+              else chess.variant.FromPosition
+            },
+            fen = tour.position
           )
-        },
+          .copy(clock = clock.some),
         whitePlayer = makePlayer(White, player1),
         blackPlayer = makePlayer(Black, player2),
         mode = tour.mode,
