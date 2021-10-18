@@ -25,12 +25,12 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
-    5,
-    1.minute,
+  private[controllers] val PostRateLimit = lila.memo.RateLimit.composite[IpAddress](
     key = "setup.post",
-    enforce = env.net.rateLimit.value,
-    log = false
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 5, 1.minute),
+    ("slow", 500, 1.day)
   )
 
   def aiForm =
