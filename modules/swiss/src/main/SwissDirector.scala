@@ -83,20 +83,15 @@ final private class SwissDirector(
   ): Game =
     Game
       .make(
-        chess = chess.Game(
-          variantOption = Some {
-            if (swiss.settings.position.isEmpty) swiss.variant
-            else chess.variant.FromPosition
-          },
-          fen = swiss.settings.position
-        ) pipe { g =>
-          val turns = g.player.fold(0, 1)
-          g.copy(
-            clock = swiss.clock.toClock.some,
-            turns = turns,
-            startedAtTurn = turns
+        chess = chess
+          .Game(
+            variantOption = Some {
+              if (swiss.settings.position.isEmpty) swiss.variant
+              else chess.variant.FromPosition
+            },
+            fen = swiss.settings.position
           )
-        },
+          .copy(clock = swiss.clock.toClock.some),
         whitePlayer = makePlayer(White, players get pairing.white err s"Missing pairing white $pairing"),
         blackPlayer = makePlayer(Black, players get pairing.black err s"Missing pairing black $pairing"),
         mode = chess.Mode(swiss.settings.rated),
