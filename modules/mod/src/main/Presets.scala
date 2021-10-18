@@ -28,7 +28,7 @@ final class ModPresetsApi(
   def getPmPresets(mod: Option[User]): ModPresets =
     mod.map(getPmPresets).getOrElse(ModPresets(Nil))
 
-  lazy val pmPresets = settingStore[ModPresets](
+  private lazy val pmPresets = settingStore[ModPresets](
     "modPmPresets",
     default = ModPresets(Nil),
     text = "Moderator PM presets".some
@@ -89,7 +89,7 @@ object ModPresets {
     private def toPermisssions(s: String): Set[Permission] =
       Permission(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match {
         case set if set.nonEmpty => set
-        case _ => Set(Permission.Admin)
+        case _                   => Set(Permission.Admin)
       }
 
     private val presetsIso = lila.common.Iso[String, ModPresets](read, write)
