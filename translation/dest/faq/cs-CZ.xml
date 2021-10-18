@@ -43,7 +43,7 @@ Nejlepší tah doporučený počítačem ztrácí 0 centipawnů (z definice). Sl
 
 Tato hodnota se používá pro ověření kvality hry. Čím nižší má hráč pěšcovou ztrátu, tím silnější tahy hraje.
 
-Počítačová analýza na Lichessu využívá program Stockfish. Hráčovi tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
+Počítačová analýza na Lichessu využívá program Stockfish. Hráčovy tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
   <string name="insufficientMaterial">Prohrávání na čas, remízování a nedostatečný materiál</string>
   <string name="lichessFollowFIDErules">Když hráči dojde čas, obvykle to znamená, že partii prohraje. Platí zde ovšem jedna výjimka, a to v případě, že je na šachovnici taková pozice, že by mu nebylo možné dát mat žádnou legální kombinací tahů. V takovém případě se bude jednat o remízu (viz %1$s).
 
@@ -115,7 +115,7 @@ Dále je také nutné poznamenat, že postupem času se interval spolehlivosti z
   <string name="beInTopTen">být v top 10 v dané časové kontrole.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhý požadavek je, aby hráči, kteří již své účty nepoužívají, přestali plnit žebříčky.</string>
   <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>
-  <string name="whyAreRatingHigherExplanation">Nejlepší je nemyslet na hodnocení jako absolutní čísla, nebo je porovnávat s jinými organizacemi. Různé organizace mají různé úrovně hráčů, různé systémy hodnocení (Elo, Glicko, Glicko-2 nebo upravenou verzi výše uvedených). Tyto faktory můžou drasticky ovlivnit tyto absolutní čísla (hodnocení).
+  <string name="whyAreRatingHigherExplanation">Nejlepší je nemyslet na hodnocení jako absolutní čísla, nebo je porovnávat s jinými organizacemi. Různé organizace mají různé úrovně hráčů, různé systémy hodnocení (Elo, Glicko, Glicko-2 nebo upravenou verzi výše uvedených). Tyto faktory můžou drasticky ovlivnit tato absolutní čísla (hodnocení).
 
 Je nejlepší myslet na hodnocení jako \"relativní\" údaje (na rozdíl od \"absolutních\"): V rámci skupiny hráčů, jejich relativní rozdíly v hodnocení Vám pomohou odhadnout kdo vyhraje/remízuje/prohraje a jak často. Říkat \"Mám X hodnocení\" nic neznamená, pokud neexistují další hráči, se kterými můžeme toto hodnocení porovnat.</string>
   <string name="howToHideRatingWhilePlaying">Jak skrýt rating během hraní partie?</string>
