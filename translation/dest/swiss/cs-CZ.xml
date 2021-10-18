@@ -31,8 +31,10 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
   <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
   <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
+  <string name="restrictedToTeamsA">Švýcarské turnaje nebyly koncipovány pro online šachy. Požadují od hráčů dochvilnost, obětavost a trpělivost.
+Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
   <string name="numberOfByesQ">Kolik volných kol může hráč dostat?</string>
-  <string name="numberOfByesA">Hráč dostane bod pokaždé, když systém pro něj nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="numberOfByesA">Hráč dostane bod pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
   <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
   <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
 Takového hráče systém diskvalifikuje, aby neprohrál více partií.
