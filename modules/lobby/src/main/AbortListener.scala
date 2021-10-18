@@ -9,10 +9,9 @@ final private class AbortListener(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(pov: Pov): Funit =
-    (pov.game.isCorrespondence ?? recreateSeek(pov)) >>- {
-      cancelColorIncrement(pov)
+    (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-
+      cancelColorIncrement(pov) >>-
       lobbyActor.registerAbortedGame(pov.game)
-    }
 
   private def cancelColorIncrement(pov: Pov): Unit =
     if (pov.game.source.exists(s => s == Source.Lobby || s == Source.Pool)) pov.game.userIds match {

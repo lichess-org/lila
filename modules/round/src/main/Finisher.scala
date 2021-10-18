@@ -29,7 +29,6 @@ final private class Finisher(
         playban.abort(pov, ss.colorsOnGame)
       }
       Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
-      lila.mon.round.abort(pov.game.source.fold("none")(_.name), pov.game.userIds.size).increment().unit
     }
 
   def abortForce(game: Game)(implicit proxy: GameProxy): Fu[Events] =

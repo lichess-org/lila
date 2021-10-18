@@ -169,8 +169,6 @@ object mon {
       val count = counter("round.expiration.count").withoutTags()
     }
     val asyncActorCount = gauge("round.asyncActor.count").withoutTags()
-    def abort(source: String, userIds: Int) =
-      counter("round.abort").withTags(Map("source" -> source, "users" -> userIds))
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
