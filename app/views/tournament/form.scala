@@ -195,8 +195,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
-  private def disabledAfterStart  = tour.exists(!_.isCreated)
-  private def disabledAfterCreate = tour.isDefined
+  private def disabledAfterStart = tour.exists(!_.isCreated)
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
@@ -229,7 +228,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       form3.select(
         _,
         translatedVariantChoicesWithVariants.map(x => x._1 -> x._2),
-        disabled = disabledAfterCreate
+        disabled = disabledAfterStart
       )
     )
   def startPosition =
