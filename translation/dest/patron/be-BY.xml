@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ахвяраваць</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Ахвяраваць ад імя %s</string>
   <string name="lichessPatron">Спонсар Lichess</string>
   <string name="freeAccount">Бясплатны акаўнт</string>
   <string name="becomePatron">Стаць cпонсарам Lichess</string>
