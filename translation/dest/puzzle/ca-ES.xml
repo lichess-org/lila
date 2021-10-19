@@ -38,8 +38,16 @@
   <string name="normal">Normal</string>
   <string name="easier">Més fàcil</string>
   <string name="easiest">El més fàcil</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">%s punts per sota del teu nivell de problemes</item>
+    <item quantity="other">%s punts per sota del teu nivell de problemes</item>
+  </plurals>
   <string name="harder">Més difícil</string>
   <string name="hardest">El més difícil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">%s punt per sobre el teu nivell de problemes</item>
+    <item quantity="other">%s punts per sobre el teu nivell de problemes</item>
+  </plurals>
   <string name="example">Exemple</string>
   <string name="addAnotherTheme">Afegir un nou tema</string>
   <string name="jumpToNextPuzzleImmediately">Passar al següent problema immediatament</string>
@@ -66,5 +74,11 @@ Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'h
     <item quantity="one">%s jugat</item>
     <item quantity="other">%s jugats</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s a repetir</item>
+    <item quantity="other">%s a repetir</item>
+  </plurals>
   <string name="percentSolved">%s resolts</string>
+  <string name="noPuzzlesToShow">Encara no hi ha res per mostrar aquí. Resol alguns problemes primer!</string>
+  <string name="strengthDescription">Aquestes són les temàtiques en que ets millor</string>
 </resources>
