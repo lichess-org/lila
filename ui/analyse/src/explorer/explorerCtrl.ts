@@ -52,13 +52,7 @@ export default class ExplorerCtrl {
     this.enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
-    this.config = new ExplorerConfigCtrl(
-      root.data.game,
-      this.effectiveVariant,
-      this.onConfigClose,
-      root.trans,
-      root.redraw
-    );
+    this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.onConfigClose);
     window.addEventListener('hashchange', this.checkHash, false);
     this.checkHash();
   }

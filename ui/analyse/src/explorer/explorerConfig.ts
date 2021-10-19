@@ -2,9 +2,9 @@ import { h, VNode } from 'snabbdom';
 import { Prop, prop } from 'common';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp } from 'common/storage';
-import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
+import AnalyseCtrl from '../ctrl';
 
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -38,13 +38,7 @@ export interface ExplorerConfigData {
 export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
 
-  constructor(
-    readonly game: Game,
-    readonly variant: VariantKey,
-    readonly onClose: () => void,
-    readonly trans: Trans,
-    readonly redraw: () => void
-  ) {
+  constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
     const available: ExplorerDb[] = ['lichess', 'player'];
     if (variant === 'standard') available.unshift('masters');
     this.data = {
@@ -96,7 +90,7 @@ export class ExplorerConfigCtrl {
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   return [
     h('section.db', [
-      h('label', ctrl.trans.noarg('database')),
+      h('label', ctrl.root.trans.noarg('database')),
       h(
         'div.choices',
         ctrl.data.db.available.map(s =>
@@ -106,7 +100,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
               attrs: {
                 'aria-pressed': `${ctrl.db() === s}`,
               },
-              hook: bind('click', _ => ctrl.data.db.selected(s), ctrl.redraw),
+              hook: bind('click', _ => ctrl.data.db.selected(s), ctrl.root.redraw),
             },
             s
           )
@@ -122,7 +116,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
           attrs: dataIcon(''),
           hook: bind('click', ctrl.toggleOpen),
         },
-        ctrl.trans.noarg('allSet')
+        ctrl.root.trans.noarg('allSet')
       )
     ),
   ];
@@ -133,22 +127,24 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
-      name
-        ? h(
-            'span.user-link.ulpt',
-            {
-              hook: onInsert(lichess.powertip.manualUser),
-              attrs: { 'data-href': `/@/${name}` },
-            },
-            name
-          )
-        : undefined,
       h(
-        `button.${name ? 'button-link' : 'button'}`,
+        'button.button.player-name',
         {
-          hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.redraw),
+          hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
         },
-        name ? 'Change' : 'Select a Lichess player'
+        name || 'Select a Lichess player'
+      ),
+      ' as ',
+      h(
+        'button.button-link.text.color',
+        {
+          attrs: {
+            ...dataIcon(''),
+            title: ctrl.root.trans('flipBoard'),
+          },
+          hook: bind('click', ctrl.root.flip),
+        },
+        ctrl.root.getOrientation()
       ),
     ]),
     speedSection(ctrl),
@@ -166,19 +162,19 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     ctrl.data.playerName.value(name);
     ctrl.data.playerName.open(false);
-    ctrl.redraw();
+    ctrl.root.redraw();
   };
   return snabModal({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
-      ctrl.redraw();
+      ctrl.root.redraw();
     },
     content: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
-          attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
+          attrs: { placeholder: ctrl.root.trans.noarg('searchByUsername') },
           hook: onInsert<HTMLInputElement>(input =>
             lichess.userComplete().then(uac => {
               uac({
@@ -210,13 +206,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div.masters.message', [
     h('i', { attrs: dataIcon('') }),
-    h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2019')),
+    h('p', ctrl.root.trans('masterDbExplanation', 2200, '1952', '2019')),
   ]);
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.rating', [
-      h('label', ctrl.trans.noarg('averageElo')),
+      h('label', ctrl.root.trans.noarg('averageElo')),
       h(
         'div.choices',
         ctrl.data.rating.available.map(r =>
@@ -226,7 +222,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
               attrs: {
                 'aria-pressed': `${ctrl.data.rating.selected().includes(r)}`,
               },
-              hook: bind('click', _ => ctrl.toggleRating(r), ctrl.redraw),
+              hook: bind('click', _ => ctrl.toggleRating(r), ctrl.root.redraw),
             },
             r.toString()
           )
@@ -238,7 +234,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
-    h('label', ctrl.trans.noarg('timeControl')),
+    h('label', ctrl.root.trans.noarg('timeControl')),
     h(
       'div.choices',
       ctrl.data.speed.available.map(s =>
@@ -248,7 +244,7 @@ const speedSection = (ctrl: ExplorerConfigCtrl) =>
             attrs: {
               'aria-pressed': `${ctrl.data.speed.selected().includes(s)}`,
             },
-            hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw),
+            hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.root.redraw),
           },
           s
         )
@@ -258,7 +254,7 @@ const speedSection = (ctrl: ExplorerConfigCtrl) =>
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
-    h('label', ctrl.trans.noarg('mode')),
+    h('label', ctrl.root.trans.noarg('mode')),
     h(
       'div.choices',
       ctrl.data.mode.available.map(s =>
@@ -268,7 +264,7 @@ const modeSection = (ctrl: ExplorerConfigCtrl) =>
             attrs: {
               'aria-pressed': `${ctrl.data.mode.selected().includes(s)}`,
             },
-            hook: bind('click', _ => ctrl.toggleMode(s), ctrl.redraw),
+            hook: bind('click', _ => ctrl.toggleMode(s), ctrl.root.redraw),
           },
           s
         )

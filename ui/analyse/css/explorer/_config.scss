@@ -57,17 +57,21 @@
   .name {
     @extend %flex-center;
     margin-top: 1em;
-    .user-link {
-      @extend %box-radius;
+    .player-name {
       font-size: 1.3em;
       padding-right: 1em;
+      text-transform: none;
+      color: $c-font-clear;
 
-      background: mix($c-primary, $c-bg-box, 12%);
+      background: mix($c-primary, $c-bg-box, 20%);
+      &:hover {
+        background: mix($c-primary, $c-bg-box, 30%);
+      }
       padding: 0.2em 0.6em;
       margin-right: 0.5em;
     }
-    .button {
-      width: 100%;
+    .color {
+      margin-left: 1ch;
     }
   }
 
