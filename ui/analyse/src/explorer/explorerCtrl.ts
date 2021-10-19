@@ -104,6 +104,7 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
                   personal: {
                     player: config.data.playerName.value(),
                     color: root.getOrientation(),
+                    mode: config.data.mode.selected(),
                   },
                   variant: effectiveVariant,
                   rootFen: root.nodeList[0].fen,

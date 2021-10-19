@@ -3,10 +3,11 @@ import { prop } from 'common';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp } from 'common/storage';
 import { Game } from '../interfaces';
-import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
+import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
+const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 
 export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigCtrl {
@@ -16,15 +17,10 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
   if (variant === 'standard') available.unshift('masters');
 
   const data: ExplorerConfigData = {
-    open: prop(false),
+    open: prop(true),
     db: {
       available,
-      selected:
-        available.length > 1
-          ? storedProp('explorer.db.' + variant, available[0])
-          : function () {
-              return available[0];
-            },
+      selected: available.length > 1 ? storedProp('explorer.db.' + variant, available[0]) : () => available[0],
     },
     rating: {
       available: allRatings,
@@ -33,6 +29,10 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
     speed: {
       available: allSpeeds,
       selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
+    },
+    mode: {
+      available: allModes,
+      selected: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
     },
     playerName: {
       open: prop(false),
@@ -62,6 +62,9 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
     },
     toggleSpeed(v) {
       toggleMany(data.speed.selected, v);
+    },
+    toggleMode(v) {
+      toggleMany(data.mode.selected, v);
     },
     fullHouse() {
       return (
@@ -136,6 +139,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
       ),
     ]),
     speedSection(ctrl),
+    modeSection(ctrl),
   ]);
 };
 
@@ -232,6 +236,26 @@ const speedSection = (ctrl: ExplorerConfigCtrl) =>
               'aria-pressed': `${ctrl.data.speed.selected().includes(s)}`,
             },
             hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw),
+          },
+          s
+        )
+      )
+    ),
+  ]);
+
+const modeSection = (ctrl: ExplorerConfigCtrl) =>
+  h('section.mode', [
+    h('label', ctrl.trans.noarg('mode')),
+    h(
+      'div.choices',
+      ctrl.data.mode.available.map(s =>
+        h(
+          'button',
+          {
+            attrs: {
+              'aria-pressed': `${ctrl.data.mode.selected().includes(s)}`,
+            },
+            hook: bind('click', _ => ctrl.toggleMode(s), ctrl.redraw),
           },
           s
         )

@@ -9,6 +9,7 @@ export interface Hovering {
 export type ExplorerDb = 'lichess' | 'masters' | 'player';
 
 export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
+export type ExplorerMode = 'casual' | 'rated';
 
 export interface PlayerOpts {
   name: string;
@@ -34,6 +35,10 @@ export interface ExplorerConfigData {
     available: ExplorerSpeed[];
     selected: StoredJsonProp<ExplorerSpeed[]>;
   };
+  mode: {
+    available: ExplorerMode[];
+    selected: StoredJsonProp<ExplorerMode[]>;
+  };
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
@@ -49,6 +54,7 @@ export interface ExplorerConfigCtrl {
   toggleDb(db: ExplorerDb): void;
   toggleRating(rating: number): void;
   toggleSpeed(speed: string): void;
+  toggleMode(mode: string): void;
   fullHouse(): boolean;
 }
 

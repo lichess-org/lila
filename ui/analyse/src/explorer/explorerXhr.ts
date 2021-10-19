@@ -1,4 +1,4 @@
-import { ExplorerData, ExplorerDb, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
+import { ExplorerData, ExplorerDb, ExplorerMode, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
 import { readNdJson, CancellableStream } from 'common/ndjson';
 
@@ -9,6 +9,7 @@ interface OpeningXhrOpts {
   personal?: {
     player: string;
     color: Color;
+    mode: ExplorerMode[];
   };
   rootFen: Fen;
   play: string[];
@@ -35,6 +36,7 @@ export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) 
     params.set('color', opts.personal.color);
     params.set('update', 'true');
     if (opts.speeds) params.set('speeds', opts.speeds.join(','));
+    params.set('modes', opts.personal.mode.join(','));
   }
   if (!opts.withGames) {
     params.set('topGames', '0');
