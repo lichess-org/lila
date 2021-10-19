@@ -63,7 +63,7 @@
   <string name="goDeeper">Паглыбіць</string>
   <string name="showThreat">Паказваць пагрозы</string>
   <string name="inLocalBrowser">у вашым браўзеры</string>
-  <string name="toggleLocalEvaluation">Уключыць аналіз на камп’ютары</string>
+  <string name="toggleLocalEvaluation">Укл./адкл. лакальны аналіз</string>
   <string name="promoteVariation">Узвысіць прыярытэт</string>
   <string name="makeMainLine">Зрабіць асноўным</string>
   <string name="deleteFromHere">Выдаліць адсюль</string>
@@ -175,7 +175,7 @@
   <string name="players">Гульцы</string>
   <string name="friends">Сябры</string>
   <string name="discussions">Размовы</string>
-  <string name="today">Сёння</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Сёння</string>
   <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>
   <string name="variant">Варыянт</string>
@@ -491,9 +491,9 @@
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
   <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
-  <string name="startPosition">Пачатковая пазіцыя</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
-  <string name="loadPosition">Загрузіць пазіцыю</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Загрузіць пазіцыю</string>
   <string name="isPrivate">Прыватна</string>
   <string name="reportXToModerators">Паведаміць пра %s мадэратару</string>
   <string name="profileCompletion">Запоўненасць профілю: %s</string>
@@ -512,7 +512,7 @@
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activePlayers">Актыўныя гульцы</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
   <string name="success">Поспех</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s бягучая гульня</item>
@@ -583,7 +583,7 @@
   <string name="onSlowGames">У павольных гульнях</string>
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
-  <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s прымае ўдзел у турніры %2$s</string>
   <string name="victory">Перамога!</string>
   <string name="defeat">Параза</string>
   <string name="victoryVsYInZ">%1$s супраць %2$s у %3$s</string>
@@ -886,7 +886,7 @@
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
   <string name="unsubscribe">Адпісацца</string>
-  <string name="mentionedYouInX">вас згадалі ў «%1$s».</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">вас згадалі ў «%1$s».</string>
   <string name="xMentionedYouInY">%1$s вас згадаў у «%2$s».</string>
   <string name="invitedYouToX">вас запрасілі ў «%1$s».</string>
   <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>
