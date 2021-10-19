@@ -45,9 +45,11 @@
     user-select: text;
   }
   .player-loading {
-    text-align: right;
+    // text-align: right;
     background: $c-bg-zebra !important;
     border-bottom: $border;
+    line-height: 1.9em;
+    padding-left: 7px;
   }
 
   .empty {

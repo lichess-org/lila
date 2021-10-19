@@ -85,7 +85,8 @@
       position: relative;
       display: inline-block;
 
-      padding: 2em 0;
+      padding-top: 2em;
+      margin-bottom: 2em;
     }
     .previous {
       @extend %flex-wrap;

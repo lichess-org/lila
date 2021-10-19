@@ -142,9 +142,11 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   const myName = document.body.dataset['user'];
   const onSelect = (name: string) => {
-    const previous = ctrl.data.playerName.previous().filter(n => n !== name);
-    previous.unshift(name);
-    ctrl.data.playerName.previous(previous.slice(0, 20));
+    if (name != myName) {
+      const previous = ctrl.data.playerName.previous().filter(n => n !== name);
+      previous.unshift(name);
+      ctrl.data.playerName.previous(previous.slice(0, 20));
+    }
     ctrl.data.playerName.value(name);
     ctrl.data.playerName.open(false);
     ctrl.redraw();

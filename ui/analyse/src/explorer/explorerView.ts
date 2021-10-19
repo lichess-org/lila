@@ -80,7 +80,6 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   return h('table.moves', [
     h('thead', [
       h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', trans('whiteDrawBlack'))]),
-      playerLoading(ctrl.explorer),
     ]),
     h(
       'tbody',
@@ -317,6 +316,7 @@ function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
         opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
       )
     ),
+    playerIndexing(ctrl.explorer),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse()
@@ -357,6 +357,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
               [h('strong', data.opening.eco), ' ', data.opening.name]
             )
           ),
+        playerIndexing(ctrl.explorer),
         moveTable,
         topTable,
         recentTable,
@@ -390,17 +391,14 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   return lastShow;
 }
 
-const playerLoading = (explorer: ExplorerCtrl) =>
+const playerIndexing = (explorer: ExplorerCtrl) =>
   explorer.config.data.db.selected() == 'player' && explorer.isIndexing()
-    ? h(
-        'tr',
-        h('th.title.player-loading', { attrs: { colspan: 3 } }, [
-          'Indexing ',
-          h('strong', explorer.config.data.playerName.value()),
-          ' games',
-          h('i.ddloader'),
-        ])
-      )
+    ? h('div.player-loading', [
+        'Indexing ',
+        h('strong', explorer.config.data.playerName.value()),
+        ' games',
+        h('i.ddloader'),
+      ])
     : undefined;
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
