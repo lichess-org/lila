@@ -154,7 +154,7 @@ object discussion {
           div(
             select(cls := "appeal-presets")(
               option(st.value := "")("Presets"),
-              ps.value.map { case ModPreset(name, text) =>
+              ps.value.map { case ModPreset(name, text, _) =>
                 option(
                   st.value := text,
                   st.title := text

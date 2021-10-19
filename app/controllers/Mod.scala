@@ -101,7 +101,7 @@ final class Mod(
 
   def warn(username: String, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
-      env.mod.presets.pmPresets.get().named(subject) ?? { preset =>
+      env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
