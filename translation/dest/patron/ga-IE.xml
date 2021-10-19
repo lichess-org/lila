@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Deonaigh</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Deonaigh mar %s</string>
   <string name="lichessPatron">Pátrún Lichess</string>
   <string name="freeAccount">Cuntas saor in aisce</string>
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
@@ -81,5 +82,5 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nowLifetime">Is Pátrún Lichess ar feadh an tsaoil anois thú!</string>
   <string name="nowOneMonth">Is Pátrún Lichess ar feadh mí anois thú!</string>
   <string name="downgradeNextMonth">I gceann míosa, nÍ bheadh aon táille ort arís, agus fillfidh do chuntas Lichess ar gnáth chuntas.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Athraigh airgeadra</string>
+  <string name="changeCurrency">Athraigh airgeadra</string>
 </resources>

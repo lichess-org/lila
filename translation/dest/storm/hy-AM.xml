@@ -50,4 +50,7 @@
   <string name="skip">բաց թողնել</string>
   <string name="skipHelp">Մրցավազքի ընթացքում Դուք կարող եք բաց թողնել մեկ քայլ.</string>
   <string name="skipExplanation">Բաց թողնել այս քայլը՝ շարքը պահպանելու համար։ Մրցավազքի ընթացքում կարելի է օգտագործել միայն մեկ անգամ։</string>
+  <string name="thisWeek">Այս շաբաթ</string>
+  <string name="thisMonth">Այս ամիս</string>
+  <string name="allTime">Ամբողջ ընթացքում</string>
 </resources>

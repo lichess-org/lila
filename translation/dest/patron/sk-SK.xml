@@ -70,5 +70,5 @@ Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</str
   <string name="nowLifetime">Odteraz ste doživotný Lichess Patron!</string>
   <string name="nowOneMonth">Odteraz ste Lichess Patron na jeden mesiac!</string>
   <string name="downgradeNextMonth">Za jeden mesiac, vám NEBUDE zaúčtovaný poplatok znova, a váš Lichess účet sa obnoví na bežný účet.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Zmeniť menu</string>
+  <string name="changeCurrency">Zmeniť menu</string>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">تبرع</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">تبرع باسم%s</string>
   <string name="lichessPatron">راعي Lichess</string>
   <string name="freeAccount">حساب مجاني</string>
   <string name="becomePatron">كنّ راعياً في Lichess</string>
@@ -84,5 +85,5 @@
   <string name="nowLifetime">أنت الآن راع لليتشس مدى الحياة!</string>
   <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>
   <string name="downgradeNextMonth">في شهر واحد، لن يتم تحميل رسوم مرة أخرى، وحساب Lichess الخاص بك سيصبح حساب عادي.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">غير العملة</string>
+  <string name="changeCurrency">غير العملة</string>
 </resources>

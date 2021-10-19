@@ -75,5 +75,5 @@
   <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
   <string name="nowOneMonth">شما هم‌اکنون برای یک ماه یک پشتیبانِ Lichess هستید!</string>
   <string name="downgradeNextMonth">طی یک ماه، دوباره برای شما بدهکاری ثبت نخواهد شد، و حساب کاربری Lichess شما به یک حساب کاربری معمولی برگردانده خواهد شد.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">تغییر واحد پول</string>
+  <string name="changeCurrency">تغییر واحد پول</string>
 </resources>

@@ -32,7 +32,7 @@
   <string name="highscores">Record</string>
   <string name="viewBestRuns">Visualizza i migliori tentativi</string>
   <string name="bestRunOfDay">Migliore tentativo del giorno</string>
-  <string name="runs">Tentativo</string>
+  <string name="runs">Tentativi</string>
   <string name="getReady">Preparati!</string>
   <string name="waitingForMorePlayers">In attesa di altri giocatori...</string>
   <string name="raceComplete">Traguardo!</string>
@@ -50,6 +50,6 @@
   <string name="skip">salta</string>
   <string name="skipHelp">Puoi saltare una mossa per gara:</string>
   <string name="skipExplanation">Salta questa mossa per mantenere la combo! È possibile farlo solo una volta per gara.</string>
-  <string name="failedPuzzles">Rompicapi falliti</string>
+  <string name="failedPuzzles">Tattiche fallite</string>
   <string name="slowPuzzles">Rompicapi lenti</string>
 </resources>

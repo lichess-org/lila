@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Sfida rifiutata</string>
   <string name="challengeAccepted">Sfida accettata!</string>
   <string name="challengeCanceled">Sfida annullata.</string>
-  <string name="registerToSendChallenges">Si prega di registrarsi per inviare le sfide.</string>
+  <string name="registerToSendChallenges">Registrati per sfidare altri giocatori.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="xDoesNotAcceptChallenges">%s non accetta sfide.</string>
   <string name="yourXRatingIsTooFarFromY">Il tuo punteggio %1$s è troppo diverso da quello di %2$s.</string>

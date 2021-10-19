@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Spenden</string>
+  <string name="donateAsX">Spende als %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
@@ -75,5 +76,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nowLifetime">Du bist jetzt lebenslanger Lichess-Patron!</string>
   <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung ändern</string>
+  <string name="changeCurrency">Währung ändern</string>
 </resources>
