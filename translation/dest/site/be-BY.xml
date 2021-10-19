@@ -35,12 +35,12 @@
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чорных</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунду.</item>
-    <item quantity="few">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунды.</item>
-    <item quantity="many">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
-    <item quantity="other">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
+    <item quantity="one">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунду.</item>
+    <item quantity="few">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунды.</item>
+    <item quantity="many">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунд.</item>
+    <item quantity="other">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунд.</item>
   </plurals>
-  <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
+  <string name="opponentLeftChoices">Ваш супернік пакінуў гульню. Вы можаце абвясціць сваю перамогу ці нічыю, або пачакаць.</string>
   <string name="forceResignation">Абвясціць перамогу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
@@ -105,7 +105,7 @@
   <string name="replayMode">Рэжым паўтору</string>
   <string name="realtimeReplay">У рэальным часе</string>
   <string name="byCPL">Цікавае</string>
-  <string name="openStudy">Пачаць даследаванне</string>
+  <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць лепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
