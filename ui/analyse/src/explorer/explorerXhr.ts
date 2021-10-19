@@ -34,6 +34,7 @@ export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) 
     params.set('player', opts.personal.player);
     params.set('color', opts.personal.color);
     params.set('update', 'true');
+    if (opts.speeds) params.set('speeds', opts.speeds.join(','));
   }
   if (!opts.withGames) {
     params.set('topGames', '0');

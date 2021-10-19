@@ -37,6 +37,7 @@ export interface ExplorerConfigData {
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
+    previous: StoredJsonProp<string[]>;
   };
 }
 

@@ -72,6 +72,8 @@
   }
 
   &__player__choice {
+    max-width: 70ch !important;
+
     > div {
       // for user complete
       overflow: visible !important;
@@ -83,7 +85,14 @@
       position: relative;
       display: inline-block;
 
-      padding-top: 2em;
+      padding: 2em 0;
+    }
+    .previous {
+      @extend %flex-wrap;
+      .button {
+        margin: 0.3em 0.2em;
+        text-transform: none;
+      }
     }
   }
 }

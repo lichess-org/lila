@@ -36,7 +36,8 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
     },
     playerName: {
       open: prop(false),
-      value: storedProp<string | undefined>('explorer.player.name', document.body.dataset['user'] || ''),
+      value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
+      previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
     },
   };
 
@@ -134,10 +135,20 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         name ? 'Change' : 'Select a Lichess player'
       ),
     ]),
+    speedSection(ctrl),
   ]);
 };
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
+  const myName = document.body.dataset['user'];
+  const onSelect = (name: string) => {
+    const previous = ctrl.data.playerName.previous().filter(n => n !== name);
+    previous.unshift(name);
+    ctrl.data.playerName.previous(previous.slice(0, 20));
+    ctrl.data.playerName.value(name);
+    ctrl.data.playerName.open(false);
+    ctrl.redraw();
+  };
   return snabModal({
     class: 'explorer__config__player__choice',
     onClose() {
@@ -154,17 +165,25 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
               uac({
                 input,
                 tag: 'span',
-                onSelect(v) {
-                  ctrl.data.playerName.value(v.name);
-                  ctrl.data.playerName.open(false);
-                  ctrl.redraw();
-                },
+                onSelect: v => onSelect(v.name),
               });
               input.focus();
             })
           ),
         }),
       ]),
+      h(
+        'div.previous',
+        [...(myName ? [myName] : []), ...ctrl.data.playerName.previous()].map(name =>
+          h(
+            'button.button',
+            {
+              hook: bind('click', () => onSelect(name)),
+            },
+            name
+          )
+        )
+      ),
     ],
   });
 };
@@ -195,22 +214,25 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
         )
       ),
     ]),
-    h('section.speed', [
-      h('label', ctrl.trans.noarg('timeControl')),
-      h(
-        'div.choices',
-        ctrl.data.speed.available.map(s =>
-          h(
-            'button',
-            {
-              attrs: {
-                'aria-pressed': `${ctrl.data.speed.selected().includes(s)}`,
-              },
-              hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw),
+    speedSection(ctrl),
+  ]);
+
+const speedSection = (ctrl: ExplorerConfigCtrl) =>
+  h('section.speed', [
+    h('label', ctrl.trans.noarg('timeControl')),
+    h(
+      'div.choices',
+      ctrl.data.speed.available.map(s =>
+        h(
+          'button',
+          {
+            attrs: {
+              'aria-pressed': `${ctrl.data.speed.selected().includes(s)}`,
             },
-            s
-          )
+            hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw),
+          },
+          s
         )
-      ),
-    ]),
+      )
+    ),
   ]);
