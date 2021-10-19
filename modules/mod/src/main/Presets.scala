@@ -60,7 +60,7 @@ object ModPresets {
 
     private def write(presets: ModPresets): String =
       presets.value.map { case ModPreset(name, text, permissions) =>
-        s"${permissions.map(_.key) mkString ","}\n\n$name\n\n$text"
+        s"${permissions.map(_.key) mkString ", "}\n\n$name\n\n$text"
       } mkString "\n\n----------\n\n"
 
     private def read(s: String): ModPresets =
