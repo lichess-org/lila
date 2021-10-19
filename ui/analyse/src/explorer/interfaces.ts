@@ -147,24 +147,3 @@ export interface SimpleTablebaseHit {
   best?: Uci; // no move if checkmate/stalemate
   winner: Color | undefined;
 }
-
-export interface ExplorerCtrl {
-  allowed: Prop<boolean>;
-  loading: Prop<boolean>;
-  enabled: Prop<boolean>;
-  failing: Prop<Error | null>;
-  movesAway: Prop<number>;
-  config: ExplorerConfigCtrl;
-  withGames: boolean;
-  gameMenu: Prop<string | null>;
-  current(): ExplorerData | undefined;
-  hovering: Prop<Hovering | null>;
-  setNode(): void;
-  toggle(): void;
-  disable(): void;
-  setHovering(fen: Fen, uci: Uci | null): void;
-  onFlip(): void;
-  isIndexing: () => boolean;
-  fetchMasterOpening(fen: Fen): Promise<OpeningData>;
-  fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit>;
-}

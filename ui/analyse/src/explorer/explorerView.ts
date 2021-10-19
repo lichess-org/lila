@@ -14,8 +14,8 @@ import {
   OpeningMoveStats,
   OpeningGame,
   Opening,
-  ExplorerCtrl,
 } from './interfaces';
+import ExplorerCtrl from './explorerCtrl';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -159,7 +159,7 @@ function openGame(ctrl: AnalyseCtrl, gameId: string) {
   const orientation = ctrl.chessground.state.orientation,
     fenParam = ctrl.node.ply > 0 ? '?fen=' + ctrl.node.fen : '';
   let url = '/' + gameId + '/' + orientation + fenParam;
-  if (ctrl.explorer.config.data.db.selected() === 'masters') url = '/import/master' + url;
+  if (ctrl.explorer.db() === 'masters') url = '/import/master' + url;
   window.open(url, '_blank', 'noopener');
 }
 
@@ -392,7 +392,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
 }
 
 const playerIndexing = (explorer: ExplorerCtrl) =>
-  explorer.config.data.db.selected() == 'player' && explorer.isIndexing()
+  explorer.db() == 'player' && explorer.isIndexing()
     ? h('div.player-loading', [
         'Indexing ',
         h('strong', explorer.config.data.playerName.value()),
