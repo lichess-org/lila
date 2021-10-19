@@ -1,6 +1,8 @@
 package shogi
 package format
 
+import cats.implicits._
+
 import variant.{ Standard, Variant }
 
 object Forsyth {
@@ -37,7 +39,7 @@ object Forsyth {
     read(rawSource) { source =>
       <<@(variant, source) map { sit =>
         val splitted   = source.split(' ').drop(3)
-        val moveNumber = splitted lift 0 flatMap parseIntOption map (_ max 1 min 500)
+        val moveNumber = splitted lift 0 flatMap (_.toIntOption) map (_ max 1 min 500)
         SituationPlus(
           sit,
           moveNumber getOrElse 1
@@ -66,17 +68,17 @@ object Forsyth {
     read(rawSource) { fen =>
       val splitted  = fen.split(' ')
       val positions = singleCharSfen(splitted.lift(0).get)
-      if (positions.count('/' ==) != 8) {
-        return None
-      }
-      makePiecesList(positions.toList, 1, 9) map { case pieces =>
-        val board = Board(pieces, variant)
-        if (splitted.length < 3 || splitted.lift(2).get == "-") board
-        else {
-          val hands = readHands(splitted.lift(2).get)
-          board.withCrazyData(hands)
+      if (positions.count('/' ==) == 8) {
+        makePiecesList(positions.toList, 1, 9) map { case pieces =>
+          val board = Board(pieces, variant)
+          if (splitted.length < 3 || splitted.lift(2).get == "-") board
+          else {
+            val hands = readHands(splitted.lift(2).get)
+            board.withCrazyData(hands)
+          }
         }
       }
+      else None
     }
 
   def readHands(sfenHand: String): Hands = {
@@ -109,7 +111,7 @@ object Forsyth {
       y: Int
   ): Option[List[(Pos, Piece)]] =
     chars match {
-      case Nil                               => Some(Nil)
+      case Nil                               => Option(Nil)
       case '/' :: rest                       => makePiecesList(rest, 1, y - 1)
       case c :: rest if '1' <= c && c <= '9' => makePiecesList(rest, x + (c - '0').toInt, y)
       case c :: rest =>
@@ -172,7 +174,7 @@ object Forsyth {
 
   def getMoveNumber(rawSource: String): Option[Int] =
     read(rawSource) { fen =>
-      fen.split(' ').lift(3) flatMap parseIntOption
+      fen.split(' ').lift(3).flatMap(_.toIntOption)
     }
 
   def getColor(rawSource: String): Option[Color] =

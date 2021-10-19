@@ -1,6 +1,6 @@
 package shogi
 
-import scalaz.Validation.FlatMap._
+import cats.syntax.option._
 import Pos._
 import variant._
 

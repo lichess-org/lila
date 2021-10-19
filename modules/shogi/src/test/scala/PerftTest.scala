@@ -15,24 +15,24 @@ class PerftTest extends ShogiTest {
     "1 depth" in {
       val game =
         Game(
-          Some(shogi.variant.Standard),
-          Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
+          Option(shogi.variant.Standard),
+          Option("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
         )
       perft(game, 1) must be equalTo 30
     }
     "2 depth" in {
       val game =
         Game(
-          Some(shogi.variant.Standard),
-          Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
+          Option(shogi.variant.Standard),
+          Option("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
         )
       perft(game, 2) must be equalTo 900
     }
     "3 depth" in {
       val game =
         Game(
-          Some(shogi.variant.Standard),
-          Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
+          Option(shogi.variant.Standard),
+          Option("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
         )
       perft(game, 3) must be equalTo 25470
     }
@@ -68,7 +68,7 @@ class PerftTest extends ShogiTest {
   //      line match {
   //        case sfen :: d1 :: d2 :: _ => {
   //          val game =
-  //            Game(Some(shogi.variant.Standard), Some(sfen))
+  //            Game(Option(shogi.variant.Standard), Option(sfen))
   //          perft(game, 1) must be equalTo d1.toInt
   //          perft(game, 2) must be equalTo d2.toInt
   //        }

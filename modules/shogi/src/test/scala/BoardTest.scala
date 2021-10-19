@@ -59,7 +59,7 @@ class BoardTest extends ShogiTest {
 
     "allow a piece to be placed" in {
       board.place(Sente - Rook, E5) must beSome.like { case b =>
-        b(E5) mustEqual Some(Sente - Rook)
+        b(E5) mustEqual Option(Sente - Rook)
       }
     }
 
@@ -71,7 +71,7 @@ class BoardTest extends ShogiTest {
 
     "allow a piece to move" in {
       board.move(E3, E4) must beSome.like { case b =>
-        b(E4) mustEqual Some(Sente - Pawn)
+        b(E4) mustEqual Option(Sente - Pawn)
       }
     }
 
@@ -95,7 +95,7 @@ class BoardTest extends ShogiTest {
         _.place(Sente - Pawn, A3),
         _.move(A2, A4)
       ) must beSome.like { case b =>
-        b(A4) mustEqual Some(Sente - Pawn)
+        b(A4) mustEqual Option(Sente - Pawn)
       }
     }
 

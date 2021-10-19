@@ -11,7 +11,7 @@ class BinaryTest extends ShogiTest {
   def compareStrAndBin(pgn: String) = {
     val bin = (Binary writeMoves pgn.split(' ').toList).get.toList
     ((Binary readMoves bin).get mkString " ") must_== pgn
-    bin.size must be_<=(pgn.size)
+    bin.size must be_<=(pgn.length)
   }
 
   "binary encoding" should {
@@ -72,7 +72,7 @@ class BinaryTest extends ShogiTest {
       "all games" in {
         forall(pgn200) { pgn =>
           val bin = (Binary writeMoves pgn.split(' ').toList).get
-          bin.size must be_<=(pgn.size)
+          bin.length must be_<=(pgn.length)
         }
       }
     }

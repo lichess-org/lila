@@ -1,8 +1,9 @@
 package shogi
 package variant
 
+import cats.data.Validated
+import cats.syntax.option._
 import scala.annotation.nowarn
-import scalaz.Validation.FlatMap._
 
 import Pos.posAt
 import format.Uci
@@ -81,24 +82,21 @@ abstract class Variant private[variant] (
       next == to || (!board.pieces.contains(next) && longRangeThreatens(board, next, dir, to))
     }
 
-  def move(situation: Situation, from: Pos, to: Pos, promotion: Boolean): Valid[Move] = {
+  def move(situation: Situation, from: Pos, to: Pos, promotion: Boolean): Validated[String, Move] = {
 
     // Find the move in the variant specific list of valid moves
     def findMove(from: Pos, to: Pos) = situation.moves get from flatMap (_.find(_.dest == to))
 
     for {
       actor <- situation.board.actors get from toValid "No piece on " + from
-      _     <- actor.validIf(actor is situation.color, "Not my piece on " + from)
+      _     <- if (actor is situation.color) Validated.valid(actor)
+               else Validated.invalid("Not my piece on " + from)
       m1    <- findMove(from, to) toValid "Piece on " + from + " cannot move to " + to
-      m2 <- m1 withPromotion (Role.promotesTo(
+      m2 <- m1.withPromotion(Role.promotesTo(
         actor.piece.role
       ), promotion) toValid "Piece on " + from + " cannot promote to " + promotion
-      m3 <- m2 validIf (isValidPromotion(
-        actor.piece,
-        promotion,
-        from,
-        to
-      ), "Cannot promote to " + promotion + " in this game mode")
+      m3 <- if (isValidPromotion(actor.piece, promotion, from, to)) Validated.valid(m2)
+            else Validated.invalid("Cannot promote to " + promotion + " in this game mode")
     } yield m3
   }
 
@@ -113,14 +111,16 @@ abstract class Variant private[variant] (
     }
   }
 
-  def drop(situation: Situation, role: Role, pos: Pos): Valid[Drop] =
+  def drop(situation: Situation, role: Role, pos: Pos): Validated[String, Drop] =
     for {
-      d1 <- situation.board.crazyData toValid "Board has no crazyhouse data"
-      _  <- d1.validIf(validPieceDrop(role, pos, situation), s"Can't drop $role on $pos")
+      d1 <- situation.board.crazyData toValid "Board has no hand data"
+      _  <- if (validPieceDrop(role, pos, situation)) Validated.valid(d1)
+            else Validated.invalid(s"Can't drop $role on $pos")
       piece = Piece(situation.color, role)
       d2     <- d1.drop(piece) toValid s"No $piece to drop on $pos"
       board1 <- situation.board.place(piece, pos) toValid s"Can't drop $role on $pos, it's occupied"
-      _      <- board1.validIf(!board1.check(situation.color), s"Dropping $role on $pos doesn't uncheck the king")
+      _      <- if (!board1.check(situation.color)) Validated.valid(board1)
+                else Validated.invalid(s"Dropping $role on $pos doesn't uncheck the king")
     } yield Drop(
       piece = piece,
       pos = pos,
@@ -166,11 +166,9 @@ abstract class Variant private[variant] (
   // Player wins or loses after their move
   def winner(situation: Situation): Option[Color] = {
     val pawnDrop = situation.board.history.lastMove.fold(false) { l => l.uci(0) == 'P' }
-    if (situation.checkMate && pawnDrop) Some(situation.color)
-    else if (situation.checkMate) Some(!situation.color)
-    else if (situation.staleMate) Some(!situation.color)
-    else if (situation.impasse) Some(situation.color)
-    else if (situation.perpetualCheck) Some(situation.color)
+    if (situation.checkMate && pawnDrop) Option(situation.color)
+    else if (situation.checkMate || situation.staleMate) Option(!situation.color)
+    else if (situation.impasse || situation.perpetualCheck) Option(situation.color)
     else None
   }
 
@@ -239,9 +237,9 @@ abstract class Variant private[variant] (
   protected def validSide(board: Board, strict: Boolean)(color: Color) = {
     val roles     = board rolesOf color
     val pawnFiles = board occupiedPawnFiles color
-    roles.size > 0 &&
-    (!strict || { roles.count(_ == Pawn) <= 9 && roles.size <= 40 && roles.count(_ == King) == 1 }) &&
-    !unmovablePieces(board, color) && pawnFiles.distinct.size == pawnFiles.size && roles.count(_ == King) <= 1
+    roles.length > 0 &&
+    (!strict || { roles.count(_ == Pawn) <= 9 && roles.length <= 40 && roles.count(_ == King) == 1 }) &&
+    !unmovablePieces(board, color) && pawnFiles.distinct.length == pawnFiles.length && roles.count(_ == King) <= 1
   }
 
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict) _

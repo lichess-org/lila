@@ -1,9 +1,11 @@
 package shogi
 
+import cats.data.Validated
+import cats.data.Validated.{ invalid, valid }
+import cats.implicits._
+
 import shogi.format.{ FEN, Forsyth, ParsedMove, Reader, Tag, Tags, Uci }
 import format.pgn.Parser
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.{ failureNel, success }
 
 case class Replay(setup: Game, moves: List[MoveOrDrop], state: Game) {
 
@@ -27,8 +29,8 @@ object Replay {
       moveStrs: Iterable[String],
       initialFen: Option[String],
       variant: shogi.variant.Variant
-  ): Valid[Reader.Result] =
-    moveStrs.some.filter(_.nonEmpty) toValid "[replay] pgn is empty" flatMap { nonEmptyMoves =>
+  ): Validated[String, Reader.Result] =
+    moveStrs.some.filter(_.nonEmpty) toValid "[replay] pgn is empty" andThen { nonEmptyMoves =>
       Reader.moves(
         nonEmptyMoves,
         Tags(
@@ -44,9 +46,9 @@ object Replay {
       )
     }
 
-  private def recursiveGames(game: Game, parsedMoves: List[ParsedMove]): Valid[List[Game]] =
+  private def recursiveGames(game: Game, parsedMoves: List[ParsedMove]): Validated[String, List[Game]] =
     parsedMoves match {
-      case Nil => success(Nil)
+      case Nil => valid(Nil)
       case san :: rest =>
         san(game.situation) flatMap { moveOrDrop =>
           val newGame = moveOrDrop.fold(game.apply, game.applyDrop)
@@ -58,23 +60,22 @@ object Replay {
       moveStrs: Iterable[String],
       initialFen: Option[String],
       variant: shogi.variant.Variant
-  ): Valid[List[Game]] =
-    Parser.moves(moveStrs, variant) flatMap { moves =>
+  ): Validated[String, List[Game]] =
+    Parser.moves(moveStrs, variant) andThen { moves =>
       val game = makeGame(variant, initialFen)
       recursiveGames(game, moves.value) map { game :: _ }
     }
 
-  type ErrorMessage = String
   def gameMoveWhileValid(
       moveStrs: Seq[String],
       initialFen: String,
       variant: shogi.variant.Variant
-  ): (Game, List[(Game, Uci.WithSan)], Option[ErrorMessage]) = {
-    def mk(g: Game, moves: List[(ParsedMove, String)]): (List[(Game, Uci.WithSan)], Option[ErrorMessage]) = {
+  ): (Game, List[(Game, Uci.WithSan)], Option[String]) = {
+    def mk(g: Game, moves: List[(ParsedMove, String)]): (List[(Game, Uci.WithSan)], Option[String]) = {
       moves match {
         case (san, sanStr) :: rest =>
           san(g.situation).fold(
-            err => (Nil, err.head.some),
+            err => (Nil, err.some),
             moveOrDrop => {
               val newGame = moveOrDrop.fold(g.apply, g.applyDrop)
               val uci     = moveOrDrop.fold(_.toUci, _.toUci)
@@ -90,16 +91,16 @@ object Replay {
     Parser
       .moves(moveStrs, variant)
       .fold(
-        err => List.empty[(Game, Uci.WithSan)] -> err.head.some,
+        err => List.empty[(Game, Uci.WithSan)] -> err.some,
         moves => mk(init, moves.value zip moveStrs)
       ) match {
       case (games, err) => (init, games, err)
     }
   }
 
-  private def recursiveSituations(sit: Situation, parsedMoves: List[ParsedMove]): Valid[List[Situation]] =
+  private def recursiveSituations(sit: Situation, parsedMoves: List[ParsedMove]): Validated[String, List[Situation]] =
     parsedMoves match {
-      case Nil => success(Nil)
+      case Nil => valid(Nil)
       case san :: rest =>
         san(sit) flatMap { moveOrDrop =>
           val after = Situation(moveOrDrop.fold(_.afterWithLastMove, _.afterWithLastMove), !sit.color)
@@ -107,21 +108,21 @@ object Replay {
         }
     }
 
-  private def recursiveSituationsFromUci(sit: Situation, ucis: List[Uci]): Valid[List[Situation]] =
+  private def recursiveSituationsFromUci(sit: Situation, ucis: List[Uci]): Validated[String, List[Situation]] =
     ucis match {
-      case Nil => success(Nil)
+      case Nil => valid(Nil)
       case uci :: rest =>
-        uci(sit) flatMap { moveOrDrop =>
+        uci(sit) andThen { moveOrDrop =>
           val after = Situation(moveOrDrop.fold(_.afterWithLastMove, _.afterWithLastMove), !sit.color)
           recursiveSituationsFromUci(after, rest) map { after :: _ }
         }
     }
 
-  private def recursiveReplayFromUci(replay: Replay, ucis: List[Uci]): Valid[Replay] =
+  private def recursiveReplayFromUci(replay: Replay, ucis: List[Uci]): Validated[String, Replay] =
     ucis match {
-      case Nil => success(replay)
+      case Nil => valid(replay)
       case uci :: rest =>
-        uci(replay.state.situation) flatMap { moveOrDrop =>
+        uci(replay.state.situation) andThen { moveOrDrop =>
           recursiveReplayFromUci(replay addMove moveOrDrop, rest)
         }
     }
@@ -136,15 +137,15 @@ object Replay {
       moveStrs: Iterable[String],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Valid[List[Board]] = situations(moveStrs, initialFen, variant) map (_ map (_.board))
+  ): Validated[String, List[Board]] = situations(moveStrs, initialFen, variant) map (_ map (_.board))
 
   def situations(
       moveStrs: Iterable[String],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Valid[List[Situation]] = {
+  ): Validated[String, List[Situation]] = {
     val sit = initialFenToSituation(initialFen, variant)
-    Parser.moves(moveStrs, sit.board.variant) flatMap { moves =>
+    Parser.moves(moveStrs, sit.board.variant) andThen { moves =>
       recursiveSituations(sit, moves.value) map { sit :: _ }
     }
   }
@@ -153,13 +154,13 @@ object Replay {
       moves: List[Uci],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Valid[List[Board]] = situationsFromUci(moves, initialFen, variant) map (_ map (_.board))
+  ): Validated[String, List[Board]] = situationsFromUci(moves, initialFen, variant) map (_ map (_.board))
 
   def situationsFromUci(
       moves: List[Uci],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Valid[List[Situation]] = {
+  ): Validated[String, List[Situation]] = {
     val sit = initialFenToSituation(initialFen, variant)
     recursiveSituationsFromUci(sit, moves) map { sit :: _ }
   }
@@ -168,7 +169,7 @@ object Replay {
       moves: List[Uci],
       initialFen: Option[String],
       variant: shogi.variant.Variant
-  ): Valid[Replay] =
+  ): Validated[String, Replay] =
     recursiveReplayFromUci(Replay(makeGame(variant, initialFen)), moves)
 
   def plyAtFen(
@@ -176,8 +177,8 @@ object Replay {
       initialFen: Option[String],
       variant: shogi.variant.Variant,
       atFen: String
-  ): Valid[Int] =
-    if (Forsyth.<<@(variant, atFen).isEmpty) failureNel(s"Invalid FEN $atFen")
+  ): Validated[String, Int] =
+    if (Forsyth.<<@(variant, atFen).isEmpty) invalid(s"Invalid FEN $atFen")
     else {
 
       // we don't want to compare the full move number, to match transpositions
@@ -185,14 +186,14 @@ object Replay {
       val atFenTruncated           = truncateFen(atFen)
       def compareFen(fen: String)  = truncateFen(fen) == atFenTruncated
 
-      def recursivePlyAtFen(sit: Situation, parsedMoves: List[ParsedMove], ply: Int): Valid[Int] =
+      def recursivePlyAtFen(sit: Situation, parsedMoves: List[ParsedMove], ply: Int): Validated[String, Int] =
         parsedMoves match {
-          case Nil => failureNel(s"Can't find $atFenTruncated, reached ply $ply")
+          case Nil => invalid(s"Can't find $atFenTruncated, reached ply $ply")
           case san :: rest =>
             san(sit) flatMap { moveOrDrop =>
               val after = moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter)
               val fen   = Forsyth >> Game(Situation(after, Color.fromPly(ply)), turns = ply)
-              if (compareFen(fen)) scalaz.Success(ply)
+              if (compareFen(fen)) Validated.valid(ply)
               else recursivePlyAtFen(Situation(after, !sit.color), rest, ply + 1)
             }
         }
@@ -201,7 +202,7 @@ object Replay {
         Forsyth.<<@(variant, _)
       } | Situation(variant)
 
-      Parser.moves(moveStrs, sit.board.variant) flatMap { moves =>
+      Parser.moves(moveStrs, sit.board.variant) andThen { moves =>
         recursivePlyAtFen(sit, moves.value, 1)
       }
     }

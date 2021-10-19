@@ -1,6 +1,9 @@
 package shogi
 package format
 
+import cats.data.Validated
+import cats.implicits._
+
 sealed trait Uci {
 
   def uci: String
@@ -9,10 +12,10 @@ sealed trait Uci {
 
   def origDest: (Pos, Pos)
 
-  def apply(situation: Situation): Valid[MoveOrDrop]
+  def apply(situation: Situation): Validated[String, MoveOrDrop]
 }
 
-object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
+object Uci {
 
   case class Move(
       orig: Pos,
@@ -43,7 +46,7 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
     def apply(move: String): Option[Move] = {
       for {
         orig <- Pos.posAt(move take 2)
-        dest <- Pos.posAt(move drop 2 take 2)
+        dest <- Pos.posAt(move.slice(2, 4))
         promotion = if ((move lift 4) == Some('+')) true else false
       } yield Move(orig, dest, promotion)
     }
@@ -95,7 +98,7 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
   def apply(move: String): Option[Uci] =
     if (move lift 1 contains '*') for {
       role <- move.headOption flatMap Role.allByPgn.get
-      pos  <- Pos.posAt(move drop 2 take 2)
+      pos  <- Pos.posAt(move.slice(2, 4))
     } yield Uci.Drop(role, pos)
     else Uci.Move(move)
 

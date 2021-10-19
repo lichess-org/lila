@@ -53,7 +53,7 @@ object Divider {
     }
 
     val midGameOption = midGame match {
-      case Found(index) => Some(index)
+      case Found(index) => Option(index)
       case _            => None
     }
 
@@ -73,7 +73,7 @@ object Divider {
       else NotFound()
 
     val endGameOption = endGame match {
-      case Found(index) => Some(index)
+      case Found(index) => Option(index)
       case _            => None
     }
 

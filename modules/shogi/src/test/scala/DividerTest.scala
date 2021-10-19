@@ -3,8 +3,8 @@
 //class DividerTest extends ShogiTest {
 //
 //  def makeReplay(moves: String) =
-//    format.pgn.Reader.full(moves).err match {
-//      case format.pgn.Reader.Result.Complete(replay) => replay.chronoMoves.map(_.fold(_.before, _.before))
+//    format.Reader.full(moves).err match {
+//      case format.Reader.Result.Complete(replay) => replay.chronoMoves.map(_.fold(_.before, _.before))
 //      case x                                         => sys error s"Unexpected incomplete replay $x"
 //    }
 //

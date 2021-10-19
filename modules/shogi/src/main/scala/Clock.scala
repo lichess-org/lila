@@ -1,5 +1,6 @@
 package shogi
 
+import cats.syntax.option._
 import java.text.DecimalFormat
 
 import Clock.Config
@@ -42,7 +43,7 @@ case class Clock(
 
   def isRunning = timer.isDefined
 
-  def start = if (isRunning) this else copy(timer = Some(now))
+  def start = if (isRunning) this else copy(timer = Option(now))
 
   def stop =
     timer.fold(this) { t =>
@@ -297,12 +298,12 @@ object Clock {
 
   def parseJPTime(str: String): Option[Int] = {
     if (str contains "時間")
-      parseIntOption(str.takeWhile(_ != '時'))
+      str.takeWhile(_ != '時').toIntOption
         .map(_ * 3600 + parseJPTime(str.reverse.takeWhile(_ != '間').reverse).getOrElse(0))
     else if (str contains "分")
-      parseIntOption(str.takeWhile(_ != '分'))
+      str.takeWhile(_ != '分').toIntOption
         .map(_ * 60 + parseJPTime(str.reverse.takeWhile(_ != '分').reverse).getOrElse(0))
-    else parseIntOption(str.filterNot(_ == '秒'))
+    else str.filterNot(_ == '秒').toIntOption
   }
 
   val kifTime          = """(?:\d+(?:秒|分|時間)?)+"""
@@ -314,9 +315,9 @@ object Clock {
       case KifClkRegex(initStr, byoStr, perStr, incStr) =>
         for {
           init <- parseJPTime(initStr)
-          byo  <- if (byoStr == null) Some(0) else parseJPTime(byoStr)
-          per  <- if (perStr == null) Some(1) else parseIntOption(perStr)
-          inc  <- if (incStr == null) Some(0) else parseJPTime(incStr)
+          byo  <- if (byoStr == null) 0.some else parseJPTime(byoStr)
+          per  <- if (perStr == null) 1.some else perStr.toIntOption
+          inc  <- if (incStr == null) 0.some else parseJPTime(incStr)
         } yield Config(init, inc, byo, per)
       case _ => none
     }

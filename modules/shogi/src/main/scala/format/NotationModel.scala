@@ -1,8 +1,6 @@
 package shogi
 package format
 
-import scala._
-
 trait Notation {
 
   def moves: List[NotationMove]

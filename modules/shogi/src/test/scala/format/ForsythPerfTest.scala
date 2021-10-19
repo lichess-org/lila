@@ -3,7 +3,7 @@ package format
 
 class ForsythPerfTest extends ShogiTest {
 
-  args(skipAll = true)
+  //args(skipAll = true)
 
   val initialBoard = Board.init(variant.Standard)
   val emptyBoard   = (Forsyth << "9/9/9/9/9/9/9/9/9").get.board
@@ -13,16 +13,16 @@ class ForsythPerfTest extends ShogiTest {
       val nb         = 10
       val iterations = 10
       def runOne     = Forsyth.exportBoard(initialBoard)
-      def run { for (i <- 1 to nb) runOne }
+      def run: Unit = { for (_ <- 1 to nb) runOne }
       runOne must_== Forsyth.initial.takeWhile(' ' !=)
       if (nb * iterations > 1) {
         println("warming up")
-        run
+        run()
       }
       println("running tests")
-      val durations = for (i <- 1 to iterations) yield {
+      val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis
-        run
+        run()
         val duration = System.currentTimeMillis - start
         println(s"$nb positions in $duration ms")
         duration

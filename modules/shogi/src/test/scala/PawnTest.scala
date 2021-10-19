@@ -1,7 +1,6 @@
 package shogi
 
 import Pos._
-import format.Uci
 
 class PawnTest extends ShogiTest {
 

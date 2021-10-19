@@ -1,5 +1,6 @@
 package shogi
 
+import cats.syntax.option._
 import format.Uci
 
 case class Move(
@@ -22,7 +23,7 @@ case class Move(
     val board = after.variant.finalizeBoard(
       after updateHistory { h =>
         h.copy(
-          lastMove = Some(toUci)
+          lastMove = Option(toUci)
         )
       },
       toUci,

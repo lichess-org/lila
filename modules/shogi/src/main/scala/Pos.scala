@@ -53,11 +53,11 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
 }
 
 object Pos {
-  val posCache = new Array[Some[Pos]](81)
+  val posCache = new Array[Pos](81)
 
   def posAt(x: Int, y: Int): Option[Pos] =
     if (x < 1 || x > 9 || y < 1 || y > 9) None
-    else posCache(x + 9 * y - 10)
+    else posCache.lift(x + 9 * y - 10)
 
   def posAt(key: String): Option[Pos] = allKeys get key
 
@@ -79,7 +79,7 @@ object Pos {
 
   private[this] def createPos(x: Int, y: Int, piotr: Char): Pos = {
     val pos = new Pos(x, y, piotr)
-    posCache(x + 9 * y - 10) = Some(pos)
+    posCache(x + 9 * y - 10) = pos
     pos
   }
 
@@ -165,7 +165,7 @@ object Pos {
   val H9 = createPos(8, 9, '}')
   val I9 = createPos(9, 9, '~')
 
-  val all = posCache.toList.flatten
+  val all = posCache.toList
 
   val senteBackrank = (A1 <-> I1).toList
   val goteBackrank  = (A9 <-> I9).toList

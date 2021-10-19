@@ -2,7 +2,7 @@ package shogi
 package format
 package kif
 
-import scala._
+import cats.syntax.option._
 
 // This is temporary for exporting KIFs
 // The plan is to get completely rid of pgn/san

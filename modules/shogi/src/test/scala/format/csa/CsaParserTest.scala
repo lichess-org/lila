@@ -4,6 +4,8 @@ package csa
 
 import variant.Standard
 
+import cats.syntax.option._
+
 class CsaParserTest extends ShogiTest {
 
   import CsaFixtures._
@@ -12,14 +14,14 @@ class CsaParserTest extends ShogiTest {
   def parseMove(str: String) = CsaParser.MoveParser(str, Standard)
 
   "drop" in {
-    parseMove("-0077FU") must beSuccess.like { case d: Drop =>
+    parseMove("-0077FU") must beValid.like { case d: Drop =>
       d.role must_== Pawn
       d.pos must_== Pos.C3
     }
   }
 
   "move" in {
-    parseMove("5948OU") must beSuccess.like { case a: CsaStd =>
+    parseMove("5948OU") must beValid.like { case a: CsaStd =>
       a.dest === Pos.F2
       a.orig === Pos.E1
       a.role === King
@@ -28,7 +30,7 @@ class CsaParserTest extends ShogiTest {
 
   "basic" should {
     "move" in {
-      parser("PI,+5948OU") must beSuccess.like { case p =>
+      parser("PI,+5948OU") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case a: CsaStd =>
           a.dest === Pos.F2
           a.orig === Pos.E1
@@ -37,7 +39,7 @@ class CsaParserTest extends ShogiTest {
       }
     }
     "drop" in {
-      parser("PI,0077KI") must beSuccess.like { case p =>
+      parser("PI,0077KI") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case d: Drop =>
           d.role must_== Gold
           d.pos must_== Pos.C3
@@ -48,7 +50,7 @@ class CsaParserTest extends ShogiTest {
       parser("""PI,
       +7776FU,T12
       -8384FU,T5
-      """) must beSuccess.like { case p =>
+      """) must beValid.like { case p =>
         p.parsedMoves.value.lastOption must beSome.like { case a: CsaStd =>
           a.dest === Pos.B6
           a.orig === Pos.B7
@@ -64,7 +66,7 @@ class CsaParserTest extends ShogiTest {
   "tags" should {
     "one tag" in {
       parser("""PI,$SITE:KAZUSA ARC
-      -8384FU,T5""") must beSuccess.like { case a =>
+      -8384FU,T5""") must beValid.like { case a =>
         a.tags.value.size must_== 1
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Site && tag.value == """KAZUSA ARC"""
@@ -73,7 +75,7 @@ class CsaParserTest extends ShogiTest {
     }
     "name tag" in {
       parser("""PI,N-Me
-      -8384FU,T5""") must beSuccess.like { case a =>
+      -8384FU,T5""") must beValid.like { case a =>
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Gote && tag.value == """Me"""
         }
@@ -86,7 +88,7 @@ class CsaParserTest extends ShogiTest {
         $SITE:lishogi
         N+Also me
         -8384FU
-      """) must beSuccess.like { case a =>
+      """) must beValid.like { case a =>
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Gote && tag.value == """Me"""
         }
@@ -101,7 +103,7 @@ class CsaParserTest extends ShogiTest {
     "empty tag is ignored" in {
       parser("""PI
       N-
-      -8384FU""") must beSuccess.like { case a =>
+      -8384FU""") must beValid.like { case a =>
         a.tags.value must not contain { (tag: Tag) =>
           tag.name == Tag.Gote
         }
@@ -113,7 +115,7 @@ class CsaParserTest extends ShogiTest {
         N-
         N+NOPE
         -8384FU
-      """) must beSuccess.like { case a =>
+      """) must beValid.like { case a =>
         a.tags.value must contain { (tag: Tag) =>
           tag.name == Tag.Sente && tag.value == """NOPE"""
         }
@@ -127,7 +129,7 @@ class CsaParserTest extends ShogiTest {
       'such a neat comment
       ' one more, keep com,ma
       '
-      ' drop P*5e""") must beSuccess.like { case ParsedNotation(_, _, ParsedMoves(List(move))) =>
+      ' drop P*5e""") must beValid.like { case ParsedNotation(_, _, ParsedMoves(List(move))) =>
         move.metas.comments must_== List("such a neat comment", "one more, keep com,ma", "drop P*5e")
       }
     }
@@ -137,7 +139,7 @@ class CsaParserTest extends ShogiTest {
       'such a neat comment
       ' one more
       %TORYO,T3
-      'comment on termination?""") must beSuccess.like { case ParsedNotation(_, _, ParsedMoves(List(move))) =>
+      'comment on termination?""") must beValid.like { case ParsedNotation(_, _, ParsedMoves(List(move))) =>
         move.metas.comments must_== List("such a neat comment", "one more", "comment on termination?")
       }
     }
@@ -150,7 +152,7 @@ class CsaParserTest extends ShogiTest {
       +8483FU
       'Something comments
       +8483FU
-      %CHUDAN""") must beSuccess.like { case ParsedNotation(InitialPosition(init), Tags(tags), _) =>
+      %CHUDAN""") must beValid.like { case ParsedNotation(InitialPosition(init), Tags(tags), _) =>
         init must_== List("HEADER COMMENT", "HEADER2", "H3")
         tags.size must_== 3
       }
@@ -177,7 +179,7 @@ P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
 +
 +7776FU
 -8384FU
-    """) must beSuccess.like { case ParsedNotation(_, Tags(tags), _) =>
+    """) must beValid.like { case ParsedNotation(_, Tags(tags), _) =>
       tags.size must_== 6
       tags must not contain { (tag: Tag) =>
         tag.name == Tag.FEN
@@ -195,14 +197,14 @@ P9+KY+KE+GI+KI+OU+KI+GI+KE+KY
   }
 
   "csa fixture 1" in {
-    parser(csa1) must beSuccess.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
+    parser(csa1) must beValid.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
       pm.size must_== 111
       tags.size must_== 8
     }
   }
 
   "csa fixture 2" in {
-    parser(csa2) must beSuccess.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
+    parser(csa2) must beValid.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
       pm.size must_== 258
       tags.size must_== 4
     }

@@ -1,8 +1,6 @@
 package shogi
 
-import scalaz.Validation.FlatMap._
 import Pos._
-import shogi.variant.Standard
 
 class PromotionTest extends ShogiTest {
 

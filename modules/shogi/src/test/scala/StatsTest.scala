@@ -1,9 +1,8 @@
 package shogi
 
 import org.specs2.mutable.Specification
-import org.specs2.matcher.ValidationMatchers
 
-class StatsTest extends Specification with ValidationMatchers {
+class StatsTest extends Specification {
 
   def realMean(elts: Seq[Float]): Float = elts.sum / elts.size
 

@@ -45,7 +45,7 @@ case class Tags(value: List[Tag]) extends AnyVal {
 
   def year: Option[Int] =
     anyDate flatMap {
-      case Tags.DateRegex(y, _, _) => parseIntOption(y)
+      case Tags.DateRegex(y, _, _) => y.toIntOption
       case _                       => None
     }
 

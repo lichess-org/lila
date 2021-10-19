@@ -1,5 +1,6 @@
 package shogi
 
+import cats.data.Validated
 import format.{ pgn, Uci }
 
 case class Game(
@@ -14,7 +15,7 @@ case class Game(
       dest: Pos,
       promotion: Boolean = false,
       metrics: MoveMetrics = MoveMetrics()
-  ): Valid[(Game, Move)] = {
+  ): Validated[String, (Game, Move)] = {
     situation.move(orig, dest, promotion).map(_ withMetrics metrics) map { move =>
       apply(move) -> move
     }
@@ -35,7 +36,7 @@ case class Game(
       role: Role,
       pos: Pos,
       metrics: MoveMetrics = MoveMetrics()
-  ): Valid[(Game, Drop)] =
+  ): Validated[String, (Game, Drop)] =
     situation.drop(role, pos).map(_ withMetrics metrics) map { drop =>
       applyDrop(drop) -> drop
     }
@@ -59,9 +60,9 @@ case class Game(
       }
     }
 
-  def apply(uci: Uci.Move): Valid[(Game, Move)] = apply(uci.orig, uci.dest, uci.promotion)
-  def apply(uci: Uci.Drop): Valid[(Game, Drop)] = drop(uci.role, uci.pos)
-  def apply(uci: Uci): Valid[(Game, MoveOrDrop)] = {
+  def apply(uci: Uci.Move): Validated[String, (Game, Move)] = apply(uci.orig, uci.dest, uci.promotion)
+  def apply(uci: Uci.Drop): Validated[String, (Game, Drop)] = drop(uci.role, uci.pos)
+  def apply(uci: Uci): Validated[String, (Game, MoveOrDrop)] = {
     uci match {
       case u: Uci.Move => apply(u) map { case (g, m) => g -> Left(m) }
       case u: Uci.Drop => apply(u) map { case (g, d) => g -> Right(d) }

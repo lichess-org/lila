@@ -20,8 +20,6 @@ object Hash {
 
   val size = 3
 
-  val zero: PositionHash = Array(0, 0, 0)
-
   class ZobristConstants(start: Int) {
     def hexToLong(s: String): Long =
       (java.lang.Long.parseLong(s.substring(start, start + 8), 16) << 32) |
@@ -68,9 +66,9 @@ object Hash {
       // of any given type in a pocket.
       // 18+ pieces in hand will get hashed as (18+)%19. Theoretically some false positives for repetition
       val minCount = count % 19
-      if (minCount > 0 && roleIndex(role) < 7) Some {
+      if (minCount > 0 && roleIndex(role) < 7) Option(
         table.crazyPocketMasks(18 * roleIndex(role) + minCount + colorshift)
-      }
+      )
       else None
     }
 

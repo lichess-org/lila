@@ -1,6 +1,5 @@
 package shogi
 
-import scalaz.Validation.FlatMap._
 import Pos._
 import variant.Standard
 
@@ -17,7 +16,7 @@ class AutodrawTest extends ShogiTest {
       "opened" in {
         makeGame.playMoves(E3 -> E4, E7 -> E6, C3 -> C4, E6 -> E5, E4 -> E5) map { g =>
           g.board.autoDraw
-        } must beSuccess(false)
+        } must beValid(false)
       }
       "two kings with nothing in hand" in {
         """
@@ -57,12 +56,12 @@ K     N""".autoDraw must_== false
         H2 -> G2
       )
       "should be fourfold" in {
-        makeGame.playMoves(moves: _*) must beSuccess.like { case g =>
+        makeGame.playMoves(moves: _*) must beValid.like { case g =>
           g.situation.autoDraw must beTrue
         }
       }
       "should not be fourfold" in {
-        makeGame.playMoves(moves.dropRight(1): _*) must beSuccess.like { case g =>
+        makeGame.playMoves(moves.dropRight(1): _*) must beValid.like { case g =>
           g.situation.autoDraw must beFalse
         }
       }
@@ -71,7 +70,7 @@ K     N""".autoDraw must_== false
   "do not detect insufficient material" should {
     "on two kings with something in hand" in {
       val position = "4k4/9/9/9/9/9/9/9/5K3 b p 1"
-      fenToGame(position, Standard) must beSuccess.like { case game =>
+      fenToGame(position, Standard) must beValid.like { case game =>
         game.situation.autoDraw must beFalse
       //game.situation.end must beFalse
       //game.situation.opponentHasInsufficientMaterial must beFalse
@@ -84,7 +83,7 @@ K     N""".autoDraw must_== false
         Pos.E1,
         Pos.E2
       ))
-      newGame must beSuccess.like { case game =>
+      newGame must beValid.like { case game =>
         game.situation.autoDraw must beFalse
         game.situation.end must beFalse
         game.situation.opponentHasInsufficientMaterial must beTrue

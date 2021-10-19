@@ -2,7 +2,7 @@ package shogi
 
 class BoardReplayPerfTest extends ShogiTest {
 
-  args(skipAll = true)
+  //args(skipAll = true)
 
   val nb         = 100
   val iterations = 10
@@ -11,19 +11,19 @@ class BoardReplayPerfTest extends ShogiTest {
 
   val moves  = format.pgn.Fixtures.fromProd2.split(' ').toList
   def runOne = Replay.boards(moves, None, variant.Standard)
-  def run: Unit = { for (i <- 1 to nb) runOne }
+  def run: Unit = { for (_ <- 1 to nb) runOne }
 
   "playing a game" should {
     "many times" in {
-      runOne must beSuccess
+      runOne must beValid
       if (nb * iterations > 1) {
         println("warming up")
-        run
+        run()
       }
       println("running tests")
-      val durations = for (i <- 1 to iterations) yield {
+      val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis
-        run
+        run()
         val duration = System.currentTimeMillis - start
         println(s"$nb games in $duration ms")
         duration

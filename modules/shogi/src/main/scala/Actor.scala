@@ -107,7 +107,7 @@ final case class Actor(
         case None => board.move(pos, to) map { move(to, _) }
         case Some(piece) =>
           if (piece is color) Nil
-          else board.taking(pos, to) map { move(to, _, Some(to)) }
+          else board.taking(pos, to) map { move(to, _, Option(to)) }
       }
     }
 

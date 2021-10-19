@@ -1,6 +1,8 @@
 package shogi
 package format
 
+import cats.syntax.option._
+
 class UciMoveTest extends ShogiTest {
 
   "piotr encoding" should {

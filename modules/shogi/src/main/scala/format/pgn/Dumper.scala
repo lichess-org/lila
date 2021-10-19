@@ -15,8 +15,8 @@ object Dumper {
         val candidates = situation.board.pieces collect {
           case (cpos, cpiece) if cpiece == piece && cpos != orig && cpiece.eyes(cpos, dest) => cpos
         } filter { cpos =>
-          situation.move(cpos, dest, promotion).isSuccess ||
-          (promotion && situation.move(cpos, dest, false).isSuccess)
+          situation.move(cpos, dest, promotion).isValid ||
+          (promotion && situation.move(cpos, dest, false).isValid)
         }
 
         val disambiguation = if (candidates.isEmpty) {
@@ -34,7 +34,7 @@ object Dumper {
           else if (!promotion) ""
           else "+"
         }
-        s"${role.pgn}$disambiguation${captures.fold("x", "")}${dest.key}$promotes"
+        s"${role.pgn}$disambiguation${if (captures) "x" else ""}${dest.key}$promotes"
       }
     })
   }

@@ -20,28 +20,28 @@ class ForsythTest extends ShogiTest {
           f exportBoard makeBoard must_== "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL"
         }
         "one move" in {
-          makeGame.playMoveList(moves take 1) must beSuccess.like { case g =>
+          makeGame.playMoveList(moves take 1) must beValid.like { case g =>
             f >> g must_== "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 2"
           }
         }
         "2 moves" in {
-          makeGame.playMoveList(moves take 2) must beSuccess.like { case g =>
+          makeGame.playMoveList(moves take 2) must beValid.like { case g =>
             f >> g must_== "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 3"
           }
         }
         "3 moves" in {
-          makeGame.playMoveList(moves take 3) must beSuccess.like { case g =>
+          makeGame.playMoveList(moves take 3) must beValid.like { case g =>
             f >> g must_== "lnsgkgsnl/1r5B1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/7R1/LNSGKGSNL w B 4"
           }
         }
         "4 moves" in {
-          makeGame.playMoveList(moves take 4) must beSuccess.like { case g =>
+          makeGame.playMoveList(moves take 4) must beValid.like { case g =>
             f >> g must_== "lnsgkg1nl/1r5s1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/7R1/LNSGKGSNL b Bb 5"
           }
         }
         "5 drop" in {
-          makeGame.playMoveList(moves take 4) must beSuccess.like { case g =>
-            g.playDrop(Bishop, E5) must beSuccess.like { case g2 =>
+          makeGame.playMoveList(moves take 4) must beValid.like { case g =>
+            g.playDrop(Bishop, E5) must beValid.like { case g2 =>
               f >> g2 must_== "lnsgkg1nl/1r5s1/pppppp1pp/6p2/4B4/2P6/PP1PPPPPP/7R1/LNSGKGSNL w b 6"
             }
           }
@@ -52,7 +52,7 @@ class ForsythTest extends ShogiTest {
     "import" in {
       val moves = List(C3 -> C4, G7 -> G6, B2 -> H8, G9 -> H8)
       def compare(ms: List[(Pos, Pos)], fen: String) =
-        makeGame.playMoveList(ms) must beSuccess.like { case g =>
+        makeGame.playMoveList(ms) must beValid.like { case g =>
           (f << fen) must beSome.like { case situation =>
             situation.board.visual must_== g.situation.board.visual
           }

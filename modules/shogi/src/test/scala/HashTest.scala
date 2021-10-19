@@ -1,7 +1,5 @@
 package shogi
 
-import Pos._
-import format.Uci
 import variant.Standard
 
 class HashTest extends ShogiTest {

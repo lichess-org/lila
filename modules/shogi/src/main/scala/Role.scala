@@ -36,11 +36,11 @@ case object Rook extends Role {
   val dirsOpposite: Directions = dirs
   def dir(from: Pos, to: Pos) =
     if (to ?| from)
-      Some(
+      Option(
         if (to ?^ from) (_.up) else (_.down)
       )
     else if (to ?- from)
-      Some(
+      Option(
         if (to ?< from) (_.left) else (_.right)
       )
     else None
@@ -55,7 +55,7 @@ case object Bishop extends Role {
   val dirsOpposite: Directions = dirs
   def dir(from: Pos, to: Pos) =
     if (to onSameDiagonal from)
-      Some(
+      Option(
         if (to ?^ from) {
           if (to ?< from) (_.upLeft) else (_.upRight)
         } else {
@@ -120,7 +120,7 @@ case object Lance extends Role {
   val dirsOpposite: Directions = List(_.down)
   def dir(from: Pos, to: Pos) =
     if (to ?| from)
-      Some(
+      Option(
         if (to ?^ from) (_.up) else (_.down)
       )
     else None
@@ -270,23 +270,23 @@ object Role {
 
   def promotesTo(r: Role): Option[Role] =
     r match {
-      case Pawn   => Some(Tokin)
-      case Lance  => Some(PromotedLance)
-      case Knight => Some(PromotedKnight)
-      case Silver => Some(PromotedSilver)
-      case Bishop => Some(Horse)
-      case Rook   => Some(Dragon)
+      case Pawn   => Option(Tokin)
+      case Lance  => Option(PromotedLance)
+      case Knight => Option(PromotedKnight)
+      case Silver => Option(PromotedSilver)
+      case Bishop => Option(Horse)
+      case Rook   => Option(Dragon)
       case _      => None
     }
 
   def demotesTo(r: Role): Option[Role] = {
     r match {
-      case Tokin          => Some(Pawn)
-      case PromotedLance  => Some(Lance)
-      case PromotedSilver => Some(Silver)
-      case PromotedKnight => Some(Knight)
-      case Horse          => Some(Bishop)
-      case Dragon         => Some(Rook)
+      case Tokin          => Option(Pawn)
+      case PromotedLance  => Option(Lance)
+      case PromotedSilver => Option(Silver)
+      case PromotedKnight => Option(Knight)
+      case Horse          => Option(Bishop)
+      case Dragon         => Option(Rook)
       case _              => None
     }
   }

@@ -8,13 +8,13 @@ import variant.Variant
 class KifParserHelperTest extends ShogiTest {
 
   def parseAndCompare(source: String, handicap: Option[String], resFen: String) =
-    parseSituation(source, handicap, Variant.default) must beSuccess.like { case s =>
+    parseSituation(source, handicap, Variant.default) must beValid.like { case s =>
       Forsyth.exportSituation(s) must_== resFen
     }
 
   "Handicap" in {
-    parseAndCompare("", Some("平手"), "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -")
-    parseAndCompare("", Some("二枚落ち"), "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -")
+    parseAndCompare("", Option("平手"), "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -")
+    parseAndCompare("", Option("二枚落ち"), "lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -")
   }
 
   "BOARD" in {

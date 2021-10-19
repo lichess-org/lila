@@ -2,7 +2,8 @@ package shogi
 package format
 package csa
 
-import scala._
+import cats.syntax.option._
+
 
 case class Csa(
     tags: Tags,

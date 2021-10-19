@@ -52,7 +52,7 @@ case class Hand(roleMap: HandMap) {
     roleMap.getOrElse(role, 0)
 
   def take(role: Role) =
-    if (roleMap.getOrElse(role, 0) > 0) Some(copy(roleMap = roleMap + (role -> (roleMap(role) - 1))))
+    if (roleMap.getOrElse(role, 0) > 0) Option(copy(roleMap = roleMap + (role -> (roleMap(role) - 1))))
     else None
 
   def store(role: Role, cnt: Int = 1) =

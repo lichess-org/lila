@@ -2,8 +2,6 @@ package shogi
 package format
 package kif
 
-import scala._
-
 object KifUtils {
   def toDigit(c: Char): Char = {
     c match {
@@ -61,7 +59,7 @@ object KifUtils {
       if (ord == "") 1
       else if (ord.contains('十')) 10 * orderHelper(ord.filterNot(_ == '十'))
       else if (ord.contains('百')) 100 * orderHelper(ord.filterNot(_ == '百'))
-      else parseIntOption(ord.map(toDigit _)).getOrElse(0)
+      else ord.map(toDigit _).toIntOption.getOrElse(0)
     }
     str.split("""(?<=(百|十))""").foldLeft(0) { (acc, cur) =>
       acc + orderHelper(cur)

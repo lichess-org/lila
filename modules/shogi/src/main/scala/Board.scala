@@ -71,10 +71,10 @@ case class Board(
 
   def place(piece: Piece, at: Pos): Option[Board] =
     if (pieces contains at) None
-    else Some(copy(pieces = pieces + ((at, piece))))
+    else Option(copy(pieces = pieces + ((at, piece))))
 
   def take(at: Pos): Option[Board] =
-    if (pieces contains at) Some(copy(pieces = pieces - at))
+    if (pieces contains at) Option(copy(pieces = pieces - at))
     else None
 
   def move(orig: Pos, dest: Pos): Option[Board] =
@@ -113,7 +113,7 @@ case class Board(
     copy(variant = v).ensureCrazyData
   }
 
-  def withCrazyData(data: Hands)         = copy(crazyData = Some(data))
+  def withCrazyData(data: Hands)         = copy(crazyData = Option(data))
   def withCrazyData(data: Option[Hands]) = copy(crazyData = data)
   def withCrazyData(f: Hands => Hands): Board =
     withCrazyData(f(crazyData | Hands.init))
@@ -166,7 +166,7 @@ case class Board(
 object Board {
 
   def apply(pieces: Iterable[(Pos, Piece)], variant: Variant): Board =
-    Board(pieces.toMap, History(), variant, Some(Hands.init))
+    Board(pieces.toMap, History(), variant, Option(Hands.init))
 
   def init(variant: Variant): Board = Board(variant.pieces, variant)
 

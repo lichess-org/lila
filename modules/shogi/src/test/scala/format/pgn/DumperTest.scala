@@ -24,7 +24,7 @@ class DumperTest extends ShogiTest {
   "standard game" should {
     "move list" in {
       "Game 1." in {
-        game1 map (_.pgnMoves) must beSuccess.like { case ms =>
+        game1 map (_.pgnMoves) must beValid.like { case ms =>
           ms must_== "Pc4 Pb6 Sd2 Pg6 Sc3 Sd8 Ph4 Sf8 Sf2 Gg8 Gc2 Kf9".split(' ').toList
         }
       }
@@ -44,7 +44,7 @@ P    k
 
 KNSG GSNL
 """)
-      game.playMove(A7, A8, false) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMove(A7, A8, false) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Pa8=")
       }
     }
@@ -60,7 +60,7 @@ P
 
 KNSG GSNL
 """)
-      game.playMove(A7, A8, true) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMove(A7, A8, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Pa8+")
       }
     }
@@ -76,7 +76,7 @@ P
 
 KNSG GSNL
 """)
-      game.playMove(A8, A9, true) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMove(A8, A9, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Pa9+")
       }
     }
@@ -94,7 +94,7 @@ k
 P   K   P
 LR     RL
 """)
-      game.playMoves(H1 -> C1) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMoves(H1 -> C1) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Rh1c1")
       }
     }
@@ -110,7 +110,7 @@ PPPP
     K  B  
 LNSG GSNL
 """)
-      game.playMove(A9, E5, true) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMove(A9, E5, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Ba9e5+")
       }
     }
@@ -126,7 +126,7 @@ PPPP
     K  B  
 LNSG GSNL
 """)
-      game.playMoves(H2 -> E5) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMoves(H2 -> E5) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Bh2e5")
       }
     }
@@ -142,7 +142,7 @@ P      P
  B
 L SGKGS L
 """)
-      game.playMove(E6, F8, true) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMove(E6, F8, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Ne6f8+")
       }
     }
@@ -158,7 +158,7 @@ P      P
  B
 L SGKGS L
 """)
-      game.playMove(G6, F8, true) map (_.pgnMoves) must beSuccess.like { case ms =>
+      game.playMove(G6, F8, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Ng6f8+")
       }
     }

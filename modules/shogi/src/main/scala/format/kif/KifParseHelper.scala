@@ -4,12 +4,13 @@ package kif
 
 import variant.Variant
 
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.{ success => succezz }
+import cats.data.Validated
+import cats.data.Validated.{ invalid, valid, Valid }
+import cats.implicits._
 
 object KifParserHelper {
 
-  def parseSituation(str: String, handicap: Option[String], variant: Variant): Valid[Situation] = {
+  def parseSituation(str: String, handicap: Option[String], variant: Variant): Validated[String, Situation] = {
     val lines = augmentString(str).linesIterator.to(List).map(_.trim.replace("：", ":").replace("　", " "))
     val ranks = lines
       .filter(l => (l lift 0 contains '|') && (l.length <= 42))
@@ -21,7 +22,7 @@ object KifParserHelper {
       )
 
     if (ranks.size == 0) {
-      handicap.filterNot(_ == "平手").fold(succezz(Situation(variant)): Valid[Situation]) { h =>
+      handicap.filterNot(_ == "平手").fold(valid(Situation(variant)): Validated[String, Situation]) { h =>
         parseHandicap(h, variant)
       }
     } else if (ranks.size == 9) {
@@ -36,22 +37,21 @@ object KifParserHelper {
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
       } yield (Situation(board, Color(!goteTurn)))
     } else {
-      "Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
-        .format(ranks.head, ranks.size)
-        .failureNel
+      invalid("Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
+        .format(ranks.head, ranks.size))
     }
   }
 
-  private def parseBoard(ranks: List[String]): Valid[List[(Pos, Piece)]] = {
+  private def parseBoard(ranks: List[String]): Validated[String, List[(Pos, Piece)]] = {
     def makePiecesList(
         chars: List[Char],
         x: Int,
         y: Int,
         prevPieceChar: Option[Char],
         gote: Boolean
-    ): Valid[List[(Pos, Piece)]] =
+    ): Validated[String, List[(Pos, Piece)]] =
       chars match {
-        case Nil                 => succezz(Nil)
+        case Nil                 => valid(Nil)
         case '・' :: rest         => makePiecesList(rest, x + 1, y, None, false)
         case ('v' | 'V') :: rest => makePiecesList(rest, x, y, None, true)
         case ('成' | '+') :: rest => makePiecesList(rest, x, y, chars.headOption, gote)
@@ -63,7 +63,7 @@ object KifParserHelper {
             pieces <- makePiecesList(rest, x + 1, y, None, false)
           } yield (pos -> Piece(Color(!gote), role) :: pieces)
       }
-    ranks.zipWithIndex.foldLeft(succezz(Nil): Valid[List[(Pos, Piece)]]) { case (acc, cur) =>
+    ranks.zipWithIndex.foldLeft(valid(Nil): Validated[String, List[(Pos, Piece)]]) { case (acc, cur) =>
       for {
         pieces     <- acc
         nextPieces <- makePiecesList(cur._1.toList, 1, 9 - cur._2, None, false)
@@ -71,26 +71,26 @@ object KifParserHelper {
     }
   }
 
-  private def parseHand(str: String): Valid[Hand] = {
-    def parseHandPiece(str: String, hand: Hand): Valid[Hand] =
+  private def parseHand(str: String): Validated[String, Hand] = {
+    def parseHandPiece(str: String, hand: Hand): Validated[String, Hand] =
       for {
         roleStr <- str.headOption toValid "Cannot parse hand"
         num = KifUtils kanjiToInt str.tail
         role <- Role.allByEverything.get(roleStr.toString) toValid s"Unknown piece in hand: $roleStr"
       } yield (hand.store(role, num))
     val values = str.split(":").lastOption.getOrElse("").trim
-    if (values == "なし" || values == "") succezz(Hand.init)
+    if (values == "なし" || values == "") valid(Hand.init)
     else {
-      values.split(" ").foldLeft(succezz(Hand.init): Valid[Hand]) { case (acc, cur) =>
+      values.split(" ").foldLeft(valid(Hand.init): Validated[String, Hand]) { case (acc, cur) =>
         acc match {
-          case scalaz.Success(hand) => parseHandPiece(cur, hand)
+          case Valid(hand) => parseHandPiece(cur, hand)
           case _                    => acc
         }
       }
     }
   }
 
-  private def parseHandicap(str: String, variant: Variant): Valid[Situation] =
+  private def parseHandicap(str: String, variant: Variant): Validated[String, Situation] =
     for {
       hPosition <- StartingPosition.searchByEco(str) toValid s"Unknown handicap: $str"
       situation <- Forsyth.<<@(variant, hPosition.fen) toValid s"Cannot parse handicap: $str"

@@ -5,11 +5,12 @@ package csa
 import variant.Variant
 
 import scala.util.parsing.combinator._
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.{ success => succezz }
+import cats.data.Validated
+import cats.data.Validated.{ invalid, valid }
+import cats.implicits._
 
 // https://gist.github.com/Marken-Foo/b1047990ee0c65537582ebe591e2b6d7
-object CsaParser extends scalaz.syntax.ToTraverseOps {
+object CsaParser {
 
   // Helper strings for regex, so we don't have to repeat ourselves that much
   val colorsS     = """\+|-"""
@@ -27,7 +28,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
       timeSpent: Option[Centis] = None
   )
 
-  def full(csa: String): Valid[ParsedNotation] =
+  def full(csa: String): Validated[String, ParsedNotation] =
     try {
       val preprocessed = augmentString(cleanCsa(csa)).linesIterator
         .collect {
@@ -50,7 +51,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
         init      <- getComments(headerStr)
         situation <- CsaParserHelper.parseSituation(boardStr, variant.Standard)
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
-        parsedMoves <- objMoves(strMoves, tags.variant | Variant.default)
+        parsedMoves <- objMoves(strMoves, tags.variant getOrElse Variant.default)
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>
@@ -58,14 +59,14 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
         sys error "### StackOverflowError ### in CSA parser"
     }
 
-  def objMoves(strMoves: List[StrMove], variant: Variant): Valid[ParsedMoves] = {
+  def objMoves(strMoves: List[StrMove], variant: Variant): Validated[String, ParsedMoves] = {
     strMoves.map { case StrMove(moveStr, comments, timeSpent) =>
       (
         MoveParser(moveStr, variant) map { m =>
           m withComments comments withTimeSpent timeSpent
         }
-      ): Valid[ParsedMove]
-    }.sequence map ParsedMoves.apply
+      ): Validated[String, ParsedMove]
+    }.sequence map { ParsedMoves.apply(_) }
   }
 
   def createTags(
@@ -97,10 +98,10 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
 
     override val whiteSpace = """(\s|\t|\r?\n)+""".r
 
-    def apply(csaMoves: String): Valid[(List[StrMove], Option[Tag])] = {
+    def apply(csaMoves: String): Validated[String, (List[StrMove], Option[Tag])] = {
       parseAll(strMoves, csaMoves) match {
         case Success((moves, termination), _) =>
-          succezz(
+          valid(
             (
               moves,
               termination map { r =>
@@ -108,7 +109,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
               }
             )
           )
-        case err => "Cannot parse moves: %s\n%s".format(err.toString, csaMoves).failureNel
+        case err => invalid("Cannot parse moves: %s\n%s".format(err.toString, csaMoves))
       }
     }
 
@@ -187,7 +188,7 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
 
     override def skipWhitespace = false
 
-    def apply(str: String, variant: Variant): Valid[ParsedMove] = {
+    def apply(str: String, variant: Variant): Validated[String, ParsedMove] = {
       str match {
         case MoveRegex(origS, destS, roleS) => {
           for {
@@ -226,18 +227,18 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
               timeTotal = None
             )
           )
-        case _ => "Cannot parse move/drop: %s\n".format(str).failureNel
+        case _ => invalid("Cannot parse move/drop: %s\n".format(str))
       }
     }
   }
 
   object TagParser extends RegexParsers with Logging {
 
-    def apply(csa: String): Valid[Tags] =
+    def apply(csa: String): Validated[String, Tags] =
       parseAll(all, csa) match {
-        case f: Failure       => "Cannot parse CSA tags: %s\n%s".format(f.toString, csa).failureNel
-        case Success(tags, _) => succezz(Tags(tags.filter(_.value.nonEmpty)))
-        case err              => "Cannot parse CSA tags: %s\n%s".format(err.toString, csa).failureNel
+        case f: Failure       => invalid("Cannot parse CSA tags: %s\n%s".format(f.toString, csa))
+        case Success(tags, _) => valid(Tags(tags.filter(_.value.nonEmpty)))
+        case err              => invalid("Cannot parse CSA tags: %s\n%s".format(err.toString, csa))
       }
 
     def all: Parser[List[Tag]] =
@@ -273,27 +274,27 @@ object CsaParser extends scalaz.syntax.ToTraverseOps {
   private def normalizeCsaName(str: String): String =
     Tag.csaNameToTag.get(str).fold(str)(_.lowercase)
 
-  private def getComments(csa: String): Valid[InitialPosition] =
+  private def getComments(csa: String): Validated[String, InitialPosition] =
     augmentString(csa).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line =>
       line.startsWith("'")
     } match {
-      case (comms) => succezz(InitialPosition(comms.map(_.drop(1).trim)))
+      case (comms) => valid(InitialPosition(comms.map(_.drop(1).trim)))
     }
 
-  private def splitHeaderAndMoves(csa: String): Valid[(String, String)] =
+  private def splitHeaderAndMoves(csa: String): Validated[String, (String, String)] =
     augmentString(csa).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
       !(moveOrDropRegex.matches(line))
     } match {
-      case (headerLines, moveLines) => succezz(headerLines.mkString("\n") -> moveLines.mkString("\n"))
+      case (headerLines, moveLines) => valid(headerLines.mkString("\n") -> moveLines.mkString("\n"))
     }
 
-  private def splitMetaAndBoard(csa: String): Valid[(String, String)] =
+  private def splitMetaAndBoard(csa: String): Validated[String, (String, String)] =
     augmentString(csa).linesIterator
       .to(List)
       .map(_.trim)
       .filter(l => l.nonEmpty && !l.startsWith("'")) partition { line =>
       !((line startsWith "P") || (line == "+") || (line == "-"))
     } match {
-      case (metaLines, boardLines) => succezz(metaLines.mkString("\n") -> boardLines.mkString("\n"))
+      case (metaLines, boardLines) => valid(metaLines.mkString("\n") -> boardLines.mkString("\n"))
     }
 }

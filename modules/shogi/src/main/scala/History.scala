@@ -30,7 +30,7 @@ case class History(
 ) {
 
   private def isRepetition(times: Int) =
-    positionHashes.size > (times - 1) * 4 * Hash.size && {
+    positionHashes.length > (times - 1) * 4 * Hash.size && {
       // compare only hashes for positions with the same side to move
       val positions = positionHashes.sliding(Hash.size, 2 * Hash.size).toList
       positions.headOption match {
@@ -45,7 +45,7 @@ case class History(
 
   def fourfoldRepetition = isRepetition(4)
 
-  def withLastMove(m: Uci) = copy(lastMove = Some(m))
+  def withLastMove(m: Uci) = copy(lastMove = Option(m))
 
   def withCheck(color: Color, v: Boolean) =
     if (v) copy(checkCount = checkCount add color) else copy(checkCount = checkCount reset color)

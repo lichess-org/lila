@@ -33,16 +33,16 @@ class PerpetualCheckTest extends ShogiTest {
     )
     "not trigger" in {
       "after 2 repetitions" in {
-        g must beSuccess.like { case game =>
-          game.playMoveList(m take 5) must beSuccess.like { case game2 =>
+        g must beValid.like { case game =>
+          game.playMoveList(m take 5) must beValid.like { case game2 =>
             game2.situation.perpetualCheck must beFalse
             game2.situation.winner must beNone
           }
         }
       }
       "after 3 repetitions" in {
-        g must beSuccess.like { case game =>
-          game.playMoveList(m take 9) must beSuccess.like { case game2 =>
+        g must beValid.like { case game =>
+          game.playMoveList(m take 9) must beValid.like { case game2 =>
             game2.situation.perpetualCheck must beFalse
             game2.situation.winner must beNone
           }
@@ -51,8 +51,8 @@ class PerpetualCheckTest extends ShogiTest {
     }
     "trigger" in {
       "after 4 repetitions" in {
-        g must beSuccess.like { case game =>
-          game.playMoveList(m) must beSuccess.like { case game2 =>
+        g must beValid.like { case game =>
+          game.playMoveList(m) must beValid.like { case game2 =>
             game2.situation.perpetualCheck must beTrue
             game2.situation.winner must beSome.like { case color =>
               color == Gote

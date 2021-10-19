@@ -8,7 +8,7 @@ import variant.Variant
 class CsaParserHelperTest extends ShogiTest {
 
   def parseAndCompare(source: String, resFen: String) =
-    parseSituation(source, Variant.default) must beSuccess.like { case s =>
+    parseSituation(source, Variant.default) must beValid.like { case s =>
       Forsyth.exportSituation(s) must_== resFen
     }
 

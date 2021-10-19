@@ -1,13 +1,17 @@
 package shogi
 
+import cats.data.Validated
+import cats.syntax.option._
+import org.specs2.matcher.Matcher
+import org.specs2.matcher.ValidatedMatchers
+import org.specs2.mutable.Specification
+
+import scala.annotation.nowarn
+
 import shogi.format.{ Forsyth, Visual }
 import shogi.variant._
-import org.specs2.matcher.{ Matcher, ValidationMatchers }
-import org.specs2.mutable.Specification
-import scalaz.{ Validation => V }
-import V.FlatMap._
 
-trait ShogiTest extends Specification with ValidationMatchers {
+trait ShogiTest extends Specification with ValidatedMatchers {
 
   implicit def stringToBoard(str: String): Board = Visual << str
 
@@ -33,11 +37,11 @@ trait ShogiTest extends Specification with ValidationMatchers {
 
     def as(color: Color): Game = game.withPlayer(color)
 
-    def playMoves(moves: (Pos, Pos)*): Valid[Game] = playMoveList(moves)
+    def playMoves(moves: (Pos, Pos)*): Validated[String, Game] = playMoveList(moves)
 
-    def playMoveList(moves: Iterable[(Pos, Pos)]): Valid[Game] = {
-      val vg = moves.foldLeft(V.success(game): Valid[Game]) { (vg, move) =>
-        vg foreach { _.situation.destinations }
+    @nowarn def playMoveList(moves: Iterable[(Pos, Pos)]): Validated[String, Game] = {
+      val vg = moves.foldLeft(Validated.valid(game): Validated[String, Game]) { (vg, move) =>
+        vg.foreach{ _.situation.destinations }
         val ng = vg flatMap { g =>
           g(move._1, move._2) map (_._1)
         }
@@ -50,16 +54,16 @@ trait ShogiTest extends Specification with ValidationMatchers {
         orig: Pos,
         dest: Pos,
         promotion: Boolean = false
-    ): Valid[Game] =
+    ): Validated[String, Game] =
       game.apply(orig, dest, promotion) map (_._1)
 
     def playDrop(
         role: Role,
         dest: Pos
-    ): Valid[Game] =
+    ): Validated[String, Game] =
       game.drop(role, dest) map (_._1)
 
-    def withClock(c: Clock) = game.copy(clock = Some(c))
+    def withClock(c: Clock) = game.copy(clock = Option(c))
   }
 
   implicit def richGame(game: Game) = RichGame(game)
@@ -118,18 +122,18 @@ trait ShogiTest extends Specification with ValidationMatchers {
       Visual.addNewLines(Visual.>>|(board, Map(p -> 'x'))) must_== visual
     }
 
-  def beBoard(visual: String): Matcher[Valid[Board]] =
-    beSuccess.like { case b =>
+  def beBoard(visual: String): Matcher[Validated[String, Board]] =
+    beValid.like { case b =>
       b.visual must_== (Visual << visual).visual
     }
 
-  def beSituation(visual: String): Matcher[Valid[Situation]] =
-    beSuccess.like { case s =>
+  def beSituation(visual: String): Matcher[Validated[String, Situation]] =
+    beValid.like { case s =>
       s.board.visual must_== (Visual << visual).visual
     }
 
-  def beGame(visual: String): Matcher[Valid[Game]] =
-    beSuccess.like { case g =>
+  def beGame(visual: String): Matcher[Validated[String, Game]] =
+    beValid.like { case g =>
       g.board.visual must_== (Visual << visual).visual
     }
 

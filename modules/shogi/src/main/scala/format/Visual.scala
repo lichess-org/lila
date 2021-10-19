@@ -18,7 +18,7 @@ object Visual {
     val lines = augmentString(source).linesIterator.to(List)
     val filtered = lines.size match {
       case 9          => lines
-      case n if n > 9 => lines drop 1 take 9
+      case n if n > 9 => lines.slice(1, 10)
       case n          => (List.fill(9 - n)("")) ::: lines
     }
     Board(

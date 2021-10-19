@@ -5,8 +5,9 @@ package kif
 import variant.Variant
 
 import scala.util.parsing.combinator._
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.{ success => succezz }
+import cats.data.Validated
+import cats.data.Validated.{ invalid, valid }
+import cats.implicits._
 
 // We are keeping the original interface of the parser
 // Instead of being strict with what is a valid kif
@@ -16,7 +17,7 @@ import scalaz.Validation.{ success => succezz }
 // Pieces can either be kanji(1 or 2) or english letters (sfen)
 
 // https://gist.github.com/Marken-Foo/7694548af1f562ecd01fba6b60a9c96a
-object KifParser extends scalaz.syntax.ToTraverseOps {
+object KifParser {
 
   // Helper strings for regex, so we don't have to repeat ourselves that much
   val colorsS        = """▲|△|☗|☖"""
@@ -53,7 +54,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       variations: List[StrVariation]
   )
 
-  def full(kif: String): Valid[ParsedNotation] =
+  def full(kif: String): Validated[String, ParsedNotation] =
     try {
       val preprocessed = augmentString(cleanKif(kif)).linesIterator
         .collect {
@@ -86,8 +87,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         parsedMoves <- objMoves(strMoves, variant, variations)
         _ <-
           if (kif.isEmpty || parsedMoves.value.nonEmpty || tags.knownTypes.value.nonEmpty)
-            succezz(true)
-          else "No moves, non-standard starting position or valid tags provided".failureNel
+            valid(true)
+          else invalid("No moves, non-standard starting position or valid tags provided")
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>
@@ -101,22 +102,22 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       variations: List[StrVariation],
       startDest: Option[Pos] = None,
       startNum: Int = 1
-  ): Valid[ParsedMoves] = {
+  ): Validated[String, ParsedMoves] = {
     // No need to store 0s that mean nothing
     val uselessTimes =
       strMoves.forall(m => m.timeSpent.fold(true)(_ == Centis(0)) && m.timeTotal.fold(true)(_ == Centis(0)))
 
     var lastDest: Option[Pos]        = startDest
     var bMoveNumber                  = startNum
-    var res: List[Valid[ParsedMove]] = List()
+    var res: List[Validated[String, ParsedMove]] = List()
 
     for (StrMove(moveNumber, moveStr, comments, timeSpent, timeTotal) <- strMoves) {
-      val move: Valid[ParsedMove] = MoveParser(moveStr, lastDest, variant) map { m =>
+      val move: Validated[String, ParsedMove] = MoveParser(moveStr, lastDest, variant) map { m =>
         val m1 = m withComments comments withVariations {
           variations
             .filter(_.variationStart == moveNumber.getOrElse(bMoveNumber))
             .map { v =>
-              objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) | ParsedMoves.empty
+              objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) getOrElse ParsedMoves.empty
             }
             .filter(_.value.nonEmpty)
         }
@@ -189,10 +190,10 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     override val whiteSpace = """(\s|\t|\r?\n)+""".r
 
-    def apply(kifVariations: String): Valid[List[StrVariation]] = {
+    def apply(kifVariations: String): Validated[String, List[StrVariation]] = {
       parseAll(variations, kifVariations.trim) match {
-        case Success(vars, _) => succezz(vars)
-        case _                => "Cannot parse variations".failureNel
+        case Success(vars, _) => valid(vars)
+        case _                => invalid("Cannot parse variations")
       }
     }
 
@@ -251,10 +252,10 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     override val whiteSpace = """(\s|\t|\r?\n)+""".r
 
-    def apply(kifMoves: String): Valid[(List[StrMove], Option[Tag])] = {
+    def apply(kifMoves: String): Validated[String, (List[StrMove], Option[Tag])] = {
       parseAll(strMoves, kifMoves) match {
         case Success((moves, termination), _) =>
-          succezz(
+          valid(
             (
               moves,
               termination map { r =>
@@ -262,7 +263,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
               }
             )
           )
-        case err => "Cannot parse moves: %s\n%s".format(err.toString, kifMoves).failureNel
+        case err => invalid("Cannot parse moves: %s\n%s".format(err.toString, kifMoves))
       }
     }
 
@@ -351,7 +352,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     override def skipWhitespace = false
 
-    def apply(str: String, lastDest: Option[Pos], variant: Variant): Valid[ParsedMove] = {
+    def apply(str: String, lastDest: Option[Pos], variant: Variant): Validated[String, ParsedMove] = {
       str.map(KifUtils toDigit _) match {
         case MoveRegex(destS, roleS, promS, origS) =>
           for {
@@ -391,18 +392,18 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
               timeTotal = None
             )
           )
-        case _ => "Cannot parse move/drop: %s\n".format(str).failureNel
+        case _ => invalid("Cannot parse move/drop: %s\n".format(str))
       }
     }
   }
 
   object TagParser extends RegexParsers with Logging {
 
-    def apply(kif: String): Valid[Tags] =
+    def apply(kif: String): Validated[String, Tags] =
       parseAll(all, kif) match {
-        case f: Failure       => "Cannot parse KIF tags: %s\n%s".format(f.toString, kif).failureNel
-        case Success(tags, _) => succezz(Tags(tags.filter(_.value.nonEmpty)))
-        case err              => "Cannot parse KIF tags: %s\n%s".format(err.toString, kif).failureNel
+        case f: Failure       => invalid("Cannot parse KIF tags: %s\n%s".format(f.toString, kif))
+        case Success(tags, _) => valid(Tags(tags.filter(_.value.nonEmpty)))
+        case err              => invalid("Cannot parse KIF tags: %s\n%s".format(err.toString, kif))
       }
 
     def all: Parser[List[Tag]] =
@@ -429,34 +430,34 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
   private def cleanComments(comments: List[String]) =
     comments.map(_.trim.take(2000)).filter(_.nonEmpty)
 
-  private def getComments(kif: String): Valid[InitialPosition] =
+  private def getComments(kif: String): Validated[String, InitialPosition] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) filter { line =>
       line.startsWith("*") || line.startsWith("＊")
     } match {
-      case (comms) => succezz(InitialPosition(comms.map(_.drop(1).trim)))
+      case (comms) => valid(InitialPosition(comms.map(_.drop(1).trim)))
     }
 
-  private def splitHeaderAndRest(kif: String): Valid[(String, String)] =
+  private def splitHeaderAndRest(kif: String): Validated[String, (String, String)] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
       !(moveOrDropLineRegex.matches(line))
     } match {
-      case (headerLines, moveLines) => succezz(headerLines.mkString("\n") -> moveLines.mkString("\n"))
+      case (headerLines, moveLines) => valid(headerLines.mkString("\n") -> moveLines.mkString("\n"))
     }
 
-  private def splitMovesAndVariations(kif: String): Valid[(String, String)] =
+  private def splitMovesAndVariations(kif: String): Validated[String, (String, String)] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
       !line.startsWith("変化")
     } match {
-      case (moveLines, variantsLines) => succezz(moveLines.mkString("\n") -> variantsLines.mkString("\n"))
+      case (moveLines, variantsLines) => valid(moveLines.mkString("\n") -> variantsLines.mkString("\n"))
     }
 
-  private def splitMetaAndBoard(kif: String): Valid[(String, String)] =
+  private def splitMetaAndBoard(kif: String): Validated[String, (String, String)] =
     augmentString(kif).linesIterator
       .to(List)
       .map(_.trim)
       .filter(l => l.nonEmpty && !(l.startsWith("*") || l.startsWith("＊"))) partition { line =>
       (line contains ":") && !(line.tail startsWith "手の持駒")
     } match {
-      case (metaLines, boardLines) => succezz(metaLines.mkString("\n") -> boardLines.mkString("\n"))
+      case (metaLines, boardLines) => valid(metaLines.mkString("\n") -> boardLines.mkString("\n"))
     }
 }
