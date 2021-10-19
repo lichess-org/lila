@@ -173,15 +173,14 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
       }
     },
     setHovering(fen, uci) {
-      hovering(
-        uci
-          ? {
-              fen,
-              uci,
-            }
-          : null
-      );
+      hovering(uci ? { fen, uci } : null);
       root.setAutoShapes();
+    },
+    onFlip() {
+      if (config.data.db.selected() == 'player') {
+        cache = {};
+        setNode();
+      }
     },
     fetchMasterOpening: (() => {
       const masterCache: Dictionary<OpeningData> = {};

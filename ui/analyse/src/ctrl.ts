@@ -226,6 +226,7 @@ export default class AnalyseCtrl {
       this.retro = makeRetro(this, this.bottomColor());
     }
     if (this.practice) this.restartPractice();
+    this.explorer.onFlip();
     this.redraw();
   };
 

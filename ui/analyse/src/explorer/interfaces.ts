@@ -156,6 +156,7 @@ export interface ExplorerCtrl {
   toggle(): void;
   disable(): void;
   setHovering(fen: Fen, uci: Uci | null): void;
+  onFlip(): void;
   fetchMasterOpening(fen: Fen): Promise<OpeningData>;
   fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit>;
 }

@@ -16,7 +16,7 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
   if (variant === 'standard') available.unshift('masters');
 
   const data: ExplorerConfigData = {
-    open: prop(true),
+    open: prop(false),
     db: {
       available,
       selected:
