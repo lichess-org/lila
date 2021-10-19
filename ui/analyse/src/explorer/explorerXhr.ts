@@ -1,6 +1,6 @@
 import { ExplorerData, ExplorerDb, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
-import { readNdJson } from 'common/ndjson';
+import { readNdJson, CancellableStream } from 'common/ndjson';
 
 interface OpeningXhrOpts {
   endpoint: string;
@@ -19,7 +19,7 @@ interface OpeningXhrOpts {
   withGames?: boolean;
 }
 
-export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) => void): Promise<void> {
+export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) => void): Promise<CancellableStream> {
   const endpoint = opts.db == 'player' ? opts.endpoint3 : opts.endpoint;
   const url = new URL(opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master', endpoint);
   const params = url.searchParams;
