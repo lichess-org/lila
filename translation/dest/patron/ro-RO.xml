@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donează</string>
+  <string name="donateAsX">Donează ca %s</string>
   <string name="lichessPatron">Patron Lichess</string>
   <string name="freeAccount">Cont gratuit</string>
   <string name="becomePatron">Devino un Patron Lichess</string>
@@ -77,5 +78,5 @@ Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="nowLifetime">Acum ești Patron Lichess pe viață!</string>
   <string name="nowOneMonth">Acum ești Patron Lichess pentru o lună!</string>
   <string name="downgradeNextMonth">Într-o lună, NU vei fi taxat din nou, iar contul tău de Lichess va fi înapoi un cont normal.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Schimbă moneda</string>
+  <string name="changeCurrency">Schimbă moneda</string>
 </resources>

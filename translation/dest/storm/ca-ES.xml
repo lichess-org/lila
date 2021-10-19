@@ -51,4 +51,7 @@
   <string name="skipHelp">NOU! Pots ometre un moviment a cada cursa:</string>
   <string name="skipExplanation">Omet aquest moviment per preservar el teu combo! Només funciona un cop per cursa.</string>
   <string name="failedPuzzles">Puzzles errats</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Aquesta setmana</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Aquest mes</string>
+  <string name="clickToReload">Clicar per recarregar</string>
 </resources>

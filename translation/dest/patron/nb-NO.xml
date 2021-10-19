@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doner</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Bidra som %s</string>
   <string name="lichessPatron">Lichess-patron</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli Lichess-patron</string>
@@ -12,7 +13,7 @@
   <string name="newPatrons">Nye patroner</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
-  <string name="thankYou">Takk for din donasjon!</string>
+  <string name="thankYou">Takk for bidraget ditt!</string>
   <string name="youHaveLifetime">Du har patronkonto på livstid. Det er rett og slett storartet!</string>
   <string name="patronUntil">Du har patronkonto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Bağış yap</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">%s olarak bağış yap</string>
   <string name="lichessPatron">Lichess Destekçisi</string>
   <string name="freeAccount">Ücretsiz Hesap</string>
   <string name="becomePatron">Lichess Destekçisi olun</string>
@@ -77,5 +78,5 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
   <string name="nowOneMonth">Bir aylığına Lichess Destekçisi oldunuz!</string>
   <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Para birimini değiştir</string>
+  <string name="changeCurrency">Para birimini değiştir</string>
 </resources>
