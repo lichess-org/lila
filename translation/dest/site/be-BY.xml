@@ -618,7 +618,7 @@
   <string name="tools">Інструменты</string>
   <string name="increment">Прырост</string>
   <string name="error.required">Абавязковае поле</string>
-  <string name="error.email">Гэты адрас электронай пошты немагчымы</string>
+  <string name="error.email">Гэта немагчымы адрас электронай пошты</string>
   <string name="error.email_acceptable">Гэты адрас электроннай пошты непрымальны. Калі ласка, пераправерце і паспрабуйце зноўку.</string>
   <string name="error.email_unique">Адрас электронай пошты немагчымы або ўжо заняты</string>
   <string name="error.email_different">Гэта ўжо ваш адрас электронай пошты</string>
