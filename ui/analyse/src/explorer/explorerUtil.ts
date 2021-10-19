@@ -11,3 +11,5 @@ export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined 
   if (move.variant_win || (move.dtz && move.dtz > 0)) return opposite(stm);
   return undefined;
 }
+
+export const ucfirst = (str: string) => `${str[0].toUpperCase()}${str.slice(1)}`;

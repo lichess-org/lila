@@ -300,7 +300,7 @@ declare type VariantKey =
   | 'racingKings'
   | 'crazyhouse';
 
-declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence';
+declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
   | 'bullet'

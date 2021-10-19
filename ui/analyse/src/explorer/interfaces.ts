@@ -5,7 +5,7 @@ export interface Hovering {
 
 export type ExplorerDb = 'lichess' | 'masters' | 'player';
 
-export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
+export type ExplorerSpeed = Speed;
 export type ExplorerMode = 'casual' | 'rated';
 
 export interface PlayerOpts {

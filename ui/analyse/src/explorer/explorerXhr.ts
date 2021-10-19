@@ -29,7 +29,10 @@ export async function opening(
   params.set('play', opts.play.join(','));
   if (opts.db === 'lichess') {
     params.set('variant', opts.variant || 'standard');
-    for (const speed of conf.speed()) params.append('speeds[]', speed);
+    conf
+      .speed()
+      .filter(s => s != 'ultraBullet' && s != 'correspondence')
+      .forEach(s => params.append('speeds[]', s));
     for (const rating of conf.rating()) params.append('ratings[]', rating.toString());
   }
   if (opts.db === 'player') {

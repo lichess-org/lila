@@ -5,9 +5,12 @@ import { storedProp, storedJsonProp, StoredJsonProp, StoredProp } from 'common/s
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
+import { perf } from 'game/perf';
+import { iconTag } from '../util';
+import { ucfirst } from './explorerUtil';
 
 const allDbs: ExplorerDb[] = ['lichess', 'player'];
-const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
+const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 
@@ -138,15 +141,15 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>, render?: (t: T) => VNode) =>
   (v: T) =>
     h(
       'button',
       {
-        attrs: { 'aria-pressed': `${storage().includes(v)}` },
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      '' + v
+      render ? render(v) : '' + v
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -161,7 +164,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', ctrl.root.trans.noarg('timeControl')),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>

@@ -4,7 +4,7 @@ import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { winnerOf } from './explorerUtil';
+import { ucfirst, winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import {
   isOpening,
@@ -155,7 +155,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
                   game.speed &&
                     h('i', {
                       attrs: {
-                        title: game.speed,
+                        title: ucfirst(game.speed),
                         ...dataIcon(perf.icons[game.speed]),
                       },
                     })
