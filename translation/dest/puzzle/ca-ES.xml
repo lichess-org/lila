@@ -62,4 +62,9 @@
 Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'hi afegeixi algun!</string>
   <string name="fromXGamesFound">%1$s problemes trobats en %2$s partides</string>
   <string name="puzzleDashboardDescription">Entrena, analitza, millora</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s jugat</item>
+    <item quantity="other">%s jugats</item>
+  </plurals>
+  <string name="percentSolved">%s resolts</string>
 </resources>
