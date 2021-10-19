@@ -101,14 +101,14 @@ export default class ExplorerCtrl {
                   personal: {
                     player: this.config.data.playerName.value(),
                     color: this.root.getOrientation(),
-                    mode: this.config.data.mode.selected(),
+                    mode: this.config.data.mode(),
                   },
                   variant: this.effectiveVariant,
                   rootFen: this.root.nodeList[0].fen,
                   play: this.root.nodeList.slice(1).map(s => s.uci!),
                   fen,
-                  speeds: this.config.data.speed.selected(),
-                  ratings: this.config.data.rating.selected(),
+                  speeds: this.config.data.speed(),
+                  ratings: this.config.data.rating(),
                   withGames: this.withGames,
                 },
                 processData
@@ -152,7 +152,7 @@ export default class ExplorerCtrl {
     }
   };
 
-  db = () => this.config.db();
+  db = () => this.config.data.db();
   current = () => this.cache[this.root.node.fen];
   toggle = () => {
     this.movesAway(0);

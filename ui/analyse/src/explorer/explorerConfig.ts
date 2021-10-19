@@ -6,28 +6,17 @@ import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 import AnalyseCtrl from '../ctrl';
 
+const allDbs: ExplorerDb[] = ['lichess', 'player'];
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
-  db: {
-    available: ExplorerDb[];
-    selected: StoredProp<ExplorerDb>;
-  };
-  rating: {
-    available: number[];
-    selected: StoredJsonProp<number[]>;
-  };
-  speed: {
-    available: ExplorerSpeed[];
-    selected: StoredJsonProp<ExplorerSpeed[]>;
-  };
-  mode: {
-    available: ExplorerMode[];
-    selected: StoredJsonProp<ExplorerMode[]>;
-  };
+  db: StoredProp<ExplorerDb>;
+  rating: StoredJsonProp<number[]>;
+  speed: StoredJsonProp<ExplorerSpeed[]>;
+  mode: StoredJsonProp<ExplorerMode[]>;
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
@@ -39,26 +28,13 @@ export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
-    const available: ExplorerDb[] = ['lichess', 'player'];
-    if (variant === 'standard') available.unshift('masters');
+    if (variant === 'standard') allDbs.unshift('masters');
     this.data = {
       open: prop(true),
-      db: {
-        available,
-        selected: available.length > 1 ? storedProp('explorer.db.' + variant, available[0]) : () => available[0],
-      },
-      rating: {
-        available: allRatings,
-        selected: storedJsonProp('explorer.rating', () => allRatings),
-      },
-      speed: {
-        available: allSpeeds,
-        selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
-      },
-      mode: {
-        available: allModes,
-        selected: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
-      },
+      db: storedProp('explorer.db.' + variant, allDbs[0]),
+      rating: storedJsonProp('explorer.rating', () => allRatings),
+      speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
+      mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
       playerName: {
         open: prop(false),
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
@@ -66,8 +42,6 @@ export class ExplorerConfigCtrl {
       },
     };
   }
-
-  db = () => this.data.db.selected();
 
   toggleMany = <T>(c: StoredJsonProp<T[]>, value: T) => {
     if (!c().includes(value)) c(c().concat([value]));
@@ -78,13 +52,12 @@ export class ExplorerConfigCtrl {
     this.data.open(!this.data.open());
     if (!this.data.open()) this.onClose();
   };
-  toggleRating = (v: number) => this.toggleMany(this.data.rating.selected, v);
-  toggleSpeed = (v: ExplorerSpeed) => this.toggleMany(this.data.speed.selected, v);
-  toggleMode = (v: ExplorerMode) => this.toggleMany(this.data.mode.selected, v);
+  toggleRating = (v: number) => this.toggleMany(this.data.rating, v);
+  toggleSpeed = (v: ExplorerSpeed) => this.toggleMany(this.data.speed, v);
+  toggleMode = (v: ExplorerMode) => this.toggleMany(this.data.mode, v);
   fullHouse = () =>
-    this.db() === 'masters' ||
-    (this.data.rating.selected().length === this.data.rating.available.length &&
-      this.data.speed.selected().length === this.data.speed.available.length);
+    this.data.db() === 'masters' ||
+    (this.data.rating().length === allRatings.length && this.data.speed().length === allSpeeds.length);
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -93,21 +66,21 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       h('label', ctrl.root.trans.noarg('database')),
       h(
         'div.choices',
-        ctrl.data.db.available.map(s =>
+        allDbs.map(s =>
           h(
             'button',
             {
               attrs: {
-                'aria-pressed': `${ctrl.db() === s}`,
+                'aria-pressed': `${ctrl.data.db() === s}`,
               },
-              hook: bind('click', _ => ctrl.data.db.selected(s), ctrl.root.redraw),
+              hook: bind('click', _ => ctrl.data.db(s), ctrl.root.redraw),
             },
             s
           )
         )
       ),
     ]),
-    ctrl.db() === 'masters' ? masterDb(ctrl) : ctrl.db() === 'lichess' ? lichessDb(ctrl) : playerDb(ctrl),
+    ctrl.data.db() === 'masters' ? masterDb(ctrl) : ctrl.data.db() === 'lichess' ? lichessDb(ctrl) : playerDb(ctrl),
     h(
       'section.save',
       h(
@@ -215,12 +188,12 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
       h('label', ctrl.root.trans.noarg('averageElo')),
       h(
         'div.choices',
-        ctrl.data.rating.available.map(r =>
+        allRatings.map(r =>
           h(
             'button',
             {
               attrs: {
-                'aria-pressed': `${ctrl.data.rating.selected().includes(r)}`,
+                'aria-pressed': `${ctrl.data.rating().includes(r)}`,
               },
               hook: bind('click', _ => ctrl.toggleRating(r), ctrl.root.redraw),
             },
@@ -237,12 +210,12 @@ const speedSection = (ctrl: ExplorerConfigCtrl) =>
     h('label', ctrl.root.trans.noarg('timeControl')),
     h(
       'div.choices',
-      ctrl.data.speed.available.map(s =>
+      allSpeeds.map(s =>
         h(
           'button',
           {
             attrs: {
-              'aria-pressed': `${ctrl.data.speed.selected().includes(s)}`,
+              'aria-pressed': `${ctrl.data.speed().includes(s)}`,
             },
             hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.root.redraw),
           },
@@ -257,12 +230,12 @@ const modeSection = (ctrl: ExplorerConfigCtrl) =>
     h('label', ctrl.root.trans.noarg('mode')),
     h(
       'div.choices',
-      ctrl.data.mode.available.map(s =>
+      allModes.map(s =>
         h(
           'button',
           {
             attrs: {
-              'aria-pressed': `${ctrl.data.mode.selected().includes(s)}`,
+              'aria-pressed': `${ctrl.data.mode().includes(s)}`,
             },
             hook: bind('click', _ => ctrl.toggleMode(s), ctrl.root.redraw),
           },
