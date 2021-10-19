@@ -43,18 +43,17 @@ export class ExplorerConfigCtrl {
     };
   }
 
-  toggleMany = <T>(c: StoredJsonProp<T[]>, value: T) => {
-    if (!c().includes(value)) c(c().concat([value]));
-    else if (c().length > 1) c(c().filter(v => v !== value));
-  };
+  toggleMany =
+    <T>(c: StoredJsonProp<T[]>) =>
+    (value: T) => {
+      if (!c().includes(value)) c(c().concat([value]));
+      else if (c().length > 1) c(c().filter(v => v !== value));
+    };
 
   toggleOpen = () => {
     this.data.open(!this.data.open());
     if (!this.data.open()) this.onClose();
   };
-  toggleRating = (v: number) => this.toggleMany(this.data.rating, v);
-  toggleSpeed = (v: ExplorerSpeed) => this.toggleMany(this.data.speed, v);
-  toggleMode = (v: ExplorerMode) => this.toggleMany(this.data.mode, v);
   fullHouse = () =>
     this.data.db() === 'masters' ||
     (this.data.rating().length === allRatings.length && this.data.speed().length === allSpeeds.length);
@@ -125,6 +124,47 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   ]);
 };
 
+const masterDb = (ctrl: ExplorerConfigCtrl) =>
+  h('div.masters.message', [
+    h('i', { attrs: dataIcon('') }),
+    h('p', ctrl.root.trans('masterDbExplanation', 2200, '1952', '2019')),
+  ]);
+
+const radioButton =
+  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>) =>
+  (v: T) =>
+    h(
+      'button',
+      {
+        attrs: {
+          'aria-pressed': `${storage().includes(v)}`,
+        },
+        hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
+      },
+      '' + v
+    );
+
+const lichessDb = (ctrl: ExplorerConfigCtrl) =>
+  h('div', [
+    h('section.rating', [
+      h('label', ctrl.root.trans.noarg('averageElo')),
+      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+    ]),
+    speedSection(ctrl),
+  ]);
+
+const speedSection = (ctrl: ExplorerConfigCtrl) =>
+  h('section.speed', [
+    h('label', ctrl.root.trans.noarg('timeControl')),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed))),
+  ]);
+
+const modeSection = (ctrl: ExplorerConfigCtrl) =>
+  h('section.mode', [
+    h('label', ctrl.root.trans.noarg('mode')),
+    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
+  ]);
+
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
   const myName = document.body.dataset['user'];
   const onSelect = (name: string) => {
@@ -175,72 +215,3 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     ],
   });
 };
-
-const masterDb = (ctrl: ExplorerConfigCtrl) =>
-  h('div.masters.message', [
-    h('i', { attrs: dataIcon('') }),
-    h('p', ctrl.root.trans('masterDbExplanation', 2200, '1952', '2019')),
-  ]);
-
-const lichessDb = (ctrl: ExplorerConfigCtrl) =>
-  h('div', [
-    h('section.rating', [
-      h('label', ctrl.root.trans.noarg('averageElo')),
-      h(
-        'div.choices',
-        allRatings.map(r =>
-          h(
-            'button',
-            {
-              attrs: {
-                'aria-pressed': `${ctrl.data.rating().includes(r)}`,
-              },
-              hook: bind('click', _ => ctrl.toggleRating(r), ctrl.root.redraw),
-            },
-            r.toString()
-          )
-        )
-      ),
-    ]),
-    speedSection(ctrl),
-  ]);
-
-const speedSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.speed', [
-    h('label', ctrl.root.trans.noarg('timeControl')),
-    h(
-      'div.choices',
-      allSpeeds.map(s =>
-        h(
-          'button',
-          {
-            attrs: {
-              'aria-pressed': `${ctrl.data.speed().includes(s)}`,
-            },
-            hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.root.redraw),
-          },
-          s
-        )
-      )
-    ),
-  ]);
-
-const modeSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.mode', [
-    h('label', ctrl.root.trans.noarg('mode')),
-    h(
-      'div.choices',
-      allModes.map(s =>
-        h(
-          'button',
-          {
-            attrs: {
-              'aria-pressed': `${ctrl.data.mode().includes(s)}`,
-            },
-            hook: bind('click', _ => ctrl.toggleMode(s), ctrl.root.redraw),
-          },
-          s
-        )
-      )
-    ),
-  ]);
