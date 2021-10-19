@@ -39,7 +39,7 @@ export class ExplorerConfigCtrl {
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
-      since: storedProp('explorer.since', ''),
+      since: storedProp('explorer.since', '2010-01'),
       until: storedProp('explorer.until', ''),
       playerName: {
         open: prop(false),
@@ -176,9 +176,13 @@ const monthInput = (prop: StoredProp<Month>) =>
       type: 'month',
       pattern: '^20[12][0-9]-(0[1-9]|1[012])$',
       min: '2010-01',
+      max: '2030-01',
       value: prop() || '',
     },
-    hook: bind('change', e => prop((e.target as HTMLInputElement).value)),
+    hook: bind('change', e => {
+      const input = e.target as HTMLInputElement;
+      if (input.checkValidity()) prop(input.value);
+    }),
   });
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>

@@ -84,6 +84,9 @@
       border: none;
       background: none;
       padding: 0.1em 0.5em;
+      &:invalid {
+        background: mix($c-error, $c-bg-box, 30%);
+      }
     }
   }
 

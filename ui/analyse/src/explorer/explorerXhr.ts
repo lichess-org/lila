@@ -1,7 +1,8 @@
-import { ExplorerData, ExplorerDb, ExplorerMode, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
+import { ExplorerData, ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
 import { readNdJson, CancellableStream } from 'common/ndjson';
 import { ExplorerConfigData } from './explorerConfig';
+import { sync } from 'common/sync';
 
 interface OpeningXhrOpts {
   endpoint: string;
@@ -16,7 +17,10 @@ interface OpeningXhrOpts {
   withGames?: boolean;
 }
 
-export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) => void): Promise<CancellableStream> {
+export async function opening(
+  opts: OpeningXhrOpts,
+  processData: (data: ExplorerData) => void
+): Promise<CancellableStream> {
   const conf = opts.config;
   const endpoint = opts.db == 'player' ? opts.endpoint3 : opts.endpoint;
   const url = new URL(opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master', endpoint);
@@ -34,25 +38,32 @@ export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) 
     params.set('update', 'true');
     params.set('speeds', conf.speed().join(','));
     params.set('modes', conf.mode().join(','));
-    if (conf.since()) params.set('since', conf.since().replace('-', '/'));
-    if (conf.until()) params.set('until', conf.until().replace('-', '/'));
+    if (conf.since()) params.set('since', conf.since());
+    if (conf.until()) params.set('until', conf.until());
   }
   if (!opts.withGames) {
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
-  const stream = fetch(url.href, {
+  const res = await fetch(url.href, {
     cache: 'default',
     headers: {}, // avoid default headers for cors
     credentials: 'omit',
   });
+
   const onMessage = (line: any) => {
     const data = line as Partial<OpeningData>;
     data.isOpening = true;
     data.fen = opts.fen;
     processData(data as OpeningData);
   };
-  return stream.then(readNdJson(onMessage));
+
+  if (res.ok) return readNdJson(onMessage)(res);
+
+  return {
+    cancel() {},
+    end: sync(Promise.resolve(new Error(`Explorer error: ${res.status}`))),
+  };
 }
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {

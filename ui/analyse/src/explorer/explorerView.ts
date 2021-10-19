@@ -454,15 +454,13 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     [
       h('div.overlay'),
       content,
-      !content || explorer.failing()
-        ? null
-        : h('button.fbt.toconf', {
-            attrs: {
-              'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
-              ...dataIcon(configOpened ? '' : ''),
-            },
-            hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
-          }),
+      h('button.fbt.toconf', {
+        attrs: {
+          'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+          ...dataIcon(configOpened ? '' : ''),
+        },
+        hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
+      }),
     ]
   );
 }

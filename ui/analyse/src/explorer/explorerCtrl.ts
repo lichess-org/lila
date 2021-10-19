@@ -113,7 +113,7 @@ export default class ExplorerCtrl {
                 processData
               )
               .then(stream => {
-                stream.end.promise.then(this.root.redraw);
+                stream.end.promise.then(err => (err ? onError(err) : this.root.redraw()));
                 return stream;
               })
           )
