@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
@@ -16,6 +17,7 @@ import {
   Opening,
 } from './interfaces';
 import ExplorerCtrl from './explorerCtrl';
+import { iconTag } from '../util';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -114,7 +116,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu();
   return h('table.games', [
-    h('thead', [h('tr', [h('th.title', { attrs: { colspan: 4 } }, title)])]),
+    h('thead', [h('tr', [h('th.title', { attrs: { colspan: 5 } }, title)])]),
     h(
       'tbody',
       {
@@ -147,7 +149,17 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
                   [game.white, game.black].map(p => h('span', p.name))
                 ),
                 h('td', showResult(game.winner)),
-                h('td', [game.year]),
+                h('td', game.year || game.month),
+                h(
+                  'td',
+                  game.speed &&
+                    h('i', {
+                      attrs: {
+                        title: game.speed,
+                        ...dataIcon(perf.icons[game.speed]),
+                      },
+                    })
+                ),
               ]
             );
       })

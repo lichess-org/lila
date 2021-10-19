@@ -34,7 +34,7 @@ export class ExplorerConfigCtrl {
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
     if (variant === 'standard') allDbs.unshift('masters');
     this.data = {
-      open: prop(true),
+      open: prop(false),
       db: storedProp('explorer.db.' + variant, allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
@@ -230,7 +230,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
         'div.previous',
         [...(myName ? [myName] : []), ...ctrl.data.playerName.previous()].map(name =>
           h(
-            'button.button',
+            `button.button${name == myName ? '.button-green' : ''}`,
             {
               hook: bind('click', () => onSelect(name)),
             },

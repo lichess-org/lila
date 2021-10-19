@@ -43,6 +43,8 @@ export interface OpeningGame {
   black: OpeningPlayer;
   winner?: Color;
   year?: string;
+  month?: string;
+  speed?: Speed;
 }
 
 interface OpeningPlayer {
