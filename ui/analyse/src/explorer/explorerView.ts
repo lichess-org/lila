@@ -17,7 +17,6 @@ import {
   Opening,
 } from './interfaces';
 import ExplorerCtrl from './explorerCtrl';
-import { iconTag } from '../util';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
