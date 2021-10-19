@@ -75,7 +75,7 @@ object ModPresets {
               val cleanRest = rest.dropWhile(_.isEmpty)
               for {
                 name <- cleanRest.headOption
-                text <- cleanRest.tail.some
+                text = cleanRest.tail
               } yield ModPreset(
                 name,
                 text.dropWhile(_.isEmpty) mkString "\n",
