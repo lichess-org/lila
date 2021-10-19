@@ -239,7 +239,7 @@ object mod {
       )
     )
 
-  def showRageSit(rageSit: RageSit) =
+  def showRageSit(rageSit: RageSit): Frag =
     mzSection("sitdccounter")(
       strong(cls := "text inline")("Ragesit counter"),
       strong(cls := "fat")(rageSit.counterView)
