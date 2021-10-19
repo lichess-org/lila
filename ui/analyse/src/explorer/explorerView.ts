@@ -89,7 +89,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
           {
             attrs: {
               'data-uci': move.uci,
-              title: move.uci ? ctrl.trans('averageRatingX', move.averageRating) : 'Total',
+              title: move.uci ? (move.averageRating ? ctrl.trans('averageRatingX', move.averageRating) : '') : 'Total',
             },
           },
           [
