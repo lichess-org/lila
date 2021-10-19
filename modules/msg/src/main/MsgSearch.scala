@@ -17,7 +17,7 @@ final class MsgSearch(
 
   def apply(me: User, q: String): Fu[MsgSearch.Result] =
     searchThreads(me, q) zip searchFriends(me, q) zip searchUsers(me, q) map {
-      case threads ~ friends ~ users =>
+      case ((threads, friends), users) =>
         MsgSearch
           .Result(
             threads,

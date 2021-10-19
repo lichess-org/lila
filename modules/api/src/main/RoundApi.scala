@@ -51,15 +51,15 @@ final private[api] class RoundApi(
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
-            case json ~ simul ~ swiss ~ note ~ forecast ~ bookmarked =>
+            case (((((json, simul), swiss), note), forecast), bookmarked) =>
               (
                 withTournament(pov, tour) _ compose
-                  withSwiss(swiss) _ compose
-                  withSimul(simul) _ compose
-                  withSteps(pov, initialFen) _ compose
-                  withNote(note) _ compose
-                  withBookmark(bookmarked) _ compose
-                  withForecastCount(forecast.map(_.steps.size)) _
+                  withSwiss(swiss) compose
+                  withSimul(simul) compose
+                  withSteps(pov, initialFen) compose
+                  withNote(note) compose
+                  withBookmark(bookmarked) compose
+                  withForecastCount(forecast.map(_.steps.size))
               )(json)
           }
       }
@@ -88,14 +88,14 @@ final private[api] class RoundApi(
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
-          bookmarkApi.exists(pov.game, ctx.me) map { case json ~ simul ~ swiss ~ note ~ bookmarked =>
+          bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
               withTournament(pov, tour) _ compose
-                withSwiss(swiss) _ compose
-                withSimul(simul) _ compose
-                withNote(note) _ compose
-                withBookmark(bookmarked) _ compose
-                withSteps(pov, initialFen) _
+                withSwiss(swiss) compose
+                withSimul(simul) compose
+                withNote(note) compose
+                withBookmark(bookmarked) compose
+                withSteps(pov, initialFen)
             )(json)
           }
       }
@@ -126,15 +126,15 @@ final private[api] class RoundApi(
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
           ctx.userId.ifTrue(ctx.isMobileApi).?? { noteApi.get(pov.gameId, _) } zip
-          bookmarkApi.exists(pov.game, ctx.me) map { case json ~ tour ~ simul ~ swiss ~ note ~ bookmarked =>
-            (
-              withTournament(pov, tour) _ compose
-                withSwiss(swiss) _ compose
-                withSimul(simul) _ compose
-                withNote(note) _ compose
-                withBookmark(bookmarked) _ compose
-                withTree(pov, analysis, initialFen, withFlags) _ compose
-                withAnalysis(pov.game, analysis) _
+          bookmarkApi.exists(pov.game, ctx.me) map { case (((((json, tour), simul), swiss), note), bookmarked) =>
+              (
+                withTournament(pov, tour) _ compose
+                withSwiss(swiss) compose
+                withSimul(simul) compose
+                withNote(note) compose
+                withBookmark(bookmarked) compose
+                withTree(pov, analysis, initialFen, withFlags) compose
+                withAnalysis(pov.game, analysis)
             )(json)
           }
       }

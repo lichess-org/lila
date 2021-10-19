@@ -358,7 +358,7 @@ case class Game(
       gotePlayer = f(gotePlayer)
     )
 
-  def playerCanOfferDraw(color: Color) = false
+  def playerCanOfferDraw = false
   //started && playable &&
   //  turns >= 8 &&
   //  shogi.situation.impasse &&

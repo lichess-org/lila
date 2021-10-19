@@ -1,6 +1,6 @@
 package lila.common
 
-import org.joda.time.{ DateTime, Days, Interval }
+import org.joda.time.{ DateTime, Days }
 
 // number of days since lishogi
 case class Day(value: Int) extends AnyVal {

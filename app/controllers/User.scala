@@ -146,7 +146,7 @@ final class User(
             ctx.userId.?? { env.game.crosstableApi.fetchOrEmpty(user.id, _) dmap some } zip
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
             ctx.userId.?? { relationApi.fetchRelation(_, user.id) } flatMap {
-              case blocked ~ crosstable ~ followable ~ relation =>
+              case (((blocked, crosstable), followable), relation) =>
                 val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
                 negotiate(
                   html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
@@ -357,7 +357,7 @@ final class User(
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy) map {
-              case notes ~ bans ~ othersWithEmail =>
+              case ((notes, bans), othersWithEmail) =>
                 html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
             }
         }

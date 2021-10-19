@@ -16,7 +16,7 @@ object Namer {
       playerTextUser(player, _, withRating)
     }
 
-  private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
+  private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean): String =
     player.aiLevel.fold(
       user.fold(player.name | "Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r =>

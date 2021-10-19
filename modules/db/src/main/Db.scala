@@ -5,9 +5,9 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 import scala.concurrent.Future
 
-import dsl.Coll
 import lila.common.Chronometer
 import lila.common.config.CollName
+import lila.db.dsl.Coll
 
 final class AsyncDb(
     name: String,

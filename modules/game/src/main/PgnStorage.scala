@@ -1,8 +1,7 @@
 package lila.game
 
+import shogi._
 import shogi.format.Uci
-import shogi.{ variant => _, ToOptionOpsFromOption => _, _ }
-import shogi.variant.{ Standard }
 import lila.db.ByteArray
 
 sealed trait PgnStorage

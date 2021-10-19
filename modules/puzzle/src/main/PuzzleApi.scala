@@ -1,15 +1,13 @@
 package lila.puzzle
 
-import org.joda.time.DateTime
+import cats.implicits._
 import scala.concurrent.duration._
 
 import lila.common.paginator.Paginator
 import lila.common.config.MaxPerPage
-import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.memo.CacheApi
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -145,8 +143,8 @@ final class PuzzleApi(
                         F.themes -> newThemes
                       ).some
                     )
-                  case Some(v) =>
-                    trustApi.theme(user, round, theme, v) map2 { weight =>
+                  case Some(_) =>
+                    trustApi.theme(user) map2 { weight =>
                       $set(
                         F.themes -> newThemes,
                         F.puzzle -> id,

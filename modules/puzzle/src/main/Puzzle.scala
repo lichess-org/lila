@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 import shogi.format.{ FEN, Forsyth, Uci }
 
 import lila.rating.Glicko

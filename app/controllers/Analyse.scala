@@ -51,7 +51,7 @@ final class Analyse(
               initialFen,
               analysis = none,
               NotationDump.WithFlags(clocks = false)
-            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ kif =>
+            ) flatMap { case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), kif) =>
               env.api.roundApi.review(
                 pov,
                 lila.api.Mobile.Api.currentVersion,

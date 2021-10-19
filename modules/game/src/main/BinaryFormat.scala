@@ -4,8 +4,7 @@ import org.joda.time.DateTime
 import scala.util.Try
 
 import shogi.variant.Variant
-import shogi.{ ToOptionOpsFromOption => _, _ }
-import shogi.format.Uci
+import shogi._
 import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray

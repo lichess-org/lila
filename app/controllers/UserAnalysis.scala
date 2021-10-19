@@ -27,7 +27,7 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match {
-      case Array(_key) => load("", Standard)
+      case Array(_) => load("", Standard)
       case Array(key, fen) =>
         Variant.byKey get key match {
           //case Some(variant)                 => load(fen, variant)
@@ -116,7 +116,7 @@ final class UserAnalysis(
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) flatMap { case _ ~ analysis ~ crosstable =>
+        env.game.crosstableApi(pov.game) flatMap { case ((_, analysis), crosstable) =>
           import lila.game.JsonView.crosstableWrites
           env.api.roundApi.review(
             pov,

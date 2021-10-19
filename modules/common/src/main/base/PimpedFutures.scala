@@ -216,13 +216,6 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
   def dmap2[B](f: A => B): Fu[Option[B]]                 = fua.map(_ map f)(EC.parasitic)
 }
 
-// final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
-
-//   def flatten: Fu[A] = fua.flatMap {
-//     _.fold[Fu[A]](fufail(_), fuccess(_))
-//   }(EC.parasitic)
-// }
-
 final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
   def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]], ec: EC): Fu[M[A]] = Future.sequence(t)
 }

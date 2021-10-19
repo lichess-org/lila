@@ -521,7 +521,7 @@ abstract private[controllers] class LilaController(val env: Env)
         } map {
           case (
                 (pref, hasClas),
-                (teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)
+                (((teamNbRequests, nbChallenges), nbNotifications), inquiry)
               ) =>
             PageData(
               teamNbRequests,

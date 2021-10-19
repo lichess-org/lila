@@ -58,8 +58,8 @@ final private[api] class UserApi(
           .map(_.map { cr =>
             math.round(cr * 100)
           }) map {
-          case gameOption ~ nbGamesWithMe ~ following ~ followers ~ followable ~ relation ~
-              isFollowed ~ nbBookmarks ~ nbPlaying ~ nbImported ~ completionRate =>
+          case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
+              relation),isFollowed),nbBookmarks),nbPlaying),nbImported),completionRate) =>
             jsonView(u) ++ {
               Json
                 .obj(

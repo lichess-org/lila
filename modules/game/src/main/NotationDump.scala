@@ -2,9 +2,9 @@ package lila.game
 
 import shogi.Replay
 import shogi.format.Forsyth
-import shogi.format.kif.{ Kif, KifParser }
-import shogi.format.csa.{ Csa, CsaParser }
-import shogi.format.{ FEN, Notation, NotationMove, ParsedNotation, Tag, TagType, Tags }
+import shogi.format.kif.Kif
+import shogi.format.csa.Csa
+import shogi.format.{ FEN, Notation, NotationMove, Tag, Tags }
 import shogi.{ Centis, Color }
 
 import lila.common.config.BaseUrl
@@ -88,8 +88,6 @@ final class NotationDump(
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.sentePlayer.userId ?? lightUserApi.async) zip (game.gotePlayer.userId ?? lightUserApi.async)
 
-  private def rating(p: Player) = p.rating.fold("?")(_.toString)
-
   def player(p: Player, u: Option[LightUser]) =
     p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lishogi AI level " + _)
 
@@ -152,6 +150,10 @@ final class NotationDump(
         } ::: customStartPosition(game.variant).??(
           List(
             Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value))
+          )
+        ) ::: (withOpening && game.opening.isDefined) ?? (
+          List(
+            Tag(_.Opening, game.opening.fold("")(_.opening.eco))
           )
         )
       }

@@ -121,12 +121,11 @@ final class GifExport(
   @annotation.tailrec
   private def framesRec(games: List[((ShogiGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
     games match {
-      case Nil =>
-        arr
       case ((game, uci), scaledMoveTime) :: tail =>
         // longer delay for last frame
         val delay = if (tail.isEmpty) Centis(500).some else scaledMoveTime
         framesRec(tail, arr :+ frame(game.situation, uci, delay))
+      case _ => arr
     }
 
   private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
