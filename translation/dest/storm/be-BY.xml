@@ -61,4 +61,5 @@
   <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">За ўвесь час</string>
   <string name="clickToReload">Націсніце, каб перазагрузіць</string>
   <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Гэта спроба скончылася!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Гэта спроба адкрыта ў іншай укладцы!</string>
 </resources>
