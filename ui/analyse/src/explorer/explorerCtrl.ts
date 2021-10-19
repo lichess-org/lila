@@ -3,21 +3,13 @@ import { storedProp } from 'common/storage';
 import debounce from 'common/debounce';
 import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
-import { controller as configCtrl } from './explorerConfig';
 import * as xhr from './explorerXhr';
 import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import {
-  Hovering,
-  ExplorerData,
-  ExplorerDb,
-  OpeningData,
-  SimpleTablebaseHit,
-  ExplorerOpts,
-  ExplorerConfigCtrl,
-} from './interfaces';
+import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { CancellableStream } from 'common/ndjson';
+import { ExplorerConfigCtrl } from './explorerConfig';
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -38,8 +30,7 @@ function tablebasePieces(variant: VariantKey) {
   }
 }
 
-export const tablebaseGuaranteed = (variant: VariantKey, fen: Fen) =>
-  pieceCount(fen) <= tablebasePieces(variant);
+export const tablebaseGuaranteed = (variant: VariantKey, fen: Fen) => pieceCount(fen) <= tablebasePieces(variant);
 
 export default class ExplorerCtrl {
   allowed: Prop<boolean>;
@@ -61,7 +52,13 @@ export default class ExplorerCtrl {
     this.enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
-    this.config = configCtrl(root.data.game, this.onConfigClose, root.trans, root.redraw);
+    this.config = new ExplorerConfigCtrl(
+      root.data.game,
+      this.effectiveVariant,
+      this.onConfigClose,
+      root.trans,
+      root.redraw
+    );
     window.addEventListener('hashchange', this.checkHash, false);
     this.checkHash();
   }
@@ -161,8 +158,7 @@ export default class ExplorerCtrl {
     }
   };
 
-  db = () => this.config.data.db.selected();
-
+  db = () => this.config.db();
   current = () => this.cache[this.root.node.fen];
   toggle = () => {
     this.movesAway(0);

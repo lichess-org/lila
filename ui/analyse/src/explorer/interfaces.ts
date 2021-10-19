@@ -1,6 +1,3 @@
-import { Prop } from 'common';
-import { StoredProp, StoredJsonProp } from 'common/storage';
-
 export interface Hovering {
   fen: Fen;
   uci: Uci;
@@ -19,43 +16,6 @@ export interface ExplorerOpts {
   endpoint: string;
   endpoint3: string;
   tablebaseEndpoint: string;
-}
-
-export interface ExplorerConfigData {
-  open: Prop<boolean>;
-  db: {
-    available: ExplorerDb[];
-    selected: StoredProp<ExplorerDb>;
-  };
-  rating: {
-    available: number[];
-    selected: StoredJsonProp<number[]>;
-  };
-  speed: {
-    available: ExplorerSpeed[];
-    selected: StoredJsonProp<ExplorerSpeed[]>;
-  };
-  mode: {
-    available: ExplorerMode[];
-    selected: StoredJsonProp<ExplorerMode[]>;
-  };
-  playerName: {
-    open: Prop<boolean>;
-    value: StoredProp<string>;
-    previous: StoredJsonProp<string[]>;
-  };
-}
-
-export interface ExplorerConfigCtrl {
-  trans: Trans;
-  redraw(): void;
-  data: ExplorerConfigData;
-  toggleOpen(): void;
-  toggleDb(db: ExplorerDb): void;
-  toggleRating(rating: number): void;
-  toggleSpeed(speed: string): void;
-  toggleMode(mode: string): void;
-  fullHouse(): boolean;
 }
 
 export interface ExplorerData {

@@ -1,79 +1,96 @@
 import { h, VNode } from 'snabbdom';
-import { prop } from 'common';
+import { Prop, prop } from 'common';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
-import { storedProp, storedJsonProp, StoredJsonProp } from 'common/storage';
+import { storedProp, storedJsonProp, StoredJsonProp, StoredProp } from 'common/storage';
 import { Game } from '../interfaces';
-import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl, ExplorerMode } from './interfaces';
+import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import { snabModal } from 'common/modal';
 
 const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 
-export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigCtrl {
-  const variant = game.variant.key === 'fromPosition' ? 'standard' : game.variant.key;
-
-  const available: ExplorerDb[] = ['lichess', 'player'];
-  if (variant === 'standard') available.unshift('masters');
-
-  const data: ExplorerConfigData = {
-    open: prop(true),
-    db: {
-      available,
-      selected: available.length > 1 ? storedProp('explorer.db.' + variant, available[0]) : () => available[0],
-    },
-    rating: {
-      available: allRatings,
-      selected: storedJsonProp('explorer.rating', () => allRatings),
-    },
-    speed: {
-      available: allSpeeds,
-      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
-    },
-    mode: {
-      available: allModes,
-      selected: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
-    },
-    playerName: {
-      open: prop(false),
-      value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
-      previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
-    },
+export interface ExplorerConfigData {
+  open: Prop<boolean>;
+  db: {
+    available: ExplorerDb[];
+    selected: StoredProp<ExplorerDb>;
   };
+  rating: {
+    available: number[];
+    selected: StoredJsonProp<number[]>;
+  };
+  speed: {
+    available: ExplorerSpeed[];
+    selected: StoredJsonProp<ExplorerSpeed[]>;
+  };
+  mode: {
+    available: ExplorerMode[];
+    selected: StoredJsonProp<ExplorerMode[]>;
+  };
+  playerName: {
+    open: Prop<boolean>;
+    value: StoredProp<string>;
+    previous: StoredJsonProp<string[]>;
+  };
+}
 
-  const toggleMany = function <T>(c: StoredJsonProp<T[]>, value: T) {
+export class ExplorerConfigCtrl {
+  data: ExplorerConfigData;
+
+  constructor(
+    readonly game: Game,
+    readonly variant: VariantKey,
+    readonly onClose: () => void,
+    readonly trans: Trans,
+    readonly redraw: () => void
+  ) {
+    const available: ExplorerDb[] = ['lichess', 'player'];
+    if (variant === 'standard') available.unshift('masters');
+    this.data = {
+      open: prop(true),
+      db: {
+        available,
+        selected: available.length > 1 ? storedProp('explorer.db.' + variant, available[0]) : () => available[0],
+      },
+      rating: {
+        available: allRatings,
+        selected: storedJsonProp('explorer.rating', () => allRatings),
+      },
+      speed: {
+        available: allSpeeds,
+        selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
+      },
+      mode: {
+        available: allModes,
+        selected: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
+      },
+      playerName: {
+        open: prop(false),
+        value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
+        previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
+      },
+    };
+  }
+
+  db = () => this.data.db.selected();
+
+  toggleMany = <T>(c: StoredJsonProp<T[]>, value: T) => {
     if (!c().includes(value)) c(c().concat([value]));
     else if (c().length > 1) c(c().filter(v => v !== value));
   };
 
-  return {
-    trans,
-    redraw,
-    data,
-    toggleOpen() {
-      data.open(!data.open());
-      if (!data.open()) onClose();
-    },
-    toggleDb(db) {
-      data.db.selected(db);
-    },
-    toggleRating(v) {
-      toggleMany(data.rating.selected, v);
-    },
-    toggleSpeed(v) {
-      toggleMany(data.speed.selected, v);
-    },
-    toggleMode(v) {
-      toggleMany(data.mode.selected, v);
-    },
-    fullHouse() {
-      return (
-        data.db.selected() === 'masters' ||
-        (data.rating.selected().length === data.rating.available.length &&
-          data.speed.selected().length === data.speed.available.length)
-      );
-    },
+  toggleOpen = () => {
+    this.data.open(!this.data.open());
+    if (!this.data.open()) this.onClose();
   };
+  toggleRating = (v: number) => this.toggleMany(this.data.rating.selected, v);
+  toggleSpeed = (v: ExplorerSpeed) => this.toggleMany(this.data.speed.selected, v);
+  toggleMode = (v: ExplorerMode) => this.toggleMany(this.data.mode.selected, v);
+  fullHouse = () =>
+    this.db() === 'masters' ||
+    (this.data.rating.selected().length === this.data.rating.available.length &&
+      this.data.speed.selected().length === this.data.speed.available.length);
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -87,20 +104,16 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
             'button',
             {
               attrs: {
-                'aria-pressed': `${ctrl.data.db.selected() === s}`,
+                'aria-pressed': `${ctrl.db() === s}`,
               },
-              hook: bind('click', _ => ctrl.toggleDb(s), ctrl.redraw),
+              hook: bind('click', _ => ctrl.data.db.selected(s), ctrl.redraw),
             },
             s
           )
         )
       ),
     ]),
-    ctrl.data.db.selected() === 'masters'
-      ? masterDb(ctrl)
-      : ctrl.data.db.selected() === 'lichess'
-      ? lichessDb(ctrl)
-      : playerDb(ctrl),
+    ctrl.db() === 'masters' ? masterDb(ctrl) : ctrl.db() === 'lichess' ? lichessDb(ctrl) : playerDb(ctrl),
     h(
       'section.save',
       h(

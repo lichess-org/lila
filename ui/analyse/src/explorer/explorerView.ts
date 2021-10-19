@@ -393,7 +393,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
 
 const playerIndexing = (explorer: ExplorerCtrl) =>
   explorer.db() == 'player' && explorer.isIndexing()
-    ? h('div.player-loading', [
+    ? h('div.player-indexing', [
         'Indexing ',
         h('strong', explorer.config.data.playerName.value()),
         ' games',
