@@ -70,6 +70,13 @@ export default class ExplorerCtrl {
     this.root.redraw();
   };
 
+  private baseXhrOpening = () => ({
+    endpoint: this.opts.endpoint,
+    endpoint3: this.opts.endpoint3,
+    color: this.root.getOrientation(),
+    config: this.config.data,
+  });
+
   fetch = debounce(
     () => {
       const fen = this.root.node.fen;
@@ -95,20 +102,12 @@ export default class ExplorerCtrl {
             xhr
               .opening(
                 {
-                  endpoint: this.opts.endpoint,
-                  endpoint3: this.opts.endpoint3,
+                  ...this.baseXhrOpening(),
                   db: this.db() as ExplorerDb,
-                  personal: {
-                    player: this.config.data.playerName.value(),
-                    color: this.root.getOrientation(),
-                    mode: this.config.data.mode(),
-                  },
                   variant: this.effectiveVariant,
                   rootFen: this.root.nodeList[0].fen,
                   play: this.root.nodeList.slice(1).map(s => s.uci!),
                   fen,
-                  speeds: this.config.data.speed(),
-                  ratings: this.config.data.rating(),
                   withGames: this.withGames,
                 },
                 processData
@@ -189,8 +188,7 @@ export default class ExplorerCtrl {
       return new Promise(resolve =>
         xhr.opening(
           {
-            endpoint: this.opts.endpoint,
-            endpoint3: this.opts.endpoint3,
+            ...this.baseXhrOpening(),
             db: 'masters',
             rootFen: fen,
             play: [],

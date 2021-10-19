@@ -11,12 +11,16 @@ const allSpeeds: ExplorerSpeed[] = ['bullet', 'blitz', 'rapid', 'classical'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 
+type Month = string;
+
 export interface ExplorerConfigData {
   open: Prop<boolean>;
   db: StoredProp<ExplorerDb>;
   rating: StoredJsonProp<number[]>;
   speed: StoredJsonProp<ExplorerSpeed[]>;
   mode: StoredJsonProp<ExplorerMode[]>;
+  since: StoredProp<Month>;
+  until: StoredProp<Month>;
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
@@ -35,6 +39,8 @@ export class ExplorerConfigCtrl {
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
+      since: storedProp('explorer.since', ''),
+      until: storedProp('explorer.until', ''),
       playerName: {
         open: prop(false),
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
@@ -121,6 +127,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
     ]),
     speedSection(ctrl),
     modeSection(ctrl),
+    monthSection(ctrl),
   ]);
 };
 
@@ -136,9 +143,7 @@ const radioButton =
     h(
       'button',
       {
-        attrs: {
-          'aria-pressed': `${storage().includes(v)}`,
-        },
+        attrs: { 'aria-pressed': `${storage().includes(v)}` },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
       '' + v
@@ -163,6 +168,23 @@ const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
     h('label', ctrl.root.trans.noarg('mode')),
     h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
+  ]);
+
+const monthInput = (prop: StoredProp<Month>) =>
+  h('input', {
+    attrs: {
+      type: 'month',
+      pattern: '^20[12][0-9]-(0[1-9]|1[012])$',
+      min: '2010-01',
+      value: prop() || '',
+    },
+    hook: bind('change', e => prop((e.target as HTMLInputElement).value)),
+  });
+
+const monthSection = (ctrl: ExplorerConfigCtrl) =>
+  h('section.month', [
+    h('label', ['Since', monthInput(ctrl.data.since)]),
+    h('label', ['Until', monthInput(ctrl.data.until)]),
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {

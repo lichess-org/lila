@@ -75,6 +75,18 @@
     }
   }
 
+  .month {
+    margin-top: 1em;
+    label {
+      @extend %flex-between-nowrap;
+    }
+    input {
+      border: none;
+      background: none;
+      padding: 0.1em 0.5em;
+    }
+  }
+
   &__player__choice {
     max-width: 70ch !important;
 
