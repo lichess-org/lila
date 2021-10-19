@@ -165,7 +165,9 @@ object userAnalysisI18n {
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,
     trans.lossSavedBy50MoveRule,
-    trans.allSet
+    trans.allSet,
+    trans.study.searchByUsername,
+    trans.mode
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(

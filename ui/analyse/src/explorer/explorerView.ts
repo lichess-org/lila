@@ -1,9 +1,10 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { winnerOf } from './explorerUtil';
+import { ucfirst, winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import {
   isOpening,
@@ -15,6 +16,8 @@ import {
   OpeningGame,
   Opening,
 } from './interfaces';
+import ExplorerCtrl from './explorerCtrl';
+import { iconTag } from '../util';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -89,7 +92,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
           {
             attrs: {
               'data-uci': move.uci,
-              title: move.uci ? ctrl.trans('averageRatingX', move.averageRating) : 'Total',
+              title: move.uci ? (move.averageRating ? ctrl.trans('averageRatingX', move.averageRating) : '') : 'Total',
             },
           },
           [
@@ -113,7 +116,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu();
   return h('table.games', [
-    h('thead', [h('tr', [h('th.title', { attrs: { colspan: 4 } }, title)])]),
+    h('thead', [h('tr', [h('th.title', { attrs: { colspan: 5 } }, title)])]),
     h(
       'tbody',
       {
@@ -146,7 +149,17 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
                   [game.white, game.black].map(p => h('span', p.name))
                 ),
                 h('td', showResult(game.winner)),
-                h('td', [game.year]),
+                h('td', game.year || game.month),
+                h(
+                  'td',
+                  game.speed &&
+                    h('i', {
+                      attrs: {
+                        title: ucfirst(game.speed),
+                        ...dataIcon(perf.icons[game.speed]),
+                      },
+                    })
+                ),
               ]
             );
       })
@@ -158,7 +171,7 @@ function openGame(ctrl: AnalyseCtrl, gameId: string) {
   const orientation = ctrl.chessground.state.orientation,
     fenParam = ctrl.node.ply > 0 ? '?fen=' + ctrl.node.fen : '';
   let url = '/' + gameId + '/' + orientation + fenParam;
-  if (ctrl.explorer.config.data.db.selected() === 'masters') url = '/import/master' + url;
+  if (ctrl.explorer.db() === 'masters') url = '/import/master' + url;
   window.open(url, '_blank', 'noopener');
 }
 
@@ -315,6 +328,7 @@ function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
         opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
       )
     ),
+    playerIndexing(ctrl.explorer),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse()
@@ -355,6 +369,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
               [h('strong', data.opening.eco), ' ', data.opening.name]
             )
           ),
+        playerIndexing(ctrl.explorer),
         moveTable,
         topTable,
         recentTable,
@@ -387,6 +402,16 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   }
   return lastShow;
 }
+
+const playerIndexing = (explorer: ExplorerCtrl) =>
+  explorer.db() == 'player' && explorer.isIndexing()
+    ? h('div.player-indexing', [
+        'Indexing ',
+        h('strong', explorer.config.data.playerName.value()),
+        ' games',
+        h('i.ddloader'),
+      ])
+    : undefined;
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
   if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');
@@ -426,7 +451,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     {
       class: {
         loading,
-        config: configOpened,
+        explorer__config: configOpened,
         reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2),
       },
       hook: {
@@ -441,15 +466,13 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     [
       h('div.overlay'),
       content,
-      !content || explorer.failing()
-        ? null
-        : h('button.fbt.toconf', {
-            attrs: {
-              'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
-              ...dataIcon(configOpened ? '' : ''),
-            },
-            hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
-          }),
+      h('button.fbt.toconf', {
+        attrs: {
+          'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+          ...dataIcon(configOpened ? '' : ''),
+        },
+        hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
+      }),
     ]
   );
 }

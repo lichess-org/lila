@@ -1,45 +1,21 @@
-import { Prop } from 'common';
-import { StoredProp, StoredJsonProp } from 'common/storage';
-
 export interface Hovering {
   fen: Fen;
   uci: Uci;
 }
 
-export type ExplorerDb = 'lichess' | 'masters';
+export type ExplorerDb = 'lichess' | 'masters' | 'player';
 
-export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
+export type ExplorerSpeed = Speed;
+export type ExplorerMode = 'casual' | 'rated';
+
+export interface PlayerOpts {
+  name: string;
+}
 
 export interface ExplorerOpts {
   endpoint: string;
+  endpoint3: string;
   tablebaseEndpoint: string;
-}
-
-export interface ExplorerConfigData {
-  open: Prop<boolean>;
-  db: {
-    available: ExplorerDb[];
-    selected: StoredProp<ExplorerDb>;
-  };
-  rating: {
-    available: number[];
-    selected: StoredJsonProp<number[]>;
-  };
-  speed: {
-    available: ExplorerSpeed[];
-    selected: StoredJsonProp<ExplorerSpeed[]>;
-  };
-}
-
-export interface ExplorerConfigCtrl {
-  trans: Trans;
-  redraw(): void;
-  data: ExplorerConfigData;
-  toggleOpen(): void;
-  toggleDb(db: ExplorerDb): void;
-  toggleRating(rating: number): void;
-  toggleSpeed(speed: string): void;
-  fullHouse(): boolean;
 }
 
 export interface ExplorerData {
@@ -67,6 +43,8 @@ export interface OpeningGame {
   black: OpeningPlayer;
   winner?: Color;
   year?: string;
+  month?: string;
+  speed?: Speed;
 }
 
 interface OpeningPlayer {
@@ -130,23 +108,4 @@ export interface SimpleTablebaseHit {
   fen: Fen;
   best?: Uci; // no move if checkmate/stalemate
   winner: Color | undefined;
-}
-
-export interface ExplorerCtrl {
-  allowed: Prop<boolean>;
-  loading: Prop<boolean>;
-  enabled: Prop<boolean>;
-  failing: Prop<Error | null>;
-  movesAway: Prop<number>;
-  config: ExplorerConfigCtrl;
-  withGames: boolean;
-  gameMenu: Prop<string | null>;
-  current(): ExplorerData | undefined;
-  hovering: Prop<Hovering | null>;
-  setNode(): void;
-  toggle(): void;
-  disable(): void;
-  setHovering(fen: Fen, uci: Uci | null): void;
-  fetchMasterOpening(fen: Fen): Promise<OpeningData>;
-  fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit>;
 }

@@ -44,10 +44,7 @@ object show {
                 localMod = ctx.userId.??(rt.study.canContribute)
               )
             ),
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
+            "explorer"      -> views.html.board.bits.explorerEndpoints,
             "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
             "socketVersion" -> socketVersion.value
           )
