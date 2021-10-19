@@ -1,5 +1,6 @@
-import { ExplorerDb, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
+import { ExplorerData, ExplorerDb, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
+import { readNdJson } from 'common/ndjson';
 
 interface OpeningXhrOpts {
   endpoint: string;
@@ -18,7 +19,7 @@ interface OpeningXhrOpts {
   withGames?: boolean;
 }
 
-export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
+export function opening(opts: OpeningXhrOpts, processData: (data: ExplorerData) => void): Promise<void> {
   const endpoint = opts.db == 'player' ? opts.endpoint3 : opts.endpoint;
   const url = new URL(opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master', endpoint);
   const params = url.searchParams;
@@ -32,23 +33,24 @@ export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
   if (opts.db === 'player' && opts.personal) {
     params.set('player', opts.personal.player);
     params.set('color', opts.personal.color);
-    // params.set('update', 'true');
+    params.set('update', 'true');
   }
   if (!opts.withGames) {
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
-  return xhr
-    .json(url.href, {
-      cache: 'default',
-      headers: {}, // avoid default headers for cors
-      credentials: 'omit',
-    })
-    .then((data: Partial<OpeningData>) => {
-      data.isOpening = true;
-      data.fen = opts.fen;
-      return data as OpeningData;
-    });
+  const stream = fetch(url.href, {
+    cache: 'default',
+    headers: {}, // avoid default headers for cors
+    credentials: 'omit',
+  });
+  const onMessage = (line: any) => {
+    const data = line as Partial<OpeningData>;
+    data.isOpening = true;
+    data.fen = opts.fen;
+    processData(data as OpeningData);
+  };
+  return stream.then(readNdJson(onMessage));
 }
 
 export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {

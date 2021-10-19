@@ -73,40 +73,40 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
   const fetch = debounce(
     () => {
       const fen = root.node.fen;
-      const request: Promise<ExplorerData> =
-        withGames && tablebaseRelevant(effectiveVariant, fen)
-          ? xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen)
-          : xhr.opening({
-              endpoint: opts.endpoint,
-              endpoint3: opts.endpoint3,
-              db: config.data.db.selected() as ExplorerDb,
-              personal: {
-                player: config.data.playerName.value(),
-                color: root.getOrientation(),
-              },
-              variant: effectiveVariant,
-              rootFen: root.nodeList[0].fen,
-              play: root.nodeList.slice(1).map(s => s.uci!),
-              fen,
-              speeds: config.data.speed.selected(),
-              ratings: config.data.rating.selected(),
-              withGames,
-            });
-
-      request.then(
-        (res: ExplorerData) => {
-          cache[fen] = res;
-          movesAway(res.moves.length ? 0 : movesAway() + 1);
-          loading(false);
-          failing(null);
-          root.redraw();
-        },
-        err => {
-          loading(false);
-          failing(err);
-          root.redraw();
-        }
-      );
+      const processData = (res: ExplorerData) => {
+        cache[fen] = res;
+        movesAway(res.moves.length ? 0 : movesAway() + 1);
+        loading(false);
+        failing(null);
+        root.redraw();
+      };
+      const onError = (err: Error) => {
+        loading(false);
+        failing(err);
+        root.redraw();
+      };
+      if (withGames && tablebaseRelevant(effectiveVariant, fen))
+        xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then(processData, onError);
+      else
+        xhr.opening(
+          {
+            endpoint: opts.endpoint,
+            endpoint3: opts.endpoint3,
+            db: config.data.db.selected() as ExplorerDb,
+            personal: {
+              player: config.data.playerName.value(),
+              color: root.getOrientation(),
+            },
+            variant: effectiveVariant,
+            rootFen: root.nodeList[0].fen,
+            play: root.nodeList.slice(1).map(s => s.uci!),
+            fen,
+            speeds: config.data.speed.selected(),
+            ratings: config.data.rating.selected(),
+            withGames,
+          },
+          processData
+        );
     },
     250,
     true
@@ -182,19 +182,22 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
       return (fen: Fen): Promise<OpeningData> => {
         const val = masterCache[fen];
         if (val) return Promise.resolve(val);
-        return xhr
-          .opening({
-            endpoint: opts.endpoint,
-            endpoint3: opts.endpoint3,
-            db: 'masters',
-            rootFen: fen,
-            play: [],
-            fen,
-          })
-          .then((res: OpeningData) => {
-            masterCache[fen] = res;
-            return res;
-          });
+        return new Promise(resolve =>
+          xhr.opening(
+            {
+              endpoint: opts.endpoint,
+              endpoint3: opts.endpoint3,
+              db: 'masters',
+              rootFen: fen,
+              play: [],
+              fen,
+            },
+            (res: OpeningData) => {
+              masterCache[fen] = res;
+              resolve(res);
+            }
+          )
+        );
       };
     })(),
     fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit> {
