@@ -66,6 +66,8 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
   <string name="releaseDesc1">Un compte alliberat no pot ser gestionat de nou. L\'estudiant podrà desactivar el control parental i canviar la contrasenya tot sol.</string>
   <string name="releaseDesc2">L\'estudiant romandrà en la classe després del alliberament del seu compte.</string>
   <string name="realUniqueEmail">Direcció de correu electrònic real i única de l\'estudiant. Enviarem un correu electrònic de confirmació, amb un enllaç per a alliberar el compte.</string>
+  <string name="closeStudent">Tancar el compte</string>
+  <string name="closeTheAccount">Tanca el compte de l\'estudiant de forma permanent.</string>
   <string name="teachers">Professors</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s professor</item>
