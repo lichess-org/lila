@@ -1,8 +1,10 @@
+import { sync, Sync } from './sync';
+
 export type ProcessLine = (line: any) => void;
 
 export interface CancellableStream {
   cancel(): void;
-  end: Promise<void>;
+  end: Sync<boolean>;
 }
 
 /*
@@ -19,11 +21,11 @@ export const readNdJson =
     const decoder = new TextDecoder();
     let buf = '';
 
-    const loop = (): Promise<void> =>
+    const loop = (): Promise<boolean> =>
       stream.read().then(({ done, value }) => {
         if (done) {
           if (buf.length > 0) processLine(JSON.parse(buf));
-          return Promise.resolve();
+          return Promise.resolve(true);
         } else {
           const chunk = decoder.decode(value, { stream: true });
           buf += chunk;
@@ -36,6 +38,6 @@ export const readNdJson =
 
     return {
       cancel: () => stream.cancel(),
-      end: loop(),
+      end: sync(loop()),
     };
   };

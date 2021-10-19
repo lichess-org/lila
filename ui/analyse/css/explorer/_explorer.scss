@@ -44,6 +44,11 @@
     text-overflow: ellipsis;
     user-select: text;
   }
+  .player-loading {
+    text-align: right;
+    background: $c-bg-zebra !important;
+    border-bottom: $border;
+  }
 
   .empty {
     display: flex;

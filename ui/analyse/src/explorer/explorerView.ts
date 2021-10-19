@@ -14,6 +14,7 @@ import {
   OpeningMoveStats,
   OpeningGame,
   Opening,
+  ExplorerCtrl,
 } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -79,6 +80,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   return h('table.moves', [
     h('thead', [
       h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', trans('whiteDrawBlack'))]),
+      playerLoading(ctrl.explorer),
     ]),
     h(
       'tbody',
@@ -387,6 +389,19 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   }
   return lastShow;
 }
+
+const playerLoading = (explorer: ExplorerCtrl) =>
+  explorer.config.data.db.selected() == 'player' && explorer.isIndexing()
+    ? h(
+        'tr',
+        h('th.title.player-loading', { attrs: { colspan: 3 } }, [
+          'Indexing ',
+          h('strong', explorer.config.data.playerName.value()),
+          ' games',
+          h('i.ddloader'),
+        ])
+      )
+    : undefined;
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
   if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');

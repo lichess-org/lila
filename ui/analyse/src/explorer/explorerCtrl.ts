@@ -1,6 +1,7 @@
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import debounce from 'common/debounce';
+import { sync, Sync } from 'common/sync';
 import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
 import * as xhr from './explorerXhr';
@@ -50,7 +51,7 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
     hovering = prop<Hovering | null>(null),
     movesAway = prop(0),
     gameMenu = prop<string | null>(null),
-    lastStream = prop<Promise<CancellableStream> | null>(null);
+    lastStream = prop<Sync<CancellableStream> | null>(null);
 
   const checkHash = (e?: HashChangeEvent) => {
     if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) {
@@ -88,29 +89,36 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
         root.redraw();
       };
       const prev = lastStream();
-      if (prev) prev.then(stream => stream.cancel());
+      if (prev) prev.promise.then(stream => stream.cancel());
       if (withGames && tablebaseRelevant(effectiveVariant, fen))
         xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then(processData, onError);
       else
         lastStream(
-          xhr.opening(
-            {
-              endpoint: opts.endpoint,
-              endpoint3: opts.endpoint3,
-              db: config.data.db.selected() as ExplorerDb,
-              personal: {
-                player: config.data.playerName.value(),
-                color: root.getOrientation(),
-              },
-              variant: effectiveVariant,
-              rootFen: root.nodeList[0].fen,
-              play: root.nodeList.slice(1).map(s => s.uci!),
-              fen,
-              speeds: config.data.speed.selected(),
-              ratings: config.data.rating.selected(),
-              withGames,
-            },
-            processData
+          sync(
+            xhr
+              .opening(
+                {
+                  endpoint: opts.endpoint,
+                  endpoint3: opts.endpoint3,
+                  db: config.data.db.selected() as ExplorerDb,
+                  personal: {
+                    player: config.data.playerName.value(),
+                    color: root.getOrientation(),
+                  },
+                  variant: effectiveVariant,
+                  rootFen: root.nodeList[0].fen,
+                  play: root.nodeList.slice(1).map(s => s.uci!),
+                  fen,
+                  speeds: config.data.speed.selected(),
+                  ratings: config.data.rating.selected(),
+                  withGames,
+                },
+                processData
+              )
+              .then(stream => {
+                stream.end.promise.then(root.redraw);
+                return stream;
+              })
           )
         );
     },
@@ -181,6 +189,10 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
         cache = {};
         setNode();
       }
+    },
+    isIndexing: () => {
+      const stream = lastStream();
+      return !!stream && (!stream.sync || !stream.sync.end.sync);
     },
     fetchMasterOpening: (() => {
       const masterCache: Dictionary<OpeningData> = {};

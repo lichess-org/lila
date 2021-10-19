@@ -155,7 +155,6 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
                 input,
                 tag: 'span',
                 onSelect(v) {
-                  // input.value = v.name;
                   ctrl.data.playerName.value(v.name);
                   ctrl.data.playerName.open(false);
                   ctrl.redraw();
