@@ -163,7 +163,7 @@
   <string name="players">Skakspillere</string>
   <string name="friends">Venner</string>
   <string name="discussions">Samtaler</string>
-  <string name="today">I dag</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">I dag</string>
   <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
@@ -185,7 +185,7 @@
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Brugernavn</string>
-  <string name="usernameOrEmail">Brugernavn eller Email</string>
+  <string name="usernameOrEmail">Brugernavn eller e-mail</string>
   <string name="changeUsername">Ændr brugernavn</string>
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"holgerdanske\" til \"HolgerDanske\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
@@ -435,9 +435,9 @@
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilsstillinger</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
-  <string name="startPosition">Startopstilling</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
-  <string name="loadPosition">Indlæs stilling</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Indlæs stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
   <string name="success">Fuldført</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti i gang</item>
@@ -525,7 +525,7 @@
   <string name="onSlowGames">I langsomme spil</string>
   <string name="always">Altid</string>
   <string name="never">Aldrig</string>
-  <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s konkurrerer i %2$s</string>
   <string name="victory">Sejr</string>
   <string name="defeat">Nederlag</string>
   <string name="victoryVsYInZ">%1$s mod %2$s i %3$s</string>
@@ -812,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
-  <string name="mentionedYouInX">nævnte dig i \"%1$s\".</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">nævnte dig i \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s nævnte dig i \"%2$s\".</string>
   <string name="invitedYouToX">inviterede dig til \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
