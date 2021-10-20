@@ -4,19 +4,11 @@ import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { ucfirst, winnerOf } from './explorerUtil';
+import { moveTableAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
-import {
-  isOpening,
-  isTablebase,
-  TablebaseCategory,
-  TablebaseMoveStats,
-  OpeningData,
-  OpeningMoveStats,
-  OpeningGame,
-  Opening,
-} from './interfaces';
+import { isOpening, isTablebase, TablebaseCategory, OpeningData, OpeningMoveStats, OpeningGame } from './interfaces';
 import ExplorerCtrl from './explorerCtrl';
+import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -33,34 +25,6 @@ function resultBar(move: OpeningMoveStats): VNode {
         );
   }
   return h('div.bar', ['white', 'draws', 'black'].map(section));
-}
-
-function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
-  return {
-    attrs: { 'data-fen': fen },
-    hook: {
-      insert(vnode: VNode) {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('mouseover', e => {
-          ctrl.explorer.setHovering(
-            $(el).attr('data-fen')!,
-            $(e.target as HTMLElement)
-              .parents('tr')
-              .attr('data-uci')
-          );
-        });
-        el.addEventListener('mouseout', _ => {
-          ctrl.explorer.setHovering($(el).attr('data-fen')!, null);
-        });
-        el.addEventListener('mousedown', e => {
-          const uci = $(e.target as HTMLElement)
-            .parents('tr')
-            .attr('data-uci');
-          if (uci) ctrl.explorerMove(uci);
-        });
-      },
-    },
-  };
 }
 
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
@@ -237,73 +201,6 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   );
 }
 
-function showTablebase(
-  ctrl: AnalyseCtrl,
-  fen: Fen,
-  title: string,
-  tooltip: string | undefined,
-  moves: TablebaseMoveStats[]
-): VNode[] {
-  if (!moves.length) return [];
-  return [
-    h('div.title', tooltip ? { attrs: { title: tooltip } } : {}, title),
-    h('table.tablebase', [
-      h(
-        'tbody',
-        moveTableAttributes(ctrl, fen),
-        moves.map(move => {
-          return h(
-            'tr',
-            {
-              key: move.uci,
-              attrs: { 'data-uci': move.uci },
-            },
-            [h('td', move.san), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])]
-          );
-        })
-      ),
-    ]),
-  ];
-}
-
-function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
-  if (move.dtm)
-    return h(
-      'result.' + winnerOf(fen, move),
-      {
-        attrs: {
-          title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)',
-        },
-      },
-      'DTM ' + Math.abs(move.dtm)
-    );
-  return undefined;
-}
-
-function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode | null {
-  const trans = ctrl.trans.noarg;
-  if (move.checkmate) return h('result.' + winnerOf(fen, move), trans('checkmate'));
-  else if (move.variant_win) return h('result.' + winnerOf(fen, move), trans('variantLoss'));
-  else if (move.variant_loss) return h('result.' + winnerOf(fen, move), trans('variantWin'));
-  else if (move.stalemate) return h('result.draws', trans('stalemate'));
-  else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
-  else if (move.dtz === null) return null;
-  else if (move.dtz === 0) return h('result.draws', trans('draw'));
-  else if (move.zeroing)
-    return move.san.includes('x')
-      ? h('result.' + winnerOf(fen, move), trans('capture'))
-      : h('result.' + winnerOf(fen, move), trans('pawnMove'));
-  return h(
-    'result.' + winnerOf(fen, move),
-    {
-      attrs: {
-        title: trans('dtzWithRounding') + ' (Distance To Zeroing)',
-      },
-    },
-    'DTZ ' + Math.abs(move.dtz)
-  );
-}
-
 function closeButton(ctrl: AnalyseCtrl): VNode {
   return h(
     'button.button.button-empty.text',
@@ -315,18 +212,9 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
   );
 }
 
-function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
+function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
   return h('div.data.empty', [
-    h(
-      'div.title',
-      h(
-        'span',
-        {
-          attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {},
-        },
-        opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
-      )
-    ),
+    openingTitle(ctrl, data),
     playerIndexing(ctrl.explorer),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
@@ -345,6 +233,17 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
   ]);
 }
 
+const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
+  const opening = data?.opening;
+  return h(
+    'div.title',
+    {
+      attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {},
+    },
+    opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
+  );
+};
+
 let lastShow: MaybeVNode;
 
 function show(ctrl: AnalyseCtrl): MaybeVNode {
@@ -360,20 +259,17 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
           data.opening &&
           h(
             'div.title',
-            h(
-              'span',
-              {
-                attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
-              },
-              [h('strong', data.opening.eco), ' ', data.opening.name]
-            )
+            {
+              attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
+            },
+            [h('strong', data.opening.eco), ' ', data.opening.name]
           ),
         playerIndexing(ctrl.explorer),
         moveTable,
         topTable,
         recentTable,
       ]);
-    else lastShow = showEmpty(ctrl, data.opening);
+    else lastShow = showEmpty(ctrl, data);
   } else if (data && isTablebase(data)) {
     const row = (category: TablebaseCategory, title: string, tooltip?: string) =>
       showTablebase(
