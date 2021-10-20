@@ -27,8 +27,8 @@ export async function opening(
   const params = url.searchParams;
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
+  if (opts.db !== 'masters') params.set('variant', opts.variant || 'standard');
   if (opts.db === 'lichess') {
-    params.set('variant', opts.variant || 'standard');
     conf
       .speed()
       .filter(s => s != 'ultraBullet' && s != 'correspondence')
