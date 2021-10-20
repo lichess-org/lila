@@ -37,7 +37,6 @@ export async function opening(
   if (opts.db === 'player') {
     params.set('player', conf.playerName.value());
     params.set('color', conf.color());
-    params.set('update', 'true');
     params.set('speeds', conf.speed().join(','));
     params.set('modes', conf.mode().join(','));
     if (conf.since()) params.set('since', conf.since());
