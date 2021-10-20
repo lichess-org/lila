@@ -342,11 +342,10 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
     content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
   return h(
-    'section.explorer-box.sub-box',
+    `section.explorer-box.sub-box${configOpened ? '.explorer__config' : ''}`,
     {
       class: {
         loading,
-        explorer__config: configOpened,
         reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2),
       },
       hook: {
