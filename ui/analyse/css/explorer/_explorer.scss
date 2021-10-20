@@ -43,9 +43,8 @@
     user-select: text;
   }
   .explorer-title {
-    .indexing {
-      background: $c-bg-zebra !important;
-      line-height: 1.9em;
+    @extend %flex-center;
+    .ddloader {
       padding-left: 7px;
     }
   }

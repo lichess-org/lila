@@ -300,14 +300,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
         ? ['Lichess database']
         : [h('strong', explorer.config.data.playerName.value()), ' as ', explorer.config.data.color()]
     ),
-    db == 'player' && explorer.isIndexing()
-      ? h('span.indexing', [
-          'Indexing ',
-          h('strong', explorer.config.data.playerName.value()),
-          ' games',
-          h('i.ddloader'),
-        ])
-      : undefined,
+    db == 'player' && explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
   ]);
 };
 
