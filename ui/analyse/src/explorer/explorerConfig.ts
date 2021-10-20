@@ -11,7 +11,6 @@ import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
 
-const allDbs: ExplorerDb[] = ['lichess', 'player'];
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
@@ -36,12 +35,13 @@ export interface ExplorerConfigData {
 
 export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
+  allDbs: ExplorerDb[] = ['lichess', 'player'];
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
-    if (variant === 'standard') allDbs.unshift('masters');
+    if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
-      db: storedProp('explorer.db.' + variant, allDbs[0]),
+      db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
@@ -81,7 +81,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       h('label', ctrl.root.trans.noarg('database')),
       h(
         'div.choices',
-        allDbs.map(s =>
+        ctrl.allDbs.map(s =>
           h(
             'button',
             {
