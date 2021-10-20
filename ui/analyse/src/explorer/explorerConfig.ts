@@ -56,6 +56,19 @@ export class ExplorerConfigCtrl {
     };
   }
 
+  selectPlayer = (name?: string) => {
+    name = name == 'me' ? this.myName : name;
+    if (!name) return;
+    if (name != this.myName) {
+      const previous = this.data.playerName.previous().filter(n => n !== name);
+      previous.unshift(name);
+      this.data.playerName.previous(previous.slice(0, 20));
+    }
+    this.data.db('player');
+    this.data.playerName.value(name);
+    this.data.playerName.open(false);
+  };
+
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
     (value: T) => {
@@ -203,15 +216,8 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
-  const myName = document.body.dataset['user'];
   const onSelect = (name: string) => {
-    if (name != myName) {
-      const previous = ctrl.data.playerName.previous().filter(n => n !== name);
-      previous.unshift(name);
-      ctrl.data.playerName.previous(previous.slice(0, 20));
-    }
-    ctrl.data.playerName.value(name);
-    ctrl.data.playerName.open(false);
+    ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
   return snabModal({
@@ -239,9 +245,9 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(myName ? [myName] : []), ...ctrl.data.playerName.previous()].map(name =>
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.data.playerName.previous()].map(name =>
           h(
-            `button.button${name == myName ? '.button-green' : ''}`,
+            `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {
               hook: bind('click', () => onSelect(name)),
             },

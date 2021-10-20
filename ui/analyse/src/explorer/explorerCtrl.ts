@@ -58,8 +58,10 @@ export default class ExplorerCtrl {
   }
 
   checkHash = (e?: HashChangeEvent) => {
-    if ((location.hash === '#explorer' || location.hash === '#opening') && !this.root.embed) {
+    const m = location.hash.match(/#(?:explorer|opening)(?:\/([a-z0-9_-]{2,30}))?/i);
+    if (m && !this.root.embed) {
       this.enabled(true);
+      if (m[1]) this.config.selectPlayer(m[1]);
       if (e) this.root.redraw();
     }
   };
