@@ -4,7 +4,8 @@
   --balloon-color: #{$c-brag};
 }
 
-.kif-example {
+.kif-example,
+.csa-example {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -51,12 +52,15 @@
 .example-wrap::after {
   text-align: center;
 }
-.kif-tooltip[aria-label][data-balloon-pos]::after {
+.kif-tooltip[aria-label][data-balloon-pos]::after,
+.csa-tooltip[aria-label][data-balloon-pos]::after {
   text-align: center;
   font-weight: bold;
 }
 .kif-move,
-.kif-drop {
+.kif-drop,
+.csa-move,
+.csa-drop {
   display: flex;
   justify-content: center;
   padding: 6rem 0;
@@ -71,31 +75,39 @@
   }
 }
 .kif-move .kif-tooltip,
-.kif-drop .kif-tooltip {
+.kif-drop .kif-tooltip,
+.csa-move .csa-tooltip,
+.csa-drop .csa-tooltip {
   display: inline-block;
   border: 2px solid rgba(0, 0, 0, 0);
   padding: 2px;
   transition: all 0.25s;
 }
 .kif-move .kif-tooltip:hover,
-.kif-drop .kif-tooltip:hover {
+.kif-drop .kif-tooltip:hover,
+.csa-move .csa-tooltip:hover,
+.csa-drop .csa-tooltip:hover {
   border-left: 2px solid $c-brag;
   border-right: 2px solid $c-brag;
   transition: all 0.75s;
 }
-.kif-move {
+.kif-move,
+.csa-move {
   margin-left: 1.5rem;
 }
-.kif-drop {
+.kif-drop,
+.csa-drop {
   margin-left: 1rem;
 }
 
-.kif-tag-example {
+.kif-tag-example,
+.csa-tag-example {
   background-color: $c-bg-zebra;
   padding: 1rem;
   margin: 0.5rem 0 1rem 0;
 }
-.kif-tag-example > div {
+.kif-tag-example > div,
+.csa-tag-example > div {
   font-size: 1rem;
   font-family: monospace;
   margin-bottom: 3px;
