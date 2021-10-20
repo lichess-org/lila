@@ -14,15 +14,13 @@ function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
   function section(key: 'white' | 'black' | 'draws') {
     const percent = (move[key] * 100) / sum;
-    return percent === 0
-      ? null
-      : h(
-          'span.' + key,
-          {
-            attrs: { style: 'width: ' + Math.round((move[key] * 1000) / sum) / 10 + '%' },
-          },
-          percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
-        );
+    return h(
+      'span.' + key,
+      {
+        attrs: { style: 'width: ' + Math.round((move[key] * 1000) / sum) / 10 + '%' },
+      },
+      percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
+    );
   }
   return h('div.bar', ['white', 'draws', 'black'].map(section));
 }
