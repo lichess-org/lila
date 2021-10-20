@@ -36,8 +36,10 @@ export interface ExplorerConfigData {
 export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
   allDbs: ExplorerDb[] = ['lichess', 'player'];
+  myName?: string;
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
+    this.myName = document.body.dataset['user'];
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
