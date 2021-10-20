@@ -8,6 +8,8 @@ import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
+import { Color } from 'chessground/types';
+import { opposite } from 'chessground/util';
 
 const allDbs: ExplorerDb[] = ['lichess', 'player'];
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
@@ -29,6 +31,7 @@ export interface ExplorerConfigData {
     value: StoredProp<string>;
     previous: StoredJsonProp<string[]>;
   };
+  color: Prop<Color>;
 }
 
 export class ExplorerConfigCtrl {
@@ -49,6 +52,7 @@ export class ExplorerConfigCtrl {
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
+      color: prop('white'),
     };
   }
 
@@ -123,9 +127,9 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             ...dataIcon(''),
             title: ctrl.root.trans('flipBoard'),
           },
-          hook: bind('click', ctrl.root.flip),
+          hook: bind('click', () => ctrl.data.color(opposite(ctrl.data.color())), ctrl.root.redraw),
         },
-        ctrl.root.getOrientation()
+        ctrl.data.color()
       ),
       h('strong.beta', 'BETA'),
     ]),

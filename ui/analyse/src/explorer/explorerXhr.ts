@@ -8,7 +8,6 @@ interface OpeningXhrOpts {
   endpoint: string;
   endpoint3: string;
   db: ExplorerDb;
-  color: Color;
   rootFen: Fen;
   play: string[];
   fen: Fen;
@@ -37,7 +36,7 @@ export async function opening(
   }
   if (opts.db === 'player') {
     params.set('player', conf.playerName.value());
-    params.set('color', opts.color);
+    params.set('color', conf.color());
     params.set('update', 'true');
     params.set('speeds', conf.speed().join(','));
     params.set('modes', conf.mode().join(','));

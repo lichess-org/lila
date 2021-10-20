@@ -73,7 +73,6 @@ export default class ExplorerCtrl {
   private baseXhrOpening = () => ({
     endpoint: this.opts.endpoint,
     endpoint3: this.opts.endpoint3,
-    color: this.root.getOrientation(),
     config: this.config.data,
   });
 
