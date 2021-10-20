@@ -127,6 +127,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         },
         ctrl.root.getOrientation()
       ),
+      h('strong.beta', 'BETA'),
     ]),
     speedSection(ctrl),
     modeSection(ctrl),
