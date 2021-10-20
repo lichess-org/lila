@@ -214,8 +214,8 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
 
 function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
   return h('div.data.empty', [
+    explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
-    playerIndexing(ctrl.explorer),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse()
@@ -255,16 +255,8 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = h('div.data', [
-        data &&
-          data.opening &&
-          h(
-            'div.title',
-            {
-              attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
-            },
-            [h('strong', data.opening.eco), ' ', data.opening.name]
-          ),
-        playerIndexing(ctrl.explorer),
+        explorerTitle(ctrl.explorer),
+        data?.opening && openingTitle(ctrl, data),
         moveTable,
         topTable,
         recentTable,
@@ -298,15 +290,28 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   return lastShow;
 }
 
-const playerIndexing = (explorer: ExplorerCtrl) =>
-  explorer.db() == 'player' && explorer.isIndexing()
-    ? h('div.player-indexing', [
-        'Indexing ',
-        h('strong', explorer.config.data.playerName.value()),
-        ' games',
-        h('i.ddloader'),
-      ])
-    : undefined;
+const explorerTitle = (explorer: ExplorerCtrl) => {
+  const db = explorer.db();
+  return h('div.title.explorer-title', [
+    h(
+      'span.text',
+      { attrs: dataIcon('') },
+      db == 'masters'
+        ? ['Masters database']
+        : db == 'lichess'
+        ? ['Lichess database']
+        : [h('strong', explorer.config.data.playerName.value()), ' as ', explorer.config.data.color()]
+    ),
+    db == 'player' && explorer.isIndexing()
+      ? h('span.indexing', [
+          'Indexing ',
+          h('strong', explorer.config.data.playerName.value()),
+          ' games',
+          h('i.ddloader'),
+        ])
+      : undefined,
+  ]);
+};
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
   if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');

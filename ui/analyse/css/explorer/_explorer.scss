@@ -37,17 +37,17 @@
     opacity: 0.4;
   }
 
-  .title span {
-    display: block;
-    margin-right: 1.9em;
+  .title {
     overflow: hidden;
     text-overflow: ellipsis;
     user-select: text;
   }
-  .player-indexing {
-    background: $c-bg-zebra !important;
-    line-height: 1.9em;
-    padding-left: 7px;
+  .explorer-title {
+    .indexing {
+      background: $c-bg-zebra !important;
+      line-height: 1.9em;
+      padding-left: 7px;
+    }
   }
 
   .empty {
