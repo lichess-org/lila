@@ -49,9 +49,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       : data.moves;
 
   return h('table.moves', [
-    h('thead', [
-      h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', trans('whiteDrawBlack'))]),
-    ]),
+    h('thead', [h('tr', [h('th', trans('move')), h('th', trans('games')), h('th', trans('whiteDrawBlack'))])]),
     h(
       'tbody',
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),

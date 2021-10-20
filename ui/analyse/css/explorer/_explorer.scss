@@ -104,37 +104,46 @@
     padding-left: 7px;
   }
 
-  .moves td:first-child {
-    @extend %san;
+  .moves {
+    th {
+      @extend %roboto;
+      font-size: 0.8rem;
+      line-height: 1.8em;
+      background: mix($c-secondary, $c-bg-box, 40%);
+      padding-left: 7px;
+    }
+    td:first-child {
+      @extend %san;
 
-    line-height: 30px;
-    padding-left: 7px;
-  }
-
-  .moves td:nth-child(2) {
-    font-size: 0.75em;
-    text-align: right;
-  }
-
-  .moves td:last-child {
-    width: 100%;
-    padding-right: 7px;
-  }
-
-  .moves tbody tr.expl-uci- {
-    /* sum row */
-    background: mix($c-primary, $c-bg-box, 25%);
-    font-weight: bold;
-
-    @include breakpoint($mq-col2) {
-      @include breakpoint($mq-x-short) {
-        position: sticky;
-        bottom: 0;
-      }
+      line-height: 30px;
+      padding-left: 7px;
     }
 
-    td {
-      cursor: default;
+    td:nth-child(2) {
+      font-size: 0.75em;
+      text-align: right;
+    }
+
+    td:last-child {
+      width: 100%;
+      padding-right: 7px;
+    }
+
+    tbody tr.expl-uci- {
+      /* sum row */
+      background: mix($c-primary, $c-bg-box, 25%);
+      font-weight: bold;
+
+      @include breakpoint($mq-col2) {
+        @include breakpoint($mq-x-short) {
+          position: sticky;
+          bottom: 0;
+        }
+      }
+
+      td {
+        cursor: default;
+      }
     }
   }
 
@@ -280,12 +289,11 @@
   }
 
   .message {
+    @extend %flex-column;
+    flex: 1 1 auto;
+    justify-content: center;
     text-align: center;
     font-style: italic;
-    flex: 1 1 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
   }
 
   &.reduced .message {
