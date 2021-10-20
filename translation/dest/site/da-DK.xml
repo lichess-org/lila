@@ -637,9 +637,9 @@
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Akkumuleret</string>
   <string name="glicko2Rating">Glicko-2 rating</string>
-  <string name="checkYourEmail">Tjek din email</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt dig en email. Klik på linket i emailen for at aktivere din konto.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se emailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
+  <string name="checkYourEmail">Tjek din e-mail</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt dig en e-mail. Klik på linket i e-mailen for at aktivere din konto.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se e-mailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
   <string name="readAboutOur">Læs om vores %s.</string>
