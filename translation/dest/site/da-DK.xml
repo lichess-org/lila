@@ -192,7 +192,7 @@
   <string name="password">Adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>
-  <string name="email">Email</string>
+  <string name="email">E-mail</string>
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="rank">Rang</string>
@@ -502,7 +502,7 @@
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
-  <string name="emailMeALink">Email mig et link</string>
+  <string name="emailMeALink">E-mail mig et link</string>
   <string name="currentPassword">Nuværende adgangskode</string>
   <string name="newPassword">Ny adgangskode</string>
   <string name="newPasswordAgain">Ny adgangskode (igen)</string>
