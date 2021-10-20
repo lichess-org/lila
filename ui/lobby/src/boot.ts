@@ -100,7 +100,7 @@ export default function LichessLobby(opts: LobbyOpts) {
             );
             lichess.contentLoaded();
           } else {
-            alert(text);
+            if (text && !text.startsWith('<!DOCTYPE html>')) alert(text);
             lichess.reload();
           }
         })
