@@ -13,4 +13,13 @@
   <string name="noTeamFound">Keng Ekipp fonnt</string>
   <string name="joinTeam">Ekipp bäitrieden</string>
   <string name="quitTeam">Ekipp verloossen</string>
+  <string name="teamRecentMembers">Rezent Memberen</string>
+  <string name="kickSomeone">Een aus der Ekipp geheien</string>
+  <string name="whoToKick">Ween wëlls du aus der Ekipp geheien?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Bäitrëttsufro</item>
+    <item quantity="other">%s Bäitrëttsufroen</item>
+  </plurals>
+  <string name="teamBattle">Ekippenkampf</string>
+  <string name="teamTournament">Ekippenturnéier</string>
 </resources>

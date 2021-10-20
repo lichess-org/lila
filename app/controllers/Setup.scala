@@ -33,6 +33,14 @@ final class Setup(
     log = false
   )
 
+  private[controllers] val AnonHookRateLimit = lila.memo.RateLimit.composite[IpAddress](
+    key = "setup.hook.anon",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 8, 1.minute),
+    ("slow", 300, 1.day)
+  )
+
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
@@ -164,25 +172,27 @@ final class Setup(
     OpenBody { implicit ctx =>
       NoBot {
         implicit val req = ctx.body
-        PostRateLimit(ctx.ip) {
-          NoPlaybanOrCurrent {
-            forms
-              .hook(ctx)
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                userConfig =>
-                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
-                    processor.hook(
-                      userConfig withinLimits ctx.me,
-                      Sri(sri),
-                      HTTPRequest sid req,
-                      blocking
-                    ) map hookResponse
-                  }
-              )
-          }
-        }(rateLimitedFu)
+        NoPlaybanOrCurrent {
+          forms
+            .hook(ctx)
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              userConfig =>
+                PostRateLimit(ctx.ip) {
+                  AnonHookRateLimit(ctx.ip, cost = ctx.isAnon ?? 1) {
+                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                      processor.hook(
+                        userConfig withinLimits ctx.me,
+                        Sri(sri),
+                        HTTPRequest sid req,
+                        blocking
+                      ) map hookResponse
+                    }
+                  }(rateLimitedFu)
+                }(rateLimitedFu)
+            )
+        }
       }
     }
 

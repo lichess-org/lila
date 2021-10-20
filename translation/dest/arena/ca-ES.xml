@@ -42,5 +42,11 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
     <item quantity="other">Veure els %s equips</item>
   </plurals>
   <string name="newTeamBattle">Nova batalla d\'equips</string>
+  <string name="customStartDate">Data d\'inici personalitzada</string>
+  <string name="customStartDateHelp">En la teva zona horaria local. Això sobreescriu la configuració de \"Temps abans de que comenci el torneig\"</string>
   <string name="allowBerserk">Es permet Berserk</string>
+  <string name="allowBerserkHelp">Permet que els jugadors redueixin el seu temps de partida a la mitat per a guanyar un punt extra</string>
+  <string name="allowChatHelp">Permet que els jugadors es comuniquin en una sala de chat</string>
+  <string name="arenaStreaks">Ratxes de tornejos</string>
+  <string name="arenaStreaksHelp">Despres de 2 victories consecutives, cada victoria consecutiva otorga 4 punts en comptes de 2.</string>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Spenden</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Als %s spenden</string>
   <string name="lichessPatron">Lichess Ënnerstëtzer</string>
   <string name="freeAccount">Gratis Account</string>
   <string name="becomePatron">Lichess Ënnerstëtzer ginn</string>
@@ -75,5 +76,5 @@ Allerdéngs kréien Ënnerstëtzer d\'Recht, sech mat engem coolen neien Flillek
   <string name="nowLifetime">Du bass elo en liewenslaangen Lichess Ënnerstëtzer!</string>
   <string name="nowOneMonth">Du bass elo en Lichess Ënnerstëtzer fir ee Mount!</string>
   <string name="downgradeNextMonth">An engem Mount, gëss du NET nei verrechent an däin Lichess Konto wäert rëm zu engem regulären Konto ginn.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung änneren</string>
+  <string name="changeCurrency">Währung änneren</string>
 </resources>

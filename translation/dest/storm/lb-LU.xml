@@ -52,4 +52,10 @@
   <string name="skipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen ee Mol pro Laf maachen.</string>
   <string name="failedPuzzles">Mësslongen Aufgaben</string>
   <string name="slowPuzzles">Lues Aufgaben</string>
+  <string name="thisWeek">Dës Woch</string>
+  <string name="thisMonth">Dëse Mount</string>
+  <string name="allTime">Gesamt</string>
+  <string name="clickToReload">Klick fir nei ze lueden</string>
+  <string name="thisRunHasExpired">Dësen Duerchlaf ass ofgelaf!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Dësen Duerchlaf gouf an engem aneren Tab opgemaach!</string>
 </resources>

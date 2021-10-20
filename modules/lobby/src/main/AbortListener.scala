@@ -5,13 +5,13 @@ import lila.game.{ Pov, Source }
 final private class AbortListener(
     userRepo: lila.user.UserRepo,
     seekApi: SeekApi,
-    lobbyTrouper: LobbySyncActor
+    lobbyActor: LobbySyncActor
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(pov: Pov): Funit =
     (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-
       cancelColorIncrement(pov) >>-
-      lobbyTrouper.registerAbortedGame(pov.game)
+      lobbyActor.registerAbortedGame(pov.game)
 
   private def cancelColorIncrement(pov: Pov): Unit =
     if (pov.game.source.exists(s => s == Source.Lobby || s == Source.Pool)) pov.game.userIds match {

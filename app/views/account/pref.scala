@@ -121,7 +121,12 @@ object pref {
             ),
             setting(
               promoteToQueenAutomatically(),
-              radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
+              frag(
+                radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  "Hold the <ctrl> key while promoting to temporarily disable auto-promotion"
+                )
+              )
             ),
             setting(
               claimDrawOnThreefoldRepetitionAutomatically(),

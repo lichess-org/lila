@@ -163,7 +163,7 @@
   <string name="players">Spillere</string>
   <string name="friends">Venner</string>
   <string name="discussions">Samtaler</string>
-  <string name="today">I dag</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">I dag</string>
   <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Påloggede spillere</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Merk at spillet er rangert, men har ingen tidskontroll!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Legg merke til at partiet er ratet, men ikke tidsbegrenset!</string>
   <string name="success">Vellykket</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spilles</item>
@@ -831,7 +831,7 @@
   <string name="download">Last ned</string>
   <string name="welcome">Velkommen!</string>
   <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
-Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerdonasjoner.</string>
+Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
   <string name="coachManager">Innstillinger for trenere</string>
   <string name="streamerManager">Innstillinger for strømmere</string>
   <string name="cancelTournament">Avlys turneringen</string>

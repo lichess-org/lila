@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donate</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Donate as %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Free account</string>
   <string name="becomePatron">Become a Lichess Patron</string>
@@ -75,5 +76,5 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="nowLifetime">You are now a lifetime Lichess Patron!</string>
   <string name="nowOneMonth">You are now a Lichess Patron for one month!</string>
   <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will be downgraded to free.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Change currency</string>
+  <string name="changeCurrency">Change currency</string>
 </resources>

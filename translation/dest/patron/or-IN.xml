@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">ଦାନ କରନ୍ତୁ</string>
+  <string name="donateAsX">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">ମାଗଣା ଖାତା</string>
   <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
@@ -40,5 +41,5 @@
   <string name="amount">ରାଶି</string>
   <string name="transactionCompleted">ଆପଣଙ୍କ ଟ୍ରାଞ୍ଜାକସନ୍ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇଛି, ଏବଂ ଆପଣଙ୍କ ଦାନ ପାଇଁ ଏକ ରସିଦ ଆପଣଙ୍କୁ ଇମେଲ୍ କରାଯାଇଛି।</string>
   <string name="checkOutProfile">ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ପୃଷ୍ଠା ଦେଖନ୍ତୁ!</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">ମୁଦ୍ରା ପରିବର୍ତ୍ତନ କର</string>
+  <string name="changeCurrency">ମୁଦ୍ରା ପରିବର୍ତ୍ତନ କର</string>
 </resources>

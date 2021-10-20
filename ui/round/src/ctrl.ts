@@ -293,7 +293,7 @@ export default class RoundController {
     return (
       d.pref.replay === Prefs.Replay.Always ||
       (d.pref.replay === Prefs.Replay.OnlySlowGames &&
-        (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence'))
+        (d.game.speed === 'classical' || d.game.speed === 'correspondence'))
     );
   };
 

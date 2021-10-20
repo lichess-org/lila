@@ -21,7 +21,7 @@
   </plurals>
   <string name="xPublishedY">%1$s ha pubblicato %2$s</string>
   <string name="thisPostIsPublished">Questo post è pubblicato</string>
-  <string name="thisIsADraft">Questo è una bozza</string>
+  <string name="thisIsADraft">Questa è una bozza</string>
   <string name="moreBlogPostsBy">Visualizza altri post del blog di %s</string>
   <string name="noPostsInThisBlogYet">Ancora nessun post in questo blog.</string>
   <string name="noDrafts">Nessuna bozza da mostrare.</string>
@@ -31,4 +31,6 @@
     <item quantity="other">Visualizza tutti i %s post</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Carica un\'immagine per il tuo post</string>
+  <string name="imageAlt">Testo alternativo dell\'immagine</string>
+  <string name="imageCredit">Crediti immagine</string>
 </resources>

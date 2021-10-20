@@ -96,15 +96,24 @@ final class Game(
             playerFile = get("players", req),
             ongoing = getBool("ongoing", req)
           )
-          val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
-          apiC
-            .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
-              source =>
-                Ok.chunked(source)
-                  .pipe(asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}"))
-                  .as(gameContentType(config))
-            }
-            .fuccess
+          if (me.exists(_.id == "openingexplorer"))
+            Ok.chunked(env.api.gameApiV2.exportByUser(config))
+              .pipe(noProxyBuffer)
+              .as(gameContentType(config))
+              .fuccess
+          else {
+            val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
+            apiC
+              .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
+                source =>
+                  Ok.chunked(source)
+                    .pipe(
+                      asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}")
+                    )
+                    .as(gameContentType(config))
+              }
+              .fuccess
+          }
         }
       }
     }

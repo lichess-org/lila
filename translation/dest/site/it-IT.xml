@@ -370,6 +370,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="follow">Segui</string>
   <string name="following">Stai seguendo</string>
   <string name="unfollow">Non seguire più</string>
+  <string name="followX">Segui %s</string>
+  <string name="unfollowX">Smetti di seguire %s</string>
   <string name="block">Blocca</string>
   <string name="blocked">Bloccato</string>
   <string name="unblock">Sblocca</string>
@@ -555,6 +557,14 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
   <string name="error.required">Questo campo è obbligatorio</string>
+  <string name="error.email">Questo indirizzo email non è valido</string>
+  <string name="error.email_acceptable">Questo indirizzo email non è valido. Per favore ricontrollalo e riprova.</string>
+  <string name="error.email_unique">Indirizzo email non valido o già in uso</string>
+  <string name="error.email_different">Questo è già il tuo indirizzo email</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Deve contenere almeno %s caratteri</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Deve contenere al massimo %s caratteri</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Deve essere almeno %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Deve essere al massimo %s</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
   <string name="onlyExistingConversations">Solo conversazioni esistenti</string>
   <string name="onlyFriends">Solo amici</string>

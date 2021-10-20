@@ -42,6 +42,12 @@ object bits {
       )
       .add("fen" -> fen)
 
+  val explorerEndpoints = Json.obj(
+    "endpoint"          -> explorerEndpoint,
+    "endpoint3"         -> explorer3Endpoint,
+    "tablebaseEndpoint" -> tablebaseEndpoint
+  )
+
   private val i18nKeyes = List(
     trans.setTheBoard,
     trans.boardEditor,

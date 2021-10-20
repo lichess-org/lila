@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">捐赠</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">以 %s 的名义捐赠</string>
   <string name="lichessPatron">赞助 Lichess</string>
   <string name="freeAccount">免费账户</string>
   <string name="becomePatron">成为 Lichess 赞助者</string>
@@ -73,5 +74,5 @@
   <string name="nowLifetime">您现在是Lichess终身会员</string>
   <string name="nowOneMonth">从现在起为期一个月，您是 Lichess 的赞助者！</string>
   <string name="downgradeNextMonth">在一个月内，您将不会再次被收取费用，且您的 Lichess 账户将被降级为免费。</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">更改币种</string>
+  <string name="changeCurrency">更改币种</string>
 </resources>

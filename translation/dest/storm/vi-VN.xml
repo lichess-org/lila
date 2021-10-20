@@ -5,7 +5,7 @@
   <string name="youPlayTheBlackPiecesInAllPuzzles">Bạn chơi quân đen ở tất cả các câu đố</string>
   <string name="puzzlesSolved">thế cờ đã giải</string>
   <string name="newDailyHighscore">Điểm cao hàng ngày mới!</string>
-  <string name="newWeeklyHighscore">Điểm cao hàng tuần mới!</string>
+  <string name="newWeeklyHighscore">Điểm cao mới hàng tuần!</string>
   <string name="newMonthlyHighscore">Điểm cao hàng tháng mới!</string>
   <string name="newAllTimeHighscore">Điểm cao mới!</string>
   <string name="previousHighscoreWasX">Điểm cao trước đây là %s</string>
