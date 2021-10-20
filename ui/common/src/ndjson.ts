@@ -23,17 +23,11 @@ export const readNdJson =
 
     const loop = (): Promise<Error | true> =>
       stream.read().then(({ done, value }) => {
-        if (done) {
-          if (buf.length > 0) processLine(JSON.parse(buf));
-          return Promise.resolve(true);
-        } else {
-          const chunk = decoder.decode(value, { stream: true });
-          buf += chunk;
-          const parts = buf.split(matcher);
-          buf = parts.pop() || '';
-          for (const i of parts.filter(p => p)) processLine(JSON.parse(i));
-          return loop();
-        }
+        buf += decoder.decode(value, { stream: !done });
+        const parts = buf.split(matcher);
+        if (!done) buf = parts.pop()!;
+        for (const part of parts) if (part) processLine(JSON.parse(part));
+        return done ? Promise.resolve(true) : loop();
       });
 
     return {
