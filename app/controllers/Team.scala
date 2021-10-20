@@ -322,10 +322,11 @@ final class Team(
 
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
+      import cats.implicits._
       OptionFuRedirectUrl(for {
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption |@| requestOption).tupled) { case (team, request) =>
+      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
         implicit val req = ctx.body
         forms.processRequest
           .bindFromRequest()

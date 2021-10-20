@@ -1,6 +1,6 @@
 package lila.common
 
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 case class Captcha(
     gameId: String,
@@ -21,7 +21,7 @@ object Captcha {
     gameId = "00000000",
     fen = "9/k1b6/1PH6/9/9/9/9/9/9",
     sente = true,
-    solutions = NonEmptyList("c7 b8"),
+    solutions = NonEmptyList.one("c7 b8"),
     moves = Map("c7" -> "b8")
   )
 

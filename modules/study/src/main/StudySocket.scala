@@ -1,5 +1,7 @@
 package lila.study
 
+import cats.data.Validated
+
 import actorApi.Who
 import shogi.Centis
 import shogi.format.{ Glyph, Glyphs }
@@ -231,7 +233,7 @@ final private class StudySocket(
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) =
     m.branch match {
-      case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
+      case Validated.Valid(branch) if branch.ply < Node.MAX_PLIES =>
         m.chapterId.ifTrue(opts.write) foreach { chapterId =>
           api.addNode(
             studyId,

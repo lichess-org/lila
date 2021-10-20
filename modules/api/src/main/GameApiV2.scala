@@ -167,12 +167,16 @@ final class GameApiV2(
             } flatMap { playerTeams =>
               gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
                 _.zip(pairings) collect { case (Some(game), pairing) =>
+                  import cats.implicits._
                   (
                     game,
                     pairing,
-                    playerTeams.get(pairing.user1) |@| playerTeams.get(
-                      pairing.user2
-                    ) apply shogi.Color.Map.apply[String]
+                      (
+                        playerTeams.get(pairing.user1),
+                        playerTeams.get(
+                          pairing.user2
+                        )
+                      ) mapN shogi.Color.Map.apply[String]
                   )
                 }
               }

@@ -1,5 +1,6 @@
 package lila.plan
 
+import cats.implicits._
 import play.api.data._
 import play.api.data.Forms._
 
@@ -34,7 +35,7 @@ object DataForm {
       lastName: Option[String]
   ) {
 
-    def name = (firstName |@| lastName) apply { _ + " " + _ }
+    def name = (firstName, lastName) mapN { _ + " " + _ }
 
     def grossCents = (gross * 100).toInt
 

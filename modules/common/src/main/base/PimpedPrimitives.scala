@@ -6,9 +6,6 @@ import ornicar.scalalib.Zero
 
 final class PimpedBoolean(private val self: Boolean) extends AnyVal {
 
-  /** Replaces scalaz boolean ops
-    * so ?? works on Zero and not Monoid
-    */
   def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else z.zero
 
   def option[A](a: => A): Option[A] = if (self) Some(a) else None

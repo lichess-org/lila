@@ -1,16 +1,16 @@
 package lila.socket
 
+import cats.data.Validated
 import shogi.format.{ FEN, Uci, UciCharPair }
 import shogi.opening._
 import shogi.variant.Variant
 import play.api.libs.json._
-import scalaz.Validation.FlatMap._
 
 import lila.tree.Branch
 
 trait AnaAny {
 
-  def branch: Valid[Branch]
+  def branch: Validated[String, Branch]
   def chapterId: Option[String]
   def path: String
 }
@@ -25,7 +25,7 @@ case class AnaMove(
     promotion: Boolean
 ) extends AnaAny {
 
-  def branch: Valid[Branch] = {
+  def branch: Validated[String, Branch] = {
     shogi.Game(variant.some, fen.some)(orig, dest, promotion) flatMap { case (game, move) =>
       game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
         val uci     = Uci(move)

@@ -134,14 +134,12 @@ final class PracticeApi(
           )
         }
         .map {
-          _.view
-            .flatMap { obj =>
-              (obj.string("_id") |@| obj.int("nb")).tupled
-            }
-            .map { case (k, v) =>
+          _.view.flatMap { obj =>
+            import cats.implicits._
+            (obj.string("_id"), obj.int("nb")) mapN { (k, v) =>
               k -> (v * 100f / PracticeStructure.totalChapters).toInt
             }
-            .toMap
+          }.toMap
         }
   }
 }

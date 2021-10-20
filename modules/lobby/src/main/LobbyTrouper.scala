@@ -1,5 +1,6 @@
 package lila.lobby
 
+import cats.implicits._
 import org.joda.time.DateTime
 import scala.annotation.nowarn
 import scala.concurrent.duration._
@@ -166,7 +167,7 @@ final private class LobbyTrouper(
       case h +: rest =>
         if (
           biter.canJoin(h, hook.user) && !(
-            (h.user |@| hook.user).tupled ?? { case (u1, u2) =>
+            (h.user, hook.user).mapN((_, _)) ?? { case (u1, u2) =>
               recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
             }
           )

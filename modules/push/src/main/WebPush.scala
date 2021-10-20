@@ -3,7 +3,7 @@ package lila.push
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.user.User
 

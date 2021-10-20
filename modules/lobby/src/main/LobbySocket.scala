@@ -1,5 +1,6 @@
 package lila.lobby
 
+import cats.implicits._
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
@@ -291,7 +292,7 @@ private object LobbySocket {
         raw.path match {
           case "counters" =>
             raw.get(2) { case Array(m, r) =>
-              (m.toIntOption |@| r.toIntOption) apply Counters
+              (m.toIntOption, r.toIntOption).mapN(Counters)
             }
           case _ => P.In.baseReader(raw)
         }

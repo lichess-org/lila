@@ -1,7 +1,7 @@
 package lila.game
 
 import org.joda.time.DateTime
-import scalaz.Validation.FlatMap._
+import cats.data.Validated
 
 import shogi.format.{ FEN, ParsedMoves, Reader, Tag, Tags }
 
@@ -14,7 +14,7 @@ object Rewind {
     Tags(List(variantTag, fenTag).flatten)
   }
 
-  def apply(game: Game, initialFen: Option[FEN]): Valid[Progress] =
+  def apply(game: Game, initialFen: Option[FEN]): Validated[String, Progress] =
     Reader
       .movesWithPgn(
         moveStrs = game.pgnMoves,

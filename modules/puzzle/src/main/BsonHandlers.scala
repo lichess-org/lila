@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import shogi.format.{ FEN, Uci }
+import shogi.format.Uci
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 
@@ -8,8 +8,6 @@ import lila.db.BSON
 import lila.db.dsl._
 import lila.game.Game
 import lila.rating.Glicko
-
-import lila.game.BSONHandlers.FENBSONHandler
 
 object BsonHandlers {
 

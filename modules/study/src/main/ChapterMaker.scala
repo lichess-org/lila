@@ -47,7 +47,7 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- NotationImport(notation, contributors.flatten).future recoverWith { case e: Exception =>
+      parsed <- NotationImport(notation, contributors.flatten).toFuture recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(

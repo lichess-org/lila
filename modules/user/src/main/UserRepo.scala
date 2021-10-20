@@ -1,10 +1,11 @@
 package lila.user
 
+import cats.implicits._
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress, ThreadLocalRandom }
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
@@ -157,9 +158,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def firstGetsSente(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
-    (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean())) { case (u1, u2) =>
-      firstGetsSente(u1, u2)
-    }
+    (u1O, u2O).mapN(firstGetsSente) | fuccess(lila.common.ThreadLocalRandom.nextBoolean())
 
   def incColor(userId: User.ID, value: Int): Unit =
     coll

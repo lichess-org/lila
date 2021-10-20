@@ -118,7 +118,8 @@ final class Gamify(
       }
       .map {
         _.flatMap { obj =>
-          obj.string("_id") |@| obj.int("nb") apply ModCount.apply
+          import cats.implicits._
+          (obj.string("_id"), obj.int("nb")) mapN ModCount.apply
         }
       }
 
@@ -148,7 +149,8 @@ final class Gamify(
       }
       .map {
         _.flatMap { obj =>
-          obj.string("_id") |@| obj.int("nb") apply ModCount.apply
+          import cats.implicits._
+          (obj.string("_id"), obj.int("nb")) mapN ModCount.apply
         }
       }
 }

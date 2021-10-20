@@ -12,22 +12,21 @@ object Dependencies {
     val commons = Seq(sonatype, lilaMaven, sonatypeS)
   }
 
-  val scalaz      = "org.scalaz"           %% "scalaz-core"                     % "7.2.30"
-  val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "6.8"
+  val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
-  val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
+  val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.12"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
-  val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.5"
-  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.1" % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.21.1"
-  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.2.3"
-  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.1.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.51.Final" classifier "linux-x86_64"
+  val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
+  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.2" % "compile"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.2.1"
+  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "3.6.0"
+  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.9.4"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.1.5.RELEASE"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
-  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
+  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.13.0"
 
   object flexmark {
     val version = "0.50.50"
@@ -39,12 +38,13 @@ object Dependencies {
   }
 
   object macwire {
-    val macros = "com.softwaremill.macwire" %% "macros" % "2.3.7" % "provided"
-    val util   = "com.softwaremill.macwire" %% "util"   % "2.3.7" % "provided"
+    val version = "2.4.2"
+    val macros = "com.softwaremill.macwire" %% "macros" % version % "provided"
+    val util   = "com.softwaremill.macwire" %% "util"   % version % "provided"
   }
 
   object reactivemongo {
-    val version = "1.0.3"
+    val version = "1.0.7"
 
     val driver     = "org.reactivemongo" %% "reactivemongo"               % version
     val stream     = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
@@ -55,7 +55,7 @@ object Dependencies {
   object play {
     val version = "2.8.2"
     val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.9.0"
+    val json    = "com.typesafe.play" %% "play-json" % "2.9.2"
   }
   object kamon {
     val version    = "2.1.12"

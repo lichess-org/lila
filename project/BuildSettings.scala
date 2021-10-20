@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.4"
+  val globalScalaVersion = "2.13.6"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -18,16 +18,16 @@ object BuildSettings {
       scalaVersion := globalScalaVersion,
       resolvers ++= Dependencies.Resolvers.commons,
       scalacOptions ++= compilerOptions,
-      sources in (Compile, doc) := Seq.empty,
-      publishArtifact in (Compile, packageDoc) := false,
-      // disable publishing the main sources jar
-      publishArtifact in (Compile, packageSrc) := false
+      // disable publishing doc and sources
+      Compile / doc / sources := Seq.empty,
+      Compile / packageDoc / publishArtifact := false,
+      Compile / packageSrc / publishArtifact := false,
+      javaOptions ++= Seq("-Xms64m", "-Xmx256m")
     )
 
   def defaultLibs: Seq[ModuleID] =
     akka.bundle ++ Seq(
       play.api,
-      scalaz,
       scalalib,
       jodaTime,
       ws,
@@ -82,18 +82,18 @@ object BuildSettings {
     "-Wdead-code",
     "-Wextra-implicit",
     // "-Wnumeric-widen",
-    //"-Wunused:imports",
+    "-Wunused:imports",
     "-Wunused:locals",
     "-Wunused:patvars",
-    // "-Wunused:privates", // unfortunately doesn't work with macros
-    // "-Wunused:implicits",
-    "-Wunused:params"
-    // "-Wvalue-discard",
+    "-Wunused:privates", // unfortunately doesn't work with macros
+    "-Wunused:implicits",
+    "-Wunused:params",
+    "-Wvalue-discard"
   )
 
   val srcMain = Seq(
-    scalaSource in Compile := (sourceDirectory in Compile).value,
-    scalaSource in Test := (sourceDirectory in Test).value
+    Compile / scalaSource := (Compile / sourceDirectory).value,
+    Test / scalaSource := (Test / sourceDirectory).value
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)

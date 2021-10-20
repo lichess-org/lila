@@ -91,7 +91,8 @@ final class Env(
           case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
             assessApi.onAnalysisReady(game, analysis)
           case lila.game.actorApi.FinishGame(game, senteUserOption, goteUserOption) if !game.aborted =>
-            (senteUserOption |@| goteUserOption) apply { case (senteUser, goteUser) =>
+            import cats.implicits._
+            (senteUserOption, goteUserOption) mapN { (senteUser, goteUser) =>
               boosting.check(game, senteUser, goteUser) >>
                 assessApi.onGameReady(game, senteUser, goteUser)
             }

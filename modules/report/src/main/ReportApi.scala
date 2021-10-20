@@ -148,7 +148,7 @@ final class ReportApi(
     getSuspect(userId) zip
       getLishogiReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
-        case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
+        case ((Some(suspect), reporter), atoms) if atoms.forall(_.byHuman) =>
           lila.mon.cheat.autoReport.increment()
           create(
             Candidate(
@@ -182,7 +182,7 @@ final class ReportApi(
           userRepo.byId(userId) zip
             getLishogiReporter zip
             findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-              case Some(abuser) ~ reporter ~ past if past.size < 1 =>
+              case ((Some(abuser), reporter), past) if past.size < 1 =>
                 create(
                   Candidate(
                     reporter = reporter,
@@ -221,7 +221,7 @@ final class ReportApi(
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       userRepo.byId(winnerId) zip userRepo.byId(loserId) zip getLishogiReporter flatMap {
-        case isSame ~ Some(winner) ~ Some(loser) ~ reporter =>
+        case (((isSame, Some(winner)), Some(loser)), reporter) if !winner.lame && !loser.lame =>
           create(
             Candidate(
               reporter = reporter,

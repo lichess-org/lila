@@ -2,7 +2,7 @@ package lila.base
 
 import java.util.Base64
 import scala.util.Try
-import scalaz.{ IList, NonEmptyList }
+import cats.data.NonEmptyList
 
 final class PimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {
   def sequence: Try[List[A]] = Try(list map { _.get })
@@ -16,7 +16,7 @@ final class PimpedList[A](private val list: List[A]) extends AnyVal {
   def toNel: Option[NonEmptyList[A]] =
     list match {
       case Nil           => None
-      case first :: rest => Some(NonEmptyList.nel(first, IList fromList rest))
+      case first :: rest => Some(NonEmptyList(first, rest))
     }
 }
 

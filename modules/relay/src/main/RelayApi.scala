@@ -42,7 +42,7 @@ final class RelayApi(
 
   def fresh(me: Option[User]): Fu[Relay.Fresh] =
     repo.scheduled.flatMap(withStudy andLiked me) zip
-      repo.ongoing.flatMap(withStudy andLiked me) map { case c ~ s =>
+      repo.ongoing.flatMap(withStudy andLiked me) map { case (c, s) =>
         Relay.Fresh(c, s)
       }
 

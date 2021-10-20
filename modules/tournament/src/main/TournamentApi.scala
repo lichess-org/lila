@@ -596,7 +596,8 @@ final class TournamentApi(
         game.sentePlayer.userId.ifTrue(tour.isStarted) flatMap { senteId =>
           game.gotePlayer.userId map { goteId =>
             cached ranking tour map { ranking =>
-              ranking.get(senteId) |@| ranking.get(goteId) apply { case (senteR, goteR) =>
+              import cats.implicits._
+              (ranking.get(senteId), ranking.get(goteId)) mapN { (senteR, goteR) =>
                 GameRanks(senteR + 1, goteR + 1)
               }
             }

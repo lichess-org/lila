@@ -1,5 +1,7 @@
 package lila.game
 
+import cats.implicits._
+
 import shogi.Color
 import scala.util.chaining._
 
@@ -38,7 +40,7 @@ case class Player(
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
   def userInfos: Option[Player.UserInfo] =
-    (userId |@| rating) { case (id, ra) =>
+    (userId, rating) mapN { (id, ra) =>
       Player.UserInfo(id, ra, provisional)
     }
 

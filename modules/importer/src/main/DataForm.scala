@@ -1,13 +1,13 @@
 package lila.importer
 
+import cats.data.Validated
 import shogi.format.kif.KifParser
 import shogi.format.csa.CsaParser
-import shogi.format.{ FEN, Forsyth, ParsedNotation, Reader, Tag, TagType, Tags }
+import shogi.format.{ FEN, Forsyth, ParsedNotation, Reader, Tag, TagType }
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scala.util.chaining._
-import scalaz.Validation.FlatMap._
 
 import lila.game._
 
@@ -15,12 +15,12 @@ final class DataForm {
 
   lazy val importForm = Form(
     mapping(
-      "notation" -> nonEmptyText.verifying("invalidNotation", p => checkNotation(p).isSuccess),
+      "notation" -> nonEmptyText.verifying("invalidNotation", p => checkNotation(p).isValid),
       "analyse"  -> optional(nonEmptyText)
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkNotation(notation: String): Valid[Preprocessed] = ImportData(notation, none).preprocess(none)
+  def checkNotation(notation: String): Validated[String, Preprocessed] = ImportData(notation, none).preprocess(none)
 }
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -66,13 +66,13 @@ case class ImportData(notation: String, analyse: Option[String]) {
     lines.exists(l => l.startsWith("PI") || l.startsWith("P1") || CsaParser.moveOrDropRegex.matches(l))
   }
 
-  private def parseNotation: Valid[ParsedNotation] =
+  private def parseNotation: Validated[String, ParsedNotation] =
     if (isCsa)
-      CsaParser.full(notation).leftMap("CSA parsing error" <:: _)
+      CsaParser.full(notation).leftMap("CSA parsing error: " + _)
     else
-      KifParser.full(notation).leftMap("KIF parsing error" <:: _)
+      KifParser.full(notation).leftMap("KIF parsing error: " + _)
 
-  def preprocess(user: Option[String]): Valid[Preprocessed] =
+  def preprocess(user: Option[String]): Validated[String, Preprocessed] =
     parseNotation map { parsed =>
       Reader.fullWithParsedMoves(
         parsed,

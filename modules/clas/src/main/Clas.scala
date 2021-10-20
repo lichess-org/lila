@@ -1,6 +1,6 @@
 package lila.clas
 
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 import org.joda.time.DateTime
 
 import lila.user.User
@@ -33,7 +33,7 @@ object Clas {
       _id = Id(lila.common.ThreadLocalRandom nextString 8),
       name = name,
       desc = desc,
-      teachers = NonEmptyList(teacher.id),
+      teachers = NonEmptyList.one(teacher.id),
       created = Recorded(teacher.id, DateTime.now),
       viewedAt = DateTime.now,
       archived = none

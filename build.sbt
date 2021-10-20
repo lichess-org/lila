@@ -10,21 +10,13 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
 
-version := lilaVersion
-scalaVersion := globalScalaVersion
-resolvers ++= Dependencies.Resolvers.commons
-// don't deploy doc
-sources in (Compile, doc) := Seq.empty
-publishArtifact in (Compile, packageDoc) := false
-// disable publishing the main sources jar
-publishArtifact in (Compile, packageSrc) := false
 PlayKeys.playDefaultPort := 9663
 // don't stage the conf dir
 PlayKeys.externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
 // give a fake assets dir to make sure they're not packaged
-resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
+Assets / resourceDirectory := baseDirectory.value / "public-nothanks"
 // don't make an assets jar
 PlayKeys.generateAssetsJar := false
 // who needs JS routes right?
@@ -34,7 +26,7 @@ maintainer := "contact@lishogi.org"
 // format: off
 libraryDependencies ++= akka.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
-  scalaz, scalalib, hasher,
+  scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce, uaparser
@@ -64,20 +56,20 @@ lazy val api = module("api",
   moduleCPDeps,
   Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle
 ).settings(
-  aggregate in Runtime := false,
-  aggregate in Test := true  // Test <: Runtime
+  Runtime / aggregate := false,
+  Test / aggregate := true  // Test <: Runtime
 ) aggregate (moduleRefs: _*)
 
 lazy val i18n = module("i18n",
   Seq(common, db, hub),
   Seq(scalatags)
 ).settings(
-  sourceGenerators in Compile += Def.task {
+  Compile / sourceGenerators += Def.task {
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
       dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme storm".split(' ').toList,
-      compileTo = (sourceManaged in Compile).value
+      compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
 )

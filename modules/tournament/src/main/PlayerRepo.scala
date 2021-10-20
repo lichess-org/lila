@@ -1,5 +1,6 @@
 package lila.tournament
 
+import cats.implicits._
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
@@ -168,7 +169,8 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   def teamVs(tourId: Tournament.ID, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds ?? { case (s, g) =>
       teamsOfPlayers(tourId, List(s, g)).dmap(_.toMap) map { m =>
-        (m.get(s) |@| m.get(g)).tupled ?? { case (st, gt) =>
+        import cats.implicits._
+        (m.get(s), m.get(g)).mapN((_, _)) ?? { case (st, gt) =>
           TeamBattle.TeamVs(shogi.Color.Map(st, gt)).some
         }
       }

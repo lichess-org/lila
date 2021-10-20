@@ -57,9 +57,10 @@ final private[tv] class TvTrouper(
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
+      import cats.implicits._
       val player = game.firstPlayer
       val user   = player.userId flatMap lightUser
-      (user |@| player.rating) apply { case (u, r) =>
+      (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
       recentTvGames.put(game)

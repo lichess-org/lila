@@ -1,5 +1,7 @@
 package lila.study
 
+import cats.data.Validated
+
 import shogi.format.pgn.Dumper
 import shogi.format.{ FEN, Forsyth, Glyphs, ParsedMove, ParsedNotation, Tags, Uci, UciCharPair }
 import shogi.Replay
@@ -27,7 +29,7 @@ object NotationImport {
       statusText: String
   )
 
-  def apply(notation: String, contributors: List[LightUser]): Valid[Result] =
+  def apply(notation: String, contributors: List[LightUser]): Validated[String, Result] =
     ImportData(notation, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedNotation) =>
         val annotator = findAnnotator(parsedNotation, contributors)
@@ -74,7 +76,7 @@ object NotationImport {
         }
     }
 
-  def userAnalysis(notation: String): Valid[(Game, Option[FEN], Node.Root, Tags)] =
+  def userAnalysis(notation: String): Validated[String, (Game, Option[FEN], Node.Root, Tags)] =
     ImportData(notation, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedNotation) =>
         val annotator = findAnnotator(parsedNotation, Nil)

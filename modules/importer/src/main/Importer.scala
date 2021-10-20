@@ -1,6 +1,7 @@
 package lila.importer
 
 import shogi.format.FEN
+import cats.data.Validated
 
 import lila.game.{ Game, GameRepo }
 
@@ -12,7 +13,7 @@ final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execution
       gameRepo.findNotationImport(data.notation) flatMap { _.fold(processing)(fuccess) }
 
     gameExists {
-      (data preprocess user).future flatMap { case Preprocessed(g, _, initialFen, _) =>
+      (data preprocess user).toFuture flatMap { case Preprocessed(g, _, initialFen, _) =>
         val game = forceId.fold(g.sloppy)(g.withId)
         (gameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
           game.notationImport.flatMap(_.user).isDefined ?? gameRepo.setImportCreatedAt(game)

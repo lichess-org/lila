@@ -273,7 +273,8 @@ final class SwissApi(
       game.sentePlayer.userId.ifTrue(swiss.isStarted) flatMap { senteId =>
         game.gotePlayer.userId map { goteId =>
           rankingApi(swiss) map { ranking =>
-            ranking.get(senteId) |@| ranking.get(goteId) apply { case (senteR, goteR) =>
+            import cats.implicits._
+            (ranking.get(senteId), ranking.get(goteId)) mapN { (senteR, goteR) =>
               GameRanks(senteR, goteR)
             }
           }
