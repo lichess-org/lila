@@ -136,7 +136,7 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply > 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
+    if (node.ply >= 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
       this.cache[node.fen] = this.empty;
     }
     const cached = this.cache[node.fen];
