@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { moveTableAttributes, winnerOf } from './explorerUtil';
+import { moveArrowAttributes, winnerOf } from './explorerUtil';
 import { TablebaseMoveStats } from './interfaces';
 
 export function showTablebase(
@@ -16,7 +16,7 @@ export function showTablebase(
     h('table.tablebase', [
       h(
         'tbody',
-        moveTableAttributes(ctrl, fen),
+        moveArrowAttributes(ctrl, { fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
         moves.map(move =>
           h(
             'tr',

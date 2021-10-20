@@ -16,8 +16,13 @@ export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined 
 
 export const ucfirst = (str: string) => `${str[0].toUpperCase()}${str.slice(1)}`;
 
-export const moveTableAttributes = (ctrl: AnalyseCtrl, fen: Fen) => ({
-  attrs: { 'data-fen': fen },
+export interface MoveArrowOpts {
+  fen: Fen;
+  onClick: (e: MouseEvent, uci: string | null) => void;
+}
+
+export const moveArrowAttributes = (ctrl: AnalyseCtrl, opts: MoveArrowOpts) => ({
+  attrs: { 'data-fen': opts.fen },
   hook: {
     insert(vnode: VNode) {
       const el = vnode.elm as HTMLElement;
@@ -32,11 +37,11 @@ export const moveTableAttributes = (ctrl: AnalyseCtrl, fen: Fen) => ({
       el.addEventListener('mouseout', _ => {
         ctrl.explorer.setHovering($(el).attr('data-fen')!, null);
       });
-      el.addEventListener('mousedown', e => {
+      el.addEventListener('click', e => {
         const uci = $(e.target as HTMLElement)
           .parents('tr')
           .attr('data-uci');
-        if (uci) ctrl.explorerMove(uci);
+        opts.onClick(e, uci);
       });
     },
   },

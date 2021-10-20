@@ -45,6 +45,8 @@ export interface OpeningGame {
   year?: string;
   month?: string;
   speed?: Speed;
+  mode?: ExplorerMode;
+  uci?: string;
 }
 
 interface OpeningPlayer {

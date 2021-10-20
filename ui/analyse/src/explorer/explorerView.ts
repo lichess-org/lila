@@ -4,7 +4,7 @@ import { perf } from 'game/perf';
 import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { moveTableAttributes, ucfirst } from './explorerUtil';
+import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import { isOpening, isTablebase, TablebaseCategory, OpeningData, OpeningMoveStats, OpeningGame } from './interfaces';
 import ExplorerCtrl from './explorerCtrl';
@@ -46,7 +46,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
     ]),
     h(
       'tbody',
-      moveTableAttributes(ctrl, data.fen),
+      moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
       movesWithCurrent.map(move =>
         h(
           `tr.expl-uci-${move.uci}`,
@@ -73,15 +73,16 @@ function showResult(winner?: Color): VNode {
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): VNode | null {
+function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu();
   return h('table.games', [
     h('thead', [h('tr', [h('th.title', { attrs: { colspan: 5 } }, title)])]),
     h(
       'tbody',
-      {
-        hook: bind('click', e => {
+      moveArrowAttributes(ctrl, {
+        fen,
+        onClick: (e, _) => {
           const $tr = $(e.target as HTMLElement).parents('tr');
           if (!$tr.length) return;
           const id = $tr.data('id');
@@ -89,8 +90,8 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
             ctrl.explorer.gameMenu(id);
             ctrl.redraw();
           } else openGame(ctrl, id);
-        }),
-      },
+        },
+      }),
       games.map(game => {
         return openedId === game.id
           ? gameActions(ctrl, game)
@@ -98,7 +99,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
               'tr',
               {
                 key: game.id,
-                attrs: { 'data-id': game.id },
+                attrs: { 'data-id': game.id, 'data-uci': game.uci || '' },
               },
               [
                 h(
@@ -249,8 +250,8 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
     data = ctrl.explorer.current();
   if (data && isOpening(data)) {
     const moveTable = showMoveTable(ctrl, data),
-      recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
-      topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
+      recentTable = showGameTable(ctrl, data.fen, trans('recentGames'), data.recentGames || []),
+      topTable = showGameTable(ctrl, data.fen, trans('topGames'), data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = h('div.data', [
         explorerTitle(ctrl.explorer),
