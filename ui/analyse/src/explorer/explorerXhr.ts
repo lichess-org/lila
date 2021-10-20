@@ -35,7 +35,9 @@ export async function opening(
     for (const rating of conf.rating()) params.append('ratings[]', rating.toString());
   }
   if (opts.db === 'player') {
-    params.set('player', conf.playerName.value());
+    const playerName = conf.playerName.value();
+    if (!playerName) return explorerError('Missing player name');
+    params.set('player', playerName);
     params.set('color', conf.color());
     params.set('speeds', conf.speed().join(','));
     params.set('modes', conf.mode().join(','));
@@ -61,11 +63,13 @@ export async function opening(
 
   if (res.ok) return readNdJson(onMessage)(res);
 
-  return {
-    cancel() {},
-    end: sync(Promise.resolve(new Error(`Explorer error: ${res.status}`))),
-  };
+  return explorerError(`Explorer error: ${res.status}`);
 }
+
+const explorerError = (msg: string) => ({
+  cancel() {},
+  end: sync(Promise.resolve(new Error(msg))),
+});
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
   const effectiveVariant = variant === 'fromPosition' || variant === 'chess960' ? 'standard' : variant;

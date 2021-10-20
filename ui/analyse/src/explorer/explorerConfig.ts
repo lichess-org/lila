@@ -65,7 +65,10 @@ export class ExplorerConfigCtrl {
 
   toggleOpen = () => {
     this.data.open(!this.data.open());
-    if (!this.data.open()) this.onClose();
+    if (!this.data.open()) {
+      if (this.data.db() == 'player' && !this.data.playerName.value()) this.data.db('lichess');
+      this.onClose();
+    }
   };
   fullHouse = () =>
     this.data.db() === 'masters' ||
