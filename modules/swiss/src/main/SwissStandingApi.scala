@@ -89,7 +89,7 @@ final class SwissStandingApi(
       "players" -> rankedPlayers
         .zip(users)
         .zip(sheets)
-        .map { case SwissPlayer.Ranked(rank, player) ~ user ~ sheet =>
+        .map { case ((SwissPlayer.Ranked(rank, player), user), sheet) =>
           SwissJson.playerJson(
             swiss,
             SwissPlayer.View(

@@ -1,12 +1,12 @@
 package lila.puzzle
 
+import cats.implicits._
 import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.common.Bus
-import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.Perf
 import lila.rating.{ Glicko, PerfType }

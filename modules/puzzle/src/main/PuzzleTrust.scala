@@ -11,7 +11,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
   import BsonHandlers._
 
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] = {
-    val w = base(user, round) + {
+    val w = base(user) + {
       // more trust when vote != win
       if (vote == round.win) -2 else 2
     }
@@ -29,11 +29,11 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     }.dmap(w +)
   }.dmap(_.some.filter(0 <))
 
-  def theme(user: User, round: PuzzleRound, theme: PuzzleTheme.Key, vote: Boolean): Fu[Option[Int]] =
-    fuccess(base(user, round))
+  def theme(user: User): Fu[Option[Int]] =
+    fuccess(base(user))
       .dmap(_.some.filter(0 <))
 
-  private def base(user: User, round: PuzzleRound): Int = {
+  private def base(user: User): Int = {
     seniorityBonus(user) +
       ratingBonus(user) +
       titleBonus(user) +

@@ -163,7 +163,7 @@ object NotationDump {
       showAuthors: Boolean
   )(implicit flags: WithFlags): Vector[NotationMove] =
     line
-      .foldLeft(variations -> Vector.empty[NotationMove]) { case variations ~ moves ~ first =>
+      .foldLeft(variations -> Vector.empty[NotationMove]) { case ((variations, moves), first) =>
         first.children.variations -> (node2move(first, variations, startingPly, showAuthors) +: moves)
       }
       ._2

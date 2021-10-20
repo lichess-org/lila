@@ -2,7 +2,6 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 
-import lila.common.Day
 import lila.user.User
 
 case class PuzzleRound(

@@ -15,7 +15,6 @@ case class PuzzleDashboard(
 ) {
 
   import PuzzleDashboard._
-  import BsonHandlers._
 
   lazy val (weakThemes, strongThemes) = {
     val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy { case (_, res) =>

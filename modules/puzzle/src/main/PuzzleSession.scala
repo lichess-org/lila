@@ -6,7 +6,7 @@ import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.memo.CacheApi
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 private case class PuzzleSession(
     difficulty: PuzzleDifficulty,
@@ -27,8 +27,7 @@ private case class PuzzleSession(
 final class PuzzleSessionApi(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    cacheApi: CacheApi,
-    userRepo: UserRepo
+    cacheApi: CacheApi
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._

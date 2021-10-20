@@ -1,8 +1,7 @@
 package lila.socket
 
 import shogi.format.Uci
-import shogi.{ Hand, Hands, Pos, Role }
-import shogi.variant.Standard
+import shogi.{ Hand, Hands, Pos }
 
 import play.api.libs.json._
 
