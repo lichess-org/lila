@@ -43,9 +43,39 @@
     user-select: text;
   }
   .explorer-title {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
+    align-items: stretch;
+    font-size: 0.9rem;
+    line-height: 1.9em;
+    padding: 0;
+    background: mix($c-secondary, $c-bg-box, 30%);
     .ddloader {
       padding-left: 7px;
+    }
+    .active {
+      @extend %flex-center-nowrap;
+      padding: 0 7px;
+      color: $c-font-clear;
+      background: mix($c-secondary, $c-bg-box, 40%);
+      strong {
+        margin-right: 0.5ch;
+      }
+      &.player {
+        cursor: pointer;
+      }
+    }
+    .long {
+      letter-spacing: -0.1ch;
+    }
+    button {
+      display: inline-block;
+      padding: 0 0.5ch;
+      margin-left: 1px;
+      color: $c-font-dim;
+      &:hover {
+        color: $c-font-clear;
+        background: mix($c-secondary, $c-bg-box, 50%);
+      }
     }
   }
 

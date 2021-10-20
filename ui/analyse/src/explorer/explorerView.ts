@@ -1,12 +1,20 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { perf } from 'game/perf';
-import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, isTablebase, TablebaseCategory, OpeningData, OpeningMoveStats, OpeningGame } from './interfaces';
+import {
+  isOpening,
+  isTablebase,
+  TablebaseCategory,
+  OpeningData,
+  OpeningMoveStats,
+  OpeningGame,
+  ExplorerDb,
+} from './interfaces';
 import ExplorerCtrl from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
 
@@ -291,18 +299,59 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
 
 const explorerTitle = (explorer: ExplorerCtrl) => {
   const db = explorer.db();
-  return h('div.title.explorer-title', [
+  const otherLink = (name: string) =>
     h(
-      'span.text',
-      { attrs: dataIcon('') },
-      db == 'masters'
-        ? ['Masters database']
-        : db == 'lichess'
-        ? ['Lichess database']
-        : [h('strong', explorer.config.data.playerName.value()), ' as ', explorer.config.data.color()]
-    ),
-    db == 'player' && explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
-  ]);
+      'button.button-link.' + name,
+      {
+        hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
+      },
+      name
+    );
+  const playerLink = () =>
+    h(
+      'button.button-link.player',
+      {
+        hook: bind(
+          'click',
+          () => {
+            explorer.config.selectPlayer(playerName || 'me');
+            if (explorer.db() != 'player') {
+              explorer.config.data.db('player');
+              explorer.config.toggleOpen();
+            }
+          },
+          explorer.reload
+        ),
+      },
+      'Player'
+    );
+  const active = (nodes: MaybeVNodes) =>
+    h(
+      'span.active.text.' + db,
+      {
+        attrs: dataIcon(''),
+        hook: db == 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
+      },
+      nodes
+    );
+  const playerName = explorer.config.data.playerName.value();
+  return h(
+    'div.explorer-title',
+    db == 'masters'
+      ? [active([h('strong', 'Masters'), ' database']), otherLink('Lichess'), playerLink()]
+      : db == 'lichess'
+      ? [otherLink('Masters'), active([h('strong', 'Lichess'), ' database']), playerLink()]
+      : [
+          otherLink('Masters'),
+          otherLink('Lichess'),
+          active([
+            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+            ' as ',
+            explorer.config.data.color(),
+            explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
+          ]),
+        ]
+  );
 };
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {

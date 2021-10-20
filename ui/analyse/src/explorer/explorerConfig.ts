@@ -78,6 +78,8 @@ export class ExplorerConfigCtrl {
       else if (c().length > 1) c(c().filter(v => v !== value));
     };
 
+  toggleColor = () => this.data.color(opposite(this.data.color()));
+
   toggleOpen = () => {
     this.data.open(!this.data.open());
     if (!this.data.open()) {
@@ -145,7 +147,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             ...dataIcon(''),
             title: ctrl.root.trans('flipBoard'),
           },
-          hook: bind('click', () => ctrl.data.color(opposite(ctrl.data.color())), ctrl.root.redraw),
+          hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
         },
         ctrl.data.color()
       ),
