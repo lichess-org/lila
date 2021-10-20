@@ -60,8 +60,6 @@
   }
 
   tr {
-    @include transition;
-
     &:nth-child(even) {
       background: $c-bg-zebra;
     }
