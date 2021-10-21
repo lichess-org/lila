@@ -127,17 +127,23 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   ];
 }
 
+const selectText = 'Select a Lichess player';
+
 const playerDb = (ctrl: ExplorerConfigCtrl) => {
   const name = ctrl.data.playerName.value();
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
       h(
-        'button.button.player-name',
-        {
-          hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
-        },
-        name || 'Select a Lichess player'
+        'div.choices',
+        h(
+          `button.player-name${name ? '.active' : ''}`,
+          {
+            hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
+            attrs: name ? { title: selectText } : undefined,
+          },
+          name || selectText
+        )
       ),
       ' as ',
       h(

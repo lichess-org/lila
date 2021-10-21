@@ -263,6 +263,9 @@ const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
 };
 
 let lastShow: MaybeVNode;
+export const clearLastShow = () => {
+  lastShow = undefined;
+};
 
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const trans = ctrl.trans.noarg,
@@ -312,8 +315,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
   const db = explorer.db();
   const otherLink = (name: string) =>
     h(
-      'button.button-link.' + name,
+      'button.button-link',
       {
+        key: name,
         hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
       },
       name
@@ -322,6 +326,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     h(
       'button.button-link.player',
       {
+        key: 'player',
         hook: bind(
           'click',
           () => {
