@@ -159,10 +159,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
       h(
         'button.button-link.text.color',
         {
-          attrs: {
-            ...dataIcon(''),
-            title: ctrl.root.trans('flipBoard'),
-          },
+          attrs: dataIcon(''),
           hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
         },
         ctrl.data.color()
