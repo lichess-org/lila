@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Σύμβολο πιονιού στο σκάκι</string>
   <string name="pgnLetter">Γράμμα (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Λειτουργία Zεν</string>
+  <string name="showPlayerRatings">Εμφάνιση αξιολογήσεων παικτών</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
