@@ -51,6 +51,7 @@
   <string name="requestAComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് കമ്പ്യൂട്ടർ വിശകലനം ലഭ്യമാണ്</string>
+  <string name="computerAnalysisDisabled">കമ്പ്യൂട്ടർ വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
   <string name="analysis">പരിശോധനാ ബോര്‍ഡ്</string>
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
@@ -132,6 +133,7 @@
     <item quantity="one">%s കളിക്കാർ</item>
     <item quantity="other">%s കളിക്കാർ</item>
   </plurals>
+  <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
@@ -542,6 +544,7 @@
   <string name="tools">ഉപകരണങ്ങൾ</string>
   <string name="increment">കയറ്റം</string>
   <string name="error.required">ഈ ഭാഗം ആവശ്യമാണ്</string>
+  <string name="error.email">ഈ ഇമെയിൽ അഡ്രസ് സാധുവല്ല</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
