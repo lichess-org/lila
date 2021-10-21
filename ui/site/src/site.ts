@@ -153,8 +153,12 @@ lichess.load.then(() => {
         })
         .then(reload);
 
-    const pageAnnounce = document.body.getAttribute('data-announce');
-    if (pageAnnounce) announce(JSON.parse(pageAnnounce));
+    const announceI18n = JSON.parse(document.body.getAttribute('data-announce-i18n')!);
+    const dataAnnounce = document.body.getAttribute('data-announce');
+
+    if (dataAnnounce) {
+      announce(JSON.parse(dataAnnounce), announceI18n);
+    }
 
     serviceWorker();
 
@@ -169,7 +173,7 @@ lichess.load.then(() => {
     pubsub.on('socket.in.finish', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.finish(el, e.win))
     );
-    pubsub.on('socket.in.announce', announce);
+    pubsub.on('socket.in.announce', announcement => announce(announcement, announceI18n));
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
       if ($('#announce').length || $('body').data('tournament-id') == data.id) return;
       const url = '/tournament/' + data.id;

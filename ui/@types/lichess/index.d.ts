@@ -187,6 +187,7 @@ interface LichessStorageEvent {
 interface LichessAnnouncement {
   msg?: string;
   date?: string;
+  i18nKey?: I18nKey;
 }
 
 interface LichessEditor {

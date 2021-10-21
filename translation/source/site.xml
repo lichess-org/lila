@@ -885,4 +885,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="abortTheGame">Abort the game</string>
   <string name="resignTheGame">Resign the game</string>
   <string name="youCantStartNewGame">You can't start a new game until this one is finished.</string>
+  <string name="lichessWillRestart">Lichess will restart</string>
 </resources>

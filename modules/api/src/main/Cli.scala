@@ -50,6 +50,19 @@ final private[api] class Cli(
       AnnounceStore set none
       Bus.publish(AnnounceStore.cancel, "announce")
       fuccess("Removed announce")
+
+    case "announce" :: length :: unit :: s"[${msgKey}]" :: Nil =>
+      AnnounceStore.setPredefined(msgKey, s"$length $unit") match {
+        case Some(announce) =>
+          Bus.publish(announce, "announce")
+          fuccess(announce.json.toString)
+        case None =>
+          fuccess(
+            s"""Invalid announce. Format: `announce <length> <unit> [<msgKey>]` or just `announce cancel` to cancel it
+Available message keys: ${AnnounceStore.predefinedMessageKeys.mkString(", ")}"""
+          )
+      }
+
     case "announce" :: msgWords =>
       AnnounceStore.set(msgWords mkString " ") match {
         case Some(announce) =>

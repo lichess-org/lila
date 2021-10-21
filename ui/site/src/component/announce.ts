@@ -8,13 +8,15 @@ const kill = () => {
   $('#announce').remove();
 };
 
-const announce = (d: LichessAnnouncement) => {
+const announce = (d: LichessAnnouncement, i18n?: I18nDict) => {
   kill();
-  if (d.msg) {
+  const msg = (d.i18nKey && i18n?.[d.i18nKey]) ?? d.msg;
+
+  if (msg) {
     $('body')
       .append(
         '<div id="announce" class="announce">' +
-          escapeHtml(d.msg) +
+          escapeHtml(msg) +
           (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
           '<div class="actions"><a class="close">×</a></div>' +
           '</div>'
