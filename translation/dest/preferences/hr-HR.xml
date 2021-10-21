@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Simbol šahovske figure</string>
   <string name="pgnLetter">Slovo (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen način</string>
+  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Prikaži igračev rejting</string>
   <string name="displayBoardResizeHandle">Prikaži ručicu za promjenu veličine ploče</string>
   <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
