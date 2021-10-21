@@ -42,7 +42,7 @@ export class ExplorerConfigCtrl {
     this.myName = document.body.dataset['user'];
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
-      open: prop(false),
+      open: prop(true),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
@@ -154,8 +154,10 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
       h('strong.beta', 'BETA'),
     ]),
     speedSection(ctrl, allSpeeds),
-    modeSection(ctrl),
-    monthSection(ctrl),
+    h('div.advanced', [
+      h('label.toggle', 'Advanced settings'),
+      h('div.advanced__inner', [modeSection(ctrl), monthSection(ctrl)]),
+    ]),
   ]);
 };
 
@@ -197,10 +199,7 @@ const speedSection = (ctrl: ExplorerConfigCtrl, speeds: Speed[]) =>
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.mode', [
-    h('label', ctrl.root.trans.noarg('mode')),
-    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
-  ]);
+  h('section.mode', [h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode)))]);
 
 const monthInput = (prop: StoredProp<Month>) =>
   h('input', {
