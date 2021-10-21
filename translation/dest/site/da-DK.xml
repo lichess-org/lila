@@ -403,7 +403,7 @@
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Betingelser for deltagelse:</string>
   <string name="advancedSettings">Avancerede indstillinger</string>
-  <string name="safeTournamentName">Vælg et meget sikkert navn til turneringen.</string>
+  <string name="safeTournamentName">Vælg et meget ufarligt navn til turneringen.</string>
   <string name="inappropriateNameWarning">Selv noget lidt upassende kan resultere i at din konto lukkes.</string>
   <string name="emptyTournamentName">Lad stå tomt for at navngive turneringen efter en tilfældig stormester.</string>
   <string name="recommendNotTouching">Vi anbefaler at ikke ændre disse.</string>
