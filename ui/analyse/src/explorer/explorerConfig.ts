@@ -10,6 +10,7 @@ import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
+import { Redraw } from '../interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -89,9 +90,16 @@ export class ExplorerConfigCtrl {
       this.onClose();
     }
   };
+
   fullHouse = () =>
     this.data.db() === 'masters' ||
     (this.data.rating().length === allRatings.length && this.data.speed().length === allSpeeds.length);
+
+  dateCheck = () => {
+    const since = this.data.since(),
+      until = this.data.until();
+    return !since || !until || since <= until;
+  };
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -215,7 +223,7 @@ const speedSection = (ctrl: ExplorerConfigCtrl, speeds: Speed[]) =>
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode)))]);
 
-const monthInput = (prop: StoredProp<Month>) =>
+const monthInput = (prop: StoredProp<Month>, redraw: Redraw) =>
   h('input', {
     attrs: {
       type: 'month',
@@ -226,14 +234,18 @@ const monthInput = (prop: StoredProp<Month>) =>
     },
     hook: bind('change', e => {
       const input = e.target as HTMLInputElement;
-      if (input.checkValidity()) prop(input.value);
+      if (input.checkValidity()) {
+        prop(input.value);
+        redraw();
+      }
     }),
   });
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.month', [
-    h('label', ['Since', monthInput(ctrl.data.since)]),
-    h('label', ['Until', monthInput(ctrl.data.until)]),
+    h('label', ['Since', monthInput(ctrl.data.since, ctrl.root.redraw)]),
+    h('label', ['Until', monthInput(ctrl.data.until, ctrl.root.redraw)]),
+    ctrl.dateCheck() ? undefined : h('bad', 'Incoherent dates'),
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
