@@ -33,20 +33,17 @@ object AnnounceStore {
   }
 
   // examples:
-  // 5 minutes Lichess will restart
-  // 20 seconds Cthulhu will awake
-  def set(str: String): Option[Announce] = {
-    set(str.split(" ").toList match {
-      case length :: unit :: rest =>
-        Try {
-          val msg     = rest mkString " "
-          val date    = DateTime.now plusSeconds Duration(s"$length $unit").toSeconds.toInt
-          val isoDate = ISODateTimeFormat.dateTime print date
-          val json    = Json.obj("msg" -> msg, "date" -> isoDate)
-          Announce(msg, date, json)
-        }.toOption
-      case _ => none
-    })
+  // msg: "Lichess will restart", durationStr: "5 minutes"
+  // msg: "Cthulhu will awake", durationStr: "20 seconds"
+  def set(msg: String, durationStr: String): Option[Announce] = {
+    set(
+      Try {
+        val date    = DateTime.now plusSeconds Duration(durationStr).toSeconds.toInt
+        val isoDate = ISODateTimeFormat.dateTime print date
+        val json    = Json.obj("msg" -> msg, "date" -> isoDate)
+        Announce(msg, date, json)
+      }.toOption
+    )
     get
   }
 

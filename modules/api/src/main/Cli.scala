@@ -63,8 +63,8 @@ Available message keys: ${AnnounceStore.predefinedMessageKeys.mkString(", ")}"""
           )
       }
 
-    case "announce" :: msgWords =>
-      AnnounceStore.set(msgWords mkString " ") match {
+    case "announce" :: length :: unit :: msgWords =>
+      AnnounceStore.set(msgWords mkString " ", s"$length $unit") match {
         case Some(announce) =>
           Bus.publish(announce, "announce")
           fuccess(announce.json.toString)
