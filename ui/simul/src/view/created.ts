@@ -123,7 +123,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                       },
                     },
                     [
-                      h('td', util.player(applicant.player)),
+                      h('td', util.player(applicant.player, ctrl)),
                       variantIconFor(applicant),
                       h(
                         'td.action',
@@ -175,7 +175,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                       },
                     },
                     [
-                      h('td', util.player(applicant.player)),
+                      h('td', util.player(applicant.player, ctrl)),
                       variantIconFor(applicant),
                       h(
                         'td.action',
@@ -203,8 +203,8 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
         : null,
       h(
         'div.continue-with.none',
-        ctrl.data.variants.map(function (variant) {
-          return h(
+        ctrl.data.variants.map(variant =>
+          h(
             'button.button',
             {
               attrs: {
@@ -212,8 +212,8 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
               },
             },
             variant.name
-          );
-        })
+          )
+        )
       ),
     ];
   };
