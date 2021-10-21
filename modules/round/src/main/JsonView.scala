@@ -225,7 +225,7 @@ final class JsonView(
             "id"            -> gameId,
             "variant"       -> game.variant,
             "opening"       -> game.opening,
-            "initialFen"    -> initialFen.fold(shogi.format.Forsyth.initial)(_.value),
+            "initialFen"    -> initialFen.fold(game.variant.initialFen)(_.value),
             "fen"           -> fen,
             "turns"         -> game.turns,
             "player"        -> game.turnColor.name,
