@@ -4,16 +4,14 @@ import scala.math.{ abs, max, min }
 
 sealed case class Pos private (x: Int, y: Int, piotr: Char) {
 
-  import Pos.posAt
-
-  val down: Option[Pos]         = posAt(x, y - 1)
-  val left: Option[Pos]         = posAt(x - 1, y)
-  val downLeft: Option[Pos]     = posAt(x - 1, y - 1)
-  val downRight: Option[Pos]    = posAt(x + 1, y - 1)
-  lazy val up: Option[Pos]      = posAt(x, y + 1)
-  lazy val right: Option[Pos]   = posAt(x + 1, y)
-  lazy val upLeft: Option[Pos]  = posAt(x - 1, y + 1)
-  lazy val upRight: Option[Pos] = posAt(x + 1, y + 1)
+  val down: Option[Pos]         = Pos.at(x, y - 1)
+  val left: Option[Pos]         = Pos.at(x - 1, y)
+  val downLeft: Option[Pos]     = Pos.at(x - 1, y - 1)
+  val downRight: Option[Pos]    = Pos.at(x + 1, y - 1)
+  lazy val up: Option[Pos]      = Pos.at(x, y + 1)
+  lazy val right: Option[Pos]   = Pos.at(x + 1, y)
+  lazy val upLeft: Option[Pos]  = Pos.at(x - 1, y + 1)
+  lazy val upRight: Option[Pos] = Pos.at(x + 1, y + 1)
 
   def >|(stop: Pos => Boolean): List[Pos] = |<>|(stop, _.right)
   def |<(stop: Pos => Boolean): List[Pos] = |<>|(stop, _.left)
@@ -30,24 +28,24 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   def ?-(other: Pos): Boolean = y == other.y
 
   def <->(other: Pos): Iterable[Pos] =
-    min(x, other.x) to max(x, other.x) flatMap { posAt(_, y) }
+    min(x, other.x) to max(x, other.x) flatMap { Pos.at(_, y) }
 
   def touches(other: Pos): Boolean = xDist(other) <= 1 && yDist(other) <= 1
 
-  def onSameDiagonal(other: Pos): Boolean = color == other.color && xDist(other) == yDist(other)
+  def onSameDiagonal(other: Pos): Boolean = x - y == other.x - other.y || x + y == other.x + other.y
   def onSameLine(other: Pos): Boolean     = ?-(other) || ?|(other)
 
   def xDist(other: Pos) = abs(x - other.x)
   def yDist(other: Pos) = abs(y - other.y)
 
-  val file     = Pos xToString x
+  val file     = (x + 96).toChar.toString
   val rank     = y.toString
-  val key      = file + rank
+  val uciKey      = s"$file$rank"
+
   val usiKey   = (10 - x).toString + (96 + 10 - y).toChar.toString
-  val color    = Color((x % 2 == 0) ^ (y % 2 == 0))
   val piotrStr = piotr.toString
 
-  override val toString = key
+  override val toString = usiKey
 
   override val hashCode = 9 * (y - 1) + (x - 1)
 }
@@ -55,27 +53,13 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
 object Pos {
   val posCache = new Array[Pos](81)
 
-  def posAt(x: Int, y: Int): Option[Pos] =
+  def at(x: Int, y: Int): Option[Pos] =
     if (x < 1 || x > 9 || y < 1 || y > 9) None
     else posCache.lift(x + 9 * y - 10)
 
-  def posAt(key: String): Option[Pos] = allKeys get key
-
-  def xToString(x: Int) = (96 + x).toChar.toString
+  def fromKey(key: String): Option[Pos] = allUciKeys.get(key).orElse(allUsiKeys.get(key))
 
   def piotr(c: Char): Option[Pos] = allPiotrs get c
-
-  def keyToPiotr(key: String) = posAt(key) map (_.piotr)
-  def doubleKeyToPiotr(key: String) =
-    for {
-      a <- keyToPiotr(key take 2)
-      b <- keyToPiotr(key drop 2)
-    } yield s"$a$b"
-  def doublePiotrToKey(piotrs: String) =
-    for {
-      a <- piotr(piotrs.head)
-      b <- piotr(piotrs(1))
-    } yield s"${a.key}${b.key}"
 
   private[this] def createPos(x: Int, y: Int, piotr: Char): Pos = {
     val pos = new Pos(x, y, piotr)
@@ -190,9 +174,21 @@ object Pos {
   val senteBackrank = (SQ9I <-> SQ1I).toList
   val goteBackrank  = (SQ9A <-> SQ1A).toList
 
-  val allKeys: Map[String, Pos] = all
+  val allUciKeys: Map[String, Pos] = all
     .map { pos =>
-      pos.key -> pos
+      pos.uciKey -> pos
+    }
+    .to(Map)
+
+  val allUsiKeys: Map[String, Pos] = all
+    .map { pos =>
+      pos.usiKey -> pos
+    }
+    .to(Map)
+
+  val allNumberKeys: Map[String, Pos] = all
+    .map { pos =>
+      s"${10 - pos.x}${10 - pos.y}" -> pos
     }
     .to(Map)
 
@@ -201,8 +197,5 @@ object Pos {
       pos.piotr -> pos
     }
     .to(Map)
-
-  val numberAllKeys = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y)) -> v }
-  val usiAllKeys    = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y + 96).toChar) -> v }
 
 }

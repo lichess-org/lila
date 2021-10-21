@@ -32,17 +32,13 @@ case class Piece(color: Color, role: Role) {
         (from touches to) && from.y != to.y && (from.x != to.x || to.y < from.y)
 
       case Knight if color == Sente =>
-        from.color != to.color && {
-          val xd = from xDist to
-          val yd = from yDist to
-          (xd == 1 && yd == 2 && from.y < to.y) // march only forward
-        }
+        val xd = from xDist to
+        val yd = from yDist to
+        (xd == 1 && yd == 2 && from.y < to.y)
       case Knight =>
-        from.color != to.color && {
-          val xd = from xDist to
-          val yd = from yDist to
-          (xd == 1 && yd == 2 && from.y > to.y) // march only forward
-        }
+        val xd = from xDist to
+        val yd = from yDist to
+        (xd == 1 && yd == 2 && from.y > to.y)
 
       case Lance if color == Sente => (from ?| to) && (from ?+ to)
       case Lance                   => (from ?| to) && (from ?^ to)
@@ -65,12 +61,15 @@ object Piece {
 
   def fromChar(c: Char): Option[Piece] =
     Role.allByPgn get c.toUpper map {
-      Piece(Color(c.isUpper), _)
+      Piece(Color.fromSente(c.isUpper), _)
     }
 
   def fromCsa(s: String): Option[Piece] =
     Role.allByCsa get s.drop(1) map {
-      Piece(Color(s.take(1) == "+"), _)
+      Piece(Color.fromSente(s.take(1) == "+"), _)
     }
+
+  def promote(p: Piece): Option[Piece] =
+    Role.promotesTo(p.role) map { Piece(p.color, _) }
 
 }

@@ -1,9 +1,7 @@
 package shogi
 package format
 
-import Forsyth.SituationPlus
 import Pos._
-import variant._
 
 class ForsythTest extends ShogiTest {
 
@@ -89,6 +87,16 @@ class ForsythTest extends ShogiTest {
       }
       "invalid" in {
         f << "hahaha" must beNone
+      }
+    }
+    "promoted pieces in sfen" in {
+      f << "+l+n+sgkg+s+n+l/1r5+b1/+p+p+p+p+p+p+p+p+p/9/9/9/PPPP+PPPPP/1B5R1/LNSGKGSNL b - 1" must beSome.like { case s =>
+        val ps = s.board.pieces.values.to(List)
+        ps.count(_.role == Tokin) must_== 10
+        ps.count(_.role == PromotedLance) must_== 2
+        ps.count(_.role == PromotedKnight) must_== 2
+        ps.count(_.role == PromotedSilver) must_== 2
+        ps.count(_.role == Horse) must_== 1
       }
     }
   }

@@ -52,8 +52,7 @@ K     N""".autoDraw must_== false
         SQ2H -> SQ3H,
         SQ8B -> SQ7B,
         SQ3H -> SQ2H,
-        SQ7B -> SQ8B,
-        SQ2H -> SQ3H
+        SQ7B -> SQ8B
       )
       "should be fourfold" in {
         makeGame.playMoves(moves: _*) must beValid.like { case g =>

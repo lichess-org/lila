@@ -28,7 +28,7 @@ object CsaParserHelper {
         goteTurn  = lines.exists(l => l == "-")
         additions = lines.filter(l => l.startsWith("P") && l.lift(1).exists(List('+', '-') contains _))
         board2 <- parseAdditions(additions, board, variant)
-      } yield (Situation(board2, Color(!goteTurn)))
+      } yield (Situation(board2, Color.fromSente(!goteTurn)))
     }
   }
 
@@ -40,7 +40,7 @@ object CsaParserHelper {
           else invalid(s"Incorrect square and piece format in handicap setup: $squarePiece")
         posStr  = squarePiece.slice(0, 2)
         roleStr = squarePiece.slice(2, 4)
-        pos <- Pos.numberAllKeys get posStr toValid s"Incorrect position in handicap setup: $posStr"
+        pos <- Pos.allNumberKeys get posStr toValid s"Incorrect position in handicap setup: $posStr"
         _ <-
           if (pieces contains pos) valid(pos)
           else invalid(s"No piece to remove from $posStr in handicap setup")
@@ -63,7 +63,7 @@ object CsaParserHelper {
   private def parseWholeBoard(ranks: List[String]): Validated[String, PieceMap] = {
     def parseSquare(sq: String, i: Int, pieces: PieceMap): Validated[String, PieceMap] =
       for {
-        pos <- Pos.posAt(
+        pos <- Pos.at(
           i % 9 + 1,
           10 - (i / 9 + 1)
         ) toValid s"Invalid board setup - too many squares"
@@ -134,7 +134,7 @@ object CsaParserHelper {
             else invalid(s"Incorrect square piece format (${str}) in: $line")
           posStr  = str.slice(0, 2)
           roleStr = str.slice(2, 4)
-          pos  <- Pos.numberAllKeys get posStr toValid s"Incorrect position (${posStr}) in: $line"
+          pos  <- Pos.allNumberKeys get posStr toValid s"Incorrect position (${posStr}) in: $line"
           role <- Role.allByCsa get roleStr toValid s"Non existent piece role (${roleStr}) in: $line"
           boardWithPiece <- board
             .place(
@@ -144,7 +144,7 @@ object CsaParserHelper {
         } yield boardWithPiece
       }
 
-      val color = Color(line.lift(1).exists(_ == '+'))
+      val color = Color.fromSente(line.lift(1).exists(_ == '+'))
       line.drop(2).grouped(4).foldLeft(valid(board): Validated[String, Board]) { case (acc, cur) =>
         acc match {
           case Valid(board) =>

@@ -147,7 +147,7 @@ object Divider {
       for {
         dy <- 0 to 1
         dx <- 0 to 1
-      } yield Pos.posAt(x + dx, y + dy)
+      } yield Pos.at(x + dx, y + dy)
     }.toList.flatten
   }.toList
 

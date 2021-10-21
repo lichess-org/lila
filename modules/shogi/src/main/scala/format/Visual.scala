@@ -1,8 +1,6 @@
 package shogi
 package format
 
-import Pos.posAt
-
 /** r bqkb r
   * p ppp pp
   * pr
@@ -27,8 +25,8 @@ object Visual {
         (c, x) <- (l zipWithIndex)
         role   <- Role forsyth c.toLower
       } yield {
-        posAt(x + 1, 9 - y) map { pos =>
-          pos -> (Color(c isUpper) - role)
+        Pos.at(x + 1, 9 - y) map { pos =>
+          pos -> (Color.fromSente(c isUpper) - role)
         }
       }) flatten,
       variant = shogi.variant.Variant.default
@@ -45,7 +43,7 @@ object Visual {
     }
     for (y <- 9 to 1 by -1) yield {
       for (x <- 1 to 9) yield {
-        posAt(x, y) flatMap markedPoss.get getOrElse board(x, y).fold(' ')(_ forsyth)
+        Pos.at(x, y) flatMap markedPoss.get getOrElse board(x, y).fold(' ')(_ forsyth)
       }
     } mkString
   } map { """\s*$""".r.replaceFirstIn(_, "") } mkString "\n"

@@ -1,6 +1,5 @@
 package shogi
 
-import Pos.posAt
 import variant.Variant
 
 case class Board(
@@ -12,7 +11,7 @@ case class Board(
 
   def apply(at: Pos): Option[Piece] = pieces get at
 
-  def apply(x: Int, y: Int): Option[Piece] = posAt(x, y) flatMap pieces.get
+  def apply(x: Int, y: Int): Option[Piece] = Pos.at(x, y) flatMap pieces.get
 
   lazy val actors: Map[Pos, Actor] = pieces map { case (pos, piece) =>
     (pos, Actor(piece, pos, this))
@@ -141,7 +140,7 @@ case class Board(
       enoughImpasseValue(c)
 
   def tryRule(c: Color): Boolean =
-    kingPosOf(c) == c.fold(posAt(5, 9), posAt(5, 1))
+    kingPosOf(c) == c.fold(Pos.at(5, 9), Pos.at(5, 1))
 
   def perpetualCheck: Boolean = {
     val checks = history.checkCount

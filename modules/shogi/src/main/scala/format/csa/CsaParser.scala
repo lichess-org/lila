@@ -82,7 +82,7 @@ object CsaParser {
     val resultTag = CsaParserHelper
       .createResult(
         termTag,
-        Color((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
+        Color.fromSente((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
       )
 
     List(fenTag, resultTag, termTag).flatten.foldLeft(tags)(_ + _)
@@ -193,8 +193,8 @@ object CsaParser {
         case MoveRegex(origS, destS, roleS) => {
           for {
             role <- variant.rolesByCsa get roleS toValid s"Uknown role in move: $str"
-            dest <- Pos.numberAllKeys get destS toValid s"Cannot parse destination sqaure in move: $str"
-            orig <- Pos.numberAllKeys get origS toValid s"Cannot parse origin sqaure in move: $str"
+            dest <- Pos.allNumberKeys get destS toValid s"Cannot parse destination sqaure in move: $str"
+            orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin sqaure in move: $str"
           } yield CsaStd(
             dest = dest,
             role = role,
@@ -213,7 +213,7 @@ object CsaParser {
         case DropRegex(posS, roleS) =>
           for {
             role <- variant.rolesByCsa get roleS toValid s"Uknown role in drop: $str"
-            pos  <- Pos.numberAllKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
+            pos  <- Pos.allNumberKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
           } yield Drop(
             role = role,
             pos = pos,

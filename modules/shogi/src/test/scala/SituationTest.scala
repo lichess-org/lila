@@ -1,5 +1,7 @@
 package shogi
 
+import scala.language.reflectiveCalls
+
 class SituationTest extends ShogiTest {
 
   "a game" should {

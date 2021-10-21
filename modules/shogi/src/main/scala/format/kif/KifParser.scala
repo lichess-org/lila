@@ -180,7 +180,7 @@ object KifParser {
     val resultTag = KifParserHelper
       .createResult(
         termTag,
-        Color((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
+        Color.fromSente((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
       )
 
     List(fenTag, resultTag, termTag).flatten.foldLeft(tags)(_ + _)
@@ -357,9 +357,9 @@ object KifParser {
         case MoveRegex(destS, roleS, promS, origS) =>
           for {
             role <- variant.rolesByEverything get roleS toValid s"Unknown role in move: $str"
-            destOpt = if (destS == "同") lastDest else (Pos.numberAllKeys get destS)
+            destOpt = if (destS == "同") lastDest else (Pos.allNumberKeys get destS)
             dest <- destOpt toValid s"Cannot parse destination square in move: $str"
-            orig <- Pos.numberAllKeys get origS toValid s"Cannot parse origin square in move: $str"
+            orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin square in move: $str"
           } yield KifStd(
             dest = dest,
             role = role,
@@ -378,7 +378,7 @@ object KifParser {
         case DropRegex(posS, roleS) =>
           for {
             role <- variant.rolesByEverything get roleS toValid s"Unknown role in drop: $str"
-            pos  <- Pos.numberAllKeys get posS toValid s"Cannot parse destination square in drop: $str"
+            pos  <- Pos.allNumberKeys get posS toValid s"Cannot parse destination square in drop: $str"
           } yield Drop(
             role = role,
             pos = pos,

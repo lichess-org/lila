@@ -180,7 +180,7 @@ object Parser {
       str match {
         case MoveR(role, file, rank, capture, pos, prom) => {
           role.headOption.fold[Option[Role]](Option(Pawn))(variant.rolesByPgn.get) flatMap { role =>
-            Pos posAt pos map { dest =>
+            Pos.fromKey(pos) map { dest =>
               valid(
                 PGNStd(
                   dest = dest,
@@ -205,7 +205,7 @@ object Parser {
         }
         case DropR(roleS, posS) =>
           roleS.headOption flatMap variant.rolesByPgn.get flatMap { role =>
-            Pos posAt posS map { pos =>
+            Pos.fromKey(posS) map { pos =>
               valid(
                 Drop(
                   role = role,
@@ -301,7 +301,7 @@ object Parser {
 
     val rank = mapParser(rankMap, "rank")
 
-    val dest = mapParser(Pos.allKeys, "dest")
+    val dest = mapParser(Pos.allUciKeys, "dest")
 
     def exists(c: String): Parser[Boolean] = c ^^^ true | success(false)
 

@@ -5,7 +5,6 @@ import cats.data.Validated
 import cats.syntax.option._
 import scala.annotation.nowarn
 
-import Pos.posAt
 import format.Uci
 
 // Correctness depends on singletons for each variant ID
@@ -336,7 +335,7 @@ object Variant {
 
   private[variant] def symmetricRank(rank1: IndexedSeq[Role], rank2: IndexedSeq[Role]): Map[Pos, Piece] =
     (for (y <- Seq(1, 3, 7, 9); x <- 1 to 9) yield {
-      posAt(x, y) map { pos =>
+      Pos.at(x, y) map { pos =>
         (
           pos,
           y match {
@@ -348,9 +347,9 @@ object Variant {
         )
       }
     }).flatten.toMap ++ Map(
-      posAt(2, 2).get -> (Sente - rank2(1)),
-      posAt(8, 2).get -> (Sente - rank2(0)),
-      posAt(2, 8).get -> (Gote - rank2(0)),
-      posAt(8, 8).get -> (Gote - rank2(1))
+      Pos.at(2, 2).get -> (Sente - rank2(1)),
+      Pos.at(8, 2).get -> (Sente - rank2(0)),
+      Pos.at(2, 8).get -> (Gote - rank2(0)),
+      Pos.at(8, 8).get -> (Gote - rank2(1))
     )
 }

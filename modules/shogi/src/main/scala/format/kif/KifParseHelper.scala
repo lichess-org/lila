@@ -39,7 +39,7 @@ object KifParserHelper {
         hands    = Hands(senteHand, goteHand)
         board    = Board(pieces, variant).withCrazyData(hands)
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
-      } yield (Situation(board, Color(!goteTurn)))
+      } yield (Situation(board, Color.fromSente(!goteTurn)))
     } else {
       invalid(
         "Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
@@ -63,11 +63,11 @@ object KifParserHelper {
         case ('成' | '+') :: rest => makePiecesList(rest, x, y, chars.headOption, gote)
         case sq :: rest =>
           for {
-            pos <- Pos.posAt(x, y) toValid s"Too many files in board setup: $x/9"
+            pos <- Pos.at(x, y) toValid s"Too many files in board setup: $x/9"
             roleStr = prevPieceChar.fold("")(_.toString) + sq
             role   <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
             pieces <- makePiecesList(rest, x + 1, y, None, false)
-          } yield (pos -> Piece(Color(!gote), role) :: pieces)
+          } yield (pos -> Piece(Color.fromSente(!gote), role) :: pieces)
       }
     ranks.zipWithIndex.foldLeft(valid(Nil): Validated[String, List[(Pos, Piece)]]) { case (acc, cur) =>
       for {

@@ -22,7 +22,7 @@ object Dumper {
         val disambiguation = if (candidates.isEmpty) {
           ""
         } else {
-          orig.file + orig.rank
+          orig.uciKey
         }
         val promotes = {
           if (
@@ -34,7 +34,7 @@ object Dumper {
           else if (!promotion) ""
           else "+"
         }
-        s"${role.pgn}$disambiguation${if (captures) "x" else ""}${dest.key}$promotes"
+        s"${role.pgn}$disambiguation${if (captures) "x" else ""}${dest.uciKey}$promotes"
       }
     })
   }
