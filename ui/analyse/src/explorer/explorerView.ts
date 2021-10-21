@@ -94,9 +94,10 @@ function showResult(winner?: Color): VNode {
 
 function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
-  const openedId = ctrl.explorer.gameMenu();
+  const openedId = ctrl.explorer.gameMenu(),
+    isMasters = ctrl.explorer.db() == 'masters';
   return h('table.games', [
-    h('thead', [h('tr', [h('th.title', { attrs: { colspan: 5 } }, title)])]),
+    h('thead', [h('tr', [h('th.title', { attrs: { colspan: isMasters ? 4 : 5 } }, title)])]),
     h(
       'tbody',
       moveArrowAttributes(ctrl, {
@@ -131,16 +132,18 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                 ),
                 h('td', showResult(game.winner)),
                 h('td', game.year || game.month),
-                h(
-                  'td',
-                  game.speed &&
-                    h('i', {
-                      attrs: {
-                        title: ucfirst(game.speed),
-                        ...dataIcon(perf.icons[game.speed]),
-                      },
-                    })
-                ),
+                isMasters
+                  ? undefined
+                  : h(
+                      'td',
+                      game.speed &&
+                        h('i', {
+                          attrs: {
+                            title: ucfirst(game.speed),
+                            ...dataIcon(perf.icons[game.speed]),
+                          },
+                        })
+                    ),
               ]
             );
       })
