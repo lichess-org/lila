@@ -427,6 +427,7 @@
   <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
+  <string name="endgamePositions">ഏൻഡ് ഗെയിം പൊസിഷനുകൾ</string>
   <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">പ്രാരംഭ സ്ഥാനം</string>
   <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
   <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">സ്ഥാനത്തു നിന്ന്</string>
