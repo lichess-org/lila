@@ -153,7 +153,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
       ),
       h('strong.beta', 'BETA'),
     ]),
-    speedSection(ctrl),
+    speedSection(ctrl, allSpeeds),
     modeSection(ctrl),
     monthSection(ctrl),
   ]);
@@ -183,13 +183,16 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
       h('label', ctrl.root.trans.noarg('averageElo')),
       h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
     ]),
-    speedSection(ctrl),
+    speedSection(
+      ctrl,
+      allSpeeds.filter(s => s != 'ultraBullet' && s != 'correspondence')
+    ),
   ]);
 
-const speedSection = (ctrl: ExplorerConfigCtrl) =>
+const speedSection = (ctrl: ExplorerConfigCtrl, speeds: Speed[]) =>
   h('section.speed', [
     h('label', ctrl.root.trans.noarg('timeControl')),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
+    h('div.choices', speeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
