@@ -27,7 +27,7 @@ object PrefForm {
         "replay"        -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
         "zen"           -> optional(booleanNumber),
-        "ratings"       -> optional(boolean),
+        "ratings"       -> optional(booleanNumber),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
@@ -66,7 +66,7 @@ object PrefForm {
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
-      ratings: Option[Boolean],
+      ratings: Option[Int],
       resizeHandle: Option[Int],
       blindfold: Int
   )
@@ -129,6 +129,7 @@ object PrefForm {
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
+        ratings = display.ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
