@@ -174,7 +174,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
       h(
         'td.game_menu',
         {
-          attrs: { colspan: 5 },
+          attrs: { colspan: ctrl.explorer.db() == 'masters' ? 4 : 5 },
         },
         [
           h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
