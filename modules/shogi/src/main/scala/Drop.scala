@@ -29,18 +29,12 @@ case class Drop(
       !situationBefore.color
     )
 
-    board updateHistory {
-      _.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ board.history.positionHashes)
+    board updateHistory { h =>
+      val basePositionHashes =
+        if (h.positionHashes.isEmpty) Hash(situationBefore) else board.history.positionHashes
+      h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ basePositionHashes)
     }
   }
-
-  def afterWithLastMove =
-    after.variant.finalizeBoard(
-      after.copy(history = after.history.withLastMove(toUci)),
-      toUci,
-      none,
-      !situationBefore.color
-    )
 
   def color = piece.color
 

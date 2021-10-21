@@ -106,7 +106,7 @@ object Replay {
       case Nil => valid(Nil)
       case san :: rest =>
         san(sit) flatMap { moveOrDrop =>
-          val after = Situation(moveOrDrop.fold(_.afterWithLastMove, _.afterWithLastMove), !sit.color)
+          val after = Situation(moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter), !sit.color)
           recursiveSituations(after, rest) map { after :: _ }
         }
     }
@@ -119,7 +119,7 @@ object Replay {
       case Nil => valid(Nil)
       case uci :: rest =>
         uci(sit) andThen { moveOrDrop =>
-          val after = Situation(moveOrDrop.fold(_.afterWithLastMove, _.afterWithLastMove), !sit.color)
+          val after = Situation(moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter), !sit.color)
           recursiveSituationsFromUci(after, rest) map { after :: _ }
         }
     }

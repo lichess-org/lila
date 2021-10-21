@@ -31,21 +31,16 @@ case class Move(
       !situationBefore.color
     )
 
+    // Update position hashes last, only after updating the board
+    // todo isIrreversible for chushogi
     board updateHistory { h =>
-      // Update position hashes last, only after updating the board,
-      h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ h.positionHashes)
+      lazy val basePositionHashes =
+        if (h.positionHashes.isEmpty) Hash(situationBefore) else h.positionHashes
+      h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ basePositionHashes)
     }
   }
 
   def applyVariantEffect: Move = before.variant addVariantEffect this
-
-  def afterWithLastMove =
-    after.variant.finalizeBoard(
-      after.copy(history = after.history.withLastMove(toUci)),
-      toUci,
-      capture flatMap before.apply,
-      !situationBefore.color
-    )
 
   // does this move capture an opponent piece?
   def captures = capture.isDefined
