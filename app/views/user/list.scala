@@ -40,7 +40,7 @@ object list {
             ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
-                showBestPerf(u)
+                ctx.pref.showRatings option showBestPerf(u)
               )
             })
           ),
