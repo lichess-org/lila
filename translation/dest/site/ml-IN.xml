@@ -134,6 +134,7 @@
     <item quantity="other">%s കളിക്കാർ</item>
   </plurals>
   <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
+  <string name="fiftyMovesWithoutProgress">പുരോഗതിയില്ലാതെ 50 നീക്കങ്ങൾ</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
@@ -362,6 +363,8 @@
   <string name="follow">പിന്തുടരുക</string>
   <string name="following">പിന്തുടരുന്നു</string>
   <string name="unfollow">പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
+  <string name="followX">%s നെ പിന്തുടരുക</string>
+  <string name="unfollowX">%s നെ പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
   <string name="block">തടയുക</string>
   <string name="blocked">തടഞ്ഞു</string>
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
