@@ -49,27 +49,12 @@ object Forsyth {
 
   def <<<(rawSource: String): Option[SituationPlus] = <<<@(Standard, rawSource)
 
-  def singleCharSfen(sfen: String): String =
-    sfen
-      .replaceAll("\\+S", "A")
-      .replaceAll("\\+s", "a")
-      .replaceAll("\\+N", "M")
-      .replaceAll("\\+n", "m")
-      .replaceAll("\\+L", "U")
-      .replaceAll("\\+l", "u")
-      .replaceAll("\\+P", "T")
-      .replaceAll("\\+p", "t")
-      .replaceAll("\\+R", "D")
-      .replaceAll("\\+r", "d")
-      .replaceAll("\\+B", "H")
-      .replaceAll("\\+b", "h")
-
   def makeBoard(variant: Variant, rawSource: String): Option[Board] =
     read(rawSource) { fen =>
       val splitted  = fen.split(' ')
-      val positions = singleCharSfen(splitted.lift(0).get)
+      val positions = splitted.lift(0).getOrElse("")
       if (positions.count('/' ==) == 8) {
-        makePiecesList(positions.toList, 1, 9) map { case pieces =>
+        makePiecesList(positions.toList, false, 1, 9) map { case pieces =>
           val board = Board(pieces, variant)
           if (splitted.length < 3 || splitted.lift(2).get == "-") board
           else {
@@ -106,18 +91,21 @@ object Forsyth {
 
   private def makePiecesList(
       chars: List[Char],
+      promoted: Boolean,
       x: Int,
       y: Int
   ): Option[List[(Pos, Piece)]] =
     chars match {
       case Nil                               => Option(Nil)
-      case '/' :: rest                       => makePiecesList(rest, 1, y - 1)
-      case c :: rest if '1' <= c && c <= '9' => makePiecesList(rest, x + (c - '0').toInt, y)
+      case '/' :: rest                       => makePiecesList(rest, false, 1, y - 1)
+      case '+' :: rest                       => makePiecesList(rest, true, x, y)
+      case c :: rest if '1' <= c && c <= '9' => makePiecesList(rest, false, x + (c - '0').toInt, y)
       case c :: rest =>
         for {
-          pos          <- Pos.posAt(x, y)
-          piece        <- Piece.fromChar(c)
-          (nextPieces) <- makePiecesList(rest, x + 1, y)
+          pos        <- Pos.at(x, y)
+          basePiece  <- Piece.fromChar(c)
+          piece  <- if(promoted) Piece.promote(basePiece) else basePiece.some
+          (nextPieces)     <- makePiecesList(rest, false, x + 1, y)
         } yield (pos -> piece :: nextPieces)
     }
 
