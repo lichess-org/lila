@@ -216,7 +216,7 @@ const modeSection = (ctrl: ExplorerConfigCtrl) =>
 
 const monthInput = (prop: StoredProp<Month>, min: () => Month, redraw: Redraw) => {
   const validateRange = (input: HTMLInputElement) =>
-    input.setCustomValidity(min() <= input.value ? '' : 'Invalid date range');
+    input.setCustomValidity(!input.value || min() <= input.value ? '' : 'Invalid date range');
   return h('input', {
     attrs: {
       type: 'month',
