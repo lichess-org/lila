@@ -1,66 +1,36 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { perf } from 'game/perf';
-import { bind, dataIcon, MaybeVNode } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { ucfirst, winnerOf } from './explorerUtil';
+import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
 import {
   isOpening,
   isTablebase,
   TablebaseCategory,
-  TablebaseMoveStats,
   OpeningData,
   OpeningMoveStats,
   OpeningGame,
-  Opening,
+  ExplorerDb,
 } from './interfaces';
 import ExplorerCtrl from './explorerCtrl';
+import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
   function section(key: 'white' | 'black' | 'draws') {
     const percent = (move[key] * 100) / sum;
-    return percent === 0
-      ? null
-      : h(
-          'span.' + key,
-          {
-            attrs: { style: 'width: ' + Math.round((move[key] * 1000) / sum) / 10 + '%' },
-          },
-          percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
-        );
+    return h(
+      'span.' + key,
+      {
+        attrs: { style: 'width: ' + Math.round((move[key] * 1000) / sum) / 10 + '%' },
+      },
+      percent > 12 ? Math.round(percent) + (percent > 20 ? '%' : '') : ''
+    );
   }
   return h('div.bar', ['white', 'draws', 'black'].map(section));
-}
-
-function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
-  return {
-    attrs: { 'data-fen': fen },
-    hook: {
-      insert(vnode: VNode) {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('mouseover', e => {
-          ctrl.explorer.setHovering(
-            $(el).attr('data-fen')!,
-            $(e.target as HTMLElement)
-              .parents('tr')
-              .attr('data-uci')
-          );
-        });
-        el.addEventListener('mouseout', _ => {
-          ctrl.explorer.setHovering($(el).attr('data-fen')!, null);
-        });
-        el.addEventListener('mousedown', e => {
-          const uci = $(e.target as HTMLElement)
-            .parents('tr')
-            .attr('data-uci');
-          if (uci) ctrl.explorerMove(uci);
-        });
-      },
-    },
-  };
 }
 
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
@@ -79,19 +49,17 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       : data.moves;
 
   return h('table.moves', [
-    h('thead', [
-      h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', trans('whiteDrawBlack'))]),
-    ]),
+    h('thead', [h('tr', [h('th', trans('move')), h('th', trans('games')), h('th', trans('whiteDrawBlack'))])]),
     h(
       'tbody',
-      moveTableAttributes(ctrl, data.fen),
+      moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
       movesWithCurrent.map(move =>
         h(
           `tr.expl-uci-${move.uci}`,
           {
             attrs: {
               'data-uci': move.uci,
-              title: move.uci ? (move.averageRating ? ctrl.trans('averageRatingX', move.averageRating) : '') : 'Total',
+              title: moveTooltip(ctrl, move),
             },
           },
           [
@@ -105,21 +73,34 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   ]);
 }
 
+function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
+  if (!move.uci) return 'Total';
+  if (move.game) {
+    const g = move.game;
+    const result = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
+    return `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`;
+  }
+  if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
+  if (move.averageOpponentRating) return `Average opponent rating: ${move.averageOpponentRating}`;
+  return '';
+}
+
 function showResult(winner?: Color): VNode {
   if (winner === 'white') return h('result.white', '1-0');
   if (winner === 'black') return h('result.black', '0-1');
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): VNode | null {
+function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu();
   return h('table.games', [
     h('thead', [h('tr', [h('th.title', { attrs: { colspan: 5 } }, title)])]),
     h(
       'tbody',
-      {
-        hook: bind('click', e => {
+      moveArrowAttributes(ctrl, {
+        fen,
+        onClick: (e, _) => {
           const $tr = $(e.target as HTMLElement).parents('tr');
           if (!$tr.length) return;
           const id = $tr.data('id');
@@ -127,8 +108,8 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
             ctrl.explorer.gameMenu(id);
             ctrl.redraw();
           } else openGame(ctrl, id);
-        }),
-      },
+        },
+      }),
       games.map(game => {
         return openedId === game.id
           ? gameActions(ctrl, game)
@@ -136,7 +117,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
               'tr',
               {
                 key: game.id,
-                attrs: { 'data-id': game.id },
+                attrs: { 'data-id': game.id, 'data-uci': game.uci || '' },
               },
               [
                 h(
@@ -189,7 +170,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
       h(
         'td.game_menu',
         {
-          attrs: { colspan: 4 },
+          attrs: { colspan: 5 },
         },
         [
           h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
@@ -237,73 +218,6 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   );
 }
 
-function showTablebase(
-  ctrl: AnalyseCtrl,
-  fen: Fen,
-  title: string,
-  tooltip: string | undefined,
-  moves: TablebaseMoveStats[]
-): VNode[] {
-  if (!moves.length) return [];
-  return [
-    h('div.title', tooltip ? { attrs: { title: tooltip } } : {}, title),
-    h('table.tablebase', [
-      h(
-        'tbody',
-        moveTableAttributes(ctrl, fen),
-        moves.map(move => {
-          return h(
-            'tr',
-            {
-              key: move.uci,
-              attrs: { 'data-uci': move.uci },
-            },
-            [h('td', move.san), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])]
-          );
-        })
-      ),
-    ]),
-  ];
-}
-
-function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
-  if (move.dtm)
-    return h(
-      'result.' + winnerOf(fen, move),
-      {
-        attrs: {
-          title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)',
-        },
-      },
-      'DTM ' + Math.abs(move.dtm)
-    );
-  return undefined;
-}
-
-function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode | null {
-  const trans = ctrl.trans.noarg;
-  if (move.checkmate) return h('result.' + winnerOf(fen, move), trans('checkmate'));
-  else if (move.variant_win) return h('result.' + winnerOf(fen, move), trans('variantLoss'));
-  else if (move.variant_loss) return h('result.' + winnerOf(fen, move), trans('variantWin'));
-  else if (move.stalemate) return h('result.draws', trans('stalemate'));
-  else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
-  else if (move.dtz === null) return null;
-  else if (move.dtz === 0) return h('result.draws', trans('draw'));
-  else if (move.zeroing)
-    return move.san.includes('x')
-      ? h('result.' + winnerOf(fen, move), trans('capture'))
-      : h('result.' + winnerOf(fen, move), trans('pawnMove'));
-  return h(
-    'result.' + winnerOf(fen, move),
-    {
-      attrs: {
-        title: trans('dtzWithRounding') + ' (Distance To Zeroing)',
-      },
-    },
-    'DTZ ' + Math.abs(move.dtz)
-  );
-}
-
 function closeButton(ctrl: AnalyseCtrl): VNode {
   return h(
     'button.button.button-empty.text',
@@ -315,19 +229,10 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
   );
 }
 
-function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
+function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
   return h('div.data.empty', [
-    h(
-      'div.title',
-      h(
-        'span',
-        {
-          attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {},
-        },
-        opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
-      )
-    ),
-    playerIndexing(ctrl.explorer),
+    explorerTitle(ctrl.explorer),
+    openingTitle(ctrl, data),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse()
@@ -345,6 +250,17 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
   ]);
 }
 
+const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
+  const opening = data?.opening;
+  return h(
+    'div.title',
+    {
+      attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {},
+    },
+    opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)]
+  );
+};
+
 let lastShow: MaybeVNode;
 
 function show(ctrl: AnalyseCtrl): MaybeVNode {
@@ -352,28 +268,17 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
     data = ctrl.explorer.current();
   if (data && isOpening(data)) {
     const moveTable = showMoveTable(ctrl, data),
-      recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
-      topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
+      recentTable = showGameTable(ctrl, data.fen, trans('recentGames'), data.recentGames || []),
+      topTable = showGameTable(ctrl, data.fen, trans('topGames'), data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = h('div.data', [
-        data &&
-          data.opening &&
-          h(
-            'div.title',
-            h(
-              'span',
-              {
-                attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
-              },
-              [h('strong', data.opening.eco), ' ', data.opening.name]
-            )
-          ),
-        playerIndexing(ctrl.explorer),
+        explorerTitle(ctrl.explorer),
+        data?.opening && openingTitle(ctrl, data),
         moveTable,
         topTable,
         recentTable,
       ]);
-    else lastShow = showEmpty(ctrl, data.opening);
+    else lastShow = showEmpty(ctrl, data);
   } else if (data && isTablebase(data)) {
     const row = (category: TablebaseCategory, title: string, tooltip?: string) =>
       showTablebase(
@@ -402,15 +307,62 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   return lastShow;
 }
 
-const playerIndexing = (explorer: ExplorerCtrl) =>
-  explorer.db() == 'player' && explorer.isIndexing()
-    ? h('div.player-indexing', [
-        'Indexing ',
-        h('strong', explorer.config.data.playerName.value()),
-        ' games',
-        h('i.ddloader'),
-      ])
-    : undefined;
+const explorerTitle = (explorer: ExplorerCtrl) => {
+  const db = explorer.db();
+  const otherLink = (name: string) =>
+    h(
+      'button.button-link.' + name,
+      {
+        hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
+      },
+      name
+    );
+  const playerLink = () =>
+    h(
+      'button.button-link.player',
+      {
+        hook: bind(
+          'click',
+          () => {
+            explorer.config.selectPlayer(playerName || 'me');
+            if (explorer.db() != 'player') {
+              explorer.config.data.db('player');
+              explorer.config.toggleOpen();
+            }
+          },
+          explorer.reload
+        ),
+      },
+      'Player'
+    );
+  const active = (nodes: MaybeVNodes) =>
+    h(
+      'span.active.text.' + db,
+      {
+        attrs: dataIcon(''),
+        hook: db == 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
+      },
+      nodes
+    );
+  const playerName = explorer.config.data.playerName.value();
+  return h(
+    'div.explorer-title',
+    db == 'masters'
+      ? [active([h('strong', 'Masters'), ' database']), otherLink('Lichess'), playerLink()]
+      : db == 'lichess'
+      ? [otherLink('Masters'), active([h('strong', 'Lichess'), ' database']), playerLink()]
+      : [
+          otherLink('Masters'),
+          otherLink('Lichess'),
+          active([
+            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+            ' as ',
+            explorer.config.data.color(),
+            explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
+          ]),
+        ]
+  );
+};
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
   if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');
@@ -446,11 +398,10 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
     content = configOpened ? showConfig(ctrl) : explorer.failing() ? showFailing(ctrl) : show(ctrl);
   return h(
-    'section.explorer-box.sub-box',
+    `section.explorer-box.sub-box${configOpened ? '.explorer__config' : ''}`,
     {
       class: {
         loading,
-        explorer__config: configOpened,
         reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2),
       },
       hook: {

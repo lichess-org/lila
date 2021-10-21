@@ -46,8 +46,8 @@ final private class FishnetLimiter(
       case Work.Sender(userId, ip, _, _) =>
         def perUser =
           requesterApi.countTodayAndThisWeek(userId) map { case (daily, weekly) =>
-            if (weekly < maxPerWeek) Analyser.Result.WeeklyLimit
-            else if (daily < (if (weekly < maxPerWeek * 2 / 3) maxPerDay else maxPerDay * 2 / 3))
+            if (weekly >= maxPerWeek) Analyser.Result.WeeklyLimit
+            else if (daily >= (if (weekly < maxPerWeek * 2 / 3) maxPerDay else maxPerDay * 2 / 3))
               Analyser.Result.DailyLimit
             else Analyser.Result.Ok
           }

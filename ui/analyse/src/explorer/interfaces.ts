@@ -45,6 +45,8 @@ export interface OpeningGame {
   year?: string;
   month?: string;
   speed?: Speed;
+  mode?: ExplorerMode;
+  uci?: string;
 }
 
 interface OpeningPlayer {
@@ -83,7 +85,9 @@ export interface OpeningMoveStats extends MoveStats {
   white: number;
   black: number;
   draws: number;
-  averageRating: number;
+  averageRating?: number;
+  averageOpponentRating?: number;
+  game?: OpeningGame;
 }
 export interface TablebaseMoveStats extends MoveStats {
   dtz: number | null;

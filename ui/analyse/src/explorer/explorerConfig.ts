@@ -8,8 +8,9 @@ import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
+import { Color } from 'chessground/types';
+import { opposite } from 'chessground/util';
 
-const allDbs: ExplorerDb[] = ['lichess', 'player'];
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
@@ -29,16 +30,20 @@ export interface ExplorerConfigData {
     value: StoredProp<string>;
     previous: StoredJsonProp<string[]>;
   };
+  color: Prop<Color>;
 }
 
 export class ExplorerConfigCtrl {
   data: ExplorerConfigData;
+  allDbs: ExplorerDb[] = ['lichess', 'player'];
+  myName?: string;
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
-    if (variant === 'standard') allDbs.unshift('masters');
+    this.myName = document.body.dataset['user'];
+    if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
-      db: storedProp('explorer.db.' + variant, allDbs[0]),
+      db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
@@ -49,8 +54,22 @@ export class ExplorerConfigCtrl {
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
+      color: prop('white'),
     };
   }
+
+  selectPlayer = (name?: string) => {
+    name = name == 'me' ? this.myName : name;
+    if (!name) return;
+    if (name != this.myName) {
+      const previous = this.data.playerName.previous().filter(n => n !== name);
+      previous.unshift(name);
+      this.data.playerName.previous(previous.slice(0, 20));
+    }
+    this.data.db('player');
+    this.data.playerName.value(name);
+    this.data.playerName.open(false);
+  };
 
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
@@ -59,9 +78,14 @@ export class ExplorerConfigCtrl {
       else if (c().length > 1) c(c().filter(v => v !== value));
     };
 
+  toggleColor = () => this.data.color(opposite(this.data.color()));
+
   toggleOpen = () => {
     this.data.open(!this.data.open());
-    if (!this.data.open()) this.onClose();
+    if (!this.data.open()) {
+      if (this.data.db() == 'player' && !this.data.playerName.value()) this.data.db('lichess');
+      this.onClose();
+    }
   };
   fullHouse = () =>
     this.data.db() === 'masters' ||
@@ -74,7 +98,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       h('label', ctrl.root.trans.noarg('database')),
       h(
         'div.choices',
-        allDbs.map(s =>
+        ctrl.allDbs.map(s =>
           h(
             'button',
             {
@@ -123,10 +147,11 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             ...dataIcon(''),
             title: ctrl.root.trans('flipBoard'),
           },
-          hook: bind('click', ctrl.root.flip),
+          hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
         },
-        ctrl.root.getOrientation()
+        ctrl.data.color()
       ),
+      h('strong.beta', 'BETA'),
     ]),
     speedSection(ctrl),
     modeSection(ctrl),
@@ -195,15 +220,8 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
-  const myName = document.body.dataset['user'];
   const onSelect = (name: string) => {
-    if (name != myName) {
-      const previous = ctrl.data.playerName.previous().filter(n => n !== name);
-      previous.unshift(name);
-      ctrl.data.playerName.previous(previous.slice(0, 20));
-    }
-    ctrl.data.playerName.value(name);
-    ctrl.data.playerName.open(false);
+    ctrl.selectPlayer(name);
     ctrl.root.redraw();
   };
   return snabModal({
@@ -231,9 +249,9 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(myName ? [myName] : []), ...ctrl.data.playerName.previous()].map(name =>
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.data.playerName.previous()].map(name =>
           h(
-            `button.button${name == myName ? '.button-green' : ''}`,
+            `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {
               hook: bind('click', () => onSelect(name)),
             },

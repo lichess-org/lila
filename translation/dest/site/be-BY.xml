@@ -24,7 +24,7 @@
   <string name="youPlayTheWhitePieces">Вы гуляеце белымі фігурамі</string>
   <string name="youPlayTheBlackPieces">Вы гуляеце чорнымі фігурамі</string>
   <string name="itsYourTurn">Зараз ваш ход!</string>
-  <string name="cheatDetected">Чыт выяўлены</string>
+  <string name="cheatDetected">Несумленная гульня выяўлена</string>
   <string name="kingInTheCenter">Кароль у цэнтры</string>
   <string name="threeChecks">Тры шахі</string>
   <string name="raceFinished">Гонка скончаная</string>
@@ -35,12 +35,12 @@
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чорных</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунду.</item>
-    <item quantity="few">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунды.</item>
-    <item quantity="many">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
-    <item quantity="other">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
+    <item quantity="one">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунду.</item>
+    <item quantity="few">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунды.</item>
+    <item quantity="many">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунд.</item>
+    <item quantity="other">Ваш супернік пакінуў гульню. Вы можаце абвясціць перамогу праз %s секунд.</item>
   </plurals>
-  <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
+  <string name="opponentLeftChoices">Ваш супернік пакінуў гульню. Вы можаце абвясціць сваю перамогу ці нічыю, або пачакаць.</string>
   <string name="forceResignation">Абвясціць перамогу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
@@ -63,7 +63,7 @@
   <string name="goDeeper">Паглыбіць</string>
   <string name="showThreat">Паказваць пагрозы</string>
   <string name="inLocalBrowser">у вашым браўзеры</string>
-  <string name="toggleLocalEvaluation">Уключыць аналіз на камп’ютары</string>
+  <string name="toggleLocalEvaluation">Укл./адкл. лакальны аналіз</string>
   <string name="promoteVariation">Узвысіць прыярытэт</string>
   <string name="makeMainLine">Зрабіць асноўным</string>
   <string name="deleteFromHere">Выдаліць адсюль</string>
@@ -105,7 +105,7 @@
   <string name="replayMode">Рэжым паўтору</string>
   <string name="realtimeReplay">У рэальным часе</string>
   <string name="byCPL">Цікавае</string>
-  <string name="openStudy">Пачаць даследаванне</string>
+  <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць лепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
@@ -175,7 +175,7 @@
   <string name="players">Гульцы</string>
   <string name="friends">Сябры</string>
   <string name="discussions">Размовы</string>
-  <string name="today">Сёння</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Сёння</string>
   <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>
   <string name="variant">Варыянт</string>
@@ -225,7 +225,7 @@
     <item quantity="many">%s задач</item>
     <item quantity="other">%s задач</item>
   </plurals>
-  <string name="gamesPlayed">Усяго гульняў</string>
+  <string name="gamesPlayed">Партый згуляна</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партыя з вамі</item>
     <item quantity="few">%s партыі з вамі</item>
@@ -237,16 +237,16 @@
   <string name="blackTimeOut">Час чорных скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
-  <string name="drawOfferCanceled">Прапанова нічыі скасаваная</string>
+  <string name="drawOfferCanceled">Прапанова нічыі скасавана</string>
   <string name="whiteOffersDraw">Белыя прапануюць нічыю</string>
   <string name="blackOffersDraw">Чорныя прапануюць нічыю</string>
   <string name="whiteDeclinesDraw">Белыя адхіляюць нічыю</string>
   <string name="blackDeclinesDraw">Чорныя адхіляюць нічыю</string>
   <string name="yourOpponentOffersADraw">Супернік прапануе нічыю</string>
-  <string name="accept">Ухваліць</string>
+  <string name="accept">Прыняць</string>
   <string name="decline">Адхіліць</string>
-  <string name="playingRightNow">Бягучая гульня</string>
-  <string name="eventInProgress">Бягучая гульня</string>
+  <string name="playingRightNow">Граецца зараз</string>
+  <string name="eventInProgress">Граецца зараз</string>
   <string name="finished">Скончана</string>
   <string name="finishesX">завяршыцца %s</string>
   <string name="abortGame">Скасаваць гульню</string>
@@ -263,7 +263,7 @@
   <string name="rematchOfferSent">Прапанова рэваншу даслана</string>
   <string name="rematchOfferAccepted">Прапанова рэваншу прынятая</string>
   <string name="rematchOfferCanceled">Прапанова рэваншу скасаваная</string>
-  <string name="rematchOfferDeclined">Прапанова рэваншу адхіленая</string>
+  <string name="rematchOfferDeclined">Прапанова рэваншу адхілена</string>
   <string name="cancelRematchOffer">Скасаваць прапанову рэваншу</string>
   <string name="viewRematch">Праглядзець рэванш</string>
   <string name="confirmMove">Пацвердзіць ход</string>
@@ -491,9 +491,9 @@
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
   <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
-  <string name="startPosition">Пачатковая пазіцыя</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
-  <string name="loadPosition">Загрузіць пазіцыю</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Загрузіць пазіцыю</string>
   <string name="isPrivate">Прыватна</string>
   <string name="reportXToModerators">Паведаміць пра %s мадэратару</string>
   <string name="profileCompletion">Запоўненасць профілю: %s</string>
@@ -504,15 +504,15 @@
   <string name="editProfile">Рэдагаваць профіль</string>
   <string name="firstName">Імя</string>
   <string name="lastName">Прозвішча</string>
-  <string name="biography">Пра сябе</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна і сцяг</string>
+  <string name="biography">Біяграфія</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна або сцяг</string>
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activePlayers">Актыўныя гульцы</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
   <string name="success">Поспех</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s бягучая гульня</item>
@@ -545,7 +545,7 @@
   <string name="user">Карыстальнік</string>
   <string name="reason">Прычына</string>
   <string name="whatIsIheMatter">Што здарылася?</string>
-  <string name="cheat">Чмуцтва</string>
+  <string name="cheat">Несумленная гульня</string>
   <string name="insult">Абраза</string>
   <string name="troll">Троль</string>
   <string name="ratingManipulation">Махінацыі з рэйтынгам</string>
@@ -583,7 +583,7 @@
   <string name="onSlowGames">У павольных гульнях</string>
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
-  <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s прымае ўдзел у турніры %2$s</string>
   <string name="victory">Перамога!</string>
   <string name="defeat">Параза</string>
   <string name="victoryVsYInZ">%1$s супраць %2$s у %3$s</string>
@@ -591,7 +591,7 @@
   <string name="drawVsYInZ">%1$s супраць %2$s у %3$s</string>
   <string name="timeline">Храналогія</string>
   <string name="starting">Пачатак:</string>
-  <string name="allInformationIsPublicAndOptional">Уся гэтая інфармацыя будзе даступна публічна. Вы можаце не пазначаць тут нічога.</string>
+  <string name="allInformationIsPublicAndOptional">Уся інфармацыя з\'яўляецца публічнай і неабавязковай.</string>
   <string name="biographyDescription">Раскажыце пра сябе, вашы інтарэсы, што падабаецца ў шахматах, ўлюбляныя дэбюты, гульцы...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максімум: %s сімвал.</item>
@@ -605,11 +605,11 @@
     <item quantity="many">%s заблакіраваных гульцоў</item>
     <item quantity="other">%s заблакіраваных гульцоў</item>
   </plurals>
-  <string name="listBlockedPlayers">Спіс гульцоў, якіх вы заблакіравалі</string>
+  <string name="listBlockedPlayers">Спіс заблакаваных вамі гульцоў</string>
   <string name="human">Чалавек</string>
   <string name="computer">Камп\'ютар</string>
   <string name="side">Бок</string>
-  <string name="clock">Гадзіньнік</string>
+  <string name="clock">Гадзіннік</string>
   <string name="opponent">Апанэнт</string>
   <string name="learnMenu">Вучыцца</string>
   <string name="studyMenu">Навучанні</string>
@@ -618,7 +618,7 @@
   <string name="tools">Інструменты</string>
   <string name="increment">Прырост</string>
   <string name="error.required">Абавязковае поле</string>
-  <string name="error.email">Гэты адрас электронай пошты немагчымы</string>
+  <string name="error.email">Гэта немагчымы адрас электронай пошты</string>
   <string name="error.email_acceptable">Гэты адрас электроннай пошты непрымальны. Калі ласка, пераправерце і паспрабуйце зноўку.</string>
   <string name="error.email_unique">Адрас электронай пошты немагчымы або ўжо заняты</string>
   <string name="error.email_different">Гэта ўжо ваш адрас электронай пошты</string>
@@ -886,7 +886,7 @@
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
   <string name="unsubscribe">Адпісацца</string>
-  <string name="mentionedYouInX">вас згадалі ў «%1$s».</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">вас згадалі ў «%1$s».</string>
   <string name="xMentionedYouInY">%1$s вас згадаў у «%2$s».</string>
   <string name="invitedYouToX">вас запрасілі ў «%1$s».</string>
   <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>

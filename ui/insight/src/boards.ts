@@ -1,7 +1,6 @@
 import Ctrl from './ctrl';
 import { h } from 'snabbdom';
 import { Game } from './interfaces';
-import { onInsert } from 'common/snabbdom';
 
 function miniGame(game: Game) {
   return h(
@@ -15,7 +14,14 @@ function miniGame(game: Game) {
     [
       h('span.mini-board.is2d', {
         attrs: { 'data-state': `${game.fen},${game.color},${game.lastMove}` },
-        hook: onInsert(el => lichess.miniBoard.init(el)),
+        hook: {
+          insert(vnode) {
+            lichess.miniBoard.init(vnode.elm as HTMLElement);
+          },
+          update(vnode) {
+            lichess.miniBoard.init(vnode.elm as HTMLElement);
+          },
+        },
       }),
       h('span.vstext', [
         h('span.vstext__pl', [

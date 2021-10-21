@@ -52,19 +52,21 @@ export default class ExplorerCtrl {
     this.enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
     this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
-    this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.onConfigClose);
+    this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload);
     window.addEventListener('hashchange', this.checkHash, false);
     this.checkHash();
   }
 
   checkHash = (e?: HashChangeEvent) => {
-    if ((location.hash === '#explorer' || location.hash === '#opening') && !this.root.embed) {
+    const m = location.hash.match(/#(?:explorer|opening)(?:\/([a-z0-9_-]{2,30}))?/i);
+    if (m && !this.root.embed) {
       this.enabled(true);
+      if (m[1]) this.config.selectPlayer(m[1]);
       if (e) this.root.redraw();
     }
   };
 
-  onConfigClose = () => {
+  reload = () => {
     this.cache = {};
     this.setNode();
     this.root.redraw();
@@ -73,7 +75,6 @@ export default class ExplorerCtrl {
   private baseXhrOpening = () => ({
     endpoint: this.opts.endpoint,
     endpoint3: this.opts.endpoint3,
-    color: this.root.getOrientation(),
     config: this.config.data,
   });
 
@@ -137,7 +138,7 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply > 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
+    if (node.ply >= 50 && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
       this.cache[node.fen] = this.empty;
     }
     const cached = this.cache[node.fen];

@@ -8,7 +8,6 @@ interface OpeningXhrOpts {
   endpoint: string;
   endpoint3: string;
   db: ExplorerDb;
-  color: Color;
   rootFen: Fen;
   play: string[];
   fen: Fen;
@@ -27,8 +26,8 @@ export async function opening(
   const params = url.searchParams;
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
+  if (opts.db !== 'masters') params.set('variant', opts.variant || 'standard');
   if (opts.db === 'lichess') {
-    params.set('variant', opts.variant || 'standard');
     conf
       .speed()
       .filter(s => s != 'ultraBullet' && s != 'correspondence')
@@ -36,9 +35,10 @@ export async function opening(
     for (const rating of conf.rating()) params.append('ratings[]', rating.toString());
   }
   if (opts.db === 'player') {
-    params.set('player', conf.playerName.value());
-    params.set('color', opts.color);
-    params.set('update', 'true');
+    const playerName = conf.playerName.value();
+    if (!playerName) return explorerError('Missing player name');
+    params.set('player', playerName);
+    params.set('color', conf.color());
     params.set('speeds', conf.speed().join(','));
     params.set('modes', conf.mode().join(','));
     if (conf.since()) params.set('since', conf.since());
@@ -63,11 +63,13 @@ export async function opening(
 
   if (res.ok) return readNdJson(onMessage)(res);
 
-  return {
-    cancel() {},
-    end: sync(Promise.resolve(new Error(`Explorer error: ${res.status}`))),
-  };
+  return explorerError(`Explorer error: ${res.status}`);
 }
+
+const explorerError = (msg: string) => ({
+  cancel() {},
+  end: sync(Promise.resolve(new Error(msg))),
+});
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
   const effectiveVariant = variant === 'fromPosition' || variant === 'chess960' ? 'standard' : variant;
