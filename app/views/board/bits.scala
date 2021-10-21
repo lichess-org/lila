@@ -42,10 +42,11 @@ object bits {
       )
       .add("fen" -> fen)
 
-  val explorerEndpoints = Json.obj(
+  def explorerConfig(implicit ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
     "endpoint3"         -> explorer3Endpoint,
-    "tablebaseEndpoint" -> tablebaseEndpoint
+    "tablebaseEndpoint" -> tablebaseEndpoint,
+    "showRatings"       -> ctx.pref.showRatings
   )
 
   private val i18nKeyes = List(

@@ -98,7 +98,7 @@ object replay {
               "i18n"     -> jsI18n(),
               "userId"   -> ctx.userId,
               "chat"     -> chatJson,
-              "explorer" -> views.html.board.bits.explorerEndpoints
+              "explorer" -> views.html.board.bits.explorerConfig
             )
             .add("hunter" -> isGranted(_.Hunter))
         )})""")

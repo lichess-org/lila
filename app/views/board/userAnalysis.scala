@@ -30,7 +30,7 @@ object userAnalysis {
           Json.obj(
             "data"     -> data,
             "i18n"     -> userAnalysisI18n(withForecast = withForecast),
-            "explorer" -> bits.explorerEndpoints,
+            "explorer" -> bits.explorerConfig,
             "wiki"     -> pov.game.variant.standard
           )
         )}""")

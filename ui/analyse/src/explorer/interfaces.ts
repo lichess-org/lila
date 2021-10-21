@@ -16,6 +16,7 @@ export interface ExplorerOpts {
   endpoint: string;
   endpoint3: string;
   tablebaseEndpoint: string;
+  showRatings: boolean;
 }
 
 export interface ExplorerData {

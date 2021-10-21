@@ -26,7 +26,7 @@ object show {
             "study"    -> data.study,
             "data"     -> data.analysis,
             "i18n"     -> board.userAnalysisI18n(),
-            "explorer" -> views.html.board.bits.explorerEndpoints
+            "explorer" -> views.html.board.bits.explorerConfig
           )
         )}""")
       ),

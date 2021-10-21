@@ -43,7 +43,7 @@ object show {
                 localMod = ctx.userId exists s.canContribute
               )
             },
-            "explorer"      -> views.html.board.bits.explorerEndpoints,
+            "explorer"      -> views.html.board.bits.explorerConfig,
             "socketUrl"     -> socketUrl(s.id.value),
             "socketVersion" -> socketVersion.value
           )

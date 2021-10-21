@@ -76,6 +76,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
 
 function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
+  if (!ctrl.explorer.opts.showRatings) return '';
   if (move.game) {
     const g = move.game;
     const result = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
@@ -122,10 +123,12 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                 attrs: { 'data-id': game.id, 'data-uci': game.uci || '' },
               },
               [
-                h(
-                  'td',
-                  [game.white, game.black].map(p => h('span', '' + p.rating))
-                ),
+                ctrl.explorer.opts.showRatings
+                  ? h(
+                      'td',
+                      [game.white, game.black].map(p => h('span', '' + p.rating))
+                    )
+                  : null,
                 h(
                   'td',
                   [game.white, game.black].map(p => h('span', p.name))
