@@ -68,7 +68,7 @@
       padding-left: 1em;
       text-transform: none;
       margin-right: 0.5em;
-      &:hover {
+      &.active:hover {
         background: mix($c-secondary, white, 80);
       }
     }
