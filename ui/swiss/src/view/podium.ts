@@ -3,16 +3,16 @@ import SwissCtrl from '../ctrl';
 import { PodiumPlayer } from '../interfaces';
 import { userName } from './util';
 
-function podiumStats(p: PodiumPlayer, trans: Trans): VNode {
-  const noarg = trans.noarg;
-  return h('table.stats', [
+const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
+  h('table.stats', [
     h('tr', [h('th', 'Points'), h('td', '' + p.points)]),
     h('tr', [h('th', 'Tie Break'), h('td', '' + p.tieBreak)]),
-    p.performance ? h('tr', [h('th', noarg('performance')), h('td', '' + p.performance)]) : null,
+    p.performance && ctrl.opts.showRatings
+      ? h('tr', [h('th', ctrl.trans.noarg('performance')), h('td', '' + p.performance)])
+      : null,
   ]);
-}
 
-function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | undefined {
+function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | undefined {
   return p
     ? h(
         'div.' + pos,
@@ -30,7 +30,7 @@ function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | und
             },
             userName(p.user)
           ),
-          podiumStats(p, trans),
+          podiumStats(p, ctrl),
         ]
       )
     : undefined;
@@ -39,8 +39,8 @@ function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | und
 export default function podium(ctrl: SwissCtrl) {
   const p = ctrl.data.podium || [];
   return h('div.podium', [
-    podiumPosition(p[1], 'second', ctrl.trans),
-    podiumPosition(p[0], 'first', ctrl.trans),
-    podiumPosition(p[2], 'third', ctrl.trans),
+    podiumPosition(p[1], 'second', ctrl),
+    podiumPosition(p[0], 'first', ctrl),
+    podiumPosition(p[2], 'third', ctrl),
   ]);
 }

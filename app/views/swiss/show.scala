@@ -47,7 +47,8 @@ object show {
                   resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
                   localMod = isLocalMod
                 )
-              }
+              },
+              "showRatings" -> ctx.pref.showRatings
             )
             .add("schedule" -> hasScheduleInput)
         )})""")
