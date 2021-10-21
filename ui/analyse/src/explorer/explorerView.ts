@@ -55,8 +55,9 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
       movesWithCurrent.map(move =>
         h(
-          `tr.expl-uci-${move.uci}`,
+          `tr${move.uci ? '' : '.sum'}`,
           {
+            key: move.uci,
             attrs: {
               'data-uci': move.uci,
               title: moveTooltip(ctrl, move),
@@ -93,9 +94,10 @@ function showResult(winner?: Color): VNode {
 
 function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
-  const openedId = ctrl.explorer.gameMenu();
+  const openedId = ctrl.explorer.gameMenu(),
+    isMasters = ctrl.explorer.db() == 'masters';
   return h('table.games', [
-    h('thead', [h('tr', [h('th.title', { attrs: { colspan: 5 } }, title)])]),
+    h('thead', [h('tr', [h('th.title', { attrs: { colspan: isMasters ? 4 : 5 } }, title)])]),
     h(
       'tbody',
       moveArrowAttributes(ctrl, {
@@ -130,16 +132,18 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                 ),
                 h('td', showResult(game.winner)),
                 h('td', game.year || game.month),
-                h(
-                  'td',
-                  game.speed &&
-                    h('i', {
-                      attrs: {
-                        title: ucfirst(game.speed),
-                        ...dataIcon(perf.icons[game.speed]),
-                      },
-                    })
-                ),
+                isMasters
+                  ? undefined
+                  : h(
+                      'td',
+                      game.speed &&
+                        h('i', {
+                          attrs: {
+                            title: ucfirst(game.speed),
+                            ...dataIcon(perf.icons[game.speed]),
+                          },
+                        })
+                    ),
               ]
             );
       })
@@ -170,7 +174,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
       h(
         'td.game_menu',
         {
-          attrs: { colspan: 5 },
+          attrs: { colspan: ctrl.explorer.db() == 'masters' ? 4 : 5 },
         },
         [
           h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
@@ -262,6 +266,9 @@ const openingTitle = (ctrl: AnalyseCtrl, data?: OpeningData) => {
 };
 
 let lastShow: MaybeVNode;
+export const clearLastShow = () => {
+  lastShow = undefined;
+};
 
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const trans = ctrl.trans.noarg,
@@ -311,8 +318,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
   const db = explorer.db();
   const otherLink = (name: string) =>
     h(
-      'button.button-link.' + name,
+      'button.button-link',
       {
+        key: name,
         hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
       },
       name
@@ -321,6 +329,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     h(
       'button.button-link.player',
       {
+        key: 'player',
         hook: bind(
           'click',
           () => {

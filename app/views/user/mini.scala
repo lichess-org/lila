@@ -39,7 +39,9 @@ object mini {
         if (u.lame && !ctx.me.has(u) && !isGranted(_.UserModView))
           div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
         else
-          div(cls := "upt__info__ratings")(u.best8Perfs map { showPerfRating(u, _) })
+          ctx.pref.showRatings option div(cls := "upt__info__ratings")(u.best8Perfs map {
+            showPerfRating(u, _)
+          })
       ),
       ctx.userId map { myId =>
         frag(

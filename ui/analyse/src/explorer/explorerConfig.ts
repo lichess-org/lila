@@ -10,6 +10,7 @@ import { iconTag } from '../util';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
+import { Redraw } from '../interfaces';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -19,6 +20,7 @@ type Month = string;
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
+  advanced: StoredJsonProp<boolean>;
   db: StoredProp<ExplorerDb>;
   rating: StoredJsonProp<number[]>;
   speed: StoredJsonProp<ExplorerSpeed[]>;
@@ -43,6 +45,7 @@ export class ExplorerConfigCtrl {
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
+      advanced: storedJsonProp('explorer.advanced', () => false),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
@@ -87,6 +90,7 @@ export class ExplorerConfigCtrl {
       this.onClose();
     }
   };
+
   fullHouse = () =>
     this.data.db() === 'masters' ||
     (this.data.rating().length === allRatings.length && this.data.speed().length === allSpeeds.length);
@@ -127,35 +131,46 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   ];
 }
 
+const selectText = 'Select a Lichess player';
+
 const playerDb = (ctrl: ExplorerConfigCtrl) => {
   const name = ctrl.data.playerName.value();
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
       h(
-        'button.button.player-name',
-        {
-          hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
-        },
-        name || 'Select a Lichess player'
+        'div.choices',
+        h(
+          `button.player-name${name ? '.active' : ''}`,
+          {
+            hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
+            attrs: name ? { title: selectText } : undefined,
+          },
+          name || selectText
+        )
       ),
       ' as ',
       h(
         'button.button-link.text.color',
         {
-          attrs: {
-            ...dataIcon(''),
-            title: ctrl.root.trans('flipBoard'),
-          },
+          attrs: dataIcon(''),
           hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
         },
         ctrl.data.color()
       ),
       h('strong.beta', 'BETA'),
     ]),
-    speedSection(ctrl),
-    modeSection(ctrl),
-    monthSection(ctrl),
+    speedSection(ctrl, allSpeeds),
+    h('div.advanced', [
+      h(
+        'button.button-link.toggle',
+        {
+          hook: bind('click', () => ctrl.data.advanced(!ctrl.data.advanced()), ctrl.root.redraw),
+        },
+        ['Advanced settings ', iconTag(ctrl.data.advanced() ? '' : '')]
+      ),
+      ...(ctrl.data.advanced() ? [modeSection(ctrl), monthSection(ctrl)] : []),
+    ]),
   ]);
 };
 
@@ -179,44 +194,60 @@ const radioButton =
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
+    h('p.message', [h('br'), 'Games from all Lichess players']),
+    speedSection(
+      ctrl,
+      allSpeeds.filter(s => s != 'ultraBullet' && s != 'correspondence')
+    ),
     h('section.rating', [
       h('label', ctrl.root.trans.noarg('averageElo')),
       h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
     ]),
-    speedSection(ctrl),
   ]);
 
-const speedSection = (ctrl: ExplorerConfigCtrl) =>
+const speedSection = (ctrl: ExplorerConfigCtrl, speeds: Speed[]) =>
   h('section.speed', [
     h('label', ctrl.root.trans.noarg('timeControl')),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
+    h('div.choices', speeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.mode', [
-    h('label', ctrl.root.trans.noarg('mode')),
-    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
-  ]);
+  h('section.mode', [h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode)))]);
 
-const monthInput = (prop: StoredProp<Month>) =>
-  h('input', {
+const monthInput = (prop: StoredProp<Month>, min: () => Month, redraw: Redraw) => {
+  const validateRange = (input: HTMLInputElement) =>
+    input.setCustomValidity(!input.value || min() <= input.value ? '' : 'Invalid date range');
+  return h('input', {
     attrs: {
       type: 'month',
       pattern: '^20[12][0-9]-(0[1-9]|1[012])$',
       min: '2010-01',
-      max: '2030-01',
+      max: new Date().toISOString().slice(0, 7),
       value: prop() || '',
     },
-    hook: bind('change', e => {
-      const input = e.target as HTMLInputElement;
-      if (input.checkValidity()) prop(input.value);
-    }),
+    hook: {
+      insert: vnode => {
+        const input = vnode.elm as HTMLInputElement;
+        validateRange(input);
+        input.addEventListener('change', e => {
+          const input = e.target as HTMLInputElement;
+          input.setCustomValidity('');
+          if (input.checkValidity()) {
+            validateRange(input);
+            prop(input.value);
+            redraw();
+          }
+        });
+      },
+      update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
+    },
   });
+};
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.month', [
-    h('label', ['Since', monthInput(ctrl.data.since)]),
-    h('label', ['Until', monthInput(ctrl.data.until)]),
+    h('label', ['Since', monthInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
+    h('label', ['Until', monthInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {

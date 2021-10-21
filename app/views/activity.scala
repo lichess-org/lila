@@ -362,8 +362,8 @@ object activity {
       )}</score>"""
     }
 
-  private def ratingProgFrag(r: RatingProg) =
-    ratingTag(r.after.value, ratingProgress(r.diff))
+  private def ratingProgFrag(r: RatingProg)(implicit ctx: Context) =
+    ctx.pref.showRatings option ratingTag(r.after.value, ratingProgress(r.diff))
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""

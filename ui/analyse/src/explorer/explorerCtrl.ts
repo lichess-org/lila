@@ -10,6 +10,7 @@ import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerData, ExplorerDb, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { CancellableStream } from 'common/ndjson';
 import { ExplorerConfigCtrl } from './explorerConfig';
+import { clearLastShow } from './explorerView';
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -71,6 +72,8 @@ export default class ExplorerCtrl {
     this.setNode();
     this.root.redraw();
   };
+
+  destroy = clearLastShow;
 
   private baseXhrOpening = () => ({
     endpoint: this.opts.endpoint,

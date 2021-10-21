@@ -14,7 +14,10 @@ object bits {
   def communityMenu(active: String)(implicit ctx: Context) =
     st.nav(cls := "page-menu__menu subnav")(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
-      a(cls := active.active("ratings"), href := routes.Stat.ratingDistribution("blitz"))(
+      a(
+        cls := active.active("ratings"),
+        href := routes.User.ratingDistribution("blitz")
+      )(
         trans.ratingStats()
       ),
       a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(

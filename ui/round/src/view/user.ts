@@ -3,9 +3,7 @@ import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
 
-export function aiName(ctrl: RoundController, level: number) {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
-}
+export const aiName = (ctrl: RoundController, level: number) => ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position) {
   const d = ctrl.data,

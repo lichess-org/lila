@@ -8,6 +8,7 @@
   @include transition;
 
   transition-delay: 0.3s;
+  overflow-x: hidden;
   overflow-y: auto;
   font-size: 0.9em;
 
@@ -129,7 +130,7 @@
       padding-right: 7px;
     }
 
-    tbody tr.expl-uci- {
+    tbody tr.sum {
       /* sum row */
       background: mix($c-primary, $c-bg-box, 25%);
       font-weight: bold;
@@ -199,25 +200,28 @@
 
   .games {
     width: 100%;
-  }
 
-  .games td {
-    padding: 5px 0 5px 7px;
-    max-width: 110px;
-  }
+    td {
+      padding: 5px 0 5px 7px;
+      max-width: 110px;
+      &:nth-child(2) {
+        max-width: none;
+      }
 
-  .games td span {
-    @extend %ellipsis;
+      span {
+        @extend %ellipsis;
 
-    display: block;
-  }
+        display: block;
+      }
+    }
 
-  .games result {
-    display: block;
-    text-align: center;
-    padding: 3px 5px;
-    border-radius: 3px;
-    font-size: 0.9em;
+    result {
+      display: block;
+      text-align: center;
+      padding: 3px 5px;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
   }
 
   .game_menu {

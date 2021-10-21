@@ -62,7 +62,7 @@ object bots {
             .map { bio =>
               td(shorten(bio, 400))
             } | td,
-          td(cls := "rating")(u.best3Perfs.map {
+          ctx.pref.showRatings option td(cls := "rating")(u.best3Perfs.map {
             showPerfRating(u, _)
           }),
           u.playTime.fold(td) { playTime =>

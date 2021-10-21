@@ -12,31 +12,31 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
   implicit private val profileWrites  = Json.writes[Profile]
   implicit private val playTimeWrites = Json.writes[PlayTime]
 
-  def full(u: User, onlyPerf: Option[PerfType] = None, withOnline: Boolean): JsObject =
+  def full(u: User, onlyPerf: Option[PerfType] = None, withOnline: Boolean, withRating: Boolean): JsObject =
     if (u.disabled) disabled(u)
     else
-      base(u, onlyPerf) ++ Json
+      base(u, onlyPerf, withRating = withRating) ++ Json
         .obj("createdAt" -> u.createdAt)
         .add("online" -> withOnline.option(isOnline(u.id)))
         .add("profile" -> u.profile.map(p => profileWrites.writes(p.filterTroll(u.marks.troll)).noNull))
         .add("seenAt" -> u.seenAt)
         .add("playTime" -> u.playTime)
 
-  def roundPlayer(u: User, onlyPerf: Option[PerfType]) =
+  def roundPlayer(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     if (u.disabled) disabled(u)
     else
-      base(u, onlyPerf) ++ Json
+      base(u, onlyPerf, withRating = withRating) ++ Json
         .obj("online" -> isOnline(u.id))
         .add("profile" -> u.profile.flatMap(_.country).map { country =>
           Json.obj("country" -> country)
         })
 
-  private def base(u: User, onlyPerf: Option[PerfType]) =
+  private def base(u: User, onlyPerf: Option[PerfType], withRating: Boolean) =
     Json
       .obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "perfs"    -> perfs(u, onlyPerf)
+        "perfs"    -> (withRating ?? perfs(u, onlyPerf))
       )
       .add("title" -> u.title)
       .add("tosViolation" -> u.lame)

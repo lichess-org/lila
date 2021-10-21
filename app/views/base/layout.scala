@@ -263,7 +263,8 @@ object layout {
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> ctx.isMobileBrowser,
-              "playing fixed-scroll" -> playing
+              "playing fixed-scroll" -> playing,
+              "no-rating"            -> !ctx.pref.showRatings
             )
           },
           dataDev,

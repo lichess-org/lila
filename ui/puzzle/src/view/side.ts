@@ -35,15 +35,17 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
                 )
               )
             ),
-        h(
-          'p',
-          ctrl.trans.vdom(
-            'ratingX',
-            !ctrl.streak && ctrl.vm.mode === 'play'
-              ? h('span.hidden', ctrl.trans.noarg('hidden'))
-              : h('strong', puzzle.rating)
-          )
-        ),
+        ctrl.showRatings
+          ? h(
+              'p',
+              ctrl.trans.vdom(
+                'ratingX',
+                !ctrl.streak && ctrl.vm.mode === 'play'
+                  ? h('span.hidden', ctrl.trans.noarg('hidden'))
+                  : h('strong', puzzle.rating)
+              )
+            )
+          : null,
         h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays)))),
       ]),
     ]
@@ -52,48 +54,43 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
-  return h(
-    'div.infos',
-    {
-      attrs: dataIcon(game.perf.icon),
-    },
-    [
-      h('div', [
-        h(
-          'p',
-          ctrl.trans.vdom(
-            'fromGameLink',
-            ctrl.vm.mode == 'play'
-              ? h('span', gameName)
-              : h(
-                  'a',
+  return h('div.infos', { attrs: dataIcon(game.perf.icon) }, [
+    h('div', [
+      h(
+        'p',
+        ctrl.trans.vdom(
+          'fromGameLink',
+          ctrl.vm.mode == 'play'
+            ? h('span', gameName)
+            : h(
+                'a',
+                {
+                  attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` },
+                },
+                gameName
+              )
+        )
+      ),
+      h(
+        'div.players',
+        game.players.map(p => {
+          const name = ctrl.showRatings ? p.name : p.name.split(' ')[0];
+          return h(
+            'div.player.color-icon.is.text.' + p.color,
+            p.userId != 'anon'
+              ? h(
+                  'a.user-link.ulpt',
                   {
-                    attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` },
+                    attrs: { href: '/@/' + p.userId },
                   },
-                  gameName
+                  p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + name] : name
                 )
-          )
-        ),
-        h(
-          'div.players',
-          game.players.map(p =>
-            h(
-              'div.player.color-icon.is.text.' + p.color,
-              p.userId != 'anon'
-                ? h(
-                    'a.user-link.ulpt',
-                    {
-                      attrs: { href: '/@/' + p.userId },
-                    },
-                    p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + p.name] : p.name
-                  )
-                : p.name
-            )
-          )
-        ),
-      ]),
-    ]
-  );
+              : name
+          );
+        })
+      ),
+    ]),
+  ]);
 }
 
 const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
@@ -150,11 +147,13 @@ export const userBox = (ctrl: Controller): VNode => {
     h(
       'div.puzzle__side__user__rating',
       ctrl.rated()
-        ? h('strong', [
-            data.user.rating - (diff || 0),
-            ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
-            ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
-          ])
+        ? ctrl.showRatings
+          ? h('strong', [
+              data.user.rating - (diff || 0),
+              ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+              ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
+            ])
+          : null
         : h('p.puzzle__side__user__rating__casual', noarg('yourPuzzleRatingWillNotChange'))
     ),
   ]);

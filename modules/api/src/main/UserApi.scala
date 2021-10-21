@@ -21,7 +21,7 @@ final private[api] class UserApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def one(u: User, withOnline: Boolean): JsObject =
-    addStreaming(jsonView.full(u, withOnline = withOnline), u.id) ++
+    addStreaming(jsonView.full(u, withOnline = withOnline, withRating = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(username: String, as: Option[User], withFollows: Boolean): Fu[Option[JsObject]] =
@@ -53,7 +53,7 @@ final private[api] class UserApi(
             case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),completionRate)=>
             // format: on
-          jsonView.full(u, withOnline = true) ++ {
+          jsonView.full(u, withOnline = true, withRating = true) ++ {
             Json
               .obj(
                 "url"            -> makeUrl(s"@/${u.username}"), // for app BC

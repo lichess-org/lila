@@ -161,7 +161,7 @@ object pref {
               radios(form("behavior.scrollMoves"), booleanChoices)
             )
           ),
-          categFieldset(PrefCateg.Privacy, categ)(
+          categFieldset(PrefCateg.Site, categ)(
             setting(
               trans.letOtherPlayersFollowYou(),
               radios(form("follow"), booleanChoices)
@@ -185,6 +185,15 @@ object pref {
             setting(
               trans.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices)
+            ),
+            setting(
+              showPlayerRatings(),
+              frag(
+                radios(form("ratings"), booleanChoices),
+                div(cls := "help text shy", dataIcon := "")(
+                  "This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see."
+                )
+              )
             )
           ),
           p(cls := "saved text none", dataIcon := "")(yourPreferencesHaveBeenSaved())

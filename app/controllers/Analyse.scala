@@ -52,7 +52,7 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = false)
+              PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
             ) flatMap {
               case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
                 env.api.roundApi.review(
@@ -67,7 +67,8 @@ final class Analyse(
                     movetimes = true,
                     clocks = true,
                     division = true,
-                    opening = true
+                    opening = true,
+                    rating = ctx.pref.showRatings
                   )
                 ) map { data =>
                   EnableSharedArrayBuffer(

@@ -129,7 +129,7 @@ final private class ChapterMaker(
   ): Fu[Chapter] =
     for {
       root <- game2root(game, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
+      tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRating = true)
       name <- {
         if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
