@@ -55,8 +55,9 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       moveArrowAttributes(ctrl, { fen: data.fen, onClick: (_, uci) => uci && ctrl.explorerMove(uci) }),
       movesWithCurrent.map(move =>
         h(
-          `tr.expl-uci-${move.uci}`,
+          `tr${move.uci ? '' : '.sum'}`,
           {
+            key: move.uci,
             attrs: {
               'data-uci': move.uci,
               title: moveTooltip(ctrl, move),
