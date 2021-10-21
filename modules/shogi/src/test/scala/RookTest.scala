@@ -9,11 +9,45 @@ class RookTest extends ShogiTest {
     val rook = Sente - Rook
 
     "move to any position along the same rank or file" in {
-      pieceMoves(rook, E5) must bePoss(E6, E7, E8, E9, E4, E3, E2, E1, F5, G5, H5, I5, D5, C5, B5, A5)
+      pieceMoves(rook, SQ5E) must bePoss(
+        SQ5D,
+        SQ5C,
+        SQ5B,
+        SQ5A,
+        SQ5F,
+        SQ5G,
+        SQ5H,
+        SQ5I,
+        SQ4E,
+        SQ3E,
+        SQ2E,
+        SQ1E,
+        SQ6E,
+        SQ7E,
+        SQ8E,
+        SQ9E
+      )
     }
 
     "move to any position along the same rank or file, even when at the edges" in {
-      pieceMoves(rook, I9) must bePoss(I8, I7, I6, I5, I4, I3, I2, I1, H9, G9, F9, E9, D9, C9, B9, A9)
+      pieceMoves(rook, SQ1A) must bePoss(
+        SQ1B,
+        SQ1C,
+        SQ1D,
+        SQ1E,
+        SQ1F,
+        SQ1G,
+        SQ1H,
+        SQ1I,
+        SQ2A,
+        SQ3A,
+        SQ4A,
+        SQ5A,
+        SQ6A,
+        SQ7A,
+        SQ8A,
+        SQ9A
+      )
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -27,7 +61,7 @@ N R    P
 PPPPPPPPP
 
     K
-""" destsFrom C5 must bePoss(C4, C6, C7, C7, C8, C8, B5, D5, E5, F5, G5)
+""" destsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7C, SQ7B, SQ7B, SQ8E, SQ6E, SQ5E, SQ4E, SQ3E)
     }
 
     "capture opponent pieces" in {
@@ -41,7 +75,7 @@ n R   p
 PPPPPPPPP
 
     K
-""" destsFrom C5 must bePoss(C4, C6, C7, C7, C8, C8, B5, A5, D5, E5, F5, G5)
+""" destsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7C, SQ7B, SQ7B, SQ8E, SQ9E, SQ6E, SQ5E, SQ4E, SQ3E)
     }
     "threaten" in {
       val board = """
@@ -56,22 +90,22 @@ PPPPPPPPP
     K
 """
       "a reachable enemy to the left" in {
-        board actorAt C5 map (_ threatens A5) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ9E) must beSome(true)
       }
       "a reachable enemy to the top" in {
-        board actorAt C5 map (_ threatens C8) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ7B) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens A7) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ9C) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C5 map (_ threatens H5) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ2E) must beSome(true)
       }
       "nothing left" in {
-        board actorAt C5 map (_ threatens B5) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8E) must beSome(true)
       }
       "nothing up" in {
-        board actorAt C5 map (_ threatens C6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)
       }
     }
   }

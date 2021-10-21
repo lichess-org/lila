@@ -19,13 +19,13 @@ class UciDumpPerfTest extends ShogiTest {
       // runOne must beValid
       if (nb * iterations > 1) {
         println("warming up")
-        runOne()
-        run()
+        runOne
+        run
       }
       println("running tests")
       val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis
-        run()
+        run
         val duration = System.currentTimeMillis - start
         println(s"$nb games in $duration ms")
         duration

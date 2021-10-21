@@ -9,11 +9,11 @@ class SilverTest extends ShogiTest {
     val silver = Sente - Silver
 
     "move in 6 directions" in {
-      pieceMoves(silver, E5) must bePoss(E6, F6, F4, D4, D6)
+      pieceMoves(silver, SQ5E) must bePoss(SQ5D, SQ4D, SQ4F, SQ6F, SQ6D)
     }
 
     "move in 2 directions, when at the edges" in {
-      pieceMoves(silver, I9) must bePoss(H8)
+      pieceMoves(silver, SQ1A) must bePoss(SQ2B)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -28,7 +28,7 @@ PPPPPPPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -56,7 +56,7 @@ PPPPPPPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -84,22 +84,22 @@ PPP PPPPP
     K
 """
       "a reachable enemy" in {
-        board actorAt C5 map (_ threatens C6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens A7) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ9C) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C5 map (_ threatens D4) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ6F) must beSome(true)
       }
       "nothing down left" in {
-        board actorAt C5 map (_ threatens B4) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8F) must beSome(true)
       }
       "nothing left up" in {
-        board actorAt C5 map (_ threatens B6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
       }
       "nothing right up" in {
-        board actorAt C5 map (_ threatens D6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ6D) must beSome(true)
       }
     }
   }

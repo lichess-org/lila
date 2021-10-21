@@ -8,22 +8,22 @@ class PawnTest extends ShogiTest {
 
     "move towards rank by 1 square" in {
       makeBoard(
-        A4 -> Sente.pawn
-      ) destsFrom A4 must bePoss(A5)
+        SQ9F -> Sente.pawn
+      ) destsFrom SQ9F must bePoss(SQ9E)
     }
 
     "not move to positions that are occupied by the same color" in {
       makeBoard(
-        A4 -> Sente.pawn,
-        A5 -> Sente.pawn
-      ) destsFrom A4 must bePoss()
+        SQ9F -> Sente.pawn,
+        SQ9E -> Sente.pawn
+      ) destsFrom SQ9F must bePoss()
     }
 
     "capture forward" in {
       makeBoard(
-        D4 -> Sente.pawn,
-        D5 -> Gote.pawn
-      ) destsFrom D4 must bePoss(D5)
+        SQ6F -> Sente.pawn,
+        SQ6E -> Gote.pawn
+      ) destsFrom SQ6F must bePoss(SQ6E)
     }
   }
 
@@ -31,22 +31,22 @@ class PawnTest extends ShogiTest {
 
     "move towards rank by 1 square" in {
       makeBoard(
-        A5 -> Gote.pawn
-      ) destsFrom A5 must bePoss(A4)
+        SQ9E -> Gote.pawn
+      ) destsFrom SQ9E must bePoss(SQ9F)
     }
 
     "not move to positions that are occupied by the same color" in {
       makeBoard(
-        A4 -> Gote.pawn,
-        A3 -> Gote.pawn
-      ) destsFrom A4 must bePoss()
+        SQ9F -> Gote.pawn,
+        SQ9G -> Gote.pawn
+      ) destsFrom SQ9F must bePoss()
     }
 
     "capture forward" in {
       makeBoard(
-        D5 -> Gote.pawn,
-        D4 -> Sente.pawn
-      ) destsFrom D5 must bePoss(D4)
+        SQ6E -> Gote.pawn,
+        SQ6F -> Sente.pawn
+      ) destsFrom SQ6E must bePoss(SQ6F)
     }
   }
 }

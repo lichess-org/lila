@@ -6,30 +6,30 @@ class PerpetualCheckTest extends ShogiTest {
 
   "Perpetual check" should {
     val g = makeGame.playMoves(
-      E3 -> E4,
-      E7 -> E6,
-      H2 -> E2,
-      E9 -> E8,
-      E4 -> E5,
-      E8 -> E7,
-      E2 -> E4,
-      E7 -> D6
+      SQ5G -> SQ5F,
+      SQ5C -> SQ5D,
+      SQ2H -> SQ5H,
+      SQ5A -> SQ5B,
+      SQ5F -> SQ5E,
+      SQ5B -> SQ5C,
+      SQ5H -> SQ5F,
+      SQ5C -> SQ6D
     )
     //             1st                                     2nd                                      3rd
     val m = List(
-      E4 -> D4,
-      D6 -> C6,
-      D4 -> C4,
-      C6 -> D6,
-      C4 -> D4,
-      D6 -> C6,
-      D4 -> C4,
-      C6 -> D6,
-      C4 -> D4,
-      D6 -> C6,
-      D4 -> C4,
-      C6 -> D6,
-      C4 -> D4
+      SQ5F -> SQ6F,
+      SQ6D -> SQ7D,
+      SQ6F -> SQ7F,
+      SQ7D -> SQ6D,
+      SQ7F -> SQ6F,
+      SQ6D -> SQ7D,
+      SQ6F -> SQ7F,
+      SQ7D -> SQ6D,
+      SQ7F -> SQ6F,
+      SQ6D -> SQ7D,
+      SQ6F -> SQ7F,
+      SQ7D -> SQ6D,
+      SQ7F -> SQ6F
     )
     "not trigger" in {
       "after 2 repetitions" in {

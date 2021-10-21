@@ -27,7 +27,7 @@ class ClockTest extends ShogiTest {
       game.clock map { _.color } must_== Option(Sente)
     }
     "one move played" in {
-      game.playMoves(C3 -> C4) must beValid.like { case g: Game =>
+      game.playMoves(SQ7G -> SQ7F) must beValid.like { case g: Game =>
         g.clock map { _.color } must_== Option(Gote)
       }
     }

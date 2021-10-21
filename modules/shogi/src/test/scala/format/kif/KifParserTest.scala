@@ -16,14 +16,14 @@ class KifParserTest extends ShogiTest {
   "drop" in {
     parseMove("６四歩打") must beValid.like { case d: Drop =>
       d.role must_== Pawn
-      d.pos must_== Pos.D6
+      d.pos must_== Pos.SQ6D
     }
   }
 
   "move" in {
     parseMove("７七金(78)") must beValid.like { case a: KifStd =>
-      a.dest === Pos.C3
-      a.orig === Pos.C2
+      a.dest === Pos.SQ7G
+      a.orig === Pos.SQ7H
       a.role === Gold
       a.promotion === false
     }
@@ -33,8 +33,8 @@ class KifParserTest extends ShogiTest {
     "move" in {
       parser("☗７七金(78)") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case a: KifStd =>
-          a.dest === Pos.C3
-          a.orig === Pos.C2
+          a.dest === Pos.SQ7G
+          a.orig === Pos.SQ7H
           a.role === Gold
           a.promotion === false
         }
@@ -44,15 +44,15 @@ class KifParserTest extends ShogiTest {
       parser("７四歩打") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case d: Drop =>
           d.role must_== Pawn
-          d.pos must_== Pos.C6
+          d.pos must_== Pos.SQ7D
         }
       }
     }
     "move with number" in {
       parser("1 ７七G(78)") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case a: KifStd =>
-          a.dest === Pos.C3
-          a.orig === Pos.C2
+          a.dest === Pos.SQ7G
+          a.orig === Pos.SQ7H
           a.role === Gold
           a.promotion === false
         }
@@ -61,8 +61,8 @@ class KifParserTest extends ShogiTest {
     "move with number and a dot" in {
       parser("42. ７7金(78)") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case a: KifStd =>
-          a.dest === Pos.C3
-          a.orig === Pos.C2
+          a.dest === Pos.SQ7G
+          a.orig === Pos.SQ7H
           a.role === Gold
           a.promotion === false
         }
@@ -74,8 +74,8 @@ class KifParserTest extends ShogiTest {
       2 ７六飛(77) (0:12/)
       """) must beValid.like { case p =>
         p.parsedMoves.value.lastOption must beSome.like { case a: KifStd =>
-          a.dest === Pos.C4
-          a.orig === Pos.C3
+          a.dest === Pos.SQ7F
+          a.orig === Pos.SQ7G
           a.role === Rook
           a.promotion === false
         }
@@ -102,9 +102,9 @@ class KifParserTest extends ShogiTest {
 
   "同" should {
     "simple move with 同" in {
-      parseMove("同 金(78)", Option(Pos.C3)) must beValid.like { case a: KifStd =>
-        a.dest === Pos.C3
-        a.orig === Pos.C2
+      parseMove("同 金(78)", Option(Pos.SQ7G)) must beValid.like { case a: KifStd =>
+        a.dest === Pos.SQ7G
+        a.orig === Pos.SQ7H
         a.role === Gold
         a.promotion === false
       }
@@ -115,8 +115,8 @@ class KifParserTest extends ShogiTest {
       2 同 飛(77) (0:12/0:0:12)
       """) must beValid.like { case p =>
         p.parsedMoves.value.lastOption must beSome.like { case a: KifStd =>
-          a.dest === Pos.C4
-          a.orig === Pos.C3
+          a.dest === Pos.SQ7F
+          a.orig === Pos.SQ7G
           a.role === Rook
           a.promotion === false
         }
@@ -130,8 +130,8 @@ class KifParserTest extends ShogiTest {
       """) must beValid.like { case p =>
         p.parsedMoves.value must haveSize(3)
         p.parsedMoves.value.lastOption must beSome.like { case a: KifStd =>
-          a.dest === Pos.C4
-          a.orig === Pos.E5
+          a.dest === Pos.SQ7F
+          a.orig === Pos.SQ5E
           a.role === Bishop
           a.promotion === false
         }
@@ -197,9 +197,8 @@ class KifParserTest extends ShogiTest {
       *such a neat comment
       * one more
       2 投了 ( 0:03/ )
-      * comment on termination?""") must beValid.like {
-        case ParsedNotation(_, _, ParsedMoves(List(move))) =>
-          move.metas.comments must_== List("such a neat comment", "one more", "comment on termination?")
+      * comment on termination?""") must beValid.like { case ParsedNotation(_, _, ParsedMoves(List(move))) =>
+        move.metas.comments must_== List("such a neat comment", "one more", "comment on termination?")
       }
     }
     "comments in header" in {

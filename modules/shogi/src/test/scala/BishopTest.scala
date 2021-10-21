@@ -9,11 +9,28 @@ class BishopTest extends ShogiTest {
     val bishop = Sente - Bishop
 
     "move in 4 directions" in {
-      pieceMoves(bishop, E5) must bePoss(F4, F6, G3, G7, H2, H8, I1, I9, D4, D6, C3, C7, B2, B8, A1, A9)
+      pieceMoves(bishop, SQ5E) must bePoss(
+        SQ4F,
+        SQ4D,
+        SQ3G,
+        SQ3C,
+        SQ2H,
+        SQ2B,
+        SQ1I,
+        SQ1A,
+        SQ6F,
+        SQ6D,
+        SQ7G,
+        SQ7C,
+        SQ8H,
+        SQ8B,
+        SQ9I,
+        SQ9A
+      )
     }
 
     "move in 2 directions, when at the edges" in {
-      pieceMoves(bishop, I7) must bePoss(H8, G9, H6, G5, F4, E3, D2, C1)
+      pieceMoves(bishop, SQ1C) must bePoss(SQ2B, SQ3A, SQ2D, SQ3E, SQ4F, SQ5G, SQ6H, SQ7I)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -28,7 +45,7 @@ PPPPPPPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B   x
@@ -56,7 +73,7 @@ PPPPPPPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -84,19 +101,19 @@ PPPPPPPPP
     K
 """
       "a reachable enemy" in {
-        board actorAt C5 map (_ threatens A7) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ9C) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens C8) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ7B) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C5 map (_ threatens A3) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ9G) must beSome(true)
       }
       "nothing up left" in {
-        board actorAt C5 map (_ threatens B6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
       }
       "nothing down right" in {
-        board actorAt C5 map (_ threatens D4) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ6F) must beSome(true)
       }
     }
   }

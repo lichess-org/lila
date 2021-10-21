@@ -9,17 +9,17 @@ class KingTest extends ShogiTest {
     val king = Sente - King
 
     "move 1 position in any direction" in {
-      pieceMoves(king, D4) must bePoss(D3, C3, C4, C5, D5, E5, E4, E3)
+      pieceMoves(king, SQ6F) must bePoss(SQ6G, SQ7G, SQ7F, SQ7E, SQ6E, SQ5E, SQ5F, SQ5G)
     }
 
     "move 1 position in any direction, even from the edges" in {
-      pieceMoves(king, I9) must bePoss(I8, H8, H9)
+      pieceMoves(king, SQ1A) must bePoss(SQ1B, SQ2B, SQ2A)
     }
 
     "move behind pawn barrier" in {
       """
 PPPPPPPPP
-LN GK  NL""" destsFrom E1 must bePoss(F1)
+LN GK  NL""" destsFrom SQ5I must bePoss(SQ4I)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -34,7 +34,7 @@ P P PPP P
 
   SGKGSNL
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 
@@ -62,7 +62,7 @@ k
  p
 l
 """
-      board destsFrom C3 must bePoss(
+      board destsFrom SQ7G must bePoss(
         board,
         """
 k
@@ -90,20 +90,20 @@ PP   PPPP
 LNSG BNL
 """
       "a reachable enemy" in {
-        board actorAt C5 map (_ threatens B6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens A6) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ9D) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C5 map (_ threatens C4) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ7F) must beSome(true)
       }
     }
     "not move near from the other king" in {
       """
    k
  K
-""" destsFrom B1 must bePoss(A1, A2, B2)
+""" destsFrom SQ8I must bePoss(SQ9I, SQ9H, SQ8H)
     }
   }
 }

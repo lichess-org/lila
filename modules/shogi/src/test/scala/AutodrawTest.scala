@@ -14,7 +14,7 @@ class AutodrawTest extends ShogiTest {
         makeBoard.autoDraw must_== false
       }
       "opened" in {
-        makeGame.playMoves(E3 -> E4, E7 -> E6, C3 -> C4, E6 -> E5, E4 -> E5) map { g =>
+        makeGame.playMoves(SQ5G -> SQ5F, SQ5C -> SQ5D, SQ7G -> SQ7F, SQ5D -> SQ5E, SQ5F -> SQ5E) map { g =>
           g.board.autoDraw
         } must beValid(false)
       }
@@ -41,19 +41,19 @@ K     N""".autoDraw must_== false
     }
     "by fourfold" in {
       val moves = List(
-        H2 -> G2,
-        B8 -> C8,
-        G2 -> H2,
-        C8 -> B8,
-        H2 -> G2,
-        B8 -> C8,
-        G2 -> H2,
-        C8 -> B8,
-        H2 -> G2,
-        B8 -> C8,
-        G2 -> H2,
-        C8 -> B8,
-        H2 -> G2
+        SQ2H -> SQ3H,
+        SQ8B -> SQ7B,
+        SQ3H -> SQ2H,
+        SQ7B -> SQ8B,
+        SQ2H -> SQ3H,
+        SQ8B -> SQ7B,
+        SQ3H -> SQ2H,
+        SQ7B -> SQ8B,
+        SQ2H -> SQ3H,
+        SQ8B -> SQ7B,
+        SQ3H -> SQ2H,
+        SQ7B -> SQ8B,
+        SQ2H -> SQ3H
       )
       "should be fourfold" in {
         makeGame.playMoves(moves: _*) must beValid.like { case g =>
@@ -80,8 +80,8 @@ K     N""".autoDraw must_== false
       val position = "2p2k3/9/9/9/9/9/9/9/4K4 b - 1"
       val game     = fenToGame(position, Standard)
       val newGame = game flatMap (_.playMove(
-        Pos.E1,
-        Pos.E2
+        Pos.SQ5I,
+        Pos.SQ5H
       ))
       newGame must beValid.like { case game =>
         game.situation.autoDraw must beFalse

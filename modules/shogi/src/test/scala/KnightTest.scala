@@ -9,11 +9,11 @@ class KnightTest extends ShogiTest {
     val knight = Sente - Knight
 
     "move in any of 2 positions" in {
-      pieceMoves(knight, E5) must bePoss(D7, F7)
+      pieceMoves(knight, SQ5E) must bePoss(SQ6C, SQ4C)
     }
 
     "move in 1 one position when at the edges" in {
-      pieceMoves(knight, I6) must bePoss(H8)
+      pieceMoves(knight, SQ1D) must bePoss(SQ2B)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -28,7 +28,7 @@ PPP  PPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -56,7 +56,7 @@ PPP  PPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -84,19 +84,19 @@ PPP  PPPP
     K
 """
       "a reachable enemy" in {
-        board actorAt C5 map (_ threatens B7) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8C) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens A6) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ9D) must beSome(false)
       }
       "an unreachable friend" in {
-        board actorAt C5 map (_ threatens E4) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ5F) must beSome(false)
       }
       "nothing left" in {
-        board actorAt C5 map (_ threatens B5) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ8E) must beSome(false)
       }
       "nothing up" in {
-        board actorAt C5 map (_ threatens C6) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ7D) must beSome(false)
       }
     }
   }

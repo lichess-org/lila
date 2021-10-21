@@ -13,18 +13,18 @@ class PlayPerfTest extends ShogiTest {
 
   def runOne =
     makeGame.playMoves(
-      C3 -> C4,
-      B7 -> B6,
-      C1 -> D2,
-      G7 -> G6,
-      D2 -> C3,
-      C9 -> D8,
-      H3 -> H4,
-      G9 -> F8,
-      G1 -> F2,
-      F9 -> G8,
-      D1 -> C2,
-      E9 -> F9
+      SQ7G -> SQ7F,
+      SQ8C -> SQ8D,
+      SQ7I -> SQ6H,
+      SQ3C -> SQ3D,
+      SQ6H -> SQ7G,
+      SQ7A -> SQ6B,
+      SQ2G -> SQ2F,
+      SQ3A -> SQ4B,
+      SQ3I -> SQ4H,
+      SQ4A -> SQ3B,
+      SQ6I -> SQ7H,
+      SQ5A -> SQ4A
     )
   def run: Unit = { for (_ <- 1 to nb) runOne }
 
@@ -33,12 +33,12 @@ class PlayPerfTest extends ShogiTest {
       runOne must beValid
       if (nb * iterations > 1) {
         println("warming up")
-        run()
+        run
       }
       println("running tests")
       val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis
-        run()
+        run
         val duration = System.currentTimeMillis - start
         println(s"$nb games in $duration ms")
         duration

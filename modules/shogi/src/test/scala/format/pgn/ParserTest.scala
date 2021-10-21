@@ -18,7 +18,7 @@ class ParserTest extends ShogiTest {
       parser("P*e5") must beValid.like { case a =>
         a.parsedMoves.value.headOption must beSome.like { case d: Drop =>
           d.role must_== Pawn
-          d.pos must_== Pos.E5
+          d.pos must_== Pos.SQ5E
         }
       }
     }
@@ -34,7 +34,7 @@ class ParserTest extends ShogiTest {
     }
     "disambigued" in {
       parseMove("Be5g7+") must beValid.like { case a: PGNStd =>
-        a.dest === Pos.G7
+        a.dest === Pos.SQ3C
         a.role === Bishop
         a.promotion === true
       }
@@ -50,10 +50,10 @@ class ParserTest extends ShogiTest {
 
   "glyphs" in {
     parseMove("Pe4") must beValid.like { case a =>
-      a must_== PGNStd(Pos.E4, Pawn)
+      a must_== PGNStd(Pos.SQ5F, Pawn)
     }
     parseMove("Pe4!") must beValid.like { case a: PGNStd =>
-      a.dest === Pos.E4
+      a.dest === Pos.SQ5F
       a.role === Pawn
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.good.some, None, Nil)
     }
@@ -62,25 +62,25 @@ class ParserTest extends ShogiTest {
     parser("Pe7=!") must beValid
 
     parseMove("P*e4?!") must beValid.like { case a: Drop =>
-      a.pos === Pos.E4
+      a.pos === Pos.SQ5F
       a.role === Pawn
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)
     }
 
     parseMove("Be5g7?!") must beValid.like { case a: PGNStd =>
-      a.dest === Pos.G7
+      a.dest === Pos.SQ3C
       a.role === Bishop
       a.promotion === false
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)
     }
     parseMove("Be5g7+?!") must beValid.like { case a: PGNStd =>
-      a.dest === Pos.G7
+      a.dest === Pos.SQ3C
       a.role === Bishop
       a.promotion === true
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)
     }
     parseMove("Be5g7=?!") must beValid.like { case a: PGNStd =>
-      a.dest === Pos.G7
+      a.dest === Pos.SQ3C
       a.role === Bishop
       a.promotion === false
       a.metas.glyphs === Glyphs(Glyph.MoveAssessment.dubious.some, None, Nil)

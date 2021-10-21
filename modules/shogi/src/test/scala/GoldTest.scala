@@ -9,11 +9,11 @@ class GoldTest extends ShogiTest {
     val gold = Sente - Gold
 
     "move in 6 directions" in {
-      pieceMoves(gold, E5) must bePoss(E6, F6, F5, E4, D5, D6)
+      pieceMoves(gold, SQ5E) must bePoss(SQ5D, SQ4D, SQ4E, SQ5F, SQ6E, SQ6D)
     }
 
     "move in 2 directions, when at the edges" in {
-      pieceMoves(gold, I9) must bePoss(I8, H9)
+      pieceMoves(gold, SQ1A) must bePoss(SQ1B, SQ2A)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -28,7 +28,7 @@ PPPPPPPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -56,7 +56,7 @@ PPPPPPPPP
 
     K
 """
-      board destsFrom C5 must bePoss(
+      board destsFrom SQ7E must bePoss(
         board,
         """
 k B
@@ -84,25 +84,25 @@ PP PPPPPP
     K
 """
       "a reachable enemy" in {
-        board actorAt C5 map (_ threatens C6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens A7) must beSome(false)
+        board actorAt SQ7E map (_ threatens SQ9C) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C5 map (_ threatens C4) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ7F) must beSome(true)
       }
       "nothing left" in {
-        board actorAt C5 map (_ threatens B5) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8E) must beSome(true)
       }
       "nothing right" in {
-        board actorAt C5 map (_ threatens D5) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ6E) must beSome(true)
       }
       "nothing left up" in {
-        board actorAt C5 map (_ threatens B6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
       }
       "nothing right up" in {
-        board actorAt C5 map (_ threatens D6) must beSome(true)
+        board actorAt SQ7E map (_ threatens SQ6D) must beSome(true)
       }
     }
   }

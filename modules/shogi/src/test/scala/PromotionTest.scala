@@ -11,17 +11,17 @@ class PromotionTest extends ShogiTest {
 K       """
     val game  = Game(board, Gote)
     "promote to a tokin" in {
-      game.playMove(C3, C2, true) must beGame("""
+      game.playMove(SQ7G, SQ7H, true) must beGame("""
   t
 K       """)
     }
     "don't force promotion by default" in {
-      game.playMove(C3, C2) must beGame("""
+      game.playMove(SQ7G, SQ7H) must beGame("""
   p
 K       """)
     }
     "don't promote" in {
-      game.playMove(C3, C2, false) must beGame("""
+      game.playMove(SQ7G, SQ7H, false) must beGame("""
   p
 K       """)
     }
@@ -31,7 +31,7 @@ K       """)
   p
 K R""",
         Gote
-      ).playMove(C2, C1, true) must beGame("""
+      ).playMove(SQ7H, SQ7I, true) must beGame("""
 
 K t""")
     }

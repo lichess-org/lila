@@ -12,7 +12,7 @@ class ForsythTest extends ShogiTest {
   "the forsyth notation" should {
     "export" in {
       "game opening" in {
-        val moves = List(C3 -> C4, G7 -> G6, B2 -> H8, G9 -> H8)
+        val moves = List(SQ7G -> SQ7F, SQ3C -> SQ3D, SQ8H -> SQ2B, SQ3A -> SQ2B)
         "new game" in {
           f >> makeGame must_== "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
         }
@@ -41,7 +41,7 @@ class ForsythTest extends ShogiTest {
         }
         "5 drop" in {
           makeGame.playMoveList(moves take 4) must beValid.like { case g =>
-            g.playDrop(Bishop, E5) must beValid.like { case g2 =>
+            g.playDrop(Bishop, SQ5E) must beValid.like { case g2 =>
               f >> g2 must_== "lnsgkg1nl/1r5s1/pppppp1pp/6p2/4B4/2P6/PP1PPPPPP/7R1/LNSGKGSNL w b 6"
             }
           }
@@ -50,7 +50,7 @@ class ForsythTest extends ShogiTest {
 
     }
     "import" in {
-      val moves = List(C3 -> C4, G7 -> G6, B2 -> H8, G9 -> H8)
+      val moves = List(SQ7G -> SQ7F, SQ3C -> SQ3D, SQ8H -> SQ2B, SQ3A -> SQ2B)
       def compare(ms: List[(Pos, Pos)], fen: String) =
         makeGame.playMoveList(ms) must beValid.like { case g =>
           (f << fen) must beSome.like { case situation =>

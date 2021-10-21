@@ -10,46 +10,46 @@ class BoardTest extends ShogiTest {
 
     "position pieces correctly" in {
       board.pieces must havePairs(
-        A1 -> (Sente - Lance),
-        B1 -> (Sente - Knight),
-        C1 -> (Sente - Silver),
-        D1 -> (Sente - Gold),
-        E1 -> (Sente - King),
-        F1 -> (Sente - Gold),
-        G1 -> (Sente - Silver),
-        H1 -> (Sente - Knight),
-        I1 -> (Sente - Lance),
-        B2 -> (Sente - Bishop),
-        H2 -> (Sente - Rook),
-        A3 -> (Sente - Pawn),
-        B3 -> (Sente - Pawn),
-        C3 -> (Sente - Pawn),
-        D3 -> (Sente - Pawn),
-        E3 -> (Sente - Pawn),
-        F3 -> (Sente - Pawn),
-        G3 -> (Sente - Pawn),
-        H3 -> (Sente - Pawn),
-        I3 -> (Sente - Pawn),
-        A7 -> (Gote - Pawn),
-        B7 -> (Gote - Pawn),
-        C7 -> (Gote - Pawn),
-        D7 -> (Gote - Pawn),
-        E7 -> (Gote - Pawn),
-        F7 -> (Gote - Pawn),
-        G7 -> (Gote - Pawn),
-        H7 -> (Gote - Pawn),
-        I7 -> (Gote - Pawn),
-        B8 -> (Gote - Rook),
-        H8 -> (Gote - Bishop),
-        A9 -> (Gote - Lance),
-        B9 -> (Gote - Knight),
-        C9 -> (Gote - Silver),
-        D9 -> (Gote - Gold),
-        E9 -> (Gote - King),
-        F9 -> (Gote - Gold),
-        G9 -> (Gote - Silver),
-        H9 -> (Gote - Knight),
-        I9 -> (Gote - Lance)
+        SQ9I -> (Sente - Lance),
+        SQ8I -> (Sente - Knight),
+        SQ7I -> (Sente - Silver),
+        SQ6I -> (Sente - Gold),
+        SQ5I -> (Sente - King),
+        SQ4I -> (Sente - Gold),
+        SQ3I -> (Sente - Silver),
+        SQ2I -> (Sente - Knight),
+        SQ1I -> (Sente - Lance),
+        SQ8H -> (Sente - Bishop),
+        SQ2H -> (Sente - Rook),
+        SQ9G -> (Sente - Pawn),
+        SQ8G -> (Sente - Pawn),
+        SQ7G -> (Sente - Pawn),
+        SQ6G -> (Sente - Pawn),
+        SQ5G -> (Sente - Pawn),
+        SQ4G -> (Sente - Pawn),
+        SQ3G -> (Sente - Pawn),
+        SQ2G -> (Sente - Pawn),
+        SQ1G -> (Sente - Pawn),
+        SQ9C -> (Gote - Pawn),
+        SQ8C -> (Gote - Pawn),
+        SQ7C -> (Gote - Pawn),
+        SQ6C -> (Gote - Pawn),
+        SQ5C -> (Gote - Pawn),
+        SQ4C -> (Gote - Pawn),
+        SQ3C -> (Gote - Pawn),
+        SQ2C -> (Gote - Pawn),
+        SQ1C -> (Gote - Pawn),
+        SQ8B -> (Gote - Rook),
+        SQ2B -> (Gote - Bishop),
+        SQ9A -> (Gote - Lance),
+        SQ8A -> (Gote - Knight),
+        SQ7A -> (Gote - Silver),
+        SQ6A -> (Gote - Gold),
+        SQ5A -> (Gote - King),
+        SQ4A -> (Gote - Gold),
+        SQ3A -> (Gote - Silver),
+        SQ2A -> (Gote - Knight),
+        SQ1A -> (Gote - Lance)
       )
     }
 
@@ -58,65 +58,65 @@ class BoardTest extends ShogiTest {
     }
 
     "allow a piece to be placed" in {
-      board.place(Sente - Rook, E5) must beSome.like { case b =>
-        b(E5) mustEqual Option(Sente - Rook)
+      board.place(Sente - Rook, SQ5E) must beSome.like { case b =>
+        b(SQ5E) mustEqual Option(Sente - Rook)
       }
     }
 
     "allow a piece to be taken" in {
-      board take A1 must beSome.like { case b =>
-        b(A1) must beNone
+      board take SQ9I must beSome.like { case b =>
+        b(SQ9I) must beNone
       }
     }
 
     "allow a piece to move" in {
-      board.move(E3, E4) must beSome.like { case b =>
-        b(E4) mustEqual Option(Sente - Pawn)
+      board.move(SQ5G, SQ5F) must beSome.like { case b =>
+        b(SQ5F) mustEqual Option(Sente - Pawn)
       }
     }
 
     "not allow an empty position to move" in {
-      board.move(E5, E6) must beNone
+      board.move(SQ5E, SQ5D) must beNone
     }
 
     "not allow a piece to move to an occupied position" in {
-      board.move(A1, A3) must beNone
+      board.move(SQ9I, SQ9G) must beNone
     }
 
     "allow a pawn to be promoted" in {
-      makeEmptyBoard.place(Gote.pawn, A7) flatMap (_ promote A7) must beSome.like { case b =>
-        b(A7) must beSome(Gote.tokin)
+      makeEmptyBoard.place(Gote.pawn, SQ9C) flatMap (_ promote SQ9C) must beSome.like { case b =>
+        b(SQ9C) must beSome(Gote.tokin)
       }
     }
 
     "allow chaining actions" in {
       makeEmptyBoard.seq(
-        _.place(Sente - Pawn, A2),
-        _.place(Sente - Pawn, A3),
-        _.move(A2, A4)
+        _.place(Sente - Pawn, SQ9H),
+        _.place(Sente - Pawn, SQ9G),
+        _.move(SQ9H, SQ9F)
       ) must beSome.like { case b =>
-        b(A4) mustEqual Option(Sente - Pawn)
+        b(SQ9F) mustEqual Option(Sente - Pawn)
       }
     }
 
     "fail on bad actions chain" in {
       makeEmptyBoard.seq(
-        _.place(Sente - Pawn, A2),
-        _.place(Sente - Pawn, C3),
-        _.move(B3, B4)
+        _.place(Sente - Pawn, SQ9H),
+        _.place(Sente - Pawn, SQ7G),
+        _.move(SQ8G, SQ8F)
       ) must beNone
     }
 
     "provide occupation map" in {
       makeBoard(
-        A2 -> (Sente - Pawn),
-        A3 -> (Sente - Pawn),
-        D1 -> (Sente - King),
-        E8 -> (Gote - King),
-        H4 -> (Gote - Rook)
+        SQ9H -> (Sente - Pawn),
+        SQ9G -> (Sente - Pawn),
+        SQ6I -> (Sente - King),
+        SQ5B -> (Gote - King),
+        SQ2F -> (Gote - Rook)
       ).occupation must_== Color.Map(
-        sente = Set(A2, A3, D1),
-        gote = Set(E8, H4)
+        sente = Set(SQ9H, SQ9G, SQ6I),
+        gote = Set(SQ5B, SQ2F)
       )
     }
 
@@ -124,22 +124,22 @@ class BoardTest extends ShogiTest {
       "right to end" in {
         val board: Board = """
 R   K   R"""
-        E1 >| (p => board.pieces contains p) must_== List(F1, G1, H1, I1)
+        SQ5I >| (p => board.pieces contains p) must_== List(SQ4I, SQ3I, SQ2I, SQ1I)
       }
       "right to next" in {
         val board: Board = """
 R   KB  R"""
-        E1 >| (p => board.pieces contains p) must_== List(F1)
+        SQ5I >| (p => board.pieces contains p) must_== List(SQ4I)
       }
       "left to end" in {
         val board: Board = """
 R   K   R"""
-        E1 |< (p => board.pieces contains p) must_== List(D1, C1, B1, A1)
+        SQ5I |< (p => board.pieces contains p) must_== List(SQ6I, SQ7I, SQ8I, SQ9I)
       }
       "right to next" in {
         val board: Board = """
 R  BK   R"""
-        E1 |< (p => board.pieces contains p) must_== List(D1)
+        SQ5I |< (p => board.pieces contains p) must_== List(SQ6I)
       }
     }
   }

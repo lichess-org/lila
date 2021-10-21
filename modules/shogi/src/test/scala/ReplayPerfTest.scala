@@ -19,11 +19,11 @@ class ReplayPerfTest extends ShogiTest {
   "playing a game" should {
     "many times" in {
       runOne(gameMoves.head)._3 must beEmpty
-      run()
+      run
       println("running tests")
       val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis
-        run()
+        run
         val duration = System.currentTimeMillis - start
         println(s"$nb games in $duration ms")
         duration

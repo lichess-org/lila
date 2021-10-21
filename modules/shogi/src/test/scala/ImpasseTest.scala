@@ -37,7 +37,7 @@ class ImpasseTest extends ShogiTest {
       "one move away" in {
         val g = fenToGame("2SGS4/+B1GKGLLRB/3G5/9/1+R5pp/8k/9/9/9 b - 1")
         g must beValid.like { case game =>
-          game.playMove(B5, B8) must beValid.like { case game2 =>
+          game.playMove(SQ8E, SQ8B) must beValid.like { case game2 =>
             game2.situation.impasse must beFalse
             game2.situation.winner must beNone
           }
@@ -46,7 +46,7 @@ class ImpasseTest extends ShogiTest {
       "opponent prevents impasse" in {
         val g = fenToGame("2SGS4/+B1GKGLLRB/3G5/9/1+R5pp/8k/6b2/9/9 b - 1")
         g must beValid.like { case game =>
-          game.playMoves(B5 -> B8, G3 -> H4) must beValid.like { case game2 =>
+          game.playMoves(SQ8E -> SQ8B, SQ3G -> SQ2F) must beValid.like { case game2 =>
             game2.situation.impasse must beFalse
             game2.situation.winner must beNone
           }
@@ -89,7 +89,7 @@ class ImpasseTest extends ShogiTest {
       "after moves" in {
         val g = fenToGame("2SGS4/+B1GKGLLRB/3G5/9/1+R5pp/8k/9/9/9 b - 1")
         g must beValid.like { case game =>
-          game.playMoves(B5 -> B8, H5 -> H4) must beValid.like { case game2 =>
+          game.playMoves(SQ8E -> SQ8B, SQ2E -> SQ2F) must beValid.like { case game2 =>
             game2.situation.impasse must beTrue
             game2.situation.winner must beSome.like { case color =>
               color == Sente

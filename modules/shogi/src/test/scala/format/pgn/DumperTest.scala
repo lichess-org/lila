@@ -7,18 +7,18 @@ import Pos._
 class DumperTest extends ShogiTest {
 
   val game1 = makeGame.playMoves(
-    C3 -> C4,
-    B7 -> B6,
-    C1 -> D2,
-    G7 -> G6,
-    D2 -> C3,
-    C9 -> D8,
-    H3 -> H4,
-    G9 -> F8,
-    G1 -> F2,
-    F9 -> G8,
-    D1 -> C2,
-    E9 -> F9
+    SQ7G -> SQ7F,
+    SQ8C -> SQ8D,
+    SQ7I -> SQ6H,
+    SQ3C -> SQ3D,
+    SQ6H -> SQ7G,
+    SQ7A -> SQ6B,
+    SQ2G -> SQ2F,
+    SQ3A -> SQ4B,
+    SQ3I -> SQ4H,
+    SQ4A -> SQ3B,
+    SQ6I -> SQ7H,
+    SQ5A -> SQ4A
   )
 
   "standard game" should {
@@ -44,7 +44,7 @@ P    k
 
 KNSG GSNL
 """)
-      game.playMove(A7, A8, false) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMove(SQ9C, SQ9B, false) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Pa8=")
       }
     }
@@ -60,7 +60,7 @@ P
 
 KNSG GSNL
 """)
-      game.playMove(A7, A8, true) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMove(SQ9C, SQ9B, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Pa8+")
       }
     }
@@ -76,7 +76,7 @@ P
 
 KNSG GSNL
 """)
-      game.playMove(A8, A9, true) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMove(SQ9B, SQ9A, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Pa9+")
       }
     }
@@ -94,7 +94,7 @@ k
 P   K   P
 LR     RL
 """)
-      game.playMoves(H1 -> C1) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMoves(SQ2I -> SQ7I) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Rh1c1")
       }
     }
@@ -110,7 +110,7 @@ PPPP
     K  B  
 LNSG GSNL
 """)
-      game.playMove(A9, E5, true) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMove(SQ9A, SQ5E, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Ba9e5+")
       }
     }
@@ -126,7 +126,7 @@ PPPP
     K  B  
 LNSG GSNL
 """)
-      game.playMoves(H2 -> E5) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMoves(SQ2H -> SQ5E) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Bh2e5")
       }
     }
@@ -142,7 +142,7 @@ P      P
  B
 L SGKGS L
 """)
-      game.playMove(E6, F8, true) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMove(SQ5D, SQ4B, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Ne6f8+")
       }
     }
@@ -158,7 +158,7 @@ P      P
  B
 L SGKGS L
 """)
-      game.playMove(G6, F8, true) map (_.pgnMoves) must beValid.like { case ms =>
+      game.playMove(SQ3D, SQ4B, true) map (_.pgnMoves) must beValid.like { case ms =>
         ms must_== List("Ng6f8+")
       }
     }

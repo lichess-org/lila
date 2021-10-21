@@ -21,9 +21,9 @@ class UciCharPairTest extends ShogiTest {
     val allPairs = allMoves.map(conv)
 
     "regular moves" in {
-      conv(Move(I3, I4)) must_== "<E"
-      conv(Move(C7, C6)) must_== "ZQ"
-      conv(Move(C3, C4)) must_== "6?"
+      conv(Move(SQ1G, SQ1F)) must_== "<E"
+      conv(Move(SQ7C, SQ7D)) must_== "ZQ"
+      conv(Move(SQ7G, SQ7F)) must_== "6?"
     }
     "unicity" in {
       allPairs.distinct.size must_== allMoves.size
@@ -32,14 +32,14 @@ class UciCharPairTest extends ShogiTest {
       allPairs.count(_ contains UciCharPair.implementation.voidChar) must_== 0
     }
     "promotions" in {
-      conv(Move(B2, H8, true)) must_== ",è"
-      conv(Move(B2, H8, false)) must_== ",h"
+      conv(Move(SQ8H, SQ2B, true)) must_== ",è"
+      conv(Move(SQ8H, SQ2B, false)) must_== ",h"
     }
     "drops" in {
-      conv(Drop(Pawn, I3)) must_== "<ö"
-      conv(Drop(Lance, I9)) must_== "rù"
-      conv(Drop(Silver, I1)) must_== "*ø"
-      conv(Drop(Bishop, E5)) must_== "Jô"
+      conv(Drop(Pawn, SQ1G)) must_== "<ö"
+      conv(Drop(Lance, SQ1A)) must_== "rù"
+      conv(Drop(Silver, SQ1I)) must_== "*ø"
+      conv(Drop(Bishop, SQ5E)) must_== "Jô"
     }
   }
 }

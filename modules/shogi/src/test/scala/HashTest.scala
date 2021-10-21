@@ -11,7 +11,7 @@ class HashTest extends ShogiTest {
     "be consistent" in {
       val fen           = "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 3"
       val situation     = ((format.Forsyth << fen) get) withVariant Standard
-      val move          = situation.move(Pos.B2, Pos.H8, false).toOption.get
+      val move          = situation.move(Pos.SQ8H, Pos.SQ2B, false).toOption.get
       val hashAfterMove = hash(move.situationAfter)
 
       val fenAfter       = "lnsgkgsnl/1r5B1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/7R1/LNSGKGSNL w B 4"

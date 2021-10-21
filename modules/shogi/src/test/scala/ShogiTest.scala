@@ -41,7 +41,7 @@ trait ShogiTest extends Specification with ValidatedMatchers {
 
     @nowarn def playMoveList(moves: Iterable[(Pos, Pos)]): Validated[String, Game] = {
       val vg = moves.foldLeft(Validated.valid(game): Validated[String, Game]) { (vg, move) =>
-        vg.foreach{ _.situation.destinations }
+        vg.foreach { _.situation.destinations }
         val ng = vg flatMap { g =>
           g(move._1, move._2) map (_._1)
         }

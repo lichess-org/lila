@@ -30,7 +30,7 @@ PPPPPPPPP
 
  NSGKGSNL
 """
-      val markedBoard = f >>| (board, Map(Set(B4, D4, B6, D6, A7, E7, F8, G9) -> 'x'))
+      val markedBoard = f >>| (board, Map(Set(SQ8F, SQ6F, SQ8D, SQ6D, SQ9C, SQ5C, SQ4B, SQ3A) -> 'x'))
       f addNewLines markedBoard must_== """
 k B   x
      x

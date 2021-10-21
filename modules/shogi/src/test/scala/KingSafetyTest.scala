@@ -11,20 +11,20 @@ class KingSafetyTest extends ShogiTest {
     P
 PPPP  nPP
    GG
-LNSGK  NL""" destsFrom E1 must bePoss(F2)
+LNSGK  NL""" destsFrom SQ5I must bePoss(SQ4H)
       }
       "not commit suicide even if immobilized" in {
         """
     h n
 PPPP   PP
-LNSGK  NL""" destsFrom E1 must bePoss()
+LNSGK  NL""" destsFrom SQ5I must bePoss()
       }
       "escape from danger" in {
         """
     r
 
 PPPP   PP
-LNSGK SNL""" destsFrom E1 must bePoss(F1, F2)
+LNSGK SNL""" destsFrom SQ5I must bePoss(SQ4I, SQ4H)
       }
     }
     "pieces" in {
@@ -35,7 +35,7 @@ LNSGK SNL""" destsFrom E1 must bePoss(F1, F2)
 
 PPPP   PP
 
-LNSGK  NL""" destsFrom D1 must bePoss(E2)
+LNSGK  NL""" destsFrom SQ6I must bePoss(SQ5H)
         }
         "knight" in {
           """
@@ -43,14 +43,14 @@ LNSGK  NL""" destsFrom D1 must bePoss(E2)
 
 PPPP   PP
    N
-L SGK SNL""" destsFrom D2 must bePoss(E4)
+L SGK SNL""" destsFrom SQ6H must bePoss(SQ5F)
         }
         "pawn" in {
           """
   K    r
 PPPP   PP
 
-LNSG GSNL""" destsFrom D3 must bePoss(D4)
+LNSG GSNL""" destsFrom SQ6G must bePoss(SQ6F)
         }
       }
       "eat to defend" in {
@@ -59,21 +59,21 @@ LNSG GSNL""" destsFrom D3 must bePoss(D4)
     r
 
 PPPPK B
-RNB     L""" destsFrom G2 must bePoss(E4)
+RNB     L""" destsFrom SQ3H must bePoss(SQ5F)
         }
         "rook defender" in {
           """
     r
 
 PPPPR
-RNB K   L""" destsFrom E2 must bePoss(E3, E4)
+RNB K   L""" destsFrom SQ5H must bePoss(SQ5G, SQ5F)
         }
         "pawn" in {
           """
 K    r
      P
 PPPP
-LNSG GSNL""" destsFrom F3 must bePoss(F4)
+LNSG GSNL""" destsFrom SQ4G must bePoss(SQ4F)
         }
       }
       "stay to defend" in {
@@ -82,7 +82,7 @@ LNSG GSNL""" destsFrom F3 must bePoss(F4)
     r
 
 PPPPB
-RNB K  R""" destsFrom E2 must bePoss()
+RNB K  R""" destsFrom SQ5H must bePoss()
         }
         "pawn" in {
           """
@@ -90,7 +90,7 @@ RNB K  R""" destsFrom E2 must bePoss()
  K P  r
 PPP
 
-LNSG    L""" destsFrom D4 must bePoss()
+LNSG    L""" destsFrom SQ6F must bePoss()
         }
       }
     }

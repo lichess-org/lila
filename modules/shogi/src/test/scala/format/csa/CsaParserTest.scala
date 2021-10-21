@@ -16,14 +16,14 @@ class CsaParserTest extends ShogiTest {
   "drop" in {
     parseMove("-0077FU") must beValid.like { case d: Drop =>
       d.role must_== Pawn
-      d.pos must_== Pos.C3
+      d.pos must_== Pos.SQ7G
     }
   }
 
   "move" in {
     parseMove("5948OU") must beValid.like { case a: CsaStd =>
-      a.dest === Pos.F2
-      a.orig === Pos.E1
+      a.dest === Pos.SQ4H
+      a.orig === Pos.SQ5I
       a.role === King
     }
   }
@@ -32,8 +32,8 @@ class CsaParserTest extends ShogiTest {
     "move" in {
       parser("PI,+5948OU") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case a: CsaStd =>
-          a.dest === Pos.F2
-          a.orig === Pos.E1
+          a.dest === Pos.SQ4H
+          a.orig === Pos.SQ5I
           a.role === King
         }
       }
@@ -42,7 +42,7 @@ class CsaParserTest extends ShogiTest {
       parser("PI,0077KI") must beValid.like { case p =>
         p.parsedMoves.value.headOption must beSome.like { case d: Drop =>
           d.role must_== Gold
-          d.pos must_== Pos.C3
+          d.pos must_== Pos.SQ7G
         }
       }
     }
@@ -52,8 +52,8 @@ class CsaParserTest extends ShogiTest {
       -8384FU,T5
       """) must beValid.like { case p =>
         p.parsedMoves.value.lastOption must beSome.like { case a: CsaStd =>
-          a.dest === Pos.B6
-          a.orig === Pos.B7
+          a.dest === Pos.SQ8D
+          a.orig === Pos.SQ8C
           a.role === Pawn
           a.metas.timeSpent must beSome.like { case c: Centis =>
             c === Centis(500)

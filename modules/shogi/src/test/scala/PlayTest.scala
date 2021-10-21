@@ -8,7 +8,7 @@ class PlayTest extends ShogiTest {
   "playing a game" should {
     "opening one" in {
       val game =
-        makeGame.playMoves(C3 -> C4, G7 -> G6, B2 -> H8)
+        makeGame.playMoves(SQ7G -> SQ7F, SQ3C -> SQ3D, SQ8H -> SQ2B)
       "current game" in {
         game must beValid.like { case g =>
           addNewLines(g.board.visual) must_== """
@@ -25,7 +25,7 @@ LNSGKGSNL
         }
       }
       "after recapture" in {
-        game flatMap { _.playMoves(G9 -> H8) } must beValid.like { case g =>
+        game flatMap { _.playMoves(SQ3A -> SQ2B) } must beValid.like { case g =>
           addNewLines(g.board.visual) must_== """
 lnsgkg nl
  r     s
