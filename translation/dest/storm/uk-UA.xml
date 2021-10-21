@@ -56,4 +56,5 @@
   <string name="skipExplanation">Пропустіть цей хід, щоб зберегти вашу серію! Можна використати тільки один раз.</string>
   <string name="failedPuzzles">Невирішені задачі</string>
   <string name="slowPuzzles">Повільні задачі</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Цього тижня</string>
 </resources>
