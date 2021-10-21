@@ -26,6 +26,7 @@
   <string name="crushingDescription">Upptäck motståndares blunder för att få en förkrossande fördel. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Matt med två löpare</string>
   <string name="doubleBishopMateDescription">Två attackerande löpare på intilligande diagonaler sätter en kung som är blockerad av egna pjäser i matt.</string>
+  <string name="dovetailMate">Cozios matt</string>
   <string name="dovetailMateDescription">En dam levererar matt till en närliggande kung, vars enda två flyktrutor blockeras av egna pjäser.</string>
   <string name="equality">Utjämning</string>
   <string name="equalityDescription">Kom tillbaka från en förlorad position och säkra en remi eller en utjämnad position. (eval ≤ 200cp)</string>
@@ -50,6 +51,7 @@
   <string name="forkDescription">Ett drag där den rörda pjäsen attackerar två motståndarpjäser samtidigt.</string>
   <string name="hangingPiece">Ogarderad pjäs</string>
   <string name="hangingPieceDescription">En taktik som drar fördel av att en motståndares pjäs är oförsvarad eller otillräckligt försvarad och fri att slå.</string>
+  <string name="hookMate">Krokmatt</string>
   <string name="hookMateDescription">Schackmatta med ett torn, en springare och en bonde tillsammans med en motståndarbonde för att begränsa motståndarkungens undanflykt.</string>
   <string name="interference">Interference</string>
   <string name="interferenceDescription">Placerar en pjäs mellan två motståndares pjäser för att lämna en eller båda motståndarpjäserna ogarderade, till exempel springare på en garderad ruta mellan två torn.</string>
@@ -119,4 +121,7 @@
   <string name="zugzwangDescription">Motspelaren har begränsat antal möjliga drag, och alla möjliga drag förvärrar motspelarens position.</string>
   <string name="healthyMix">Blandad kompott</string>
   <string name="healthyMixDescription">Lite av varje. Du vet inte vad som kommer, så du behöver vara redo för allt! Precis som i riktiga partier.</string>
+  <string name="playerGames">Spelarspel</string>
+  <string name="playerGamesDescription">Hitta pussel genererade från dina egna parti, eller från andra spelares parti.</string>
+  <string name="puzzleDownloadInformation">Dessa pussel tillhör den allmänna egendomen, och kan laddas ner från %s.</string>
 </resources>
