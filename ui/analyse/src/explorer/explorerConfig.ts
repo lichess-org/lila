@@ -20,7 +20,7 @@ type Month = string;
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
-  advanced: Prop<boolean>;
+  advanced: StoredJsonProp<boolean>;
   db: StoredProp<ExplorerDb>;
   rating: StoredJsonProp<number[]>;
   speed: StoredJsonProp<ExplorerSpeed[]>;
@@ -45,7 +45,7 @@ export class ExplorerConfigCtrl {
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
-      advanced: prop(false),
+      advanced: storedJsonProp('explorer.advanced', () => false),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
