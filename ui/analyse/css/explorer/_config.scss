@@ -69,8 +69,7 @@
       text-transform: none;
       margin-right: 0.5em;
       &:hover {
-        @extend %metal-hover;
-        color: $c-font;
+        background: mix($c-secondary, white, 80);
       }
     }
     .color {
