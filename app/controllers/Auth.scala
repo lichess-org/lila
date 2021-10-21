@@ -25,10 +25,10 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
+  private def mobileUserOk(u: UserModel, sessionId: String)(implicit ctx: Context): Fu[Result] =
     env.round.proxyRepo urgentGames u map { povs =>
       Ok {
-        env.user.jsonView.full(u, withOnline = true) ++ Json.obj(
+        env.user.jsonView.full(u, withOnline = true, withRating = ctx.pref.showRatings) ++ Json.obj(
           "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
           "sessionId"  -> sessionId
         )

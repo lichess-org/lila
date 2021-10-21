@@ -96,13 +96,13 @@ object perfStat {
           span(cls := "details")(
             if (ctx is u) {
               trans.youAreBetterThanPercentOfPerfTypePlayers(
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             } else {
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             }

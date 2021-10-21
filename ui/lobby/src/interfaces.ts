@@ -53,6 +53,7 @@ export interface LobbyOpts {
   pools: Pool[];
   blindMode: boolean;
   playban: boolean;
+  showRatings: boolean;
   data: LobbyData;
   i18n: I18nDict;
   trans: Trans;

@@ -207,7 +207,7 @@ final class User(
               Json.toJson(
                 users
                   .take(getInt("nb", req).fold(10)(_ min max))
-                  .map(env.user.jsonView.full(_, withOnline = false))
+                  .map(env.user.jsonView.full(_, withOnline = false, withRating = true))
               )
             )
           }
@@ -576,6 +576,17 @@ final class User(
             }
             else fuccess(Json toJson userIds)
           } map JsonOk
+      }
+    }
+
+  def ratingDistribution(perfKey: lila.rating.Perf.Key) =
+    Open { implicit ctx =>
+      lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match {
+        case Some(perfType) =>
+          env.user.rankingApi.weeklyRatingDistribution(perfType) dmap { data =>
+            Ok(html.stat.ratingDistribution(perfType, data))
+          }
+        case _ => notFound
       }
     }
 

@@ -32,10 +32,10 @@ final class JsonView(
   private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
     Json
       .obj("color" -> p.color.name)
-      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType) })
-      .add("rating" -> p.rating)
-      .add("ratingDiff" -> p.ratingDiff)
-      .add("provisional" -> p.provisional)
+      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType, withRating = withFlags.rating) })
+      .add("rating" -> p.rating.ifTrue(withFlags.rating))
+      .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
+      .add("provisional" -> (p.provisional && withFlags.rating))
       .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
@@ -87,6 +87,7 @@ final class JsonView(
                                 else pref.autoQueen),
                 "clockTenths" -> pref.clockTenths,
                 "moveEvent"   -> pref.moveEvent
+                // "ratings"     -> pref.showRatings
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -131,11 +132,11 @@ final class JsonView(
         "color" -> p.color.name,
         "name"  -> p.name
       )
-      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType) })
+      .add("user" -> user.map { userJsonView.roundPlayer(_, g.perfType, withRating = withFlags.rating) })
       .add("ai" -> p.aiLevel)
-      .add("rating" -> p.rating)
-      .add("ratingDiff" -> p.ratingDiff)
-      .add("provisional" -> p.provisional)
+      .add("rating" -> p.rating.ifTrue(withFlags.rating))
+      .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
+      .add("provisional" -> (p.provisional && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
@@ -288,6 +289,7 @@ object JsonView {
       movetimes: Boolean = false,
       division: Boolean = false,
       clocks: Boolean = false,
-      blurs: Boolean = false
+      blurs: Boolean = false,
+      rating: Boolean = true
   )
 }

@@ -31,7 +31,8 @@ object home {
                   "remainingSeconds" -> (pb.remainingSeconds + 3)
                 )
               },
-              "i18n" -> i18nJsObject(i18nKeys)
+              "showRatings" -> ctx.pref.showRatings,
+              "i18n"        -> i18nJsObject(i18nKeys)
             )
           )})"""
         )

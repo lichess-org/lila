@@ -42,7 +42,7 @@ final private[api] class RoundApi(
           ctx.pref,
           apiVersion,
           ctx.me,
-          withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
+          withFlags = ctxFlags,
           initialFen = initialFen,
           nvui = ctx.blind
         ) zip
@@ -83,7 +83,7 @@ final private[api] class RoundApi(
           ctx.me,
           tv,
           initialFen = initialFen,
-          withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
+          withFlags = ctxFlags
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
@@ -100,6 +100,9 @@ final private[api] class RoundApi(
           }
       }
       .mon(_.round.api.watcher)
+
+  private def ctxFlags(implicit ctx: Context) =
+    WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs), rating = ctx.pref.showRatings)
 
   def review(
       pov: Pov,

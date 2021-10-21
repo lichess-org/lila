@@ -37,6 +37,7 @@ export interface TournamentOpts {
   $faq: Cash;
   userId?: string;
   chat?: any;
+  showRatings: boolean;
 }
 
 export interface TournamentData {

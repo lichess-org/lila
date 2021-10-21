@@ -27,7 +27,7 @@ object forms {
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
           ),
-          ctx.noBlind option div(cls := "optional_config")(
+          (ctx.noBlind && ctx.pref.showRatings) option div(cls := "optional_config")(
             div(cls := "rating-range-config")(
               trans.ratingRange(),
               div(cls := "rating-range") {
@@ -169,9 +169,9 @@ object forms {
           lila.rating.PerfType.nonPuzzle.map { perfType =>
             div(cls := perfType.key)(
               trans.perfRatingX(
-                raw(s"""<strong data-icon="${perfType.iconChar}">${me
+                raw(s"""<strong data-icon="${perfType.iconChar}">${ctx.pref.showRatings ?? me
                   .perfs(perfType.key)
-                  .map(_.intRating)
+                  .map(_.intRating.toString)
                   .getOrElse("?")}</strong> ${perfType.trans}""")
               )
             )

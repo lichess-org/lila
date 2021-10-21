@@ -20,7 +20,7 @@ object bits {
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
   )(implicit ctx: Context) =
-    frag(
+    ctx.pref.showRatings option frag(
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "")(trans.leaderboard()),

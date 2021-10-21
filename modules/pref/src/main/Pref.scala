@@ -36,6 +36,7 @@ case class Pref(
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
+    ratings: Int,
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
@@ -113,6 +114,8 @@ case class Pref(
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
   def isZen = zen == Zen.YES
+
+  val showRatings = ratings == Ratings.YES
 
   def is2d = !is3d
 
@@ -407,7 +410,8 @@ object Pref {
     )
   }
 
-  object Zen extends BooleanPref {}
+  object Zen     extends BooleanPref {}
+  object Ratings extends BooleanPref {}
 
   def create(id: String) = default.copy(_id = id)
 
@@ -447,6 +451,7 @@ object Pref {
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
+    ratings = Ratings.YES,
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,

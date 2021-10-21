@@ -141,7 +141,12 @@ function session(ctrl: Controller) {
     current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd = round.ratingDiff ? (round.ratingDiff > 0 ? '+' + round.ratingDiff : round.ratingDiff) : null;
+      const rd =
+        round.ratingDiff && ctrl.showRatings
+          ? round.ratingDiff > 0
+            ? '+' + round.ratingDiff
+            : round.ratingDiff
+          : null;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {

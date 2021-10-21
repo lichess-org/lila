@@ -39,11 +39,11 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
           numberRow('Tie break', data.tieBreak, 'raw'),
           ...(games
             ? [
-                data.performance
+                data.performance && ctrl.opts.showRatings
                   ? numberRow(noarg('performance'), data.performance + (games < 3 ? '?' : ''), 'raw')
                   : null,
                 numberRow(noarg('winRate'), [wins, games], 'percent'),
-                numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+                ctrl.opts.showRatings ? numberRow(noarg('averageOpponent'), avgOp, 'raw') : null,
               ]
             : []),
         ]),
@@ -84,7 +84,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               [
                 h('th', '' + round),
                 h('td', userName(p.user)),
-                h('td', '' + p.rating),
+                ctrl.opts.showRatings ? h('td', '' + p.rating) : null,
                 h('td.is.color-icon.' + (p.c ? 'white' : 'black')),
                 h('td', res),
               ]
