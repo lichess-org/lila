@@ -23,6 +23,9 @@
     @extend %flex-column;
 
     height: 83px;
+    body.no-rating & {
+      height: 30px;
+    }
     padding: 0.4em 0.5em 0.3em 0.5em;
     border-bottom: $border;
     overflow: hidden;

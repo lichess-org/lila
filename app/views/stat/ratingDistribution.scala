@@ -23,7 +23,7 @@ object ratingDistribution {
         embedJsUnsafeLoadThen(s"""lichess.ratingDistributionChart(${safeJsonValue(
           Json.obj(
             "freq"     -> data,
-            "myRating" -> ctx.me.map(_.perfs(perfType).intRating),
+            "myRating" -> ctx.me.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
             "i18n"     -> i18nJsObject(i18nKeys)
           )
         )})""")

@@ -5,7 +5,7 @@ import { requestIdleCallback } from './functions';
 const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?.contains(el);
 
 function onPowertipPreRender(id: string, preload?: (url: string) => void) {
-  return function (el: HTMLAnchorElement) {
+  return (el: HTMLAnchorElement) => {
     const url = ($(el).data('href') || el.href).replace(/\?.+$/, '');
     if (preload) preload(url);
     xhr.text(url + '/mini').then(html => {
