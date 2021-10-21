@@ -186,7 +186,7 @@ object header {
             if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)))
               div(cls := "rating-history")(spinner)
             else
-              ctx.is(u) option newPlayer(u),
+              (ctx.is(u) && u.count.game < 10) option newPlayer(u),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(

@@ -91,6 +91,7 @@ private object PrefHandlers {
         "insightShare"  -> o.insightShare,
         "keyboardMove"  -> o.keyboardMove,
         "zen"           -> o.zen,
+        "ratings"       -> o.ratings,
         "rookCastle"    -> o.rookCastle,
         "moveEvent"     -> o.moveEvent,
         "pieceNotation" -> o.pieceNotation,
