@@ -578,6 +578,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     skip,
     flip,
     flipped: () => flipped,
+    showRatings: opts.showRatings,
     nvui: lichess.PuzzleNVUI ? (lichess.PuzzleNVUI(redraw) as NvuiPlugin) : undefined,
   };
 }
