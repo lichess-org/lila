@@ -226,7 +226,7 @@ const monthInput = (prop: StoredProp<Month>, redraw: Redraw) =>
       type: 'month',
       pattern: '^20[12][0-9]-(0[1-9]|1[012])$',
       min: '2010-01',
-      max: '2030-01',
+      max: new Date().toISOString().slice(0, 7),
       value: prop() || '',
     },
     hook: bind('change', e => {
