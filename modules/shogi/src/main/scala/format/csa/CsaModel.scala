@@ -4,7 +4,6 @@ package csa
 
 import cats.syntax.option._
 
-
 case class Csa(
     tags: Tags,
     moves: List[NotationMove],

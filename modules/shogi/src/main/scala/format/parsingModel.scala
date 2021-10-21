@@ -87,7 +87,7 @@ case class CsaStd(
         m.dest == dest && a.board.variant.kingSafety(a, m)
       }
     } match {
-      case None       => Validated invalid s"No move found: $this\n$situation"
+      case None => Validated invalid s"No move found: $this\n$situation"
       case Some(move) =>
         move withPromotion (Role.promotesTo(
           move.piece.role

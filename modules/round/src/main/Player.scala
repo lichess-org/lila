@@ -121,7 +121,12 @@ final private class Player(
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(10).some)
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Validated[String, MoveResult] = {
+  private def applyUci(
+      game: Game,
+      uci: Uci,
+      blur: Boolean,
+      metrics: MoveMetrics
+  ): Validated[String, MoveResult] = {
     (uci match {
       case Uci.Move(orig, dest, prom) => {
         game.shogi(orig, dest, prom, metrics) map {

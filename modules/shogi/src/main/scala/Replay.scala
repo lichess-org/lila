@@ -98,7 +98,10 @@ object Replay {
     }
   }
 
-  private def recursiveSituations(sit: Situation, parsedMoves: List[ParsedMove]): Validated[String, List[Situation]] =
+  private def recursiveSituations(
+      sit: Situation,
+      parsedMoves: List[ParsedMove]
+  ): Validated[String, List[Situation]] =
     parsedMoves match {
       case Nil => valid(Nil)
       case san :: rest =>
@@ -108,7 +111,10 @@ object Replay {
         }
     }
 
-  private def recursiveSituationsFromUci(sit: Situation, ucis: List[Uci]): Validated[String, List[Situation]] =
+  private def recursiveSituationsFromUci(
+      sit: Situation,
+      ucis: List[Uci]
+  ): Validated[String, List[Situation]] =
     ucis match {
       case Nil => valid(Nil)
       case uci :: rest =>

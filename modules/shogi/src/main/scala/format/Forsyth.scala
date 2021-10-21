@@ -77,8 +77,7 @@ object Forsyth {
             board.withCrazyData(hands)
           }
         }
-      }
-      else None
+      } else None
     }
 
   def readHands(sfenHand: String): Hands = {

@@ -298,10 +298,14 @@ object Clock {
 
   def parseJPTime(str: String): Option[Int] = {
     if (str contains "時間")
-      str.takeWhile(_ != '時').toIntOption
+      str
+        .takeWhile(_ != '時')
+        .toIntOption
         .map(_ * 3600 + parseJPTime(str.reverse.takeWhile(_ != '間').reverse).getOrElse(0))
     else if (str contains "分")
-      str.takeWhile(_ != '分').toIntOption
+      str
+        .takeWhile(_ != '分')
+        .toIntOption
         .map(_ * 60 + parseJPTime(str.reverse.takeWhile(_ != '分').reverse).getOrElse(0))
     else str.filterNot(_ == '秒').toIntOption
   }

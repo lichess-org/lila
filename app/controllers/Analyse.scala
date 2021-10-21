@@ -51,40 +51,41 @@ final class Analyse(
               initialFen,
               analysis = none,
               NotationDump.WithFlags(clocks = false)
-            ) flatMap { case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), kif) =>
-              env.api.roundApi.review(
-                pov,
-                lila.api.Mobile.Api.currentVersion,
-                tv = userTv.map { u =>
-                  lila.round.OnUserTv(u.id)
-                },
-                analysis,
-                initialFenO = initialFen.some,
-                withFlags = WithFlags(
-                  movetimes = true,
-                  clocks = true,
-                  division = true,
-                  opening = true
-                )
-              ) map { data =>
-                EnableSharedArrayBuffer(
-                  Ok(
-                    html.analyse.replay(
-                      pov,
-                      data,
-                      initialFen,
-                      kif.render,
-                      analysis,
-                      analysisInProgress,
-                      simul,
-                      crosstable,
-                      userTv,
-                      chat,
-                      bookmarked = bookmarked
+            ) flatMap {
+              case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), kif) =>
+                env.api.roundApi.review(
+                  pov,
+                  lila.api.Mobile.Api.currentVersion,
+                  tv = userTv.map { u =>
+                    lila.round.OnUserTv(u.id)
+                  },
+                  analysis,
+                  initialFenO = initialFen.some,
+                  withFlags = WithFlags(
+                    movetimes = true,
+                    clocks = true,
+                    division = true,
+                    opening = true
+                  )
+                ) map { data =>
+                  EnableSharedArrayBuffer(
+                    Ok(
+                      html.analyse.replay(
+                        pov,
+                        data,
+                        initialFen,
+                        kif.render,
+                        analysis,
+                        analysisInProgress,
+                        simul,
+                        crosstable,
+                        userTv,
+                        chat,
+                        bookmarked = bookmarked
+                      )
                     )
                   )
-                )
-              }
+                }
             }
         }
       }

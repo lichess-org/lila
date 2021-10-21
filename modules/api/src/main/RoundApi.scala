@@ -126,16 +126,17 @@ final private[api] class RoundApi(
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
           ctx.userId.ifTrue(ctx.isMobileApi).?? { noteApi.get(pov.gameId, _) } zip
-          bookmarkApi.exists(pov.game, ctx.me) map { case (((((json, tour), simul), swiss), note), bookmarked) =>
+          bookmarkApi.exists(pov.game, ctx.me) map {
+            case (((((json, tour), simul), swiss), note), bookmarked) =>
               (
                 withTournament(pov, tour) _ compose
-                withSwiss(swiss) compose
-                withSimul(simul) compose
-                withNote(note) compose
-                withBookmark(bookmarked) compose
-                withTree(pov, analysis, initialFen, withFlags) compose
-                withAnalysis(pov.game, analysis)
-            )(json)
+                  withSwiss(swiss) compose
+                  withSimul(simul) compose
+                  withNote(note) compose
+                  withBookmark(bookmarked) compose
+                  withTree(pov, analysis, initialFen, withFlags) compose
+                  withAnalysis(pov.game, analysis)
+              )(json)
           }
       }
       .mon(_.round.api.watcher)

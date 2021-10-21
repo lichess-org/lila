@@ -20,7 +20,8 @@ final class DataForm {
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkNotation(notation: String): Validated[String, Preprocessed] = ImportData(notation, none).preprocess(none)
+  def checkNotation(notation: String): Validated[String, Preprocessed] =
+    ImportData(notation, none).preprocess(none)
 }
 
 private case class TagResult(status: Status, winner: Option[Color])

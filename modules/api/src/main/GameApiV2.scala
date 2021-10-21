@@ -171,12 +171,12 @@ final class GameApiV2(
                   (
                     game,
                     pairing,
-                      (
-                        playerTeams.get(pairing.user1),
-                        playerTeams.get(
-                          pairing.user2
-                        )
-                      ) mapN shogi.Color.Map.apply[String]
+                    (
+                      playerTeams.get(pairing.user1),
+                      playerTeams.get(
+                        pairing.user2
+                      )
+                    ) mapN shogi.Color.Map.apply[String]
                   )
                 }
               }

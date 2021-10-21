@@ -25,7 +25,11 @@ object Reader {
   def moves(moveStrs: Iterable[String], tags: Tags): Validated[String, Result] =
     movesWithPgn(moveStrs, identity, tags)
 
-  def fullWithPgn(pgn: String, op: ParsedMoves => ParsedMoves, tags: Tags = Tags.empty): Validated[String, Result] =
+  def fullWithPgn(
+      pgn: String,
+      op: ParsedMoves => ParsedMoves,
+      tags: Tags = Tags.empty
+  ): Validated[String, Result] =
     Parser.full(cleanUserInput(pgn)) map { parsed =>
       makeReplay(makeGame(parsed.tags ++ tags), op(parsed.parsedMoves))
     }
@@ -33,7 +37,11 @@ object Reader {
   def fullWithParsedMoves(parsed: ParsedNotation, op: ParsedMoves => ParsedMoves): Result =
     makeReplay(makeGame(parsed.tags), op(parsed.parsedMoves))
 
-  def movesWithPgn(moveStrs: Iterable[String], op: ParsedMoves => ParsedMoves, tags: Tags): Validated[String, Result] =
+  def movesWithPgn(
+      moveStrs: Iterable[String],
+      op: ParsedMoves => ParsedMoves,
+      tags: Tags
+  ): Validated[String, Result] =
     Parser.moves(moveStrs, tags.variant | variant.Variant.default) map { moves =>
       makeReplay(makeGame(tags), op(moves))
     }

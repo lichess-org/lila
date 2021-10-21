@@ -10,7 +10,11 @@ import cats.implicits._
 
 object KifParserHelper {
 
-  def parseSituation(str: String, handicap: Option[String], variant: Variant): Validated[String, Situation] = {
+  def parseSituation(
+      str: String,
+      handicap: Option[String],
+      variant: Variant
+  ): Validated[String, Situation] = {
     val lines = augmentString(str).linesIterator.to(List).map(_.trim.replace("：", ":").replace("　", " "))
     val ranks = lines
       .filter(l => (l lift 0 contains '|') && (l.length <= 42))
@@ -37,8 +41,10 @@ object KifParserHelper {
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
       } yield (Situation(board, Color(!goteTurn)))
     } else {
-      invalid("Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
-        .format(ranks.head, ranks.size))
+      invalid(
+        "Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
+          .format(ranks.head, ranks.size)
+      )
     }
   }
 
@@ -84,7 +90,7 @@ object KifParserHelper {
       values.split(" ").foldLeft(valid(Hand.init): Validated[String, Hand]) { case (acc, cur) =>
         acc match {
           case Valid(hand) => parseHandPiece(cur, hand)
-          case _                    => acc
+          case _           => acc
         }
       }
     }

@@ -35,24 +35,28 @@ object CsaParserHelper {
   private def parseHandicap(handicap: String, variant: Variant): Validated[String, PieceMap] = {
     def parseSquarePiece(squarePiece: String, pieces: PieceMap): Validated[String, PieceMap] = {
       for {
-        _ <- if (squarePiece.size == 4) valid(squarePiece)
-             else invalid(s"Incorrect square and piece format in handicap setup: $squarePiece")
+        _ <-
+          if (squarePiece.size == 4) valid(squarePiece)
+          else invalid(s"Incorrect square and piece format in handicap setup: $squarePiece")
         posStr  = squarePiece.slice(0, 2)
         roleStr = squarePiece.slice(2, 4)
-        pos  <- Pos.numberAllKeys get posStr toValid s"Incorrect position in handicap setup: $posStr"
-        _    <- if (pieces contains pos) valid(pos)
-                else invalid(s"No piece to remove from $posStr in handicap setup")
+        pos <- Pos.numberAllKeys get posStr toValid s"Incorrect position in handicap setup: $posStr"
+        _ <-
+          if (pieces contains pos) valid(pos)
+          else invalid(s"No piece to remove from $posStr in handicap setup")
         role <- Role.allByCsa get roleStr toValid s"Non existent piece role in handicap setup: $roleStr"
-        _ <- if (pieces.get(pos).exists(_.role == role)) valid(role)
-             else invalid(s"$role not present on $posStr in handicap setup")
+        _ <-
+          if (pieces.get(pos).exists(_.role == role)) valid(role)
+          else invalid(s"$role not present on $posStr in handicap setup")
       } yield (pieces - pos)
     }
 
-    handicap.drop(2).grouped(4).foldLeft(valid(variant.pieces): Validated[String, PieceMap]) { case (acc, cur) =>
-      acc match {
-        case Valid(pieces) => parseSquarePiece(cur, pieces)
-        case _             => acc
-      }
+    handicap.drop(2).grouped(4).foldLeft(valid(variant.pieces): Validated[String, PieceMap]) {
+      case (acc, cur) =>
+        acc match {
+          case Valid(pieces) => parseSquarePiece(cur, pieces)
+          case _             => acc
+        }
     }
   }
 
@@ -68,8 +72,10 @@ object CsaParserHelper {
     val squares = ranks.flatMap(_.drop(2).grouped(3)).zipWithIndex
     if (ranks.size != 9) invalid("Incorrect number of board ranks in board setup: %d/9".format(ranks.size))
     else if (squares.size != 81)
-      invalid("Incorrect number of squares in board setup: %d/81 (%s)"
-        .format(squares.size, ranks.filter(_.size > (2 + 9 * 3)).map(_.take(2)).mkString(",")))
+      invalid(
+        "Incorrect number of squares in board setup: %d/81 (%s)"
+          .format(squares.size, ranks.filter(_.size > (2 + 9 * 3)).map(_.take(2)).mkString(","))
+      )
     else {
       squares.foldLeft(valid(Map()): Validated[String, PieceMap]) { case (acc, cur) =>
         acc match {
@@ -82,9 +88,18 @@ object CsaParserHelper {
     }
   }
 
-  private def parseAdditions(additions: List[String], board: Board, variant: Variant): Validated[String, Board] = {
+  private def parseAdditions(
+      additions: List[String],
+      board: Board,
+      variant: Variant
+  ): Validated[String, Board] = {
     def parseSingleLine(line: String, board: Board, variant: Variant): Validated[String, Board] = {
-      def parseHandAddition(str: String, color: Color, board: Board, variant: Variant): Validated[String, Board] = {
+      def parseHandAddition(
+          str: String,
+          color: Color,
+          board: Board,
+          variant: Variant
+      ): Validated[String, Board] = {
         if (str == "00AL") {
           val hands        = board.crazyData.getOrElse(Hands.init)
           val otherHand    = hands(!color)
@@ -101,19 +116,22 @@ object CsaParserHelper {
           valid(board withCrazyData newHands)
         } else
           for {
-            _ <- if(str.size == 4) valid(str)
-                 else invalid(s"Incorrect format (${str}) in: $line")
+            _ <-
+              if (str.size == 4) valid(str)
+              else invalid(s"Incorrect format (${str}) in: $line")
             roleStr = str.slice(2, 4)
             role <- Role.allByCsa get roleStr toValid s"Non existent piece role (${roleStr}) in: $line"
-            _    <- if(Role.handRoles.contains(role)) valid(role)
-                    else invalid(s"Can't have $role in hand: $line")
+            _ <-
+              if (Role.handRoles.contains(role)) valid(role)
+              else invalid(s"Can't have $role in hand: $line")
             hands = board.crazyData.getOrElse(Hands.init)
           } yield (board.withCrazyData(hands.store(Piece(!color, role))))
       }
       def parseBoardAddition(str: String, color: Color, board: Board): Validated[String, Board] = {
         for {
-          _ <- if(str.size == 4) valid(str)
-               else invalid(s"Incorrect square piece format (${str}) in: $line")
+          _ <-
+            if (str.size == 4) valid(str)
+            else invalid(s"Incorrect square piece format (${str}) in: $line")
           posStr  = str.slice(0, 2)
           roleStr = str.slice(2, 4)
           pos  <- Pos.numberAllKeys get posStr toValid s"Incorrect position (${posStr}) in: $line"

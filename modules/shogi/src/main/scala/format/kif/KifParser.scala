@@ -107,8 +107,8 @@ object KifParser {
     val uselessTimes =
       strMoves.forall(m => m.timeSpent.fold(true)(_ == Centis(0)) && m.timeTotal.fold(true)(_ == Centis(0)))
 
-    var lastDest: Option[Pos]        = startDest
-    var bMoveNumber                  = startNum
+    var lastDest: Option[Pos]                    = startDest
+    var bMoveNumber                              = startNum
     var res: List[Validated[String, ParsedMove]] = List()
 
     for (StrMove(moveNumber, moveStr, comments, timeSpent, timeTotal) <- strMoves) {

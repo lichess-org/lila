@@ -22,7 +22,9 @@ object replay {
       .fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   private def playerName(p: Player): String =
-    (p.aiLevel.fold(p.userId | (p.name | lila.user.User.anonymous))("lishogi AI level " + _)).replaceAll("""\s""", "_")
+    (p.aiLevel
+      .fold(p.userId | (p.name | lila.user.User.anonymous))("lishogi AI level " + _))
+      .replaceAll("""\s""", "_")
 
   def apply(
       pov: Pov,

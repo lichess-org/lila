@@ -89,14 +89,19 @@ abstract class Variant private[variant] (
 
     for {
       actor <- situation.board.actors get from toValid "No piece on " + from
-      _     <- if (actor is situation.color) Validated.valid(actor)
-               else Validated.invalid("Not my piece on " + from)
-      m1    <- findMove(from, to) toValid "Piece on " + from + " cannot move to " + to
-      m2 <- m1.withPromotion(Role.promotesTo(
-        actor.piece.role
-      ), promotion) toValid "Piece on " + from + " cannot promote to " + promotion
-      m3 <- if (isValidPromotion(actor.piece, promotion, from, to)) Validated.valid(m2)
-            else Validated.invalid("Cannot promote to " + promotion + " in this game mode")
+      _ <-
+        if (actor is situation.color) Validated.valid(actor)
+        else Validated.invalid("Not my piece on " + from)
+      m1 <- findMove(from, to) toValid "Piece on " + from + " cannot move to " + to
+      m2 <- m1.withPromotion(
+        Role.promotesTo(
+          actor.piece.role
+        ),
+        promotion
+      ) toValid "Piece on " + from + " cannot promote to " + promotion
+      m3 <-
+        if (isValidPromotion(actor.piece, promotion, from, to)) Validated.valid(m2)
+        else Validated.invalid("Cannot promote to " + promotion + " in this game mode")
     } yield m3
   }
 
@@ -114,13 +119,15 @@ abstract class Variant private[variant] (
   def drop(situation: Situation, role: Role, pos: Pos): Validated[String, Drop] =
     for {
       d1 <- situation.board.crazyData toValid "Board has no hand data"
-      _  <- if (validPieceDrop(role, pos, situation)) Validated.valid(d1)
-            else Validated.invalid(s"Can't drop $role on $pos")
+      _ <-
+        if (validPieceDrop(role, pos, situation)) Validated.valid(d1)
+        else Validated.invalid(s"Can't drop $role on $pos")
       piece = Piece(situation.color, role)
       d2     <- d1.drop(piece) toValid s"No $piece to drop on $pos"
       board1 <- situation.board.place(piece, pos) toValid s"Can't drop $role on $pos, it's occupied"
-      _      <- if (!board1.check(situation.color)) Validated.valid(board1)
-                else Validated.invalid(s"Dropping $role on $pos doesn't uncheck the king")
+      _ <-
+        if (!board1.check(situation.color)) Validated.valid(board1)
+        else Validated.invalid(s"Dropping $role on $pos doesn't uncheck the king")
     } yield Drop(
       piece = piece,
       pos = pos,
@@ -239,7 +246,9 @@ abstract class Variant private[variant] (
     val pawnFiles = board occupiedPawnFiles color
     roles.length > 0 &&
     (!strict || { roles.count(_ == Pawn) <= 9 && roles.length <= 40 && roles.count(_ == King) == 1 }) &&
-    !unmovablePieces(board, color) && pawnFiles.distinct.length == pawnFiles.length && roles.count(_ == King) <= 1
+    !unmovablePieces(board, color) && pawnFiles.distinct.length == pawnFiles.length && roles.count(
+      _ == King
+    ) <= 1
   }
 
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict) _

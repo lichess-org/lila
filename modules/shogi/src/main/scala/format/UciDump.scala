@@ -11,7 +11,11 @@ object UciDump {
   def apply(replay: Replay): List[String] =
     replay.chronoMoves map move
 
-  def apply(moves: Seq[String], initialFen: Option[String], variant: Variant): Validated[String, List[String]] =
+  def apply(
+      moves: Seq[String],
+      initialFen: Option[String],
+      variant: Variant
+  ): Validated[String, List[String]] =
     if (moves.isEmpty) Validated.valid(Nil)
     else Replay(moves, initialFen, variant) andThen (_.valid) map apply
 

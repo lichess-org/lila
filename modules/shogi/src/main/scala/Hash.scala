@@ -66,9 +66,10 @@ object Hash {
       // of any given type in a pocket.
       // 18+ pieces in hand will get hashed as (18+)%19. Theoretically some false positives for repetition
       val minCount = count % 19
-      if (minCount > 0 && roleIndex(role) < 7) Option(
-        table.crazyPocketMasks(18 * roleIndex(role) + minCount + colorshift)
-      )
+      if (minCount > 0 && roleIndex(role) < 7)
+        Option(
+          table.crazyPocketMasks(18 * roleIndex(role) + minCount + colorshift)
+        )
       else None
     }
 

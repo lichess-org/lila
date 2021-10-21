@@ -100,5 +100,5 @@ final class PuzzleReplayApi(
       } map { ids =>
       PuzzleReplay(days, theme, ids.size, ids)
     }
-    
+
 }
