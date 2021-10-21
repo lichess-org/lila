@@ -19,6 +19,7 @@ type Month = string;
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
+  advanced: Prop<boolean>;
   db: StoredProp<ExplorerDb>;
   rating: StoredJsonProp<number[]>;
   speed: StoredJsonProp<ExplorerSpeed[]>;
@@ -43,6 +44,7 @@ export class ExplorerConfigCtrl {
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(true),
+      advanced: prop(false),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
@@ -161,8 +163,14 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
     ]),
     speedSection(ctrl, allSpeeds),
     h('div.advanced', [
-      h('label.toggle', 'Advanced settings'),
-      h('div.advanced__inner', [modeSection(ctrl), monthSection(ctrl)]),
+      h(
+        'button.button-link.toggle',
+        {
+          hook: bind('click', () => ctrl.data.advanced(!ctrl.data.advanced()), ctrl.root.redraw),
+        },
+        ['Advanced settings ', iconTag(ctrl.data.advanced() ? '' : '')]
+      ),
+      ...(ctrl.data.advanced() ? [modeSection(ctrl), monthSection(ctrl)] : []),
     ]),
   ]);
 };

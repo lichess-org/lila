@@ -1,5 +1,6 @@
 .explorer__config {
-  section {
+  section,
+  .toggle {
     margin: 0.4em $block-gap 0 $block-gap;
   }
 
@@ -78,6 +79,12 @@
     .beta {
       margin-left: 1ch;
     }
+  }
+
+  .toggle {
+    font-weight: bold;
+    display: block;
+    line-height: 2em;
   }
 
   .month {
