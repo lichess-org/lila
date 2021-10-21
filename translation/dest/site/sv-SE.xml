@@ -97,6 +97,7 @@
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
   <string name="winOr50MovesByPriorMistake">Vinst eller 50 drag på grund av tidigare misstag</string>
   <string name="lossOr50MovesByPriorMistake">Förlust eller 50 drag på grund av tidigare misstag</string>
+  <string name="unknownDueToRounding">Vinst/förlust är endast garanterad om den rekommenderade öppningsboksvarianten har följts sedan senaste slag eller bondedrag, på grund av möjlig avrundning av DTZ värde i Syzygyöppningsböcker.</string>
   <string name="allSet">Klart!</string>
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
