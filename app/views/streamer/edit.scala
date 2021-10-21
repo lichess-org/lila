@@ -30,8 +30,8 @@ object edit {
               if (s.streamer.hasPicture)
                 a(
                   targetBlank,
-                  cls := "picture-edit",
-                  href := routes.Streamer.picture,
+                  cls   := "picture-edit",
+                  href  := routes.Streamer.picture,
                   title := changePicture.txt()
                 )(
                   picture.thumbnail(s.streamer, s.user)
@@ -53,7 +53,7 @@ object edit {
             val granted = s.streamer.approval.granted
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
-                cls := s"status is${granted ?? "-green"}",
+                cls      := s"status is${granted ?? "-green"}",
                 dataIcon := (if (granted) "" else "")
               )(
                 if (granted)
@@ -148,7 +148,7 @@ object edit {
                 )
               },
               postForm(
-                cls := "form3",
+                cls    := "form3",
                 action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
               )(
                 isGranted(_.Streamers) option div(cls := "mod")(
@@ -188,13 +188,13 @@ object edit {
                   form3.actions(
                     form3
                       .submit("Approve and next")(
-                        cls := "button-green",
-                        name := "approval.quick",
+                        cls   := "button-green",
+                        name  := "approval.quick",
                         value := "approve"
                       ),
                     form3.submit("Decline and next", icon = "".some)(
-                      cls := "button-red",
-                      name := "approval.quick",
+                      cls   := "button-red",
+                      name  := "approval.quick",
                       value := "decline"
                     ),
                     form3.submit(trans.apply())

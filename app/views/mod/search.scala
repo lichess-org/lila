@@ -33,7 +33,7 @@ object search {
               name := "q",
               autofocus,
               placeholder := "Search by IP, email, or username (exact match only)",
-              value := form("q").value
+              value       := form("q").value
             )
           ),
           userTable(mod, users)

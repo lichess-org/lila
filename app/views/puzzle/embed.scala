@@ -19,14 +19,14 @@ object embed {
     )(
       dailyLink(daily)(config.lang)(
         targetBlank,
-        id := "daily-puzzle",
+        id  := "daily-puzzle",
         cls := "embedded"
       ),
       jsModule("puzzle.embed")
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
-    href := routes.Puzzle.daily,
+    href  := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),

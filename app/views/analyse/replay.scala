@@ -48,31 +48,31 @@ object replay {
     val pgnLinks = div(
       a(
         dataIcon := "",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?literate=1",
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
       )(
         trans.downloadAnnotated()
       ),
       a(
         dataIcon := "",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
       )(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
         dataIcon := "",
-        cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?imported=1",
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?imported=1",
         downloadAttr
       )(trans.downloadImported()),
       ctx.noBlind option frag(
         a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
           dataIcon := "",
-          cls := "text",
+          cls      := "text",
           targetBlank,
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
         )(
@@ -129,7 +129,7 @@ object replay {
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
                   else
                     postForm(
-                      cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                      cls    := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
                       action := routes.Analyse.requestAnalysis(gameId)
                     )(
                       submitButton(cls := "button text")(
@@ -146,7 +146,7 @@ object replay {
                     input(
                       readonly,
                       spellcheck := false,
-                      cls := "copyable autoselect analyse__underboard__fen"
+                      cls        := "copyable autoselect analyse__underboard__fen"
                     )
                   ),
                   div(cls := "pgn-options")(
@@ -164,7 +164,7 @@ object replay {
               div(cls := "analyse__underboard__menu")(
                 game.analysable option
                   span(
-                    cls := "computer-analysis",
+                    cls       := "computer-analysis",
                     dataPanel := "computer-analysis"
                   )(trans.computerAnalysis()),
                 !game.isPgnImport option frag(

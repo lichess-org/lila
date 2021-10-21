@@ -3,7 +3,7 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
+import play.api.data.validation.{ Constraint, Invalid, Valid => FormValid, ValidationError }
 import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
