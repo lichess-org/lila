@@ -38,6 +38,8 @@
   <string name="sonnebornBergerScore">Коефіцієнт Бергера</string>
   <string name="dutchSystem">Голландська система</string>
   <string name="FIDEHandbook">Керівництво ФІДЕ</string>
+  <string name="moreRoundsThanPlayersQ">Що станеться, якщо турнір буде мати більше раундів ніж гравців?</string>
+  <string name="restrictedToTeamsQ">Чому це заборонено для грвців?</string>
   <string name="lateJoinQ">Чи можуть гравці приєднатися до турніру пізніше?</string>
   <string name="nowPlaying">Зараз грають</string>
   <string name="startingSoon">Скоро розпочнеться</string>
