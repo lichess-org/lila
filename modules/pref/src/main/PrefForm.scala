@@ -27,7 +27,6 @@ object PrefForm {
         "replay"        -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
         "zen"           -> optional(booleanNumber),
-        "ratings"       -> optional(booleanNumber),
         "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
@@ -53,7 +52,8 @@ object PrefForm {
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "mention"      -> optional(booleanNumber),
-      "insightShare" -> numberIn(Set(0, 1, 2))
+      "insightShare" -> numberIn(Set(0, 1, 2)),
+      "ratings"      -> optional(booleanNumber)
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -66,7 +66,6 @@ object PrefForm {
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
-      ratings: Option[Int],
       resizeHandle: Option[Int],
       blindfold: Int
   )
@@ -99,7 +98,8 @@ object PrefForm {
       message: Int,
       studyInvite: Option[Int],
       mention: Option[Int],
-      insightShare: Int
+      insightShare: Int,
+      ratings: Option[Int]
   ) {
 
     def apply(pref: Pref) =
@@ -129,7 +129,7 @@ object PrefForm {
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
-        ratings = display.ratings | pref.ratings,
+        ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
@@ -149,7 +149,6 @@ object PrefForm {
           captured = if (pref.captured) 1 else 0,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
-          ratings = pref.ratings.some,
           resizeHandle = pref.resizeHandle.some,
           pieceNotation = pref.pieceNotation.some
         ),
@@ -175,7 +174,8 @@ object PrefForm {
         message = pref.message,
         studyInvite = pref.studyInvite.some,
         mention = (if (pref.mention) 1 else 0).some,
-        insightShare = pref.insightShare
+        insightShare = pref.insightShare,
+        ratings = pref.ratings.some
       )
   }
 
