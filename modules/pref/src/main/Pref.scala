@@ -115,7 +115,7 @@ case class Pref(
 
   def isZen = zen == Zen.YES
 
-  def showRatings = ratings == Ratings.YES
+  val showRatings = ratings == Ratings.YES
 
   def is2d = !is3d
 

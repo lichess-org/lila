@@ -67,7 +67,8 @@ final class Analyse(
                     movetimes = true,
                     clocks = true,
                     division = true,
-                    opening = true
+                    opening = true,
+                    rating = ctx.pref.showRatings
                   )
                 ) map { data =>
                   EnableSharedArrayBuffer(
