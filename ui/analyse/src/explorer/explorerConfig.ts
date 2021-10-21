@@ -179,14 +179,15 @@ const radioButton =
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
-    h('section.rating', [
-      h('label', ctrl.root.trans.noarg('averageElo')),
-      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
-    ]),
+    h('p.message', [h('br'), 'Games from all Lichess players']),
     speedSection(
       ctrl,
       allSpeeds.filter(s => s != 'ultraBullet' && s != 'correspondence')
     ),
+    h('section.rating', [
+      h('label', ctrl.root.trans.noarg('averageElo')),
+      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+    ]),
   ]);
 
 const speedSection = (ctrl: ExplorerConfigCtrl, speeds: Speed[]) =>
