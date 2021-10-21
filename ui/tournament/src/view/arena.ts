@@ -43,7 +43,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
           : player.rank
       ),
       h('td.player', [
-        renderPlayer(player, false, true, userId === ctrl.data.defender),
+        renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),
       ]),
       h('td.sheet', player.sheet.scores.map(scoreTag)),
