@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
   <string name="pgnLetter">Buschtaf (K, D, T, L, S)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen Modus</string>
+  <string name="showPlayerRatings">Spillerwäertungen uweisen</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
   <string name="blindfoldChess">Blanneschach (onsichtbar Figuren)</string>
