@@ -44,7 +44,7 @@ export class ExplorerConfigCtrl {
     this.myName = document.body.dataset['user'];
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
-      open: prop(true),
+      open: prop(false),
       advanced: prop(false),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
