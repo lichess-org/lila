@@ -174,6 +174,7 @@
   <string name="followX">ଙ୍କୁ ଅନୁସରଣ କରନ୍ତୁ</string>
   <string name="unfollowX">%sଙ୍କୁ ଅନୁସରଣ କରନାହିଁ</string>
   <string name="more">ଅଧିକ</string>
+  <string name="player">ଖେଳାଳି</string>
   <string name="advancedSettings">ବିକଶିତ ସେଟିଂସ୍</string>
   <string name="showAdvancedSettings">ବିକଶିତ ସେଟିଂସ୍ ଦେଖାନ୍ତୁ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
@@ -230,6 +231,7 @@
     <item quantity="one">%sଟିଏ ଭାଷାରେ ଉପଲବ୍ଧ!</item>
     <item quantity="other">%sଟି ଭାଷାରେ ଉପଲବ୍ଧ!</item>
   </plurals>
+  <string name="anonymous">ବେନାମୀ</string>
   <string name="language">ଭାଷା</string>
   <string name="light">ହାଲୁକା</string>
   <string name="dark">ଗାଢ଼</string>
