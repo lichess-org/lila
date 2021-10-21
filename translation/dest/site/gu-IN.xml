@@ -299,6 +299,8 @@
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
   <string name="more">વધુ</string>
+  <string name="memberSince">સભ્ય બનવાની તારીખ</string>
+  <string name="lastSeenActive">%s સક્રિય</string>
   <string name="player">ખેલાડી</string>
   <string name="list">યાદી</string>
   <string name="graph">આલેખ</string>
