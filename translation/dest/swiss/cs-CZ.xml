@@ -46,6 +46,7 @@ Hráči, kteří se připojí pozdě, dostanou jeden volný bod i když se nezú
   <string name="roundRobinQ">Co systém každý s každým?</string>
   <string name="otherSystemsQ">A co ostatní systémy turnajů?</string>
   <string name="otherSystemsA">Momentálně nemáme v plánu přidávat do Lichess další typy turnajů.</string>
+  <string name="swissDescription">Ve švýcarském turnaji %1$s nemusí každý účastník nutně hrát se všemi ostatními. Hráči se v každém kole sejdou a jsou spárováni podle pravidel navržených tak, aby každý účastník hrál s protivníky s podobným hodnocením, ale ne s týmž soupeřem více než jednou. Vítězem je hráč s nejvyšším souhrnným počtem bodů ze všech kol. Všichni účastníci hrají v každém kole, pokud není lichý počet hráčů.\"</string>
   <string name="joinOrCreateTeam">Připojit se k týmu nebo vytvořit tým</string>
   <string name="nowPlaying">Právě se hraje</string>
   <string name="startingSoon">Brzy začne</string>
