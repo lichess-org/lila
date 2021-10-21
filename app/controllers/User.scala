@@ -579,6 +579,17 @@ final class User(
       }
     }
 
+  def ratingDistribution(perfKey: lila.rating.Perf.Key) =
+    Open { implicit ctx =>
+      lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match {
+        case Some(perfType) =>
+          env.user.rankingApi.weeklyRatingDistribution(perfType) dmap { data =>
+            Ok(html.stat.ratingDistribution(perfType, data))
+          }
+        case _ => notFound
+      }
+    }
+
   def myself =
     Auth { _ => me =>
       fuccess(Redirect(routes.User.show(me.username)))
