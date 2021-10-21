@@ -250,7 +250,7 @@ function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
 function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
   return h('div.data.empty', [
     h('div.title', ctrl.trans.noarg('gameOver')),
-    h('div.message', [h('i', { attrs: dataIcon('') }), h('h3', title), closeButton(ctrl)]),
+    h('div.message', [h('i', { attrs: dataIcon('') }), h('h3', ctrl.trans.noarg(title)), closeButton(ctrl)]),
   ]);
 }
 
@@ -291,24 +291,24 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       showTablebase(
         ctrl,
         data.fen,
-        title,
-        tooltip,
+        trans(title),
+        tooltip && trans(tooltip),
         data.moves.filter(m => m.category == category)
       );
     if (data.moves.length)
       lastShow = h('div.data', [
-        ...row('loss', trans('winning')),
-        ...row('unknown', trans('unknown')),
-        ...row('maybe-loss', trans('winOr50MovesByPriorMistake'), trans('unknownDueToRounding')),
-        ...row('blessed-loss', trans('winPreventedBy50MoveRule')),
-        ...row('draw', trans('drawn')),
-        ...row('cursed-win', trans('lossSavedBy50MoveRule')),
-        ...row('maybe-win', trans('lossOr50MovesByPriorMistake'), trans('unknownDueToRounding')),
-        ...row('win', trans('losing')),
+        ...row('loss', 'winning'),
+        ...row('unknown', 'unknown'),
+        ...row('maybe-loss', 'winOr50MovesByPriorMistake', 'unknownDueToRounding'),
+        ...row('blessed-loss', 'winPreventedBy50MoveRule'),
+        ...row('draw', 'drawn'),
+        ...row('cursed-win', 'lossSavedBy50MoveRule'),
+        ...row('maybe-win', 'lossOr50MovesByPriorMistake', 'unknownDueToRounding'),
+        ...row('win', 'losing'),
       ]);
-    else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'));
-    else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'));
-    else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, 'checkmate');
+    else if (data.stalemate) lastShow = showGameEnd(ctrl, 'stalemate');
+    else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'variantEnding');
     else lastShow = showEmpty(ctrl);
   }
   return lastShow;
