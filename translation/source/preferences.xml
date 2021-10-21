@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Chess piece symbol</string>
   <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mode</string>
+  <string name="showPlayerRatings">Show player ratings</string>
   <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>

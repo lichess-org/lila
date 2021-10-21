@@ -80,6 +80,10 @@ object pref {
               radios(form("display.zen"), booleanChoices)
             ),
             setting(
+              showPlayerRatings(),
+              radios(form("display.ratings"), booleanChoices)
+            ),
+            setting(
               displayBoardResizeHandle(),
               radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
             ),

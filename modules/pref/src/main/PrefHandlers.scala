@@ -46,6 +46,7 @@ private object PrefHandlers {
         insightShare = r.getD("insightShare", Pref.default.insightShare),
         keyboardMove = r.getD("keyboardMove", Pref.default.keyboardMove),
         zen = r.getD("zen", Pref.default.zen),
+        ratings = r.getD("ratings", Pref.default.ratings),
         rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
         pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
