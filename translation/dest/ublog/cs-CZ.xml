@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="newPost">Nový příspěvek</string>
+  <string name="editYourBlogPost">Upravit svůj příspěvek na blogu</string>
+  <string name="saveDraft">Uložit koncept</string>
+  <string name="postTitle">Nadpis příspěvku</string>
+  <string name="publishOnYourBlog">Publikovat na vašem blogu</string>
+  <string name="publishHelp">Je-li zaškrtnuto, příspěvek bude zobrazen na vašem blogu. Pokud ne, bude soukromý, ve vašich konceptech</string>
   <string name="xPublishedY">%1$s publikoval %2$s</string>
   <string name="noPostsInThisBlogYet">Zatím v tomto blogu nejsou žádné příspěvky.</string>
   <string name="noDrafts">Žádné koncepty k zobrazení.</string>
   <string name="uploadAnImageForYourPost">Nahrát obrázek pro váš příspěvek</string>
   <string name="imageAlt">Alternativní text obrázku</string>
+  <string name="imageCredit">Zdoj obrázku</string>
 </resources>
