@@ -326,7 +326,7 @@ object contact {
               "gdpr",
               "GDPR",
               frag(
-                p("If you are a European citizen, you may request the deletion of your Lichess account."),
+                p("You may request the deletion of your Lichess account."),
                 p(
                   "First, ",
                   a(href := routes.Account.close)("close your account"),
