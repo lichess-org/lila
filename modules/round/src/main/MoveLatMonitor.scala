@@ -12,13 +12,16 @@ private object MoveLatMonitor {
   }
   private val latency = new AtomicReference(Latency())
 
+  def record(micros: Int): Unit = latency.getAndUpdate(_ record micros).unit
+
+  object wsLatency {
+    var latestMillis     = 0
+    def set(millis: Int) = latestMillis = millis
+  }
+
   def start(scheduler: Scheduler)(implicit ec: scala.concurrent.ExecutionContext) =
     scheduler.scheduleWithFixedDelay(10 second, 2 second) { () =>
-      lila.common.Bus.publish(
-        lila.hub.actorApi.round.Mlat(latency.getAndSet(Latency()).average),
-        "mlat"
-      )
+      val full = latency.getAndSet(Latency()).average + wsLatency.latestMillis * 1000
+      lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(full), "mlat")
     }
-
-  def record(micros: Int): Unit = latency.getAndUpdate(_ record micros).unit
 }

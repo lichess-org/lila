@@ -150,7 +150,8 @@ final class RoundSocket(
     case RP.In.SetVersions(versions) =>
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
-    case P.In.Ping(id) => send(P.Out.pong(id))
+    case P.In.Ping(id)                 => send(P.Out.pong(id))
+    case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
       // schedule termination for all game asyncActors
@@ -315,6 +316,7 @@ object RoundSocket {
       case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId])              extends P.In
       case class Berserk(gameId: Game.Id, userId: User.ID)                                        extends P.In
       case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String) extends P.In
+      case class WsLatency(millis: Int)                                                           extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match {
@@ -376,7 +378,8 @@ object RoundSocket {
                 Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
               }
             }
-          case _ => RP.In.reader(raw)
+          case "r/latency" => raw.args.toIntOption map WsLatency
+          case _           => RP.In.reader(raw)
         }
 
       private def centis(s: String): Option[Centis] =
