@@ -34,17 +34,17 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
   <string name="restrictedToTeamsA">Švýcarské turnaje nebyly koncipovány pro online šachy. Požadují od hráčů dochvilnost, obětavost a trpělivost.
 Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
-  <string name="numberOfByesQ">Kolik volných bodů může hráč dostat?</string>
-  <string name="numberOfByesA">Hráč dostane volný bod pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>
+  <string name="numberOfByesA">Hráč dostane bod zdarma pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
   <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
   <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
 Takového hráče systém diskvalifikuje, aby neprohrál více partií.
 Do turnaje se mohou připojit kdykoliv.</string>
   <string name="lateJoinQ">Mohou se hráči připojit po začátku?</string>
   <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12 kolovém turnaji do začátku 7. kola.
-Hráči, kteří se připojí pozdě, dostanou jeden volný bod i když se nezúčastní více kol.</string>
+Hráči, kteří se připojí pozdě, dostanou jeden bod zdarma i když se nezúčastní více kol.</string>
   <string name="willSwissReplaceArenasQ">Nahradí švýcarské turnaje arény?</string>
-  <string name="willSwissReplaceArenasA">Ne, obojí má svoji funkci.</string>
+  <string name="willSwissReplaceArenasA">Ne, obojí má svůj účel.</string>
   <string name="roundRobinQ">Co systém každý s každým?</string>
   <string name="otherSystemsQ">A co ostatní systémy turnajů?</string>
   <string name="otherSystemsA">Momentálně nemáme v plánu přidávat do Lichess další typy turnajů.</string>
@@ -59,6 +59,7 @@ Hráči, kteří se připojí pozdě, dostanou jeden volný bod i když se nezú
   <string name="predefinedDuration">Předpokládaná doba trvání</string>
   <string name="durationUnknown">Předem daný počet kol, ale neznámá doba trvání</string>
   <string name="numberOfGames">Počet her</string>
+  <string name="numberOfGamesAsManyAsPossible">Tolik, kolik je možné za daný čas stihnout</string>
   <string name="numberOfGamesPreDefined">Stanoveno předem, stejné pro všechny hráče</string>
   <string name="pairingSystem">Losovací systém</string>
   <string name="pairingSystemArena">Jakýkoli soupeř s podobným hodnocením</string>
