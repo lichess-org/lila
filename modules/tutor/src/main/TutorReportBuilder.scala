@@ -20,7 +20,7 @@ final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo)(i
       )
       // .documentSource(10_000)
       // .documentSource(1_000)
-      .documentSource(100)
+      .documentSource(1000)
       .mapConcat(Pov.ofUserId(_, user.id).toList)
       .mapAsyncUnordered(16) { pov =>
         analysisRepo.byGame(pov.game).dmap(pov -> _)
