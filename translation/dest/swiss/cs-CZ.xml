@@ -26,8 +26,20 @@
     <item quantity="many">%s sekund mezi koly</item>
     <item quantity="other">%s sekund mezi koly</item>
   </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuta mezi koly</item>
+    <item quantity="few">%s minuty mezi koly</item>
+    <item quantity="many">%s minut mezi koly</item>
+    <item quantity="other">%s minut mezi koly</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
   <string name="nextRound">Další kolo</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Probíhající partie</item>
+    <item quantity="few">Probíhající partie</item>
+    <item quantity="many">Probíhajících partií</item>
+    <item quantity="other">Probíhajících partií</item>
+  </plurals>
   <string name="tournStartDate">Zahajovací datum turnaje</string>
   <string name="numberOfRounds">Počet kol</string>
   <string name="numberOfRoundsHelp">Lichý počet kol umžňuje hrát vyváženě oběma barvami.</string>
