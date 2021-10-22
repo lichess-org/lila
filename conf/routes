@@ -745,6 +745,8 @@ POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: St
 GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
+GET   /tutor                           controllers.Tutor.index
+
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize
 POST   /oauth                          controllers.OAuth.legacyTokenApply
