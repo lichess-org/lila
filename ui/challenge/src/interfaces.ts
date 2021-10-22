@@ -50,7 +50,7 @@ export interface Challenge {
   initialFen: FEN;
   rated: boolean;
   timeControl: TimeControl;
-  color: Color;
+  color: Color | 'random';
   perf: {
     icon: string;
     name: string;
