@@ -7,6 +7,8 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
   let redirecting = false;
   let reasons: Reasons = {};
 
+  const showRatings = !document.body.classList.contains('no-rating');
+
   function update(d: ChallengeData) {
     data = d;
     if (d.i18n) trans = lichess.trans(d.i18n).noarg;
@@ -36,7 +38,7 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
   function showUser(user: ChallengeUser) {
     const rating = user.rating + (user.provisional ? '?' : '');
     const fullName = (user.title ? user.title + ' ' : '') + user.name;
-    return fullName + ' (' + rating + ')';
+    return fullName + (showRatings ? ' (' + rating + ')' : '');
   }
 
   update(data);
@@ -45,6 +47,7 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
     data: () => data,
     trans: () => trans,
     reasons: () => reasons,
+    showRatings,
     update,
     decline(id, reason) {
       data.in.forEach(c => {

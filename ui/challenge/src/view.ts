@@ -2,15 +2,13 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
 
-export function loaded(ctrl: Ctrl): VNode {
-  return ctrl.redirecting()
+export const loaded = (ctrl: Ctrl): VNode =>
+  ctrl.redirecting()
     ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
-}
 
-export function loading(): VNode {
-  return h('div#challenge-app.links.dropdown.rendered', [h('div.empty.loading', '-'), create()]);
-}
+export const loading = (): VNode =>
+  h('div#challenge-app.links.dropdown.rendered', [h('div.empty.loading', '-'), create()]);
 
 function renderContent(ctrl: Ctrl): VNode[] {
   const d = ctrl.data();
@@ -18,9 +16,7 @@ function renderContent(ctrl: Ctrl): VNode[] {
   return nb ? [allChallenges(ctrl, d, nb)] : [empty(), create()];
 }
 
-function userPowertips(vnode: VNode) {
-  lichess.powertip.manualUserIn(vnode.elm);
-}
+const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm);
 
 function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
   return h(
@@ -37,8 +33,8 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 }
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
-  return (c: Challenge) => {
-    return h(
+  return (c: Challenge) =>
+    h(
       'div.challenge.' + dir + '.c-' + c.id,
       {
         class: {
@@ -47,7 +43,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
+          h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
           h('span.desc', [
             h('span.is.is2.color-icon.' + (c.color || 'random')),
             ' • ',
@@ -60,7 +56,6 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ]
     );
-  };
 }
 
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
@@ -144,7 +139,7 @@ function timeControl(c: TimeControl): string {
   }
 }
 
-function renderUser(u?: ChallengeUser): VNode {
+function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
   if (!u) return h('span', 'Open challenge');
   const rating = u.rating + (u.provisional ? '?' : '');
   return h(
@@ -157,7 +152,7 @@ function renderUser(u?: ChallengeUser): VNode {
       h('i.line' + (u.patron ? '.patron' : '')),
       h('name', [
         u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + ' (' + rating + ') ',
+        u.name + (showRatings ? ' (' + rating + ') ' : ''),
       ]),
       h(
         'signal',

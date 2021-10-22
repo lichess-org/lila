@@ -9,6 +9,7 @@ export interface Ctrl {
   update(data: ChallengeData): void;
   data(): ChallengeData;
   trans(): (key: string) => string;
+  showRatings: boolean;
   reasons(): Reasons;
   decline(id: string, reason: string): void;
   cancel(id: string): void;
