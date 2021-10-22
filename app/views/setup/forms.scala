@@ -27,7 +27,7 @@ object forms {
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
           ),
-          (ctx.noBlind && ctx.pref.showRatings) option div(cls := "optional_config")(
+          ctx.noBlind option div(cls := "optional_config")(
             div(cls := "rating-range-config")(
               trans.ratingRange(),
               div(cls := "rating-range") {
