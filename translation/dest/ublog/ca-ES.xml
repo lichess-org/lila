@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xBlog">Blog de %s</string>
+  <string name="newPost">Nova publicació</string>
+  <string name="editYourBlogPost">Edita la teva publicació</string>
+  <string name="saveDraft">Desa l\'esborrany</string>
+  <string name="postTitle">Títol de l\'entrada</string>
+  <string name="drafts">Esborranys</string>
   <string name="published">Publicat</string>
   <string name="latestBlogPosts">Les últimes publicacions en el blog</string>
   <string name="imageCredit">Crèdits de la imatge</string>
