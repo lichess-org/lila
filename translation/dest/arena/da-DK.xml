@@ -2,7 +2,7 @@
 <resources>
   <string name="arenaTournaments">Arenaturneringer</string>
   <string name="isItRated">Er den ratet?</string>
-  <string name="willBeNotified">Du får besked, når turneringen starter, derfor er det sikkert at spille i en anden fane imens du venter.</string>
+  <string name="willBeNotified">Du får besked, når turneringen starter. Så du kan roligt spille i en anden fane, mens du venter.</string>
   <string name="isRated">Denne turnering er rated og vil påvirke din rating.</string>
   <string name="isNotRated">Denne turnering er *ikke* ratet og vil *ikke* påvirke din rating.</string>
   <string name="someRated">Nogle turneringer er ratede og vil påvirke din rating.</string>

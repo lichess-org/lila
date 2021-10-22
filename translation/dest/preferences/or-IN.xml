@@ -2,6 +2,7 @@
 <resources>
   <string name="preferences">ଅଗ୍ରାଧିକାରସମୂହ</string>
   <string name="gameDisplay">ଖେଳ ପ୍ରଦର୍ଶନ</string>
+  <string name="showPlayerRatings">ଖେଳାଳିଙ୍କ ରେଟିଂ ଦେଖାଅ</string>
   <string name="soundWhenTimeGetsCritical">ସମୟ ଜଟିଳ ହେଲେ ଶବ୍ଦ କରନ୍ତୁ</string>
   <string name="giveMoreTime">ଅଧିକ ସମୟ ଦିଅନ୍ତୁ</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">ଖେଳ ଆଚରଣ</string>

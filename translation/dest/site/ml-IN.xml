@@ -46,9 +46,12 @@
   <string name="blackResigned">കറുപ്പു തോൽവി സമ്മതിച്ചു</string>
   <string name="whiteLeftTheGame">വെള്ള കളി ഉപേക്ഷിച്ചു</string>
   <string name="blackLeftTheGame">കറുപ്പു കളി ഉപേക്ഷിച്ചു</string>
+  <string name="whiteDidntMove">വൈറ്റ് നീക്കം നടത്തിയില്ല</string>
+  <string name="blackDidntMove">ബ്ലാക്ക് നീക്കം നടത്തിയില്ല</string>
   <string name="requestAComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് കമ്പ്യൂട്ടർ വിശകലനം ലഭ്യമാണ്</string>
+  <string name="computerAnalysisDisabled">കമ്പ്യൂട്ടർ വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
   <string name="analysis">പരിശോധനാ ബോര്‍ഡ്</string>
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
@@ -130,6 +133,8 @@
     <item quantity="one">%s കളിക്കാർ</item>
     <item quantity="other">%s കളിക്കാർ</item>
   </plurals>
+  <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
+  <string name="fiftyMovesWithoutProgress">പുരോഗതിയില്ലാതെ 50 നീക്കങ്ങൾ</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
@@ -152,7 +157,7 @@
   <string name="players">കളിക്കാര്</string>
   <string name="friends">സുഹൃത്തുക്കള്‍</string>
   <string name="discussions">ചര്‍ച്ചകള്‍</string>
-  <string name="today">ഇന്ന്</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">ഇന്ന്</string>
   <string name="yesterday">ഇന്നലെ</string>
   <string name="minutesPerSide">ഇരുഭാഗത്തും അനുവദിച്ച മിനിറ്റുകള്‍</string>
   <string name="variant">വ്യത്യാസം</string>
@@ -358,6 +363,8 @@
   <string name="follow">പിന്തുടരുക</string>
   <string name="following">പിന്തുടരുന്നു</string>
   <string name="unfollow">പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
+  <string name="followX">%s നെ പിന്തുടരുക</string>
+  <string name="unfollowX">%s നെ പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
   <string name="block">തടയുക</string>
   <string name="blocked">തടഞ്ഞു</string>
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
@@ -420,9 +427,10 @@
   <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
-  <string name="startPosition">പ്രാരംഭ സ്ഥാനം</string>
+  <string name="endgamePositions">ഏൻഡ് ഗെയിം പൊസിഷനുകൾ</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">പ്രാരംഭ സ്ഥാനം</string>
   <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
-  <string name="loadPosition">സ്ഥാനത്തു നിന്ന്</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">സ്ഥാനത്തു നിന്ന്</string>
   <string name="isPrivate">സ്വകാര്യം</string>
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
   <string name="profileCompletion">പ്രൊഫൈൽ പൂർത്തിയാക്കൽ: %s</string>
@@ -434,13 +442,14 @@
   <string name="firstName">നൽകിയ പേര്</string>
   <string name="lastName">അവസാന പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പതാക</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
   <string name="success">വിജയകരം</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s കളികൾ പുരോഗമിക്കുന്നു</item>
@@ -509,7 +518,7 @@
   <string name="onSlowGames">വേഗം കുറഞ്ഞ കളികളിൽ</string>
   <string name="always">നിരന്തരം</string>
   <string name="never">ഒരിക്കലും</string>
-  <string name="xCompetesInY">%1$s %2$s-ൽ മത്സരിക്കുന്നു</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$s-ൽ മത്സരിക്കുന്നു</string>
   <string name="victory">വിജയം!</string>
   <string name="defeat">തോൽവി</string>
   <string name="victoryVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
@@ -540,6 +549,7 @@
   <string name="tools">ഉപകരണങ്ങൾ</string>
   <string name="increment">കയറ്റം</string>
   <string name="error.required">ഈ ഭാഗം ആവശ്യമാണ്</string>
+  <string name="error.email">ഈ ഇമെയിൽ അഡ്രസ് സാധുവല്ല</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
@@ -785,7 +795,7 @@
   <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ഫോറത്തിൽ നിങ്ങൾക്കു പോസ്റ്റ്‌ ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു ഗ്യാമുകൾക്കു ശേഷം ശ്രമിക്കുക!</string>
   <string name="subscribe">സബ്സ്ക്രൈബ്</string>
   <string name="unsubscribe">അൺസബ്സ്ക്രൈബ്</string>
-  <string name="mentionedYouInX">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
   <string name="xMentionedYouInY">%2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
   <string name="invitedYouToX">%1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
   <string name="xInvitedYouToY">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>

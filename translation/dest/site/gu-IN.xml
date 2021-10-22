@@ -143,7 +143,7 @@
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
   <string name="discussions">સંવાદો</string>
-  <string name="today">આજે</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">આજે</string>
   <string name="yesterday">ગઇકાલે</string>
   <string name="minutesPerSide">બાજુ દીઠ મિનિટ</string>
   <string name="variant">પ્રકાર</string>
@@ -298,6 +298,9 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="more">વધુ</string>
+  <string name="memberSince">સભ્ય બનવાની તારીખ</string>
+  <string name="lastSeenActive">%s સક્રિય</string>
   <string name="player">ખેલાડી</string>
   <string name="list">યાદી</string>
   <string name="graph">આલેખ</string>
@@ -363,4 +366,5 @@
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
+  <string name="markdownAvailable">%s અદ્યતન વાક્યરચના માટે ઉપલબ્ધ છે.</string>
 </resources>
