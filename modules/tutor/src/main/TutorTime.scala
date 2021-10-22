@@ -8,13 +8,14 @@ import lila.game.ClockHistory
 import chess.Clock
 import chess.Division
 import chess.Centis
+import chess.Status
 
 case class TutorTimeReport(
     games: NbGames,
     moves: NbMoves,
     timePressure: NbGames, // low time with less time than opponent
     defeatWithHighTime: NbGames,
-    // defeatByFlagWithGoodPosition: NbGames,
+    defeatByFlagWithGoodPosition: NbGames,
     slowOpening: NbGames,
     immediateNonForcedMoves: NbMovesRatio // excepted in time pressure
 ) {}
@@ -26,12 +27,12 @@ object TutorTimeReport {
     moves = NbMoves(0),
     timePressure = NbGames(0),
     defeatWithHighTime = NbGames(0),
-    // defeatByFlagWithGoodPosition = NbGames(0),
+    defeatByFlagWithGoodPosition = NbGames(0),
     slowOpening = NbGames(0),
     immediateNonForcedMoves = NbMovesRatio(0, 0)
   )
 
-  def aggregate(time: TutorTimeReport, richPov: RichPov) = {
+  def aggregate(report: TutorTimeReport, richPov: RichPov) = {
     import richPov._
     for {
       clock   <- pov.game.clock
@@ -70,17 +71,31 @@ object TutorTimeReport {
 
           NbMovesRatio(moves.count(identity), moves.size)
         }
+      val isDefeatByFlagWithGoodPosition =
+        (~pov.loss && pov.game.status == Status.Outoftime) ?? {
+          analysis match {
+            case Some(an) =>
+              an.infos.lastOption
+                .flatMap(_.forceCentipawns)
+                .map(_ * pov.color.fold(1, -1))
+                .exists(_ > 300)
+            case None =>
+              (pov.game.board.materialImbalance * pov.color.fold(1, -1)) > 3
+          }
+        }
+      if (isDefeatByFlagWithGoodPosition) println(richPov.url)
 
       TutorTimeReport(
-        games = time.games + 1,
-        moves = time.moves + pov.moves,
-        timePressure = time.timePressure inc isTimePressure,
-        defeatWithHighTime = time.defeatWithHighTime inc isDefeatWithHighTime,
-        slowOpening = time.slowOpening inc isSlowOpening,
-        immediateNonForcedMoves = time.immediateNonForcedMoves + countImmediateNonForcedMoves
+        games = report.games + 1,
+        moves = report.moves + pov.moves,
+        timePressure = report.timePressure inc isTimePressure,
+        defeatWithHighTime = report.defeatWithHighTime inc isDefeatWithHighTime,
+        defeatByFlagWithGoodPosition = report.defeatByFlagWithGoodPosition inc isDefeatByFlagWithGoodPosition,
+        slowOpening = report.slowOpening inc isSlowOpening,
+        immediateNonForcedMoves = report.immediateNonForcedMoves + countImmediateNonForcedMoves
       )
     }
-  } | time
+  } | report
 
   private def fixIndex(index: Int): Option[Int] = (index > -1) option index
 }

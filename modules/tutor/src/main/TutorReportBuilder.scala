@@ -17,7 +17,7 @@ final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo, d
   def apply(user: User): Fu[TutorTimeReport] =
     gameRepo
       .sortedCursor(
-        selector = Query.user(user) ++ Query.variantStandard ++ Query.noAi ++ $id("OsPJmvwA"),
+        selector = Query.user(user) ++ Query.variantStandard ++ Query.noAi, // ++ $id("OsPJmvwA"),
         sort = Query.sortAntiChronological
       )
       // .documentSource(10_000)
