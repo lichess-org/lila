@@ -158,7 +158,6 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         },
         ctrl.data.color()
       ),
-      h('strong.beta', 'BETA'),
     ]),
     speedSection(ctrl, allSpeeds),
     h('div.advanced', [
