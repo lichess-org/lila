@@ -1,6 +1,6 @@
 package lila.tutor
 
-import chess.Division
+import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
@@ -19,7 +19,8 @@ case class NbMovesRatio(a: Int, b: Int) {
 case class RichPov(
     pov: Pov,
     analysis: Option[Analysis],
-    division: Division
+    division: Division,
+    replay: Vector[Situation]
 ) {
   def url = s"http://l.org/${pov.game.id}"
 }

@@ -7,6 +7,7 @@ import lila.game.Pov
 import lila.game.ClockHistory
 import chess.Clock
 import chess.Division
+import chess.Centis
 
 case class TutorTimeReport(
     games: NbGames,
@@ -31,18 +32,16 @@ object TutorTimeReport {
   )
 
   def aggregate(time: TutorTimeReport, richPov: RichPov) = {
-    val pov = richPov.pov
+    import richPov._
     for {
       clock   <- pov.game.clock
       history <- pov.game.clockHistory
       config = clock.config
     } yield {
-
       val isDefeatWithHighTime =
         ~pov.loss && history.last(pov.color).exists { finalTime =>
           finalTime.centis > clock.estimateTotalTime.centis / 3
         }
-
       val isTimePressure =
         clock.estimateTotalTime / 10 exists { pressurePoint =>
           fixIndex(history(pov.color).indexWhere(_ < pressurePoint)).exists { index =>
@@ -50,12 +49,27 @@ object TutorTimeReport {
             history(!pov.color).lift(index).exists(_ > pressurePoint) // the opponent had more time
           }
         }
-
       val isSlowOpening = history(pov.color).lift(5).exists {
         _.centis < clock.estimateTotalTime.centis * 8 / 10
       }
+      val countImmediateNonForcedMoves: NbMovesRatio =
+        if (config.estimateTotalSeconds < 300) NbMovesRatio(0, 0) // ignore everything faster than 5+0
+        else {
+          val minTimeToUse =
+            (config.estimateTotalTime / 200) getOrElse Centis(200) atLeast Centis(200) atMost Centis(600)
+          val timePressure = (config.estimateTotalTime / 4).get
+          val moves = (~pov.game.moveTimes(pov.color))
+            .zip(history(pov.color))
+            .zipWithIndex
+            .drop(3) // ignore first moves
+            .collect {
+              case ((timeUsed, timeLeft), index) if timeUsed < minTimeToUse && timeLeft > timePressure =>
+                val situation = replay.lift(index * 2 + pov.color.fold(0, 1))
+                situation.exists(_.moves.sizeIs > 1)
+            }
 
-      val countImmediateNonForcedMoves: NbMovesRatio = NbMovesRatio(0, pov.moves)
+          NbMovesRatio(moves.count(identity), moves.size)
+        }
 
       TutorTimeReport(
         games = time.games + 1,

@@ -1,12 +1,13 @@
 package lila.tutor
 
 import akka.stream.scaladsl._
+import chess.Replay
 
 import lila.analyse.Analysis
 import lila.analyse.AnalysisRepo
-import lila.game.{ Game, GameRepo, Pov, Query }
+import lila.db.dsl._
+import lila.game.{ Divider, Game, GameRepo, Pov, Query }
 import lila.user.User
-import lila.game.Divider
 
 final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo, divider: Divider)(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -16,7 +17,7 @@ final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo, d
   def apply(user: User): Fu[TutorTimeReport] =
     gameRepo
       .sortedCursor(
-        selector = Query.user(user) ++ Query.variantStandard ++ Query.noAi,
+        selector = Query.user(user) ++ Query.variantStandard ++ Query.noAi ++ $id("OsPJmvwA"),
         sort = Query.sortAntiChronological
       )
       // .documentSource(10_000)
@@ -25,7 +26,12 @@ final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo, d
       .mapConcat(Pov.ofUserId(_, user.id).toList)
       .mapAsyncUnordered(16) { pov =>
         analysisRepo.byGame(pov.game) map { analysis =>
-          RichPov(pov, analysis, divider.noCache(pov.game.id, pov.game.pgnMoves, pov.game.variant, none))
+          RichPov(
+            pov,
+            analysis,
+            divider.noCache(pov.game.id, pov.game.pgnMoves, pov.game.variant, none),
+            Replay.situations(pov.game.pgnMoves, none, pov.game.variant).toOption.??(_.toVector)
+          )
         }
       }
       .runWith {
