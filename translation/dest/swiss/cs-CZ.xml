@@ -7,7 +7,25 @@
     <item quantity="many">Zobrazit %s kol</item>
     <item quantity="other">Zobrazit všech %s kol</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s kolo</item>
+    <item quantity="few">%s kol</item>
+    <item quantity="many">%s kol</item>
+    <item quantity="other">%s kol</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Jedno kolo za den</item>
+    <item quantity="few">Jedno kolo každé %s dny</item>
+    <item quantity="many">Jedno kolo každých %s dnů</item>
+    <item quantity="other">Jedno kolo každých %s dnů</item>
+  </plurals>
   <string name="roundsAreStartedManually">Kola se spouští ručně</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekunda mezi koly</item>
+    <item quantity="few">%s sekundy mezi koly</item>
+    <item quantity="many">%s sekund mezi koly</item>
+    <item quantity="other">%s sekund mezi koly</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
   <string name="nextRound">Další kolo</string>
   <string name="tournStartDate">Zahajovací datum turnaje</string>
