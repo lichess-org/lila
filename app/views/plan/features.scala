@@ -83,9 +83,13 @@ object features {
             tr(unlimited)(
               a(href := routes.Racer.home)("Puzzle Racer")
             ),
-            tr(unlimited)(
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Opening explorer"),
-              " (280 million games!)"
+            tr(check)(
+              a(href := s"${routes.UserAnalysis.index}#explorer")("Global opening explorer"),
+              " (430 million games!)"
+            ),
+            tr(check)(
+              a(href := s"${routes.UserAnalysis.index}#explorer/me")("Personal opening explorer"),
+              " (also works on other players)"
             ),
             tr(unlimited)(
               a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
