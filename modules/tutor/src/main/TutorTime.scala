@@ -83,7 +83,6 @@ object TutorTimeReport {
               (pov.game.board.materialImbalance * pov.color.fold(1, -1)) > 3
           }
         }
-      if (isDefeatByFlagWithGoodPosition) println(richPov.url)
 
       TutorTimeReport(
         games = report.games + 1,

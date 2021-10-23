@@ -9,7 +9,7 @@ import lila.db.dsl._
 import lila.game.{ Divider, Game, GameRepo, Pov, Query }
 import lila.user.User
 
-final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo, divider: Divider)(implicit
+final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo)(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
@@ -24,13 +24,14 @@ final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo, d
       // .documentSource(1_000)
       .documentSource(1000)
       .mapConcat(Pov.ofUserId(_, user.id).toList)
-      .mapAsyncUnordered(16) { pov =>
+      .mapAsyncUnordered(4) { pov =>
         analysisRepo.byGame(pov.game) map { analysis =>
+          val situations = ~Replay.situations(pov.game.pgnMoves, none, pov.game.variant).toOption
           RichPov(
             pov,
             analysis,
-            divider.noCache(pov.game.id, pov.game.pgnMoves, pov.game.variant, none),
-            Replay.situations(pov.game.pgnMoves, none, pov.game.variant).toOption.??(_.toVector)
+            chess.Divider(situations.view.map(_.board).toList),
+            situations.toVector
           )
         }
       }
