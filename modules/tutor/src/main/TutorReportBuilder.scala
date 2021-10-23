@@ -8,13 +8,14 @@ import lila.analyse.AnalysisRepo
 import lila.db.dsl._
 import lila.game.{ Divider, Game, GameRepo, Pov, Query }
 import lila.user.User
+import org.joda.time.DateTime
 
 final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo)(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
-  def apply(user: User): Fu[TutorTimeReport] =
+  def apply(user: User): Fu[TutorReport] =
     gameRepo
       .sortedCursor(
         selector = Query.user(user) ++ Query.variantStandard ++ Query.noAi, // ++ $id("OsPJmvwA"),
@@ -36,8 +37,8 @@ final class TutorReportBuilder(gameRepo: GameRepo, analysisRepo: AnalysisRepo)(i
         }
       }
       .runWith {
-        Sink.fold[TutorTimeReport, RichPov](TutorTimeReport.empty) { case (time, pov) =>
-          TutorTimeReport.aggregate(time, pov)
+        Sink.fold[TutorReport, RichPov](TutorReport(user.id, DateTime.now, Map.empty)) { case (report, pov) =>
+          TutorReport.aggregate(report, pov)
         }
       }
 }
