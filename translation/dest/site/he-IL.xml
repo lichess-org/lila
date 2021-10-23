@@ -176,7 +176,7 @@
   <string name="players">שחקנים</string>
   <string name="friends">חברים</string>
   <string name="discussions">דיונים</string>
-  <string name="today">היום</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">היום</string>
   <string name="yesterday">אתמול</string>
   <string name="minutesPerSide">דקות עבור כל צד</string>
   <string name="variant">גרסא</string>
@@ -492,9 +492,9 @@
   <string name="popularOpenings">פתיחות פופולריות</string>
   <string name="endgamePositions">עמדות סיום</string>
   <string name="chess960StartPosition">Chess960 עמדת פתיחה: %s</string>
-  <string name="startPosition">מצב התחלתי</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">מצב התחלתי</string>
   <string name="clearBoard">נקה לוח</string>
-  <string name="loadPosition">טען מיקום</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">טען מיקום</string>
   <string name="isPrivate">פרטי</string>
   <string name="reportXToModerators">%s דווח למנהלים על</string>
   <string name="profileCompletion">השלמת הפרופיל: %s</string>
@@ -513,7 +513,7 @@
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activePlayers">הכי פעילים</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">היזהר, המשחק מדורג אך אין שעון.</string>
   <string name="success">הצלחה</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s משחק בתהליך</item>
@@ -584,7 +584,7 @@
   <string name="onSlowGames">במשחקים איטיים</string>
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>
-  <string name="xCompetesInY">%1$s משחק ב-%2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s משחק ב-%2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
   <string name="victoryVsYInZ">%1$s נגד %2$s
@@ -883,7 +883,7 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
-  <string name="mentionedYouInX">ציינו אותכם ב- %1$s.</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">ציינו אותכם ב- %1$s.</string>
   <string name="xMentionedYouInY">%1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
   <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
@@ -899,4 +899,6 @@
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
+  <string name="download">הורדה</string>
+  <string name="welcome">ברוכים הבאים!</string>
 </resources>
