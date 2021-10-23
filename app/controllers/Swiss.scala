@@ -213,7 +213,25 @@ final class Swiss(
           .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
-            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id))
+            data => env.swiss.api.update(swiss.id, data) inject Redirect(routes.Swiss.show(id))
+          )
+      }
+    }
+
+  def apiUpdate(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      implicit val lang = reqLang
+      WithEditableSwiss(
+        id,
+        me,
+        _ => Unauthorized(Json.obj("error" -> "This user cannot edit this swiss")).fuccess
+      ) { swiss =>
+        env.swiss.forms
+          .edit(me, swiss)
+          .bindFromRequest()
+          .fold(
+            newJsonFormError,
+            data => JsonOk { env.swiss.api.update(swiss.id, data) map (_.map(env.swiss.json.api)) }
           )
       }
     }
@@ -295,13 +313,17 @@ final class Swiss(
   private def WithSwiss(id: String)(f: SwissModel => Fu[Result]): Fu[Result] =
     env.swiss.api.byId(SwissId(id)) flatMap { _ ?? f }
 
-  private def WithEditableSwiss(id: String, me: lila.user.User)(
+  private def WithEditableSwiss(
+      id: String,
+      me: lila.user.User,
+      fallback: SwissModel => Fu[Result] = swiss => Redirect(routes.Swiss.show(swiss.id.value)).fuccess
+  )(
       f: SwissModel => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
+  ): Fu[Result] =
     WithSwiss(id) { swiss =>
       if (swiss.createdBy == me.id && !swiss.isFinished) f(swiss)
-      else if (isGranted(_.ManageTournament)) f(swiss)
-      else Redirect(routes.Swiss.show(swiss.id.value)).fuccess
+      else if (isGranted(_.ManageTournament, me)) f(swiss)
+      else fallback(swiss)
     }
 
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
