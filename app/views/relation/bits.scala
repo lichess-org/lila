@@ -47,7 +47,7 @@ object bits {
           if (sugs.nonEmpty) sugs.map { r =>
             tr(
               td(userLink(r.user)),
-              td(showBestPerf(r.user)),
+              ctx.pref.showRatings option td(showBestPerf(r.user)),
               td(
                 r.nbGames.filter(_ > 0).map { nbGames =>
                   a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}")(
