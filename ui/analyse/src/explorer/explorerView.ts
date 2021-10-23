@@ -358,7 +358,11 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     );
   const playerName = explorer.config.data.playerName.value();
   return h('div.explorer-title', [
-    db == 'masters' ? active([h('strong', 'Masters'), ' database']) : otherLink('Masters'),
+    db == 'masters'
+      ? active([h('strong', 'Masters'), ' database'])
+      : explorer.config.allDbs.includes('masters')
+      ? otherLink('Masters')
+      : undefined,
     db == 'lichess' ? active([h('strong', 'Lichess'), ' database']) : otherLink('Lichess'),
     db == 'player'
       ? active([
