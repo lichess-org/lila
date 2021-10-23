@@ -357,23 +357,18 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
-  return h(
-    'div.explorer-title',
-    db == 'masters'
-      ? [active([h('strong', 'Masters'), ' database']), otherLink('Lichess'), playerLink()]
-      : db == 'lichess'
-      ? [otherLink('Masters'), active([h('strong', 'Lichess'), ' database']), playerLink()]
-      : [
-          otherLink('Masters'),
-          otherLink('Lichess'),
-          active([
-            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-            ' as ',
-            explorer.config.data.color(),
-            explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
-          ]),
-        ]
-  );
+  return h('div.explorer-title', [
+    db == 'masters' ? active([h('strong', 'Masters'), ' database']) : otherLink('Masters'),
+    db == 'lichess' ? active([h('strong', 'Lichess'), ' database']) : otherLink('Lichess'),
+    db == 'player'
+      ? active([
+          h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+          ' as ',
+          explorer.config.data.color(),
+          explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
+        ])
+      : playerLink(),
+  ]);
 };
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
