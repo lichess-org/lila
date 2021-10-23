@@ -134,7 +134,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                   [game.white, game.black].map(p => h('span', p.name))
                 ),
                 h('td', showResult(game.winner)),
-                h('td', game.year || game.month),
+                h('td', game.month || game.year),
                 isMasters
                   ? undefined
                   : h(
