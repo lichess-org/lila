@@ -514,7 +514,7 @@ final class Study(
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
-            env.study.gifExport.ofChapter(chapter) map { stream =>
+            env.study.gifExport.ofChapter(chapter, ctx.pref.showRatings) map { stream =>
               Ok.chunked(stream)
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")

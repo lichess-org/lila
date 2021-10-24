@@ -12,7 +12,7 @@ final class GifExport(
     ws: StandaloneWSClient,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  def ofChapter(chapter: Chapter): Fu[Source[ByteString, _]] =
+  def ofChapter(chapter: Chapter, withRatings: Boolean): Fu[Source[ByteString, _]] =
     ws.url(s"$url/game.gif")
       .withMethod("POST")
       .addHttpHeaders("Content-Type" -> "application/json")
@@ -23,12 +23,12 @@ final class GifExport(
           "white" -> List(
             chapter.tags(_.WhiteTitle),
             chapter.tags(_.White),
-            chapter.tags(_.WhiteElo).map(elo => s"($elo)")
+            chapter.tags(_.WhiteElo).map(elo => if (withRatings) s"($elo)" else "")
           ).flatten.mkString(" "),
           "black" -> List(
             chapter.tags(_.BlackTitle),
             chapter.tags(_.Black),
-            chapter.tags(_.BlackElo).map(elo => s"($elo)")
+            chapter.tags(_.BlackElo).map(elo => if (withRatings) s"($elo)" else "")
           ).flatten.mkString(" "),
           "frames" -> framesRec(chapter.root +: chapter.root.mainline, Json.arr())
         )
