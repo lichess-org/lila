@@ -29,7 +29,7 @@ final class Export(env: Env) extends LilaController(env) {
         ExportGifRateLimitGlobal("-", msg = ctx.ip.value) {
           OptionFuResult(env.game.gameRepo gameWithInitialFen id) { case (game, initialFen) =>
             val pov = Pov(game, Color.fromName(color) | Color.white)
-            env.game.gifExport.fromPov(pov, initialFen) map
+            env.game.gifExport.fromPov(pov, initialFen, ctx.pref.showRatings) map
               stream("image/gif") map
               gameImageCacheSeconds(game)
           }
@@ -46,7 +46,7 @@ final class Export(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       ExportImageRateLimitGlobal("-", msg = ctx.ip.value) {
         OptionFuResult(env.game.gameRepo game id) { game =>
-          env.game.gifExport.gameThumbnail(game) map
+          env.game.gifExport.gameThumbnail(game, ctx.pref.showRatings) map
             stream("image/gif") map
             gameImageCacheSeconds(game)
         }

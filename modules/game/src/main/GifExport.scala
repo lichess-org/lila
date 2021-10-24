@@ -21,15 +21,15 @@ final class GifExport(
   private val targetMedianTime = Centis(80)
   private val targetMaxTime    = Centis(200)
 
-  def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
+  def fromPov(pov: Pov, initialFen: Option[FEN], withRating: Boolean): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
       ws.url(s"$url/game.gif")
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "white"       -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(lightUserApi.sync),
-            "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "white"       -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating)(lightUserApi.sync),
+            "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating)(lightUserApi.sync),
             "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
             "orientation" -> pov.color.name,
             "delay"       -> targetMedianTime.centis, // default delay for frames
@@ -44,11 +44,11 @@ final class GifExport(
       }
     }
 
-  def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
+  def gameThumbnail(game: Game, withRating: Boolean): Fu[Source[ByteString, _]] = {
     val query = List(
       "fen"         -> (Forsyth >> game.chess).value,
-      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
-      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating)(lightUserApi.sync),
+      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating)(lightUserApi.sync),
       "orientation" -> game.naturalOrientation.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },
