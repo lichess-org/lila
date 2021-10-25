@@ -911,4 +911,13 @@
   <string name="noRestriction">ללא הגבלה</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
+  <string name="noChat">בטל אפשרות צ\'ט</string>
+  <string name="analysisOptions">אפשרויות ניתוח</string>
+  <string name="reopenYourAccount">פתח את חשבונך מחדש</string>
+  <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתחו.</string>
+  <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
+  <string name="sentEmailWithLink">שלחנו לך דואל עם קישור.</string>
+  <string name="tournamentEntryCode">קוד כניסה לטורניר</string>
+  <string name="hangOn">רגע!</string>
+  <string name="gameInProgress">את/ה באמצע משחק עם %s.</string>
 </resources>
