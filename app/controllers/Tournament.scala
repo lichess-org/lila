@@ -271,6 +271,15 @@ final class Tournament(
       }
     }
 
+  def apiWithdraw(id: String) =
+    ScopedBody(_.Tournament.Write) { _ => me =>
+      repo byId id flatMap {
+        _ ?? { tour =>
+          api.selfPause(tour.id, me.id) inject jsonOkResult
+        }
+      }
+    }
+
   def form =
     Auth { implicit ctx => me =>
       NoLameOrBot {
