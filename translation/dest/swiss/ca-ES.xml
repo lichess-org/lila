@@ -35,8 +35,18 @@
   <string name="pointsCalculationQ">Com es calculen els punts?</string>
   <string name="tiebreaksCalculationQ">Com es calculen els desempats?</string>
   <string name="pairingsQ">Com es decideixen els emparellaments?</string>
+  <string name="FIDEHandbook">Manual de la FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Que passa si el torneig té més rondes que jugadors?</string>
+  <string name="moreRoundsThanPlayersA">Quan s\'hagin jugat tots els emparellaments possibles, el torneig finalitzarà i es declararà un guanyador.</string>
   <string name="restrictedToTeamsQ">Perquè està restringit només a equips?</string>
+  <string name="lateJoinQ">Pot un jugador unir-se a un torneig que ja ha començat?</string>
+  <string name="lateJoinA">Si, fins que s\'hagin iniciat més de la meitat de les rondes. Per exemple, en un torneig suís de 11 rondes, els jugadors poden unir-se abans que comenci la ronda 6; en un torneig de 12 rondes podran unir-se abans de que comenci la ronda 7.
+El jugadors que s\'afegeixin a un torneig ja començat rebran un únic bye, encara que no es presentin a varies rondes.</string>
+  <string name="willSwissReplaceArenasQ">Els tornejos suïssos substituiran als arena?</string>
+  <string name="willSwissReplaceArenasA">No, son funcionalitats complementaries.</string>
   <string name="joinOrCreateTeam">Uneix-te o crea un equip</string>
+  <string name="nowPlaying">Jugant-se ara</string>
+  <string name="startingSoon">Proper inici</string>
   <string name="comparison">Comparació</string>
   <string name="tournDuration">Duració del torneig</string>
   <string name="predefinedDuration">Duració predefinida en minuts</string>
