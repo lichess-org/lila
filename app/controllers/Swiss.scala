@@ -231,7 +231,13 @@ final class Swiss(
           .bindFromRequest()
           .fold(
             newJsonFormError,
-            data => JsonOk { env.swiss.api.update(swiss.id, data) map (_.map(env.swiss.json.api)) }
+            data => {
+              env.swiss.api.update(swiss.id, data) map {
+                _ ?? { swiss =>
+                  JsonOk(env.swiss.json.api(swiss))
+                }
+              }
+            }
           )
       }
     }
