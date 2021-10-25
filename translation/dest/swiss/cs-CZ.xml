@@ -7,9 +7,39 @@
     <item quantity="many">Zobrazit %s kol</item>
     <item quantity="other">Zobrazit všech %s kol</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s kolo</item>
+    <item quantity="few">%s kol</item>
+    <item quantity="many">%s kol</item>
+    <item quantity="other">%s kol</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Jedno kolo za den</item>
+    <item quantity="few">Jedno kolo každé %s dny</item>
+    <item quantity="many">Jedno kolo každých %s dnů</item>
+    <item quantity="other">Jedno kolo každých %s dnů</item>
+  </plurals>
   <string name="roundsAreStartedManually">Kola se spouští ručně</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekunda mezi koly</item>
+    <item quantity="few">%s sekundy mezi koly</item>
+    <item quantity="many">%s sekund mezi koly</item>
+    <item quantity="other">%s sekund mezi koly</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuta mezi koly</item>
+    <item quantity="few">%s minuty mezi koly</item>
+    <item quantity="many">%s minut mezi koly</item>
+    <item quantity="other">%s minut mezi koly</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
   <string name="nextRound">Další kolo</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Probíhající partie</item>
+    <item quantity="few">Probíhající partie</item>
+    <item quantity="many">Probíhajících partií</item>
+    <item quantity="other">Probíhajících partií</item>
+  </plurals>
   <string name="tournStartDate">Zahajovací datum turnaje</string>
   <string name="numberOfRounds">Počet kol</string>
   <string name="numberOfRoundsHelp">Lichý počet kol umžňuje hrát vyváženě oběma barvami.</string>
@@ -34,18 +64,21 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
   <string name="restrictedToTeamsA">Švýcarské turnaje nebyly koncipovány pro online šachy. Požadují od hráčů dochvilnost, obětavost a trpělivost.
 Myslíme si, že je pravděpodobnější, že tyto podmínky budou splněny v rámci týmu než v globálních turnajích.</string>
-  <string name="numberOfByesQ">Kolik volných bodů může hráč dostat?</string>
-  <string name="numberOfByesA">Hráč dostane volný bod pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="numberOfByesQ">Kolik bodů zdarma může hráč dostat?</string>
+  <string name="numberOfByesA">Hráč dostane bod zdarma pokaždé, když pro něj systém nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
   <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
   <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
 Takového hráče systém diskvalifikuje, aby neprohrál více partií.
 Do turnaje se mohou připojit kdykoliv.</string>
   <string name="lateJoinQ">Mohou se hráči připojit po začátku?</string>
   <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12 kolovém turnaji do začátku 7. kola.
-Hráči, kteří se připojí pozdě, dostanou jeden volný bod i když se nezúčastní více kol.</string>
+Hráči, kteří se připojí pozdě, dostanou jeden bod zdarma i když se nezúčastní více kol.</string>
   <string name="willSwissReplaceArenasQ">Nahradí švýcarské turnaje arény?</string>
-  <string name="willSwissReplaceArenasA">Ne, obojí má svoji funkci.</string>
+  <string name="willSwissReplaceArenasA">Ne, obojí má svůj účel.</string>
   <string name="roundRobinQ">Co systém každý s každým?</string>
+  <string name="roundRobinA">Rádi bychom ho přidali, ale bohužel dobře nefunguje online.
+Důvodem je, že nelze spravedlivě naložit s hráči, kteří opustí turnaj předčasně. Nelze očekávat, že všichni hráči budou hrát všechny své hry na online události. To se prostě nestane a v důsledku toho by byly turnaje hrané každý s každým nespravedlivé, což popírá důvod jejich existence.
+Nejvíce se tomu blíží Švýcarský systém s velkým počtem kol, kdy je možné spárovat všechny hráče během doby turnaje.</string>
   <string name="otherSystemsQ">A co ostatní systémy turnajů?</string>
   <string name="otherSystemsA">Momentálně nemáme v plánu přidávat do Lichess další typy turnajů.</string>
   <string name="swissDescription">Ve švýcarském turnaji %1$s nemusí každý účastník nutně hrát se všemi ostatními. Hráči se v každém kole sejdou a jsou spárováni podle pravidel navržených tak, aby každý účastník hrál s protivníky s podobným hodnocením, ale ne s týmž soupeřem více než jednou. Vítězem je hráč s nejvyšším souhrnným počtem bodů ze všech kol. Všichni účastníci hrají v každém kole, pokud není lichý počet hráčů.\"</string>
@@ -59,6 +92,7 @@ Hráči, kteří se připojí pozdě, dostanou jeden volný bod i když se nezú
   <string name="predefinedDuration">Předpokládaná doba trvání</string>
   <string name="durationUnknown">Předem daný počet kol, ale neznámá doba trvání</string>
   <string name="numberOfGames">Počet her</string>
+  <string name="numberOfGamesAsManyAsPossible">Tolik, kolik je možné za daný čas stihnout</string>
   <string name="numberOfGamesPreDefined">Stanoveno předem, stejné pro všechny hráče</string>
   <string name="pairingSystem">Losovací systém</string>
   <string name="pairingSystemArena">Jakýkoli soupeř s podobným hodnocením</string>
