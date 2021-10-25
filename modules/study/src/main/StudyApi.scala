@@ -119,9 +119,13 @@ final class StudyApi(
 
   def members(id: Study.Id): Fu[Option[StudyMembers]] = studyRepo membersById id
 
-  def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study.WithChapter]] =
+  def importGame(
+      data: StudyMaker.ImportGame,
+      user: User,
+      withRatings: Boolean
+  ): Fu[Option[Study.WithChapter]] =
     (data.form.as match {
-      case StudyForm.importGame.AsNewStudy => create(data, user)
+      case StudyForm.importGame.AsNewStudy => create(data, user, withRatings)
       case StudyForm.importGame.AsChapterOf(studyId) =>
         byId(studyId) flatMap {
           case Some(study) if study.canContribute(user.id) =>
@@ -131,7 +135,7 @@ final class StudyApi(
               sticky = study.settings.sticky
             )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
           case _ => fuccess(none)
-        } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
+        } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user, withRatings)
     }) addEffect {
       _ ?? { sc =>
         Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
@@ -141,9 +145,10 @@ final class StudyApi(
   def create(
       data: StudyMaker.ImportGame,
       user: User,
+      withRatings: Boolean,
       transform: Study => Study = identity
   ): Fu[Option[Study.WithChapter]] =
-    studyMaker(data, user) map { sc =>
+    studyMaker(data, user, withRatings) map { sc =>
       sc.copy(study = transform(sc.study))
     } flatMap { sc =>
       studyRepo.insert(sc.study) >>
