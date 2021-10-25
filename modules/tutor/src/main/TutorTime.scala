@@ -18,7 +18,7 @@ case class TutorTimeReport(
     defeatByFlagWithGoodPosition: NbGames,
     slowOpening: NbGames,
     immediateNonForcedMoves: NbMovesRatio // excepted in time pressure
-) {}
+)
 
 object TutorTimeReport {
 
