@@ -17,7 +17,7 @@ export default function (ctrl: Ctrl) {
               'a',
               {
                 attrs: {
-                  href: '/account/preferences/privacy',
+                  href: '/account/preferences/site',
                   target: '_blank',
                   rel: 'noopener',
                 },
