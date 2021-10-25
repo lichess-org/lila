@@ -291,7 +291,7 @@ final class Study(
   private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(implicit
       ctx: Context
   ) =
-    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
+    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).fuccess
       }
