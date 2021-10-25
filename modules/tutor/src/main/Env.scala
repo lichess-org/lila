@@ -9,7 +9,6 @@ import lila.db.dsl.Coll
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
-    divider: lila.game.Divider,
     analysisRepo: lila.analyse.AnalysisRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
