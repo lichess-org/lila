@@ -659,7 +659,7 @@
   <string name="withFriends">Amb amics</string>
   <string name="withEverybody">Amb tothom</string>
   <string name="kidMode">Mode infantil</string>
-  <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Permeta açò per als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
+  <string name="kidModeExplanation">Es tracta de seguretat. En el mode nen, totes les comunicacions de la pàgina estan inhabilitades. Activa això als seus nens o alumnes, per protegir-los d\'altres usuaris d\'internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el mode nen, el logo de lichess té una icona de %s, per què sàpigues que els teus nens estan segurs.</string>
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
