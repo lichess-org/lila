@@ -186,6 +186,7 @@ object PuzzleTheme {
     long,
     master,
     masterVsMaster,
+    superGM,
     mate,
     mateIn1,
     mateIn2,
