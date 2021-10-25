@@ -64,15 +64,31 @@ final class SwissFeature(
 
   private def cacheCompute(startsAtRange: Bdoc): Fu[List[Swiss]] =
     colls.swiss
-      .find(
-        $doc(
-          "featurable" -> true,
-          "settings.i" $lte 600, // hits the partial index
-          "startsAt" -> startsAtRange,
-          "garbage" $ne true
+      .aggregateList(5) { framework =>
+        import framework._
+        Match(
+          $doc(
+            "featurable" -> true,
+            "settings.i" $lte 600, // hits the partial index
+            "startsAt" -> startsAtRange,
+            "garbage" $ne true
+          )
+        ) -> List(
+          PipelineOperator(
+            $lookup.pipeline(
+              from = "team",
+              as = "team",
+              local = "teamId",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc("open" -> true, "password" $exists false)),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ),
+          UnwindField("team"),
+          Sort(Descending("nbPlayers"))
         )
-      )
-      .sort($sort desc "nbPlayers")
-      .cursor[Swiss]()
-      .list(5)
+      }
+      .map { _.flatMap(_.asOpt[Swiss]) }
 }
