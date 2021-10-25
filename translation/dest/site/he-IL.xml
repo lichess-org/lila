@@ -919,5 +919,8 @@
   <string name="sentEmailWithLink">שלחנו לך דואל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>
   <string name="hangOn">רגע!</string>
-  <string name="gameInProgress">את/ה באמצע משחק עם %s.</string>
+  <string name="gameInProgress">אתה באמצע משחק עם %s.</string>
+  <string name="abortTheGame">בטל את המשחק</string>
+  <string name="resignTheGame">הכנע</string>
+  <string name="youCantStartNewGame">לא תוכל להתחיל משחק חדש עד גמר הנוכחי.</string>
 </resources>
