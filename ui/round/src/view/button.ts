@@ -120,6 +120,7 @@ export function opponentGone(ctrl: RoundController) {
         h(
           'button.button',
           {
+            attrs: { 'data-icon': '' },
             hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')),
           },
           ctrl.noarg('forceResignation')
@@ -127,6 +128,7 @@ export function opponentGone(ctrl: RoundController) {
         h(
           'button.button',
           {
+            attrs: { 'data-icon': '½' },
             hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')),
           },
           ctrl.noarg('forceDraw')
