@@ -794,7 +794,7 @@ object Quote {
       "Many men, many styles; what is chess style but the intangible expression of the will to win.",
       "Aron Nimzowitsch"
     ),
-    new Quote("Never play for the win, never play for the draw, just play chess!", “Alexander Khalifman"),
+    new Quote("Never play for the win, never play for the draw, just play chess!", "Alexander Khalifman"),
     new Quote(
       "In chess, knowledge is a very transient thing. It changes so fast that even a single mouse-slip sometimes changes the evaluation.",
       "Viswanathan Anand"
@@ -929,7 +929,7 @@ object Quote {
       "Leonid Shamkovich"
     ),
     new Quote(
-      "A sport, a struggle for results and a fight for prizes. I think that the discussion about “chess is science or chess is art” is already inappropriate. The purpose of modern chess is to reach a result.",
+      "A sport, a struggle for results and a fight for prizes. I think that the discussion about \"chess is science or chess is art\" is already inappropriate. The purpose of modern chess is to reach a result.",
       "Alexander Morozevich"
     ),
     new Quote(
@@ -1469,7 +1469,7 @@ object Quote {
       "Haste is never more dangerous than when you feel that victory is in your grasp.",
       "Eugene Znosko-Borovsky"
     ),
-    new Quote("Haste, the great enemy.", "Eugene Znosko-Borowsky”),
+    new Quote("Haste, the great enemy.", "Eugene Znosko-Borowsky"),
     new Quote(
       "Having spent alarmingly large chunks of my life studying the white side of the Open Sicilian, I find myself asking, why did I bother?",
       "Daniel King"
