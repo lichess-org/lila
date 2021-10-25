@@ -121,11 +121,10 @@ final class SwissApi(
             s.copy(nextRoundAt = none)
           else s
         }
-      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >> {
+      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >>- {
         cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
         socket.reload(swiss.id)
-        fuccess(swiss.some)
-      }
+      } inject swiss
     }
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
