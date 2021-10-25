@@ -151,7 +151,7 @@ final class RelayApi(
   def tourUpdate(tour: RelayTour, data: RelayTourForm.Data, user: User): Funit =
     tourRepo.coll.update.one($id(tour.id), data.update(tour, user)).void
 
-  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour, withRatings: Boolean): Fu[RelayRound] =
+  def create(data: RelayRoundForm.Data, user: User, tour: RelayTour): Fu[RelayRound] =
     roundRepo.lastByTour(tour) flatMap {
       _ ?? { last => studyRepo.byId(last.studyId) }
     } flatMap { lastStudy =>
@@ -174,7 +174,7 @@ final class RelayApi(
             from = Study.From.Relay(none).some
           ),
           user,
-          withRatings,
+          withRatings = true,
           _.copy(members =
             lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(
               id = user.id,

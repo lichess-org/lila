@@ -46,7 +46,7 @@ final class RelayRound(
                       ctx.req,
                       Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
                     ) {
-                      env.relay.api.create(setup, me, tour, ctx.pref.showRatings) map { round =>
+                      env.relay.api.create(setup, me, tour) map { round =>
                         Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
                       }
                     }
@@ -67,7 +67,7 @@ final class RelayRound(
                       setup =>
                         rateLimitCreation(me, req, rateLimited) {
                           JsonOk {
-                            env.relay.api.create(setup, me, tour, withRatings = true) map { round =>
+                            env.relay.api.create(setup, me, tour) map { round =>
                               env.relay.jsonView.withUrl(round withTour tour)
                             }
                           }
