@@ -57,13 +57,101 @@ cg-board::before {
   }
 }
 
-$board-files: 'Black-White-Aluminium', 'Brushed-Aluminium', 'China-Blue', 'China-Green', 'China-Grey', 'China-Scarlet',
-  'China-Yellow', 'Classic-Blue', 'Gold-Silver', 'Green-Glass', 'Light-Wood', 'Power-Coated', 'Purple-Black', 'Rosewood',
-  'Wood-Glass', 'Wax', 'Jade', 'Marble', 'Woodi';
+$board-themes: (
+  'Black-White-Aluminium': (
+    coord-color-white: #d9ded9,
+    coord-color-black: #4c4e4d,
+  ),
+  'Brushed-Aluminium': (
+    coord-color-white: #5c5e63,
+    coord-color-black: #46494f,
+  ),
+  'China-Blue': (
+    coord-color-white: #e7e8cc,
+    coord-color-black: #3c00ba,
+  ),
+  'China-Green': (
+    coord-color-white: #e7e8cc,
+    coord-color-black: #48b064,
+  ),
+  'China-Grey': (
+    coord-color-white: #e4e4ca,
+    coord-color-black: #6a6b68,
+  ),
+  'China-Scarlet': (
+    coord-color-white: #e7e8cc,
+    coord-color-black: #ac161d,
+  ),
+  'China-Yellow': (
+    coord-color-white: #e7e8cc,
+    coord-color-black: #c8dd1c,
+  ),
+  'Classic-Blue': (
+    coord-color-white: #7193df,
+    coord-color-black: #5178a7,
+  ),
+  'Gold-Silver': (
+    coord-color-white: #c0c3c8,
+    coord-color-black: #514d1d,
+  ),
+  'Green-Glass': (
+    coord-color-white: #f7fafa,
+    coord-color-black: #a1ffb4,
+  ),
+  'Light-Wood': (
+    coord-color-white: #dacc9f,
+    coord-color-black: #ac7231,
+  ),
+  'Power-Coated': (
+    coord-color-white: #d5dad4,
+    coord-color-black: #939697,
+  ),
+  'Purple-Black': (
+    coord-color-white: #bd00ac,
+    coord-color-black: #3e4042,
+  ),
+  'Rosewood': (
+    coord-color-white: #fae7df,
+    coord-color-black: #d68170,
+  ),
+  'Wood-Glass': (
+    coord-color-white: #dbdae7,
+    coord-color-black: #e4c384,
+  ),
+  'Marble': (
+    coord-color-white: #5a9475,
+    coord-color-black: #265e41,
+  ),
+  'Wax': (
+    coord-color-white: #dbba8e,
+    coord-color-black: #d25563,
+  ),
+  'Jade': (
+    coord-color-white: #9b9591,
+    coord-color-black: #134e35,
+  ),
+  'Woodi': (
+    coord-color-white: #80713c,
+    coord-color-black: #62521a,
+  ),
+);
 
-@each $name in $board-files {
-  .#{$name} cg-board::before {
-    background-image: img-url('staunton/board/#{$name}.png');
+@each $name, $theme in $board-themes {
+  .#{$name} .is3d {
+    cg-board::before {
+      background-image: img-url('staunton/board/#{$name}.png');
+    }
+
+    $coord-color-white: map-get($theme, coord-color-white);
+    $coord-color-black: map-get($theme, coord-color-black);
+
+    @if $coord-color-white and $coord-color-black {
+      coords {
+        --cg-coord-color-white: #{$coord-color-white};
+        --cg-coord-color-black: #{$coord-color-black};
+        --cg-coord-shadow: none;
+      }
+    }
   }
 }
 
