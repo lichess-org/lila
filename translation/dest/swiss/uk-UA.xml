@@ -45,6 +45,8 @@
   <string name="startingSoon">Скоро розпочнеться</string>
   <string name="comparison">Порівняння</string>
   <string name="numberOfGames">Кількість партій</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Швидше: не потрібно чекати всіх гравців</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Повільніше: потрібно чекати всіх гравців</string>
   <string name="identicalForbidden">Заборонено</string>
   <string name="lateJoin">Пізній вступ</string>
   <string name="lateJoinUntil">Так, якщо не зіграно половина раундів</string>
