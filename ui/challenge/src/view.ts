@@ -7,13 +7,12 @@ export const loaded = (ctrl: Ctrl): VNode =>
     ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 
-export const loading = (): VNode =>
-  h('div#challenge-app.links.dropdown.rendered', [h('div.empty.loading', '-'), create()]);
+export const loading = (): VNode => h('div#challenge-app.links.dropdown.rendered', h('div.empty.loading', '-'));
 
 function renderContent(ctrl: Ctrl): VNode[] {
   const d = ctrl.data();
   const nb = d.in.length + d.out.length;
-  return nb ? [allChallenges(ctrl, d, nb)] : [empty(), create()];
+  return nb ? [allChallenges(ctrl, d, nb)] : [empty()];
 }
 
 const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm);
@@ -35,7 +34,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) =>
     h(
-      'div.challenge.' + dir + '.c-' + c.id,
+      `div.challenge.${dir}.c-${c.id}`,
       {
         class: {
           declined: !!c.declined,
@@ -43,16 +42,18 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       },
       [
         h('div.content', [
-          h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
-          h('span.desc', [
-            h('span.is.is2.color-icon.' + (c.color || 'random')),
-            ' • ',
-            [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
+          h('div.content__text', [
+            h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
+            h('span.desc', [
+              h('span.is.is2.color-icon.' + (c.color || 'random')),
+              ' • ',
+              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
+            ]),
           ]),
+          h('i.perf', {
+            attrs: { 'data-icon': c.perf.icon },
+          }),
         ]),
-        h('i', {
-          attrs: { 'data-icon': c.perf.icon },
-        }),
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ]
     );
@@ -168,18 +169,8 @@ function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
   );
 }
 
-function create(): VNode {
-  return h('a.create', {
-    attrs: {
-      href: '/?any#friend',
-      'data-icon': '',
-      title: 'Challenge someone',
-    },
-  });
-}
-
-function empty(): VNode {
-  return h(
+const empty = (): VNode =>
+  h(
     'div.empty.text',
     {
       attrs: {
@@ -188,12 +179,9 @@ function empty(): VNode {
     },
     'No challenges.'
   );
-}
 
-function onClick(f: (e: Event) => void) {
-  return {
-    insert: (vnode: VNode) => {
-      (vnode.elm as HTMLElement).addEventListener('click', f);
-    },
-  };
-}
+const onClick = (f: (e: Event) => void) => ({
+  insert: (vnode: VNode) => {
+    (vnode.elm as HTMLElement).addEventListener('click', f);
+  },
+});
