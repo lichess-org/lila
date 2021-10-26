@@ -758,8 +758,6 @@ final class TournamentApi(
 
   private object updateTournamentStanding {
 
-    import lila.hub.EarlyMultiThrottler
-
     // last published top hashCode
     private val lastPublished = lila.memo.CacheApi.scaffeineNoScheduler
       .initialCapacity(16)
@@ -778,15 +776,10 @@ final class TournamentApi(
         }
       }
 
-    private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
+    private val throttler = new lila.hub.EarlyMultiThrottler(logger)
 
     def apply(tour: Tournament): Unit =
-      if (!tour.isTeamBattle)
-        throttler ! EarlyMultiThrottler.Work(
-          id = tour.id,
-          run = () => publishNow(tour.id),
-          cooldown = 15.seconds
-        )
+      if (!tour.isTeamBattle) throttler(tour.id, 15.seconds) { publishNow(tour.id) }
   }
 }
 
