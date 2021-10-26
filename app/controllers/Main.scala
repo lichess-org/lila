@@ -181,6 +181,9 @@ Allow: /
   def faq =
     Open { implicit ctx =>
       pageHit
+      ctx.me foreach { me =>
+        env.tutor.builder(me).thenPp
+      }
       Ok(html.site.faq()).fuccess
     }
 
