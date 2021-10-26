@@ -95,6 +95,8 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="pairingSystemArena">Orice oponent disponibil cu rang similar</string>
   <string name="pairingSystemSwiss">Cea mai buna asociere bazata pe numarul de puncte si a criteriului de departajare</string>
   <string name="pairingWaitTime">Timp de aşteptare pentru asociere</string>
+  <string name="pairingWaitTimeArena">Rapid: nu așteaptă toți jucătorii</string>
+  <string name="pairingWaitTimeSwiss">Lent: așteaptă toți jucătorii</string>
   <string name="identicalPairing">Asociere repetata (daca jucati cu aceeasi persoana de mai multe ori)</string>
   <string name="possibleButNotConsecutive">Posibil, dar nu consecutiv</string>
   <string name="identicalForbidden">Interzis</string>
