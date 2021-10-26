@@ -115,6 +115,21 @@
   <string name="blunder">Gruba greška</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s gruba greška</item>
+    <item quantity="few">%s grube greške</item>
+    <item quantity="other">%s grubih grešaka</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s greška</item>
+    <item quantity="few">%s greške</item>
+    <item quantity="other">%s grešaka</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepreciznost</item>
+    <item quantity="few">%s nepreciznosti</item>
+    <item quantity="other">%s nepreciznosti</item>
+  </plurals>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
@@ -871,4 +886,5 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="emailAssociatedToaccount">Email adresa povezana s računom</string>
   <string name="sentEmailWithLink">Poslali smo ti email s linkom.</string>
   <string name="tournamentEntryCode">Lozinka za turnir</string>
+  <string name="hangOn">Čekaj!</string>
 </resources>
