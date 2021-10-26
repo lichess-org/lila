@@ -1,4 +1,3 @@
-import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'chessground/config';
 import { PuzPrefs, UserMove } from '../interfaces';
@@ -31,7 +30,6 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
       move: userMove,
       insert(elements) {
         resizeHandle(elements, Prefs.ShowResizeHandle.OnlyAtStart, 0, p => p == 0);
-        if (pref.coords == Prefs.Coords.Inside) changeColorHandle();
       },
     },
     premovable: {
