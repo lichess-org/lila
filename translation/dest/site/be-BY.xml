@@ -44,11 +44,11 @@
   <string name="forceResignation">Абвясціць перамогу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Той, хто перайдзе па гэтай спасылцы, зможа згуляць з вамі.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Першы чалавек, хто пярыйдзе па гэтай спасылцы згуляе з вамі.</string>
   <string name="whiteResigned">Белыя здаліся</string>
   <string name="blackResigned">Чорныя здаліся</string>
-  <string name="whiteLeftTheGame">Гулец з боку белых выйшаў з гульні</string>
-  <string name="blackLeftTheGame">Гулец з боку чорных выйшаў з гульні</string>
+  <string name="whiteLeftTheGame">Белыя пакінулі гульню</string>
+  <string name="blackLeftTheGame">Чорныя пакінулі гульню</string>
   <string name="whiteDidntMove">Белыя не пахадзілі</string>
   <string name="blackDidntMove">Чорныя не пахадзілі</string>
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарны аналіз</string>
@@ -165,7 +165,7 @@
   <string name="viewInFullSize">Глядзець у поўным памеры</string>
   <string name="logOut">Выйсці</string>
   <string name="signIn">Увайсці</string>
-  <string name="youNeedAnAccountToDoThat">Вам патрэбны ўліковы запіс, каб зрабіць гэта</string>
+  <string name="youNeedAnAccountToDoThat">Патрэбны акаўнт каб зрабіць гэта</string>
   <string name="signUp">Зарэгістравацца</string>
   <string name="computersAreNotAllowedToPlay">Майце на ўвазе, што да гульні не дапускаюцца «камп’ютарныя гульцы» і гульцы, якія карыстаюцца дапамогай камп’ютару. Любыя дапаможныя сродкі – шахматныя вылічальныя праграмы, базы звестак ці парады іншых гульцоў – забаронены. Мы просім вас гуляць па правілах. Таксама не ўхваляецца стварэнне некалькіх уліковых запісаў: пры злоўжыванні гэта можа прывесці да перманентнай блакіроўкі.</string>
   <string name="games">Гульні</string>
