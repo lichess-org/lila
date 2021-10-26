@@ -53,6 +53,8 @@
   <string name="comparison">Porovnanie</string>
   <string name="tournDuration">Trvanie turnaja</string>
   <string name="predefinedDuration">Predvolené trvanie v minútach</string>
+  <string name="pairingWaitTimeArena">Rýchly: nečaká sa na všetkých hráčov</string>
+  <string name="pairingWaitTimeSwiss">Pomalý: čaká sa na všetkých hráčov</string>
   <string name="similarToOTB">Podobné turnajom hraným naživo</string>
   <string name="unlimitedAndFree">Bez obmedzení a zadarmo</string>
 </resources>
