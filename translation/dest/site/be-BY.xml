@@ -65,7 +65,7 @@
   <string name="inLocalBrowser">у вашым браўзеры</string>
   <string name="toggleLocalEvaluation">Укл./адкл. лакальны аналіз</string>
   <string name="promoteVariation">Узвысіць прыярытэт</string>
-  <string name="makeMainLine">Зрабіць асноўным</string>
+  <string name="makeMainLine">Зрабіць асноўным варыянтам</string>
   <string name="deleteFromHere">Выдаліць адсюль</string>
   <string name="forceVariation">Узначаліць варыянт</string>
   <string name="move">Ход</string>
@@ -584,7 +584,7 @@
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
   <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s прымае ўдзел у турніры %2$s</string>
-  <string name="victory">Перамога!</string>
+  <string name="victory">Перамога</string>
   <string name="defeat">Параза</string>
   <string name="victoryVsYInZ">%1$s супраць %2$s у %3$s</string>
   <string name="defeatVsYInZ">%1$s супраць %2$s у %3$s</string>
