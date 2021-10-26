@@ -23,14 +23,14 @@ final class Analyser(
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
 
-  def apply(game: Game, sender: Work.Sender): Fu[Analyser.Result] =
+  def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
       case true                  => fuccess(Analyser.Result.AlreadyAnalysed)
       case _ if !game.analysable => fuccess(Analyser.Result.NotAnalysable)
       case _ =>
         limiter(
           sender,
-          ignoreConcurrentCheck = false,
+          ignoreConcurrentCheck = ignoreConcurrentCheck,
           ownGame = game.userIds contains sender.userId
         ) flatMap { result =>
           result.ok ?? {

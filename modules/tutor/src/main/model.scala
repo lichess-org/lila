@@ -4,6 +4,7 @@ import chess.{ Division, Situation }
 
 import lila.analyse.Analysis
 import lila.game.Pov
+import lila.rating.PerfType
 
 case class NbGames(value: Int) extends AnyVal with IntValue {
   def +(inc: Int)        = NbGames(value + inc)
@@ -16,11 +17,18 @@ case class NbMovesRatio(a: Int, b: Int) {
   def +(ratio: NbMovesRatio) = NbMovesRatio(a + ratio.a, b + ratio.b)
 }
 
+case class PrePov(
+    pov: Pov,
+    perfType: PerfType,
+    replay: List[Situation]
+)
+
 case class RichPov(
     pov: Pov,
+    perfType: PerfType,
+    replay: Vector[Situation],
     analysis: Option[Analysis],
-    division: Division,
-    replay: Vector[Situation]
+    division: Division
 ) {
   def url = s"http://l.org/${pov.game.id}"
 }

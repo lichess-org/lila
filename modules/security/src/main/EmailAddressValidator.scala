@@ -74,9 +74,9 @@ final class EmailAddressValidator(
     isAcceptable(e) ?? e.domain.map(_.lower) ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else
-        dnsApi.mx(domain).dmap { domains =>
-          domains.nonEmpty && !domains.exists { disposable(_) }
-        } >>& checkMail(domain)
+        dnsApi.mx(domain).thenPp(domain.value).dmap { domains =>
+          domains.nonEmpty && !domains.exists { disposable(_) }.pp
+        } >>& checkMail(domain).thenPp(domain.value)
     }
 
   // the DNS emails should have been preloaded
