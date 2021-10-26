@@ -77,7 +77,6 @@ export default class ExplorerCtrl {
 
   private baseXhrOpening = () => ({
     endpoint: this.opts.endpoint,
-    endpoint3: this.opts.endpoint3,
     config: this.config.data,
   });
 

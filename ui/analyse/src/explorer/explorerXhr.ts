@@ -6,7 +6,6 @@ import { sync } from 'common/sync';
 
 interface OpeningXhrOpts {
   endpoint: string;
-  endpoint3: string;
   db: ExplorerDb;
   rootFen: Fen;
   play: string[];
@@ -21,8 +20,10 @@ export async function opening(
   processData: (data: ExplorerData) => void
 ): Promise<CancellableStream> {
   const conf = opts.config;
-  const endpoint = opts.db == 'player' ? opts.endpoint3 : opts.endpoint;
-  const url = new URL(opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master', endpoint);
+  const url = new URL(
+    opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master',
+    opts.endpoint
+  );
   const params = url.searchParams;
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));

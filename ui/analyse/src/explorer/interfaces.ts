@@ -14,7 +14,6 @@ export interface PlayerOpts {
 
 export interface ExplorerOpts {
   endpoint: string;
-  endpoint3: string;
   tablebaseEndpoint: string;
   showRatings: boolean;
 }
