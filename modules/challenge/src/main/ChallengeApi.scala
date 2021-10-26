@@ -11,6 +11,7 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi._
+import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
@@ -56,7 +57,10 @@ final class ChallengeApi(
 
   def createdByChallengerId = repo.createdByChallengerId() _
 
-  def createdByDestId = repo.createdByDestId() _
+  def createdByDestId(userId: User.ID) = countInFor get userId flatMap { nb =>
+    if (nb > 5) repo.createdByPopularDestId()(userId)
+    else repo.createdByDestId()(userId)
+  }
 
   def cancel(c: Challenge) =
     repo.cancel(c) >>- {
@@ -158,7 +162,7 @@ final class ChallengeApi(
 
   private object notifyUser {
     private val throttler = new lila.hub.EarlyMultiThrottler(logger)
-    def apply(userId: User.ID): Unit = throttler(userId, 2.seconds) {
+    def apply(userId: User.ID): Unit = throttler(userId, 3.seconds) {
       for {
         all  <- allFor(userId)
         lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
