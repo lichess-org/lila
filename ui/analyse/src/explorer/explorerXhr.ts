@@ -20,27 +20,27 @@ export async function opening(
   processData: (data: ExplorerData) => void
 ): Promise<CancellableStream> {
   const conf = opts.config;
-  const url = new URL(
-    opts.db === 'lichess' ? '/lichess' : opts.db == 'player' ? '/personal' : '/master',
-    opts.endpoint
-  );
+  const url = new URL(`/${opts.db}`, opts.endpoint);
   const params = url.searchParams;
+  params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
-  if (opts.db !== 'masters') params.set('variant', opts.variant || 'standard');
-  if (opts.db === 'lichess') {
+  if (opts.db !== 'masters') {
+    params.set('speeds', conf.speed().join(','));
     conf
       .speed()
       .filter(s => s != 'ultraBullet' && s != 'correspondence')
-      .forEach(s => params.append('speeds[]', s));
-    for (const rating of conf.rating()) params.append('ratings[]', rating.toString());
+      .forEach(s => params.append('speeds[]', s)); // bc
+  }
+  if (opts.db === 'lichess') {
+    params.set('ratings', conf.rating().join(','));
+    for (const rating of conf.rating()) params.append('ratings[]', rating.toString()); // bc
   }
   if (opts.db === 'player') {
     const playerName = conf.playerName.value();
     if (!playerName) return explorerError('Missing player name');
     params.set('player', playerName);
     params.set('color', conf.color());
-    params.set('speeds', conf.speed().join(','));
     params.set('modes', conf.mode().join(','));
     if (conf.since()) params.set('since', conf.since());
     if (conf.until()) params.set('until', conf.until());
