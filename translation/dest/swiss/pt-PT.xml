@@ -88,6 +88,8 @@ O mais perto que podes ter do Round Robin é jogar um torneio suiço com um núm
   <string name="pairingSystemArena">Qualquer opositor disponível com um ranking similar</string>
   <string name="pairingSystemSwiss">Melhor emparelhamento baseado em pontos e desempates</string>
   <string name="pairingWaitTime">Tempo de espera para emparelhamento</string>
+  <string name="pairingWaitTimeArena">Rápido: não espera por todos os jogadores</string>
+  <string name="pairingWaitTimeSwiss">Lento: espera por todos os jogadores</string>
   <string name="identicalPairing">Emparelhamento idêntico</string>
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>

@@ -13,6 +13,7 @@
   <string name="publishHelp">Si es marca l\'entrada es publicarà al teu blog. Sinó, serà privada i només es mostrarà en les publicacions en esborrany</string>
   <string name="thisPostIsPublished">Aquesta entrada està publicada</string>
   <string name="thisIsADraft">Això és un esborrany</string>
+  <string name="noDrafts">Cap esborrany a mostrar.</string>
   <string name="latestBlogPosts">Les últimes publicacions en el blog</string>
   <string name="uploadAnImageForYourPost">Puja una imatge de per la teva entrada</string>
   <string name="imageCredit">Crèdits de la imatge</string>

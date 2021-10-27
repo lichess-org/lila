@@ -88,6 +88,8 @@ Un modo per simulare un Round Robin online è giocare un torneo svizzero con un 
   <string name="pairingSystemArena">Qualsiasi avversario disponibile con punteggio simile</string>
   <string name="pairingSystemSwiss">Miglior abbinamento basato sui punti e lo spareggio</string>
   <string name="pairingWaitTime">Tempo d\'attesa per l\'abbinamento</string>
+  <string name="pairingWaitTimeArena">Veloce: non attendere tutti i giocatori</string>
+  <string name="pairingWaitTimeSwiss">Lento: attendi tutti i giocatori</string>
   <string name="identicalPairing">Abbinamento identico</string>
   <string name="possibleButNotConsecutive">Possibile, ma non consecutivo</string>
   <string name="identicalForbidden">Proibito</string>
