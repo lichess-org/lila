@@ -25,46 +25,8 @@ final private class ExplorerIndexer(
 ) {
 
   private val separator           = "\n\n\n"
-  private val datePattern         = "yyyy-MM-dd"
-  private val dateFormatter       = DateTimeFormat forPattern datePattern
   private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd"
   private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
-
-  private def parseDate(str: String): Option[DateTime] =
-    Try(dateFormatter parseDateTime str).toOption
-
-  def apply(sinceStr: String): Funit =
-    getBotUserIds() flatMap { botUserIds =>
-      parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
-        logger.info(s"Start indexing since $since")
-        val query =
-          Query.createdSince(since) ++
-            Query.rated ++
-            Query.finished ++
-            Query.turnsGt(8) ++
-            Query.noProvisional ++
-            Query.bothRatingsGreaterThan(1501)
-
-        gameRepo
-          .sortedCursor(query, Query.sortChronological)
-          .documentSource()
-          .via(LilaStream.logRate[Game]("fetch")(logger))
-          .mapAsyncUnordered(8) { makeFastPgn(_, botUserIds) }
-          .via(LilaStream.collect)
-          .via(LilaStream.logRate("index")(logger))
-          .grouped(50)
-          .map(_ mkString separator)
-          .mapAsyncUnordered(2) { pgn =>
-            ws.url(internalEndPointUrl).put(pgn).flatMap {
-              case res if res.status == 200 => funit
-              case res                      => fufail(s"Stop import because of status ${res.status}")
-            }
-          }
-          .toMat(Sink.ignore)(Keep.right)
-          .run()
-          .void
-      }
-    }
 
   def apply(game: Game): Funit =
     getBotUserIds() flatMap { botUserIds =>
