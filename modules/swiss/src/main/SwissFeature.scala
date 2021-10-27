@@ -62,9 +62,9 @@ final class SwissFeature(
       }
   }
 
-  private def cacheCompute(startsAtRange: Bdoc): Fu[List[Swiss]] =
+  private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
     colls.swiss
-      .aggregateList(5) { framework =>
+      .aggregateList(nb) { framework =>
         import framework._
         Match(
           $doc(
@@ -87,7 +87,8 @@ final class SwissFeature(
             )
           ),
           UnwindField("team"),
-          Sort(Descending("nbPlayers"))
+          Sort(Descending("nbPlayers")),
+          Limit(nb)
         )
       }
       .map { _.flatMap(_.asOpt[Swiss]) }
