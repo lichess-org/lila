@@ -10,7 +10,7 @@
   <string name="totalGames">Insgesamte Spiele</string>
   <string name="ratedGames">Gewertete Spiele</string>
   <string name="tournamentGames">Turnierspiele</string>
-  <string name="berserkedGames">Berserker-Spiele</string>
+  <string name="berserkedGames">Berserker-Partien</string>
   <string name="timeSpentPlaying">Gesamtspielzeit</string>
   <string name="averageOpponent">Durchschnittliche Gegnerwertung</string>
   <string name="victories">Siege</string>
