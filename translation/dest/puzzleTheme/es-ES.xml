@@ -100,13 +100,13 @@
   <string name="rookEndgame">Final de torres</string>
   <string name="rookEndgameDescription">Un final solo con torres y peones.</string>
   <string name="sacrifice">Sacrificio</string>
-  <string name="sacrificeDescription">Una táctica que implica renunciar a material a corto plazo, para obtener una ventaja luego de una secuencia forzada de movimientos.</string>
+  <string name="sacrificeDescription">Una táctica que implica ceder material a corto plazo, para obtener una ventaja luego de una secuencia forzada de movimientos.</string>
   <string name="short">Ejercicio corto</string>
   <string name="shortDescription">Dos movimientos para ganar.</string>
   <string name="skewer">Pincho</string>
   <string name="skewerDescription">Un motivo que implica el ataque de una pieza de alto valor, que se aparta del camino y permite capturar o atacar una pieza de menor valor detrás de ella, lo contrario de una clavada.</string>
   <string name="smotheredMate">Mate de la coz</string>
-  <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
+  <string name="smotheredMateDescription">Un jaque mate con caballo, en el cual el rey enemigo no se puede mover al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
   <string name="superGM">Partidas de súper grandes maestros</string>
   <string name="superGMDescription">Ejercicios de partidas de los mejores jugadores del mundo.</string>
   <string name="trappedPiece">Pieza atrapada</string>
