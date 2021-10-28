@@ -35,6 +35,7 @@ object jsI18n {
       youAreNowASpectator,
       pgnTags,
       like,
+      unlike,
       newTag,
       commentThisPosition,
       commentThisMove,
