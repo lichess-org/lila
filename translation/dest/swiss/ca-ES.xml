@@ -43,7 +43,9 @@ Pot ser una bona opció per clubs i torneigs oficials.</string>
 Quan un jugador no es pot emparellar en una ronda obté un bye que val un punt.</string>
   <string name="tiebreaksCalculationQ">Com es calculen els desempats?</string>
   <string name="pairingsQ">Com es decideixen els emparellaments?</string>
+  <string name="dutchSystem">Sistema holandés</string>
   <string name="FIDEHandbook">Manual de la FIDE</string>
+  <string name="pairingsA">Amb el %1$s, implementat per%2$s, amb seguint les regles del %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Que passa si el torneig té més rondes que jugadors?</string>
   <string name="moreRoundsThanPlayersA">Quan s\'hagin jugat tots els emparellaments possibles, el torneig finalitzarà i es declararà un guanyador.</string>
   <string name="restrictedToTeamsQ">Perquè està restringit només a equips?</string>
@@ -54,8 +56,11 @@ Quan un jugador no es pot emparellar en una ronda obté un bye que val un punt.<
 El jugadors que s\'afegeixin a un torneig ja començat rebran un únic bye, encara que no es presentin a varies rondes.</string>
   <string name="willSwissReplaceArenasQ">Els tornejos suïssos substituiran als arena?</string>
   <string name="willSwissReplaceArenasA">No, son funcionalitats complementaries.</string>
+  <string name="roundRobinQ">Que passa amb els emparellament de tots contra tots?</string>
   <string name="otherSystemsQ">Que passa amb els altres sistemes de tornejos?</string>
   <string name="otherSystemsA">Actualment no tenim previst afegir cap més tipus de torneig a Lichess.</string>
+  <string name="teamOnly">Ens tornejos suïssos només es poden crear pels líders d\'equip i només es poden jugar pels seus membres. 
+%1$s per començar a jugar tornejos suïssos.</string>
   <string name="joinOrCreateTeam">Uneix-te o crea un equip</string>
   <string name="nowPlaying">Jugant-se ara</string>
   <string name="startingSoon">Proper inici</string>
