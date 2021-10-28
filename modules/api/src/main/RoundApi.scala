@@ -109,45 +109,42 @@ final private[api] class RoundApi(
       apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[FEN]] = None,
+      initialFen: Option[FEN],
       withFlags: WithFlags,
       owner: Boolean = false
-  )(implicit ctx: Context): Fu[JsObject] =
-    initialFenO
-      .fold(gameRepo initialFen pov.game)(fuccess)
-      .flatMap { initialFen =>
-        implicit val lang = ctx.lang
-        jsonView.watcherJson(
-          pov,
-          ctx.pref,
-          apiVersion,
-          ctx.me,
-          tv,
-          initialFen = initialFen,
-          withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
-        ) zip
-          tourApi.gameView.analysis(pov.game) zip
-          (pov.game.simulId ?? simulApi.find) zip
-          swissApi.gameView(pov) zip
-          ctx.userId.ifTrue(ctx.isMobileApi).?? {
-            noteApi.get(pov.gameId, _)
-          } zip
-          (owner.??(forecastApi loadForDisplay pov)) zip
-          bookmarkApi.exists(pov.game, ctx.me) map {
-            case ((((((json, tour), simul), swiss), note), fco), bookmarked) =>
-              (
-                withTournament(pov, tour) _ compose
-                  withSwiss(swiss) compose
-                  withSimul(simul) compose
-                  withNote(note) compose
-                  withBookmark(bookmarked) compose
-                  withTree(pov, analysis, initialFen, withFlags) compose
-                  withAnalysis(pov.game, analysis) compose
-                  withForecast(pov, owner, fco)
-              )(json)
-          }
+  )(implicit ctx: Context): Fu[JsObject] = {
+    implicit val lang = ctx.lang
+    jsonView.watcherJson(
+      pov,
+      ctx.pref,
+      apiVersion,
+      ctx.me,
+      tv,
+      initialFen = initialFen,
+      withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
+    ) zip
+      tourApi.gameView.analysis(pov.game) zip
+      (pov.game.simulId ?? simulApi.find) zip
+      swissApi.gameView(pov) zip
+      ctx.userId.ifTrue(ctx.isMobileApi).?? {
+        noteApi.get(pov.gameId, _)
+      } zip
+      (owner.??(forecastApi loadForDisplay pov)) zip
+      bookmarkApi.exists(pov.game, ctx.me) map {
+        case ((((((json, tour), simul), swiss), note), fco), bookmarked) =>
+          (
+            withTournament(pov, tour) _ compose
+              withSwiss(swiss) compose
+              withSimul(simul) compose
+              withNote(note) compose
+              withBookmark(bookmarked) compose
+              withTree(pov, analysis, initialFen, withFlags) compose
+              withAnalysis(pov.game, analysis) compose
+              withForecast(pov, owner, fco)
+          )(json)
       }
-      .mon(_.round.api.watcher)
+  }
+    .mon(_.round.api.watcher)
 
   def embed(
       pov: Pov,

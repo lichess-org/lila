@@ -62,7 +62,7 @@ final class Analyse(
                     lila.round.OnUserTv(u.id)
                   },
                   analysis,
-                  initialFenO = initialFen.some,
+                  initialFen = initialFen,
                   withFlags = WithFlags(
                     movetimes = true,
                     clocks = true,
