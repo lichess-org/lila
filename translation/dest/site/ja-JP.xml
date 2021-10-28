@@ -155,7 +155,7 @@
   <string name="players">プレイヤー</string>
   <string name="friends">友達</string>
   <string name="discussions">トピック</string>
-  <string name="today">今日</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">今日</string>
   <string name="yesterday">昨日</string>
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
@@ -225,7 +225,7 @@
   <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
-  <string name="rematchOfferSent">再対局の提案が来ました</string>
+  <string name="rematchOfferSent">再対局の提案があります</string>
   <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
@@ -406,9 +406,9 @@
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
   <string name="chess960StartPosition">チェス960 開始局面: %s</string>
-  <string name="startPosition">開始局面</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
-  <string name="loadPosition">局面を読み込む</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">局面を読み込む</string>
   <string name="isPrivate">プライベート</string>
   <string name="reportXToModerators">モデレーターに%sを通報する。</string>
   <string name="profileCompletion">プロフィール記入率：%s</string>
@@ -427,7 +427,7 @@
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
   <string name="activePlayers">総対局数上位</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">注意！レイティング対象ですが時間無制限です</string>
   <string name="success">成功</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局対局中</item>
@@ -495,7 +495,7 @@
   <string name="onSlowGames">長時間の対局のみ</string>
   <string name="always">常に有効</string>
   <string name="never">無効</string>
-  <string name="xCompetesInY">%1$s が %2$s で対局しました。</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s が %2$s で対局しました。</string>
   <string name="victory">勝ち</string>
   <string name="defeat">負け</string>
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
@@ -528,10 +528,10 @@
   <string name="error.email_acceptable">このメールアドレスは使用できません。確認してもう一度どうぞ。</string>
   <string name="error.email_unique">メールアドレスが無効かすでに使われています</string>
   <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
-  <string name="error.minLength">最小の長さは %s です</string>
-  <string name="error.maxLength">最大の長さは %s です</string>
-  <string name="error.min">%s 以上にしてください</string>
-  <string name="error.max">%s 以下にしてください</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">最小の長さは %s です</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">最大の長さは %s です</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">%s 以上にしてください</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">%s 以下にしてください</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
@@ -774,7 +774,7 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
-  <string name="mentionedYouInX">「%1$s」であなたの名前が出ました。</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">「%1$s」であなたの名前が出ました。</string>
   <string name="xMentionedYouInY">%1$sさんが「%2$s」であなたの名前を出しました。</string>
   <string name="invitedYouToX">「%1$s」 への招待が来ました。</string>
   <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
