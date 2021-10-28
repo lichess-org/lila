@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Você agora é um(a) espectador(a)</string>
   <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Gostei</string>
+  <string name="unlike">Não gostei</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comente sobre esta posição</string>
   <string name="commentThisMove">Comente sobre este lance</string>
