@@ -10,7 +10,7 @@
   <string name="forgotUsername">Olvidé mi nombre de usuario</string>
   <string name="youCanLoginWithEmail">Puedes iniciar sesión con la dirección de correo electrónico con la que te registraste</string>
   <string name="lost2FA">Perdí mis códigos de autenticación en dos pasos</string>
-  <string name="doPasswordReset">Completa el cuadro de restablecimiento de contraseña para eliminar tu segundo factor</string>
+  <string name="doPasswordReset">Complete el cuadro de restablecimiento de contraseña para eliminar el factor de doble autenticación</string>
   <string name="accountSupport">Necesito soporte de cuenta</string>
   <string name="wantTitle">Quiero que mi título se muestre en Lichess</string>
   <string name="visitTitleConfirmation">Para mostrar tu título en tu perfil de Lichess y participar en los torneos que lo exijan, visita la página de verificación de títulos</string>
@@ -56,11 +56,11 @@
   <string name="errorPage">Página de error</string>
   <string name="reportErrorPage">Si una página te da error, puedes reportarla:</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>
-  <string name="engineAppeal">Motor o marca de trampa</string>
+  <string name="engineAppeal">Motor o pruebas de trampa</string>
   <string name="sendAppealTo">Puede enviar un recurso a %s.</string>
   <string name="falsePositives">A veces ocurren falsos positivos, y lo lamentamos.</string>
   <string name="ifLegit">Si su recurso es legítimo, levantaremos la prohibición lo antes posible.</string>
-  <string name="accountLost">Sin embargo, si realmente has utilizado asistencia del motor, incluso una sola vez, tu cuenta está lamentablemente perdida.</string>
+  <string name="accountLost">Sin embargo, si realmente utilizaste asistencia del motor, incluso una sola vez, tu cuenta está lamentablemente perdida.</string>
   <string name="doNotDeny">No niegues haber hecho trampa. Si quieres que se te permita crear una nueva cuenta, sólo tienes que admitir lo que hiciste, y mostrar que has comprendido que se trataba de un error.</string>
   <string name="otherRestriction">Other restriction</string>
   <string name="collaboration">Colaboración, legal, comercial</string>
@@ -68,7 +68,7 @@
   <string name="buyingLichess">Comprar Lichess</string>
   <string name="authorizationToUse">Autorización para usar Lichess</string>
   <string name="welcomeToUse">Puede usar Lichess para su fin, incluso comercial.</string>
-  <string name="videosAndBooks">Puedes mostrarlo en vídeos y tomar capturas de pantalla de Lichess en tus libros.</string>
+  <string name="videosAndBooks">Puede utilizar Lichess en sus vídeos y tomar capturas de pantalla de Lichess para sus libros.</string>
   <string name="creditAppreciated">Se aprecia el crédito, pero no es necesario.</string>
   <string name="noneOfTheAbove">Ninguna de las opciones anteriores</string>
   <string name="sendEmailAt">Envíanos un correo electrónico a %s.</string>
