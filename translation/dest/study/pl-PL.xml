@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
   <string name="pgnTags">Znaczniki PGN</string>
   <string name="like">Lubię to</string>
+  <string name="unlike">Cofnij polubienie</string>
   <string name="newTag">Nowy znacznik</string>
   <string name="commentThisPosition">Skomentuj tę pozycję</string>
   <string name="commentThisMove">Skomentuj ten ruch</string>
