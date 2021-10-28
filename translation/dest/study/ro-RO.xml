@@ -44,6 +44,7 @@
   <string name="youAreNowASpectator">Acum ești un spectator</string>
   <string name="pgnTags">Etichete PGN</string>
   <string name="like">Apreciază</string>
+  <string name="unlike">Nu îmi mai place</string>
   <string name="newTag">Etichetă nouă</string>
   <string name="commentThisPosition">Comentează această poziție</string>
   <string name="commentThisMove">Comentează această mutare</string>
