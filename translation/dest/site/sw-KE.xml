@@ -73,5 +73,10 @@
   <string name="recentGames">Michezo ya hivi karibuni</string>
   <string name="delete">Futa</string>
   <string name="realtimeReplay">Moja kwa moja</string>
+  <string name="changePassword">Badilisha nenosiri</string>
+  <string name="changeEmail">Badilisha nenosiri</string>
+  <string name="forgotPassword">Umesahau nenosiri?</string>
+  <string name="whiteTimeOut">Muda uliwakatikia weupe</string>
+  <string name="blackTimeOut">Muda uliwakatikia weusi</string>
   <string name="rematch">cheza tena</string>
 </resources>
