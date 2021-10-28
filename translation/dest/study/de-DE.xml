@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
   <string name="like">Gefällt mir</string>
+  <string name="unlike">Gefällt mir nicht mehr</string>
   <string name="newTag">Neuer Tag</string>
   <string name="commentThisPosition">Kommentiere diese Stellung</string>
   <string name="commentThisMove">Kommentiere diesen Zug</string>
