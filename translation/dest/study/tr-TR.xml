@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
   <string name="pgnTags">PGN etiketleri</string>
   <string name="like">Beğen</string>
+  <string name="unlike">Beğenmekten Vazgeç</string>
   <string name="newTag">Yeni etiket</string>
   <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
   <string name="commentThisMove">Bu hamle için yorum yap</string>
