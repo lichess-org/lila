@@ -1593,6 +1593,7 @@ val `premovesPlayingDuringOpponentTurn` = new I18nKey("preferences:premovesPlayi
 val `takebacksWithOpponentApproval` = new I18nKey("preferences:takebacksWithOpponentApproval")
 val `inCasualGamesOnly` = new I18nKey("preferences:inCasualGamesOnly")
 val `promoteToQueenAutomatically` = new I18nKey("preferences:promoteToQueenAutomatically")
+val `autoQueenHint` = new I18nKey("preferences:autoQueenHint")
 val `whenPremoving` = new I18nKey("preferences:whenPremoving")
 val `claimDrawOnThreefoldRepetitionAutomatically` = new I18nKey("preferences:claimDrawOnThreefoldRepetitionAutomatically")
 val `whenTimeRemainingLessThanThirtySeconds` = new I18nKey("preferences:whenTimeRemainingLessThanThirtySeconds")
@@ -1608,6 +1609,8 @@ val `snapArrowsToValidMoves` = new I18nKey("preferences:snapArrowsToValidMoves")
 val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingOrDrawing")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
 val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardToReplayMoves")
+val `siteSettings` = new I18nKey("preferences:siteSettings")
+val `showPlayerRatingsHint` = new I18nKey("preferences:showPlayerRatingsHint")
 
 }
 

@@ -123,9 +123,7 @@ object pref {
               promoteToQueenAutomatically(),
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-                div(cls := "help text shy", dataIcon := "")(
-                  "Hold the <ctrl> key while promoting to temporarily disable auto-promotion"
-                )
+                div(cls := "help text shy", dataIcon := "")(autoQueenHint)
               )
             ),
             setting(
@@ -190,9 +188,7 @@ object pref {
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := "")(
-                  "This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see."
-                )
+                div(cls := "help text shy", dataIcon := "")(showPlayerRatingsHint)
               )
             )
           ),
