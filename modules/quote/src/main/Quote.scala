@@ -37,14 +37,14 @@ object Quote {
     new Quote("Strategy requires thought, tactics require observation.", "Max Euwe"),
     new Quote("I don’t believe in psychology. I believe in good moves.", "Bobby Fischer"),
     new Quote(
-      "Modern chess is too much concerned with things like pawn structure. Forget it, Checkmate ends the game.",
+      "Modern chess is too much concerned with things like pawn structure. Forget it, checkmate ends the game.",
       "Nigel Short"
     ),
     new Quote(
       "Life is a kind of chess, with struggle, competition, good and ill events.",
       "Benjamin Franklin"
     ),
-    new Quote("Even the laziest king flees wildly in the face of a double check!", "Aaron Nimzowitsch"),
+    new Quote("Even the laziest king flees wildly in the face of a double check!", "Aron Nimzowitsch"),
     new Quote(
       "Combinations have always been the most intriguing aspect of chess.  The masters look for them, the public applauds them, the critics praise them. It is because combinations are possible that chess is more than a lifeless mathematical exercise. They are the poetry of the game; they are to chess what melody is to music. They represent the triumph of mind over matter.",
       "Reuben Fine"
@@ -57,7 +57,7 @@ object Quote {
     new Quote("Only the player with the initiative has the right to attack.", "Wilhelm Steinitz"),
     new Quote(
       "The winner of the game is the player who makes the next-to-last mistake.",
-      "Savielly Tartakover"
+      "Savielly Tartakower"
     ),
     new Quote(
       "Your body has to be in top condition. Your chess deteriorates as your body does. You can’t separate body from mind.",
@@ -74,16 +74,16 @@ object Quote {
     new Quote("Life is like a game of chess, changing with each move.", "Chinese proverb"),
     new Quote("You cannot play at chess if you are kind-hearted.", "French proverb"),
     new Quote(
-      "Its just you and your opponent at the board and you’re trying to prove something.",
+      "It’s just you and your opponent at the board and you’re trying to prove something.",
       "Bobby Fischer"
     ),
     new Quote(
       "It is the aim of the modern school, not to treat every position according to one general law, but according to the principle inherent in the position.",
       "Richard Reti"
     ),
-    new Quote("The pawns are the soul of the game.", "Francois Andre Danican Philidor"),
+    new Quote("The pawns are the soul of the game.", "François-André Danican Philidor"),
     new Quote(
-      "In order to improve your game, you must study the endgame before everything else, for whereas the endings can be studied and mastered by themselves, the middle game and the opening must be studied in relation to the endgame.",
+      "In order to improve your game, you must study the endgame before everything else, for whereas the endings can be studied and mastered by themselves, the middlegame and the opening must be studied in relation to the endgame.",
       "Jose Raul Capablanca"
     ),
     new Quote("Without error there can be no brilliancy.", "Emanuel Lasker"),
@@ -106,14 +106,14 @@ object Quote {
     new Quote("Openings teach you openings. Endgames teach you chess!", "Stephan Gerzadowicz"),
     new Quote("My style is somewhere between that of Tal and Petrosian.", "Reshevsky"),
     new Quote(
-      "Play the opening like a book, the middle game like a magician, and the endgame like a machine.",
+      "Play the opening like a book, the middlegame like a magician, and the endgame like a machine.",
       "Spielmann"
     ),
     new Quote(
       "That’s what chess is all about. One day you give your opponent a lesson, the next day he gives you one.",
       "Bobby Fischer"
     ),
-    new Quote("Some part of a mistake is always correct.", "Savielly Tartakover"),
+    new Quote("Some part of a mistake is always correct.", "Savielly Tartakower"),
     new Quote("Methodical thinking is of more use in chess than inspiration.", "C. J. S. Purdy"),
     new Quote("When in doubt... play chess!", "Tevis"),
     new Quote(
@@ -160,8 +160,8 @@ object Quote {
       "During a chess competition a chess master should be a combination of a beast of prey and a monk.",
       "Alexander Alekhine"
     ),
-    new Quote("No one ever won a game by resigning.", "Saviely Tartakower"),
-    new Quote("The defensive power of a pinned piece is only imaginary.", "Aaron Nimzovich"),
+    new Quote("No one ever won a game by resigning.", "Savielly Tartakower"),
+    new Quote("The defensive power of a pinned piece is only imaginary.", "Aron Nimzowitsch"),
     new Quote("When the chess game is over, the pawn and the king go back to the same box.", "Irish saying"),
     new Quote(
       "A strong memory, concentration, imagination, and a strong will is required to become a great chess player.",
@@ -187,8 +187,8 @@ object Quote {
     new Quote("He who fears an isolated queen’s pawn should give up chess.", "Siegbert Tarrasch"),
     new Quote("Different people feel differently about resigning.", "Bobby Fischer"),
     new Quote("Chess is not like life... it has rules!", "Mark Pasternak"),
-    new Quote("It’s always better to sacrifice your opponent’s men.", "Savielly Tartakover"),
-    new Quote("To avoid losing a piece, many a person has lost the game.", "Savielly Tartakover"),
+    new Quote("It’s always better to sacrifice your opponent’s men.", "Savielly Tartakower"),
+    new Quote("To avoid losing a piece, many a person has lost the game.", "Savielly Tartakower"),
     new Quote("All that matters on the chessboard is good moves.", "Bobby Fischer"),
     new Quote("Help your pieces so they can help you.", "Paul Morphy"),
     new Quote("In a gambit you give up a pawn for the sake of getting a lost game.", "Samuel Standige Boden"),
@@ -237,7 +237,7 @@ object Quote {
     new Quote("Chess is war over the board. The object is to crush the opponents mind.", "Bobby Fischer"),
     new Quote(
       "The passed pawn is a criminal, who should be kept under lock and key.  Mild measures, such as police surveillance, are not sufficient.",
-      "Aaron Nimzovich"
+      "Aron Nimzowitsch"
     ),
     new Quote(
       "Chess holds its master in its own bonds, shackling the mind and brain so that the inner freedom of the very strongest must suffer.",
@@ -247,14 +247,14 @@ object Quote {
       "Human affairs are like a chess game: only those who do not take it seriously can be called good players.",
       "Hung Tzu Ch’eng"
     ),
-    new Quote("The blunders are all there on the board, waiting to be made.", "Savielly Tartakover"),
+    new Quote("The blunders are all there on the board, waiting to be made.", "Savielly Tartakower"),
     new Quote(
       "Via the squares on the chessboard, the Indians explain the movement of time and the age, the higher influences which control the world and the ties which link chess with the human soul.",
       "Al-Masudi"
     ),
     new Quote("It is no time to be playing chess when the house is on fire.", "Italian proverb"),
     new Quote(
-      "You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it.  But what chess teaches you is that you must sit there calmly and think about whether its really a good idea and whether there are other better ideas.",
+      "You sit at the board and suddenly your heart leaps. Your hand trembles to pick up the piece and move it.  But what chess teaches you is that you must sit there calmly and think about whether it’s really a good idea and whether there are other better ideas.",
       "Stanley Kubrick"
     ),
     new Quote(
@@ -328,7 +328,7 @@ object Quote {
       "Hans Kmoch"
     ),
     new Quote(
-      "I am still a victim of chess. It has all the beauty of art and much more. It cannot be commercialized. chess is much purer than art in its social position.",
+      "I am still a victim of chess. It has all the beauty of art and much more. It cannot be commercialized. Chess is much purer than art in its social position.",
       "Marcel Duchamp"
     ),
     new Quote("Blessed be the memory of him who gave the world this immortal game.", "A. G. Gardiner"),
@@ -409,7 +409,7 @@ object Quote {
     ),
     new Quote(
       "Pawns; they are the soul of this game, they alone form the attack and defense.",
-      "Francois-Andre Danican Philidor"
+      "François-André Danican Philidor"
     ),
     new Quote("In chess, at least, the brave inherit the earth.", "Edmar Mednis"),
     new Quote(
@@ -418,7 +418,7 @@ object Quote {
     ),
     new Quote(
       "The tactician must know what to do whenever something needs doing; the strategist must know what to do when nothing needs doing.",
-      "Savielly Tartakover"
+      "Savielly Tartakower"
     ),
     new Quote("All chess players should have a hobby.", "Savielly Tartakower"),
     new Quote(
@@ -446,7 +446,7 @@ object Quote {
     new Quote("Chess is a sea in which a gnat may drink and an elephant may bathe.", "Hindu proverb"),
     new Quote("Pawn endings are to chess what putting is to golf.", "Cecil Purdy"),
     new Quote("Chess opens and enriches your mind.", "Saudin Robovic"),
-    new Quote("The isolated pawn casts gloom over the entire chessboard.", "Aaron Nimzovich"),
+    new Quote("The isolated pawn casts gloom over the entire chessboard.", "Aron Nimzowitsch"),
     new Quote(
       "For me, chess is life and every game is like a new life. Every chess player gets to live many lives in one lifetime.",
       "Eduard Gufeld"
@@ -532,7 +532,7 @@ object Quote {
     new Quote("Everything is in a state of flux, and this includes the world of chess.", "Mikhail Botvinnik"),
     new Quote(
       "The beauty of a move lies not in its appearance but in the thought behind it.",
-      "Aaron Nimzovich"
+      "Aron Nimzowitsch"
     ),
     new Quote("My God, Bobby Fischer plays so simply.", "Alexei Suetin"),
     new Quote("You need not play well - just help your opponent to play badly.", "Genrikh Chepukaitis"),
@@ -555,7 +555,7 @@ object Quote {
       "The enormous mental resilience, without which no chess player can exist, was so much taken up by chess that he could never free his mind of this game.",
       "Albert Einstein"
     ),
-    new Quote("Nowadays, when you’re not a Grandmaster at 14, you can forget about it.", "Anand Viswanathan"),
+    new Quote("Nowadays, when you’re not a Grandmaster at 14, you can forget about it.", "Viswanathan Anand"),
     new Quote(
       "Do you realize Fischer almost never has any bad pieces? He exchanges them, and the bad pieces remain with his opponents.",
       "Yuri Balashov"
@@ -728,7 +728,7 @@ object Quote {
       "Bruce Pandolfini"
     ),
     new Quote(
-      "At this time Fischer is simply a level above all the best chessplayers in the world.",
+      "At this time Fischer is simply a level above all the best chess players in the world.",
       "John Jacobs"
     ),
     new Quote(
@@ -792,9 +792,9 @@ object Quote {
     ),
     new Quote(
       "Many men, many styles; what is chess style but the intangible expression of the will to win.",
-      "Aaron Nimzowitsch"
+      "Aron Nimzowitsch"
     ),
-    new Quote("Never play for the win, never play for the draw, just play chess!", "Khalifman"),
+    new Quote("Never play for the win, never play for the draw, just play chess!", "Alexander Khalifman"),
     new Quote(
       "In chess, knowledge is a very transient thing. It changes so fast that even a single mouse-slip sometimes changes the evaluation.",
       "Viswanathan Anand"
@@ -892,7 +892,7 @@ object Quote {
       "A considerable role in the forming of my style was played by an early attraction to study composition.",
       "Vasily Smyslov"
     ),
-    new Quote("A defeatist spirit must inevitably lead to disaster.", "Eugene Znosko-Borovski"),
+    new Quote("A defeatist spirit must inevitably lead to disaster.", "Eugene Znosko-Borovsky"),
     new Quote(
       "A draw can be obtained not only by repeating moves, but also by one weak move.",
       "Savielly Tartakower"
@@ -929,7 +929,7 @@ object Quote {
       "Leonid Shamkovich"
     ),
     new Quote(
-      "A sport, a struggle for results and a fight for prizes. I think that the discussion about “chess is science or chess is art” is already inappropriate. The purpose of modern chess is to reach a result.",
+      "A sport, a struggle for results and a fight for prizes. I think that the discussion about \"chess is science or chess is art\" is already inappropriate. The purpose of modern chess is to reach a result.",
       "Alexander Morozevich"
     ),
     new Quote(
@@ -1033,12 +1033,12 @@ object Quote {
       "Mark Dvoretsky"
     ),
     new Quote(
-      "As a rule, so-called \"positional\" sacrifices are considered more difficult, and therefore more praise-worthy, than those which are based exclusively on an exact calculation of tactical possibilities.",
+      "As a rule, so-called \"positional\" sacrifices are considered more difficult, and therefore more praise-worthy than those which are based exclusively on an exact calculation of tactical possibilities.",
       "Alexander Alekhine"
     ),
     new Quote(
       "As a rule, the more mistakes there are in a game, the more memorable it remains, because you have suffered and worried over each mistake at the board.",
-      "Victor Kortchnoi"
+      "Victor Korchnoi"
     ),
     new Quote(
       "As long as my opponent has not yet castled, on each move I seek a pretext for an offensive. Even when I realize that the king is not in danger.",
@@ -1199,7 +1199,7 @@ object Quote {
       "Garry Kasparov"
     ),
     new Quote(
-      "Chess is infinite, and one has to make only one ill-considered move, and one`s opponent`s wildest dreams will become reality.",
+      "Chess is infinite, and one has to make only one ill-considered move, and one's opponent's wildest dreams will become reality.",
       "David Bronstein"
     ),
     new Quote(
@@ -1210,7 +1210,7 @@ object Quote {
       "Chess is like body-building. If you train every day, you stay in top shape. It is the same with your brain – chess is a matter of daily training.",
       "Vladimir Kramnik"
     ),
-    new Quote("Chess is my life.", "Victor Kortchnoi"),
+    new Quote("Chess is my life.", "Victor Korchnoi"),
     new Quote(
       "Chess is my profession. I am my own boss; I am free. I like literature and music, classical especially. I am in fact quite normal; I have a Bohemian profession without being myself a Bohemian. I am neither a conformist nor a great revolutionary.",
       "Bent Larsen"
@@ -1234,7 +1234,7 @@ object Quote {
     ),
     new Quote(
       "Chess is thriving. There are ever less round robin tournaments and ever more World Champions.",
-      "Robert Huebner (1990, Schach)"
+      "Robert Hübner (1990, Schach)"
     ),
     new Quote("Chess is, above all, a fight.", "Emanuel Lasker"),
     new Quote(
@@ -1251,7 +1251,7 @@ object Quote {
     ),
     new Quote(
       "Chess strategy as such today is still in its diapers, despite Tarrasch's statement 'We live today in a beautiful time of progress in all fields'. Not even the slightest attempt has been made to explore and formulate the laws of chess strategy.",
-      "Aaron Nimzowitsch (1925)"
+      "Aron Nimzowitsch (1925)"
     ),
     new Quote(
       "Chess strength in general and chess strength in a specific match are by no means one and the same thing.",
@@ -1327,7 +1327,7 @@ object Quote {
       "Alexander Alekhine"
     ),
     new Quote(
-      "During the late Victorian period the majority of chess magazines printed increasing numbers of humourous stories, poems and anecdotes about the agonies and idiocies of women chess players, presumably as an antidote to the alarmed reaction of men to the fact that women were encroaching on their 'territory'.",
+      "During the late Victorian period the majority of chess magazines printed increasing numbers of humorous stories, poems and anecdotes about the agonies and idiocies of women chess players, presumably as an antidote to the alarmed reaction of men to the fact that women were encroaching on their 'territory'.",
       "British Chess Magazine"
     ),
     new Quote(
@@ -1343,7 +1343,7 @@ object Quote {
       "Garry Kasparov"
     ),
     new Quote(
-      "Errors have nothing to do with luck; they are caused by time pressure, discomfort or unfamiliarilty with a position, distractions, feelings of intimidation, nervous tension, overambition, excessive caution, and dozens of other psychological factors.",
+      "Errors have nothing to do with luck; they are caused by time pressure, discomfort or unfamiliarity with a position, distractions, feelings of intimidation, nervous tension, over-ambition, excessive caution, and dozens of other psychological factors.",
       "Pal Benko"
     ),
     new Quote(
@@ -1418,7 +1418,7 @@ object Quote {
       "Garry Kasparov"
     ),
     new Quote(
-      "For me, chess is at the same time a game, a sport, a science and an art. And perhaps even more than that,. There is someting hard to explain to those who do not know the game well. One must first learn to play it correctly in order to savor its richness.",
+      "For me, chess is at the same time a game, a sport, a science and an art. And perhaps even more than that,. There is something hard to explain to those who do not know the game well. One must first learn to play it correctly in order to savor its richness.",
       "Bent Larsen"
     ),
     new Quote(
@@ -1469,7 +1469,7 @@ object Quote {
       "Haste is never more dangerous than when you feel that victory is in your grasp.",
       "Eugene Znosko-Borovsky"
     ),
-    new Quote("Haste, the great enemy.", "Eugene Znosko-Borowski"),
+    new Quote("Haste, the great enemy.", "Eugene Znosko-Borowsky"),
     new Quote(
       "Having spent alarmingly large chunks of my life studying the white side of the Open Sicilian, I find myself asking, why did I bother?",
       "Daniel King"

@@ -14,8 +14,9 @@ object authorize {
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
-      moreJs = embedJsUnsafeLoadThen(
-        """setTimeout(() => {const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('disabled')}, 2000);"""
+      moreJs = embedJsUnsafe(
+        // ensure maximum browser compatibility
+        """setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','button')}, 2000);"""
       )
     ) {
       main(cls := "oauth box box-pad")(

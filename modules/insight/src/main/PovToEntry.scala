@@ -18,7 +18,6 @@ final private class PovToEntry(
   case class RichPov(
       pov: Pov,
       provisional: Boolean,
-      initialFen: Option[FEN],
       analysis: Option[lila.analyse.Analysis],
       division: chess.Division,
       moveAccuracy: Option[List[Int]],
@@ -50,7 +49,9 @@ final private class PovToEntry(
                 chess.Replay
                   .boards(
                     moveStrs = game.pgnMoves,
-                    initialFen = fen,
+                    initialFen = fen orElse {
+                      !pov.game.variant.standardInitialPosition option pov.game.variant.initialFen
+                    },
                     variant = game.variant
                   )
                   .toOption
@@ -59,7 +60,6 @@ final private class PovToEntry(
             } yield RichPov(
               pov = pov,
               provisional = provisional,
-              initialFen = fen,
               analysis = an,
               division = chess.Divider(boards.toList),
               moveAccuracy = an.map { Accuracy.diffsList(pov, _) },

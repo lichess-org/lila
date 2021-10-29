@@ -151,7 +151,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             'data-icon': d.liked ? '' : '',
-            title: ctrl.trans.noarg('like'),
+            title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
         },

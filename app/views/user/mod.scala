@@ -138,29 +138,26 @@ object mod {
           )
         }
       ),
-      div(cls := "btn-rack")(
+      isGranted(_.CloseAccount) option div(cls := "btn-rack")(
         if (u.enabled) {
-          isGranted(_.CloseAccount) option {
-            postForm(
-              action := routes.Mod.closeAccount(u.username),
-              title := "Disables this account.",
-              cls := "xhr"
-            )(
-              submitButton(cls := "btn-rack__btn")("Close")
-            )
-          }
+          postForm(
+            action := routes.Mod.closeAccount(u.username),
+            title := "Disables this account.",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn")("Close")
+          )
         } else if (erased.value) {
           "Erased"
         } else {
-          isGranted(_.CloseAccount) option {
-            postForm(
-              action := routes.Mod.reopenAccount(u.username),
-              title := "Re-activates this account.",
-              cls := "xhr"
-            )(
-              submitButton(cls := "btn-rack__btn active")("Closed")
-            )
-          }
+          postForm(
+            action := routes.Mod.reopenAccount(u.username),
+            title := "Re-activates this account.",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn active")("Closed")
+          )
+
         }
       ),
       div(cls := "btn-rack")(
@@ -239,7 +236,7 @@ object mod {
       )
     )
 
-  def showRageSit(rageSit: RageSit) =
+  def showRageSit(rageSit: RageSit): Frag =
     mzSection("sitdccounter")(
       strong(cls := "text inline")("Ragesit counter"),
       strong(cls := "fat")(rageSit.counterView)

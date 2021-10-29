@@ -95,7 +95,6 @@ final class Env(
 ) {
 
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
-  val explorer3Endpoint = config.get[String]("explorer.endpoint3")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
 
   val appVersionDate    = config.getOptional[String]("app.version.date")

@@ -163,7 +163,7 @@
   <string name="players">बुद्धिबळ खेळाडू</string>
   <string name="friends">मित्र</string>
   <string name="discussions">सांभाषणे</string>
-  <string name="today">आज</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">आज</string>
   <string name="yesterday">काल</string>
   <string name="minutesPerSide">दर बाजूचे मिनिट</string>
   <string name="variant">प्रकार</string>
@@ -369,8 +369,8 @@
   <string name="follow">अनुसरण करा</string>
   <string name="following">अनुयायी</string>
   <string name="unfollow">अनुसरण रद्द</string>
-  <string name="followX">%S चे अनुसरण करा</string>
-  <string name="unfollowX">%S चे अनुसरण करणे रद्द करा</string>
+  <string name="followX">%s चे अनुसरण करा</string>
+  <string name="unfollowX">%s चे अनुसरण करणे रद्द करा</string>
   <string name="block">अडवा</string>
   <string name="blocked">अडवलेले</string>
   <string name="unblock">आड दूर करा</string>
@@ -435,9 +435,9 @@
   <string name="popularOpenings">लोकप्रिय प्रारंभिक चाली</string>
   <string name="endgamePositions">एंडगेम पोझिशन्स</string>
   <string name="chess960StartPosition">Chess960 प्रारंभ स्थिती: %s</string>
-  <string name="startPosition">सुरवातीची स्थिती</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
-  <string name="loadPosition">पटस्थिती लोड करा</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">पटस्थिती लोड करा</string>
   <string name="isPrivate">खाजगी</string>
   <string name="reportXToModerators">सरपरिक्षकाकडे (moderator) %s तक्रार करा</string>
   <string name="profileCompletion">प्रोफाइल पूर्णता: %s</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
   <string name="activePlayers">सक्रिय बुद्धिबळपटू</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेळाला दर्जा आहे पण त्याला काही वेळेचे बंधन नाही!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">सावधान, खेळाला दर्जा आहे पण त्याला काही वेळेचे बंधन नाही!</string>
   <string name="success">यशस्वी</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेळ चालू आहे</item>
@@ -525,7 +525,7 @@
   <string name="onSlowGames">संथ खेळामध्ये</string>
   <string name="always">नेहमी</string>
   <string name="never">अजिबात नाही</string>
-  <string name="xCompetesInY">%1$s स्पर्धक %2$s आहे</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s स्पर्धक %2$s आहे</string>
   <string name="victory">विजय</string>
   <string name="defeat">पराभव</string>
   <string name="victoryVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
@@ -560,10 +560,10 @@
   <string name="error.email_acceptable">हा ईमेल पत्ता स्वीकार्य नाही. कृपया ते पुन्हा तपासा आणि पुन्हा प्रयत्न करा.</string>
   <string name="error.email_unique">ईमेल पत्ता अवैध किंवा आधीच घेतला आहे</string>
   <string name="error.email_different">हा आधीच तुमचा ईमेल पत्ता आहे</string>
-  <string name="error.minLength">किमान लांबी %s आहे</string>
-  <string name="error.maxLength">कमाल लांबी %s आहे</string>
-  <string name="error.min">%s यापेक्षा मोठे किंवा समान असणे आवश्यक आहे</string>
-  <string name="error.max">%s यापेक्षा कमी किंवा समान असणे आवश्यक आहे</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">किमान लांबी %s आहे</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">कमाल लांबी %s आहे</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">%s यापेक्षा मोठे किंवा समान असणे आवश्यक आहे</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">%s यापेक्षा कमी किंवा समान असणे आवश्यक आहे</string>
   <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
   <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
@@ -812,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">तुम्ही मंचावर लिहू शकत नाही. काही डाव खेळा!</string>
   <string name="subscribe">सदस्यता घ्या</string>
   <string name="unsubscribe">सदस्यता रद्द करा</string>
-  <string name="mentionedYouInX">%1$s मध्ये तुमचा उल्लेख केला.</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">%1$s मध्ये तुमचा उल्लेख केला.</string>
   <string name="xMentionedYouInY">%1$s ने तुमचा उल्लेख %2$s मध्ये केला आहे.</string>
   <string name="invitedYouToX">%1$s मध्ये तुम्ही आमंत्रित आहात.</string>
   <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>

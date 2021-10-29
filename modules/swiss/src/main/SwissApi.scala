@@ -85,8 +85,8 @@ final class SwissApi(
       cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
   }
 
-  def update(swiss: Swiss, data: SwissForm.SwissData): Funit =
-    Sequencing(swiss.id)(byId) { old =>
+  def update(swissId: Swiss.Id, data: SwissForm.SwissData): Fu[Option[Swiss]] =
+    Sequencing(swissId)(byId) { old =>
       val position =
         if (old.isCreated || old.settings.position.isDefined) data.realVariant.standard ?? data.realPosition
         else old.settings.position
@@ -124,7 +124,7 @@ final class SwissApi(
       colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >>- {
         cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
         socket.reload(swiss.id)
-      }
+      } inject swiss.some
     }
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =

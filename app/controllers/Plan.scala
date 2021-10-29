@@ -164,21 +164,24 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       checkout: Checkout,
       customerId: CustomerId,
       giftTo: Option[lila.user.User]
-  ) =
-    env.plan.api
-      .createSession(
-        CreateStripeSession(
-          customerId,
-          checkout,
-          NextUrls(
-            cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-            success = s"${env.net.baseUrl}${routes.Plan.thanks}"
-          ),
-          giftTo = giftTo
+  )(implicit ctx: Context) = {
+    for {
+      isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
+      session <- env.plan.api
+        .createSession(
+          CreateStripeSession(
+            customerId,
+            checkout,
+            NextUrls(
+              cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+              success = s"${env.net.baseUrl}${routes.Plan.thanks}"
+            ),
+            giftTo = giftTo,
+            isLifetime = isLifetime
+          )
         )
-      )
-      .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
-      .recover(badStripeApiCall)
+    } yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
+  }.recover(badStripeApiCall)
 
   def switchStripePlan(user: UserModel, money: Money) =
     env.plan.api
@@ -209,7 +212,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               data => {
                 val checkout = data.fixFreq
                 for {
-                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.named)
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
                   customer <- env.plan.api.userCustomer(me)
                   session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>

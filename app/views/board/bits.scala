@@ -44,7 +44,6 @@ object bits {
 
   def explorerConfig(implicit ctx: Context) = Json.obj(
     "endpoint"          -> explorerEndpoint,
-    "endpoint3"         -> explorer3Endpoint,
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )

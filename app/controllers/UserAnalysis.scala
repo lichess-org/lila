@@ -121,7 +121,7 @@ final class UserAnalysis(
             apiVersion,
             tv = none,
             analysis,
-            initialFenO = initialFen.some,
+            initialFen = initialFen,
             withFlags = WithFlags(
               division = true,
               opening = true,

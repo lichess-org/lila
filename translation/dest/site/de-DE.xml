@@ -435,9 +435,9 @@
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="endgamePositions">Endspielstellungen</string>
   <string name="chess960StartPosition">Schach960 Anfangsstellung: %s</string>
-  <string name="startPosition">Anfangsposition</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
-  <string name="loadPosition">Stellung laden</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Stellung laden</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
   <string name="profileCompletion">Profil vollständig zu %s</string>
@@ -525,7 +525,7 @@
   <string name="onSlowGames">Bei langsamen Spielen</string>
   <string name="always">Immer</string>
   <string name="never">Nie</string>
-  <string name="xCompetesInY">%1$s nimmt teil bei %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s nimmt teil bei %2$s</string>
   <string name="victory">Sieg</string>
   <string name="defeat">Niederlage</string>
   <string name="victoryVsYInZ">%1$s gegen %2$s in %3$s</string>
@@ -812,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
-  <string name="mentionedYouInX">erwähnte dich in \"%1$s\".</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">erwähnte dich in \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s erwähnte dich in \"%2$s\".</string>
   <string name="invitedYouToX">hat dich zu \"%1$s\" eingeladen.</string>
   <string name="xInvitedYouToY">%1$s hat dich zu \"%2$s\" eingeladen.</string>
@@ -845,7 +845,7 @@ und beeinflussen die Wertungszahl der Spieler</string>
   <string name="minimumRating">Niedrigste Wertungszahl</string>
   <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
   <string name="onlyTitled">Nur Spieler mit Titel</string>
-  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="onlyTitledHelp">Erfordert einen offiziellen Titel, um dem Turnier beizutreten</string>
   <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
 Das funktioniert nur für Standardspiele, nicht für Varianten.
 Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
@@ -870,7 +870,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="toggleAllAnalysis">Alle Computeranalysen aktivieren/deaktivieren</string>
   <string name="playComputerMove">Spiele den besten Computerzug</string>
   <string name="analysisOptions">Analyseoptionen</string>
-  <string name="focusChat">Chateingabefeld fokussieren</string>
+  <string name="focusChat">Chat-Eingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
   <string name="reopenYourAccount">Wiedereröffnung deines Kontos</string>
   <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>

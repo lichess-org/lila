@@ -11,6 +11,7 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi._
+import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
@@ -56,7 +57,10 @@ final class ChallengeApi(
 
   def createdByChallengerId = repo.createdByChallengerId() _
 
-  def createdByDestId = repo.createdByDestId() _
+  def createdByDestId(userId: User.ID) = countInFor get userId flatMap { nb =>
+    if (nb > 5) repo.createdByPopularDestId()(userId)
+    else repo.createdByDestId()(userId)
+  }
 
   def cancel(c: Challenge) =
     repo.cancel(c) >>- {
@@ -148,22 +152,26 @@ final class ChallengeApi(
 
   private def uncacheAndNotify(c: Challenge): Unit = {
     c.destUserId ?? countInFor.invalidate
-    c.destUserId ?? notify
-    c.challengerUserId ?? notify
+    c.destUserId ?? notifyUser.apply
+    c.challengerUserId ?? notifyUser.apply
     socketReload(c.id)
   }
 
   private def socketReload(id: Challenge.ID): Unit =
     socket.foreach(_ reload id)
 
-  private def notify(userId: User.ID): Funit =
-    for {
-      all  <- allFor(userId)
-      lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
-    } yield Bus.publish(
-      SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
-      "socketUsers"
-    )
+  private object notifyUser {
+    private val throttler = new lila.hub.EarlyMultiThrottler(logger)
+    def apply(userId: User.ID): Unit = throttler(userId, 3.seconds) {
+      for {
+        all  <- allFor(userId)
+        lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
+      } yield Bus.publish(
+        SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
+        "socketUsers"
+      )
+    }
+  }
 
   // work around circular dependency
   private var socket: Option[ChallengeSocket] = None

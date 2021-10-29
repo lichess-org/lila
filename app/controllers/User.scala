@@ -396,9 +396,9 @@ final class User(
           }
           .map(view.reportLog(user))
 
-        val prefs = env.pref.api.getPref(user) map view.prefs(user)
+        val prefs = isGranted(_.Hunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
 
-        val rageSit = env.playban.api.getRageSit(user.id).map(view.showRageSit)
+        val rageSit = isGranted(_.Hunter) ?? env.playban.api.getRageSit(user.id).map(view.showRageSit)
 
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))

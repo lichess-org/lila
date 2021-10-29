@@ -85,6 +85,8 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="pairingSystemArena">Ein tilgjengeleg motspelar med tilvarande rating</string>
   <string name="pairingSystemSwiss">Beste samanstilling basert på poeng og uavgjortresultat (\"tie breaks\")</string>
   <string name="pairingWaitTime">Ventar på å finne motspelar</string>
+  <string name="pairingWaitTimeArena">Snøgg: ventar ikkje på alle spelarane</string>
+  <string name="pairingWaitTimeSwiss">Langsam: ventar på alle spelarane</string>
   <string name="identicalPairing">Identisk parsamansetjing</string>
   <string name="possibleButNotConsecutive">Mogleg, men ikkje direkte etterfølgjande</string>
   <string name="identicalForbidden">Forbode</string>

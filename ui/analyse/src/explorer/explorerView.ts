@@ -134,7 +134,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: Openin
                   [game.white, game.black].map(p => h('span', p.name))
                 ),
                 h('td', showResult(game.winner)),
-                h('td', game.year || game.month),
+                h('td', game.month || game.year),
                 isMasters
                   ? undefined
                   : h(
@@ -357,23 +357,22 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
-  return h(
-    'div.explorer-title',
+  return h('div.explorer-title', [
     db == 'masters'
-      ? [active([h('strong', 'Masters'), ' database']), otherLink('Lichess'), playerLink()]
-      : db == 'lichess'
-      ? [otherLink('Masters'), active([h('strong', 'Lichess'), ' database']), playerLink()]
-      : [
-          otherLink('Masters'),
-          otherLink('Lichess'),
-          active([
-            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-            ' as ',
-            explorer.config.data.color(),
-            explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
-          ]),
-        ]
-  );
+      ? active([h('strong', 'Masters'), ' database'])
+      : explorer.config.allDbs.includes('masters')
+      ? otherLink('Masters')
+      : undefined,
+    db == 'lichess' ? active([h('strong', 'Lichess'), ' database']) : otherLink('Lichess'),
+    db == 'player'
+      ? active([
+          h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+          ' as ',
+          explorer.config.data.color(),
+          explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
+        ])
+      : playerLink(),
+  ]);
 };
 
 function showTitle(ctrl: AnalyseCtrl, variant: Variant) {

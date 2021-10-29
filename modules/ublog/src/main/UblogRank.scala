@@ -71,7 +71,7 @@ final class UblogRank(
                 if (v) $addToSet("likers" -> user.id) else $pull("likers" -> user.id)
               }
             ) >>- {
-              if (v && tier >= UblogBlog.Tier.NORMAL)
+              if (v && tier >= UblogBlog.Tier.LOW)
                 timeline ! (Propagate(UblogPostLike(user.id, id.value, title)) toFollowersOf user.id)
             } inject likes
         }

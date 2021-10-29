@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Afficher les notes du joueur</string>
+  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">Afficher les classements du joueur</string>
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>

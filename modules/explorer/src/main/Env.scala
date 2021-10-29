@@ -27,13 +27,6 @@ final class Env(
 
   lazy val importer = wire[ExplorerImporter]
 
-  def cli =
-    new lila.common.Cli {
-      def process = { case "explorer" :: "index" :: since :: Nil =>
-        indexer(since) inject "done"
-      }
-    }
-
   lazy val indexFlowSetting = settingStore[Boolean](
     "explorerIndexFlow",
     default = false,

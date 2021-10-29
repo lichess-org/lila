@@ -174,6 +174,7 @@ final class RelayApi(
             from = Study.From.Relay(none).some
           ),
           user,
+          withRatings = true,
           _.copy(members =
             lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(
               id = user.id,
