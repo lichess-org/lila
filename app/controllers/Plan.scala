@@ -209,7 +209,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               data => {
                 val checkout = data.fixFreq
                 for {
-                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.named)
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
                   customer <- env.plan.api.userCustomer(me)
                   session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>
