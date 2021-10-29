@@ -47,9 +47,11 @@ final private class FishnetRepo(
   def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
-  def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
-  def updateOrGiveUpAnalysis(ana: Work.Analysis) =
-    if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
+  def updateOrGiveUpAnalysis(ana: Work.Analysis, update: Work.Analysis => Work.Analysis) =
+    if (ana.isOutOfTries) {
+      logger.warn(s"Give up on analysis $ana")
+      deleteAnalysis(ana)
+    } else updateAnalysis(update(ana))
 
   object status {
     private def system(v: Boolean)   = $doc("sender.system" -> v)
