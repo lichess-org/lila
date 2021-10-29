@@ -182,7 +182,7 @@ Allow: /
     Open { implicit ctx =>
       pageHit
       ctx.me foreach { me =>
-        env.tutor.builder(me).thenPp
+        env.tutor.builder(me, ctx.ip).thenPp
       }
       Ok(html.site.faq()).fuccess
     }

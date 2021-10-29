@@ -1,46 +1,80 @@
 package lila.tutor
 
-import scala.concurrent.duration._
 import akka.stream.scaladsl._
 import chess.Replay
+import com.softwaremill.tagging._
+import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.analyse.Analysis
 import lila.analyse.AnalysisRepo
+import lila.common.IpAddress
 import lila.db.dsl._
+import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.game.{ Divider, Game, GameRepo, Pov, Query }
 import lila.user.User
-import org.joda.time.DateTime
-import lila.fishnet.Analyser
-import lila.fishnet.FishnetAwaiter
-import lila.common.IpAddress
 
 final class TutorReportBuilder(
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo,
     fishnetAnalyser: Analyser,
-    fishnetAwaiter: FishnetAwaiter
+    fishnetAwaiter: FishnetAwaiter,
+    reportColl: Coll @@ ReportColl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode,
     mat: akka.stream.Materializer
 ) {
 
   import TutorReportBuilder._
+  import TutorBsonHandlers._
 
   private val maxGames                   = 1000
   private val requireAnalysisOnLastGames = 15
+  private val timeToWaitForAnalysis      = 1 second
+  // private val timeToWaitForAnalysis      = 3 minutes
 
-  def apply(user: User, ip: IpAddress): Fu[TutorReport] =
+  private val sequencer = new lila.hub.AskPipelines[(User.ID, IpAddress), TutorFullReport](
+    compute = getOrCompute,
+    expiration = 1 hour,
+    timeout = 1 hour,
+    name = "tutor.fullReport"
+  )
+
+  def apply(user: User, ip: IpAddress): Fu[TutorFullReport] = sequencer(user.id -> ip)
+
+  private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorFullReport] = key match {
+    case (userId, ip) =>
+      for {
+        previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorFullReport]
+        report <- previous match {
+          case Some(p) if p.isFresh => fuccess(p)
+          case prev =>
+            for {
+              newReport <- compute(userId, ip, prev)
+              _         <- reportColl.insert.one(newReport)
+            } yield newReport
+        }
+      } yield report
+  }
+
+  private def compute(
+      userId: User.ID,
+      ip: IpAddress,
+      previous: Option[TutorFullReport]
+  ): Fu[TutorFullReport] =
     gameRepo
       .sortedCursor(
-        selector = gameSelector(user),
+        selector = gameSelector(userId) ++ previous.map(_.at).??(Query.createdSince),
         sort = Query.sortAntiChronological
       )
       .documentSource(maxGames * 3)
-      .via(prePovFlow(user))
+      .via(prePovFlow(userId))
       .take(maxGames)
       .zipWithIndex
       .mapAsyncUnordered(4) { case (pre, index) =>
-        getAnalysis(user, ip, pre.pov.game, index.toInt) map { analysis =>
+        getAnalysis(userId, ip, pre.pov.game, index.toInt) map { analysis =>
           RichPov(
             pre.pov,
             pre.perfType,
@@ -51,40 +85,40 @@ final class TutorReportBuilder(
         }
       }
       .runWith {
-        Sink.fold[TutorReport, RichPov](TutorReport(user.id, DateTime.now, Map.empty)) { case (report, pov) =>
-          TutorReport.aggregate(report, pov)
+        Sink.fold[TutorFullReport, RichPov](TutorFullReport(userId, DateTime.now, Map.empty)) {
+          case (report, pov) => TutorFullReport.aggregate(report, pov)
         }
       }
 
-  private def getAnalysis(user: User, ip: IpAddress, game: Game, index: Int) =
+  private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
     analysisRepo.byGame(game) orElse {
       (index < requireAnalysisOnLastGames) ?? requestAnalysis(
         game,
-        lila.fishnet.Work.Sender(userId = user.id, ip = ip.some, mod = false, system = false)
+        lila.fishnet.Work.Sender(userId = userId, ip = ip.some, mod = false, system = false)
       )
     }
 
   private def requestAnalysis(game: Game, sender: lila.fishnet.Work.Sender): Fu[Option[Analysis]] = {
     def fetch = analysisRepo byId game.id
     fishnetAnalyser(game, sender, ignoreConcurrentCheck = true) flatMap {
-      case Analyser.Result.Ok              => fishnetAwaiter(game.id, 3 minutes) >> fetch
+      case Analyser.Result.Ok              => fishnetAwaiter(game.id, timeToWaitForAnalysis) >> fetch
       case Analyser.Result.AlreadyAnalysed => fetch
       case _                               => fuccess(none)
     }
   }
 
-  private def gameSelector(user: User) =
-    Query.user(user) ++ Query.variantStandard ++ Query.noAi // ++ $id("OsPJmvwA")
+  private def gameSelector(userId: User.ID) =
+    Query.user(userId) ++ Query.variantStandard ++ Query.noAi // ++ $id("OsPJmvwA")
 }
 
 private object TutorReportBuilder {
 
-  def prePovFlow(user: User) = Flow[Game].mapConcat(g => toPrePov(user, g).toList)
+  def prePovFlow(userId: User.ID) = Flow[Game].mapConcat(g => toPrePov(userId, g).toList)
 
-  private def toPrePov(user: User, game: Game): Option[PrePov] =
+  private def toPrePov(userId: User.ID, game: Game): Option[PrePov] =
     for {
-      perfType <- game.perfType.filter(TutorReport.perfTypeSet.contains)
-      pov      <- Pov.ofUserId(game, user.id)
+      perfType <- game.perfType.filter(TutorFullReport.perfTypeSet.contains)
+      pov      <- Pov.ofUserId(game, userId)
       replay = ~Replay.situations(pov.game.pgnMoves, none, pov.game.variant).toOption
       if replay.sizeIs >= 10
     } yield PrePov(pov, perfType, replay)
