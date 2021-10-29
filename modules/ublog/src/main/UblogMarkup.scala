@@ -1,5 +1,6 @@
 package lila.ublog
 
+import java.util.regex.Matcher
 import scala.concurrent.duration._
 
 import lila.common.Chronometer
@@ -50,8 +51,8 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
     private val hrefRegex    = """href="([^"]+)"""".r
     private val contentRegex = """>([^<]+)</a>""".r
     def apply(markup: Html) = contentRegex.replaceAllIn(
-      hrefRegex.replaceAllIn(markup, m => s"""href="${unescape(m group 1)}""""),
-      m => s""">${unescape(m group 1)}</a>"""
+      hrefRegex.replaceAllIn(markup, m => s"""href="${Matcher.quoteReplacement(unescape(m group 1))}""""),
+      m => s""">${Matcher.quoteReplacement(unescape(m group 1))}</a>"""
     )
   }
 
