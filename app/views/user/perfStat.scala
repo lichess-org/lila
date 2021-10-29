@@ -50,9 +50,9 @@ object perfStat {
             ),
             div(cls := "box__top__actions")(
               user.perfs(perfType).nb > 0 option a(
-                cls := "button button-empty text",
+                cls      := "button button-empty text",
                 dataIcon := perfType.iconChar,
-                href := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+                href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
               )(viewTheGames())
             )
           ),
@@ -88,7 +88,7 @@ object perfStat {
           " ",
           span(
             title := notEnoughRatedGames.txt(),
-            cls := "details"
+            cls   := "details"
           )("(", provisional(), ")")
         ),
         ". ",

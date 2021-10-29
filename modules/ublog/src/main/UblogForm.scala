@@ -17,10 +17,10 @@ final class UblogForm(markup: UblogMarkup, val captcher: lila.hub.actors.Captche
 
   private val base =
     mapping(
-      "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
-      "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
-      "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+      "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 80),
+      "intro"    -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
+      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).verifying(markdownImage.constraint),
+      "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
       "topics"      -> optional(text),

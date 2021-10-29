@@ -32,7 +32,7 @@ trait Handlers {
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
     stringIsoHandler(Iso(from, to))
 
-  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A]         = BSONIntegerHandler.as[A](iso.from, iso.to)
+  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A] = BSONIntegerHandler.as[A](iso.from, iso.to)
   def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = intIsoHandler(Iso(from, to))
 
   def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[A] =

@@ -62,7 +62,7 @@ object index {
                   .map { case (code, name) =>
                     a(
                       href := routes.Coach.search(code, order.key, country.fold("all")(_.code)),
-                      cls := (code == lang.fold("all")(_.code)).option("current")
+                      cls  := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                   }
               ),
@@ -73,7 +73,7 @@ object index {
                   .map { case (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
-                      cls := (code == country.fold("all")(_.code)).option("current")
+                      cls  := (code == country.fold("all")(_.code)).option("current")
                     )(name)
                   }
               ),
@@ -83,7 +83,7 @@ object index {
                 lila.coach.CoachPager.Order.all map { o =>
                   a(
                     href := routes.Coach.search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
-                    cls := (order == o).option("current")
+                    cls  := (order == o).option("current")
                   )(
                     o.name
                   )

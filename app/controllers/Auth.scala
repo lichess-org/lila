@@ -15,7 +15,7 @@ import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
-import lila.user.{ User => UserModel, PasswordHasher }
+import lila.user.{ PasswordHasher, User => UserModel }
 
 final class Auth(
     env: Env,
@@ -94,7 +94,7 @@ final class Auth(
         Firewall {
           def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
           implicit val req            = ctx.body
-          val referrer                = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
+          val referrer = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
           api.usernameOrEmailForm
             .bindFromRequest()
             .fold(
@@ -114,7 +114,7 @@ final class Auth(
                             html = fuccess {
                               err.errors match {
                                 case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
-                                case _                                               => Unauthorized(html.auth.login(err, referrer))
+                                case _ => Unauthorized(html.auth.login(err, referrer))
                               }
                             },
                             api = _ =>

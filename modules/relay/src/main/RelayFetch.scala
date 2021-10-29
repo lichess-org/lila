@@ -228,7 +228,7 @@ final private class RelayFetch(
 
   private def httpGetJson[A: Reads](url: Url): Fu[A] =
     for {
-      str  <- httpGet(url)
+      str <- httpGet(url)
       json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)
       data <-
         implicitly[Reads[A]]

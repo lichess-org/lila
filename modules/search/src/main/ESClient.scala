@@ -84,8 +84,8 @@ final class ESClientStub extends ESClient {
   def store(id: Id, doc: JsObject)                        = funit
   @nowarn("msg=parameter value")
   def storeBulk(docs: Seq[(Id, JsObject)]) = funit
-  def deleteById(id: Id)                   = funit
-  def deleteByIds(ids: List[Id])           = funit
-  def putMapping                           = funit
-  def refresh                              = funit
+  def deleteById(id: Id)         = funit
+  def deleteByIds(ids: List[Id]) = funit
+  def putMapping                 = funit
+  def refresh                    = funit
 }

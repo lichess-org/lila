@@ -73,7 +73,7 @@ object inquiry {
         )
       )
 
-    div(id := "inquiry")(
+    div(id    := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user, withBestRating = true, params = "?mod"),
@@ -119,9 +119,9 @@ object inquiry {
             "Notes"
           ),
           div(
-            postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
+            postForm(cls    := "note", action      := s"${routes.User.writeNote(in.user.username)}?note")(
               textarea(name := "text", placeholder := "Write a mod note"),
-              input(tpe := "hidden", name := "mod", value := "true"),
+              input(tpe     := "hidden", name      := "mod", value := "true"),
               isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
                 div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
                 label(`for` := "dox-inquiry")("Doxing info")
@@ -163,7 +163,7 @@ object inquiry {
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
-            postForm(action := url, cls := "main", title := "Mark as cheat")(
+            postForm(action                             := url, cls := "main", title := "Mark as cheat")(
               markButton(in.user.marks.engine)(dataIcon := ""),
               autoNextInput
             ),
@@ -185,8 +185,8 @@ object inquiry {
           div(cls := "dropper shadowban buttons")(
             postForm(
               action := url,
-              title := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
-              cls := "main"
+              title  := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
+              cls    := "main"
             )(
               markButton(in.user.marks.troll)(dataIcon := ""),
               autoNextInput
@@ -239,16 +239,16 @@ object inquiry {
         ),
         postForm(
           action := routes.Report.process(in.report.id),
-          title := "Dismiss this report as processed. (Hotkey: d)",
-          cls := "process"
+          title  := "Dismiss this report as processed. (Hotkey: d)",
+          cls    := "process"
         )(
           submitButton(dataIcon := "", cls := "fbt"),
           autoNextInput
         ),
         postForm(
           action := routes.Report.inquiry(in.report.id),
-          title := "Cancel the inquiry, re-instore the report",
-          cls := "cancel"
+          title  := "Cancel the inquiry, re-instore the report",
+          cls    := "cancel"
         )(
           submitButton(dataIcon := "", cls := "fbt")
         )
