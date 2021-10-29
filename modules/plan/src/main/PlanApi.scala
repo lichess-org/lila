@@ -1,15 +1,15 @@
 package lila.plan
 
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.common.config.Secret
-import lila.common.Bus
+import lila.common.{ Bus, IpAddress }
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
-import lila.common.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -462,7 +462,7 @@ final class PlanApi(
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))
 
-  def createSession(data: CreateStripeSession): Fu[StripeSession] =
+  def createSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] =
     data.checkout.freq match {
       case Freq.Onetime => stripeClient.createOneTimeSession(data)
       case Freq.Monthly => stripeClient.createMonthlySession(data)

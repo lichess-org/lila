@@ -1,6 +1,7 @@
 package lila.plan
 
 import java.util.Currency
+import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.JsonBodyReadables._
@@ -37,7 +38,7 @@ final private class StripeClient(
         "customer"    -> customerId.value
       )
 
-  def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
+  def createOneTimeSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] = {
     val args = sessionArgs("payment", data.customerId, data.checkout.money.currency, data.urls) ::: List(
       "line_items[0][price_data][product]" -> {
         if (data.giftTo.isDefined) config.products.gift
@@ -46,7 +47,12 @@ final private class StripeClient(
       "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
       "line_items[0][price_data][unit_amount]" -> data.checkout.money.toStripeAmount.smallestCurrencyUnit,
       "line_items[0][quantity]"                -> 1
-    ) ::: data.giftTo.?? { giftTo =>
+    ) ::: data.isLifetime.?? {
+      List(
+        "line_items[0][description]" ->
+          lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
+      )
+    } ::: data.giftTo.?? { giftTo =>
       List(
         "metadata[giftTo]"                      -> giftTo.id,
         "payment_intent_data[metadata][giftTo]" -> giftTo.id, // so we can get it from charge.metadata.giftTo
