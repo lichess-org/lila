@@ -1,135 +1,14 @@
-$board-themes: (
-  'blue': (
-    file: 'svg/blue.svg',
-    coord-color-white: #dee3e6,
-    coord-color-black: #788a94,
-  ),
-  'blue2': (
-    file: 'blue2.jpg',
-    coord-color-white: #97b2c7,
-    coord-color-black: #546f82,
-  ),
-  'blue3': (
-    file: 'blue3.jpg',
-    coord-color-white: #d9e0e6,
-    coord-color-black: #315991,
-  ),
-  'blue-marble': (
-    file: 'blue-marble.jpg',
-    coord-color-white: #eae6dd,
-    coord-color-black: #7c7f87,
-  ),
-  'canvas': (
-    file: 'canvas2.jpg',
-    coord-color-white: #d7daeb,
-    coord-color-black: #547388,
-  ),
-  'wood': (
-    file: 'wood.jpg',
-    coord-color-white: #d8a45b,
-    coord-color-black: #9b4d0f,
-  ),
-  'wood2': (
-    file: 'wood2.jpg',
-    coord-color-white: #a38b5d,
-    coord-color-black: #6c5017,
-  ),
-  'wood3': (
-    file: 'wood3.jpg',
-    coord-color-white: #d0ceca,
-    coord-color-black: #755839,
-  ),
-  'wood4': (
-    file: 'wood4.jpg',
-    coord-color-white: #caaf7d,
-    coord-color-black: #7b5330,
-  ),
-  'maple': (
-    file: 'maple.jpg',
-    coord-color-white: #e8ceab,
-    coord-color-black: #bc7944,
-  ),
-  'maple2': (
-    file: 'maple2.jpg',
-    coord-color-white: #e2c89f,
-    coord-color-black: #996633,
-  ),
-  'leather': (
-    file: 'leather.jpg',
-    coord-color-white: #d1d1c9,
-    coord-color-black: #c28e16,
-  ),
-  'green': (
-    file: 'svg/green.svg',
-    coord-color-white: #ffffdd,
-    coord-color-black: #6d8753,
-  ),
-  'brown': (
-    file: 'svg/brown.svg',
-    coord-color-white: #f0d9b5,
-    coord-color-black: #946f51,
-  ),
-  'pink': (
-    file: 'pink-pyramid.png',
-    coord-color-white: #e8e9b7,
-    coord-color-black: #ed7272,
-  ),
-  'marble': (
-    file: 'marble.jpg',
-    coord-color-white: #93ab91,
-    coord-color-black: #4f644e,
-  ),
-  'green-plastic': (
-    file: 'green-plastic.png',
-    coord-color-white: #f2f9bb,
-    coord-color-black: #59935d,
-  ),
-  'grey': (
-    file: 'grey.jpg',
-    coord-color-white: #b8b8b8,
-    coord-color-black: #7d7d7d,
-  ),
-  'metal': (
-    file: 'metal.jpg',
-    coord-color-white: #c9c9c9,
-    coord-color-black: #727272,
-  ),
-  'olive': (
-    file: 'olive.jpg',
-    coord-color-white: #b8b19f,
-    coord-color-black: #6d6655,
-  ),
-  'newspaper': (
-    file: 'newspaper.png',
-    coord-color-white: #fff,
-    coord-color-black: #8d8d8d,
-  ),
-  'purple': (
-    file: 'svg/purple.svg',
-    coord-color-white: #9f90b0,
-    coord-color-black: #7d4a8d,
-  ),
-  'purple-diag': (
-    file: 'purple-diag.png',
-    coord-color-white: #e5daf0,
-    coord-color-black: #957ab0,
-  ),
-  'ic': (
-    file: 'svg/ic.svg',
-    coord-color-white: #ececec,
-    coord-color-black: #c1c18e,
-  ),
-  'horsey': (
-    file: 'horsey.jpg',
-    coord-color-white: #f0d9b5,
-    coord-color-black: #946f51,
-  ),
-);
+@import 'themes';
 
-@each $name, $theme in $board-themes {
+@each $name, $theme in $board-themes-2d {
   .#{$name} .is2d {
     cg-board {
-      background-image: img-url('board/#{map-get($theme, file)}');
+      $file-ext: map-get($theme, file-ext);
+      $name-override: map-get($theme, name-override);
+      $file-name: if($name-override, $name-override, $name);
+      $dir-name: 'board#{if($file-ext == "svg", "/svg", "")}';
+
+      background-image: img-url('#{$dir-name}/#{$file-name}.#{$file-ext}');
     }
 
     $coord-color-white: map-get($theme, coord-color-white);
