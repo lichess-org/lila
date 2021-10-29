@@ -165,6 +165,8 @@ private object DisposableEmailDomain {
     "voo.be",
     "tvcablenet.be",
     "telenet.be",
+    /* Czech */
+    "seznam.cz",
     /* Argentinian ISP domains */
     "hotmail.com.ar",
     "live.com.ar",
