@@ -112,9 +112,9 @@ object Kif {
       PromotedKnight -> "圭",
       PromotedLance  -> "杏"
     )
-    for (y <- 9 to 1 by -1) {
+    for (y <- 1 to 9) {
       kifBoard append "|"
-      for (x <- 1 to 9) {
+      for (x <- 9 to 1 by -1) {
         sit.board(x, y) match {
           case None => kifBoard append " ・"
           case Some(piece) =>
@@ -122,8 +122,8 @@ object Kif {
             kifBoard append s"$color${specialKifs.getOrElse(piece.role, piece.role.kif)}"
         }
       }
-      kifBoard append s"|${KifUtils.intToKanji(10 - y)}"
-      if (y > 1) kifBoard append '\n'
+      kifBoard append s"|${KifUtils.intToKanji(y)}"
+      if (y < 9) kifBoard append '\n'
     }
     List(
       sit.board.crazyData.fold("")(hs => "後手の持駒：" + renderHand(hs(Gote))),
@@ -182,7 +182,7 @@ object Kif {
   )
 
   private def makeDestSquare(sq: Pos): String =
-    s"${((10 - sq.x) + 48 + 65248).toChar}${KifUtils.intToKanji(10 - sq.y)}"
+    s"${((sq.x) + 48 + 65248).toChar}${KifUtils.intToKanji(sq.y)}"
 
   private def makeOrigSquare(sq: Pos): String =
     sq.usiKey.map(KifUtils toDigit _)

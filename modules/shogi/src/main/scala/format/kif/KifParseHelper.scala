@@ -2,7 +2,7 @@ package shogi
 package format
 package kif
 
-import variant.Variant
+import variant.Standard
 
 import cats.data.Validated
 import cats.data.Validated.{ invalid, valid, Valid }
@@ -12,8 +12,7 @@ object KifParserHelper {
 
   def parseSituation(
       str: String,
-      handicap: Option[String],
-      variant: Variant
+      handicap: Option[String]
   ): Validated[String, Situation] = {
     val lines = augmentString(str).linesIterator.to(List).map(_.trim.replace("：", ":").replace("　", " "))
     val ranks = lines
@@ -26,8 +25,8 @@ object KifParserHelper {
       )
 
     if (ranks.size == 0) {
-      handicap.filterNot(_ == "平手").fold(valid(Situation(variant)): Validated[String, Situation]) { h =>
-        parseHandicap(h, variant)
+      handicap.filterNot(_ == "平手").fold(valid(Situation(Standard)): Validated[String, Situation]) { h =>
+        parseHandicap(h)
       }
     } else if (ranks.size == 9) {
       for {
@@ -37,7 +36,7 @@ object KifParserHelper {
         senteHand <- parseHand(senteHandStr)
         goteHand  <- parseHand(goteHandStr)
         hands    = Hands(senteHand, goteHand)
-        board    = Board(pieces, variant).withCrazyData(hands)
+        board    = Board(pieces, Standard).withCrazyData(hands)
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
       } yield (Situation(board, Color.fromSente(!goteTurn)))
     } else {
@@ -58,21 +57,21 @@ object KifParserHelper {
     ): Validated[String, List[(Pos, Piece)]] =
       chars match {
         case Nil                 => valid(Nil)
-        case '・' :: rest         => makePiecesList(rest, x + 1, y, None, false)
+        case '・' :: rest         => makePiecesList(rest, x - 1, y, None, false)
         case ('v' | 'V') :: rest => makePiecesList(rest, x, y, None, true)
         case ('成' | '+') :: rest => makePiecesList(rest, x, y, chars.headOption, gote)
         case sq :: rest =>
           for {
-            pos <- Pos.at(x, y) toValid s"Too many files in board setup: $x/9"
+            pos <- Pos.at(x, y) toValid s"Too many files in board setup: ${9 - x}/9"
             roleStr = prevPieceChar.fold("")(_.toString) + sq
             role   <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
-            pieces <- makePiecesList(rest, x + 1, y, None, false)
+            pieces <- makePiecesList(rest, x - 1, y, None, false)
           } yield (pos -> Piece(Color.fromSente(!gote), role) :: pieces)
       }
     ranks.zipWithIndex.foldLeft(valid(Nil): Validated[String, List[(Pos, Piece)]]) { case (acc, cur) =>
       for {
         pieces     <- acc
-        nextPieces <- makePiecesList(cur._1.toList, 1, 9 - cur._2, None, false)
+        nextPieces <- makePiecesList(cur._1.toList, 9, cur._2 + 1, None, false)
       } yield (pieces ::: nextPieces)
     }
   }
@@ -96,10 +95,10 @@ object KifParserHelper {
     }
   }
 
-  private def parseHandicap(str: String, variant: Variant): Validated[String, Situation] =
+  private def parseHandicap(str: String): Validated[String, Situation] =
     for {
       hPosition <- StartingPosition.searchByEco(str) toValid s"Unknown handicap: $str"
-      situation <- Forsyth.<<@(variant, hPosition.fen) toValid s"Cannot parse handicap: $str"
+      situation <- Forsyth << hPosition.fen toValid s"Cannot parse handicap: $str"
     } yield situation
 
   def createResult(termination: Option[Tag], color: Color): Option[Tag] = {

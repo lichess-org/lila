@@ -25,7 +25,7 @@ object Visual {
         (c, x) <- (l zipWithIndex)
         role   <- Role forsyth c.toLower
       } yield {
-        Pos.at(x + 1, 9 - y) map { pos =>
+        Pos.at(9 - x, y + 1) map { pos =>
           pos -> (Color.fromSente(c isUpper) - role)
         }
       }) flatten,
@@ -41,8 +41,8 @@ object Visual {
         (pos, char)
       })
     }
-    for (y <- 9 to 1 by -1) yield {
-      for (x <- 1 to 9) yield {
+    for (y <- 1 to 9) yield {
+      for (x <- 9 to 1 by -1) yield {
         Pos.at(x, y) flatMap markedPoss.get getOrElse board(x, y).fold(' ')(_ forsyth)
       }
     } mkString

@@ -140,7 +140,7 @@ case class Board(
       enoughImpasseValue(c)
 
   def tryRule(c: Color): Boolean =
-    kingPosOf(c) == c.fold(Pos.at(5, 9), Pos.at(5, 1))
+    kingPosOf(c) == c.fold(Pos.at(5, 1), Pos.at(5, 9))
 
   def perpetualCheck: Boolean = {
     val checks = history.checkCount

@@ -66,9 +66,9 @@ object Color {
 
     def unary_! = Gote
 
-    val promotableZone = List(7, 8, 9)
-    val backrankY      = 9
-    val backrankY2     = 8
+    val promotableZone = List(1, 2, 3)
+    val backrankY      = 1
+    val backrankY2     = 2
 
     val letter  = 'b'
     val engName = "black"
@@ -81,9 +81,9 @@ object Color {
 
     def unary_! = Sente
 
-    val promotableZone = List(1, 2, 3)
-    val backrankY      = 1
-    val backrankY2     = 2
+    val promotableZone = List(7, 8, 9)
+    val backrankY      = 9
+    val backrankY2     = 8
 
     val letter  = 'w'
     val engName = "white"

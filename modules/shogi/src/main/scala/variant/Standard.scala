@@ -11,5 +11,5 @@ case object Standard
       standardInitialPosition = true
     ) {
 
-  val pieces: Map[Pos, Piece] = Variant.symmetricRank(backRank, backRank2)
+  val pieces: Map[Pos, Piece] = Variant.symmetricRank(backRank)
 }

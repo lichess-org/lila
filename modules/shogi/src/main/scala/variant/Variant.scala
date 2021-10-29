@@ -19,6 +19,11 @@ abstract class Variant private[variant] (
 
   def pieces: Map[Pos, Piece]
 
+  def allSquares: List[Pos] = Pos.all9x9
+
+  val numberOfRanks: Int = 9
+  val numberOfFiles: Int = 9
+
   def standard     = this == Standard
   def miniShogi    = this == MiniShogi
   def fromPosition = this == FromPosition
@@ -26,7 +31,6 @@ abstract class Variant private[variant] (
   def exotic = !standard
 
   protected val backRank  = Vector(Lance, Knight, Silver, Gold, King, Gold, Silver, Knight, Lance)
-  protected val backRank2 = Vector(Rook, Bishop)
 
   def initialFen = format.Forsyth.initial
 
@@ -145,7 +149,7 @@ abstract class Variant private[variant] (
     }
 
   def possibleDrops(situation: Situation): Option[List[Pos]] =
-    if (!situation.check) None
+    if (!situation.check) None // none means all, since we don't want to send all empty squares every round
     else situation.kingPos.map { blockades(situation, _) }
 
   private def blockades(situation: Situation, kingPos: Pos): List[Pos] = {
@@ -229,6 +233,20 @@ abstract class Variant private[variant] (
       case _ => board2
     }
   }
+
+  def canPromote(move: Move): Boolean =
+    (Role.promotableRoles contains move.piece.role) &&
+      ((move.color.promotableZone contains move.orig.y) || (move.color.promotableZone contains move.dest.y))
+
+  def mustPromote(move: Move): Boolean =
+    !move.promotion && {
+      move.piece.role match {
+        case Pawn | Lance if move.piece.color.backrankY == move.dest.y => true
+        case Knight if (move.piece.color.backrankY == move.dest.y ||
+              move.piece.color.backrankY2 == move.dest.y) => true
+        case _ => false
+      }
+    }
 
   protected def unmovablePieces(board: Board, color: Color) = {
     board.pieces.exists {
@@ -333,23 +351,23 @@ object Variant {
     shogi.variant.FromPosition
   )
 
-  private[variant] def symmetricRank(rank1: IndexedSeq[Role], rank2: IndexedSeq[Role]): Map[Pos, Piece] =
-    (for (y <- Seq(1, 3, 7, 9); x <- 1 to 9) yield {
+  private[variant] def symmetricRank(br: IndexedSeq[Role]): Map[Pos, Piece] =
+    (for (y <- Seq(9, 7, 3, 1); x <- 9 to 1 by -1) yield {
       Pos.at(x, y) map { pos =>
         (
           pos,
           y match {
-            case 1 => Sente - rank1(x - 1)
-            case 3 => Sente.pawn
-            case 7 => Gote.pawn
-            case 9 => Gote - rank1(x - 1)
+            case 1 => Gote - br(x - 1)
+            case 3 => Gote.pawn
+            case 7 => Sente.pawn
+            case 9 => Sente - br(x - 1)
           }
         )
       }
     }).flatten.toMap ++ Map(
-      Pos.at(2, 2).get -> (Sente - rank2(1)),
-      Pos.at(8, 2).get -> (Sente - rank2(0)),
-      Pos.at(2, 8).get -> (Gote - rank2(0)),
-      Pos.at(8, 8).get -> (Gote - rank2(1))
+      Pos.SQ8H -> (Sente - Bishop),
+      Pos.SQ2H -> (Sente - Rook),
+      Pos.SQ2B -> (Gote - Bishop),
+      Pos.SQ8B -> (Gote - Rook)
     )
 }

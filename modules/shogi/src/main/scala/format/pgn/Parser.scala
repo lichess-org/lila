@@ -169,7 +169,7 @@ object Parser {
 
     override def skipWhitespace = false
 
-    private def rangeToMap(r: Iterable[Char]) = r.zipWithIndex.to(Map).view.mapValues(_ + 1)
+    private def rangeToMap(r: Iterable[Char]) = r.zipWithIndex.to(Map).view.mapValues(9 - _)
     private val fileMap                       = rangeToMap('a' to 'i')
     private val rankMap                       = rangeToMap('1' to '9')
 

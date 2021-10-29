@@ -2,16 +2,12 @@ package shogi
 package format
 package csa
 
-import variant.Standard
-
-import cats.syntax.option._
-
 class CsaParserTest extends ShogiTest {
 
   import CsaFixtures._
 
   val parser                 = CsaParser.full _
-  def parseMove(str: String) = CsaParser.MoveParser(str, Standard)
+  def parseMove(str: String) = CsaParser.MoveParser(str)
 
   "drop" in {
     parseMove("-0077FU") must beValid.like { case d: Drop =>

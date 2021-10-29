@@ -3,12 +3,11 @@ package format
 package csa
 
 import CsaParserHelper._
-import variant.Variant
 
 class CsaParserHelperTest extends ShogiTest {
 
   def parseAndCompare(source: String, resFen: String) =
-    parseSituation(source, Variant.default) must beValid.like { case s =>
+    parseSituation(source) must beValid.like { case s =>
       Forsyth.exportSituation(s) must_== resFen
     }
 

@@ -7,8 +7,10 @@ class UciMoveTest extends ShogiTest {
 
   "piotr encoding" should {
     "be reflexive" in {
-      val move = Uci.Move("a2g7").get
-      Uci.Move piotr move.piotr must_== move.some
+      val uciMove = Uci.Move("a2g7").get
+      val usiMove = Uci.Move("8h3c").get
+      Uci.Move piotr uciMove.piotr must_== uciMove.some
+      Uci.Move piotr usiMove.piotr must_== usiMove.some
     }
   }
 }

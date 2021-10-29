@@ -94,16 +94,16 @@ object Csa {
 
   def renderSituation(sit: Situation): String = {
     val csaBoard = new scala.collection.mutable.StringBuilder(256)
-    for (y <- 9 to 1 by -1) {
-      csaBoard append ("P" + (10 - y))
-      for (x <- 1 to 9) {
+    for (y <- 1 to 9) {
+      csaBoard append ("P" + (y))
+      for (x <- 9 to 1 by -1) {
         sit.board(x, y) match {
           case None => csaBoard append " * "
           case Some(piece) =>
             csaBoard append s"${piece.csa}"
         }
       }
-      if (y > 1) csaBoard append '\n'
+      if (y < 9) csaBoard append '\n'
     }
     List(
       csaBoard.toString,
@@ -162,7 +162,7 @@ object Csa {
   )
 
   private def makeSquare(sq: Pos): String =
-    s"${10 - sq.x}${10 - sq.y}"
+    s"${sq.x}${sq.y}"
 
   private def clockString(cur: NotationMove): Option[String] =
     cur.secondsSpent.map(spent => s",T$spent")

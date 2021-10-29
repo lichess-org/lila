@@ -2,6 +2,7 @@ package shogi
 package format
 
 import Pos._
+import variant._
 
 class ForsythTest extends ShogiTest {
 
@@ -212,6 +213,12 @@ class ForsythTest extends ShogiTest {
             }
         }
       }
+    }
+  }
+  "minishogi" in {
+    f <<@(MiniShogi, "rbsgk/4p/5/PG3/K1SBR") must beSome.like {
+      case s =>
+        f >> s must_== "rbsgk/4p/5/PG3/K1SBR b - 1"
     }
   }
 }

@@ -69,12 +69,12 @@ case object Knight extends Role {
   val forsyth     = 'n'
   val forsythFull = forsyth.toString
   val dirs: Directions = List(
-    p => Pos.at(p.x - 1, p.y + 2),
-    p => Pos.at(p.x + 1, p.y + 2)
-  )
-  val dirsOpposite: Directions = List(
     p => Pos.at(p.x - 1, p.y - 2),
     p => Pos.at(p.x + 1, p.y - 2)
+  )
+  val dirsOpposite: Directions = List(
+    p => Pos.at(p.x - 1, p.y + 2),
+    p => Pos.at(p.x + 1, p.y + 2)
   )
   def dir(from: Pos, to: Pos) = None
   val projection              = false

@@ -29,7 +29,7 @@ object UciCharPair {
     val charShift = 34        // Start at Char(34) == '"'
     val voidChar  = 33.toChar // '!'
 
-    val pos2charMap: Map[Pos, Char] = Pos.all
+    val pos2charMap: Map[Pos, Char] = Pos.all9x9
       .map { pos =>
         pos -> (pos.hashCode + charShift).toChar
       }

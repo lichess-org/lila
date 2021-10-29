@@ -2,7 +2,7 @@ package shogi
 package format
 package csa
 
-import variant.Variant
+import variant.Standard
 
 import scala.util.parsing.combinator._
 import cats.data.Validated
@@ -49,9 +49,9 @@ object CsaParser {
         strMoves          = parsedMoves._1
         terminationOption = parsedMoves._2
         init      <- getComments(headerStr)
-        situation <- CsaParserHelper.parseSituation(boardStr, variant.Standard)
+        situation <- CsaParserHelper.parseSituation(boardStr)
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
-        parsedMoves <- objMoves(strMoves, tags.variant getOrElse Variant.default)
+        parsedMoves <- objMoves(strMoves)
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>
@@ -59,10 +59,10 @@ object CsaParser {
         sys error "### StackOverflowError ### in CSA parser"
     }
 
-  def objMoves(strMoves: List[StrMove], variant: Variant): Validated[String, ParsedMoves] = {
+  def objMoves(strMoves: List[StrMove]): Validated[String, ParsedMoves] = {
     strMoves.map { case StrMove(moveStr, comments, timeSpent) =>
       (
-        MoveParser(moveStr, variant) map { m =>
+        MoveParser(moveStr) map { m =>
           m withComments comments withTimeSpent timeSpent
         }
       ): Validated[String, ParsedMove]
@@ -188,11 +188,11 @@ object CsaParser {
 
     override def skipWhitespace = false
 
-    def apply(str: String, variant: Variant): Validated[String, ParsedMove] = {
+    def apply(str: String): Validated[String, ParsedMove] = {
       str match {
         case MoveRegex(origS, destS, roleS) => {
           for {
-            role <- variant.rolesByCsa get roleS toValid s"Uknown role in move: $str"
+            role <- Standard.rolesByCsa get roleS toValid s"Uknown role in move: $str"
             dest <- Pos.allNumberKeys get destS toValid s"Cannot parse destination sqaure in move: $str"
             orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin sqaure in move: $str"
           } yield CsaStd(
@@ -212,7 +212,7 @@ object CsaParser {
         }
         case DropRegex(posS, roleS) =>
           for {
-            role <- variant.rolesByCsa get roleS toValid s"Uknown role in drop: $str"
+            role <- Standard.rolesByCsa get roleS toValid s"Uknown role in drop: $str"
             pos  <- Pos.allNumberKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
           } yield Drop(
             role = role,

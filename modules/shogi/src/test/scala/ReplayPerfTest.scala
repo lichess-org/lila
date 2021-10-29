@@ -13,13 +13,13 @@ class ReplayPerfTest extends ShogiTest {
   // val iterations = 1
 
   def runOne(moves: List[String]) =
-    Replay.gameMoveWhileValid(moves, format.Forsyth.initial, shogi.variant.Standard)
-  def run: Unit = { gameMoves foreach runOne }
+    Replay.gameMoveWhileValid(moves, format.Forsyth.initial, shogi.variant.Standard)._2.length == moves.length
+  def run: Boolean = { gameMoves forall runOne }
 
   "playing a game" should {
     "many times" in {
-      runOne(gameMoves.head)._3 must beEmpty
-      run
+      //runOne(gameMoves.head)._3 must beEmpty
+      run must beTrue
       println("running tests")
       val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis

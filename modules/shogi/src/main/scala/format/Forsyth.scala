@@ -3,7 +3,7 @@ package format
 
 import cats.implicits._
 
-import variant.{ Standard, Variant }
+import variant.{ MiniShogi, Standard, Variant }
 
 object Forsyth {
 
@@ -53,8 +53,9 @@ object Forsyth {
     read(rawSource) { fen =>
       val splitted  = fen.split(' ')
       val positions = splitted.lift(0).getOrElse("")
-      if (positions.count('/' ==) == 8) {
-        makePiecesList(positions.toList, false, 1, 9) map { case pieces =>
+      val ranks = positions.count('/' ==)
+      if (ranks == 8 || (ranks == 4 && variant == MiniShogi)) {
+        makePiecesList(variant, positions.toList, false, variant.numberOfFiles, 1) map { case pieces =>
           val board = Board(pieces, variant)
           if (splitted.length < 3 || splitted.lift(2).get == "-") board
           else {
@@ -90,6 +91,7 @@ object Forsyth {
   }
 
   private def makePiecesList(
+      variant: Variant,
       chars: List[Char],
       promoted: Boolean,
       x: Int,
@@ -97,15 +99,15 @@ object Forsyth {
   ): Option[List[(Pos, Piece)]] =
     chars match {
       case Nil                               => Option(Nil)
-      case '/' :: rest                       => makePiecesList(rest, false, 1, y - 1)
-      case '+' :: rest                       => makePiecesList(rest, true, x, y)
-      case c :: rest if '1' <= c && c <= '9' => makePiecesList(rest, false, x + (c - '0').toInt, y)
+      case '/' :: rest                       => makePiecesList(variant, rest, false, variant.numberOfFiles, y + 1)
+      case '+' :: rest                       => makePiecesList(variant, rest, true, x, y)
+      case c :: rest if '1' <= c && c <= '9' => makePiecesList(variant, rest, false, x - (c - '0').toInt, y)
       case c :: rest =>
         for {
           pos        <- Pos.at(x, y)
           basePiece  <- Piece.fromChar(c)
           piece  <- if(promoted) Piece.promote(basePiece) else basePiece.some
-          (nextPieces)     <- makePiecesList(rest, false, x + 1, y)
+          (nextPieces)     <- makePiecesList(variant, rest, false, x - 1, y)
         } yield (pos -> piece :: nextPieces)
     }
 
@@ -140,9 +142,9 @@ object Forsyth {
   def exportBoard(board: Board): String = {
     val fen   = new scala.collection.mutable.StringBuilder(256)
     var empty = 0
-    for (y <- 9 to 1 by -1) {
+    for (y <- 1 to board.variant.numberOfRanks) {
       empty = 0
-      for (x <- 1 to 9) {
+      for (x <- board.variant.numberOfFiles to 1 by -1) {
         board(x, y) match {
           case None => empty = empty + 1
           case Some(piece) =>
@@ -154,7 +156,7 @@ object Forsyth {
         }
       }
       if (empty > 0) fen append empty
-      if (y > 1) fen append '/'
+      if (y < board.variant.numberOfRanks) fen append '/'
     }
     fen.toString
   }

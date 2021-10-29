@@ -2,14 +2,14 @@ package shogi
 package format
 package csa
 
-import variant.Variant
+import variant.Standard
 
 import cats.data.Validated
 import cats.data.Validated.{ invalid, valid, Valid }
 import cats.implicits._
 
 object CsaParserHelper {
-  def parseSituation(str: String, variant: Variant): Validated[String, Situation] = {
+  def parseSituation(str: String): Validated[String, Situation] = {
     val lines        = augmentString(str.replace(",", "\n")).linesIterator.to(List).map(_.trim)
     val handicap     = lines.find(l => l.startsWith("PI"))
     val isBoardSetup = lines.exists(l => l.startsWith("P1"))
@@ -21,18 +21,18 @@ object CsaParserHelper {
       val initPieces = handicap.fold {
         val ranks = lines.filter(l => l.startsWith("P") && l.lift(1).exists(_.isDigit))
         parseWholeBoard(ranks)
-      }(h => parseHandicap(h, variant))
+      }(h => parseHandicap(h))
       for {
         pieces <- initPieces
-        board     = Board(pieces, variant)
+        board     = Board(pieces, Standard)
         goteTurn  = lines.exists(l => l == "-")
         additions = lines.filter(l => l.startsWith("P") && l.lift(1).exists(List('+', '-') contains _))
-        board2 <- parseAdditions(additions, board, variant)
+        board2 <- parseAdditions(additions, board)
       } yield (Situation(board2, Color.fromSente(!goteTurn)))
     }
   }
 
-  private def parseHandicap(handicap: String, variant: Variant): Validated[String, PieceMap] = {
+  private def parseHandicap(handicap: String): Validated[String, PieceMap] = {
     def parseSquarePiece(squarePiece: String, pieces: PieceMap): Validated[String, PieceMap] = {
       for {
         _ <-
@@ -51,7 +51,7 @@ object CsaParserHelper {
       } yield (pieces - pos)
     }
 
-    handicap.drop(2).grouped(4).foldLeft(valid(variant.pieces): Validated[String, PieceMap]) {
+    handicap.drop(2).grouped(4).foldLeft(valid(Standard.pieces): Validated[String, PieceMap]) {
       case (acc, cur) =>
         acc match {
           case Valid(pieces) => parseSquarePiece(cur, pieces)
@@ -64,8 +64,8 @@ object CsaParserHelper {
     def parseSquare(sq: String, i: Int, pieces: PieceMap): Validated[String, PieceMap] =
       for {
         pos <- Pos.at(
-          i % 9 + 1,
-          10 - (i / 9 + 1)
+          9 - i % 9,
+          (i / 9 + 1)
         ) toValid s"Invalid board setup - too many squares"
         piece <- Piece.fromCsa(sq) toValid s"Non existent piece (${sq}) in board setup"
       } yield (pieces + (pos -> piece))
@@ -90,20 +90,18 @@ object CsaParserHelper {
 
   private def parseAdditions(
       additions: List[String],
-      board: Board,
-      variant: Variant
+      board: Board
   ): Validated[String, Board] = {
-    def parseSingleLine(line: String, board: Board, variant: Variant): Validated[String, Board] = {
+    def parseSingleLine(line: String, board: Board): Validated[String, Board] = {
       def parseHandAddition(
           str: String,
           color: Color,
-          board: Board,
-          variant: Variant
+          board: Board
       ): Validated[String, Board] = {
         if (str == "00AL") {
           val hands        = board.crazyData.getOrElse(Hands.init)
           val otherHand    = hands(!color)
-          val initialRoles = variant.pieces.values.toList
+          val initialRoles = Standard.pieces.values.toList
           val curBoard     = board.pieces.values.toList
           val newHand = Role.handRoles.foldLeft(Hand.init) { case (acc, cur) =>
             val n = initialRoles.count(_.role == cur) - otherHand(cur) - curBoard.count(_.role == cur)
@@ -149,7 +147,7 @@ object CsaParserHelper {
         acc match {
           case Valid(board) =>
             if (cur startsWith "00")
-              parseHandAddition(cur, color, board, variant)
+              parseHandAddition(cur, color, board)
             else
               parseBoardAddition(cur, color, board)
           case _ => acc
@@ -165,7 +163,7 @@ object CsaParserHelper {
     else {
       additions.foldLeft(valid(board): Validated[String, Board]) { case (acc, cur) =>
         acc match {
-          case Valid(board) => parseSingleLine(cur, board, variant)
+          case Valid(board) => parseSingleLine(cur, board)
           case _            => acc
         }
       }

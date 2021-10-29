@@ -2,7 +2,7 @@ package shogi
 package format
 package kif
 
-import variant.Variant
+import variant.Standard
 
 import scala.util.parsing.combinator._
 import cats.data.Validated
@@ -75,16 +75,15 @@ object KifParser {
         metaStr  = splitted3._1
         boardStr = splitted3._2
         preTags <- TagParser(metaStr)
-        variant = preTags.variant | Variant.default
         parsedMoves <- MovesParser(movesStr)
         strMoves          = parsedMoves._1
         terminationOption = parsedMoves._2
         init             <- getComments(headerStr)
         parsedVariations <- VariationParser(variationStr)
         variations = createVariations(parsedVariations)
-        situation <- KifParserHelper.parseSituation(boardStr, preTags(_.Handicap), variant)
+        situation <- KifParserHelper.parseSituation(boardStr, preTags(_.Handicap))
         tags = createTags(preTags, situation, strMoves.size, terminationOption)
-        parsedMoves <- objMoves(strMoves, variant, variations)
+        parsedMoves <- objMoves(strMoves, variations)
         _ <-
           if (kif.isEmpty || parsedMoves.value.nonEmpty || tags.knownTypes.value.nonEmpty)
             valid(true)
@@ -98,7 +97,6 @@ object KifParser {
 
   def objMoves(
       strMoves: List[StrMove],
-      variant: Variant,
       variations: List[StrVariation],
       startDest: Option[Pos] = None,
       startNum: Int = 1
@@ -112,12 +110,12 @@ object KifParser {
     var res: List[Validated[String, ParsedMove]] = List()
 
     for (StrMove(moveNumber, moveStr, comments, timeSpent, timeTotal) <- strMoves) {
-      val move: Validated[String, ParsedMove] = MoveParser(moveStr, lastDest, variant) map { m =>
+      val move: Validated[String, ParsedMove] = MoveParser(moveStr, lastDest) map { m =>
         val m1 = m withComments comments withVariations {
           variations
             .filter(_.variationStart == moveNumber.getOrElse(bMoveNumber))
             .map { v =>
-              objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) getOrElse ParsedMoves.empty
+              objMoves(v.moves, v.variations, lastDest, bMoveNumber + 1) getOrElse ParsedMoves.empty
             }
             .filter(_.value.nonEmpty)
         }
@@ -352,11 +350,11 @@ object KifParser {
 
     override def skipWhitespace = false
 
-    def apply(str: String, lastDest: Option[Pos], variant: Variant): Validated[String, ParsedMove] = {
+    def apply(str: String, lastDest: Option[Pos]): Validated[String, ParsedMove] = {
       str.map(KifUtils toDigit _) match {
         case MoveRegex(destS, roleS, promS, origS) =>
           for {
-            role <- variant.rolesByEverything get roleS toValid s"Unknown role in move: $str"
+            role <- Standard.rolesByEverything get roleS toValid s"Unknown role in move: $str"
             destOpt = if (destS == "同") lastDest else (Pos.allNumberKeys get destS)
             dest <- destOpt toValid s"Cannot parse destination square in move: $str"
             orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin square in move: $str"
@@ -377,7 +375,7 @@ object KifParser {
           )
         case DropRegex(posS, roleS) =>
           for {
-            role <- variant.rolesByEverything get roleS toValid s"Unknown role in drop: $str"
+            role <- Standard.rolesByEverything get roleS toValid s"Unknown role in drop: $str"
             pos  <- Pos.allNumberKeys get posS toValid s"Cannot parse destination square in drop: $str"
           } yield Drop(
             role = role,
@@ -448,7 +446,7 @@ object KifParser {
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
       !line.startsWith("変化")
     } match {
-      case (moveLines, variantsLines) => valid(moveLines.mkString("\n") -> variantsLines.mkString("\n"))
+      case (moveLines, variationsLines) => valid(moveLines.mkString("\n") -> variationsLines.mkString("\n"))
     }
 
   private def splitMetaAndBoard(kif: String): Validated[String, (String, String)] =

@@ -2,16 +2,12 @@ package shogi
 package format
 package kif
 
-import variant.Standard
-
-import cats.syntax.option._
-
 class KifParserTest extends ShogiTest {
 
   import KifFixtures._
 
   val parser                                               = KifParser.full _
-  def parseMove(str: String, lastDest: Option[Pos] = None) = KifParser.MoveParser(str, lastDest, Standard)
+  def parseMove(str: String, lastDest: Option[Pos] = None) = KifParser.MoveParser(str, lastDest)
 
   "drop" in {
     parseMove("６四歩打") must beValid.like { case d: Drop =>

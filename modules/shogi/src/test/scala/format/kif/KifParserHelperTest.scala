@@ -3,12 +3,11 @@ package format
 package kif
 
 import KifParserHelper._
-import variant.Variant
 
 class KifParserHelperTest extends ShogiTest {
 
   def parseAndCompare(source: String, handicap: Option[String], resFen: String) =
-    parseSituation(source, handicap, Variant.default) must beValid.like { case s =>
+    parseSituation(source, handicap) must beValid.like { case s =>
       Forsyth.exportSituation(s) must_== resFen
     }
 
