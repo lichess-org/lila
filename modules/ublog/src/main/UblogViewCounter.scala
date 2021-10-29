@@ -14,14 +14,16 @@ final class UblogViewCounter(colls: UblogColls)(implicit ec: ExecutionContext) {
     falsePositiveRate = 0.001
   )
 
-  def apply(post: UblogPost, ip: IpAddress): UblogPost = post.copy(views = {
-    val key = s"${post.id.value}:${ip.value}"
-    if (bloomFilter mightContain key) post.views
-    else {
-      bloomFilter.add(key)
-      lila.mon.ublog.view(post.created.by).increment()
-      colls.post.incFieldUnchecked($id(post.id.value), "views")
-      post.views.inc
-    }
-  })
+  def apply(post: UblogPost, ip: IpAddress): UblogPost =
+    if (post.live) post.copy(views = {
+      val key = s"${post.id.value}:${ip.value}"
+      if (bloomFilter mightContain key) post.views
+      else {
+        bloomFilter.add(key)
+        lila.mon.ublog.view(post.created.by).increment()
+        colls.post.incFieldUnchecked($id(post.id.value), "views")
+        post.views.inc
+      }
+    })
+    else post
 }
