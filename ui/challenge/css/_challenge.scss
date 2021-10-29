@@ -31,6 +31,10 @@
 
     .buttons {
       display: none;
+
+      body.blind-mode & {
+        display: flex;
+      }
     }
 
     &:hover .buttons {
