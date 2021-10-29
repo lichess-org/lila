@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">උසස් පෝන්</string>
+  <string name="advancedPawnDescription">ඔබේ ඉත්තන්ගෙන් එකක් ප්‍රතිවාදියාගේ ස්ථානයට ගැඹුරට ගොස් ඇත, සමහර විට ප්‍රවර්ධනය කිරීමට තර්ජනය කරයි.</string>
+  <string name="advantage">වාසිය</string>
+</resources>
