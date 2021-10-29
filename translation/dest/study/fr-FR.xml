@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
   <string name="pgnTags">Étiquettes PGN</string>
   <string name="like">Aimer</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Je n’aime pas</string>
   <string name="newTag">Nouvelle étiquette</string>
   <string name="commentThisPosition">Commenter la position</string>
   <string name="commentThisMove">Commenter ce coup</string>
