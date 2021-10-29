@@ -1,12 +1,10 @@
 package controllers
 
-import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import ornicar.scalalib.Zero
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
-import scala.util.Try
 
 import lila.api.Context
 import lila.app._
@@ -34,25 +32,13 @@ final class Auth(
       }
     }
 
-  // allow relative and absolute redirects only to the same domain or
-  // subdomains, excluding /mobile (which is shown after logout)
-  private def goodReferrer(referrer: String): Boolean =
-    referrer.nonEmpty &&
-      !sillyLoginReferrers(referrer) && Try {
-        val url = Url.parse(referrer)
-        url.schemeOption.exists(scheme => scheme == "http" || scheme == "https") &&
-        url.hostOption.exists(host =>
-          s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
-        )
-      }.getOrElse(false)
-
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
-          val redirectTo = get("referrer").filter(goodReferrer) orElse
+          val redirectTo = get("referrer").filter(env.api.referrerRedirect.valid) orElse
             ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home().url
           result.fold(Redirect(redirectTo))(_(redirectTo))
@@ -76,12 +62,10 @@ final class Auth(
       }
   }
 
-  private def sillyLoginReferrers = Set("/login", "/signup", "/mobile")
-
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(goodReferrer)
-      referrer.filterNot(sillyLoginReferrers.contains) ifTrue ctx.isAuth match {
+      val referrer = get("referrer").filter(env.api.referrerRedirect.valid)
+      referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
       }
@@ -94,7 +78,7 @@ final class Auth(
       def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
       Firewall {
         implicit val req = ctx.body
-        val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
+        val referrer     = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
         api.usernameOrEmailForm
           .bindFromRequest()
           .fold(
@@ -194,7 +178,7 @@ final class Auth(
                       lila.security.EmailConfirm.cookie
                         .make(env.lilaCookie, user, email)(ctx.req)
                   }
-                case Signup.AllSet(user, email) => welcome(user, email) >> redirectNewUser(user)
+                case Signup.AllSet(user, email) => welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
               },
             api = apiVersion =>
               env.security.signup
@@ -203,16 +187,19 @@ final class Auth(
                   case Signup.RateLimited         => limitedDefault.zero.fuccess
                   case Signup.Bad(err)            => jsonFormError(err)
                   case Signup.ConfirmEmail(_, _)  => Ok(Json.obj("email_confirm" -> true)).fuccess
-                  case Signup.AllSet(user, email) => welcome(user, email) >> authenticateUser(user)
+                  case Signup.AllSet(user, email) =>
+                    welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user)
                 }
           )
         }
       }
     }
 
-  private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context): Funit = {
+  private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(implicit
+    ctx: Context
+  ): Funit = {
     garbageCollect(user, email)
-    env.security.automaticEmail.welcome(user, email)
+    if (sendWelcomeEmail) env.security.automaticEmail.welcome(user, email)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
   }
 
@@ -282,7 +269,7 @@ final class Auth(
           env.user.repo.email(user.id).flatMap {
             _.?? { email =>
               authLog(user.username, email.value, s"Confirmed email ${email.value}")
-              welcome(user, email)
+              welcome(user, email, sendWelcomeEmail = false)
             }
           } >> redirectNewUser(user)
       }
@@ -341,7 +328,7 @@ final class Auth(
               case _ => {
                 lila.mon.user.auth.passwordResetRequest("noEmail").increment()
                 forms.passwordResetWithCaptcha map { case (form, captcha) =>
-                  BadRequest(html.auth.bits.passwordReset(form, captcha, false.some))
+                  Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).fuccess
                 }
               }
             }
@@ -386,7 +373,7 @@ final class Auth(
             HasherRateLimit(user.username, ctx.req) { _ =>
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMap {
-                  _ ?? { welcome(user, _) }
+                  _ ?? { welcome(user, _, sendWelcomeEmail = false) }
                 } >>
                 env.user.repo.disableTwoFactor(user.id) >>
                 env.security.store.closeAllSessionsOf(user.id) >>

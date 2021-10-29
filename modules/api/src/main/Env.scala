@@ -50,6 +50,7 @@ final class Env(
 
   val config = ApiConfig loadFrom appConfig
   import config.apiToken
+  import net.baseUrl
 
   lazy val notationDump: NotationDump = wire[NotationDump]
 
@@ -68,6 +69,8 @@ final class Env(
   lazy val lobbyApi = wire[LobbyApi]
 
   lazy val eventStream = wire[EventStream]
+
+  lazy val referrerRedirect = wire[ReferrerRedirect]
 
   lazy val cli = wire[Cli]
 
