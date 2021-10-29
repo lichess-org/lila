@@ -51,31 +51,17 @@ final case class Actor(
 
       case King => shortRange(King.dirs)
     }
-    def maybePromote(m: Move): Option[Move] =
-      if (
-        (Role.promotableRoles contains m.piece.role) &&
-        ((m.color.promotableZone contains m.orig.y) || (m.color.promotableZone contains m.dest.y))
-      ) {
+
+    def promotions(m: Move): Option[Move] = {
+      if (board.variant.canPromote(m: Move)) 
         (m.after promote m.dest) map { b2 =>
           m.copy(after = b2, promotion = true)
         }
-      } else None
-
-    def forcePromotion(m: Move): Boolean = {
-      m.piece.role match {
-        case Pawn if m.piece.color.backrankY == m.dest.y && m.promotion == false  => false
-        case Lance if m.piece.color.backrankY == m.dest.y && m.promotion == false => false
-        case Knight
-            if (m.piece.color.backrankY == m.dest.y ||
-              m.piece.color.backrankY2 == m.dest.y) && m.promotion == false =>
-          false
-        case _ => true
-      }
+      else None
     }
-
-    val promotedMoves = moves flatMap maybePromote
-
-    (moves ++ promotedMoves).filter { m => forcePromotion(m) }
+    
+    val movesWithPromotions = (moves ::: (moves flatMap promotions)).filterNot { m => board.variant.mustPromote(m) }
+    if(board.variant.hasMoveEffects) movesWithPromotions map (_.applyVariantEffect) else movesWithPromotions
   }
 
   lazy val destinations: List[Pos] = moves map (_.dest)

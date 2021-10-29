@@ -17,8 +17,8 @@ case class Situation(board: Board, color: Color) {
 
   def drops: Option[List[Pos]] =
     board.variant match {
-      case v: variant.Standard.type => v possibleDrops this
-      case _                        => None
+      case v => v possibleDrops this
+       // case _ => None // for dropless variants
     }
 
   lazy val kingPos: Option[Pos] = board kingPosOf color

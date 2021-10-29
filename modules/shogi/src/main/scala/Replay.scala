@@ -104,8 +104,8 @@ object Replay {
   ): Validated[String, List[Situation]] =
     parsedMoves match {
       case Nil => valid(Nil)
-      case san :: rest =>
-        san(sit) flatMap { moveOrDrop =>
+      case parsedMove :: rest =>
+        parsedMove(sit) flatMap { moveOrDrop =>
           val after = Situation(moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter), !sit.color)
           recursiveSituations(after, rest) map { after :: _ }
         }
