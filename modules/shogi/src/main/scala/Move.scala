@@ -51,7 +51,7 @@ case class Move(
 
   def withPromotion(op: Option[Role], promoting: Boolean): Option[Move] =
     if (!promoting)
-      this.some
+      copy(promotion = false).some
     else {
       op.fold(this.some) { p =>
         for {
