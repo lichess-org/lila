@@ -27,9 +27,9 @@
   <string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del ajedrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
   <string name="gameplay">Mecánica de juego</string>
-  <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los limites de tiempo en Bullet, Blitz y otros?</string>
-  <string name="basedOnGameDuration">Los limites de tiempo de Lichess está n basados en la duración estimada de una partida = %1$s
-Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
+  <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
+  <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
+ Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
   <string name="durationFormula">(tiempo inicial del reloj) + 40 × (incremento)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
