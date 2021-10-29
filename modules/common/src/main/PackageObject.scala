@@ -24,7 +24,6 @@ trait PackageObject extends Lilaisms {
     def millis(s: Int): Timeout         = Timeout(s.millis)
     def seconds(s: Int): Timeout        = Timeout(s.seconds)
     def minutes(m: Int): Timeout        = Timeout(m.minutes)
-
   }
 
   def some[A](a: A): Option[A] = Some(a)

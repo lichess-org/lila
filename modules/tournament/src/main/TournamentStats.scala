@@ -53,7 +53,7 @@ private object TournamentStats {
 
   def readAggregation(rating: Int)(docs: List[Bdoc]): TournamentStats = {
     val colorStats: Map[Option[Color], ColorStats] = docs.view.map { doc =>
-      doc.getAsOpt[Boolean]("_id").map(Color.apply) ->
+      doc.getAsOpt[Boolean]("_id").map(Color.fromSente) ->
         ColorStats(
           ~doc.int("games"),
           ~doc.int("moves"),

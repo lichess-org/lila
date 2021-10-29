@@ -43,7 +43,7 @@ object StudyForm {
         asStr: Option[String] = None
     ) {
 
-      def orientation = orientationStr.flatMap(shogi.Color.apply) | shogi.Sente
+      def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
 
       def as: As =
         asStr match {
@@ -93,7 +93,7 @@ object StudyForm {
         notation: String
     ) {
 
-      def orientation = orientationStr.flatMap(shogi.Color.apply) | shogi.Sente
+      def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
 
       def toChapterDatas =
         MultiPgn.split(notation, max = 20).value.zipWithIndex map { case (oneNotation, index) =>

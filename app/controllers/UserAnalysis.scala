@@ -45,7 +45,7 @@ final class UserAnalysis(
         .filter(_.nonEmpty)
         .orElse(get("fen")) map FEN.apply
       val pov         = makePov(decodedFen, variant)
-      val orientation = get("color").flatMap(shogi.Color.apply) | pov.color
+      val orientation = get("color").flatMap(shogi.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
         EnableSharedArrayBuffer(Ok(html.board.userAnalysis(data, pov)))
@@ -82,7 +82,7 @@ final class UserAnalysis(
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
         env.round.proxyRepo upgradeIfPresent g flatMap { game =>
-          val pov = Pov(game, shogi.Color(color == "sente"))
+          val pov = Pov(game, shogi.Color.fromSente(color == "sente"))
           negotiate(
             html =
               if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess

@@ -27,7 +27,7 @@ case class PlayerAssessment(
     tcFactor: Option[Double]
 ) {
 
-  val color = Color(sente)
+  val color = Color.fromSente(sente)
 }
 
 case class PlayerAggregateAssessment(

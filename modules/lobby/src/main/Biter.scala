@@ -59,7 +59,7 @@ final private class Biter(
   ): Fu[shogi.Color] =
     color match {
       case Color.Random =>
-        userRepo.firstGetsSente(creatorUser.map(_.id), joinerUser.map(_.id)) map shogi.Color.apply
+        userRepo.firstGetsSente(creatorUser.map(_.id), joinerUser.map(_.id)) map shogi.Color.fromSente
       case Color.Sente => fuccess(shogi.Sente)
       case Color.Gote  => fuccess(shogi.Gote)
     }

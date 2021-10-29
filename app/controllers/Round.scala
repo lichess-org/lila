@@ -147,7 +147,7 @@ final class Round(
     }
 
   private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] =
-    shogi.Color(color) ?? {
+    shogi.Color.fromName(color) ?? {
       env.round.proxyRepo.pov(gameId, _)
     }
 
@@ -335,7 +335,7 @@ final class Round(
   def mini(gameId: String, color: String) =
     Open { implicit ctx =>
       OptionOk(
-        shogi.Color(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
+        shogi.Color.fromName(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
           .pov(gameId, color)
       )(html.game.bits.mini)
     }

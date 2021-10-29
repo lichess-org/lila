@@ -19,7 +19,7 @@ case class Info(
 
   def turn = 1 + (ply - 1) / 2
 
-  def color = Color(ply % 2 == 1)
+  def color = Color.fromPly(ply - 1)
 
   def encode: String =
     List(

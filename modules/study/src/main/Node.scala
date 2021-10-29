@@ -22,7 +22,7 @@ sealed trait RootOrNode {
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
   def mainline: Vector[Node]
-  def color = shogi.Color(ply % 2 == 0)
+  def color = shogi.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
 }
 

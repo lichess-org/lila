@@ -176,7 +176,7 @@ object Challenge {
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = shogi.Color(lila.common.ThreadLocalRandom.nextBoolean())
+  def randomColor = shogi.Color.fromSente(lila.common.ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,

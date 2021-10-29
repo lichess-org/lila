@@ -58,8 +58,8 @@ object AnaMove {
   def parse(o: JsObject) = {
     for {
       d    <- o obj "d"
-      orig <- d str "orig" flatMap shogi.Pos.posAt
-      dest <- d str "dest" flatMap shogi.Pos.posAt
+      orig <- d str "orig" flatMap shogi.Pos.fromKey
+      dest <- d str "dest" flatMap shogi.Pos.fromKey
       fen  <- d str "fen"
       path <- d str "path"
     } yield AnaMove(

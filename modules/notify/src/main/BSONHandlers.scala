@@ -49,7 +49,7 @@ private object BSONHandlers {
   implicit val IrwinDoneHandler    = Macros.handler[IrwinDone]
   implicit val GenericLinkHandler  = Macros.handler[GenericLink]
 
-  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.apply, _.sente)
+  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.fromSente, _.sente)
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 

@@ -29,7 +29,7 @@ object Color {
 
   object Random extends Color("random") {
 
-    def resolve = shogi.Color(nextBoolean())
+    def resolve = shogi.Color.fromSente(nextBoolean())
 
     def unary_! = this
   }

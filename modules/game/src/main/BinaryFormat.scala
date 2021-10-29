@@ -214,16 +214,17 @@ object BinaryFormat {
 
   object piece {
 
-    private val groupedPos = Pos.all grouped 2 collect { case List(p1, p2) =>
-      (p1, p2)
-    } toArray
-
+    // todo better - 81 bytes is too much
+    // maybe something like two bitboards (occupied, sente pieces) and then we can fit two pieces per byte
+    // iterating through occupied we would read the pieces
+    // that would result in something like - 12(3 * int) + 12(3 * int) + #pieces / 2 - bytes (max 44 bytes for standard shogi(max 40 pieces on the board), min 25 bytes for just two kings)
+    // or maybe just store sfen??? starting position is 57 characters long
     def write(pieces: PieceMap): ByteArray = {
       def posInt(pos: Pos): Int =
         (pieces get pos).fold(0) { piece =>
           piece.color.fold(0, 16) + roleToInt(piece.role)
         }
-      ByteArray(Pos.all.toArray map { case p1 =>
+      ByteArray(Pos.reversedAll9x9.toArray map { case p1 =>
         posInt(p1).toByte
       })
     }
@@ -232,10 +233,10 @@ object BinaryFormat {
       def splitInts(b: Byte) = b.toInt
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 15, variant) map { role =>
-          Piece(Color((int & 16) == 0), role)
+          Piece(Color.fromSente((int & 16) == 0), role)
         }
       val pieceInts = ba.value map splitInts
-      (Pos.all zip pieceInts).view
+      (Pos.reversedAll9x9 zip pieceInts).view
         .flatMap { case (pos, int) =>
           intPiece(int) map (pos -> _)
         }

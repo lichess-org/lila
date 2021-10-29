@@ -206,7 +206,7 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = shogi.Color(orientation) | shogi.Sente
+    def realOrientation = shogi.Color.fromName(orientation) | shogi.Sente
     def isPractice      = mode == Mode.Practice.key
     def isGamebook      = mode == Mode.Gamebook.key
     def isConceal       = mode == Mode.Conceal.key

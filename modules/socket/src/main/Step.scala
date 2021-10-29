@@ -17,7 +17,7 @@ case class Step(
 ) {
 
   // who's color plays next
-  def color = shogi.Color(ply % 2 == 0)
+  def color = shogi.Color.fromPly(ply)
 
   def toJson = Step.stepJsonWriter writes this
 }
