@@ -343,6 +343,19 @@ object faq {
           p(
             lichessCanOptionnalySendPopUps()
           )
+        ),
+        question(
+          "make-a-bot",
+          "Make a Lichess bot?",
+          p(
+            "To learn how to create a ",
+            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
+            ", please read ",
+            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
+              "this blog post"
+            ),
+            "."
+          )
         )
       )
     }
