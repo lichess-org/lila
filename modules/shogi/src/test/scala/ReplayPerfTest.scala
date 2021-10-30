@@ -12,7 +12,7 @@ class ReplayPerfTest extends ShogiTest {
   // val nb = 1
   // val iterations = 1
 
-  def runOne(moves: List[String]) =
+  def runOne(moves: List[String]): Boolean =
     Replay.gameMoveWhileValid(moves, format.Forsyth.initial, shogi.variant.Standard)._2.length == moves.length
   def run: Boolean = { gameMoves forall runOne }
 

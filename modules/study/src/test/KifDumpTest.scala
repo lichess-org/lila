@@ -21,7 +21,7 @@ class KifDumpTest extends Specification {
       fen = FEN("<sfen>"),
       check = false,
       clock = None,
-      crazyData = Some(Hands.init),
+      crazyData = Some(Hands.init(variant.Standard)),
       children = children,
       forceVariation = false
     )

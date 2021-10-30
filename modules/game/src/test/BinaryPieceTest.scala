@@ -21,32 +21,32 @@ class BinaryPieceTest extends Specification {
         write(Map.empty) must_== List.fill(81)(noop)
       }
       "A1 sente king" in {
-        write(Map(A1 -> Sente.king)) must_== {
+        write(Map(SQ9I -> Sente.king)) must_== {
           "00000001" :: List.fill(80)(noop)
         }
       }
       "A1 gote knight" in {
-        write(Map(A1 -> Gote.knight)) must_== {
+        write(Map(SQ9I -> Gote.knight)) must_== {
           "00010100" :: List.fill(80)(noop)
         }
       }
       "B1 gote pawn" in {
-        write(Map(B1 -> Gote.pawn)) must_== {
+        write(Map(SQ8I -> Gote.pawn)) must_== {
           noop :: "00011110" :: List.fill(79)(noop)
         }
       }
       "A1 gote knight, B1 sente bishop" in {
-        write(Map(A1 -> Gote.knight, B1 -> Sente.bishop)) must_== {
+        write(Map(SQ9I -> Gote.knight, SQ8I -> Sente.bishop)) must_== {
           "00010100" :: "00000110" :: List.fill(79)(noop)
         }
       }
       "i9 gote knight" in {
-        write(Map(I9 -> Gote.knight)) must_== {
+        write(Map(SQ1A -> Gote.knight)) must_== {
           List.fill(80)(noop) :+ "00010100"
         }
       }
       "H9 gote knight, I9 sente bishop" in {
-        write(Map(H9 -> Gote.knight, I9 -> Sente.bishop)) must_== {
+        write(Map(SQ2A -> Gote.knight, SQ1A -> Sente.bishop)) must_== {
           List.fill(79)(noop) :+ "00010100" :+ "00000110"
         }
       }
@@ -55,10 +55,10 @@ class BinaryPieceTest extends Specification {
       "empty board" in {
         read(List.fill(81)(noop)) must_== Map.empty
         "A1 sente king" in {
-          read("00000001" :: List.fill(80)(noop)) must_== Map(A1 -> Sente.king)
+          read("00000001" :: List.fill(80)(noop)) must_== Map(SQ9I -> Sente.king)
         }
         "B1 gote pawn" in {
-          read(noop :: "00011110" :: List.fill(79)(noop)) must_== Map(B1 -> Gote.pawn)
+          read(noop :: "00011110" :: List.fill(79)(noop)) must_== Map(SQ8I -> Gote.pawn)
         }
       }
     }

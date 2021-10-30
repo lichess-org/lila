@@ -39,19 +39,126 @@ class PosTest extends ShogiTest {
       }
     }
 
-    "hash codes" in {
-      println(Pos.all9x9.reverse.map(p => (p, (p.hashCode + 34).toChar)))
-      true
-    }
-
     "board sizes" in {
       "9x9" in {
-        Pos.all9x9 must have size(81)
-        Pos.all9x9 must contain(exactly(SQ9I, SQ8I, SQ7I, SQ6I, SQ5I, SQ4I, SQ3I, SQ2I, SQ1I, SQ9H, SQ8H, SQ7H, SQ6H, SQ5H, SQ4H, SQ3H, SQ2H, SQ1H, SQ9G, SQ8G, SQ7G, SQ6G, SQ5G, SQ4G, SQ3G, SQ2G, SQ1G, SQ9F, SQ8F, SQ7F, SQ6F, SQ5F, SQ4F, SQ3F, SQ2F, SQ1F, SQ9E, SQ8E, SQ7E, SQ6E, SQ5E, SQ4E, SQ3E, SQ2E, SQ1E, SQ9D, SQ8D, SQ7D, SQ6D, SQ5D, SQ4D, SQ3D, SQ2D, SQ1D, SQ9C, SQ8C, SQ7C, SQ6C, SQ5C, SQ4C, SQ3C, SQ2C, SQ1C, SQ9B, SQ8B, SQ7B, SQ6B, SQ5B, SQ4B, SQ3B, SQ2B, SQ1B, SQ9A, SQ8A, SQ7A, SQ6A, SQ5A, SQ4A, SQ3A, SQ2A, SQ1A))
+        Pos.all9x9 must have size 81
+        Pos.all9x9 must contain(
+          exactly(
+            SQ9I,
+            SQ8I,
+            SQ7I,
+            SQ6I,
+            SQ5I,
+            SQ4I,
+            SQ3I,
+            SQ2I,
+            SQ1I,
+            SQ9H,
+            SQ8H,
+            SQ7H,
+            SQ6H,
+            SQ5H,
+            SQ4H,
+            SQ3H,
+            SQ2H,
+            SQ1H,
+            SQ9G,
+            SQ8G,
+            SQ7G,
+            SQ6G,
+            SQ5G,
+            SQ4G,
+            SQ3G,
+            SQ2G,
+            SQ1G,
+            SQ9F,
+            SQ8F,
+            SQ7F,
+            SQ6F,
+            SQ5F,
+            SQ4F,
+            SQ3F,
+            SQ2F,
+            SQ1F,
+            SQ9E,
+            SQ8E,
+            SQ7E,
+            SQ6E,
+            SQ5E,
+            SQ4E,
+            SQ3E,
+            SQ2E,
+            SQ1E,
+            SQ9D,
+            SQ8D,
+            SQ7D,
+            SQ6D,
+            SQ5D,
+            SQ4D,
+            SQ3D,
+            SQ2D,
+            SQ1D,
+            SQ9C,
+            SQ8C,
+            SQ7C,
+            SQ6C,
+            SQ5C,
+            SQ4C,
+            SQ3C,
+            SQ2C,
+            SQ1C,
+            SQ9B,
+            SQ8B,
+            SQ7B,
+            SQ6B,
+            SQ5B,
+            SQ4B,
+            SQ3B,
+            SQ2B,
+            SQ1B,
+            SQ9A,
+            SQ8A,
+            SQ7A,
+            SQ6A,
+            SQ5A,
+            SQ4A,
+            SQ3A,
+            SQ2A,
+            SQ1A
+          )
+        )
       }
       "5x5" in {
-        Pos.all5x5 must have size(25)
-        Pos.all5x5 must contain(exactly(SQ5E, SQ4E, SQ3E, SQ2E, SQ1E, SQ5D, SQ4D, SQ3D, SQ2D, SQ1D, SQ5C, SQ4C, SQ3C, SQ2C, SQ1C, SQ5B, SQ4B, SQ3B, SQ2B, SQ1B, SQ5A, SQ4A, SQ3A, SQ2A, SQ1A))
+        Pos.all5x5 must have size 25
+        Pos.all5x5 must contain(
+          exactly(
+            SQ5E,
+            SQ4E,
+            SQ3E,
+            SQ2E,
+            SQ1E,
+            SQ5D,
+            SQ4D,
+            SQ3D,
+            SQ2D,
+            SQ1D,
+            SQ5C,
+            SQ4C,
+            SQ3C,
+            SQ2C,
+            SQ1C,
+            SQ5B,
+            SQ4B,
+            SQ3B,
+            SQ2B,
+            SQ1B,
+            SQ5A,
+            SQ4A,
+            SQ3A,
+            SQ2A,
+            SQ1A
+          )
+        )
       }
     }
   }

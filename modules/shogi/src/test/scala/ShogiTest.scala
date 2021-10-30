@@ -24,7 +24,8 @@ trait ShogiTest extends Specification with ValidatedMatchers {
   case class RichActor(actor: Actor) {
     def threatens(to: Pos): Boolean =
       actor.piece.eyes(actor.pos, to) && {
-        (!actor.piece.role.projection) ||
+        (!actor.piece.longRangeDirs.nonEmpty) ||
+        (actor.pos touches to) ||
         actor.piece.role.dir(actor.pos, to).exists {
           Actor.longRangeThreatens(actor.board, actor.pos, _, to)
         }

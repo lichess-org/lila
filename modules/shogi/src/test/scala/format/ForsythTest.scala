@@ -91,14 +91,15 @@ class ForsythTest extends ShogiTest {
       }
     }
     "promoted pieces in sfen" in {
-      f << "+l+n+sgkg+s+n+l/1r5+b1/+p+p+p+p+p+p+p+p+p/9/9/9/PPPP+PPPPP/1B5R1/LNSGKGSNL b - 1" must beSome.like { case s =>
-        val ps = s.board.pieces.values.to(List)
-        ps.count(_.role == Tokin) must_== 10
-        ps.count(_.role == PromotedLance) must_== 2
-        ps.count(_.role == PromotedKnight) must_== 2
-        ps.count(_.role == PromotedSilver) must_== 2
-        ps.count(_.role == Horse) must_== 1
-      }
+      f << "+l+n+sgkg+s+n+l/1r5+b1/+p+p+p+p+p+p+p+p+p/9/9/9/PPPP+PPPPP/1B5R1/LNSGKGSNL b - 1" must beSome
+        .like { case s =>
+          val ps = s.board.pieces.values.to(List)
+          ps.count(_.role == Tokin) must_== 10
+          ps.count(_.role == PromotedLance) must_== 2
+          ps.count(_.role == PromotedKnight) must_== 2
+          ps.count(_.role == PromotedSilver) must_== 2
+          ps.count(_.role == Horse) must_== 1
+        }
     }
   }
   "export to situation plus" should {
@@ -123,9 +124,9 @@ class ForsythTest extends ShogiTest {
   "pieces in hand" should {
     "read" in {
       "readHands" in {
-        val h = f.readHands("-")
-        h must_== Hands.init
-        val h2 = f.readHands("10p25P")
+        val h = f.readHands(Standard, "-")
+        h must_== Hands.init(Standard)
+        val h2 = f.readHands(Standard, "10p25P")
         val sente: HandMap =
           Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 25)
         val gote: HandMap =
@@ -135,7 +136,7 @@ class ForsythTest extends ShogiTest {
       "empty hand" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1" must beSome.like { case s =>
           s.situation.board.crazyData must beSome.like { case d =>
-            d must_== Hands.init
+            d must_== Hands.init(Standard)
           }
         }
       }
@@ -185,7 +186,7 @@ class ForsythTest extends ShogiTest {
           case s =>
             s.situation.board.crazyData must beSome.like {
               case d => {
-                d must_== Hands.init
+                d must_== Hands.init(Standard)
               }
             }
         }
@@ -194,7 +195,7 @@ class ForsythTest extends ShogiTest {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 120 1" must beSome.like { case s =>
           s.situation.board.crazyData must beSome.like {
             case d => {
-              d must_== Hands.init
+              d must_== Hands.init(Standard)
             }
           }
         }
@@ -216,9 +217,8 @@ class ForsythTest extends ShogiTest {
     }
   }
   "minishogi" in {
-    f <<@(MiniShogi, "rbsgk/4p/5/PG3/K1SBR") must beSome.like {
-      case s =>
-        f >> s must_== "rbsgk/4p/5/PG3/K1SBR b - 1"
+    f <<@ (MiniShogi, "rbsgk/4p/5/PG3/K1SBR") must beSome.like { case s =>
+      f >> s must_== "rbsgk/4p/5/PG3/K1SBR b - 1"
     }
   }
 }
