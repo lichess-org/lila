@@ -87,7 +87,7 @@ object Hash {
       Color.all
         .flatMap { color =>
           val colorshift = color.fold(125, -1)
-          hands(color).roleMap flatMap { case (role, rolecount) =>
+          hands(color).handMap flatMap { case (role, rolecount) =>
             crazyPocketMask(role, colorshift, rolecount)
           }
         }

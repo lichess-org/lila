@@ -181,6 +181,8 @@ object Pos {
   val senteBackrank = (SQ9I <-> SQ1I).toList
   val goteBackrank  = (SQ9A <-> SQ1A).toList
 
+  val allDirections = List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight, _.downLeft, _.downRight): Directions
+
   val allUciKeys: Map[String, Pos] = all9x9
     .map { pos =>
       pos.uciKey -> pos

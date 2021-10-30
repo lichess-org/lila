@@ -12,4 +12,5 @@ case object FromPosition
     ) {
 
   def pieces = Standard.pieces
+  def hand = Standard.hand
 }

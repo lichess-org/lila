@@ -49,18 +49,6 @@ case class Move(
 
   def color = piece.color
 
-  def withPromotion(op: Option[Role], promoting: Boolean): Option[Move] =
-    if (!promoting)
-      copy(promotion = false).some
-    else {
-      op.fold(this.some) { p =>
-        for {
-          b2 <- after take dest
-          b3 <- b2.place(color - p, dest)
-        } yield copy(after = b3, promotion = true)
-      }
-    }
-
   def withAfter(newBoard: Board) = copy(after = newBoard)
 
   def withMetrics(m: MoveMetrics) = copy(metrics = m)
@@ -69,5 +57,5 @@ case class Move(
     Uci.Move(orig, dest, promotion)
   }
 
-  override def toString = s"$piece ${toUci.uci}"
+  override def toString = s"$piece ${toUci.usi}"
 }

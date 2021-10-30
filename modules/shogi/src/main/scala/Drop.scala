@@ -44,5 +44,5 @@ case class Drop(
 
   def toUci = Uci.Drop(piece.role, pos)
 
-  override def toString = toUci.uci
+  override def toString = toUci.usi
 }

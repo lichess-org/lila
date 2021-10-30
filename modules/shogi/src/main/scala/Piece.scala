@@ -12,6 +12,9 @@ case class Piece(color: Color, role: Role) {
   def forsythFull: String = if (color == Sente) role.forsythFullUpper else role.forsythFull
   def csa: String         = if (color == Sente) s"+${role.csa}" else s"-${role.csa}"
 
+  def shortRangeDirs = if (color == Sente) role.senteShortDirs else role.goteShortDirs
+  def longRangeDirs  = if (color == Sente) role.senteProjectionDirs else role.goteProjectionDirs
+
   // attackable positions assuming empty board
   def eyes(from: Pos, to: Pos): Boolean =
     role match {
@@ -49,11 +52,7 @@ case class Piece(color: Color, role: Role) {
       case Horse  => (from touches to) || (from onSameDiagonal to)
       case Dragon => (from touches to) || (from onSameLine to)
     }
-
-  // movable positions assuming empty board
-  def eyesMovable(from: Pos, to: Pos): Boolean =
-    eyes(from, to)
-
+  
   override def toString = s"$color-$role".toLowerCase
 }
 
@@ -68,8 +67,5 @@ object Piece {
     Role.allByCsa get s.drop(1) map {
       Piece(Color.fromSente(s.take(1) == "+"), _)
     }
-
-  def promote(p: Piece): Option[Piece] =
-    Role.promotesTo(p.role) map { Piece(p.color, _) }
 
 }

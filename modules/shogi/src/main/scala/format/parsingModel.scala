@@ -59,11 +59,11 @@ case class KifStd(
   def move(situation: Situation): Validated[String, shogi.Move] =
     situation.board.actorAt(orig) flatMap { a =>
       a.trustedMoves() find { m =>
-        m.dest == dest && a.board.variant.kingSafety(a, m)
+        m.dest == dest && m.promotion == promotion && a.board.variant.kingSafety(a, m)
       }
     } match {
       case None       => Validated invalid s"No move found: $this\n$situation"
-      case Some(move) => move withPromotion (Role.promotesTo(role), promotion) toValid "Wrong promotion"
+      case Some(move) => Validated valid move
     }
 
 }
@@ -84,14 +84,11 @@ case class CsaStd(
   def move(situation: Situation): Validated[String, shogi.Move] =
     situation.board.actorAt(orig) flatMap { a =>
       a.trustedMoves() find { m =>
-        m.dest == dest && a.board.variant.kingSafety(a, m)
+        m.dest == dest && m.promotion == (role != m.piece.role) && a.board.variant.kingSafety(a, m)
       }
     } match {
       case None => Validated invalid s"No move found: $this\n$situation"
-      case Some(move) =>
-        move withPromotion (Role.promotesTo(
-          move.piece.role
-        ), role != move.piece.role) toValid "Wrong promotion"
+      case Some(move) => Validated valid move
     }
 
 }
@@ -124,15 +121,15 @@ case class PGNStd(
           if piece.color == situation.color && piece.role == role && compare(file, pos.x) && compare(
             rank,
             pos.y
-          ) && piece.eyesMovable(pos, dest) =>
+          ) && piece.eyes(pos, dest) =>
         val a = Actor(piece, pos, situation.board)
         a.trustedMoves() find { m =>
-          m.dest == dest && a.board.variant.kingSafety(a, m)
+          m.dest == dest && m.promotion == promotion && a.board.variant.kingSafety(a, m)
         }
       case (m, _) => m
     } match {
       case None       => Validated invalid s"No move found: $this\n$situation"
-      case Some(move) => move withPromotion (Role.promotesTo(role), promotion) toValid "Wrong promotion"
+      case Some(move) => Validated valid move
     }
 
   private def compare[A](a: Option[A], b: A) = a.fold(true)(b ==)

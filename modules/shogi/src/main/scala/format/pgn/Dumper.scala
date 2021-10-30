@@ -26,9 +26,9 @@ object Dumper {
         }
         val promotes = {
           if (
-            !promotion && (Role.promotableRoles contains piece.role) &&
-            ((piece.color.promotableZone contains orig.y) ||
-              (piece.color.promotableZone contains dest.y))
+            !promotion && (situation.board.variant.promotableRoles contains piece.role) &&
+            ((situation.board.variant.promotionZone(piece.color) contains orig.y) ||
+              (situation.board.variant.promotionZone(piece.color) contains dest.y))
           )
             "="
           else if (!promotion) ""

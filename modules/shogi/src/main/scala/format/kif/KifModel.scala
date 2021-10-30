@@ -3,6 +3,7 @@ package format
 package kif
 
 import cats.syntax.option._
+import variant.Standard
 
 // This is temporary for exporting KIFs
 // The plan is to get completely rid of pgn/san
@@ -139,7 +140,7 @@ object Kif {
   private def renderHand(hand: Hand): String = {
     if (hand.size == 0) "なし"
     else
-      Role.handRoles
+      Standard.handRoles
         .map { r =>
           val cnt = hand(r)
           if (cnt == 1) r.kif

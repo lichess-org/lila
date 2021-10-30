@@ -3,6 +3,7 @@ package format
 package csa
 
 import cats.syntax.option._
+import variant.Standard
 
 case class Csa(
     tags: Tags,
@@ -62,7 +63,7 @@ object Csa {
         s"${turn.fold("")(_.fold("+", "-"))}00${makeSquare(pos)}${role.csa}"
       case Uci.Move(orig, dest, prom) => {
         san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $uci, $san") { r =>
-          val finalRole = if (prom) Role.promotesTo(r).getOrElse(r) else r
+          val finalRole = if (prom) Standard.promote(r).getOrElse(r) else r
           s"${turn.fold("")(_.fold("+", "-"))}${makeSquare(orig)}${makeSquare(dest)}${finalRole.csa}"
         }
       }
@@ -116,7 +117,7 @@ object Csa {
   private def renderHand(hand: Hand, prefix: String): String = {
     if (hand.size == 0) ""
     else
-      Role.handRoles
+      Standard.handRoles
         .map { r =>
           val cnt = hand(r)
           s"00${r.csa}".repeat(Math.min(cnt, 81))

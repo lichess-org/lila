@@ -8,10 +8,6 @@ sealed trait Color {
 
   def unary_! : Color
 
-  val promotableZone: List[Int]
-  val backrankY: Int
-  val backrankY2: Int
-
   val letter: Char
   val name: String
   val engName: String
@@ -66,10 +62,6 @@ object Color {
 
     def unary_! = Gote
 
-    val promotableZone = List(1, 2, 3)
-    val backrankY      = 1
-    val backrankY2     = 2
-
     val letter  = 'b'
     val engName = "black"
     val name    = "sente"
@@ -80,10 +72,6 @@ object Color {
   case object Gote extends Color {
 
     def unary_! = Sente
-
-    val promotableZone = List(7, 8, 9)
-    val backrankY      = 9
-    val backrankY2     = 8
 
     val letter  = 'w'
     val engName = "white"

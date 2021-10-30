@@ -1,5 +1,7 @@
 package shogi
 
+import variant.Variant
+
 case class Hands(sente: Hand, gote: Hand) {
   def apply(color: Color) = color.fold(sente, gote)
 
@@ -13,13 +15,14 @@ case class Hands(sente: Hand, gote: Hand) {
       }
     )
 
-  def store(piece: Piece) = {
-    val unpromotedRole = Role.demotesTo(piece.role).getOrElse(piece.role)
+  def store(piece: Piece) =
     piece.color.fold(
-      copy(gote = gote store unpromotedRole),
-      copy(sente = sente store unpromotedRole)
+      copy(gote = gote store piece.role),
+      copy(sente = sente store piece.role)
     )
-  }
+
+  def roles: List[Role] =
+    (sente.roles ::: gote.roles).distinct
 
   def size: Int =
     sente.size + gote.size
@@ -33,57 +36,44 @@ case class Hands(sente: Hand, gote: Hand) {
   def impasseValueOf(c: Color) =
     c.fold(sente.impasseValue, gote.impasseValue)
 
-  def exportHands: String = {
-    val pocketStr = sente.exportHand.toUpperCase() + gote.exportHand.toLowerCase()
-    if (pocketStr == "") "-"
-    else pocketStr
-  }
-
-  override def toString = s"$exportHands"
 }
 
 object Hands {
-  val init = Hands(Hand.init, Hand.init)
+  def apply(hand: Iterable[(Role, Int)]): Hands = Hands(Hand(hand), Hand(hand))
+  def init(variant: Variant): Hands = apply(variant.hand)
 }
 
-case class Hand(roleMap: HandMap) {
+case class Hand(handMap: HandMap) {
 
   def apply(role: Role): Int =
-    roleMap.getOrElse(role, 0)
+    handMap.getOrElse(role, 0)
 
   def take(role: Role) =
-    if (roleMap.getOrElse(role, 0) > 0) Option(copy(roleMap = roleMap + (role -> (roleMap(role) - 1))))
+    if (handMap.getOrElse(role, 0) > 0) Option(copy(handMap = handMap + (role -> (handMap(role) - 1))))
     else None
 
   def store(role: Role, cnt: Int = 1) =
-    if (Role.handRoles contains role) copy(roleMap = roleMap + (role -> (roleMap.getOrElse(role, 0) + cnt)))
-    else this
+    copy(handMap = handMap + (role -> (handMap.getOrElse(role, 0) + cnt)))
 
-  def exportHand: String =
-    Role.handRoles.map { r =>
-      val cnt = roleMap.getOrElse(r, 0)
-      if (cnt == 1) r.forsythFull
-      else if (cnt > 1) cnt.toString + r.forsythFull
-      else ""
-    } mkString ""
+  def roles: List[Role] =
+    handMap.map(_._1).toList
 
   def size: Int =
-    roleMap.foldLeft(0)((acc, kv) => acc + kv._2)
+    handMap.foldLeft(0)((acc, kv) => acc + kv._2)
 
   def value: Int =
-    roleMap.foldLeft(0) { (acc, kv) =>
+    handMap.foldLeft(0) { (acc, kv) =>
       acc + Role.valueOf(kv._1) * kv._2
     }
 
   def impasseValue: Int =
-    roleMap.foldLeft(0) { (acc, kv) =>
+    handMap.foldLeft(0) { (acc, kv) =>
       acc + Role.impasseValueOf(kv._1) * kv._2
     }
 
 }
 
 object Hand {
-  val initMap: HandMap =
-    Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 0)
-  val init = Hand(initMap)
+  def apply(hand: Iterable[(Role, Int)]): Hand = Hand(hand.toMap) 
+  def init(variant: Variant): Hand = Hand(variant.hand) 
 }

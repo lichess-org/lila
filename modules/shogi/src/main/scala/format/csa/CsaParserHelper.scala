@@ -99,11 +99,11 @@ object CsaParserHelper {
           board: Board
       ): Validated[String, Board] = {
         if (str == "00AL") {
-          val hands        = board.crazyData.getOrElse(Hands.init)
+          val hands        = board.crazyData.getOrElse(Hands.init(Standard))
           val otherHand    = hands(!color)
           val initialRoles = Standard.pieces.values.toList
           val curBoard     = board.pieces.values.toList
-          val newHand = Role.handRoles.foldLeft(Hand.init) { case (acc, cur) =>
+          val newHand      = Standard.handRoles.foldLeft(Hand.init(Standard)) { case (acc, cur) =>
             val n = initialRoles.count(_.role == cur) - otherHand(cur) - curBoard.count(_.role == cur)
             acc.store(cur, Math.max(n, 0))
           }
@@ -120,9 +120,9 @@ object CsaParserHelper {
             roleStr = str.slice(2, 4)
             role <- Role.allByCsa get roleStr toValid s"Non existent piece role (${roleStr}) in: $line"
             _ <-
-              if (Role.handRoles.contains(role)) valid(role)
+              if (Standard.handRoles.contains(role)) valid(role)
               else invalid(s"Can't have $role in hand: $line")
-            hands = board.crazyData.getOrElse(Hands.init)
+            hands = board.crazyData.getOrElse(Hands.init(Standard))
           } yield (board.withCrazyData(hands.store(Piece(!color, role))))
       }
       def parseBoardAddition(str: String, color: Color, board: Board): Validated[String, Board] = {

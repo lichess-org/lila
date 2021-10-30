@@ -3,7 +3,7 @@ package format
 
 import cats.implicits._
 
-import variant.{ MiniShogi, Standard, Variant }
+import variant.{ Standard, Variant }
 
 object Forsyth {
 
@@ -54,33 +54,34 @@ object Forsyth {
       val splitted  = fen.split(' ')
       val positions = splitted.lift(0).getOrElse("")
       val ranks = positions.count('/' ==)
-      if (ranks == 8 || (ranks == 4 && variant == MiniShogi)) {
+      if (ranks == (variant.numberOfRanks - 1)) {
         makePiecesList(variant, positions.toList, false, variant.numberOfFiles, 1) map { case pieces =>
           val board = Board(pieces, variant)
           if (splitted.length < 3 || splitted.lift(2).get == "-") board
           else {
-            val hands = readHands(splitted.lift(2).get)
+            val hands = readHands(variant, splitted.lift(2).get)
             board.withCrazyData(hands)
           }
         }
       } else None
     }
 
-  def readHands(sfenHand: String): Hands = {
+  def readHands(variant: Variant, sfenHand: String): Hands = {
     var curCnt = 0
     var total  = 1
-    var sente  = Hand.init
-    var gote   = Hand.init
+    var sente  = Hand.init(variant)
+    var gote   = Hand.init(variant)
     sfenHand foreach { p =>
       if ('0' <= p && p <= '9') {
         curCnt = curCnt * 10 + (p - '0').toInt
         total = curCnt
       } else {
         Role.forsyth(p.toLower).map { role =>
-          if (Role.handRoles.contains(role)) {
+          if (variant.handRoles.contains(role)) {
             val toStore = Math.min(total, 81)
-            if (p.isUpper) sente = sente.store(role, toStore)
-            else gote = gote.store(role, toStore)
+            val unpromotedRole = variant.demote(role).getOrElse(role)
+            if (p.isUpper) sente = sente.store(unpromotedRole, toStore)
+            else gote = gote.store(unpromotedRole, toStore)
           }
         }
         curCnt = 0
@@ -106,7 +107,7 @@ object Forsyth {
         for {
           pos        <- Pos.at(x, y)
           basePiece  <- Piece.fromChar(c)
-          piece  <- if(promoted) Piece.promote(basePiece) else basePiece.some
+          piece      <- if(promoted) variant.promote(basePiece.role).map(Piece(basePiece.color, _)) else basePiece.some
           (nextPieces)     <- makePiecesList(variant, rest, false, x - 1, y)
         } yield (pos -> piece :: nextPieces)
     }
@@ -134,9 +135,17 @@ object Forsyth {
     ) mkString " "
 
   def exportCrazyPocket(board: Board) =
-    board.crazyData match {
-      case Some(hands) => hands.exportHands
-      case _           => "-"
+    board.crazyData.fold("-"){ hands =>
+      def exportHand(hand: Hand): String = 
+        board.variant.handRoles map { r =>
+          val cnt = hand(r)
+          if (cnt == 1) r.forsythFull
+          else if (cnt > 1) cnt.toString + r.forsythFull
+          else ""
+        } mkString ""
+      val fullHandString = exportHand(hands.sente).toUpperCase + exportHand(hands.gote)
+      if (fullHandString.isEmpty) "-"
+      else fullHandString
     }
 
   def exportBoard(board: Board): String = {
@@ -181,7 +190,8 @@ object Forsyth {
   def getHands(rawSource: String): Option[Hands] =
     read(rawSource) { fen =>
       fen.split(' ').lift(2) map { hStr =>
-        readHands(hStr)
+        // Standard for now, todo - don't use separate field for hand in tree, just use value from fen
+        readHands(Standard, hStr)
       }
     }
 

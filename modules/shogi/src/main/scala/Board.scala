@@ -39,7 +39,7 @@ case class Board(
   def rolesInPromotionZoneOf(c: Color): List[Role] =
     pieces
       .collect {
-        case (pos, piece) if (piece.color == c) && (c.promotableZone contains pos.y) => piece.role
+        case (pos, piece) if (piece.color == c) && (variant.promotionZone(c) contains pos.y) => piece.role
       }
       .to(List)
 
@@ -99,7 +99,7 @@ case class Board(
   def promote(pos: Pos): Option[Board] =
     for {
       piece        <- apply(pos)
-      promotedRole <- Role.promotesTo(piece.role)
+      promotedRole <- variant.promote(piece.role)
       b2           <- take(pos)
       b3           <- b2.place(Piece(piece.color, promotedRole), pos)
     } yield b3
@@ -115,9 +115,9 @@ case class Board(
   def withCrazyData(data: Hands)         = copy(crazyData = Option(data))
   def withCrazyData(data: Option[Hands]) = copy(crazyData = data)
   def withCrazyData(f: Hands => Hands): Board =
-    withCrazyData(f(crazyData | Hands.init))
+    withCrazyData(f(crazyData | Hands.init(variant)))
 
-  def ensureCrazyData = withCrazyData(crazyData | Hands.init)
+  def ensureCrazyData = withCrazyData(crazyData | Hands.init(variant))
 
   def updateHistory(f: History => History) = copy(history = f(history))
 
@@ -125,7 +125,7 @@ case class Board(
   def count(c: Color): Int = pieces.values count (_.color == c)
 
   def kingEntered(c: Color): Boolean =
-    kingPosOf(c) exists (pos => c.promotableZone contains pos.y)
+    kingPosOf(c) exists (pos => variant.promotionZone(c) contains pos.y)
 
   def enoughImpasseValue(c: Color): Boolean = {
     val rp = rolesInPromotionZoneOf(c)
@@ -165,7 +165,7 @@ case class Board(
 object Board {
 
   def apply(pieces: Iterable[(Pos, Piece)], variant: Variant): Board =
-    Board(pieces.toMap, History(), variant, Option(Hands.init))
+    Board(pieces.toMap, History(), variant, Option(Hands.init(variant)))
 
   def init(variant: Variant): Board = Board(variant.pieces, variant)
 

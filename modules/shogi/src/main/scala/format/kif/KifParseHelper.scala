@@ -82,11 +82,13 @@ object KifParserHelper {
         roleStr <- str.headOption toValid "Cannot parse hand"
         num = KifUtils kanjiToInt str.tail
         role <- Role.allByEverything.get(roleStr.toString) toValid s"Unknown piece in hand: $roleStr"
+        _ <- if (Standard.handRoles contains role) valid(role)
+             else invalid("Cannot place this piece in hand")
       } yield (hand.store(role, num))
     val values = str.split(":").lastOption.getOrElse("").trim
-    if (values == "なし" || values == "") valid(Hand.init)
+    if (values == "なし" || values == "") valid(Hand.init(Standard))
     else {
-      values.split(" ").foldLeft(valid(Hand.init): Validated[String, Hand]) { case (acc, cur) =>
+      values.split(" ").foldLeft(valid(Hand.init(Standard)): Validated[String, Hand]) { case (acc, cur) =>
         acc match {
           case Valid(hand) => parseHandPiece(cur, hand)
           case _           => acc

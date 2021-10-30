@@ -11,46 +11,9 @@ final case class Actor(
 
   lazy val moves: List[Move] = kingSafetyMoveFilter(trustedMoves())
 
-  /** The moves without taking defending the king into account */
+  // The moves without taking defending the king into account
   def trustedMoves(): List[Move] = {
-    val moves = piece.role match {
-      case Pawn if piece.color == Sente => shortRange(Pawn.dirs)
-      case Pawn                         => shortRange(Pawn.dirsOpposite)
-
-      case Lance if piece.color == Sente => longRange(Lance.dirs)
-      case Lance                         => longRange(Lance.dirsOpposite)
-
-      case Gold if piece.color == Sente => shortRange(Gold.dirs)
-      case Gold                         => shortRange(Gold.dirsOpposite)
-
-      case Silver if piece.color == Sente => shortRange(Silver.dirs)
-      case Silver                         => shortRange(Silver.dirsOpposite)
-
-      case Bishop => longRange(Bishop.dirs)
-
-      case Rook => longRange(Rook.dirs)
-
-      case Knight if piece.color == Sente => shortRange(Knight.dirs)
-      case Knight                         => shortRange(Knight.dirsOpposite)
-
-      case Tokin if piece.color == Sente => shortRange(Tokin.dirs)
-      case Tokin                         => shortRange(Tokin.dirsOpposite)
-
-      case PromotedSilver if piece.color == Sente => shortRange(PromotedSilver.dirs)
-      case PromotedSilver                         => shortRange(PromotedSilver.dirsOpposite)
-
-      case PromotedLance if piece.color == Sente => shortRange(PromotedLance.dirs)
-      case PromotedLance                         => shortRange(PromotedLance.dirsOpposite)
-
-      case PromotedKnight if piece.color == Sente => shortRange(PromotedKnight.dirs)
-      case PromotedKnight                         => shortRange(PromotedKnight.dirsOpposite)
-
-      case Horse => longRange(Horse.dirs) ::: shortRange(King.dirs)
-
-      case Dragon => longRange(Dragon.dirs) ::: shortRange(King.dirs)
-
-      case King => shortRange(King.dirs)
-    }
+    val moves = shortRange(piece.shortRangeDirs) ::: longRange(piece.longRangeDirs)
 
     def promotions(m: Move): Option[Move] = {
       if (board.variant.canPromote(m: Move)) 
@@ -60,7 +23,10 @@ final case class Actor(
       else None
     }
     
-    val movesWithPromotions = (moves ::: (moves flatMap promotions)).filterNot { m => board.variant.mustPromote(m) }
+    val movesWithPromotions =
+      (moves ::: (moves flatMap promotions))
+      .filterNot { m => !m.promotion && board.variant.pieceInDeadZone(piece, m.dest) }
+      
     if(board.variant.hasMoveEffects) movesWithPromotions map (_.applyVariantEffect) else movesWithPromotions
   }
 
@@ -78,7 +44,7 @@ final case class Actor(
    */
   def kingSafetyMoveFilter(ms: List[Move]): List[Move] = {
     val filter: Piece => Boolean =
-      if ((piece is King) || check) (_ => true) else (_.role.projection)
+      if ((piece is King) || check) (_ => true) else (_.longRangeDirs.nonEmpty)
     val stableKingPos = if (piece is King) None else board kingPosOf color
     ms filter { m =>
       board.variant.kingSafety(m, filter, stableKingPos orElse (m.after kingPosOf color))
