@@ -42,7 +42,7 @@ object RageSit {
         if (game.speed <= Speed.Bullet) 5
         else if (game.speed == Speed.Blitz) 10
         else 15
-      }
+      } atMost 0
     }
 
   def redeem(game: Game): Inc =
