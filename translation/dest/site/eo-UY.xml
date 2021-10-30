@@ -365,6 +365,8 @@
   <string name="follow">Sekvi</string>
   <string name="following">Sekvanta</string>
   <string name="unfollow">Malsekvi</string>
+  <string name="followX">Sekvi %s</string>
+  <string name="unfollowX">Malsekvi %s</string>
   <string name="block">Bloki</string>
   <string name="blocked">Blokita</string>
   <string name="unblock">Malbloki</string>
@@ -427,7 +429,7 @@
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="setTheBoard">Antaŭfaru la tabulo</string>
   <string name="popularOpenings">Popularaj malfermoj</string>
-  <string name="endgamePositions">Finluda pozicio</string>
+  <string name="endgamePositions">Finaĵaj pozicioj</string>
   <string name="chess960StartPosition">Ŝako960 komenca pozicio: %s</string>
   <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
