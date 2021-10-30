@@ -367,6 +367,7 @@
   <string name="following">افرادی که دنبال می کنید</string>
   <string name="unfollow">لغو دنبال کردن</string>
   <string name="followX">دنبال کردن %s</string>
+  <string name="unfollowX">لغو دنبال کردن %s</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
