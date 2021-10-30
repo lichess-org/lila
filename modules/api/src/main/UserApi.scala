@@ -58,9 +58,10 @@ final private[api] class UserApi(
           .map(_.map { cr =>
             math.round(cr * 100)
           }) map {
-          // format off
+          // format: off
           case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),completionRate) =>
+          // format: on  
             jsonView(u) ++ {
               Json
                 .obj(

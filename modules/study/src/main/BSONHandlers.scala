@@ -2,7 +2,7 @@ package lila.study
 
 import shogi.format.{ FEN, Forsyth, Glyph, Glyphs, Tag, Tags, Uci, UciCharPair }
 import shogi.variant.Variant
-import shogi.{ Centis, Hand, Hands, Piece, Pos, Role }
+import shogi.{ Centis, Piece, Pos, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -32,7 +32,7 @@ object BSONHandlers {
 
   implicit private val PosBSONHandler = tryHandler[Pos](
     { case BSONString(v) => Pos.fromKey(v) toTry s"No such pos: $v" },
-    x => BSONString(x.key)
+    x => BSONString(x.uciKey)
   )
   implicit private val PieceBSONHandler = tryHandler[Piece](
     { case BSONString(v) => Piece.fromChar(v.head) toTry s"No such piece: $v" },
@@ -52,10 +52,10 @@ object BSONHandlers {
     }
     def writes(w: Writer, t: Shape) =
       t match {
-        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
-        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
+        case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.uciKey)
+        case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.uciKey, "d" -> dest.uciKey)
         case Shape.Piece(brush, orig, piece) =>
-          $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
+          $doc("b" -> brush, "o" -> orig.uciKey, "k" -> piece.forsyth.toString)
       }
   }
 

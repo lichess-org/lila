@@ -31,7 +31,7 @@ final class JsonView(rematches: Rematches) {
       .add("tournamentId" -> game.tournamentId)
       .add("winner" -> game.winnerColor)
       .add("lastMove" -> game.lastMoveKeys)
-      .add("check" -> game.situation.checkSquare.map(_.key))
+      .add("check" -> game.situation.checkSquare.map(_.uciKey))
       .add("rematch" -> rematches.of(game.id))
 }
 
@@ -70,7 +70,7 @@ object JsonView {
 
   implicit val crazyhousePocketWriter: OWrites[Hand] = OWrites { h =>
     JsObject(
-      h.roleMap.filter(kv => 0 < kv._2).map { kv =>
+      h.handMap.filter(kv => 0 < kv._2).map { kv =>
         kv._1.name -> JsNumber(kv._2)
       }
     )

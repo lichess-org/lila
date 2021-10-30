@@ -134,10 +134,11 @@ object JsonView {
     (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val colorReader: Reads[shogi.Color] = Reads[shogi.Color] { c =>
-    (c.asOpt[String] flatMap shogi.Color.apply).fold[JsResult[shogi.Color]](JsError(Nil))(JsSuccess(_))
+    (c.asOpt[String] flatMap shogi.Color.fromName)
+      .fold[JsResult[shogi.Color]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val roleReader: Reads[shogi.Role] = Reads[shogi.Role] { v =>
-    (v.asOpt[String] flatMap { r => shogi.Role.allByName(r) })
+    (v.asOpt[String] flatMap { r => shogi.Role.allByName.get(r) })
       .fold[JsResult[shogi.Role]](JsError(Nil))(JsSuccess(_))
   }
   implicit private val pieceReader = Json.reads[ShogiPiece]

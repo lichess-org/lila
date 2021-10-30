@@ -127,7 +127,8 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap shogi.Color.fromName) | shogi.Color.fromSente(scala.util.Random.nextBoolean())
+  def hostColor =
+    (color flatMap shogi.Color.fromName) | shogi.Color.fromSente(scala.util.Random.nextBoolean())
 
   def setPairingHostColor(gameId: String, hostColor: shogi.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))

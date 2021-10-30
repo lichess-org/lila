@@ -280,7 +280,7 @@ final class JsonView(
   private def possibleDrops(pov: Pov): Option[JsValue] =
     (pov.game playableBy pov.player) ?? {
       pov.game.situation.drops map { drops =>
-        JsString(drops.map(_.key).mkString)
+        JsString(drops.map(_.uciKey).mkString)
       }
     }
 

@@ -197,7 +197,7 @@ object Node {
   // put all that shit somewhere else
   implicit val crazyhousePocketWriter: OWrites[Hand] = OWrites { h =>
     JsObject(
-      h.roleMap.filter(kv => 0 < kv._2).map { kv =>
+      h.handMap.filter(kv => 0 < kv._2).map { kv =>
           kv._1.name -> JsNumber(kv._2)
         }
     )
@@ -215,7 +215,7 @@ object Node {
   }
 
   implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
-    JsString(p.key)
+    JsString(p.uciKey)
   }
   implicit private val pieceWrites: Writes[ShogiPiece] = Writes[ShogiPiece] { p =>
     Json.obj(
@@ -296,7 +296,7 @@ object Node {
           .add(
             "drops",
             drops.map { drops =>
-              JsString(drops.map(_.key).mkString)
+              JsString(drops.map(_.uciKey).mkString)
             }
           )
           .add("clock", clock)

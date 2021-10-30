@@ -159,7 +159,7 @@ final private class Player(
     val moveEvent = MoveEvent(
       gameId = game.id,
       fen = Forsyth exportSituation game.situation,
-      move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
+      move = moveOrDrop.fold(_.toUci.uciKeys, _.toUci.uci)
     )
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,

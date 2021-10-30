@@ -32,7 +32,7 @@ object Step {
   // put all that shit somewhere else
   implicit val crazyhousePocketWriter: OWrites[Hand] = OWrites { h =>
     JsObject(
-      h.roleMap.filter(kv => 0 < kv._2).map { kv =>
+      h.handMap.filter(kv => 0 < kv._2).map { kv =>
         kv._1.name -> JsNumber(kv._2)
       }
     )
@@ -63,7 +63,7 @@ object Step {
       .add(
         "drops",
         drops.map { drops =>
-          JsString(drops.map(_.key).mkString)
+          JsString(drops.map(_.uciKey).mkString)
         }
       )
       .add("crazy", crazyData)

@@ -77,7 +77,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
         moves = rewinded.situation.destinations map { case (from, dests) =>
-          from.key -> dests.mkString
+          from.uciKey -> dests.mkString
         }
       } yield Captcha(game.id, fen(rewinded), rewinded.player.sente, solutions, moves = moves)
 

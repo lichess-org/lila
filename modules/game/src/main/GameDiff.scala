@@ -81,16 +81,14 @@ object GameDiff {
     dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
     d(positionHashes, _.history.positionHashes, w.bytes)
     d(historyLastMove, _.history.lastMove.map(_.uci) | "", w.str)
-    // since variants are always OldBin
-    if (a.variant.standard || a.variant.fromPosition)
-      dOpt(
-        checkCount,
-        _.history.checkCount,
-        (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
-      )
+    dOpt(
+      checkCount,
+      _.history.checkCount,
+      (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
+    )
     d(
       crazyData,
-      _.board.crazyData.map(_.exportHands) | "",
+      shogi.format.Forsyth exportCrazyPocket _.board,
       w.str
     )
     d(turns, _.turns, w.int)

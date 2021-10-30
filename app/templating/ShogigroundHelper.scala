@@ -20,8 +20,8 @@ trait ShogigroundHelper {
         raw {
           if (ctx.pref.is3d) ""
           else {
-            def top(p: Pos)  = orient.fold(9 - p.y, p.y - 1) * 11.11
-            def left(p: Pos) = orient.fold(p.x - 1, 9 - p.x) * 11.11
+            def top(p: Pos)  = orient.fold(p.y - 1, board.variant.numberOfRanks - p.y) * 11.11
+            def left(p: Pos) = orient.fold(board.variant.numberOfFiles - p.x, p.x - 1) * 11.11
             val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""

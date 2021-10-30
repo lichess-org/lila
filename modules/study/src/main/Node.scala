@@ -336,7 +336,7 @@ object Node {
         fen = FEN(variant.initialFen),
         check = false,
         clock = none,
-        crazyData = Some(Hands.init),
+        crazyData = Some(Hands.init(variant)),
         children = emptyChildren
       )
 

@@ -209,7 +209,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   // senteUsername 1-0 goteUsername
   def gameSummary(senteUserId: String, goteUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) shogi.Color.showResult(result map Color.fromName) else "*"
+    val res = if (finished) shogi.Color.showResult(result map Color.fromSente) else "*"
     s"${usernameOrId(senteUserId)} $res ${usernameOrId(goteUserId)}"
   }
 

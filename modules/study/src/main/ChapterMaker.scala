@@ -97,7 +97,7 @@ final private class ChapterMaker(
           fen = FEN(variant.initialFen),
           check = false,
           clock = none,
-          crazyData = Some(Hands.init),
+          crazyData = Some(Hands.init(variant)),
           children = Node.emptyChildren
         ) -> false
     }) match {

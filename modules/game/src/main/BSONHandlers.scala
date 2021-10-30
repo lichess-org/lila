@@ -64,7 +64,7 @@ object BSONHandlers {
           positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
           lastMove = r strO F.historyLastMove flatMap Uci.apply,
           checkCount = r.intsD(F.checkCount),
-          hands = r strO F.crazyData map Forsyth.readHands
+          hands = r strO F.crazyData map { Forsyth.readHands(gameVariant, _) }
         )
       }
       val shogiGame = ShogiGame(

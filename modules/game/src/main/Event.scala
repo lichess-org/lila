@@ -62,7 +62,7 @@ object Event {
         .add("gDraw" -> state.goteOffersDraw)
         .add("crazyhouse" -> crazyData)
         .add("drops" -> possibleDrops.map { squares =>
-          JsString(squares.map(_.key).mkString)
+          JsString(squares.map(_.uciKey).mkString)
         })
     }
   }
@@ -86,7 +86,7 @@ object Event {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
-            "uci" -> s"${orig.key}${dest.key}$promS",
+            "uci" -> s"${orig.uciKey}${dest.uciKey}$promS",
             "san" -> san
           )
           .add("promotion" -> promotion)
@@ -134,7 +134,7 @@ object Event {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json.obj(
           "role" -> role.name,
-          "uci"  -> s"${role.pgn}*${pos.key}",
+          "uci"  -> s"${role.pgn}*${pos.uciKey}",
           "san"  -> san
         )
       }
@@ -176,8 +176,8 @@ object Event {
         moves foreach { case (orig, dests) =>
           if (first) first = false
           else sb append " "
-          sb append orig.key
-          dests foreach { sb append _.key }
+          sb append orig.uciKey
+          dests foreach { sb append _.uciKey }
         }
         JsString(sb.toString)
       }
@@ -186,7 +186,7 @@ object Event {
       if (moves.isEmpty) JsNull
       else
         moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
-          res + (o.key -> JsString(d map (_.key) mkString))
+          res + (o.uciKey -> JsString(d map (_.uciKey) mkString))
         }
   }
 

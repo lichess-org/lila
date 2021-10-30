@@ -145,8 +145,9 @@ object UserInfo {
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) map {
-          // format off
+          // format: off
           case ((((((((((((((ratingChart, nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          // format: on
             new UserInfo(
               user = user,
               ranks = ranks,

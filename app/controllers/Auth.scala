@@ -178,15 +178,16 @@ final class Auth(
                       lila.security.EmailConfirm.cookie
                         .make(env.lilaCookie, user, email)(ctx.req)
                   }
-                case Signup.AllSet(user, email) => welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
+                case Signup.AllSet(user, email) =>
+                  welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
               },
             api = apiVersion =>
               env.security.signup
                 .mobile(apiVersion)
                 .flatMap {
-                  case Signup.RateLimited         => limitedDefault.zero.fuccess
-                  case Signup.Bad(err)            => jsonFormError(err)
-                  case Signup.ConfirmEmail(_, _)  => Ok(Json.obj("email_confirm" -> true)).fuccess
+                  case Signup.RateLimited        => limitedDefault.zero.fuccess
+                  case Signup.Bad(err)           => jsonFormError(err)
+                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
                   case Signup.AllSet(user, email) =>
                     welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user)
                 }
@@ -196,7 +197,7 @@ final class Auth(
     }
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(implicit
-    ctx: Context
+      ctx: Context
   ): Funit = {
     garbageCollect(user, email)
     if (sendWelcomeEmail) env.security.automaticEmail.welcome(user, email)
@@ -328,7 +329,7 @@ final class Auth(
               case _ => {
                 lila.mon.user.auth.passwordResetRequest("noEmail").increment()
                 forms.passwordResetWithCaptcha map { case (form, captcha) =>
-                  Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).fuccess
+                  Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal))
                 }
               }
             }
