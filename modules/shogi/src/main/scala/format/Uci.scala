@@ -24,7 +24,7 @@ object Uci {
   ) extends Uci {
 
     def uciKeys = orig.uciKey + dest.uciKey
-    def uci  = uciKeys + promotionString
+    def uci     = uciKeys + promotionString
 
     def usiKeys = orig.usiKey + dest.usiKey
     def usi     = usiKeys + promotionString

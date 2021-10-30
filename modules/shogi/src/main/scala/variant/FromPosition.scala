@@ -12,5 +12,12 @@ case object FromPosition
     ) {
 
   def pieces = Standard.pieces
-  def hand = Standard.hand
+  def hand   = Standard.hand
+
+  def numberOfRanks: Int = Standard.numberOfRanks
+  def numberOfFiles: Int = Standard.numberOfFiles
+
+  def allSquares = Standard.allSquares
+
+  def promotionRanks(color: Color) = Standard promotionRanks color
 }

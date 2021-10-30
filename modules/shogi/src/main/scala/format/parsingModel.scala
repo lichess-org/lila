@@ -58,7 +58,7 @@ case class KifStd(
 
   def move(situation: Situation): Validated[String, shogi.Move] =
     situation.board.actorAt(orig) flatMap { a =>
-      a.trustedMoves() find { m =>
+      a.trustedMoves find { m =>
         m.dest == dest && m.promotion == promotion && a.board.variant.kingSafety(a, m)
       }
     } match {
@@ -83,11 +83,11 @@ case class CsaStd(
 
   def move(situation: Situation): Validated[String, shogi.Move] =
     situation.board.actorAt(orig) flatMap { a =>
-      a.trustedMoves() find { m =>
+      a.trustedMoves find { m =>
         m.dest == dest && m.promotion == (role != m.piece.role) && a.board.variant.kingSafety(a, m)
       }
     } match {
-      case None => Validated invalid s"No move found: $this\n$situation"
+      case None       => Validated invalid s"No move found: $this\n$situation"
       case Some(move) => Validated valid move
     }
 
@@ -123,7 +123,7 @@ case class PGNStd(
             pos.y
           ) && piece.eyes(pos, dest) =>
         val a = Actor(piece, pos, situation.board)
-        a.trustedMoves() find { m =>
+        a.trustedMoves find { m =>
           m.dest == dest && m.promotion == promotion && a.board.variant.kingSafety(a, m)
         }
       case (m, _) => m

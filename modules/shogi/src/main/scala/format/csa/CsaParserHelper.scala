@@ -103,7 +103,7 @@ object CsaParserHelper {
           val otherHand    = hands(!color)
           val initialRoles = Standard.pieces.values.toList
           val curBoard     = board.pieces.values.toList
-          val newHand      = Standard.handRoles.foldLeft(Hand.init(Standard)) { case (acc, cur) =>
+          val newHand = Standard.handRoles.foldLeft(Hand.init(Standard)) { case (acc, cur) =>
             val n = initialRoles.count(_.role == cur) - otherHand(cur) - curBoard.count(_.role == cur)
             acc.store(cur, Math.max(n, 0))
           }

@@ -15,7 +15,7 @@ case class Piece(color: Color, role: Role) {
   def shortRangeDirs = if (color == Sente) role.senteShortDirs else role.goteShortDirs
   def longRangeDirs  = if (color == Sente) role.senteProjectionDirs else role.goteProjectionDirs
 
-  // attackable positions assuming empty board
+  // attackable positions assuming empty full-sized (9x9) board
   def eyes(from: Pos, to: Pos): Boolean =
     role match {
       case King => from touches to
@@ -52,7 +52,7 @@ case class Piece(color: Color, role: Role) {
       case Horse  => (from touches to) || (from onSameDiagonal to)
       case Dragon => (from touches to) || (from onSameLine to)
     }
-  
+
   override def toString = s"$color-$role".toLowerCase
 }
 

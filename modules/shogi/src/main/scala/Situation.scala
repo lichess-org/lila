@@ -18,7 +18,7 @@ case class Situation(board: Board, color: Color) {
   def drops: Option[List[Pos]] =
     board.variant match {
       case v => v possibleDrops this
-       // case _ => None // for dropless variants
+      // case _ => None // for dropless variants
     }
 
   lazy val kingPos: Option[Pos] = board kingPosOf color
@@ -44,7 +44,7 @@ case class Situation(board: Board, color: Color) {
   // Not in use currently
   def tryRule = Color.all exists { board tryRule _ }
 
-  def impasse = board impasse color
+  def impasse = board.variant impasse this
 
   def perpetualCheck = board perpetualCheck
 

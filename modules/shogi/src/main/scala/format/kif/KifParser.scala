@@ -74,7 +74,7 @@ object KifParser {
         splitted3 <- splitMetaAndBoard(headerStr)
         metaStr  = splitted3._1
         boardStr = splitted3._2
-        preTags <- TagParser(metaStr)
+        preTags     <- TagParser(metaStr)
         parsedMoves <- MovesParser(movesStr)
         strMoves          = parsedMoves._1
         terminationOption = parsedMoves._2

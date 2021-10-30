@@ -53,7 +53,7 @@ object Forsyth {
     read(rawSource) { fen =>
       val splitted  = fen.split(' ')
       val positions = splitted.lift(0).getOrElse("")
-      val ranks = positions.count('/' ==)
+      val ranks     = positions.count('/' ==)
       if (ranks == (variant.numberOfRanks - 1)) {
         makePiecesList(variant, positions.toList, false, variant.numberOfFiles, 1) map { case pieces =>
           val board = Board(pieces, variant)
@@ -78,7 +78,7 @@ object Forsyth {
       } else {
         Role.forsyth(p.toLower).map { role =>
           if (variant.handRoles.contains(role)) {
-            val toStore = Math.min(total, 81)
+            val toStore        = Math.min(total, 81)
             val unpromotedRole = variant.demote(role).getOrElse(role)
             if (p.isUpper) sente = sente.store(unpromotedRole, toStore)
             else gote = gote.store(unpromotedRole, toStore)
@@ -105,10 +105,11 @@ object Forsyth {
       case c :: rest if '1' <= c && c <= '9' => makePiecesList(variant, rest, false, x - (c - '0').toInt, y)
       case c :: rest =>
         for {
-          pos        <- Pos.at(x, y)
-          basePiece  <- Piece.fromChar(c)
-          piece      <- if(promoted) variant.promote(basePiece.role).map(Piece(basePiece.color, _)) else basePiece.some
-          (nextPieces)     <- makePiecesList(variant, rest, false, x - 1, y)
+          pos       <- Pos.at(x, y)
+          basePiece <- Piece.fromChar(c)
+          piece <-
+            if (promoted) variant.promote(basePiece.role).map(Piece(basePiece.color, _)) else basePiece.some
+          (nextPieces) <- makePiecesList(variant, rest, false, x - 1, y)
         } yield (pos -> piece :: nextPieces)
     }
 
@@ -134,9 +135,9 @@ object Forsyth {
       exportCrazyPocket(situation.board)
     ) mkString " "
 
-  def exportCrazyPocket(board: Board) =
-    board.crazyData.fold("-"){ hands =>
-      def exportHand(hand: Hand): String = 
+  def exportCrazyPocket(board: Board): String =
+    board.crazyData.fold("-") { hands =>
+      def exportHand(hand: Hand): String =
         board.variant.handRoles map { r =>
           val cnt = hand(r)
           if (cnt == 1) r.forsythFull

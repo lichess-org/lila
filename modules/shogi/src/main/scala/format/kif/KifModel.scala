@@ -5,11 +5,6 @@ package kif
 import cats.syntax.option._
 import variant.Standard
 
-// This is temporary for exporting KIFs
-// The plan is to get completely rid of pgn/san
-// and not work around it like we do here
-// But I want to do that gradually - #407
-
 case class Kif(
     tags: Tags,
     moves: List[NotationMove],

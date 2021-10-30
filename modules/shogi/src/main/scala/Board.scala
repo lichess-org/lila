@@ -25,27 +25,28 @@ case class Board(
   def rolesOf(c: Color): List[Role] =
     pieces.values
       .collect {
-        case piece if piece.color == c => piece.role
+        case piece if piece is c => piece.role
       }
       .to(List)
 
   def occupiedPawnFiles(c: Color): List[Int] =
     pieces
       .collect {
-        case (pos, piece) if (piece.color == c) && (piece.role == Pawn) => pos.x
+        case (pos, piece) if (piece is c) && (piece is Pawn) => pos.x
       }
       .to(List)
 
   def rolesInPromotionZoneOf(c: Color): List[Role] =
     pieces
       .collect {
-        case (pos, piece) if (piece.color == c) && (variant.promotionZone(c) contains pos.y) => piece.role
+        case (pos, piece) if (piece is c) && (variant.promotionRanks(c) contains pos.y) => piece.role
       }
       .to(List)
 
   def actorAt(at: Pos): Option[Actor] = actors get at
 
   def piecesOf(c: Color): Map[Pos, Piece] = pieces filter (_._2 is c)
+  def piecesOf(r: Role): Map[Pos, Piece]  = pieces filter (_._2 is r)
 
   lazy val kingPos: Map[Color, Pos] = pieces.collect { case (pos, Piece(color, King)) =>
     color -> pos
@@ -122,10 +123,11 @@ case class Board(
   def updateHistory(f: History => History) = copy(history = f(history))
 
   def count(p: Piece): Int = pieces.values count (_ == p)
+  def count(r: Role): Int  = pieces.values count (_.role == r)
   def count(c: Color): Int = pieces.values count (_.color == c)
 
   def kingEntered(c: Color): Boolean =
-    kingPosOf(c) exists (pos => variant.promotionZone(c) contains pos.y)
+    kingPosOf(c) exists (pos => variant.promotionRanks(c) contains pos.y)
 
   def enoughImpasseValue(c: Color): Boolean = {
     val rp = rolesInPromotionZoneOf(c)
@@ -133,11 +135,6 @@ case class Board(
       crazyData.fold(0)(h => h.impasseValueOf(c))
     rp.size > 10 && piecesValue >= c.fold(28, 27)
   }
-
-  def impasse(c: Color): Boolean =
-    kingEntered(c) &&
-      !c.fold(checkSente, checkGote) &&
-      enoughImpasseValue(c)
 
   def tryRule(c: Color): Boolean =
     kingPosOf(c) == c.fold(Pos.at(5, 1), Pos.at(5, 9))

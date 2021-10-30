@@ -28,7 +28,7 @@ case class Csa(
   def render: String = {
     val initStr =
       if (initial.comments.nonEmpty)
-        initial.comments.map(Csa.fixComment _).mkString("") //.mkString("'", "\n'", "\n")
+        initial.comments.map(Csa.fixComment _).mkString("")
       else ""
     val header = Csa renderHeader tags
     val setup  = (Forsyth << (tags.fen.fold(Forsyth.initial)(_.value))).fold("")(Csa renderSituation _)
@@ -96,7 +96,7 @@ object Csa {
   def renderSituation(sit: Situation): String = {
     val csaBoard = new scala.collection.mutable.StringBuilder(256)
     for (y <- 1 to 9) {
-      csaBoard append ("P" + (y))
+      csaBoard append ("P" + y)
       for (x <- 9 to 1 by -1) {
         sit.board(x, y) match {
           case None => csaBoard append " * "

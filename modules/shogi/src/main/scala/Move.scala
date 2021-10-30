@@ -1,6 +1,5 @@
 package shogi
 
-import cats.syntax.option._
 import format.Uci
 
 case class Move(

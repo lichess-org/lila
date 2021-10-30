@@ -40,7 +40,7 @@ case class Hands(sente: Hand, gote: Hand) {
 
 object Hands {
   def apply(hand: Iterable[(Role, Int)]): Hands = Hands(Hand(hand), Hand(hand))
-  def init(variant: Variant): Hands = apply(variant.hand)
+  def init(variant: Variant): Hands             = apply(variant.hand)
 }
 
 case class Hand(handMap: HandMap) {
@@ -74,6 +74,6 @@ case class Hand(handMap: HandMap) {
 }
 
 object Hand {
-  def apply(hand: Iterable[(Role, Int)]): Hand = Hand(hand.toMap) 
-  def init(variant: Variant): Hand = Hand(variant.hand) 
+  def apply(hand: Iterable[(Role, Int)]): Hand = Hand(hand.toMap)
+  def init(variant: Variant): Hand             = Hand(variant.hand)
 }

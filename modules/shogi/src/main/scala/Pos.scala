@@ -30,9 +30,10 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   def <->(other: Pos): Iterable[Pos] =
     min(x, other.x) to max(x, other.x) flatMap { Pos.at(_, y) }
 
+  // from down left corner to top right corner
   def upTo(other: Pos): Iterable[Pos] =
     min(y, other.y) to max(y, other.y) flatMap { Pos.at(x, _) } flatMap { _ <-> other }
-  
+
   def touches(other: Pos): Boolean = xDist(other) <= 1 && yDist(other) <= 1
 
   def onSameDiagonal(other: Pos): Boolean = x - y == other.x - other.y || x + y == other.x + other.y
@@ -41,11 +42,11 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   def xDist(other: Pos) = abs(x - other.x)
   def yDist(other: Pos) = abs(y - other.y)
 
-  val uciFile     = ((10 - x) + 96).toChar.toString
-  val uciRank     = (10 - y).toString
-  val uciKey      = s"$uciFile$uciRank"
+  val uciFile = ((10 - x) + 96).toChar.toString
+  val uciRank = (10 - y).toString
+  val uciKey  = s"$uciFile$uciRank"
 
-  val usiKey   = (x).toString + (96 + y).toChar.toString
+  val usiKey   = x.toString + (96 + y).toChar.toString
   val piotrStr = piotr.toString
 
   override val toString = usiKey
@@ -101,7 +102,7 @@ object Pos {
   val SQ3H = createPos(3, 8, 'p')
   val SQ2H = createPos(2, 8, 'q')
   val SQ1H = createPos(1, 8, 'r')
-  
+
   val SQ9G = createPos(9, 7, 's')
   val SQ8G = createPos(8, 7, 't')
   val SQ7G = createPos(7, 7, 'u')
@@ -111,7 +112,7 @@ object Pos {
   val SQ3G = createPos(3, 7, 'y')
   val SQ2G = createPos(2, 7, 'z')
   val SQ1G = createPos(1, 7, 'A')
-  
+
   val SQ9F = createPos(9, 6, 'B')
   val SQ8F = createPos(8, 6, 'C')
   val SQ7F = createPos(7, 6, 'D')
@@ -121,7 +122,7 @@ object Pos {
   val SQ3F = createPos(3, 6, 'H')
   val SQ2F = createPos(2, 6, 'I')
   val SQ1F = createPos(1, 6, 'J')
-  
+
   val SQ9E = createPos(9, 5, 'K')
   val SQ8E = createPos(8, 5, 'L')
   val SQ7E = createPos(7, 5, 'M')
@@ -161,7 +162,7 @@ object Pos {
   val SQ3B = createPos(3, 2, '(')
   val SQ2B = createPos(2, 2, ')')
   val SQ1B = createPos(1, 2, '<')
-  
+
   val SQ9A = createPos(9, 1, '+')
   val SQ8A = createPos(8, 1, ',')
   val SQ7A = createPos(7, 1, '-')
@@ -171,17 +172,15 @@ object Pos {
   val SQ3A = createPos(3, 1, '|')
   val SQ2A = createPos(2, 1, '}')
   val SQ1A = createPos(1, 1, '~')
-  
+
   val all9x9 = (SQ9I upTo SQ1A).toList
   val all5x5 = (SQ5E upTo SQ1A).toList
 
   val reversedAll9x9 = all9x9.reverse
   val reversedAll5x5 = all5x5.reverse
 
-  val senteBackrank = (SQ9I <-> SQ1I).toList
-  val goteBackrank  = (SQ9A <-> SQ1A).toList
-
-  val allDirections = List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight, _.downLeft, _.downRight): Directions
+  val allDirections =
+    List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight, _.downLeft, _.downRight): Directions
 
   val allUciKeys: Map[String, Pos] = all9x9
     .map { pos =>

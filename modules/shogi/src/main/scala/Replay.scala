@@ -49,8 +49,8 @@ object Replay {
   private def recursiveGames(game: Game, parsedMoves: List[ParsedMove]): Validated[String, List[Game]] =
     parsedMoves match {
       case Nil => valid(Nil)
-      case san :: rest =>
-        san(game.situation) flatMap { moveOrDrop =>
+      case parsedMove :: rest =>
+        parsedMove(game.situation) flatMap { moveOrDrop =>
           val newGame = moveOrDrop.fold(game.apply, game.applyDrop)
           recursiveGames(newGame, rest) map { newGame :: _ }
         }
