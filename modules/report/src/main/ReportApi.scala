@@ -51,9 +51,9 @@ final class ReportApi(
       }
     }
 
-  def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
+  def create(c: Candidate): Funit =
     (!c.reporter.user.marks.reportban && !isAlreadySlain(c)) ?? {
-      scorer(c) map (_ withScore score) flatMap { case scored @ Candidate.Scored(candidate, _) =>
+      scorer(c) flatMap { case scored @ Candidate.Scored(candidate, _) =>
         coll
           .one[Report](
             $doc(
@@ -324,8 +324,7 @@ final class ReportApi(
             suspect = suspect,
             reason = Reason.Comm,
             text = text
-          ),
-          _ atLeast 40
+          )
         )
       case _ => funit
     }
