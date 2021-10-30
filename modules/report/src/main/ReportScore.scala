@@ -31,7 +31,7 @@ final private class ReportScore(
     // https://github.com/ornicar/lila/issues/4587
     def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoBoost) baseScore * 1.5
-      else if (c.isAutoComm) 40d
+      else if (c.isAutoComm) 42d
       else if (c.isIrwinCheat) 60d
       else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScore * 2
       else score
