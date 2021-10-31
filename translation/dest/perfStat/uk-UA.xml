@@ -26,8 +26,8 @@
   <string name="currentStreak">Поточна серія: %s</string>
   <string name="bestRated">Найкращі перемоги в рейтингових іграх</string>
   <string name="worstRated">Найгірші поразки в рейтингових іграх</string>
-  <string name="gamesInARow">Ігор зіграно поспіль</string>
-  <string name="lessThanOneHour">Менш ніж за годину між іграми</string>
+  <string name="gamesInARow">Зіграно ігор поспіль</string>
+  <string name="lessThanOneHour">Менше години між іграми</string>
   <string name="maxTimePlaying">Максимальний час, проведений у грі</string>
   <string name="now">зараз</string>
 </resources>
