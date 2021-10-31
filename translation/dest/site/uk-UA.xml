@@ -182,7 +182,7 @@
   <string name="variants">Варіанти</string>
   <string name="timeControl">Контроль часу</string>
   <string name="realTime">Наживо</string>
-  <string name="correspondence">За листуванням</string>
+  <string name="correspondence">Заочно</string>
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -201,10 +201,10 @@
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Розподіл за рейтингом</string>
   <string name="username">Ім\'я користувача</string>
-  <string name="usernameOrEmail">Ім’я користувача</string>
+  <string name="usernameOrEmail">Ім’я користувача або електронна пошта</string>
   <string name="changeUsername">Змінити ім\'я користувача</string>
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Змінити своє ім\'я користувача. Це може бути зроблено лише один раз і Вам дозволено змінити регістр Вашого імені користувача.</string>
+  <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
@@ -225,12 +225,12 @@
     <item quantity="many">%s задач</item>
     <item quantity="other">%s задач</item>
   </plurals>
-  <string name="gamesPlayed">Партій зіграно</string>
+  <string name="gamesPlayed">Ігор зіграно</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партія з вами</item>
     <item quantity="few">%s партії з вами</item>
-    <item quantity="many">%s партій з вами</item>
-    <item quantity="other">%s партій з вами</item>
+    <item quantity="many">%s ігор з вами</item>
+    <item quantity="other">%s ігор з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
   <string name="whiteTimeOut">Час білих збіг</string>
@@ -254,7 +254,7 @@
   <string name="standard">Стандартний</string>
   <string name="unlimited">Необмежено</string>
   <string name="mode">Режим</string>
-  <string name="casual">Без рейтингу</string>
+  <string name="casual">Дружня гра</string>
   <string name="rated">Рейтингова</string>
   <string name="casualTournament">Дружня гра</string>
   <string name="ratedTournament">Рейтингова</string>
@@ -317,7 +317,7 @@
     <item quantity="other">Додати %s секунд</item>
   </plurals>
   <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
-  <string name="openingExplorerAndTablebase">Провідник дебютів &amp; ендшпілів</string>
+  <string name="openingExplorerAndTablebase">Провідник дебютів та ендшпілів</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
   <string name="takebackPropositionSent">Пропозицію повернути хід відправлено</string>
