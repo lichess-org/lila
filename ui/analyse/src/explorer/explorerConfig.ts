@@ -230,6 +230,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
     input.setCustomValidity(!input.value || after() <= input.value ? '' : 'Invalid date range');
   const max = new Date().toISOString().slice(0, 7);
   return h('input', {
+    key: after() ? 'until-month' : 'since-month',
     attrs: {
       type: 'month',
       pattern: '^(19|20)[0-9]{2}-(0[1-9]|1[012])$',
@@ -261,6 +262,7 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
     input.setCustomValidity(!input.value || after().split('-')[0] <= input.value ? '' : 'Invalid date range');
   return h('input', {
     attrs: {
+      key: after() ? 'until-year' : 'since-year',
       type: 'number',
       min: minYear,
       max: new Date().toISOString().slice(0, 4),
