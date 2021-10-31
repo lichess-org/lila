@@ -7,15 +7,15 @@
   <string name="becomePatron">Стати Покровителем Lichess</string>
   <string name="xBecamePatron">%s став Покровителем Lichess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s - Покровитель Lichess на %2$s місяць</item>
-    <item quantity="few">%1$s - Покровитель Lichess на %2$s місяці</item>
-    <item quantity="many">%1$s - Покровитель Lichess на %2$s місяці</item>
-    <item quantity="other">%1$s - Покровитель Lichess на %2$s місяців</item>
+    <item quantity="one">%1$s став покровителем Lichess на %2$s місяць</item>
+    <item quantity="few">%1$s став покровителем Lichess на %2$s місяці</item>
+    <item quantity="many">%1$s став покровителем Lichess на %2$s місяці</item>
+    <item quantity="other">%1$s став покровителем Lichess на %2$s місяців</item>
   </plurals>
-  <string name="newPatrons">Нові Спонсори</string>
+  <string name="newPatrons">Нові Покровителі</string>
   <string name="freeChess">Безкоштовні шахи для всіх, назавжди!</string>
   <string name="noAdsNoSubs">Без реклами та підписок, але з відкритим вихідним кодом і відданістю.</string>
-  <string name="thankYou">Дякуємо Вам за внесок!</string>
+  <string name="thankYou">Дякуємо за ваш внесок!</string>
   <string name="youHaveLifetime">У Вас пожиттєвий обліковий запис \"Покровителя\". Це доволі круто!</string>
   <string name="patronUntil">У вас є обліковий запис Покровителя до %s.</string>
   <string name="ifNotRenewed">Якщо не продовжите, то Ви будете знижені до безкоштовного.</string>
