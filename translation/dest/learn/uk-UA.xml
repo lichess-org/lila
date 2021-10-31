@@ -13,7 +13,7 @@
   <string name="rookIntro">Тура — це важка фігура. Чи готові ви керувати нею?</string>
   <string name="rookGoal">Натисніть на туру й доведіть її до зірки!</string>
   <string name="grabAllTheStars">Зберіть всі зірки!</string>
-  <string name="theFewerMoves">Чим менше ходів Ви зробите, тим більше очок ви отримаєте!</string>
+  <string name="theFewerMoves">Чим менше ходів ви зробите, тим більше очок ви отримаєте!</string>
   <string name="useTwoRooks">Використовуйте дві тури, аби прискорити процес!</string>
   <string name="rookComplete">Вітаємо! Ви навчилися ходити турою.</string>
   <string name="theBishop">Слон</string>
