@@ -747,7 +747,13 @@
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
   <string name="download">ดาวน์โหลด</string>
   <string name="welcome">ยินดีต้อนรับ!</string>
+  <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>
+  <string name="tournDescription">คำบรรยายทัวร์นาเมนต์</string>
+  <string name="tournDescriptionHelp">คุณอยากบอกอะไรเป็นพิเศษกับผู้เข้าร่วมไหม? จงใช้แบบสั้นๆ ลิงค์ Markdown ที่มีให้ใช้ได้: [name](https://url)</string>
   <string name="noRestriction">ไม่มีข้อจำกัด</string>
+  <string name="minimumRating">ระดับคะแนนต่ำสุด</string>
+  <string name="maximumWeeklyRating">ระดับคะแนนรายสัปดาห์สูงสุด</string>
+  <string name="onlyTitled">เฉพาะผู้เล่นที่เคยชนะเลิศ</string>
   <string name="resignTheGame">ยอมแพ้เกม</string>
   <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
 </resources>
