@@ -159,19 +159,22 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
         ctrl.data.color()
       ),
     ]),
-    speedSection(ctrl, allSpeeds),
-    h('div.advanced', [
-      h(
-        'button.button-link.toggle',
-        {
-          hook: bind('click', () => ctrl.data.advanced(!ctrl.data.advanced()), ctrl.root.redraw),
-        },
-        ['Advanced settings ', iconTag(ctrl.data.advanced() ? '' : '')]
-      ),
-      ...(ctrl.data.advanced() ? [modeSection(ctrl), monthSection(ctrl)] : []),
-    ]),
+    speedSection(ctrl),
+    advancedSection(ctrl, [modeSection(ctrl), monthSection(ctrl)]),
   ]);
 };
+
+const advancedSection = (ctrl: ExplorerConfigCtrl, content: VNode[]): VNode =>
+  h('div.advanced', [
+    h(
+      'button.button-link.toggle',
+      {
+        hook: bind('click', () => ctrl.data.advanced(!ctrl.data.advanced()), ctrl.root.redraw),
+      },
+      ['Advanced settings ', iconTag(ctrl.data.advanced() ? '' : '')]
+    ),
+    ...(ctrl.data.advanced() ? content : []),
+  ]);
 
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div.masters.message', [
@@ -193,21 +196,19 @@ const radioButton =
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
-    h('p.message', [h('br'), 'Games from all Lichess players']),
-    speedSection(
-      ctrl,
-      allSpeeds.filter(s => s != 'ultraBullet' && s != 'correspondence')
-    ),
+    h('p.message', [h('br'), 'Rated games sampled from all Lichess players']),
+    speedSection(ctrl),
     h('section.rating', [
       h('label', ctrl.root.trans.noarg('averageElo')),
       h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
     ]),
+    advancedSection(ctrl, [monthSection(ctrl)]),
   ]);
 
-const speedSection = (ctrl: ExplorerConfigCtrl, speeds: Speed[]) =>
+const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', ctrl.root.trans.noarg('timeControl')),
-    h('div.choices', speeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>

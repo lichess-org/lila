@@ -27,14 +27,11 @@ export async function opening(
   params.set('play', opts.play.join(','));
   if (opts.db !== 'masters') {
     params.set('speeds', conf.speed().join(','));
-    conf
-      .speed()
-      .filter(s => s != 'ultraBullet' && s != 'correspondence')
-      .forEach(s => params.append('speeds[]', s)); // bc
+    if (conf.since()) params.set('since', conf.since());
+    if (conf.until()) params.set('until', conf.until());
   }
   if (opts.db === 'lichess') {
     params.set('ratings', conf.rating().join(','));
-    for (const rating of conf.rating()) params.append('ratings[]', rating.toString()); // bc
   }
   if (opts.db === 'player') {
     const playerName = conf.playerName.value();
@@ -42,8 +39,6 @@ export async function opening(
     params.set('player', playerName);
     params.set('color', conf.color());
     params.set('modes', conf.mode().join(','));
-    if (conf.since()) params.set('since', conf.since());
-    if (conf.until()) params.set('until', conf.until());
   }
   if (!opts.withGames) {
     params.set('topGames', '0');
