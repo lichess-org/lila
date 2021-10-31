@@ -21,7 +21,6 @@ type Month = string;
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
-  advanced: StoredJsonProp<boolean>;
   db: StoredProp<ExplorerDb>;
   rating: StoredJsonProp<number[]>;
   speed: StoredJsonProp<ExplorerSpeed[]>;
@@ -46,7 +45,6 @@ export class ExplorerConfigCtrl {
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
-      advanced: storedJsonProp('explorer.advanced', () => false),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
@@ -102,24 +100,6 @@ export class ExplorerConfigCtrl {
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   return [
-    h('section.db', [
-      h('label', ctrl.root.trans.noarg('database')),
-      h(
-        'div.choices',
-        ctrl.allDbs.map(s =>
-          h(
-            'button',
-            {
-              attrs: {
-                'aria-pressed': `${ctrl.data.db() === s}`,
-              },
-              hook: bind('click', _ => ctrl.data.db(s), ctrl.root.redraw),
-            },
-            s
-          )
-        )
-      ),
-    ]),
     ctrl.data.db() === 'masters' ? masterDb(ctrl) : ctrl.data.db() === 'lichess' ? lichessDb(ctrl) : playerDb(ctrl),
     h(
       'section.save',
@@ -142,52 +122,41 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
-      h(
-        'div.choices',
+      h('label', 'Player'),
+      h('div', [
         h(
-          `button.player-name${name ? '.active' : ''}`,
+          'div.choices',
+          h(
+            `button.player-name${name ? '.active' : ''}`,
+            {
+              hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
+              attrs: name ? { title: selectText } : undefined,
+            },
+            name || selectText
+          )
+        ),
+        ' as ',
+        h(
+          'button.button-link.text.color',
           {
-            hook: bind('click', () => ctrl.data.playerName.open(true), ctrl.root.redraw),
-            attrs: name ? { title: selectText } : undefined,
+            attrs: dataIcon(''),
+            hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          name || selectText
-        )
-      ),
-      ' as ',
-      h(
-        'button.button-link.text.color',
-        {
-          attrs: dataIcon(''),
-          hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
-        },
-        ctrl.data.color()
-      ),
+          ctrl.data.color()
+        ),
+      ]),
     ]),
     speedSection(ctrl),
-    advancedSection(ctrl, [modeSection(ctrl), monthSection(ctrl)]),
+    modeSection(ctrl),
+    monthSection(ctrl),
   ]);
 };
 
-const advancedSection = (ctrl: ExplorerConfigCtrl, content: VNode[]): VNode =>
-  h('div.advanced', [
-    h(
-      'button.button-link.toggle',
-      {
-        hook: bind('click', () => ctrl.data.advanced(!ctrl.data.advanced()), ctrl.root.redraw),
-      },
-      ['Advanced settings ', iconTag(ctrl.data.advanced() ? '' : '')]
-    ),
-    ...(ctrl.data.advanced() ? content : []),
-  ]);
-
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
-    h('p.message', ctrl.root.trans('masterDbExplanation', 2200, minYear, '2019')),
-    advancedSection(ctrl, [
-      h('section.date', [
-        h('label', ['Since', yearInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
-        h('label', ['Until', yearInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
-      ]),
+    h('section.date', [
+      h('label', ['Since', yearInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
+      h('label', ['Until', yearInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
     ]),
   ]);
 
@@ -205,15 +174,12 @@ const radioButton =
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
-    h('p.message', 'Rated games sampled from all Lichess players'),
     speedSection(ctrl),
-    advancedSection(ctrl, [
-      h('section.rating', [
-        h('label', ctrl.root.trans.noarg('averageElo')),
-        h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
-      ]),
-      monthSection(ctrl),
+    h('section.rating', [
+      h('label', ctrl.root.trans.noarg('averageElo')),
+      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
     ]),
+    monthSection(ctrl),
   ]);
 
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
@@ -223,7 +189,10 @@ const speedSection = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.mode', [h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode)))]);
+  h('section.mode', [
+    h('label', ctrl.root.trans.noarg('mode')),
+    h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
+  ]);
 
 const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
   const validateRange = (input: HTMLInputElement) =>
