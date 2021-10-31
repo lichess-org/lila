@@ -34,7 +34,7 @@
   <string name="kingsideAttackDescription">Атака на королівському фланзі, після короткої рокіровки суперника.</string>
   <string name="clearance">Очищення</string>
   <string name="clearanceDescription">Хід, зазвичай з темпом, що звільнює поле, лінію чи діагональ з подальшою тактичною ідеєю.</string>
-  <string name="defensiveMove">Оборонний хід</string>
+  <string name="defensiveMove">Захисний хід</string>
   <string name="defensiveMoveDescription">Точний хід або послідовність ходів, що необхідні для уникнення втрати матеріалу чи іншої переваги.</string>
   <string name="deflection">Відволікання</string>
   <string name="deflectionDescription">Хід, що відволікає фігуру суперника від іншої задачі, наприклад, захисту ключового поля.</string>
