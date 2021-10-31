@@ -69,13 +69,13 @@
   <string name="deleteFromHere">Видалити з цього місця</string>
   <string name="forceVariation">Зробити основним</string>
   <string name="move">Хід</string>
-  <string name="variantLoss">Варіант програно</string>
+  <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Переможний варіант</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
   <string name="pawnMove">Хід пішака</string>
   <string name="capture">Взяття</string>
   <string name="close">Закрити</string>
-  <string name="winning">Виграє</string>
+  <string name="winning">Виграш</string>
   <string name="losing">Програш</string>
   <string name="drawn">Нічия</string>
   <string name="unknown">Невідомо</string>
@@ -91,7 +91,7 @@
     <item quantity="many">Мат в %s напівходів</item>
     <item quantity="other">Мат у %s напівходів</item>
   </plurals>
-  <string name="noGameFound">Партій не знайдено</string>
+  <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
   <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
@@ -110,7 +110,7 @@
   <string name="bestMoveArrow">Стрілка \"кращий хід\"</string>
   <string name="evaluationGauge">Шкала оцінки</string>
   <string name="multipleLines">Кількість стрілок</string>
-  <string name="cpus">Процесори</string>
+  <string name="cpus">Потоки</string>
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
@@ -137,7 +137,7 @@
   </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
-  <string name="threefoldRepetition">Трикратне повторення</string>
+  <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
@@ -149,17 +149,17 @@
   </plurals>
   <string name="drawByMutualAgreement">Нічия за спільною згодою</string>
   <string name="fiftyMovesWithoutProgress">П\'ятдесят кроків без прогресу</string>
-  <string name="currentGames">Поточні партії</string>
+  <string name="currentGames">Поточні ігри</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ігра</item>
+    <item quantity="one">%s гра</item>
     <item quantity="few">%s гри</item>
     <item quantity="many">%s ігор</item>
     <item quantity="other">%s ігор</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Закладка</item>
-    <item quantity="few">%s Закладки</item>
-    <item quantity="many">%s Закладок</item>
+    <item quantity="one">%s закладка</item>
+    <item quantity="few">%s закладки</item>
+    <item quantity="many">%s закладок</item>
     <item quantity="other">%s закладок</item>
   </plurals>
   <string name="viewInFullSize">Дивитися в повний розмір</string>
@@ -168,7 +168,7 @@
   <string name="youNeedAnAccountToDoThat">Для цього вам потрібен обліковий запис</string>
   <string name="signUp">Зареєструватися</string>
   <string name="computersAreNotAllowedToPlay">Заборонено грати, користуючись підказками шахових програм та безпосередньо програмами. Будь ласка, не послуговуйтеся під час гри допомогою програм (\"рушіїв\"), баз даних або інших гравців. Також зверніть увагу, що створення декількох облікових записів не заохочується і використання надмірної кількості облікових записів призведе до блокування.</string>
-  <string name="games">Партії</string>
+  <string name="games">Ігри</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s опубліковав на форумі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
