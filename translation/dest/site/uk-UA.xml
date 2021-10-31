@@ -609,7 +609,7 @@
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
-  <string name="side">Колір</string>
+  <string name="side">Сторона</string>
   <string name="clock">Годинник</string>
   <string name="opponent">Суперник</string>
   <string name="learnMenu">Навчатися</string>
