@@ -53,7 +53,7 @@
   <string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
   <string name="pawnPromotion">Перетворення пішака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пішак досяг краю дошки!</string>
-  <string name="itNowPromotesToAStrongerPiece">Зараз вона перетворюється на фігуру сильніше.</string>
+  <string name="itNowPromotesToAStrongerPiece">Зараз він перетвориться на фігуру сильніше.</string>
   <string name="selectThePieceYouWant">Оберіть фігуру, яку захочете!</string>
   <string name="fundamentals">Основи</string>
   <string name="capture">Взяття</string>
@@ -89,10 +89,10 @@
   <string name="youCanGetOutOfCheckByTaking">Ви можете піти від шаха,
 з\'ївши атакуючу фігуру.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Цей кінь ставить шах,
-минаючи твій захист!</string>
+минаючи Ваш захист!</string>
   <string name="escapeOrBlock">Виведіть короля
 або закрийтеся!</string>
-  <string name="outOfCheckComplete">Вітаємо! Ваш король не зможе бути взято, переконайтеся, що ви можете захистити його від шаха!</string>
+  <string name="outOfCheckComplete">Вітаємо! Ваш король не може бути взятим, переконайтеся, що ви можете захистити його від шаха!</string>
   <string name="mateInOne">Мат в один хід</string>
   <string name="defeatTheOpponentsKing">Поразка короля противника</string>
   <string name="mateInOneIntro">Ви виграєте, якщо Ваш суперник не може захиститися від шаха.</string>
@@ -154,7 +154,7 @@
 Тура = 5 пішаків
 Слон = 3 пішаки
 Кінь = 3 пішаки
-Пішка = 1 пішак
+Пішак = 1 пішак
 Король безцінний! Його втрата означає, що гру програно.</string>
   <string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
 Ферзь &gt; Слон</string>
