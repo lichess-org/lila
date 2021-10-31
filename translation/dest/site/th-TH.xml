@@ -764,7 +764,11 @@
   <string name="estimatedStart">เวลาเริ่มโดยประมาณ</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
+  <string name="analysisOptions">ตัวเลือกการวิเคราะห์</string>
+  <string name="focusChat">โฟกัสที่แชท</string>
+  <string name="showHelpDialog">แสดงกรอบช่วยเหลือนี้</string>
   <string name="hangOn">เดี๋ยวก่อน!</string>
+  <string name="gameInProgress">คุณมีเกมกำลังเล่นอยู่กับ %s</string>
   <string name="abortTheGame">ทิ้งเกม</string>
   <string name="resignTheGame">ยอมแพ้เกม</string>
   <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
