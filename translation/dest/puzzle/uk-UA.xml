@@ -2,8 +2,8 @@
 <resources>
   <string name="puzzles">Задачі</string>
   <string name="puzzleThemes">Теми задач</string>
-  <string name="recommended">Рекомендоване</string>
-  <string name="phases">Фази</string>
+  <string name="recommended">Рекомендовані</string>
+  <string name="phases">Стадії</string>
   <string name="motifs">Мотиви</string>
   <string name="advanced">Просунутий</string>
   <string name="lengths">Довжина</string>
@@ -12,7 +12,7 @@
   <string name="origin">Походження</string>
   <string name="specialMoves">Спеціальні ходи</string>
   <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
-  <string name="voteToLoadNextOne">Голосуйте, щоб завантажити наступний!</string>
+  <string name="voteToLoadNextOne">Голосуйте, щоб перейти далі!</string>
   <string name="yourPuzzleRatingWillNotChange">Ваш рейтинг у задачах не зміниться. Зверніть увагу, що рейтинг введений не для змагання. Рейтинг допомагає підбирати задачі за вашими вміннями.</string>
   <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
   <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
@@ -77,7 +77,7 @@
     <item quantity="many">%s можна переграти</item>
     <item quantity="other">%s можна переграти</item>
   </plurals>
-  <string name="percentSolved">%s вирішено</string>
+  <string name="percentSolved" comment="percentSolved&#10;&#10;%s is a percentage, e.g. 90% solved from all the puzzles you have played.&#10;&#10;Please note %s is on a separate line.">%s вирішено</string>
   <string name="noPuzzlesToShow">Немає що показати, спочатку спробуйте вирішити пару задач!</string>
   <string name="improvementAreasDescription">Тренуйтеся, щоб покращити ваш прогрес!</string>
   <string name="strengthDescription">Ви показуєте найкращий результат в наступних темах</string>
