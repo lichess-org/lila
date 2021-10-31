@@ -11,7 +11,7 @@
   <string name="studiesCreatedByX">Дослідження, створені %s</string>
   <string name="noneYet">Ще немає.</string>
   <string name="hot">Активні</string>
-  <string name="dateAddedNewest">Дата додавання (новіші)</string>
+  <string name="dateAddedNewest">Дата додавання (старіші)</string>
   <string name="dateAddedOldest">Дата додавання (старіші)</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
@@ -21,7 +21,7 @@
     <item quantity="one">%s розділ</item>
     <item quantity="few">%s розділи</item>
     <item quantity="many">%s розділів</item>
-    <item quantity="other">%s розділа</item>
+    <item quantity="other">%s розділи</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
@@ -37,10 +37,10 @@
     <item quantity="other">%s учасників</item>
   </plurals>
   <string name="inviteToTheStudy">Запросити до дослідження</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка, запрошуйте лише людей, яких Ви знаєте і які хочуть активно долучитися до цього дослідження.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте лише людей, яких ви знаєте, і які хочуть активно долучитися до цього дослідження.</string>
   <string name="searchByUsername">Пошук за іменем користувача</string>
   <string name="spectator">Глядач</string>
-  <string name="contributor">Редактор</string>
+  <string name="contributor">Вкладник</string>
   <string name="kick">Вигнати</string>
   <string name="leaveTheStudy">Покинути дослідження</string>
   <string name="youAreNowAContributor">Тепер ви редактор</string>
