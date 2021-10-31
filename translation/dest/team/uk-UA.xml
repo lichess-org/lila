@@ -53,7 +53,7 @@
   <string name="closeTeam">Закрити команду</string>
   <string name="closeTeamDescription">Закриває команду назавжди.</string>
   <string name="entryCode">Вхідний код команди</string>
-  <string name="entryCodeDescriptionForLeader">(Не обов\'язково) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
+  <string name="entryCodeDescriptionForLeader">(За бажанням) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
   <string name="incorrectEntryCode">Невірний вхідний код.</string>
   <string name="teamAlreadyExists">Така команда вже існує.</string>
   <string name="upcomingTourns">Майбутні турніри</string>
