@@ -40,10 +40,10 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте лише людей, яких ви знаєте, і які хочуть активно долучитися до цього дослідження.</string>
   <string name="searchByUsername">Пошук за іменем користувача</string>
   <string name="spectator">Глядач</string>
-  <string name="contributor">Вкладник</string>
+  <string name="contributor">Співавтор</string>
   <string name="kick">Вигнати</string>
   <string name="leaveTheStudy">Покинути дослідження</string>
-  <string name="youAreNowAContributor">Тепер ви редактор</string>
+  <string name="youAreNowAContributor">Тепер ви співавтор</string>
   <string name="youAreNowASpectator">Тепер ви глядач</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Подобається</string>
@@ -53,7 +53,7 @@
   <string name="commentThisMove">Коментувати цей хід</string>
   <string name="annotateWithGlyphs">Додати символьну анотацію</string>
   <string name="theChapterIsTooShortToBeAnalysed">Розділ занадто короткий для аналізу.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Лише редактори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Лише співавтори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
   <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
   <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
