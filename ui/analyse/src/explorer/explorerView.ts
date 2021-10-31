@@ -359,7 +359,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     );
   const playerName = explorer.config.data.playerName.value();
   const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2019'),
-    lichessDbExplanation = 'Rated games samples from all Lichess players';
+    lichessDbExplanation = 'Rated games sampled from all Lichess players';
   return h('div.explorer-title', [
     db == 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
