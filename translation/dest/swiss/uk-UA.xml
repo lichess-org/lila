@@ -51,17 +51,21 @@
   <string name="swissVsArenaA">В турнірі за швейцарською системою всі участники грають однакову кількість ігор і можуть грати один з одним лише один раз. Це може бути гарним варіантом для клубів та офіційних турнірів.</string>
   <string name="pointsCalculationQ">Як нараховуються очки?</string>
   <string name="pointsCalculationA">Перемога приносить одне очко, нічия - половину очка, і поразка - нічого.
-Якщо гравець залишився без пари, він отримує прохідний бал у розмірі одного очко.</string>
+Якщо гравець залишився без пари, він отримує bye у розмірі одного очко.</string>
   <string name="tiebreaksCalculationQ">Як обраховуються тай-брейки?</string>
   <string name="sonnebornBergerScore">Коефіцієнт Бергера</string>
-  <string name="pairingsQ">Як вирішується жеребкування?</string>
+  <string name="tiebreaksCalculationA">З урахуванням %s.
+Додавайте бали за кожного переможеного суперника та половину балів за кожну нічию.</string>
+  <string name="pairingsQ">Як підбираються пари?</string>
   <string name="dutchSystem">Голландська система</string>
-  <string name="FIDEHandbook">Керівництво ФІДЕ</string>
-  <string name="moreRoundsThanPlayersQ">Що станеться, якщо турнір буде мати більше раундів ніж гравців?</string>
+  <string name="FIDEHandbook">Довідник ФІДЕ</string>
+  <string name="pairingsA">Використовується %1$s, реалізована за допомогою %2$s, відповідно до %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Що станеться, якщо в турнірі більше раундів ніж гравців?</string>
   <string name="moreRoundsThanPlayersA">Коли всі можливі пари зіграють, турнір буде закінчено і оголосять переможця.</string>
   <string name="restrictedToTeamsQ">Чому це обмежено для команд?</string>
-  <string name="restrictedToTeamsA">Швейцарські турніри не були розроблені для онлайн шахів. Вони вимагають пунктуальності, відданості та терпіння від гравців.
-Ми вважаємо, що ці умови частіше зустрічаються в команді, ніж в глобальних турнірах.</string>
+  <string name="restrictedToTeamsA">Швейцарські турніри не були розроблені для онлайн шахів. Вони вимагають від гравців пунктуальності, відданості та терпіння.
+Ми вважаємо, що ці умови більш ймовірні в команді, ніж в глобальних турнірах.</string>
+  <string name="numberOfByesQ">Скільки bye може отримати гравець?</string>
   <string name="whatIfOneDoesntPlayQ">Що станеться, якщо гравець не грає в гру?</string>
   <string name="whatIfOneDoesntPlayA">Його годинник буде йти, час мине і він програє гру.
 Тоді система вилучить гравця з турніру, щоб він більше не програвав.
