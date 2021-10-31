@@ -52,13 +52,13 @@
   <string name="commentThisPosition">Коментувати цю позицію</string>
   <string name="commentThisMove">Коментувати цей хід</string>
   <string name="annotateWithGlyphs">Додати символьну анотацію</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Розділ надто короткий для аналізу.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Розділ занадто короткий для аналізу.</string>
   <string name="onlyContributorsCanRequestAnalysis">Лише редактори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
   <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
   <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
-  <string name="shareChanges">Зберегти зміни на сервері та опублікувати для глядачів</string>
-  <string name="playing">Гра триває</string>
+  <string name="shareChanges">Поділитися змінами з глядачами та зберегти їх на сервері</string>
+  <string name="playing">Активні</string>
   <string name="first">Перша</string>
   <string name="previous">Попередня</string>
   <string name="next">Наступна</string>
