@@ -606,6 +606,7 @@
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
+  <string name="sessions">วาระ</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
   <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>
@@ -729,6 +730,8 @@
   <string name="edit">แก้ไข</string>
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>
+  <string name="ultraBulletDesc">เกมด่วนจี๋: น้อยกว่า 30 วินาที</string>
+  <string name="bulletDesc">เกมไวมาก: น้อยกว่า 3 นาที</string>
   <string name="blitzDesc">เกมไว: 3 - 8 นาที</string>
   <string name="rapidDesc">เกมเร็ว: 8 - 25 นาที</string>
   <string name="classicalDesc">เกมคลาสสิค: 25 นาทีขึ้นไป</string>
