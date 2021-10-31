@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Стрімери Lichess</string>
-  <string name="lichessStreamer">Стрімер Lichess</string>
+  <string name="lichessStreamers">Стримери Lichess</string>
+  <string name="lichessStreamer">Стример Lichess</string>
   <string name="live">НАЖИВО!</string>
   <string name="offline">ОФЛАЙН</string>
   <string name="currentlyStreaming">Зараз транслює: %s</string>
   <string name="lastStream">Остання трансляція %s</string>
-  <string name="becomeStreamer">Стати стрімером Lichess</string>
-  <string name="doYouHaveStream">У Вас є канал на Twitch чи YouTube?</string>
-  <string name="hereWeGo">Поїхали!</string>
-  <string name="allStreamers">Всі стрімери</string>
-  <string name="editPage">Редагувати сторінку стрімера</string>
-  <string name="yourPage">Ваша сторінка стрімера</string>
-  <string name="downloadKit">Завантажити набір інструментів стрімера</string>
+  <string name="becomeStreamer">Стати стримером Lichess</string>
+  <string name="doYouHaveStream">У вас є канал на Twitch чи YouTube?</string>
+  <string name="hereWeGo">Приступаємо!</string>
+  <string name="allStreamers">Всі стримери</string>
+  <string name="editPage">Редагувати сторінку стримера</string>
+  <string name="yourPage">Ваша сторінка стримера</string>
+  <string name="downloadKit">Завантажити набір інструментів стримера</string>
   <string name="xIsStreaming">%s транслює</string>
   <string name="rules">Правила трансляцій</string>
-  <string name="rule1">Додайте ключове слово \"lichess.org\" у заголовку Вашої трансляції і використовуйте категорію \"Chess\" під час трансляції на Lichess.</string>
+  <string name="rule1">Додайте ключове слово \"lichess.org\" у заголовку вашої трансляції і використовуйте категорію \"Chess\" під час трансляції на Lichess.</string>
   <string name="rule2">Видаліть ключове слово, коли транслюєте щось не пов\'язане з Lichess.</string>
-  <string name="rule3">Lichess буде автоматично виявляти Вашу трансляцію і включати наступні переваги:</string>
+  <string name="rule3">Lichess буде автоматично виявляти вашу трансляцію і включати наступні переваги:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прочитайте нашу %s, щоб забезпечити справедливу гру для всіх під час вашої трансляції.</string>
   <string name="streamingFairplayFAQ">streaming Fairplay FAQ</string>
   <string name="perks">Переваги трансляції з ключовим словом</string>
