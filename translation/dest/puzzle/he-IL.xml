@@ -46,9 +46,15 @@
   <string name="example">דוגמא</string>
   <string name="jumpToNextPuzzleImmediately">המשך לחידה הבאה באופן מיידי</string>
   <string name="puzzleDashboard">לוח בקרה</string>
-  <string name="improvementAreas">Improvement areas</string>
+  <string name="improvementAreas">תחומים לשיפור</string>
   <string name="strengths">חוזקות</string>
   <string name="history">חידות קודמות</string>
   <string name="solved">פתרת</string>
   <string name="failed">שגית</string>
+  <string name="streakDescription">פתור חידות ברמת קושי עולה וצור רצף של ניצחונות. אין שעון, אז קח את הזמן. מהלך שגוי אחד, והמשחק נגמר! אבל אתה יכול לדלג על מהלך אחד בכל הפעלה.</string>
+  <string name="yourStreakX">הרצף שלך: %s</string>
+  <string name="streakSkipExplanation">דלג על מהלך זה בכדי לשמור על הרצף שלך! ניתן לבצע דילוג כזה רק פעם אחת בכל הפעלה.</string>
+  <string name="continueTheStreak">המשך את הרצף</string>
+  <string name="newStreak">רצף חדש</string>
+  <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
 </resources>
