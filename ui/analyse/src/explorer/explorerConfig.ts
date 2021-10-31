@@ -15,6 +15,7 @@ import { Redraw } from '../interfaces';
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
+const minYear = 1952;
 
 type Month = string;
 
@@ -92,8 +93,11 @@ export class ExplorerConfigCtrl {
   };
 
   fullHouse = () =>
-    this.data.db() === 'masters' ||
-    (this.data.rating().length === allRatings.length && this.data.speed().length === allSpeeds.length);
+    this.data.since() <= `${minYear}-01` &&
+    (!this.data.until() || new Date().toISOString().slice(0, 7) <= this.data.until()) &&
+    (this.data.db() === 'masters' || this.data.speed().length == allSpeeds.length) &&
+    (this.data.db() !== 'lichess' || this.data.rating().length == allRatings.length) &&
+    (this.data.db() !== 'player' || this.data.mode().length == allModes.length);
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -177,9 +181,14 @@ const advancedSection = (ctrl: ExplorerConfigCtrl, content: VNode[]): VNode =>
   ]);
 
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
-  h('div.masters.message', [
-    h('i', { attrs: dataIcon('') }),
-    h('p', ctrl.root.trans('masterDbExplanation', 2200, '1952', '2019')),
+  h('div', [
+    h('p.message', ctrl.root.trans('masterDbExplanation', 2200, minYear, '2019')),
+    advancedSection(ctrl, [
+      h('section.date', [
+        h('label', ['Since', yearInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
+        h('label', ['Until', yearInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
+      ]),
+    ]),
   ]);
 
 const radioButton =
@@ -196,13 +205,15 @@ const radioButton =
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
-    h('p.message', [h('br'), 'Rated games sampled from all Lichess players']),
+    h('p.message', 'Rated games sampled from all Lichess players'),
     speedSection(ctrl),
-    h('section.rating', [
-      h('label', ctrl.root.trans.noarg('averageElo')),
-      h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+    advancedSection(ctrl, [
+      h('section.rating', [
+        h('label', ctrl.root.trans.noarg('averageElo')),
+        h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
+      ]),
+      monthSection(ctrl),
     ]),
-    advancedSection(ctrl, [monthSection(ctrl)]),
   ]);
 
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
@@ -214,16 +225,17 @@ const speedSection = (ctrl: ExplorerConfigCtrl) =>
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode)))]);
 
-const monthInput = (prop: StoredProp<Month>, min: () => Month, redraw: Redraw) => {
+const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
   const validateRange = (input: HTMLInputElement) =>
-    input.setCustomValidity(!input.value || min() <= input.value ? '' : 'Invalid date range');
+    input.setCustomValidity(!input.value || after() <= input.value ? '' : 'Invalid date range');
+  const max = new Date().toISOString().slice(0, 7);
   return h('input', {
     attrs: {
       type: 'month',
-      pattern: '^20[12][0-9]-(0[1-9]|1[012])$',
-      min: '2010-01',
-      max: new Date().toISOString().slice(0, 7),
-      value: prop() || '',
+      pattern: '^(19|20)[0-9]{2}-(0[1-9]|1[012])$',
+      min: `${minYear}-01`,
+      max,
+      value: prop() > max ? max : prop(),
     },
     hook: {
       insert: vnode => {
@@ -244,8 +256,37 @@ const monthInput = (prop: StoredProp<Month>, min: () => Month, redraw: Redraw) =
   });
 };
 
+const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
+  const validateRange = (input: HTMLInputElement) =>
+    input.setCustomValidity(!input.value || after().split('-')[0] <= input.value ? '' : 'Invalid date range');
+  return h('input', {
+    attrs: {
+      type: 'number',
+      min: minYear,
+      max: new Date().toISOString().slice(0, 4),
+      value: prop().split('-')[0],
+    },
+    hook: {
+      insert: vnode => {
+        const input = vnode.elm as HTMLInputElement;
+        validateRange(input);
+        input.addEventListener('change', e => {
+          const input = e.target as HTMLInputElement;
+          input.setCustomValidity('');
+          if (input.checkValidity()) {
+            validateRange(input);
+            prop(`${input.value}-${after() ? '12' : '01'}`);
+            redraw();
+          }
+        });
+      },
+      update: (_, vnode) => validateRange(vnode.elm as HTMLInputElement),
+    },
+  });
+};
+
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
-  h('section.month', [
+  h('section.date', [
     h('label', ['Since', monthInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
     h('label', ['Until', monthInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
   ]);

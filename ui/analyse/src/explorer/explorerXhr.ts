@@ -25,10 +25,13 @@ export async function opening(
   params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
-  if (opts.db !== 'masters') {
-    params.set('speeds', conf.speed().join(','));
+  if (opts.db === 'masters') {
+    if (conf.since()) params.set('since', conf.since().split('-')[0]);
+    if (conf.until()) params.set('until', conf.until().split('-')[0]);
+  } else {
     if (conf.since()) params.set('since', conf.since());
     if (conf.until()) params.set('until', conf.until());
+    params.set('speeds', conf.speed().join(','));
   }
   if (opts.db === 'lichess') {
     params.set('ratings', conf.rating().join(','));

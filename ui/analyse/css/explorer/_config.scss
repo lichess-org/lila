@@ -4,6 +4,12 @@
     margin: 0.4em $block-gap 0 $block-gap;
   }
 
+  p.message {
+    white-space: normal;
+    padding: 5px 5px 0;
+    margin: $block-gap 0 0 0;
+  }
+
   section.save {
     text-align: center;
     padding: 15px 0 10px 0;
@@ -83,7 +89,7 @@
     line-height: 2em;
   }
 
-  .month {
+  .date {
     margin-top: 1em;
     label {
       @extend %flex-between-nowrap;
