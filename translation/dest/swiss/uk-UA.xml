@@ -90,13 +90,26 @@
   <string name="nowPlaying">Зараз грають</string>
   <string name="startingSoon">Скоро розпочнуться</string>
   <string name="comparison">Порівняння</string>
-  <string name="numberOfGames">Кількість партій</string>
+  <string name="tournDuration">Тривалість турніру</string>
+  <string name="predefinedDuration">Попередньо визначена тривалість у хвилинах</string>
+  <string name="durationUnknown">Попередньо визначений максимум турів, тривалість невідома</string>
+  <string name="numberOfGames">Кількість ігор</string>
+  <string name="numberOfGamesAsManyAsPossible">Стільки, скільки може бути зіграно за відведений час</string>
+  <string name="numberOfGamesPreDefined">Вирішено заздалегідь, однаково для всіх гравців</string>
+  <string name="pairingSystem">Система підбору</string>
+  <string name="pairingSystemArena">Будь-який доступний суперник з подібним рейтингом</string>
+  <string name="pairingSystemSwiss">Найкращий підбір на основі очків та тай-брейку</string>
+  <string name="pairingWaitTime">Час підбору</string>
   <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Швидше: не потрібно чекати всіх гравців</string>
   <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Повільніше: потрібно чекати всіх гравців</string>
+  <string name="identicalPairing">Ідентичні пари</string>
+  <string name="possibleButNotConsecutive">Можливо, але не поспіль</string>
   <string name="identicalForbidden">Заборонено</string>
-  <string name="lateJoin">Пізній вступ</string>
+  <string name="lateJoin">Запізнення</string>
   <string name="lateJoinUntil">Так, якщо не зіграно половина раундів</string>
-  <string name="pause">Павза</string>
-  <string name="pauseSwiss">Так, але може зменшити кількість раундів</string>
-  <string name="unlimitedAndFree">Без обмежень та безкоштовний</string>
+  <string name="pause">Пауза</string>
+  <string name="pauseSwiss">Так, але може зменшити кількість турів</string>
+  <string name="streaksAndBerserk">Серії та Берсерк</string>
+  <string name="similarToOTB">Подібно до класичних турнірів</string>
+  <string name="unlimitedAndFree">Без обмежень та безкоштовно</string>
 </resources>
