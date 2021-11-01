@@ -11,8 +11,6 @@ object Quote {
 
   def one(seed: String) = all(new Random(seed.hashCode).nextInt(all.size))
 
-  // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
-  // and other various sources
   val all = Vector(
     new Quote("When you see a good move, look for a better one.", "Emanuel Lasker"),
     new Quote("A bad move invites more bad moves", "Traditional"),
