@@ -32,7 +32,6 @@ $(function () {
             color: null,
           },
           orientation: color,
-          addPieceZIndex: $('#main-wrap').hasClass('is3d'),
         });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('sente gote').addClass(color);

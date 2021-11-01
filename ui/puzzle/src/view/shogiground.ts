@@ -24,7 +24,6 @@ function makeConfig(ctrl: Controller): CgConfig {
     check: opts.check,
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== 0,
-    addPieceZIndex: ctrl.pref.is3d,
     movable: {
       free: false,
       color: opts.movable!.color,

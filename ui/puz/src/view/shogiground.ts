@@ -17,7 +17,6 @@ export function makeConfig(
     check: opts.check,
     lastMove: opts.lastMove,
     coordinates: pref.coords !== 0,
-    addPieceZIndex: pref.is3d,
     movable: {
       free: false,
       color: opts.movable!.color,
