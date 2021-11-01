@@ -22,16 +22,19 @@
   },
   "dependencies": {
     "@badrap/result": "^0.2.6",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
     "ceval": "2.0.0",
     "chat": "2.0.0",
-    "shogi": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
+    "shogi": "2.0.0",
     "shogiground": "7.8.1",
     "shogiops": "^0.2.9",
     "snabbdom": "^0.7.4",
-    "tree": "2.0.0"
+    "tree": "2.0.0",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "dev": "rollup --config",
