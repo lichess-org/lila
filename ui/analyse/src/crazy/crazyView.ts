@@ -9,6 +9,7 @@ const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];
 const eventNames3 = ['contextmenu'];
 const oKeys = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];
+const minishogi = ['pawn', 'silver', 'gold', 'bishop', 'rook'];
 
 type Position = 'top' | 'bottom';
 
@@ -18,6 +19,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   const dropped = ctrl.justDropped;
   const shadowPiece = ctrl.shogiground?.state.drawable.piece;
   let captured = ctrl.justCaptured;
+  const allPieces = ctrl.data.game.variant.key === 'minishogi' ? minishogi : oKeys;
 
   if (captured) captured.role = unpromote(captured.role)!;
 
@@ -44,7 +46,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
         });
       }),
     },
-    oKeys.map(role => {
+    allPieces.map(role => {
       let nb = pocket[role] || 0;
       const sp = role == shadowPiece?.role && color == shadowPiece?.color;
       const selectedSquare: boolean =
