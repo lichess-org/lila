@@ -61,9 +61,9 @@ export function cancel(ctrl: AnalyseCtrl): void {
 
 function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: Color, orientation: Color): MaybeVNode {
   if (!promoting) return;
-
-  let left = (8 - util.key2pos(dest)[0]) * (100 / 9);
-  if (orientation === 'sente') left = util.key2pos(dest)[0] * (100 / 9);
+  const numOfFiles = ctrl.shogiground.state.dimensions.files;
+  let left = (numOfFiles - 1 - util.key2pos(dest)[0]) * (100 / numOfFiles);
+  if (orientation === 'gote') left = util.key2pos(dest)[0] * (100 / numOfFiles);
 
   const vertical = color === orientation ? 'top' : 'bottom';
 
@@ -76,8 +76,9 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
       }),
     },
     pieces.map(function (serverRole: Role, i) {
-      let top = (i + util.key2pos(dest)[1]) * (100 / 9);
-      if (orientation === 'sente') top = (9 - (i + util.key2pos(dest)[1])) * (100 / 9);
+      const numOfRanks = ctrl.shogiground.state.dimensions.files;
+      let top = (i + util.key2pos(dest)[1]) * (100 / numOfRanks);
+      if (orientation === 'gote') top = (numOfRanks - (i + util.key2pos(dest)[1])) * (100 / numOfRanks);
       return h(
         'square',
         {
@@ -99,7 +100,7 @@ export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;
 
   const roles: Role[] =
-    ctrl.shogiground.state.orientation === 'gote'
+    ctrl.shogiground.state.orientation === 'sente'
       ? [sPromote(promoting.role), promoting.role]
       : [promoting.role, sPromote(promoting.role)];
 

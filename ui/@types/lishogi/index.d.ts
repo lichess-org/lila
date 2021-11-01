@@ -196,7 +196,7 @@ interface Navigator {
   deviceMemory: number;
 }
 
-declare type VariantKey = 'standard' | 'fromPosition';
+declare type VariantKey = 'standard' | 'fromPosition' | 'minishogi';
 
 declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
 

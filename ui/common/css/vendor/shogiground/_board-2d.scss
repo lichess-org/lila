@@ -28,6 +28,9 @@ $board-files: (
 );
 
 @each $color, $file in $board-files {
+  .#{$color} .is2d .variant-minishogi cg-board {
+    background-image: url(../images/board/5/#{$file});
+  }
   .#{$color} .is2d cg-board {
     background-image: url(../images/board/#{$file});
   }
