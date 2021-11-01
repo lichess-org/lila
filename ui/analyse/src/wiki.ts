@@ -9,7 +9,7 @@ export default function wikiTheory(): WikiTheory {
   const plyPrefix = (node: Tree.Node) => `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
-  const apiArgs = 'origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
+  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
 
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
 
