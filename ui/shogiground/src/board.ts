@@ -304,12 +304,17 @@ export function stop(state: State): void {
   cancelMove(state);
 }
 
-export function getKeyAtDomPos(pos: cg.NumberPair, asSente: boolean, bounds: ClientRect): cg.Key | undefined {
-  let file = Math.floor((9 * (pos[0] - bounds.left)) / bounds.width);
-  if (!asSente) file = 8 - file;
-  let rank = 8 - Math.floor((9 * (pos[1] - bounds.top)) / bounds.height);
-  if (!asSente) rank = 8 - rank;
-  return file >= 0 && file < 9 && rank >= 0 && rank < 9 ? pos2key([file, rank]) : undefined;
+export function getKeyAtDomPos(
+  pos: cg.NumberPair,
+  asSente: boolean,
+  dims: cg.Dimensions,
+  bounds: ClientRect
+): cg.Key | undefined {
+  let file = Math.floor((dims.files * (pos[0] - bounds.left)) / bounds.width);
+  if (asSente) file = dims.files - 1 - file;
+  let rank = dims.ranks - 1 - Math.floor((dims.ranks * (pos[1] - bounds.top)) / bounds.height);
+  if (asSente) rank = dims.ranks - 1 - rank;
+  return file >= 0 && file < dims.files && rank >= 0 && rank < dims.ranks ? pos2key([file, rank]) : undefined;
 }
 
 export function sentePov(s: State): boolean {

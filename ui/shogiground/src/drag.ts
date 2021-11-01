@@ -26,7 +26,7 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
   const bounds = s.dom.bounds(),
     position = util.eventPosition(e)!,
-    orig = board.getKeyAtDomPos(position, board.sentePov(s), bounds);
+    orig = board.getKeyAtDomPos(position, board.sentePov(s), s.dimensions, bounds);
   if (!orig) return;
   const piece = s.pieces.get(orig);
   const previouslySelected = s.selected;
@@ -70,7 +70,7 @@ export function start(s: State, e: cg.MouchEvent): void {
     const ghost = s.dom.elements.ghost;
     if (ghost) {
       ghost.className = `ghost ${piece.color} ${piece.role}`;
-      util.translateAbs(ghost, util.posToTranslateAbs(bounds)(util.key2pos(orig), board.sentePov(s)));
+      util.translateAbs(ghost, util.posToTranslateAbs(s.dimensions, bounds)(util.key2pos(orig), board.sentePov(s)));
       util.setVisible(ghost, true);
     }
     processDrag(s);
@@ -84,9 +84,9 @@ export function start(s: State, e: cg.MouchEvent): void {
 function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
   const asSente = board.sentePov(s),
     bounds = s.dom.bounds(),
-    radiusSq = Math.pow(bounds.width / 9, 2);
+    radiusSq = Math.pow(bounds.width / s.dimensions.files, 2);
   for (const key in s.pieces) {
-    const center = computeSquareCenter(key as cg.Key, asSente, bounds);
+    const center = computeSquareCenter(key as cg.Key, asSente, s.dimensions, bounds);
     if (util.distanceSq(center, pos) <= radiusSq) return true;
   }
   return false;
@@ -112,7 +112,7 @@ export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?
     force: !!force,
   };
   if (piece && board.isPredroppable(s)) {
-    s.predroppable.dropDests = predrop(s.pieces, piece);
+    s.predroppable.dropDests = predrop(s.pieces, piece, s.dimensions);
   }
   processDrag(s);
 }
@@ -142,8 +142,8 @@ function processDrag(s: State): void {
 
         const bounds = s.dom.bounds();
         util.translateAbs(cur.element, [
-          cur.pos[0] - bounds.left - bounds.width / 18,
-          cur.pos[1] - bounds.top - bounds.height / 18,
+          cur.pos[0] - bounds.left - bounds.width / (s.dimensions.files * 2),
+          cur.pos[1] - bounds.top - bounds.height / (s.dimensions.ranks * 2),
         ]);
       }
     }
@@ -174,7 +174,7 @@ export function end(s: State, e: cg.MouchEvent): void {
   board.unsetPredrop(s);
   // touchend has no position; so use the last touchmove position instead
   const eventPos = util.eventPosition(e) || cur.pos;
-  const dest = board.getKeyAtDomPos(eventPos, board.sentePov(s), s.dom.bounds());
+  const dest = board.getKeyAtDomPos(eventPos, board.sentePov(s), s.dimensions, s.dom.bounds());
   if (dest && cur.started && cur.orig !== dest) {
     if (cur.newPiece) board.dropNewPiece(s, cur.orig, dest, cur.force);
     else {
@@ -212,15 +212,15 @@ function removeDragElements(s: State): void {
   if (e.ghost) util.setVisible(e.ghost, false);
 }
 
-function computeSquareCenter(key: cg.Key, asSente: boolean, bounds: ClientRect): cg.NumberPair {
+function computeSquareCenter(key: cg.Key, asSente: boolean, dims: cg.Dimensions, bounds: ClientRect): cg.NumberPair {
   const pos = util.key2pos(key);
-  if (!asSente) {
-    pos[0] = 8 - pos[0];
-    pos[1] = 8 - pos[1];
+  if (asSente) {
+    pos[0] = dims.files - 1 - pos[0];
+    pos[1] = dims.ranks - 1 - pos[1];
   }
   return [
-    bounds.left + (bounds.width * pos[0]) / 9 + bounds.width / 18,
-    bounds.top + (bounds.height * (8 - pos[1])) / 9 + bounds.height / 18,
+    bounds.left + (bounds.width * pos[0]) / dims.files + bounds.width / (dims.files * 2),
+    bounds.top + (bounds.height * (dims.ranks - 1 - pos[1])) / dims.ranks + bounds.height / (dims.ranks * 2),
   ];
 }
 

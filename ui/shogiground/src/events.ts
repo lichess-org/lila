@@ -87,7 +87,7 @@ function dragOrDraw(s: State, withDrag: StateMouchBind, withDraw: StateMouchBind
 
 function squareOccupied(s: State, e: cg.MouchEvent): boolean {
   const position = eventPosition(e);
-  const dest = position && getKeyAtDomPos(position, sentePov(s), s.dom.bounds());
+  const dest = position && getKeyAtDomPos(position, sentePov(s), s.dimensions, s.dom.bounds());
   if (dest && s.pieces.has(dest)) return true;
   return false;
 }

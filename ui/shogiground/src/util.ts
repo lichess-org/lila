@@ -13,9 +13,13 @@ const promotions: { [role: string]: cg.Role } = {
 
 export const allKeys: readonly cg.Key[] = Array.prototype.concat(...cg.files.map(c => cg.ranks.map(r => c + r)));
 
-export const pos2key = (pos: cg.Pos): cg.Key => allKeys[9 * pos[0] + pos[1]];
+export const pos2key = (pos: cg.Pos): cg.Key => allKeys[9 * (8 - pos[0]) + (8 - pos[1])];
 
-export const key2pos = (k: cg.Key): cg.Pos => [k.charCodeAt(0) - 97, k.charCodeAt(1) - 49];
+//export const key2pos = (k: cg.Key): cg.Pos => [k.charCodeAt(0) - 97, k.charCodeAt(1) - 49];
+export const key2pos = (k: cg.Key): cg.Pos => {
+  if (Number.isInteger(k[0])) return [k.charCodeAt(0) - 49, k.charCodeAt(1) - 97];
+  return [8 - (k.charCodeAt(0) - 97), 8 - (k.charCodeAt(1) - 49)];
+};
 
 export function memo<A>(f: () => A): cg.Memo<A> {
   let v: A | undefined;
@@ -62,19 +66,30 @@ export const validProm = (p1: cg.Piece, p2: cg.Piece): boolean => {
   return r;
 };
 
-const posToTranslateBase = (pos: cg.Pos, asSente: boolean, xFactor: number, yFactor: number): cg.NumberPair => [
-  (asSente ? pos[0] : 8 - pos[0]) * xFactor,
-  (asSente ? 8 - pos[1] : pos[1]) * yFactor,
+const posToTranslateBase = (
+  pos: cg.Pos,
+  dims: cg.Dimensions,
+  asSente: boolean,
+  xFactor: number,
+  yFactor: number
+): cg.NumberPair => [
+  (asSente ? dims.files - 1 - pos[0] : pos[0]) * xFactor,
+  (asSente ? pos[1] : dims.ranks - 1 - pos[1]) * yFactor,
 ];
 
-export const posToTranslateAbs = (bounds: ClientRect): ((pos: cg.Pos, asSente: boolean) => cg.NumberPair) => {
-  const xFactor = bounds.width / 9,
-    yFactor = bounds.height / 9;
-  return (pos, asSente) => posToTranslateBase(pos, asSente, xFactor, yFactor);
+export const posToTranslateAbs = (
+  dims: cg.Dimensions,
+  bounds: ClientRect
+): ((pos: cg.Pos, asSente: boolean) => cg.NumberPair) => {
+  const xFactor = bounds.width / dims.files,
+    yFactor = bounds.height / dims.ranks;
+  return (pos, asSente) => posToTranslateBase(pos, dims, asSente, xFactor, yFactor);
 };
 
-export const posToTranslateRel = (pos: cg.Pos, asSente: boolean): cg.NumberPair =>
-  posToTranslateBase(pos, asSente, 50, 50);
+export const posToTranslateRel =
+  (dims: cg.Dimensions): ((pos: cg.Pos, asSente: boolean) => cg.NumberPair) =>
+  (pos, asSente) =>
+    posToTranslateBase(pos, dims, asSente, 50, 50);
 
 export const translateAbs = (el: HTMLElement, pos: cg.NumberPair): void => {
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px) scale(0.5)`;

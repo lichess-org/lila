@@ -81,22 +81,28 @@ export function premove(pieces: cg.Pieces, key: cg.Key): cg.Key[] {
     .map(util.pos2key);
 }
 
-function lastRow(key: cg.Key, color: cg.Color): boolean {
-  return color === 'sente' ? key[1] === '9' : key[1] === '1';
+function lastRow(dims: cg.Dimensions, key: cg.Key, color: cg.Color): boolean {
+  return color === 'sente' ? key[1] === dims.ranks.toString() : key[1] === '1';
 }
 
-function lastTwoRows(key: cg.Key, color: cg.Color): boolean {
-  return color === 'sente' ? key[1] === '8' || key[1] === '9' : key[1] === '1' || key[1] === '2';
+function lastTwoRows(dims: cg.Dimensions, key: cg.Key, color: cg.Color): boolean {
+  return color === 'sente'
+    ? key[1] === (dims.ranks - 1).toString() || key[1] === dims.ranks.toString()
+    : key[1] === '1' || key[1] === '2';
 }
 
-export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece): cg.Key[] {
+export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece, dims: cg.Dimensions): cg.Key[] {
   const color = dropPiece.color;
   const role = dropPiece.role;
   return util.allKeys.filter(key => {
     const p = pieces.get(key);
     return (
       (!p || p.color !== color) &&
-      (role === 'pawn' || role === 'lance' ? !lastRow(key, color) : role === 'knight' ? !lastTwoRows(key, color) : true)
+      (role === 'pawn' || role === 'lance'
+        ? !lastRow(dims, key, color)
+        : role === 'knight'
+        ? !lastTwoRows(dims, key, color)
+        : true)
     );
   });
 }

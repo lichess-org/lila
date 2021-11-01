@@ -18,7 +18,6 @@ export interface Config {
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu?: boolean; // because who needs a context menu on a chessboard
   resizable?: boolean; // listens to shogiground.resize on document.body to clear bounds cache
-  addPieceZIndex?: boolean; // adds z-index values to pieces (for 3D)
   // pieceKey: boolean; // add a data-key attribute to piece elements
   highlight?: {
     lastMove?: boolean; // add last-move class to squares
@@ -95,6 +94,7 @@ export interface Config {
     onChange?: (shapes: DrawShape[]) => void; // called after drawable shapes change
   };
   notation?: cg.Notation;
+  dimensions?: cg.Dimensions;
 }
 
 export function configure(state: State, config: Config): void {
@@ -106,7 +106,7 @@ export function configure(state: State, config: Config): void {
 
   // if a fen was provided, replace the pieces
   if (config.fen) {
-    state.pieces = fenRead(config.fen);
+    state.pieces = fenRead(config.fen, state.dimensions);
     state.drawable.shapes = [];
   }
 
@@ -117,7 +117,7 @@ export function configure(state: State, config: Config): void {
   // apply config values that could be undefined yet meaningful
   if (config.hasOwnProperty('check')) setCheck(state, config.check || false);
   if (config.hasOwnProperty('lastMove') && !config.lastMove) state.lastMove = undefined;
-  // in case of ZH drop last move, there's a single square.
+  // in case of drop last move, there's a single square.
   // if the previous last move had two squares,
   // the merge algorithm will incorrectly keep the second square.
   else if (config.lastMove) state.lastMove = config.lastMove;

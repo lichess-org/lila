@@ -15,7 +15,9 @@ type SquareClasses = Map<cg.Key, string>;
 // in case of bugs, blame @veloce
 export function render(s: State): void {
   const asSente: boolean = sentePov(s),
-    posToTranslate = s.dom.relative ? util.posToTranslateRel : util.posToTranslateAbs(s.dom.bounds()),
+    posToTranslate = s.dom.relative
+      ? util.posToTranslateRel(s.dimensions)
+      : util.posToTranslateAbs(s.dimensions, s.dom.bounds()),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
     pockets: HTMLElement[] = s.dom.elements.pockets,
@@ -79,7 +81,6 @@ export function render(s: State): void {
           el.cgAnimating = false;
           el.classList.remove('anim');
           translate(el, posToTranslate(key2pos(k), asSente));
-          if (s.addPieceZIndex) el.style.zIndex = posZIndex(key2pos(k), asSente);
         }
         // same piece: flag as same
         if (elPieceName === pieceNameOf(pieceAtKey) && (!fading || !el.cgFading)) {
@@ -142,7 +143,6 @@ export function render(s: State): void {
           pMvd.cgFading = false;
         }
         const pos = key2pos(k);
-        if (s.addPieceZIndex) pMvd.style.zIndex = posZIndex(pos, asSente);
         if (anim) {
           pMvd.cgAnimating = true;
           pMvd.classList.add('anim');
@@ -167,7 +167,6 @@ export function render(s: State): void {
         }
         translate(pieceNode, posToTranslate(pos, asSente));
 
-        if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asSente);
         boardEl.appendChild(pieceNode);
       }
     }
@@ -193,7 +192,7 @@ export function render(s: State): void {
 export function updateBounds(s: State): void {
   if (s.dom.relative) return;
   const asSente: boolean = sentePov(s),
-    posToTranslate = util.posToTranslateAbs(s.dom.bounds());
+    posToTranslate = util.posToTranslateAbs(s.dimensions, s.dom.bounds());
   let el = s.dom.elements.board.firstChild as cg.PieceNode | cg.SquareNode | undefined;
   while (el) {
     if ((isPieceNode(el) && !el.cgAnimating) || isSquareNode(el)) {
@@ -212,12 +211,6 @@ function isSquareNode(el: cg.PieceNode | cg.SquareNode): el is cg.SquareNode {
 
 function removeNodes(s: State, nodes: HTMLElement[]): void {
   for (const node of nodes) s.dom.elements.board.removeChild(node);
-}
-
-function posZIndex(pos: cg.Pos, asSente: boolean): string {
-  let z = 2 + pos[1] * 9 + (8 - pos[0]);
-  if (asSente) z = 84 - z; //67
-  return z + '';
 }
 
 function pieceNameOf(piece: cg.Piece): string {

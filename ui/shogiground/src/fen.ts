@@ -43,32 +43,34 @@ const letters = {
   dragon: '+r',
 };
 
-export function read(sfen: cg.FEN): cg.Pieces {
+export function read(sfen: cg.FEN, dims: cg.Dimensions): cg.Pieces {
   if (sfen === 'start') sfen = initial;
   const pieces: cg.Pieces = new Map();
-  let row = 8,
-    col = 0;
+  let x = dims.files - 1,
+    y = 0;
   for (let i = 0; i < sfen.length; i++) {
     switch (sfen[i]) {
       case ' ':
       case '_':
         return pieces;
       case '/':
-        --row;
-        if (row < 0) return pieces;
-        col = 0;
+        ++y;
+        if (y > dims.ranks - 1) return pieces;
+        x = dims.files - 1;
         break;
       default:
         const nb = sfen[i].charCodeAt(0);
-        if (nb < 58 && nb != 43) col += nb - 48;
+        if (nb < 58 && nb != 43) x -= nb - 48;
         else {
           const role = sfen[i] === '+' && sfen.length > i + 1 ? '+' + sfen[++i].toLowerCase() : sfen[i].toLowerCase();
           const color = sfen[i] === role || '+' + sfen[i] === role ? 'gote' : 'sente';
-          pieces.set(pos2key([col, row]), {
-            role: roles[role],
-            color: color,
-          });
-          ++col;
+          if (x >= 0) {
+            pieces.set(pos2key([x, y]), {
+              role: roles[role],
+              color: color,
+            });
+          }
+          --x;
         }
     }
   }

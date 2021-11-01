@@ -53,15 +53,21 @@ export function renderWrap(element: HTMLElement, s: State, relative: boolean): E
   if (s.coordinates) {
     const orientClass = s.orientation === 'gote' ? ' gote' : '';
     if (s.notation === Notation.WESTERN || s.notation === Notation.KAWASAKI) {
-      container.appendChild(renderCoords(['9', '8', '7', '6', '5', '4', '3', '2', '1'], 'ranks' + orientClass));
+      container.appendChild(
+        renderCoords(['9', '8', '7', '6', '5', '4', '3', '2', '1'], 'ranks' + orientClass, s.dimensions.ranks)
+      );
     } else if (s.notation === Notation.WESTERN2) {
-      container.appendChild(renderCoords(['i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'], 'ranks' + orientClass));
+      container.appendChild(
+        renderCoords(['i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'], 'ranks' + orientClass, s.dimensions.ranks)
+      );
     } else {
       container.appendChild(
-        renderCoords(['九', '八', '七', '六', '五', '四', '三', '二', '一'], 'ranks' + orientClass)
+        renderCoords(['九', '八', '七', '六', '五', '四', '三', '二', '一'], 'ranks' + orientClass, s.dimensions.ranks)
       );
     }
-    container.appendChild(renderCoords(['9', '8', '7', '6', '5', '4', '3', '2', '1'], 'files' + orientClass));
+    container.appendChild(
+      renderCoords(['9', '8', '7', '6', '5', '4', '3', '2', '1'], 'files' + orientClass, s.dimensions.files)
+    );
   }
 
   let ghost: HTMLElement | undefined;
@@ -81,10 +87,10 @@ export function renderWrap(element: HTMLElement, s: State, relative: boolean): E
   };
 }
 
-function renderCoords(elems: readonly string[], className: string): HTMLElement {
+function renderCoords(elems: readonly string[], className: string, trim: number): HTMLElement {
   const el = createEl('coords', className);
   let f: HTMLElement;
-  for (const elem of elems) {
+  for (const elem of elems.slice(-trim)) {
     f = createEl('coord');
     f.textContent = elem;
     el.appendChild(f);

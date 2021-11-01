@@ -211,3 +211,8 @@ export const enum Notation {
   JAPANESE,
   WESTERN2,
 }
+
+export type Dimensions = {
+  files: number;
+  ranks: number;
+};

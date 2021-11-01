@@ -144,30 +144,43 @@ function renderShape(
   bounds: ClientRect
 ): SVGElement {
   let el: SVGElement;
-  if (shape.piece && !shape.dest) el = renderPiece(orient(key2pos(shape.orig), state.orientation), shape.piece, bounds);
+  if (shape.piece && !shape.dest)
+    el = renderPiece(
+      orient(key2pos(shape.orig), state.orientation, state.dimensions),
+      shape.piece,
+      state.dimensions,
+      bounds
+    );
   else {
-    const orig = orient(key2pos(shape.orig), state.orientation);
+    const orig = orient(key2pos(shape.orig), state.orientation, state.dimensions);
     if (shape.dest) {
       let brush: DrawBrush = brushes[shape.brush];
       if (shape.modifiers) brush = makeCustomBrush(brush, shape.modifiers);
       el = renderArrow(
         brush,
         orig,
-        orient(key2pos(shape.dest), state.orientation),
+        orient(key2pos(shape.dest), state.orientation, state.dimensions),
         current,
         (arrowDests.get(shape.dest) || 0) > 1,
+        state.dimensions,
         bounds
       );
-    } else el = renderCircle(brushes[shape.brush], orig, current, bounds);
+    } else el = renderCircle(brushes[shape.brush], orig, current, state.dimensions, bounds);
   }
   el.setAttribute('cgHash', hash);
   return el;
 }
 
-function renderCircle(brush: DrawBrush, pos: cg.Pos, current: boolean, bounds: ClientRect): SVGElement {
-  const o = pos2px(pos, bounds),
+function renderCircle(
+  brush: DrawBrush,
+  pos: cg.Pos,
+  current: boolean,
+  dims: cg.Dimensions,
+  bounds: ClientRect
+): SVGElement {
+  const o = pos2px(pos, bounds, dims),
     widths = circleWidth(bounds),
-    radius = (bounds.width + bounds.height) / 36;
+    radius = (bounds.width + bounds.height) / (dims.files * 4);
   return setAttributes(createElement('circle'), {
     stroke: brush.color,
     'stroke-width': widths[current ? 0 : 1],
@@ -185,11 +198,12 @@ function renderArrow(
   dest: cg.Pos,
   current: boolean,
   shorten: boolean,
+  dims: cg.Dimensions,
   bounds: ClientRect
 ): SVGElement {
   const m = arrowMargin(bounds, shorten && !current),
-    a = pos2px(orig, bounds),
-    b = pos2px(dest, bounds),
+    a = pos2px(orig, bounds, dims),
+    b = pos2px(dest, bounds, dims),
     dx = b[0] - a[0],
     dy = b[1] - a[1],
     angle = Math.atan2(dy, dx),
@@ -208,9 +222,9 @@ function renderArrow(
   });
 }
 
-function renderPiece(pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect): SVGElement {
-  const o = pos2px(pos, bounds),
-    size = (bounds.width / 9) * (piece.scale || 0.8);
+function renderPiece(pos: cg.Pos, piece: DrawShapePiece, dims: cg.Dimensions, bounds: ClientRect): SVGElement {
+  const o = pos2px(pos, bounds, dims),
+    size = (bounds.width / dims.files) * (piece.scale || 0.8);
   let el = setAttributes(createElement('foreignObject'), {
     className: `${piece.role} ${piece.color}`,
     x: o[0] - size / 2,
@@ -250,8 +264,8 @@ function setAttributes(el: SVGElement, attrs: { [key: string]: any }): SVGElemen
   return el;
 }
 
-function orient(pos: cg.Pos, color: cg.Color): cg.Pos {
-  return color === 'sente' ? pos : [8 - pos[0], 8 - pos[1]];
+function orient(pos: cg.Pos, color: cg.Color, dims: cg.Dimensions): cg.Pos {
+  return color === 'sente' ? [dims.files - 1 - pos[0], dims.ranks - 1 - pos[1]] : pos;
 }
 
 function makeCustomBrush(base: DrawBrush, modifiers: DrawModifiers): DrawBrush {
@@ -280,6 +294,6 @@ function arrowMargin(bounds: ClientRect, shorten: boolean): number {
   return ((shorten ? 20 : 10) / 512) * bounds.width;
 }
 
-function pos2px(pos: cg.Pos, bounds: ClientRect): cg.NumberPair {
-  return [((pos[0] + 0.5) * bounds.width) / 9, ((8.5 - pos[1]) * bounds.height) / 9];
+function pos2px(pos: cg.Pos, bounds: ClientRect, dims: cg.Dimensions): cg.NumberPair {
+  return [((pos[0] + 0.5) * bounds.width) / dims.files, ((dims.ranks - 0.5 - pos[1]) * bounds.height) / dims.ranks];
 }

@@ -17,7 +17,6 @@ export interface State {
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu: boolean; // because who needs a context menu on a chessboard
   resizable: boolean; // listens to shogiground.resize on document.body to clear bounds cache
-  addPieceZIndex: boolean; // adds z-index values to pieces (for 3D)
   pieceKey: boolean; // add a data-key attribute to piece elements
   highlight: {
     lastMove: boolean; // add last-move class to squares
@@ -99,18 +98,18 @@ export interface State {
   dom: cg.Dom;
   hold: cg.Timer;
   notation: cg.Notation;
+  dimensions: cg.Dimensions;
 }
 
 export function defaults(): Partial<State> {
   return {
-    pieces: fen.read(fen.initial),
+    pieces: fen.read(fen.initial, { files: 9, ranks: 9 }),
     orientation: 'sente',
     turnColor: 'sente',
     coordinates: true,
     viewOnly: false,
     disableContextMenu: false,
     resizable: true,
-    addPieceZIndex: false,
     pieceKey: false,
     highlight: {
       lastMove: true,
@@ -180,5 +179,7 @@ export function defaults(): Partial<State> {
       prevSvgHash: '',
     },
     hold: timer(),
+    notation: cg.Notation.WESTERN,
+    dimensions: { files: 9, ranks: 9 },
   };
 }
