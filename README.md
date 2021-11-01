@@ -1,5 +1,9 @@
 # [lishogi.org](https://lishogi.org)
 
+[![Build server](https://github.com/WandererXII/lishogi/workflows/Build%20server/badge.svg)](https://github.com/WandererXII/lishogi/actions?query=workflow%3A%22Build+server%22)
+[![Build assets](https://github.com/WandererXII/lishogi/workflows/Build%20assets/badge.svg)](https://github.com/WandererXII/lishogi/actions?query=workflow%3A%22Build+assets%22)
+[![Twitter](https://img.shields.io/badge/Twitter-%40lishogi-blue.svg)](https://twitter.com/lishogi)
+
 ![Lishogi homepage-Lishogi comes with light and dark theme, this screenshot shows both.](public/images/preview.png)
 
 Lila (li[shogi in sca]la) is a free online shogi game server focused on realtime gameplay and ease of use.
