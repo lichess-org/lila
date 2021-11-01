@@ -113,6 +113,7 @@ final private class GameJson(
             "san"   -> pgnMove,
             "id"    -> UciCharPair(uciMove).toString,
             "uci"   -> uciMove.uci,
+            //"usi"   -> uciMove.usi,
             "crazy" -> Forsyth.exportCrazyPocket(situation.board)
           )
         }

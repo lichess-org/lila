@@ -80,13 +80,13 @@ object Event {
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Hands]
   ) extends Event {
-    val promS = { if (promotion) "+" else "" }
     def typ = "move"
     def data = {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
-            "uci" -> s"${orig.uciKey}${dest.uciKey}$promS",
+            "uci" -> s"${orig.uciKey}${dest.uciKey}${ if (promotion) "+" else "" }",
+            //"usi" -> s"${orig.usiKey}${dest.usiKey}${ if (promotion) "+" else "" }",
             "san" -> san
           )
           .add("promotion" -> promotion)
@@ -135,6 +135,7 @@ object Event {
         Json.obj(
           "role" -> role.name,
           "uci"  -> s"${role.pgn}*${pos.uciKey}",
+          //"usi"  -> s"${role.pgn}*${pos.usiKey}",
           "san"  -> san
         )
       }

@@ -26,6 +26,7 @@ object Step {
 
   case class Move(uci: Uci, san: String) {
     def uciString = uci.uci
+    def usiString = uci.usi
   }
 
   // TODO copied from lila.game
@@ -48,6 +49,7 @@ object Step {
       .obj(
         "ply" -> ply,
         "uci" -> move.map(_.uciString),
+        //"usi" -> move.map(_.usiString),
         "san" -> move.map(_.san),
         "fen" -> fen
       )

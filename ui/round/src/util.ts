@@ -2,19 +2,10 @@ import { h } from 'snabbdom';
 import { VNodeData } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks';
 import * as cg from 'shogiground/types';
-import { opposite } from 'shogiground/util';
-import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
+import { Redraw, EncodedDests, Dests } from './interfaces';
 import { Shogi } from 'shogiops';
 import { parseFen } from 'shogiops/fen';
 import { shogigroundDropDests } from 'shogiops/compat';
-
-const pieceScores = {
-  pawn: 1,
-  knight: 3,
-  bishop: 3,
-  rook: 5,
-  king: 0,
-};
 
 export function justIcon(icon: string): VNodeData {
   return {
@@ -72,45 +63,6 @@ export function getDropDests(fen: string): cg.DropDests {
       ),
     _ => new Map()
   );
-}
-
-// {sente: {pawn: 3 queen: 1}, gote: {bishop: 2}}
-export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
-  const diff: MaterialDiff = {
-    sente: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-    gote: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-  };
-  for (const p of pieces.values()) {
-    const them = diff[opposite(p.color)];
-    if (them[p.role] > 0) them[p.role]--;
-    else diff[p.color][p.role]++;
-  }
-  return diff;
-}
-
-export function getScore(pieces: cg.Pieces): number {
-  let score = 0;
-  for (const p of pieces.values()) {
-    score += pieceScores[p.role] * (p.color === 'sente' ? 1 : -1);
-  }
-  return score;
-}
-
-export const noChecks: CheckCount = {
-  sente: 0,
-  gote: 0,
-};
-
-export function countChecks(steps: Step[], ply: Ply): CheckCount {
-  const checks: CheckCount = { ...noChecks };
-  for (let step of steps) {
-    if (ply < step.ply) break;
-    if (step.check) {
-      if (step.ply % 2 === 1) checks.sente++;
-      else checks.gote++;
-    }
-  }
-  return checks;
 }
 
 export function spinner() {

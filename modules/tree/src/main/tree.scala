@@ -284,6 +284,7 @@ object Node {
           )
           .add("id", idOption.map(_.toString))
           .add("uci", moveOption.map(_.uci.uci))
+          //.add("usi", moveOption.map(_.uci.usi))
           .add("san", moveOption.map(_.san))
           .add("check", check)
           .add("eval", eval.filterNot(_.isEmpty))

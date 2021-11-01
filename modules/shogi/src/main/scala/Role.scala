@@ -287,7 +287,7 @@ object Role {
     (r.name, r)
   } toMap
 
-  val singleKifs = Map( // and others
+  val singleKifs = Map(
     "王" -> King,
     "兵" -> Pawn,
     "竜" -> Dragon,
