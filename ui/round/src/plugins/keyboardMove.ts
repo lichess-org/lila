@@ -58,7 +58,7 @@ lichess.keyboardMove = function (opts: Opts) {
     } else if (v.match(crazyhouseRegex)) {
       // Incomplete crazyhouse strings such as Q@ or Q@a should do nothing.
       if (v.length > 3 || (v.length > 2 && v.startsWith('@'))) {
-	if (v.length === 3) v = 'P' + v;
+        if (v.length === 3) v = 'P' + v;
         opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
         clear();
       }
