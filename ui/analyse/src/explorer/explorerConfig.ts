@@ -246,7 +246,7 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
           input.setCustomValidity('');
           if (input.checkValidity()) {
             validateRange(input);
-            prop(`${input.value}-${after() ? '12' : '01'}`);
+            prop(input.value ? `${input.value}-${after() ? '12' : '01'}` : '');
             redraw();
           }
         });
