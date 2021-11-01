@@ -252,7 +252,7 @@ lazy val insight = module("insight",
 
 lazy val tutor = module("tutor",
   Seq(common, game, user, analyse, round, insight),
-  reactivemongo.bundle
+  Seq(specs2) ++ reactivemongo.bundle
 )
 
 lazy val tournament = module("tournament",

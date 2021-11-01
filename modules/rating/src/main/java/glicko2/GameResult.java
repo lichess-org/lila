@@ -11,7 +11,7 @@ package org.goochjs.glicko2;
  *
  * @author Jeremy Gooch
  */
-public class Result {
+public class GameResult extends Result {
 	private static final double POINTS_FOR_WIN = 1.0;
 	private static final double POINTS_FOR_LOSS = 0.0;
 	private static final double POINTS_FOR_DRAW = 0.5;
@@ -27,7 +27,7 @@ public class Result {
 	 * @param winner
 	 * @param loser
 	 */
-	public Result(Rating winner, Rating loser) {
+	public GameResult(Rating winner, Rating loser) {
 		if ( ! validPlayers(winner, loser) ) {
 			throw new IllegalArgumentException();
 		}
@@ -44,7 +44,7 @@ public class Result {
 	 * @param player2
 	 * @param isDraw (must be set to "true")
 	 */
-	public Result(Rating player1, Rating player2, boolean isDraw) {
+	public GameResult(Rating player1, Rating player2, boolean isDraw) {
 		if (! isDraw || ! validPlayers(player1, player2) ) {
 			throw new IllegalArgumentException();
 		}
@@ -134,7 +134,6 @@ public class Result {
 		return this.loser;
 	}
 
-	@Override
 	public String toString() {
 		return this.winner + " vs " +
 				this.loser + " = " +
