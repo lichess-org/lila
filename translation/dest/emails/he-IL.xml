@@ -5,7 +5,7 @@
   <string name="emailConfirm_ignore">אם לא נרשמת ב Lichess אתה יכול להתעלם מהודעה זו.</string>
   <string name="passwordReset_subject">אפס את סיסמת חשבונך, %s</string>
   <string name="passwordReset_intro">קיבלנו בקשה לאפס את סיסמת חשבונך.</string>
-  <string name="passwordReset_clickOrIgnore">אם אכן זאת היא בקשתך, לחץ על הלינק מתחת. אם לא, אתה יכול להתעלם מהאימייל.</string>
+  <string name="passwordReset_clickOrIgnore">אם אכן זאת היא בקשתך, אשר ע\"י פתיחת הקישור המצורף. אחרת, אין צורך בפעולה כלשהי.</string>
   <string name="emailChange_subject">אשר את כתובתך החדשה, %s</string>
   <string name="emailChange_intro">אתה מבקש לשנות את כתובתך.</string>
   <string name="emailChange_click">הקש על האתר המצורף לאישור נגישות לכתובת זו:</string>
