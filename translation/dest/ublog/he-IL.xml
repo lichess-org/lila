@@ -23,4 +23,20 @@
     <item quantity="many">%s צפיות</item>
     <item quantity="other">%s צפיות</item>
   </plurals>
+  <string name="xPublishedY">%1$s פרסם את הפוסט: \"%2$s\"</string>
+  <string name="thisPostIsPublished">הפוסט פורסם</string>
+  <string name="thisIsADraft">זוהי טיוטה</string>
+  <string name="moreBlogPostsBy">עוד פוסטים מאת %s</string>
+  <string name="noPostsInThisBlogYet">אין פוסטים בבלוג זה, לעת עתה...</string>
+  <string name="noDrafts">אין טיוטות. נדמה ששלחת את כל מה שהיית צריך.</string>
+  <string name="latestBlogPosts">פוסטים אחרונים</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">צפה בפוסט אחד</item>
+    <item quantity="two">צפה בכל הפוסטים של %s</item>
+    <item quantity="many">צפה בכל הפוסטים של %s</item>
+    <item quantity="other">צפה בכל הפוסטים של %s</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">העלה תמונה לפוסט שלך</string>
+  <string name="imageAlt">תיאור התמונה</string>
+  <string name="imageCredit">קרדיטים ליוצרי התמונה</string>
 </resources>
