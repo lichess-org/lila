@@ -155,7 +155,7 @@
   <string name="fiftyMovesWithoutProgress">50 מסעים בלי התקדמות</string>
   <string name="currentGames">המשחקים הנוכחיים</string>
   <plurals name="nbGames">
-    <item quantity="one">%s משחקים</item>
+    <item quantity="one">%s משחק</item>
     <item quantity="two">%s משחקים</item>
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
@@ -927,13 +927,37 @@
   <string name="maximumWeeklyRating">דירוג שבועי מקסימלי</string>
   <string name="onlyTitled">רק שחקנים עם תואר</string>
   <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
+  <string name="positionInputHelp">הדבק FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
+שדה זה עובד רק עבור משחקים סטנדרטיים, לא עם וריאנטים.
+אתה יכול להשתמש ב-s% כדי ליצור מיקום FEN, ואז להדביק אותו כאן.
+השאר את שדה זה ריק כדי להתחיל משחקים מהמיקום ההתחלתי הרגיל.</string>
+  <string name="cancelSimul">בטל את המשחק הסימולטני</string>
+  <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
+  <string name="simulFeatured">תכונה ב-%s</string>
+  <string name="simulFeaturedHelp">גרום למשחק להיות ציבורי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
+  <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
+  <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
+  <string name="embedsAvailable">הדבק כתובת אתר של משחק או כתובת אתר של פרק לימוד כדי להטמיע אותו.</string>
+  <string name="inYourLocalTimezone">באזור הזמן שלך</string>
+  <string name="tournChat">צ\'אט טורניר</string>
   <string name="noChat">בטל אפשרות צ\'ט</string>
+  <string name="onlyTeamLeaders">רק ראשי מועדון</string>
+  <string name="onlyTeamMembers">רק חברי מועדון</string>
+  <string name="navigateMoveTree">נווט ברשימת המהלכים</string>
+  <string name="mouseTricks">תעלולי עכבר</string>
+  <string name="toggleLocalAnalysis">הפעילו/כבו ניתוח מחשב מקומי</string>
+  <string name="toggleAllAnalysis">הפעילו/כבו כל ניתוח מחשב</string>
+  <string name="playComputerMove">שחק את מהלך המחשב הטוב ביותר</string>
   <string name="analysisOptions">אפשרויות ניתוח</string>
+  <string name="focusChat">הגדל את הצ\'אט</string>
+  <string name="showHelpDialog">הראה את דיאלוג זה</string>
   <string name="reopenYourAccount">פתח את חשבונך מחדש</string>
   <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתחו.</string>
+  <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
   <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
+  <string name="emailAssociatedToaccount">כתובת האימייל שמקושרת למשתמש</string>
   <string name="sentEmailWithLink">שלחנו לך דואל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>
   <string name="hangOn">רגע!</string>
