@@ -8,7 +8,7 @@
   <string name="someRated">חלק מהתחרויות הן רשמיות ויקבעו את דרוגך.</string>
   <string name="howAreScoresCalculated">איך מחושבות תוצאות המשחקים?</string>
   <string name="howAreScoresCalculatedAnswer">נצחון מזכה ב-2 נקודות, תיקו באחת, והפסד ללא נקודות. לאחר שני נצחונות רצופים, יוכפלו הנקודות: 4 לניצחון, 2 לתיקו, 0 להפסד. מצב זה יסומן ע\"י איקון להבה. הפסד יסיים את סדרת הכפלת הנקודות ויחזור לניקוד הלא מוכפל. למשל, 2 נצחונות ואחריהם תיקו שווים 2+2+(2x1) או 6 נקודות</string>
-  <string name="berserk">אטרף במשחק!</string>
+  <string name="berserk">אטרף בטורניר אזורי</string>
   <string name="berserkAnswer">הבוחר באופצית האטרף מאבד מחצית מזמנו, אך ניצחון יזכה אותו בנקודה נוספת, בתנאי שעשה במשחק לפחות 7 מסעים. 
 
 כמו-כן שחקן האטרף יאבד את זכותו לתוספת זמן, במצבים בהם היא קיימת. (יוצא דופן הוא המקרה של 1+2 בו אופציית האטרף תהיה 1+0 ללא חציית הזמן הראשוני אך עם איבוד התוספת.)
@@ -44,4 +44,11 @@
     <item quantity="many">צפה בכל %s הקבוצות</item>
     <item quantity="other">צפה בכל %s הקבוצות</item>
   </plurals>
+  <string name="newTeamBattle">קרב צוותים חדש</string>
+  <string name="customStartDate">תאריך התחלה</string>
+  <string name="customStartDateHelp">באזור הזמן המקומי שלך. אפשרות זו עוקפת את ההגדרה \"זמן לפני תחילת הטורניר\"</string>
+  <string name="allowBerserk">אפשר את כפתור האטרף</string>
+  <string name="allowBerserkHelp">אפשר לשחקנים לחלק ב-2 את הזמן בשעונם כדי לקבל עוד נקודה</string>
+  <string name="arenaStreaks">רצפי ניצחונות בטורניר אזורי</string>
+  <string name="arenaStreaksHelp">אחרי 2 ניצחונות, ניצחונות רצופים נותנים 4 נקודות מקום 2.</string>
 </resources>
