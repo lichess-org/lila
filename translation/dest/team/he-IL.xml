@@ -18,10 +18,10 @@
   <string name="manuallyReviewAdmissionRequests">אשר מצטרפים לקבוצה באופן ידני</string>
   <string name="manuallyReviewAdmissionRequestsHelp">אם שדה זה סומן, שחקנים יצטרכו לכתוב בקשה להצטרפות לקבוצה, ואתה תוכל לאשר או לדחות אותה.</string>
   <plurals name="teamLeaders">
-    <item quantity="one">מוביל הקבוצה</item>
-    <item quantity="two">מובילי הקבוצה</item>
-    <item quantity="many">מובילי הקבוצה</item>
-    <item quantity="other">מובילי הקבוצה</item>
+    <item quantity="one">מנהיג הקבוצה</item>
+    <item quantity="two">מנהיגי הקבוצה</item>
+    <item quantity="many">מנהיגי הקבוצה</item>
+    <item quantity="other">מנהיגי הקבוצה</item>
   </plurals>
   <string name="teamRecentMembers">השחקנים האחרונים שהצטרפו לקבוצה</string>
   <string name="kickSomeone">הסר מישהו מהקבוצה</string>
