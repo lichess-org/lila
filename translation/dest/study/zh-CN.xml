@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">您现在是一位旁观者</string>
   <string name="pgnTags">PGN 标签</string>
   <string name="like">赞</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">取消赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
   <string name="commentThisMove">评论这步走法</string>
