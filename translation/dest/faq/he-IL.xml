@@ -27,7 +27,7 @@
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים לשחמט התכתבויות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע בהתכתבויות, ליצ\'ס לא.</string>
   <string name="gameplay">משחק</string>
-  <string name="howBulletBlitzEtcDecided">איך בולט, בליץ, וזמני משחק אחרים מוחלטים?</string>
+  <string name="howBulletBlitzEtcDecided">איך קליע, בזק וזמני משחק אחרים מוחלטים?</string>
   <string name="basedOnGameDuration">בקרות זמן ליצ\'ס מבוססות על משך המשחק המשוער =%1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
   <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת שעון)</string>
@@ -72,6 +72,8 @@
   <string name="verificationForm">טופס אימות</string>
   <string name="noUpperCaseDot">לא.</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
+  <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
+  <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
