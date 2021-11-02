@@ -252,7 +252,7 @@
   <string name="playingRightNow">משחקים עכשיו</string>
   <string name="eventInProgress">משחקים עכשיו</string>
   <string name="finished">נגמר</string>
-  <string name="finishesX">נגמר/ה %s</string>
+  <string name="finishesX">נגמר עוד %s</string>
   <string name="abortGame">בטל משחק</string>
   <string name="gameAborted">משחק בוטל</string>
   <string name="standard">רגיל</string>
@@ -465,7 +465,7 @@
   <string name="advancedSettings">הגדרות מתקדמות</string>
   <string name="safeTournamentName">בחר שם בטוח מאוד לטורניר.</string>
   <string name="inappropriateNameWarning">כל דבר לא הולם במקצת יכול לגרום לסגירת החשבון.</string>
-  <string name="emptyTournamentName">השאר ריק כדי לקרוא לטורניר על שם גראנד מאסטר רנדומלי.</string>
+  <string name="emptyTournamentName">השאר ריק כדי לקרוא לטורניר על שם רב-אמן אקראי.</string>
   <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
   <string name="fewerPlayers">אם אתה מגדיר תנאי כניסה, יהיו לטורניר פחות שחקנים.</string>
   <string name="showAdvancedSettings">הצג הגדרות מתקדמות</string>
@@ -481,7 +481,7 @@
   <string name="standByX">%s, נא המתן, מתאימים זוגות, היה מוכן!</string>
   <string name="youArePlaying">אתה משחק!</string>
   <string name="winRate">שיעור זכיה</string>
-  <string name="berserkRate">מתוכם ברזרק</string>
+  <string name="berserkRate">אחוז המשחקים באטרף</string>
   <string name="performance">דירוג הביצוע</string>
   <string name="tournamentComplete">הטורניר הושלם</string>
   <string name="movesPlayed">מהלכים ששוחקו</string>
@@ -681,7 +681,7 @@
   <string name="simulAddExtraTime">.באפשרותך להוסיף זמן נוסף לשעון שלך כדי לעזור לך להתמודד עם משחק בו-זמנית</string>
   <string name="simulHostExtraTime">זמן נוסף למארח</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
-  <string name="tournamentFAQ">שאלות נפוצות לגבי זירת הטורנירים</string>
+  <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לפני שהטורניר מתחיל</string>
   <string name="averageCentipawnLoss">אובדן מאית חייל ממוצעת</string>
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
