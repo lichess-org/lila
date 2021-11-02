@@ -691,7 +691,7 @@
   <string name="keyEnterOrExitVariation">כנס לגרסה\ צא מגרסה</string>
   <string name="newTournament">טורניר חדש</string>
   <string name="tournamentHomeTitle">טורניר שחמט הכולל משחקים עם גרסאות רבות הגבלות זמן וגרסאות שונות</string>
-  <string name="tournamentHomeDescription">תשחק בטורנירי השחמט המהיר! הצטרף לטורניר רשמי ומתוכנן, או תיצור אחד משלך. ברק, בליץ, קלאסי, שחמט 960, מלך הגבעה, שח משולש,  ואפשרויות נוספות של משחקי שחמט מהנים.</string>
+  <string name="tournamentHomeDescription">שחק בטורנירי שחמט מהירים! הצטרף לטורניר רשמי ומתוכנן, או תיצור אחד משלך. קליע, בזק, קלאסי, שחמט 960, מלך הגבעה, שח משולש, ואפשרויות נוספות של משחקי שחמט מהנים.</string>
   <string name="tournamentNotFound">הטורניר לא נמצא</string>
   <string name="tournamentDoesNotExist">הטורניר הזה אינו קיים.</string>
   <string name="tournamentMayHaveBeenCanceled">קיימת אפשרות שהטורניר בוטל, במקרה שכל השחקנים יצאו ממנו לפני התחלתו.</string>
@@ -746,7 +746,7 @@
   <string name="zeroAdvertisement">אפס פרסומות</string>
   <string name="fullFeatured">מאפיינים</string>
   <string name="phoneAndTablet">טלפון וטאבלט</string>
-  <string name="bulletBlitzClassical">קליע, בליץ, קלסי</string>
+  <string name="bulletBlitzClassical">קליע, בזק, קלאסי</string>
   <string name="correspondenceChess">שחמט בהתכתבות</string>
   <string name="onlineAndOfflinePlay">תשחק עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
@@ -864,7 +864,7 @@
   <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־lichess.org.</string>
   <string name="thankYouForReading">תודה רבה על הקריאה!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
-  <string name="currentMatchScore">תוצאה במפגש הנוכחי</string>
+  <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
@@ -873,8 +873,8 @@
   <string name="edit">ערוך</string>
   <string name="rapid">רפיד</string>
   <string name="classical">קלאסי</string>
-  <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ30 שניות</string>
-  <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות</string>
+  <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ-30 שניות על השעון</string>
+  <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות על השעון</string>
   <string name="blitzDesc">משחקים מהירים: בין 3 ל8 דקות</string>
   <string name="rapidDesc">משחקים זריזים: בין 8 ל25 דקות</string>
   <string name="classicalDesc">משחקים קלאסיים: 25 דקות או יותר</string>
