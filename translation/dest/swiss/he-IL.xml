@@ -7,4 +7,5 @@
     <item quantity="many">צפו בכל %s הסיבובים</item>
     <item quantity="other">צפו בכל %s הסיבובים</item>
   </plurals>
+  <string name="streaksAndBerserk">רצפי ניצחונית ו\'אטרף\'</string>
 </resources>
