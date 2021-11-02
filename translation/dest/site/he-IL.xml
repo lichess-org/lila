@@ -99,6 +99,9 @@
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפעת כלל 50 המהלכים</string>
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
+  <string name="winOr50MovesByPriorMistake">נצח ב-50 מהלכים בגלל טעות קודמת</string>
+  <string name="lossOr50MovesByPriorMistake">הפסד ב-50 מהלכים בגלל טעות קודמת</string>
+  <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם עקבו אחר שורת בסיס הטבלה המומלצת מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בבסיסי הטבלה של Syzygy.</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="importPgn">ייבא בפורמט PGN</string>
   <string name="delete">מחיקה</string>
@@ -720,8 +723,10 @@
   <string name="downloadImported">להוריד את המקור</string>
   <string name="crosstable">חשבון נקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול בכדי להתקדם במשחק.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">עבור על וריאציות מחשב עם העכבר בשביל לראות תצוגה מקדימה.</string>
   <string name="analysisShapesHowTo">הקש \"שיפט\" ולחץ מקש עכבר שמאלי או לחץ מקש עכבר ימני כדי לצייר חצים ועיגולים על הלוח.</string>
   <string name="letOtherPlayersMessageYou">אפשר לשחקנים אחרים לשלוח לך הודעות</string>
+  <string name="receiveForumNotifications">קבל התראות כשאתה מאוזכר בפורום</string>
   <string name="shareYourInsightsData">שתף את הנתונים הסטטיסטיים שלך</string>
   <string name="withNobody">עם אף אחד</string>
   <string name="withFriends">עם חברים</string>
@@ -732,6 +737,7 @@
   <string name="enableKidMode">הפעל מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
+  <string name="sessions">מכשירים מחוברים</string>
   <string name="revokeAllSessions">בטל כל הפעלות</string>
   <string name="playChessEverywhere">שחק בשחמט בכל מקום</string>
   <string name="asFreeAsLichess">חופשי כמו ליצ\'ס</string>
@@ -905,10 +911,22 @@
   <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
   <string name="welcome">ברוכים הבאים!</string>
+  <string name="lichessPatronInfo">ליצ\'ס היא ארגון צדקה ותוכנת קוד פתוח חינמית.
+כל עלויות התפעול, הפיתוח והתוכן ממומנים אך ורק על ידי תרומות משתמשים.</string>
+  <string name="coachManager">אזור המאמן</string>
+  <string name="streamerManager">אזור יוצר התוכן</string>
   <string name="cancelTournament">בטל טורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
   <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. יש קישורי מארקאפ זמינים.[name](https://url)</string>
+  <string name="ratedFormHelp">המשחקים מדורגים 
+ומשפיעים על דירוגם של השחקנים</string>
+  <string name="onlyMembersOfTeam">רק חברי המועדון</string>
   <string name="noRestriction">ללא הגבלה</string>
+  <string name="minimumRatedGames">מספר משחקים מדורגים מינימלי</string>
+  <string name="minimumRating">דירוג מינימלי</string>
+  <string name="maximumWeeklyRating">דירוג שבועי מקסימלי</string>
+  <string name="onlyTitled">רק שחקנים עם תואר</string>
+  <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="noChat">בטל אפשרות צ\'ט</string>
