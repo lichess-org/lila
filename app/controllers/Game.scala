@@ -74,6 +74,7 @@ final class Game(
       _ ?? { user =>
         val format = GameApiV2.Format byRequest req
         WithVs(req) { vs =>
+          val finished = getBoolOpt("finished", req) | true
           val config = GameApiV2.ByUserConfig(
             user = user,
             format = format,
@@ -94,8 +95,8 @@ final class Game(
               case _                                    => 20
             }),
             playerFile = get("players", req),
-            ongoing = getBool("ongoing", req),
-            finished = getBoolOpt("finished", req) | true
+            ongoing = getBool("ongoing", req) || !finished,
+            finished = finished
           )
           if (me.exists(_.id == "openingexplorer"))
             Ok.chunked(env.api.gameApiV2.exportByUser(config))
