@@ -557,6 +557,10 @@
   <string name="error.required">यह जानकारी जरुरी है</string>
   <string name="error.email">यह ई-मेल सही नहीं हैं</string>
   <string name="error.email_acceptable">यह ई-मेल स्वीकार नहीं की जा सकती है। कृप्या इसे पुनः जांच करके प्रयास करें।</string>
+  <string name="error.email_unique">यह ईमेल या तो सही नही ह्ऐ अथवा पहले इस्तेमाल हो गया ह्ऐ</string>
+  <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
   <string name="onlyExistingConversations">केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
