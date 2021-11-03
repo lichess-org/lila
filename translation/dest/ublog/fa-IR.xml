@@ -26,4 +26,7 @@
   <string name="noPostsInThisBlogYet">هنوز، هیچ نوشته‌ای در این تارنگار نیست.</string>
   <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
   <string name="latestBlogPosts">آخرین نوشته‌های بلاگ</string>
+  <string name="uploadAnImageForYourPost">بارگذاری یک عکس برای پست شما</string>
+  <string name="imageAlt">مقدار alternative برای عکس</string>
+  <string name="imageCredit">منبع عکس</string>
 </resources>

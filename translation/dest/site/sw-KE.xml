@@ -73,5 +73,19 @@
   <string name="recentGames">Michezo ya hivi karibuni</string>
   <string name="delete">Futa</string>
   <string name="realtimeReplay">Moja kwa moja</string>
+  <string name="changePassword">Badilisha nenosiri</string>
+  <string name="changeEmail">Badilisha nenosiri</string>
+  <string name="forgotPassword">Umesahau nenosiri?</string>
+  <string name="whiteTimeOut">Muda uliwakatikia weupe</string>
+  <string name="blackTimeOut">Muda uliwakatikia weusi</string>
+  <string name="whiteDeclinesDraw">Mweupe akataa sare</string>
+  <string name="blackDeclinesDraw">Mweusi akataa sare</string>
+  <string name="yourOpponentOffersADraw">Mpinzani anaomba sare</string>
+  <string name="accept">Kubali</string>
+  <string name="decline">Kataa</string>
+  <string name="playingRightNow">Inachezwa</string>
+  <string name="eventInProgress">Inaendelea</string>
+  <string name="finished">Imekamilika</string>
+  <string name="finishesX">itakamilika ndani ya %s</string>
   <string name="rematch">cheza tena</string>
 </resources>

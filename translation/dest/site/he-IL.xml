@@ -99,6 +99,9 @@
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפעת כלל 50 המהלכים</string>
   <string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
+  <string name="winOr50MovesByPriorMistake">נצח ב-50 מהלכים בגלל טעות קודמת</string>
+  <string name="lossOr50MovesByPriorMistake">הפסד ב-50 מהלכים בגלל טעות קודמת</string>
+  <string name="unknownDueToRounding">ניצחון/הפסד מובטח רק אם עקבו אחר שורת בסיס הטבלה המומלצת מאז האכילה או מהלך הרגלי האחרון, עקב עיגול אפשרי של ערכי DTZ בבסיסי הטבלה של Syzygy.</string>
   <string name="allSet">הכול מוכן!</string>
   <string name="importPgn">ייבא בפורמט PGN</string>
   <string name="delete">מחיקה</string>
@@ -152,7 +155,7 @@
   <string name="fiftyMovesWithoutProgress">50 מסעים בלי התקדמות</string>
   <string name="currentGames">המשחקים הנוכחיים</string>
   <plurals name="nbGames">
-    <item quantity="one">%s משחקים</item>
+    <item quantity="one">%s משחק</item>
     <item quantity="two">%s משחקים</item>
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
@@ -249,7 +252,7 @@
   <string name="playingRightNow">משחקים עכשיו</string>
   <string name="eventInProgress">משחקים עכשיו</string>
   <string name="finished">נגמר</string>
-  <string name="finishesX">נגמר/ה %s</string>
+  <string name="finishesX">נגמר עוד %s</string>
   <string name="abortGame">בטל משחק</string>
   <string name="gameAborted">משחק בוטל</string>
   <string name="standard">רגיל</string>
@@ -462,7 +465,7 @@
   <string name="advancedSettings">הגדרות מתקדמות</string>
   <string name="safeTournamentName">בחר שם בטוח מאוד לטורניר.</string>
   <string name="inappropriateNameWarning">כל דבר לא הולם במקצת יכול לגרום לסגירת החשבון.</string>
-  <string name="emptyTournamentName">השאר ריק כדי לקרוא לטורניר על שם גראנד מאסטר רנדומלי.</string>
+  <string name="emptyTournamentName">השאר ריק כדי לקרוא לטורניר על שם רב-אמן אקראי.</string>
   <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
   <string name="fewerPlayers">אם אתה מגדיר תנאי כניסה, יהיו לטורניר פחות שחקנים.</string>
   <string name="showAdvancedSettings">הצג הגדרות מתקדמות</string>
@@ -478,7 +481,7 @@
   <string name="standByX">%s, נא המתן, מתאימים זוגות, היה מוכן!</string>
   <string name="youArePlaying">אתה משחק!</string>
   <string name="winRate">שיעור זכיה</string>
-  <string name="berserkRate">מתוכם ברזרק</string>
+  <string name="berserkRate">אחוז המשחקים באטרף</string>
   <string name="performance">דירוג הביצוע</string>
   <string name="tournamentComplete">הטורניר הושלם</string>
   <string name="movesPlayed">מהלכים ששוחקו</string>
@@ -678,7 +681,7 @@
   <string name="simulAddExtraTime">.באפשרותך להוסיף זמן נוסף לשעון שלך כדי לעזור לך להתמודד עם משחק בו-זמנית</string>
   <string name="simulHostExtraTime">זמן נוסף למארח</string>
   <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
-  <string name="tournamentFAQ">שאלות נפוצות לגבי זירת הטורנירים</string>
+  <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לפני שהטורניר מתחיל</string>
   <string name="averageCentipawnLoss">אובדן מאית חייל ממוצעת</string>
   <string name="keyboardShortcuts">קיצורי מקלדת</string>
@@ -688,7 +691,7 @@
   <string name="keyEnterOrExitVariation">כנס לגרסה\ צא מגרסה</string>
   <string name="newTournament">טורניר חדש</string>
   <string name="tournamentHomeTitle">טורניר שחמט הכולל משחקים עם גרסאות רבות הגבלות זמן וגרסאות שונות</string>
-  <string name="tournamentHomeDescription">תשחק בטורנירי השחמט המהיר! הצטרף לטורניר רשמי ומתוכנן, או תיצור אחד משלך. ברק, בליץ, קלאסי, שחמט 960, מלך הגבעה, שח משולש,  ואפשרויות נוספות של משחקי שחמט מהנים.</string>
+  <string name="tournamentHomeDescription">שחק בטורנירי שחמט מהירים! הצטרף לטורניר רשמי ומתוכנן, או תיצור אחד משלך. קליע, בזק, קלאסי, שחמט 960, מלך הגבעה, שח משולש, ואפשרויות נוספות של משחקי שחמט מהנים.</string>
   <string name="tournamentNotFound">הטורניר לא נמצא</string>
   <string name="tournamentDoesNotExist">הטורניר הזה אינו קיים.</string>
   <string name="tournamentMayHaveBeenCanceled">קיימת אפשרות שהטורניר בוטל, במקרה שכל השחקנים יצאו ממנו לפני התחלתו.</string>
@@ -720,8 +723,10 @@
   <string name="downloadImported">להוריד את המקור</string>
   <string name="crosstable">חשבון נקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול בכדי להתקדם במשחק.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">עבור על וריאציות מחשב עם העכבר בשביל לראות תצוגה מקדימה.</string>
   <string name="analysisShapesHowTo">הקש \"שיפט\" ולחץ מקש עכבר שמאלי או לחץ מקש עכבר ימני כדי לצייר חצים ועיגולים על הלוח.</string>
   <string name="letOtherPlayersMessageYou">אפשר לשחקנים אחרים לשלוח לך הודעות</string>
+  <string name="receiveForumNotifications">קבל התראות כשאתה מאוזכר בפורום</string>
   <string name="shareYourInsightsData">שתף את הנתונים הסטטיסטיים שלך</string>
   <string name="withNobody">עם אף אחד</string>
   <string name="withFriends">עם חברים</string>
@@ -732,6 +737,7 @@
   <string name="enableKidMode">הפעל מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
+  <string name="sessions">מכשירים מחוברים</string>
   <string name="revokeAllSessions">בטל כל הפעלות</string>
   <string name="playChessEverywhere">שחק בשחמט בכל מקום</string>
   <string name="asFreeAsLichess">חופשי כמו ליצ\'ס</string>
@@ -740,7 +746,7 @@
   <string name="zeroAdvertisement">אפס פרסומות</string>
   <string name="fullFeatured">מאפיינים</string>
   <string name="phoneAndTablet">טלפון וטאבלט</string>
-  <string name="bulletBlitzClassical">קליע, בליץ, קלסי</string>
+  <string name="bulletBlitzClassical">קליע, בזק, קלאסי</string>
   <string name="correspondenceChess">שחמט בהתכתבות</string>
   <string name="onlineAndOfflinePlay">תשחק עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
@@ -858,7 +864,7 @@
   <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב־lichess.org.</string>
   <string name="thankYouForReading">תודה רבה על הקריאה!</string>
   <string name="lifetimeScore">תוצאה כוללת</string>
-  <string name="currentMatchScore">תוצאה במפגש הנוכחי</string>
+  <string name="currentMatchScore">תוצאה במשחק הנוכחי</string>
   <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
@@ -867,8 +873,8 @@
   <string name="edit">ערוך</string>
   <string name="rapid">רפיד</string>
   <string name="classical">קלאסי</string>
-  <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ30 שניות</string>
-  <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות</string>
+  <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ-30 שניות על השעון</string>
+  <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות על השעון</string>
   <string name="blitzDesc">משחקים מהירים: בין 3 ל8 דקות</string>
   <string name="rapidDesc">משחקים זריזים: בין 8 ל25 דקות</string>
   <string name="classicalDesc">משחקים קלאסיים: 25 דקות או יותר</string>
@@ -905,17 +911,53 @@
   <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
   <string name="welcome">ברוכים הבאים!</string>
+  <string name="lichessPatronInfo">ליצ\'ס היא ארגון צדקה ותוכנת קוד פתוח חינמית.
+כל עלויות התפעול, הפיתוח והתוכן ממומנים אך ורק על ידי תרומות משתמשים.</string>
+  <string name="coachManager">אזור המאמן</string>
+  <string name="streamerManager">אזור יוצר התוכן</string>
   <string name="cancelTournament">בטל טורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
   <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. יש קישורי מארקאפ זמינים.[name](https://url)</string>
+  <string name="ratedFormHelp">המשחקים מדורגים 
+ומשפיעים על דירוגם של השחקנים</string>
+  <string name="onlyMembersOfTeam">רק חברי המועדון</string>
   <string name="noRestriction">ללא הגבלה</string>
+  <string name="minimumRatedGames">מספר משחקים מדורגים מינימלי</string>
+  <string name="minimumRating">דירוג מינימלי</string>
+  <string name="maximumWeeklyRating">דירוג שבועי מקסימלי</string>
+  <string name="onlyTitled">רק שחקנים עם תואר</string>
+  <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
+  <string name="positionInputHelp">הדבק FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
+שדה זה עובד רק עבור משחקים סטנדרטיים, לא עם וריאנטים.
+אתה יכול להשתמש ב-s% כדי ליצור מיקום FEN, ואז להדביק אותו כאן.
+השאר את שדה זה ריק כדי להתחיל משחקים מהמיקום ההתחלתי הרגיל.</string>
+  <string name="cancelSimul">בטל את המשחק הסימולטני</string>
+  <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
+  <string name="simulFeatured">תכונה ב-%s</string>
+  <string name="simulFeaturedHelp">גרום למשחק להיות ציבורי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
+  <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
+  <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
+  <string name="embedsAvailable">הדבק כתובת אתר של משחק או כתובת אתר של פרק לימוד כדי להטמיע אותו.</string>
+  <string name="inYourLocalTimezone">באזור הזמן שלך</string>
+  <string name="tournChat">צ\'אט טורניר</string>
   <string name="noChat">בטל אפשרות צ\'ט</string>
+  <string name="onlyTeamLeaders">רק ראשי מועדון</string>
+  <string name="onlyTeamMembers">רק חברי מועדון</string>
+  <string name="navigateMoveTree">נווט ברשימת המהלכים</string>
+  <string name="mouseTricks">תעלולי עכבר</string>
+  <string name="toggleLocalAnalysis">הפעילו/כבו ניתוח מחשב מקומי</string>
+  <string name="toggleAllAnalysis">הפעילו/כבו כל ניתוח מחשב</string>
+  <string name="playComputerMove">שחק את מהלך המחשב הטוב ביותר</string>
   <string name="analysisOptions">אפשרויות ניתוח</string>
+  <string name="focusChat">הגדל את הצ\'אט</string>
+  <string name="showHelpDialog">הראה את דיאלוג זה</string>
   <string name="reopenYourAccount">פתח את חשבונך מחדש</string>
   <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתחו.</string>
+  <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
   <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
+  <string name="emailAssociatedToaccount">כתובת האימייל שמקושרת למשתמש</string>
   <string name="sentEmailWithLink">שלחנו לך דואל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>
   <string name="hangOn">רגע!</string>
