@@ -41,6 +41,9 @@ export class ExplorerConfigCtrl {
   myName?: string;
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
+    let previous: string[] = [];
+    if (root.data.player.user?.id !== undefined) previous.push(root.data.player.user.id);
+    if (root.data.opponent.user?.id !== undefined) previous.push(root.data.opponent.user.id);
     this.myName = document.body.dataset['user'];
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
@@ -54,7 +57,7 @@ export class ExplorerConfigCtrl {
       playerName: {
         open: prop(false),
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
-        previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
+        previous: storedJsonProp<string[]>('explorer.player.name.previous', () => previous),
       },
       color: prop('white'),
     };
@@ -292,11 +295,14 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.data.playerName.previous()].map(name =>
+        [
+          ...(ctrl.data.playerName.previous().indexOf(ctrl.myName || '') === -1 ? [ctrl.myName] : []),
+          ...ctrl.data.playerName.previous(),
+        ].map(name =>
           h(
             `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {
-              hook: bind('click', () => onSelect(name)),
+              hook: bind('click', () => onSelect(name || "")),
             },
             name
           )
