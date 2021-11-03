@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">האם ליצ\'ס טוען כראוי?</string>
+  <string name="measurementInProgressThreeDot">מדידה מתבצעת...</string>
+  <string name="noAndYourNetworkIsGood">לא. והרשת שלך עובדת סבבה.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">לא. והרשת שלך לא עובדת כראוי.</string>
+  <string name="yesItWillBeFixedSoon">כן. זה יתוקן בקרוב!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">ועכשיו, התשובה הארוכה! לאג במשחק נגרם משני ערכים לא קשורים אחד לשני (הנמוך יותר טוב):</string>
+  <string name="lichessServerLatency">זמן ההגבה של שרתי ליצ\'ס</string>
+  <string name="lichessServerLatencyExplanation">הזמן שלוקח למהלך להתעדכן בשרת. הוא זהה לכולם, ורק תלוי בשרתים שלנו. הוא נהיה יותר ארוך כל עוד יש יותר שחקנים, אבל המפתחים שלנו עושים את המיטב כדי לגרום לו להיות יותר נמוך. הוא בדר\"כ נשאר מתחת לעשירית שנייה.</string>
+  <string name="networkBetweenLichessAndYou">הרשת שבין ליצ\'ס למכשיר שלך</string>
+</resources>
