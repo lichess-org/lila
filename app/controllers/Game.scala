@@ -94,7 +94,8 @@ final class Game(
               case _                                    => 20
             }),
             playerFile = get("players", req),
-            ongoing = getBool("ongoing", req)
+            ongoing = getBool("ongoing", req),
+            finished = getBoolOpt("finished", req) | true
           )
           if (me.exists(_.id == "openingexplorer"))
             Ok.chunked(env.api.gameApiV2.exportByUser(config))

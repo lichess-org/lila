@@ -110,12 +110,17 @@ final class GameApiV2(
   def exportByUser(config: ByUserConfig): Source[String, _] =
     Source futureSource {
       config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
+        val playerSelect =
+          if (config.finished)
+            config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) }
+          else
+            config.vs.map(_.id).fold(Query.nowPlaying(config.user.id)) {
+              Query.nowPlayingVs(config.user.id, _)
+            }
         gameRepo
           .sortedCursor(
-            config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
-              Query.createdBetween(config.since, config.until) ++ {
-                !config.ongoing ?? Query.finished
-              },
+            playerSelect ++
+              Query.createdBetween(config.since, config.until) ++ (!config.ongoing ?? Query.finished),
             config.sort.bson,
             batchSize = config.perSecond.value
           )
@@ -367,7 +372,8 @@ object GameApiV2 {
       sort: GameSort,
       perSecond: MaxPerSecond,
       playerFile: Option[String],
-      ongoing: Boolean = false
+      ongoing: Boolean = false,
+      finished: Boolean = true
   ) extends Config {
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
