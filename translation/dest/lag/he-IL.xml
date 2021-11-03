@@ -9,4 +9,7 @@
   <string name="lichessServerLatency">זמן ההגבה של שרתי ליצ\'ס</string>
   <string name="lichessServerLatencyExplanation">הזמן שלוקח למהלך להתעדכן בשרת. הוא זהה לכולם, ורק תלוי בשרתים שלנו. הוא נהיה יותר ארוך כל עוד יש יותר שחקנים, אבל המפתחים שלנו עושים את המיטב כדי לגרום לו להיות יותר נמוך. הוא בדר\"כ נשאר מתחת לעשירית שנייה.</string>
   <string name="networkBetweenLichessAndYou">הרשת שבין ליצ\'ס למכשיר שלך</string>
+  <string name="networkBetweenLichessAndYouExplanation">הזמן שלוקח למכשיר שלך לשלוח את המהלך לליצ\'ס, ולקבל את התשובה בחזרה. הוא תלוי במרחק שלך לצרפת (שם נמצאים השרתים שלנו), ולחיבור שלך לאינטרנט. מפתחי ליצ\'ס לא יכולים לתקן לך את האינטרנט, ולכן לא יכולים לגרום לפרמטר זה להיות יותר מהיר.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">אתם יכולים למצוא את ערכים אלו בכל זמן, על ידי לחיצה על שם המשתמש שלכם למעלה.</string>
+  <string name="lagCompensation">פיצוי על הלאג</string>
 </resources>
