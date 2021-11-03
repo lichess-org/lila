@@ -49,6 +49,7 @@
   <string name="customStartDateHelp">באזור הזמן המקומי שלך. אפשרות זו עוקפת את ההגדרה \"זמן לפני תחילת הטורניר\"</string>
   <string name="allowBerserk">אפשר את כפתור האטרף</string>
   <string name="allowBerserkHelp">אפשר לשחקנים לחלק ב-2 את הזמן בשעונם כדי לקבל עוד נקודה</string>
+  <string name="allowChatHelp">אפשר לשחקנים לנהדל דיונים בחדר שיחה</string>
   <string name="arenaStreaks">רצפי ניצחונות בטורניר זירה</string>
   <string name="arenaStreaksHelp">לאחר 2 ניצחונות, ניצחונות רצופים נותנים 4 נקודות מקום 2.</string>
 </resources>
