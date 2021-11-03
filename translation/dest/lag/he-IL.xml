@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">הזמן שלוקח למכשיר שלך לשלוח את המהלך לליצ\'ס, ולקבל את התשובה בחזרה. הוא תלוי במרחק שלך לצרפת (שם נמצאים השרתים שלנו), ולחיבור שלך לאינטרנט. מפתחי ליצ\'ס לא יכולים לתקן לך את האינטרנט, ולכן לא יכולים לגרום לפרמטר זה להיות יותר מהיר.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">אתם יכולים למצוא את ערכים אלו בכל זמן, על ידי לחיצה על שם המשתמש שלכם למעלה.</string>
   <string name="lagCompensation">פיצוי על הלאג</string>
+  <string name="lagCompensationExplanation">ליצ\'ס מפצה על לאגים. ישנן מגבלות המבוססות על בקרת זמן, כך שהתוצאה צריכה להרגיש הגיונית עבור שני השחקנים. כתוצאה מכך, השהיית רשת גבוהה יותר מהיריב שלך אינה מגבלה!</string>
 </resources>
