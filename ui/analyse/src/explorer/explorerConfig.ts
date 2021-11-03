@@ -41,10 +41,14 @@ export class ExplorerConfigCtrl {
   myName?: string;
 
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
-    let previous: string[] = [];
-    if (root.data.player.user?.id !== undefined) previous.push(root.data.player.user.id);
-    if (root.data.opponent.user?.id !== undefined) previous.push(root.data.opponent.user.id);
     this.myName = document.body.dataset['user'];
+    let previous: string[] = [];
+    if (root.data.player.user?.id !== undefined && root.data.player.user.id !== this.myName) {
+      previous.push(root.data.player.user.id);
+    }
+    if (root.data.opponent.user?.id !== undefined && root.data.opponent.user.id !== this.myName) {
+      previous.push(root.data.opponent.user.id);
+    }
     if (variant === 'standard') this.allDbs.unshift('masters');
     this.data = {
       open: prop(false),
@@ -295,14 +299,11 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ]),
       h(
         'div.previous',
-        [
-          ...(ctrl.data.playerName.previous().indexOf(ctrl.myName || '') === -1 ? [ctrl.myName] : []),
-          ...ctrl.data.playerName.previous(),
-        ].map(name =>
+        [...(ctrl.myName ? [ctrl.myName] : []), ...ctrl.data.playerName.previous()].map(name =>
           h(
             `button.button${name == ctrl.myName ? '.button-green' : ''}`,
             {
-              hook: bind('click', () => onSelect(name || "")),
+              hook: bind('click', () => onSelect(name)),
             },
             name
           )
