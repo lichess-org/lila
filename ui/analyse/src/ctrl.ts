@@ -206,6 +206,11 @@ export default class AnalyseCtrl {
     lichess.sound.preloadBoardSounds();
   }
 
+  enableWiki = (v: boolean) => {
+    this.wiki = v ? wikiTheory() : undefined;
+    if (this.wiki) this.wiki(this.nodeList);
+  };
+
   private setPath = (path: Tree.Path): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);

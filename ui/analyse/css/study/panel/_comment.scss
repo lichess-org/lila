@@ -12,6 +12,16 @@
 
     height: 12em;
   }
+
+  .study__wiki {
+    @extend %box-neat;
+    background: $c-bg-box;
+    padding: 0.8em 1em;
+    margin-top: 1vh;
+    &.empty {
+      display: none;
+    }
+  }
 }
 
 .study__comment {

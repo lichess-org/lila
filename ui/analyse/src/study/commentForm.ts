@@ -1,4 +1,5 @@
 import { prop, Prop } from 'common';
+import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -103,10 +104,14 @@ export function view(root: AnalyseCtrl): VNode {
     }
   };
 
-  return h('div.study__comments', [
-    currentComments(root, !study.members.canContribute()),
-    h('form.form3', [
-      h('div.form-group', [
+  return h(
+    'div.study__comments',
+    {
+      hook: onInsert(() => root.enableWiki(true)),
+    },
+    [
+      currentComments(root, !study.members.canContribute()),
+      h('form.form3', [
         h('textarea#comment-text.form-control', {
           hook: {
             insert(vnode) {
@@ -121,6 +126,7 @@ export function view(root: AnalyseCtrl): VNode {
           },
         }),
       ]),
-    ]),
-  ]);
+      h('div.analyse__wiki.study__wiki'),
+    ]
+  );
 }
