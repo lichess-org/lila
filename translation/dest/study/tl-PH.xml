@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="spectator">Manonood</string>
+  <string name="contributor">Taga-ambag</string>
+  <string name="kick">Paalisin</string>
+  <string name="leaveTheStudy">Umalis sa pag-aaral na ito</string>
+  <string name="youAreNowAContributor">Ikaw ay isa nang kontribyutor</string>
+  <string name="youAreNowASpectator">Ikaw ay isa nang manonood</string>
+  <string name="pgnTags">Mga PGN tag</string>
+</resources>
