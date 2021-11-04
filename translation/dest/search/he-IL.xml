@@ -28,4 +28,7 @@
   <string name="sortBy">מיין לפי</string>
   <string name="analysis">ניתוח</string>
   <string name="onlyAnalysed">רק משחקים בהם ניתוח המחשב זמין</string>
+  <string name="color">צבע</string>
+  <string name="evaluation">הערכה</string>
+  <string name="include">כלול</string>
 </resources>
