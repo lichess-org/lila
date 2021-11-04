@@ -3,7 +3,7 @@
   <string name="playWithAFriend">שחק עם חבר</string>
   <string name="playWithTheMachine">שחק עם המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, תן את הכתובת הזאת</string>
-  <string name="gameOver">המשחק נגמר</string>
+  <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
   <string name="waiting">ממתין</string>
   <string name="yourTurn">תורך</string>
