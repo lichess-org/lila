@@ -107,7 +107,7 @@ export function view(root: AnalyseCtrl): VNode {
   return h(
     'div.study__comments',
     {
-      hook: onInsert(() => root.enableWiki(true)),
+      // hook: onInsert(() => root.enableWiki(true)),
     },
     [
       currentComments(root, !study.members.canContribute()),
@@ -126,7 +126,7 @@ export function view(root: AnalyseCtrl): VNode {
           },
         }),
       ]),
-      h('div.analyse__wiki.study__wiki'),
+      h('div.analyse__wiki.study__wiki.empty'),
     ]
   );
 }
