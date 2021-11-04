@@ -55,4 +55,9 @@
   <string name="whiteIsSlightlyBetter">Mas magaling si white ng konti</string>
   <string name="blackIsSlightlyBetter">Mas magaling si Black ng konti</string>
   <string name="whiteIsBetter">Mas magaling si White</string>
+  <string name="blackIsBetter">Mas magaling si Black</string>
+  <string name="whiteIsWinning">Nananalo na si White</string>
+  <string name="blackIsWinning">Nananalo na si Black</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Pagdevelop</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atake</string>
 </resources>
