@@ -376,7 +376,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
               ' as ',
               explorer.config.data.color(),
-              explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
+              explorer.isIndexing() && !explorer.config.data.open()
+                ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
+                : undefined,
             ],
             'Switch sides'
           )
