@@ -37,4 +37,5 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="allowBerserkHelp">Hayaan ang mga manlalaro na hatiin ang kanilang clock time para makakuha ng extrang puntos</string>
   <string name="allowChatHelp">Hayaan ang mga manlalaro na mag-usap sa isang chat room</string>
   <string name="arenaStreaks">Streaks ng arena</string>
+  <string name="arenaStreaksHelp">Pagkatapos ng dalawang panalo, ang sunod-sunod na pagkapanalo ay magbibigay ng apat na puntos sa halip na dalawa.</string>
 </resources>
