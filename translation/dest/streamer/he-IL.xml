@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="live">בשידור חי!</string>
   <string name="doYouHaveStream">יש לך ערוץ יוטיוב או טוויץ\'?</string>
   <string name="uploadPicture">העלאת תמונה</string>
   <string name="maxSize">גודל מרבי: %s</string>
