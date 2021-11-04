@@ -340,7 +340,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
             explorer.config.selectPlayer(playerName || 'me');
             if (explorer.db() != 'player') {
               explorer.config.data.db('player');
-              explorer.config.toggleOpen();
+              explorer.config.data.open(true);
             }
           },
           explorer.reload
@@ -370,15 +370,17 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       ? active([h('strong', 'Lichess'), ' database'], lichessDbExplanation)
       : otherLink('Lichess', lichessDbExplanation),
     db == 'player'
-      ? active(
-          [
-            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-            ' as ',
-            explorer.config.data.color(),
-            explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
-          ],
-          'Switch sides'
-        )
+      ? playerName
+        ? active(
+            [
+              h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+              ' as ',
+              explorer.config.data.color(),
+              explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
+            ],
+            'Switch sides'
+          )
+        : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),
   ]);
 };
