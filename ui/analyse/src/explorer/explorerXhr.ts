@@ -38,7 +38,7 @@ export async function opening(
   }
   if (opts.db === 'player') {
     const playerName = conf.playerName.value();
-    if (!playerName) return explorerError('Missing player name');
+    if (!playerName) return explorerError(new Error('Missing player name'));
     params.set('player', playerName);
     params.set('color', conf.color());
     params.set('modes', conf.mode().join(','));
@@ -47,27 +47,30 @@ export async function opening(
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
-  const res = await fetch(url.href, {
-    cache: 'default',
-    headers: {}, // avoid default headers for cors
-    credentials: 'omit',
-  });
 
-  const onMessage = (line: any) => {
+  let res;
+  try {
+    res = await fetch(url.href, {
+      cache: 'default',
+      headers: {}, // avoid default headers for cors
+      credentials: 'omit',
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+  } catch (err) {
+    return explorerError(err as Error);
+  }
+
+  return readNdJson((line: any) => {
     const data = line as Partial<OpeningData>;
     data.isOpening = true;
     data.fen = opts.fen;
     processData(data as OpeningData);
-  };
-
-  if (res.ok) return readNdJson(onMessage)(res);
-
-  return explorerError(`Explorer error: ${res.status}`);
+  })(res);
 }
 
-const explorerError = (msg: string) => ({
+const explorerError = (err: Error) => ({
   cancel() {},
-  end: sync(Promise.resolve(new Error(msg))),
+  end: sync(Promise.resolve(err)),
 });
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
