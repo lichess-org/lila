@@ -49,8 +49,8 @@
   <string name="blackResigned">השחור פרש</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
   <string name="blackLeftTheGame">השחור עזב את המשחק</string>
-  <string name="whiteDidntMove">לבן לא עשה מסע</string>
-  <string name="blackDidntMove">שחור לא עשה מסע</string>
+  <string name="whiteDidntMove">לבן לא ביצע מסע</string>
+  <string name="blackDidntMove">שחור לא ביצע מסע</string>
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
