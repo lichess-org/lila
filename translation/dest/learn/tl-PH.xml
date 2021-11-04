@@ -166,6 +166,9 @@ Pawn = 1
 Ang hari ay napakahalaga! Kapag nawal to ay ibig sabihin talo kana sa laro.</string>
   <string name="queenOverBishop">Kunin ang piraso na may pinakamataas na halaga!
 Reyna &gt; Bishop</string>
+  <string name="pieceValueExchange">Kuhanin ang pyesa na may pinakamataas na halaga!
+Huwag magpalit
+pyesang mas mataas ang halaga para sa mas maunti ang halaga.</string>
   <string name="takeThePieceWithTheHighestValue">Kainin ang piece na
 may pinakamataas na halaga!</string>
   <string name="pieceValueComplete">Binabati kita! Alam mo na ang halaga ng mga materyal!
@@ -175,5 +178,12 @@ Bishop = 3
 Kabayo = 3
 Pawn = 1</string>
   <string name="checkInTwo">Nacheck sa dalawa</string>
+  <string name="twoMovesToGiveCheck">Dalawang galaw para magkaroon ng check</string>
+  <string name="checkInTwoIntro">Hanapin ang tamang kombinasyon ng dalawang galaw na magche-check sa hari ng kalaban!</string>
+  <string name="checkInTwoGoal">Hangarin ang hari ng kalaban sa isang galaw!</string>
+  <string name="checkInTwoComplete">Binabati Kita! Nacheck mo ang iyong kalaban, pinipilit sila na depensahan ang kanilang hari!</string>
+  <string name="whatNext">Anong sunod?</string>
+  <string name="youKnowHowToPlayChess">Marunong kang maglaro ng chess, binabati kita! Gusto mo bang maging isang mas malakas na manlalaro?</string>
+  <string name="register">Magrehistro</string>
   <string name="retry">Subukang muli</string>
 </resources>
