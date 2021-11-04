@@ -62,9 +62,10 @@ final class SwissFeature(
       }
   }
 
+  // causes heavy team reads
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
     colls.swiss
-      .aggregateList(nb) { framework =>
+      .aggregateList(nb, ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match(
           $doc(
@@ -74,6 +75,8 @@ final class SwissFeature(
             "garbage" $ne true
           )
         ) -> List(
+          Sort(Descending("nbPlayers")),
+          Limit(nb * 50),
           PipelineOperator(
             $lookup.pipeline(
               from = "team",
@@ -87,7 +90,6 @@ final class SwissFeature(
             )
           ),
           UnwindField("team"),
-          Sort(Descending("nbPlayers")),
           Limit(nb)
         )
       }
