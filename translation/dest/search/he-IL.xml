@@ -17,9 +17,9 @@
   <string name="opponentName">שם היריב</string>
   <string name="loser">מפסיד</string>
   <string name="from">מ</string>
-  <string name="to">ל</string>
+  <string name="to">עד</string>
   <string name="humanOrComputer">אם היריב של השחקן היה אנושי או מחשב</string>
-  <string name="aiLevel">רמת המנוע</string>
+  <string name="aiLevel">רמת הבינה המלאכותית</string>
   <string name="source">מקור</string>
   <string name="nbTurns">מספר התורות</string>
   <string name="result">תוצאה</string>
