@@ -49,8 +49,8 @@ export class ExplorerConfigCtrl {
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
-      since: storedProp('explorer.since', '2010-01'),
-      until: storedProp('explorer.until', ''),
+      since: storedProp('explorer.since-2', ''),
+      until: storedProp('explorer.until-2', ''),
       playerName: {
         open: prop(false),
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
