@@ -24,7 +24,7 @@
   <string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
   <string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
   <string name="itsYourTurn">זה התור שלך!</string>
-  <string name="cheatDetected">רמות התגלתה</string>
+  <string name="cheatDetected">זוהתה רמאות</string>
   <string name="kingInTheCenter">המלך במרכז</string>
   <string name="threeChecks">שח משולש</string>
   <string name="raceFinished">המירוץ נגמר</string>
@@ -35,13 +35,13 @@
   <string name="whitePlays">תור הלבן</string>
   <string name="blackPlays">תור השחור</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">המשתמש עזב את המשחק. תוכל לקחת ניצחון בעוד %s שנייה.</item>
+    <item quantity="one">יריבך עזב את המשחק. תוכל להכריז על נצחון בעוד %s שניות.</item>
     <item quantity="two">המשתמש עזב את המשחק. תוכל לירוש ניצחון בעוד %s שניות.</item>
     <item quantity="many">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
     <item quantity="other">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
   </plurals>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
-  <string name="forceResignation">קח את הניצחון</string>
+  <string name="forceResignation">טען שניצחת</string>
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
