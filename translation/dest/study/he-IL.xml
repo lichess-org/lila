@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">כעת אתה צופה</string>
   <string name="pgnTags">תוויות PGN</string>
   <string name="like">אהבתי</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">בטל \"אהבתי\"</string>
   <string name="newTag">תג חדש</string>
   <string name="commentThisPosition">הערה לגבי המצב במשחק</string>
   <string name="commentThisMove">הערה לגבי המסע</string>

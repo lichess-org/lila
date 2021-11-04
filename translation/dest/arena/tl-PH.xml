@@ -26,6 +26,16 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="howDoesItEnd">Paano ito matatapos?</string>
   <string name="howDoesItEndAnswer">Ang paligsahan ay may countdown na orasan. Kapag nakaabot ito ng zero, ang rankings ng paligsahan ay magyeyelo, at ang panalo ay inihahayag. Ang mga laro na may progreso ay dapat na matapos, gayunpaman ito ay hindi mabilang sa paligsahan.</string>
   <string name="otherRules">Ilang importanteng mga panuntunan</string>
+  <string name="thereIsACountdown">Mayroong countdown para sa iyong unang galaw. Ang hindi paggalaw ng isang pyesa sa loob ng itinakdang oras ay magreresulta sa pag-forfeit ng laro sa iyong kalaban.</string>
   <string name="thisIsPrivate">Ito ay isang pribadong paligsahan</string>
   <string name="shareUrl">Ibahagi ang URL para makasali ang mga tao:%s</string>
+  <string name="drawStreak">Sunod-sunod na mga tabla: Kapag ang isang manlalaro ay mayroong sunod-sunod na mga tabla sa isang arena, ang unang tabla lamang ang magreresulta sa puntos, o kaya naman ang isang tabla na tumagal ng %s na galaw. Ang sunod-sunod na tabla ay matatapos lamang sa isang panalo, hindi sa isang talo o tabla.</string>
+  <string name="history">Historya ng Arena</string>
+  <string name="newTeamBattle">Bagong Laban ng Grupo</string>
+  <string name="customStartDate">Pasadyang panimulang petsa</string>
+  <string name="allowBerserk">Payagan ang Berserk</string>
+  <string name="allowBerserkHelp">Hayaan ang mga manlalaro na hatiin ang kanilang clock time para makakuha ng extrang puntos</string>
+  <string name="allowChatHelp">Hayaan ang mga manlalaro na mag-usap sa isang chat room</string>
+  <string name="arenaStreaks">Streaks ng arena</string>
+  <string name="arenaStreaksHelp">Pagkatapos ng dalawang panalo, ang sunod-sunod na pagkapanalo ay magbibigay ng apat na puntos sa halip na dalawa.</string>
 </resources>
