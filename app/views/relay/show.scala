@@ -52,7 +52,7 @@ object show {
       ),
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.some,
+      csp = defaultCsp.withWebAssembly.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = rt.fullName,
