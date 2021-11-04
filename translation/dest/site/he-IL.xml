@@ -54,7 +54,7 @@
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
-  <string name="computerAnalysisDisabled">ניתוח מחשב לא זמין</string>
+  <string name="computerAnalysisDisabled">ניתוח מחשב מושבת</string>
   <string name="analysis">לוח ניתוחים</string>
   <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
@@ -63,7 +63,7 @@
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
-  <string name="toggleLocalEvaluation">הערכה מקומית במקום הערכת שרת</string>
+  <string name="toggleLocalEvaluation">הפעל הערכה מקומית</string>
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קבע וריאנט ראשי</string>
   <string name="deleteFromHere">מחק מכאן והלאה</string>
