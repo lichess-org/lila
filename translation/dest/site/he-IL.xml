@@ -3,7 +3,7 @@
   <string name="playWithAFriend">שחק עם חבר</string>
   <string name="playWithTheMachine">שחק עם המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, תן את הכתובת הזאת</string>
-  <string name="gameOver">המשחק נגמר</string>
+  <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
   <string name="waiting">ממתין</string>
   <string name="yourTurn">תורך</string>
@@ -24,7 +24,7 @@
   <string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
   <string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
   <string name="itsYourTurn">זה התור שלך!</string>
-  <string name="cheatDetected">רמות התגלתה</string>
+  <string name="cheatDetected">זוהתה רמאות</string>
   <string name="kingInTheCenter">המלך במרכז</string>
   <string name="threeChecks">שח משולש</string>
   <string name="raceFinished">המירוץ נגמר</string>
@@ -35,13 +35,13 @@
   <string name="whitePlays">תור הלבן</string>
   <string name="blackPlays">תור השחור</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">המשתמש עזב את המשחק. תוכל לקחת ניצחון בעוד %s שנייה.</item>
+    <item quantity="one">יריבך עזב את המשחק. תוכל להכריז על נצחון בעוד %s שניות.</item>
     <item quantity="two">המשתמש עזב את המשחק. תוכל לירוש ניצחון בעוד %s שניות.</item>
     <item quantity="many">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
     <item quantity="other">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
   </plurals>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
-  <string name="forceResignation">קח את הניצחון</string>
+  <string name="forceResignation">טען שניצחת</string>
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
@@ -49,12 +49,12 @@
   <string name="blackResigned">השחור פרש</string>
   <string name="whiteLeftTheGame">הלבן עזב את המשחק</string>
   <string name="blackLeftTheGame">השחור עזב את המשחק</string>
-  <string name="whiteDidntMove">לבן לא עשה מסע</string>
-  <string name="blackDidntMove">שחור לא עשה מסע</string>
+  <string name="whiteDidntMove">לבן לא ביצע מסע</string>
+  <string name="blackDidntMove">שחור לא ביצע מסע</string>
   <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
-  <string name="computerAnalysisDisabled">ניתוח מחשב לא זמין</string>
+  <string name="computerAnalysisDisabled">ניתוח מחשב מושבת</string>
   <string name="analysis">לוח ניתוחים</string>
   <string name="depthX">בעומק של %s מהלכים</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
@@ -63,7 +63,7 @@
   <string name="goDeeper">עמוק יותר</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
-  <string name="toggleLocalEvaluation">הערכה מקומית במקום הערכת שרת</string>
+  <string name="toggleLocalEvaluation">הפעל הערכה מקומית</string>
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קבע וריאנט ראשי</string>
   <string name="deleteFromHere">מחק מכאן והלאה</string>
