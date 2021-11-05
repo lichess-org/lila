@@ -70,7 +70,12 @@
   <string name="promotion">Promosi</string>
   <string name="promotionDescription">Promosi salah satu pion menjadi menteri atau bidak minor lainnya.</string>
   <string name="queenEndgame">Ratu akhir permainan</string>
+  <string name="queenEndgameDescription">Permainan akhir hanya dengan menteri dan pion.</string>
+  <string name="queenRookEndgame">Menteri dan Benteng</string>
+  <string name="queenRookEndgameDescription">Permainan Akhir hanya dengan menteri, benteng, dan pion.</string>
+  <string name="queensideAttack">Serangan sisi menteri</string>
   <string name="quietMove">Gerakan tenang</string>
+  <string name="rookEndgame">Permainan Akhir benteng</string>
   <string name="sacrifice">Sacrifice</string>
   <string name="short">Teka-teki pendek</string>
   <string name="shortDescription">Dua gerakan untuk menang.</string>
