@@ -23,6 +23,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.ublog.rankFactorSetting,
     env.apiTimelineSetting,
     env.apiExplorerGamesPerSecond,
+    env.fishnet.openingBookDepth,
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
     env.prizeTournamentMakers

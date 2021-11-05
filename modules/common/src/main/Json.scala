@@ -2,7 +2,7 @@ package lila.common
 
 import org.joda.time.DateTime
 import play.api.libs.json.{ Json => PlayJson, _ }
-import chess.format.FEN
+import chess.format.{ FEN, Uci }
 
 object Json {
 
@@ -42,4 +42,8 @@ object Json {
   }
 
   implicit val fenFormat: Format[FEN] = stringIsoFormat[FEN](Iso.fenIso)
+
+  implicit val uciReader: Reads[Uci] = Reads.of[String] flatMapResult { str =>
+    JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")
+  }
 }

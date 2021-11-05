@@ -646,6 +646,10 @@ object mon {
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
     }
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
+    def openingBook(level: Int, variant: String, ply: Int, hit: Boolean) =
+      timer("fishnet.opening.hit").withTags(
+        Map("level" -> level, "variant" -> variant, "ply" -> ply, "hit" -> hit)
+      )
   }
   object study {
     object tree {
