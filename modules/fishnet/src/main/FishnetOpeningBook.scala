@@ -54,18 +54,15 @@ object FishnetOpeningBook {
   trait Depth
 
   case class Response(moves: List[Move]) {
-    def randomPonderedMove: Option[Move] = moves.size match {
-      case 0 => none
-      case size =>
-        val sum = moves.map(_.nb).sum / size
-        val rng = ThreadLocalRandom nextInt sum
-        moves
-          .foldLeft((none[Move], 0)) { case ((found, it), next) =>
-            val nextIt = it + next.nb
-            (found orElse (nextIt > rng).option(next), nextIt)
-          }
-          ._1
-          .orElse(moves.headOption)
+    def randomPonderedMove: Option[Move] = {
+      val sum = moves.map(_.nb).sum
+      val rng = ThreadLocalRandom nextInt sum
+      moves
+        .foldLeft((none[Move], 0)) { case ((found, it), next) =>
+          val nextIt = it + next.nb
+          (found orElse (nextIt > rng).option(next), nextIt)
+        }
+        ._1
     }
   }
 
