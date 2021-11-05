@@ -25,6 +25,7 @@
   <string name="crushing">Hancurkan</string>
   <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Skak gajah ganda</string>
+  <string name="dovetailMate">Skatmat Dovetail</string>
   <string name="equality">Kesetaraan</string>
   <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Serangan raja</string>
@@ -39,6 +40,7 @@
   <string name="doubleCheck">Skak ganda</string>
   <string name="endgame">Akhir permainan</string>
   <string name="fork">Fork</string>
+  <string name="long">Puzzle Panjang</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
   <string name="master">Permainan master</string>
   <string name="mate">Skakmat</string>
