@@ -152,7 +152,7 @@
     <item quantity="one">%sଟିଏ ପ୍ରହେଳିକା</item>
     <item quantity="other">%sଟି ପ୍ରହେଳିକା</item>
   </plurals>
-  <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
+  <string name="gamesPlayed">ଖେଳାଯାଇଥିବା ଖେଳଗୁଡ଼ିକ</string>
   <string name="playingRightNow">ବର୍ତ୍ତମାନ ଖେଳୁଛନ୍ତି</string>
   <string name="thisAccountViolatedTos">ଏହି ଆକାଉଣ୍ଟ Lichess ସେବା ସର୍ତ୍ତାବଳୀର ଉଲ୍ଲଂଘନ କରିଛି</string>
   <plurals name="nbStudies">
@@ -242,7 +242,7 @@
   <string name="sorry">କ୍ଷମା କରନ୍ତୁ :(</string>
   <string name="why">କାହିଁକି?</string>
   <string name="pleasantChessExperience">ଆମେ ସମସ୍ତଙ୍କ ପାଇଁ ଏକ ସୁଖଦ ଚେସ୍ ଅଭିଜ୍ଞତା ପ୍ରଦାନ କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।</string>
-  <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
+  <string name="howToAvoidThis">ଏହାକୁ କିପରି ଏଡ଼ାଇ ହେବ?</string>
   <string name="thankYouForReading">ପଢ଼ିବା ପାଇଁ ଧନ୍ୟବାଦ!</string>
   <string name="agreementPolicy">ମୁଁ ସହମତ ଯେ ମୁଁ ସମସ୍ତ Lichess ନୀତି ଅନୁସରଣ କରିବି।</string>
   <string name="edit">ସମ୍ପାଦନା</string>
