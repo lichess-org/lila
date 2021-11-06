@@ -217,10 +217,15 @@ final class RelayApi(
     }
   }
 
-  def reset(relay: RelayRound, by: User): Funit =
-    studyApi.deleteAllChapters(relay.studyId, by) >>-
-      multiboard.invalidate(relay.studyId) >>
-      requestPlay(relay.id, v = true)
+  def reset(old: RelayRound, by: User): Funit =
+    WithRelay(old.id) { relay =>
+      studyApi.deleteAllChapters(relay.studyId, by) >> {
+        old.hasStartedEarly ?? roundRepo.coll.update
+          .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
+          .void
+      } >>-
+        multiboard.invalidate(relay.studyId)
+    } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =
     byIdWithTour(roundId) flatMap {

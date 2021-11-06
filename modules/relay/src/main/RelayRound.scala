@@ -47,6 +47,7 @@ case class RelayRound(
     )
 
   def hasStarted        = startedAt.isDefined
+  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter DateTime.now)
   def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore DateTime.now)
 
   def shouldGiveUp =
