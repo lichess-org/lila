@@ -5,21 +5,21 @@
   <string name="theQueen">ରାଣୀ</string>
   <string name="queenCombinesRookAndBishop">ରାଣୀ = ଡଙ୍ଗା + ହାତୀ</string>
   <string name="theKing">ରଜା</string>
-  <string name="theKnight">ଘୋଡ଼ା</string>
+  <string name="theKnight">ଘୋଡ଼ା</string>
   <string name="thePawn">ସୈନିକ</string>
   <string name="advanced">ବିକଶିତ</string>
   <string name="pieceValueIntro">ଉଚ୍ଚ ଗତିଶୀଳତା ଥିବା ଗୋଟିଗୁଡ଼ିକର ଅଧିକ ମୂଲ୍ୟ ଅଛି!
 ରାଣୀ = 9
 ଡଙ୍ଗା = 5
 ହାତୀ = 3
-ଘୋଡ଼ା = 3
+ଘୋଡ଼ା = 3
 ସୈନିକ = 1
 ରାଜା ଅମୂଲ୍ୟ ଅଟେ! ଏହାକୁ ହରାଇବାର ଅର୍ଥ ହେଉଛି ଖେଳ ହାରିବା।</string>
   <string name="pieceValueComplete">ଅଭିନନ୍ଦନ! ଆପଣ ମୋହରା ର ମୂଲ୍ୟ ଜାଣନ୍ତି!
 ରାଣୀ = 9
 ଡଙ୍ଗା = 5
 ହାତୀ = 3
-ଘୋଡ଼ା = 3
+ଘୋଡ଼ା = 3
 ସୈନିକ = 1</string>
   <string name="puzzles">ପ୍ରହେଳିକା</string>
   <string name="exerciseYourTacticalSkills">ଆପଣଙ୍କ କୌଶଳ ଅଭ୍ୟାସ କରନ୍ତୁ</string>
