@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Hourly  Rapid Arena</string>
-  <string name="hourlyRapid">Hourly Rapid</string>
+  <string name="hourlyRapid">Hourly Rapid Arena</string>
   <string name="hourlyXArena">Hourly %s Arena</string>
   <string name="hourlyX">Hourly %s</string>
   <string name="dailyRapidArena">Daily Rapid Arena</string>
