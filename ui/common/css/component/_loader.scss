@@ -1,34 +1,49 @@
 /* circular loader */
+$len1: 33.96;
+$len2: 42.6;
+$len3: 104.31;
+$total_len: $len1 + $len2 + $len3;
+
 @keyframes mask1 {
   0% {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: $total_len;
   }
-  17.86% {
-    stroke-dashoffset: 0;
+  100% {
+    stroke-dashoffset: -$total_len;
   }
 }
 
 @keyframes mask2 {
   0% {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: $total_len + $len1;
   }
-  17.86% {
-    stroke-dashoffset: 1;
-  }
-  31.43% {
-    stroke-dashoffset: 0;
+  100% {
+    stroke-dashoffset: -$total_len + $len1;
   }
 }
 
 @keyframes mask3 {
   0% {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: $total_len + $len1 + $len2;
   }
-  31.43% {
-    stroke-dashoffset: 1;
+  100% {
+    stroke-dashoffset: -$total_len + $len1 + $len2;
   }
-  85% {
-    stroke-dashoffset: 0;
+}
+
+@keyframes spinner-color {
+  0%,
+  100% {
+    stroke: $c-primary;
+  }
+  25% {
+    stroke: $c-error;
+  }
+  50% {
+    stroke: $c-secondary;
+  }
+  75% {
+    stroke: $c-brag;
   }
 }
 
@@ -37,14 +52,19 @@
   height: 70px;
   margin: auto;
 
-  path:nth-child(1) {
-    animation: mask1 2s cubic-bezier(0.417, 0.086, 0.741, 0.452) infinite;
+  path {
+    animation: mask1 2.75s cubic-bezier(.49,.67,.45,.29) infinite;
   }
   path:nth-child(2) {
-    animation: mask2 2s cubic-bezier(0.333, 0.317, 0.621, 0.661) infinite;
+    animation-name: mask2;
   }
   path:nth-child(3) {
-    animation: mask3 2s cubic-bezier(0, 0, 0.431, 1) infinite;
+    animation-name: mask3;
+  }
+
+  g {
+    animation: spinner-color 11s steps(1) infinite;
+    stroke-dasharray: $total_len;
   }
 
   .white & path {
