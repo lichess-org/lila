@@ -81,7 +81,7 @@ object bits {
           pager.currentPageResults.map { r =>
             tr(cls := "paginated")(
               td(userLink(r.user)),
-              td(showBestPerf(r.user)),
+              ctx.pref.showRatings option td(showBestPerf(r.user)),
               td(trans.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(actions(r.user.id, relation = r.relation, followable = r.followable, blocked = false))
             )
