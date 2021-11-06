@@ -46,9 +46,12 @@
   <string name="blackResigned">ดำยอมแพ้</string>
   <string name="whiteLeftTheGame">ขาวทิ้งเกม</string>
   <string name="blackLeftTheGame">ดำทิ้งเกม</string>
+  <string name="whiteDidntMove">ขาวไม่ได้เดิน</string>
+  <string name="blackDidntMove">ดำไม่ได้เดิน</string>
   <string name="requestAComputerAnalysis">ขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>
+  <string name="computerAnalysisDisabled">การวิเคราะห์ด้วยคอมพิวเตอร์ ไม่ถูกใช้งาน</string>
   <string name="analysis">กระดานวิเคราะห์</string>
   <string name="depthX">ความลึก %s ตา</string>
   <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
@@ -145,7 +148,7 @@
   <string name="players">ผู้เล่น</string>
   <string name="friends">เพื่อน</string>
   <string name="discussions">การสนทนา</string>
-  <string name="today">วันนี้</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">วันนี้</string>
   <string name="yesterday">เมื่อวาน</string>
   <string name="minutesPerSide">นาทีต่อฝ่าย</string>
   <string name="variant">ตัวแปรกติกา</string>
@@ -332,6 +335,8 @@
   <string name="follow">ติดตาม</string>
   <string name="following">กำลังติดตาม</string>
   <string name="unfollow">เลิกติดตาม</string>
+  <string name="followX">ติดตาม %s</string>
+  <string name="unfollowX">เลิกติดตาม %s</string>
   <string name="block">กีดกัน</string>
   <string name="blocked">ถูกกีดกัน</string>
   <string name="unblock">เลิกกีดกัน</string>
@@ -391,9 +396,9 @@
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
   <string name="setTheBoard">จัดค่ากระดาน</string>
   <string name="popularOpenings">การเปิดหมากยอดนิยม</string>
-  <string name="startPosition">ตำแหน่งเริ่มต้น</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">ตำแหน่งเริ่มต้น</string>
   <string name="clearBoard">ล้างกระดาน</string>
-  <string name="loadPosition">โหลดตำแหน่ง</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">โหลดตำแหน่ง</string>
   <string name="isPrivate">ส่วนตัว</string>
   <string name="reportXToModerators">ร้องเรียน %s สู่ผู้ดูแล</string>
   <string name="profileCompletion">ความสมบูรณ์ของโปรไฟล์: %s</string>
@@ -412,7 +417,7 @@
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
   <string name="success">สำเร็จ</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
@@ -478,7 +483,7 @@
   <string name="onSlowGames">ในเกมรูปแบบช้า</string>
   <string name="always">เสมอ</string>
   <string name="never">ไม่ต้อง</string>
-  <string name="xCompetesInY">%1$s แข่งขันใน %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s แข่งขันใน %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
   <string name="victoryVsYInZ">%1$s vs %2$s ใน %3$s</string>
@@ -601,6 +606,7 @@
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
+  <string name="sessions">วาระ</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
   <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>
@@ -724,14 +730,46 @@
   <string name="edit">แก้ไข</string>
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>
+  <string name="ultraBulletDesc">เกมด่วนจี๋: น้อยกว่า 30 วินาที</string>
+  <string name="bulletDesc">เกมไวมาก: น้อยกว่า 3 นาที</string>
+  <string name="blitzDesc">เกมไว: 3 - 8 นาที</string>
+  <string name="rapidDesc">เกมเร็ว: 8 - 25 นาที</string>
+  <string name="classicalDesc">เกมคลาสสิค: 25 นาทีขึ้นไป</string>
+  <string name="correspondenceDesc">เกมยาวนาน: หนึ่ง หรือสองสามวันต่อตาเดิน</string>
   <string name="important">สำคัญ</string>
   <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
   <string name="subscribe">ติดตาม</string>
   <string name="unsubscribe">เลิกติดตาม</string>
-  <string name="mentionedYouInX">กล่าวถึงคุณใน \"%1$s\"</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">กล่าวถึงคุณใน \"%1$s\"</string>
   <string name="xMentionedYouInY">%1$s ได้กล่าวถึงคุณใน \"%2$s\"</string>
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
   <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
+  <string name="gameVsX">เกม vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
   <string name="download">ดาวน์โหลด</string>
+  <string name="welcome">ยินดีต้อนรับ!</string>
+  <string name="coachManager">ตัวจัดการผู้ฝึกสอน</string>
+  <string name="streamerManager">ตัวจัดการผู้สตรีม</string>
+  <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>
+  <string name="tournDescription">คำบรรยายทัวร์นาเมนต์</string>
+  <string name="tournDescriptionHelp">คุณอยากบอกอะไรเป็นพิเศษกับผู้เข้าร่วมไหม? จงใช้แบบสั้นๆ ลิงค์ Markdown ที่มีให้ใช้ได้: [name](https://url)</string>
+  <string name="ratedFormHelp">เกมถูกคิดคะแนน และมีผลกับระดับคะแนนของผู้เล่น</string>
+  <string name="onlyMembersOfTeam">เฉพาะสมาชิกของทีม</string>
+  <string name="noRestriction">ไม่มีข้อจำกัด</string>
+  <string name="minimumRatedGames">จำนวนเกมต่ำสุดที่คิดคะแนน</string>
+  <string name="minimumRating">ระดับคะแนนต่ำสุด</string>
+  <string name="maximumWeeklyRating">ระดับคะแนนรายสัปดาห์สูงสุด</string>
+  <string name="onlyTitled">เฉพาะผู้เล่นที่เคยชนะเลิศ</string>
+  <string name="estimatedStart">เวลาเริ่มโดยประมาณ</string>
+  <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
+  <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
+  <string name="analysisOptions">ตัวเลือกการวิเคราะห์</string>
+  <string name="focusChat">โฟกัสที่แชท</string>
+  <string name="showHelpDialog">แสดงกรอบช่วยเหลือนี้</string>
+  <string name="hangOn">เดี๋ยวก่อน!</string>
+  <string name="gameInProgress">คุณมีเกมกำลังเล่นอยู่กับ %s</string>
+  <string name="abortTheGame">ทิ้งเกม</string>
+  <string name="resignTheGame">ยอมแพ้เกม</string>
+  <string name="youCantStartNewGame">คุณไม่สามารถเริ่มเกมใหม่จนกว่าเกมนี้จะจบสิ้น</string>
 </resources>

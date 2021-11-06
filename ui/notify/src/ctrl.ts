@@ -38,7 +38,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     const notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
-    if (!lichess.quietMode || notif.content.user.id == 'lichess') lichess.sound.playOnce('newPM');
+    if (!lichess.quietMode || notif.content.user?.id == 'lichess') lichess.sound.playOnce('newPM');
     const text = asText(notif, lichess.trans(data.i18n));
     const pushSubscribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubscribed && text) notify(text);
@@ -71,7 +71,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   function setMsgRead(user: string) {
     if (data)
       data.pager.currentPageResults.forEach(n => {
-        if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
+        if (n.type == 'privateMessage' && n.content.user?.id == user && !n.read) {
           n.read = true;
           data!.unread = Math.max(0, data!.unread - 1);
           opts.setCount(data!.unread);

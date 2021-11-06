@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du er no tilskodar</string>
   <string name="pgnTags">PGN-merkelappar</string>
   <string name="like">Lik</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Slutt å lika</string>
   <string name="newTag">Ny merkelapp</string>
   <string name="commentThisPosition">Kommenter denne stillinga</string>
   <string name="commentThisMove">Kommenter dette trekket</string>

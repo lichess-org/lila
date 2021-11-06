@@ -39,7 +39,7 @@
     <item quantity="other">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
   </plurals>
   <string name="opponentLeftChoices">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप जीत का दावा कर सकते हैं, खेल को ड्रा कह सकते हैं, या प्रतीक्षा कर सकते हैं।</string>
-  <string name="forceResignation">जीत का दावा करें</string>
+  <string name="forceResignation">जीत का दवा करें</string>
   <string name="forceDraw">बराबरी पर खेल समाप्त करें</string>
   <string name="talkInChat">कृपया चैट में अच्छे बनें!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">इस URL पर आने वाला पहला व्यक्ति आपके साथ खेलेगा।</string>
@@ -47,6 +47,8 @@
   <string name="blackResigned">काले ने हार मान ली</string>
   <string name="whiteLeftTheGame">सफेद खेल छोड़ कर चला गया</string>
   <string name="blackLeftTheGame">काला खेल छोड़ कर चला गया</string>
+  <string name="whiteDidntMove">सफेद ने चाल नही चली</string>
+  <string name="blackDidntMove">काले ने चाल नही चली</string>
   <string name="requestAComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें</string>
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध है</string>
@@ -363,6 +365,8 @@
   <string name="follow">अनुसरण करे</string>
   <string name="following">अनुसरण कर रहे हैं</string>
   <string name="unfollow">अनुसरण न करें</string>
+  <string name="followX">%s को फॉलो करें</string>
+  <string name="unfollowX">क्या आप %s को अनफॉलो कारना चाहते हैं?</string>
   <string name="block">अवस्र्द्ध (ब्लॉक) करें</string>
   <string name="blocked">अवस्र्द्ध (ब्लॉक) कर दिया गया</string>
   <string name="unblock">अवस्र्द्ध (ब्लॉक) न करें</string>
@@ -551,6 +555,12 @@
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
   <string name="error.required">यह जानकारी जरुरी है</string>
+  <string name="error.email">यह ई-मेल सही नहीं हैं</string>
+  <string name="error.email_acceptable">यह ई-मेल स्वीकार नहीं की जा सकती है। कृप्या इसे पुनः जांच करके प्रयास करें।</string>
+  <string name="error.email_unique">यह ईमेल या तो सही नही ह्ऐ अथवा पहले इस्तेमाल हो गया ह्ऐ</string>
+  <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
   <string name="onlyExistingConversations">केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>

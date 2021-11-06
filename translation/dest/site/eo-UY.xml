@@ -90,6 +90,7 @@
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
+  <string name="openingEndgameExplorer">Esplorilo de malfermoj/finaĵoj</string>
   <string name="xOpeningExplorer">%s esplorilo de malfermoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la regulo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la regulo pri 50-movoj</string>
@@ -158,7 +159,7 @@
   <string name="players">Ŝakludantoj</string>
   <string name="friends">Amikoj</string>
   <string name="discussions">Konversacioj</string>
-  <string name="today">Hodiaŭ</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hodiaŭ</string>
   <string name="yesterday">Hieraŭ</string>
   <string name="minutesPerSide">Minutoj por ĉiu flanko</string>
   <string name="variant">Variaĵo</string>
@@ -364,6 +365,8 @@
   <string name="follow">Sekvi</string>
   <string name="following">Sekvanta</string>
   <string name="unfollow">Malsekvi</string>
+  <string name="followX">Sekvi %s</string>
+  <string name="unfollowX">Malsekvi %s</string>
   <string name="block">Bloki</string>
   <string name="blocked">Blokita</string>
   <string name="unblock">Malbloki</string>
@@ -426,11 +429,11 @@
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="setTheBoard">Antaŭfaru la tabulo</string>
   <string name="popularOpenings">Popularaj malfermoj</string>
-  <string name="endgamePositions">Finluda pozicio</string>
+  <string name="endgamePositions">Finaĵaj pozicioj</string>
   <string name="chess960StartPosition">Ŝako960 komenca pozicio: %s</string>
-  <string name="startPosition">Komenca aranĝo</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
-  <string name="loadPosition">Ŝargi aranĝon</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Ŝargi aranĝon</string>
   <string name="isPrivate">Privata</string>
   <string name="reportXToModerators">Raporti %s al moderatoroj</string>
   <string name="profileCompletion">Profila kompletiĝo: %s</string>
@@ -449,7 +452,7 @@
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
   <string name="success">Sukceso</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s aktivaj ludoj</item>
@@ -516,7 +519,7 @@
   <string name="onSlowGames">Ĉe malrapidaj ludoj</string>
   <string name="always">Ĉiam</string>
   <string name="never">Neniam</string>
-  <string name="xCompetesInY">%1$s konkuras en %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s konkuras en %2$s</string>
   <string name="victory">Venko!</string>
   <string name="defeat">Malvenko</string>
   <string name="victoryVsYInZ">%1$s kontraŭ %2$s en %3$s</string>
@@ -792,7 +795,7 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
-  <string name="mentionedYouInX">menciis vin en \"%1$s\".</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">menciis vin en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s menciis vin en \"%2$s\".</string>
   <string name="invitedYouToX">invitis vin al \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s invitis vin al \"%2$s\".</string>

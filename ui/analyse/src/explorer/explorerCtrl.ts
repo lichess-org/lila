@@ -59,10 +59,14 @@ export default class ExplorerCtrl {
   }
 
   checkHash = (e?: HashChangeEvent) => {
-    const m = location.hash.match(/#(?:explorer|opening)(?:\/([a-z0-9_-]{2,30}))?/i);
-    if (m && !this.root.embed) {
+    const parts = location.hash.split('/');
+    if ((parts[0] == '#explorer' || parts[0] == '#opening') && !this.root.embed) {
       this.enabled(true);
-      if (m[1]) this.config.selectPlayer(m[1]);
+      if (parts[1] == 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
+      else if (parts[1]?.match(/[A-Za-z0-9_-]{2,30}/)) {
+        this.config.selectPlayer(parts[1]);
+        this.config.data.color(parts[2] == 'black' ? 'black' : 'white');
+      }
       if (e) this.root.redraw();
     }
   };

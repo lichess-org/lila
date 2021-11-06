@@ -43,7 +43,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
   private def imageParagraph(markup: Html) =
     markup.replace("""<p><img src=""", """<p class="img-container"><img src=""")
 
-  private def unescape(txt: String) = txt.replace("""\\_""", "_")
+  private def unescape(txt: String) = txt.replace("""\_""", "_")
 
   // https://github.com/ornicar/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks

@@ -4,12 +4,15 @@ export type WikiTheory = (nodes: Tree.Node[]) => void;
 
 export default function wikiTheory(): WikiTheory {
   const cache = new Map<string, string>();
-  const show = (html: string) => $('.analyse__wiki').html(html);
+  const show = (html: string) => {
+    $('.analyse__wiki').html(html).toggleClass('empty', !html);
+    lichess.pubsub.emit('chat.resize');
+  };
 
   const plyPrefix = (node: Tree.Node) => `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
-  const apiArgs = 'origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
+  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
 
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
 
@@ -39,16 +42,20 @@ export default function wikiTheory(): WikiTheory {
         show('');
       else {
         const title = `Chess_Opening_Theory/${path}`;
-        const res = await fetch(`${wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`);
-        const saveAndShow = (html: string) => {
-          cache.set(path, html);
-          show(html);
-        };
-        if (res.ok) {
-          const json = await res.json();
-          if (json.query.pages[0].missing) saveAndShow('');
-          else saveAndShow(transform(json.query.pages[0].extract, title));
-        } else saveAndShow('');
+        try {
+          const res = await fetch(`${wikiBooksUrl}/w/api.php?titles=${title}&${apiArgs}`);
+          const saveAndShow = (html: string) => {
+            cache.set(path, html);
+            show(html);
+          };
+          if (res.ok) {
+            const json = await res.json();
+            if (json.query.pages[0].missing) saveAndShow('');
+            else saveAndShow(transform(json.query.pages[0].extract, title));
+          } else saveAndShow('');
+        } catch (err) {
+          show('error: ' + err);
+        }
       }
     },
     500,

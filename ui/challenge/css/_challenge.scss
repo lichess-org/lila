@@ -33,7 +33,8 @@
       display: none;
     }
 
-    &:hover .buttons {
+    &:hover .buttons,
+    .blind-mode & .buttons {
       @extend %flex-between-nowrap;
     }
 

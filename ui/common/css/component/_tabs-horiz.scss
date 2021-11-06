@@ -6,6 +6,7 @@ $c-tabs-active: $c-accent !default;
   justify-content: center;
   align-items: flex-end;
   border-bottom: 2px solid $c-border;
+  user-select: none;
 
   @include breakpoint($mq-not-xx-small) {
     font-size: 0.9em;

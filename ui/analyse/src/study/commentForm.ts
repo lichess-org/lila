@@ -1,4 +1,5 @@
 import { prop, Prop } from 'common';
+import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -103,21 +104,29 @@ export function view(root: AnalyseCtrl): VNode {
     }
   };
 
-  return h('div.study__comments', [
-    currentComments(root, !study.members.canContribute()),
-    h('form.form3', [
-      h('div.form-group', [
+  return h(
+    'div.study__comments',
+    {
+      // hook: onInsert(() => root.enableWiki(true)),
+    },
+    [
+      currentComments(root, !study.members.canContribute()),
+      h('form.form3', [
         h('textarea#comment-text.form-control', {
           hook: {
             insert(vnode) {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
               el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
+              const heightStore = lichess.storage.make('study.comment.height');
+              el.onmouseup = () => heightStore.set('' + el.offsetHeight);
+              el.style.height = parseInt(heightStore.get() || '80') + 'px';
             },
             postpatch: (old, vnode) => setupTextarea(vnode, old),
           },
         }),
       ]),
-    ]),
-  ]);
+      h('div.analyse__wiki.study__wiki.empty'),
+    ]
+  );
 }

@@ -66,6 +66,7 @@ final private[puzzle] class DailyPuzzle(
                 pipe = List(
                   $doc(
                     "$match" -> $doc(
+                      Puzzle.BSONFields.plays $gt 5000,
                       Puzzle.BSONFields.day $exists false,
                       Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
                     )

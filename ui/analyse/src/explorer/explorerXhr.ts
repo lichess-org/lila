@@ -25,51 +25,52 @@ export async function opening(
   params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
-  if (opts.db !== 'masters') {
+  if (opts.db === 'masters') {
+    if (conf.since()) params.set('since', conf.since().split('-')[0]);
+    if (conf.until()) params.set('until', conf.until().split('-')[0]);
+  } else {
+    if (conf.since()) params.set('since', conf.since());
+    if (conf.until()) params.set('until', conf.until());
     params.set('speeds', conf.speed().join(','));
-    conf
-      .speed()
-      .filter(s => s != 'ultraBullet' && s != 'correspondence')
-      .forEach(s => params.append('speeds[]', s)); // bc
   }
   if (opts.db === 'lichess') {
     params.set('ratings', conf.rating().join(','));
-    for (const rating of conf.rating()) params.append('ratings[]', rating.toString()); // bc
   }
   if (opts.db === 'player') {
     const playerName = conf.playerName.value();
-    if (!playerName) return explorerError('Missing player name');
+    if (!playerName) return explorerError(new Error('Missing player name'));
     params.set('player', playerName);
     params.set('color', conf.color());
     params.set('modes', conf.mode().join(','));
-    if (conf.since()) params.set('since', conf.since());
-    if (conf.until()) params.set('until', conf.until());
   }
   if (!opts.withGames) {
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
-  const res = await fetch(url.href, {
-    cache: 'default',
-    headers: {}, // avoid default headers for cors
-    credentials: 'omit',
-  });
 
-  const onMessage = (line: any) => {
+  let res;
+  try {
+    res = await fetch(url.href, {
+      cache: 'default',
+      headers: {}, // avoid default headers for cors
+      credentials: 'omit',
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+  } catch (err) {
+    return explorerError(err as Error);
+  }
+
+  return readNdJson((line: any) => {
     const data = line as Partial<OpeningData>;
     data.isOpening = true;
     data.fen = opts.fen;
     processData(data as OpeningData);
-  };
-
-  if (res.ok) return readNdJson(onMessage)(res);
-
-  return explorerError(`Explorer error: ${res.status}`);
+  })(res);
 }
 
-const explorerError = (msg: string) => ({
+const explorerError = (err: Error) => ({
   cancel() {},
-  end: sync(Promise.resolve(new Error(msg))),
+  end: sync(Promise.resolve(err)),
 });
 
 export async function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {

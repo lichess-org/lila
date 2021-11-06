@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Megfigyelő vagy</string>
   <string name="pgnTags">PGN címkék</string>
   <string name="like">Kedvel</string>
+  <string name="unlike">Mégse tetszik</string>
   <string name="newTag">Új címke</string>
   <string name="commentThisPosition">Megjegyzés ehhez az álláshoz</string>
   <string name="commentThisMove">Megjegyzés ehhez a lépéshez</string>

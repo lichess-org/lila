@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">Sedaj ste opazovalec</string>
   <string name="pgnTags">PGN oznake</string>
   <string name="like">Všečkaj</string>
+  <string name="unlike">Ni mi všeč</string>
   <string name="newTag">Nova oznaka</string>
   <string name="commentThisPosition">Komentiraj to pozicijo</string>
   <string name="commentThisMove">Komentiraj to potezo</string>

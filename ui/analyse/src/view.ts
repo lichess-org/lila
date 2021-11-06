@@ -2,7 +2,6 @@ import { view as cevalView } from 'ceval';
 import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import changeColorHandle from 'common/coordsColor';
 import {
   bind,
   bindNonPassive,
@@ -300,7 +299,6 @@ function controls(ctrl: AnalyseCtrl) {
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
-    changeColorHandle();
   }
 }
 
@@ -398,7 +396,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': !!tour,
         'analyse-hunter': ctrl.opts.hunter,
-        'analyse--wiki': !!ctrl.wiki,
+        'analyse--wiki': !!ctrl.wiki && !ctrl.study,
       },
     },
     [

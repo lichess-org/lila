@@ -133,27 +133,35 @@ $regards
   }
 
   def onPatronNew(userId: User.ID): Funit =
-    sendAsPrivateMessageAndEmail(userId)(
-      subject = _ => "Thank you for supporting Lichess!",
-      body = _ =>
-        s"""Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
+    userRepo named userId map {
+      _ foreach { user =>
+        alsoSendAsPrivateMessage(user)(
+          body = _ => s"""Thank you for supporting Lichess!
+
+Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
 Lichess is entirely funded by user's donations like yours, and we truly appreciate the help we're getting.
 As a small token of our thanks, your account now has the awesome Patron wings!"""
-    )
+        )
+      }
+    }
 
   def onPatronStop(userId: User.ID): Funit =
-    sendAsPrivateMessageAndEmail(userId)(
-      subject = _ => "End of Lichess Patron subscription",
-      body = _ => s"""
+    userRepo named userId map {
+      _ foreach { user =>
+        alsoSendAsPrivateMessage(user)(
+          body = _ => s"""End of Lichess Patron subscription
+
 Thank you for your support over the last month.
 We appreciate all donations, being a small team relying entirely on generous donors like you!
 If you're still interested in supporting us in other ways, you can see non-financial ways of supporting us here $baseUrl/help/contribute.
 To make a new donation, head to $baseUrl/patron"""
-    )
+        )
+      }
+    }
 
   def onPatronGift(from: User.ID, to: User.ID, lifetime: Boolean): Funit =
     userRepo.pair(from, to) map {
-      _ ?? { case (from, to) =>
+      _ foreach { case (from, to) =>
         val wings =
           if (lifetime) "lifetime Patron wings"
           else "Patron wings for one month"

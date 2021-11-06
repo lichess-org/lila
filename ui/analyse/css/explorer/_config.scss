@@ -59,8 +59,9 @@
   }
 
   .name {
-    @extend %flex-center;
-    margin-top: 1em;
+    > div {
+      @extend %flex-center;
+    }
     .player-name {
       border-radius: $box-radius-size !important;
       font-weight: bold;
@@ -83,8 +84,7 @@
     line-height: 2em;
   }
 
-  .month {
-    margin-top: 1em;
+  .date {
     label {
       @extend %flex-between-nowrap;
     }

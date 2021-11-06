@@ -66,15 +66,14 @@ final class IrwinApi(
             lila.mon.mod.irwin.mark.increment().unit
         else if (report.activation >= thresholds.get().report) for {
           suspect <- getSuspect(report.suspectId.value)
-          irwin   <- userRepo byId "irwin" orFail s"Irwin user not found" dmap Mod.apply
+          irwin   <- userRepo.irwin orFail s"Irwin user not found" dmap Mod.apply
           _ <- reportApi.create(
             Report.Candidate(
               reporter = Reporter(irwin.user),
               suspect = suspect,
               reason = lila.report.Reason.Cheat,
               text = s"${report.activation}% over ${report.games.size} games"
-            ),
-            (_: Report.Score) => Report.Score(60)
+            )
           )
         } yield lila.mon.mod.irwin.report.increment().unit
         else funit

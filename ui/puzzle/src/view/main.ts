@@ -1,7 +1,6 @@
 import * as control from '../control';
 import * as side from './side';
 import theme from './theme';
-import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import feedbackView from './feedback';
 import { Controller } from '../interfaces';
@@ -90,7 +89,6 @@ export default function (ctrl: Controller): VNode {
           if (old.data!.gaugeOn !== gaugeOn) {
             if (ctrl.pref.coords === Prefs.Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-              changeColorHandle();
             }
             document.body.dispatchEvent(new Event('chessground.resize'));
           }

@@ -31,15 +31,15 @@ final class SwissFeature(
   def get(teams: Seq[TeamID]) =
     cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { case (cached, teamed) =>
       FeaturedSwisses(
-        created = (teamed.created ::: cached.created).distinct,
-        started = (teamed.started ::: cached.started).distinct
+        created = (teamed.created ::: cached.created).distinctBy(_.id),
+        started = (teamed.started ::: cached.started).distinctBy(_.id)
       )
     }
 
   private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
 
   private def getForTeams(teams: Seq[TeamID]): Fu[FeaturedSwisses] =
-    teams.map(swissCache.featuredInTeam.get).sequenceFu.map(_.flatten) flatMap { ids =>
+    teams.map(swissCache.featuredInTeam.get).sequenceFu.dmap(_.flatten) flatMap { ids =>
       colls.swiss.byIds[Swiss](ids.map(_.value), ReadPreference.secondaryPreferred)
     } map {
       _.filter(_.isNotFinished).partition(_.isCreated) match {
@@ -62,9 +62,10 @@ final class SwissFeature(
       }
   }
 
+  // causes heavy team reads
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =
     colls.swiss
-      .aggregateList(nb) { framework =>
+      .aggregateList(nb, ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match(
           $doc(
@@ -74,6 +75,8 @@ final class SwissFeature(
             "garbage" $ne true
           )
         ) -> List(
+          Sort(Descending("nbPlayers")),
+          Limit(nb * 50),
           PipelineOperator(
             $lookup.pipeline(
               from = "team",
@@ -87,7 +90,6 @@ final class SwissFeature(
             )
           ),
           UnwindField("team"),
-          Sort(Descending("nbPlayers")),
           Limit(nb)
         )
       }

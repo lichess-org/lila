@@ -86,7 +86,7 @@ object form {
                 fragList(
                   List(
                     "unsplash.com"        -> "https://unsplash.com",
-                    "creativecommons.org" -> "https://searchcreativecommons.org",
+                    "creativecommons.org" -> "https://search.creativecommons.org",
                     "pixabay.com"         -> "https://pixabay.com",
                     "pexels.com"          -> "https://pexels.com",
                     "piqsels.com"         -> "https://piqsels.com",

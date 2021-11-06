@@ -1,3 +1,5 @@
+@import 'themes';
+
 $td-outer-height-ratio: 476 / 512;
 $td-outer-height-percent: $td-outer-height-ratio * 100%;
 $td-inner-height-ratio: 464.5 / 512;
@@ -57,13 +59,22 @@ cg-board::before {
   }
 }
 
-$board-files: 'Black-White-Aluminium', 'Brushed-Aluminium', 'China-Blue', 'China-Green', 'China-Grey', 'China-Scarlet',
-  'China-Yellow', 'Classic-Blue', 'Gold-Silver', 'Green-Glass', 'Light-Wood', 'Power-Coated', 'Purple-Black', 'Rosewood',
-  'Wood-Glass', 'Wax', 'Jade', 'Marble', 'Woodi';
+@each $name, $theme in $board-themes-3d {
+  .#{$name} .is3d {
+    cg-board::before {
+      background-image: img-url('staunton/board/#{$name}.png');
+    }
 
-@each $name in $board-files {
-  .#{$name} cg-board::before {
-    background-image: img-url('staunton/board/#{$name}.png');
+    $coord-color-white: map-get($theme, coord-color-white);
+    $coord-color-black: map-get($theme, coord-color-black);
+
+    @if $coord-color-white and $coord-color-black {
+      coords {
+        --cg-ccw: #{$coord-color-white};
+        --cg-ccb: #{$coord-color-black};
+        --cg-cs: none;
+      }
+    }
   }
 }
 

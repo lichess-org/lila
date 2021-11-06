@@ -72,7 +72,6 @@ export const renderTablePlay = (ctrl: RoundController) => {
   return [
     replay.render(ctrl),
     h('div.rcontrols', [
-      ...buttons,
       h(
         'div.ricons',
         {
@@ -80,6 +79,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
         },
         icons
       ),
+      ...buttons,
     ]),
   ];
 };

@@ -11,7 +11,11 @@ case class ContentSecurityPolicy(
     baseUri: List[String]
 ) {
 
-  def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
+  def withNonce(nonce: Nonce) = copy(scriptSrc =
+    nonce.scriptSrc ::
+      "'unsafe-inline'" :: // ignored by browsers supporting nonce
+      scriptSrc
+  )
 
   def withWebAssembly =
     copy(

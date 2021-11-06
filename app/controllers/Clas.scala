@@ -573,6 +573,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
     ctx.me match {
       case None                 => fuTrue
       case Some(me) if me.isBot => fuFalse
+      case Some(me) if me.kid   => fuFalse
       case _ if ctx.hasClas     => fuTrue
       case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
     }

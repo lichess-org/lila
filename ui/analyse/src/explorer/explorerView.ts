@@ -319,11 +319,12 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
 
 const explorerTitle = (explorer: ExplorerCtrl) => {
   const db = explorer.db();
-  const otherLink = (name: string) =>
+  const otherLink = (name: string, title: string) =>
     h(
       'button.button-link',
       {
         key: name,
+        attrs: { title },
         hook: bind('click', () => explorer.config.data.db(name.toLowerCase() as ExplorerDb), explorer.reload),
       },
       name
@@ -339,7 +340,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
             explorer.config.selectPlayer(playerName || 'me');
             if (explorer.db() != 'player') {
               explorer.config.data.db('player');
-              explorer.config.toggleOpen();
+              explorer.config.data.open(true);
             }
           },
           explorer.reload
@@ -347,30 +348,41 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       },
       'Player'
     );
-  const active = (nodes: MaybeVNodes) =>
+  const active = (nodes: MaybeVNodes, title: string) =>
     h(
       'span.active.text.' + db,
       {
-        attrs: dataIcon(''),
+        attrs: { title, ...dataIcon('') },
         hook: db == 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
       },
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
+  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2020'),
+    lichessDbExplanation = 'Rated games sampled from all Lichess players';
   return h('div.explorer-title', [
     db == 'masters'
-      ? active([h('strong', 'Masters'), ' database'])
+      ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
       : explorer.config.allDbs.includes('masters')
-      ? otherLink('Masters')
+      ? otherLink('Masters', masterDbExplanation)
       : undefined,
-    db == 'lichess' ? active([h('strong', 'Lichess'), ' database']) : otherLink('Lichess'),
+    db == 'lichess'
+      ? active([h('strong', 'Lichess'), ' database'], lichessDbExplanation)
+      : otherLink('Lichess', lichessDbExplanation),
     db == 'player'
-      ? active([
-          h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-          ' as ',
-          explorer.config.data.color(),
-          explorer.isIndexing() ? h('i.ddloader', { attrs: { title: 'Indexing...' } }) : undefined,
-        ])
+      ? playerName
+        ? active(
+            [
+              h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+              ' as ',
+              explorer.config.data.color(),
+              explorer.isIndexing() && !explorer.config.data.open()
+                ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
+                : undefined,
+            ],
+            'Switch sides'
+          )
+        : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),
   ]);
 };
@@ -381,10 +393,7 @@ function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
 }
 
 function showConfig(ctrl: AnalyseCtrl): VNode {
-  return h(
-    'div.config',
-    [h('div.title', showTitle(ctrl, ctrl.data.game.variant))].concat(renderConfig(ctrl.explorer.config))
-  );
+  return h('div.config', [explorerTitle(ctrl.explorer), ...renderConfig(ctrl.explorer.config)]);
 }
 
 function showFailing(ctrl: AnalyseCtrl) {
