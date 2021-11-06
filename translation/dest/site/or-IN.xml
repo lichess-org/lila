@@ -33,7 +33,11 @@
   <string name="joinTheGame">ଖେଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
   <string name="whitePlays">ଧଳାର ପାଳି</string>
   <string name="blackPlays">କଳାର ପାଳି</string>
-  <string name="opponentLeftChoices">ତୁମର ପ୍ରତିଦ୍ୱନ୍ଦୀ ଖେଳ ଛାଡିଥିଲେ | ଆପଣ ବିଜୟ ଦାବି କରିପାରିବେ, ଖେଳକୁ ଡ୍ର ବୋଲି କହିପାରିବେ କିମ୍ବା ଅପେକ୍ଷା କରିପାରିବେ |</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">ଆପଣଙ୍କ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଖେଳ ଛାଡ଼ିଛନ୍ତି। ଆପଣ %s ସେକେଣ୍ଡରେ ବିଜୟ ଦାବି କରିପାରିବେ।</item>
+    <item quantity="other">ଆପଣଙ୍କ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଖେଳ ଛାଡ଼ିଛନ୍ତି। ଆପଣ %s ସେକେଣ୍ଡରେ ବିଜୟ ଦାବି କରିପାରିବେ।</item>
+  </plurals>
+  <string name="opponentLeftChoices">ଆପଣଙ୍କ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଖେଳ ଛାଡ଼ିଛନ୍ତି। ଆପଣ ବିଜୟ ଦାବି କରିପାରିବେ, ଖେଳକୁ ଡ୍ର ବୋଲି କହିପାରିବେ କିମ୍ବା ଅପେକ୍ଷା କରିପାରିବେ।</string>
   <string name="forceResignation">ବିଜୟ ଦାବି କରନ୍ତୁ</string>
   <string name="forceDraw">କଲ୍ ଡ୍ର</string>
   <string name="talkInChat">ଦୟାକରି ଚାଟରେ ଭଲ ହୁଅନ୍ତୁ!</string>
