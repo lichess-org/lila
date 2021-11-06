@@ -206,6 +206,7 @@
   <string name="privacyPolicy">ଗୋପନୀୟତା ନୀତି</string>
   <string name="letOtherPlayersInviteYouToStudy">ଅନ୍ୟ ଖେଳାଳିମାନଙ୍କୁ ଆପଣଙ୍କୁ ଅଧ୍ୟୟନ ପାଇଁ ଆମନ୍ତ୍ରଣ କରିବାକୁ ଦିଅନ୍ତୁ</string>
   <string name="sound">ଧ୍ଵନି</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$sରେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱିତା କରନ୍ତି</string>
   <string name="victory">ବିଜୟ</string>
   <string name="timeline">ସମୟରେଖା</string>
   <string name="starting">ଆରମ୍ଭ:</string>
@@ -250,6 +251,7 @@
   <string name="puzzleDesc">ଚେସ୍ କୌଶଳ ପ୍ରଶିକ୍ଷକ</string>
   <string name="subscribe">ସଦସ୍ୟତା ନିଅନ୍ତୁ</string>
   <string name="unsubscribe">ସଦସ୍ୟତା ରଦ୍ଦ କରନ୍ତୁ</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">ଆପଣଙ୍କୁ \"%1$s\"ରେ ଉଲ୍ଲେଖ କରିଛନ୍ତି।</string>
   <string name="newPendingReview">ନୂଆ ବିଚାରାଧୀନ ସମୀକ୍ଷା</string>
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
