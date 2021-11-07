@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">Sekarang Anda adalah penonton</string>
   <string name="pgnTags">Tagar PGN</string>
   <string name="like">Suka</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Batal Suka</string>
   <string name="newTag">Tagar baru</string>
   <string name="commentThisPosition">Komentar di posisi ini</string>
   <string name="commentThisMove">Komentari langkah ini</string>
