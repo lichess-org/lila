@@ -71,21 +71,22 @@ final private class ExplorerIndexer(
       case Correspondence | Classical => 1.00f
 
       case Rapid if rating >= 2200 => 1.00f
-      case Rapid if rating >= 2000 => 0.50f
-      case Rapid if rating >= 1800 => 0.28f
-      case Rapid if rating >= 1600 => 0.24f
+      case Rapid if rating >= 2000 => 0.83f
+      case Rapid if rating >= 1800 => 0.46f
+      case Rapid if rating >= 1600 => 0.39f
       case Rapid                   => 0.02f
 
       case Blitz if rating >= 2500 => 1.00f
-      case Blitz if rating >= 2200 => 0.24f
-      case Blitz if rating >= 2000 => 0.11f
-      case Blitz if rating >= 1600 => 0.08f
+      case Blitz if rating >= 2200 => 0.38f
+      case Blitz if rating >= 2000 => 0.18f
+      case Blitz if rating >= 1600 => 0.13f
       case Blitz                   => 0.02f
 
       case Bullet if rating >= 2500 => 1.00f
-      case Bullet if rating >= 2200 => 0.30f
-      case Bullet if rating >= 2000 => 0.17f
-      case Bullet if rating >= 1600 => 0.11f
+      case Bullet if rating >= 2200 => 0.48f
+      case Bullet if rating >= 2000 => 0.27f
+      case Bullet if rating >= 1800 => 0.19f
+      case Bullet if rating >= 1600 => 0.18f
       case Bullet                   => 0.02f
 
       case UltraBullet => 1.00f
