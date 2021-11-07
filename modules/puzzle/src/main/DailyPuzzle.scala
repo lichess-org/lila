@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.common.ThreadLocalRandom
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -26,7 +27,7 @@ final private[puzzle] class DailyPuzzle(
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
 
   private def find: Fu[Option[DailyPuzzle.WithHtml]] =
-    (findCurrent orElse findNew) recover { case e: Exception =>
+    (findCurrent orElse findNewBiased()) recover { case e: Exception =>
       logger.error("find daily", e)
       none
     } flatMap { _ ?? makeDaily }
@@ -47,6 +48,18 @@ final private[puzzle] class DailyPuzzle(
         .sort($sort desc F.day)
         .one[Puzzle]
     }
+
+  private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] = {
+    def tryAgainMaybe = (tries < 5) ?? findNewBiased(tries + 1)
+    import lila.common.ThreadLocalRandom.odds
+    import PuzzleTheme._
+    findNew flatMap {
+      case None                                             => tryAgainMaybe
+      case Some(p) if p.hasTheme(anastasiaMate) && !odds(3) => tryAgainMaybe dmap (_ orElse p.some)
+      case Some(p) if p.hasTheme(arabianMate) && odds(2)    => tryAgainMaybe dmap (_ orElse p.some)
+      case p                                                => fuccess(p)
+    }
+  }
 
   private def findNew: Fu[Option[Puzzle]] =
     colls
