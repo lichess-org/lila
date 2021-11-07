@@ -38,6 +38,11 @@ abstract class Random {
     vec.nonEmpty ?? {
       vec lift nextInt(vec.size)
     }
+
+  // odds(1) = 100% true
+  // odds(2) = 50% true
+  // odds(3) = 33% true
+  def odds(n: Int): Boolean = nextInt(n) == 0
 }
 
 object ThreadLocalRandom extends Random {
