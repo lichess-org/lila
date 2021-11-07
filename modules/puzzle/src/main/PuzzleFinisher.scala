@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import cats.implicits._
-import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
+import org.goochjs.glicko2.{ GameRatingPeriodResults, Rating, RatingCalculator }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.util.chaining._
@@ -195,11 +195,11 @@ final private[puzzle] class PuzzleFinisher(
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
-    val results = new RatingPeriodResults()
+    val results = new GameRatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(u1, u2)
-      case Glicko.Result.Win  => results.addResult(u1, u2)
-      case Glicko.Result.Loss => results.addResult(u2, u1)
+      case Glicko.Result.Win  => results.addWin(u1, u2)
+      case Glicko.Result.Loss => results.addWin(u2, u1)
     }
     try {
       calculator.updateRatings(results)

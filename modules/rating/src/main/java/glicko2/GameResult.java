@@ -11,7 +11,7 @@ package org.goochjs.glicko2;
  *
  * @author Jeremy Gooch
  */
-public class GameResult extends Result {
+public class GameResult implements Result {
 	private static final double POINTS_FOR_WIN = 1.0;
 	private static final double POINTS_FOR_LOSS = 0.0;
 	private static final double POINTS_FOR_DRAW = 0.5;
@@ -20,6 +20,14 @@ public class GameResult extends Result {
 	private final Rating winner;
 	private final Rating loser;
 
+  public java.util.List<Rating> getPlayers() {
+    return new java.util.ArrayList<Rating>() {
+      {
+          add(winner);
+          add(loser);
+      }
+    };
+  }
 
 	/**
 	 * Record a new result from a match between two players.
@@ -122,16 +130,6 @@ public class GameResult extends Result {
 		}
 
 		return opponent;
-	}
-
-
-	public Rating getWinner() {
-		return this.winner;
-	}
-
-
-	public Rating getLoser() {
-		return this.loser;
 	}
 
 	public String toString() {

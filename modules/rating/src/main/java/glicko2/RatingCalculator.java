@@ -86,7 +86,8 @@ public class RatingCalculator {
    * @param ratingPeriodLengthMillis
    */
   public void updateRatings(RatingPeriodResults results, boolean skipDeviationIncrease) {
-    for ( Rating player : results.getParticipants() ) {
+    java.util.Set<Rating> players = results.getParticipants();
+    for ( Rating player : players ) {
       double elapsedRatingPeriods = skipDeviationIncrease ? 0 : 1;
       if ( results.getResults(player).size() > 0 ) {
         calculateNewRating(player, results.getResults(player), elapsedRatingPeriods);
@@ -101,7 +102,7 @@ public class RatingCalculator {
     }
 
     // now iterate through the participants and confirm their new ratings
-    for ( Rating player : results.getParticipants() ) {
+    for ( Rating player : players ) {
       player.finaliseRating();
     }
 
