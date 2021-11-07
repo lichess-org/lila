@@ -288,6 +288,7 @@ final class TeamApi(
       lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
       (team.leaders(by.id) && !team.leaders(team.createdBy))
     ) {
+      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}")
       if (team.enabled)
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>
