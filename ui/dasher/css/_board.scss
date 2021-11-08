@@ -28,10 +28,12 @@
   .list a.active {
     background-color: $c-shade;
   }
-  &.d2 {
-    .solid-natural {
-      background-image: url(../images/board/solid-natural_Thumbnail.png);
+  & {
+    .solid-natural,
+    .t_solid-natural {
+      background-image: url(../images/board/thumbnails/solid-natural.png);
     }
+
     .solid-brown1 {
       background-image: url(../images/board/svg/solid-brown1.svg);
       background-size: 290px;
@@ -41,7 +43,8 @@
       background-size: 290px;
     }
 
-    .wood1 {
+    .wood1,
+    .t_wood1 {
       background-image: url(../images/board/svg/wood1.svg);
       background-size: 290px;
     }
@@ -65,57 +68,52 @@
     }
 
     .space1 {
-      background-image: url(../images/board/space1_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/space1.png);
     }
     .space2 {
-      background-image: url(../images/board/space2_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/space2.png);
     }
     .solid-wood1 {
-      background-image: url(../images/board/thumnail1-solid-wood-1.png);
+      background-image: url(../images/board/thumbnails/solid-wood-1.png);
     }
-    .doubutsu {
-      background-image: url(../images/board/doubutsu_thumbnail.png);
+    .doubutsu,
+    .t_doubutsu {
+      background-image: url(../images/board/thumbnails/doubutsu.png);
     }
     .kaya1 {
-      background-image: url(../images/board/kaya1_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/kaya1.png);
     }
     .kaya2 {
-      background-image: url(../images/board/kaya2_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/kaya2.png);
     }
     .kaya-light {
-      background-image: url(../images/board/kaya-light_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/kaya-light.png);
     }
     .oak {
-      background-image: url(../images/board/oak_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/oak.png);
     }
     .Painting1 {
-      background-image: url(../images/board/Painting1_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/Painting1.png);
     }
     .Painting2 {
-      background-image: url(../images/board/Painting2_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/Painting2.png);
     }
     .Kinkaku {
-      background-image: url(../images/board/Kinkaku_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/Kinkaku.png);
     }
     .whiteBoard {
-      background-image: url(../images/board/white_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/white.png);
     }
     .darkBoard {
-      background-image: url(../images/board/dark_Thumbnail.png);
+      background-image: url(../images/board/thumbnails/dark.png);
     }
-    .transparent {
-      background-image: url(../images/board/transparent_Thumbnail.png);
+    .transparent,
+    .t_transparent {
+      background-image: url(../images/board/thumbnails/transparent.png);
     }
-    .transparent-white {
-      background-image: url(../images/board/transparent-white_Thumbnail.png);
-    }
-  }
-  &.d3 {
-    $board-files: ('Woodi');
-    @each $name in $board-files {
-      .#{$name} {
-        background-image: img-url('staunton/board/#{$name}.thumbnail.png');
-      }
+    .transparent-white,
+    .t_transparent-white {
+      background-image: url(../images/board/thumbnails/transparent-white.png);
     }
   }
 }
