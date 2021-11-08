@@ -268,7 +268,8 @@ final class User(
                   "rapid"          -> leaderboards.rapid,
                   "classical"      -> leaderboards.classical,
                   "ultraBullet"    -> leaderboards.ultraBullet,
-                  "correspondence" -> leaderboards.correspondence // todo variant
+                  "correspondence" -> leaderboards.correspondence,
+                  "minishogi"      -> leaderboards.minishogi
                 )
               )
             }

@@ -691,7 +691,8 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     shogi.variant.Standard,
-    shogi.variant.FromPosition
+    shogi.variant.FromPosition,
+    shogi.variant.Minishogi
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants

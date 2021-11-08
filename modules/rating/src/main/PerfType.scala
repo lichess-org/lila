@@ -86,6 +86,15 @@ object PerfType {
         iconChar = '8'
       )
 
+  case object Minishogi
+    extends PerfType(
+      12,
+      key = "minishogi",
+      name = shogi.variant.Minishogi.name,
+      title = "Standard rules of shogi, but smaller board",
+      iconChar = ','
+    )
+
   case object Puzzle
       extends PerfType(
         20,
@@ -103,6 +112,7 @@ object PerfType {
     Classical,
     Correspondence,
     Standard,
+    Minishogi,
     Puzzle
   )
   val byKey = all map { p =>
@@ -129,7 +139,8 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
-    Correspondence
+    Correspondence,
+    Minishogi
   )
   val leaderboardable: List[PerfType] = List(
     Bullet,
@@ -137,18 +148,21 @@ object PerfType {
     Rapid,
     Classical,
     UltraBullet,
-    Correspondence
+    Correspondence,
+    Minishogi
   )
-  val variants: List[PerfType] = Nil
+  val variants: List[PerfType] = List(Minishogi)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def variantOf(pt: PerfType): shogi.variant.Variant =
     pt match {
-      case _ => shogi.variant.Standard // todo variant
+      case Minishogi => shogi.variant.Minishogi
+      case _ => shogi.variant.Standard
     }
 
   def byVariant(variant: shogi.variant.Variant): Option[PerfType] =
     variant match {
+      case shogi.variant.Minishogi => Minishogi.some
       case _ => none
     }
 

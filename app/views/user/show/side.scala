@@ -68,7 +68,8 @@ object side {
         showPerf(u.perfs.classical, PerfType.Classical),
         showPerf(u.perfs.correspondence, PerfType.Correspondence),
         br,
-        // br, todo variant
+        showNonEmptyPerf(u.perfs.minishogi, PerfType.Minishogi),
+        br,
         u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
         u.noBot option showStorm(u.perfs.storm, u)
       )

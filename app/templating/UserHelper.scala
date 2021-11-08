@@ -19,11 +19,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     else none
 
   val topBarSortedPerfTypes: List[PerfType] = List(
-    PerfType.Bullet, // todo variant
+    PerfType.Bullet,
     PerfType.Blitz,
     PerfType.Rapid,
     PerfType.Classical,
-    PerfType.Correspondence
+    PerfType.Correspondence,
+    PerfType.Minishogi
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit

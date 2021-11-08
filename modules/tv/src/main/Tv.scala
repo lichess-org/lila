@@ -120,6 +120,13 @@ object Tv {
           secondsSinceLastMove = 30,
           filters = Seq(speed(S.UltraBullet), standardShogiRules)
         )
+    case object Minishogi
+        extends Channel(
+          name = V.Minishogi.name,
+          icon = P.Minishogi.iconChar.toString,
+          secondsSinceLastMove = 30,
+          filters = Seq(variant(V.Minishogi))
+        )
     case object Bot
         extends Channel(
           name = "Bot",
@@ -141,6 +148,7 @@ object Tv {
       Rapid,
       Classical,
       UltraBullet,
+      Minishogi,
       Bot,
       Computer
     )

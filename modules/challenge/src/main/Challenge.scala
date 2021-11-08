@@ -1,7 +1,7 @@
 package lila.challenge
 
 import shogi.format.FEN
-import shogi.variant.{ FromPosition, Variant }
+import shogi.variant.{ FromPosition, Minishogi, Variant }
 import shogi.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
@@ -86,8 +86,8 @@ case class Challenge(
 
   def notableInitialFen: Option[FEN] =
     variant match {
-      case FromPosition => initialFen
-      case _            => none
+      case FromPosition | Minishogi => initialFen
+      case _                        => none
     }
 
   def isOpen = ~open

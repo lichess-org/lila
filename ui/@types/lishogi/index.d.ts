@@ -200,7 +200,7 @@ declare type VariantKey = 'standard' | 'fromPosition' | 'minishogi';
 
 declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
 
-declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'fromPosition';
+declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'fromPosition' | 'minishogi';
 
 declare type Color = 'sente' | 'gote';
 

@@ -46,14 +46,15 @@ object list {
           div(cls := "community__leaders")(
             h2(trans.leaderboard()),
             div(cls := "leaderboards")(
-              userTopPerf(leaderboards.bullet, PerfType.Bullet), // todo variant
+              userTopPerf(leaderboards.bullet, PerfType.Bullet),
               userTopPerf(leaderboards.blitz, PerfType.Blitz),
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
               userTopPerf(leaderboards.correspondence, PerfType.Correspondence),
               userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
-              tournamentWinners(tourneyWinners)
+              tournamentWinners(tourneyWinners),
+              userTopPerf(leaderboards.minishogi, PerfType.Minishogi)
             )
           )
         )

@@ -18,8 +18,8 @@ final class BoostingApi(
   implicit private val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
 
   private val variants = Set[variant.Variant](
-    variant.Standard
-    //variant.MiniShogi,
+    variant.Standard,
+    variant.Minishogi
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =

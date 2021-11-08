@@ -78,7 +78,8 @@ object SimulForm {
         "variants" -> list {
           number.verifying(
             Set(
-              shogi.variant.Standard.id
+              shogi.variant.Standard.id,
+              shogi.variant.Minishogi.id
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),

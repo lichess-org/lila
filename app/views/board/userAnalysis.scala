@@ -53,8 +53,7 @@ object userAnalysis {
           views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-            //shogi.variant.Variant.all.filter(shogi.variant.FromPosition.!=).map { v =>
-            shogi.variant.Variant.all.filter(shogi.variant.Standard.==).map { v =>
+            shogi.variant.Variant.all.filter(shogi.variant.FromPosition.!=).map { v =>
               a(
                 dataIcon := iconByVariant(v),
                 cls := (pov.game.variant == v).option("current"),
@@ -62,7 +61,7 @@ object userAnalysis {
               )(v.name)
             }
           )
-        ), //todo variant
+        ),
         div(cls := "analyse__board main-board")(shogigroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
