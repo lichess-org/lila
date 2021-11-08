@@ -53,5 +53,5 @@ For your own sake, please upgrade. Security and performance, think about it!
 ## License
 
 Li[shogi in scala]la is licensed under the GNU Affero General Public License 3 or any later
-version at your choice with an exception for Highcharts. See COPYING for
-details. WIP
+version at your choice with an exception for Highcharts. See [LICENSE](/LICENSE) and 
+[COPYING.md](/COPYING.md) for details. WIP
