@@ -47,7 +47,8 @@ final class TutorReportBuilder(
   private def getOrCompute(key: (User.ID, IpAddress)): Fu[TutorFullReport] = key match {
     case (userId, ip) =>
       for {
-        previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorFullReport]
+        // previous <- reportColl.find($doc("user" -> userId)).sort($sort desc "at").one[TutorFullReport]
+        previous <- fuccess(none[TutorFullReport])
         report <- previous match {
           case Some(p) if p.isFresh => fuccess(p)
           case prev =>
@@ -89,6 +90,7 @@ final class TutorReportBuilder(
           case (report, pov) => TutorFullReport.aggregate(report, pov)
         }
       }
+      .map(_.postProcess)
 
   private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
     analysisRepo.byGame(game) orElse {

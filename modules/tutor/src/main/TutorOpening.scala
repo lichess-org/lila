@@ -5,12 +5,13 @@ import chess.Color
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.format.{ FEN, Forsyth }
 
-case class TutorOpeningReport(opening: FullOpening, games: NbGames, moves: NbMoves)
+case class TutorOpeningReport(opening: FullOpening, ply: Int, games: NbGames, moves: NbMoves)
 
 object TutorOpeningReport {
 
-  type OpeningMap      = Color.Map[ColorOpeningMap]
-  type ColorOpeningMap = Map[FEN, TutorOpeningReport]
+  type OpeningMap        = Color.Map[ColorOpeningMap]
+  type ColorBestOpenings = List[(FEN, TutorOpeningReport)]
+  type ColorOpeningMap   = Map[FEN, TutorOpeningReport]
 
   def aggregate(openings: OpeningMap, richPov: RichPov) = {
 
@@ -30,9 +31,10 @@ object TutorOpeningReport {
       openings.update(
         pov.color,
         _.updatedWith(FEN(op.opening.fen)) { opt =>
-          val prev = opt | TutorOpeningReport(op.opening, NbGames(0), NbMoves(0))
+          val prev = opt | TutorOpeningReport(op.opening, op.ply, NbGames(0), NbMoves(0))
           prev
             .copy(
+              ply = prev.ply atMost op.ply,
               games = prev.games + 1,
               moves = prev.moves + op.ply / 2
             )
@@ -40,5 +42,42 @@ object TutorOpeningReport {
         }
       )
     }
+  }
+
+  def postProcess(openings: ColorOpeningMap): ColorOpeningMap = {
+
+    // val games = openings.values.map(_.games.value).sum
+
+    def familyOf(op: FullOpening) = op.name.takeWhile(_ != ':')
+    val families: List[(String, List[TutorOpeningReport])] =
+      openings.values
+        .groupBy(op => familyOf(op.opening))
+        .map(x => x._1 -> x._2.toList)
+        .toList
+        .sortBy(-_._2.size)
+        .take(5)
+
+    // def variationOf(op: FullOpening) = op.name.takeWhile(_ != ',')
+    // val variations: List[(String, Int)] = openings.values
+    //   .foldLeft(Map.empty[String, Int]) { case (vars, op) =>
+    //     vars.updatedWith(variationOf(op.opening))(nb => Some(~nb + 1))
+    //   }
+    //   .toList
+    //   .sortBy(-_._2)
+    // .takeWhile(_._2 >= threshold)
+
+    // val familySet = families.map(_._1).toSet
+
+    families.flatMap { case (_, reports) =>
+      reports.sortBy(_.ply).headOption map { report =>
+        val opening = report.opening
+        FEN(opening.fen) -> TutorOpeningReport(
+          opening = opening,
+          ply = report.ply,
+          games = NbGames(reports.map(_.games.value).sum),
+          moves = NbMoves(reports.map(_.moves.value).sum)
+        )
+      }
+    }.toMap
   }
 }

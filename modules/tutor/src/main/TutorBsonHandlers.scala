@@ -24,12 +24,14 @@ private object TutorBsonHandlers {
           (fenS, doc) <- pairs
           fen = FEN(fenS)
           opening <- FullOpeningDB.findByFen(fen)
+          ply     <- doc.int("ply")
           games   <- doc.getAsOpt[NbGames]("games")
           moves   <- doc.getAsOpt[NbMoves]("moves")
-        } yield fen -> TutorOpeningReport(opening, games, moves),
+        } yield fen -> TutorOpeningReport(opening, ply, games, moves),
       _ collect {
         case (fen, report) if report.games.value > 0 =>
           fen.value -> $doc(
+            "ply"   -> report.ply,
             "games" -> report.games,
             "moves" -> report.moves
           )
