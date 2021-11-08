@@ -21,12 +21,8 @@ object side {
             p(
               s.clock.show,
               separator,
-              if (s.variant.exotic) {
-                views.html.game.bits.variantLink(
-                  s.variant,
-                  s.variant.name
-                )
-              } else s.perfType.map(_.trans),
+              views.html.game.bits.variantLink(s.variant, s.perfType),
+              //views.html.game.bits.variantLink(s.variant, s.perfType, shortName = true),
               separator,
               if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
             ),

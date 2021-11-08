@@ -27,12 +27,8 @@ object side {
             p(
               tour.clock.show,
               separator,
-              if (tour.variant.exotic) {
-                views.html.game.bits.variantLink(
-                  tour.variant,
-                  tour.variant.name
-                )
-              } else tour.perfType.map(_.trans),
+              views.html.game.bits.variantLink(tour.variant, tour.perfType),
+              //views.html.game.bits.variantLink(tour.variant, tour.perfType, shortName = true),
               (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString

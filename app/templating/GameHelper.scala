@@ -73,15 +73,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: shogi.variant.Variant)(implicit lang: Lang) =
-    variant match {
-      case shogi.variant.Standard     => trans.standard.txt()
-      case shogi.variant.FromPosition => trans.fromPosition.txt()
-      case v                          => v.name
-    }
-
-  def variantNameNoCtx(variant: shogi.variant.Variant) = variantName(variant)(defaultLang)
-
   def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
 
