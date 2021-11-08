@@ -19,7 +19,7 @@ abstract class Variant private[variant] (
 ) {
 
   def standard     = this == Standard
-  def miniShogi    = this == MiniShogi
+  def minishogi    = this == Minishogi
   def fromPosition = this == FromPosition
 
   def exotic = !standard
@@ -348,7 +348,7 @@ object Variant {
 
   val all = List(
     Standard,
-    MiniShogi,
+    Minishogi,
     FromPosition
   )
 

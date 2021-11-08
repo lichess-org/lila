@@ -74,7 +74,7 @@ class PerftTest extends ShogiTest {
   }
 
   "calculate minishogi perfts" should {
-    val game = Game(Option(shogi.variant.MiniShogi), Option("rbsgk/4p/5/P4/KGSBR b - 1"))
+    val game = Game(Option(shogi.variant.Minishogi), Option("rbsgk/4p/5/P4/KGSBR b - 1"))
     "1 depth" in {
       perft(game, 1) must be equalTo 14
     }

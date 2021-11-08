@@ -3,12 +3,12 @@ package variant
 
 import Pos._
 
-case object MiniShogi
+case object Minishogi
     extends Variant(
       id = 2,
       key = "minishogi",
-      name = "Mini Shogi",
-      shortName = "MiniShogi",
+      name = "Minishogi",
+      shortName = "Minishogi",
       title = "Same rules, smaller board",
       standardInitialPosition = false
     ) {
