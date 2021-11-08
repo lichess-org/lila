@@ -53,7 +53,7 @@ $total_len: $len1 + $len2 + $len3;
   margin: auto;
 
   path {
-    animation: mask1 2.75s cubic-bezier(.49,.67,.45,.29) infinite;
+    animation: mask1 2.75s cubic-bezier(0.49, 0.67, 0.45, 0.29) infinite;
   }
   path:nth-child(2) {
     animation-name: mask2;
