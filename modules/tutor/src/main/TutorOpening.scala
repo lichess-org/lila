@@ -2,30 +2,43 @@ package lila.tutor
 
 import lila.game.Game
 import chess.Color
+import chess.opening.{ FullOpening, FullOpeningDB }
+import chess.format.{ FEN, Forsyth }
 
-case class TutorOpeningReport(byColor: Color.Map[TutorOpeningColorReport])
-
-case class TutorOpeningColorReport(games: NbGames, moves: NbMoves)
+case class TutorOpeningReport(opening: FullOpening, games: NbGames, moves: NbMoves)
 
 object TutorOpeningReport {
 
-  val empty = TutorOpeningReport(Color.Map(TutorOpeningColorReport.empty, TutorOpeningColorReport.empty))
+  type OpeningMap      = Color.Map[ColorOpeningMap]
+  type ColorOpeningMap = Map[FEN, TutorOpeningReport]
 
-  def aggregate(report: TutorOpeningReport, richPov: RichPov) =
-    TutorOpeningReport(report.byColor.update(richPov.pov.color, TutorOpeningColorReport.aggregate(richPov)))
-}
+  def aggregate(openings: OpeningMap, richPov: RichPov) = {
 
-object TutorOpeningColorReport {
-
-  val empty = TutorOpeningColorReport(
-    games = NbGames(0),
-    moves = NbMoves(0)
-  )
-  def aggregate(richPov: RichPov)(report: TutorOpeningColorReport) = {
     import richPov._
-    TutorOpeningColorReport(
-      games = report.games + 1,
-      moves = report.moves + division.openingSize / 2
-    )
+
+    val opening = pov.game.variant.standard ??
+      replay
+        .map(s => FEN(Forsyth exportStandardPositionTurnCastlingEp s))
+        .zipWithIndex
+        .drop(1)
+        .foldRight(none[FullOpening.AtPly]) {
+          case ((fen, ply), None) => FullOpeningDB.findByFen(fen).map(_ atPly ply)
+          case (_, found)         => found
+        }
+
+    opening.fold(openings) { op =>
+      openings.update(
+        pov.color,
+        _.updatedWith(FEN(op.opening.fen)) { opt =>
+          val prev = opt | TutorOpeningReport(op.opening, NbGames(0), NbMoves(0))
+          prev
+            .copy(
+              games = prev.games + 1,
+              moves = prev.moves + op.ply / 2
+            )
+            .some
+        }
+      )
+    }
   }
 }
