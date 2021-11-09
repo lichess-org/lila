@@ -232,7 +232,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       : h(
           'div.switch',
           {
-            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' },
+            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (L)' },
           },
           [
             h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
