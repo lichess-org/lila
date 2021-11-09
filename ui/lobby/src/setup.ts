@@ -245,6 +245,9 @@ export default class Setup {
             else key = 'classical';
           } else key = 'correspondence';
           break;
+        case '2':
+          key = 'minishogi';
+          break;
       }
       $ratings
         .hide()

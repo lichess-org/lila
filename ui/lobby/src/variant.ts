@@ -1,4 +1,6 @@
-const variantConfirms = {};
+const variantConfirms = {
+  minishogi: 'This is mini shogi, same rules but smaller board.',
+};
 
 function storageKey(key) {
   return 'lobby.variant.' + key;

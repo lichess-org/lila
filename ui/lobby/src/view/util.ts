@@ -36,6 +36,6 @@ export const perfIcons = {
   Bullet: 'T',
   Classical: '+',
   Rapid: '#',
-  //'MiniShogi':'.',
+  Minishogi: ',',
   Correspondence: ';',
 };
