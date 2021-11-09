@@ -25,15 +25,10 @@ object Dumper {
           orig.uciKey
         }
         val promotes = {
-          if (
-            !promotion && (situation.board.variant.promotableRoles contains piece.role) &&
-            situation.board.variant.promotionRanks(piece.color).exists { sq =>
-              sq == dest.y || sq == orig.y
-            }
-          )
+          if (!promotion && situation.board.variant.canPromote(data))
             "="
-          else if (!promotion) ""
-          else "+"
+          else if (promotion) "+"
+          else ""
         }
         s"${role.pgn}$disambiguation${if (captures) "x" else ""}${dest.uciKey}$promotes"
       }
