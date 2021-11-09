@@ -120,6 +120,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     );
   };
   const currentChapter = ctrl.root.study!.data.chapter;
+  const gameOrNotation = activeTab === 'game' || activeTab === 'pgn';
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
@@ -286,25 +287,45 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   : null,
               ])
             : null,
-          h('div.form-group', [
-            h(
-              'label.form-label',
-              {
-                attrs: { for: 'chapter-orientation' },
-              },
-              noarg('orientation')
-            ),
-            h(
-              'select#chapter-orientation.form-control',
-              {
-                hook: bind('change', e => {
-                  ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
-                }),
-              },
-              ['sente', 'gote'].map(function (color) {
-                return option(color, currentChapter.setup.orientation, noarg(toBlackWhite(color)));
-              })
-            ),
+          h('div.form-split', [
+            h('div.form-group.form-half', [
+              h(
+                'label.form-label',
+                {
+                  attrs: { for: 'chapter-variant' },
+                },
+                noarg('Variant')
+              ),
+              h(
+                'select#chapter-variant.form-control',
+                {
+                  attrs: { disabled: gameOrNotation },
+                },
+                gameOrNotation
+                  ? [h('option', noarg('automatic'))]
+                  : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
+              ),
+            ]),
+            h('div.form-group-half', [
+              h(
+                'label.form-label',
+                {
+                  attrs: { for: 'chapter-orientation' },
+                },
+                noarg('orientation')
+              ),
+              h(
+                'select#chapter-orientation.form-control',
+                {
+                  hook: bind('change', e => {
+                    ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
+                  }),
+                },
+                ['sente', 'gote'].map(function (color) {
+                  return option(color, currentChapter.setup.orientation, noarg(toBlackWhite(color)));
+                })
+              ),
+            ]),
           ]),
           h('div.form-group', [
             h(
