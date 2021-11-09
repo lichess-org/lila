@@ -10,11 +10,16 @@ $box-padding: var(--box-padding);
 @import 'started';
 
 .simul {
+  @include breakpoint($mq-xx-small) {
+    .box__top {
+      flex-wrap: nowrap;
+    }
+  }
+
   h1 {
     font-size: 2.1em;
 
     .author {
-      margin-left: 0.7em;
       font-size: 0.7em;
     }
   }
