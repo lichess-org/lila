@@ -16,7 +16,8 @@
 }
 
 .mini-board {
-  @extend %mini-board-square;
+  @extend %square;
+  padding-bottom: calc(100% * 11 / 9);
   cg-container {
     top: calc(100% / 11);
     height: auto;
@@ -82,6 +83,29 @@
         }
         .blindfold &:not(.usable) {
           opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+.mini-board.minishogi {
+  padding-bottom: calc(100% * 7 / 5);
+  max-width: calc(100% / 11 * 9);
+  cg-container {
+    top: calc(100% / 7);
+    cg-pocket {
+      .pocket {
+        &-top {
+          top: calc(-100% / 5);
+          height: calc(100% / 5);
+        }
+        &-bottom {
+          height: calc(100% / 5);
+          bottom: calc(-100% / 5);
+        }
+        &-c1 {
+          flex: 0 0 calc(100% / 5);
         }
       }
     }
