@@ -59,10 +59,7 @@ export default function (ctrl: DasherCtrl): VNode {
 
   const background = h('a.sub', modeCfg(ctrl, 'background'), noarg('background'));
 
-  //const board = h(
-  //  'a.sub',
-  //  modeCfg(ctrl, 'board'),
-  //  noarg('boardGeometry'))
+  const board = h('a.sub', modeCfg(ctrl, 'board'), noarg('boardGeometry'));
 
   const theme = h('a.sub', modeCfg(ctrl, 'theme'), noarg('boardTheme'));
 
@@ -88,16 +85,7 @@ export default function (ctrl: DasherCtrl): VNode {
 
   return h('div', [
     userLinks(),
-    h('div.subs', [
-      langs,
-      sound,
-      background,
-      //board,
-      theme,
-      piece,
-      notation,
-      zenToggle,
-    ]),
+    h('div.subs', [langs, sound, background, board, theme, piece, notation, zenToggle]),
     pingView(ctrl.ping),
   ]);
 }
