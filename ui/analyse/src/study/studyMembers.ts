@@ -317,12 +317,7 @@ export function view(ctrl: StudyCtrl): VNode {
                 )
               ),
             },
-            [
-              h(
-                'button.button.button-red.button-thin',
-                'Enter as admin'
-              ),
-            ]
+            [h('button.button.button-red.button-thin', 'Enter as admin')]
           )
         : null,
     ]
