@@ -1,5 +1,5 @@
 import { State } from './state';
-import { createEl, droppableRoles } from './util';
+import { createEl, droppableRoles, miniDroppableRoles } from './util';
 import { Pockets, Role } from './types';
 
 const droppableLetters: { [letter: string]: Role } = {
@@ -47,9 +47,10 @@ export function makePockets(str?: string): Pockets | undefined {
 
 export function addPocketEl(s: State, element: HTMLElement, color: string): HTMLElement {
   const position = (s.orientation === 'sente') !== (color == 'sente') ? 'top' : 'bottom',
-    pocket = createEl('div', 'pocket is2d pocket-' + position);
+    pocket = createEl('div', 'pocket pocket-' + position);
   element.appendChild(pocket);
-  for (const role of droppableRoles) {
+  const allValidRoles = s.dimensions.ranks === 5 ? miniDroppableRoles : droppableRoles;
+  for (const role of allValidRoles) {
     const c1 = createEl('div', 'pocket-c1');
     pocket.appendChild(c1);
     const c2 = createEl('div', 'pocket-c2');

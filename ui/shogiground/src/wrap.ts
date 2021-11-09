@@ -78,12 +78,11 @@ export function renderWrap(element: HTMLElement, s: State, relative: boolean): E
   }
 
   return {
+    pockets,
     board,
     container,
-    boardSpan: element,
     ghost,
     svg,
-    pockets,
   };
 }
 

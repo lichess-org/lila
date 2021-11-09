@@ -16,7 +16,7 @@ export function Shogiground(element: HTMLElement, config?: Config): Api {
   function redrawAll(): void {
     const prevUnbind = state.dom && state.dom.unbind; /* eslint-disable-line */
     // compute bounds from existing board element if possible
-    // this allows non-square boards from CSS to be handled (for 3D)
+    // this allows non-square boards from CSS to be handled (for ratio)
     const relative = state.viewOnly && !state.drawable.visible,
       elements = renderWrap(element, state, relative),
       bounds = util.memo(() => elements.board.getBoundingClientRect()),

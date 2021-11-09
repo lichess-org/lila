@@ -141,8 +141,7 @@ export type Dests = Map<Key, Key[]>;
 export type DropDests = Map<Role, Key[]>;
 
 export interface Elements {
-  pockets: HTMLElement[];
-  boardSpan: HTMLElement;
+  pockets?: HTMLElement[];
   board: HTMLElement;
   container: HTMLElement;
   ghost?: HTMLElement;

@@ -60,7 +60,7 @@ export interface Api {
   // square name at this DOM position (like "e4")
   getKeyAtDomPos(pos: cg.NumberPair): cg.Key | undefined;
 
-  // only useful when CSS changes the board width/height ratio (for 3D)
+  // only useful when CSS changes the board width/height ratio (for ratio change)
   redrawAll: cg.Redraw;
 
   // for piece dropping and board editors

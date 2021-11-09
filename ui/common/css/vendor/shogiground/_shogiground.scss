@@ -1,4 +1,4 @@
-@import 'board-2d';
+@import 'board-square';
 
 cg-board {
   @extend %box-shadow, %abs-100;
@@ -13,10 +13,8 @@ cg-board {
 }
 square {
   position: absolute;
-  width: calc(200% / 9);
-  height: calc(200% / 9);
-  margin: calc(-50% / 9);
-  transform: scale(0.5);
+  width: calc(100% / 9);
+  height: calc(100% / 9);
   pointer-events: none;
   &.move-dest {
     background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);

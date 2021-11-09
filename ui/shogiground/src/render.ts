@@ -20,7 +20,7 @@ export function render(s: State): void {
       : util.posToTranslateAbs(s.dimensions, s.dom.bounds()),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
-    pockets: HTMLElement[] = s.dom.elements.pockets,
+    pockets: HTMLElement[] | undefined = s.dom.elements.pockets,
     pieces: cg.Pieces = s.pieces,
     curAnim: AnimCurrent | undefined = s.animation.current,
     anims: AnimVectors = curAnim ? curAnim.plan.anims : new Map(),
@@ -117,11 +117,11 @@ export function render(s: State): void {
       const translation = posToTranslate(key2pos(sk), asSente);
       if (sMvd) {
         sMvd.cgKey = sk;
-        translate(sMvd, translation);
+        translate(sMvd, translation, false);
       } else {
         const squareNode = createEl('square', className) as cg.SquareNode;
         squareNode.cgKey = sk;
-        translate(squareNode, translation);
+        translate(squareNode, translation, false);
         boardEl.insertBefore(squareNode, boardEl.firstChild);
       }
     }
@@ -195,9 +195,8 @@ export function updateBounds(s: State): void {
     posToTranslate = util.posToTranslateAbs(s.dimensions, s.dom.bounds());
   let el = s.dom.elements.board.firstChild as cg.PieceNode | cg.SquareNode | undefined;
   while (el) {
-    if ((isPieceNode(el) && !el.cgAnimating) || isSquareNode(el)) {
-      util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente));
-    }
+    if (isPieceNode(el) && !el.cgAnimating) util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente));
+    else if (isSquareNode(el)) util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente), false);
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
 }
