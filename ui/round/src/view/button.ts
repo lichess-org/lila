@@ -11,7 +11,8 @@ import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 import { Shogi } from 'shogiops/shogi';
 import { parseFen } from 'shogiops/fen';
-import { SquareSet } from 'shogiops/squareSet';
+import { promotionZone } from 'shogiops/variantUtil';
+import { lishogiVariantRules } from 'shogiops/compat';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
@@ -190,8 +191,12 @@ export function impasseHelp(ctrl: RoundController) {
   const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
   const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false).unwrap();
 
-  const sentePromotion = SquareSet.promotionZone('sente').intersect(shogi.board.sente);
-  const gotePromotion = SquareSet.promotionZone('gote').intersect(shogi.board.gote);
+  const sentePromotion = promotionZone(lishogiVariantRules(ctrl.data.game.variant.key))('sente').intersect(
+    shogi.board.sente
+  );
+  const gotePromotion = promotionZone(lishogiVariantRules(ctrl.data.game.variant.key))('gote').intersect(
+    shogi.board.gote
+  );
   const allMajorPieces = shogi.board.bishop.union(shogi.board.rook).union(shogi.board.horse).union(shogi.board.dragon);
 
   const senteKing: boolean = !sentePromotion.intersect(shogi.board.king).isEmpty();
@@ -203,14 +208,14 @@ export function impasseHelp(ctrl: RoundController) {
   const senteImpasseValue =
     senteNumberOfPieces +
     allMajorPieces.intersect(sentePromotion).size() * 4 +
-    shogi.pockets['sente'].count() +
-    (shogi.pockets['sente'].bishop + shogi.pockets['sente'].rook) * 4;
+    shogi.hands['sente'].count() +
+    (shogi.hands['sente'].bishop + shogi.hands['sente'].rook) * 4;
 
   const goteImpasseValue =
     goteNumberOfPieces +
     allMajorPieces.intersect(gotePromotion).size() * 4 +
-    shogi.pockets['gote'].count() +
-    (shogi.pockets['gote'].bishop + shogi.pockets['gote'].rook) * 4;
+    shogi.hands['gote'].count() +
+    (shogi.hands['gote'].bishop + shogi.hands['gote'].rook) * 4;
 
   return h('div.suggestion', [
     h(

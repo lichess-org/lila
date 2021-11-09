@@ -1,15 +1,16 @@
 import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
 import { Role } from 'shogiground/types';
-import { Rules, PocketRole, PROMOTABLE_ROLES, POCKET_ROLES, PromotableRole } from 'shogiops/types';
+import { Rules } from 'shogiops/types';
 import { Board } from 'shogiops/board';
-import { Setup, Material, MaterialSide } from 'shogiops/setup';
+import { Setup } from 'shogiops/setup';
 import { setupPosition } from 'shogiops/variant';
 import { makeFen, parseFen, INITIAL_FEN, INITIAL_EPD, EMPTY_FEN } from 'shogiops/fen';
 
 import { defined, prop, Prop } from 'common';
-import { promote, unpromote } from 'shogiops/util';
 import { opposite } from 'shogiground/util';
+import { Hand, Hands } from 'shogiops/hand';
+import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variantUtil';
 
 export default class EditorCtrl {
   cfg: EditorConfig;
@@ -21,7 +22,7 @@ export default class EditorCtrl {
 
   selected: Prop<Selected>;
 
-  pockets: Material;
+  hands: Hands;
   turn: Color;
   rules: Rules;
   fullmoves: number;
@@ -80,7 +81,7 @@ export default class EditorCtrl {
     );
     return {
       board,
-      pockets: this.pockets,
+      hands: this.hands,
       turn: this.turn,
       fullmoves: this.fullmoves,
     };
@@ -155,7 +156,7 @@ export default class EditorCtrl {
     return parseFen(fen).unwrap(
       setup => {
         if (this.shogiground) this.shogiground.set({ fen });
-        this.pockets = setup.pockets;
+        this.hands = setup.hands;
         this.turn = setup.turn;
         this.fullmoves = setup.fullmoves;
 
@@ -176,27 +177,24 @@ export default class EditorCtrl {
       this.countPieces('gold', setup) <= 4 &&
       this.countPieces('bishop', setup) <= 2 &&
       this.countPieces('rook', setup) <= 2 &&
-      setup.board.occupied.size() + setup.pockets.count() < 38 + this.countPieces('king', setup)
+      setup.board.occupied.size() + setup.hands.count() < 38 + this.countPieces('king', setup)
     );
   }
 
+  // add support for variants later
   countPieces(role: Role, setup?: Setup): number {
     if (!defined(setup)) setup = this.getSetup();
-    role = unpromote(role)!;
+    role = unpromote('shogi')(role)!;
     return (
       setup.board[role].size() +
-      ((POCKET_ROLES as ReadonlyArray<string>).includes(role)
-        ? setup.pockets.sente[role as PocketRole] + setup.pockets.gote[role as PocketRole]
-        : 0) +
-      ((PROMOTABLE_ROLES as ReadonlyArray<string>).includes(role)
-        ? setup.board[promote(role as PromotableRole)].size()
-        : 0)
+      (handRoles('shogi').includes(role) ? setup.hands.sente[role] + setup.hands.gote[role] : 0) +
+      (promotableRoles('shogi').includes(role) ? setup.board[promote('shogi')(role)].size() : 0)
     );
   }
 
   fillGotesHand(): void {
     const setup = this.getSetup();
-    const senteHand = this.pockets['sente'];
+    const senteHand = this.hands['sente'];
 
     const pieceCounts: { [index: string]: number } = {
       lance: 4 - setup.board.lance.size() - setup.board.promotedlance.size() - senteHand.lance,
@@ -207,10 +205,10 @@ export default class EditorCtrl {
       bishop: 2 - setup.board.bishop.size() - setup.board.horse.size() - senteHand.bishop,
       rook: 2 - setup.board.rook.size() - setup.board.dragon.size() - senteHand.rook,
     };
-    this.pockets['gote'] = MaterialSide.empty();
+    this.hands['gote'] = Hand.empty();
 
     for (const p in pieceCounts) {
-      if (pieceCounts[p] > 0) this.pockets['gote'][p as PocketRole] = pieceCounts[p];
+      if (pieceCounts[p] > 0) this.hands['gote'][p as Role] = pieceCounts[p];
     }
     this.onChange();
   }
@@ -222,19 +220,21 @@ export default class EditorCtrl {
   }
 
   addToPocket(c: Color, r: Role, reload: boolean = false): void {
-    const unpromotedRole = unpromote(r);
-    if ('king' !== unpromotedRole && this.pockets[c][unpromotedRole] < 20) this.pockets[c][unpromotedRole]++;
+    const unpromotedRole = unpromote('shogi')(r);
+    if (handRoles('shogi').includes(unpromotedRole) && this.hands[c][unpromotedRole] < 20)
+      this.hands[c][unpromotedRole]++;
     if (reload) this.onChange();
   }
   removeFromPocket(c: Color, r: Role, reload: boolean = false): void {
-    const unpromotedRole = unpromote(r);
-    if ('king' !== unpromotedRole && this.pockets[c][unpromotedRole] > 0) this.pockets[c][unpromotedRole]--;
+    const unpromotedRole = unpromote('shogi')(r);
+    if (handRoles('shogi').includes(unpromotedRole) && this.hands[c][unpromotedRole] > 0)
+      this.hands[c][unpromotedRole]--;
     if (reload) this.onChange();
   }
   clearPocket() {
-    this.pockets = Material.empty();
+    this.hands = Hands.empty();
   }
   clearColorPocket(c: Color) {
-    this.pockets[c] = MaterialSide.empty();
+    this.hands[c] = Hand.empty();
   }
 }

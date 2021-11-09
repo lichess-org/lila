@@ -11,10 +11,11 @@ import { kifDestSquare, kifOrigSquare } from 'shogiops/kifUtil';
 import { makeCsaSquare } from 'shogiops/csaUtil';
 import { parseFen, INITIAL_FEN } from 'shogiops/fen';
 import { defined } from 'common';
-import { promote, roleTo2Kanji, roleToCsa } from 'shogiops/util';
+import { roleTo2Kanji, roleToCsa } from 'shogiops/util';
 import { isDrop, Square, Role, Move } from 'shogiops/types';
 import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
 import { renderTime } from './clocks';
+import { promote } from 'shogiops/variantUtil';
 
 function renderKifMove(move: Move, role: Role, same = false): string {
   if (isDrop(move)) {
@@ -114,7 +115,7 @@ function renderCsaMove(move: Move, role: Role, color: Color): string {
       (color === 'sente' ? '+' : '-') +
       makeCsaSquare(move.from) +
       makeCsaSquare(move.to) +
-      roleToCsa(move.promotion ? promote(role) : role)
+      roleToCsa(move.promotion ? promote('shogi')(role) : role)
     );
   }
 }

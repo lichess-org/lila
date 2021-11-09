@@ -28,7 +28,7 @@ import { makeSanAndPlay } from 'shogiops/san';
 import { parseFen, makeFen } from 'shogiops/fen';
 import { pgnToTree, mergeSolution, fenToTree } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
-import { Move, Outcome, PocketRole } from 'shogiops/types';
+import { Move, Outcome, Role } from 'shogiops/types';
 import { storedProp } from 'common/storage';
 import { cancelDropMode } from 'shogiground/drop';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -199,7 +199,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function playUserDrop(piece: Piece, dest: Key): void {
     sendMove({
-      role: piece.role as PocketRole,
+      role: piece.role as Role,
       to: parseChessSquare(dest)!,
     });
   }

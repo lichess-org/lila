@@ -7,7 +7,8 @@ import { key2pos } from 'shogiground/util';
 import { bind, onInsert } from './util';
 import RoundController from './ctrl';
 import { MaybeVNode } from './interfaces';
-import { promote as sPromote } from 'shogiops/util';
+import { pieceCanPromote, promote } from 'shogiops/variantUtil';
+import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
 
 interface Promoting {
   move: [cg.Key, cg.Key];
@@ -45,10 +46,19 @@ export function start(
     piece = ctrl.shogiground.state.pieces.get(dest),
     premovePiece = ctrl.shogiground.state.pieces.get(orig);
   if (
-    ((piece && ['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(piece.role) && !premovePiece) ||
-      (premovePiece && ['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(premovePiece.role))) &&
-    (((['7', '8', '9'].includes(dest[1]) || ['7', '8', '9'].includes(orig[1])) && d.player.color === 'sente') ||
-      ((['1', '2', '3'].includes(dest[1]) || ['1', '2', '3'].includes(orig[1])) && d.player.color === 'gote'))
+    (!premovePiece &&
+      piece &&
+      pieceCanPromote(lishogiVariantRules(d.game.variant.key))(
+        piece,
+        parseChessSquare(orig)!,
+        parseChessSquare(dest)!
+      )) ||
+    (premovePiece &&
+      pieceCanPromote(lishogiVariantRules(d.game.variant.key))(
+        premovePiece,
+        parseChessSquare(orig)!,
+        parseChessSquare(dest)!
+      ))
   ) {
     if (
       piece &&
@@ -58,11 +68,12 @@ export function start(
           ((['8', '9'].includes(dest[1]) && piece.color === 'sente') ||
             (['1', '2'].includes(dest[1]) && piece.color === 'gote'))))
     ) {
-      return sendPromotion(ctrl, orig, dest, sPromote(piece.role), meta);
+      return sendPromotion(ctrl, orig, dest, promote(lishogiVariantRules(d.game.variant.key))(piece.role), meta);
     }
     if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
     if (!meta.ctrlKey && !promoting && ctrl.keyboardMove && ctrl.keyboardMove.justSelected()) {
-      if (premovePiece) setPrePromotion(ctrl, dest, sPromote(premovePiece.role));
+      if (premovePiece)
+        setPrePromotion(ctrl, dest, promote(lishogiVariantRules(d.game.variant.key))(premovePiece.role));
       return true;
     }
     const promotionRole = premovePiece ? premovePiece.role : piece ? piece.role : 'pawn';
@@ -164,7 +175,7 @@ export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
   const roles: cg.Role[] =
     ctrl.shogiground.state.orientation === 'gote'
-      ? [sPromote(promoting.role), promoting.role]
-      : [promoting.role, sPromote(promoting.role)];
+      ? [promote(lishogiVariantRules(ctrl.data.game.variant.key))(promoting.role), promoting.role]
+      : [promoting.role, promote(lishogiVariantRules(ctrl.data.game.variant.key))(promoting.role)];
   return renderPromotion(ctrl, promoting.move[1], roles, ctrl.data.player.color, ctrl.shogiground.state.orientation);
 }

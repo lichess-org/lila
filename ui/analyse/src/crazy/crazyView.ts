@@ -3,13 +3,12 @@ import { h } from 'snabbdom';
 import { MouchEvent } from 'shogiground/types';
 import { onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
-import { unpromote } from 'shogiops/util';
+import { handRoles, unpromote } from 'shogiops/variantUtil';
+import { lishogiVariantRules } from 'shogiops/compat';
 
 const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];
 const eventNames3 = ['contextmenu'];
-const oKeys = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];
-const minishogi = ['pawn', 'silver', 'gold', 'bishop', 'rook'];
 
 type Position = 'top' | 'bottom';
 
@@ -19,14 +18,14 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   const dropped = ctrl.justDropped;
   const shadowPiece = ctrl.shogiground?.state.drawable.piece;
   let captured = ctrl.justCaptured;
-  const allPieces = ctrl.data.game.variant.key === 'minishogi' ? minishogi : oKeys;
+  const allPieces = handRoles(lishogiVariantRules(ctrl.data.game.variant.key)).reverse();
 
-  if (captured) captured.role = unpromote(captured.role)!;
+  if (captured) captured.role = unpromote(lishogiVariantRules(ctrl.data.game.variant.key))(captured.role)!;
 
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
   return h(
-    `div.pocket.is2d.pocket-${position}.pos-${ctrl.bottomColor()}`,
+    `div.pocket.pocket-${position}.pos-${ctrl.bottomColor()}`,
     {
       class: { usable },
       hook: onInsert(el => {

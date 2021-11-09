@@ -8,7 +8,6 @@ import EditorCtrl from './ctrl';
 import shogiground from './shogiground';
 import { OpeningPosition, Selected, EditorState } from './interfaces';
 import { parseFen } from 'shogiops/fen';
-import { PocketRole } from 'shogiops/types';
 import { defined } from 'shogiops/util';
 
 type Position = 'top' | 'bottom';
@@ -17,10 +16,10 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
   return h(
     `div.e-pocket.e-pocket-${p}.${c}`,
     {},
-    Object.keys(ctrl.pockets[c])
+    Object.keys(ctrl.hands[c])
       .reverse()
       .map(r => {
-        const nb = ctrl.pockets[c][r as PocketRole];
+        const nb = ctrl.hands[c][r as Role];
         const delta = 10;
 
         // Distinguishing between click with small movement and drag

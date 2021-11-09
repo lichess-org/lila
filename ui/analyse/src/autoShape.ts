@@ -1,11 +1,11 @@
-import { promote } from 'shogiops/util';
 import { assureLishogiUci, parseLishogiUci, makeChessSquare } from 'shogiops/compat';
-import { isDrop, PromotableRole } from 'shogiops/types';
+import { isDrop } from 'shogiops/types';
 import { winningChances } from 'ceval';
 import * as cg from 'shogiground/types';
 import { opposite } from 'shogiground/util';
 import { DrawShape } from 'shogiground/draw';
 import AnalyseCtrl from './ctrl';
+import { promote } from 'shogiops/variantUtil';
 
 function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   return {
@@ -40,8 +40,9 @@ export function makeShapesFromUci(
     },
   ];
   if (move.promotion && pieces && pieces.get(uci.slice(0, 2) as Key)) {
-    const pRole = pieces.get(uci.slice(0, 2) as Key)!.role as PromotableRole;
-    shapes.push(pieceDrop(to, promote(pRole), color));
+    const pRole = pieces.get(uci.slice(0, 2) as Key)!.role;
+    // todo variant
+    shapes.push(pieceDrop(to, promote('shogi')(pRole), color));
   }
   return shapes;
 }

@@ -5,8 +5,8 @@ import * as cgUtil from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
 import { defined, Prop } from 'common';
-import { canPiecePromote, promote as sPromote } from 'shogiops/util';
 import { parseChessSquare } from 'shogiops/compat';
+import { pieceCanPromote, promote as shogiopsPromote } from 'shogiops/variantUtil';
 
 export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
   let promoting: any = false;
@@ -15,7 +15,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
     const g = getGround(),
       piece = g.state.pieces.get(dest);
     if (!defined(piece)) return false;
-    if (canPiecePromote(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
+    if (pieceCanPromote('shogi')(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
       promoting = {
         orig: orig,
         dest: dest,
@@ -103,8 +103,8 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
 
       const pieces: Role[] =
         getGround().state.turnColor === 'sente'
-          ? [sPromote(promoting.role), promoting.role]
-          : [promoting.role, sPromote(promoting.role)];
+          ? [shogiopsPromote('shogi')(promoting.role), promoting.role]
+          : [promoting.role, shogiopsPromote('shogi')(promoting.role)];
 
       return renderPromotion(
         promoting.dest,

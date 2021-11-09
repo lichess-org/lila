@@ -3,10 +3,10 @@ import * as ground from './ground';
 import { bind, onInsert } from './util';
 import * as util from 'shogiground/util';
 import { Role } from 'shogiground/types';
-import { canPiecePromote, promote as sPromote } from 'shogiops/util';
 import AnalyseCtrl from './ctrl';
 import { MaybeVNode, JustCaptured } from './interfaces';
-import { parseChessSquare } from 'shogiops/compat';
+import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
+import { pieceCanPromote, promote } from 'shogiops/variantUtil';
 
 interface Promoting {
   orig: Key;
@@ -30,7 +30,13 @@ export function start(
   const s = ctrl.shogiground.state;
   const piece = s.pieces.get(dest);
   if (!piece) return false;
-  if (canPiecePromote(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
+  if (
+    pieceCanPromote(lishogiVariantRules(ctrl.data.game.variant.key))(
+      piece,
+      parseChessSquare(orig)!,
+      parseChessSquare(dest)!
+    )
+  ) {
     promoting = {
       orig: orig,
       dest: dest,
@@ -101,8 +107,8 @@ export function view(ctrl: AnalyseCtrl): MaybeVNode {
 
   const roles: Role[] =
     ctrl.shogiground.state.orientation === 'sente'
-      ? [sPromote(promoting.role), promoting.role]
-      : [promoting.role, sPromote(promoting.role)];
+      ? [promote(lishogiVariantRules(ctrl.data.game.variant.key))(promoting.role), promoting.role]
+      : [promoting.role, promote(lishogiVariantRules(ctrl.data.game.variant.key))(promoting.role)];
 
   return renderPromotion(ctrl, promoting.dest, roles, ctrl.turnColor(), ctrl.shogiground.state.orientation);
 }

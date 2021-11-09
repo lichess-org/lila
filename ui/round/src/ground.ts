@@ -9,8 +9,7 @@ import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
 import { RoundData } from './interfaces';
-import { promote as promoteRole } from 'shogiops/util';
-import { PromotableRole } from 'shogiops/types';
+import { promote as shogiopsPromote } from 'shogiops/variantUtil';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -100,7 +99,7 @@ export function reload(ctrl: RoundController) {
 export function promote(ground: CgApi, key: cg.Key) {
   const piece = ground.state.pieces.get(key);
   if (piece && !piece.promoted) {
-    const prole = promoteRole(piece.role as PromotableRole);
+    const prole = shogiopsPromote('shogi')(piece.role);
     ground.setPieces(
       new Map([
         [

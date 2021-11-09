@@ -5,12 +5,10 @@ import RoundController from '../ctrl';
 import * as cg from 'shogiground/types';
 import { Shogi } from 'shogiops/shogi';
 import { parseFen } from 'shogiops/fen';
-import { parseChessSquare } from 'shogiops/compat';
-import { PocketRole } from 'shogiops/types';
+import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
+import { handRoles } from 'shogiops/variantUtil';
 
 const li = window.lishogi;
-
-export const pieceRoles: cg.Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];
 
 export function shadowDrop(ctrl: RoundController, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
@@ -66,7 +64,7 @@ let dropWithDrag = false;
 export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key, checkmateCheck = false): boolean {
   const data = ctrl.data;
   const lastStep = data.steps[data.steps.length - 1];
-  const move = { role: role as PocketRole, to: parseChessSquare(key)! };
+  const move = { role: role, to: parseChessSquare(key)! };
 
   if (crazyKeys.length === 0) dropWithDrag = true;
   else dropWithKey = true;
@@ -76,7 +74,7 @@ export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key, checkma
   const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false);
   const l = shogi.unwrap(
     s => s.isLegal(move),
-    _ => true // for weird positions
+    _ => true // for weird positions?
   );
   if (checkmateCheck && role === 'pawn' && shogi.isOk) {
     shogi.unwrap().play(move!);
@@ -105,7 +103,9 @@ export function init(ctrl: RoundController) {
   const setDrop = () => {
     if (activeCursor) document.body.classList.remove(activeCursor);
     if (crazyKeys.length > 0) {
-      const role = pieceRoles[crazyKeys[crazyKeys.length - 1] - 1],
+      const role = handRoles(lishogiVariantRules(ctrl.data.game.variant.key)).reverse()[
+          crazyKeys[crazyKeys.length - 1] - 1
+        ],
         color = ctrl.data.player.color,
         crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;

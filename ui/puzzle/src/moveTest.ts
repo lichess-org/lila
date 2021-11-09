@@ -1,10 +1,11 @@
 import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
-import { isDrop, Role, Shogi, SquareSet } from 'shogiops';
+import { isDrop, Role, Shogi } from 'shogiops';
 import { parseFen } from 'shogiops/fen';
 import { opposite } from 'shogiground/util';
 import { plyColor } from './util';
+import { backrank, secondBackrank } from 'shogiops/variantUtil';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 
@@ -13,8 +14,8 @@ function isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role): bo
   const m2 = parseLishogiUci(u2);
   if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
   return (
-    (role === 'knight' && SquareSet.backrank2(turn).has(m1.to)) ||
-    ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to))
+    (role === 'knight' && secondBackrank('shogi')(turn).has(m1.to)) ||
+    ((role === 'pawn' || role === 'lance' || role === 'knight') && backrank('shogi')(turn).has(m1.to))
   );
 }
 

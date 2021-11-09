@@ -5,7 +5,6 @@ import * as cg from 'shogiground/types';
 import { Shogi } from 'shogiops/shogi';
 import { parseFen } from 'shogiops/fen';
 import { parseChessSquare } from 'shogiops/compat';
-import { PocketRole } from 'shogiops/types';
 import { defined } from 'common';
 
 export function shadowDrop(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
@@ -63,7 +62,7 @@ export function valid(fen: string, piece: cg.Piece, pos: Key): boolean {
       return (
         s.turn === piece.color &&
         s.isLegal({
-          role: piece.role as PocketRole,
+          role: piece.role,
           to: parseChessSquare(pos)!,
         })
       );

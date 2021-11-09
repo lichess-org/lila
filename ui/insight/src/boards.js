@@ -9,7 +9,7 @@ function miniGame(game) {
     },
     [
       m('span', {
-        class: 'mini-board cg-wrap mini-board-' + game.id + ' parse-fen is2d',
+        class: 'mini-board cg-wrap mini-board-' + game.id + ' parse-fen',
         'data-color': game.color,
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,

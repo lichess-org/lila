@@ -1,11 +1,12 @@
 import { h } from 'snabbdom';
 import * as round from '../round';
-import { drag, crazyKeys, pieceRoles, selectToDrop, shadowDrop } from './crazyCtrl';
+import { drag, crazyKeys, selectToDrop, shadowDrop } from './crazyCtrl';
 import * as cg from 'shogiground/types';
 import RoundController from '../ctrl';
 import { onInsert } from '../util';
 import { Position } from '../interfaces';
-import { unpromote } from 'shogiops/util';
+import { lishogiVariantRules } from 'shogiops/compat';
+import { handRoles, unpromote } from 'shogiops/variantUtil';
 
 const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];
@@ -26,9 +27,9 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
-  const captured = capturedPiece && unpromote(capturedPiece.role);
+  const captured = capturedPiece && unpromote(lishogiVariantRules(ctrl.data.game.variant.key))(capturedPiece.role);
   return h(
-    'div.pocket.is2d.pocket-' + position,
+    'div.pocket.pocket-' + position,
     {
       class: { usable },
       hook: onInsert(el => {
@@ -49,36 +50,38 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
         });
       }),
     },
-    pieceRoles.map(role => {
-      let nb = pocket[role] || 0;
-      const sp = role == shadowPiece?.role && color == shadowPiece?.color;
-      const selectedSquare = dropMode?.active && dropPiece?.role == role && dropPiece?.color == color;
-      if (activeColor) {
-        if (droppedRole === role) nb--;
-        if (captured === role) nb++;
-      }
-      return h(
-        'div.pocket-c1',
-        h(
-          'div.pocket-c2',
-          {
-            class: {
-              'shadow-piece': sp,
+    handRoles(lishogiVariantRules(ctrl.data.game.variant.key))
+      .reverse()
+      .map(role => {
+        let nb = pocket[role] || 0;
+        const sp = role == shadowPiece?.role && color == shadowPiece?.color;
+        const selectedSquare = dropMode?.active && dropPiece?.role == role && dropPiece?.color == color;
+        if (activeColor) {
+          if (droppedRole === role) nb--;
+          if (captured === role) nb++;
+        }
+        return h(
+          'div.pocket-c1',
+          h(
+            'div.pocket-c2',
+            {
+              class: {
+                'shadow-piece': sp,
+              },
             },
-          },
-          h('piece.' + role + '.' + color, {
-            class: {
-              premove: activeColor && preDropRole === role,
-              'selected-square': selectedSquare,
-            },
-            attrs: {
-              'data-role': role,
-              'data-color': color,
-              'data-nb': nb,
-            },
-          })
-        )
-      );
-    })
+            h('piece.' + role + '.' + color, {
+              class: {
+                premove: activeColor && preDropRole === role,
+                'selected-square': selectedSquare,
+              },
+              attrs: {
+                'data-role': role,
+                'data-color': color,
+                'data-nb': nb,
+              },
+            })
+          )
+        );
+      })
   );
 }
