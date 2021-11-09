@@ -49,7 +49,7 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   val usiKey   = x.toString + (96 + y).toChar.toString
   val piotrStr = piotr.toString
 
-  override val toString = usiKey
+  override val toString = uciKey
 
   override val hashCode = 9 * ((10 - y) - 1) + ((10 - x) - 1)
 }

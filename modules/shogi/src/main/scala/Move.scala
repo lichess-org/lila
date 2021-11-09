@@ -56,5 +56,5 @@ case class Move(
     Uci.Move(orig, dest, promotion)
   }
 
-  override def toString = s"$piece ${toUci.usi}"
+  override def toString = s"$piece ${toUci.uci}"
 }
