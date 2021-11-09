@@ -29,18 +29,9 @@ export default function (): VNode {
             attrs: {
               mask: 'url(#mask)',
               fill: 'none',
-              stroke: '#888',
-              'stroke-dasharray': 1,
             },
           },
-          pathAttrs.map(attrs => {
-            return h('path', {
-              attrs: {
-                pathLength: 1, // cannot be inherited from parent group
-                ...attrs,
-              },
-            });
-          })
+          pathAttrs.map(attrs => h('path', { attrs }))
         ),
       ]),
     ]
