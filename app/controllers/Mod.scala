@@ -108,6 +108,7 @@ final class Mod(
             suspect <- modApi.setTroll(me, prev, prev.user.marks.troll)
             _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
             _       <- env.mod.logApi.modMessage(me.id, suspect.user.id, preset.name)
+            _       <- preset.isNameClose ?? env.irc.api.nameClosePreset(username)
           } yield (inquiry, suspect).some
         }
       }
