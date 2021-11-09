@@ -21,6 +21,11 @@ case class TutorPerfReport(time: TutorTimeReport, openings: TutorOpeningReport.O
 
 object TutorFullReport {
 
+  object builder {
+    case class Perf(time: TutorTimeReport, openings: TutorOpeningReport.builder.OpeningMap)
+    type PerfMap = Map[PerfType, Perf]
+  }
+
   type PerfMap = Map[PerfType, TutorPerfReport]
 
   val perfTypes = List(
@@ -32,17 +37,15 @@ object TutorFullReport {
   )
   val perfTypeSet: Set[PerfType] = perfTypes.toSet
 
-  def aggregate(report: TutorFullReport, pov: RichPov) =
+  def aggregate(report: builder.PerfMap, pov: RichPov) =
     if (pov.perfType != PerfType.Blitz) report
     else
-      report.copy(
-        perfs = report.perfs
-          .updatedWith(pov.perfType) { opt =>
-            val pr = opt | TutorPerfReport(TutorTimeReport.empty, Color.Map(Map.empty, Map.empty))
-            TutorPerfReport(
-              time = TutorTimeReport.aggregate(pr.time, pov),
-              openings = TutorOpeningReport.aggregate(pr.openings, pov)
-            ).some
-          }
-      )
+      report
+        .updatedWith(pov.perfType) { opt =>
+          val pr = opt | TutorPerfReport(TutorTimeReport.empty, Color.Map(Map.empty, Map.empty))
+          TutorPerfReport(
+            time = TutorTimeReport.aggregate(pr.time, pov),
+            openings = TutorOpeningReport.aggregate(pr.openings, pov)
+          ).some
+        }
 }

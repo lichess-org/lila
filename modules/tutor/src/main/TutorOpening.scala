@@ -5,13 +5,17 @@ import chess.Color
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.format.{ FEN, Forsyth }
 
-case class TutorOpeningReport(opening: FullOpening, ply: Int, games: NbGames, moves: NbMoves)
+case class TutorOpeningReport(opening: String, games: NbGames, moves: NbMoves)
 
 object TutorOpeningReport {
 
-  type OpeningMap        = Color.Map[ColorOpeningMap]
-  type ColorBestOpenings = List[(FEN, TutorOpeningReport)]
-  type ColorOpeningMap   = Map[FEN, TutorOpeningReport]
+  type OpeningMap    = Color.Map[ColorOpenings]
+  type ColorOpenings = List[(String, TutorOpeningReport)]
+
+  object builder {
+    case class Opening(opening: FullOpening, games: NbGames, moves: NbMoves)
+    type OpeningMap = Map[FEN, Opening]
+  }
 
   def aggregate(openings: OpeningMap, richPov: RichPov) = {
 
