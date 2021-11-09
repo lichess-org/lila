@@ -8,11 +8,11 @@ function diff(a: number, b: number): number {
 }
 
 function pawn(color: cg.Color): Mobility {
-  return (x1, y1, x2, y2) => (color === 'sente' ? x1 === x2 && y1 + 1 === y2 : x1 === x2 && y1 - 1 === y2);
+  return (x1, y1, x2, y2) => (color === 'sente' ? x1 === x2 && y1 - 1 === y2 : x1 === x2 && y1 + 1 === y2);
 }
 
 function knight(color: cg.Color): Mobility {
-  return (x1, y1, x2, y2) => diff(x1, x2) === 1 && diff(y1, y2) === 2 && (color === 'sente' ? y2 > y1 : y2 < y1);
+  return (x1, y1, x2, y2) => diff(x1, x2) === 1 && diff(y1, y2) === 2 && (color === 'sente' ? y2 < y1 : y2 > y1);
 }
 
 const bishop: Mobility = (x1, y1, x2, y2) => {
@@ -28,17 +28,17 @@ const king: Mobility = (x1, y1, x2, y2) => {
 };
 
 function lance(color: cg.Color): Mobility {
-  return (x1, y1, x2, y2) => (color === 'sente' ? x1 == x2 && y2 > y1 : x1 == x2 && y1 > y2);
+  return (x1, y1, x2, y2) => (color === 'sente' ? x1 == x2 && y2 < y1 : x1 == x2 && y1 < y2);
 }
 
 function silver(color: cg.Color): Mobility {
   return (x1, y1, x2, y2) =>
-    diff(x1, x2) < 2 && diff(y1, y2) < 2 && y1 != y2 && (color === 'sente' ? x1 != x2 || y2 > y1 : x1 != x2 || y2 < y1);
+    diff(x1, x2) < 2 && diff(y1, y2) < 2 && y1 != y2 && (color === 'sente' ? x1 != x2 || y2 < y1 : x1 != x2 || y2 > y1);
 }
 
 function gold(color: cg.Color): Mobility {
   return (x1, y1, x2, y2) =>
-    diff(x1, x2) < 2 && diff(y1, y2) < 2 && (color === 'sente' ? y2 >= y1 || x1 == x2 : y2 <= y1 || x1 == x2);
+    diff(x1, x2) < 2 && diff(y1, y2) < 2 && (color === 'sente' ? y2 <= y1 || x1 == x2 : y2 >= y1 || x1 == x2);
 }
 
 const horse: Mobility = (x1, y1, x2, y2) => {
