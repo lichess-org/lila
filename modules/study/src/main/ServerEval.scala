@@ -22,14 +22,15 @@ object ServerEval {
 
     private val onceEvery = lila.memo.OnceEvery(5 minutes)
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
+    def apply(study: Study, chapter: Chapter, userId: User.ID, unlimited: Boolean = false): Funit =
       chapter.serverEval.fold(true) { eval =>
         !eval.done && onceEvery(chapter.id.value)
       } ?? {
         val unlimitedFu =
-          fuccess(userId == User.lichessId) >>| userRepo
-            .byId(userId)
-            .map(_.exists(Granter(_.Relay)))
+          fuccess(unlimited) >>|
+            fuccess(userId == User.lichessId) >>| userRepo
+              .byId(userId)
+              .map(_.exists(Granter(_.Relay)))
         unlimitedFu flatMap { unlimited =>
           chapterRepo.startServerEval(chapter) >>- {
             fishnet ! StudyChapterRequest(
