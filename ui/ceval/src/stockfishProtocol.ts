@@ -1,5 +1,5 @@
 import { WorkerOpts, Work } from './types';
-import { assureUsi } from 'shogiops/compat';
+import { assureUsi, lishogiVariantRules } from 'shogiops/compat';
 import { Deferred, defer } from 'common/defer';
 
 const EVAL_REGEX = new RegExp(
@@ -19,6 +19,13 @@ export default class Protocol {
 
   public engineName: string | undefined;
 
+  private options = new Map<string, string | number>([
+    ['Threads', 1],
+    ['Hash', 16],
+    ['MultiPV', 1],
+    ['UCI_Variant', 'chess'],
+  ]);
+
   constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
     this.stopped = defer<void>();
     this.stopped.resolve();
@@ -34,7 +41,10 @@ export default class Protocol {
   }
 
   private setOption(name: string, value: string | number): void {
-    this.send(`setoption name ${name} value ${value}`);
+    if (this.options.get(name) !== value) {
+      this.send(`setoption name ${name} value ${value}`);
+      this.options.set(name, value);
+    }
   }
 
   received(text: string): void {
@@ -124,10 +134,14 @@ export default class Protocol {
     this.curEval = null;
     this.stopped = null;
     this.expectedPvs = 1;
-    if (this.opts.threads) this.setOption('Threads', this.opts.threads());
-    if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
+
     const usiMoves = this.work.moves.map(m => assureUsi(m)!);
     console.log('sending this sfen: ', this.work.initialFen, 'and these moves', usiMoves);
+    console.log('for this variant: ', this.opts.variant);
+
+    this.setOption('UCI_Variant', lishogiVariantRules(this.opts.variant));
+    this.setOption('Threads', this.opts.threads ? this.opts.threads() : 1);
+    this.setOption('Hash', this.opts.hashSize ? this.opts.hashSize() : 16);
     this.setOption('MultiPV', this.work.multiPv);
     this.send(['position', 'sfen', this.work.initialFen, 'moves'].concat(usiMoves).join(' '));
     if (this.work.maxDepth >= 99) this.send('go depth 99');
