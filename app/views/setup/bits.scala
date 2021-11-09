@@ -48,7 +48,7 @@ private object bits {
           span(cls := "preview")(
             validFen.map { vf =>
               div(
-                cls := "mini-board cg-wrap parse-fen is2d",
+                cls := "mini-board cg-wrap parse-fen",
                 dataColor := vf.color.name,
                 dataFen := vf.fen.value,
                 dataResizable := "1"

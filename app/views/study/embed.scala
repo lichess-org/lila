@@ -39,7 +39,7 @@ object embed {
           dataAssetVersion := assetVersion.value,
           dataTheme := config.bg
         )(
-          div(cls := "is2d")(
+          div(
             main(cls := "analyse")
           ),
           footer {

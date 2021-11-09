@@ -29,14 +29,14 @@ object bits {
 
   def miniBoard(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente): Frag =
     div(
-      cls := "mini-board parse-fen cg-wrap is2d",
+      cls := "mini-board parse-fen cg-wrap",
       dataColor := color.name,
       dataFen := fen.value
     )(cgWrapContent)
 
   def miniTag(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
-      cls := "mini-board parse-fen cg-wrap is2d",
+      cls := "mini-board parse-fen cg-wrap",
       dataColor := color.name,
       dataFen := fen.value,
       dataLastmove := lastMove

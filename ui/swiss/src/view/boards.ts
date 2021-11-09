@@ -19,7 +19,7 @@ const boardPlayer = (player: BoardPlayer) =>
 
 function miniBoard(board: Board) {
   return h(
-    'a.mini-board.live.is2d.mini-board-' + board.id,
+    'a.mini-board.live.mini-board-' + board.id,
     {
       key: board.id,
       attrs: {

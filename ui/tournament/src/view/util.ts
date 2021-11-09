@@ -29,7 +29,7 @@ export function dataIcon(icon: string): Attrs {
 
 export function miniBoard(game) {
   return h(
-    'a.mini-board.parse-fen.is2d.mini-board-' + game.id,
+    'a.mini-board.parse-fen.mini-board-' + game.id,
     {
       key: game.id,
       attrs: {

@@ -28,7 +28,7 @@ export default function (ctrl: LobbyController) {
           attrs: { href: '/' + pov.fullId },
         },
         [
-          h('div.mini-board.cg-wrap.is2d', {
+          h('div.mini-board.cg-wrap', {
             hook: {
               insert(vnode) {
                 const lm = pov.lastMove;
