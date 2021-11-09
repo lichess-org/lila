@@ -101,7 +101,6 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     disableContextMenu: true,
     notation: pref.pieceNotation ?? 0,
-    dimensions: ctrl.data.game.variant.key === 'minishogi' ? { files: 5, ranks: 5 } : { files: 9, ranks: 9 },
   };
   ctrl.study && ctrl.study.mutateCgConfig(config);
 
