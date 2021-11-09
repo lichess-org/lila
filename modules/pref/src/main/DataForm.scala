@@ -179,15 +179,9 @@ object DataForm {
     )
   )
 
-  val theme3d = Form(
+  val themeTall = Form(
     single(
-      "theme" -> text.verifying(Theme3d contains _)
-    )
-  )
-
-  val pieceSet3d = Form(
-    single(
-      "set" -> text.verifying(PieceSet3d contains _)
+      "theme" -> text.verifying(ThemeTall contains _)
     )
   )
 
@@ -209,9 +203,9 @@ object DataForm {
     )
   )
 
-  val is3d = Form(
+  val isTall = Form(
     single(
-      "is3d" -> text.verifying(List("true", "false") contains _)
+      "isTall" -> text.verifying(List("true", "false") contains _)
     )
   )
 

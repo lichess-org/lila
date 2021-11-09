@@ -11,7 +11,6 @@ export interface EditorConfig {
   baseUrl: string;
   fen: string;
   options?: EditorOptions;
-  is3d: boolean;
   pieceNotation: number;
   animation: {
     duration: number;

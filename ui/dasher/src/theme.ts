@@ -12,8 +12,8 @@ interface ThemeDimData {
 }
 
 export interface ThemeData {
-  d2: ThemeDimData;
-  d3: ThemeDimData;
+  square: ThemeDimData;
+  tall: ThemeDimData;
 }
 
 export interface ThemeCtrl {
@@ -43,7 +43,7 @@ export function ctrl(
       const d = dimensionData();
       d.current = t;
       applyTheme(t, d.list);
-      $.post('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
+      $.post('/pref/theme' + (dimension() === 'tall' ? 'Tall' : ''), {
         theme: t,
       }).fail(() => window.lishogi.announce({ msg: 'Failed to save theme preference' }));
       redraw();

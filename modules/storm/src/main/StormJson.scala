@@ -24,8 +24,7 @@ final class StormJson(sign: StormSign) {
       "dropDestination" -> p.dropDestination,
       "moveEvent"       -> p.moveEvent,
       "highlight"       -> p.highlight,
-      "pieceNotation"   -> p.pieceNotation,
-      "is3d"            -> p.is3d
+      "pieceNotation"   -> p.pieceNotation
     )
 
   def newHigh(n: Option[StormHigh.NewHigh]) =

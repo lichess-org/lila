@@ -13,9 +13,12 @@ $col3-uniboard-controls: 3rem;
 
 $col3-uniboard-min-width: calc(70vmin * var(--board-scale));
 $col3-uniboard-max-width: calc(100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls});
+$col3-uniboard-tall-max-width: calc(
+  97vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}
+);
 $col3-uniboard-width: minmax($col3-uniboard-min-width, $col3-uniboard-max-width);
+$col3-uniboard-tall-width: minmax($col3-uniboard-min-width, $col3-uniboard-tall-max-width);
 
-$square-min: 35px;
 $square-max: calc(#{$col3-uniboard-max-width} / 9);
 
 $col3-uniboard-table: minmax(245px, calc(#{$square-max} * 7));
@@ -32,6 +35,7 @@ $col2-uniboard-table: minmax(240px, calc(#{$square-max} * 7));
 
 $col2-uniboard-controls: $col3-uniboard-controls;
 $col2-uniboard-width: $col3-uniboard-width;
+$col2-uniboard-tall-width: $col3-uniboard-tall-width;
 $col2-uniboard-default-width: $col3-uniboard-default-width;
 $col2-uniboard-default-table: $col3-uniboard-default-table;
 

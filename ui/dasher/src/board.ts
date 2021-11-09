@@ -6,14 +6,14 @@ import { Redraw, Close, bind, header } from './util';
 export interface BoardCtrl {
   data: BoardData;
   trans: Trans;
-  setIs3d(v: boolean): void;
+  setIsTall(v: boolean): void;
   readZoom(): number;
   setZoom(v: number): void;
   close(): void;
 }
 
 export interface BoardData {
-  is3d: boolean;
+  isTall: boolean;
 }
 
 export type PublishZoom = (v: number) => void;
@@ -31,9 +31,9 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
   return {
     data,
     trans,
-    setIs3d(v: boolean) {
-      data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, window.lishogi.reload).fail(() =>
+    setIsTall(v: boolean) {
+      data.isTall = v;
+      $.post('/pref/isTall', { isTall: v }, window.lishogi.reload).fail(() =>
         window.lishogi.announce({ msg: 'Failed to save geometry preference' })
       );
       redraw();
@@ -58,11 +58,20 @@ export function view(ctrl: BoardCtrl): VNode {
       h(
         'a.text',
         {
-          class: { active: !ctrl.data.is3d },
+          class: { active: !ctrl.data.isTall },
           attrs: { 'data-icon': 'E' },
-          hook: bind('click', () => ctrl.setIs3d(false)),
+          hook: bind('click', () => ctrl.setIsTall(false)),
         },
-        '2D'
+        '1:1'
+      ),
+      h(
+        'a.text',
+        {
+          class: { active: ctrl.data.isTall },
+          attrs: { 'data-icon': 'E' },
+          hook: bind('click', () => ctrl.setIsTall(true)),
+        },
+        '11:12'
       ),
     ]),
     h(

@@ -89,7 +89,6 @@ final class JsonView(
       "dropDestination" -> p.dropDestination,
       "moveEvent"       -> p.moveEvent,
       "highlight"       -> p.highlight,
-      "is3d"            -> p.is3d,
       "pieceNotation"   -> p.pieceNotation
     )
 

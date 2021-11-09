@@ -5,11 +5,10 @@ case class Pref(
     dark: Boolean,
     transp: Boolean,
     bgImg: Option[String],
-    is3d: Boolean,
+    isTall: Boolean,
     theme: String,
     pieceSet: String,
-    theme3d: String,
-    pieceSet3d: String,
+    themeTall: String,
     soundSet: String,
     blindfold: Int,
     takeback: Int,
@@ -48,8 +47,7 @@ case class Pref(
 
   def realTheme      = Theme(theme)
   def realPieceSet   = PieceSet(pieceSet)
-  def realTheme3d    = Theme3d(theme3d)
-  def realPieceSet3d = PieceSet3d(pieceSet3d)
+  def realThemeTall  = ThemeTall(themeTall)
 
   def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
 
@@ -74,15 +72,12 @@ case class Pref(
         PieceSet.allByName get value map { p =>
           copy(pieceSet = p.name)
         }
-      case "theme3d" =>
-        Theme3d.allByName get value map { t =>
-          copy(theme3d = t.name)
+      case "themeTall" =>
+        ThemeTall.allByName get value map { t =>
+          copy(themeTall = t.name)
         }
-      case "pieceSet3d" =>
-        PieceSet3d.allByName get value map { p =>
-          copy(pieceSet3d = p.name)
-        }
-      case "is3d" => copy(is3d = value == "true").some
+      case "isTall" =>
+        copy(isTall = value == "true").some
       case "soundSet" =>
         SoundSet.allByKey get value map { s =>
           copy(soundSet = s.key)
@@ -110,13 +105,12 @@ case class Pref(
 
   def isZen = zen == Zen.YES
 
-  def is2d = !is3d
+  def isSquare = !isTall
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
     theme == "brown" &&
       pieceSet == "orangain" &&
-      is2d &&
       animation == Animation.NONE &&
       highlight &&
       coords == Coords.OUTSIDE
@@ -383,11 +377,10 @@ object Pref {
     dark = false,
     transp = false,
     bgImg = none,
-    is3d = false,
+    isTall = false,
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,
-    theme3d = Theme3d.default.name,
-    pieceSet3d = PieceSet3d.default.name,
+    themeTall = ThemeTall.default.name,
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
     takeback = Takeback.ALWAYS,

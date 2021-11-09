@@ -112,7 +112,6 @@ export interface PuzzleOpts {
 
 export interface PuzzlePrefs {
   coords: 0 | 1 | 2;
-  is3d: boolean;
   destination: boolean;
   dropDestination: boolean;
   moveEvent: number;

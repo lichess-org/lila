@@ -20,18 +20,18 @@ object RequestPref {
       queryParam(req, name) orElse req.session.get(name)
 
     val bg = paramOrSession("bg") | "light"
+    val notation = paramOrSession("pieceNotation").flatMap(_.toIntOption).getOrElse(default.pieceNotation) 
 
     default.copy(
       dark = bg != "light",
       transp = bg == "transp",
       theme = paramOrSession("theme") | default.theme,
-      theme3d = req.session.data.getOrElse("theme3d", default.theme3d),
+      themeTall = req.session.data.getOrElse("themeTall", default.themeTall),
       pieceSet = req.session.data.getOrElse("pieceSet", default.pieceSet),
-      pieceSet3d = req.session.data.getOrElse("pieceSet3d", default.pieceSet3d),
       soundSet = req.session.data.getOrElse("soundSet", default.soundSet),
       bgImg = req.session.data.get("bgImg"),
-      is3d = req.session.data.get("is3d") has "true",
-      pieceNotation = (req.session.data.get("pieceNotation").getOrElse("0")).toInt
+      isTall = req.session.data.get("isTall") has "true",
+      pieceNotation = notation
     )
   }
 

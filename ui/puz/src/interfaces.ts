@@ -16,7 +16,6 @@ export interface Promotion {
 
 export interface PuzPrefs {
   coords: 0 | 1 | 2;
-  is3d: boolean;
   destination: boolean;
   dropDestination: boolean;
   moveEvent: number;

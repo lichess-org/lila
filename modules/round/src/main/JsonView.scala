@@ -93,7 +93,6 @@ final class JsonView(
                 "moveEvent"         -> pref.moveEvent,
                 "pieceNotation"     -> pref.pieceNotation
               )
-              .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
               .add("clockSound" -> pref.clockSound)
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
@@ -189,7 +188,6 @@ final class JsonView(
                 "clockCountdown"    -> pref.clockCountdown,
                 "pieceNotation"     -> pref.pieceNotation
               )
-              .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
@@ -254,7 +252,6 @@ final class JsonView(
             "resizeHandle"      -> pref.resizeHandle,
             "pieceNotation"     -> pref.pieceNotation
           )
-          .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
           .add("destination" -> (pref.destination && !pref.isBlindfold))
           .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),

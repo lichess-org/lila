@@ -67,13 +67,17 @@ object Theme extends ThemeObject {
   lazy val default = allByName get "wood1" err "Can't find default theme D:"
 }
 
-object Theme3d extends ThemeObject {
+object ThemeTall extends ThemeObject {
 
   val all = List(
-    "Woodi"
+    "t_wood1",
+    "t_solid-natural",
+    "t_transparent",
+    "t_transparent-white",
+    "t_doubutsu"
   ) map { name =>
     new Theme(name, Theme.defaultHexColors)
   }
 
-  lazy val default = allByName get "Woodi" err "Can't find default theme D:"
+  lazy val default = allByName get "t_wood1" err "Can't find default theme D:"
 }

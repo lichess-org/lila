@@ -71,9 +71,9 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     sound: soundCtrl(data.sound.list, trans, redraw, close),
     background: backgroundCtrl(data.background, trans, redraw, close),
     board: boardCtrl(data.board, trans, redraw, close),
-    theme: themeCtrl(data.theme, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, setMode),
+    theme: themeCtrl(data.theme, trans, () => (data.board.isTall ? 'tall' : 'square'), redraw, setMode),
     notation: notationCtrl(data.pieceNotation, trans, redraw, close),
-    piece: pieceCtrl(data.piece, trans, () => (data.board.is3d ? 'd3' : 'd2'), redraw, setMode),
+    piece: pieceCtrl(data.piece, trans, redraw, setMode),
   };
 
   window.lishogi.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));

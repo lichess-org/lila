@@ -1,6 +1,6 @@
 package views.html.board
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.FEN
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
@@ -16,7 +16,7 @@ object bits {
 
   def mini(fen: shogi.format.FEN, color: shogi.Color = shogi.Sente, lastMove: String = "")(tag: Tag): Tag =
     tag(
-      cls := "mini-board mini-board--init cg-wrap is2d",
+      cls := "mini-board mini-board--init cg-wrap",
       dataState := s"${fen.value},${color.name},$lastMove"
     )(cgWrapContent)
 
@@ -35,7 +35,7 @@ object bits {
       "animation" -> Json.obj(
         "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
       ),
-      "is3d"          -> ctx.pref.is3d,
+      "isTall"        -> ctx.pref.isTall,
       "pieceNotation" -> ctx.pref.pieceNotation,
       "i18n"          -> i18nJsObject(i18nKeyes)
     )

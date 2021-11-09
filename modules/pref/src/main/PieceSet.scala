@@ -54,14 +54,3 @@ object PieceSet extends PieceSetObject {
     new PieceSet(name)
   }
 }
-
-object PieceSet3d extends PieceSetObject {
-
-  val default = new PieceSet("Basic")
-
-  val all = List(
-    default.name
-  ) map { name =>
-    new PieceSet(name)
-  }
-}

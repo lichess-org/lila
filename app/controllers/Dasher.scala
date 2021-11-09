@@ -74,27 +74,21 @@ final class Dasher(env: Env) extends LilaController(env) {
                   "image"   -> ctx.pref.bgImgOrDefault
                 ),
                 "board" -> Json.obj(
-                  "is3d" -> ctx.pref.is3d
+                  "isTall" -> ctx.pref.isTall
                 ),
                 "theme" -> Json.obj(
-                  "d2" -> Json.obj(
+                  "square" -> Json.obj(
                     "current" -> ctx.currentTheme.name,
                     "list"    -> lila.pref.Theme.all.map(_.name)
                   ),
-                  "d3" -> Json.obj(
-                    "current" -> ctx.currentTheme3d.name,
-                    "list"    -> lila.pref.Theme3d.all.map(_.name)
+                  "tall" -> Json.obj(
+                    "current" -> ctx.currentThemeTall.name,
+                    "list"    -> lila.pref.ThemeTall.all.map(_.name)
                   )
                 ),
                 "piece" -> Json.obj(
-                  "d2" -> Json.obj(
-                    "current" -> ctx.currentPieceSet.name,
-                    "list"    -> lila.pref.PieceSet.all.map(_.name)
-                  ),
-                  "d3" -> Json.obj(
-                    "current" -> ctx.currentPieceSet3d.name,
-                    "list"    -> lila.pref.PieceSet3d.all.map(_.name)
-                  )
+                  "current" -> ctx.currentPieceSet.name,
+                  "list"    -> lila.pref.PieceSet.all.map(_.name)
                 ),
                 "inbox"    -> ctx.hasInbox,
                 "coach"    -> isGranted(_.Coach),

@@ -164,7 +164,6 @@ export interface Pref {
   dropDestination: boolean;
   enablePremove: boolean;
   highlight: boolean;
-  is3d: boolean;
   keyboardMove: boolean;
   moveEvent: 0 | 1 | 2;
   replay: 0 | 1 | 2;
