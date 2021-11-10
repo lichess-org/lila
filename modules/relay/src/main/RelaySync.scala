@@ -155,7 +155,8 @@ final private class RelaySync(
       (tour.official && chapter.root.mainline.sizeIs > 10) ?? studyApi.analysisRequest(
         studyId = study.id,
         chapterId = chapter.id,
-        userId = study.ownerId
+        userId = study.ownerId,
+        unlimited = true
       )
     } >>- {
       multiboard.invalidate(study.id)
