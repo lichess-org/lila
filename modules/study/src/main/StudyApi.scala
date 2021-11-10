@@ -841,10 +841,15 @@ final class StudyApi(
       }
     }
 
-  def analysisRequest(studyId: Study.Id, chapterId: Chapter.Id, userId: User.ID): Funit =
+  def analysisRequest(
+      studyId: Study.Id,
+      chapterId: Chapter.Id,
+      userId: User.ID,
+      unlimited: Boolean = false
+  ): Funit =
     sequenceStudyWithChapter(studyId, chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(userId, study) {
-        serverEvalRequester(study, chapter, userId)
+        serverEvalRequester(study, chapter, userId, unlimited)
       }
     }
 

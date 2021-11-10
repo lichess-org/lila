@@ -20,17 +20,18 @@ export async function opening(
   processData: (data: ExplorerData) => void
 ): Promise<CancellableStream> {
   const conf = opts.config;
+  const confByDb = conf.byDb();
   const url = new URL(`/${opts.db}`, opts.endpoint);
   const params = url.searchParams;
   params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
   params.set('play', opts.play.join(','));
   if (opts.db === 'masters') {
-    if (conf.since()) params.set('since', conf.since().split('-')[0]);
-    if (conf.until()) params.set('until', conf.until().split('-')[0]);
+    if (confByDb.since()) params.set('since', confByDb.since().split('-')[0]);
+    if (confByDb.until()) params.set('until', confByDb.until().split('-')[0]);
   } else {
-    if (conf.since()) params.set('since', conf.since());
-    if (conf.until()) params.set('until', conf.until());
+    if (confByDb.since()) params.set('since', confByDb.since());
+    if (confByDb.until()) params.set('until', confByDb.until());
     params.set('speeds', conf.speed().join(','));
   }
   if (opts.db === 'lichess') {

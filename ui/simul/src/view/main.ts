@@ -46,11 +46,13 @@ export default function (ctrl: SimulCtrl) {
 }
 
 const showText = (ctrl: SimulCtrl) =>
-  h('div.simul-text', [
-    h('p', {
-      hook: richHTML(ctrl.data.text),
-    }),
-  ]);
+  ctrl.data.text.length > 0
+    ? h('div.simul-text', [
+        h('p', {
+          hook: richHTML(ctrl.data.text),
+        }),
+      ])
+    : undefined;
 
 const started = (ctrl: SimulCtrl) => [util.title(ctrl), showText(ctrl), results(ctrl), pairings(ctrl)];
 

@@ -24,4 +24,4 @@ export function player(p: Player, ctrl: SimulCtrl) {
 const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
 
 export const title = (ctrl: SimulCtrl) =>
-  h('h1', [ctrl.data.fullName, h('span.author', ctrl.trans.vdom('by', player(ctrl.data.host, ctrl)))]);
+  h('h1', [ctrl.data.fullName, h('br'), h('span.author', ctrl.trans.vdom('by', player(ctrl.data.host, ctrl)))]);

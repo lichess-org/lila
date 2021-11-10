@@ -1,12 +1,12 @@
-import { h, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { h } from 'snabbdom';
+import { bind, MaybeVNode } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
 import modal from 'common/modal';
 
-export default function (showText: (ctrl: SimulCtrl) => VNode) {
+export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
     const candidates = ctrl.candidates().sort(byName),
       accepted = ctrl.accepted().sort(byName),
