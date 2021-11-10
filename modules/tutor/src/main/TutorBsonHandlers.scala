@@ -7,7 +7,9 @@ import reactivemongo.api.bson._
 
 import lila.common.Iso
 import lila.db.dsl._
+import lila.db.BSON
 import lila.rating.PerfType
+import chess.opening.FullOpening
 
 private object TutorBsonHandlers {
 
@@ -16,32 +18,16 @@ private object TutorBsonHandlers {
   implicit val nbMovesBSONHandler      = intAnyValHandler[NbMoves](_.value, NbMoves)
   implicit val nbMovesRatioBSONHandler = Macros.handler[NbMovesRatio]
   implicit val timeReportBSONHandler   = Macros.handler[TutorTimeReport]
+  implicit val openingBSONHandler = tryHandler[FullOpening](
+    { case BSONString(fen) => FullOpeningDB findByFen FEN(fen) toTry s"No such opening: $fen" },
+    o => BSONString(o.fen)
+  )
+  implicit val openingReportBSONHandler = Macros.handler[TutorOpeningReport]
 
-  implicit val colorOpeningsBSONHandler: BSONHandler[TutorOpeningReport.ColorOpeningMap] =
-    implicitly[BSONHandler[Map[String, Bdoc]]].as[TutorOpeningReport.ColorOpeningMap](
-      pairs =>
-        for {
-          (fenS, doc) <- pairs
-          fen = FEN(fenS)
-          opening <- FullOpeningDB.findByFen(fen)
-          ply     <- doc.int("ply")
-          games   <- doc.getAsOpt[NbGames]("games")
-          moves   <- doc.getAsOpt[NbMoves]("moves")
-        } yield fen -> TutorOpeningReport(opening, ply, games, moves),
-      _ collect {
-        case (fen, report) if report.games.value > 0 =>
-          fen.value -> $doc(
-            "ply"   -> report.ply,
-            "games" -> report.games,
-            "moves" -> report.moves
-          )
-      }
-    )
-
-  implicit val openingsBSONHandler: BSONHandler[TutorOpeningReport.OpeningMap] =
-    implicitly[BSONHandler[Map[String, TutorOpeningReport.ColorOpeningMap]]]
-      .as[TutorOpeningReport.OpeningMap](
-        doc => Color.Map(~doc.get("w"), ~doc.get("b")),
+  implicit def colorMapBSONHandler[A: BSONHandler]: BSONHandler[Color.Map[A]] =
+    implicitly[BSONHandler[Map[String, A]]]
+      .as[Color.Map[A]](
+        doc => Color.Map(doc("w"), doc("b")),
         map => Map("w" -> map.white, "b" -> map.black)
       )
 
@@ -52,7 +38,7 @@ private object TutorBsonHandlers {
       _ flatMap { case (key, report) =>
         PerfType(key).map(_ -> report)
       },
-      _ collect { case (k, report) if report.nonEmpty => k.key -> report }
+      _.mapKeys(_.key)
     )
   implicit val fullReportBSONHandler = Macros.handler[TutorFullReport]
 }

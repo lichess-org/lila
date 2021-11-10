@@ -9,6 +9,8 @@ import lila.app._
 final class Tutor(env: Env) extends LilaController(env) {
 
   def index = Auth { implicit ctx => me =>
-    env.tutor.builder(me, ctx.ip).thenPp inject Ok
+    env.tutor.builder(me, ctx.ip) map { report =>
+      Ok(views.html.tutor.home(report))
+    }
   }
 }

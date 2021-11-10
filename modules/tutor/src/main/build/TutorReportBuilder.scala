@@ -1,4 +1,5 @@
 package lila.tutor
+package build
 
 import akka.stream.scaladsl._
 import chess.Replay
@@ -86,11 +87,13 @@ final class TutorReportBuilder(
         }
       }
       .runWith {
-        Sink.fold[TutorFullReport, RichPov](TutorFullReport(userId, DateTime.now, Map.empty)) {
-          case (report, pov) => TutorFullReport.aggregate(report, pov)
+        Sink.fold[TutorFullBuild.PerfMap, RichPov](Map.empty) { case (build, pov) =>
+          TutorFullBuild.aggregate(build, pov)
         }
       }
-      .map(_.postProcess)
+      .map { perfs =>
+        TutorFullReport(userId, DateTime.now, perfs.view.mapValues(_.toReport).toMap)
+      }
 
   private def getAnalysis(userId: User.ID, ip: IpAddress, game: Game, index: Int) =
     analysisRepo.byGame(game) orElse {
