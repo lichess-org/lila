@@ -18,6 +18,13 @@ const allRatings = [1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
 
 type Month = string;
+type ByDbSetting = {
+  since: StoredProp<Month>;
+  until: StoredProp<Month>;
+};
+type ByDbSettings = {
+  [key in ExplorerDb]: ByDbSetting;
+};
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
@@ -25,14 +32,14 @@ export interface ExplorerConfigData {
   rating: StoredJsonProp<number[]>;
   speed: StoredJsonProp<ExplorerSpeed[]>;
   mode: StoredJsonProp<ExplorerMode[]>;
-  since: StoredProp<Month>;
-  until: StoredProp<Month>;
+  byDbData: ByDbSettings;
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
     previous: StoredJsonProp<string[]>;
   };
   color: Prop<Color>;
+  byDb(): ByDbSetting;
 }
 
 export class ExplorerConfigCtrl {
@@ -43,20 +50,29 @@ export class ExplorerConfigCtrl {
   constructor(readonly root: AnalyseCtrl, readonly variant: VariantKey, readonly onClose: () => void) {
     this.myName = document.body.dataset['user'];
     if (variant === 'standard') this.allDbs.unshift('masters');
+    const byDbData = {} as ByDbSettings;
+    for (const db of this.allDbs) {
+      byDbData[db] = {
+        since: storedProp('explorer.since-2.' + db, ''),
+        until: storedProp('explorer.until-2.' + db, ''),
+      };
+    }
     this.data = {
       open: prop(false),
       db: storedProp('explorer.db.' + variant, this.allDbs[0]),
       rating: storedJsonProp('explorer.rating', () => allRatings),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
-      since: storedProp('explorer.since-2', ''),
-      until: storedProp('explorer.until-2', ''),
+      byDbData,
       playerName: {
         open: prop(false),
         value: storedProp<string>('explorer.player.name', document.body.dataset['user'] || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
       color: prop('white'),
+      byDb() {
+        return this.byDbData[this.db() as ExplorerDb] || this.byDbData.lichess;
+      },
     };
   }
 
@@ -91,8 +107,8 @@ export class ExplorerConfigCtrl {
   };
 
   fullHouse = () =>
-    this.data.since() <= `${minYear}-01` &&
-    (!this.data.until() || new Date().toISOString().slice(0, 7) <= this.data.until()) &&
+    this.data.byDb().since() <= `${minYear}-01` &&
+    (!this.data.byDb().until() || new Date().toISOString().slice(0, 7) <= this.data.byDb().until()) &&
     (this.data.db() === 'masters' || this.data.speed().length == allSpeeds.length) &&
     (this.data.db() !== 'lichess' || this.data.rating().length == allRatings.length) &&
     (this.data.db() !== 'player' || this.data.mode().length == allModes.length);
@@ -155,8 +171,8 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
-      h('label', ['Since', yearInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
-      h('label', ['Until', yearInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
+      h('label', ['Since', yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+      h('label', ['Until', yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
     ]),
   ]);
 
@@ -258,8 +274,8 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
-    h('label', ['Since', monthInput(ctrl.data.since, () => '', ctrl.root.redraw)]),
-    h('label', ['Until', monthInput(ctrl.data.until, ctrl.data.since, ctrl.root.redraw)]),
+    h('label', ['Since', monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+    h('label', ['Until', monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
