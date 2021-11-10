@@ -50,11 +50,15 @@ case class ModPresets(value: List[ModPreset]) {
     value.find(_.text.filter(_.isLetter) == clean)
   }
 }
-case class ModPreset(name: String, text: String, permissions: Set[Permission])
+case class ModPreset(name: String, text: String, permissions: Set[Permission]) {
+
+  def isNameClose = name contains ModPresets.nameClosePresetName
+}
 
 object ModPresets {
 
   val groups = List("PM", "appeal")
+  val nameClosePresetName = "Account closure for name in 48h"
 
   private[mod] object setting {
 

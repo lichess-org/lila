@@ -96,10 +96,10 @@ final class IrcApi(
   // def printBan(mod: Holder, print: String, userIds: List[User.ID]): Funit =
   //   logMod(mod.id, "footprints", s"Ban print $print of ${userIds} users: ${userIds map linkifyUsers}")
 
-  def chatPanic(mod: Holder, v: Boolean): Funit =
-    zulip(_.mod.log, "chat panic")(
-      s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
-    )
+  def chatPanic(mod: Holder, v: Boolean): Funit = {
+    val msg = s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("/mod/chat-panic", " Chat Panic")}"
+    zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
+  }
 
   def garbageCollector(msg: String): Funit =
     zulip(_.mod.adminLog, "garbage collector")(markdown linkifyUsers msg)
@@ -131,6 +131,9 @@ final class IrcApi(
           noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
         }
       }
+
+  def nameClosePreset(username: String): Funit =
+    zulip(_.mod.commsPublic, "/" + username)("@**remind** here in 48h to close this account")
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 

@@ -80,6 +80,7 @@ private object ZulipClient {
       val log                                 = "mod-log"
       val adminLog                            = "mod-admin-log"
       val adminGeneral                        = "mod-admin-general"
+      val commsPublic                         = "mod-comms-public"
       val commsPrivate                        = "mod-comms-private"
       val hunterCheat                         = "mod-hunter-cheat"
       val adminAppeal                         = "mod-admin-appeal"
