@@ -50,9 +50,7 @@ object bots {
 
   private def botTable(users: List[User])(implicit ctx: Context) = table(cls := "slist slist-pad")(
     tbody(
-      users.sortBy { u =>
-        (if (u.isVerified) -1 else 1, -u.playTime.??(_.total))
-      } map { u =>
+      users map { u =>
         tr(
           td(userLink(u)),
           u.profile
