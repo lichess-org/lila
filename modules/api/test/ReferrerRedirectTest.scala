@@ -25,7 +25,7 @@ class ReferrerRedirectTest extends Specification {
       r.valid("https://evil.com") must beFalse
       r.valid("https://evil.com/foo") must beFalse
       r.valid("//evil.com") must beFalse
-      r.valid("//lichess.org.evil.com") must beFalse
+      r.valid("//lishogi.org.evil.com") must beFalse
       r.valid("/\t/evil.com") must beFalse
       r.valid("/ /evil.com") must beFalse
     }
