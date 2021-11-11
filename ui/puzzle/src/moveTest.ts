@@ -1,11 +1,12 @@
 import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
-import { isDrop, Role, Shogi } from 'shogiops';
 import { parseFen } from 'shogiops/fen';
 import { opposite } from 'shogiground/util';
 import { plyColor } from './util';
 import { backrank, secondBackrank } from 'shogiops/variantUtil';
+import { isDrop, Role } from 'shogiops/types';
+import { Shogi } from 'shogiops/shogi';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 

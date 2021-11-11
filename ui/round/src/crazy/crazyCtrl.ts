@@ -131,7 +131,7 @@ export function init(ctrl: RoundController) {
     if (crazyKeys.length > 0) setDrop();
   });
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= handRoles(lishogiVariantRules(ctrl.data.game.variant.key)).length; i++) {
     const iStr = i.toString();
     k.bind(iStr, (e: KeyboardEvent) => {
       e.preventDefault();

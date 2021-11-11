@@ -9,6 +9,7 @@ import shogiground from './shogiground';
 import { OpeningPosition, Selected, EditorState } from './interfaces';
 import { parseFen } from 'shogiops/fen';
 import { defined } from 'shogiops/util';
+import { handRoles } from 'shogiops/variantUtil';
 
 type Position = 'top' | 'bottom';
 
@@ -16,7 +17,7 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
   return h(
     `div.e-pocket.e-pocket-${p}.${c}`,
     {},
-    Object.keys(ctrl.hands[c])
+    handRoles('shogi')
       .reverse()
       .map(r => {
         const nb = ctrl.hands[c][r as Role];

@@ -9,7 +9,7 @@ import { Prop } from 'common';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import { Shogi } from 'shogiops';
+import { Shogi } from 'shogiops/shogi';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];

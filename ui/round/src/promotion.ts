@@ -29,7 +29,7 @@ export function sendPromotion(
 ): boolean {
   let promotion: boolean = false;
   if (!['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role)) {
-    ground.promote(ctrl.shogiground, dest);
+    ground.promote(ctrl.shogiground, dest, ctrl.data.game.variant.key);
     promotion = true;
   }
   ctrl.sendMove(orig, dest, promotion, meta);
@@ -136,8 +136,9 @@ function renderPromotion(
   color: Color,
   orientation: Color
 ): MaybeVNode {
-  var left = (8 - key2pos(dest)[0]) * (100 / 9);
-  if (orientation === 'sente') left = key2pos(dest)[0] * (100 / 9);
+  const numOfFiles = ctrl.shogiground.state.dimensions.files;
+  var left = (numOfFiles - 1 - key2pos(dest)[0]) * (100 / numOfFiles);
+  if (orientation === 'gote') left = key2pos(dest)[0] * (100 / numOfFiles);
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return h(
@@ -152,8 +153,9 @@ function renderPromotion(
       }),
     },
     roles.map((serverRole, i) => {
-      var top = (i + key2pos(dest)[1]) * (100 / 9);
-      if (orientation === 'sente') top = (9 - (i + key2pos(dest)[1])) * (100 / 9);
+      const numOfRanks = ctrl.shogiground.state.dimensions.ranks;
+      var top = (i + key2pos(dest)[1]) * (100 / numOfRanks);
+      if (orientation === 'gote') top = (numOfRanks - (i + key2pos(dest)[1])) * (100 / numOfRanks);
       return h(
         'square',
         {

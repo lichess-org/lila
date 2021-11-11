@@ -13,10 +13,6 @@ export interface Ctx {
   offset?: number; // mainly to show handicaps starting at move 1
 }
 
-export function plyToTurn(ply: Ply): number {
-  return Math.floor((ply - 1) / 2) + 1;
-}
-
 export function renderGlyphs(glyphs: Tree.Glyph[]): VNode[] {
   return glyphs.map(glyph =>
     h(

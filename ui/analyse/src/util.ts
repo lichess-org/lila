@@ -66,10 +66,6 @@ export function iconTag(icon: string) {
   return h('i', { attrs: dataIcon(icon) });
 }
 
-export function plyToTurn(ply: number): number {
-  return Math.floor((ply - 1) / 2) + 1;
-}
-
 export function nodeFullName(node: Tree.Node, notation: number) {
   if (node.san)
     return (

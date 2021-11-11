@@ -10,6 +10,7 @@ import { plyStep } from './round';
 import RoundController from './ctrl';
 import { RoundData } from './interfaces';
 import { promote as shogiopsPromote } from 'shogiops/variantUtil';
+import { lishogiVariantRules } from 'shogiops/compat';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -96,10 +97,10 @@ export function reload(ctrl: RoundController) {
   ctrl.shogiground.set(makeConfig(ctrl));
 }
 
-export function promote(ground: CgApi, key: cg.Key) {
+export function promote(ground: CgApi, key: cg.Key, variant: VariantKey) {
   const piece = ground.state.pieces.get(key);
   if (piece && !piece.promoted) {
-    const prole = shogiopsPromote('shogi')(piece.role);
+    const prole = shogiopsPromote(lishogiVariantRules(variant))(piece.role);
     ground.setPieces(
       new Map([
         [

@@ -410,7 +410,7 @@ export default class RoundController {
         this.shogiground.move(keys[0], keys[1]);
       }
       if (o.promotion) {
-        ground.promote(this.shogiground, util.uci2move(o.uci)![1]);
+        ground.promote(this.shogiground, util.uci2move(o.uci)![1], this.data.game.variant.key);
       }
       this.shogiground.set({
         turnColor: d.game.player,

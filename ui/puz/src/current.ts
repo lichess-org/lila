@@ -1,4 +1,4 @@
-import { Shogi } from 'shogiops';
+import { Shogi } from 'shogiops/shogi';
 import { parseLishogiUci } from 'shogiops/compat';
 import { parseFen } from 'shogiops/fen';
 import { Puzzle } from './interfaces';

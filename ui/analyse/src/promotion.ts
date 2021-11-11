@@ -82,7 +82,7 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
       }),
     },
     pieces.map(function (serverRole: Role, i) {
-      const numOfRanks = ctrl.shogiground.state.dimensions.files;
+      const numOfRanks = ctrl.shogiground.state.dimensions.ranks;
       let top = (i + util.key2pos(dest)[1]) * (100 / numOfRanks);
       if (orientation === 'gote') top = (numOfRanks - (i + util.key2pos(dest)[1])) * (100 / numOfRanks);
       return h(

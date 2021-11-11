@@ -5,12 +5,13 @@ import { defined } from 'common';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { ExtendedMoveInfo, notationStyle } from 'common/notation';
-import { Shogi, Position } from 'shogiops/shogi';
-import { makeLishogiUci, assureUsi } from 'shogiops/compat';
+import { Position } from 'shogiops/shogi';
+import { makeLishogiUci, assureUsi, lishogiVariantRules } from 'shogiops/compat';
 import { opposite, parseUsi } from 'shogiops/util';
 import { makeFen, parseFen } from 'shogiops/fen';
 import { makeSanAndPlay } from 'shogiops/san';
 import { Move } from 'shogiops/types';
+import { setupPosition } from 'shogiops/variant';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -302,8 +303,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     setup.fullmoves += 1;
   }
-  // const pos = setupPosition(lishogiVariantRules(instance.variant.key), setup);
-  const pos = Shogi.fromSetup(setup, false);
+  const pos = setupPosition(lishogiVariantRules(instance.variant.key), setup, false);
   const turn = setup.fullmoves;
   const notation = ctrl.data.pref.pieceNotation ?? 0;
   return h(

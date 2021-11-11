@@ -6,8 +6,8 @@ import * as cgUtil from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import { MaybeVNode, Redraw, Promotion } from './interfaces';
 import { defined } from 'common';
-import { canPiecePromote, promote as sPromote } from 'shogiops/util';
 import { parseChessSquare } from 'shogiops/compat';
+import { pieceCanPromote, promote as shogiopsPromote } from 'shogiops/variantUtil';
 
 export default function (
   withGround: <A>(f: (cg: CgApi) => A) => A | false,
@@ -20,7 +20,7 @@ export default function (
     return !!withGround(g => {
       const piece = g.state.pieces.get(dest);
       if (!defined(piece)) return false;
-      if (canPiecePromote(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
+      if (pieceCanPromote('shogi')(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
         promoting = {
           orig: orig,
           dest: dest,
@@ -72,7 +72,7 @@ export default function (
 
     let left = (8 - cgUtil.key2pos(dest)[0]) * (100 / 9);
 
-    if (orientation === 'sente') left = cgUtil.key2pos(dest)[0] * (100 / 9);
+    if (orientation === 'gote') left = cgUtil.key2pos(dest)[0] * (100 / 9);
     const vertical = color === orientation ? 'top' : 'bottom';
 
     return h(
@@ -85,7 +85,7 @@ export default function (
       },
       pieces.map(function (serverRole, i) {
         let top = (color === orientation ? i : 8 - i) * (100 / 9);
-        if (orientation === 'sente') top = (9 - (i + cgUtil.key2pos(dest)[1])) * (100 / 9);
+        if (orientation === 'gote') top = (9 - (i + cgUtil.key2pos(dest)[1])) * (100 / 9);
 
         return h(
           'square',
@@ -113,8 +113,8 @@ export default function (
       withGround(g => {
         pieces =
           g.state.turnColor === 'sente'
-            ? [sPromote(promoting.role), promoting.role]
-            : [promoting.role, sPromote(promoting.role)];
+            ? [shogiopsPromote('shogi')(promoting.role), promoting.role]
+            : [promoting.role, shogiopsPromote('shogi')(promoting.role)];
       });
       return (
         withGround(g =>

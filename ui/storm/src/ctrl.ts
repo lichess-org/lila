@@ -13,9 +13,9 @@ import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
 import { Clock } from 'puz/clock';
-import { isDrop, Move, PocketRole } from 'shogiops/types';
-import { SquareSet } from 'shogiops/squareSet';
+import { isDrop, Move } from 'shogiops/types';
 import { cancelDropMode } from 'shogiground/drop';
+import { backrank, secondBackrank } from 'shogiops/variantUtil';
 
 export default class StormCtrl {
   private data: StormData;
@@ -87,7 +87,7 @@ export default class StormCtrl {
 
   userDrop = (piece: Piece, dest: Key): void => {
     const move = {
-      role: piece.role as PocketRole,
+      role: piece.role,
       to: parseChessSquare(dest)!,
     };
     this.finishMoveOrDrop(move);
@@ -175,8 +175,8 @@ export default class StormCtrl {
     const m2 = parseLishogiUci(u2);
     if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
     return (
-      (role === 'knight' && SquareSet.backrank2(turn).has(m1.to)) ||
-      ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to))
+      (role === 'knight' && secondBackrank('shogi')(turn).has(m1.to)) ||
+      ((role === 'pawn' || role === 'lance' || role === 'knight') && backrank('shogi')(turn).has(m1.to))
     );
   }
 

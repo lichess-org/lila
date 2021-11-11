@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks';
 import * as cg from 'shogiground/types';
 import { Redraw, EncodedDests, Dests } from './interfaces';
-import { Shogi } from 'shogiops';
+import { Shogi } from 'shogiops/shogi';
 import { parseFen } from 'shogiops/fen';
 import { shogigroundDropDests } from 'shogiops/compat';
 

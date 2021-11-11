@@ -4,7 +4,7 @@ import { Vm } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
 import { opposite } from 'shogiground/util';
 import { assureLishogiUci, makeChessSquare, parseLishogiUci } from 'shogiops/compat';
-import { isDrop } from 'shogiops';
+import { isDrop } from 'shogiops/types';
 
 interface Opts {
   vm: Vm;
@@ -32,8 +32,8 @@ function makeAutoShapesFromUci(uci: Uci, color: Color, brush: string, modifiers?
         brush: brush,
       },
     ];
-  else
-    return [
+  else {
+    const shapes: DrawShape[] = [
       {
         orig: makeChessSquare(move.from),
         dest: makeChessSquare(move.to),
@@ -41,6 +41,12 @@ function makeAutoShapesFromUci(uci: Uci, color: Color, brush: string, modifiers?
         modifiers: modifiers,
       },
     ];
+    if (move.promotion) {
+      // add promoted piece to shapes
+    }
+
+    return shapes;
+  }
 }
 
 export default function (opts: Opts): DrawShape[] {
