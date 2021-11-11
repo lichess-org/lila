@@ -116,3 +116,20 @@ cg-container {
 piece.fix-blur {
   will-change: auto;
 }
+
+.variant-minishogi,
+.minishogi {
+  piece {
+    width: calc(200% / 5);
+    height: calc(200% / 5);
+    margin: calc(-50% / 5);
+  }
+  square {
+    width: calc(100% / 5);
+    height: calc(100% / 5);
+  }
+  .pocket-c1 {
+    flex: 0 0 20%;
+    max-width: 15vmin;
+  }
+}
