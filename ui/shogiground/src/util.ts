@@ -126,5 +126,6 @@ export const isMiniBoard = (el: HTMLElement): boolean => {
   return Array.from(el.classList).includes('mini-board');
 };
 
+// todo - pass valid hand roles in config
 export const droppableRoles: readonly cg.Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];
 export const miniDroppableRoles: readonly cg.Role[] = ['pawn', 'silver', 'gold', 'bishop', 'rook'];

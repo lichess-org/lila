@@ -44,15 +44,9 @@ const letters = {
 };
 
 export function getDimensions(sfen: cg.FEN): cg.Dimensions {
+  // todo only if we ever need non square boards...
   const ranks = sfen.split('/').length;
-  let files = 0;
-  for (let c of sfen.split('/')[0]) {
-    const nb = c.charCodeAt(0);
-    if (nb < 58 && nb != 43) files += nb - 48;
-    else if (c !== '+') files += 1;
-  }
-
-  return { files: files, ranks: ranks };
+  return { files: ranks, ranks: ranks };
 }
 
 export function read(sfen: cg.FEN, dims: cg.Dimensions): cg.Pieces {
