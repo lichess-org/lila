@@ -53,7 +53,9 @@ case class Hand(handMap: HandMap) {
     else None
 
   def store(role: Role, cnt: Int = 1) =
-    copy(handMap = handMap + (role -> (handMap.getOrElse(role, 0) + cnt)))
+    if (handMap contains role)
+      copy(handMap = handMap + (role -> (handMap.getOrElse(role, 0) + cnt)))
+    else this
 
   def roles: List[Role] =
     handMap.map(_._1).toList
