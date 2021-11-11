@@ -266,17 +266,6 @@ object Role {
     Dragon
   )
 
-  // Correct order
-  val handRoles: List[Role] = List(
-    Rook,
-    Bishop,
-    Gold,
-    Silver,
-    Knight,
-    Lance,
-    Pawn
-  )
-
   val allByForsyth: Map[Char, Role] = all map { r =>
     (r.forsyth, r)
   } toMap
@@ -311,8 +300,12 @@ object Role {
     (r.forsythFull, r)
   }) toMap
 
+  val allByFullForsythUpper: Map[String, Role] = (all map { r =>
+    (r.forsythFullUpper, r)
+  }) toMap
+
   val allByEverything: Map[String, Role] =
-    allByFullForsyth ++ allByKif
+    allByFullForsyth ++ allByFullForsythUpper ++ allByKif ++ allByCsa
 
   def forsyth(c: Char): Option[Role] = allByForsyth get c
 

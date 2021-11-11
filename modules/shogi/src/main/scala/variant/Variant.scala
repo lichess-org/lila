@@ -222,7 +222,7 @@ abstract class Variant private[variant] (
       case Uci.Move(_, _, _) =>
         board2.crazyData.fold(board2) { data =>
           capture.fold(board2) { p =>
-            val unpromotedRole  = demote(p.role).getOrElse(p.role)
+            val unpromotedRole  = unpromote(p.role).getOrElse(p.role)
             val unpromotedPiece = Piece(p.color, unpromotedRole)
             board2 withCrazyData data.store(unpromotedPiece)
           }
@@ -239,9 +239,9 @@ abstract class Variant private[variant] (
   protected def validSide(board: Board, strict: Boolean)(color: Color) = {
     val roles     = board rolesOf color
     val pawnFiles = board occupiedPawnFiles color
-    roles.length > 0 &&
+    roles.length > 0 && roles.forall(allRoles contains _) &&
     (!strict || {
-      roles.count(_ == Pawn) <= numberOfFiles && roles.length <= pieces.size && roles.count(_ == King) == 1
+      roles.length <= pieces.size && roles.count(_ == King) == 1
     }) &&
     !unmovablePieces(board) && pawnFiles.distinct.length == pawnFiles.length &&
     roles.count(_ == King) <= 1 && board.crazyData.fold(true)(_.roles.forall(handRoles contains _))
@@ -249,7 +249,7 @@ abstract class Variant private[variant] (
 
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict) _
 
-  val roles = List(
+  val allRoles = List(
     Pawn,
     Lance,
     Knight,
@@ -297,7 +297,7 @@ abstract class Variant private[variant] (
       case _      => None
     }
 
-  def demote(r: Role): Option[Role] = {
+  def unpromote(r: Role): Option[Role] = {
     r match {
       case Tokin          => Option(Pawn)
       case PromotedLance  => Option(Lance)
@@ -309,32 +309,11 @@ abstract class Variant private[variant] (
     }
   }
 
-  lazy val rolesByPgn: Map[Char, Role] = roles
+  lazy val rolesByPgn: Map[Char, Role] = allRoles
     .map { r =>
       (r.pgn, r)
     }
     .to(Map)
-
-  lazy val rolesByForsyth: Map[Char, Role] = roles
-    .map { r =>
-      (r.forsyth, r)
-    }
-    .to(Map)
-
-  lazy val rolesByFullForsyth: Map[String, Role] = roles
-    .map { r =>
-      (r.forsythFull.toUpperCase, r)
-    }
-    .to(Map)
-
-  lazy val rolesByCsa: Map[String, Role] = roles
-    .map { r =>
-      (r.csa, r)
-    }
-    .to(Map)
-
-  lazy val rolesByEverything: Map[String, Role] =
-    Role.allByKif ++ rolesByFullForsyth ++ rolesByCsa
 
   override def toString = s"Variant($name)"
 
