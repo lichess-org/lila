@@ -403,7 +403,7 @@ final private[round] class RoundAsyncActor(
     case WsBoot =>
       handle { game =>
         game.playable ?? {
-          messenger.system(game, "Lichess has been updated! Sorry for the inconvenience.")
+          messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.")
           val progress = moretimer.give(game, Color.all, 20 seconds)
           proxy save progress inject progress.events
         }

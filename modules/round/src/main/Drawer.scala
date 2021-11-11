@@ -37,7 +37,7 @@ final private[round] class Drawer(
       case pov if pov.game.history.threefoldRepetition =>
         finisher.other(pov.game, _.Draw, None)
       case pov if pov.opponent.isOfferingDraw =>
-        finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
+        finisher.other(pov.game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
       case Pov(g, color) if g playerCanOfferDraw color =>
         val progress = Progress(g) map { _ offerDraw color }
         messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())

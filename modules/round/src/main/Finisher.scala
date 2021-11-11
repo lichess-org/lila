@@ -48,7 +48,7 @@ final private class Finisher(
       other(game, _.Aborted, none)
 
     } else if (game.player(!game.player.color).isOfferingDraw) {
-      apply(game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
+      apply(game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
     } else {
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
@@ -62,14 +62,14 @@ final private class Finisher(
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory) apply(game, _.NoStart, Some(!culprit.color))
-      else apply(game, _.Aborted, None, Some("Game aborted by server"))
+      else apply(game, _.Aborted, None, Messenger.Persistent("Game aborted by server").some)
     }
 
   def other(
       game: Game,
       status: Status.type => Status,
       winner: Option[Color],
-      message: Option[String] = None
+      message: Option[Messenger.SystemMessage] = None
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
@@ -108,7 +108,7 @@ final private class Finisher(
       game: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
-      message: Option[String] = None
+      message: Option[Messenger.SystemMessage] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
     val prog   = game.finish(status, winnerC)
@@ -139,7 +139,7 @@ final private class Finisher(
         .flatMap { case (whiteO, blackO) =>
           val finish = FinishGame(g, whiteO, blackO)
           updateCountAndPerfs(finish) map { ratingDiffs =>
-            message foreach { messenger.system(g, _) }
+            message foreach { messenger(g, _) }
             gameRepo game g.id foreach { newGame =>
               newGame foreach proxy.setFinishedGame
               val newFinish = finish.copy(game = newGame | g)

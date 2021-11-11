@@ -13,6 +13,11 @@ final class Messenger(api: ChatApi) {
   def volatile(game: Game, message: String): Unit =
     system(persistent = false)(game, message)
 
+  def apply(game: Game, message: Messenger.SystemMessage): Unit = message match {
+    case Messenger.Persistent(msg) => system(persistent = true)(game, msg)
+    case Messenger.Volatile(msg)   => system(persistent = false)(game, msg)
+  }
+
   def system(persistent: Boolean)(game: Game, message: String): Unit = if (game.nonAi) {
     api.userChat.volatile(watcherId(Chat.Id(game.id)), message, _.Round)
     if (persistent) api.userChat.system(Chat.Id(game.id), message, _.Round)
@@ -57,4 +62,11 @@ final class Messenger(api: ChatApi) {
 
   private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
   private def watcherId(gameId: Game.Id) = Chat.Id(s"$gameId/w")
+}
+
+private object Messenger {
+
+  sealed trait SystemMessage { val msg: String }
+  case class Persistent(msg: String) extends SystemMessage
+  case class Volatile(msg: String)   extends SystemMessage
 }
