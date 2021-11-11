@@ -36,6 +36,7 @@ final private class Biter(
       _ <- gameRepo insertDenormalized game
     } yield {
       lila.mon.lobby.hook.join.increment()
+      rememberIfFixedColor(hook.realColor, game)
       JoinHook(sri, hook, game, creatorColor)
     }
 
@@ -50,7 +51,14 @@ final private class Biter(
         blackUser = creatorColor.fold(user.some, owner.some)
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
-    } yield JoinSeek(user.id, seek, game, creatorColor)
+    } yield {
+      rememberIfFixedColor(seek.realColor, game)
+      JoinSeek(user.id, seek, game, creatorColor)
+    }
+
+  private def rememberIfFixedColor(color: Color, game: Game) =
+    if (color != Color.Random)
+      gameRepo.fixedColorLobbyCache put game.id
 
   private def assignCreatorColor(
       creatorUser: Option[User],
