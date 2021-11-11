@@ -30,7 +30,7 @@ module.exports = {
     return fen.replace(/ (b|w) /, ' ' + turn + ' ');
   },
   pieceImg: function (role) {
-    return m('div.is2d.no-square', m('piece.sente.' + role));
+    return m('div.no-square', m('piece.sente.' + role));
   },
   roundSvg: function (url) {
     return m(

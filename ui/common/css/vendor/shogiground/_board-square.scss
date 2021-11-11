@@ -28,13 +28,13 @@ $board-files: (
 );
 
 @each $color, $file in $board-files {
-  .#{$color} .isSquare .variant-minishogi cg-board {
+  .#{$color} .variant-minishogi cg-board {
     background-image: url(../images/board/5/#{$file});
   }
-  .#{$color} .isSquare .minishogi cg-board {
+  .#{$color} .minishogi cg-board {
     background-image: url(../images/board/5/#{$file});
   }
-  .#{$color} .isSquare cg-board {
+  .#{$color} cg-board {
     background-image: url(../images/board/#{$file});
   }
 }
