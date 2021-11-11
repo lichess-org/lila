@@ -389,7 +389,7 @@ export default class AnalyseCtrl {
 
   userJump = (path: Tree.Path): void => {
     this.autoplay.stop();
-    if (!this.study) this.withCg(cg => cg.selectSquare(null));
+    if (!this.gamebookPlay()) this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
