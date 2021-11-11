@@ -22,6 +22,7 @@ final class JsonView(rematches: Rematches) {
         "fen"           -> (Forsyth >> game.shogi),
         "player"        -> game.turnColor,
         "turns"         -> game.turns,
+        "startedAtMove" -> game.shogi.startedAtMove,
         "startedAtTurn" -> game.shogi.startedAtTurn,
         "source"        -> game.source,
         "status"        -> game.status,

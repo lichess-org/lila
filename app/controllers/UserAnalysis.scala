@@ -14,7 +14,7 @@ import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
 import lila.round.JsonView.WithFlags
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.study.JsonView.{ kifTagWrites, kifTagsWrites }
+import lila.study.JsonView.kifTagsWrites
 import views._
 
 final class UserAnalysis(
@@ -47,7 +47,7 @@ final class UserAnalysis(
       val pov         = makePov(decodedFen, variant)
       val orientation = get("color").flatMap(shogi.Color.fromName) | pov.color
       env.api.roundApi
-        .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
+        .userAnalysisJson(pov, ctx.pref, FEN(Forsyth >> pov.game.shogi).some, orientation, owner = false, me = ctx.me) map { data =>
         EnableSharedArrayBuffer(Ok(html.board.userAnalysis(data, pov)))
       }
     }
@@ -66,7 +66,8 @@ final class UserAnalysis(
           shogi = shogi.Game(
             situation = from.situation,
             turns = from.turns,
-            startedAtTurn = from.turns
+            startedAtTurn = from.turns,
+            startedAtMove = from.moveNumber
           ),
           sentePlayer = lila.game.Player.make(shogi.Sente, none),
           gotePlayer = lila.game.Player.make(shogi.Gote, none),

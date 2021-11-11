@@ -29,9 +29,7 @@ object Forsyth {
 
   case class SituationPlus(situation: Situation, moveNumber: Int) {
 
-    def turns = fullMoveNumber * 2 - (if (situation.color.sente) 2 else 1)
-
-    def fullMoveNumber = 1 + (moveNumber - 1) / 2
+    def turns = moveNumber - (if ( (moveNumber % 2 == 1) == situation.color.sente) 1 else 0)
 
   }
 
@@ -78,10 +76,9 @@ object Forsyth {
       } else {
         Role.forsyth(p.toLower).map { role =>
           if (variant.handRoles.contains(role)) {
-            val toStore        = Math.min(total, 81)
-            val unpromotedRole = variant.demote(role).getOrElse(role)
-            if (p.isUpper) sente = sente.store(unpromotedRole, toStore)
-            else gote = gote.store(unpromotedRole, toStore)
+            val toStore          = Math.min(total, 81)
+            if (p.isUpper) sente = sente.store(role, toStore)
+            else gote = gote.store(role, toStore)
           }
         }
         curCnt = 0
@@ -117,7 +114,15 @@ object Forsyth {
 
   def >>(parsed: SituationPlus): String =
     parsed match {
-      case SituationPlus(situation, _) => >>(Game(situation, turns = parsed.turns))
+      case SituationPlus(situation, _) =>
+        >>(
+          Game(
+            situation,
+            turns = parsed.turns,
+            startedAtTurn = parsed.turns,
+            startedAtMove = parsed.moveNumber
+          )
+        )
     }
 
   def >>(game: Game): String =
@@ -179,13 +184,6 @@ object Forsyth {
   def getColor(rawSource: String): Option[Color] =
     read(rawSource) { fen =>
       fen.split(' ').lift(1) flatMap (_.headOption) flatMap Color.apply
-    }
-
-  def getPly(rawSource: String): Option[Int] =
-    read(rawSource) { fen =>
-      getMoveNumber(fen) map { moveNumber =>
-        moveNumber - 1
-      }
     }
 
   def getHands(rawSource: String): Option[Hands] =

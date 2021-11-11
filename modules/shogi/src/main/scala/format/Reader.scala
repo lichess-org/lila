@@ -59,14 +59,11 @@ object Reader {
       case (r: Result.Incomplete, _) => r
     }
 
-  private def makeGame(tags: Tags) = {
-    val g = Game(
+  private def makeGame(tags: Tags) =
+    Game(
       variantOption = tags(_.Variant) flatMap shogi.variant.Variant.byName,
       fen = tags(_.FEN)
-    )
-    g.copy(
-      startedAtTurn = g.turns,
+    ).copy(
       clock = tags.clockConfig map Clock.apply
     )
-  }
 }

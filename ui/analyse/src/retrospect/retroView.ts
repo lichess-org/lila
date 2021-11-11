@@ -68,7 +68,7 @@ const feedback = {
                     withDots: true,
                     showGlyphs: true,
                     showEval: false,
-                    offset: ctrl.startedAtTurn,
+                    offset: ctrl.offset,
                   },
                   ctrl.current().fault.node
                 )!
@@ -141,7 +141,7 @@ const feedback = {
                       notation: ctrl.notation,
                       withDots: true,
                       showEval: false,
-                      offset: ctrl.startedAtTurn,
+                      offset: ctrl.offset,
                     },
                     ctrl.current().solution.node
                   )!

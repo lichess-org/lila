@@ -18,6 +18,7 @@ export interface Game {
   player: Color;
   turns: number;
   startedAtTurn?: number;
+  startedAtMove?: number;
   source: Source;
   speed: Speed;
   variant: Variant;

@@ -30,14 +30,9 @@ final class AutoPairing(
             else shogi.variant.FromPosition
           },
           fen = tour.position.some.filterNot(_.initial).map(_.fen)
-        ) pipe { g =>
-          val turns = g.player.fold(0, 1)
-          g.copy(
-            clock = clock.some,
-            turns = turns,
-            startedAtTurn = turns
-          )
-        },
+        ).copy(
+          clock = clock.some
+        ),
         sentePlayer = makePlayer(Sente, player1),
         gotePlayer = makePlayer(Gote, player2),
         mode = tour.mode,

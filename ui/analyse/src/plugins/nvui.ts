@@ -10,7 +10,6 @@ import { renderSan, renderPieces, renderBoard, styleSetting, Style } from 'nvui/
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import * as moveView from '../moveView';
 import { bind } from '../util';
 
 window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
@@ -177,7 +176,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
                   selected: node.ply === ctrl.node.ply,
                 },
               },
-              [moveView.plyToTurn(node.ply), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
+              [node.ply + ctrl.plyOffset(), renderSan(node.san!, node.uci, style), renderComments(node, style)].join(
                 ' '
               )
             )
@@ -216,10 +215,7 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
   nodes.forEach(node => {
     if (!node.san || !node.uci) return;
     path += node.id;
-    const content: MaybeVNodes = [
-      node.ply & 1 ? moveView.plyToTurn(node.ply) + ' ' : null,
-      renderSan(node.san, node.uci, style),
-    ];
+    const content: MaybeVNodes = [node.ply + 1, renderSan(node.san, node.uci, style)];
     res.push(
       h(
         'move',
@@ -239,7 +235,7 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
 
 function renderCurrentNode(node: Tree.Node, style: Style): string {
   if (!node.san || !node.uci) return 'Initial position';
-  return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)].join(' ');
+  return [node.ply + 1, renderSan(node.san, node.uci, style), renderComments(node, style)].join(' ');
 }
 
 function renderComments(node: Tree.Node, style: Style): string {

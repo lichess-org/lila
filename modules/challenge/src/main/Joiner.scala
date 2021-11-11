@@ -20,21 +20,22 @@ final private class Joiner(
       case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) => fuccess(None)
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
-          def makeChess(variant: shogi.variant.Variant): shogi.Game =
+          def makeShogi(variant: shogi.variant.Variant): shogi.Game =
             shogi.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
           val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap { fen =>
             Forsyth.<<<@(shogi.variant.FromPosition, fen.value)
           }
-          val (shogiGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
+          val (shogiGame, state) = baseState.fold(makeShogi(c.variant) -> none[SituationPlus]) {
             case sit @ SituationPlus(s, _) =>
               val game = shogi.Game(
                 situation = s,
                 turns = sit.turns,
                 startedAtTurn = sit.turns,
+                startedAtMove = sit.moveNumber,
                 clock = c.clock.map(_.config.toClock)
               )
-              if (Forsyth.>>(game) == Forsyth.initial) makeChess(shogi.variant.Standard) -> none
+              if (Forsyth.>>(game) == Forsyth.initial) makeShogi(shogi.variant.Standard) -> none
               else game                                                                  -> baseState
           }
           val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)

@@ -20,7 +20,7 @@ object RequestPref {
       queryParam(req, name) orElse req.session.get(name)
 
     val bg = paramOrSession("bg") | "light"
-    val notation = paramOrSession("pieceNotation").flatMap(_.toIntOption).getOrElse(default.pieceNotation) 
+    val notation = paramOrSession("pieceNotation").flatMap(_.toIntOption) | default.pieceNotation 
 
     default.copy(
       dark = bg != "light",

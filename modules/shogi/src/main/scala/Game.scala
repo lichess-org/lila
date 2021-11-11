@@ -8,7 +8,8 @@ case class Game(
     pgnMoves: Vector[String] = Vector(),
     clock: Option[Clock] = None,
     turns: Int = 0, // plies
-    startedAtTurn: Int = 0
+    startedAtTurn: Int = 0, // plies
+    startedAtMove: Int = 1
 ) {
   def apply(
       orig: Pos,
@@ -77,10 +78,11 @@ case class Game(
 
   // Fullmove number: The number of the full move.
   // It starts at 1, and is incremented after Gote's move.
-  // todo - we want to get rid of this, but carefully
   def fullMoveNumber: Int = 1 + turns / 2
 
-  def moveNumber: Int = 1 + turns
+  def playedPlies: Int = turns - startedAtTurn
+
+  def moveNumber: Int = startedAtMove + playedPlies
 
   def withBoard(b: Board) = copy(situation = situation.copy(board = b))
 
@@ -116,7 +118,9 @@ object Game {
             },
             color = parsed.situation.color
           ),
-          turns = parsed.turns
+          turns = parsed.turns,
+          startedAtTurn = parsed.turns,
+          startedAtMove = parsed.moveNumber
         )
       }
   }

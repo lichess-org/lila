@@ -49,6 +49,7 @@ object BSONHandlers {
 
       val light         = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
       val startedAtTurn = r intD F.startedAtTurn
+      val startedAtMove = r.getO[FEN](F.initialFen).flatMap(Forsyth getMoveNumber _.value) | 1
       val plies         = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
       val turnColor     = Color.fromPly(plies)
       val createdAt     = r date F.createdAt
@@ -86,7 +87,8 @@ object BSONHandlers {
           clockBSONReader(createdAt, light.sentePlayer.berserk, light.gotePlayer.berserk)
         } map (_(turnColor)),
         turns = plies,
-        startedAtTurn = startedAtTurn
+        startedAtTurn = startedAtTurn,
+        startedAtMove = startedAtMove
       )
 
       val senteClockHistory = r bytesO F.senteClockHistory

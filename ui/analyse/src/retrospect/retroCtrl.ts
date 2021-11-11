@@ -11,7 +11,7 @@ export interface RetroCtrl {
   trans: Trans;
   [key: string]: any;
   notation: number;
-  startedAtTurn: number;
+  offset: number;
 }
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
@@ -210,6 +210,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     node: () => root.node,
     redraw,
     notation: root.data.pref.pieceNotation,
-    startedAtTurn: root.data.game.startedAtTurn,
+    offset: root.plyOffset(),
   };
 }

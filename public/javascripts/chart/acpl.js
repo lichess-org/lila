@@ -11,7 +11,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
 
         var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
         if (data.player.color === 'sente') blurs.reverse();
-        var startedAtTurn = data.game.startedAtTurn ? data.game.startedAtTurn % 2 : 0;
+        var plyOffset = ((data.game.startedAtTurn || 0) - ((data.game.moveNumber || 1) - 1)) % 2;
 
         var makeSerieData = function (d) {
           var partial = !d.analysis || d.analysis.partial;
@@ -31,7 +31,7 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               };
 
             var point = {
-              name: node.ply - startedAtTurn + '. ' + notation({ san: node.san, uci: node.uci, fen: node.fen }),
+              name: node.ply - plyOffset + '. ' + notation({ san: node.san, uci: node.uci, fen: node.fen }),
               y: 2 / (1 + Math.exp(-0.0007 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === '1') {

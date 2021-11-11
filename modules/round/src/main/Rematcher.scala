@@ -122,7 +122,8 @@ final private class Rematcher(
             Clock(c.config)
           },
           turns = situation ?? (_.turns),
-          startedAtTurn = situation ?? (_.turns)
+          startedAtTurn = situation ?? (_.turns),
+          startedAtMove = situation.map(_.moveNumber) | 1
         ),
         sentePlayer = if (isHandicap) gPlayer else sPlayer,
         gotePlayer = if (isHandicap) sPlayer else gPlayer,

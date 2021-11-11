@@ -80,7 +80,7 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
 export function renderFullKif(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
   const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
-  const offset = ctrl.data.game.startedAtTurn % 2;
+  const offset = ctrl.plyOffset();
 
   const moves = renderKifNodes(ctrl.tree.root, offset % 2).join('\n');
 

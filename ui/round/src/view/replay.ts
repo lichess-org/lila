@@ -54,6 +54,10 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, 
     : undefined;
 }
 
+function plyOffset(ctrl: RoundController): number {
+  return (ctrl.data.game.startedAtTurn || 0) - ((ctrl.data.game.startedAtMove || 1) - 1);
+}
+
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result;
   if (status.finished(ctrl.data))
@@ -101,7 +105,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   for (let i = 1; i < steps.length; i++) move.push(steps[i]);
 
   for (let i = 0; i < move.length; i++) {
-    els.push(h('index', i + firstPly + 1 - ((ctrl.data.game.startedAtTurn ?? 0) % 2) + ''));
+    els.push(h('index', i + firstPly + 1 - (plyOffset(ctrl) % 2) + ''));
     els.push(renderMove(move[i], curPly, true, i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
   }
   els.push(renderResult(ctrl));
@@ -227,7 +231,7 @@ export function render(ctrl: RoundController): VNode | undefined {
               if (node.tagName !== moveTag.toUpperCase()) return;
               while ((node = node.previousSibling as HTMLElement)) {
                 if (node.tagName === 'INDEX') {
-                  ctrl.userJump(parseInt(node.textContent || '') + ((ctrl.data.game.startedAtTurn ?? 0) % 2));
+                  ctrl.userJump(parseInt(node.textContent || '') + (plyOffset(ctrl) % 2));
                   ctrl.redraw();
                   break;
                 }

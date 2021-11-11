@@ -900,6 +900,14 @@ export default class AnalyseCtrl {
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
+  // plies respect color - it is even if it's sente turn and vice versa
+  // but move number is s separate thing
+  // so instead of sending both
+  // let's just count the offset
+  plyOffset = (): number => {
+    return this.data.game.startedAtTurn - (this.data.game.startedAtMove - 1);
+  };
+
   // Ideally we would just use node.clock
   // but we store remaining times for lishogi games as node.clock
   // for imports we store movetime as node.clock, because

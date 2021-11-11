@@ -86,14 +86,9 @@ final private class SwissDirector(
         shogi = shogi.Game(
           variantOption = Some(swiss.variant),
           fen = none
-        ) pipe { g =>
-          val turns = g.player.fold(0, 1)
-          g.copy(
-            clock = swiss.clock.toClock.some,
-            turns = turns,
-            startedAtTurn = turns
-          )
-        },
+        ).copy(
+          clock = swiss.clock.toClock.some
+        ),
         sentePlayer = makePlayer(Sente, players get pairing.sente err s"Missing pairing sente $pairing"),
         gotePlayer = makePlayer(Gote, players get pairing.gote err s"Missing pairing gote $pairing"),
         mode = shogi.Mode(swiss.settings.rated),
@@ -107,7 +102,3 @@ final private class SwissDirector(
   private def makePlayer(color: Color, player: SwissPlayer) =
     lila.game.Player.make(color, player.userId, player.rating, player.provisional)
 }
-
-//   private object SwissDirector {
-
-//     case class Result(swiss: Swiss, playerMap: SwissPlayer
