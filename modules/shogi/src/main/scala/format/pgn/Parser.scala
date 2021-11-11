@@ -62,7 +62,7 @@ object Parser {
       variant
     )
   }
-  def objMoves(strMoves: List[StrMove], variant: Variant): Validated[String, ParsedMoves] = {
+  def objMoves(strMoves: List[StrMove], variant: Variant): Validated[String, ParsedMoves] =
     strMoves.map { case StrMove(san, glyphs, comments, variations) =>
       (
         MoveParser(san, variant) map { m =>
@@ -76,7 +76,6 @@ object Parser {
         }
       ): Validated[String, ParsedMove]
     }.sequence map { ParsedMoves.apply(_) }
-  }
 
   trait Logging { self: Parsers =>
     protected val loggingEnabled = false

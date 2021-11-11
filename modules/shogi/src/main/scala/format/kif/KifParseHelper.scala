@@ -2,7 +2,7 @@ package shogi
 package format
 package kif
 
-import variant.Standard
+import variant._
 
 import cats.data.Validated
 import cats.data.Validated.{ invalid, valid, Valid }
@@ -24,30 +24,39 @@ object KifParserHelper {
           .takeWhile(_ != '|')
       )
 
+    val variant = detectVariant(ranks, handicap) | Standard
+
     if (ranks.size == 0) {
-      handicap.filterNot(_ == "平手").fold(valid(Situation(Standard)): Validated[String, Situation]) { h =>
+      handicap.filterNot(h => KifUtils.defaultHandicaps.exists(_._2 == h)).fold(valid(Situation(variant)): Validated[String, Situation]) { h =>
         parseHandicap(h)
       }
-    } else if (ranks.size == 9) {
+    } else if (ranks.size == variant.numberOfRanks) {
       for {
-        pieces <- parseBoard(ranks)
+        pieces <- parseBoard(variant, ranks)
         senteHandStr = lines.find(l => l.startsWith("先手の持駒:") || l.startsWith("下手の持駒:")).getOrElse("")
         goteHandStr  = lines.find(l => l.startsWith("後手の持駒:") || l.startsWith("上手の持駒:")).getOrElse("")
-        senteHand <- parseHand(senteHandStr)
-        goteHand  <- parseHand(goteHandStr)
+        senteHand <- parseHand(variant, senteHandStr)
+        goteHand  <- parseHand(variant, goteHandStr)
         hands    = Hands(senteHand, goteHand)
-        board    = Board(pieces, Standard).withCrazyData(hands)
+        board    = Board(pieces, variant).withCrazyData(hands)
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
       } yield (Situation(board, Color.fromSente(!goteTurn)))
     } else {
       invalid(
-        "Cannot parse board setup starting with this line %s (not enough ranks provided %d/9)"
-          .format(ranks.head, ranks.size)
+        s"Cannot parse board setup (not enough ranks provided ${ranks.size}/${variant.numberOfRanks})"
       )
     }
   }
 
-  private def parseBoard(ranks: List[String]): Validated[String, List[(Pos, Piece)]] = {
+  private def detectVariant(ranks: List[String], handicap: Option[String]): Option[Variant] = {
+    if (
+      ranks.size == 5 ||
+      handicap.exists(h => KifUtils.defaultHandicaps.get(Minishogi).fold(false)(_ == h))
+    ) Minishogi.some
+    else None
+  }
+
+  private def parseBoard(variant: Variant, ranks: List[String]): Validated[String, List[(Pos, Piece)]] = {
     def makePiecesList(
         chars: List[Char],
         x: Int,
@@ -62,34 +71,36 @@ object KifParserHelper {
         case ('成' | '+') :: rest => makePiecesList(rest, x, y, chars.headOption, gote)
         case sq :: rest =>
           for {
-            pos <- Pos.at(x, y) toValid s"Too many files in board setup: ${9 - x}/9"
+            pos <- Pos.at(x, y) toValid s"Too many files in board setup on rank $y"
             roleStr = prevPieceChar.fold("")(_.toString) + sq
             role   <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
+            _      <- if(variant.allRoles contains role) valid(role)
+                      else invalid(s"$role is not valid $variant variant")
             pieces <- makePiecesList(rest, x - 1, y, None, false)
           } yield (pos -> Piece(Color.fromSente(!gote), role) :: pieces)
       }
     ranks.zipWithIndex.foldLeft(valid(Nil): Validated[String, List[(Pos, Piece)]]) { case (acc, cur) =>
       for {
         pieces     <- acc
-        nextPieces <- makePiecesList(cur._1.toList, 9, cur._2 + 1, None, false)
+        nextPieces <- makePiecesList(cur._1.toList, variant.numberOfFiles, cur._2 + 1, None, false)
       } yield (pieces ::: nextPieces)
     }
   }
 
-  private def parseHand(str: String): Validated[String, Hand] = {
+  private def parseHand(variant: Variant, str: String): Validated[String, Hand] = {
     def parseHandPiece(str: String, hand: Hand): Validated[String, Hand] =
       for {
         roleStr <- str.headOption toValid "Cannot parse hand"
         num = KifUtils kanjiToInt str.tail
         role <- Role.allByEverything.get(roleStr.toString) toValid s"Unknown piece in hand: $roleStr"
         _ <-
-          if (Standard.handRoles contains role) valid(role)
-          else invalid("Cannot place this piece in hand")
+          if (variant.handRoles contains role) valid(role)
+          else invalid(s"Cannot place $role in hand in $variant variant")
       } yield (hand.store(role, num))
     val values = str.split(":").lastOption.getOrElse("").trim
-    if (values == "なし" || values == "") valid(Hand.init(Standard))
+    if (values == "なし" || values == "") valid(Hand.init(variant))
     else {
-      values.split(" ").foldLeft(valid(Hand.init(Standard)): Validated[String, Hand]) { case (acc, cur) =>
+      values.split(" ").foldLeft(valid(Hand.init(variant)): Validated[String, Hand]) { case (acc, cur) =>
         acc match {
           case Valid(hand) => parseHandPiece(cur, hand)
           case _           => acc

@@ -49,7 +49,7 @@ case object Minishogi
 
   override def impasse(sit: Situation): Boolean = false
 
-  override val roles = List(
+  override val allRoles = List(
     Pawn,
     Silver,
     Gold,

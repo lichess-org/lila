@@ -2,6 +2,8 @@ package shogi
 package format
 package kif
 
+import variant._
+
 object KifUtils {
   def toDigit(c: Char): Char = {
     c match {
@@ -74,5 +76,10 @@ object KifUtils {
     else if (num >= 10) "十" + intToKanji(num % 10)
     else num.toString.map(toKanjiDigit _)
   }
+
+  val defaultHandicaps: Map[Variant, String] = Map(
+    Minishogi -> "五々将棋",
+    Standard  -> "平手"
+  )
 
 }
