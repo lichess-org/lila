@@ -4,6 +4,8 @@ package format
 import Pos._
 import variant._
 
+import cats.syntax.option._
+
 class ForsythTest extends ShogiTest {
 
   val f = Forsyth
@@ -107,18 +109,67 @@ class ForsythTest extends ShogiTest {
       "starting" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1" must beSome.like { case s =>
           s.turns must_== 0
+          s.moveNumber must_== 1
         }
       }
       "sente to play" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 11" must beSome.like { case s =>
           s.turns must_== 10
+          s.moveNumber must_== 11
         }
       }
       "gote to play" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2" must beSome.like { case s =>
           s.turns must_== 1
+          s.moveNumber must_== 2
         }
       }
+      "gote to play" in {
+        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2" must beSome.like { case s =>
+          s.turns must_== 1
+          s.moveNumber must_== 2
+        }
+      }
+      "gote to play starting at 1" in {
+        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1" must beSome.like { case s =>
+          s.turns must_== 1
+          s.moveNumber must_== 1
+        }
+      }
+    }
+  }
+  "make game" should {
+    "sente starts - 1" in {
+      val sfen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"
+      val game = Game(None, sfen.some)
+      game.turns == 0
+      game.startedAtTurn == 0
+      game.startedAtMove == 1
+      f >> game must_== sfen
+    }
+    "sente starts - 2" in {
+      val sfen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 2"
+      val game = Game(None, sfen.some)
+      game.turns == 2
+      game.startedAtTurn == 2
+      game.startedAtMove == 2
+      f >> game must_== sfen
+    }
+    "gote starts - 1" in {
+      val sfen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1"
+      val game = Game(None, sfen.some)
+      game.turns == 1
+      game.startedAtTurn == 1
+      game.startedAtMove == 1
+      f >> game must_== sfen
+    }
+    "gote starts - 2" in {
+      val sfen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2"
+      val game = Game(None, sfen.some)
+      game.turns == 1
+      game.startedAtTurn == 1
+      game.startedAtMove == 2
+      f >> game must_== sfen
     }
   }
   "pieces in hand" should {

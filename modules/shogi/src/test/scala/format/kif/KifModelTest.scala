@@ -1,7 +1,10 @@
 package shogi
 package format
 package kif
+
 import Kif._
+import variant._
+
 
 class KifModelTest extends ShogiTest {
   "render kif situation - board, hands, turn, from random sfen" in {
@@ -21,6 +24,22 @@ class KifModelTest extends ShogiTest {
 | ・ ・ ・ ・ ・ ・ ・ ・ ・|九
 +---------------------------+
 先手の持駒：金　銀
+後手番"""
+  }
+
+  "render kif situation - minishogi" in {
+    renderSituation(
+      (shogi.format.Forsyth.<<@(Minishogi, "rbsgk/4p/P4/5/KGSBR w - 2")).get
+    ) must_== """後手の持駒：なし
+  ５ ４ ３ ２ １
++---------------+
+|v飛v角v銀v金v玉|一
+| ・ ・ ・ ・v歩|二
+| 歩 ・ ・ ・ ・|三
+| ・ ・ ・ ・ ・|四
+| 玉 金 銀 角 飛|五
++---------------+
+先手の持駒：なし
 後手番"""
   }
 

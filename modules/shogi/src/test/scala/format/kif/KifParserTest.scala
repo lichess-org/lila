@@ -2,12 +2,14 @@ package shogi
 package format
 package kif
 
+import variant.Standard
+
 class KifParserTest extends ShogiTest {
 
   import KifFixtures._
 
   val parser                                               = KifParser.full _
-  def parseMove(str: String, lastDest: Option[Pos] = None) = KifParser.MoveParser(str, lastDest)
+  def parseMove(str: String, lastDest: Option[Pos] = None) = KifParser.MoveParser(str, lastDest, Standard)
 
   "drop" in {
     parseMove("６四歩打") must beValid.like { case d: Drop =>
@@ -531,6 +533,49 @@ class KifParserTest extends ShogiTest {
     parser(kif3) must beValid.like { case ParsedNotation(_, Tags(tags), ParsedMoves(pm)) =>
       pm.size must_== 117
       tags.size must_== 10
+    }
+  }
+
+    "minishogi" in {
+    parser("""
+      先手：先手
+      手合割：五々将棋
+    """) must beValid.like { case a =>
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.FEN && tag.value == "rbsgk/4p/5/P4/KGSBR b -"
+      }
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.Variant && tag.value == "Minishogi"
+      }
+    }
+  }
+
+    "minishogi from position" in {
+    parser("""
+      後手：
+      後手の持駒：なし
+  ５ ４ ３ ２ １
++---------------+
+|v飛v角v銀v金v玉|一
+| ・ ・ ・ ・v歩|二
+| 歩 ・ ・ ・ ・|三
+| ・ ・ ・ ・ ・|四
+| 玉 金 銀 角 飛|五
++---------------+
+先手の持駒：なし
+先手：先手
+後手番
+    """) must beValid.like { case a =>
+      a.tags.value.length must_== 3
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.FEN && tag.value == "rbsgk/4p/P4/5/KGSBR w -"
+      }
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.Sente && tag.value == "先手"
+      }
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.Variant && tag.value == "Minishogi"
+      }
     }
   }
 

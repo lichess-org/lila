@@ -14,7 +14,7 @@ class PosTest extends ShogiTest {
     }
 
     "be a string" in {
-      "SQ6E" in { SQ6E.toString must_== "6e" }
+      "SQ6E" in { SQ6E.toString must_== "d5" }
     }
     "USI/UCI" in {
       "be correctly converted" in {
