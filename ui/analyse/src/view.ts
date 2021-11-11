@@ -36,6 +36,8 @@ import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
+import { setupPosition } from 'shogiops/variant';
+import { lishogiVariantRules } from 'shogiops/compat';
 
 const li = window.lishogi;
 
@@ -124,7 +126,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               ctrl.fenInput = el.value;
               el.addEventListener('input', _ => {
                 ctrl.fenInput = el.value;
-                el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid SFEN');
+                const setup = parseFen(el.value.trim());
+                el.setCustomValidity(
+                  setup.isOk &&
+                    setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup.unwrap(), false).isOk
+                    ? ''
+                    : 'Invalid SFEN'
+                );
               });
             });
           },
