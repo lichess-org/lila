@@ -104,9 +104,7 @@ object post {
           div(cls := "ublog-post__footer")(
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
-                likeButton(post, liked)(ctx)(cls := "ublog-post__like--big button button-big button-red")(
-                  span(cls := "button-label")("Like this post")
-                ),
+                likeButton(post, liked),
                 followButton(user, post, followed)
               ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
@@ -122,15 +120,21 @@ object post {
     dataIcon := ""
   )(trans.edit())
 
-  private def likeButton(post: UblogPost, liked: Boolean)(implicit ctx: Context) = button(
-    tpe := "button",
-    cls := List(
-      "ublog-post__like is"     -> true,
-      "ublog-post__like--liked" -> liked
-    ),
-    dataRel := post.id.value,
-    title := trans.study.like.txt()
-  )(span(cls := "ublog-post__like__nb")(post.likes.value.localize))
+  private def likeButton(post: UblogPost, liked: Boolean)(implicit ctx: Context) = {
+    val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
+    button(
+      tpe := "button",
+      cls := List(
+        "ublog-post__like is ublog-post__like--big button button-big button-red" -> true,
+        "ublog-post__like--liked"                                                -> liked
+      ),
+      dataRel := post.id.value,
+      title := text
+    )(
+      span(cls := "ublog-post__like__nb")(post.likes.value.localize),
+      span(cls := "button-label")(text)
+    )
+  }
 
   private def followButton(user: User, post: UblogPost, followed: Boolean)(implicit ctx: Context) =
     div(
