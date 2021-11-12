@@ -50,7 +50,9 @@ export default function wikiTheory(): WikiTheory {
           };
           if (res.ok) {
             const json = await res.json();
-            if (json.query.pages[0].missing) saveAndShow('');
+            const page = json.query.pages[0];
+            if (page.missing) saveAndShow('');
+            else if (page.invalid) show('invalid request: ' + page.invalidreason);
             else saveAndShow(transform(json.query.pages[0].extract, title));
           } else saveAndShow('');
         } catch (err) {
