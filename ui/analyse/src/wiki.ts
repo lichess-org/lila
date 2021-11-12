@@ -32,7 +32,7 @@ export default function wikiTheory(): WikiTheory {
     async (nodes: Tree.Node[]) => {
       const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
       const path = pathParts.join('/');
-      if (!path) show('');
+      if (pathParts.length > 30 || !path || path.length > 255) show('');
       else if (cache.has(path)) show(cache.get(path)!);
       else if (
         Array.from({ length: pathParts.length }, (_, i) => -i - 1)
