@@ -28,6 +28,7 @@
   <string name="fork">چنگال</string>
   <string name="forkDescription">حرکتی که در آن مهره ای که حرکت می کند دو مهره حریف را به صورت همزمان مورد حمله قرار می دهد.</string>
   <string name="hangingPiece">مهره بی دفاع</string>
+  <string name="hangingPieceDescription">تاکتیکی که در آن مهره های حریف برای گرفتن، بدون دفاع یا با دفاع ناکافی است.</string>
   <string name="long">معمای طولانی</string>
   <string name="master">بازی‌های اساتید</string>
   <string name="masterVsMaster">بازیهای استاد در مقابل استاد</string>
