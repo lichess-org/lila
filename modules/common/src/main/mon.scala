@@ -648,7 +648,7 @@ object mon {
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
     def openingBook(level: Int, variant: String, ply: Int, hit: Boolean) =
       timer("fishnet.opening.hit").withTags(
-        Map("level" -> level, "variant" -> variant, "ply" -> ply, "hit" -> hit)
+        Map("level" -> level.toLong, "variant" -> variant, "ply" -> ply.toLong, "hit" -> hit)
       )
   }
   object study {
