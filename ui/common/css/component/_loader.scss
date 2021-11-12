@@ -83,10 +83,6 @@ $total_len: $len1 + $len2 + $len3;
     stroke-dasharray: $total_len;
   }
 
-  g {
-    animation: spinner-color 8s steps(1) infinite;
-  }
-
   .white & path {
     stroke: #fff;
   }
