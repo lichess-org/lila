@@ -1,6 +1,6 @@
 import { prop, Prop } from 'common';
 import { textRaw as xhrTextRaw } from 'common/xhr';
-import { bind, onInsert, dataIcon } from 'common/snabbdom';
+import { bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AnalyseSocketSend } from '../socket';
 import { iconTag, scrollTo, titleNameToId } from '../util';
@@ -311,11 +311,10 @@ export function view(ctrl: StudyCtrl): VNode {
             'form.admin',
             {
               key: ':admin',
-              hook: onInsert(el =>
-                el.addEventListener('submit', () =>
-                  xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload())
-                )
-              ),
+              hook: bindNonPassive('submit', () => {
+                xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+                return false;
+              }),
             },
             [h('button.button.button-red.button-thin', 'Enter as admin')]
           )
