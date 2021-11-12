@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">जोड़ा गया (सबसे पुराना)</string>
   <string name="recentlyUpdated">हाल ही में अद्यतित</string>
   <string name="mostPopular">सबसे लोकप्रिय</string>
+  <string name="alphabetical">वर्णक्रमानुसार</string>
   <string name="addNewChapter">एक नया अध्याय जोड़ें</string>
   <plurals name="nbChapters">
     <item quantity="one">%s अध्याय</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
   <string name="pgnTags">PGN टैग</string>
   <string name="like">लाइक</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">नापसन्द करे</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
@@ -126,4 +128,9 @@
   <string name="deleteTheStudyChatHistory">क्या इस पड़ाई से सम्बन्धित बातों को मिटा देना चाहिए? इससे पीछे जाने का कोई रास्ता शेष नहीं है!</string>
   <string name="deleteStudy">अध्याय को मिटा दे</string>
   <string name="whereDoYouWantToStudyThat">आप इसको खा से पड़ना चाहते है</string>
+  <string name="goodMove">अच्छी चाल!</string>
+  <string name="mistake">गलती</string>
+  <string name="brilliantMove">अद्भुत चाल​।</string>
+  <string name="blunder">भयंकर गलती</string>
+  <string name="interestingMove">दिलचस्प चाल​ |</string>
 </resources>

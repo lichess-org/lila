@@ -4,6 +4,7 @@ import lila.game.{ Pov, Source }
 
 final private class AbortListener(
     userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
     seekApi: SeekApi,
     lobbyActor: LobbySyncActor
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -14,7 +15,10 @@ final private class AbortListener(
       lobbyActor.registerAbortedGame(pov.game)
 
   private def cancelColorIncrement(pov: Pov): Unit =
-    if (pov.game.source.exists(s => s == Source.Lobby || s == Source.Pool)) pov.game.userIds match {
+    if (
+      pov.game.source
+        .exists(s => s == Source.Lobby || s == Source.Pool) && !gameRepo.fixedColorLobbyCache.get(pov.game.id)
+    ) pov.game.userIds match {
       case List(u1, u2) =>
         userRepo.incColor(u1, -1)
         userRepo.incColor(u2, 1)

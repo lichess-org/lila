@@ -9,17 +9,17 @@
     <item quantity="other">%sଟି ଅଧ୍ୟାୟ</item>
   </plurals>
   <string name="inviteToTheStudy">ଅଧ୍ୟୟନକୁ ଆମନ୍ତ୍ରଣ କରନ୍ତୁ</string>
-  <string name="leaveTheStudy">ଅଧ୍ୟୟନ ଛାଡ଼ି ଦିଅନ୍ତୁ</string>
+  <string name="leaveTheStudy">ଅଧ୍ୟୟନ ଛାଡ଼ି ଦିଅନ୍ତୁ</string>
   <string name="pgnTags">PGN ଟ୍ୟାଗ୍</string>
   <string name="like">ପସନ୍ଦ କରନ୍ତୁ</string>
-  <string name="unlike">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
+  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
   <string name="shareAndExport">ଅଂଶୀଦାର ଓ ରପ୍ତାନି</string>
   <string name="studyPgn">ଅଧ୍ୟୟନର PGN</string>
   <string name="chapterPgn">ଅଧ୍ୟାୟର PGN</string>
   <string name="studyUrl">ଅଧ୍ୟୟନ URL</string>
   <string name="embedInYourWebsite">ଆପଣଙ୍କ ୱେବସାଇଟ୍ ରେ ଗ୍ରନ୍ଥନ କରନ୍ତୁ</string>
   <string name="readMoreAboutEmbedding">ଗ୍ରନ୍ଥନ ବିଷୟରେ ଅଧିକ ପଢ଼ନ୍ତୁ</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">କେବଳ ସାର୍ବଜନୀନ ଅଧ୍ୟୟନଗୁଡ଼ିକ ଗ୍ରଥିତ ହୋଇପାରିବ!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">କେବଳ ସାର୍ବଜନୀନ ଅଧ୍ୟୟନଗୁଡ଼ିକ ଗ୍ରଥିତ ହୋଇପାରିବ!</string>
   <string name="open">ଖୋଲନ୍ତୁ</string>
   <string name="studyNotFound">ଅଧ୍ୟୟନ ମିଳିଲା ନାହିଁ</string>
   <string name="editChapter">ଅଧ୍ୟାୟ ସମ୍ପାଦନା</string>

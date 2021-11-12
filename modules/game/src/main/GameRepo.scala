@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.concurrent.duration._
+
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
@@ -18,6 +20,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   import BSONHandlers._
   import Game.{ ID, BSONFields => F }
   import Player.holdAlertBSONHandler
+
+  val fixedColorLobbyCache = new lila.memo.ExpireSetMemo(2 hours)
 
   def game(gameId: ID): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: ID): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)

@@ -4,7 +4,7 @@
   <string name="challengeToPlay">Défier ce joueur</string>
   <string name="challengeDeclined">Défi refusé</string>
   <string name="challengeAccepted">Défi accepté!</string>
-  <string name="challengeCanceled">Défi annulé</string>
+  <string name="challengeCanceled">Défi annulé.</string>
   <string name="registerToSendChallenges">Veuillez vous inscrire pour envoyer des défis.</string>
   <string name="youCannotChallengeX">Vous ne pouvez pas défier %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n’accepte pas les défis.</string>
