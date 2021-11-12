@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">चुनौतीहरू</string>
+  <string name="challengeToPlay">खेलको लागि चुनौति दिनुहोस्</string>
+  <string name="challengeDeclined">चुनौती अस्वीकृत</string>
+  <string name="challengeAccepted">चुनौती स्वीकृत!</string>
+  <string name="challengeCanceled">चुनौती रद्द।</string>
+</resources>
