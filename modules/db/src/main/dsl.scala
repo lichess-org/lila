@@ -63,6 +63,10 @@ trait dsl {
   def $nor(expressions: Bdoc*): Bdoc = {
     $doc("$nor" -> expressions)
   }
+
+  def $not(expression: Bdoc): Bdoc = {
+    $doc("$not" -> expression)
+  }
   // End of Top Level Logical Operators
   //**********************************************************************************************//
 
