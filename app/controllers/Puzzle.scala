@@ -331,12 +331,23 @@ final class Puzzle(
         .fuccess
     }
 
+  def mobileDashboard(days: Int) =
+    Auth { implicit ctx => me =>
+      negotiate(
+        html = notFound,
+        _ => renderMobileAndApiJson(days, me)
+      )
+    }
+
   def apiDashboard(days: Int) =
     Scoped(_.Puzzle.Read) { implicit req => me =>
       implicit val lang = reqLang
-      JsonOptionOk {
-        env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
-      }
+      renderMobileAndApiJson(days, me)
+    }
+
+  private def renderMobileAndApiJson(days: Int, me: lila.user.User)(implicit lang: play.api.i18n.Lang) =
+    JsonOptionOk {
+      env.puzzle.dashboard(me, days) map2 { env.puzzle.jsonView.dashboardJson(_, days) }
     }
 
   def dashboard(days: Int, path: String = "home") =
