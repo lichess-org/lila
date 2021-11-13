@@ -9,7 +9,7 @@
   <string name="emailChange_subject">Yeni e-poçt ünvanınızı təsdiqləyin, %s</string>
   <string name="emailChange_intro">E-poçt ünvanınızın dəyişdirilməsi üçün sorğu göndərdiniz.</string>
   <string name="emailChange_click">Bu e-poçt sizin üçün əlçatandırsa, zəhmət olmasa aşağıdakı bağlantıya klikləyin:</string>
-  <string name="welcome_subject">\"Lichess.org\"-a xoş gəldiniz, %s</string>
+  <string name="welcome_subject">Lichess.org\'a xoş gəldiniz, %s</string>
   <string name="welcome_text">Hesabınız https://lichess.org üzərindən uğurla yaradıldı.
 
 Profil səhifəniz: %1$s. Profilinizi %2$s üzərindən özəlləşdirə bilərsiniz.
