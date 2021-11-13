@@ -58,7 +58,7 @@
     <item quantity="other">Спонсар Lichess на працягу %s месяцаў</item>
   </plurals>
   <string name="youSupportWith">Вы ахвяруеце lichess.org %s кожны месяц.</string>
-  <string name="tyvm">Дзякуй вілікі за дапамогу! Вы неверагодны!</string>
+  <string name="tyvm">Дзякуй вялікі за дапамогу! Вы неверагодны!</string>
   <string name="currentStatus">Бягучы статус</string>
   <string name="nextPayment">Наступны плацёж</string>
   <string name="youWillBeChargedXOnY">%2$s вы заплаціце %1$s.</string>
