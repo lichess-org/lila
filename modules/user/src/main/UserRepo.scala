@@ -173,7 +173,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll
       .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
-        $id(userId) ++ (if (value < 0) $doc(F.colorIt $gt -3) else $doc(F.colorIt $lt 5)),
+        // limit to -3 <= colorIt <= 5 but set when undefined
+        $id(userId) ++ $not(if (value < 0) $doc(F.colorIt $lte -3) else F.colorIt $gte 5),
         $inc(F.colorIt -> value)
       )
       .unit
