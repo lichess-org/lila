@@ -76,8 +76,8 @@ function isTrident() {
   return cachedIsTrident;
 }
 
-function translate(pos) {
-  return 'translate(' + pos[0] + 'px,' + pos[1] + 'px) scale(0.5)';
+function translate(pos, scale = true) {
+  return 'translate(' + pos[0] + 'px,' + pos[1] + 'px)' + (scale ? ' scale(0.5)' : '');
 }
 
 function eventPosition(e) {

@@ -45,7 +45,7 @@ function renderSquare(key, classes, ctx) {
     class: classes,
     style: {},
   };
-  attrs.style[ctx.transformProp] = util.translate(posToTranslate(util.key2pos(key), ctx));
+  attrs.style[ctx.transformProp] = util.translate(posToTranslate(util.key2pos(key), ctx), false);
   return {
     tag: squareTag,
     attrs: attrs,
