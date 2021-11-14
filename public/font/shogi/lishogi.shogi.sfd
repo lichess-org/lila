@@ -1,0 +1,144 @@
+SplineFontDB: 3.2
+FontName: lishogi.shogi
+FullName: lishogi.shogi
+FamilyName: lishogi.shogi
+Weight: Book
+Copyright: 
+Version: 1.0
+ItalicAngle: 0
+UnderlinePosition: 0
+UnderlineWidth: 0
+Ascent: 480
+Descent: 32
+InvalidEm: 0
+sfntRevision: 0x00010000
+LayerCount: 2
+Layer: 0 1 "Zur+APwA-ck" 1
+Layer: 1 1 "Zeichen" 0
+XUID: [1021 456 2137950714 8673176]
+StyleMap: 0x0040
+FSType: 8
+OS2Version: 3
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 0
+CreationTime: 1554434404
+ModificationTime: 1609258396
+PfmFamily: 17
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 46
+VLineGap: 0
+Panose: 2 0 5 9 0 0 0 0 0 0
+OS2TypoAscent: 480
+OS2TypoAOffset: 0
+OS2TypoDescent: -32
+OS2TypoDOffset: 0
+OS2TypoLinegap: 46
+OS2WinAscent: 512
+OS2WinAOffset: 0
+OS2WinDescent: 0
+OS2WinDOffset: 0
+HheadAscent: 512
+HheadAOffset: 0
+HheadDescent: 0
+HheadDOffset: 0
+OS2SubXSize: 332
+OS2SubYSize: 358
+OS2SubXOff: 0
+OS2SubYOff: 71
+OS2SupXSize: 332
+OS2SupYSize: 358
+OS2SupXOff: 0
+OS2SupYOff: 245
+OS2StrikeYSize: 25
+OS2StrikeYPos: 132
+OS2CapHeight: 475
+OS2XHeight: 475
+OS2Vendor: 'PfEd'
+OS2CodePages: 00000001.00000000
+OS2UnicodeRanges: 00000001.10000000.00000000.00000000
+MarkAttachClasses: 1
+DEI: 91125
+ShortTable: maxp 16
+  1
+  0
+  117
+  381
+  14
+  0
+  0
+  2
+  0
+  1
+  1
+  0
+  64
+  0
+  0
+  0
+EndShort
+LangName: 1033 "" "" "Regular" "" "" "Version 1.0"
+GaspTable: 1 65535 2 0
+Encoding: Custom
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 0 27 9
+BeginPrivate: 0
+EndPrivate
+Grid
+-512 468.027770996 m 0
+ 1024 468.027770996 l 1024
+EndSplineSet
+BeginChars: 31 2
+
+StartChar: uni2617
+Encoding: 28 9751 0
+GlifName: atom
+Width: 512
+GlyphClass: 2
+Flags: WO
+LayerCount: 2
+Fore
+SplineSet
+256 468.02734375 m 1,0,-1
+ 441.28515625 356.344726562 l 1,1,-1
+ 466.0078125 46.873046875 l 1,2,-1
+ 466.861328125 46.0205078125 l 1,3,-1
+ 466.0078125 45.16796875 l 1,4,-1
+ 334.087890625 45.16796875 l 0,5,-1
+ 44.28515625 45.16796875 l 1,6,-1
+ 42.580078125 46.873046875 l 1,7,-1
+ 68.15625 357.197265625 l 2,8,9
+ 249.462890625 466.322265625 249.462890625 466.322265625 255.146484375 468.02734375 c 2,10,-1
+ 256 468.02734375 l 1,0,-1
+EndSplineSet
+EndChar
+
+StartChar: uni2616
+Encoding: 30 9750 1
+GlifName: antichess
+Width: 512
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+262 468.02734375 m 5,0,-1
+ 448.13671875 356.344726562 l 5,1,-1
+ 472.0078125 43.7470703125 l 5,2,-1
+ 49.43359375 42.89453125 l 5,3,-1
+ 72.736328125 357.197265625 l 5,4,-1
+ 262 468.02734375 l 5,0,-1
+101.154296875 337.588867188 m 5,5,-1
+ 79.83984375 73.5859375 l 5,6,-1
+ 439.896484375 73.5859375 l 5,7,-1
+ 419.71875 337.588867188 l 5,8,-1
+ 260.294921875 431.65234375 l 5,9,-1
+ 101.154296875 337.588867188 l 5,5,-1
+EndSplineSet
+EndChar
+EndChars
+EndSplineFont
