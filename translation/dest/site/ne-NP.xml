@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">तपाईं सेतो खेल्नुहुनेछ</string>
   <string name="youPlayTheBlackPieces">तपाईं कालो खेल्नुहुनेछ</string>
   <string name="itsYourTurn">तपाईंको पालो!</string>
+  <string name="cheatDetected">बेइमानी पत्ता पर्यो</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
   <string name="threeChecks">तिनवटा चेकहरु</string>
   <string name="raceFinished">दौड सकियो</string>
