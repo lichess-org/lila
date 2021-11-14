@@ -50,6 +50,7 @@
   <string name="requestAComputerAnalysis">कम्प्युटर विश्लेषण आग्रह गर्नुहोस्</string>
   <string name="computerAnalysis">कम्प्युटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कम्प्युटर विश्लेषण उपलब्ध छ</string>
+  <string name="computerAnalysisDisabled">कम्प्युटर विश्लेषण बन्द छ</string>
   <string name="analysis">विश्लेषण बोर्ड</string>
   <string name="depthX">गहिराइ %s</string>
   <string name="usingServerAnalysis">सर्भरको विश्लेषण प्रयोग गरिदैं छ</string>
