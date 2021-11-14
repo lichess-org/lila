@@ -167,14 +167,24 @@ object forms {
         div(cls := "ratings")(
           form3.hidden("rating", "?"),
           lila.rating.PerfType.nonPuzzle.map { perfType =>
-            div(cls := perfType.key)(
-              trans.perfRatingX(
-                raw(s"""<strong data-icon="${perfType.iconChar}">${ctx.pref.showRatings ?? me
-                  .perfs(perfType.key)
-                  .map(_.intRating.toString)
-                  .getOrElse("?")}</strong> ${perfType.trans}""")
+            {
+              val rating = me
+                .perfs(perfType.key)
+                .map(_.intRating.toString)
+                .getOrElse("?")
+              div(cls := perfType.key)(
+                if (ctx.pref.showRatings)
+                  trans.perfRatingX(
+                    raw(s"""<strong data-icon="${perfType.iconChar}">${rating}</strong> ${perfType.trans}""")
+                  )
+                else
+                  frag(
+                    i(dataIcon := perfType.iconChar),
+                    strong(cls := "none")(rating), // To calculate rating range in JS
+                    perfType.trans
+                  )
               )
-            )
+            }
           }
         )
       }
