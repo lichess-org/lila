@@ -73,7 +73,7 @@ object post {
             post.lived map { live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at))
             },
-            likeButton(post, liked)(ctx)(cls := "ublog-post__like--mini button-link"),
+            likeButton(post, liked, showText = false),
             span(cls := "ublog-post__views")(
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
             ),
@@ -104,7 +104,7 @@ object post {
           div(cls := "ublog-post__footer")(
             (ctx.isAuth && !ctx.is(user)) option
               div(cls := "ublog-post__actions")(
-                likeButton(post, liked),
+                likeButton(post, liked, showText = true),
                 followButton(user, post, followed)
               ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
@@ -120,19 +120,25 @@ object post {
     dataIcon := ""
   )(trans.edit())
 
-  private def likeButton(post: UblogPost, liked: Boolean)(implicit ctx: Context) = {
+  private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(implicit ctx: Context) = {
     val text = if (liked) trans.study.unlike.txt() else trans.study.like.txt()
     button(
       tpe := "button",
       cls := List(
-        "ublog-post__like is ublog-post__like--big button button-big button-red" -> true,
-        "ublog-post__like--liked"                                                -> liked
+        "ublog-post__like is"                                -> true,
+        "ublog-post__like--liked"                            -> liked,
+        "ublog-post__like--big button button-big button-red" -> showText,
+        "ublog-post__like--mini button-link"                 -> !showText
       ),
       dataRel := post.id.value,
       title := text
     )(
       span(cls := "ublog-post__like__nb")(post.likes.value.localize),
-      span(cls := "button-label")(text)
+      showText option span(
+        cls := "button-label",
+        attr("data-i18n-like") := trans.study.like.txt(),
+        attr("data-i18n-unlike") := trans.study.unlike.txt()
+      )(text)
     )
   }
 
