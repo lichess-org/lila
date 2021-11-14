@@ -1,46 +1,44 @@
-.isTall {
-  .main-board {
-    /*w: 11 h:12*/
-    padding-bottom: calc(100% / 11 * 12);
-  }
+.main-board {
+  /*w: 11 h:12*/
+  padding-bottom: calc(100% / 11 * 12);
+}
 
-  .mini-board {
-    @extend %square;
-    padding-bottom: calc(100% / 11 * 12 * 11 / 9);
-  }
+.mini-board {
+  @extend %square;
+  padding-bottom: calc(100% / 11 * 12 * 11 / 9);
+}
 
-  .mini-board.minishogi {
-    padding-bottom: calc(100% / 11 * 12 * 7 / 5);
-  }
+.mini-board.minishogi {
+  padding-bottom: calc(100% / 11 * 12 * 7 / 5);
+}
 
-  .mini-board cg-container {
-    padding-bottom: calc(100% / 11 * 12);
-  }
+.mini-board cg-container {
+  padding-bottom: calc(100% / 11 * 12);
+}
 
-  $board-files: 't_wood1', 't_solid-natural', 't_doubutsu', 't_transparent', 't_transparent-white';
-  @each $name in $board-files {
-    .#{$name} {
+$board-files: 't_wood1', 't_solid-natural', 't_doubutsu', 't_transparent', 't_transparent-white';
+@each $name in $board-files {
+  .#{$name} {
+    cg-board {
+      background-image: url(../images/board/tall/#{$name}.png);
+    }
+    .variant-minishogi,
+    .minishogi {
       cg-board {
-        background-image: url(../images/board/tall/#{$name}.png);
-      }
-      .variant-minishogi,
-      .minishogi {
-        cg-board {
-          background-image: url(../images/board/tall/5/#{$name}.png);
-        }
+        background-image: url(../images/board/tall/5/#{$name}.png);
       }
     }
   }
+}
 
+piece {
+  background-position: center;
+  margin: calc(-50% / 11 * 12 / 9) calc(-50% / 9);
+}
+
+.variant-minishogi,
+.minishogi {
   piece {
-    background-position: center;
-    margin: calc(-50% / 11 * 12 / 9) calc(-50% / 9);
-  }
-
-  .variant-minishogi,
-  .minishogi {
-    piece {
-      margin: calc(-50% / 11 * 12 / 5) calc(-50% / 5);
-    }
+    margin: calc(-50% / 11 * 12 / 5) calc(-50% / 5);
   }
 }
