@@ -69,7 +69,9 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
             })
           : null,
         authorDom(by),
-        ...(node.san ? [' on ', h('span.node', nodeFullName(node, ctrl.data.pref.pieceNotation ?? 0))] : []),
+        ...(node.san
+          ? [' on ', h('span.node', nodeFullName(node, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key))]
+          : []),
         ': ',
         h('div.text', { hook: richHTML(comment.text) }),
       ]);

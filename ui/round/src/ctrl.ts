@@ -365,6 +365,7 @@ export default class RoundController {
                 san: m_step.san,
                 uci: m_step.uci,
                 fen: m_step.fen,
+                variant: this.data.game.variant.key,
               });
           txt = opponent + '\nplayed ' + move + '.\n' + txt;
         }

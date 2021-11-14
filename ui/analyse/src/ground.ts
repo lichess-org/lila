@@ -100,7 +100,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       duration: pref.animationDuration,
     },
     disableContextMenu: true,
-    notation: pref.pieceNotation ?? 0,
+    notation: pref.pieceNotation,
   };
   ctrl.study && ctrl.study.mutateCgConfig(config);
 

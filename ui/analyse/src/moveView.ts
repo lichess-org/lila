@@ -7,10 +7,11 @@ import { renderTime } from './clocks';
 
 export interface Ctx {
   notation: number;
+  variant: VariantKey;
   withDots?: boolean;
   showEval: boolean;
   showGlyphs?: boolean;
-  offset?: number; // mainly to show handicaps starting at move 1
+  offset?: number;
 }
 
 export function renderGlyphs(glyphs: Tree.Glyph[]): VNode[] {
@@ -46,6 +47,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
         san: node.san!,
         uci: node.uci!,
         fen: node.fen,
+        variant: ctx.variant,
       })
     ),
   ]

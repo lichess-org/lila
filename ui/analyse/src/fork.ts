@@ -91,6 +91,7 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
           renderIndexAndMove(
             {
               notation: root.data.pref.pieceNotation,
+              variant: root.data.game.variant.key,
               withDots: true,
               showEval: root.showComputer(),
               showGlyphs: root.showComputer(),

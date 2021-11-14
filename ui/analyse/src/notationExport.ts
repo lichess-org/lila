@@ -188,21 +188,22 @@ export function renderFullCsa(ctrl: AnalyseCtrl): string {
   return [...tags, makeCsaHeader(setup), moves].join('\n');
 }
 
-export function renderNodesHtml(nodes: ForecastStep[], notation: number): MaybeVNodes {
+export function renderNodesHtml(nodes: ForecastStep[], notation: number, variant: VariantKey): MaybeVNodes {
   if (!nodes[0]) return [];
   if (!nodes[0].san) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [];
   nodes.forEach(node => {
-    if (node.ply === 0) return;
+    if (!defined(node.san) || !defined(node.uci)) return;
     tags.push(h('index', node.ply + '.'));
     tags.push(
       h(
         'san',
         notationStyle(notation)({
-          san: node.san!,
-          uci: node.uci!,
+          san: node.san,
+          uci: node.uci,
           fen: node.fen,
+          variant: variant,
         })
       )
     );

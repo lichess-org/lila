@@ -19,6 +19,7 @@ export interface Ctx {
   showComputer: boolean;
   showGlyphs: boolean;
   notation: number;
+  variant: VariantKey;
   showEval: boolean;
   truncateComments: boolean;
   currentPath: Tree.Path | undefined;

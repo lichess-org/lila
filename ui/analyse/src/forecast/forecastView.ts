@@ -26,10 +26,11 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
           'strong',
           ctrl.trans(
             'playX',
-            notationStyle(ctrl.data.pref.pieceNotation ?? 0)({
+            notationStyle(ctrl.data.pref.pieceNotation)({
               san: cNodes[0].san,
               uci: cNodes[0].uci,
               fen: cNodes[0].fen,
+              variant: ctrl.data.game.variant.key,
             })
           )
         ),
@@ -89,7 +90,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   },
                   'x'
                 ),
-                h('sans', renderNodesHtml(nodes, ctrl.data.pref.pieceNotation)),
+                h('sans', renderNodesHtml(nodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
               ]
             );
           })
@@ -105,7 +106,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             isCandidate
               ? h('span', [
                   h('span', ctrl.trans.noarg('addCurrentVariation')),
-                  h('sans', renderNodesHtml(cNodes, ctrl.data.pref.pieceNotation)),
+                  h('sans', renderNodesHtml(cNodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
                 ])
               : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
           ]

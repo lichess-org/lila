@@ -71,7 +71,7 @@ function view(opts: Opts, coords: Coords): VNode {
       },
     },
     [
-      h('p.title', nodeFullName(node, ctrl.data.pref.pieceNotation ?? 0)),
+      h('p.title', nodeFullName(node, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
       onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
       onMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
       action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),

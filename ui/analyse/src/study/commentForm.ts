@@ -114,7 +114,7 @@ export function view(root: AnalyseCtrl): VNode {
               {
                 hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw),
               },
-              nodeFullName(current.node, root.data.pref.pieceNotation ?? 0)
+              nodeFullName(current.node, root.data.pref.pieceNotation, root.data.game.variant.key)
             ),
           ])
         : null,

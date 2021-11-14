@@ -11,6 +11,7 @@ export interface RetroCtrl {
   trans: Trans;
   [key: string]: any;
   notation: number;
+  variant: VariantKey;
   offset: number;
 }
 
@@ -210,6 +211,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     node: () => root.node,
     redraw,
     notation: root.data.pref.pieceNotation,
+    variant: root.data.game.variant.key,
     offset: root.plyOffset(),
   };
 }

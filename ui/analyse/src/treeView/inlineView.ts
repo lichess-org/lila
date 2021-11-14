@@ -115,10 +115,11 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
     content: MaybeVNodes = [
       opts.withIndex || node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
-      notationStyle(ctx.ctrl.data.pref.pieceNotation)({
+      notationStyle(ctx.notation)({
         san: node.san!,
         uci: node.uci!,
         fen: node.fen,
+        variant: ctx.variant,
       }),
     ];
   if (node.glyphs && ctx.showGlyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
@@ -139,6 +140,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     notation: ctrl.data.pref.pieceNotation,
+    variant: ctrl.data.game.variant.key,
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
     offset: ctrl.plyOffset(),

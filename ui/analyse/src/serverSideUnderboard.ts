@@ -90,7 +90,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         data,
         ctrl.trans,
         $('#acpl-chart')[0] as HTMLElement,
-        notationStyle(ctrl.data.pref.pieceNotation ?? 0)
+        notationStyle(ctrl.data.pref.pieceNotation)
       );
     });
   }
@@ -105,7 +105,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart)
       try {
         li.loadScript('javascripts/chart/movetime.js').then(function () {
-          li.movetimeChart(data, ctrl.trans, notationStyle(data.pref.pieceNotation ?? 0));
+          li.movetimeChart(data, ctrl.trans, notationStyle(data.pref.pieceNotation));
         });
       } catch (e) {}
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)

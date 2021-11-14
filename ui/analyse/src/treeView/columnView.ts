@@ -141,6 +141,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
         san: node.san!,
         uci: node.uci!,
         fen: node.fen,
+        variant: ctx.variant,
       }),
     ],
     classes = nodeClasses(ctx, path);
@@ -233,6 +234,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     notation: ctrl.data.pref.pieceNotation,
+    variant: ctrl.data.game.variant.key,
     showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
     offset: ctrl.plyOffset(),

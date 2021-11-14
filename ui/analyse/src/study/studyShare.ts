@@ -14,6 +14,7 @@ interface StudyShareCtrl {
   relay: boolean;
   cloneable: boolean;
   notation: number;
+  variant: VariantKey;
   offset: number;
   redraw: () => void;
   trans: Trans;
@@ -23,6 +24,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove(
     {
       notation: ctrl.notation,
+      variant: ctrl.variant,
       withDots: true,
       showEval: false,
       offset: ctrl.offset,
@@ -56,6 +58,7 @@ export function ctrl(
   relay: boolean,
   redraw: () => void,
   notation: number,
+  variant: VariantKey,
   offset: number,
   trans: Trans
 ): StudyShareCtrl {
@@ -71,6 +74,7 @@ export function ctrl(
     relay,
     cloneable: data.features.cloneable,
     notation: notation,
+    variant: variant,
     redraw,
     trans,
     offset,

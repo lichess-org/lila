@@ -80,7 +80,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
         ctrl.lastPly(false);
         li.requestIdleCallback(() => {
           li.loadScript('javascripts/chart/acpl.js').then(() => {
-            const notation = ctrl.root.data.pref.pieceNotation ?? 0;
+            const notation = ctrl.root.data.pref.pieceNotation;
             li.advantageChart!(ctrl.root.data, ctrl.root.trans, el, notationStyle(notation));
             ctrl.chartEl(el);
           });

@@ -65,6 +65,7 @@ const feedback = {
                 renderIndexAndMove(
                   {
                     notation: ctrl.notation,
+                    variant: ctrl.variant,
                     withDots: true,
                     showGlyphs: true,
                     showEval: false,
@@ -139,6 +140,7 @@ const feedback = {
                   renderIndexAndMove(
                     {
                       notation: ctrl.notation,
+                      variant: ctrl.variant,
                       withDots: true,
                       showEval: false,
                       offset: ctrl.offset,

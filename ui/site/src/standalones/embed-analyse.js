@@ -166,7 +166,7 @@ $(function () {
     );
     const pieceSet = document.body.dataset.pieceSet;
     if (pieceSet) parsed.searchParams.append('pieceSet', pieceSet);
-    parsed.searchParams.append('bg', document.body.getAttribute('data-theme'));
+    parsed.searchParams.append('bg', document.body.dataset.theme);
     return parsed.href;
   };
 

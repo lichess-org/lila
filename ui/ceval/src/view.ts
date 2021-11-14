@@ -255,7 +255,7 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   });
 }
 
-function makeExtendedMoveVariation(pos: Position, variation: Move[]): ExtendedMoveInfo[] {
+function makeExtendedMoveVariation(pos: Position, variation: Move[], variant: VariantKey): ExtendedMoveInfo[] {
   pos = pos.clone();
   const extendedLine = [];
   for (let i = 0; i < variation.length; i++) {
@@ -265,10 +265,11 @@ function makeExtendedMoveVariation(pos: Position, variation: Move[]): ExtendedMo
       san: san,
       uci: makeLishogiUci(pos.lastMove!),
       fen: fen,
+      variant: variant,
     });
     if (san === '--') return extendedLine;
     if (i === variation.length - 1 && pos.outcome()?.winner)
-      extendedLine.push({ san: '投了', uci: '投了', fen: '投了' });
+      extendedLine.push({ san: '投了', uci: '投了', fen: '投了', variant: 'standard' as VariantKey });
   }
   return extendedLine;
 }
@@ -348,7 +349,8 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   turn,
                   makeExtendedMoveVariation(
                     pos,
-                    pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!)
+                    pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!),
+                    ctrl.data?.variant.key || 'standard'
                   ),
                   notation
                 ),

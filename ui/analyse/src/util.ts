@@ -66,8 +66,8 @@ export function iconTag(icon: string) {
   return h('i', { attrs: dataIcon(icon) });
 }
 
-export function nodeFullName(node: Tree.Node, notation: number) {
-  if (node.san)
+export function nodeFullName(node: Tree.Node, notation: number, variant: VariantKey) {
+  if (node.san && node.uci)
     return (
       node.ply +
       '.' +
@@ -75,7 +75,8 @@ export function nodeFullName(node: Tree.Node, notation: number) {
       notationStyle(notation)({
         san: node.san,
         fen: node.fen,
-        uci: node.uci!,
+        uci: node.uci,
+        variant: variant,
       })
     );
   return 'Initial position';

@@ -36,7 +36,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   })
 );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, notation: number) {
+function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, notation: number, variant: VariantKey) {
   return step
     ? h(
         moveTag,
@@ -47,6 +47,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, 
           san: step.san,
           uci: step.uci,
           fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + ' ' + toBW(color),
+          variant: variant,
         })
       )
     : orEmpty
@@ -106,7 +107,16 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 
   for (let i = 0; i < move.length; i++) {
     els.push(h('index', i + firstPly + 1 - (plyOffset(ctrl) % 2) + ''));
-    els.push(renderMove(move[i], curPly, true, i % 2 ? color : oppositeColor, ctrl.data.pref.pieceNotation));
+    els.push(
+      renderMove(
+        move[i],
+        curPly,
+        true,
+        i % 2 ? color : oppositeColor,
+        ctrl.data.pref.pieceNotation,
+        ctrl.data.game.variant.key
+      )
+    );
   }
   els.push(renderResult(ctrl));
 
