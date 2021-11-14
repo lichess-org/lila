@@ -48,7 +48,6 @@ object side {
                       a(href := routes.Importer.importGame(), title := trans.importGame.txt())("IMPORT"),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen)
-                      //bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                   else
                     frag(
@@ -57,7 +56,6 @@ object side {
                       (if (game.rated) trans.rated else trans.casual).txt(),
                       separator,
                       bits.variantLink(game.variant, initialFen = initialFen)
-                      //bits.variantLink(game.variant, initialFen = initialFen, shortName = true)
                     )
                 ),
                 game.notationImport.flatMap(_.date).map(frag(_)) getOrElse {

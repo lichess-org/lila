@@ -34,12 +34,12 @@ object topnav {
         )
       ),
       ctx.noBot option st.section(
-        linkTitle(routes.Puzzle.home.path, trans.puzzles()),
+        linkTitle(routes.Puzzle.home().path(), trans.puzzles()),
         div(role := "group")(
-          a(href := routes.Puzzle.home)(trans.puzzles()),
+          a(href := routes.Puzzle.home())(trans.puzzles()),
           a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
           a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume()),
-          a(cls := "new-feature")(href := routes.Storm.home)("Tsume Storm")
+          a(cls := "new-feature")(href := routes.Storm.home())("Tsume Storm")
         )
       ),
       st.section(
@@ -73,7 +73,7 @@ object topnav {
           a(href := routes.PlayApi.botOnline())("Bots"),
           a(href := routes.Team.home())(trans.team.teams()),
           ctx.noKid option a(href := routes.ForumCateg.index())(trans.forum()),
-          ctx.me.exists(!_.kid) option a(href := routes.Plan.index)(trans.patron.donate())
+          ctx.me.exists(!_.kid) option a(href := routes.Plan.index())(trans.patron.donate())
         )
       ),
       st.section(

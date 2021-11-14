@@ -170,6 +170,7 @@ final class StudyApi(
           }
         }
       }
+      .unit
 
   def talk(userId: User.ID, studyId: Study.Id, text: String) =
     byId(studyId) foreach {
@@ -613,7 +614,7 @@ final class StudyApi(
       val newStudy = study withChapter chapter
       (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
         sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
-    } >>-
+    } >>
       studyRepo.updateNow(study) >>-
       indexStudy(study)
 

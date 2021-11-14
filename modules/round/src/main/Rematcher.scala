@@ -10,7 +10,6 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
-import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 
@@ -147,7 +146,7 @@ final private class Rematcher(
         )
     }
 
-  private def redirectEvents(game: Game, isHandicap: Boolean = false): Events = {
+  private def redirectEvents(game: Game, isHandicap: Boolean): Events = {
     val senteId = game fullIdOf Sente
     val goteId  = game fullIdOf Gote
     List(

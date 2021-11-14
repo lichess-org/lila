@@ -55,7 +55,6 @@ object side {
               (if (game.rated) trans.rated else trans.casual).txt(),
               separator,
               views.html.game.bits.variantLink(game.variant, game.perfType)
-              //views.html.game.bits.variantLink(game.variant, game.perfType, shortName = true)
             )
           )
         ),

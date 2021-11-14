@@ -78,6 +78,7 @@ final private class TournamentSocket(
         WaitingUsers.WithNext(newWaiting, none)
       }
     )
+    .unit
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply _

@@ -13,7 +13,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
 
   private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
 
-  def apply(relay: Relay, pgn: String): Funit =
+  def apply(relay: Relay, pgn: String): Fu[Option[String]] =
     if (relay.sync.hasUpstream)
       fuccess("The relay has an upstream URL, and cannot be pushed to.".some)
     else

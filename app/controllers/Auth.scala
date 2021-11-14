@@ -328,9 +328,7 @@ final class Auth(
               }
               case _ => {
                 lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                forms.passwordResetWithCaptcha map { case (form, captcha) =>
-                  Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal))
-                }
+                fuccess(Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)))
               }
             }
           }
@@ -380,7 +378,7 @@ final class Auth(
                 env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
                 authenticateUser(user) >>-
-                lila.mon.user.auth.passwordResetConfirm("success").increment()
+                lila.mon.user.auth.passwordResetConfirm("success").increment().unit
             }(rateLimitedFu)
           }
       }
@@ -440,7 +438,7 @@ final class Auth(
         case Some(user) => {
           authLog(user.username, "-", "Magic link")
           authenticateUser(user) >>-
-            lila.mon.user.auth.magicLinkConfirm("success").increment()
+            lila.mon.user.auth.magicLinkConfirm("success").increment().unit
         }
       }
     }

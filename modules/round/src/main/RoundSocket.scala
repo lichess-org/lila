@@ -115,13 +115,13 @@ final class RoundSocket(
       }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
-      messenger.owner(id, color, msg)
+      messenger.owner(id, color, msg).unit
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
-      messenger.owner(id, userId, msg)
+      messenger.owner(id, userId, msg).unit
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
-      messenger.watcher(id, userId, msg)
+      messenger.watcher(id, userId, msg).unit
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text)
+      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text).unit
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
@@ -199,7 +199,7 @@ final class RoundSocket(
     rounds.tellAll(RoundDuct.Tick)
   }
   system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
-    lila.mon.round.ductCount.update(rounds.size)
+    lila.mon.round.ductCount.update(rounds.size).unit
   }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
@@ -220,10 +220,9 @@ object RoundSocket {
         case _               => 1
       }
     } / {
-      import shogi.variant._
-      (pov.game.shogi.board.materialImbalance, pov.game.variant) match {
-        case (i, _) if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
-        case _                                                                    => 1
+      pov.game.shogi.board.materialImbalance match {
+        case i if (pov.color.sente && i <= -4) || (pov.color.gote && i >= 4) => 3
+        case _                                                               => 1
       }
     } / {
       if (pov.player.hasUser) 1 else 2
@@ -370,7 +369,7 @@ object RoundSocket {
             terminate(Game.Id(id))
           }
         }
-      )
+      ).unit
 
     def cancel(gameId: Game.Id): Unit =
       Option(terminations remove gameId.value).foreach(_.cancel())

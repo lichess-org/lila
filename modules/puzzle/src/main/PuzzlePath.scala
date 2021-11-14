@@ -1,10 +1,8 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
-import lila.memo.CacheApi
 import lila.user.User
 
 private object PuzzlePath {

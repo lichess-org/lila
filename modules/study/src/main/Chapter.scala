@@ -5,7 +5,7 @@ import shogi.variant.Variant
 import shogi.{ Centis, Color }
 import org.joda.time.DateTime
 
-import shogi.opening.{ FullOpening, FullOpeningDB }
+import shogi.opening.FullOpening
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 

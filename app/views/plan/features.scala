@@ -39,8 +39,8 @@ object features {
               "Correspondence shogi with conditional premoves"
             ),
             tr(check)(
-              "Standard shogi"
-              // a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
+              "Standard shogi and ",
+              a(href := routes.Page.variantHome())("shogi variants - WIP")
             ),
             tr(unlimited)(
               s"Instant local $engineName analysis"

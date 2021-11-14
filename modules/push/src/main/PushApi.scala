@@ -67,13 +67,13 @@ final private class PushApi(
           game.player.userId ?? { userId =>
             IfAway(pov) {
               asyncOpponentName(pov) flatMap { opponent =>
-                game.pgnMoves.lastOption ?? { sanMove =>
+                game.pgnMoves.lastOption ?? { _ =>
                   pushToAll(
                     userId,
                     _.move,
                     PushApi.Data(
                       title = "It's your turn!",
-                      body = s"$opponent played a move", // add notation to backend?
+                      body = s"$opponent played a move",
                       stacking = Stacking.GameMove,
                       payload = Json.obj(
                         "userId"   -> userId,

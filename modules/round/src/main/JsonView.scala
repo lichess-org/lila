@@ -11,7 +11,7 @@ import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
 import shogi.format.{ FEN, Forsyth }
-import shogi.{ Clock, Color }
+import shogi.Clock
 
 import actorApi.SocketStatus
 

@@ -43,7 +43,7 @@ final class Mailgun(
           }
         )
         .addFailureEffect {
-          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment()
+          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment().unit
           case _                            =>
         }
         .flatMap {

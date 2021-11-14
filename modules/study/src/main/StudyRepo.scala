@@ -125,7 +125,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
 
   def incViews(study: Study) = coll.map(_.incFieldUnchecked($id(study.id), F.views))
 
-  def updateNow(s: Study) =
+  def updateNow(s: Study): Funit =
     coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now))
 
   def addMember(study: Study, member: StudyMember): Funit =

@@ -2,7 +2,6 @@ package lila.study
 
 import scala.util.chaining._
 
-import shogi.format.FEN
 import shogi.format.kif.KifParser
 import shogi.format.csa.CsaParser
 import lila.game.{ Game, Namer }

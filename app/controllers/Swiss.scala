@@ -89,7 +89,7 @@ final class Swiss(
               err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
               data =>
                 tourC.rateLimitCreation(me, false, ctx.req) {
-                  env.swiss.api.create(data, me, teamId) map { swiss =>
+                  env.swiss.api.create(data, me, teamId) map { _ =>
                     Redirect(routes.Page.notSupported())
                   }
                 }

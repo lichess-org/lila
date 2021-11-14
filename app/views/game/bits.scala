@@ -71,8 +71,7 @@ object bits {
   def variantLink(
       variant: shogi.variant.Variant,
       perfType: Option[lila.rating.PerfType] = None,
-      initialFen: Option[shogi.format.FEN] = None,
-      //shortName: Boolean = false
+      initialFen: Option[shogi.format.FEN] = None
   )(implicit lang: Lang): Frag = {
     def link(
         href: String,
@@ -90,7 +89,7 @@ object bits {
       link(
         href = (variant match {
           case shogi.variant.FromPosition =>
-            s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
+            s"""${routes.Editor.index()}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
           case v => routes.Page.variant(v.key).url
         }),
         title = variant.title,
@@ -100,7 +99,7 @@ object bits {
       perfType match {
         case Some(Correspondence) =>
           link(
-            href = s"${routes.Main.faq}#correspondence",
+            href = s"${routes.Main.faq()}#correspondence",
             title = Correspondence.desc,
             name = Correspondence.trans
           )

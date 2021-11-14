@@ -93,6 +93,7 @@ object CacheApi {
     system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       lila.mon.caffeineStats(cache, name)
     }
+    .unit
 }
 
 final class BeafedAsync[K, V](val cache: AsyncCache[K, V]) extends AnyVal {

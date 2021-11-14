@@ -43,18 +43,18 @@ final class Env(
   lila.common.Bus.subscribeFun("adjustCheater", "finishGame", "shadowban", "setPermissions") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) =>
       api.toggleApproved(userId, false)
-      api.reviews deleteAllBy userId
+      api.reviews.deleteAllBy(userId).unit
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       api.toggleApproved(userId, false)
-      api.reviews deleteAllBy userId
+      api.reviews.deleteAllBy(userId).unit
     case lila.hub.actorApi.mod.SetPermissions(userId, permissions) =>
-      api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey))
+      api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey)).unit
     case lila.game.actorApi.FinishGame(game, sente, gote) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
         sente ?? api.setRating
         gote ?? api.setRating
-      }
-    case lila.user.User.GDPRErase(user) => api.reviews deleteAllBy user.id
+      }.unit
+    case lila.user.User.GDPRErase(user) => api.reviews.deleteAllBy(user.id).unit
   }
 
   def cli =

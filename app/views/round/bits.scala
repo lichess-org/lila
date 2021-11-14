@@ -3,7 +3,7 @@ package round
 
 import scala.util.chaining._
 
-import shogi.variant.{ Standard, Variant }
+import shogi.variant.Variant
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -28,7 +28,7 @@ object bits {
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        cssTag { "round.zh" }, // if (variant == Standard) "round.zh" else "round" },
+        cssTag { "round.zh" },
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),

@@ -3,16 +3,14 @@ package html.puzzle
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsObject, JsString, Json }
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ JsDump, MessageKey }
+import lila.i18n.MessageKey
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 object bits {
-
-  private val dataLastmove = attr("data-lastmove")
 
   def daily(p: lila.puzzle.Puzzle, fen: shogi.format.FEN, lastMove: String) =
     views.html.game.bits.miniTag(fen, p.color, lastMove)(span)
@@ -33,13 +31,13 @@ object bits {
 
   def pageMenu(active: String, days: Int = 30)(implicit lang: Lang) =
     st.nav(cls := "page-menu__menu subnav")(
-      a(href := routes.Puzzle.home)(
+      a(href := routes.Puzzle.home())(
         trans.puzzles()
       ),
       a(href := routes.Puzzle.show("tsume"))(
         trans.puzzleTheme.tsume()
       ),
-      a(cls := active.active("themes"), href := routes.Puzzle.themes)(
+      a(cls := active.active("themes"), href := routes.Puzzle.themes())(
         trans.puzzle.puzzleThemes()
       ),
       a(cls := active.active("dashboard"), href := routes.Puzzle.dashboard(days, "dashboard"))(

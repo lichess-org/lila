@@ -75,17 +75,18 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       rankingApi remove userId
-      repo.setRoles(userId, Nil)
+      repo.setRoles(userId, Nil).unit
     },
     "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
-      rankingApi remove userId
+      rankingApi.remove(userId).unit
     },
     "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
-      rankingApi remove userId
+      rankingApi.remove(userId).unit
     },
     "gdprErase" -> { case User.GDPRErase(user) =>
       repo erase user
       noteApi erase user
+      ()
     }
   )
 }

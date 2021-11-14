@@ -3,7 +3,6 @@ package lila.study
 import akka.stream.scaladsl._
 import shogi.format.Tags
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.db.AsyncColl

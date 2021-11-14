@@ -1,7 +1,7 @@
 package lila.round
 
 import shogi.format.{ Forsyth, Uci }
-import shogi.{ Centis, Color, MoveMetrics, MoveOrDrop, Status }
+import shogi.{ Centis, MoveMetrics, MoveOrDrop, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent

@@ -54,6 +54,7 @@ final class BoardApiHookStream(
             queue offer None
             self ! SetOnline
           }
+          .unit
       }
     }
 }

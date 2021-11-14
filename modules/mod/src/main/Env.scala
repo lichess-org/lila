@@ -89,7 +89,7 @@ final class Env(
       Props(new Actor {
         def receive = {
           case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
-            assessApi.onAnalysisReady(game, analysis)
+            assessApi.onAnalysisReady(game, analysis).unit
           case lila.game.actorApi.FinishGame(game, senteUserOption, goteUserOption) if !game.aborted =>
             import cats.implicits._
             (senteUserOption, goteUserOption) mapN { (senteUser, goteUser) =>
@@ -99,19 +99,19 @@ final class Env(
             if (game.status == shogi.Status.Cheat)
               game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
           case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
-            logApi.chatTimeout(mod, user, reason, text)
+            logApi.chatTimeout(mod, user, reason, text).unit
           case lila.hub.actorApi.security.GCImmediateSb(userId) =>
-            reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
-              reportApi.getLishogiMod map { mod =>
+            reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
+              reportApi.getLishogiMod foreach { mod =>
                 api.setTroll(mod, sus, true)
               }
             }
           case lila.hub.actorApi.security.GarbageCollect(userId) =>
-            reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
+            reportApi getSuspect userId orFail s"No such suspect $userId" foreach { sus =>
               api.garbageCollect(sus) >> publicChat.delete(sus)
             }
           case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
-            logApi.modMessage(User.lishogiId, userId, subject)
+            logApi.modMessage(User.lishogiId, userId, subject).unit
         }
       }),
       name = config.actorName

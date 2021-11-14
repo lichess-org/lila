@@ -44,13 +44,14 @@ final class Env(
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     api.autoStart >> api.autoFinishNotSyncing
+    ()
   }
 
   lila.common.Bus.subscribeFun("studyLikes", "study", "relayToggle") {
-    case lila.study.actorApi.StudyLikes(id, likes)       => api.setLikes(Relay.Id(id.value), likes)
-    case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
+    case lila.study.actorApi.StudyLikes(id, likes)       => api.setLikes(Relay.Id(id.value), likes).unit
+    case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId).unit
     case lila.study.actorApi.RelayToggle(id, v, who) =>
-      studyApi.isContributor(id, who.u) flatMap {
+      studyApi.isContributor(id, who.u) foreach {
         _ ?? {
           api.requestPlay(Relay.Id(id.value), v)
         }

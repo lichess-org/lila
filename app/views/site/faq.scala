@@ -10,8 +10,6 @@ object faq {
 
   import trans.faq._
 
-  private val fideHandbook = "http://www.shogi.net/fesa/pdf/FESA%20rules.pdf"
-
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,

@@ -1,6 +1,7 @@
 package lila.security
 
 import play.api.i18n.Lang
+import cats.implicits._
 
 import lila.common.EmailAddress
 import lila.common.config.BaseUrl
@@ -41,13 +42,10 @@ ${Mailgun.txt.serviceNote}
     for {
       user        <- userRepo named username orFail s"No such user $username"
       emailOption <- userRepo email user.id
-    } yield for {
-      title <- user.title
-      email <- emailOption
-    } yield {
-      implicit val lang = userLang(user)
+      _ <- ~(user.title, emailOption).mapN { case (title, email) =>
+        implicit val lang = userLang(user)
 
-      val body = s"""Hello,
+        val body = s"""Hello,
 
 Your $title title was confirmed.
 It is now visible on your profile page: ${baseUrl}/@/${user.username}.
@@ -57,19 +55,20 @@ Thank you for using lishogi.org.
 $regards
 """
 
-      lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
+        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
 
-      mailgun send Mailgun.Message(
-        to = email,
-        subject = s"$title title confirmed on lishogi.org",
-        text = s"""
+        mailgun send Mailgun.Message(
+          to = email,
+          subject = s"$title title confirmed on lishogi.org",
+          text = s"""
 $body
 
 ${Mailgun.txt.serviceNote}
 """,
-        htmlBody = standardEmail(body).some
-      )
-    }
+          htmlBody = standardEmail(body).some
+        )
+      }
+    } yield ()
 
   def onBecomeCoach(user: User): Funit =
     userRepo email user.id flatMap {
@@ -102,9 +101,9 @@ ${Mailgun.txt.serviceNote}
     for {
       user        <- userRepo named userId orFail s"No such user $userId"
       emailOption <- userRepo email user.id
-    } yield emailOption ?? { email =>
-      implicit val lang = userLang(user)
-      val body          = s"""Hello,
+      _ <- emailOption.?? { email =>
+        implicit val lang = userLang(user)
+        val body          = s"""Hello,
 
 Here is your private fishnet key:
 
@@ -118,19 +117,20 @@ Thank you very much for your help! Thanks to you, shogi lovers all around the wo
 $regards
 """
 
-      lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
+        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
 
-      mailgun send Mailgun.Message(
-        to = email,
-        subject = "Your private fishnet key",
-        text = s"""
+        mailgun send Mailgun.Message(
+          to = email,
+          subject = "Your private fishnet key",
+          text = s"""
 $body
 
 ${Mailgun.txt.serviceNote}
 """,
-        htmlBody = standardEmail(body).some
-      )
-    }
+          htmlBody = standardEmail(body).some
+        )
+      }
+    } yield ()
 
   def onAppealReply(user: User): Funit = {
     val body = s"""Hello,

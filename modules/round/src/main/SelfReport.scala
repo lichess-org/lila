@@ -47,7 +47,7 @@ final class SelfReport(
               .info(
                 s"$ip https://lishogi.org/$fullId ${user.fold("anon")(_.id)} $name"
               )
-            user.filter(recent.isNew(_, fullId)) ?? { u =>
+            user.filter(recent.isNew(_, fullId)) foreach { u =>
               slackApi.selfReport(
                 typ = name,
                 path = fullId.value,
@@ -58,7 +58,7 @@ final class SelfReport(
           }
         if (fullId.value == "________") fuccess(doLog())
         else
-          proxyRepo.pov(fullId.value) map {
+          proxyRepo.pov(fullId.value) flatMap {
             _ ?? { pov =>
               if (!known) doLog()
               if (Set("ceval", "rcb", "ccs")(name)) fuccess {

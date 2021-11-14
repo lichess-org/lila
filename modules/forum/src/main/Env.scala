@@ -61,7 +61,7 @@ final class Env(
   lazy val recent                           = wire[Recent]
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
-    case CreateTeam(id, name, _)        => categApi.makeTeam(id, name)
-    case lila.user.User.GDPRErase(user) => postApi erase user
+    case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
+    case lila.user.User.GDPRErase(user) => postApi.erase(user).unit
   }
 }

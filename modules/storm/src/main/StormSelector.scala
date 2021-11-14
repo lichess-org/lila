@@ -1,10 +1,8 @@
 package lila.storm
 
-import reactivemongo.api.bson.BSONNull
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
@@ -126,7 +124,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       (0 to poolSize by 10) foreach { i =>
         val slice = rest drop i take 10
         lila.common.Maths.mean(slice.map(_.rating)) foreach { r =>
-          lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
+          lila.mon.storm.selector.ratingSlice(i).record(r.toInt).unit
         }
       }
       colls.puzzle {
@@ -135,7 +133,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           $inc("storm" -> 1),
           multi = true
         )
-      }
+      }.unit
     }
   }
 }

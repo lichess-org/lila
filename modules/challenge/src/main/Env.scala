@@ -51,6 +51,6 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   system.scheduler.scheduleWithFixedDelay(10 seconds, 3 seconds) { () =>
-    api.sweep
+    api.sweep.unit
   }
 }

@@ -46,8 +46,8 @@ final class Env(
     Props(new Actor {
       import lila.team.actorApi._
       def receive = {
-        case InsertTeam(team) => api store team
-        case RemoveTeam(id)   => client deleteById Id(id)
+        case InsertTeam(team) => api.store(team).unit
+        case RemoveTeam(id)   => client.deleteById(Id(id)).unit
       }
     }),
     name = config.actorName

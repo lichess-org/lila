@@ -91,11 +91,11 @@ final class EventStream(
               queue offer None
               self ! SetOnline
             }
-          }
+          }.unit
 
-        case StartGame(game) => queue offer toJson(game).some
+        case StartGame(game) => queue.offer(toJson(game).some).unit
 
-        case lila.challenge.Event.Create(c) if c.destUserId has me.id => queue offer toJson(c).some
+        case lila.challenge.Event.Create(c) if c.destUserId has me.id => queue.offer(toJson(c).some).unit
 
         // pretend like the rematch is a challenge
         case lila.hub.actorApi.round.RematchOffer(gameId) =>

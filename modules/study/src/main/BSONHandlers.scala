@@ -6,7 +6,6 @@ import shogi.{ Centis, Piece, Pos, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
-import scala.util.Try
 
 import lila.common.Iso
 import lila.db.BSON

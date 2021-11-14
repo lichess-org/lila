@@ -53,6 +53,6 @@ final class Env(
   system.actorOf(Props(wire[Push]), name = config.userActorName)
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-    entryApi removeRecentFollowsBy userId
+    entryApi.removeRecentFollowsBy(userId).unit
   }
 }

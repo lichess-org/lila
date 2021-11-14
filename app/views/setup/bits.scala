@@ -28,7 +28,7 @@ private object bits {
       frag(
         div(cls := "handicap label_select")(
           renderLabel(form("handicap"), trans.handicap.txt()),
-          renderSelect(form("handicap"), handicapChoices, (a, b) => a == "default"),
+          renderSelect(form("handicap"), handicapChoices, (a, _) => a == "default"),
           a(
             cls := "button button-empty",
             dataIcon := "",

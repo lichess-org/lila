@@ -2,21 +2,18 @@ package lila.fishnet
 
 import akka.actor._
 import akka.pattern.ask
-import java.util.concurrent.TimeUnit
 import org.joda.time.DateTime
-import play.api.Logger
 import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext, Future }
 
-import lila.hub.actorApi.map.{ Tell, TellAll }
-import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
-import lila.common.{ Bus, Lilakka }
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.FishnetPlay
+import lila.common.Bus
 
 final class MoveDB(implicit system: ActorSystem) {
 
   import Work.Move
 
-  implicit private val timeout = new akka.util.Timeout(20.seconds) //2
+  implicit private val timeout = new akka.util.Timeout(20.seconds)
 
   def add(move: Move) = {
     actor ! Add(move)
@@ -30,13 +27,12 @@ final class MoveDB(implicit system: ActorSystem) {
       workId: Work.Id,
       client: Client,
       data: JsonApi.Request.PostMove
-  ) {
+  ): Unit = {
     actor ! PostResult(workId, client, data)
   }
 
-  def clean = actor ? Clean mapTo manifest[Iterable[Move]]
+  def clean(): Fu[Iterable[Move]] = actor ? Clean mapTo manifest[Iterable[Move]]
 
-  private object Mon
   private object Clean
   private case class Add(move: Move)
   private case class Acquire(client: Client)
@@ -84,21 +80,21 @@ final class MoveDB(implicit system: ActorSystem) {
       case PostResult(workId, client, data) => {
         coll get workId match {
           case None =>
-            Monitor.notFound(workId, client)
+            Monitor.notFound(workId, client).unit
           case Some(move) if move isAcquiredBy client =>
             data.move.uci match {
               case Some(uci) =>
                 coll -= move.id
-                Monitor.move(move, client)
+                Monitor.move(move, client).unit
                 Bus.publish(Tell(move.game.id, FishnetPlay(uci, move.game.ply)), "roundSocket")
               case _ =>
                 sender() ! None
                 updateOrGiveUp(move.invalid)
-                Monitor.failure(move, client, new Exception("Missing move"))
+                Monitor.failure(move, client, new Exception("Missing move")).unit
             }
           case Some(move) =>
             sender() ! None
-            Monitor.notAcquired(move, client)
+            Monitor.notAcquired(move, client).unit
         }
       }
 

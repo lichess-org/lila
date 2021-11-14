@@ -2,7 +2,6 @@ package lila.swiss
 
 import shogi.{ Color, Gote, Sente }
 import org.joda.time.DateTime
-import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.game.Game

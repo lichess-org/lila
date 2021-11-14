@@ -1,8 +1,6 @@
 package lila.analyse
 
-import shogi.format.{ Glyphs, Notation, Tag }
-import shogi.opening._
-import shogi.{ Color, Status }
+import shogi.format.Notation
 
 final class Annotator {
 

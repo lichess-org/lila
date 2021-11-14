@@ -54,7 +54,7 @@ final class DuctConcMap[D <: Duct](
         lastWill(d)
         nullD
       }
-    )
+    ).unit
 
   private[this] val ducts = new ConcurrentHashMap[String, D](initialCapacity)
 

@@ -1,7 +1,6 @@
 package lila.tournament
 
 import shogi.{ Color, Gote, Sente }
-import scala.util.chaining._
 
 import lila.game.{ Game, Player => GamePlayer, GameRepo, Source }
 import lila.user.User

@@ -30,7 +30,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     }
 
   def queue =
-    Secure(_.Appeals) { implicit ctx => me =>
+    Secure(_.Appeals) { implicit ctx => _ =>
       env.appeal.api.queue zip env.report.api.inquiries.allBySuspect zip reportC.getCounts flatMap {
         case ((appeals, inquiries), ((counts, streamers), nbAppeals)) =>
           (env.user.lightUserApi preloadMany appeals.map(_.id)) inject
@@ -39,7 +39,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     }
 
   def show(username: String) =
-    Secure(_.Appeals) { implicit ctx => me =>
+    Secure(_.Appeals) { implicit ctx => _ =>
       asMod(username) { (appeal, suspect) =>
         env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
           Ok(html.appeal2.show(appeal, suspect, inquiry, env.appeal.forms.text))
@@ -68,8 +68,8 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     }
 
   def act(username: String, action: String) =
-    Secure(_.Appeals) { implicit ctx => me =>
-      asMod(username) { (appeal, suspect) =>
+    Secure(_.Appeals) { implicit ctx => _ =>
+      asMod(username) { (appeal, _) =>
         val res = action match {
           case "close" => env.appeal.api.close(appeal)
           case "open"  => env.appeal.api.open(appeal)

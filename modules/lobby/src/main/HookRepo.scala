@@ -32,7 +32,7 @@ private object HookRepo {
 
   def bySri(sri: Sri) = hooks find (_.sri == sri)
 
-  def bySid(sid: String) = hooks find (_.sid == sid.some)
+  def bySid(sid: String) = hooks find (_.sid has sid)
 
   def notInSris(sris: Set[Sri]): Vector[Hook] = hooks.filterNot(h => sris(h.sri))
 

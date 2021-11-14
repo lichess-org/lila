@@ -86,7 +86,7 @@ final class EntryApi(
         .buildAsyncFuture(_ => fetch)
     }
 
-    def cacheGet = cache.synchronous().get()
+    def cacheGet = cache.synchronous().get {}
 
     private def fetch: Fu[Vector[Entry]] =
       coll.ext

@@ -1,6 +1,5 @@
 package views.html.analyse
 
-import shogi.variant.Standard
 import shogi.format.Tag
 import play.api.i18n.Lang
 import play.api.libs.json.Json

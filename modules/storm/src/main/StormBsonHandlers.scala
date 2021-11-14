@@ -1,6 +1,6 @@
 package lila.storm
 
-import shogi.format.{ FEN, Uci }
+import shogi.format.Uci
 import reactivemongo.api.bson._
 
 import lila.db.dsl._

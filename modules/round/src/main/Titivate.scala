@@ -28,14 +28,14 @@ final private[round] class Titivate(
   object Run
 
   override def preStart(): Unit = {
-    scheduleNext
+    scheduleNext()
     context setReceiveTimeout 30.seconds
   }
 
   implicit def ec = context.system.dispatcher
   def scheduler   = context.system.scheduler
 
-  def scheduleNext = scheduler.scheduleOnce(5 seconds, self, Run)
+  def scheduleNext(): Unit = scheduler.scheduleOnce(5 seconds, self, Run).unit
 
   def receive = {
     case ReceiveTimeout =>
@@ -44,7 +44,7 @@ final private[round] class Titivate(
       throw new RuntimeException(msg)
 
     case Run =>
-      gameRepo.count(_.checkable).flatMap { total =>
+      gameRepo.count(_.checkable) foreach { total =>
         lila.mon.round.titivate.total.record(total)
         gameRepo
           .docCursor(Query.checkable)
@@ -53,7 +53,7 @@ final private[round] class Titivate(
           .via(gameFlow)
           .toMat(LilaStream.sinkCount)(Keep.right)
           .run()
-          .addEffect(lila.mon.round.titivate.game.record(_))
+          .addEffect(lila.mon.round.titivate.game.record(_).unit)
           .>> {
             gameRepo
               .count(_.checkableOld)
@@ -61,7 +61,7 @@ final private[round] class Titivate(
           }
           .monSuccess(_.round.titivate.time)
           .logFailure(logBranch)
-          .addEffectAnyway(scheduleNext)
+          .addEffectAnyway(scheduleNext().unit)
       }
   }
 

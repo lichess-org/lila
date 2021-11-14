@@ -2,8 +2,6 @@ package views.html.board
 
 import play.api.libs.json.{ JsObject, Json }
 
-import shogi.variant.Standard
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._

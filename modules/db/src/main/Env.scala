@@ -30,6 +30,6 @@ final class Env(
     )
 
   Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Closing mongodb driver") { () =>
-    driver.close() inject akka.Done
+    driver.close()
   }
 }

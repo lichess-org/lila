@@ -28,7 +28,6 @@ object side {
               tour.clock.show,
               separator,
               views.html.game.bits.variantLink(tour.variant, tour.perfType),
-              //views.html.game.bits.variantLink(tour.variant, tour.perfType, shortName = true),
               (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString

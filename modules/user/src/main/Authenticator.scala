@@ -52,7 +52,7 @@ final class Authenticator(
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
     val res = compare(auth, p)
     if (res && auth.salt.isDefined)
-      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate.increment()
+      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate.increment().unit
     res
   }
 

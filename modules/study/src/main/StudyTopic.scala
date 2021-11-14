@@ -1,7 +1,6 @@
 package lila.study
 
 import play.api.libs.json._
-import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
@@ -152,7 +151,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     recomputeWorkQueue(Future.makeItLast(60 seconds)(recomputeNow)).recover {
       case _: lila.hub.BoundedDuct.EnqueueException => ()
       case e: Exception                             => logger.warn("Can't recompute study topics!", e)
-    }
+    }.unit
 
   private def recomputeNow: Funit =
     studyRepo.coll {

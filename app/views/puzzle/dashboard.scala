@@ -18,7 +18,6 @@ object dashboard {
   private val baseClass      = "puzzle-dashboard"
   private val metricClass    = s"${baseClass}__metric"
   private val themeClass     = s"${baseClass}__theme"
-  private val dataWinPercent = attr("data-win-percent")
 
   def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(
@@ -131,7 +130,7 @@ object dashboard {
           ),
           dashOpt.flatMap(body) |
             div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home)("Nothing to show, go play some puzzles first!")
+              a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
             )
         )
       )

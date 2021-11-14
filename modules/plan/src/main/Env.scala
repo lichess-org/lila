@@ -77,7 +77,7 @@ final class Env(
   )
 
   system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
-    expiration.run
+    expiration.run.unit
   }
 
   def webhook = webhookHandler.apply _

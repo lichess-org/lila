@@ -1,6 +1,5 @@
 package lila.study
 
-import shogi.Centis
 import shogi.Pos
 import lila.tree.Node.{ Shape, Shapes }
 

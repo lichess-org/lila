@@ -1,10 +1,9 @@
 package lila.round
 
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.pref.{ Pref, PrefApi }
+import lila.pref.PrefApi
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 
-import shogi.Centis
 import lila.common.Bus
 
 final private[round] class Drawer(
@@ -67,6 +66,6 @@ final private[round] class Drawer(
           s"boardDrawOffer:${pov.gameId}"
         )
       )
-    }
+    }.unit
   }
 }

@@ -42,7 +42,9 @@ final class GarbageCollector(
             logger = none
           )
           .nevermind >> apply(applyData)
+        ()
       }
+      .unit
     }
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
@@ -57,30 +59,31 @@ final class GarbageCollector(
         for {
           spy    <- userSpy(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
-        } yield {
-          val printOpt = spy.prints.headOption
-          logger.debug(s"apply ${data.user.username} print=${printOpt}")
-          Bus.publish(
-            lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
-            "userSignup"
-          )
-          printOpt.filter(_.banned).map(_.fp.value) match {
-            case Some(print) => collect(user, email, msg = s"Print ban: ${print.value}")
-            case _ =>
-              badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-                logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-                lila.common.Future
-                  .exists(spy.ips)(ipTrust.isSuspicious)
-                  .map {
-                    _ ?? collect(
-                      user,
-                      email,
-                      msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
-                    )
-                  }
-              }
+          _ <- {
+            val printOpt = spy.prints.headOption
+            logger.debug(s"apply ${data.user.username} print=$printOpt")
+            Bus.publish(
+              lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
+              "userSignup"
+            )
+            printOpt.filter(_.banned).map(_.fp.value) match {
+              case Some(print) => collect(user, email, msg = s"Print ban: ${print.value}")
+              case _ =>
+                badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+                  logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
+                  lila.common.Future
+                    .exists(spy.ips)(ipTrust.isSuspicious)
+                    .map {
+                      _ ?? collect(
+                        user,
+                        email,
+                        msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
+                      )
+                    }
+                }
+            }
           }
-        }
+        } yield ()
     }
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] = {
@@ -108,6 +111,7 @@ final class GarbageCollector(
           system.scheduler.scheduleOnce(wait) {
             doCollect(user)
           }
+          .unit
         }
       }
     }

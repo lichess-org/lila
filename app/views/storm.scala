@@ -49,7 +49,7 @@ object storm {
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Page.storm)("About Tsume Storm")
+          a(href := routes.Page.storm())("About Tsume Storm")
         )
       )
     }
@@ -91,7 +91,7 @@ object storm {
             renderHigh(high)
           )
         ),
-        a(cls := "storm-play-again button", href := routes.Storm.home)(trans.storm.playAgain()),
+        a(cls := "storm-play-again button", href := routes.Storm.home())(trans.storm.playAgain()),
         div(cls := "storm-dashboard__history box")(
           table(cls := "slist slist-pad")(
             thead(

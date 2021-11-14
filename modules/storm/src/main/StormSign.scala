@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.LoadingCache
 import com.roundeights.hasher.Algo
 import scala.concurrent.duration._
 
-import lila.common.config
 import lila.common.config.Secret
 import lila.common.ThreadLocalRandom
 import lila.common.Uptime

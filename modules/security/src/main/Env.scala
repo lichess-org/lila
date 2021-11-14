@@ -136,15 +136,18 @@ final class Env(
   lazy val spam = new Spam(spamKeywordsSetting.get _)
 
   scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
-  scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
-    () =>
-      disposableEmailDomain.refresh()
+  scheduler.scheduleWithFixedDelay(
+    config.disposableEmail.refreshDelay,
+    config.disposableEmail.refreshDelay
+  ) { () =>
+    disposableEmailDomain.refresh()
   }
 
   lazy val tor: Tor = wire[Tor]
-  scheduler.scheduleOnce(31 seconds)(tor.refresh(_ => funit))
+  scheduler.scheduleOnce(31 seconds)(tor.refresh.unit)
   scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
-    tor.refresh(firewall.unblockIps)
+    tor.refresh flatMap firewall.unblockIps
+    ()
   }
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
@@ -156,6 +159,6 @@ final class Env(
   def cli = wire[Cli]
 
   Bus.subscribeFun("fishnet") { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
-    automaticEmail.onFishnetKey(userId, key)
+    automaticEmail.onFishnetKey(userId, key).unit
   }
 }

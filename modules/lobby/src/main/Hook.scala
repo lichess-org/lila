@@ -2,7 +2,6 @@ package lila.lobby
 
 import shogi.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.i18n.Lang
 import play.api.libs.json._
 

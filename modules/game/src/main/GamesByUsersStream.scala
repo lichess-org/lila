@@ -33,8 +33,8 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
           case _                        => false
         }
       val sub = Bus.subscribeFun(chans: _*) {
-        case StartGame(game) if matches(game)        => queue offer game
-        case FinishGame(game, _, _) if matches(game) => queue offer game
+        case StartGame(game) if matches(game)        => queue.offer(game).unit
+        case FinishGame(game, _, _) if matches(game) => queue.offer(game).unit
       }
       queue.watchCompletion().foreach { _ =>
         Bus.unsubscribe(sub, chans)

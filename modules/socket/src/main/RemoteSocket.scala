@@ -49,14 +49,14 @@ final class RemoteSocket(
 
   val baseHandler: Handler = {
     case In.ConnectUser(userId) =>
-      onlineUserIds.getAndUpdate((x: UserIds) => x + userId)
+      onlineUserIds.getAndUpdate(_ + userId).unit
     case In.DisconnectUsers(userIds) =>
-      onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
+      onlineUserIds.getAndUpdate(_ -- userIds).unit
     case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online
-      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
+      onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys).unit
     case In.TellSri(sri, userId, typ, msg) =>
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
@@ -72,6 +72,7 @@ final class RemoteSocket(
           null // remove from promises
         }
       )
+      .unit
   }
 
   Bus.subscribeFun(
@@ -113,7 +114,7 @@ final class RemoteSocket(
 
   final class StoppableSender(conn: StatefulRedisPubSubConnection[String, String], channel: Channel)
       extends Sender {
-    def apply(msg: String): Unit = if (!stopping) conn.async.publish(channel, msg)
+    def apply(msg: String): Unit = if (!stopping) conn.async.publish(channel, msg).unit
   }
 
   def makeSender(channel: Channel): Sender = new StoppableSender(redisClient.connectPubSub(), channel)

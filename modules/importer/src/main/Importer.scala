@@ -1,7 +1,5 @@
 package lila.importer
 
-import shogi.format.FEN
-import cats.data.Validated
 
 import lila.game.{ Game, GameRepo }
 

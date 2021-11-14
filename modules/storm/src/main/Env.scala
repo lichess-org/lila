@@ -35,7 +35,7 @@ final class Env(
 
   lila.common.Bus.subscribeFuns(
     "gdprErase" -> { case lila.user.User.GDPRErase(user) =>
-      dayApi.eraseAllFor(user)
+      dayApi.eraseAllFor(user).unit
     }
   )
 }

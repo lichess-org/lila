@@ -31,7 +31,7 @@ final class ModStream {
   def apply(): Source[String, _] =
     blueprint mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(classifier) { case signup: UserSignup =>
-        queue offer signup
+        queue.offer(signup).unit
       }
 
       queue.watchCompletion() dforeach { _ =>

@@ -2,7 +2,6 @@ package lila.storm
 
 import play.api.libs.json._
 
-import lila.common.Json._
 import lila.user.User
 import org.joda.time.format.DateTimeFormat
 

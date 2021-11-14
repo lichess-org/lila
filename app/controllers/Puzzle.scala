@@ -12,7 +12,7 @@ import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Result, PuzzleRound, PuzzleDifficulty, PuzzleReplay, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleDifficulty, PuzzleReplay, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -366,7 +366,7 @@ final class Puzzle(
 
   /* Mobile API: select a bunch of puzzles for offline use */
   def mobileBcBatchSelect =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       negotiate(
         html = notFound,
         api = v => {

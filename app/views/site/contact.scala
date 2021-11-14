@@ -233,7 +233,7 @@ object contact {
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home)("lishogi.org", routes.Appeal.home.url))),
+          p(sendAppealTo(a(href := routes.Appeal.home())("lishogi.org", routes.Appeal.home().url))),
           p(
             falsePositives(),
             br,

@@ -89,7 +89,7 @@ final private class EventBus[Event, Channel, Subscriber](
         (_: Channel, subs: Set[Subscriber]) => {
           Option(subs).fold(Set(subscriber))(_ + subscriber)
         }
-      )
+      ).unit
 
   def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
@@ -100,7 +100,7 @@ final private class EventBus[Event, Channel, Subscriber](
           if (newSubs.isEmpty) null
           else newSubs
         }
-      )
+      ).unit
 
   def publish(event: Event, channel: Channel): Unit =
     Option(entries get channel) foreach {

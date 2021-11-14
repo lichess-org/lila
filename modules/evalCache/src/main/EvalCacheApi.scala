@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import shogi.format.{ FEN, Forsyth }
+import shogi.format.FEN
 import shogi.variant.Variant
 import lila.db.dsl._
 import lila.memo.CacheApi._
@@ -77,7 +77,7 @@ final class EvalCacheApi(
         logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
         funit
       case None =>
-        getEntry(input.id) map {
+        getEntry(input.id) flatMap {
           case None =>
             val entry = EvalCacheEntry(
               _id = input.id,
@@ -85,7 +85,7 @@ final class EvalCacheApi(
               evals = List(input.eval),
               usedAt = DateTime.now
             )
-            coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
+            coll.insert.one(entry).recover(lila.db.ignoreDuplicateKey).void >>-
               cache.put(input.id, fuccess(entry.some)) >>-
               upgrade.onEval(input, sri)
           case Some(oldEntry) =>

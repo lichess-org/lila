@@ -25,6 +25,7 @@ final private[plan] class PlanNotifier(
             lila.notify.PlanStart(user.id)
           )
         )
+        .unit
       }
       val msg = Propagate(lila.hub.actorApi.timeline.PlanStart(user.id))
       timeline ! (msg toFollowersOf user.id)

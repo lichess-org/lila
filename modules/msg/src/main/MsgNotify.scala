@@ -59,10 +59,10 @@ final private class MsgNotify(
         Option(canc).foreach(_.cancel())
         scheduler.scheduleOnce(delay) {
           delayed remove id
-          doNotify(threadId)
+          doNotify(threadId).unit
         }
       }
-    )
+    ).unit
 
   private def cancel(threadId: MsgThread.Id): Boolean =
     Option(delayed remove threadId).map(_.cancel()).isDefined
@@ -78,7 +78,7 @@ final private class MsgNotify(
             Notification.Notifies(dest),
             PrivateMessage(
               PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 80))
+              PrivateMessage.Text(shorten(msg.text, 40))
             )
           )
         }

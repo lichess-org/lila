@@ -109,6 +109,7 @@ object KifParserHelper {
     }
   }
 
+  // supporting only handicaps for standard shogi
   private def parseHandicap(str: String): Validated[String, Situation] =
     for {
       hPosition <- StartingPosition.searchByEco(str) toValid s"Unknown handicap: $str"

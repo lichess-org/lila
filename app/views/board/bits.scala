@@ -1,6 +1,5 @@
 package views.html.board
 
-import shogi.format.FEN
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 

@@ -150,7 +150,7 @@ final class RelationApi(
               countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
               timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
               Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
-              lila.mon.relation.follow.increment()
+              lila.mon.relation.follow.increment().unit
             }
         }
     }
@@ -191,7 +191,7 @@ final class RelationApi(
               lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
               "socketUsers"
             )
-            lila.mon.relation.block.increment()
+            lila.mon.relation.block.increment().unit
           }
       }
     }
@@ -204,7 +204,7 @@ final class RelationApi(
             countFollowersCache.update(u2, _ - 1)
             countFollowingCache.update(u1, _ - 1)
             Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
-            lila.mon.relation.unfollow.increment()
+            lila.mon.relation.unfollow.increment().unit
           }
         case _ => funit
       }
@@ -222,7 +222,7 @@ final class RelationApi(
               lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
               "socketUsers"
             )
-            lila.mon.relation.unblock.increment()
+            lila.mon.relation.unblock.increment().unit
           }
         case _ => funit
       }

@@ -83,12 +83,12 @@ final private class GameProxy(
       p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
     )
 
-  private def scheduleFlushProgress() = {
+  private def scheduleFlushProgress(): Unit = {
     scheduledFlush.cancel()
-    scheduledFlush = scheduler.scheduleOnce(scheduleDelay) { flushProgress() }
+    scheduledFlush = scheduler.scheduleOnce(scheduleDelay) { flushProgress().unit }
   }
 
-  private def flushProgress() = {
+  private def flushProgress(): Funit = {
     scheduledFlush.cancel()
     dirtyProgress ?? gameRepo.update addEffect { _ =>
       dirtyProgress = none

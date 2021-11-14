@@ -212,7 +212,7 @@ object WMMatching {
             else g(w)
           }
         }
-        if (b < nvertex) f(b) else g(b)
+        if (b < nvertex) f(b): Unit else g(b)
       }
     }
 

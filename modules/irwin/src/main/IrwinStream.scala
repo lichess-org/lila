@@ -21,7 +21,7 @@ final class IrwinStream {
     blueprint mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(channel) { case req: IrwinRequest =>
         lila.mon.mod.irwin.streamEventType("request").increment()
-        queue offer req
+        queue.offer(req).unit
       }
 
       queue.watchCompletion() dforeach { _ =>

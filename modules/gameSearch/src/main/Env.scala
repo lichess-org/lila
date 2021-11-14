@@ -39,7 +39,7 @@ final class Env(
   lazy val userGameSearch = wire[UserGameSearch]
 
   lila.common.Bus.subscribeFun("finishGame", "gameSearchInsert") {
-    case FinishGame(game, _, _) if !game.aborted => api store game
-    case InsertGame(game)                        => api store game
+    case FinishGame(game, _, _) if !game.aborted => api.store(game).unit
+    case InsertGame(game)                        => api.store(game).unit
   }
 }

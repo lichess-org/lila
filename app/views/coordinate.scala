@@ -7,7 +7,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.pref.Pref.Color
-import play.api.i18n.Lang
 
 import controllers.routes
 

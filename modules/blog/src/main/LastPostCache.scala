@@ -36,7 +36,6 @@ final class LastPostCache(
         }
       })
     } addEffect maybeNotifyLastPost map { _.flatten }
-    miniPosts.map { m => }
     miniPosts
   }
 

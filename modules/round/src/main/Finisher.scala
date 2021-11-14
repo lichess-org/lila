@@ -30,7 +30,7 @@ final private class Finisher(
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>-
-      winner.?? { color =>
+      winner.foreach { color =>
         playban.rageQuit(game, !color)
       }
 
@@ -43,7 +43,7 @@ final private class Finisher(
     } else {
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
-        winner.?? { w =>
+        winner.foreach { w =>
           playban.flag(game, !w)
         }
     }
@@ -63,7 +63,7 @@ final private class Finisher(
       winner: Option[Color],
       message: Option[String] = None
   )(implicit proxy: GameProxy): Fu[Events] =
-    apply(game, status, winner, message) >>- playban.other(game, status, winner)
+    apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
   private def recordLagStats(game: Game): Unit =
     for {

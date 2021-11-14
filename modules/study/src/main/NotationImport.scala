@@ -4,9 +4,7 @@ import cats.data.Validated
 
 import shogi.format.pgn.Dumper
 import shogi.format.{ FEN, Forsyth, Glyphs, ParsedMove, ParsedNotation, Tags, Uci, UciCharPair }
-import shogi.Replay
 
-import shogi.Centis
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
