@@ -757,6 +757,8 @@
   <string name="inTheFAQ">प्रायः सोधिने प्रश्नहरूमा</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">चोरी वा खराब ब्यहोराको उजुरी गर्नुपरेमा %1$s</string>
   <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
+  <string name="toRequestSupport">मद्दतका लागि अनुरोध गर्न, %1$s</string>
+  <string name="tryTheContactPage">सम्पर्क पेजबाट प्रयास गर्नुहोस्</string>
   <string name="thisTopicIsArchived">यो विषय सङ्गृहीत छ र यसलाई जवाफ दिन सकिँदैन।</string>
   <string name="teamNamedX">%1$s टोली</string>
   <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
