@@ -259,6 +259,7 @@
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
+  <string name="thisAccountViolatedTos">यस खाताले Lichess Terms of Service को उल्लङ्घन गरेको छ</string>
   <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
@@ -478,6 +479,7 @@
   <string name="clockInitialTime">घडीको शुरु समय</string>
   <string name="clockIncrement">हरेक चालमा थप हुने समय</string>
   <string name="privacy">गोपनियता</string>
+  <string name="privacyPolicy">गोप्यता नीति</string>
   <string name="letOtherPlayersFollowYou">अरु खेलाडीलाई पछ्याउन दिने</string>
   <string name="letOtherPlayersChallengeYou">अरु खेलाडी लाई खेलको निम्तो दिन दिने</string>
   <string name="letOtherPlayersInviteYouToStudy">अरु खेलाडीलाई पाठ मा आमन्त्रण गर्न दिने</string>
