@@ -1,14 +1,15 @@
 import { Role, Square, Color } from 'shogiops/types';
-import { lishogiCharToRole, parseChessSquare } from 'shogiops/compat';
+import { lishogiCharToRole, lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
 import { squareFile, squareRank, makeSquare, opposite } from 'shogiops/util';
-import { parseFen, makeFen } from 'shogiops/fen';
+import { parseFen } from 'shogiops/fen';
 import { SquareSet } from 'shogiops/squareSet';
-import { Shogi } from 'shogiops/shogi';
+import { setupPosition } from 'shogiops/variant';
 
 export interface ExtendedMoveInfo {
   san: string;
   uci: string;
   fen: string;
+  variant?: VariantKey;
 }
 
 export const enum Notation {
@@ -144,10 +145,11 @@ function westernShogiNotation2(move: ExtendedMoveInfo): string {
 function japaneseShogiNotation(move: ExtendedMoveInfo): string {
   const parsed = parseMove(move.san, move.uci);
   const piece = JAPANESE_ROLE_SYMBOLS[parsed.role];
-  const dropped = parsed.drop && isDropAmbiguos(move.fen, parsed.role, parsed.dest) ? '打' : '';
+  const dropped =
+    parsed.drop && isDropAmbiguos(move.variant ?? 'standard', move.fen, parsed.role, parsed.dest) ? '打' : '';
   const color = opposite(fenColor(move.fen));
   const ambiguity = sanContainsOrigin(move.san)
-    ? resolveAmbiguity(move.fen, parsed.role, parsed.orig, parsed.dest)
+    ? resolveAmbiguity(move.variant ?? 'standard', move.fen, parsed.role, parsed.orig, parsed.dest)
     : '';
   const dest = `${FULL_WIDTH_NUMBER_FILE_RANKS[squareFile(parsed.dest)]}${
     JAPANESE_NUMBER_RANKS[squareRank(parsed.dest)]
@@ -170,8 +172,8 @@ interface Resolution {
 }
 
 // assumes sente orientation for simplicity
-function resolveAmbiguity(fen: string, role: Role, orig: Square, dest: Square): string {
-  const ambiguous = getAmbiguousPieces(fen, role, dest, orig);
+function resolveAmbiguity(variant: VariantKey, fen: string, role: Role, orig: Square, dest: Square): string {
+  const ambiguous = getAmbiguousPieces(variant, fen, role, dest, orig);
   const resolution = explicitDirection(orig, dest, ambiguous);
   return distinctionToSymbol(
     role,
@@ -268,26 +270,24 @@ function relativeVerticalPosition(sq: Square, dest: Square): vertical {
   return destRank === sRank ? 'same' : destRank > sRank ? 'up' : 'down';
 }
 
-function getAmbiguousPieces(fen: string, role: Role, dest: Square, orig?: Square): SquareSet {
-  const previousFen = undoMove(fen, dest, orig);
-  const pos = Shogi.fromSetup(parseFen(previousFen).unwrap(), false).unwrap();
+function getAmbiguousPieces(variant: VariantKey, fen: string, role: Role, dest: Square, orig?: Square): SquareSet {
+  const pos = parseFen(fen).chain(s => setupPosition(lishogiVariantRules(variant), s, false));
+  if (pos.isErr) console.log('ERR GAP: ', variant, fen, role, dest, orig);
+  if (pos.isErr) return SquareSet.empty();
+
+  const piece = pos.value.board.take(dest);
+  if (orig) pos.value.board.set(orig, piece!);
+  pos.value.turn = opposite(pos.value.turn);
 
   let ambiguous: SquareSet = SquareSet.empty();
-  for (const p of pos.board.pieces(pos.turn, role)) if (pos.dests(p).has(dest)) ambiguous = ambiguous.with(p);
+  for (const p of pos.value.board.pieces(pos.value.turn, role))
+    if (pos.value.dests(p).has(dest)) ambiguous = ambiguous.with(p);
 
   if (orig) ambiguous = ambiguous.without(orig);
 
   return ambiguous;
 }
 
-function undoMove(fen: string, dest: Square, orig?: Square): string {
-  const pos = Shogi.fromSetup(parseFen(fen).unwrap(), false).unwrap();
-  const piece = pos.board.take(dest);
-  if (orig) pos.board.set(orig, piece!);
-  pos.turn = opposite(pos.turn);
-  return makeFen(pos.toSetup());
-}
-
-function isDropAmbiguos(fen: string, role: Role, dest: Square): boolean {
-  return getAmbiguousPieces(fen, role, dest).nonEmpty();
+function isDropAmbiguos(variant: VariantKey, fen: string, role: Role, dest: Square): boolean {
+  return getAmbiguousPieces(variant, fen, role, dest).nonEmpty();
 }
