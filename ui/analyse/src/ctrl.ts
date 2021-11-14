@@ -477,7 +477,7 @@ export default class AnalyseCtrl {
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (crazyValid(this.node.fen, piece, pos)) {
+    if (crazyValid(this, piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '*' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;

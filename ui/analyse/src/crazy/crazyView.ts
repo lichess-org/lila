@@ -5,6 +5,8 @@ import { onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { handRoles, unpromote } from 'shogiops/variantUtil';
 import { lishogiVariantRules } from 'shogiops/compat';
+import { Hands } from 'shogiops/hand';
+import { parseHands } from 'shogiops/fen';
 
 const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];
@@ -13,8 +15,10 @@ const eventNames3 = ['contextmenu'];
 type Position = 'top' | 'bottom';
 
 export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
-  if (!ctrl.node.crazy) return;
-  const pocket = ctrl.node.crazy.pockets[color === 'sente' ? 0 : 1];
+  const handPart = ctrl.node.fen.split(' ')[2] || '-';
+  const parsedHands = parseHands(handPart);
+  const hands = parsedHands.isErr ? Hands.empty() : parsedHands.value;
+  const hand = hands[color];
   const dropped = ctrl.justDropped;
   const shadowPiece = ctrl.shogiground?.state.drawable.piece;
   let captured = ctrl.justCaptured;
@@ -47,7 +51,7 @@ export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
     handRoles(lishogiVariantRules(ctrl.data.game.variant.key))
       .reverse()
       .map(role => {
-        let nb = pocket[role] || 0;
+        let nb = hand[role];
         const sp = role == shadowPiece?.role && color == shadowPiece?.color;
         const selectedSquare: boolean =
           ctrl.shogiground &&
