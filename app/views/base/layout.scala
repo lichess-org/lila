@@ -149,7 +149,7 @@ object layout {
 
   def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
     embedJsUnsafe(
-      s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n
+      s"""lichess={load:new Promise(r=>{document.addEventListener("DOMContentLoaded",r)}),quantity:${lila.i18n
         .JsQuantity(lang)}};$timeagoLocaleScript""",
       nonce
     )
