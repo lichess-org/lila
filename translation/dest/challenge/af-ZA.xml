@@ -6,4 +6,13 @@
   <string name="challengeAccepted">Uitdaging aanvaar!</string>
   <string name="challengeCanceled">Uitdaging gekanselleer.</string>
   <string name="registerToSendChallenges">Registreer om uitdagings te stuur.</string>
+  <string name="youCannotChallengeX">Jy kan nie %s uitdaag nie.</string>
+  <string name="xDoesNotAcceptChallenges">%s aanvaar nie uitdagings nie.</string>
+  <string name="yourXRatingIsTooFarFromY">Jou %1$s gradering is te ver van %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan nie uitdaag nie weens voorlopige %s gradering.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s aanvaar net uitdagings van vriende.</string>
+  <string name="declineGeneric">Ek aanvaar nie uitdagings op die oomblik nie.</string>
+  <string name="declineLater">Dit is \'n ongeleë tyd, vra asseblief weer later.</string>
+  <string name="declineTooFast">Die tydskontrole is te vinnig vir my, daag my weer uit met \'n stadiger tydskontrole.</string>
+  <string name="declineTooSlow">Die tydskontrole is te stadig vir my, daag my weer uit met \'n vinniger tydskontrole.</string>
 </resources>
