@@ -553,6 +553,7 @@
   <string name="increment">കയറ്റം</string>
   <string name="error.required">ഈ ഭാഗം ആവശ്യമാണ്</string>
   <string name="error.email">ഈ ഇമെയിൽ അഡ്രസ് സാധുവല്ല</string>
+  <string name="error.email_acceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല. പരിശോധിച്ചുറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക.</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
