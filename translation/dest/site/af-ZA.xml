@@ -48,9 +48,11 @@
   <string name="whiteLeftTheGame">Wit het die spel verlaat</string>
   <string name="blackLeftTheGame">Swart het die spel verlaat</string>
   <string name="whiteDidntMove">WitHetniebeweegnie</string>
+  <string name="blackDidntMove">Swart het nie geskuif nie</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar analise</string>
   <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
+  <string name="computerAnalysisDisabled">Rekenaaranalise gedeaktiveer</string>
   <string name="analysis">Ontledingsbord</string>
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
@@ -85,9 +87,11 @@
     <item quantity="one">Mat in %s half-skuif</item>
     <item quantity="other">Mat in %s half-skuiwe</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" met afronding, gebaseer op die hoeveelheid half-skuiwe tot die volgende vat of pionskuif</string>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Opening ontdekker</string>
+  <string name="openingEndgameExplorer">Opening/eindspel ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
   <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
   <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
@@ -142,7 +146,7 @@
   <string name="players">Spelers</string>
   <string name="friends">Vriende</string>
   <string name="discussions">Gesprekke</string>
-  <string name="today">Vandag</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Vandag</string>
   <string name="yesterday">Gister</string>
   <string name="minutesPerSide">Minute per kant</string>
   <string name="variant">Variant</string>
@@ -411,9 +415,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="setTheBoard">Pak die bord</string>
   <string name="popularOpenings">Gewilde openinge</string>
-  <string name="startPosition">Begin posisie</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Begin posisie</string>
   <string name="clearBoard">Maak bord skoon</string>
-  <string name="loadPosition">Laai posisie</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Laai posisie</string>
   <string name="isPrivate">Privaat</string>
   <string name="reportXToModerators">Raporteer %s aan moderators</string>
   <string name="profileCompletion">Profiel voltooiing: %s</string>
@@ -431,7 +435,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
   <string name="onlinePlayers">Aanlyn spelers</string>
   <string name="activePlayers">Aktiewe spelers</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Pasop, dié spel is gegradeer, maar sonder \'n klok!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Pasop, dié spel is gegradeer, maar sonder \'n klok!</string>
   <string name="success">Sukses</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s spel aan die gang</item>
@@ -497,7 +501,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="onSlowGames">Op stadig spelle</string>
   <string name="always">Altyd</string>
   <string name="never">Nooit</string>
-  <string name="xCompetesInY">%1$s kompeteer in %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s kompeteer in %2$s</string>
   <string name="victory">Oorwinning</string>
   <string name="defeat">Nederlaag</string>
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
