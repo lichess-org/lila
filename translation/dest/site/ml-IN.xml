@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
+  <string name="cheatDetected">ചതി കണ്ടെത്തി</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
   <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
