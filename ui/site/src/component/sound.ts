@@ -31,7 +31,7 @@ const sound: SoundI = new (class {
     if (this.soundSet == 'music') setTimeout(this.publish, 500);
   }
 
-  loadOggOrMp3 = (name: Name, path: Path, noSoundSet: Boolean = false) =>
+  loadOggOrMp3 = (name: Name, path: Path, noSoundSet: boolean = false) =>
     (noSoundSet ? this.standaloneSounds : this.soundSetSounds).set(
       name,
       new Howl({

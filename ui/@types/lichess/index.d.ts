@@ -102,7 +102,7 @@ interface UserCompleteOpts {
 }
 
 interface SoundI {
-  loadOggOrMp3(name: string, path: string, noSoundSet?: Boolean): void;
+  loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
   loadStandard(name: string, soundSet?: string): void;
   play(name: string, volume?: number): void;
   playOnce(name: string): void;
