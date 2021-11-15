@@ -1,5 +1,5 @@
 const make = (file: string, volume?: number) => {
-  lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`);
+  lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true);
   return () => lichess.sound.play(file, volume);
 };
 

@@ -15,8 +15,8 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     analysisUrl = prop(''),
     autoNext = storedProp('practice-auto-next', true);
 
-  lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`);
-  lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`);
+  lichess.sound.loadOggOrMp3('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`, true);
+  lichess.sound.loadOggOrMp3('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`, true);
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
