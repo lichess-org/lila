@@ -56,7 +56,8 @@ object FishnetOpeningBook {
   case class Response(moves: List[Move]) {
     def randomPonderedMove: Option[Move] = {
       val sum = moves.map(_.nb).sum
-      val rng = ThreadLocalRandom nextInt sum
+      val novelty = 1
+      val rng = ThreadLocalRandom.nextInt(sum + novelty)
       moves
         .foldLeft((none[Move], 0)) { case ((found, it), next) =>
           val nextIt = it + next.nb
