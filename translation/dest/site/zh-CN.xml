@@ -92,6 +92,7 @@
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
+  <string name="lossOr50MovesByPriorMistake">由于先前的错误而损失或打平局(rule50)</string>
   <string name="allSet">好了！</string>
   <string name="importPgn">导入PGN文件</string>
   <string name="delete">删除</string>
@@ -151,7 +152,7 @@
   <string name="players">棋手</string>
   <string name="friends">棋友</string>
   <string name="discussions">讨论组</string>
-  <string name="today">今天</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">今天</string>
   <string name="yesterday">昨天</string>
   <string name="minutesPerSide">各方限时（分钟）</string>
   <string name="variant">变体</string>
@@ -401,9 +402,9 @@
   <string name="popularOpenings">常见开局</string>
   <string name="endgamePositions">残局局面</string>
   <string name="chess960StartPosition">Chess960 起始局面： %s</string>
-  <string name="startPosition">起始局面</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
-  <string name="loadPosition">载入局面</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">载入局面</string>
   <string name="isPrivate">私人锦标赛</string>
   <string name="reportXToModerators">举报%s</string>
   <string name="profileCompletion">资料完成度：%s</string>
@@ -422,7 +423,7 @@
   <string name="previouslyOnLichessTV">过去的 Lichess 直播</string>
   <string name="onlinePlayers">在线棋手</string>
   <string name="activePlayers">活跃棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是排位赛，但是不计时！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">注意，此棋局是排位赛，但是不计时！</string>
   <string name="success">解题成功</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 场对局进行中</item>
@@ -490,7 +491,7 @@
   <string name="onSlowGames">在慢棋时</string>
   <string name="always">总是</string>
   <string name="never">从不</string>
-  <string name="xCompetesInY">%1$s参加%2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s参加%2$s</string>
   <string name="victory">获胜</string>
   <string name="defeat">负败</string>
   <string name="victoryVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
@@ -769,7 +770,7 @@
   <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
   <string name="subscribe">订阅</string>
   <string name="unsubscribe">取消订阅</string>
-  <string name="mentionedYouInX">在 “%1$s” 中提到了你。</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">在 “%1$s” 中提到了你。</string>
   <string name="xMentionedYouInY">%1$s 在 \"%2$s\" 中提到了你。</string>
   <string name="invitedYouToX">邀请你加入\"%1$s\"。</string>
   <string name="xInvitedYouToY">%1$s 邀请你加入 \"%2$s\"。</string>
