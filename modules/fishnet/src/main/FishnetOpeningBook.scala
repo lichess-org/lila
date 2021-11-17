@@ -13,6 +13,7 @@ import lila.common.Json.uciReader
 import lila.common.ThreadLocalRandom
 import lila.game.Game
 import lila.memo.SettingStore
+import scala.util.{ Failure, Success }
 
 final private class FishnetOpeningBook(
     ws: StandaloneWSClient,
@@ -42,10 +43,16 @@ final private class FishnetOpeningBook(
             move <- data.randomPonderedMove
           } yield move.uci
       }
-      .monValue(uci =>
+      .monTry { res =>
         _.fishnet
-          .openingBook(level = level, variant = game.variant.key, ply = game.turns, hit = uci.isDefined)
-      )
+          .openingBook(
+            level = level,
+            variant = game.variant.key,
+            ply = game.turns,
+            hit = res.toOption.exists(_.isDefined),
+            success = res.isSuccess
+          )
+      }
   }
 }
 
@@ -55,9 +62,9 @@ object FishnetOpeningBook {
 
   case class Response(moves: List[Move]) {
     def randomPonderedMove: Option[Move] = {
-      val sum = moves.map(_.nb).sum
+      val sum     = moves.map(_.nb).sum
       val novelty = 1
-      val rng = ThreadLocalRandom.nextInt(sum + novelty)
+      val rng     = ThreadLocalRandom.nextInt(sum + novelty)
       moves
         .foldLeft((none[Move], 0)) { case ((found, it), next) =>
           val nextIt = it + next.nb

@@ -1,15 +1,13 @@
 package lila.fishnet
 
+import chess.format.Uci
+import chess.{ Black, Clock, White }
 import scala.concurrent.duration._
 
-import chess.{ Black, Clock, White }
-
-import lila.common.{ Future, ThreadLocalRandom }
+import lila.common.{ Bus, Future, ThreadLocalRandom }
 import lila.game.{ Game, GameRepo, UciMemo }
-import lila.common.Bus
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay
-import chess.format.Uci
 
 final class FishnetPlayer(
     redis: FishnetRedis,

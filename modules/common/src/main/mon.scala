@@ -646,9 +646,15 @@ object mon {
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
     }
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
-    def openingBook(level: Int, variant: String, ply: Int, hit: Boolean) =
+    def openingBook(level: Int, variant: String, ply: Int, hit: Boolean, success: Boolean) =
       timer("fishnet.opening.hit").withTags(
-        Map("level" -> level.toLong, "variant" -> variant, "ply" -> ply.toLong, "hit" -> hit)
+        Map(
+          "level"   -> level.toLong,
+          "variant" -> variant,
+          "ply"     -> ply.toLong,
+          "hit"     -> hitTag(hit),
+          "success" -> successTag(success)
+        )
       )
   }
   object study {
@@ -727,6 +733,7 @@ object mon {
       )
 
   private def successTag(success: Boolean) = if (success) "success" else "failure"
+  private def hitTag(hit: Boolean)         = if (hit) "hit" else "miss"
 
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
