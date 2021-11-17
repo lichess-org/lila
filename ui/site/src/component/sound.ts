@@ -18,7 +18,8 @@ type Name = string;
 type Path = string;
 
 const sound: SoundI = new (class {
-  sounds = new Map<Name, Howl>(); // The loaded sounds and their instances
+  soundSetSounds = new Map<Name, Howl>(); // The loaded sounds and their instances
+  standaloneSounds = new Map<Name, Howl>(); // Sounds that are independent of the sound set
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
@@ -30,8 +31,8 @@ const sound: SoundI = new (class {
     if (this.soundSet == 'music') setTimeout(this.publish, 500);
   }
 
-  loadOggOrMp3 = (name: Name, path: Path) =>
-    this.sounds.set(
+  loadOggOrMp3 = (name: Name, path: Path, noSoundSet = false) =>
+    (noSoundSet ? this.standaloneSounds : this.soundSetSounds).set(
       name,
       new Howl({
         src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`),
@@ -49,10 +50,10 @@ const sound: SoundI = new (class {
   }
 
   private getOrLoadSound = (name: string, set: string): Howl => {
-    let s = this.sounds.get(name);
+    let s = this.soundSetSounds.get(name) ?? this.standaloneSounds.get(name);
     if (!s) {
       this.loadStandard(name, set);
-      s = this.sounds.get(name)!;
+      s = this.soundSetSounds.get(name)!;
     }
     return s;
   };
@@ -115,7 +116,7 @@ const sound: SoundI = new (class {
 
   changeSet = (s: string) => {
     this.soundSet = s;
-    this.sounds.clear();
+    this.soundSetSounds.clear();
     this.publish();
   };
 
