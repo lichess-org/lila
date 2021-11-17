@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">क्रियाकलाप</string>
-  <string name="hostedALiveStream">लाइभ स्ट्रोम आयोजना गर्नुभयो</string>
+  <string name="hostedALiveStream">लाइभ स्ट्रीम आयोजना गर्नुभयो</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">lichess.org लाई %1$s महिनासम्म %2$s भई समर्थन गर्नुभयो</item>
     <item quantity="other">lichess.org लाई %1$s महिनासम्म %2$s भई समर्थन गर्नुभयो</item>
@@ -62,6 +62,11 @@
     <item quantity="one">%4$s मा %3$s वटा खेल खेली #%1$s औ स्थान (माथिल्लो %2$s%%)</item>
     <item quantity="other">%4$s मा %3$s वटा खेलहरु खेली #%1$s औ स्थान (माथिल्लो %2$s%%)</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%sवटा स्वीस् प्रतियोगितामा सहभागी हुनुभयो।</item>
+    <item quantity="other">%sवटा स्वीस् प्रतियोगिताहरूमा सहभागी हुनुभयो</item>
+  </plurals>
+  <string name="rankedInSwissTournament">%2$s मा #%1$s स्थान प्राप्त</string>
   <string name="signedUp">lichess.org मा भर्ना हुनुभयो</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s वटा टोलीमा सम्मिलित हुनुभयो</item>

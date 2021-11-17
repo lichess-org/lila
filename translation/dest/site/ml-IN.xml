@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
+  <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
   <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
@@ -89,6 +90,7 @@
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
+  <string name="openingEndgameExplorer">ഓപ്പണിങ്ങ്/എൻഡ്ഗെയിം എക്‌സ്‌പ്ലോറർ</string>
   <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>
   <string name="winPreventedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം ജയം തടയപ്പെട്ടു</string>
   <string name="lossSavedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം തോൽവി തടയപ്പെട്ടു</string>
@@ -428,6 +430,7 @@
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
   <string name="endgamePositions">ഏൻഡ് ഗെയിം പൊസിഷനുകൾ</string>
+  <string name="chess960StartPosition">ചതുരംഗം960 ആരംഭ സ്ഥാനം: %s</string>
   <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">പ്രാരംഭ സ്ഥാനം</string>
   <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
   <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">സ്ഥാനത്തു നിന്ന്</string>
@@ -550,6 +553,7 @@
   <string name="increment">കയറ്റം</string>
   <string name="error.required">ഈ ഭാഗം ആവശ്യമാണ്</string>
   <string name="error.email">ഈ ഇമെയിൽ അഡ്രസ് സാധുവല്ല</string>
+  <string name="error.email_acceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല. പരിശോധിച്ചുറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക.</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
