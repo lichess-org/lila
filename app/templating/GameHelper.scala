@@ -249,7 +249,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
-      cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen $cssClass $variant",
+      cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen $cssClass variant-$variant",
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportSituation(game.situation),
@@ -264,8 +264,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen $variant" -> true,
-        s"live mini-board-${pov.gameId}"                                  -> isLive
+        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen variant-$variant" -> true,
+        s"live mini-board-${pov.gameId}"                                          -> isLive
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,

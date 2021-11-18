@@ -3,6 +3,7 @@ package lila.study
 import BSONHandlers._
 import shogi.Color
 import shogi.format.{ FEN, Tags, Uci }
+import shogi.variant.{ Standard, Variant }
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import JsonView._
 import play.api.libs.json._
@@ -74,6 +75,7 @@ final class StudyMultiBoard(
                     )
                   ),
                   "orientation" -> "$setup.orientation",
+                  "variant"     -> "$setup.variant",
                   "name"        -> true
                 )
               )
@@ -94,6 +96,7 @@ final class StudyMultiBoard(
             id = id,
             name = name,
             players = tags flatMap ChapterPreview.players,
+            variant = doc.getAsOpt[Int]("variant").flatMap(v => Variant(v)) | Standard,
             orientation = doc.getAsOpt[Color]("orientation") | Color.Sente,
             fen = fen,
             lastMove = lastMove,
@@ -126,6 +129,7 @@ object StudyMultiBoard {
       id: Chapter.Id,
       name: Chapter.Name,
       players: Option[ChapterPreview.Players],
+      variant: Variant,
       orientation: Color,
       fen: FEN,
       lastMove: Option[Uci],

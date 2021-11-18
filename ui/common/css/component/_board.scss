@@ -89,7 +89,13 @@
   }
 }
 
-.mini-board.minishogi {
+.mini-board:not(.variant-minishogi) piece {
+  width: calc(200% / 9);
+  height: calc(200% / 9);
+  margin: calc(-50% / 9);
+}
+
+.mini-board.variant-minishogi {
   padding-bottom: calc(100% * 7 / 5);
   max-width: calc(100% / 11 * 9);
   cg-container {

@@ -155,7 +155,7 @@ function uciToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeCg(preview: ChapterPreview): VNode {
-  return h('div.mini-board.cg-wrap', {
+  return h(`div.mini-board.cg-wrap.variant-${preview.variant.key}`, {
     hook: {
       insert(vnode) {
         const cg = Shogiground(vnode.elm as HTMLElement, {

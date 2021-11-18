@@ -209,6 +209,7 @@ export interface ChapterPreview {
     gote: ChapterPreviewPlayer;
   };
   orientation: Color;
+  variant: Variant;
   fen: string;
   lastMove?: string;
   playing: boolean;
