@@ -6,6 +6,7 @@ import { opposite } from 'shogiground/util';
 import { DrawShape } from 'shogiground/draw';
 import AnalyseCtrl from './ctrl';
 import { promote } from 'shogiops/variantUtil';
+import { defined } from 'common';
 
 function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   return {
@@ -39,10 +40,10 @@ export function makeShapesFromUci(
       modifiers,
     },
   ];
-  if (move.promotion && pieces && pieces.get(uci.slice(0, 2) as Key)) {
-    const pRole = pieces.get(uci.slice(0, 2) as Key)!.role;
+  const pieceToPromote = move.promotion ? pieces?.get(uci.slice(0, 2) as Key) : undefined;
+  if (defined(pieceToPromote)) {
     // todo variant
-    shapes.push(pieceDrop(to, promote('shogi')(pRole), color));
+    shapes.push(pieceDrop(to, promote('shogi')(pieceToPromote.role), color));
   }
   return shapes;
 }
