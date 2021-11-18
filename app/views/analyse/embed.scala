@@ -23,7 +23,7 @@ object embed {
           layout.viewport,
           layout.metaCsp(basicCsp withNonce config.nonce),
           st.headTitle(replay titleOf pov),
-          layout.pieceSprite(lila.pref.PieceSet.default),
+          layout.pieceSprite(config.pieceSet),
           cssTagWithTheme("analyse.embed", config.bg)
         ),
         body(
@@ -31,7 +31,8 @@ object embed {
           dataDev := (!isProd).option("true"),
           dataAssetUrl := assetBaseUrl,
           dataAssetVersion := assetVersion.value,
-          dataTheme := config.bg
+          dataTheme := config.bg,
+          dataPieceSet := config.pieceSet.name
         )(
           div(
             main(cls := "analyse")

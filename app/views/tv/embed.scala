@@ -19,7 +19,7 @@ object embed {
           layout.viewport,
           layout.metaCsp(basicCsp(config.req)),
           st.headTitle("lishogi.org shogi TV"),
-          layout.pieceSprite(lila.pref.PieceSet.default),
+          layout.pieceSprite(config.pieceSet),
           cssTagWithTheme("tv.embed", config.bg)
         ),
         body(
