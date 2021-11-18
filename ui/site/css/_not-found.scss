@@ -16,22 +16,34 @@
       display: block;
     }
   }
-  .game {
-    text-align: center;
-    iframe {
-      margin: 1em 0 2em 0;
+  #game,
+  .credits,
+  .game-help {
+    margin: auto;
+    margin-top: 1rem;
+    width: 75vmin;
+    @include breakpoint($mq-small) {
+      width: 43vmin;
     }
   }
-  .or-play,
-  .game {
-    display: none;
-    @media (hover: hover) {
-      @include breakpoint($mq-small) {
-        display: block;
-      }
+  .game-help {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    button {
+      color: $c-font-dimmer;
+      background: $c-bg-low;
+      padding: 2px;
+      border: none;
+      text-align: center;
+      text-decoration: none;
     }
   }
   .credits {
     font-size: 0.9em;
+    a {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
