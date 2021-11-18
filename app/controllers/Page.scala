@@ -87,7 +87,7 @@ final class Page(
     Open { implicit ctx =>
       import play.api.libs.json._
       negotiate(
-        html = OptionOk(prismicC getBookmark "variant") { case (doc, resolver) =>
+        html = OptionOk(prismicC.getPage("doc", "variants", ctx.lang.code)) { case (doc, resolver) =>
           views.html.site.variant.home(doc, resolver)
         },
         api = _ =>
@@ -106,7 +106,7 @@ final class Page(
       (for {
         variant  <- shogi.variant.Variant.byKey get key
         perfType <- lila.rating.PerfType byVariant variant
-      } yield OptionOk(prismicC getVariant variant) { case (doc, resolver) =>
+      } yield OptionOk(prismicC.getVariant(variant, ctx.lang.code)) { case (doc, resolver) =>
         views.html.site.variant.show(doc, resolver, variant, perfType)
       }) | notFound
     }

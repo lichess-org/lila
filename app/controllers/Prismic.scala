@@ -61,10 +61,11 @@ final class Prismic(
       none
     }
 
-  def getVariant(variant: shogi.variant.Variant) =
+  def getVariant(variant: shogi.variant.Variant, langCode: String) =
     prismicApi flatMap { api =>
       api
         .forms("variant")
+        .set("lang", BlogLangs.parse(langCode))
         .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
         .ref(api.master.ref)
         .submit() map {
