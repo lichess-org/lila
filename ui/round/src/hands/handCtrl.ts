@@ -5,8 +5,9 @@ import RoundController from '../ctrl';
 import * as cg from 'shogiground/types';
 import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
 import { handRoles } from 'shogiops/variantUtil';
-import { parseFen } from 'shogiops/fen';
+import { parseFen, parseHands } from 'shogiops/fen';
 import { setupPosition } from 'shogiops/variant';
+import { lastStep } from '../round';
 
 const li = window.lishogi;
 
@@ -100,12 +101,10 @@ export function init(ctrl: RoundController) {
           handKeys[handKeys.length - 1] - 1
         ],
         color = ctrl.data.player.color,
-        crazyData = ctrl.data.crazyhouse;
-      if (!crazyData) return;
-      console.log('handctrl init', crazyData);
-      console.log(ctrl.data.game.initialFen);
+        parsedHands = parseHands(lastStep(ctrl.data).fen.split(' ')[2] || '-');
+      if (parsedHands.isErr) return;
 
-      const nb = crazyData.pockets[color === 'sente' ? 0 : 1][role];
+      const nb = parsedHands.value[color][role];
       setDropMode(ctrl.shogiground.state, nb > 0 ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);

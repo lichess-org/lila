@@ -6,6 +6,8 @@ import { ClockController } from './clock/clockCtrl';
 import { valid as handValid } from './hands/handCtrl';
 import { sendPromotion } from './promotion';
 import { onInsert } from './util';
+import { parseHands } from 'shogiops/fen';
+import { lastStep } from './round';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -56,12 +58,12 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   return {
     drop(key, piece) {
       const role = sanToRole[piece];
-      const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
+      const parsedHands = parseHands(lastStep(root.data).fen.split(' ')[2] || '-');
       // Square occupied
-      if (!role || !crazyData || cgState.pieces[key]) return;
-      // Piece not in Pocket
-      if (!crazyData.pockets[color === 'sente' ? 0 : 1][role]) return;
+      if (!role || parsedHands.isErr || cgState.pieces[key]) return;
+      // Piece not in hand
+      if (parsedHands.value[color][role] === 0) return;
       if (!handValid(root, role, key)) return;
       root.shogiground.cancelMove();
       root.shogiground.newPiece({ role, color }, key);

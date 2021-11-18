@@ -301,7 +301,7 @@ object Node {
             }
           )
           .add("clock", clock)
-          .add("crazy", crazyData)
+          .add("crazy", crazyData) // todo remove
           .add("comp", comp)
           .add(
             "children",

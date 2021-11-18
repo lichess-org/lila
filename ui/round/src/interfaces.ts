@@ -49,7 +49,6 @@ export interface RoundData extends GameData {
   possibleMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
-  crazyhouse?: CrazyData;
   correspondence: CorresClockData;
   url: {
     socket: string;
@@ -71,14 +70,6 @@ export interface Expiration {
 export interface Tv {
   channel: string;
   flip: boolean;
-}
-
-interface CrazyData {
-  pockets: [CrazyPocket, CrazyPocket];
-}
-
-interface CrazyPocket {
-  [role: string]: number;
 }
 
 export interface RoundOpts {
@@ -124,7 +115,6 @@ export interface ApiMove extends Step {
   check: boolean;
   sDraw: boolean;
   gDraw: boolean;
-  crazyhouse?: CrazyData;
   role?: cg.Role;
   drops?: string;
   promotion?: boolean;

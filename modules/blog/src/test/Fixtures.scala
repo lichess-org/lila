@@ -8,9 +8,9 @@ object Fixtures {
 
 <p>It's everywhere. <strong>Lobby games, tournaments, simuls, and the analysis board; </strong>Crazyhouse is a first-class variant on lishogi.org.</p>
 
-<h2>What is crazyhouse?</h2>
+<h2>What is chvariant?</h2>
 
-<p>It's a <em>very</em> exciting chess variant. In a crazyhouse game, either player can introduce a captured piece back onto the chessboard as their own. This is called <em>dropping</em> a piece.</p>
+<p>It's a <em>very</em> exciting chess variant. In a chvariant game, either player can introduce a captured piece back onto the chessboard as their own. This is called <em>dropping</em> a piece.</p>
 
 <p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/de5a66765de83e6c30865a558d067fda66459bd1_tuto1-arrow.png" width="530" height="359" /></p>
 
@@ -20,36 +20,36 @@ object Fixtures {
 
 <p>In turn Black can block the check by <strong>dropping a knight on e5!</strong></p>
 
-<p><a href="http://lishogi.org/variant/crazyhouse"><strong>Read more about crazyhouse rules and strategies here</strong></a></p>
+<p><a href="http://lishogi.org/variant/chvariant"><strong>Read more about chvariant rules and strategies here</strong></a></p>
 
 <h2>Have great games!</h2>
 
-<p>To be honest, this was quite tough to implement, but also fun and totally worth it. The main challenge being that crazyhouse changes the very definition of what a <em>move</em> is; since now it can also be a drop. This change to a key concept of lishogi required some rewiring of the program foundations.</p>
+<p>To be honest, this was quite tough to implement, but also fun and totally worth it. The main challenge being that chvariant changes the very definition of what a <em>move</em> is; since now it can also be a drop. This change to a key concept of lishogi required some rewiring of the program foundations.</p>
 
 <p><em>Please don't ask me for </em><a href="https://en.wikipedia.org/wiki/Bughouse_chess"><em>bughouse</em></a>. Lichess is a game for one board and two players. Now, someone should totally build a new bughouse website/app. It's impossible to integrate into lishogi because it's radically unlike chess, structurally speaking.</p>
 
-<h2>First crazyhouse tournament</h2>
+<h2>First chvariant tournament</h2>
 
 <p>What could be a better way to get started? <a href="http://lishogi.org/tournament/crazy1st"><strong>Join the party!</strong></a></p>
 
-<p><em>[EDIT] The first tournament is over. Second crazyhouse tournament: </em><a href="http://lishogi.org/tournament/crazy2nd"><em><strong>Join here!</strong></em></a></p>
+<p><em>[EDIT] The first tournament is over. Second chvariant tournament: </em><a href="http://lishogi.org/tournament/crazy2nd"><em><strong>Join here!</strong></em></a></p>
 """
 
   def withYoutube =
     """
-<p><em>Note: this article was </em><a href="https://www.reddit.com/r/chess/comments/42zpnv/crazyhouse_an_overview_strategic_concepts/"><em>posted on reddit</em></a><em> first.</em></p>
+<p><em>Note: this article was </em><a href="https://www.reddit.com/r/chess/comments/42zpnv/chvariant_an_overview_strategic_concepts/"><em>posted on reddit</em></a><em> first.</em></p>
 
 <h2>Introduction to Crazyhouse</h2>
 
-<h3>What is <a href="http://lishogi.org/variant/crazyhouse">crazyhouse</a>, and how does it differ from chess?</h3>
+<h3>What is <a href="http://lishogi.org/variant/chvariant">chvariant</a>, and how does it differ from chess?</h3>
 
 <p><em>According to the wiki:<br>Crazyhouse (also known as Drop chess, Mad chess, Reinforcement chess, Turnabout chess and Schizo-chess) is a chess variant similar to bughouse chess, but with only two players. It effectively incorporates a rule from the game shogi, in which a player can introduce a captured piece back to the chessboard as his own.</em></p>
 
 <p>The fact that pieces can be re-introduced into play makes this an extremely tactical game with a huge emphasis placed on initiative and solid structure. You have to be able to calculate not only the normal chess variations from any given position, but also the resulting implications that could arise with each exchanged piece; and, even more than in chess, you need to actively prevent weaknesses in your own structure.</p>
 
-<p>Pawns and knights increase slightly and the queen decreases slightly in relative importance, and there is no endgame to speak of, since all the pieces can be placed back on the board. Otherwise, crazyhouse takes all the normal chess themes and heightens them by magnitudes. An extra tempo or two can lead to a crushing attack, and even small weaknesses, when exploited correctly, can become glaring. Precision is almost always required, especially when defending, as every position is a sharp one.</p>
+<p>Pawns and knights increase slightly and the queen decreases slightly in relative importance, and there is no endgame to speak of, since all the pieces can be placed back on the board. Otherwise, chvariant takes all the normal chess themes and heightens them by magnitudes. An extra tempo or two can lead to a crushing attack, and even small weaknesses, when exploited correctly, can become glaring. Precision is almost always required, especially when defending, as every position is a sharp one.</p>
 
-<p>For those reasons, I'm willing to propose that becoming a proficient crazyhouse player can only help your chess vision: you'll see tactics more naturally, calculate more efficiently, and identify weaknesses more quickly. A lot of ideas can be carried over. But even if that's not the case, crazyhouse is an extremely fun game that can stand on its own merits! So let's see what it's all about.</p>
+<p>For those reasons, I'm willing to propose that becoming a proficient chvariant player can only help your chess vision: you'll see tactics more naturally, calculate more efficiently, and identify weaknesses more quickly. A lot of ideas can be carried over. But even if that's not the case, chvariant is an extremely fun game that can stand on its own merits! So let's see what it's all about.</p>
 
 <p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/c13a4de82869df16e3cf6ae02dbb369fef1feb4c_knightpos744.jpg" width="744" height="391" /></p>
 
@@ -85,9 +85,9 @@ object Fixtures {
 
 <h3>Middlegame</h3>
 
-<p>The middlegame is almost always where the game is won or lost. This is where you should look to start exchanging pieces, breaking with your pawns, building up pressure on vulnerable squares, or cracking open your opponent's defenses with careful pawn drops or piece sacs. The midgame is rapidly achieved in crazyhouse, so be ready to join battle straight away! I'll cover strategic midgame motifs below in the 'Strategy Pointers' section.</p>
+<p>The middlegame is almost always where the game is won or lost. This is where you should look to start exchanging pieces, breaking with your pawns, building up pressure on vulnerable squares, or cracking open your opponent's defenses with careful pawn drops or piece sacs. The midgame is rapidly achieved in chvariant, so be ready to join battle straight away! I'll cover strategic midgame motifs below in the 'Strategy Pointers' section.</p>
 
-<p>Lots of exchanges will take place in the middle game. When considering the tactical implications of exchanges, remember that, though they move the same, pieces accomplish slightly different things in crazyhouse than in chess, and that should be accounted for in your mental calculations. As a general rule of thumb, I like to think of piece values thusly:</p>
+<p>Lots of exchanges will take place in the middle game. When considering the tactical implications of exchanges, remember that, though they move the same, pieces accomplish slightly different things in chvariant than in chess, and that should be accounted for in your mental calculations. As a general rule of thumb, I like to think of piece values thusly:</p>
 
 <h3>Piece	Value</h3>
 
@@ -343,7 +343,7 @@ object Fixtures {
 
 <li><a href="http://ficsgames.org/cgi-bin/search.cgi">FICS Crazyhouse Games Database (search for games by cheesybread or tantheman -- the very best!)</a></li>
 
-<li><a href="https://www.reddit.com/r/crazyhouse">Crazyhouse subreddit</a></li>
+<li><a href="https://www.reddit.com/r/chvariant">Crazyhouse subreddit</a></li>
 
 </ul>
 

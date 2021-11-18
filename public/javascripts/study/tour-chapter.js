@@ -67,7 +67,7 @@ lishogi.studyTourChapter = function (study) {
       },
       {
         title: 'Studies support variants',
-        text: 'Yes, you can study crazyhouse,<br>' + 'and all lishogi variants!',
+        text: 'Yes, you can study all lishogi variants!',
         attachTo: '.study__modal label[for=chapter-variant] left',
         when: onTab('init'),
       },

@@ -393,7 +393,6 @@ export default class RoundController {
     this.playerByColor('gote').offeringDraw = o.gDraw;
     d.possibleMoves = activeColor ? o.dests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
-    d.crazyhouse = o.crazyhouse;
     this.setTitle();
     if (!this.replaying()) {
       this.ply++;
@@ -516,7 +515,8 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.turns > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
-    if (d.crazyhouse) handEndHook();
+    //if(d.game.variant.key !== 'chushogi')
+    handEndHook();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -727,7 +727,8 @@ export default class RoundController {
         title.init();
         this.setTitle();
 
-        if (d.crazyhouse) handInit(this);
+        //if(d.game.variant.key !== 'chushogi')
+        handInit(this);
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;

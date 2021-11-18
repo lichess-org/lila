@@ -60,7 +60,7 @@ object Event {
         .add("check" -> check)
         .add("sDraw" -> state.senteOffersDraw)
         .add("gDraw" -> state.goteOffersDraw)
-        .add("crazyhouse" -> crazyData)
+        .add("crazyhouse" -> crazyData) // todo remove
         .add("drops" -> possibleDrops.map { squares =>
           JsString(squares.map(_.uciKey).mkString)
         })

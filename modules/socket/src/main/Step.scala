@@ -68,6 +68,6 @@ object Step {
           JsString(drops.map(_.uciKey).mkString)
         }
       )
-      .add("crazy", crazyData)
+      .add("crazy", crazyData) // todo remove
   }
 }
