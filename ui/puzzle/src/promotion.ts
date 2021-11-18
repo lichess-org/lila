@@ -102,16 +102,11 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
       if (!promoting) return;
 
       const pieces: Role[] =
-        getGround().state.turnColor === 'sente'
+        getGround().state.orientation === 'sente'
           ? [shogiopsPromote('shogi')(promoting.role), promoting.role]
           : [promoting.role, shogiopsPromote('shogi')(promoting.role)];
 
-      return renderPromotion(
-        promoting.dest,
-        pieces,
-        cgUtil.opposite(getGround().state.turnColor),
-        getGround().state.orientation
-      );
+      return renderPromotion(promoting.dest, pieces, getGround().state.orientation, getGround().state.orientation);
     },
   };
 }

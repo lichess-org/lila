@@ -176,7 +176,7 @@ function renderPromotion(
 export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
   const roles: cg.Role[] =
-    ctrl.shogiground.state.orientation === 'gote'
+    ctrl.shogiground.state.orientation === 'sente'
       ? [promote(lishogiVariantRules(ctrl.data.game.variant.key))(promoting.role), promoting.role]
       : [promoting.role, promote(lishogiVariantRules(ctrl.data.game.variant.key))(promoting.role)];
   return renderPromotion(ctrl, promoting.move[1], roles, ctrl.data.player.color, ctrl.shogiground.state.orientation);
