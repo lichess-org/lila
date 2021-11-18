@@ -179,7 +179,7 @@ function renderCircle(
   bounds: ClientRect
 ): SVGElement {
   const o = pos2px(pos, bounds, dims),
-    widths = circleWidth(bounds),
+    widths = circleWidth(dims, bounds),
     radius = (bounds.width + bounds.height) / (dims.files * 4);
   return setAttributes(createElement('circle'), {
     stroke: brush.color,
@@ -201,7 +201,7 @@ function renderArrow(
   dims: cg.Dimensions,
   bounds: ClientRect
 ): SVGElement {
-  const m = arrowMargin(bounds, shorten && !current),
+  const m = arrowMargin(dims, bounds, shorten && !current),
     a = pos2px(orig, bounds, dims),
     b = pos2px(dest, bounds, dims),
     dx = b[0] - a[0],
@@ -211,7 +211,7 @@ function renderArrow(
     yo = Math.sin(angle) * m;
   return setAttributes(createElement('line'), {
     stroke: brush.color,
-    'stroke-width': lineWidth(brush, current, bounds),
+    'stroke-width': lineWidth(brush, dims, current, bounds),
     'stroke-linecap': 'round',
     'marker-end': 'url(#arrowhead-' + brush.key + ')',
     opacity: opacity(brush, current),
@@ -277,21 +277,21 @@ function makeCustomBrush(base: DrawBrush, modifiers: DrawModifiers): DrawBrush {
   };
 }
 
-function circleWidth(bounds: ClientRect): [number, number] {
-  const base = bounds.width / 512;
+function circleWidth(dims: cg.Dimensions, bounds: ClientRect): [number, number] {
+  const base = bounds.width / (55 * dims.files);
   return [3 * base, 4 * base];
 }
 
-function lineWidth(brush: DrawBrush, current: boolean, bounds: ClientRect): number {
-  return (((brush.lineWidth || 10) * (current ? 0.85 : 1)) / 512) * bounds.width;
+function lineWidth(brush: DrawBrush, dims: cg.Dimensions, current: boolean, bounds: ClientRect): number {
+  return (((brush.lineWidth || 10) * (current ? 0.85 : 1)) / (55 * dims.files)) * bounds.width;
 }
 
 function opacity(brush: DrawBrush, current: boolean): number {
   return (brush.opacity || 1) * (current ? 0.9 : 1);
 }
 
-function arrowMargin(bounds: ClientRect, shorten: boolean): number {
-  return ((shorten ? 20 : 10) / 512) * bounds.width;
+function arrowMargin(dims: cg.Dimensions, bounds: ClientRect, shorten: boolean): number {
+  return ((shorten ? 20 : 10) / (55 * dims.files)) * bounds.width;
 }
 
 function pos2px(pos: cg.Pos, bounds: ClientRect, dims: cg.Dimensions): cg.NumberPair {
