@@ -45,10 +45,10 @@ final private class FishnetOpeningBook(
             for {
               data <- res.body[JsValue].validate[Response](responseReader).asOpt
               move <- data.randomPonderedMove
-            } yield move.uci
-        }
-        .addEffect { uci =>
-          if (uci.isEmpty) outOfBook.put(game.id)
+            } yield {
+              if (data.moves.isEmpty) outOfBook.put(game.id)
+              move.uci
+            }
         }
         .monTry { res =>
           _.fishnet
