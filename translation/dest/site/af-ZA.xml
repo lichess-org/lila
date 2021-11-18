@@ -491,6 +491,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="cheat">Kul</string>
   <string name="insult">Beledig</string>
   <string name="troll">Boelie</string>
+  <string name="ratingManipulation">Gradering manipulasie</string>
   <string name="other">Ander</string>
   <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is. Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
@@ -556,6 +557,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Dié veld word vereis</string>
+  <string name="error.email">Hierdie epos adres is ongeldig</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
