@@ -21,8 +21,10 @@ object ResilientScheduler {
           system.scheduler.scheduleOnce(every.value) { runAndScheduleNext() }.unit
         }
         .unit
-    system.scheduler.scheduleOnce(initialDelay) {
-      runAndScheduleNext()
-    }.unit
+    system.scheduler
+      .scheduleOnce(initialDelay) {
+        runAndScheduleNext()
+      }
+      .unit
   }
 }

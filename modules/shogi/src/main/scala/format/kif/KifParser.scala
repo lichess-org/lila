@@ -181,11 +181,11 @@ object KifParser {
         termTag,
         Color.fromSente((nbMoves + { if (sit.color == Gote) 1 else 0 }) % 2 == 0)
       )
-    
+
     val variantTag =
-      if(sit.board.variant.exotic)
+      if (sit.board.variant.exotic)
         Tag(_.Variant, sit.board.variant.name).some
-      else None 
+      else None
 
     List(fenTag, resultTag, termTag, variantTag).flatten.foldLeft(tags)(_ + _)
   }
@@ -361,8 +361,9 @@ object KifParser {
         case MoveRegex(destS, roleS, promS, origS) =>
           for {
             role <- Role.allByEverything get roleS toValid s"Unknown role in move: $str"
-            _    <- if(variant.allRoles contains role) valid(role)
-                    else invalid(s"$role not supported in $variant variant")
+            _ <-
+              if (variant.allRoles contains role) valid(role)
+              else invalid(s"$role not supported in $variant variant")
             destOpt = if (destS == "同") lastDest else (Pos.allNumberKeys get destS)
             dest <- destOpt toValid s"Cannot parse destination square in move: $str"
             orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin square in move: $str"
@@ -384,9 +385,10 @@ object KifParser {
         case DropRegex(posS, roleS) =>
           for {
             role <- Role.allByEverything get roleS toValid s"Unknown role in drop: $str"
-            _    <- if(variant.handRoles contains role) valid(role)
-                    else invalid(s"$role can't be dropped in $variant variant") 
-            pos  <- Pos.allNumberKeys get posS toValid s"Cannot parse destination square in drop: $str"
+            _ <-
+              if (variant.handRoles contains role) valid(role)
+              else invalid(s"$role can't be dropped in $variant variant")
+            pos <- Pos.allNumberKeys get posS toValid s"Cannot parse destination square in drop: $str"
           } yield Drop(
             role = role,
             pos = pos,

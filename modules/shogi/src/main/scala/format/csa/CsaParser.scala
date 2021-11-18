@@ -193,8 +193,9 @@ object CsaParser {
         case MoveRegex(origS, destS, roleS) => {
           for {
             role <- Role.allByCsa get roleS toValid s"Uknown role in move: $str"
-            _    <- if(Standard.allRoles contains role) valid(role)
-                    else invalid(s"$role not supported in standard shogi")
+            _ <-
+              if (Standard.allRoles contains role) valid(role)
+              else invalid(s"$role not supported in standard shogi")
             dest <- Pos.allNumberKeys get destS toValid s"Cannot parse destination sqaure in move: $str"
             orig <- Pos.allNumberKeys get origS toValid s"Cannot parse origin sqaure in move: $str"
           } yield CsaStd(
@@ -215,9 +216,10 @@ object CsaParser {
         case DropRegex(posS, roleS) =>
           for {
             role <- Role.allByCsa get roleS toValid s"Uknown role in drop: $str"
-            _    <- if(Standard.handRoles contains role) valid(role)
-                    else invalid(s"$role can't be dropped in standard shogi") 
-            pos  <- Pos.allNumberKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
+            _ <-
+              if (Standard.handRoles contains role) valid(role)
+              else invalid(s"$role can't be dropped in standard shogi")
+            pos <- Pos.allNumberKeys get posS toValid s"Cannot parse destination sqaure in drop: $str"
           } yield Drop(
             role = role,
             pos = pos,

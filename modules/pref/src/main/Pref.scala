@@ -45,9 +45,9 @@ case class Pref(
 
   def id = _id
 
-  def realTheme      = Theme(theme)
-  def realPieceSet   = PieceSet(pieceSet)
-  def realThemeTall  = ThemeTall(themeTall)
+  def realTheme     = Theme(theme)
+  def realPieceSet  = PieceSet(pieceSet)
+  def realThemeTall = ThemeTall(themeTall)
 
   def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
 

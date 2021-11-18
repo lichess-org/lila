@@ -5,7 +5,6 @@ package kif
 import Kif._
 import variant._
 
-
 class KifModelTest extends ShogiTest {
   "render kif situation - board, hands, turn, from random sfen" in {
     renderSituation(

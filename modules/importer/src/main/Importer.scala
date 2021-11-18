@@ -1,6 +1,5 @@
 package lila.importer
 
-
 import lila.game.{ Game, GameRepo }
 
 final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {

@@ -82,12 +82,14 @@ final private class SwissDirector(
   ): Game =
     Game
       .make(
-        shogi = shogi.Game(
-          variantOption = Some(swiss.variant),
-          fen = none
-        ).copy(
-          clock = swiss.clock.toClock.some
-        ),
+        shogi = shogi
+          .Game(
+            variantOption = Some(swiss.variant),
+            fen = none
+          )
+          .copy(
+            clock = swiss.clock.toClock.some
+          ),
         sentePlayer = makePlayer(Sente, players get pairing.sente err s"Missing pairing sente $pairing"),
         gotePlayer = makePlayer(Gote, players get pairing.gote err s"Missing pairing gote $pairing"),
         mode = shogi.Mode(swiss.settings.rated),

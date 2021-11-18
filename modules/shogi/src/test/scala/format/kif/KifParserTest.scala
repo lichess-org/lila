@@ -536,7 +536,7 @@ class KifParserTest extends ShogiTest {
     }
   }
 
-    "minishogi" in {
+  "minishogi" in {
     parser("""
       先手：先手
       手合割：五々将棋
@@ -550,7 +550,7 @@ class KifParserTest extends ShogiTest {
     }
   }
 
-    "minishogi from position" in {
+  "minishogi from position" in {
     parser("""
       後手：
       後手の持駒：なし

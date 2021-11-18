@@ -34,7 +34,7 @@ final class Analyser(
       case Some(_) =>
         analysisRepo.save(analysis) >>
           sendAnalysisProgress(analysis, complete = true) >>-
-            requesterApi.save(analysis).unit
+          requesterApi.save(analysis).unit
     }
 
   def progress(analysis: Analysis): Funit = sendAnalysisProgress(analysis, complete = false)

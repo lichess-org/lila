@@ -538,8 +538,8 @@ object mon {
             )
           )
           .increment()
-          ()
-        }
+        ()
+      }
       val move        = send("move") _
       val takeback    = send("takeback") _
       val corresAlarm = send("corresAlarm") _

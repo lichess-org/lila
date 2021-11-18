@@ -61,41 +61,41 @@ final private[api] class UserApi(
           // format: off
           case ((((((((((gameOption,nbGamesWithMe),following),followers),followable),
               relation),isFollowed),nbBookmarks),nbPlaying),nbImported),completionRate) =>
-          // format: on  
-            jsonView(u) ++ {
-              Json
-                .obj(
-                  "url"            -> makeUrl(s"@/${u.username}"), // for app BC
-                  "playing"        -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
-                  "nbFollowing"    -> following,
-                  "nbFollowers"    -> followers,
-                  "completionRate" -> completionRate,
-                  "count" -> Json.obj(
-                    "all"      -> u.count.game,
-                    "rated"    -> u.count.rated,
-                    "ai"       -> u.count.ai,
-                    "draw"     -> u.count.draw,
-                    "drawH"    -> u.count.drawH,
-                    "loss"     -> u.count.loss,
-                    "lossH"    -> u.count.lossH,
-                    "win"      -> u.count.win,
-                    "winH"     -> u.count.winH,
-                    "bookmark" -> nbBookmarks,
-                    "playing"  -> nbPlaying,
-                    "import"   -> nbImported,
-                    "me"       -> nbGamesWithMe
-                  )
+          // format: on
+          jsonView(u) ++ {
+            Json
+              .obj(
+                "url"            -> makeUrl(s"@/${u.username}"), // for app BC
+                "playing"        -> gameOption.map(g => makeUrl(s"${g.gameId}/${g.color.name}")),
+                "nbFollowing"    -> following,
+                "nbFollowers"    -> followers,
+                "completionRate" -> completionRate,
+                "count" -> Json.obj(
+                  "all"      -> u.count.game,
+                  "rated"    -> u.count.rated,
+                  "ai"       -> u.count.ai,
+                  "draw"     -> u.count.draw,
+                  "drawH"    -> u.count.drawH,
+                  "loss"     -> u.count.loss,
+                  "lossH"    -> u.count.lossH,
+                  "win"      -> u.count.win,
+                  "winH"     -> u.count.winH,
+                  "bookmark" -> nbBookmarks,
+                  "playing"  -> nbPlaying,
+                  "import"   -> nbImported,
+                  "me"       -> nbGamesWithMe
                 )
-                .add("streaming", liveStreamApi.isStreaming(u.id)) ++
-                as.isDefined.??(
-                  Json.obj(
-                    "followable" -> followable,
-                    "following"  -> relation.has(true),
-                    "blocking"   -> relation.has(false),
-                    "followsYou" -> isFollowed
-                  )
+              )
+              .add("streaming", liveStreamApi.isStreaming(u.id)) ++
+              as.isDefined.??(
+                Json.obj(
+                  "followable" -> followable,
+                  "following"  -> relation.has(true),
+                  "blocking"   -> relation.has(false),
+                  "followsYou" -> isFollowed
                 )
-            }.noNull
+              )
+          }.noNull
         }
     }
 

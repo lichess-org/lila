@@ -15,9 +15,9 @@ import lila.user.User
 
 object dashboard {
 
-  private val baseClass      = "puzzle-dashboard"
-  private val metricClass    = s"${baseClass}__metric"
-  private val themeClass     = s"${baseClass}__theme"
+  private val baseClass   = "puzzle-dashboard"
+  private val metricClass = s"${baseClass}__metric"
+  private val themeClass  = s"${baseClass}__theme"
 
   def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(

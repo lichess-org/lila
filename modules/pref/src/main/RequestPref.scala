@@ -19,8 +19,8 @@ object RequestPref {
     def paramOrSession(name: String): Option[String] =
       queryParam(req, name) orElse req.session.get(name)
 
-    val bg = paramOrSession("bg") | "light"
-    val notation = paramOrSession("pieceNotation").flatMap(_.toIntOption) | default.pieceNotation 
+    val bg       = paramOrSession("bg") | "light"
+    val notation = paramOrSession("pieceNotation").flatMap(_.toIntOption) | default.pieceNotation
 
     default.copy(
       dark = bg != "light",

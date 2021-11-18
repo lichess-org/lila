@@ -223,11 +223,11 @@ object layout {
         st.body(
           cls := List(
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentThemeTall.cssClass} coords-${ctx.pref.coordsClass} notation-${ctx.pref.pieceNotation}" -> true,
-            "zen"                                                                                                                                                                               -> ctx.pref.isZen,
-            "blind-mode"                                                                                                                                                                        -> ctx.blind,
-            "kid"                                                                                                                                                                               -> ctx.kid,
-            "mobile"                                                                                                                                                                            -> ctx.isMobileBrowser,
-            "playing fixed-scroll"                                                                                                                                                              -> playing
+            "zen"                                                                                                                                               -> ctx.pref.isZen,
+            "blind-mode"                                                                                                                                        -> ctx.blind,
+            "kid"                                                                                                                                               -> ctx.kid,
+            "mobile"                                                                                                                                            -> ctx.isMobileBrowser,
+            "playing fixed-scroll"                                                                                                                              -> playing
           ),
           dataDev := (!isProd).option("true"),
           dataVapid := vapidPublicKey,
@@ -254,7 +254,7 @@ object layout {
             cls := List(
               wrapClass  -> wrapClass.nonEmpty,
               "isSquare" -> ctx.pref.isSquare,
-              "isTall"  -> ctx.pref.isTall
+              "isTall"   -> ctx.pref.isTall
             )
           )(body),
           ctx.isAuth option div(

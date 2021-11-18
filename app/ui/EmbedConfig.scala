@@ -6,7 +6,14 @@ import play.api.i18n.Lang
 
 import lila.common.Nonce
 
-case class EmbedConfig(bg: String, board: String, pieceSet: lila.pref.PieceSet, lang: Lang, req: RequestHeader, nonce: Nonce)
+case class EmbedConfig(
+    bg: String,
+    board: String,
+    pieceSet: lila.pref.PieceSet,
+    lang: Lang,
+    req: RequestHeader,
+    nonce: Nonce
+)
 
 object EmbedConfig {
 

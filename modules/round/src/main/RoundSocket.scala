@@ -360,16 +360,18 @@ object RoundSocket {
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](65536)
 
     def schedule(gameId: Game.Id): Unit =
-      terminations.compute(
-        gameId.value,
-        (id, canc) => {
-          Option(canc).foreach(_.cancel())
-          scheduler.scheduleOnce(duration) {
-            terminations remove id
-            terminate(Game.Id(id))
+      terminations
+        .compute(
+          gameId.value,
+          (id, canc) => {
+            Option(canc).foreach(_.cancel())
+            scheduler.scheduleOnce(duration) {
+              terminations remove id
+              terminate(Game.Id(id))
+            }
           }
-        }
-      ).unit
+        )
+        .unit
 
     def cancel(gameId: Game.Id): Unit =
       Option(terminations remove gameId.value).foreach(_.cancel())

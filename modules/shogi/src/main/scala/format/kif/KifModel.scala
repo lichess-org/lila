@@ -94,14 +94,16 @@ object Kif {
       .mkString("\n")
 
   def renderSetup(variant: Variant, fen: Option[FEN]): String =
-    fen.filterNot(variant.initialFen == _.value).fold {
-      val handicapName = KifUtils.defaultHandicaps.getOrElse(variant, variant.name)
-      s"${Tag.Handicap.kifName}：$handicapName"
-    } { fen =>
-      getHandicapName(fen).fold((Forsyth << fen.value).fold("")(renderSituation _))(hc =>
-        s"${Tag.Handicap.kifName}：$hc"
-      )
-    }
+    fen
+      .filterNot(variant.initialFen == _.value)
+      .fold {
+        val handicapName = KifUtils.defaultHandicaps.getOrElse(variant, variant.name)
+        s"${Tag.Handicap.kifName}：$handicapName"
+      } { fen =>
+        getHandicapName(fen).fold((Forsyth << fen.value).fold("")(renderSituation _))(hc =>
+          s"${Tag.Handicap.kifName}：$hc"
+        )
+      }
 
   def renderSituation(sit: Situation): String = {
     val kifBoard = new scala.collection.mutable.StringBuilder(256)

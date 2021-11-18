@@ -317,6 +317,7 @@ object User {
   private val firstRow: List[PerfType] =
     List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
   private val secondRow: List[PerfType] = List(
-    PerfType.UltraBullet, PerfType.Minishogi
+    PerfType.UltraBullet,
+    PerfType.Minishogi
   )
 }

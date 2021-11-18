@@ -189,7 +189,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
       moreCss = moreCss,
       moreJs = moreJs
     ) {
-      val sep                  = div(cls := "sep")
+      val sep = div(cls := "sep")
       //val external             = frag(" ", i(dataIcon := "0"))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(

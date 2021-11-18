@@ -7,7 +7,7 @@ case class Game(
     situation: Situation,
     pgnMoves: Vector[String] = Vector(),
     clock: Option[Clock] = None,
-    turns: Int = 0, // plies
+    turns: Int = 0,         // plies
     startedAtTurn: Int = 0, // plies
     startedAtMove: Int = 1
 ) {

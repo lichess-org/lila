@@ -31,20 +31,21 @@ final class GarbageCollector(
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
     if (user.createdAt.isAfter(DateTime.now minusDays 3)) {
       val ip = HTTPRequest lastRemoteAddress req
-      system.scheduler.scheduleOnce(6 seconds) {
-        val applyData = ApplyData(user, ip, email, req)
-        logger.debug(s"delay $applyData")
-        lila.common.Future
-          .retry(
-            () => ensurePrintAvailable(applyData),
-            delay = 10 seconds,
-            retries = 5,
-            logger = none
-          )
-          .nevermind >> apply(applyData)
-        ()
-      }
-      .unit
+      system.scheduler
+        .scheduleOnce(6 seconds) {
+          val applyData = ApplyData(user, ip, email, req)
+          logger.debug(s"delay $applyData")
+          lila.common.Future
+            .retry(
+              () => ensurePrintAvailable(applyData),
+              delay = 10 seconds,
+              retries = 5,
+              logger = none
+            )
+            .nevermind >> apply(applyData)
+          ()
+        }
+        .unit
     }
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
@@ -108,10 +109,11 @@ final class GarbageCollector(
       slack.garbageCollector(message) >>- {
         if (armed) {
           doInitialSb(user)
-          system.scheduler.scheduleOnce(wait) {
-            doCollect(user)
-          }
-          .unit
+          system.scheduler
+            .scheduleOnce(wait) {
+              doCollect(user)
+            }
+            .unit
         }
       }
     }

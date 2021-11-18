@@ -15,6 +15,5 @@ final class Tor(ws: WSClient, config: SecurityConfig.Tor)(implicit ec: scala.con
       ips
     }
 
-
   def isExitNode(ip: IpAddress) = ips contains ip
 }

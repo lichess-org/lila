@@ -85,7 +85,7 @@ object Event {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
-            "uci" -> s"${orig.uciKey}${dest.uciKey}${ if (promotion) "+" else "" }",
+            "uci" -> s"${orig.uciKey}${dest.uciKey}${if (promotion) "+" else ""}",
             //"usi" -> s"${orig.usiKey}${dest.usiKey}${ if (promotion) "+" else "" }",
             "san" -> san
           )
@@ -136,7 +136,7 @@ object Event {
           "role" -> role.name,
           "uci"  -> s"${role.pgn}*${pos.uciKey}",
           //"usi"  -> s"${role.pgn}*${pos.usiKey}",
-          "san"  -> san
+          "san" -> san
         )
       }
     override def moveBy = Some(!state.color)

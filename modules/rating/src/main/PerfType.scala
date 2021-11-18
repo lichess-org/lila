@@ -87,13 +87,13 @@ object PerfType {
       )
 
   case object Minishogi
-    extends PerfType(
-      12,
-      key = "minishogi",
-      name = shogi.variant.Minishogi.name,
-      title = "Standard rules of shogi, but smaller board",
-      iconChar = ','
-    )
+      extends PerfType(
+        12,
+        key = "minishogi",
+        name = shogi.variant.Minishogi.name,
+        title = "Standard rules of shogi, but smaller board",
+        iconChar = ','
+      )
 
   case object Puzzle
       extends PerfType(
@@ -157,13 +157,13 @@ object PerfType {
   def variantOf(pt: PerfType): shogi.variant.Variant =
     pt match {
       case Minishogi => shogi.variant.Minishogi
-      case _ => shogi.variant.Standard
+      case _         => shogi.variant.Standard
     }
 
   def byVariant(variant: shogi.variant.Variant): Option[PerfType] =
     variant match {
       case shogi.variant.Minishogi => Minishogi.some
-      case _ => none
+      case _                       => none
     }
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view

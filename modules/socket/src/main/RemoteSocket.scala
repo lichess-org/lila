@@ -65,14 +65,15 @@ final class RemoteSocket(
       logger.warn("Remote socket boot")
       onlineUserIds set Set("lishogi")
     case In.ReqResponse(reqId, response) =>
-      requests.computeIfPresent(
-        reqId,
-        (_: Int, promise: Promise[String]) => {
-          promise success response
-          null // remove from promises
-        }
-      )
-      .unit
+      requests
+        .computeIfPresent(
+          reqId,
+          (_: Int, promise: Promise[String]) => {
+            promise success response
+            null // remove from promises
+          }
+        )
+        .unit
   }
 
   Bus.subscribeFun(

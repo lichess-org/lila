@@ -18,8 +18,10 @@ trait ShogigroundHelper {
     div(cls := s"cg-wrap orientation-${orient.name}") {
       cgBoard {
         raw {
-          def top(p: Pos)  = orient.fold(p.y - 1, board.variant.numberOfRanks - p.y) * (100 / board.variant.numberOfRanks)
-          def left(p: Pos) = orient.fold(board.variant.numberOfFiles - p.x, p.x - 1) * (100 / board.variant.numberOfFiles)
+          def top(p: Pos) =
+            orient.fold(p.y - 1, board.variant.numberOfRanks - p.y) * (100 / board.variant.numberOfRanks)
+          def left(p: Pos) =
+            orient.fold(board.variant.numberOfFiles - p.x, p.x - 1) * (100 / board.variant.numberOfFiles)
           val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
             s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
           } mkString ""

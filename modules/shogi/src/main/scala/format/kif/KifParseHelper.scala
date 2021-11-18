@@ -27,9 +27,11 @@ object KifParserHelper {
     val variant = detectVariant(ranks, handicap) | Standard
 
     if (ranks.size == 0) {
-      handicap.filterNot(h => KifUtils.defaultHandicaps.exists(_._2 == h)).fold(valid(Situation(variant)): Validated[String, Situation]) { h =>
-        parseHandicap(h)
-      }
+      handicap
+        .filterNot(h => KifUtils.defaultHandicaps.exists(_._2 == h))
+        .fold(valid(Situation(variant)): Validated[String, Situation]) { h =>
+          parseHandicap(h)
+        }
     } else if (ranks.size == variant.numberOfRanks) {
       for {
         pieces <- parseBoard(variant, ranks)
@@ -73,9 +75,10 @@ object KifParserHelper {
           for {
             pos <- Pos.at(x, y) toValid s"Too many files in board setup on rank $y"
             roleStr = prevPieceChar.fold("")(_.toString) + sq
-            role   <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
-            _      <- if(variant.allRoles contains role) valid(role)
-                      else invalid(s"$role is not valid $variant variant")
+            role <- Role.allByEverything.get(roleStr) toValid s"Unknown piece in board setup: $roleStr"
+            _ <-
+              if (variant.allRoles contains role) valid(role)
+              else invalid(s"$role is not valid $variant variant")
             pieces <- makePiecesList(rest, x - 1, y, None, false)
           } yield (pos -> Piece(Color.fromSente(!gote), role) :: pieces)
       }

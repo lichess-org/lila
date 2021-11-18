@@ -85,13 +85,15 @@ final class EventStream(
             lastSetSeenAt = DateTime.now
           }
 
-          context.system.scheduler.scheduleOnce(6 second) {
-            if (online) {
-              // gotta send a message to check if the client has disconnected
-              queue offer None
-              self ! SetOnline
+          context.system.scheduler
+            .scheduleOnce(6 second) {
+              if (online) {
+                // gotta send a message to check if the client has disconnected
+                queue offer None
+                self ! SetOnline
+              }
             }
-          }.unit
+            .unit
 
         case StartGame(game) => queue.offer(toJson(game).some).unit
 

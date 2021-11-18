@@ -106,12 +106,14 @@ final class GameStateStream(
         case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game).unit
         case SetOnline =>
           onlineApiUsers.setOnline(user.id)
-          context.system.scheduler.scheduleOnce(6 second) {
-            // gotta send a message to check if the client has disconnected
-            queue offer None
-            self ! SetOnline
-            Bus.publish(Tell(id, QuietFlag), "roundSocket")
-          }.unit
+          context.system.scheduler
+            .scheduleOnce(6 second) {
+              // gotta send a message to check if the client has disconnected
+              queue offer None
+              self ! SetOnline
+              Bus.publish(Tell(id, QuietFlag), "roundSocket")
+            }
+            .unit
       }
 
       def pushState(g: Game): Funit =

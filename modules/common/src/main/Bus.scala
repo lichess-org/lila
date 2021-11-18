@@ -84,23 +84,27 @@ final private class EventBus[Event, Channel, Subscriber](
 
   def subscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
-      entries.compute(
-        channel,
-        (_: Channel, subs: Set[Subscriber]) => {
-          Option(subs).fold(Set(subscriber))(_ + subscriber)
-        }
-      ).unit
+      entries
+        .compute(
+          channel,
+          (_: Channel, subs: Set[Subscriber]) => {
+            Option(subs).fold(Set(subscriber))(_ + subscriber)
+          }
+        )
+        .unit
 
   def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
-      entries.computeIfPresent(
-        channel,
-        (_: Channel, subs: Set[Subscriber]) => {
-          val newSubs = subs - subscriber
-          if (newSubs.isEmpty) null
-          else newSubs
-        }
-      ).unit
+      entries
+        .computeIfPresent(
+          channel,
+          (_: Channel, subs: Set[Subscriber]) => {
+            val newSubs = subs - subscriber
+            if (newSubs.isEmpty) null
+            else newSubs
+          }
+        )
+        .unit
 
   def publish(event: Event, channel: Channel): Unit =
     Option(entries get channel) foreach {
