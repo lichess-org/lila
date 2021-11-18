@@ -144,7 +144,6 @@ object ServerEval {
         move = m,
         fen = FEN(Forsyth >> g),
         check = g.situation.check,
-        crazyData = g.situation.board.crazyData,
         clock = none,
         children = Node.emptyChildren,
         forceVariation = false

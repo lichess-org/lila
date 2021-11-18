@@ -41,7 +41,6 @@ object NotationImport {
               comments = comments,
               glyphs = Glyphs.empty,
               clock = parsedNotation.tags.clockConfig.map(_.limit),
-              crazyData = replay.setup.situation.board.crazyData,
               children = Node.Children {
                 val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
                 makeNode(
@@ -88,7 +87,6 @@ object NotationImport {
               comments = comments,
               glyphs = Glyphs.empty,
               clock = parsedNotation.tags.clockConfig.map(_.limit),
-              crazyData = replay.setup.situation.board.crazyData,
               children = Node.Children {
                 val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
                 makeNode(
@@ -174,7 +172,6 @@ object NotationImport {
                     shapes = shapes,
                     comments = comments,
                     glyphs = san.metas.glyphs,
-                    crazyData = game.situation.board.crazyData,
                     // Normally we store time remaining after turn,
                     // which is actually pretty useless with byo...
                     // for imports we are gonna store time spent on this move

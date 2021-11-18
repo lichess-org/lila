@@ -186,14 +186,6 @@ object Forsyth {
       fen.split(' ').lift(1) flatMap (_.headOption) flatMap Color.apply
     }
 
-  def getHands(rawSource: String): Option[Hands] =
-    read(rawSource) { fen =>
-      fen.split(' ').lift(2) map { hStr =>
-        // Standard for now, todo - don't use separate field for hand in tree, just use value from fen
-        readHands(Standard, hStr)
-      }
-    }
-
   def truncateFen(fen: String) = fen split ' ' take 3 mkString " "
 
   def compareTruncated(a: String, b: String) = truncateFen(a) == truncateFen(b)

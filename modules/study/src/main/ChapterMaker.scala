@@ -1,7 +1,6 @@
 package lila.study
 
 import shogi.format.Tags
-import shogi.Hands
 import shogi.format.{ FEN, Forsyth }
 import shogi.variant.Variant
 import lila.chat.{ Chat, ChatApi }
@@ -88,7 +87,6 @@ final private class ChapterMaker(
           fen = FEN(Forsyth.>>(sit)),
           check = sit.situation.check,
           clock = none,
-          crazyData = sit.situation.board.crazyData,
           children = Node.emptyChildren
         ) -> true
       case None =>
@@ -97,7 +95,6 @@ final private class ChapterMaker(
           fen = FEN(variant.initialFen),
           check = false,
           clock = none,
-          crazyData = Some(Hands.init(variant)),
           children = Node.emptyChildren
         ) -> false
     }) match {

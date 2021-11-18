@@ -1,6 +1,5 @@
 package lila.study
 
-import shogi.Hands
 import shogi.format.{ FEN, Glyph, Glyphs, Uci, UciCharPair }
 
 import shogi.Centis
@@ -13,7 +12,6 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
-  val crazyData: Option[Hands]
   val children: Node.Children
   val comments: Comments
   val gamebook: Option[Gamebook]
@@ -38,7 +36,6 @@ case class Node(
     glyphs: Glyphs = Glyphs.empty,
     score: Option[Score] = None,
     clock: Option[Centis],
-    crazyData: Option[Hands],
     children: Node.Children,
     forceVariation: Boolean
 ) extends RootOrNode {
@@ -92,7 +89,6 @@ case class Node(
       glyphs = glyphs merge n.glyphs,
       score = n.score orElse score,
       clock = n.clock orElse clock,
-      crazyData = n.crazyData orElse crazyData,
       children = n.children.nodes.foldLeft(children) { case (cs, c) =>
         cs addNode c
       },
@@ -246,7 +242,6 @@ object Node {
       glyphs: Glyphs = Glyphs.empty,
       score: Option[Score] = None,
       clock: Option[Centis],
-      crazyData: Option[Hands],
       children: Children
   ) extends RootOrNode {
 
@@ -336,7 +331,6 @@ object Node {
         fen = FEN(variant.initialFen),
         check = false,
         clock = none,
-        crazyData = Some(Hands.init(variant)),
         children = emptyChildren
       )
 
@@ -346,7 +340,6 @@ object Node {
         fen = FEN(b.fen),
         check = b.check,
         clock = b.clock,
-        crazyData = b.crazyData,
         children = Children(b.children.view.map(fromBranch).toVector)
       )
   }
@@ -358,7 +351,6 @@ object Node {
       move = b.move,
       fen = FEN(b.fen),
       check = b.check,
-      crazyData = b.crazyData,
       clock = b.clock,
       children = Children(b.children.view.map(fromBranch).toVector),
       forceVariation = false

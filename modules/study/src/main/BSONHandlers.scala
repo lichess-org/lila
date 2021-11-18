@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.{ FEN, Forsyth, Glyph, Glyphs, Tag, Tags, Uci, UciCharPair }
+import shogi.format.{ FEN, Glyph, Glyphs, Tag, Tags, Uci, UciCharPair }
 import shogi.variant.Variant
 import shogi.{ Centis, Piece, Pos, Role }
 import org.joda.time.DateTime
@@ -156,7 +156,6 @@ object BSONHandlers {
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
       score          = doc.getAsOpt[Score](F.score)
       clock          = doc.getAsOpt[Centis](F.clock)
-      crazy          = Forsyth.getHands(fen.value)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     } yield Node(
       id,
@@ -170,7 +169,6 @@ object BSONHandlers {
       glyphs,
       score,
       clock,
-      crazy,
       Node.emptyChildren,
       forceVariation
     )
@@ -215,7 +213,6 @@ object BSONHandlers {
         glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
         score = r.getO[Score](score),
         clock = r.getO[Centis](clock),
-        crazyData = Forsyth.getHands(rootFen.value),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     }
