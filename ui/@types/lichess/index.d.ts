@@ -1,5 +1,5 @@
 interface Lichess {
-  load: Promise<void>; // document.onload promise
+  load: Promise<void>; // DOMContentLoaded promise
   info: any;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
