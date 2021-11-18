@@ -558,6 +558,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Dié veld word vereis</string>
   <string name="error.email">Hierdie epos adres is ongeldig</string>
+  <string name="error.email_acceptable">Hierdie e-pos adres is nie aanvaarbaar nie. Maak seker dis reg en probeer weer.</string>
+  <string name="error.email_unique">E-pos adres is ongeldig of reeds geneem</string>
+  <string name="error.email_different">Hierdie is reeds jou e-pos adres</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
