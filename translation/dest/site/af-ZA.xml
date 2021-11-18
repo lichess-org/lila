@@ -561,7 +561,12 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="error.email_acceptable">Hierdie e-pos adres is nie aanvaarbaar nie. Maak seker dis reg en probeer weer.</string>
   <string name="error.email_unique">E-pos adres is ongeldig of reeds geneem</string>
   <string name="error.email_different">Hierdie is reeds jou e-pos adres</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Moet ten minste %s karakters lank wees</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Moet op die meeste %s karakters lank wees</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Moet minstens %s wees</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Moet meestens %s wees</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
+  <string name="onlyExistingConversations">Slegs bestaande gesprekke</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
   <string name="castling">Kastelering</string>
