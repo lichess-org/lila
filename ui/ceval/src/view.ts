@@ -350,7 +350,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   makeExtendedMoveVariation(
                     pos,
                     pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!),
-                    ctrl.data?.variant.key || 'standard'
+                    instance.variant.key
                   ),
                   notation
                 ),
