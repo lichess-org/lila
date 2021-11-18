@@ -120,7 +120,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     );
   };
   const currentChapter = ctrl.root.study!.data.chapter;
-  const gameOrNotation = activeTab === 'game' || activeTab === 'notation';
+  const notVariantTab = activeTab === 'game' || activeTab === 'notation' || activeTab === 'edit';
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
@@ -299,14 +299,14 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               h(
                 'select#chapter-variant.form-control',
                 {
-                  attrs: { disabled: gameOrNotation },
+                  attrs: { disabled: notVariantTab },
                 },
-                gameOrNotation
+                notVariantTab
                   ? [h('option', noarg('automatic'))]
                   : ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name))
               ),
             ]),
-            h('div.form-group-half', [
+            h('div.form-group.form-half', [
               h(
                 'label.form-label',
                 {
