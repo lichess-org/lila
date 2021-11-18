@@ -120,7 +120,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     );
   };
   const currentChapter = ctrl.root.study!.data.chapter;
-  const gameOrNotation = activeTab === 'game' || activeTab === 'pgn';
+  const gameOrNotation = activeTab === 'game' || activeTab === 'notation';
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
