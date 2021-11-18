@@ -4,3 +4,6 @@
 [submodule "public/vendor/shepherd"]
 	path = public/vendor/shepherd
 	url = https://github.com/HubSpot/shepherd
+[submodule "public/vendor/sliding-puzzles"]
+	path = public/vendor/sliding-puzzles
+	url = https://github.com/WandererXII/sliding-puzzles.git
