@@ -95,6 +95,9 @@
   <string name="xOpeningExplorer">%s opening ontdekker</string>
   <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
   <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
+  <string name="winOr50MovesByPriorMistake">Wen of 50 skuiwe deur vorige fout</string>
+  <string name="lossOr50MovesByPriorMistake">Verloor of 50 skuiwe deur vorige fout</string>
+  <string name="unknownDueToRounding">Wen/verloor slegs gewaarborg as aanbevole tafelbasis lyn gevolg is sedert die laaste vat of pion skuif, weens moontlike afronding van DTZ waardes in Syzygy tafelbasisse.</string>
   <string name="allSet">Gereed!</string>
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
