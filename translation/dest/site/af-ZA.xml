@@ -117,6 +117,18 @@
   <string name="blunder">Flater</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onakkuraatheid</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s flater</item>
+    <item quantity="other">%s flaters</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fout</item>
+    <item quantity="other">%s foute</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s onakuraatheid</item>
+    <item quantity="other">%s onakuraathede</item>
+  </plurals>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>
@@ -127,6 +139,8 @@
     <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
+  <string name="drawByMutualAgreement">Gelykop deur wedersydse ooreenkoms</string>
+  <string name="fiftyMovesWithoutProgress">Vyftig skuiwe sonder vordering</string>
   <string name="currentGames">Lopende spelle</string>
   <plurals name="nbGames">
     <item quantity="one">Sien al %s spelle</item>
@@ -356,6 +370,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="follow">Volg</string>
   <string name="following">Besig om te volg</string>
   <string name="unfollow">Ontvolg</string>
+  <string name="followX">Volg %s</string>
+  <string name="unfollowX">Ontvolg %s</string>
   <string name="block">Blokeer</string>
   <string name="blocked">Geblok</string>
   <string name="unblock">Ontblok</string>
@@ -418,6 +434,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="setTheBoard">Pak die bord</string>
   <string name="popularOpenings">Gewilde openinge</string>
+  <string name="endgamePositions">Eindspel posisies</string>
+  <string name="chess960StartPosition">Skaak960 begin posisie: %s</string>
   <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Begin posisie</string>
   <string name="clearBoard">Maak bord skoon</string>
   <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Laai posisie</string>
@@ -432,6 +450,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="firstName">Noem naam</string>
   <string name="lastName">Van</string>
   <string name="biography">Biografie</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
   <string name="inlineNotation">Binnelyn notasie</string>
@@ -450,6 +469,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>
   <string name="description">Beskrywing</string>
+  <string name="descPrivate">Private beskrywing</string>
+  <string name="descPrivateHelp">Teks wat slegs spanlede sal sien. Indien gestel vervang dit die publieke beskrywing vir spanlede.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
