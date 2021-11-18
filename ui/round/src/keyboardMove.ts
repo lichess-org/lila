@@ -3,7 +3,7 @@ import * as cg from 'shogiground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
-import { valid as crazyValid } from './crazy/crazyCtrl';
+import { valid as handValid } from './hands/handCtrl';
 import { sendPromotion } from './promotion';
 import { onInsert } from './util';
 
@@ -62,7 +62,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       if (!role || !crazyData || cgState.pieces[key]) return;
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'sente' ? 0 : 1][role]) return;
-      if (!crazyValid(root, role, key)) return;
+      if (!handValid(root, role, key)) return;
       root.shogiground.cancelMove();
       root.shogiground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);

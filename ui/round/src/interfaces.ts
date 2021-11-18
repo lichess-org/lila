@@ -108,7 +108,6 @@ export interface Step {
   san: San;
   uci: Uci;
   check?: boolean;
-  crazy?: StepCrazy;
 }
 
 export interface ApiMove extends Step {
@@ -149,8 +148,6 @@ export interface ApiEnd {
   };
 }
 
-export interface StepCrazy extends Untyped {}
-
 export interface Pref {
   animationDuration: number;
   blindfold: boolean;
@@ -167,7 +164,6 @@ export interface Pref {
   keyboardMove: boolean;
   moveEvent: 0 | 1 | 2;
   replay: 0 | 1 | 2;
-  showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: 0 | 1 | 2;
   pieceNotation: number;

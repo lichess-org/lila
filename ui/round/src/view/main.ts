@@ -6,7 +6,7 @@ import { render as renderGround } from '../ground';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import * as gridHacks from './gridHacks';
-import crazyView from '../crazy/crazyView';
+import handView from '../hands/handView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 
@@ -42,9 +42,9 @@ export function main(ctrl: RoundController): VNode {
             },
             [renderGround(ctrl), promotion.view(ctrl)]
           ),
-          crazyView(ctrl, topColor, 'top'),
+          handView(ctrl, topColor, 'top'),
           ...renderTable(ctrl),
-          crazyView(ctrl, bottomColor, 'bottom'),
+          handView(ctrl, bottomColor, 'bottom'),
           ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
         ]
       );

@@ -17,7 +17,7 @@ import renderClocks from './clocks';
 import * as notationExport from './notationExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
-import crazyView from './crazy/crazyView';
+import handView from './hands/handView';
 import { view as keyboardView } from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
@@ -416,7 +416,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           ]
         ),
       gaugeOn && !intro ? cevalView.renderGauge(ctrl) : null,
-      intro ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+      intro ? null : handView(ctrl, ctrl.topColor(), 'top'),
       gamebookPlayView ||
         (intro
           ? null
@@ -431,7 +431,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-      intro ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+      intro ? null : handView(ctrl, ctrl.bottomColor(), 'bottom'),
       gamebookPlayView || intro ? null : controls(ctrl),
       ctrl.embed || intro
         ? null

@@ -19,7 +19,7 @@ import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpt
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import * as game from 'game';
-import { valid as crazyValid } from './crazy/crazyCtrl';
+import { valid as handValid } from './hands/handCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
@@ -477,7 +477,7 @@ export default class AnalyseCtrl {
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (crazyValid(this, piece, pos)) {
+    if (handValid(this, piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '*' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;

@@ -31,7 +31,7 @@ import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest,
 import { Move, Outcome, Role } from 'shogiops/types';
 import { storedProp } from 'common/storage';
 import { cancelDropMode } from 'shogiground/drop';
-import { valid as crazyValid } from './crazy/crazyCtrl';
+import { valid as handValid } from './hands/handCtrl';
 import { plyColor } from './util';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
@@ -174,7 +174,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function userDrop(piece: Piece, dest: Key): void {
-    if (crazyValid(vm.node.fen, piece, dest)) {
+    if (handValid(vm.node.fen, piece, dest)) {
       vm.justDropped = piece;
       playUserDrop(piece, dest);
     } else {

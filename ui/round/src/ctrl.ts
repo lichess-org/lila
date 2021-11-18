@@ -18,7 +18,7 @@ import TransientMove from './transientMove';
 import * as sound from './sound';
 import * as util from './util';
 import * as xhr from './xhr';
-import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
+import { valid as handValid, init as handInit, onEnd as handEndHook } from './hands/handCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
@@ -171,7 +171,7 @@ export default class RoundController {
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.replaying() && crazyValid(this, role, key, true)) {
+    if (!this.replaying() && handValid(this, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
     cancelDropMode(this.shogiground.state);
@@ -186,7 +186,7 @@ export default class RoundController {
   };
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key) => {
-    if (this.data.player.spectator || piece.color !== this.data.player.color || crazyValid(this, piece.role, key))
+    if (this.data.player.spectator || piece.color !== this.data.player.color || handValid(this, piece.role, key))
       sound.move();
   };
 
@@ -433,7 +433,6 @@ export default class RoundController {
       san: o.san,
       uci: o.uci,
       check: o.check,
-      crazy: o.crazyhouse,
     };
     d.steps.push(step);
     this.justDropped = undefined;
@@ -474,7 +473,7 @@ export default class RoundController {
 
   private playPredrop = () => {
     return this.shogiground.playPredrop(drop => {
-      return crazyValid(this, drop.role, drop.key);
+      return handValid(this, drop.role, drop.key);
     });
   };
 
@@ -517,7 +516,7 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.turns > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
-    if (d.crazyhouse) crazyEndHook();
+    if (d.crazyhouse) handEndHook();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -728,7 +727,7 @@ export default class RoundController {
         title.init();
         this.setTitle();
 
-        if (d.crazyhouse) crazyInit(this);
+        if (d.crazyhouse) handInit(this);
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;

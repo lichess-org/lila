@@ -3,10 +3,10 @@ import { dragNewPiece } from 'shogiground/drag';
 import { setDropMode, cancelDropMode } from 'shogiground/drop';
 import RoundController from '../ctrl';
 import * as cg from 'shogiground/types';
-import { Shogi } from 'shogiops/shogi';
-import { parseFen } from 'shogiops/fen';
 import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
 import { handRoles } from 'shogiops/variantUtil';
+import { parseFen } from 'shogiops/fen';
+import { setupPosition } from 'shogiops/variant';
 
 const li = window.lishogi;
 
@@ -61,30 +61,23 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
 let dropWithKey = false;
 let dropWithDrag = false;
 
-export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key, checkmateCheck = false): boolean {
+export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key): boolean {
   const data = ctrl.data;
   const lastStep = data.steps[data.steps.length - 1];
   const move = { role: role, to: parseChessSquare(key)! };
 
-  if (crazyKeys.length === 0) dropWithDrag = true;
+  if (handKeys.length === 0) dropWithDrag = true;
   else dropWithKey = true;
 
   if (!isPlayerTurn(data)) return false;
 
-  const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false);
-  const l = shogi.unwrap(
-    s => s.isLegal(move),
-    _ => true // for weird positions?
-  );
-  if (checkmateCheck && role === 'pawn' && shogi.isOk) {
-    shogi.unwrap().play(move!);
-    if (shogi.unwrap().isCheckmate()) alert('Checkmating with a pawn drop is an illegal move.');
-  }
-  return l;
+  const pos = parseFen(lastStep.fen).chain(s => setupPosition(lishogiVariantRules(data.game.variant.key), s, false));
+  if (pos.isErr) return false;
+  return pos.value.isLegal(move);
 }
 
 export function onEnd() {
-  const store = li.storage.make('crazyKeyHist');
+  const store = li.storage.make('handKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -93,7 +86,7 @@ export function onEnd() {
   }
 }
 
-export const crazyKeys: Array<number> = [];
+export const handKeys: Array<number> = [];
 
 export function init(ctrl: RoundController) {
   const k = window.Mousetrap;
@@ -102,13 +95,15 @@ export function init(ctrl: RoundController) {
 
   const setDrop = () => {
     if (activeCursor) document.body.classList.remove(activeCursor);
-    if (crazyKeys.length > 0) {
+    if (handKeys.length > 0) {
       const role = handRoles(lishogiVariantRules(ctrl.data.game.variant.key)).reverse()[
-          crazyKeys[crazyKeys.length - 1] - 1
+          handKeys[handKeys.length - 1] - 1
         ],
         color = ctrl.data.player.color,
         crazyData = ctrl.data.crazyhouse;
       if (!crazyData) return;
+      console.log('handctrl init', crazyData);
+      console.log(ctrl.data.game.initialFen);
 
       const nb = crazyData.pockets[color === 'sente' ? 0 : 1][role];
       setDropMode(ctrl.shogiground.state, nb > 0 ? { color, role } : undefined);
@@ -128,15 +123,15 @@ export function init(ctrl: RoundController) {
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into shogiground again.
   window.lishogi.pubsub.on('ply', () => {
-    if (crazyKeys.length > 0) setDrop();
+    if (handKeys.length > 0) setDrop();
   });
 
   for (let i = 1; i <= handRoles(lishogiVariantRules(ctrl.data.game.variant.key)).length; i++) {
     const iStr = i.toString();
     k.bind(iStr, (e: KeyboardEvent) => {
       e.preventDefault();
-      if (!crazyKeys.includes(i)) {
-        crazyKeys.push(i);
+      if (!handKeys.includes(i)) {
+        handKeys.push(i);
         setDrop();
       }
     });
@@ -144,10 +139,10 @@ export function init(ctrl: RoundController) {
       iStr,
       (e: KeyboardEvent) => {
         e.preventDefault();
-        const idx = crazyKeys.indexOf(i);
+        const idx = handKeys.indexOf(i);
         if (idx >= 0) {
-          crazyKeys.splice(idx, 1);
-          if (idx === crazyKeys.length) {
+          handKeys.splice(idx, 1);
+          if (idx === handKeys.length) {
             setDrop();
           }
         }
@@ -157,8 +152,8 @@ export function init(ctrl: RoundController) {
   }
 
   const resetKeys = () => {
-    if (crazyKeys.length > 0) {
-      crazyKeys.length = 0;
+    if (handKeys.length > 0) {
+      handKeys.length = 0;
       setDrop();
     }
   };
