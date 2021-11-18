@@ -8,6 +8,7 @@ import play.api.libs.json._
 import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 
 import lila.common.Json.uciReader
 import lila.common.ThreadLocalRandom
@@ -22,38 +23,44 @@ final private class FishnetOpeningBook(
 
   import FishnetOpeningBook._
 
-  def apply(game: Game, level: Int): Fu[Option[Uci]] = (game.turns < depth.get()) ?? {
-    ws.url(endpoint)
-      .withQueryStringParameters(
-        "variant"     -> game.variant.key,
-        "fen"         -> Forsyth.>>(game.chess).value,
-        "topGames"    -> "0",
-        "recentGames" -> "0",
-        "ratings"     -> (~levelRatings.get(level)).mkString(","),
-        "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
-      )
-      .get()
-      .map {
-        case res if res.status != 200 =>
-          logger.warn(s"opening book ${game.id} ${level} ${res.status} ${res.body}")
-          none
-        case res =>
-          for {
-            data <- res.body[JsValue].validate[Response](responseReader).asOpt
-            move <- data.randomPonderedMove
-          } yield move.uci
-      }
-      .monTry { res =>
-        _.fishnet
-          .openingBook(
-            level = level,
-            variant = game.variant.key,
-            ply = game.turns,
-            hit = res.toOption.exists(_.isDefined),
-            success = res.isSuccess
-          )
-      }
-  }
+  private val outOfBook = new lila.memo.ExpireSetMemo(10 minutes)
+
+  def apply(game: Game, level: Int): Fu[Option[Uci]] =
+    (game.turns < depth.get() && !outOfBook.get(game.id)) ?? {
+      ws.url(endpoint)
+        .withQueryStringParameters(
+          "variant"     -> game.variant.key,
+          "fen"         -> Forsyth.>>(game.chess).value,
+          "topGames"    -> "0",
+          "recentGames" -> "0",
+          "ratings"     -> (~levelRatings.get(level)).mkString(","),
+          "speeds"      -> (~openingSpeeds.get(game.speed)).map(_.key).mkString(",")
+        )
+        .get()
+        .map {
+          case res if res.status != 200 =>
+            logger.warn(s"opening book ${game.id} ${level} ${res.status} ${res.body}")
+            none
+          case res =>
+            for {
+              data <- res.body[JsValue].validate[Response](responseReader).asOpt
+              move <- data.randomPonderedMove
+            } yield move.uci
+        }
+        .addEffect { uci =>
+          if (uci.isEmpty) outOfBook.put(game.id)
+        }
+        .monTry { res =>
+          _.fishnet
+            .openingBook(
+              level = level,
+              variant = game.variant.key,
+              ply = game.turns,
+              hit = res.toOption.exists(_.isDefined),
+              success = res.isSuccess
+            )
+        }
+    }
 }
 
 object FishnetOpeningBook {
