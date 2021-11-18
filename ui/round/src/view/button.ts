@@ -9,10 +9,10 @@ import { PlayerUser } from 'game';
 import { RoundData, MaybeVNodes } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
-import { Shogi } from 'shogiops/shogi';
-import { parseFen } from 'shogiops/fen';
 import { promotionZone } from 'shogiops/variantUtil';
 import { lishogiVariantRules } from 'shogiops/compat';
+import { parseFen } from 'shogiops/fen';
+import { setupPosition } from 'shogiops/variant';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
@@ -189,33 +189,34 @@ export function impasseHelp(ctrl: RoundController) {
   if (!ctrl.impasseHelp) return null;
 
   const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
-  const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false).unwrap();
+  const rules = lishogiVariantRules(ctrl.data.game.variant.key);
+  const shogi = parseFen(lastStep.fen).chain(s => setupPosition(rules, s, false));
 
-  const sentePromotion = promotionZone(lishogiVariantRules(ctrl.data.game.variant.key))('sente').intersect(
-    shogi.board.sente
-  );
-  const gotePromotion = promotionZone(lishogiVariantRules(ctrl.data.game.variant.key))('gote').intersect(
-    shogi.board.gote
-  );
-  const allMajorPieces = shogi.board.bishop.union(shogi.board.rook).union(shogi.board.horse).union(shogi.board.dragon);
+  if (shogi.isErr) return null;
 
-  const senteKing: boolean = !sentePromotion.intersect(shogi.board.king).isEmpty();
-  const goteKing: boolean = !gotePromotion.intersect(shogi.board.king).isEmpty();
+  const board = shogi.value.board;
 
-  const senteNumberOfPieces: number = sentePromotion.diff(shogi.board.king).size();
-  const goteNumberOfPieces: number = gotePromotion.diff(shogi.board.king).size();
+  const sentePromotion = promotionZone(rules)('sente').intersect(board.sente);
+  const gotePromotion = promotionZone(rules)('gote').intersect(board.gote);
+  const allMajorPieces = board.bishop.union(board.rook).union(board.horse).union(board.dragon);
+
+  const senteKing: boolean = !sentePromotion.intersect(board.king).isEmpty();
+  const goteKing: boolean = !gotePromotion.intersect(board.king).isEmpty();
+
+  const senteNumberOfPieces: number = sentePromotion.diff(board.king).size();
+  const goteNumberOfPieces: number = gotePromotion.diff(board.king).size();
 
   const senteImpasseValue =
     senteNumberOfPieces +
     allMajorPieces.intersect(sentePromotion).size() * 4 +
-    shogi.hands['sente'].count() +
-    (shogi.hands['sente'].bishop + shogi.hands['sente'].rook) * 4;
+    shogi.value.hands['sente'].count() +
+    (shogi.value.hands['sente'].bishop + shogi.value.hands['sente'].rook) * 4;
 
   const goteImpasseValue =
     goteNumberOfPieces +
     allMajorPieces.intersect(gotePromotion).size() * 4 +
-    shogi.hands['gote'].count() +
-    (shogi.hands['gote'].bishop + shogi.hands['gote'].rook) * 4;
+    shogi.value.hands['gote'].count() +
+    (shogi.value.hands['gote'].bishop + shogi.value.hands['gote'].rook) * 4;
 
   return h('div.suggestion', [
     h(
