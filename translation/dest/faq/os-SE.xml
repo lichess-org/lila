@@ -6,8 +6,8 @@
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\"-ы комбинаци — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
   <string name="leechess">личец</string>
   <string name="hearItPronouncedBySpecialist">Байхъус, специалист æй куыд дзуры.</string>
-  <string name="whyLiveLightLibre">Удæгас уый тыххæй, æмæ ды хъазыс æмæ кæсыс хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар уымæн, æмæ Lichess æргом æмæ быронæй сыгъдæг у, иннæ æргъыл сайтытæм нæ кæсгæйæ.</string>
-  <string name="whyIsLilaCalledLila">Уый дæр хауы Lichess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ Lichess у фыст %2$s-йæ, æнцонæмбарон программон æвзагæй.</string>
+  <string name="whyLiveLightLibre">Удæгас, уымæн æмæ дæ бон у хъазын æмæ кæсын хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар, уымæн æмæ Lichess у æргом æмæ дзы нæй проприетарон быроны, иннæ коммерцион проектты хуызæн.</string>
+  <string name="whyIsLilaCalledLila">Уый дæр хауы Lichess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ Lichess сæйрагдæр фыст у %2$s-йæ, æнцонæмбарæн программон æвзагæй.</string>
   <string name="howCanIContributeToLichess">Куыд баххуыс кæнон Lichess-æн?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess цæры хъазджыты снывондытæй æмæ волонтёрты куыстæй.</string>
   <string name="findMoreAndSeeHowHelp">Дæ бон у базонын %1$s, уый (æмæ %2$s дæр). Кæд дæ фæнды баххуысын Lichess-æн дæ рæстæгæй æмæ арæхстытæй, уæд дзы ис %3$s.</string>
