@@ -47,4 +47,6 @@
   </plurals>
   <string name="newTeamBattle">Жаңа Топтық Күрес</string>
   <string name="customStartDate">Басталудың ерекше күні</string>
+  <string name="customStartDateHelp">Сіздің жергілікті уақыт белдеуіңіз. Бұл \"Жарысқа дейінгі уақыт\" баптауына әсер етеді</string>
+  <string name="allowBerserk">Берсерк-ті рұқсат ету</string>
 </resources>
