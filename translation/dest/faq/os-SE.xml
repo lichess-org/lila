@@ -6,7 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" у \"live/light/libre\" æмæ \"chess\"-ы комбинаци — удæгас, рог æмæ сæрибар шахмæттæ. Дзурын хъæуы афтæ: %1$s.</string>
   <string name="leechess">личец</string>
   <string name="hearItPronouncedBySpecialist">Байхъус, специалист æй куыд дзуры.</string>
-  <string name="whyLiveLightLibre">Удæгас, уымæн æмæ дæ бон у хъазын æмæ кæсын хъазтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар, уымæн æмæ Lichess у æргом æмæ дзы нæй проприетарон быроны, иннæ коммерцион проектты хуызæн.</string>
+  <string name="whyLiveLightLibre">Удæгас, уымæн æмæ дæ бон у хъазын æмæ кæсын хъæзтытæ реалон рæстæджы цыфæнды афоны; рог æмæ сæрибар, уымæн æмæ Lichess у æргом æмæ дзы нæй проприетарон быроны, иннæ коммерцион проектты хуызæн.</string>
   <string name="whyIsLilaCalledLila">Уый дæр хауы Lichess-ы райдайæн кодмæ, %1$s-мæ, кæй нысан кæны li[chess in sca]la, уымæн æмæ Lichess сæйрагдæр фыст у %2$s-йæ, æнцонæмбарæн программон æвзагæй.</string>
   <string name="howCanIContributeToLichess">Куыд баххуыс кæнон Lichess-æн?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess цæры хъазджыты нывондытæй æмæ волонтёрты куыстæй.</string>
@@ -18,6 +18,8 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">О, Lichess ныфс радта æндæр æргом сайтытæм, кæй пайда кæнынц нæ %1$s, %2$s æмæ %3$s.</string>
   <string name="fairPlay">Рæстаг Хъазт</string>
   <string name="whenAmIEligibleRatinRefund">Сайæгой мæ кæд рамбулдзæн, уæд мын мæ рейтинг фæстæмæ ратдзыстут?</string>
+  <string name="ratingRefundExplanation">Сайæгойы кæд раргом кодтам, уæд, иу минутæйы фæстæ, йæ 40 ахæм рейтингимæ хъæзтытæ, фæстаг 3 боны кæм рамбылдта, уыдзысты равзард. Ды ацы хъæзтыты йæ ныхмæлæууæг кæд уыдтæ, æмæ дæхион рейтинг æууæнккаг кæд у, уæд дæ рейтинг дын фæстæмæ ратдзыстæм. Баххæст уыдзæн æрæнгонд дæ иуылстыр рейтингæй æмæ æнæраст хъæзтыты фæстæ рейтингы ивындзинæдтæй. 
+  (Зæгъæм, дæ рейтинг ацы хъæзтыты фæстæ кæд тынг фæфылдæр, уæд, чи зоны, ницы дын баххæст кæндзыстæм, кæннод йæ хай æрмæст ратдзыстæм.) Цыфæндыйæ дæр дæ баххæст 150 гæбæлтæй нæ ахисдзæн.</string>
   <string name="gameplay">Хъазты арæзт</string>
   <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд ысты?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
