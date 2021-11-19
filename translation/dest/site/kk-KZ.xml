@@ -368,6 +368,8 @@
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
   <string name="unfollow">Серік болмау</string>
+  <string name="followX">%s серік болу</string>
+  <string name="unfollowX">%s серік болмау</string>
   <string name="block">Бұғаттау</string>
   <string name="blocked">Бұғатталған</string>
   <string name="unblock">Бұғаттан шығару</string>
@@ -553,6 +555,8 @@
   <string name="tools">Құралдар</string>
   <string name="increment">Қосылғыш</string>
   <string name="error.required">Бұл жолды толтырыңыз</string>
+  <string name="error.email">Бұл пошта мекенжайы қате</string>
+  <string name="error.email_acceptable">Бұл пошта мекенжайы қабылданбайды. Оны тексеріп, қайта көріңіз.</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
