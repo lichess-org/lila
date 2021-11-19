@@ -463,4 +463,13 @@ Translation results
   <string name="termsOfService">సేవా నిబంధనలు</string>
   <string name="sourceCode">సోర్స్ కోడ్</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
+  <string name="host">హోస్ట్</string>
+  <string name="hostColorX">హోస్ట్ రంగు: %s</string>
+  <string name="createdSimuls">కొత్తగా సృష్టించబడిన simuls</string>
+  <string name="hostANewSimul">కొత్త simul చేయండి</string>
+  <string name="noSimulFound">Simul కనుబడలేదు</string>
+  <string name="noSimulExplanation">ఈ simultaneous exhibition లేదు.</string>
+  <string name="returnToSimulHomepage">Simul హోమ్‌పేజీకి తిరిగి వెళ్ళు</string>
+  <string name="aboutSimul">Simuls ఒకే ఆటగాడు ఒకేసారి అనేక మంది ఆటగాళ్లను ఎదుర్కొంటాడు.</string>
+  <string name="aboutSimulImage">50 మంది ప్రత్యర్థులలో, ఫిషర్ 47 గేమ్‌లు గెలిచాడు, 2 డ్రా చేసుకున్నాడు మరియు 1 ఓడిపోయాడు.</string>
 </resources>
