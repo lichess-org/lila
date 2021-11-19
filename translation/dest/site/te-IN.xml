@@ -323,6 +323,8 @@ Translation results
   <string name="averageElo">సగటు రేటింగ్</string>
   <string name="location">స్థానం</string>
   <string name="filterGames">ఫిల్టర్ గేమ్‌లు</string>
+  <string name="save">సేవ్</string>
+  <string name="leaderboard">లీడర్‌బోర్డు</string>
   <string name="graph">గ్రాఫ్</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
@@ -374,6 +376,10 @@ Translation results
   <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
   <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
   <string name="profile">ప్రొఫైల్</string>
+  <string name="editProfile">ప్రొఫైల్ మార్చాలి</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">మీ దేశం లేదా జెండా</string>
+  <string name="thankYou">ధన్యవాదాలు!</string>
+  <string name="socialMediaLinks">సోషల్ మీడియా లింక్‌లు</string>
   <string name="typePrivateNotesHere">మీ ప్రైవేట్ గమనికలను ఇక్కడ టైప్ చేయండి</string>
   <string name="incorrectPassword">తప్పు పాస్‌వర్డ్</string>
   <string name="emailMeALink">నాకు ఒక లింక్ ఇమెయిల్ చేయండి</string>
