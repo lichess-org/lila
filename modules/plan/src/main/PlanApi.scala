@@ -282,25 +282,24 @@ final class PlanApi(
       .void >> setDbUserPlanOnCharge(user, levelUp = false)
 
   def gift(from: User, to: User, money: Money): Funit =
-    !to.isPatron ?? {
-      for {
-        isLifetime <- pricingApi isLifetime money
-        _ <- patronColl.update
-          .one(
-            $id(to.id),
-            $set(
-              "lastLevelUp" -> DateTime.now,
-              "lifetime"    -> isLifetime,
-              "free"        -> Patron.Free(DateTime.now, by = from.id.some),
-              "expiresAt"   -> (!isLifetime option DateTime.now.plusMonths(1))
-            ),
-            upsert = true
-          )
-        newTo = to.mapPlan(_.incMonths)
-        _ <- setDbUserPlan(newTo)
-      } yield {
-        notifier.onGift(from, newTo, isLifetime)
-      }
+    for {
+      toPatronOpt <- userPatron(to)
+      isLifetime  <- fuccess(~toPatronOpt.map(_.isLifetime)) >>| (pricingApi isLifetime money)
+      _ <- patronColl.update
+        .one(
+          $id(to.id),
+          $set(
+            "lastLevelUp" -> DateTime.now,
+            "lifetime"    -> isLifetime,
+            "free"        -> Patron.Free(DateTime.now, by = from.id.some),
+            "expiresAt"   -> (!isLifetime option DateTime.now.plusMonths(1))
+          ),
+          upsert = true
+        )
+      newTo = to.mapPlan(p => if (~toPatronOpt.map(_.canLevelUp)) p.incMonths else p.enable)
+      _ <- setDbUserPlan(newTo)
+    } yield {
+      notifier.onGift(from, newTo, isLifetime)
     }
 
   def recentGiftFrom(from: User): Fu[Option[Patron]] =
