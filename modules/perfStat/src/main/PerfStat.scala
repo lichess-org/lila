@@ -196,7 +196,7 @@ object RatingAt {
       } orElse cur
 }
 
-case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
+case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String, color: String)
 
 case class Results(results: List[Result]) extends AnyVal {
   def agg(pov: Pov, comp: Int) =
@@ -210,7 +210,8 @@ case class Results(results: List[Result]) extends AnyVal {
               opInt,
               UserId(~pov.opponent.userId),
               pov.game.movedAt,
-              pov.gameId
+              pov.gameId,
+              if (pov.player.color == chess.White) "white" else "black"
             ) :: results,
             Results.nb,
             Ordering.by[Result, Int](_.opInt * comp)
