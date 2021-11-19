@@ -284,7 +284,7 @@ final class PlanApi(
   def gift(from: User, to: User, money: Money): Funit =
     for {
       toPatronOpt <- userPatron(to)
-      isLifetime  <- fuccess(~toPatronOpt.map(_.isLifetime)) >>| (pricingApi isLifetime money)
+      isLifetime  <- fuccess(toPatronOpt.exists(_.isLifetime)) >>| (pricingApi isLifetime money)
       _ <- patronColl.update
         .one(
           $id(to.id),
@@ -296,7 +296,7 @@ final class PlanApi(
           ),
           upsert = true
         )
-      newTo = to.mapPlan(p => if (~toPatronOpt.map(_.canLevelUp)) p.incMonths else p.enable)
+      newTo = to.mapPlan(p => if (toPatronOpt.exists(_.canLevelUp)) p.incMonths else p.enable)
       _ <- setDbUserPlan(newTo)
     } yield {
       notifier.onGift(from, newTo, isLifetime)
