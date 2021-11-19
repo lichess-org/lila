@@ -25,8 +25,8 @@
   <string name="howCanIBecomeModerator">Ис дзы мæ бон модераторæй суын?</string>
   <string name="youCannotApply">Мах модераторы бынатмæ курдиаттæ нæ исæм. Кæд фендзыстæм, исчи, махмæ гæсгæ, уыдзæн хорз модератор, уæд нæхæдæг йемæ бастдзинад саразæм.</string>
   <string name="isCorrespondenceDifferent">Ис дзы хицæндзинад фыстæгтæ фысгæйæ хъазтæй хуымæтæг хъазты \'хсæн?</string>
-  <string name="gameplay">Хъазты арæзт</string>
-  <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр сахаты цæстдардтæ куыд рабæрæг конд ысты?</string>
+  <string name="gameplay">Хъазты æрфыст</string>
+  <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр хъазы хуызтæ сахаты цæстдардмæ гæсгæ куыд рабæрæг конд ысты?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Цавæр варианттæ мæ бон у хъазын Lichess-ы?</string>
