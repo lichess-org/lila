@@ -28,6 +28,8 @@
   <string name="youCanUseOpeningBookNoEngine">Lichess-ы сæйраг хицæндзинад фыстæгтæ фысгæ хъазы уагæвæрдты у райдайæнты чиныг. Компьютеры программæты пайдакæнæн иваргонд у æмæ расайдзæн аккаунты æхгæнæн. ICCF-мæ нæкæсгæйæ, Lichess компьютеры программæты аххуыс нæ уадзы.</string>
   <string name="gameplay">Хъазты æрфыст</string>
   <string name="howBulletBlitzEtcDecided">Нæмыг, блиц æмæ æндæр хъазы хуызтæ сахаты цæстдардмæ гæсгæ куыд рабæрæг конд ысты?</string>
+  <string name="basedOnGameDuration">Lichess сахаты цæстдард баст у æввахс хъазы дæргъцы = %1$s
+Зæъæм, æввахс 5+3 хъазы дæргъц у 5 × 60 + 40 × 3 = 420 сикъунды.</string>
   <string name="durationFormula">(райдайæн рæстæг) + 40 × (уæлæмхасæн)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
