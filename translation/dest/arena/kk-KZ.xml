@@ -49,4 +49,8 @@
   <string name="customStartDate">Басталудың ерекше күні</string>
   <string name="customStartDateHelp">Сіздің жергілікті уақыт белдеуіңіз. Бұл \"Жарысқа дейінгі уақыт\" баптауына әсер етеді</string>
   <string name="allowBerserk">Берсерк-ті рұқсат ету</string>
+  <string name="allowBerserkHelp">Қосымша ұпай жинау үшін ойыншыларға уақытты жартылай қыстартуды рұқсат ету</string>
+  <string name="allowChatHelp">Ойыншыларға чат бөлмесінде сөйлесуді рұқсат ету</string>
+  <string name="arenaStreaks">Алаң тізбектері</string>
+  <string name="arenaStreaksHelp">Қатарынан болған 2 жеңіс 2 ұпайдың орнына 4 ұпай тұрады.</string>
 </resources>
