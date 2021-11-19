@@ -10,6 +10,7 @@ import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.LightUser
 
 final class Api(
     env: Env,
@@ -74,17 +75,20 @@ final class Api(
   def usersStatus =
     ApiRequest { req =>
       val ids = get("ids", req).??(_.split(',').take(100).toList map lila.user.User.normalize)
-      env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
+      env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
         val streamingIds = env.streamer.liveStreamApi.userIds
-        toApiResult {
-          users.map { u =>
-            lila.common.LightUser.lightUserWrites
-              .writes(u)
-              .add("online" -> env.socket.isOnline(u.id))
-              .add("playing" -> env.round.playing(u.id))
-              .add("streaming" -> streamingIds(u.id))
+        def toJson(u: LightUser) =
+          lila.common.LightUser.lightUserWrites
+            .writes(u)
+            .add("online" -> env.socket.isOnline(u.id))
+            .add("playing" -> env.round.playing(u.id))
+            .add("streaming" -> streamingIds(u.id))
+        if (getBool("withGameIds", req)) users.map { u =>
+          (env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
+            toJson(u).add("playingId", gameId)
           }
-        }
+        }.sequenceFu map toApiResult
+        else fuccess(toApiResult(users map toJson))
       }
     }
 
