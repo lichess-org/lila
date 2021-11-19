@@ -387,10 +387,26 @@ Translation results
   <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">జాగ్రత్త, గేమ్ రేట్ చేయబడింది కానీ గడియారం లేదు!</string>
   <string name="success">విజయం</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s ఆటలు జరుగుతున్నాయి</item>
+    <item quantity="one">%s ఆటలు ఆడుతున్నారు</item>
     <item quantity="other">%s ఆటలు ఆడుతున్నారు</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">కదిలించిన తర్వాత దానంతట అదే తదుపరి గేమ్‌కు వెళ్లాలి</string>
+  <string name="autoSwitch">ఆటో స్విచ్</string>
+  <string name="puzzles">పజిల్స్</string>
+  <string name="tournamentWinners">టోర్నమెంట్ విజేతలు</string>
+  <string name="name">పేరు</string>
+  <string name="description">అతడు/ఆమె చేసిన తప్పేంటి</string>
+  <string name="descPrivate">ప్రైవేట్ సమాచారం</string>
+  <string name="descPrivateHelp">టీమ్ మెంబర్స్ మాత్రమే చూడగలిగే సమాచారం. సెట్ చేస్తే, బృంద సభ్యుల కోసం పబ్లిక్ సమాచారాన్ని భర్తీ చేస్తుంది.</string>
+  <string name="no">లేదు</string>
+  <string name="yes">అవును</string>
+  <string name="help">సహాయం:</string>
+  <string name="createANewTopic">కొత్త అంశాన్ని సృష్టించండి</string>
+  <string name="topics">అంశాలు</string>
+  <string name="posts">పోస్ట్‌లు</string>
+  <string name="lastPost">చివరి పోస్ట్</string>
+  <string name="views">వీక్షకులు</string>
+  <string name="replies">సమాధానాలు</string>
   <string name="typePrivateNotesHere">మీ ప్రైవేట్ గమనికలను ఇక్కడ టైప్ చేయండి</string>
   <string name="incorrectPassword">తప్పు పాస్‌వర్డ్</string>
   <string name="emailMeALink">నాకు ఒక లింక్ ఇమెయిల్ చేయండి</string>
