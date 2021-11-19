@@ -382,4 +382,10 @@ Translation results
   <string name="newPasswordAgain">కొత్త పాస్వర్డ్ (మళ్లీ టైప్ చేయండి)</string>
   <string name="newPasswordsDontMatch">కొత్త పాస్‌వర్డ్‌లు ఒకేలా లేవు</string>
   <string name="newPasswordStrength">పాస్వర్డ్ బలం</string>
+  <string name="tools">పరికరాలు</string>
+  <string name="error.required">ఈ సమాచారం అవసరం</string>
+  <string name="watch">వీక్షించండి</string>
+  <string name="videoLibrary">వీడియో లైబ్రరీ</string>
+  <string name="streamersMenu">స్ట్రీమర్లు</string>
+  <string name="about">మా గురించి</string>
 </resources>
