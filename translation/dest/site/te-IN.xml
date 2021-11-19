@@ -147,7 +147,7 @@
   <string name="players">ఆటగాళ్లు</string>
   <string name="friends">స్నేహితులు</string>
   <string name="discussions">సంభాషణలు</string>
-  <string name="today">ఈరోజు</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">ఈరోజు</string>
   <string name="yesterday">నిన్న</string>
   <string name="minutesPerSide">గడువు</string>
   <string name="variant">రకం</string>
@@ -367,10 +367,11 @@ Translation results
   <string name="boardEditor">బోర్డు ఎడిటర్</string>
   <string name="setTheBoard">బోర్డు సెట్ చేయండి</string>
   <string name="popularOpenings">జనాదరణ పొందిన ఓపెనింగ్స్</string>
-  <string name="startPosition">ప్రారంభ స్థానం</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">ప్రారంభ స్థానం</string>
   <string name="clearBoard">క్లియర్ బోర్డు</string>
-  <string name="loadPosition">స్థానం లోడ్</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">స్థానం లోడ్</string>
   <string name="isPrivate">ప్రైవేట్</string>
   <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
   <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
+  <string name="profile">ప్రొఫైల్</string>
 </resources>
