@@ -374,4 +374,12 @@ Translation results
   <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
   <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
   <string name="profile">ప్రొఫైల్</string>
+  <string name="typePrivateNotesHere">మీ ప్రైవేట్ గమనికలను ఇక్కడ టైప్ చేయండి</string>
+  <string name="incorrectPassword">తప్పు పాస్‌వర్డ్</string>
+  <string name="emailMeALink">నాకు ఒక లింక్ ఇమెయిల్ చేయండి</string>
+  <string name="currentPassword">ప్రస్తుత పాస్వర్డ్</string>
+  <string name="newPassword">కొత్త పాస్వర్డ్</string>
+  <string name="newPasswordAgain">కొత్త పాస్వర్డ్ (మళ్లీ టైప్ చేయండి)</string>
+  <string name="newPasswordsDontMatch">కొత్త పాస్‌వర్డ్‌లు ఒకేలా లేవు</string>
+  <string name="newPasswordStrength">పాస్వర్డ్ బలం</string>
 </resources>
