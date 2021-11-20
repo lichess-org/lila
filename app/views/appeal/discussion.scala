@@ -146,9 +146,7 @@ object discussion {
         form("text"),
         if (isNew) "Create an appeal" else "Add something to the appeal",
         help = !isGranted(_.Appeals) option frag("Please be concise. Maximum 1000 chars.")
-      )(
-        form3.textarea(_)(rows := 6)
-      ),
+      )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthClient)),
       presets.map { ps =>
         form3.actions(
           div(
