@@ -106,6 +106,8 @@ final class StudyMultiBoard(
 
   private object handlers {
 
+    import lila.common.Json._
+
     implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
       Json
         .obj("name" -> p.name)

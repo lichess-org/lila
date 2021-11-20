@@ -127,20 +127,11 @@ object JsonView {
   implicit val chapterIdWrites: Writes[Chapter.Id]     = stringIsoWriter(Chapter.idIso)
   implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
 
-  implicit private[study] val uciWrites: Writes[Uci] = Writes[Uci] { u =>
-    JsString(u.uci)
-  }
   implicit private val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
   implicit private[study] val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
-  }
-  implicit private[study] val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
-    JsString(c.name)
-  }
-  implicit private[study] val fenWriter: Writes[FEN] = Writes[FEN] { f =>
-    JsString(f.value)
   }
   implicit private[study] val sriWriter: Writes[Sri] = Writes[Sri] { sri =>
     JsString(sri.value)

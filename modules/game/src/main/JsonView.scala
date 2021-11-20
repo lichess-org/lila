@@ -5,7 +5,7 @@ import play.api.libs.json._
 import chess.format.{ FEN, Forsyth }
 import chess.variant.Crazyhouse
 import chess.{ Clock, Color }
-import lila.common.Json.jodaWrites
+import lila.common.Json._
 
 final class JsonView(rematches: Rematches) {
 
@@ -142,13 +142,5 @@ object JsonView {
 
   implicit val sourceWriter: Writes[Source] = Writes { s =>
     JsString(s.name)
-  }
-
-  implicit val colorWrites: Writes[Color] = Writes { c =>
-    JsString(c.name)
-  }
-
-  implicit val fenWrites: Writes[FEN] = Writes { f =>
-    JsString(f.value)
   }
 }

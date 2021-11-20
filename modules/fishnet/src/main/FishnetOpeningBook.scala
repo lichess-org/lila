@@ -10,7 +10,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
-import lila.common.Json.uciReader
+import lila.common.Json._
 import lila.common.ThreadLocalRandom
 import lila.game.Game
 import lila.memo.SettingStore
