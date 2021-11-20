@@ -31,8 +31,8 @@ export default function wikiTheory(): WikiTheory {
   return debounce(
     async (nodes: Tree.Node[]) => {
       const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
-      const path = pathParts.join('/');
-      if (!path) show('');
+      const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
+      if (pathParts.length > 30 || !path || path.length > 255) show('');
       else if (cache.has(path)) show(cache.get(path)!);
       else if (
         Array.from({ length: pathParts.length }, (_, i) => -i - 1)
@@ -50,8 +50,11 @@ export default function wikiTheory(): WikiTheory {
           };
           if (res.ok) {
             const json = await res.json();
-            if (json.query.pages[0].missing) saveAndShow('');
-            else saveAndShow(transform(json.query.pages[0].extract, title));
+            const page = json.query.pages[0];
+            if (page.missing) saveAndShow('');
+            else if (page.invalid) show('invalid request: ' + page.invalidreason);
+            else if (!page.extract) show('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');
+            else saveAndShow(transform(page.extract, title));
           } else saveAndShow('');
         } catch (err) {
           show('error: ' + err);

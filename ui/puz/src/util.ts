@@ -10,7 +10,7 @@ export const uciToLastMove = (uci: string | undefined): [Key, Key] | undefined =
 export const puzzlePov = (puzzle: Puzzle) => opposite(parseFen(puzzle.fen).unwrap().turn);
 
 export const loadSound = (file: string, volume?: number, delay?: number) => {
-  setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
+  setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true), delay || 1000);
   return () => lichess.sound.play(file, volume);
 };
 

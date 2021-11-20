@@ -6,6 +6,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
+import scala.util.Try
 
 final class BlogApi(
     config: BlogConfig
@@ -20,7 +21,7 @@ final class BlogApi(
       page: Int,
       maxPerPage: MaxPerPage,
       ref: Option[String]
-  ): Fu[Option[Paginator[Document]]] =
+  ): Fu[Option[Paginator[Document]]] = Try {
     api
       .forms(collection)
       .ref(ref | api.master.ref)
@@ -30,6 +31,9 @@ final class BlogApi(
       .submit()
       .fold(_ => none, some)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
+  } recover { case _: NoSuchElementException =>
+    fuccess(none)
+  } get
 
   def recent(
       prismic: BlogApi.Context,
@@ -94,9 +98,7 @@ final class BlogApi(
       } getOrElse reqRef
     }
 
-  private val prismicBuilder = new Prismic
-
-  def prismicApi = prismicBuilder.get(config.apiUrl)
+  def prismicApi = (new Prismic).get(config.apiUrl)
 }
 
 object BlogApi {

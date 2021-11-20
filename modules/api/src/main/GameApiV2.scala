@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
-import lila.common.Json.jodaWrites
+import lila.common.Json._
 import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl._
 import lila.game.JsonView._

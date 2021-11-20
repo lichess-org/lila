@@ -41,9 +41,16 @@ object Json {
     JsNumber(time.getMillis)
   }
 
+  implicit val colorWrites: Writes[chess.Color] = Writes { c =>
+    JsString(c.name)
+  }
+
   implicit val fenFormat: Format[FEN] = stringIsoFormat[FEN](Iso.fenIso)
 
-  implicit val uciReader: Reads[Uci] = Reads.of[String] flatMapResult { str =>
+  implicit val uciReads: Reads[Uci] = Reads.of[String] flatMapResult { str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")
+  }
+  implicit val uciWrites: Writes[Uci] = Writes { u =>
+    JsString(u.uci)
   }
 }

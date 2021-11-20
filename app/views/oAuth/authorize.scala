@@ -17,7 +17,8 @@ object authorize {
       moreJs = embedJsUnsafe(
         // ensure maximum browser compatibility
         """setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','button')}, 2000);"""
-      )
+      ),
+      csp = defaultCsp.withLegacyCompatibility.some
     ) {
       main(cls := "oauth box box-pad")(
         div(cls := "oauth__top")(

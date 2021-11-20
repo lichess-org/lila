@@ -335,8 +335,9 @@ final class Study(
     }
 
   def admin(id: String) =
-    Secure(_.StudyAdmin) { _ => me =>
-      env.study.api.adminInvite(id, me) inject Redirect(routes.Study.show(id))
+    Secure(_.StudyAdmin) { ctx => me =>
+      env.study.api.adminInvite(id, me) inject (if (HTTPRequest isXhr ctx.req) NoContent
+                                                else Redirect(routes.Study.show(id)))
     }
 
   def embed(id: String, chapterId: String) =

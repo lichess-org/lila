@@ -14,8 +14,11 @@ lichess.load.then(() => {
           method: 'post',
         })
         .then(likes => {
+          const label = $('.ublog-post__like .button-label');
+          const newText = label.data(`i18n-${liked ? 'unlike' : 'like'}`);
+          label.text(newText);
+          $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
           $('.ublog-post__like__nb').text(likes);
-          $('.ublog-post__like').toggleClass(likeClass, liked);
         });
     })
   );

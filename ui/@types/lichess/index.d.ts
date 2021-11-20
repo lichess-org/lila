@@ -1,5 +1,5 @@
 interface Lichess {
-  load: Promise<void>; // window.onload promise
+  load: Promise<void>; // DOMContentLoaded promise
   info: any;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
@@ -102,7 +102,7 @@ interface UserCompleteOpts {
 }
 
 interface SoundI {
-  loadOggOrMp3(name: string, path: string): void;
+  loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
   loadStandard(name: string, soundSet?: string): void;
   play(name: string, volume?: number): void;
   playOnce(name: string): void;

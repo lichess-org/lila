@@ -60,11 +60,14 @@ final class Markdown(
   private def mentionsToLinks(markdown: Text): Text =
     RawHtml.atUsernameRegex.replaceAllIn(markdown, "[$1](/@/$1)")
 
+  private val tooManyUnderscoreRegex             = """(_{4,})""".r
+  private def preventStackOverflow(text: String) = tooManyUnderscoreRegex.replaceAllIn(text, "_" * 3)
+
   def apply(key: Key)(text: Text): Html =
     Chronometer
       .sync {
         try {
-          addLinkAttributes(renderer.render(parser.parse(mentionsToLinks(text))))
+          addLinkAttributes(renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)))))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)

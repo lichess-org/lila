@@ -6,7 +6,6 @@ import play.api.libs.json._
 
 import lila.common.Iso
 import lila.common.Json._
-import lila.game.JsonView.colorWrites
 import lila.game.LightPov
 import lila.rating.PerfType
 import lila.simul.Simul

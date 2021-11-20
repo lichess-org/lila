@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">तपाईं सेतो खेल्नुहुनेछ</string>
   <string name="youPlayTheBlackPieces">तपाईं कालो खेल्नुहुनेछ</string>
   <string name="itsYourTurn">तपाईंको पालो!</string>
+  <string name="cheatDetected">बेइमानी पत्ता पर्यो</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
   <string name="threeChecks">तिनवटा चेकहरु</string>
   <string name="raceFinished">दौड सकियो</string>
@@ -49,6 +50,7 @@
   <string name="requestAComputerAnalysis">कम्प्युटर विश्लेषण आग्रह गर्नुहोस्</string>
   <string name="computerAnalysis">कम्प्युटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कम्प्युटर विश्लेषण उपलब्ध छ</string>
+  <string name="computerAnalysisDisabled">कम्प्युटर विश्लेषण बन्द छ</string>
   <string name="analysis">विश्लेषण बोर्ड</string>
   <string name="depthX">गहिराइ %s</string>
   <string name="usingServerAnalysis">सर्भरको विश्लेषण प्रयोग गरिदैं छ</string>
@@ -140,7 +142,7 @@
   <string name="players">खेलाडीहरू</string>
   <string name="friends">साथीहरू</string>
   <string name="discussions">वार्तालाप</string>
-  <string name="today">आज</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">आज</string>
   <string name="yesterday">हिजो</string>
   <string name="minutesPerSide">एक पक्षको मिनट</string>
   <string name="variant">परिमार्जन</string>
@@ -257,6 +259,7 @@
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
+  <string name="thisAccountViolatedTos">यस खाताले Lichess Terms of Service को उल्लङ्घन गरेको छ</string>
   <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
@@ -405,9 +408,9 @@
   <string name="boardEditor">बोर्ड सम्पादक</string>
   <string name="setTheBoard">बोर्ड सेट गरौं</string>
   <string name="popularOpenings">लोकप्रिय सुरुवाती चालहरु</string>
-  <string name="startPosition">शुरुवाती अवस्था</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">शुरुवाती अवस्था</string>
   <string name="clearBoard">बोर्ड खालि गरौं</string>
-  <string name="loadPosition">पोजिसन लोड गरौं</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">पोजिसन लोड गरौं</string>
   <string name="isPrivate">नीजि</string>
   <string name="reportXToModerators">%s माथी उजुरी गरौं</string>
   <string name="profileCompletion">प्रोफाइल समापन: %s</string>
@@ -419,13 +422,14 @@
   <string name="firstName">शुभनाम</string>
   <string name="lastName">थर</string>
   <string name="biography">जीवनी</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश अथवा झण्डा</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक सञ्जाल लिङ्क</string>
   <string name="inlineNotation">पङ्तिमा नोटेशन</string>
   <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
   <string name="onlinePlayers">अनलाइन खेलाडीहरु</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
   <string name="success">सफलता</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेल जारी</item>
@@ -475,6 +479,7 @@
   <string name="clockInitialTime">घडीको शुरु समय</string>
   <string name="clockIncrement">हरेक चालमा थप हुने समय</string>
   <string name="privacy">गोपनियता</string>
+  <string name="privacyPolicy">गोप्यता नीति</string>
   <string name="letOtherPlayersFollowYou">अरु खेलाडीलाई पछ्याउन दिने</string>
   <string name="letOtherPlayersChallengeYou">अरु खेलाडी लाई खेलको निम्तो दिन दिने</string>
   <string name="letOtherPlayersInviteYouToStudy">अरु खेलाडीलाई पाठ मा आमन्त्रण गर्न दिने</string>
@@ -488,7 +493,7 @@
   <string name="onSlowGames">ढिलो खेलहरुमा</string>
   <string name="always">सधैँ</string>
   <string name="never">नाइँ</string>
-  <string name="xCompetesInY">%1$s %2$s मा भाग लिनुहुन्छ</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$s मा भाग लिनुहुन्छ</string>
   <string name="victory">विजय</string>
   <string name="defeat">हार</string>
   <string name="victoryVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
@@ -754,5 +759,9 @@
   <string name="inTheFAQ">प्रायः सोधिने प्रश्नहरूमा</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">चोरी वा खराब ब्यहोराको उजुरी गर्नुपरेमा %1$s</string>
   <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
+  <string name="toRequestSupport">मद्दतका लागि अनुरोध गर्न, %1$s</string>
+  <string name="tryTheContactPage">सम्पर्क पेजबाट प्रयास गर्नुहोस्</string>
+  <string name="thisTopicIsArchived">यो विषय सङ्गृहीत छ र यसलाई जवाफ दिन सकिँदैन।</string>
+  <string name="teamNamedX">%1$s टोली</string>
   <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
 </resources>

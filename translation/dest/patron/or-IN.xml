@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">ଦାନ କରନ୍ତୁ</string>
-  <string name="donateAsX">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">ମାଗଣା ଖାତା</string>
   <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
@@ -17,9 +17,9 @@
   <string name="monthly">ମାସିକ</string>
   <string name="otherAmount">ଅନ୍ୟ</string>
   <string name="pleaseEnterAmountInX">ଦୟାକରି %s ରେ ଏକ ରାଶି ପ୍ରବେଶ କରନ୍ତୁ</string>
-  <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
+  <string name="withCreditCard">କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼</string>
   <string name="withPaypal">PayPal</string>
-  <string name="whereMoneyGoes">ଟଙ୍କା କୁଆଡ଼େ ଯାଏ?</string>
+  <string name="whereMoneyGoes">ଟଙ୍କା କୁଆଡ଼େ ଯାଏ?</string>
   <string name="serversAndDeveloper">ସର୍ବପ୍ରଥମେ, ଶକ୍ତିଶାଳୀ ସର୍ଭର।
 ତା\'ପରେ ଆମେ ଏକ ପୂର୍ଣ୍ଣକାଳୀନ ବିକାଶକାରୀ: %sଙ୍କୁ, Lichess ର ପ୍ରତିଷ୍ଠାତା, ଦେୟ ଦେଇଥାଉ।</string>
   <string name="contactSupport">Lichess ସମର୍ଥନ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ</string>
@@ -35,7 +35,7 @@
   <string name="cancelSupport">ଆପଣଙ୍କ ସମର୍ଥନ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ</string>
   <string name="xOrY">%1$s ବା %2$s</string>
   <string name="decideHowMuch">Lichess ଆପଣଙ୍କ ପାଇଁ କେତେ ମୂଲ୍ୟବାନ ତାହା ସ୍ଥିର କରନ୍ତୁ:</string>
-  <string name="stopPayments">ଆପଣଙ୍କ କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ ଏବଂ ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
+  <string name="stopPayments">ଆପଣଙ୍କ କ୍ରେଡ଼ିଟ୍ କାର୍ଡ଼ ପ୍ରତ୍ୟାହାର କରନ୍ତୁ ଏବଂ ଦେୟ ବନ୍ଦ କରନ୍ତୁ:</string>
   <string name="noLongerSupport">ଆଉ Lichess କୁ ସମର୍ଥନ କରନ୍ତି ନାହିଁ</string>
   <string name="date">ତାରିଖ</string>
   <string name="amount">ରାଶି</string>

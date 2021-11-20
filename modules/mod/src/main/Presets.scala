@@ -57,7 +57,7 @@ case class ModPreset(name: String, text: String, permissions: Set[Permission]) {
 
 object ModPresets {
 
-  val groups = List("PM", "appeal")
+  val groups              = List("PM", "appeal")
   val nameClosePresetName = "Account closure for name in 48h"
 
   private[mod] object setting {

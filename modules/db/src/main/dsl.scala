@@ -63,6 +63,10 @@ trait dsl {
   def $nor(expressions: Bdoc*): Bdoc = {
     $doc("$nor" -> expressions)
   }
+
+  def $not(expression: Bdoc): Bdoc = {
+    $doc("$not" -> expression)
+  }
   // End of Top Level Logical Operators
   //**********************************************************************************************//
 
@@ -291,13 +295,6 @@ trait dsl {
 
   }
 
-  trait LogicalOperators { self: ElementBuilder =>
-    def $not(f: String => Expression[Bdoc]): SimpleExpression[Bdoc] = {
-      val expression = f(field)
-      SimpleExpression(field, $doc("$not" -> expression.value))
-    }
-  }
-
   trait ElementOperators { self: ElementBuilder =>
     def $exists(v: Boolean): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$exists" -> v))
@@ -381,7 +378,6 @@ trait dsl {
       with ComparisonOperators
       with ElementOperators
       with EvaluationOperators
-      with LogicalOperators
       with ArrayOperators
 
   implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =
