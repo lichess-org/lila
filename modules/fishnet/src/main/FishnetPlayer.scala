@@ -26,7 +26,7 @@ final class FishnetPlayer(
         openingBook(game, level) flatMap {
           case Some(move) =>
             fuccess {
-              Bus.publish(Tell(game.id, FishnetPlay(move, game.turns)), "roundSocket")
+              Bus.publish(Tell(game.id, FishnetPlay(move, game.playedTurns)), "roundSocket")
             }
           case None => makeWork(game, level) addEffect redis.request void
         }
