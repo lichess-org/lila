@@ -7,6 +7,7 @@ import play.api.libs.json._
 import scala.math
 
 import lila.common.ApiVersion
+import lila.common.Json._
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, Player => GamePlayer }
 import lila.pref.Pref

@@ -8,7 +8,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config._
-import lila.common.Json.jodaWrites
+import lila.common.Json._
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
 import lila.db.paginator.Adapter

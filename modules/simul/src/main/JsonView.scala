@@ -3,6 +3,7 @@ package lila.simul
 import play.api.libs.json._
 
 import lila.common.LightUser
+import lila.common.Json._
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
@@ -11,10 +12,6 @@ final class JsonView(
     getLightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
-
-  implicit private val colorWriter: Writes[chess.Color] = Writes { c =>
-    JsString(c.name)
-  }
 
   implicit private val simulTeamWriter = Json.writes[SimulTeam]
 
