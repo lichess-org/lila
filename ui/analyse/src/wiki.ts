@@ -33,7 +33,6 @@ export default function wikiTheory(): WikiTheory {
       const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
       const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
       if (pathParts.length > 30 || !path || path.length > 255) show('');
-      if (!path) show('');
       else if (cache.has(path)) show(cache.get(path)!);
       else if (
         Array.from({ length: pathParts.length }, (_, i) => -i - 1)
