@@ -328,7 +328,8 @@ final class Study(
               env.study.api.importPgns(
                 StudyModel.Id(id),
                 data.toChapterDatas,
-                sticky = data.sticky
+                sticky = data.sticky,
+                ctx.pref.showRatings
               )(Who(me.id, lila.socket.Socket.Sri(sri)))
           )
       }
