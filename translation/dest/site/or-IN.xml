@@ -237,6 +237,7 @@
     <item quantity="other">%sଟି ଭାଷାରେ ଉପଲବ୍ଧ!</item>
   </plurals>
   <string name="anonymous">ବେନାମୀ</string>
+  <string name="yourScore">ଆପଣଙ୍କ ସ୍କୋର୍: %s</string>
   <string name="language">ଭାଷା</string>
   <string name="light">ହାଲୁକା</string>
   <string name="dark">ଗାଢ଼</string>
