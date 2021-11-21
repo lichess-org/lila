@@ -101,7 +101,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
               input(
                 id := "tv-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$baseUrl/tv/frame?theme=wood&bg=light" $args></iframe>"""
+                value := s"""<iframe src="$baseUrl/tv/frame?theme=wood&bg=light&pieceSet=Ryoko_1Kanji" $args></iframe>"""
               ),
               button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "\"")
             ),
@@ -119,7 +119,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
               input(
                 id := "puzzle-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$baseUrl/training/frame?theme=wood&bg=light" $args></iframe>"""
+                value := s"""<iframe src="$baseUrl/training/frame?theme=wood&bg=light&pieceSet=Ryoko_1Kanji" $args></iframe>"""
               ),
               button(
                 title := "Copy code",
