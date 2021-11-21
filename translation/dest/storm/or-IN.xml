@@ -4,6 +4,7 @@
     <item quantity="one">1 ରନ୍</item>
     <item quantity="other">%s ରନ୍</item>
   </plurals>
+  <string name="score">ସ୍କୋର୍</string>
   <string name="time">ସମୟ</string>
   <string name="createNewGame">ଏକ ନୂତନ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="skip">ବାଦ୍ ଦିଅ</string>
