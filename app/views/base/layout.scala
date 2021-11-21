@@ -41,16 +41,21 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
-  private def fontPreload(implicit ctx: Context) =
-    raw {
-      s"""<link rel="preload" href="${assetUrl(
-        s"font/lichess.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" +
-        !ctx.pref.pieceNotationIsLetter ??
-        s"""<link rel="preload" href="${assetUrl(
-          s"font/lichess.chess.woff2"
-        )}" as="font" type="font/woff2" crossorigin>"""
-    }
+
+  private def preload(href: String, as: String, tpe: Option[String] = None) =
+    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t => s"""type="$t" """)}crossorigin>""")
+
+  private def fontPreload(implicit ctx: Context) = frag(
+    preload(assetUrl(s"font/lichess.woff2"), "font", "font/woff2".some),
+    !ctx.pref.pieceNotationIsLetter option
+      preload(assetUrl(s"font/lichess.chess.woff2"), "font", "font/woff2".some)
+  )
+  private def boardPreload(implicit ctx: Context) = frag(
+    preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image"),
+    ctx.pref.is3d option
+      preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image")
+  )
+
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
   )
@@ -248,6 +253,7 @@ object layout {
             )
           },
           fontPreload,
+          boardPreload,
           manifests,
           jsLicense
         ),
