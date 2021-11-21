@@ -269,7 +269,7 @@ function makeExtendedMoveVariation(pos: Position, variation: Move[], variant: Va
     });
     if (san === '--') return extendedLine;
     if (i === variation.length - 1 && pos.outcome()?.winner)
-      extendedLine.push({ san: '投了', uci: '投了', fen: '投了', variant: 'standard' as VariantKey });
+      extendedLine.push({ san: '投了', uci: '投了', fen: '投了', variant: variant });
   }
   return extendedLine;
 }

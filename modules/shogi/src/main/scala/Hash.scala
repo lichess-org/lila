@@ -82,7 +82,7 @@ object Hash {
       }
       .fold(hturn)(_ ^ _)
 
-    // Hash in special crazyhouse data.
+    // Hash in hand data.
     val hcrazy = board.crazyData.fold(hactors) { hands =>
       Color.all
         .flatMap { color =>
