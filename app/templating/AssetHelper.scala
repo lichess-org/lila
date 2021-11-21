@@ -26,8 +26,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
-  def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
-
   def cssTag(name: String)(implicit ctx: Context): Frag =
     cssTagWithTheme(name, ctx.currentBg)
 
