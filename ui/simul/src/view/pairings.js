@@ -24,7 +24,7 @@ function miniPairing(ctrl) {
         m(
           'span',
           {
-            class: 'mini-board mini-board-' + game.id + ' parse-fen',
+            class: 'mini-board mini-board-' + game.id + ' parse-fen' + 'variant-' + game.vatiant.key,
             'data-color': game.orient,
             'data-fen': game.fen,
             'data-lastmove': game.lastMove,
