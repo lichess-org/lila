@@ -31,6 +31,6 @@
     <item quantity="other">View all %s posts</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Upload an image for your post</string>
-  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Image alternative text</string>
-  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Image credit</string>
+  <string name="imageAlt">Image alternative text</string>
+  <string name="imageCredit">Image credit</string>
 </resources>
