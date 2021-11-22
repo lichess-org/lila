@@ -50,11 +50,10 @@ final class MoveDB(implicit system: ActorSystem) {
 
     def receive = {
 
-      case Add(move) if !coll.exists(_._2 similar move) => coll += (move.id -> move)
-
       case Add(move) =>
         clearIfFull()
-        coll += (move.id -> move)
+        if(!coll.exists(_._2 similar move))
+          coll += (move.id -> move)
 
       case Acquire(client) => {
         sender() ! coll.values
@@ -76,7 +75,7 @@ final class MoveDB(implicit system: ActorSystem) {
             move
           }
       }
-//Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundSocket")
+
       case PostResult(workId, client, data) => {
         coll get workId match {
           case None =>

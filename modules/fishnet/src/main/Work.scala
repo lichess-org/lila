@@ -94,7 +94,7 @@ object Work {
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
 
-    def isOutOfTries = tries > 3
+    def isOutOfTries = tries >= maxTries
 
     def similar(to: Move) = game.id == to.game.id && game.moves == to.game.moves
 
@@ -131,7 +131,7 @@ object Work {
     def invalid = copy(acquired = none)
     def weak    = copy(acquired = none)
 
-    def isOutOfTries = tries >= 2
+    def isOutOfTries = tries >= maxTries
 
     def abort = copy(acquired = none)
 
@@ -141,4 +141,6 @@ object Work {
   }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
+
+  val maxTries = 3
 }
