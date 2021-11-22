@@ -60,6 +60,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
     }
   }
 
+  // color and orientation is always same, but maybe we will later add an option to flip the board...
   function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 

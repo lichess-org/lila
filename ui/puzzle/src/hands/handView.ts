@@ -5,6 +5,7 @@ import { onInsert } from '../util';
 import { Controller } from '../interfaces';
 import { opposite } from 'shogiops/util';
 import { handRoles } from 'shogiops/variantUtil';
+import { defined } from 'common';
 
 const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];
@@ -43,14 +44,15 @@ export default function (ctrl: Controller, position: Position) {
       .reverse()
       .map(role => {
         let nb = pocket[role] ?? 0;
+        const ground = ctrl.ground();
         const selectedPiece =
-          role == ctrl.ground()?.state.drawable.piece?.role && color == ctrl.ground()?.state.drawable.piece?.color;
+          defined(ground) && role == ground.state.drawable.piece?.role && color == ground.state.drawable.piece?.color;
         const selectedSquare: boolean =
-          !!ctrl.ground() &&
-          ctrl.ground()!.state.dropmode.active &&
-          ctrl.ground()?.state.dropmode.piece?.color === color &&
-          ctrl.ground()?.state.dropmode.piece?.role === role &&
-          ctrl.ground()?.state.movable.color == color;
+          defined(ground) &&
+          ground.state.dropmode.active &&
+          ground.state.dropmode.piece?.color === color &&
+          ground.state.dropmode.piece?.role === role &&
+          ground.state.movable.color == color;
         return h(
           'div.pocket-c1',
           h(
