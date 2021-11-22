@@ -34,7 +34,7 @@ object layout {
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.css"),
+        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
         rel := "stylesheet"
       )
   }
@@ -55,6 +55,14 @@ object layout {
     ctx.pref.is3d option
       preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image")
   )
+  private def piecesPreload(implicit ctx: Context) =
+    env.pieceImageExternal.get() option raw {
+      (for {
+        c <- List('w', 'b')
+        p <- List('K', 'Q', 'R', 'B', 'N', 'P')
+        href = staticAssetUrl(s"piece/${ctx.currentPieceSet.name}/$c$p.svg")
+      } yield s"""<link rel="preload" href="$href" as="image" crossorigin>""").mkString
+    }
 
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
@@ -254,6 +262,7 @@ object layout {
           },
           fontPreload,
           boardPreload,
+          piecesPreload,
           manifests,
           jsLicense
         ),

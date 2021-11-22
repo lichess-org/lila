@@ -26,7 +26,8 @@ final class Dev(env: Env) extends LilaController(env) {
     env.fishnet.openingBookDepth,
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
-    env.prizeTournamentMakers
+    env.prizeTournamentMakers,
+    env.pieceImageExternal
   )
 
   def settings =

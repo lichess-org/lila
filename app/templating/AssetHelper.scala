@@ -22,7 +22,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def assetVersion = AssetVersion.current
 
-  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 

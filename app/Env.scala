@@ -127,6 +127,11 @@ final class Env(
     default = 200,
     text = "Opening explorer games per second".some
   )
+  lazy val pieceImageExternal = memo.settingStore[Boolean](
+    "pieceImageExternal  ",
+    default = false,
+    text = "Use external piece images".some
+  )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
