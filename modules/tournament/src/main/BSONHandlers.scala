@@ -1,12 +1,14 @@
 package lila.tournament
 
 import shogi.Clock.{ Config => ClockConfig }
+import shogi.format.FEN
+import shogi.Mode
 import shogi.variant.Variant
-import shogi.{ Mode, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lishogiId
+import shogi.format.Forsyth
 import reactivemongo.api.bson._
 
 object BSONHandlers {
@@ -59,9 +61,10 @@ object BSONHandlers {
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position: StartingPosition = r.strO("fen").flatMap(Thematic.byFen) orElse
-        r.strO("eco").flatMap(Thematic.byEco) getOrElse // for BC
-        StartingPosition.initial
+      val position: Option[FEN] = {
+        r.strO("fen").flatMap(Thematic.byFen).filterNot(_.initial).map(_.fen) orElse
+          r.strO("eco").flatMap(Thematic.byEco).map(_.fen) // for BC
+      } map FEN
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
@@ -96,20 +99,20 @@ object BSONHandlers {
     }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
-        "_id"        -> o.id,
-        "name"       -> o.name,
-        "status"     -> o.status,
-        "clock"      -> o.clock,
-        "minutes"    -> o.minutes,
-        "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"        -> o.position.some.filterNot(_.initial).map(_.fen),
-        "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
-        "password"   -> o.password,
-        "conditions" -> o.conditions.ifNonEmpty,
-        "teamBattle" -> o.teamBattle,
-        "noBerserk"  -> w.boolO(o.noBerserk),
-        "noStreak"   -> w.boolO(o.noStreak),
-        "schedule" -> o.schedule.map { s =>
+        "_id"         -> o.id,
+        "name"        -> o.name,
+        "status"      -> o.status,
+        "clock"       -> o.clock,
+        "minutes"     -> o.minutes,
+        "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
+        "fen"         -> o.position.map(_.value),
+        "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
+        "password"    -> o.password,
+        "conditions"  -> o.conditions.ifNonEmpty,
+        "teamBattle"  -> o.teamBattle,
+        "noBerserk"   -> w.boolO(o.noBerserk),
+        "noStreak"    -> w.boolO(o.noStreak),
+        "schedule"    -> o.schedule.map { s =>
           $doc(
             "freq"  -> s.freq,
             "speed" -> s.speed

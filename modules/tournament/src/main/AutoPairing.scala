@@ -25,10 +25,10 @@ final class AutoPairing(
       .make(
         shogi = shogi.Game(
           variantOption = Some {
-            if (tour.position.initial) tour.variant
+            if (tour.position.isEmpty) tour.variant
             else shogi.variant.FromPosition
           },
-          fen = tour.position.some.filterNot(_.initial).map(_.fen)
+          fen = tour.position.map(_.value)
         ).copy(
           clock = clock.some
         ),

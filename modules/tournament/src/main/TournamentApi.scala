@@ -75,8 +75,7 @@ final class TournamentApi(
       mode = setup.realMode,
       password = setup.password,
       variant = setup.realVariant,
-      position =
-        DataForm.startingPosition(setup.position | shogi.StartingPosition.initial.fen, setup.realVariant),
+      position = setup.realPosition,
       berserkable = setup.berserkable | true,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
@@ -115,8 +114,7 @@ final class TournamentApi(
       startsAt = startDate | old.startsAt,
       password = data.password,
       position =
-        if (old.isCreated || !old.position.initial)
-          DataForm.startingPosition(position | shogi.StartingPosition.initial.fen, realVariant)
+        if (old.isCreated || old.position.isDefined) data.realPosition
         else old.position,
       noBerserk = !(~berserkable),
       noStreak = !(~streakable),

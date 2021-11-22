@@ -1,5 +1,6 @@
 package lila.tournament
 
+import shogi.format.FEN
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -11,7 +12,6 @@ import lila.common.{ Animal, LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
-import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
 import lila.user.{ LightUserApi, User }
@@ -116,7 +116,7 @@ final class JsonView(
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
-          .add("position" -> full.option(tour.position).filterNot(_.initial).map(positionJson))
+          .add("position" -> tour.position.ifTrue(full).map(positionJson))
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
@@ -509,13 +509,23 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(s: shogi.StartingPosition) =
-    Json.obj(
-      "eco"      -> s.eco,
-      "name"     -> s.name,
-      "wikiPath" -> s.wikiPath,
-      "fen"      -> s.fen
-    )
+  private[tournament] def positionJson(fen: FEN): JsObject =
+    Thematic.byFen(fen.value) match {
+      case Some(pos) =>
+        Json
+          .obj(
+            "eco"      -> pos.eco,
+            "name"     -> pos.name,
+            "wikiPath" -> pos.wikiPath,
+            "fen"      -> pos.fen
+          )
+      case None =>
+        Json
+          .obj(
+            "name" -> "Custom position",
+            "fen"  -> fen.value
+          )
+    }
 
   implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json

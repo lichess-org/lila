@@ -1,13 +1,13 @@
 package lila.tournament
 
+import shogi.format.FEN
+import shogi.{ Mode, StartingPosition }
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation
 import play.api.data.validation.{ Constraint, Constraints }
 
-import shogi.Mode
-import shogi.StartingPosition
 import lila.common.Form._
 import lila.hub.LightTeam._
 import lila.user.User
@@ -27,7 +27,7 @@ final class DataForm {
       waitMinutes = waitMinuteDefault.some,
       startDate = none,
       variant = shogi.variant.Standard.id.toString.some,
-      position = StartingPosition.initial.fen.some,
+      position = None,
       password = None,
       mode = none,
       rated = true.some,
@@ -50,7 +50,7 @@ final class DataForm {
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position.fen.some,
+      position = tour.position,
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -91,7 +91,7 @@ final class DataForm {
         "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
         "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-        "position"         -> optional(nonEmptyText),
+        "position"         -> optional(lila.common.Form.fen.playableStrict),
         "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
         "password"         -> optional(nonEmptyText),
@@ -156,9 +156,6 @@ object DataForm {
     validVariants.find { v =>
       v.key == from || from.toIntOption.exists(v.id ==)
     }
-
-  def startingPosition(fen: String, variant: Variant): StartingPosition =
-    Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
 }
 
 private[tournament] case class TournamentSetup(
@@ -171,7 +168,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[String],
+    position: Option[FEN],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
@@ -188,6 +185,8 @@ private[tournament] case class TournamentSetup(
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | shogi.variant.Standard
+
+  def realPosition = position ifTrue realVariant.standard
 
   def clockConfig = shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
 

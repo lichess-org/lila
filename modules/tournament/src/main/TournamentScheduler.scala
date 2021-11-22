@@ -1,11 +1,11 @@
 package lila.tournament
 
 import akka.actor._
+import shogi.format.FEN
+import shogi.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
-
-import shogi.StartingPosition
 
 final private class TournamentScheduler(
     api: TournamentApi,
@@ -66,8 +66,6 @@ final private class TournamentScheduler(
     def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
     def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
 
-    val std = StartingPosition.initial
-
     val farFuture = today plusMonths 7
 
     val birthday = new DateTime(2020, 9, 29, 12, 0, 0)
@@ -77,7 +75,7 @@ final private class TournamentScheduler(
       List( // legendary tournaments!
         at(birthday.withYear(today.getYear), 12) map orNextYear map { date =>
           val yo = date.getYear - 2020
-          Schedule(Unique, Rapid, Standard, std, date) plan {
+          Schedule(Unique, Rapid, Standard, none, date) plan {
             _.copy(
               name = s"${date.getYear} Lishogi Anniversary",
               minutes = 12 * 60,
@@ -107,7 +105,7 @@ Thank you all, you rock!"""
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> Blitz
       ).flatMap { case (day, speed) =>
         at(day, 13) filter farFuture.isAfter map { date =>
-          Schedule(Yearly, speed, Standard, std, date).plan
+          Schedule(Yearly, speed, Standard, none, date).plan
         }
       },
       List(thisMonth, nextMonth).flatMap { month =>
@@ -120,7 +118,7 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical
           ).flatMap { case (day, speed) =>
             at(day, 13) map { date =>
-              Schedule(Monthly, speed, Standard, std, date).plan
+              Schedule(Monthly, speed, Standard, none, date).plan
             }
           },
           List( // shield tournaments!
@@ -131,7 +129,7 @@ Thank you all, you rock!"""
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical
           ).flatMap { case (day, speed) =>
             at(day, 12) map { date =>
-              Schedule(Shield, speed, Standard, std, date) plan {
+              Schedule(Shield, speed, Standard, none, date) plan {
                 _.copy(
                   name = s"${speed.toString} Shield",
                   spotlight = Some(TournamentShield spotlight speed.toString)
@@ -149,7 +147,7 @@ Thank you all, you rock!"""
         nextFriday    -> Classical
       ).flatMap { case (day, speed) =>
         at(day, 13) map { date =>
-          Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
+          Schedule(Weekly, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
       List( // week-end elite tournaments!
@@ -157,47 +155,47 @@ Thank you all, you rock!"""
         nextSunday   -> HyperRapid
       ).flatMap { case (day, speed) =>
         at(day, 13) map { date =>
-          Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
+          Schedule(Weekend, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
       List( // daily tournaments!
         at(today, 14) map { date =>
-          Schedule(Daily, Bullet, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Bullet, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 16) map { date =>
-          Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, HyperRapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 18) map { date =>
-          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Rapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 20) map { date =>
-          Schedule(Daily, HyperRapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, HyperRapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 22) map { date =>
-          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Rapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 0) map { date =>
-          Schedule(Daily, Classical, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Classical, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten,
       List( // eastern tournaments!
         at(today, 2) map { date =>
-          Schedule(Eastern, Bullet, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Bullet, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 4) map { date =>
-          Schedule(Eastern, SuperBlitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, SuperBlitz, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
-          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Blitz, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 8) map { date =>
-          Schedule(Eastern, HyperRapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, HyperRapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 10) map { date =>
-          Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Rapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 12) map { date =>
-          Schedule(Eastern, Classical, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Classical, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten
       // hourly standard tournaments!
@@ -206,10 +204,10 @@ Thank you all, you rock!"""
       //   val hour = date.getHourOfDay
       //   List(
       //     at(date, hour) map { date =>
-      //       Schedule(Hourly, Blitz, Standard, std, date).plan
+      //       Schedule(Hourly, Blitz, Standard, none, date).plan
       //     },
       //     at(date, hour) collect {
-      //       case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, std, date).plan
+      //       case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, none, date).plan
       //     }
       //   ).flatten
       // }
@@ -242,13 +240,13 @@ Thank you all, you rock!"""
       //          val finalDate = date plusHours hourDelay
       //          if (speed == Bullet)
       //            List(
-      //              Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan,
-      //              Schedule(Hourly, speed, Standard, std, finalDate plusMinutes 30, conditions)
+      //              Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
+      //              Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
       //                .plan(_.copy(clock = shogi.Clock.Config(60, 1)))
       //            )
       //          else
       //            List(
-      //              Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan
+      //              Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan
       //            )
       //        }
       //    }

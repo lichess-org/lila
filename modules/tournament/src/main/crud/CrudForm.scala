@@ -5,9 +5,9 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import shogi.StartingPosition
 import shogi.variant.Variant
 import lila.common.Form._
+import shogi.format.FEN
 
 object CrudForm {
 
@@ -26,7 +26,7 @@ object CrudForm {
       "periods"        -> numberIn(periodsChoices),
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> number.verifying(Variant exists _),
-      "position"       -> text.verifying(DataForm.positions contains _),
+      "position"       -> optional(lila.common.Form.fen.playableStrict),
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
@@ -46,7 +46,7 @@ object CrudForm {
     periods = periodsDefault,
     minutes = minuteDefault,
     variant = shogi.variant.Standard.id,
-    position = StartingPosition.initial.fen,
+    position = none,
     date = DateTime.now plusDays 7,
     image = "",
     headline = "",
@@ -65,7 +65,7 @@ object CrudForm {
       periods: Int,
       minutes: Int,
       variant: Int,
-      position: String,
+      position: Option[FEN],
       date: DateTime,
       image: String,
       headline: String,
@@ -76,6 +76,8 @@ object CrudForm {
   ) {
 
     def realVariant = Variant orDefault variant
+
+    def realPosition = position ifTrue realVariant.standard
 
     def validClock = (clockTime + clockIncrement) > 0 || (clockTime + clockByoyomi) > 0
 

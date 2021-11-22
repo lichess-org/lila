@@ -35,7 +35,7 @@ object form {
             fields.clock1,
             fields.clock2,
             form3.split(fields.minutes, fields.waitMinutes),
-            fields.description,
+            form3.split(fields.description(true), fields.startPosition),
             form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
@@ -71,7 +71,6 @@ object form {
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
             form3.split(fields.name, tour.isCreated option fields.startDate),
             form3.split(fields.rated, fields.variant),
-            fields.startPosition,
             fields.clock1,
             fields.clock2,
             form3.split(
@@ -81,7 +80,7 @@ object form {
                   form3.input(_)(tpe := "number")
                 )
             ),
-            fields.description,
+            form3.split(fields.description(true), fields.startPosition),
             form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
@@ -193,23 +192,8 @@ object form {
     )
 
   def startingPosition(field: Field, tour: Option[Tournament]) =
-    st.select(
-      id := form3.id(field),
-      st.name := field.name,
-      cls := "form-control",
-      tour.exists(t => !t.isCreated && t.position.initial).option(disabled := true)
-    )(
-      option(
-        value := shogi.StartingPosition.initial.fen,
-        field.value.has(shogi.StartingPosition.initial.fen) option selected
-      )(shogi.StartingPosition.initial.name),
-      shogi.StartingPosition.categories.map { categ =>
-        optgroup(attr("label") := categ.name)(
-          categ.positions.map { v =>
-            option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)
-          }
-        )
-      }
+    form3.input(field)(
+      tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
 }
 
@@ -254,7 +238,23 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       )
     )
   def startPosition =
-    form3.group(form("position"), trans.startPosition(), klass = "position")(
+    form3.group(
+      form("position"),
+      trans.startPosition(),
+      klass = "position",
+      half = true,
+      help = frag(
+        "Paste a valid FEN to start every game from a given position.",
+        br,
+        "It only works for standard games, not with variants.",
+        br,
+        "You can use the ",
+        a(href := routes.Editor.index(), target := "_blank")("board editor"),
+        " to generate a FEN position, then paste it here.",
+        br,
+        "Leave empty to start games from the normal initial position."
+      ).some
+    )(
       views.html.tournament.form.startingPosition(_, tour)
     )
   def clock1 =
@@ -283,7 +283,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
       form3.select(_, DataForm.waitMinuteChoices)
     )
-  def description =
+  def description(half: Boolean) =
     form3.group(
       form("description"),
       frag("Tournament description"),
