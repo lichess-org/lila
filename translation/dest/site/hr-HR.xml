@@ -865,6 +865,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="clickToRevealEmailAddress">[Klikni za prikaz e-mail adrese]</string>
   <string name="download">Preuzmi</string>
   <string name="welcome">Dobrodošli!</string>
+  <string name="coachManager">Postavke za trenera</string>
+  <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
   <string name="tournDescription">Opis turnira</string>
   <string name="onlyMembersOfTeam">Samo za članove tima</string>
