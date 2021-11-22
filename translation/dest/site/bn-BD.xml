@@ -549,6 +549,7 @@
   <string name="increment">মুনাফা</string>
   <string name="error.required">এই ঘরটি পূরন করা আবশ্যক</string>
   <string name="error.email">ইমেইল ঠিকানাটি বৈধ নয়</string>
+  <string name="error.email_acceptable">ইমেইল ঠিকানাটি গ্রহণযোগ্য নয়। দয়া করে পুনরায় চেক করুন, অত‍ঃপর চেষ্টা করুন।</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
   <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
   <string name="onlyFriends">শুধু বন্ধুরা</string>
