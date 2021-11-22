@@ -47,9 +47,12 @@
   <string name="blackResigned">কালো হার মেনে নিলেন</string>
   <string name="whiteLeftTheGame">সাদা খেলাটি ছেড়ে চলে গেছেন</string>
   <string name="blackLeftTheGame">কালো খেলাটি ছেড়ে চলে গেছেন</string>
+  <string name="whiteDidntMove">সাদা চাল দিল না</string>
+  <string name="blackDidntMove">কালো চাল দিল না</string>
   <string name="requestAComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অবেদন করুন</string>
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
+  <string name="computerAnalysisDisabled">কম্পিউটার বিশ্লেষণ নিষ্ক্রিয় করা আছে</string>
   <string name="analysis">বিশ্লেষণ বোর্ড</string>
   <string name="depthX">গভীরতা %s</string>
   <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
@@ -153,7 +156,7 @@
   <string name="players">খেলোয়াড়</string>
   <string name="friends">বন্ধুরা</string>
   <string name="discussions">বার্তাগুলি</string>
-  <string name="today">আজ</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">আজ</string>
   <string name="yesterday">গতকাল</string>
   <string name="minutesPerSide">প্রতিটি পাশের জন্য বরাদ্দ মিনিট</string>
   <string name="variant">বিকল্প</string>
@@ -360,6 +363,8 @@
   <string name="follow">অনুসরণ</string>
   <string name="following">অনুসরণ করছেন</string>
   <string name="unfollow">আর অনুসরণ নয়</string>
+  <string name="followX">%sকে অননুসরণ করুন</string>
+  <string name="unfollowX">%sকে অননুসরণ করুন</string>
   <string name="block">বাধা দিন</string>
   <string name="blocked">বাধাগ্রস্ত</string>
   <string name="unblock">বাধা উঠিয়ে নিন</string>
@@ -422,9 +427,9 @@
   <string name="boardEditor">বোর্ড সম্পাদক</string>
   <string name="setTheBoard">বোর্ড সেট করুন</string>
   <string name="popularOpenings">জনপ্রিয় চমক</string>
-  <string name="startPosition">শুরুর অবস্থান</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">শুরুর অবস্থান</string>
   <string name="clearBoard">বোর্ড খালি করুন</string>
-  <string name="loadPosition">অবস্থান পুনঃস্থাপন</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">অবস্থান পুনঃস্থাপন</string>
   <string name="isPrivate">ব্যক্তিগত</string>
   <string name="reportXToModerators">মডারেটরদের কাছে %s এর নামে রিপোর্ট করুন</string>
   <string name="profileCompletion">প্রোফাইল সম্পন্ন: %s</string>
@@ -443,7 +448,7 @@
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>
   <string name="onlinePlayers">যে সমস্ত  খেলোয়ার অনলাইন আছে</string>
   <string name="activePlayers">সক্রিয় খেলোয়াড়গণ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">সাবধান, এই খেলাটি মূল্যায়িত তবে কোনো সময়সীমা নেই!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">সাবধান, এই খেলাটি মূল্যায়িত তবে কোনো সময়সীমা নেই!</string>
   <string name="success">সফল্য হয়েছে</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s খেলা চলছে</item>
@@ -512,7 +517,7 @@
   <string name="onSlowGames">খেলায় ধীর গতি</string>
   <string name="always">সব সময়</string>
   <string name="never">কখনই না</string>
-  <string name="xCompetesInY">%1$s করা আছে মধ্যে %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s করা আছে মধ্যে %2$s</string>
   <string name="victory">বিজয়</string>
   <string name="defeat">হার</string>
   <string name="victoryVsYInZ">%1$s বানাম %2$s মধ্যে %3$s</string>
@@ -543,6 +548,7 @@
   <string name="tools">সরঞ্জামসমূহ</string>
   <string name="increment">মুনাফা</string>
   <string name="error.required">এই ঘরটি পূরন করা আবশ্যক</string>
+  <string name="error.email">ইমেইল ঠিকানাটি বৈধ নয়</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
   <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
   <string name="onlyFriends">শুধু বন্ধুরা</string>
@@ -790,7 +796,7 @@
   <string name="youCannotPostYetPlaySomeGames">আপনি এখন ফোরামে পোষ্ট করতে পারবেন না. আগে কিছু গেম খেলুন!</string>
   <string name="subscribe">সাবস্ক্রাইব</string>
   <string name="unsubscribe">আনসাবস্ক্রাইব</string>
-  <string name="mentionedYouInX">\"%1$s\" এ আপনাকে উল্লেখ করেছেন।</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">\"%1$s\" এ আপনাকে উল্লেখ করেছেন।</string>
   <string name="xMentionedYouInY">%1$s , \"%2$s\" এ আপনার নাম উল্লেখ করেছেন।</string>
   <string name="invitedYouToX">\"%1$s\" এ আপনাকে আমন্ত্রণ জানিয়েছেন।</string>
   <string name="xInvitedYouToY">%1$s, আপনাকে \"%2$s\" এ আমন্ত্রণ জানিয়েছেন।</string>
