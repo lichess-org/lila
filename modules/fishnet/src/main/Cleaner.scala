@@ -28,12 +28,17 @@ final private class Cleaner(
 
   private def cleanAnalysis: Funit =
     analysisColl.ext
-      .find($doc("acquired.date" $lt durationAgo(analysisTimeoutBase)))
+      .find(
+        $or(
+          $doc("acquired.date" $lt durationAgo(analysisTimeoutBase)),
+          $doc("tries" $gte Work.maxTries)
+        )
+      )
       .sort($sort desc "acquired.date")
       .cursor[Work.Analysis]()
       .documentSource()
       .filter { ana =>
-        ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
+        ana.acquiredAt.fold(true)(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
       }
       .take(200)
       .mapAsyncUnordered(4) { ana =>
