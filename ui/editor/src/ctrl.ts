@@ -1,6 +1,6 @@
 import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
-import { Role } from 'shogiground/types';
+import { NumberPair, Role } from 'shogiground/types';
 import { Rules } from 'shogiops/types';
 import { Board } from 'shogiops/board';
 import { Setup } from 'shogiops/setup';
@@ -8,7 +8,7 @@ import { setupPosition } from 'shogiops/variant';
 import { makeFen, parseFen, INITIAL_FEN, INITIAL_EPD, EMPTY_FEN } from 'shogiops/fen';
 
 import { defined, prop, Prop } from 'common';
-import { opposite } from 'shogiground/util';
+import { eventPosition, opposite } from 'shogiground/util';
 import { Hand, Hands } from 'shogiops/hand';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variantUtil';
 
@@ -21,6 +21,7 @@ export default class EditorCtrl {
   redraw: Redraw;
 
   selected: Prop<Selected>;
+  lastTouchMovePos: NumberPair | undefined;
 
   hands: Hands;
   turn: Color;
@@ -54,6 +55,30 @@ export default class EditorCtrl {
       e.preventDefault();
       if (this.shogiground) this.setOrientation(opposite(this.shogiground.state.orientation));
     });
+    document.addEventListener(
+      'touchmove',
+      e => {
+        this.lastTouchMovePos = eventPosition(e as any);
+      }
+    );
+    document.addEventListener(
+      'touchend',
+      e => {
+        e.preventDefault();
+        if (!this.lastTouchMovePos) return;
+        const target = document.elementFromPoint(this.lastTouchMovePos[0], this.lastTouchMovePos[1]);
+        const droppedOnPiece = target?.getElementsByTagName('piece')[0];
+        const curDrag = this.shogiground?.state.draggable.current || this.shogiground?.state.draggable.lastDropOff;
+        // We add to pocket if we the touchend occurs above it and we are currently draggins something
+        if (curDrag && droppedOnPiece && droppedOnPiece.getAttribute('data-nb') !== null) {
+          const color = droppedOnPiece.getAttribute('data-color');
+          if (color) this.addToPocket(color as Color, curDrag.piece.role, true);
+        }
+        this.lastTouchMovePos = undefined;
+      },
+      { passive: false }
+    );
+
     this.rules =
       !this.cfg.embed && window.history.state && window.history.state.rules ? window.history.state.rules : 'shogi';
 
@@ -70,6 +95,9 @@ export default class EditorCtrl {
       else window.history.replaceState('', '', this.makeUrl('/editor/', fen));
     }
     this.options.onChange && this.options.onChange(fen);
+    setTimeout(() => {
+      this.shogiground!.state.draggable.lastDropOff = undefined;
+    }, 500);
     this.redraw();
   }
 

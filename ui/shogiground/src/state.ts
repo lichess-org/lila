@@ -67,6 +67,7 @@ export interface State {
     autoDistance: boolean; // lets shogiground set distance to zero when user drags pieces
     showGhost: boolean; // show ghost of piece being dragged
     deleteOnDropOff: boolean; // delete a piece when it is dropped off the board
+    lastDropOff?: DragCurrent; // last piece that was dropped off
     current?: DragCurrent;
   };
   dropmode: {
