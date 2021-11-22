@@ -124,7 +124,7 @@ final private class StudySocket(
         case "addChapter" =>
           reading[ChapterMaker.Data](o) { data =>
             val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-            who foreach api.addChapter(studyId, data, sticky = sticky)
+            who foreach api.addChapter(studyId, data, sticky = sticky, withRatings = true)
           }
         case "setChapter" =>
           o.get[Chapter.Id]("d") foreach { chapterId =>
