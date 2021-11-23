@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">%{%s} 님의 블로그</string>
   <string name="newPost">새 글 쓰기</string>
   <string name="postTitle">제목</string>
   <string name="postBody">본문</string>
