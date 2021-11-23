@@ -55,12 +55,9 @@ export default class EditorCtrl {
       e.preventDefault();
       if (this.shogiground) this.setOrientation(opposite(this.shogiground.state.orientation));
     });
-    document.addEventListener(
-      'touchmove',
-      e => {
-        this.lastTouchMovePos = eventPosition(e as any);
-      }
-    );
+    document.addEventListener('touchmove', e => {
+      this.lastTouchMovePos = eventPosition(e as any);
+    });
     document.addEventListener(
       'touchend',
       e => {
