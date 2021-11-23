@@ -792,6 +792,13 @@ export default class RoundController {
 
       wakeLock.request();
 
+      if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
+        alert('Play enhancement extensions are no longer allowed!');
+        lichess.socket.destroy();
+        this.setRedirecting();
+        location.href = '/help/play-extensions';
+      }
+
       this.onChange();
     }, 800);
   };
