@@ -42,18 +42,20 @@ object layout {
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  private def preload(href: String, as: String, tpe: Option[String] = None) =
-    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t => s"""type="$t" """)}crossorigin>""")
+  private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
+      s"""type="$t" """
+    )}${crossorigin ?? "crossorigin"}>""")
 
   private def fontPreload(implicit ctx: Context) = frag(
-    preload(assetUrl(s"font/lichess.woff2"), "font", "font/woff2".some),
+    preload(assetUrl(s"font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     !ctx.pref.pieceNotationIsLetter option
-      preload(assetUrl(s"font/lichess.chess.woff2"), "font", "font/woff2".some)
+      preload(assetUrl(s"font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
   private def boardPreload(implicit ctx: Context) = frag(
-    preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image"),
+    preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d option
-      preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image")
+      preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image", crossorigin = false)
   )
   private def piecesPreload(implicit ctx: Context) =
     env.pieceImageExternal.get() option raw {
@@ -61,7 +63,7 @@ object layout {
         c <- List('w', 'b')
         p <- List('K', 'Q', 'R', 'B', 'N', 'P')
         href = staticAssetUrl(s"piece/${ctx.currentPieceSet.name}/$c$p.svg")
-      } yield s"""<link rel="preload" href="$href" as="image" crossorigin>""").mkString
+      } yield s"""<link rel="preload" href="$href" as="image">""").mkString
     }
 
   private val manifests = raw(
