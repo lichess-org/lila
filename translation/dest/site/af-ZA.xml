@@ -95,6 +95,9 @@
   <string name="xOpeningExplorer">%s opening ontdekker</string>
   <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
   <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
+  <string name="winOr50MovesByPriorMistake">Wen of 50 skuiwe deur vorige fout</string>
+  <string name="lossOr50MovesByPriorMistake">Verloor of 50 skuiwe deur vorige fout</string>
+  <string name="unknownDueToRounding">Wen/verloor slegs gewaarborg as aanbevole tafelbasis lyn gevolg is sedert die laaste vat of pion skuif, weens moontlike afronding van DTZ waardes in Syzygy tafelbasisse.</string>
   <string name="allSet">Gereed!</string>
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
@@ -114,6 +117,18 @@
   <string name="blunder">Flater</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onakkuraatheid</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s flater</item>
+    <item quantity="other">%s flaters</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fout</item>
+    <item quantity="other">%s foute</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s onakuraatheid</item>
+    <item quantity="other">%s onakuraathede</item>
+  </plurals>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>
@@ -124,6 +139,8 @@
     <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
+  <string name="drawByMutualAgreement">Gelykop deur wedersydse ooreenkoms</string>
+  <string name="fiftyMovesWithoutProgress">Vyftig skuiwe sonder vordering</string>
   <string name="currentGames">Lopende spelle</string>
   <plurals name="nbGames">
     <item quantity="one">Sien al %s spelle</item>
@@ -353,6 +370,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="follow">Volg</string>
   <string name="following">Besig om te volg</string>
   <string name="unfollow">Ontvolg</string>
+  <string name="followX">Volg %s</string>
+  <string name="unfollowX">Ontvolg %s</string>
   <string name="block">Blokeer</string>
   <string name="blocked">Geblok</string>
   <string name="unblock">Ontblok</string>
@@ -415,6 +434,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="setTheBoard">Pak die bord</string>
   <string name="popularOpenings">Gewilde openinge</string>
+  <string name="endgamePositions">Eindspel posisies</string>
+  <string name="chess960StartPosition">Skaak960 begin posisie: %s</string>
   <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Begin posisie</string>
   <string name="clearBoard">Maak bord skoon</string>
   <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Laai posisie</string>
@@ -429,6 +450,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="firstName">Noem naam</string>
   <string name="lastName">Van</string>
   <string name="biography">Biografie</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
   <string name="inlineNotation">Binnelyn notasie</string>
@@ -447,6 +469,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>
   <string name="description">Beskrywing</string>
+  <string name="descPrivate">Private beskrywing</string>
+  <string name="descPrivateHelp">Teks wat slegs spanlede sal sien. Indien gestel vervang dit die publieke beskrywing vir spanlede.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
@@ -467,6 +491,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="cheat">Kul</string>
   <string name="insult">Beledig</string>
   <string name="troll">Boelie</string>
+  <string name="ratingManipulation">Gradering manipulasie</string>
   <string name="other">Ander</string>
   <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is. Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
@@ -532,7 +557,16 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Inkrement</string>
   <string name="error.required">Dié veld word vereis</string>
+  <string name="error.email">Hierdie epos adres is ongeldig</string>
+  <string name="error.email_acceptable">Hierdie e-pos adres is nie aanvaarbaar nie. Maak seker dis reg en probeer weer.</string>
+  <string name="error.email_unique">E-pos adres is ongeldig of reeds geneem</string>
+  <string name="error.email_different">Hierdie is reeds jou e-pos adres</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Moet ten minste %s karakters lank wees</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Moet op die meeste %s karakters lank wees</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Moet minstens %s wees</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Moet meestens %s wees</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
+  <string name="onlyExistingConversations">Slegs bestaande gesprekke</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
   <string name="castling">Kastelering</string>

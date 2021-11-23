@@ -51,6 +51,7 @@
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>
+  <string name="computerAnalysisDisabled">Analisis komputer ditutup</string>
   <string name="analysis">Analisis papan</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
@@ -84,6 +85,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mate dalam %s separuh-pergerakan</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" yang dibundar, mengikut jumlah pegerakkan separuh sehingga sebuah bidak dimakan atau pegerakkan pion seterusnya</string>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
   <string name="openingExplorer">Membuka explorer</string>
@@ -138,7 +140,7 @@
   <string name="players">Senarai pemain</string>
   <string name="friends">Senarai rakan</string>
   <string name="discussions">Senarai perbualan</string>
-  <string name="today">Hari ini</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hari ini</string>
   <string name="yesterday">Semalam</string>
   <string name="minutesPerSide">Minit bagi setiap bahagian</string>
   <string name="variant">Variasi</string>
@@ -350,7 +352,7 @@
   <string name="whiteWins">Buah putih menang</string>
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
-  <string name="startPosition">Posisi permulaan</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Posisi permulaan</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
