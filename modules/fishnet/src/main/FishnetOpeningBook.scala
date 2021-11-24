@@ -69,7 +69,7 @@ object FishnetOpeningBook {
 
     def randomPonderedMove(turn: Color, level: Int): Option[Move] = {
       val sum         = moves.map(_.score(turn, level)).sum
-      val novelty     = 14
+      val novelty     = 5 * 14 // score of 5 winning games
       val rng         = ThreadLocalRandom.nextInt(sum + novelty)
       moves
         .foldLeft((none[Move], 0)) { case ((found, it), next) =>
