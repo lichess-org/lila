@@ -20,7 +20,7 @@
     <item quantity="other">%s-mal aagluägt</item>
   </plurals>
   <string name="xPublishedY">%1$s hat %2$s veröffentlicht</string>
-  <string name="thisPostIsPublished">Dieser Beitrag wurde veröffentlicht</string>
+  <string name="thisPostIsPublished">De Biitrag isch veröffentlicht worde</string>
   <string name="thisIsADraft">Das isch än Entwurf</string>
   <string name="moreBlogPostsBy">Meh Blog-Posts vo %s</string>
   <string name="noPostsInThisBlogYet">No kei Posts i dem Blog.</string>
