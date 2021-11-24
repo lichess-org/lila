@@ -663,6 +663,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="enableKidMode">Skakel kindermodus aan</string>
   <string name="disableKidMode">Skakel kindermodus aan</string>
   <string name="security">Sekuriteit</string>
+  <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies herroep</string>
   <string name="playChessEverywhere">Speel skaak oral</string>
   <string name="asFreeAsLichess">So gratis soos Lichess</string>
@@ -810,4 +811,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="youCannotPostYetPlaySomeGames">U kan nog nie in die forums plaas nie. Speel \'n paar speletjies!</string>
   <string name="subscribe">Skryf in</string>
   <string name="unsubscribe">Beëindig inskrywing</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">het jou genoem in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s het jou genoem in \"%2$s\".</string>
+  <string name="invitedYouToX">het jou genooi na \"%1$s\".</string>
 </resources>
