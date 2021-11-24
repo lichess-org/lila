@@ -56,7 +56,7 @@
   <string name="analysis">Ontledingsbord</string>
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
-  <string name="loadingEngine">Enjin is besig om the laai ...</string>
+  <string name="loadingEngine">Enjin laai tans ...</string>
   <string name="cloudAnalysis">Wolkanalise</string>
   <string name="goDeeper">Gaan dieper</string>
   <string name="showThreat">Toon bedreiging</string>
@@ -70,7 +70,7 @@
   <string name="variantLoss">Variant verloor</string>
   <string name="variantWin">Variant wen</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
-  <string name="pawnMove">Pion skuif</string>
+  <string name="pawnMove">Pionskuif</string>
   <string name="capture">Buiting</string>
   <string name="close">Maak toe</string>
   <string name="winning">Besig om te wen</string>
@@ -294,7 +294,7 @@
   <string name="bookmarkThisGame">Boekmerk die spel</string>
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooie</string>
-  <string name="tournamentPoints">Toernooi punte</string>
+  <string name="tournamentPoints">Toernooipunte</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s toernooipunt</item>
     <item quantity="other">%s toernooipunte</item>
@@ -351,7 +351,7 @@
   <string name="importGameExplanation">Plak \'n wedstryd PGN om dit deursoekbaar te herspeel,
 rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s het spel ingevoer</item>
+    <item quantity="one">%s ingevoerde spel</item>
     <item quantity="other">%s het spelle ingetrek</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Hierdie is \'n skaak CAPTCHA.</string>
@@ -392,7 +392,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="list">Lys</string>
   <string name="graph">Grafiek</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minder as %s minute</item>
+    <item quantity="one">Minder as %s minuut</item>
     <item quantity="other">Minder as %s minute</item>
   </plurals>
   <string name="required">Vereiste.</string>
