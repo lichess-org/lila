@@ -274,7 +274,7 @@ object perfStat {
             tr(
               td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opInt, ")"),
               td(
-                a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}")(
+                a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.id}")(
                   absClientDateTime(r.at)
                 )
               )
