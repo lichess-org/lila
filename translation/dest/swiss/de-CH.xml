@@ -46,7 +46,7 @@ Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Pu
   <string name="pairingsQ">Wiä wärdäd Paarigä entschidä?</string>
   <string name="dutchSystem">Niderländischs Syschtem</string>
   <string name="FIDEHandbook">FIDE-Handbuäch</string>
-  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
+  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit dem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Wieso isch es uf Teams beschränkt?</string>
@@ -75,15 +75,17 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="startingSoon">Schtartät grad</string>
   <string name="comparison">Vergliich</string>
   <string name="tournDuration">Längi vom Turniär</string>
-  <string name="predefinedDuration">Vordefinierte Dauer in Minuten</string>
+  <string name="predefinedDuration">Vordefinierti Duuer ih Minutä</string>
   <string name="durationUnknown">Vordefinierte maximale Rundenanzahl, aber unbekannte Dauer</string>
   <string name="numberOfGames">Aazahl Partiiä</string>
   <string name="numberOfGamesAsManyAsPossible">So viele wie in der zugewiesenen Dauer gespielt werden können</string>
   <string name="numberOfGamesPreDefined">Im Voraus entschieden, für alle Spieler gleich</string>
   <string name="pairingSystem">Paarigssüschtem</string>
-  <string name="pairingSystemArena">Jeder verfügbare Gegner mit ähnlichem Rang</string>
-  <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Feinwertungen</string>
+  <string name="pairingSystemArena">Jede verfügbari Gägner mit ähnlichem Rang</string>
+  <string name="pairingSystemSwiss">Besti Paarig, basierend uf Pünkt und Feinwertungen</string>
   <string name="pairingWaitTime">Warteziit für d Paarig</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Schnäll: wartet nöd uf all Spieler</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Langsam: wartet uuf all Spieler</string>
   <string name="identicalPairing">Idäntischi Paarig</string>
   <string name="possibleButNotConsecutive">Möglich, abär nöd hindäränand</string>
   <string name="identicalForbidden">Verbottä</string>
