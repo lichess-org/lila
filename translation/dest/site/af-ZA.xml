@@ -829,4 +829,25 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="clickToRevealEmailAddress">[Klik om e-posadres te beskou]</string>
   <string name="download">Laai af</string>
   <string name="welcome">Welkom!</string>
+  <string name="lichessPatronInfo">Lichess is \'n liefdadigheidsorganisasie en heeltemal gratis/libre oopbron sagteware.
+Alle bestuurskostes, ontwikkeling en inhoud word heeltemal gefinansier deur lede bydraes.</string>
+  <string name="coachManager">Afrigter bestuurder</string>
+  <string name="streamerManager">Uitsender bestuurder</string>
+  <string name="cancelTournament">Kanseleer die toernooi</string>
+  <string name="tournDescription">Toernooi beskrywing</string>
+  <string name="tournDescriptionHelp">Enige iets spesiaal wat jy aan die deelnemers wil vertel? Probeer dit kort hou. \"Markdown\" skakels is beskikbaar: [name](https://url)</string>
+  <string name="ratedFormHelp">Spelle is gegradeer
+en beïnvloed speler graderings</string>
+  <string name="onlyMembersOfTeam">Slegs lede van span</string>
+  <string name="noRestriction">Geen beperking</string>
+  <string name="minimumRatedGames">Minimum gegradeerde spelle</string>
+  <string name="minimumRating">Minimum gradering</string>
+  <string name="maximumWeeklyRating">Maksimum weeklikse gradering</string>
+  <string name="onlyTitled">Slegs getitelde spelers</string>
+  <string name="onlyTitledHelp">Benodig \'n amptelike titel om by die toernooi aan te sluit</string>
+  <string name="positionInputHelp">Plak \'n geldige FEN om elke spel van \'n sekere posisie te begin.
+Dit werk slegs met standaard spelle, nie met variante nie.
+Jy kan die %s gebruik om \'n FEN posisie te genereer, en dit dan hier plak.
+Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
+  <string name="cancelSimul">Kanseleer die simul</string>
 </resources>
