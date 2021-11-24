@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.Forsyth
 import chess.format.Uci
-import chess.Speed
+import chess.{ Color, Speed }
 import com.softwaremill.tagging._
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyReadables._
@@ -45,7 +45,7 @@ final private class FishnetOpeningBook(
             for {
               data <- res.body[JsValue].validate[Response](responseReader).asOpt
               _ = if (data.moves.isEmpty) outOfBook.put(game.id)
-              move <- data.randomPonderedMove
+              move <- data randomPonderedMove game.turnColor
             } yield move.uci
         }
         .monTry { res =>
@@ -66,11 +66,13 @@ object FishnetOpeningBook {
   trait Depth
 
   case class Response(moves: List[Move]) {
-    def randomPonderedMove: Option[Move] = {
-      val sum     = moves.map(_.nb).sum
-      val novelty = 1
-      val rng     = ThreadLocalRandom.nextInt(sum + novelty)
-      moves
+
+    def randomPonderedMove(turn: Color): Option[Move] = {
+      val decentMoves = moves.filter(_.lossRatioFor(turn) < 0.66)
+      val sum         = decentMoves.map(_.nb).sum
+      val novelty     = 1
+      val rng         = ThreadLocalRandom.nextInt(sum + novelty)
+      decentMoves
         .foldLeft((none[Move], 0)) { case ((found, it), next) =>
           val nextIt = it + next.nb
           (found orElse (nextIt > rng).option(next), nextIt)
@@ -80,7 +82,8 @@ object FishnetOpeningBook {
   }
 
   case class Move(uci: Uci, white: Int, draws: Int, black: Int) {
-    def nb = white + draws + black
+    def nb                                = white + draws + black
+    def lossRatioFor(color: Color): Float = (nb > 0) ?? color.fold(black, white).toFloat / nb
   }
 
   implicit val moveReader     = Json.reads[Move]
