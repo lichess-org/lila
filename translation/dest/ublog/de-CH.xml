@@ -10,16 +10,16 @@
   <string name="drafts">Entwürf</string>
   <string name="published">Veröffentlicht</string>
   <string name="publishOnYourBlog">Veröffentlich i dim Blog</string>
-  <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
+  <string name="publishHelp">Wänn aktiviert wird de Biitrag ih diim Blog uufgelistet. Wenn nöd wird er ih diine Entwürf privat sii</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Hat einen Blog-Beitrag veröffentlicht</item>
-    <item quantity="other">Hat %s Blog-Beiträge veröffentlicht</item>
+    <item quantity="one">Hät en Blog-Biitrag veröffentlicht</item>
+    <item quantity="other">Hät %s Blog-Biiträg veröffentlicht</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Eimal aagluägt</item>
     <item quantity="other">%s-mal aagluägt</item>
   </plurals>
-  <string name="xPublishedY">%1$s hat %2$s veröffentlicht</string>
+  <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
   <string name="thisPostIsPublished">De Biitrag isch veröffentlicht worde</string>
   <string name="thisIsADraft">Das isch än Entwurf</string>
   <string name="moreBlogPostsBy">Meh Blog-Posts vo %s</string>
