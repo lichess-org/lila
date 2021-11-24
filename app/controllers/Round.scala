@@ -131,7 +131,7 @@ final class Round(
     Open { implicit ctx =>
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
-          get("pov") match {
+          get("pov").map(UserModel.normalize) match {
             case Some(requestedPov) =>
               (pov.player.userId, pov.opponent.userId) match {
                 case (Some(_), Some(opponent)) if opponent == requestedPov =>
