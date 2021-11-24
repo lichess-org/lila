@@ -555,7 +555,7 @@ case class Game(
   def abandoned =
     (status <= Status.Started) && {
       movedAt isBefore {
-        if (hasAi && !hasCorrespondenceClock) Game.aiAbandonedDate
+        if (hasAi && hasClock) Game.aiAbandonedDate
         else Game.abandonedDate
       }
     }
