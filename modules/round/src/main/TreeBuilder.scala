@@ -48,7 +48,7 @@ object TreeBuilder {
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
     shogi.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logShogiError(id)
         val openingOf: OpeningOf =
           if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen
           else _ => None
@@ -130,7 +130,7 @@ object TreeBuilder {
     }
     shogi.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
       case (_, games, error) =>
-        error foreach logChessError(id)
+        error foreach logShogiError(id)
         games.reverse match {
           case Nil => root
           case (g, m) :: rest =>
@@ -143,7 +143,7 @@ object TreeBuilder {
     }
   }
 
-  private val logChessError = (id: String) =>
+  private val logShogiError = (id: String) =>
     (err: String) =>
       logger.warn(s"round.TreeBuilder https://lishogi.org/$id ${err.linesIterator.toList.headOption}")
 }

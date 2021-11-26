@@ -18,7 +18,7 @@ object StepBuilder {
   ): JsArray = {
     shogi.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
-        error foreach logChessError(id)
+        error foreach logShogiError(id)
         JsArray {
           val initStep = Step(
             ply = init.turns,
@@ -45,7 +45,7 @@ object StepBuilder {
     }
   }
 
-  private val logChessError = (id: String) =>
+  private val logShogiError = (id: String) =>
     (err: String) => {
       val path = if (id == "synthetic") "analysis" else id
       logger.info(s"https://lishogi.org/$path ${err.linesIterator.toList.headOption | "?"}")

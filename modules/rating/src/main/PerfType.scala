@@ -100,7 +100,7 @@ object PerfType {
         20,
         key = "puzzle",
         name = "Training",
-        title = "Chess tactics trainer",
+        title = "Shogi tactics trainer",
         iconChar = '-'
       )
 
