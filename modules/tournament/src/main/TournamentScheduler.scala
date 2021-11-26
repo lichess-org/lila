@@ -1,8 +1,6 @@
 package lila.tournament
 
 import akka.actor._
-import shogi.format.FEN
-import shogi.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
@@ -108,6 +106,13 @@ Thank you all, you rock!"""
           Schedule(Yearly, speed, Standard, none, date).plan
         }
       },
+      List( // yearly variant tournaments!
+        secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Minishogi
+      ).flatMap { case (day, variant) =>
+        at(day, 17) filter farFuture.isAfter map { date =>
+          Schedule(Yearly, SuperBlitz, variant, none, date).plan
+        }
+      },
       List(thisMonth, nextMonth).flatMap { month =>
         List(
           List( // monthly standard tournaments!
@@ -119,6 +124,13 @@ Thank you all, you rock!"""
           ).flatMap { case (day, speed) =>
             at(day, 13) map { date =>
               Schedule(Monthly, speed, Standard, none, date).plan
+            }
+          },
+          List( // monthly variant tournaments!
+            month.lastWeek.withDayOfWeek(MONDAY)    -> Minishogi
+          ).flatMap { case (day, variant) =>
+            at(day, 19) map { date =>
+              Schedule(Monthly, SuperBlitz, variant, none, date).plan
             }
           },
           List( // shield tournaments!
@@ -148,6 +160,13 @@ Thank you all, you rock!"""
       ).flatMap { case (day, speed) =>
         at(day, 13) map { date =>
           Schedule(Weekly, speed, Standard, none, date pipe orNextWeek).plan
+        }
+      },
+      List( // weekly variant tournaments!
+        nextMonday -> Minishogi
+      ).flatMap { case (day, variant) =>
+        at(day, 19) map { date =>
+          Schedule(Weekly, SuperBlitz, variant, none, date pipe orNextWeek).plan
         }
       },
       List( // week-end elite tournaments!
@@ -198,64 +217,6 @@ Thank you all, you rock!"""
           Schedule(Eastern, Classical, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten
-      // hourly standard tournaments!
-      // (-1 to 6).toList.flatMap { hourDelta =>
-      //   val date = rightNow plusHours hourDelta
-      //   val hour = date.getHourOfDay
-      //   List(
-      //     at(date, hour) map { date =>
-      //       Schedule(Hourly, Blitz, Standard, none, date).plan
-      //     },
-      //     at(date, hour) collect {
-      //       case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, none, date).plan
-      //     }
-      //   ).flatten
-      // }
-      // hourly limited tournaments!
-      //(-1 to 6).toList
-      //  .flatMap { hourDelta =>
-      //    val date = rightNow plusHours hourDelta
-      //    val hour = date.getHourOfDay
-      //    val speed = hour % 4 match {
-      //      case 0 => Bullet
-      //      case 1 => SuperBlitz
-      //      case 2 => Blitz
-      //      case _ => Rapid
-      //    }
-      //    List(
-      //      1500 -> 0,
-      //      1700 -> 1,
-      //      2000 -> 2
-      //    ).flatMap {
-      //      case (rating, hourDelay) =>
-      //        val perf = Schedule.Speed toPerfType speed
-      //        val conditions = Condition.All(
-      //          nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
-      //          maxRating = Condition.MaxRating(perf, rating).some,
-      //          minRating = none,
-      //          titled = none,
-      //          teamMember = none
-      //        )
-      //        at(date, hour) ?? { date =>
-      //          val finalDate = date plusHours hourDelay
-      //          if (speed == Bullet)
-      //            List(
-      //              Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
-      //              Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
-      //                .plan(_.copy(clock = shogi.Clock.Config(60, 1)))
-      //            )
-      //          else
-      //            List(
-      //              Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan
-      //            )
-      //        }
-      //    }
-      //  }
-      //  .map {
-      //    // No berserk for rating-limited tournaments
-      //    // Because berserking lowers the player rating
-      //    _ map { _.copy(noBerserk = true) }
-      //  },
     ).flatten filter { _.schedule.at isAfter rightNow }
   }
 
