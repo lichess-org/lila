@@ -5,6 +5,7 @@ import shogi.{ Board, Color, Pos }
 import lila.api.Context
 
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.Maths
 import lila.game.Pov
 
 trait ShogigroundHelper {
@@ -15,13 +16,15 @@ trait ShogigroundHelper {
   val cgWrapContent       = cgContainer(cgBoard)
 
   def shogiground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag =
-    div(cls := s"cg-wrap orientation-${orient.name}") {
+    div(cls := s"cg-wrap orientation-${orient.name} variant-${board.variant.key}") {
       cgBoard {
         raw {
+          val offsetY = Maths.roundAt(100.0 / board.variant.numberOfRanks, 3).toDouble
+          val offsetX = Maths.roundAt(100.0 / board.variant.numberOfFiles, 3).toDouble
           def top(p: Pos) =
-            orient.fold(p.y - 1, board.variant.numberOfRanks - p.y) * (100 / board.variant.numberOfRanks)
+            orient.fold(p.y - 1, board.variant.numberOfRanks - p.y) * offsetY
           def left(p: Pos) =
-            orient.fold(board.variant.numberOfFiles - p.x, p.x - 1) * (100 / board.variant.numberOfFiles)
+            orient.fold(board.variant.numberOfFiles - p.x, p.x - 1) * offsetX
           val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
             s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
           } mkString ""
