@@ -72,8 +72,9 @@ function toCeval(e: Tree.ServerEval): Tree.ClientEval {
 
 export function make(opts: EvalCacheOpts): EvalCache {
   let fetchedByFen: Dictionary<CachedEval> = {};
+  const enable = false; // only set to false if ceval causes too much server pressure
   const upgradable = prop(false);
-  lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
+  if (enable) lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
   return {
     onCeval: throttle(500, function () {
       const node = opts.getNode(),
@@ -83,6 +84,7 @@ export function make(opts: EvalCacheOpts): EvalCache {
       }
     }),
     fetch(path: Tree.Path, multiPv: number): void {
+      if (!enable) return;
       const node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet()) return;
       const serverEval = fetchedByFen[node.fen];
