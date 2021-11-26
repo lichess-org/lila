@@ -63,8 +63,11 @@ final class Export(env: Env) extends LilaController(env) {
             sfen = puzzle.fenAfterInitialMove,
             lastMove = Uci(puzzle.lastMove) map { _.usi },
             orientation = puzzle.color
-          ) map stream("image/gif") map { res =>
-            res.withHeaders(CACHE_CONTROL -> "max-age=86400")
+          ) map { source =>
+            Ok.chunked(source).withHeaders(
+              noProxyBufferHeader,
+              CACHE_CONTROL -> "max-age=86400"
+            ) as "image/gif"
           }
         }
       }(rateLimitedFu)
@@ -77,6 +80,8 @@ final class Export(env: Env) extends LilaController(env) {
     res.withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
   }
 
-  private def stream(contentType: String)(stream: Source[ByteString, _]) =
-    Ok.chunked(stream).withHeaders(noProxyBufferHeader) as contentType
+  private def stream(contentType: String)(streamOpt: Option[Source[ByteString, _]]) =
+    streamOpt.fold(NotFound("Variant not supported")) { stream =>
+      Ok.chunked(stream).withHeaders(noProxyBufferHeader) as contentType
+    }
 }

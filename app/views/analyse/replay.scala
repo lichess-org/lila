@@ -54,7 +54,7 @@ object replay {
     }
     val exportLinks = div(
       ctx.noBlind option frag(
-        a(
+        pov.game.variant.standardBased option a(
           dataIcon := "$",
           cls := "text",
           target := "_blank",
@@ -103,7 +103,7 @@ object replay {
         trans.downloadImported()
       )
     )
-    val csaLinks = div(
+    val csaLinks = pov.game.variant.standardBased option div(
       a(
         dataIcon := "x",
         cls := "text",
@@ -195,10 +195,12 @@ object replay {
                     strong("KIF"),
                     kifLinks
                   ),
-                  div(cls := "notation-options")(
-                    strong("CSA"),
-                    csaLinks
-                  ),
+                  csaLinks map { csa =>
+                    div(cls := "notation-options")(
+                      strong("CSA"),
+                      csa
+                    )
+                  },
                   div(cls := "notation-options")(
                     strong(trans.export()),
                     exportLinks

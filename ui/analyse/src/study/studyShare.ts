@@ -199,17 +199,19 @@ export function view(ctrl: StudyShareCtrl): VNode {
         },
         ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterCsa')
       ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': 'x',
-            href: `/study/${studyId}/${chapter.id}.gif`,
-            download: true,
-          },
-        },
-        'GIF'
-      ),
+      ['standard', 'fromPosition'].includes(ctrl.variant)
+        ? h(
+            'a.button.text',
+            {
+              attrs: {
+                'data-icon': 'x',
+                href: `/study/${studyId}/${chapter.id}.gif`,
+                download: true,
+              },
+            },
+            'GIF'
+          )
+        : null,
     ]),
   ]);
 }

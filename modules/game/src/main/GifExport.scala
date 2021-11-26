@@ -20,51 +20,56 @@ final class GifExport(
   private val targetMedianTime = Centis(100)
   private val targetMaxTime    = Centis(250)
 
-  def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
-    lightUserApi preloadMany pov.game.userIds flatMap { _ =>
-      ws.url(s"${url}/game.gif")
-        .withMethod("POST")
-        .addHttpHeaders("Content-Type" -> "application/json")
-        .withBody(
-          Json.obj(
-            "black"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
-            "white"       -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
-            "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
-            "orientation" -> pov.color.engName,
-            "delay"       -> targetMedianTime.centis, // default delay for frames
-            "frames"      -> frames(pov.game, initialFen)
+  def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Option[Source[ByteString, _]]] = {
+    if(pov.game.variant.standardBased)
+      lightUserApi preloadMany pov.game.userIds flatMap { _ =>
+        ws.url(s"${url}/game.gif")
+          .withMethod("POST")
+          .addHttpHeaders("Content-Type" -> "application/json")
+          .withBody(
+            Json.obj(
+              "black"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
+              "white"       -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
+              "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
+              "orientation" -> pov.color.engName,
+              "delay"       -> targetMedianTime.centis, // default delay for frames
+              "frames"      -> frames(pov.game, initialFen)
+            )
           )
-        )
-        .stream() flatMap {
-        case res if res.status != 200 =>
-          logger.warn(s"GifExport pov ${pov.game.id} ${res.status}")
-          fufail(res.statusText)
-        case res => fuccess(res.bodyAsSource)
+          .stream() flatMap {
+          case res if res.status != 200 =>
+            logger.warn(s"GifExport pov ${pov.game.id} ${res.status}")
+            fufail(res.statusText)
+          case res => fuccess(res.bodyAsSource.some)
+        }
       }
-    }
+    else fuccess(none)
+  }
+  
+  def gameThumbnail(game: Game): Fu[Option[Source[ByteString, _]]] = {
+    if(game.variant.standardBased) {
+      val query = List(
+        "sfen"        -> (Forsyth >> game.shogi),
+        "black"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
+        "white"       -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
+        "orientation" -> game.firstColor.engName
+      ) ::: List(
+        game.lastMoveUsiKeys.map { "lastMove" -> _ },
+        game.situation.checkSquare.map { "check" -> _.usiKey }
+      ).flatten
 
-  def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
-    val query = List(
-      "sfen"        -> (Forsyth >> game.shogi),
-      "black"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
-      "white"       -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
-      "orientation" -> game.firstColor.engName
-    ) ::: List(
-      game.lastMoveUsiKeys.map { "lastMove" -> _ },
-      game.situation.checkSquare.map { "check" -> _.usiKey }
-    ).flatten
-
-    lightUserApi preloadMany game.userIds flatMap { _ =>
-      ws.url(s"${url}/image.gif")
-        .withMethod("GET")
-        .withQueryStringParameters(query: _*)
-        .stream() flatMap {
-        case res if res.status != 200 =>
-          logger.warn(s"GifExport gameThumbnail ${game.id} ${res.status}")
-          fufail(res.statusText)
-        case res => fuccess(res.bodyAsSource)
+      lightUserApi preloadMany game.userIds flatMap { _ =>
+        ws.url(s"${url}/image.gif")
+          .withMethod("GET")
+          .withQueryStringParameters(query: _*)
+          .stream() flatMap {
+          case res if res.status != 200 =>
+            logger.warn(s"GifExport gameThumbnail ${game.id} ${res.status}")
+            fufail(res.statusText)
+          case res => fuccess(res.bodyAsSource.some)
+        }
       }
-    }
+    } else fuccess(none)
   }
 
   def thumbnail(sfen: FEN, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {

@@ -24,11 +24,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def povOpenGraph(pov: Pov) =
     lila.app.ui.OpenGraph(
-      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId).url).some,
+      image = gameThumbnail(pov),
       title = titleGame(pov.game),
       url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
       description = describePov(pov)
     )
+
+  def gameThumbnail(p: Pov) =
+    p.game.variant.standardBased option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
 
   def titleGame(g: Game) = {
     val speed   = shogi.Speed(g.clock.map(_.config)).name

@@ -475,13 +475,16 @@ final class Study(
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanViewResult(study) {
-            env.study.gifExport.ofChapter(chapter) map { stream =>
-              Ok.chunked(stream)
-                .withHeaders(
-                  noProxyBufferHeader,
-                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.gif"
-                ) as "image/gif"
+            if(chapter.setup.variant.standardBased) {
+              env.study.gifExport.ofChapter(chapter) map { stream =>
+                Ok.chunked(stream)
+                  .withHeaders(
+                    noProxyBufferHeader,
+                    CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.gif"
+                  ) as "image/gif"
+              }
             }
+            else notFound
           }
         }
       }
