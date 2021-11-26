@@ -23,6 +23,7 @@ abstract class Variant private[variant] (
   def fromPosition = this == FromPosition
 
   def exotic = !standard
+  def standardBased = standard || fromPosition
 
   def initialFen = format.Forsyth.initial
 
