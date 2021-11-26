@@ -9,12 +9,13 @@ import lila.socket.Socket
 import lila.memo.ExpireCallbackMemo
 
 import scala.collection.mutable
+import lila.memo.SettingStore
 
 /* Upgrades the user's eval when a better one becomes available,
  * by remembering the last evalGet of each socket member,
  * and listening to new evals stored.
  */
-final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
+final private class EvalCacheUpgrade(setting: SettingStore[Boolean], scheduler: akka.actor.Scheduler)(implicit
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ) {
@@ -26,17 +27,18 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
 
   private val upgradeMon = lila.mon.evalCache.upgrade
 
-  def register(sri: Socket.Sri, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit = {
-    members get sri.value foreach { wm =>
-      unregisterEval(wm.setupId, sri)
+  def register(sri: Socket.Sri, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit =
+    if (setting.get()) {
+      members get sri.value foreach { wm =>
+        unregisterEval(wm.setupId, sri)
+      }
+      val setupId = makeSetupId(variant, fen, multiPv)
+      members += (sri.value -> WatchingMember(push, setupId, path))
+      evals += (setupId     -> (~evals.get(setupId) + sri.value))
+      expirableSris put sri.value
     }
-    val setupId = makeSetupId(variant, fen, multiPv)
-    members += (sri.value -> WatchingMember(push, setupId, path))
-    evals += (setupId     -> (~evals.get(setupId) + sri.value))
-    expirableSris put sri.value
-  }
 
-  def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = {
+  def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = if (setting.get()) {
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
     } foreach { sris =>
