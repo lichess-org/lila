@@ -28,11 +28,13 @@ $board-files: (
 );
 
 @each $color, $file in $board-files {
-  .#{$color} cg-board,
-  .#{$color} .mini-board:not(.variant-minishogi) cg-board {
-    background-image: url(../images/board/#{$file});
-  }
-  .#{$color} .variant-minishogi cg-board {
-    background-image: url(../images/board/5/#{$file});
+  .#{$color} {
+    cg-board,
+    .mini-board:not(.variant-minishogi) cg-board {
+      background-image: url(../images/board/#{$file});
+    }
+    .variant-minishogi cg-board {
+      background-image: url(../images/board/5/#{$file});
+    }
   }
 }
