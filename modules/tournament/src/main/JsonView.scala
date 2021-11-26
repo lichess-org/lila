@@ -277,6 +277,7 @@ final class JsonView(
       "fen"      -> (shogi.format.Forsyth exportSituation game.situation),
       "color"    -> game.firstColor.name,
       "lastMove" -> ~game.lastMoveKeys,
+      "variant"  -> game.variant.key,
       "sente"    -> ofPlayer(featured.sente, game player shogi.Sente),
       "gote"     -> ofPlayer(featured.gote, game player shogi.Gote)
     )
