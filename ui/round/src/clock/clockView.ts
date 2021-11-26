@@ -49,7 +49,6 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
             : undefined,
           h('div.clockByo', [
             h('div.time', {
-              attrs: { title: `${player.color} clock` },
               class: {
                 hour: millis > 3600 * 1000,
               },
