@@ -127,17 +127,14 @@ export function init(ctrl: RoundController) {
 
   for (let i = 1; i <= handRoles(lishogiVariantRules(ctrl.data.game.variant.key)).length; i++) {
     const iStr = i.toString();
-    k.bind(iStr, (e: KeyboardEvent) => {
-      e.preventDefault();
+    k.bind(iStr, () => {
       if (!handKeys.includes(i)) {
         handKeys.push(i);
         setDrop();
       }
-    });
-    k.bind(
+    }).bind(
       iStr,
-      (e: KeyboardEvent) => {
-        e.preventDefault();
+      () => {
         const idx = handKeys.indexOf(i);
         if (idx >= 0) {
           handKeys.splice(idx, 1);
