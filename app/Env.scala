@@ -117,18 +117,18 @@ final class Env(
     text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
   )
   lazy val prizeTournamentMakers = memo.settingStore[UserIds](
-    "prizeTournamentMakers ",
+    "prizeTournamentMakers",
     default = UserIds(Nil),
     text =
       "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
   )
   lazy val apiExplorerGamesPerSecond = memo.settingStore[Int](
-    "apiExplorerGamesPerSecond ",
-    default = 200,
+    "apiExplorerGamesPerSecond",
+    default = 300,
     text = "Opening explorer games per second".some
   )
   lazy val pieceImageExternal = memo.settingStore[Boolean](
-    "pieceImageExternal  ",
+    "pieceImageExternal",
     default = false,
     text = "Use external piece images".some
   )
