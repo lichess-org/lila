@@ -29,14 +29,13 @@ object form {
             else trans.createANewTournament()
           ),
           postForm(cls := "form3", action := routes.Tournament.create())(
+            form3.globalError(form),
             fields.name,
             form3.split(fields.rated, fields.variant),
-            //fields.startPosition,
             fields.clock1,
             fields.clock2,
             form3.split(fields.minutes, fields.waitMinutes),
             form3.split(fields.description(true), fields.startPosition),
-            form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
@@ -195,13 +194,28 @@ object form {
     form3.input(field)(
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
+
+  val positionInputHelp = frag(
+    "Paste a valid SFEN to start every game from a given position.",
+    br,
+    "It only works for standard games, not with variants.",
+    br,
+    "You can use the ",
+    a(href := routes.Editor.index(), target := "_blank")("board editor"),
+    " to generate a SFEN position, then paste it here.",
+    br,
+    "Leave empty to start games from the normal initial position."
+  )
 }
+
 
 final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) {
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
-  def disabledAfterStart = tour.exists(!_.isCreated)
+  private def disabledAfterStart  = tour.exists(!_.isCreated)
+  private def disabledAfterCreate = tour.isDefined
+
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
@@ -234,7 +248,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       form3.select(
         _,
         translatedVariantChoicesWithVariants.map(x => x._1 -> x._2),
-        disabled = disabledAfterStart
+        disabled = disabledAfterCreate
       )
     )
   def startPosition =
@@ -243,17 +257,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = frag(
-        "Paste a valid FEN to start every game from a given position.",
-        br,
-        "It only works for standard games, not with variants.",
-        br,
-        "You can use the ",
-        a(href := routes.Editor.index(), target := "_blank")("board editor"),
-        " to generate a FEN position, then paste it here.",
-        br,
-        "Leave empty to start games from the normal initial position."
-      ).some
+      help = tournament.form.positionInputHelp.some
     )(
       views.html.tournament.form.startingPosition(_, tour)
     )
@@ -287,7 +291,10 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(
       form("description"),
       frag("Tournament description"),
-      help = frag("Anything special you want to tell the participants? Try to keep it short.").some
+      help = frag(
+        "Anything special you want to tell the participants? Try to keep it short."
+      ).some,
+      half = half
     )(form3.textarea(_)(rows := 2))
   def password =
     !isTeamBattle option

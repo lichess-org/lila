@@ -7,6 +7,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation
 import play.api.data.validation.{ Constraint, Constraints }
+import scala.util.chaining._
 
 import lila.common.Form._
 import lila.hub.LightTeam._
@@ -17,7 +18,7 @@ final class DataForm {
   import DataForm._
 
   def create(user: User, teamBattleId: Option[TeamID] = None) =
-    form(user) fill TournamentSetup(
+    form(user, none) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
@@ -40,7 +41,7 @@ final class DataForm {
     )
 
   def edit(user: User, tour: Tournament) =
-    form(user) fill TournamentSetup(
+    form(user, tour.some) fill TournamentSetup(
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
@@ -76,37 +77,52 @@ final class DataForm {
     }
   )
 
-  private def form(user: User) =
-    Form(
-      mapping(
-        "name"           -> optional(nameType),
-        "clockTime"      -> numberInDouble(clockTimeChoices),
-        "clockIncrement" -> numberIn(clockIncrementChoices),
-        "clockByoyomi"   -> numberIn(clockByoyomiChoices),
-        "periods"        -> numberIn(periodsChoices),
-        "minutes" -> {
-          if (lila.security.Granter(_.ManageTournament)(user)) number
-          else numberIn(minuteChoices)
-        },
-        "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
-        "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-        "position"         -> optional(lila.common.Form.fen.playableStrict),
-        "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
-        "rated"            -> optional(boolean),
-        "password"         -> optional(nonEmptyText),
-        "conditions"       -> Condition.DataForm.all,
-        "teamBattleByTeam" -> optional(nonEmptyText),
-        "berserkable"      -> optional(boolean),
-        "streakable"       -> optional(boolean),
-        "description"      -> optional(clean(nonEmptyText)),
-        "hasChat"          -> optional(boolean)
-      )(TournamentSetup.apply)(TournamentSetup.unapply)
-        .verifying("Invalid clock", _.validClock)
-        .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-        .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
-        .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
-    )
+  private def form(user: User, prev: Option[Tournament]) =
+    Form {
+      makeMapping(user) pipe { m =>
+        prev.fold(m) { tour =>
+          m
+            .verifying(
+              "Can't change variant after players have joined",
+              _.realVariant == tour.variant || tour.nbPlayers == 0
+            )
+            .verifying(
+              "Can't change time control after players have joined",
+              _.speed == tour.speed || tour.nbPlayers == 0
+            )
+        }
+      }
+    }
+
+  private def makeMapping(user: User) =
+    mapping(
+      "name"           -> optional(nameType),
+      "clockTime"      -> numberInDouble(clockTimeChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "clockByoyomi"   -> numberIn(clockByoyomiChoices),
+      "periods"        -> numberIn(periodsChoices),
+      "minutes" -> {
+        if (lila.security.Granter(_.ManageTournament)(user)) number
+        else numberIn(minuteChoices)
+      },
+      "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
+      "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+      "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
+      "position"         -> optional(lila.common.Form.fen.playableStrict),
+      "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
+      "rated"            -> optional(boolean),
+      "password"         -> optional(nonEmptyText),
+      "conditions"       -> Condition.DataForm.all,
+      "teamBattleByTeam" -> optional(nonEmptyText),
+      "berserkable"      -> optional(boolean),
+      "streakable"       -> optional(boolean),
+      "description"      -> optional(clean(nonEmptyText)),
+      "hasChat"          -> optional(boolean)
+    )(TournamentSetup.apply)(TournamentSetup.unapply)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
+      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
+      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
 }
 
 object DataForm {
@@ -190,7 +206,9 @@ private[tournament] case class TournamentSetup(
 
   def clockConfig = shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
 
-  def validRatedUltraBulletVariant =
+  def speed = shogi.Speed(clockConfig)
+
+  def validRatedVariant =
     realMode == Mode.Casual ||
       lila.game.Game.allowRated(realVariant, clockConfig.some)
 
