@@ -111,7 +111,12 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     } void
 
   def update(simul: Simul) =
-    simulColl.update.one($id(simul.id), $set(SimulBSONHandler writeTry simul get)).void
+    simulColl.update.one(
+      $id(simul.id),
+      $set(SimulBSONHandler writeTry simul get) ++
+          simul.estimatedStartAt.isEmpty??($unset("estimatedStartAt"))
+    )
+    .void
 
   def remove(simul: Simul) =
     simulColl.delete.one($id(simul.id)).void

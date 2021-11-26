@@ -3,6 +3,8 @@ package lila.simul
 import cats.implicits._
 import shogi.format.{ FEN, Forsyth }
 import shogi.StartingPosition
+
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Constraints }
@@ -80,6 +82,7 @@ object SimulForm {
       position = none,
       color = colorDefault,
       text = "",
+      estimatedStartAt = none,
       team = none
     )
   def edit(host: User, simul: Simul) =
@@ -94,6 +97,7 @@ object SimulForm {
       position = simul.position,
       color = simul.color | "random",
       text = simul.text,
+      estimatedStartAt = simul.estimatedStartAt,
       team = simul.team
     )
 
@@ -117,6 +121,7 @@ object SimulForm {
         "position" -> optional(lila.common.Form.fen.playableStrict),
         "color"    -> stringIn(colorChoices),
         "text"     -> clean(text),
+        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"     -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
     )
@@ -140,6 +145,7 @@ object SimulForm {
       position: Option[FEN],
       color: String,
       text: String,
+      estimatedStartAt: Option[DateTime] = None,
       team: Option[String]
   ) {
     def clock =

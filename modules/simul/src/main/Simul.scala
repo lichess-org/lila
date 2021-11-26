@@ -17,6 +17,7 @@ case class Simul(
     variants: List[Variant],
     position: Option[FEN],
     createdAt: DateTime,
+    estimatedStartAt: Option[DateTime] = None,
     hostId: String,
     hostRating: Int,
     hostGameId: Option[String], // game the host is focusing on
@@ -155,6 +156,7 @@ object Simul {
       position: Option[FEN],
       color: String,
       text: String,
+      estimatedStartAt: Option[DateTime],
       team: Option[String]
   ): Simul =
     Simul(
@@ -174,6 +176,7 @@ object Simul {
       },
       hostGameId = none,
       createdAt = DateTime.now,
+      estimatedStartAt = estimatedStartAt,
       variants = if (position.isDefined) List(shogi.variant.Standard) else variants,
       position = position,
       applicants = Nil,

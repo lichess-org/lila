@@ -18,7 +18,8 @@ object form {
   ) =
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
-      moreCss = cssTag("simul.form")
+      moreCss = cssTag("simul.form"),
+      moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(trans.hostANewSimul()),
@@ -42,7 +43,8 @@ object form {
   ) =
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
-      moreCss = cssTag("simul.form")
+      moreCss = cssTag("simul.form"),
+      moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(s"Edit ${simul.fullName}"),
@@ -89,13 +91,27 @@ object form {
       form3.split(
         form3.group(
           form("clockTime"),
-          raw("Clock initial time"),
-          help = trans.simulClockHint().some,
+          trans.clockInitialTime(),
+          //help = trans.simulClockHint().some,
           half = true
         )(form3.select(_, clockTimeChoices)),
-        form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, clockIncrementChoices)
-        )
+        form3.group(
+          form("clockByoyomi"),
+          trans.clockByoyomi(),
+          half = true
+        )(form3.select(_, clockByoyomiChoices))
+      ),
+      form3.split(
+        form3.group(
+          form("clockIncrement"),
+          trans.clockIncrement(),
+          half = true
+        )(form3.select(_, clockIncrementChoices)),
+        form3.group(
+          form("periods"),
+          trans.numberOfByoyomiPeriods(),
+          half = true
+        )(form3.select(_, periodsChoices))
       ),
       form3.split(
         form3.group(
@@ -106,13 +122,13 @@ object form {
         )(
           form3.select(_, clockExtraChoices)
         ),
-        form3.group(form("color"), raw("Host color for each game"), half = true)(
+        form3.group(form("color"), trans.hostColorForEachGame(), half = true)(
           form3.select(_, colorChoices)
         )
       ),
       form3.split(
         (teams.size > 0) ?? {
-          form3.group(form("team"), raw("Only members of team"), half = true)(
+          form3.group(form("team"), trans.onlyMembersOfTeam(), half = true)(
             form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
           )
         },
@@ -124,6 +140,11 @@ object form {
           help = views.html.tournament.form.positionInputHelp.some
         )(form3.input(_))
       ),
+      form3.group(
+        form("estimatedStartAt"),
+        frag("Estimated start time"),
+        half = true
+      )(form3.flatpickr(_)),
       form3.group(
         form("text"),
         raw("Simul description"),
