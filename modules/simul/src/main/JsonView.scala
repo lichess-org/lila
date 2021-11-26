@@ -126,6 +126,7 @@ final class JsonView(
     Json.obj(
       "id"       -> g.id,
       "status"   -> g.status.id,
+      "variant"  -> g.variant.key,
       "fen"      -> (shogi.format.Forsyth exportSituation g.situation),
       "lastMove" -> ~g.lastMoveKeys,
       "orient"   -> g.playerByUserId(hostId).map(_.color)

@@ -3,7 +3,7 @@ package lila.tournament
 import shogi.StartingPosition
 import shogi.format.FEN
 
-private object Thematic {
+object Thematic {
 
   def byFen                                     = fenIndex.get _
   def byFen(fen: FEN): Option[StartingPosition] = byFen(fen.value)

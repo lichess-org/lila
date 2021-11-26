@@ -8,7 +8,7 @@ case class SimulClock(
     hostExtraTime: Int
 ) {
 
-  def chessClockOf(hostColor: Color) =
+  def shogiClockOf(hostColor: Color) =
     config.toClock.giveTime(hostColor, Centis.ofSeconds(hostExtraTime))
 
   def hostExtraMinutes = hostExtraTime / 60

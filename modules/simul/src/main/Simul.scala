@@ -1,7 +1,8 @@
 package lila.simul
 
 import shogi.variant.Variant
-import shogi.{ Speed, StartingPosition }
+import shogi.format.FEN
+import shogi.{ Speed }
 import lila.rating.PerfType
 import lila.user.User
 import org.joda.time.DateTime
@@ -14,7 +15,7 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
-    position: Option[StartingPosition],
+    position: Option[FEN],
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
@@ -127,8 +128,7 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor =
-    (color flatMap shogi.Color.fromName) | shogi.Color.fromSente(scala.util.Random.nextBoolean())
+  def hostColor: Option[shogi.Color] = color flatMap shogi.Color.fromName
 
   def setPairingHostColor(gameId: String, hostColor: shogi.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
@@ -152,7 +152,7 @@ object Simul {
       name: String,
       clock: SimulClock,
       variants: List[Variant],
-      position: Option[StartingPosition],
+      position: Option[FEN],
       color: String,
       text: String,
       team: Option[String]
@@ -186,7 +186,4 @@ object Simul {
       team = team
     )
 
-  private[simul] lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
-    p.fen -> p
-  }.toMap
 }

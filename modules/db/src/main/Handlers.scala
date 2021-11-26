@@ -8,6 +8,7 @@ import cats.data.NonEmptyList
 
 import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
+import shogi.format.FEN
 
 trait Handlers {
 
@@ -114,4 +115,6 @@ trait Handlers {
     isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
   implicit val colorBoolHandler = BSONBooleanHandler.as[shogi.Color](shogi.Color.fromSente, _.sente)
+
+  implicit val FENHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 }

@@ -1,12 +1,14 @@
 package lila.simul
 
+import cats.implicits._
+import shogi.format.{ FEN, Forsyth }
+import shogi.StartingPosition
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Constraints }
-import lila.user.User
 
-import shogi.StartingPosition
 import lila.common.Form._
+import lila.user.User
 
 object SimulForm {
 
@@ -67,6 +69,35 @@ object SimulForm {
     )
 
   def create(host: User) =
+    baseForm(host) fill Setup(
+      name = host.titleUsername,
+      clockTime = clockTimeDefault,
+      clockIncrement = clockIncrementDefault,
+      clockByoyomi = clockByoyomiDefault,
+      periods = periodsDefault,
+      clockExtra = clockExtraDefault,
+      variants = List(shogi.variant.Standard.id),
+      position = none,
+      color = colorDefault,
+      text = "",
+      team = none
+    )
+  def edit(host: User, simul: Simul) =
+    baseForm(host) fill Setup(
+      name = simul.name,
+      clockTime = simul.clock.config.limitInMinutes.toInt,
+      clockIncrement = simul.clock.config.increment.roundSeconds,
+      clockByoyomi = simul.clock.config.byoyomi.roundSeconds,
+      periods = simul.clock.config.periods,
+      clockExtra = simul.clock.hostExtraMinutes,
+      variants = simul.variants.map(_.id),
+      position = simul.position,
+      color = simul.color | "random",
+      text = simul.text,
+      team = simul.team
+    )
+
+  private def baseForm(host: User) =
     Form(
       mapping(
         "name"           -> nameType(host),
@@ -83,23 +114,11 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position" -> optional(nonEmptyText),
+        "position" -> optional(lila.common.Form.fen.playableStrict),
         "color"    -> stringIn(colorChoices),
         "text"     -> clean(text),
         "team"     -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
-    ) fill Setup(
-      name = host.titleUsername,
-      clockTime = clockTimeDefault,
-      clockIncrement = clockIncrementDefault,
-      clockByoyomi = clockByoyomiDefault,
-      periods = periodsDefault,
-      clockExtra = clockExtraDefault,
-      variants = List(shogi.variant.Standard.id),
-      position = StartingPosition.initial.fen.some,
-      color = colorDefault,
-      text = "",
-      team = none
     )
 
   val positions = StartingPosition.allWithInitial.map(_.fen)
@@ -107,9 +126,6 @@ object SimulForm {
     p.fen -> p.fullName
   }
   val positionDefault = StartingPosition.initial.fen
-
-  def startingPosition(fen: String, variant: shogi.variant.Variant): StartingPosition =
-    Simul.fenIndex.get(fen).ifTrue(variant.standard) | StartingPosition.initial
 
   def setText = Form(single("text" -> text))
 
@@ -121,9 +137,19 @@ object SimulForm {
       periods: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[String],
+      position: Option[FEN],
       color: String,
       text: String,
       team: Option[String]
-  )
+  ) {
+    def clock =
+      SimulClock(
+        config = shogi.Clock.Config(clockTime * 60, clockIncrement, clockByoyomi, periods),
+        hostExtraTime = clockExtra * 60
+      )
+
+    def actualVariants = variants.flatMap { shogi.variant.Variant(_) }
+
+    def realPosition = position.filterNot(Forsyth.initial === _.value)
+  }
 }

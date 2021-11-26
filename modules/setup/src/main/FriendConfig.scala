@@ -81,7 +81,6 @@ object FriendConfig extends BaseHumanConfig {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import lila.game.BSONHandlers.FENBSONHandler
 
   implicit private[setup] val friendConfigBSONHandler = new BSON[FriendConfig] {
 

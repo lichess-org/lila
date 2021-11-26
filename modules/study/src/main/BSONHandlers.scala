@@ -11,7 +11,6 @@ import lila.common.Iso
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import lila.game.BSONHandlers.FENBSONHandler
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }

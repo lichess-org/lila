@@ -1,13 +1,12 @@
 package views.html.simul
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object show {
 
@@ -59,7 +58,11 @@ object show {
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
-                    trans.casual()
+                    trans.casual(),
+                    ctx.userId.has(sim.hostId) option frag(
+                      " • ",
+                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
+                    )
                   )
                 )
               ),
@@ -72,7 +75,7 @@ object show {
                 case Some("sente") => trans.black.txt() + "/" + trans.shitate.txt()
                 case _             => trans.randomColor()
               }),
-              sim.position map { pos =>
+              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
                 frag(
                   br,
                   a(target := "_blank", rel := "noopener", href := pos.url)(
@@ -85,6 +88,12 @@ object show {
                     trans.analysis()
                   )
                 )
+                } orElse sim.position.map { fen =>
+                  frag(
+                    br,
+                    "Custom position • ",
+                    a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+                  )
               }
             ),
             trans.by(userIdLink(sim.hostId.some)),
