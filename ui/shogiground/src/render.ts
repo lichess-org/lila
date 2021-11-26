@@ -246,7 +246,7 @@ function computeSquareClasses(s: State): SquareClasses {
           addSquare(squares, k, 'move-dest');
         }
       const pDests = s.predroppable.dropDests;
-      if (pDests && !dests)
+      if (pDests && s.turnColor !== piece.color)
         for (const k of pDests) {
           addSquare(squares, k, 'premove-dest' + (s.pieces.has(k) ? ' oc' : ''));
         }
