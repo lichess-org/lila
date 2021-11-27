@@ -304,7 +304,8 @@ final private class StudySocket(
         "w"          -> who
       )
     )
-  def setLiking(liking: Study.Liking, who: Who) = notify("liking", Json.obj("l" -> liking, "w" -> who))
+  def setLiking(liking: Study.Liking, who: Who) =
+    notifySri(who.sri, "liking", Json.obj("l" -> liking, "w" -> who))
   def setShapes(pos: Position.Ref, shapes: Shapes, who: Who) =
     version(
       "shapes",
