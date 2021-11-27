@@ -19,7 +19,10 @@ object form {
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
       moreCss = cssTag("simul.form"),
-      moreJs = jsModule("flatpickr")
+      moreJs = frag(
+        flatpickrTag,
+        delayFlatpickrStartLocal
+      )
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(trans.hostANewSimul()),
@@ -44,7 +47,10 @@ object form {
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
       moreCss = cssTag("simul.form"),
-      moreJs = jsModule("flatpickr")
+      moreJs = frag(
+        flatpickrTag,
+        delayFlatpickrStartLocal
+      )
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(s"Edit ${simul.fullName}"),
