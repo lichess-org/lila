@@ -792,10 +792,10 @@
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
-  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
+  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан аз</string>
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
-  <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
+  <string name="classicalDesc">Классикалық ойындар: 25 минут әрі одан көп</string>
   <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
