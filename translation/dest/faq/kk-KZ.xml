@@ -33,9 +33,9 @@
   <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
-  <string name="whatVariantsCanIplay">Личесте қандай шахмат түрлерін ойнасам болады?</string>
-  <string name="lichessSupportChessAnd">Личесте классикалық шахмат пен %1$s бар.</string>
-  <string name="eightVariants">8 шахмат түрлері</string>
+  <string name="whatVariantsCanIplay">Личесте шахматтың қай түрлерін ойнасам болады?</string>
+  <string name="lichessSupportChessAnd">Личесте классикалық әрі %1$s бар.</string>
+  <string name="eightVariants">шахматтың 8 түрі</string>
   <string name="whatIsACPL">Қателіктердің орташа мәні (ACPL – average centipawn loss) деген не?</string>
   <string name="acplExplanation">Қателіктердің орташа мәнінің бірлігі сентипоун (\"centi\" - жүзден бір бөлік, \"pawn\" - сарбаз). Бұл шама ойыншының жетістік дәрежесін көрсетеді. Ойын кезінде бұл шама соншалықты маңызды емес, бірақ компьютер үшін ойын күйін бағалауда орны зор.
 
