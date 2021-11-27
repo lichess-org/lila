@@ -112,6 +112,7 @@ object Sheet {
     scores.headOption.exists(_.res == ResWin) &&
       scores.lift(1).exists(_.res == ResWin)
 
+  @scala.annotation.tailrec
   private def isDrawStreak(scores: List[Score]): Boolean =
     scores match {
       case Nil => false
