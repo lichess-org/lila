@@ -517,7 +517,7 @@
   <string name="sound">Дыбыстар</string>
   <string name="none">Жоқ</string>
   <string name="fast">Тез</string>
-  <string name="normal">Қалыпты</string>
+  <string name="normal">Орташа</string>
   <string name="slow">Баяу</string>
   <string name="insideTheBoard">Тақта бетінде</string>
   <string name="outsideTheBoard">Тақта сыртында</string>
@@ -601,7 +601,7 @@
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
   <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы болады, ол тақталарды аралап, бір-бір жүрістен жасап отырады.</string>
   <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан өзіне лайық біреуін таңдайды.</string>
@@ -847,7 +847,7 @@
   <string name="onlyTitledHelp">Жарысқа қосу үшін ресми атағын талап ету</string>
   <string name="positionInputHelp">Әр ойынды нақты бір күйден бастау үшін FEN еңгізіңіз.
 Бұл тек қалыпты ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
-Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында қойыңыз.
+Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында еңгізіңіз.
 Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
   <string name="cancelSimul">Көпшілікке қарсы ойынды болдырмау</string>
   <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>
