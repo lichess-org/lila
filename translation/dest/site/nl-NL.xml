@@ -163,7 +163,7 @@
   <string name="players">Spelers</string>
   <string name="friends">Vrienden</string>
   <string name="discussions">Discussies</string>
-  <string name="today">Vandaag</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Vandaag</string>
   <string name="yesterday">Gisteren</string>
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
@@ -435,9 +435,9 @@
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
   <string name="chess960StartPosition">Beginstelling Chess960: %s</string>
-  <string name="startPosition">Beginstelling</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
-  <string name="loadPosition">Laad een stelling</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Laad een stelling</string>
   <string name="isPrivate">Privé</string>
   <string name="reportXToModerators">Rapporteer %s aan de toezichthouders</string>
   <string name="profileCompletion">Voltooiing profiel: %s</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activePlayers">Actieve spelers</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Let op, de partij is met rating maar heeft geen klok!</string>
   <string name="success">Succes</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partij bezig</item>
@@ -525,7 +525,7 @@
   <string name="onSlowGames">Alleen bij langzame partijen</string>
   <string name="always">Altijd</string>
   <string name="never">Nooit</string>
-  <string name="xCompetesInY">%1$s neemt deel aan %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s neemt deel aan %2$s</string>
   <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
   <string name="victoryVsYInZ">%1$s vs. %2$s in %3$s</string>
@@ -560,10 +560,10 @@
   <string name="error.email_acceptable">Dit e-mailadres is niet acceptabel. Controleer het nogmaals en probeer het opnieuw.</string>
   <string name="error.email_unique">E-mailadres ongeldig of al in gebruik</string>
   <string name="error.email_different">Dit is al uw e-mailadres</string>
-  <string name="error.minLength">Minimumlengte is %s tekens</string>
-  <string name="error.maxLength">Maximumlengte is %s tekens</string>
-  <string name="error.min">Moet groter dan of gelijk zijn aan %s</string>
-  <string name="error.max">Moet kleiner dan of gelijk zijn aan %s</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Minimumlengte is %s tekens</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Maximumlengte is %s tekens</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Moet groter dan of gelijk zijn aan %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Moet kleiner dan of gelijk zijn aan %s</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
@@ -812,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
   <string name="unsubscribe">Abonnement opzeggen</string>
-  <string name="mentionedYouInX">heeft je genoemd in \"%1$s\".</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">heeft je genoemd in \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s heeft je genoemd in \"%2$s\".</string>
   <string name="invitedYouToX">heeft je uitgenodigd voor \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s heeft je uitgenodigd voor \"%2$s\".</string>
