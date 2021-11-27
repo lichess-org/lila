@@ -18,5 +18,6 @@ $(function () {
     dateFormat: 'Z',
     altInput: true,
     altFormat: 'Y-m-d h:i K',
+    disableMobile: true,
   });
 });
