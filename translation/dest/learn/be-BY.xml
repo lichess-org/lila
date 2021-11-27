@@ -126,7 +126,7 @@
   <string name="castleQueenSide">Перасуньце свайго караля на дзве клеткі да ладдзі ферзевага фланга!</string>
   <string name="theKnightIsInTheWay">Конь перашкаджае! Пахадзіце канём, потым зрабіце ракіроўку.</string>
   <string name="castleKingSideMovePiecesFirst">Кароткая ракіроўка! Спачатку вам трэба вывесці фігуры.</string>
-  <string name="castleQueenSideMovePiecesFirst">Доўгая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
+  <string name="castleQueenSideMovePiecesFirst">Доўгая ракіроўка! Спачатку вам трэба вывесці фігуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можаце рабіць ракіроўку,
 калі кароль ці ладдзя,
 якія ўдзельнічаюць у ракіроўцы, рабілі ход.</string>
@@ -167,12 +167,11 @@
   <string name="queenOverBishop">Атакуйце фігуры з больш высокай каштоўнасцю!
 Ферзь &gt; Слон</string>
   <string name="pieceValueExchange">Вазьміце найбольш каштоўную фігуру!
-Не разменьвайце больше каштоўную фігуру на менш каштоўную.</string>
+Не разменьвайце больш каштоўную фігуру на менш каштоўную.</string>
   <string name="pieceValueLegal">Вазьміце
 найбольш каштоўную фігуру!
 Пераканайцеся, што ход магчымы!</string>
-  <string name="takeThePieceWithTheHighestValue">Атакуйце фігуры
-з больш высокай каштоўнасцю!</string>
+  <string name="takeThePieceWithTheHighestValue">Вазьміце найкаштоўнейшую фігуру!</string>
   <string name="pieceValueComplete">Віншуем! Вы ведаеце каштоўнасць фігур!
 Ферзь = 9 пешак
 Ладдзя= 5 пешак
