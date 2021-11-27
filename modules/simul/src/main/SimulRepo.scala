@@ -8,6 +8,7 @@ import shogi.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
+import lila.user.User
 
 final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -87,6 +88,9 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
         case (acc, sim)                                       => sim :: acc
       }.reverse
     }
+
+  def hostId(id: Simul.ID): Fu[Option[User.ID]] =
+    simulColl.primitiveOne[User.ID]($id(id), "hostId")
 
   def allStarted: Fu[List[Simul]] =
     simulColl.ext
