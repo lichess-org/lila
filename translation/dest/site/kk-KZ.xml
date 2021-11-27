@@ -231,9 +231,9 @@
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
   <string name="mode">Түрі</string>
-  <string name="casual">Қалыпты</string>
+  <string name="casual">Жай</string>
   <string name="rated">Бағаланатын</string>
-  <string name="casualTournament">Қалыпты</string>
+  <string name="casualTournament">Кәдімгі</string>
   <string name="ratedTournament">Бағаланатын</string>
   <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
@@ -710,7 +710,7 @@
   <string name="coaches">Бапкерлер</string>
   <string name="invalidPgn">Қате PGN</string>
   <string name="invalidFen">Қате FEN</string>
-  <string name="custom">Қалыпты</string>
+  <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
