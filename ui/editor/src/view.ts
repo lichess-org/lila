@@ -9,6 +9,7 @@ import shogiground from './shogiground';
 import { OpeningPosition, Selected, EditorState } from './interfaces';
 import { parseFen } from 'shogiops/fen';
 import { handRoles } from 'shogiops/variantUtil';
+import { defined } from 'common';
 
 type Position = 'top' | 'bottom';
 
@@ -534,8 +535,8 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
             'selected-square': selectedSquare,
           },
           on: {
-            mousedown: onSelectSparePiece(ctrl, s),
-            touchstart: onSelectSparePiece(ctrl, s),
+            mousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
+            touchstart: onSelectSparePiece(ctrl, s, 'touchend'),
             touchmove: e => {
               ctrl.lastTouchMovePos = eventPosition(e as any);
             },
@@ -547,7 +548,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
   );
 }
 
-function onSelectSparePiece(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
+function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e: MouchEvent) => void {
   return function (e: MouchEvent): void {
     e.preventDefault();
     if (s === 'pointer' || s === 'trash') {
@@ -566,6 +567,25 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => v
         true
       );
     }
+    document.addEventListener(
+      upEvent,
+      (e: MouchEvent) => {
+        const eventPos = eventPosition(e) || ctrl.lastTouchMovePos;
+        if (eventPos) {
+          const target = document.elementFromPoint(eventPos[0], eventPos[1]);
+          const droppedOnPiece = target?.getElementsByTagName('piece')[0];
+          // set selected only when upevent occurs above spare pieces
+          if (
+            droppedOnPiece &&
+            droppedOnPiece.getAttribute('data-nb') === null &&
+            defined(droppedOnPiece.getAttribute('data-color'))
+          )
+            ctrl.selected(s);
+        }
+        ctrl.redraw();
+      },
+      { once: true }
+    );
   };
 }
 
