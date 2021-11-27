@@ -158,7 +158,7 @@
   <string name="players">Խաղացողներ</string>
   <string name="friends">Ընկերներ</string>
   <string name="discussions">Հաղորդագրություններ</string>
-  <string name="today">Այսօր</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Այսօր</string>
   <string name="yesterday">Երեկ</string>
   <string name="minutesPerSide">Րոպեներ ամեն կողմի համար</string>
   <string name="variant">Տարբերակ</string>
@@ -318,6 +318,8 @@
     <item quantity="other">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ձեր վարկանիշը %s-ում դեռևս վավեր չէ</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ձեր ամենշաբաթյա վարկանիշը %1$sում (%2$s) չափազանց բարձր է</string>
+  <string name="yourPerfRatingIsTooLow">Ձեր վարկանիշը %1$sին (%2$s) մասնակցելու համար բավարար չէ</string>
   <string name="ratedMoreThanInPerf">Վարկանիշը ≥ %1$s %2$s-ում</string>
   <string name="ratedLessThanInPerf">Վարկանիշը ≤ %1$s %2$s-ում</string>
   <string name="mustBeInTeam">Դուք պետք է լինեք %s ակումբի անդամ</string>
@@ -426,9 +428,9 @@
   <string name="popularOpenings">Հանրաճանաչ սկզբնախաղեր</string>
   <string name="endgamePositions">Վերջնախաղային դիրքեր</string>
   <string name="chess960StartPosition">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
-  <string name="startPosition">Սկզբնական դիրք</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Սկզբնական դիրք</string>
   <string name="clearBoard">Մաքրել տախտակը</string>
-  <string name="loadPosition">Բեռնել դիրք</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Բեռնել դիրք</string>
   <string name="isPrivate">Անձնական</string>
   <string name="reportXToModerators">Տեղեկացնել %s մոդերատորներին</string>
   <string name="profileCompletion">Մասնակցային էջը լրացված է %s-ով</string>
@@ -447,7 +449,7 @@
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
   <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է, սակայն առանց ժամանակի</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Զգուշացում. խաղը վարկանիշային է, սակայն առանց ժամանակի</string>
   <string name="success">Հաջողված է</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Ընթանում է %s խաղ</item>
@@ -512,7 +514,7 @@
   <string name="onSlowGames">Դանդաղ խաղերում</string>
   <string name="always">Միշտ</string>
   <string name="never">Երբեք</string>
-  <string name="xCompetesInY">%1$s որոշել է մասնակցել %2$s-ին</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s որոշել է մասնակցել %2$s-ին</string>
   <string name="victory">Հաղթանակ</string>
   <string name="defeat">Պարտություն</string>
   <string name="victoryVsYInZ">%1$s-ն ընդդեմ %2$s-ի %3$s-ում</string>
