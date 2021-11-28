@@ -134,6 +134,7 @@
   <string name="clearChat">נקה צ\'אט</string>
   <string name="deleteTheStudyChatHistory">למחוק את ההיסטוריה של הצ\'אט של המחקר? אין דרך חזרה!</string>
   <string name="deleteStudy">מחק מחקר</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">האם למחוק את כל הלימוד? אין דרך חזרה! הקלד את שם הלימוד לאישור: %s</string>
   <string name="whereDoYouWantToStudyThat">איפה אתה מעוניין לחקור זאת?</string>
   <string name="goodMove">מסע טוב</string>
   <string name="mistake">טעות</string>
@@ -144,6 +145,7 @@
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">המסע היחיד</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">כפאי</string>
   <string name="equalPosition">עמדה מאוזנת</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">עמדה לא ברורה</string>
   <string name="whiteIsSlightlyBetter">יתרון קל ללבן</string>
   <string name="blackIsSlightlyBetter">יתרון קל לשחור</string>
   <string name="whiteIsBetter">לבן יותר טוב</string>
@@ -152,6 +154,13 @@
   <string name="blackIsWinning">שחור מנצח</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">חידוש</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">פיתוח</string>
+  <string name="initiative">יוזמה</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">התקפה</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">משחק נגד</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">מצוקת זמן</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">עם פיצוי</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">עם הרעיון</string>
   <string name="nextChapter">פרק הבא</string>
+  <string name="prevChapter">הפרק הקודם</string>
+  <string name="studyActions">פעולות לימוד</string>
 </resources>

@@ -4,11 +4,11 @@
   <string name="youPlayTheWhitePiecesInAllPuzzles">Вы гуляеце белымі фігурамі ва ўсіх задачах</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Вы гуляеце чорнымі фігурамі ва ўсіх задачах</string>
   <string name="puzzlesSolved">задач вырашана</string>
-  <string name="newDailyHighscore">Новы дзенны рэкорд!</string>
+  <string name="newDailyHighscore">Новы дзённы рэкорд!</string>
   <string name="newWeeklyHighscore">Новы тыднёвы рэкорд!</string>
   <string name="newMonthlyHighscore">Новы месячны рэкорд!</string>
-  <string name="newAllTimeHighscore">Новы рэкорд за ўсе часы!</string>
-  <string name="previousHighscoreWasX">Папярэні рэкорд быў %s</string>
+  <string name="newAllTimeHighscore">Новы рэкорд за ўвесь час!</string>
+  <string name="previousHighscoreWasX">Папярэдні рэкорд %s</string>
   <string name="playAgain">Гуляць яшчэ раз</string>
   <plurals name="xRuns">
     <item quantity="one">1 спроба</item>

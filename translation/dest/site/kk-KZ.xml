@@ -231,9 +231,9 @@
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
   <string name="mode">Түрі</string>
-  <string name="casual">Қалыпты</string>
+  <string name="casual">Жай</string>
   <string name="rated">Бағаланатын</string>
-  <string name="casualTournament">Қалыпты</string>
+  <string name="casualTournament">Кәдімгі</string>
   <string name="ratedTournament">Бағаланатын</string>
   <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
@@ -517,7 +517,7 @@
   <string name="sound">Дыбыстар</string>
   <string name="none">Жоқ</string>
   <string name="fast">Тез</string>
-  <string name="normal">Қалыпты</string>
+  <string name="normal">Орташа</string>
   <string name="slow">Баяу</string>
   <string name="insideTheBoard">Тақта бетінде</string>
   <string name="outsideTheBoard">Тақта сыртында</string>
@@ -601,10 +601,10 @@
   <string name="aboutSimulImage">Фишер 50 қарсыластың 47-сін жеңіп, 2-мен тең ойнап, 1-нен жеңілді.</string>
   <string name="aboutSimulRealLife">Бұл түсінік шынайы өмірден алынған: ойында бас ойыншы болады, ол тақталарды аралап, бір-бір жүрістен жасап отырады.</string>
   <string name="aboutSimulRules">Көпшілікке қарсы ойын басталысымен, әр ойыншы ақ тастар иесі – бас ойыншымен жарысады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
-  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда қалыпты. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
+  <string name="aboutSimulSettings">Көпшілікке қарсы ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
   <string name="whenCreateSimul">Сіз көпшілікке қарсы ойынды құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
-  <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан өзіне лайық біреуін таңдайды.</string>
+  <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Көпшілікке қарсы ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
   <string name="simulHostExtraTime">Бас ойыншыға қосымша уақыт</string>
@@ -710,7 +710,7 @@
   <string name="coaches">Бапкерлер</string>
   <string name="invalidPgn">Қате PGN</string>
   <string name="invalidFen">Қате FEN</string>
-  <string name="custom">Қалыпты</string>
+  <string name="custom">Басқа</string>
   <string name="notifications">Хабарлама</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
@@ -792,10 +792,10 @@
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
-  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
+  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан аз</string>
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
-  <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
+  <string name="classicalDesc">Классикалық ойындар: 25 минут әрі одан көп</string>
   <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
@@ -846,8 +846,8 @@
   <string name="onlyTitled">Тек атаққа ие ойыншылар</string>
   <string name="onlyTitledHelp">Жарысқа қосу үшін ресми атағын талап ету</string>
   <string name="positionInputHelp">Әр ойынды нақты бір күйден бастау үшін FEN еңгізіңіз.
-Бұл тек қалыпты ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
-Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында қойыңыз.
+Бұл тек классикалық ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
+Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында еңгізіңіз.
 Ойынды кәдімгі бастапқы күйден бастау үшін бос қалдыра салыңыз.</string>
   <string name="cancelSimul">Көпшілікке қарсы ойынды болдырмау</string>
   <string name="simulHostcolor">Әрқашан бас ойыншы түсінен тәуелді</string>
