@@ -52,6 +52,7 @@
   <string name="knightMate">אפשרי לבצע מט רק אם פרש או רץ, אם ליריב יש יותר ממלך על הלוח.</string>
   <string name="noRatingPoints">נקודות מד כושר לא הוענקו</string>
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על מד הכושר.</string>
+  <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק משוחק אל מול חשבון של בוט, משחק מנוקד עשוי שלא להעניק נקודות אם יקבע שהשחקן מנצל את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, אתה יכול לדווח על זה:</string>
   <string name="banAppeal">ערער על איסור או על הגבלה בIP</string>
