@@ -184,42 +184,44 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         ),
       ]),
     ]),
-    h('div.csa', [
-      h('div.pair', [
-        h('label.name', 'CSA'),
-        h('textarea.copyable.autoselect', {
-          attrs: { spellCheck: false },
-          hook: {
-            ...onInsert(el => {
-              (el as HTMLTextAreaElement).value = defined(ctrl.csaInput)
-                ? ctrl.csaInput
-                : notationExport.renderFullCsa(ctrl);
-              el.addEventListener('input', e => (ctrl.csaInput = (e.target as HTMLTextAreaElement).value));
-            }),
-            postpatch: (_, vnode) => {
-              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.csaInput)
-                ? ctrl.csaInput
-                : notationExport.renderFullCsa(ctrl);
-            },
-          },
-        }),
-        h(
-          'button.button.button-thin.action.text',
-          {
-            attrs: dataIcon('G'),
-            hook: bind(
-              'click',
-              _ => {
-                const csa = $('.copyables .csa textarea').val();
-                if (csa !== notationExport.renderFullCsa(ctrl)) ctrl.changeNotation(csa);
+    ['fromPosition', 'standard'].includes(ctrl.data.game.variant.key)
+      ? h('div.csa', [
+          h('div.pair', [
+            h('label.name', 'CSA'),
+            h('textarea.copyable.autoselect', {
+              attrs: { spellCheck: false },
+              hook: {
+                ...onInsert(el => {
+                  (el as HTMLTextAreaElement).value = defined(ctrl.csaInput)
+                    ? ctrl.csaInput
+                    : notationExport.renderFullCsa(ctrl);
+                  el.addEventListener('input', e => (ctrl.csaInput = (e.target as HTMLTextAreaElement).value));
+                }),
+                postpatch: (_, vnode) => {
+                  (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.csaInput)
+                    ? ctrl.csaInput
+                    : notationExport.renderFullCsa(ctrl);
+                },
               },
-              ctrl.redraw
+            }),
+            h(
+              'button.button.button-thin.action.text',
+              {
+                attrs: dataIcon('G'),
+                hook: bind(
+                  'click',
+                  _ => {
+                    const csa = $('.copyables .csa textarea').val();
+                    if (csa !== notationExport.renderFullCsa(ctrl)) ctrl.changeNotation(csa);
+                  },
+                  ctrl.redraw
+                ),
+              },
+              ctrl.trans.noarg('importCsa')
             ),
-          },
-          ctrl.trans.noarg('importCsa')
-        ),
-      ]),
-    ]),
+          ]),
+        ])
+      : null,
   ]);
 }
 
