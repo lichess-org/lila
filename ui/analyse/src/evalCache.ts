@@ -75,10 +75,11 @@ export function make(opts: EvalCacheOpts): EvalCache {
   const upgradable = prop(false);
   lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2 && d.nb < 99999));
   return {
-    onCeval: throttle(500, function () {
+    onCeval: throttle(500, () => {
       const node = opts.getNode(),
         ev = node.ceval;
-      if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut()) {
+      const fetched = fetchedByFen[node.fen];
+      if (ev && !ev.cloud && fetched && ev.depth > fetched.depth && qualityCheck(ev) && opts.canPut()) {
         opts.send('evalPut', toPutData(opts.variant, ev));
       }
     }),
