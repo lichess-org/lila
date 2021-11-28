@@ -79,7 +79,14 @@ export function make(opts: EvalCacheOpts): EvalCache {
       const node = opts.getNode(),
         ev = node.ceval;
       const fetched = fetchedByFen[node.fen];
-      if (ev && !ev.cloud && fetched && ev.depth > fetched.depth && qualityCheck(ev) && opts.canPut()) {
+      if (
+        ev &&
+        !ev.cloud &&
+        node.fen in fetchedByFen &&
+        (!fetched || fetched.depth < ev.depth) &&
+        qualityCheck(ev) &&
+        opts.canPut()
+      ) {
         opts.send('evalPut', toPutData(opts.variant, ev));
       }
     }),
