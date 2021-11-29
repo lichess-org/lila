@@ -45,8 +45,8 @@ export function selectToDrop(ctrl: RoundController, e: cg.MouchEvent): void {
     color = el.getAttribute('data-color') as cg.Color,
     number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
-  const dropMode = ctrl.shogiground?.state.dropmode;
-  const dropPiece = ctrl.shogiground?.state.dropmode.piece;
+  const dropMode = ctrl.shogiground.state.dropmode;
+  const dropPiece = ctrl.shogiground.state.dropmode.piece;
   if (!dropMode.active || dropPiece?.role !== role) {
     setDropMode(ctrl.shogiground.state, { color, role });
     ctrl.dropmodeActive = true;
