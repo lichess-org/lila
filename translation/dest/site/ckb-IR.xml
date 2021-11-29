@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">یاری بە پارچە سپیەکان دەکەیت</string>
   <string name="youPlayTheBlackPieces">یاری بە پارچە ڕەشەکان دەکەیت</string>
   <string name="itsYourTurn">سەرەی تۆیە!</string>
+  <string name="cheatDetected">دەرکەوت کە فێڵ کراوە</string>
   <string name="kingInTheCenter">پاشا لە ناوەڕاست</string>
   <string name="threeChecks">سێ چێککردن (هێرش کردنە سەر پاشای بەرامبەر)</string>
   <string name="raceFinished">کۆتایی هات</string>
