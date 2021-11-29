@@ -61,8 +61,10 @@
   <string name="promoteVariation">برەوپێدانی جۆراوجۆر</string>
   <string name="makeMainLine">کردن بە رستەی سەرەکی</string>
   <string name="deleteFromHere">سڕینەوە</string>
+  <string name="forceVariation">هێزی جۆراوجۆر</string>
   <string name="move">جوڵان</string>
   <string name="variantLoss">دۆرانی ناچاری</string>
+  <string name="variantWin">براوەی هەمەجۆر</string>
   <string name="insufficientMaterial">یەکسانبوون بەهۆی نەمانی جوڵە بۆ کش</string>
   <string name="pawnMove">جوڵەی سەرباز</string>
   <string name="capture">گرتن</string>
