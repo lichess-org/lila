@@ -57,6 +57,8 @@
   <string name="goDeeper">زیاتر</string>
   <string name="showThreat">پیشاندانی مەترسی</string>
   <string name="inLocalBrowser">له شوێنی گەڕانی ناوخۆیی</string>
+  <string name="toggleLocalEvaluation">هەڵسەنگاندنی خۆجێیی بگۆڕە</string>
+  <string name="promoteVariation">برەوپێدانی جۆراوجۆر</string>
   <string name="makeMainLine">کردن بە رستەی سەرەکی</string>
   <string name="deleteFromHere">سڕینەوە</string>
   <string name="move">جوڵان</string>
