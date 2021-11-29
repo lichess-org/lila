@@ -58,7 +58,7 @@ object Info {
 
   import Eval.{ Cp, Mate }
 
-  val LineMaxPlies = 18
+  val LineMaxPlies = 16
 
   private val separator     = "@"
   private val listSeparator = ";"
