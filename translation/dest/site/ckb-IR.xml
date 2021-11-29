@@ -79,6 +79,7 @@
   <string name="recentGames">دوایین یاریەکانت</string>
   <string name="topGames">بەرزترین یاریەکان</string>
   <string name="masterDbExplanation">دوو ملیۆن یاری سەر بۆرد لە لایەن %1$s+ FIDE-یاریزانانی هەڵسەنگنراو، کە خەڵکی %2$s بۆ %3$s</string>
+  <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا زاڵبوونێکی دیکە یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
   <string name="allSet">ئامادەیە!</string>
