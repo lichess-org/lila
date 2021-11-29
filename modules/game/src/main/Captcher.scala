@@ -47,11 +47,10 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
     private val capacity   = 256
     private var challenges = NonEmptyList.one(Captcha.default)
 
-    private def add(c: Captcha): Unit = {
-      find(c.gameId) ifNone {
+    private def add(c: Captcha): Unit =
+      if (find(c.gameId).isEmpty) {
         challenges = NonEmptyList(c, challenges.toList take capacity)
       }
-    }
 
     private def find(id: String): Option[Captcha] =
       challenges.find(_.gameId == id)
