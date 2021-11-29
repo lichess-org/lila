@@ -85,6 +85,10 @@
   <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
   <string name="openingEndgameExplorer">دۆزەرەوەی کردنەوەکان\کۆتاییەکانی یاری</string>
   <string name="xOpeningExplorer">%s دۆزەرەوەی کردنەوەکان</string>
+  <string name="winPreventedBy50MoveRule">براوە دیاری ناکرێت بە یاسای-50 جووڵە</string>
+  <string name="lossSavedBy50MoveRule">دۆڕاو دیاری ناکرێت بە یاسای-50 جووڵە</string>
+  <string name="winOr50MovesByPriorMistake">براوە یان 50 جووڵە بەهۆی هەڵەی پێشوو</string>
+  <string name="lossOr50MovesByPriorMistake">دۆڕاو یان 50 جووڵە بەهۆی هەڵەی پێشوو</string>
   <string name="allSet">ئامادەیە!</string>
   <string name="importPgn">سکرین شوت PGN</string>
   <string name="delete">سڕینەوە</string>
