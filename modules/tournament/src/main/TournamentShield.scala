@@ -164,12 +164,19 @@ object TournamentShield {
           iconChar = '+'
         )
 
+    case object Minishogi
+        extends Category(
+          of = Right(shogi.variant.Minishogi),
+          iconChar = ','
+        )
+
     val all: List[Category] = List(
       Bullet,
       SuperBlitz,
       Blitz,
       Rapid,
-      Classical
+      Classical,
+      Minishogi
       //HyperBullet,
       //UltraBullet
     )

@@ -148,6 +148,18 @@ Thank you all, you rock!"""
                 )
               }
             }
+          },
+          List( // shield variant tournaments!
+            month.thirdWeek.withDayOfWeek(MONDAY)    -> Minishogi,
+          ).flatMap { case (day, variant) =>
+            at(day, 16) map { date =>
+              Schedule(Shield, Blitz, variant, none, date) plan {
+                _.copy(
+                  name = s"${variant.name} Shield",
+                  spotlight = Some(TournamentShield spotlight variant.name)
+                )
+              }
+            }
           }
         ).flatten
       },
