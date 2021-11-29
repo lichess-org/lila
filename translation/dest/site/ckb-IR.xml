@@ -100,8 +100,12 @@
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە تیر دیار بکە</string>
+  <string name="evaluationGauge">پێوانەی هەڵسەنگاندن</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memory</string>
   <string name="infiniteAnalysis">شیکاریکردنی بێ کۆتا</string>
+  <string name="removesTheDepthLimit">لابردنی دورترین سنوور، بەمەش کۆمپیوتەرەکەت سەلامەتتر دەبێت</string>
   <string name="blunder">هەڵەی گەورە</string>
   <string name="mistake">هەڵە</string>
   <string name="inaccuracy">ناتەواو</string>
