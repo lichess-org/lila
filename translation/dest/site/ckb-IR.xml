@@ -43,13 +43,17 @@
   <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
   <string name="whiteLeftTheGame">سپی وازیهێنا لە یاریکردن</string>
   <string name="blackLeftTheGame">ڕەش وازیهێنا لە یاریکردن</string>
+  <string name="whiteDidntMove">سپی جووڵەی نەکرد</string>
+  <string name="blackDidntMove">ڕەش جووڵەی نەکرد</string>
   <string name="requestAComputerAnalysis">داواکردنی شیکاری کۆمپیوتەری</string>
   <string name="computerAnalysis">شیکاری کۆمپیوتەری</string>
   <string name="computerAnalysisAvailable">شیکاری کۆمپیوتەری بەردەستە</string>
+  <string name="computerAnalysisDisabled">شیکاری کۆمپیوتەری ناچاڵاک کرا</string>
   <string name="analysis">شیکاری تەختەی شەترەنج</string>
   <string name="depthX">قوڵایی%s</string>
   <string name="usingServerAnalysis">بەکارھێنانی شیکاری ڕاژەکاری</string>
   <string name="loadingEngine">بزوێنەرەکە لە باری هەڵگرتندایه...</string>
+  <string name="cloudAnalysis">شیکاری ئۆنڵاین</string>
   <string name="goDeeper">زیاتر</string>
   <string name="showThreat">پیشاندانی مەترسی</string>
   <string name="inLocalBrowser">له شوێنی گەڕانی ناوخۆیی</string>
