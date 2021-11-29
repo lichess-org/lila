@@ -71,7 +71,6 @@ object dev {
 announce 10 minutes Lishogi will restart!
 announce cancel
 change asset version
-puzzle disable 70000
 team disable foobar
 team enable foobar
 fishnet client create {username}
