@@ -37,7 +37,7 @@ object header {
               a(
                 cls := List(
                   "service youTube" -> true,
-                  "live"            -> s.stream.exists(_.twitch)
+                  "live"            -> s.stream.exists(_.youTube)
                 ),
                 href := youTube.fullUrl
               )(youTube.minUrl)
