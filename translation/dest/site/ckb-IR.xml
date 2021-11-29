@@ -101,6 +101,23 @@
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە تیر دیار بکە</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
+  <string name="infiniteAnalysis">شیکاریکردنی بێ کۆتا</string>
+  <string name="blunder">هەڵەی گەورە</string>
+  <string name="mistake">هەڵە</string>
+  <string name="inaccuracy">ناتەواو</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s هەڵەی گەورە</item>
+    <item quantity="other">%s هەڵە گەورەکان</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s هەڵە</item>
+    <item quantity="other">%s هەڵەکان</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s نا تەواو</item>
+    <item quantity="other">%s ناتەواوەکان</item>
+  </plurals>
+  <string name="moveTimes">ژمارەی جوڵەکان</string>
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
   <string name="logOut">دەرچوون</string>
