@@ -118,8 +118,12 @@
     <item quantity="other">%s ناتەواوەکان</item>
   </plurals>
   <string name="moveTimes">ژمارەی جوڵەکان</string>
+  <string name="flipBoard">هەڵگێڕانەوەی تەختە</string>
+  <string name="threefoldRepetition">سێبارە کردنەوە</string>
+  <string name="claimADraw">داوای یەکسانی بکە</string>
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
+  <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
   <string name="logOut">دەرچوون</string>
   <string name="signIn">چوونە ناوە</string>
 </resources>
