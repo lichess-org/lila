@@ -82,6 +82,9 @@
   <string name="dtzWithRounding">DTZ50\'\' لەگەڵ نزیکخستنەوەیان، بە پێی ژمارەی نیوەی جووڵەکان تا زاڵبوونێکی دیکە یان جوڵەی سەرباز</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
+  <string name="openingExplorer">دۆزەرەوەی کردنەوەکان</string>
+  <string name="openingEndgameExplorer">دۆزەرەوەی کردنەوەکان\کۆتاییەکانی یاری</string>
+  <string name="xOpeningExplorer">%s دۆزەرەوەی کردنەوەکان</string>
   <string name="allSet">ئامادەیە!</string>
   <string name="importPgn">سکرین شوت PGN</string>
   <string name="delete">سڕینەوە</string>
