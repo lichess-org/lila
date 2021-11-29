@@ -64,7 +64,7 @@
   <string name="forceVariation">هێزی جۆراوجۆر</string>
   <string name="move">جوڵان</string>
   <string name="variantLoss">دۆرانی ناچاری</string>
-  <string name="variantWin">براوەی هەمەجۆر</string>
+  <string name="variantWin">براوەی هەمەجۆری</string>
   <string name="insufficientMaterial">یەکسانبوون بەهۆی نەمانی جوڵە بۆ کش</string>
   <string name="pawnMove">جوڵەی سەرباز</string>
   <string name="capture">گرتن</string>
@@ -78,6 +78,7 @@
   <string name="averageRatingX">پۆلێنکردنی تێکرا: %s</string>
   <string name="recentGames">دوایین یاریەکانت</string>
   <string name="topGames">بەرزترین یاریەکان</string>
+  <string name="masterDbExplanation">دوو ملیۆن یاری سەر بۆرد لە لایەن %1$s+ FIDE-یاریزانانی هەڵسەنگنراو، کە خەڵکی %2$s بۆ %3$s</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
   <string name="allSet">ئامادەیە!</string>
