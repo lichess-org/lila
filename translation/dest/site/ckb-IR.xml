@@ -97,6 +97,8 @@
   <string name="replayMode">سەیرکردنەوەی یاریەکە</string>
   <string name="realtimeReplay">وەک خۆی</string>
   <string name="byCPL">بەهۆی CPL</string>
+  <string name="openStudy">خوێندنی کراوە</string>
+  <string name="enable">چالاککراوە</string>
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
   <string name="logOut">دەرچوون</string>
