@@ -99,6 +99,8 @@
   <string name="byCPL">بەهۆی CPL</string>
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
+  <string name="bestMoveArrow">باشترین جووڵە بە تیر دیار بکە</string>
+  <string name="multipleLines">زیادکردنی هێڵەکان</string>
   <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
   <string name="draw">یەکسان</string>
   <string name="logOut">دەرچوون</string>
