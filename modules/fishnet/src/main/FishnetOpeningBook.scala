@@ -69,10 +69,10 @@ object FishnetOpeningBook {
 
     def randomPonderedMove(turn: Color, level: Int): Option[Move] = {
       val sum         = moves.map(_.score(turn, level)).sum
-      val novelty     = 5 * 14 // score of 5 winning games
-      val rng         = ThreadLocalRandom.nextInt(sum + novelty)
+      val novelty     = 5L * 14 // score of 5 winning games
+      val rng         = ThreadLocalRandom.nextLong(sum + novelty)
       moves
-        .foldLeft((none[Move], 0)) { case ((found, it), next) =>
+        .foldLeft((none[Move], 0L)) { case ((found, it), next) =>
           val nextIt = it + next.score(turn, level)
           (found orElse (nextIt > rng).option(next), nextIt)
         }
@@ -80,12 +80,12 @@ object FishnetOpeningBook {
     }
   }
 
-  case class Move(uci: Uci, white: Int, draws: Int, black: Int) {
-    def score(turn: Color, level: Int) =
+  case class Move(uci: Uci, white: Long, draws: Long, black: Long) {
+    def score(turn: Color, level: Int): Long =
       // interpolate: real frequency at lvl 1, expectation value at lvl 8
-      14 * turn.fold(white, black) +
-      (15 - level) * draws +
-      (16 - 2 * level) * turn.fold(black, white)
+      14L * turn.fold(white, black) +
+      (15L - level) * draws +
+      (16L - 2 * level) * turn.fold(black, white)
   }
 
   implicit val moveReader     = Json.reads[Move]
