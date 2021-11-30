@@ -89,8 +89,11 @@ coords {
       text-align: center;
     }
 
-    coord {
-      color: $c-font-page !important;
+    &.ranks,
+    .is2d &.files {
+      coord {
+        color: $c-font-page !important;
+      }
     }
   }
 }
