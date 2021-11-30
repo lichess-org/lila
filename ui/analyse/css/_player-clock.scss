@@ -14,6 +14,10 @@ $clock-height: 20px;
   &.bottom {
     top: var(--cg-height, 100%);
     z-index: 1; // over the board coords
+
+    .is3d & {
+      top: calc(var(--cg-height, 100%) + 15px);
+    }
   }
 
   /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
