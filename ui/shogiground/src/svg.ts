@@ -19,7 +19,7 @@ type ArrowDests = Map<cg.Key, number>; // how many arrows land on a square
 
 type Hash = string;
 
-export function renderSvg(state: State, root: SVGElement): void {
+export function renderSvg(state: State, svg: SVGElement, customSvg: SVGElement): void {
   const d = state.drawable,
     curD = d.current,
     cur = curD && curD.mouseSq ? (curD as DrawShape) : undefined,
@@ -48,10 +48,41 @@ export function renderSvg(state: State, root: SVGElement): void {
   if (fullHash === state.drawable.prevSvgHash) return;
   state.drawable.prevSvgHash = fullHash;
 
-  const defsEl = root.firstChild as SVGElement;
+  /*
+    -- DOM hierarchy --
+    <svg class="cg-shapes">      (<= svg)
+      <defs>
+        ...(for brushes)...
+      </defs>
+      <g>
+        ...(for arrows, circles, and pieces)...
+      </g>
+    </svg>
+    <svg class="cg-custom-svgs"> (<= customSvg)
+      <g>
+        ...(for custom svgs)...
+      </g>
+    </svg>
+  */
+  const defsEl = svg.querySelector('defs') as SVGElement;
+  const shapesEl = svg.querySelector('g') as SVGElement;
+  const customSvgsEl = customSvg.querySelector('g') as SVGElement;
 
   syncDefs(d, shapes, defsEl);
-  syncShapes(state, shapes, d.brushes, arrowDests, root, defsEl);
+  syncShapes(
+    state,
+    shapes.filter(s => !s.shape.customSvg),
+    d.brushes,
+    arrowDests,
+    shapesEl
+  );
+  syncShapes(
+    state,
+    shapes.filter(s => s.shape.customSvg),
+    d.brushes,
+    arrowDests,
+    customSvgsEl
+  );
 }
 
 // append only. Don't try to update/remove.
@@ -82,14 +113,13 @@ function syncShapes(
   shapes: Shape[],
   brushes: DrawBrushes,
   arrowDests: ArrowDests,
-  root: SVGElement,
-  defsEl: SVGElement
+  root: SVGElement
 ): void {
   const bounds = state.dom.bounds(),
     hashesInDom = new Map(), // by hash
     toRemove: SVGElement[] = [];
   for (const sc of shapes) hashesInDom.set(sc.hash, false);
-  let el: SVGElement | undefined = defsEl.nextSibling as SVGElement,
+  let el: SVGElement | undefined = root.firstChild as SVGElement,
     elHash: Hash;
   while (el) {
     elHash = el.getAttribute('cgHash') as Hash;
@@ -108,7 +138,7 @@ function syncShapes(
 }
 
 function shapeHash(
-  { orig, dest, brush, piece, modifiers }: DrawShape,
+  { orig, dest, brush, piece, modifiers, customSvg }: DrawShape,
   arrowDests: ArrowDests,
   current: boolean,
   bounds: ClientRect
@@ -123,6 +153,7 @@ function shapeHash(
     dest && (arrowDests.get(dest) || 0) > 1,
     piece && pieceHash(piece),
     modifiers && modifiersHash(modifiers),
+    customSvg && customSvgHash(customSvg),
   ]
     .filter(x => x)
     .join(',');
@@ -136,6 +167,15 @@ function modifiersHash(m: DrawModifiers): Hash {
   return '' + (m.lineWidth || '');
 }
 
+function customSvgHash(s: string): Hash {
+  // Rolling hash with base 31 (cf. https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript)
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h + s.charCodeAt(i)) >>> 0;
+  }
+  return 'custom-' + h.toString();
+}
+
 function renderShape(
   state: State,
   { shape, current, hash }: Shape,
@@ -144,7 +184,10 @@ function renderShape(
   bounds: ClientRect
 ): SVGElement {
   let el: SVGElement;
-  if (shape.piece && !shape.dest)
+  if (shape.customSvg) {
+    const orig = orient(key2pos(shape.orig), state.orientation, state.dimensions);
+    el = renderCustomSvg(shape.customSvg, orig, state.dimensions, bounds);
+  } else if (shape.piece && !shape.dest)
     el = renderPiece(
       orient(key2pos(shape.orig), state.orientation, state.dimensions),
       shape.piece,
@@ -169,6 +212,25 @@ function renderShape(
   }
   el.setAttribute('cgHash', hash);
   return el;
+}
+
+function renderCustomSvg(customSvg: string, pos: cg.Pos, dims: cg.Dimensions, bounds: ClientRect): SVGElement {
+  const { width, height } = bounds;
+  const w = width / dims.files;
+  const h = height / dims.ranks;
+  const x = pos[0] * w;
+  const y = (dims.ranks - 1 - pos[1]) * h;
+
+  // Translate to top-left of `orig` square
+  const g = setAttributes(createElement('g'), { transform: `translate(${x},${y})` });
+
+  // Give 100x100 coordinate system to the user for `orig` square
+  const svg = setAttributes(createElement('svg'), { width: w, height: w, viewBox: '0 0 100 100' });
+
+  g.appendChild(svg);
+  svg.innerHTML = customSvg;
+
+  return g;
 }
 
 function renderCircle(
@@ -259,7 +321,7 @@ function renderMarker(brush: DrawBrush): SVGElement {
   return marker;
 }
 
-function setAttributes(el: SVGElement, attrs: { [key: string]: any }): SVGElement {
+export function setAttributes(el: SVGElement, attrs: { [key: string]: any }): SVGElement {
   for (const key in attrs) el.setAttribute(key, attrs[key]);
   return el;
 }

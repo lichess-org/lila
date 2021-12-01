@@ -95,6 +95,7 @@ export default class AnalyseCtrl {
   showComments: boolean = true; // whether to display comments in the move tree
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
+  showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -756,7 +757,7 @@ export default class AnalyseCtrl {
   };
 
   private resetAutoShapes() {
-    if (this.showAutoShapes()) this.setAutoShapes();
+    if (this.showAutoShapes() || this.showMoveAnnotation()) this.setAutoShapes();
     else this.shogiground && this.shogiground.setAutoShapes([]);
   }
 
@@ -767,6 +768,11 @@ export default class AnalyseCtrl {
 
   toggleGauge = () => {
     this.showGauge(!this.showGauge());
+  };
+
+  toggleMoveAnnotation = (v: boolean): void => {
+    this.showMoveAnnotation(v);
+    this.resetAutoShapes();
   };
 
   private onToggleComputer() {

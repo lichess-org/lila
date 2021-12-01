@@ -98,7 +98,8 @@ cg-container {
   top: 0;
 }
 
-.cg-wrap svg {
+cg-container .cg-shapes,
+cg-container .cg-custom-svgs {
   overflow: hidden;
   position: absolute;
   top: 0px;
@@ -106,8 +107,11 @@ cg-container {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: z('cg__svg');
+}
+
+cg-container .cg-shapes {
   opacity: 0.6;
+  z-index: z('cg__svg.cg-shapes');
   image {
     opacity: 0.5;
   }
@@ -131,4 +135,13 @@ piece.fix-blur {
     flex: 0 0 20%;
     max-width: 15vmin;
   }
+}
+
+cg-container .cg-custom-svgs {
+  z-index: z('cg__svg.cg-custom-svgs');
+  overflow: visible;
+}
+
+cg-container .cg-custom-svgs svg {
+  overflow: visible;
 }

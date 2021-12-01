@@ -6,13 +6,16 @@
   > div {
     flex: 1 0 30%;
   }
-  a {
+  button {
     @extend %flex-center-nowrap;
     @include transition();
     color: $c-font;
     height: 2.3em;
     line-height: 2.3em;
     align-items: stretch;
+    border: none;
+    background: transparent;
+    width: 100%;
     &::before {
       @extend %flex-center;
       justify-content: center;
