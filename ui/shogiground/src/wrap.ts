@@ -1,9 +1,9 @@
-import { State } from './state';
+import { HeadlessState } from './state';
 import { setVisible, createEl, isMiniBoard } from './util';
 import { colors, Notation, Elements } from './types';
 import { createElement as createSVG } from './svg';
 
-export function renderWrap(element: HTMLElement, s: State, relative: boolean): Elements {
+export function renderWrap(element: HTMLElement, s: HeadlessState, relative: boolean): Elements {
   // .cg-wrap (element passed to Shogiground)
   //     cg-container
   //       cg-board

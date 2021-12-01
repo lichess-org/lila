@@ -1,4 +1,4 @@
-import { State } from './state';
+import { HeadlessState } from './state';
 import { setCheck, setSelected } from './board';
 import { getDimensions, read as fenRead } from './fen';
 import { DrawShape, DrawBrush } from './draw';
@@ -97,10 +97,11 @@ export interface Config {
   dimensions?: cg.Dimensions;
 }
 
-export function configure(state: State, config: Config): void {
-  // don't merge destinations. Just override.
+export function configure(state: HeadlessState, config: Config): void {
+  // don't merge destinations and autoShapes. Just override.
   if (config.movable?.dests) state.movable.dests = undefined;
   if (config.dropmode?.dropDests) state.dropmode.dropDests = undefined;
+  // if (config.drawable?.autoShapes) state.drawable.autoShapes = [];
 
   merge(state, config);
 

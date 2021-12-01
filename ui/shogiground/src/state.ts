@@ -5,7 +5,7 @@ import { Drawable } from './draw';
 import { timer } from './util';
 import * as cg from './types';
 
-export interface State {
+export interface HeadlessState {
   pieces: cg.Pieces;
   pockets?: cg.Pockets;
   orientation: cg.Color; // board orientation. sente | gote
@@ -96,13 +96,15 @@ export interface State {
     insert?: (elements: cg.Elements) => void; // when the board DOM has been (re)inserted
   };
   drawable: Drawable;
-  dom: cg.Dom;
   hold: cg.Timer;
   notation: cg.Notation;
   dimensions: cg.Dimensions;
 }
+export interface State extends HeadlessState {
+  dom: cg.Dom;
+}
 
-export function defaults(): Partial<State> {
+export function defaults(): HeadlessState {
   return {
     pieces: fen.read(fen.initial, { files: 9, ranks: 9 }),
     orientation: 'sente',
