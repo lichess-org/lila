@@ -72,8 +72,8 @@ final class Analyser(
                 initialFen = initialFen,
                 studyId = studyId.some,
                 variant = if(
-                  variant == shogi.variant.Standard &&
-                  !(initialFen.map(_.value) has shogi.format.Forsyth.initial)
+                  variant.standard &&
+                  initialFen.exists(_.value != Forsyth.initial)
                 ) shogi.variant.FromPosition else variant,
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
