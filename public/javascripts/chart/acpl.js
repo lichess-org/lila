@@ -31,7 +31,11 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               };
 
             var point = {
-              name: node.ply - plyOffset + '. ' + notation({ san: node.san, uci: node.uci, fen: node.fen }),
+              name:
+                node.ply -
+                plyOffset +
+                '. ' +
+                notation({ san: node.san, uci: node.uci, fen: node.fen, variant: data.game.variant.key }),
               y: 2 / (1 + Math.exp(-0.0007 * cp)) - 1,
             };
             if (!partial && blurs[color].shift() === '1') {

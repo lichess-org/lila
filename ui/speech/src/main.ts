@@ -19,6 +19,7 @@ function renderSan(san: San, uci: Uci) {
     san: san,
     uci: uci,
     fen: '',
+    variant: 'standard',
   });
   if (move[0] === '+') move = '$' + move.substring(1);
   return move

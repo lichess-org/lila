@@ -28,7 +28,9 @@ lishogi.movetimeChart = function (data, trans, notation) {
             data.game.moveCentis.forEach(function (time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
-              var san = node ? notation({ san: node.san, uci: node.uci, fen: node.fen }) : '-';
+              var san = node
+                ? notation({ san: node.san, uci: node.uci, fen: node.fen, variant: data.game.variant.key })
+                : '-';
 
               var color = ply & 1;
 

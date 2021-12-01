@@ -159,6 +159,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
       san: node.san!,
       uci: node.uci!,
       fen: node.fen,
+      variant: 'standard',
     }),
     ev &&
       (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) ? renderEval('#' + ev.mate) : undefined),
@@ -186,6 +187,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
         san: node.san!,
         uci: node.uci!,
         fen: node.fen,
+        variant: 'standard',
       }),
       puzzleGlyph(ctx, node),
     ]
