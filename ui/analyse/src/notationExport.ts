@@ -86,7 +86,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
 
   const tags = ctrl.data.tags ?? [];
   // We either don't want to display these or we display them through other means
-  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割', '図', 'FEN', 'Result'];
+  const unwatedTagNames = ['先手', '下手', '後手', '上手', '手合割', '図', 'FEN', 'Result', 'Variant'];
   const otherTags = tags.filter(t => !unwatedTagNames.includes(t[0])).map(t => t[0] + '：' + t[1]);
 
   // We want these even empty
