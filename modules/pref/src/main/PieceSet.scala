@@ -40,7 +40,7 @@ object PieceSet extends PieceSetObject {
     "Kanji_Guide_Shadowed",
     "Valdivia",
     "Vald_opt",
-    "shogi-BnW",
+    "shogi_BnW",
     "Intl_Colored_2D",
     "Intl_Colored_3D",
     "Intl_Shadowed",

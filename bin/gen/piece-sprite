@@ -32,7 +32,7 @@ themes = [
   ['Portella', 'png'],
   ['Portella_2Kanji', 'png'],
   ['western', 'png'],
-  ['shogi-BnW', 'svg']
+  ['shogi_BnW', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
