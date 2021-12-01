@@ -1,7 +1,7 @@
 import { HeadlessState } from './state';
 import { setCheck, setSelected } from './board';
 import { getDimensions, read as fenRead } from './fen';
-import { DrawShape, DrawBrush } from './draw';
+import { DrawShape, DrawBrushes } from './draw';
 import { makePockets } from './pocket';
 import * as cg from './types';
 
@@ -16,7 +16,8 @@ export interface Config {
   selected?: cg.Key; // square currently selected "a1"
   coordinates?: boolean; // include coords attributes
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
-  disableContextMenu?: boolean; // because who needs a context menu on a chessboard
+  disableContextMenu?: boolean; // because who needs a context menu on a board
+  blockTouchScroll?: boolean; // block scrolling via touch dragging on the board, e.g. for coordinate training
   resizable?: boolean; // listens to shogiground.resize on document.body to clear bounds cache
   // pieceKey: boolean; // add a data-key attribute to piece elements
   highlight?: {
@@ -87,7 +88,7 @@ export interface Config {
     eraseOnClick?: boolean;
     shapes?: DrawShape[];
     autoShapes?: DrawShape[];
-    brushes?: DrawBrush[];
+    brushes?: DrawBrushes;
     pieces?: {
       baseUrl?: string;
     };

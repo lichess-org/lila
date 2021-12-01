@@ -1,7 +1,6 @@
 import { State } from './state';
-import { key2pos, createEl } from './util';
+import { key2pos, createEl, posToTranslateRel, posToTranslateAbs, translateRel, translateAbs } from './util';
 import { sentePov } from './board';
-import * as util from './util';
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from './anim';
 import { DragCurrent } from './drag';
 import { addPocketEl } from './pocket';
@@ -15,10 +14,8 @@ type SquareClasses = Map<cg.Key, string>;
 // in case of bugs, blame @veloce
 export function render(s: State): void {
   const asSente: boolean = sentePov(s),
-    posToTranslate = s.dom.relative
-      ? util.posToTranslateRel(s.dimensions)
-      : util.posToTranslateAbs(s.dimensions, s.dom.bounds()),
-    translate = s.dom.relative ? util.translateRel : util.translateAbs,
+    posToTranslate = s.dom.relative ? posToTranslateRel(s.dimensions) : posToTranslateAbs(s.dimensions, s.dom.bounds()),
+    translate = s.dom.relative ? translateRel : translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
     pockets: HTMLElement[] | undefined = s.dom.elements.pockets,
     pieces: cg.Pieces = s.pieces,
@@ -192,11 +189,11 @@ export function render(s: State): void {
 export function updateBounds(s: State): void {
   if (s.dom.relative) return;
   const asSente: boolean = sentePov(s),
-    posToTranslate = util.posToTranslateAbs(s.dimensions, s.dom.bounds());
+    posToTranslate = posToTranslateAbs(s.dimensions, s.dom.bounds());
   let el = s.dom.elements.board.firstChild as cg.PieceNode | cg.SquareNode | undefined;
   while (el) {
-    if (isPieceNode(el) && !el.cgAnimating) util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente));
-    else if (isSquareNode(el)) util.translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente), false);
+    if (isPieceNode(el) && !el.cgAnimating) translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente));
+    else if (isSquareNode(el)) translateAbs(el, posToTranslate(key2pos(el.cgKey), asSente), false);
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
 }

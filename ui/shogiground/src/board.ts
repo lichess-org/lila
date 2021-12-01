@@ -3,9 +3,7 @@ import { pos2key, opposite } from './util';
 import { premove } from './premove';
 import * as cg from './types';
 
-export type Callback = (...args: any[]) => void;
-
-export function callUserFunction(f: Callback | undefined, ...args: any[]): void {
+export function callUserFunction<T extends (...args: any[]) => void>(f: T | undefined, ...args: Parameters<T>): void {
   if (f) setTimeout(() => f(...args), 1);
 }
 
@@ -140,6 +138,7 @@ export function dropNewPiece(state: HeadlessState, orig: cg.Key, dest: cg.Key, f
     state.pieces.delete(orig);
     baseNewPiece(state, piece, dest, force);
     callUserFunction(state.movable.events.afterNewPiece, piece.role, dest, {
+      premove: false,
       predrop: false,
     });
   } else if (piece && canPredrop(state, orig, dest)) {
@@ -284,6 +283,7 @@ export function playPredrop(state: HeadlessState, validate: (drop: cg.Drop) => b
     } as cg.Piece;
     if (baseNewPiece(state, piece, drop.key)) {
       callUserFunction(state.movable.events.afterNewPiece, drop.role, drop.key, {
+        premove: false,
         predrop: true,
       });
       success = true;

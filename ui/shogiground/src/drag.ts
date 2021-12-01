@@ -20,9 +20,7 @@ export interface DragCurrent {
 }
 
 export function start(s: State, e: cg.MouchEvent): void {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
   const bounds = s.dom.bounds(),
     position = util.eventPosition(e)!,
@@ -33,14 +31,11 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (!previouslySelected && s.drawable.enabled && (s.drawable.eraseOnClick || !piece || piece.color !== s.turnColor))
     drawClear(s);
   // Prevent touch scroll and create no corresponding mouse event, if there
-  // is an intent to interact with the board. If no color is movable
-  // (and the board is not for viewing only), touches are likely intended to
-  // select squares.
+  // is an intent to interact with the board.
   if (
     e.cancelable !== false &&
-    (!e.touches || !s.movable.color || piece || previouslySelected || pieceCloseTo(s, position))
+    (!e.touches || s.blockTouchScroll || piece || previouslySelected || pieceCloseTo(s, position))
   )
-    /* eslint-disable-line */
     e.preventDefault();
   const hadPremove = !!s.premovable.current;
   const hadPredrop = !!s.predroppable.current || !!s.predroppable.dropDests;
@@ -85,8 +80,8 @@ function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
   const asSente = board.sentePov(s),
     bounds = s.dom.bounds(),
     radiusSq = Math.pow(bounds.width / s.dimensions.files, 2);
-  for (const key in s.pieces) {
-    const center = computeSquareCenter(key as cg.Key, asSente, s.dimensions, bounds);
+  for (const key of s.pieces.keys()) {
+    const center = util.computeSquareCenter(key, asSente, s.dimensions, bounds);
     if (util.distanceSq(center, pos) <= radiusSq) return true;
   }
   return false;
@@ -154,7 +149,6 @@ function processDrag(s: State): void {
 export function move(s: State, e: cg.MouchEvent): void {
   // support one finger touch only
   if (s.draggable.current && (!e.touches || e.touches.length < 2)) {
-    /* eslint-disable-line */
     s.draggable.current.pos = util.eventPosition(e)!;
   }
 }
@@ -211,18 +205,6 @@ export function cancel(s: State): void {
 function removeDragElements(s: State): void {
   const e = s.dom.elements;
   if (e.ghost) util.setVisible(e.ghost, false);
-}
-
-function computeSquareCenter(key: cg.Key, asSente: boolean, dims: cg.Dimensions, bounds: ClientRect): cg.NumberPair {
-  const pos = util.key2pos(key);
-  if (asSente) {
-    pos[0] = dims.files - 1 - pos[0];
-    pos[1] = dims.ranks - 1 - pos[1];
-  }
-  return [
-    bounds.left + (bounds.width * pos[0]) / dims.files + bounds.width / (dims.files * 2),
-    bounds.top + (bounds.height * (dims.ranks - 1 - pos[1])) / dims.ranks + bounds.height / (dims.ranks * 2),
-  ];
 }
 
 function pieceElementByKey(s: State, key: cg.Key): cg.PieceNode | undefined {

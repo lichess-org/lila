@@ -26,6 +26,7 @@ $(function () {
       if (!ground)
         ground = Shogiground($board[0], {
           coordinates: false,
+          blockTouchScroll: true,
           drawable: { enabled: false },
           movable: {
             free: false,

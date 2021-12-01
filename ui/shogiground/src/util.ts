@@ -1,6 +1,6 @@
 import * as cg from './types';
 
-export const invRanks: readonly cg.Rank[] = ['9', '8', '7', '6', '5', '4', '3', '2', '1'];
+export const invRanks: readonly cg.Rank[] = [...cg.ranks].reverse();
 
 const promotions: { [role: string]: cg.Role } = {
   rook: 'dragon',
@@ -108,13 +108,12 @@ export const setVisible = (el: HTMLElement, v: boolean): void => {
 };
 
 export const eventPosition = (e: cg.MouchEvent): cg.NumberPair | undefined => {
-  if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY];
-  if (e.touches && e.targetTouches[0])
-    return [e.targetTouches[0].clientX, e.targetTouches[0].clientY]; /* eslint-disable-line */
+  if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY!];
+  if (e.targetTouches?.[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
   return; // touchend has no position!
 };
 
-export const isRightButton = (e: MouseEvent): boolean => e.buttons === 2 || e.button === 2;
+export const isRightButton = (e: cg.MouchEvent): boolean => e.buttons === 2 || e.button === 2;
 
 export const createEl = (tagName: string, className?: string): HTMLElement => {
   const el = document.createElement(tagName);
@@ -125,6 +124,23 @@ export const createEl = (tagName: string, className?: string): HTMLElement => {
 export const isMiniBoard = (el: HTMLElement): boolean => {
   return Array.from(el.classList).includes('mini-board');
 };
+
+export function computeSquareCenter(
+  key: cg.Key,
+  asSente: boolean,
+  dims: cg.Dimensions,
+  bounds: ClientRect
+): cg.NumberPair {
+  const pos = key2pos(key);
+  if (asSente) {
+    pos[0] = dims.files - 1 - pos[0];
+    pos[1] = dims.ranks - 1 - pos[1];
+  }
+  return [
+    bounds.left + (bounds.width * pos[0]) / dims.files + bounds.width / (dims.files * 2),
+    bounds.top + (bounds.height * (dims.ranks - 1 - pos[1])) / dims.ranks + bounds.height / (dims.ranks * 2),
+  ];
+}
 
 // todo - pass valid hand roles in config
 export const droppableRoles: readonly cg.Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'];

@@ -42,11 +42,11 @@ export function bindDocument(s: State, boundsUpdated: () => void): cg.Unbind {
   }
 
   if (!s.viewOnly) {
-    const onmove: MouchBind = dragOrDraw(s, drag.move, draw.move);
-    const onend: MouchBind = dragOrDraw(s, drag.end, draw.end);
+    const onmove = dragOrDraw(s, drag.move, draw.move);
+    const onend = dragOrDraw(s, drag.end, draw.end);
 
-    for (const ev of ['touchmove', 'mousemove']) unbinds.push(unbindable(document, ev, onmove));
-    for (const ev of ['touchend', 'mouseup']) unbinds.push(unbindable(document, ev, onend));
+    for (const ev of ['touchmove', 'mousemove']) unbinds.push(unbindable(document, ev, onmove as EventListener));
+    for (const ev of ['touchend', 'mouseup']) unbinds.push(unbindable(document, ev, onend as EventListener));
 
     const onScroll = () => s.dom.bounds.clear();
     unbinds.push(unbindable(document, 'scroll', onScroll, { capture: true, passive: true }));
@@ -56,9 +56,14 @@ export function bindDocument(s: State, boundsUpdated: () => void): cg.Unbind {
   return () => unbinds.forEach(f => f());
 }
 
-function unbindable(el: EventTarget, eventName: string, callback: MouchBind, options?: any): cg.Unbind {
-  el.addEventListener(eventName, callback as EventListener, options);
-  return () => el.removeEventListener(eventName, callback as EventListener, options);
+function unbindable(
+  el: EventTarget,
+  eventName: string,
+  callback: EventListener,
+  options?: AddEventListenerOptions
+): cg.Unbind {
+  el.addEventListener(eventName, callback, options);
+  return () => el.removeEventListener(eventName, callback, options);
 }
 
 function startDragOrDraw(s: State): MouchBind {

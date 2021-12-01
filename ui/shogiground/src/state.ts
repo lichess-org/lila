@@ -17,6 +17,7 @@ export interface HeadlessState {
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu: boolean; // because who needs a context menu on a chessboard
   resizable: boolean; // listens to shogiground.resize on document.body to clear bounds cache
+  blockTouchScroll: boolean; // block scrolling via touch dragging on the board, e.g. for coordinate training
   pieceKey: boolean; // add a data-key attribute to piece elements
   highlight: {
     lastMove: boolean; // add last-move class to squares
@@ -113,6 +114,7 @@ export function defaults(): HeadlessState {
     viewOnly: false,
     disableContextMenu: false,
     resizable: true,
+    blockTouchScroll: false,
     pieceKey: false,
     highlight: {
       lastMove: true,

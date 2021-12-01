@@ -1,13 +1,17 @@
 import { HeadlessState } from './state';
 import { setVisible, createEl, isMiniBoard } from './util';
 import { colors, Notation, Elements } from './types';
-import { createElement as createSVG } from './svg';
+import { createElement as createSVG, setAttributes } from './svg';
 
 export function renderWrap(element: HTMLElement, s: HeadlessState, relative: boolean): Elements {
   // .cg-wrap (element passed to Shogiground)
   //     cg-container
   //       cg-board
-  //       svg
+  //       svg.cg-shapes
+  //         defs
+  //         g
+  //       svg.cg-custom-svgs
+  //         g
   //       coords.ranks
   //       coords.files
   //       piece.ghost
@@ -44,10 +48,15 @@ export function renderWrap(element: HTMLElement, s: HeadlessState, relative: boo
   }
 
   let svg: SVGElement | undefined;
+  let customSvg: SVGElement | undefined;
   if (s.drawable.visible && !relative) {
-    svg = createSVG('svg');
+    svg = setAttributes(createSVG('svg'), { class: 'cg-shapes' });
     svg.appendChild(createSVG('defs'));
+    svg.appendChild(createSVG('g'));
+    customSvg = setAttributes(createSVG('svg'), { class: 'cg-custom-svgs' });
+    customSvg.appendChild(createSVG('g'));
     container.appendChild(svg);
+    container.appendChild(customSvg);
   }
 
   if (s.coordinates) {
@@ -83,6 +92,7 @@ export function renderWrap(element: HTMLElement, s: HeadlessState, relative: boo
     container,
     ghost,
     svg,
+    customSvg,
   };
 }
 

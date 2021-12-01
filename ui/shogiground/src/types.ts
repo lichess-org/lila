@@ -1,4 +1,4 @@
-export type Color = 'sente' | 'gote';
+export type Color = typeof colors[number];
 export type Role =
   | 'king'
   | 'rook'
@@ -14,91 +14,9 @@ export type Role =
   | 'promotedknight'
   | 'promotedlance'
   | 'tokin';
-export type Key =
-  | 'a0'
-  | 'a1'
-  | 'b1'
-  | 'c1'
-  | 'd1'
-  | 'e1'
-  | 'f1'
-  | 'g1'
-  | 'h1'
-  | 'i1'
-  | 'a2'
-  | 'b2'
-  | 'c2'
-  | 'd2'
-  | 'e2'
-  | 'f2'
-  | 'g2'
-  | 'h2'
-  | 'i2'
-  | 'a3'
-  | 'b3'
-  | 'c3'
-  | 'd3'
-  | 'e3'
-  | 'f3'
-  | 'g3'
-  | 'h3'
-  | 'i3'
-  | 'a4'
-  | 'b4'
-  | 'c4'
-  | 'd4'
-  | 'e4'
-  | 'f4'
-  | 'g4'
-  | 'h4'
-  | 'i4'
-  | 'a5'
-  | 'b5'
-  | 'c5'
-  | 'd5'
-  | 'e5'
-  | 'f5'
-  | 'g5'
-  | 'h5'
-  | 'i5'
-  | 'a6'
-  | 'b6'
-  | 'c6'
-  | 'd6'
-  | 'e6'
-  | 'f6'
-  | 'g6'
-  | 'h6'
-  | 'i6'
-  | 'a7'
-  | 'b7'
-  | 'c7'
-  | 'd7'
-  | 'e7'
-  | 'f7'
-  | 'g7'
-  | 'h7'
-  | 'i7'
-  | 'a8'
-  | 'b8'
-  | 'c8'
-  | 'd8'
-  | 'e8'
-  | 'f8'
-  | 'g8'
-  | 'h8'
-  | 'i8'
-  | 'a9'
-  | 'b9'
-  | 'c9'
-  | 'd9'
-  | 'e9'
-  | 'f9'
-  | 'g9'
-  | 'h9'
-  | 'i9';
-export type File = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i';
-export type Rank = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+export type Key = 'a0' | `${File}${Rank}`;
+export type File = typeof files[number];
+export type Rank = typeof ranks[number];
 export type FEN = string;
 export type Pos = [number, number];
 export interface Piece {
@@ -146,6 +64,7 @@ export interface Elements {
   container: HTMLElement;
   ghost?: HTMLElement;
   svg?: SVGElement;
+  customSvg?: SVGElement;
 }
 export interface Dom {
   elements: Elements;
@@ -168,7 +87,7 @@ export interface SetPremoveMetadata {
   ctrlKey?: boolean;
 }
 
-export type MouchEvent = MouseEvent & TouchEvent;
+export type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 export interface KeyedNode extends HTMLElement {
   cgKey: Key;
@@ -200,9 +119,9 @@ export type Unbind = () => void;
 export type Milliseconds = number;
 export type KHz = number;
 
-export const colors: readonly Color[] = ['sente', 'gote'];
-export const files: readonly File[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-export const ranks: readonly Rank[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+export const colors = ['sente', 'gote'] as const;
+export const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'] as const;
+export const ranks = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 export const enum Notation {
   WESTERN,
