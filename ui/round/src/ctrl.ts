@@ -248,7 +248,7 @@ export default class RoundController {
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
       config.dropmode = {
-        dropDests: this.isPlaying() ? util.getDropDests(s.fen) : new Map(),
+        dropDests: this.isPlaying() ? util.getDropDests(s.fen, this.data.game.variant.key) : new Map(),
       };
     }
     this.shogiground.set(config);
@@ -418,7 +418,7 @@ export default class RoundController {
           dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
         },
         dropmode: {
-          dropDests: playing && activeColor ? util.getDropDests(o.fen) : new Map(),
+          dropDests: playing && activeColor ? util.getDropDests(o.fen, d.game.variant.key) : new Map(),
         },
         check: !!o.check,
       });

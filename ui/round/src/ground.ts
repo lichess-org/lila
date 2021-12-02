@@ -76,7 +76,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     dropmode: {
       showDropDests: data.pref.destination && data.pref.dropDestination,
-      dropDests: playing ? util.getDropDests(step.fen) : new Map(),
+      dropDests: playing ? util.getDropDests(step.fen, data.game.variant.key) : new Map(),
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,

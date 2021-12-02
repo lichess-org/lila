@@ -3,9 +3,9 @@ import { VNodeData } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks';
 import * as cg from 'shogiground/types';
 import { Redraw, EncodedDests, Dests } from './interfaces';
-import { Shogi } from 'shogiops/shogi';
 import { parseFen } from 'shogiops/fen';
-import { shogigroundDropDests } from 'shogiops/compat';
+import { lishogiVariantRules, shogigroundDropDests } from 'shogiops/compat';
+import { setupPosition } from 'shogiops/variant';
 
 export function justIcon(icon: string): VNodeData {
   return {
@@ -54,15 +54,13 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
   return dec;
 }
 
-export function getDropDests(fen: string): cg.DropDests {
-  return parseFen(fen).unwrap(
-    s =>
-      Shogi.fromSetup(s).unwrap(
-        sh => shogigroundDropDests(sh),
-        _ => new Map()
-      ),
-    _ => new Map()
-  );
+export function getDropDests(fen: string, variant: VariantKey): cg.DropDests {
+  return parseFen(fen)
+    .chain(s => setupPosition(lishogiVariantRules(variant), s, false))
+    .unwrap(
+      p => shogigroundDropDests(p),
+      _ => new Map()
+    );
 }
 
 export function spinner() {
