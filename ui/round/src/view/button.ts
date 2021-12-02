@@ -126,6 +126,7 @@ export function impasse(ctrl: RoundController): VNode {
     {
       attrs: {
         title: ctrl.noarg('impasse'),
+        disabled: !['standard', 'fromPosition'].includes(ctrl.data.game.variant.key),
       },
       class: { active: ctrl.impasseHelp },
       hook: util.bind('click', _ => {
