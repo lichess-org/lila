@@ -151,7 +151,7 @@ final class UserAnalysis(
             lila.study.NotationImport
               .userAnalysis(data.notation)
               .fold(
-                err => BadRequest(err.toList mkString "\n").fuccess,
+                err => BadRequest(err).fuccess,
                 { case (game, initialFen, root, tags) =>
                   val pov = Pov(game, shogi.Sente)
                   val baseData = env.round.jsonView

@@ -53,7 +53,7 @@ object importGame {
               .fold(
                 err =>
                   frag(
-                    pre(cls := "error")(err.toList mkString "\n"),
+                    pre(cls := "error")(err),
                     br,
                     br
                   ).some,
