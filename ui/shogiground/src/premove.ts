@@ -51,7 +51,7 @@ const dragon: Mobility = (x1, y1, x2, y2) => {
 
 const allPos = util.allKeys.map(util.key2pos);
 
-export function premove(pieces: cg.Pieces, key: cg.Key): cg.Key[] {
+export function premove(pieces: cg.Pieces, key: cg.Key, dims: cg.Dimensions): cg.Key[] {
   const piece = pieces.get(key);
   if (!piece) return [];
   const pos = util.key2pos(key),
@@ -77,7 +77,13 @@ export function premove(pieces: cg.Pieces, key: cg.Key): cg.Key[] {
         ? dragon
         : gold(piece.color);
   return allPos
-    .filter(pos2 => (pos[0] !== pos2[0] || pos[1] !== pos2[1]) && mobility(pos[0], pos[1], pos2[0], pos2[1]))
+    .filter(
+      pos2 =>
+        (pos[0] !== pos2[0] || pos[1] !== pos2[1]) &&
+        mobility(pos[0], pos[1], pos2[0], pos2[1]) &&
+        pos2[0] < dims.files &&
+        pos2[1] < dims.ranks
+    )
     .map(util.pos2key);
 }
 
@@ -96,8 +102,11 @@ export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece, dims: cg.Dimensi
   const role = dropPiece.role;
   return util.allKeys.filter(key => {
     const p = pieces.get(key);
+    const pos = util.key2pos(key);
     return (
       (!p || p.color !== color) &&
+      pos[0] < dims.files &&
+      pos[1] < dims.ranks &&
       (role === 'pawn' || role === 'lance'
         ? !lastRow(dims, key, color)
         : role === 'knight'

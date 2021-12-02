@@ -174,7 +174,7 @@ export function selectSquare(state: HeadlessState, key: cg.Key, force?: boolean)
 export function setSelected(state: HeadlessState, key: cg.Key): void {
   state.selected = key;
   if (isPremovable(state, key)) {
-    state.premovable.dests = premove(state.pieces, key);
+    state.premovable.dests = premove(state.pieces, key, state.dimensions);
   } else {
     state.premovable.dests = undefined;
     state.predroppable.dropDests = undefined;
@@ -228,7 +228,7 @@ export function isPredroppable(state: HeadlessState): boolean {
 }
 
 function canPremove(state: HeadlessState, orig: cg.Key, dest: cg.Key): boolean {
-  return orig !== dest && isPremovable(state, orig) && premove(state.pieces, orig).includes(dest);
+  return orig !== dest && isPremovable(state, orig) && premove(state.pieces, orig, state.dimensions).includes(dest);
 }
 
 function canPredrop(state: HeadlessState, orig: cg.Key, dest: cg.Key): boolean {
