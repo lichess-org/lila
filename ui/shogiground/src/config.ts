@@ -102,7 +102,7 @@ export function configure(state: HeadlessState, config: Config): void {
   // don't merge destinations and autoShapes. Just override.
   if (config.movable?.dests) state.movable.dests = undefined;
   if (config.dropmode?.dropDests) state.dropmode.dropDests = undefined;
-  // if (config.drawable?.autoShapes) state.drawable.autoShapes = [];
+  if (config.drawable?.autoShapes) state.drawable.autoShapes = [];
 
   merge(state, config);
 
