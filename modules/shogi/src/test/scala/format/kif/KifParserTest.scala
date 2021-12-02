@@ -550,6 +550,20 @@ class KifParserTest extends ShogiTest {
     }
   }
 
+  "alternative minishogi handicap" in {
+    parser("""
+      先手：先手
+      手合割：5五将棋
+    """) must beValid.like { case a =>
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.FEN && tag.value == "rbsgk/4p/5/P4/KGSBR b -"
+      }
+      a.tags.value must contain { (tag: Tag) =>
+        tag.name == Tag.Variant && tag.value == "Minishogi"
+      }
+    }
+  }
+
   "minishogi from position" in {
     parser("""
       後手：

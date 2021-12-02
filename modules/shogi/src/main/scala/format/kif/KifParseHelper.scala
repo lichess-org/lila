@@ -28,7 +28,7 @@ object KifParserHelper {
 
     if (ranks.size == 0) {
       handicap
-        .filterNot(h => KifUtils.defaultHandicaps.exists(_._2 == h))
+        .filterNot(h => KifUtils.defaultHandicaps.exists(_._2 contains h))
         .fold(valid(Situation(variant)): Validated[String, Situation]) { h =>
           parseHandicap(h)
         }
@@ -53,7 +53,7 @@ object KifParserHelper {
   private def detectVariant(ranks: List[String], handicap: Option[String]): Option[Variant] = {
     if (
       ranks.size == 5 ||
-      handicap.exists(h => KifUtils.defaultHandicaps.get(Minishogi).fold(false)(_ == h))
+      handicap.exists(h => KifUtils.defaultHandicaps.get(Minishogi).fold(false)(_ contains h))
     ) Minishogi.some
     else None
   }

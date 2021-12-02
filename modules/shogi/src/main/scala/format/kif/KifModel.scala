@@ -95,9 +95,9 @@ object Kif {
 
   def renderSetup(variant: Variant, fen: Option[FEN]): String =
     fen
-      .filterNot(variant.initialFen == _.value)
+      .filterNot(f => Forsyth.compareTruncated(variant.initialFen, f.value))
       .fold {
-        val handicapName = KifUtils.defaultHandicaps.getOrElse(variant, variant.name)
+        val handicapName = KifUtils.defaultHandicaps.get(variant).flatMap(_.headOption).getOrElse("")
         s"${Tag.Handicap.kifName}：$handicapName"
       } { fen =>
         getHandicapName(fen).fold((Forsyth << fen.value).fold("")(renderSituation _))(hc =>

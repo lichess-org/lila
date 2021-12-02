@@ -77,9 +77,10 @@ object KifUtils {
     else num.toString.map(toKanjiDigit _)
   }
 
-  val defaultHandicaps: Map[Variant, String] = Map(
-    Minishogi -> "五々将棋",
-    Standard  -> "平手"
+  val defaultHandicaps: Map[Variant, List[String]] = Map(
+    Minishogi     -> List("五々将棋", "5五将棋", "５五将棋"),
+    FromPosition  -> List("平手"),
+    Standard      -> List("平手")
   )
 
 }
