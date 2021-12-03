@@ -36,7 +36,7 @@ object search {
               value := form("q").value
             )
           ),
-          userTable(mod, users)
+          userTable(mod, users, eraseButton = isGranted(_.CloseAccount))
         )
       )
     }
@@ -136,7 +136,9 @@ object search {
       )
     }
 
-  private def userTable(mod: Holder, users: List[User.WithEmails])(implicit ctx: Context) =
+  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(implicit
+      ctx: Context
+  ) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -145,7 +147,8 @@ object search {
           th("Marks"),
           th("Closed"),
           th("Created"),
-          th("Active")
+          th("Active"),
+          eraseButton option th
         )
       ),
       tbody(
@@ -167,7 +170,15 @@ object search {
             ),
             td(u.disabled option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
-            td(u.seenAt.map(momentFromNow(_)))
+            td(u.seenAt.map(momentFromNow(_))),
+            eraseButton option td(
+              postForm(action := routes.Mod.gdprErase(u.username))(
+                submitButton(
+                  cls := "button-red button-empty confirm",
+                  title := "Definitely erase everything about this user"
+                )("GDPR erasure")
+              )
+            )
           )
         }
       )

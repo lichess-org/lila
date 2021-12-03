@@ -396,6 +396,14 @@ final class Mod(
         )
     }
 
+  def gdprErase(username: String) =
+    Secure(_.CloseAccount) { _ => _ =>
+      implicit val lightUser = env.user.lightUserSync
+      JsonOptionOk {
+        env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+      }
+    }
+
   protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
     env.mod.search(q) map { users =>
       Ok(html.mod.search(me, UserSearch.form fill q, users))
