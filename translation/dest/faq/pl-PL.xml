@@ -50,7 +50,7 @@ Analiza komputerowa dostępna na Lishogi wspierana jest przez silnik szachowy St
 	<string name="goodIntroduction">dobre wprowadzenie</string>
 	<string name="officialRulesPDF">oficjalnych przepisów gry w shogi (pdf)</string>
 	<string name="lishogiTraining">Nauka</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">Czterokrotne powtórzenie pozycji</string>
 	<string name="handBookPDF">podręcznik (pdf)</string>
 	<string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
 	<string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>

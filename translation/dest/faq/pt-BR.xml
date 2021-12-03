@@ -11,8 +11,8 @@
 	<string name="howCanIContributeToLishogi">Como posso contribuir para o Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
-	<string name="beingAPatron">Become a Patron.</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="beingAPatron">Torne-se um Patrão.</string>
+	<string name="otherWaysToContribute">Aqui estão muitas outras maneiras de contribuir com o Lishogi.</string>
 	<string name="breakdownOfOurCosts">lista detalhada dos nossos custos</string>
 	<string name="otherWaysToHelp">outras formas de ajudar</string>
 	<string name="fairPlay">Jogo Limpo</string>
@@ -47,8 +47,8 @@ A análise de xadrez no Lishogi é feita pelo Stockfish.</string>
 	<string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
 	<string name="goodIntroduction">boa introdução</string>
 	<string name="officialRulesPDF">regras oficiais (PDF)</string>
-	<string name="lishogiTraining">Lishogi training</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="lishogiTraining">Treinamento Lishogi</string>
+	<string name="fourfoldRepetition">Repetição quádrupla</string>
 	<string name="handBookPDF">manual (PDF)</string>
 	<string name="notRepeatedMoves">Não repetimos movimentos, então porque o jogo ainda foi empatado por repetição?</string>
 	<string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não precisa ocorrer consecutivamente.</string>
@@ -110,9 +110,9 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="howToThreeDots">Como...</string>
 	<string name="enableDisableNotificationPopUps">Ativar ou desativar pop-ups de notificação?</string>
 	<string name="viewSiteInformationPopUp">Ver pop-up de informações do site</string>
-	<string name="lishogiCanOptionnalySendPopUps">Lishogi can optionally send popup notifications, for example when it is your turn or you received a private message.
+	<string name="lishogiCanOptionnalySendPopUps">Lishogi pode opcionalmente mandar notificações, por exemplo, quando for sua vez ou quando você receber uma mensagem privada. 
 
-Click the lock icon next to the lishogi.org address in the URL bar of your browser.
+Clique no ícone de cadeado próximo ao endereço lishogi.org barra de URL do seu navegador.
 
-Then select whether to allow or block notifications from Lishogi.</string>
+Em seguida, selecione se deseja permitir ou bloquear notificações do Lishogi.</string>
 </resources>

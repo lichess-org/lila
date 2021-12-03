@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
-  <string name="tags">Tags</string>
+  <string name="tags">Étiquettes</string>
   <string name="like">Aimer</string>
   <string name="newTag">Nouvelle étiquette</string>
   <string name="commentThisPosition">Commenter la position</string>
@@ -59,9 +59,9 @@
   <string name="cloneStudy">Dupliquer</string>
   <string name="downloadAllGames">Télécharger toutes les parties</string>
   <string name="downloadGame">Télécharger la partie</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyKif">KIF de l\'étude</string>
+  <string name="chapterKif">KIF du chapitre</string>
+  <string name="chapterCsa">CSA du chapitre</string>
   <string name="studyUrl">URL de l\'étude</string>
   <string name="broadcastUrl">URL de diffusion</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
@@ -97,7 +97,7 @@
   <string name="startFromCustomPosition">Commencer à partir d\'une position personnalisée</string>
   <string name="loadAGameByUrl">Charger des parties à partir d\'une URL</string>
   <string name="loadAPositionFromFen">Charger une position par FEN</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
+  <string name="loadAGameFromKif">Charger des parties par KIF</string>
   <string name="automatic">Automatique</string>
   <string name="urlOfTheGame">URL des parties, une par ligne</string>
   <string name="loadAGameFromXOrY">Charger des parties de %1$s</string>

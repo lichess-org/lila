@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Problemas</string>
+  <string name="puzzles">Desafios</string>
   <string name="puzzleThemes">Temas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
   <string name="motifs">Motivos táticos</string>
   <string name="advanced">Avançado</string>
-  <string name="lengths">Comprimento</string>
+  <string name="lengths">Duração</string>
   <string name="mates">Mates</string>
   <string name="goals">Objetivos</string>
   <string name="origin">Origem</string>

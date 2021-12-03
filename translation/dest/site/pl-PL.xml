@@ -9,14 +9,14 @@
 	<string name="yourTurn">Twój ruch</string>
 	<string name="aiNameLevelAiLevel">%1$s poziom %2$s</string>
 	<string name="level">Poziom</string>
-	<string name="strength">Strength</string>
+	<string name="strength">Siła</string>
 	<string name="toggleTheChat">Pokaż/ukryj rozmowy</string>
 	<string name="toggleSound">Włącz/wyłącz dźwięk</string>
 	<string name="chat">Czat</string>
 	<string name="resign">Poddaj się</string>
 	<string name="checkmate">Mat</string>
 	<string name="stalemate">Pat</string>
-	<string name="impasse">Impasse</string>
+	<string name="impasse">Impas</string>
 	<string name="white">Białe</string>
 	<string name="black">Czarne</string>
 	<string name="shitate">Shitate</string>
@@ -93,8 +93,8 @@
 	<string name="openingExplorer">Biblioteka otwarć</string>
 	<string name="xOpeningExplorer">Biblioteka otwarć %s</string>
 	<string name="allSet">Gotowe!</string>
-	<string name="importKif">Import KIF</string>
-	<string name="importCsa">Import CSA</string>
+	<string name="importKif">Importuj KIF</string>
+	<string name="importCsa">Importuj CSA</string>
 	<string name="delete">Usuń</string>
 	<string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
 	<string name="replayMode">Tryb odtwarzania</string>
@@ -294,7 +294,7 @@
 		<item quantity="other">%s w toku</item>
 	</plurals>
 	<string name="exportGames">Eksportuj partie</string>
-	<string name="export">Export</string>
+	<string name="export">Eksportuj</string>
 	<string name="ratingRange">Przedział rankingowy</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Dodaj %s sekundę</item>
@@ -376,13 +376,12 @@
 	<string name="leaderboard">Najlepsi gracze</string>
 	<string name="selectHandicap">Wybierz fory</string>
 	<string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
-	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
+	<string name="pasteTheKifCsaStringHere">Wklej KIF lub CSA tutaj</string>
 	<string name="fromPosition">Z pozycji</string>
 	<string name="continueFromHere">Kontynuuj z tej pozycji</string>
 	<string name="toStudy">Opracowanie</string>
 	<string name="importGame">Importuj partię</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">Wklejenie zapisu partii w formacie KIF lub CSA daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępniania.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s zaimportowana partia</item>
 		<item quantity="few">%s zaimportowana partie</item>
@@ -820,8 +819,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Podstawy shogi</string>
 	<string name="shogiResources">Materiały o shogi</string>
 	<string name="coaches">Trenerzy</string>
-	<string name="invalidKif">Invalid KIF</string>
-	<string name="invalidNotation">Invalid notation</string>
+	<string name="invalidKif">Nieprawidłowy KIF</string>
+	<string name="invalidNotation">Nieprawidłowa notacja</string>
 	<string name="invalidFen">Nieprawidłowy FEN</string>
 	<string name="error.minLength">Minimalna długość to %s znaków</string>
 	<string name="error.maxLength">Maksymalna długość to %s znaków</string>
@@ -953,7 +952,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">Poprzednie wpisy</string>
 	<string name="continueReadingThis"> Czytaj dalej</string>
 	<string name="discussBlogForum">Dyskutuj o tym wpisie na forum</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces">Bierki w strefie promocji</string>
+	<string name="enteringKing">Wejście króla</string>
+	<string name="totalImpasseValue">Łączna wartość</string>
 </resources>

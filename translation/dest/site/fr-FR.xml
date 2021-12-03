@@ -91,8 +91,8 @@
 	<string name="openingExplorer">Explorateur d\'ouvertures</string>
 	<string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
 	<string name="allSet">Tout est prêt !</string>
-	<string name="importKif">Import KIF</string>
-	<string name="importCsa">Import CSA</string>
+	<string name="importKif">Importer le KIF</string>
+	<string name="importCsa">Importer le CSA</string>
 	<string name="delete">Effacer</string>
 	<string name="deleteThisImportedGame">Effacer cette partie importée ?</string>
 	<string name="replayMode">Rejouer la partie</string>
@@ -266,7 +266,7 @@
 		<item quantity="other">%s parties en cours</item>
 	</plurals>
 	<string name="exportGames">Exporter les parties</string>
-	<string name="export">Export</string>
+	<string name="export">Exporter</string>
 	<string name="ratingRange">Classement de vos adversaires</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="one">Rajouter %s seconde</item>
@@ -334,13 +334,12 @@
 	<string name="leaderboard">Classements</string>
 	<string name="selectHandicap">Sélectionnez le handicap</string>
 	<string name="pasteTheFenStringHere">Coller le FEN ici</string>
-	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
+	<string name="pasteTheKifCsaStringHere">Coller le KIF ou le CSA ici</string>
 	<string name="fromPosition">Depuis une position</string>
 	<string name="continueFromHere">Continuer depuis cette position</string>
 	<string name="toStudy">Étude</string>
 	<string name="importGame">Importer une partie</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">Quand vous collez une partie en KIF ou CSA vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s partie importée</item>
 		<item quantity="other">%s parties importées</item>
@@ -754,8 +753,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Bases du shogi</string>
 	<string name="shogiResources">Ressources pour le shogi</string>
 	<string name="coaches">Entraîneurs</string>
-	<string name="invalidKif">Invalid KIF</string>
-	<string name="invalidNotation">Invalid notation</string>
+	<string name="invalidKif">KIF non valid</string>
+	<string name="invalidNotation">Notation invalide</string>
 	<string name="invalidFen">FEN non valide</string>
 	<string name="error.minLength">Vous devez écrire au moins %s caractères</string>
 	<string name="error.maxLength">Vous pouvez écrire un maximum de %s caractères</string>
@@ -883,5 +882,5 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="discussBlogForum">Discutez de cet article dans le forum</string>
 	<string name="invadingPieces">Invading pieces</string>
 	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="totalImpasseValue">Valeur totale</string>
 </resources>

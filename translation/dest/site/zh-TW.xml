@@ -205,10 +205,10 @@
 	<string name="unlimited">無限</string>
 	<string name="mode">模式</string>
 	<string name="casual">非定級</string>
-	<string name="rated">定級</string>
+	<string name="rated">積分</string>
 	<string name="casualTournament">非定级</string>
-	<string name="ratedTournament">定级</string>
-	<string name="thisGameIsRated">這盤棋是定級的</string>
+	<string name="ratedTournament">積分</string>
+	<string name="thisGameIsRated">這場棋局有算積分</string>
 	<string name="rematch">重賽</string>
 	<string name="rematchOfferSent">重賽請求已發送</string>
 	<string name="rematchOfferSentWhite">後手請求重賽</string>
@@ -428,7 +428,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="onlinePlayers">在線棋手</string>
 	<string name="activeToday">本日活躍棋手</string>
 	<string name="activePlayers">活躍棋手</string>
-	<string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是評級的，但是没有計時！</string>
+	<string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是計分的，但是沒有計時！</string>
 	<string name="yourPuzzleRatingX">您的解題等級：%s</string>
 	<string name="findTheBestMoveForWhite">找出後手的最善手</string>
 	<string name="findTheBestMoveForBlack">找出先手的最善手</string>
@@ -494,7 +494,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="theming">主题</string>
 	<string name="blog">博客</string>
 	<string name="questionsAndAnswers">问答</string>
-	<string name="notes">笔记</string>
+	<string name="notes">筆記</string>
 	<string name="typePrivateNotesHere">在此輸入私人筆記</string>
 	<string name="invalidUsernameOrPassword">用户名或密碼錯誤</string>
 	<string name="incorrectPassword">舊密碼錯誤</string>
@@ -633,7 +633,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="tournamentHomeTitle">Shogi tournaments featuring various time controls and variants</string>
 	<string name="tournamentHomeDescription">Play fast-paced shogi tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical and more options available for endless shogi fun.</string>
 	<string name="tournamentNotFound">找不到该比赛</string>
-	<string name="tournamentDoesNotExist">这个比赛不存在。</string>
+	<string name="tournamentDoesNotExist">沒有這個比賽。</string>
 	<string name="tournamentMayHaveBeenCanceled">它可能已被取消，假如所有的对手在比赛开始之前离开。</string>
 	<string name="returnToTournamentsHomepage">返回比赛主页</string>
 	<string name="weeklyPerfTypeRatingDistribution">本月%s的分数分布</string>

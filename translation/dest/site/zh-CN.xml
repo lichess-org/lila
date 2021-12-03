@@ -90,8 +90,8 @@
 	<string name="openingExplorer">开局浏览器</string>
 	<string name="xOpeningExplorer">%s开局浏览器</string>
 	<string name="allSet">一切就绪！</string>
-	<string name="importKif">Import KIF</string>
-	<string name="importCsa">Import CSA</string>
+	<string name="importKif">导入KIF</string>
+	<string name="importCsa">导入CSA</string>
 	<string name="delete">删除</string>
 	<string name="deleteThisImportedGame">删除此导入的棋局？</string>
 	<string name="replayMode">回放模式</string>
@@ -252,7 +252,7 @@
 		<item quantity="other">%s进行中</item>
 	</plurals>
 	<string name="exportGames">导出棋局</string>
-	<string name="export">Export</string>
+	<string name="export">导出</string>
 	<string name="ratingRange">对方积分范围</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">添加对方%s秒</item>
@@ -313,13 +313,12 @@
 	<string name="leaderboard">排行榜</string>
 	<string name="selectHandicap">让子选项</string>
 	<string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
-	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
+	<string name="pasteTheKifCsaStringHere">在此处粘贴KIF或CSA字串</string>
 	<string name="fromPosition">自定义局面</string>
 	<string name="continueFromHere">从此处继续下棋</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">导入棋局</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">粘贴KIF或者CSA棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s盘导入的棋局</item>
 	</plurals>
@@ -721,8 +720,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">将棋基础知识</string>
 	<string name="shogiResources">将棋资料</string>
 	<string name="coaches">教练</string>
-	<string name="invalidKif">Invalid KIF</string>
-	<string name="invalidNotation">Invalid notation</string>
+	<string name="invalidKif">KIF无法识别</string>
+	<string name="invalidNotation">无法识别棋谱</string>
 	<string name="invalidFen">FEN无法识别</string>
 	<string name="error.minLength">最小长度：%s</string>
 	<string name="error.maxLength">最大长度：%s</string>
@@ -846,6 +845,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="continueReadingThis"> 继续阅读此博文</string>
 	<string name="discussBlogForum">在论坛讨论这个博文</string>
 	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="enteringKing">入玉</string>
+	<string name="totalImpasseValue">总计分</string>
 </resources>

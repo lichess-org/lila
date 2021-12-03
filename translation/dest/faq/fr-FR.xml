@@ -48,7 +48,7 @@ L\'analyse informatique sur Lishogi est réalisée par Stockfish.</string>
 	<string name="goodIntroduction">bonne introduction</string>
 	<string name="officialRulesPDF">règles officielles (pdf)</string>
 	<string name="lishogiTraining">Entraînement Lishogi</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">Quadruple répétition</string>
 	<string name="handBookPDF">manuel (pdf)</string>
 	<string name="notRepeatedMoves">Nous n\'avons pas répété les mouvements. Pourquoi le jeu était-il fini par une nulle par répétition ?</string>
 	<string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s répétés, pas les coups. La répétition ne doit pas nécessairement se faire de manière consécutive.</string>

@@ -29,13 +29,13 @@
 	<string name="youCanUseOpeningBookNoEngine">Lishogi では、通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。ソフトの使用はそれでも禁止されており、使うとソフト使用者の表示が付くことがあります。[通信戦の国際団体] ICCF は通信戦でのソフト使用を認めていますが、Lishogi は認めません。</string>
 	<string name="gameplay">対局について</string>
 	<string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持ち時間の区分の基準は？</string>
-	<string name="basedOnGameDuration">Lishogi の持時間は推定所要時間（%1$s）で分類されています。
+	<string name="basedOnGameDuration">Lishogi の持ち時間は推定所要時間（%1$s）で分類されています。
  たとえば 5+3|4（5分＋1手3秒＋4秒秒読み）の対局の推定所要時間は 60 x 5 + 60 x 3 + 25 x 4 = 580秒です。</string>
-	<string name="durationFormula">60 x (初期持時間) + 60 x (1 手ごとの追加時間) + 25 x (秒読み時間)</string>
+	<string name="durationFormula">60 x (初期持ち時間) + 60 x (1 手ごとの追加時間) + 25 x (秒読み時間)</string>
 	<string name="inferiorThanXsEqualYtimeControl">＜ %1$s秒 = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi にはどんなバリアント（変則ルール）がありますか？</string>
-	<string name="lishogiSupportChessAnd">Lishogi は標準の将棋と %1$s をサポートしています。</string>
+	<string name="lishogiSupportChessAnd">Lishogi は本将棋と %1$s をサポートしています。</string>
 	<string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
 	<string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピューターチェスでは欠かせないものとなっています。
   コンピュータの示す最善手をゼロとして、他の手で生じる局面を評価し、その差をセンチポーン単位で表現します。
@@ -45,7 +45,7 @@
 	<string name="goodIntroduction">参考</string>
 	<string name="officialRulesPDF">公式ルール (pdf)</string>
 	<string name="lishogiTraining">Lishogi トレーニング</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">千日手</string>
 	<string name="handBookPDF">ハンドブック (pdf)</string>
 	<string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）で引き分けなのですか？</string>
 	<string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>

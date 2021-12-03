@@ -6,7 +6,7 @@
 	<string name="progressX">進度：%s</string>
 	<string name="resetMyProgress">重設我的進度</string>
 	<string name="youWillLoseAllYourProgress">您的進度將會被清空！</string>
-	<string name="play">玩！</string>
+	<string name="play">來玩吧！</string>
 	<string name="shogiPieces">將棋駒</string>
 	<string name="theIntroduction">介紹</string>
 	<string name="introBasics">讓我們從基礎開始。</string>
@@ -16,7 +16,7 @@
 	<string name="senteGoesFirst">一場將棋對局中，先走的一方稱為「先手」，而讓先的一方稱為「後手」。先手有時會以「黑方」表示，而後手以「白方」表示。以「先手」方走棋吧。</string>
 	<string name="introComplete">您現在知道一些基礎知識了，但這部分的教學還沒結束。現在學一下各種棋子的走法吧！</string>
 	<string name="theRook">飛車</string>
-	<string name="itMovesInStraightLines">它以直線移動</string>
+	<string name="itMovesInStraightLines">以直線移動</string>
 	<string name="rookIntro">飛車是一個強大的棋子，你準備好來指揮它了嗎？</string>
 	<string name="rookGoal">把飛車移到星號格吧!</string>
 	<string name="rookPromotion">飛車升變會變成強大的龍王。別忘記您也可以將棋子移出敵陣後同時升變</string>
@@ -189,7 +189,7 @@
 	<string name="letsGo">讓我們開始吧!</string>
 	<string name="stageX">階段 %s</string>
 	<string name="awesome">真棒！</string>
-	<string name="excellent">妙著!</string>
+	<string name="excellent">棒極了!</string>
 	<string name="greatJob">做得好！</string>
 	<string name="perfect">完美!</string>
 	<string name="outstanding">優秀！</string>

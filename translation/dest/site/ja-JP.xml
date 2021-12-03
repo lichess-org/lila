@@ -9,14 +9,14 @@
 	<string name="yourTurn">あなたの手番です</string>
 	<string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
 	<string name="level">レベル</string>
-	<string name="strength">Strength</string>
+	<string name="strength">強さ</string>
 	<string name="toggleTheChat">チャットのオン・オフ</string>
 	<string name="toggleSound">音声のオン・オフ</string>
 	<string name="chat">チャット</string>
 	<string name="resign">投了</string>
 	<string name="checkmate">詰み</string>
 	<string name="stalemate">ステイルメイト</string>
-	<string name="impasse">Impasse</string>
+	<string name="impasse">持将棋</string>
 	<string name="white">後手</string>
 	<string name="black">先手</string>
 	<string name="shitate">下手</string>
@@ -63,7 +63,7 @@
 	<string name="cloudAnalysis">クラウド解析</string>
 	<string name="goDeeper">もっと深く</string>
 	<string name="showThreat">狙いを表示</string>
-	<string name="inLocalBrowser">ブラウザ内で</string>
+	<string name="inLocalBrowser">ローカル ブラウザ内での解析</string>
 	<string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
 	<string name="promoteVariation">変化を主手順にする</string>
 	<string name="makeMainLine">主手順にする</string>
@@ -91,7 +91,7 @@
 	<string name="xOpeningExplorer">%s 序盤探索</string>
 	<string name="allSet">準備完了！</string>
 	<string name="importKif">KIFをインポート</string>
-	<string name="importCsa">Import CSA</string>
+	<string name="importCsa">CSAのインポート</string>
 	<string name="delete">削除</string>
 	<string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
 	<string name="replayMode">再現方式</string>
@@ -118,7 +118,7 @@
 	<string name="offerDraw">引き分けの提案</string>
 	<string name="draw">引き分け</string>
 	<plurals name="nbPlayers">
-		<item quantity="other">現在%s人接続中</item>
+		<item quantity="other">%s人接続中</item>
 	</plurals>
 	<string name="currentGames">現在対局中</string>
 	<plurals name="nbGames">
@@ -143,7 +143,7 @@
 	<string name="today">今日</string>
 	<string name="yesterday">昨日</string>
 	<string name="minutesPerSide">持ち時間</string>
-	<string name="variant">バリアント</string>
+	<string name="variant">ルール</string>
 	<string name="variants">変則将棋</string>
 	<string name="timeControl">持ち時間</string>
 	<string name="realTime">実時間</string>
@@ -201,7 +201,7 @@
 	<string name="finishesX">終了まで %s</string>
 	<string name="abortGame">対局を中止する</string>
 	<string name="gameAborted">対局を中止しました</string>
-	<string name="standard">スタンダード</string>
+	<string name="standard">本将棋</string>
 	<string name="unlimited">無制限</string>
 	<string name="mode">モード</string>
 	<string name="casual">非レート戦</string>
@@ -252,7 +252,7 @@
 		<item quantity="other">%s 局進行中</item>
 	</plurals>
 	<string name="exportGames">対局をエクスポートする</string>
-	<string name="export">Export</string>
+	<string name="export">エクスポート</string>
 	<string name="ratingRange">レーティングの範囲</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">%s 秒を与える</item>
@@ -313,13 +313,13 @@
 	<string name="leaderboard">ランキング</string>
 	<string name="selectHandicap">手合割を選択</string>
 	<string name="pasteTheFenStringHere">ここにSFEN形式の局面をペースト</string>
-	<string name="pasteTheKifCsaStringHere">Paste the KIF or CSA text here</string>
+	<string name="pasteTheKifCsaStringHere">KIFあるいはCSAをここに貼り付けてください</string>
 	<string name="fromPosition">特定の局面から</string>
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>
 	<string name="importGame">棋譜をインポート</string>
-	<string name="importGameKifCsaExplanation">Paste a game KIF or CSA to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifCsaExplanation">対局のKIFあるいはCSAを貼り付けて、ブラウザ上での再現
+サーバー解析、対局チャット、共有可能なURLを取得</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s 局をインポート</item>
 	</plurals>
@@ -506,7 +506,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="clockInitialTime">初期持ち時間</string>
 	<string name="clockIncrement">追加時間</string>
 	<string name="clockByoyomi">秒読み</string>
-	<string name="privacy">プライバシー（英文）</string>
+	<string name="privacy">プライバシー</string>
 	<string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
 	<string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
 	<string name="letOtherPlayersInviteYouToStudy">研究について他の人からの招待を認める</string>
@@ -587,7 +587,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="videoLibrary">将棋動画集</string>
 	<string name="streamersMenu">配信者</string>
 	<string name="mobileApp">モバイルアプリ</string>
-	<string name="webmasters">ウェブサイト運営者</string>
+	<string name="webmasters">ウェブサイト運営者の方へ</string>
 	<string name="about">Lishogi の概要</string>
 	<string name="aboutX">%s について</string>
 	<string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・ 自由・広告なし・オープンソースの将棋サーバーです。</string>
@@ -612,7 +612,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="whenCreateSimul">多面指しを作成すると、同時に複数の相手と対局できます。</string>
 	<string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
 	<string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
-	<string name="simulAddExtraTime">多面指しの手間を考え、自分に持時間をさらに追加できます。</string>
+	<string name="simulAddExtraTime">多面指しの手間を考え、自分に持ち時間をさらに追加できます。</string>
 	<string name="simulHostExtraTime">ホスト延長時間</string>
 	<string name="numberOfByoyomiPeriods">考慮時間</string>
 	<string name="hostColorForEachGame">ホストの手番</string>
@@ -721,8 +721,8 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">将棋の基本</string>
 	<string name="shogiResources">将棋資料</string>
 	<string name="coaches">コーチ</string>
-	<string name="invalidKif">Invalid KIF</string>
-	<string name="invalidNotation">Invalid notation</string>
+	<string name="invalidKif">無効なKIF</string>
+	<string name="invalidNotation">無効な棋譜</string>
 	<string name="invalidFen">無効な FEN</string>
 	<string name="error.minLength">最小の長さは %s 文字です</string>
 	<string name="error.maxLength">最大の長さは %s 文字です</string>
@@ -845,7 +845,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">前のブログ投稿</string>
 	<string name="continueReadingThis">続けてこの投稿を読む</string>
 	<string name="discussBlogForum">フォーラムでこのブログ記事を議論する</string>
-	<string name="invadingPieces">Invading pieces</string>
-	<string name="enteringKing">Entering king</string>
-	<string name="totalImpasseValue">Total value</string>
+	<string name="invadingPieces">無効な駒</string>
+	<string name="enteringKing">入玉</string>
+	<string name="totalImpasseValue">合計点数</string>
 </resources>

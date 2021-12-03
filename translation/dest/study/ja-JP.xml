@@ -35,7 +35,7 @@
   <string name="leaveTheStudy">この研究から出る</string>
   <string name="youAreNowAContributor">参加者になりました</string>
   <string name="youAreNowASpectator">観戦者になりました</string>
-  <string name="tags">Tags</string>
+  <string name="tags">タグ</string>
   <string name="like">いいね</string>
   <string name="newTag">新しいタグ</string>
   <string name="commentThisPosition">この局面にコメントする</string>
@@ -56,9 +56,9 @@
   <string name="cloneStudy">研究をコピー</string>
   <string name="downloadAllGames">全対局をダウンロード</string>
   <string name="downloadGame">1 局をダウンロード</string>
-  <string name="studyKif">Study KIF</string>
-  <string name="chapterKif">Chapter KIF</string>
-  <string name="chapterCsa">Chapter CSA</string>
+  <string name="studyKif">研究の KIF</string>
+  <string name="chapterKif">章の KIF</string>
+  <string name="chapterCsa">章の CSA</string>
   <string name="studyUrl">研究の URL</string>
   <string name="broadcastUrl">ブロードキャスト URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">指定した局面から</string>
   <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
-  <string name="loadAGameFromKif">Load games from KIF</string>
+  <string name="loadAGameFromKif">KIFから対局を読み込み</string>
   <string name="automatic">自動</string>
   <string name="urlOfTheGame">対局棋譜の URL、１行に一つ</string>
   <string name="loadAGameFromXOrY">%1$s から棋譜を読み込み</string>

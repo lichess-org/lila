@@ -37,8 +37,8 @@
 	<string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
 	<string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
 	<string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
-	<string name="westernNotation">Western notation</string>
-	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="westernNotation">Notacja zachodnia</string>
+	<string name="japaneseNotation">Notacja japońska</string>
+	<string name="kitaoKawasakiNotation">Notacja Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>

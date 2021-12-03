@@ -47,7 +47,7 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="goodIntroduction">不错的介绍</string>
 	<string name="officialRulesPDF">官方规则 (pdf)</string>
 	<string name="lishogiTraining">Lishogi 训练</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">四次重复局面</string>
 	<string name="handBookPDF">手册 (pdf)</string>
 	<string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
 	<string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
