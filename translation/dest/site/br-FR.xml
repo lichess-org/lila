@@ -159,7 +159,7 @@
   <string name="players">C\'hoarierien</string>
   <string name="friends">Mignoned</string>
   <string name="discussions">Kaozeadennoù</string>
-  <string name="today">Hiziv</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hiziv</string>
   <string name="yesterday">Dec\'h</string>
   <string name="minutesPerSide">Munutennoù evit pep c\'hoarier</string>
   <string name="variant">Doare</string>
@@ -494,9 +494,9 @@
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù brudet</string>
   <string name="endgamePositions">Plegennoù an dibenn-partienn</string>
-  <string name="startPosition">Plegenn orin</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Plegenn orin</string>
   <string name="clearBoard">Tennañ pep tra</string>
-  <string name="loadPosition">Kargañ ul lec\'hiadur</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Kargañ ul lec\'hiadur</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
   <string name="profileCompletion">Feur leuniañ ar profil: %s</string>
@@ -514,7 +514,7 @@
   <string name="previouslyOnLichessTV">N\'eus ket pell zo war Lichess TV</string>
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Diwallit, renket eo ar c\'hrogad met n\'eus horolaj ebet!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Diwallit, renket eo ar c\'hrogad met n\'eus horolaj ebet!</string>
   <string name="success">Deuet oc\'h a-benn</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s c\'hrogad o ren bremañ</item>
@@ -582,7 +582,7 @@
   <string name="onSlowGames">E-pad ar c\'hrogadoù difonn</string>
   <string name="always">Bepred</string>
   <string name="never">Morse</string>
-  <string name="xCompetesInY">%1$s a gemer perzh e-barzh %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s a gemer perzh e-barzh %2$s</string>
   <string name="victory">Trec\'h</string>
   <string name="defeat">Lamm</string>
   <string name="victoryVsYInZ">%1$s a-enep %2$s e %3$s</string>
