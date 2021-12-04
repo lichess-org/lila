@@ -17,7 +17,7 @@ object bits {
         div(cls := "personal-data__header")(
           p("Here is all personal information Lichess has about ", userLink(u)),
           a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1", downloadAttr)(
-            trans.downloadRaw()
+            trans.download()
           )
         )
       )
