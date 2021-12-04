@@ -62,7 +62,6 @@ final private class StudyInvite(
         else if (inviter.roles has "ROLE_COACH") 20
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
-        else if (invited.hasTitle) 200
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
         val notificationContent = InvitedToStudy(
