@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">پیاده پیش رفته</string>
+  <string name="advancedPawnDescription">یکی از پیاده های شما در زمین حریف پیشروی کرده است. شاید خطر ارتقا پیاده وجود داشته باشد.</string>
   <string name="advantage">برتری</string>
   <string name="anastasiaMate">مات آناستازیا</string>
+  <string name="anastasiaMateDescription">یک اسب و یک رخ به همدیگر کمک میکنند تا شاه حریف را بین گوشه های زمین و یک مهره از حریف زندانی کنند.</string>
   <string name="arabianMate">مات عربی</string>
   <string name="arabianMateDescription">یک اسب و یک رخ برای به دام انداختن شاه حریف در گوشه صفحه همکاری می کنند.</string>
   <string name="attackingF2F7">حمله به خانه f2 یا f7</string>
+  <string name="attackingF2F7Description">حمله ای که در آن روی پیاده های f2 و f7 تمرکز می شود، مانند دفاع دو اسب.</string>
   <string name="attraction">جلب کردن</string>
   <string name="backRankMate">مات عرض آخر</string>
   <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
   <string name="bishopEndgame">آخر بازی فیل</string>
+  <string name="bishopEndgameDescription">یک آخر بازی تنها با فیل ها و پیاده ها.</string>
   <string name="castling">قلعه رفتن</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
   <string name="equality">برابری</string>
