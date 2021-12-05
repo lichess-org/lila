@@ -37,6 +37,18 @@ $board-files: (
   }
 }
 
+.isTall,
+.isTall .mini-board {
+  .pocket {
+    &-c2 {
+      padding-bottom: calc(100% / 11 * 12);
+    }
+    piece {
+      margin: calc(-50% / 11 * 12);
+    }
+  }
+}
+
 .mini-board:not(.variant-minishogi) piece,
 piece {
   background-position: center;
