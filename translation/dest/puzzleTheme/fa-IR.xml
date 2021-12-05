@@ -14,8 +14,15 @@
   <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
   <string name="bishopEndgame">آخر بازی فیل</string>
   <string name="bishopEndgameDescription">یک آخر بازی تنها با فیل ها و پیاده ها.</string>
+  <string name="bodenMate">مات Boden</string>
+  <string name="bodenMateDescription">دو فیل به حالت ضربدری که به گوشه زمین حمله می کنند یک شاه که راهش با مهره های خودش سد شده را مات می کنند.</string>
   <string name="castling">قلعه رفتن</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
+  <string name="capturingDefender">مهره دفاع کننده را بگیرید</string>
+  <string name="capturingDefenderDescription">گرفتن یک مهره که برای دفاع از یک مهره دیگر حیاتی است، اجازه می دهد مهره ای که اکنون بدون دفاع است در حرکت بعدی گرفته شود.</string>
+  <string name="doubleBishopMate">مات با دو فیل</string>
+  <string name="doubleBishopMateDescription">دو فیل که همزمان به گوشه های مجاور حمله می کنند، شاهی که راهش با مهره های خودش سد شده را مات می کنند.</string>
+  <string name="dovetailMateDescription">وزیری که شاه مجاور خودش را که تنها دو خانه ای که برای فرارش باقی مانده توسط مهره های خودش سد شده، مات می کند.</string>
   <string name="equality">برابری</string>
   <string name="kingsideAttack">حمله به جناه شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
