@@ -30,6 +30,7 @@
   <string name="defensiveMove">حرکت تدافعی</string>
   <string name="deflection">منحرف کردن</string>
   <string name="discoveredAttack">حمله برخاستی</string>
+  <string name="discoveredAttackDescription">حرکت دادن یک مهره (مانند اسب)، که قبلا جلوی حمله مهره خودمان به یکی از مهره های دور حریف (مانند رخ)، از جلوی راه مهره حمله کننده.</string>
   <string name="doubleCheck">کیش دوگانه</string>
   <string name="doubleCheckDescription">کیش دادن به حریف با دو مهره به صورت هم زمان در نتیجهء یک حمله برخاستی که در آن هم مهره برخاست کننده و هم مهره پشت سر آن به شاه حریف حمله می کنند.</string>
   <string name="endgame">آخر بازی</string>
@@ -40,6 +41,9 @@
   <string name="forkDescription">حرکتی که در آن مهره ای که حرکت می کند دو مهره حریف را به صورت همزمان مورد حمله قرار می دهد.</string>
   <string name="hangingPiece">مهره بی دفاع</string>
   <string name="hangingPieceDescription">تاکتیکی که در آن مهره های حریف برای گرفتن، بدون دفاع یا با دفاع ناکافی است.</string>
+  <string name="hookMate">مات Hook</string>
+  <string name="hookMateDescription">مات با یک رخ، اسب و یک پیاده در برابر یک پیاده حریف برای محدود کردن راه های فرار شاه دشمن.</string>
+  <string name="interference">چنگال</string>
   <string name="long">معمای طولانی</string>
   <string name="master">بازی‌های اساتید</string>
   <string name="masterVsMaster">بازیهای استاد در مقابل استاد</string>
