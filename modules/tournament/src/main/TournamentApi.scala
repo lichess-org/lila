@@ -105,36 +105,36 @@ final class TournamentApi(
 
   def update(old: Tournament, data: TournamentSetup, myTeams: List[LightTeam]): Funit = {
     import data._
-    val tour = old.copy(
-      name = name | old.name,
-      clock = if (old.isCreated) clockConfig else old.clock,
-      minutes = minutes,
-      mode = realMode,
-      variant = if (old.isCreated) realVariant else old.variant,
-      startsAt = startDate | old.startsAt,
-      password = data.password,
-      position =
-        if (old.isCreated || old.position.isDefined) data.realPosition
-        else old.position,
-      noBerserk = !(~berserkable),
-      noStreak = !(~streakable),
-      teamBattle = old.teamBattle,
-      description = description,
-      hasChat = data.hasChat | true
-    ) pipe { tour =>
+    val variant = if (old.isCreated) realVariant else old.variant
+    val tour = old
+      .copy(
+        name = name | old.name,
+        clock = if (old.isCreated) clockConfig else old.clock,
+        minutes = minutes,
+        mode = realMode,
+        variant = variant,
+        startsAt = startDate | old.startsAt,
+        password = data.password,
+        position = variant.standard ?? {
+          if (old.isCreated || old.position.isDefined) data.realPosition
+          else old.position
+        },
+        noBerserk = !(~berserkable),
+        noStreak = !(~streakable),
+        teamBattle = old.teamBattle,
+        description = description,
+        hasChat = data.hasChat | true
+      ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions =
           conditions
             .convert(perfType, myTeams.view.map(_.pair).toMap)
-            .copy(teamMember = old.conditions.teamMember) // can't change that
+            .copy(teamMember = old.conditions.teamMember), // can't change that
+          mode = if (tour.position.isDefined) shogi.Mode.Casual else tour.mode
         )
       }
     }
     tournamentRepo update tour void
-  }
-
-  private[tournament] def create(tournament: Tournament): Funit = {
-    tournamentRepo.insert(tournament).void
   }
 
   def teamBattleUpdate(

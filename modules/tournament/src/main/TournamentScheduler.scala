@@ -232,13 +232,13 @@ Thank you all, you rock!"""
     ).flatten filter { _.schedule.at isAfter rightNow }
   }
 
-  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
+  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
       .foldLeft(List[Tournament]()) { case (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
         else t :: tourns
-      } reverse
-  }
+      }
+      .reverse
 
   private case class ScheduleNowWith(dbScheds: List[Tournament])
 
@@ -277,8 +277,11 @@ Thank you all, you rock!"""
     case ScheduleNowWith(dbScheds) =>
       try {
         val newTourns = allWithConflicts(DateTime.now) map { _.build }
-        pruneConflicts(dbScheds, newTourns) foreach api.create
-
+        val pruned    = pruneConflicts(dbScheds, newTourns)
+        tournamentRepo
+          .insert(pruned)
+          .logFailure(logger)
+          .unit
       } catch {
         case e: org.joda.time.IllegalInstantException =>
           logger.error(s"failed to schedule all: ${e.getMessage}")

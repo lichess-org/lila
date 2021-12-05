@@ -1,5 +1,6 @@
 package lila.tournament
 
+import cats.implicits._
 import shogi.format.FEN
 import shogi.{ Mode, StartingPosition }
 import org.joda.time.DateTime
@@ -198,7 +199,9 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement) > 0 || (clockTime + clockByoyomi) > 0
 
-  def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
+  def realMode =
+    if (realPosition.isDefined) Mode.Casual
+    else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | shogi.variant.Standard
 
