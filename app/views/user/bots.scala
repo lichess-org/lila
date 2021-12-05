@@ -43,7 +43,7 @@ object bots {
                     td(
                       p(
                         cls := "text",
-                        dataIcon := "C",
+                        dataIcon := "'",
                         st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
                       )(showPeriod(playTime.totalPeriod)),
                       playTime.nonEmptyTvPeriod.map { tvPeriod =>

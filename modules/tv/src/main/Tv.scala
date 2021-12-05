@@ -81,7 +81,7 @@ object Tv {
     case object Best
         extends Channel(
           name = "Top Rated",
-          icon = "C",
+          icon = "'",
           secondsSinceLastMove = 60 * 3,
           filters = Seq(minRating(1400), standardShogiRules)
         )

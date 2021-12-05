@@ -23,7 +23,7 @@ object bits {
     frag(
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
+          h2(cls := "title text", dataIcon := "'")(trans.leaderboard()),
           a(cls := "more", href := routes.User.list())(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(

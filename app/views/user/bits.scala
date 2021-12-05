@@ -67,7 +67,7 @@ object bits {
 
   def claimTitle =
     div(cls := "claim-title")(
-      h2(dataIcon := "C", cls := "text")("Congratulations for breaking the 2500 rating threshold!"),
+      h2(dataIcon := "'", cls := "text")("Congratulations for breaking the 2500 rating threshold!"),
       p(
         "To ensure honest players aren't falsely accused of cheating, we request titled players ",
         "to identify themselves. For instance, ",
