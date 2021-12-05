@@ -43,6 +43,9 @@
     &__app {
       justify-self: center;
     }
+    &__app__board {
+      align-self: center;
+    }
   }
 
   @include breakpoint($mq-col3) {
