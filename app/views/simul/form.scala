@@ -32,7 +32,7 @@ object form {
           br,
           br,
           globalError(form),
-          formContent(form, teams, none),
+          formContent(form, teams),
           form3.actions(
             a(href := routes.Simul.home())(trans.cancel()),
             form3.submit(trans.hostANewSimul(), icon = "g".some)
@@ -55,7 +55,7 @@ object form {
       main(cls := "box box-pad page-small simul-form")(
         h1(s"Edit ${simul.fullName}"),
         postForm(cls := "form3", action := routes.Simul.update(simul.id))(
-          formContent(form, teams, simul.some),
+          formContent(form, teams),
           form3.actions(
             a(href := routes.Simul.show(simul.id))(trans.cancel()),
             form3.submit(trans.save(), icon = "g".some)
@@ -64,7 +64,7 @@ object form {
       )
     }
 
-  private def formContent(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Option[Simul])(implicit
+  private def formContent(form: Form[SimulForm.Setup], teams: List[LightTeam])(implicit
       ctx: Context
   ) = {
     import lila.simul.SimulForm._
@@ -78,7 +78,7 @@ object form {
           small(cls := "form-help")(trans.inappropriateNameWarning())
         )
       },
-      form3.group(form("variant"), trans.simulVariantsHint()) { f =>
+      form3.group(form("variants"), trans.simulVariantsHint()) { f =>
         frag(
           div(cls := "variants")(
             views.html.setup.filter.renderCheckboxes(
@@ -86,12 +86,12 @@ object form {
               "variants",
               translatedVariantChoicesWithVariants,
               checks = form.value
-                .map(_.variants.map(_.toString))
-                .getOrElse(simul.??(_.variants.map(_.id.toString)))
+                .fold(
+                  form.data.filter(_._1 startsWith "variants").map(_._2)
+                )(_.variants.map(_.toString))
                 .toSet
             )
-          ),
-          errMsg(f)
+          )
         )
       },
       form3.split(
@@ -153,8 +153,8 @@ object form {
       )(form3.flatpickr(_)),
       form3.group(
         form("text"),
-        raw("Simul description"),
-        help = frag("Anything you want to tell the participants?").some
+        trans.simulDescription(),
+        help = trans.anythingTellParticipants().some
       )(form3.textarea(_)(rows := 10))
     )
 
