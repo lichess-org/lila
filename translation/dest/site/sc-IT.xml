@@ -6,4 +6,11 @@
   <string name="gameOver">As perdiu</string>
   <string name="waitingForOpponent">Ispettende unu enemigu</string>
   <string name="waiting">Ispettende</string>
+  <string name="yourTurn">A tue</string>
+  <string name="aiNameLevelAiLevel">%1$s difficultade %2$s</string>
+  <string name="level">Difficultade</string>
+  <string name="strength">Fortza</string>
+  <string name="chat">Chat</string>
+  <string name="resign">Arrendidi</string>
+  <string name="checkmate">Scaccu maccu</string>
 </resources>
