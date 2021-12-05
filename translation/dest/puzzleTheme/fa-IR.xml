@@ -44,9 +44,15 @@
   <string name="hookMate">مات Hook</string>
   <string name="hookMateDescription">مات با یک رخ، اسب و یک پیاده در برابر یک پیاده حریف برای محدود کردن راه های فرار شاه دشمن.</string>
   <string name="interference">چنگال</string>
+  <string name="interferenceDescription">حرکت دادن یک مهره و حمله کردن به دو مهره هم زمان که بتوان یکی از مهره ها را گرفت، مانند حمله یک اسب به به دو تا رخ بصورت هم زمان.</string>
+  <string name="knightEndgame">آخر بازی اسب</string>
+  <string name="knightEndgameDescription">یک آخر بازی تنها با اسب ها و پیاده ها.</string>
   <string name="long">معمای طولانی</string>
+  <string name="longDescription">سه حرکت برای پیروزی.</string>
   <string name="master">بازی‌های اساتید</string>
+  <string name="masterDescription">پازل های برگرفته شده از بازی هایی که توسط بازی کنان دارای عنوان انجام شده است.</string>
   <string name="masterVsMaster">بازیهای استاد در مقابل استاد</string>
+  <string name="masterVsMasterDescription">پازل های برگرفته شده از بازی های بین دو بازی کن دارای عنوان.</string>
   <string name="mate">کیش و مات</string>
   <string name="mateDescription">بازی را با سبک خاصی ببرید.</string>
   <string name="mateIn1">مات در یک حرکت</string>
