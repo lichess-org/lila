@@ -16,12 +16,18 @@
   padding-bottom: calc(100% / 11 * 12);
 }
 
-$board-files: 't_wood1', 't_solid-natural', 't_doubutsu', 't_transparent', 't_transparent-white';
-@each $name in $board-files {
+$board-files: (
+  't_wood1': 't_wood1.png',
+  't_solid-natural': 'svg/t_solid-natural.svg',
+  't_doubutsu': 't_doubutsu.png',
+  't_transparent': 't_transparent.png',
+  't_transparent-white': 't_transparent-white.png',
+);
+@each $name, $file in $board-files {
   .#{$name} {
     cg-board,
     .mini-board:not(.variant-minishogi) cg-board {
-      background-image: url(../images/board/tall/#{$name}.png);
+      background-image: url(../images/board/tall/#{$file});
     }
     .variant-minishogi {
       cg-board {
