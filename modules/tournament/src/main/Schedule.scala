@@ -287,7 +287,7 @@ object Schedule {
       case (Shield, _, Rapid)                => 60 * 6
       case (Shield, _, Classical)            => 60 * 8
 
-      case (Yearly, Minishogi, _) => 60 * 2
+      case (Yearly, Minishogi, _)                          => 60 * 2
       case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
       case (Yearly, _, SuperBlitz | Blitz)                 => 60 * 3
       case (Yearly, _, HyperRapid)                         => 60 * 4

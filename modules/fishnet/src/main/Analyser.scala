@@ -71,10 +71,12 @@ final class Analyser(
                 id = chapterId,
                 initialFen = initialFen,
                 studyId = studyId.some,
-                variant = if(
-                  variant.standard &&
-                  initialFen.exists(_.value != Forsyth.initial)
-                ) shogi.variant.FromPosition else variant,
+                variant =
+                  if (
+                    variant.standard &&
+                    initialFen.exists(_.value != Forsyth.initial)
+                  ) shogi.variant.FromPosition
+                  else variant,
                 moves = moves take maxPlies map (_.uci) mkString " "
               ),
               // if gote moves first, use 1 as startPly so the analysis doesn't get reversed

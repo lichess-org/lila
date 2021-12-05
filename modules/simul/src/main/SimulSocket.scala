@@ -62,7 +62,7 @@ final private class SimulSocket(
         repo.hostId(roomId.value).map(_ has modId)
       }
     )
-  
+
   private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply _
 
   remoteSocketApi.subscribe("simul-in", RP.In.reader)(

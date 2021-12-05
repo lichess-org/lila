@@ -23,15 +23,17 @@ final class AutoPairing(
     val clock   = tour.clock.toClock
     val game = Game
       .make(
-        shogi = shogi.Game(
-          variantOption = Some {
-            if (tour.position.isEmpty) tour.variant
-            else shogi.variant.FromPosition
-          },
-          fen = tour.position.map(_.value)
-        ).copy(
-          clock = clock.some
-        ),
+        shogi = shogi
+          .Game(
+            variantOption = Some {
+              if (tour.position.isEmpty) tour.variant
+              else shogi.variant.FromPosition
+            },
+            fen = tour.position.map(_.value)
+          )
+          .copy(
+            clock = clock.some
+          ),
         sentePlayer = makePlayer(Sente, player1),
         gotePlayer = makePlayer(Gote, player2),
         mode = tour.mode,

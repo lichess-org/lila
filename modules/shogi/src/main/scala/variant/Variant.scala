@@ -22,7 +22,7 @@ abstract class Variant private[variant] (
   def minishogi    = this == Minishogi
   def fromPosition = this == FromPosition
 
-  def exotic = !standard
+  def exotic        = !standard
   def standardBased = standard || fromPosition
 
   def initialFen = format.Forsyth.initial

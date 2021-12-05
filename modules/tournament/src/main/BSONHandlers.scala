@@ -112,7 +112,7 @@ object BSONHandlers {
         "teamBattle" -> o.teamBattle,
         "noBerserk"  -> w.boolO(o.noBerserk),
         "noStreak"   -> w.boolO(o.noStreak),
-        "schedule"   -> o.schedule.map { s =>
+        "schedule" -> o.schedule.map { s =>
           $doc(
             "freq"  -> s.freq,
             "speed" -> s.speed

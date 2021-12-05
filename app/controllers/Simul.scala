@@ -212,7 +212,7 @@ final class Simul(
     }
 
   private def WithEditableSimul(id: String, me: lila.user.User)(
-    f: Sim => Fu[Result]
+      f: Sim => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     AsHost(id) { sim =>
       if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).fuccess

@@ -81,7 +81,6 @@ final class SimulApi(
     repo.update(simul) >>- publish() inject simul
   }
 
-
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted >= Game.maxPlayingRealtime) simul
@@ -221,7 +220,7 @@ final class SimulApi(
           user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
           hostColor = simul.hostColor | shogi.Color.fromSente(number % 2 == 0)
           senteUser = hostColor.fold(host, user)
-          goteUser = hostColor.fold(user, host)
+          goteUser  = hostColor.fold(user, host)
           clock     = simul.clock.shogiClockOf(hostColor)
           perfPicker =
             lila.game.PerfPicker.mainOrDefault(shogi.Speed(clock.config), pairing.player.variant, none)

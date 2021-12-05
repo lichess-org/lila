@@ -10,7 +10,12 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
 
-case class PuzzleReplay(days: PuzzleDashboard.Days, theme: PuzzleTheme.Key, nb: Int, remaining: Vector[Puzzle.Id]) {
+case class PuzzleReplay(
+    days: PuzzleDashboard.Days,
+    theme: PuzzleTheme.Key,
+    nb: Int,
+    remaining: Vector[Puzzle.Id]
+) {
 
   def i = nb - remaining.size
 
@@ -54,7 +59,11 @@ final class PuzzleReplayApi(
       }
     }
 
-  private def createReplayFor(user: User, days: PuzzleDashboard.Days, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =
+  private def createReplayFor(
+      user: User,
+      days: PuzzleDashboard.Days,
+      theme: PuzzleTheme.Key
+  ): Fu[PuzzleReplay] =
     colls
       .round {
         _.aggregateOne() { framework =>

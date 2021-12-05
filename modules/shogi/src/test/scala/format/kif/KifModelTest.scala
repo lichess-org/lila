@@ -26,9 +26,10 @@ class KifModelTest extends ShogiTest {
 後手番"""
   }
 
-    "render kif situation - default minishogi" in {
+  "render kif situation - default minishogi" in {
     renderSetup(
-      Minishogi, Some(shogi.format.FEN("rbsgk/4p/5/P4/KGSBR b - 1"))
+      Minishogi,
+      Some(shogi.format.FEN("rbsgk/4p/5/P4/KGSBR b - 1"))
     ) must_== """手合割：五々将棋"""
   }
 

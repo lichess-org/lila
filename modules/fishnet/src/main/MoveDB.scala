@@ -52,7 +52,7 @@ final class MoveDB(implicit system: ActorSystem) {
 
       case Add(move) =>
         clearIfFull()
-        if(!coll.exists(_._2 similar move))
+        if (!coll.exists(_._2 similar move))
           coll += (move.id -> move)
 
       case Acquire(client) => {

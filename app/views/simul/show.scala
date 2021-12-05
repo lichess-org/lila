@@ -89,12 +89,12 @@ object show {
                     trans.analysis()
                   )
                 )
-                } orElse sim.position.map { fen =>
-                  frag(
-                    br,
-                    "Custom position • ",
-                    a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
-                  )
+              } orElse sim.position.map { fen =>
+                frag(
+                  br,
+                  "Custom position • ",
+                  a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+                )
               }
             ),
             trans.by(userIdLink(sim.hostId.some)),

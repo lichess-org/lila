@@ -21,7 +21,7 @@ final class GifExport(
   private val targetMaxTime    = Centis(250)
 
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Option[Source[ByteString, _]]] = {
-    if(pov.game.variant.standardBased)
+    if (pov.game.variant.standardBased)
       lightUserApi preloadMany pov.game.userIds flatMap { _ =>
         ws.url(s"${url}/game.gif")
           .withMethod("POST")
@@ -45,9 +45,9 @@ final class GifExport(
       }
     else fuccess(none)
   }
-  
+
   def gameThumbnail(game: Game): Fu[Option[Source[ByteString, _]]] = {
-    if(game.variant.standardBased) {
+    if (game.variant.standardBased) {
       val query = List(
         "sfen"        -> (Forsyth >> game.shogi),
         "black"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),

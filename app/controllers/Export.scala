@@ -64,10 +64,11 @@ final class Export(env: Env) extends LilaController(env) {
             lastMove = Uci(puzzle.lastMove) map { _.usi },
             orientation = puzzle.color
           ) map { source =>
-            Ok.chunked(source).withHeaders(
-              noProxyBufferHeader,
-              CACHE_CONTROL -> "max-age=86400"
-            ) as "image/gif"
+            Ok.chunked(source)
+              .withHeaders(
+                noProxyBufferHeader,
+                CACHE_CONTROL -> "max-age=86400"
+              ) as "image/gif"
           }
         }
       }(rateLimitedFu)

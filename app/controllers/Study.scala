@@ -475,7 +475,7 @@ final class Study(
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanViewResult(study) {
-            if(chapter.setup.variant.standardBased) {
+            if (chapter.setup.variant.standardBased) {
               env.study.gifExport.ofChapter(chapter) map { stream =>
                 Ok.chunked(stream)
                   .withHeaders(
@@ -483,8 +483,7 @@ final class Study(
                     CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.gif"
                   ) as "image/gif"
               }
-            }
-            else notFound
+            } else notFound
           }
         }
       }

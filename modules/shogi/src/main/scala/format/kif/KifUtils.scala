@@ -78,9 +78,9 @@ object KifUtils {
   }
 
   val defaultHandicaps: Map[Variant, List[String]] = Map(
-    Minishogi     -> List("五々将棋", "5五将棋", "５五将棋"),
-    FromPosition  -> List("平手"),
-    Standard      -> List("平手")
+    Minishogi    -> List("五々将棋", "5五将棋", "５五将棋"),
+    FromPosition -> List("平手"),
+    Standard     -> List("平手")
   )
 
 }

@@ -28,9 +28,9 @@ object bits {
     )
 
   def miniBoard(
-    fen: shogi.format.FEN,
-    color: shogi.Color = shogi.Sente,
-    variant: shogi.variant.Variant = shogi.variant.Standard
+      fen: shogi.format.FEN,
+      color: shogi.Color = shogi.Sente,
+      variant: shogi.variant.Variant = shogi.variant.Standard
   ): Frag =
     div(
       cls := s"mini-board parse-fen cg-wrap variant-${variant.key}",

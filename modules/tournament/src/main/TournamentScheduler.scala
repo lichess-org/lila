@@ -127,7 +127,7 @@ Thank you all, you rock!"""
             }
           },
           List( // monthly variant tournaments!
-            month.lastWeek.withDayOfWeek(MONDAY)    -> Minishogi
+            month.lastWeek.withDayOfWeek(MONDAY) -> Minishogi
           ).flatMap { case (day, variant) =>
             at(day, 19) map { date =>
               Schedule(Monthly, SuperBlitz, variant, none, date).plan
@@ -150,7 +150,7 @@ Thank you all, you rock!"""
             }
           },
           List( // shield variant tournaments!
-            month.thirdWeek.withDayOfWeek(MONDAY)    -> Minishogi,
+            month.thirdWeek.withDayOfWeek(MONDAY) -> Minishogi
           ).flatMap { case (day, variant) =>
             at(day, 16) map { date =>
               Schedule(Shield, Blitz, variant, none, date) plan {
