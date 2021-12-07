@@ -57,35 +57,33 @@
       top: -4px;
     }
   }
-  .clockByo {
+  .clock-byo {
     display: flex;
     flex-direction: row-reverse;
+    min-width: 3em;
+    line-height: $col1-player-clock-height;
+    z-index: -1;
     @include breakpoint($mq-xx-small) {
       flex-direction: row;
     }
-    .byoyomi {
-      display: flex;
-      align-items: center;
-      font-size: 1.2rem;
-      @include breakpoint($mq-xx-small) {
-        font-size: 1.5rem;
-      }
-      padding: 0 0.5rem;
-      opacity: 0.8;
+  }
+  .byoyomi {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    @include breakpoint($mq-xx-small) {
+      font-size: 1.5rem;
     }
+    padding: 0 0.5rem;
+    opacity: 0.8;
   }
   .time {
-    @extend %roboto, %box-shadow;
+    @extend %roboto;
     background: $c-bg-box;
-    min-width: 3em;
-    font-size: 2.8em;
-    line-height: $col1-player-clock-height;
+    font-size: 2.5em;
     font-weight: bold;
     padding: 0 $block-gap;
     white-space: nowrap;
-    /* ensure updates don't redraw other parts of the document */
-    will-change: transform;
-    z-index: -1;
     display: flex;
     &.hour {
       font-size: 2.3em;
@@ -96,7 +94,6 @@
     }
     @include breakpoint($mq-col2) {
       align-items: flex-end;
-      line-height: 1.2em;
     }
     @include breakpoint($mq-xx-small $mq-tall) {
       font-size: 3em;

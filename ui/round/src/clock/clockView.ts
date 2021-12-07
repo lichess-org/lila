@@ -6,7 +6,7 @@ import * as game from 'game';
 import RoundController from '../ctrl';
 import { ClockElements, ClockController, Seconds, Millis } from './clockCtrl';
 import { Player } from 'game';
-import { MaybeVNode, Position } from '../interfaces';
+import { Position } from '../interfaces';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position) {
   const clock = ctrl.clock!,
@@ -38,16 +38,18 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     },
     clock.opts.nvui
       ? [
-          h('div.time', {
-            attrs: { role: 'timer' },
-            hook: timeHook,
-          }),
+          h('div.clock-byo', [
+            h('div.time', {
+              attrs: { role: 'timer' },
+              hook: timeHook,
+            }),
+          ]),
         ]
       : [
           clock.showBar[player.color] && game.bothPlayersHavePlayed(ctrl.data)
             ? showBar(ctrl, player.color)
             : undefined,
-          h('div.clockByo', [
+          h('div.clock-byo', [
             h('div.time', {
               class: {
                 hour: millis > 3600 * 1000,
@@ -74,11 +76,10 @@ function pad2(num: number): string {
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean = false): MaybeVNode {
-  const byo = byoyomi > 0 ? `+${byoyomi}s` : '';
-  const per = periods > 1 ? `(${periods}x)` : '';
-  if (byo && periods > 0 && !berserk) return h(`div.byoyomi.byo-${periods}`, {}, byo + per);
-  else return undefined;
+function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean = false) {
+  const byo = !berserk && byoyomi > 0 ? `+${byoyomi}s` : '';
+  const per = !berserk && periods > 1 ? `(${periods}x)` : '';
+  return h('div.byoyomi', byo + per);
 }
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {

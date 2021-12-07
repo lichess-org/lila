@@ -142,8 +142,8 @@ object bits {
       div(cls := "round__app__table"),
       div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
       div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),
-      div(cls := "rclock rclock-top preload")(div(cls := "time")(nbsp)),
-      div(cls := "rclock rclock-bottom preload")(div(cls := "time")(nbsp)),
+      div(cls := "rclock rclock-top preload")(div(cls := "clock-byo")(nbsp)),
+      div(cls := "rclock rclock-bottom preload")(div(cls := "clock-byo")(nbsp)),
       div(cls := "rmoves")(div(cls := "moves")),
       controls option div(cls := "rcontrols")(i(cls := "ddloader"))
     )
