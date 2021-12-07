@@ -40,8 +40,12 @@
   }
 
   .right-side {
-    flex: 0 0 264px;
+    flex: 0 0 33%;
     text-align: center;
+
+    .mobile-playing {
+      width: 100%;
+    }
 
     .qrcode {
       margin-top: 20px;

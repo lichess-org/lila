@@ -47,11 +47,11 @@ object mobile {
             ),
             div(cls := "right-side")(
               img(
-                cls := "nexus5-playing",
-                width := "268",
-                height := "513",
-                src := assetUrl("images/mobile/nexus5-playing.png"),
-                alt := "Lichess mobile on nexus 5"
+                width := "437",
+                height := "883",
+                cls := "mobile-playing",
+                src := assetUrl("images/mobile/lichesstv-mobile.png"),
+                alt := "Lichess TV on mobile"
               ),
               img(
                 cls := "qrcode",
