@@ -161,14 +161,10 @@ export default class Setup {
           inc = $incrementInput.val(),
           byo = $byoyomiInput.val(),
           per = $periodsInput.filter(':checked').val(),
-          // no rated variants with less than 30s on the clock
           cantBeRated =
             (typ === 'hook' && timeMode === '0') ||
-            (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
             (variantId != '1' && timeMode != '1') ||
-            (timeMode == '1' && variantId != '1' && limit < 0.5 && byo < 3) ||
-            (timeMode == '1' && inc > 0 && byo > 0) ||
-            (timeMode == '1' && byo > 0 && per > 1);
+            (timeMode == '1' && (per > 1 || (inc > 0 && byo > 0)));
         if (cantBeRated && rated) {
           $casual.click();
           return toggleButtons();

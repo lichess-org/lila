@@ -705,8 +705,8 @@ object Game {
   )
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-    variant.standard || {
-      clock ?? { _.estimateTotalTime >= Centis(3000) }
+    clock.fold(variant.standard) { c =>
+      c.periods <= 1 && (c.byoyomi.centis == 0 || c.increment.centis == 0)
     }
 
   val gameIdSize   = 8
