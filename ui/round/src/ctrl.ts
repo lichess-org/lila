@@ -507,6 +507,14 @@ export default class RoundController {
     d.game.status = o.status;
     d.game.boosted = o.boosted;
     this.userJump(round.lastPly(d));
+    // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
+    if (
+      o.status.name === 'outoftime' &&
+      d.player.color !== o.winner &&
+      this.shogiground.state.turnColor === d.opponent.color
+    ) {
+      this.reload(d);
+    }
     this.shogiground.stop();
     this.impasseHelp = false;
     if (o.ratingDiff) {
