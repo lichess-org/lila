@@ -22,12 +22,12 @@ export function Shogiground(element: HTMLElement, config?: Config): Api {
       bounds = util.memo(() => elements.board.getBoundingClientRect()),
       redrawNow = (skipSvg?: boolean): void => {
         render(state);
-        if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg, elements.customSvg!);
+        if (!skipSvg && elements.svg && elements.customSvg) svg.renderSvg(state, elements.svg, elements.customSvg);
       },
       boundsUpdated = (): void => {
         bounds.clear();
         updateBounds(state);
-        if (elements.svg) svg.renderSvg(state, elements.svg, elements.customSvg!);
+        if (elements.svg && elements.customSvg) svg.renderSvg(state, elements.svg, elements.customSvg);
       };
     const state = maybeState as State;
     state.dom = {

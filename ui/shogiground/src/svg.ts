@@ -287,14 +287,14 @@ function renderArrow(
 function renderPiece(pos: cg.Pos, piece: DrawShapePiece, dims: cg.Dimensions, bounds: ClientRect): SVGElement {
   const o = pos2px(pos, bounds, dims),
     size = (bounds.width / dims.files) * (piece.scale || 0.8);
-  let el = setAttributes(createElement('foreignObject'), {
+  const el = setAttributes(createElement('foreignObject'), {
     className: `${piece.role} ${piece.color}`,
     x: o[0] - size / 2,
     y: o[1] - size / 2,
     width: size,
     height: size,
   });
-  let pieceEl = createEl('piece', `${piece.color} ${piece.role}`);
+  const pieceEl = createEl('piece', `${piece.color} ${piece.role}`);
   pieceEl.style.width = '200%';
   pieceEl.style.height = '200%';
   pieceEl.style.margin = '-50%';
