@@ -17,6 +17,6 @@
 Поспехаў, і ды знойдуць Вашы фігуры шлях да караля саперніка!</string>
   <string name="logInToLichess">Уваход на lichess.org, %s</string>
   <string name="common_orPaste">(Націск на спасылку не працуе? Паспрабуйце ўставіць у ваш браўзер!)</string>
-  <string name="common_note">Гэта службовы ліст ад %s.</string>
+  <string name="common_note">Гэта службовы ліст, які звязаны з вашым выкарыстаннем %s.</string>
   <string name="common_contact">Каб звязацца з намі, калі ласка, выкарыстоўвайце %s.</string>
 </resources>
