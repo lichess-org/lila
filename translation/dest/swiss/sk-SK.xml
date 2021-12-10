@@ -53,8 +53,11 @@
   <string name="comparison">Porovnanie</string>
   <string name="tournDuration">Trvanie turnaja</string>
   <string name="predefinedDuration">Predvolené trvanie v minútach</string>
+  <string name="numberOfGames">Počet partií</string>
+  <string name="pairingSystem">Systém párovania</string>
   <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rýchle: nečaká sa na všetkých hráčov</string>
   <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Pomalé: čaká sa na všetkých hráčov</string>
+  <string name="pause">Pozastavené</string>
   <string name="similarToOTB">Podobné turnajom hraným naživo</string>
   <string name="unlimitedAndFree">Bez obmedzení a zadarmo</string>
 </resources>
