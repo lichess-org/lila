@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Švajčiarske turnaje</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Zobraziť kolo</item>
+    <item quantity="few">Zobraziť %s kolá</item>
+    <item quantity="many">Zobraziť všetkých %s kôl</item>
+    <item quantity="other">Zobraziť všetkých %s kôl</item>
+  </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s kolo</item>
     <item quantity="few">%s kolá</item>
