@@ -98,6 +98,7 @@
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
   <string name="winPreventedBy50MoveRule">Výhre zabránilo pravidlo 50-tich ťahov</string>
   <string name="lossSavedBy50MoveRule">Od prehry zachránilo pravidlo 50-tich ťahov</string>
+  <string name="winOr50MovesByPriorMistake">Výhra alebo 50 ťahov na základe predchádzajúcej chyby</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Importovať PGN</string>
   <string name="delete">Vymazať</string>
@@ -906,6 +907,7 @@
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>
+  <string name="onlyTeamLeaders">Iba vedúci družstiev</string>
   <string name="onlyTeamMembers">Iba členovia tímu</string>
   <string name="navigateMoveTree">Navigovať na všetky ťahy vo forme stromu</string>
   <string name="mouseTricks">Finty s myšou</string>
