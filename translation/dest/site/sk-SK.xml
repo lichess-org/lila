@@ -257,7 +257,7 @@
   <string name="mode">Režim hry</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
-  <string name="casualTournament">Nehodnotený</string>
+  <string name="casualTournament">Priateľská</string>
   <string name="ratedTournament">Hodnotený</string>
   <string name="thisGameIsRated">Táto hra je hodnotená</string>
   <string name="rematch">Odveta</string>
