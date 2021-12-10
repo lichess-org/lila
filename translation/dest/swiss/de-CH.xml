@@ -38,7 +38,7 @@
   <string name="swissVsArenaQ">Wänn sölläd Turniär noch Schwiizer Syschtem anschtatt Arena-Turniär verwändät wärdä?</string>
   <string name="swissVsArenaA">Imänä Turniär mit Schwiiizer System, spiiläd alli glich viil partie und jede spielt nur einisch gege jede andär. Ds chöönt ä guäti Waal si für Cklubs und offiziäli Turniär.</string>
   <string name="pointsCalculationQ">Wiä wärdäd Pünkt berächnät?</string>
-  <string name="pointsCalculationA">Ein Sieg ist einen Punkt wert, ein Remis einen halben Punkt, und eine Niederlage null Punkte. Wenn ein Spieler während einer Runde keinem anderen Spieler zugeteilt werden kann, erhält er einen Punkt.</string>
+  <string name="pointsCalculationA">En Sieg isch ein Punkt wärt, es Remi zwei, und wenn verlürsch bechumsch keine. Wenn du kein Gänger  hesch, bechumsch eifoch en Punkt.</string>
   <string name="tiebreaksCalculationQ">Wie wärdäd Tie-Breaks berächnät?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger-Wärtig</string>
   <string name="tiebreaksCalculationA">Mit dem %s.
