@@ -6,5 +6,5 @@
   <string name="cantOpenSimilarAccount">Nebudete si môcť založiť nový účet s rovnakým menom, ani keď sa bude líšiť veľkosť písmen.</string>
   <string name="changedMindDoNotCloseAccount">Rozmyslel som si to, nerušte môj účet</string>
   <string name="closeAccountExplanation">Ste si istí, že chcete zrušiť váš účet? Zrušenie vášho účtu je trvalé rozhodnutie. Už sa NIKDY ZNOVU nebudete môcť prihlásiť.</string>
-  <string name="thisAccountIsClosed">Účet bol zrušený.</string>
+  <string name="thisAccountIsClosed">Účet zrušený.</string>
 </resources>
