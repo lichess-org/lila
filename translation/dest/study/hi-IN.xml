@@ -133,4 +133,5 @@
   <string name="brilliantMove">अद्भुत चाल​।</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="interestingMove">दिलचस्प चाल​ |</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">संदिग्ध चाल</string>
 </resources>
