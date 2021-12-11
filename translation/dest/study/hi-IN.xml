@@ -138,4 +138,5 @@
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">जबरन चाल</string>
   <string name="whiteIsWinning">सफेद जीत रहा है</string>
   <string name="blackIsWinning">काला जीत रहा है</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">विकास</string>
 </resources>
