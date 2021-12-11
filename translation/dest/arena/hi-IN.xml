@@ -45,4 +45,5 @@
   </plurals>
   <string name="newTeamBattle">नई टीम लड़ाई</string>
   <string name="customStartDate">कस्टम प्रारंभ तिथि</string>
+  <string name="allowBerserk">निडर की अनुमति दें</string>
 </resources>
