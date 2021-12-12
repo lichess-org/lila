@@ -6,4 +6,5 @@
     <item quantity="other">सभी %s दौर देखें</item>
   </plurals>
   <string name="nextRound">अगला दौर</string>
+  <string name="numberOfRounds">दौर की संख्या</string>
 </resources>
