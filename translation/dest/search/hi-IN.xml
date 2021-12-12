@@ -24,4 +24,6 @@
   <string name="sortBy">क्रमबद्ध करें</string>
   <string name="analysis">विश्लेषण</string>
   <string name="onlyAnalysed">केवल ऐसे गेम जहां कंप्यूटर विश्लेषण उपलब्ध है</string>
+  <string name="color">रंग</string>
+  <string name="evaluation">मूल्यांकन</string>
 </resources>

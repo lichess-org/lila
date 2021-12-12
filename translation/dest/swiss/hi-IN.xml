@@ -5,4 +5,5 @@
     <item quantity="one">दौर देखें</item>
     <item quantity="other">सभी %s दौर देखें</item>
   </plurals>
+  <string name="nextRound">अगला दौर</string>
 </resources>

@@ -419,7 +419,7 @@
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="winRate">जीत दर</string>
-  <string name="berserkRate">समय की कमी की दर</string>
+  <string name="berserkRate">निडर की दर</string>
   <string name="performance">प्रदर्शन</string>
   <string name="tournamentComplete">टूर्नामेंट पूर्ण</string>
   <string name="movesPlayed">चालें चलायीं</string>

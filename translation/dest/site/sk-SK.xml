@@ -98,6 +98,8 @@
   <string name="xOpeningExplorer">%s prieskumník otvorení</string>
   <string name="winPreventedBy50MoveRule">Výhre zabránilo pravidlo 50-tich ťahov</string>
   <string name="lossSavedBy50MoveRule">Od prehry zachránilo pravidlo 50-tich ťahov</string>
+  <string name="winOr50MovesByPriorMistake">Výhra alebo 50 ťahov na základe predchádzajúcej chyby</string>
+  <string name="lossOr50MovesByPriorMistake">Prehra alebo 50 ťahov v dôsledku predchádzajúcej chyby</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Importovať PGN</string>
   <string name="delete">Vymazať</string>
@@ -147,6 +149,7 @@
     <item quantity="many">%s pripojených hráčov</item>
     <item quantity="other">%s pripojených hráčov</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remíza po vzájomnej dohode</string>
   <string name="currentGames">Práve prebiehajúce partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
@@ -254,7 +257,7 @@
   <string name="mode">Režim hry</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
-  <string name="casualTournament">Nehodnotený</string>
+  <string name="casualTournament">Priateľská</string>
   <string name="ratedTournament">Hodnotený</string>
   <string name="thisGameIsRated">Táto hra je hodnotená</string>
   <string name="rematch">Odveta</string>
@@ -885,6 +888,7 @@
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
   <string name="xMentionedYouInY">%1$s ťa spomenul v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
+  <string name="youHaveJoinedTeamX">Pripojili ste sa k družstvu %1$s.</string>
   <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
   <string name="gameVsX">v partii proti %1$s</string>
@@ -903,9 +907,14 @@
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
   <string name="onlyTitled">Iba hráči s titulom</string>
+  <string name="cancelSimul">Zrušiť simultánku</string>
+  <string name="estimatedStart">Predpokladaný čas začiatku</string>
+  <string name="simulDescription">Popis simultánky</string>
+  <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
   <string name="noChat">Vypnutý chat</string>
+  <string name="onlyTeamLeaders">Iba vedúci družstiev</string>
   <string name="onlyTeamMembers">Iba členovia tímu</string>
   <string name="navigateMoveTree">Navigovať na všetky ťahy vo forme stromu</string>
   <string name="mouseTricks">Finty s myšou</string>
