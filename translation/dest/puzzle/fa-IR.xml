@@ -15,6 +15,7 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
+  <string name="yourPuzzleRatingWillNotChange">ریتینگ پازل شما تغییری نخواهد کرد. توجه کنید که پازل ها یک مسابقه نیستند. ریتینگ پازل شما به انتخاب پازل مناسب در سطح خودتان کمک می کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>
@@ -80,7 +81,7 @@
     <item quantity="one">%s مورد برای بازبینی</item>
     <item quantity="other">%s مورد برای بازبینی</item>
   </plurals>
-  <string name="percentSolved">%s حل شده</string>
+  <string name="percentSolved" comment="percentSolved&#10;&#10;%s is a percentage, e.g. 90% solved from all the puzzles you have played.&#10;&#10;Please note %s is on a separate line.">%s حل شده</string>
   <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و نخست چند معما حل کنید!</string>
   <string name="improvementAreasDescription">اینها را یاد بگیرید تا پیش‌رفت خود را بهینه کنید!</string>
   <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
