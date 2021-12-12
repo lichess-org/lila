@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">تم پازل هت</string>
+  <string name="puzzleThemes">تم پازل ها</string>
   <string name="recommended">توصیه شده
-عنوان برای تم های پازل ها قابل مشاهده است در  https://lichess.org/training/themes
-تنها موضوع تحت عنوان \"healthy mix\" است. تغییرd نخواهد کرد.</string>
+
+عنوان های پازل ها در  https://lichess.org/training/themes قابل مشاهده است
+
+تنها موضوع تحت عنوان \"healthy mix\" است که تغییری نخواهد کرد.</string>
   <string name="phases">فاز ها</string>
   <string name="motifs">موضوع</string>
   <string name="advanced">پیشرفته</string>
