@@ -46,4 +46,5 @@
   <string name="newTeamBattle">नई टीम लड़ाई</string>
   <string name="customStartDate">कस्टम प्रारंभ तिथि</string>
   <string name="allowBerserk">निडर की अनुमति दें</string>
+  <string name="allowChatHelp">खिलाड़ियों को बातचीत के कमरे में चर्चा करने दें</string>
 </resources>
