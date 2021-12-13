@@ -131,7 +131,7 @@ object search {
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
             h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
-            p("Teachers: ", c.teachers.toList.map(id => userIdLink(id.some)))
+            p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
           ),
           br,
           br,
@@ -176,12 +176,25 @@ object search {
                     case Some(lila.clas.Clas.Recorded(closerId, at)) =>
                       td(userIdLink(closerId.some), nbsp, momentFromNow(at))
                   },
-                  td(c.teachers.toList.map(id => userIdLink(id.some)))
+                  td(c.teachers.toList.map(id => teacherLink(id)))
                 )
               )
             )
           )
         )
+      )
+    }
+
+  private def teacherLink(userId: User.ID)(implicit ctx: Context) =
+    lightUser(userId).map { user =>
+      a(
+        href := routes.Clas.teacher(user.name),
+        cls := userClass(user.id, none, withOnline = true),
+        dataHref := routes.User.show(user.name)
+      )(
+        lineIcon(user),
+        titleTag(user),
+        user.name
       )
     }
 
