@@ -158,7 +158,6 @@ object search {
               tr(
                 th("Id"),
                 th("Name"),
-                th("Description"),
                 th("Created"),
                 th("Archived"),
                 th("Teachers (first is owner)")
@@ -169,7 +168,6 @@ object search {
                 tr(
                   td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
                   td(c.name),
-                  td(c.desc.take(100)),
                   td(momentFromNow(c.created.at)),
                   c.archived match {
                     case None => td("No")
