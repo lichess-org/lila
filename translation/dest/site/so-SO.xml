@@ -7,11 +7,14 @@
   <string name="waitingForOpponent">Waxaad sugaysa qof kula dheela</string>
   <string name="waiting">Sugitaan</string>
   <string name="yourTurn">Waa markaagii</string>
+  <string name="aiNameLevelAiLevel">%1$sheer%2$s</string>
+  <string name="level">Heerarka</string>
   <string name="strength">Awoodaada</string>
   <string name="resign">Is casil</string>
   <string name="stalemate">Ismarinwaa</string>
   <string name="white">Cadaan</string>
   <string name="black">Madoow</string>
+  <string name="createAGame">Abuur ciyaar cusub</string>
   <string name="whiteIsVictorious">Cadaankaa badiyey</string>
   <string name="blackIsVictorious">Madoowbaa badiyey</string>
   <string name="youPlayTheWhitePieces">Waxaad ku ciyaaraysaa kuwa cadaanka</string>
@@ -35,5 +38,7 @@
   <string name="computerAnalysisAvailable">falanqaynta computerka wa diyaar</string>
   <string name="computerAnalysisDisabled">falanqayn computerka maleh</string>
   <string name="analysis">Looxa falanqaynta</string>
+  <string name="goDeeper">Gudaha usii gal</string>
+  <string name="showThreat">Itus khatarta</string>
   <string name="move">Dhaqaaq</string>
 </resources>
