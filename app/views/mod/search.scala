@@ -190,7 +190,8 @@ object search {
           th("Marks"),
           th("Closed"),
           th("Created"),
-          th("Active")
+          th("Active"),
+          isGranted(_.CloseAccount) option th("Mark as Alt")
         )
       ),
       tbody(
@@ -212,7 +213,13 @@ object search {
             ),
             td(u.disabled option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
-            td(u.seenAt.map(momentFromNow(_)))
+            td(u.seenAt.map(momentFromNow(_))),
+            isGranted(_.CloseAccount) option td(
+              !u.marks.alt option button(
+                cls := "button button-empty button-thin button-red mark-alt",
+                href := routes.Mod.alt(u.id, !u.marks.alt)
+              )("ALT")
+            )
           )
         }
       )
