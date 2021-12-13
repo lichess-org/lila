@@ -572,6 +572,7 @@ POST  /class/become-teacher            controllers.Clas.becomeTeacher
 POST  /class/new                       controllers.Clas.create
 GET   /class/invitation/:id            controllers.Clas.invitation(id: String)
 POST  /class/invitation/:id            controllers.Clas.invitationAccept(id: String)
+GET   /class/teacher/:username         controllers.Clas.teacher(username: String)
 GET   /class/$id<\w{8}>                controllers.Clas.show(id: String)
 GET   /class/$id<\w{8}>/edit           controllers.Clas.edit(id: String)
 POST  /class/$id<\w{8}>/edit           controllers.Clas.update(id: String)

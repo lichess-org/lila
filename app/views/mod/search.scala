@@ -136,6 +136,51 @@ object search {
       )
     }
 
+  def teacher(teacherId: User.ID, classes: List[lila.clas.Clas])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Classes",
+      moreCss = cssTag("mod.misc")
+    ) {
+      main(cls := "page-menu")(
+        views.html.mod.menu("search"),
+        div(cls := "mod-search page-menu__content box")(
+          div(cls := "box__top")(
+            h1("Classes from", userIdLink(teacherId.some))
+          ),
+          br,
+          br,
+          classes.nonEmpty option table(cls := "slist slist-pad")(
+            thead(
+              tr(
+                th("Id"),
+                th("Name"),
+                th("Description"),
+                th("Created"),
+                th("Archived"),
+                th("Teachers (first is owner)")
+              )
+            ),
+            tbody(
+              classes.map(c =>
+                tr(
+                  td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
+                  td(c.name),
+                  td(c.desc.take(100)),
+                  td(momentFromNow(c.created.at)),
+                  c.archived match {
+                    case None => td("No")
+                    case Some(lila.clas.Clas.Recorded(closerId, at)) =>
+                      td(userIdLink(closerId.some), nbsp, momentFromNow(at))
+                  },
+                  td(c.teachers.toList.map(id => userIdLink(id.some)))
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+
   private def userTable(mod: Holder, users: List[User.WithEmails])(implicit ctx: Context) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
