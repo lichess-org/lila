@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">Laciyaar saaxiibkaa</string>
+  <string name="playWithTheMachine">La ciyaar computer</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Saa codsi ugu dirto qof kula ciyara, see URLkaan</string>
+  <string name="gameOver">Ciyaartii waa dhamaatay</string>
+  <string name="waitingForOpponent">Waxaad sugaysa qof kula dheela</string>
+  <string name="waiting">Sugitaan</string>
+  <string name="yourTurn">Waa markaagii</string>
+  <string name="strength">Awoodaada</string>
+  <string name="white">Cadaan</string>
+  <string name="black">Madoow</string>
+  <string name="whiteIsVictorious">Cadaankaa badiyey</string>
+  <string name="blackIsVictorious">Madoowbaa badiyey</string>
+  <string name="youPlayTheWhitePieces">Waxaad ku ciyaaraysaa kuwa cadaanka</string>
+  <string name="youPlayTheBlackPieces">Waxaad ku ciyaraysaa kuwa madoowga</string>
+  <string name="itsYourTurn">Waa markaagii!</string>
+</resources>
