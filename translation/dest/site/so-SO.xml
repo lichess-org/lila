@@ -8,6 +8,8 @@
   <string name="waiting">Sugitaan</string>
   <string name="yourTurn">Waa markaagii</string>
   <string name="strength">Awoodaada</string>
+  <string name="resign">Is casil</string>
+  <string name="stalemate">Ismarinwaa</string>
   <string name="white">Cadaan</string>
   <string name="black">Madoow</string>
   <string name="whiteIsVictorious">Cadaankaa badiyey</string>
