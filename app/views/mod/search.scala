@@ -22,7 +22,8 @@ object search {
   def apply(mod: Holder, form: Form[_], users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -50,7 +51,8 @@ object search {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Fingerprint",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -88,7 +90,8 @@ object search {
   )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = "IP address",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -120,7 +123,8 @@ object search {
   def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "IP address",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
