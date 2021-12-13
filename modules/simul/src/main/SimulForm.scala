@@ -91,7 +91,7 @@ object SimulForm {
       clockTime = simul.clock.config.limitInMinutes.toInt,
       clockIncrement = simul.clock.config.increment.roundSeconds,
       clockByoyomi = simul.clock.config.byoyomi.roundSeconds,
-      periods = simul.clock.config.periods,
+      periods = simul.clock.config.periodsTotal,
       clockExtra = simul.clock.hostExtraMinutes,
       variants = simul.variants.map(_.id),
       position = simul.position,

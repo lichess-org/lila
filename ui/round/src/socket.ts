@@ -164,17 +164,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     send,
     handlers,
     moreTime: throttle(300, () => send('moretime')),
-    outoftime: backoff(500, 1.1, () => {
-      // add berserk check
-      if (
-        ctrl.clock &&
-        ctrl.clock.byoyomi > 0 &&
-        ctrl.clock.curPeriods[ctrl.data.game.player] < ctrl.clock.startPeriod
-      ) {
-        ctrl.clock.nextPeriod(ctrl.data.game.player);
-        send('flag', ctrl.data.game.player);
-      } else send('flag', ctrl.data.game.player);
-    }),
+    outoftime: backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
     berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);

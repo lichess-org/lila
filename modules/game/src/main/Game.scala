@@ -126,6 +126,7 @@ case class Game(
     for {
       clk <- clock
       inc = clk.incrementOf(color)
+      byo = clk.byoyomiOf(color)
       history <- clockHistory
       clocks = history(color)
     } yield Centis(0) :: {
@@ -142,22 +143,27 @@ case class Game(
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
-      val byoStart = {
-        if (clk.players(color).startsAtZero)
-          0
-        else (history.turnByoyomiStarted(color) - 1)
-      }
-
-      val outOfTimeByo = (status == Status.Outoftime) && (color == turnColor)
+      // Also if we timed out over a period or periods, we need to calculate
+      // multiply byoyomi by number of periods entered that turn and add
+      // previous remaining time, which could be either be byoyomi or
+      // remaining time
+      val byoyomiStart = history.firstEnteredPeriod(color)
+      val byoyomiTimeout =
+        byoyomiStart.isDefined && (status == Status.Outoftime) && (color == turnColor)
 
       pairs.zipWithIndex.map { case ((first, second), index) =>
         {
-          val d = first - second
-          if (((index + 1) >= byoStart) && !pairs.hasNext && outOfTimeByo)
-            clk.byoyomi // If we time out over a period(s) this doesn't work
-          else if ((index + 1) >= byoStart) second
-          else if (pairs.hasNext || !noLastInc) d + inc
-          else d
+          val turn         = index + 2 + shogi.startedAtTurn / 2
+          val afterByoyomi = byoyomiStart ?? (_ <= turn)
+
+          // after byoyomi we store movetimes directly, not remaining time
+          val mt   = if (afterByoyomi) second else first - second
+          val cInc = (!afterByoyomi && (pairs.hasNext || !noLastInc)) ?? inc
+
+          if (!pairs.hasNext && byoyomiTimeout) {
+            val prevTurnByoyomi = byoyomiStart ?? (_ < turn)
+            (if (prevTurnByoyomi) first else byo) + byo * history.countSpentPeriods(color, turn)
+          } else mt + cInc
         } nonNeg
       } toList
     }
@@ -174,13 +180,8 @@ case class Game(
       b <- moveTimes(!startColor)
     } yield Sequence.interleave(a, b)
 
-  def bothClockStates: Option[Vector[Centis]] = {
-    (clock, clockHistory) match {
-      case (Some(c), Some(ch)) => Some(ch.bothClockStates(startColor, c.byoyomi))
-      case (_, Some(ch))       => Some(ch.bothClockStates(startColor, Centis(0)))
-      case _                   => None
-    }
-  }
+  def bothClockStates: Option[Vector[Centis]] =
+    clockHistory.map(_.bothClockStates(startColor, clock ?? (_.byoyomi)))
 
   def pgnMoves(color: Color): PgnMoves = {
     val pivot = if (color == startColor) 0 else 1
@@ -207,7 +208,8 @@ case class Game(
     val newClockHistory = for {
       clk <- game.clock
       ch  <- clockHistory
-    } yield ch.record(turnColor, clk).validateStart(clk)
+    } yield ch
+      .record(turnColor, clk, game.fullMoveNumber)
 
     val updated = copy(
       sentePlayer = copyPlayer(sentePlayer),
@@ -287,21 +289,6 @@ case class Game(
       start.withClock(c.start)
     }
 
-  def moveToNextPeriod = {
-    clock map { c =>
-      {
-        clockHistory match {
-          case Some(ch) =>
-            start.withClockAndHistory(
-              c.nextPeriod(turnColor),
-              ch.enteredNewPeriod(turnColor, shogi.fullMoveNumber)
-            )
-          case _ => start.withClock(c.nextPeriod(turnColor))
-        }
-      }
-    }
-  }
-
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
       val increment   = days * 24 * 60 * 60
@@ -359,12 +346,6 @@ case class Game(
     )
 
   def playerCanOfferDraw = false
-  //started && playable &&
-  //  turns >= 8 &&
-  //  shogi.situation.impasse &&
-  //  !player(color).isOfferingDraw &&
-  //  !opponent(color).isAi &&
-  //  !playerHasOfferedDraw(color)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
@@ -402,8 +383,8 @@ case class Game(
           shogi = shogi.copy(clock = Some(newClock)),
           loadClockHistory = _ =>
             clockHistory.map(history => {
-              if (history(color).isEmpty) history
-              else history.reset(color).record(color, newClock)
+              if (history(color).isEmpty && history.periodEntries(color).isEmpty) history
+              else history.reset(color).record(color, newClock, shogi.fullMoveNumber)
             })
         ).updatePlayer(color, _.goBerserk)
       ) ++
@@ -435,7 +416,9 @@ case class Game(
             // for the active color. This ensures the end time in
             // clockHistory always matches the final clock time on
             // the board.
-            if (!finished) history.record(turnColor, clk, true)
+            if (!finished)
+              history
+                .record(turnColor, clk, shogi.fullMoveNumber)
             else history
           }
       ),
@@ -487,23 +470,17 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftime(withGrace: Boolean): Boolean = {
+  def outoftime(withGrace: Boolean): Boolean =
     if (isCorrespondence)
       outoftimeCorrespondence
     else outoftimeClock(withGrace)
-  }
-
-  def nextPeriodClock: Boolean =
-    clock ?? { c =>
-      !isCorrespondence && clockValidity && c.hasPeriodsLeft(turnColor)
-    }
-
-  private def clockValidity: Boolean = started && playable
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      clockValidity && {
-        (!c.isRunning && c.players.exists(_.elapsed.centis > 0)) || c.outOfTime(turnColor, withGrace)
+      started && playable && {
+        c.outOfTime(turnColor, withGrace) || {
+          !c.isRunning && c.players.exists(_.elapsed.centis > 0)
+        }
       }
     }
 
@@ -520,12 +497,7 @@ case class Game(
 
   def isUnlimited = !hasClock && !hasCorrespondenceClock
 
-  def isClockRunning = clock ?? (_.isRunning)
-
   def withClock(c: Clock) = Progress(this, copy(shogi = shogi.copy(clock = Some(c))))
-
-  def withClockAndHistory(c: Clock, ch: ClockHistory) =
-    Progress(this, copy(shogi = shogi.copy(clock = Some(c)), loadClockHistory = _ => Some(ch)))
 
   def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
@@ -706,7 +678,7 @@ object Game {
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     clock.fold(variant.standard) { c =>
-      c.periods <= 1 && (c.byoyomi.centis == 0 || c.increment.centis == 0)
+      c.periodsTotal <= 1 && (!c.hasByoyomi || !c.hasIncrement)
     }
 
   val gameIdSize   = 8
@@ -835,31 +807,23 @@ object Game {
   }
 }
 
-// Represents at what turn we entered a new period
-case class PeriodEntries(sente: Vector[Int], gote: Vector[Int]) {
+// At what turns we entered a new period
+case class PeriodEntries(
+    sente: Vector[Int],
+    gote: Vector[Int]
+) {
+
   def apply(c: Color) =
     c.fold(sente, gote)
 
-  def update(c: Color, t: Int) =
-    c.fold(copy(sente = sente :+ t), copy(gote = gote :+ t))
+  def update(c: Color, f: Vector[Int] => Vector[Int]) =
+    c.fold(copy(sente = f(sente)), copy(gote = f(gote)))
 
-  def byoyomi(c: Color): Boolean =
-    c.fold(!sente.isEmpty, !gote.isEmpty)
-
-  def turnIsPresent(c: Color, t: Int): Boolean = c.fold(sente contains t, gote contains t)
-  def dropTurn(c: Color, t: Int) =
-    c.fold(
-      copy(sente = sente filterNot (_ == t)),
-      copy(gote = gote filterNot (_ == t))
-    )
-
-  def first(c: Color): Option[Int] = c.fold(sente.headOption, gote.headOption)
-  def last(c: Color): Option[Int]  = c.fold(sente.lastOption, gote.lastOption)
 }
 
 object PeriodEntries {
-  val default = PeriodEntries(Vector(), Vector())
-  val zeroes  = PeriodEntries(Vector(0), Vector(0))
+  val default    = PeriodEntries(Vector(), Vector())
+  val maxPeriods = 5
 }
 
 case class ClockHistory(
@@ -868,56 +832,55 @@ case class ClockHistory(
     periodEntries: PeriodEntries = PeriodEntries.default
 ) {
 
+  def apply(color: Color): Vector[Centis] = color.fold(sente, gote)
+
   def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
     color.fold(copy(sente = f(sente)), copy(gote = f(gote)))
 
-  def record(color: Color, clock: Clock, finalRecord: Boolean = false): ClockHistory = {
-    if (finalRecord && clock.isUsingByoyomi(color)) {
-      val remTime = clock.remainingTime(color)
-      update(color, _ :+ (clock.byoyomi - remTime))
-    } else update(color, _ :+ clock.remainingTimeTurn(color))
+  def updatePeriods(color: Color, f: Vector[Int] => Vector[Int]): ClockHistory =
+    copy(periodEntries = periodEntries.update(color, f))
+
+  def record(color: Color, clock: Clock, turn: Int): ClockHistory = {
+    val curClock        = clock currentClockFor color
+    val initiatePeriods = clock.config.startsAtZero && periodEntries(color).isEmpty
+    val isUsingByoyomi  = curClock.periods > 0 && !initiatePeriods
+
+    val timeToStore = if (isUsingByoyomi) clock.lastMoveTimeOf(color) else curClock.time
+
+    update(color, _ :+ timeToStore)
+      .updatePeriods(
+        color,
+        _.padTo(initiatePeriods ?? 1, 0).padTo(curClock.periods atMost PeriodEntries.maxPeriods, turn)
+      )
   }
 
-  def validateStart(clock: Clock): ClockHistory = {
-    if (clock.startsAtZero && periodEntries(Sente).isEmpty && periodEntries(Gote).isEmpty)
-      copy(periodEntries = PeriodEntries.zeroes)
-    else this
-  }
-
-  def reset(color: Color) = update(color, _ => Vector.empty)
-
-  def apply(color: Color): Vector[Centis] = color.fold(sente, gote)
+  def reset(color: Color) = update(color, _ => Vector.empty).updatePeriods(color, _ => Vector.empty)
 
   def last(color: Color) = apply(color).lastOption
 
   def size = sente.size + gote.size
 
-  def updateWithByoTime(color: Color, byo: Centis): Vector[Centis] = {
-    val standardTimes = color.fold(
-      sente.take(turnByoyomiStarted(color) - 1),
-      gote.take(turnByoyomiStarted(color) - 1)
-    )
-    standardTimes.padTo(color.fold(sente.size, gote.size), byo)
-  }
+  def firstEnteredPeriod(color: Color): Option[Int] =
+    periodEntries(color).headOption
 
-  def turnByoyomiStarted(color: Color): Int =
-    periodEntries.first(color) getOrElse Game.maxPlies
+  def countSpentPeriods(color: Color, turn: Int) =
+    periodEntries(color).count(_ == turn)
 
-  def enteredNewPeriod(color: Color, turn: Int) =
-    copy(periodEntries = periodEntries.update(color, turn))
+  def refundSpentPeriods(color: Color, turn: Int) =
+    updatePeriods(color, _.filterNot(_ == turn))
 
-  def turnIsPresent(color: Color, turn: Int): Boolean =
-    periodEntries.turnIsPresent(color, turn)
-
-  def dropTurn(color: Color, turn: Int) = {
-    if (turnIsPresent(color, turn)) copy(periodEntries = periodEntries.dropTurn(color, turn))
-    else this
+  private def padWithByo(color: Color, byo: Centis): Vector[Centis] = {
+    val times = apply(color)
+    times.take(firstEnteredPeriod(color).fold(times.size)(_ - 1)).padTo(times.size, byo)
   }
 
   // first state is of the color that moved first.
-  def bothClockStates(firstMoveBy: Color, byo: Centis): Vector[Centis] =
+  def bothClockStates(firstMoveBy: Color, byo: Centis): Vector[Centis] = {
+    val senteTimes = padWithByo(Sente, byo)
+    val goteTimes  = padWithByo(Gote, byo)
     Sequence.interleave(
-      firstMoveBy.fold(updateWithByoTime(Sente, byo), updateWithByoTime(Gote, byo)),
-      firstMoveBy.fold(updateWithByoTime(Gote, byo), updateWithByoTime(Sente, byo))
+      firstMoveBy.fold(senteTimes, goteTimes),
+      firstMoveBy.fold(goteTimes, senteTimes)
     )
+  }
 }

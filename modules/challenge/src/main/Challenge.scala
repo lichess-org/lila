@@ -135,7 +135,7 @@ object Challenge {
       def limit     = config.limit
       def increment = config.increment
       def byoyomi   = config.byoyomi
-      def periods   = config.periods
+      def periods   = config.periodsTotal
       def show      = config.show
     }
   }

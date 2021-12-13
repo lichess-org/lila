@@ -97,16 +97,18 @@ object JsonView {
   }
 
   implicit val clockWriter: OWrites[Clock] = OWrites { c =>
+    val senteClock = c currentClockFor Color.Sente
+    val goteClock  = c currentClockFor Color.Gote
     Json.obj(
       "running"   -> c.isRunning,
       "initial"   -> c.limitSeconds,
       "increment" -> c.incrementSeconds,
       "byoyomi"   -> c.byoyomiSeconds,
-      "periods"   -> c.periods,
-      "sPeriods"  -> c.curPeriod(Color.Sente),
-      "gPeriods"  -> c.curPeriod(Color.Gote),
-      "sente"     -> c.remainingTime(Color.Sente).toSeconds,
-      "gote"      -> c.remainingTime(Color.Gote).toSeconds,
+      "periods"   -> c.periodsTotal,
+      "sPeriods"  -> senteClock.periods,
+      "gPeriods"  -> goteClock.periods,
+      "sente"     -> senteClock.time.toSeconds,
+      "gote"      -> goteClock.time.toSeconds,
       "emerg"     -> c.config.emergSeconds
     )
   }

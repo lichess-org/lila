@@ -64,7 +64,7 @@ final class JsonView(
               "limit"     -> clock.limitSeconds,
               "increment" -> clock.incrementSeconds,
               "byoyomi"   -> clock.byoyomiSeconds,
-              "periods"   -> clock.periods,
+              "periods"   -> clock.periodsTotal,
               "show"      -> clock.show
             )
           case TimeControl.Correspondence(d) =>

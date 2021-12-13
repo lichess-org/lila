@@ -39,11 +39,11 @@ object BinaryFormat {
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
-    def read(start: Centis, bw: ByteArray, bb: ByteArray, pe: PeriodEntries, flagged: Option[Color]) =
+    def read(start: Centis, bs: ByteArray, bg: ByteArray, pe: PeriodEntries, flagged: Option[Color]) =
       Try {
         ClockHistory(
-          readSide(start, bw, flagged has Sente),
-          readSide(start, bb, flagged has Gote),
+          readSide(start, bs, flagged has Sente),
+          readSide(start, bg, flagged has Gote),
           pe
         )
       }.fold(
@@ -99,11 +99,16 @@ object BinaryFormat {
         writeSignedInt24(legacyElapsed(clock, Gote).centis) ++
         clock.timer.fold(Array.empty[Byte])(writeTimer) ++ Array(
           clock.byoyomiSeconds.toByte,
-          clock.periods.toByte
+          clock.periodsTotal.toByte
         )
     }
 
-    def read(ba: ByteArray, senteBerserk: Boolean, goteBerserk: Boolean): Color => Clock =
+    def read(
+        ba: ByteArray,
+        periodEntries: PeriodEntries,
+        senteBerserk: Boolean,
+        goteBerserk: Boolean
+    ): Color => Clock =
       color => {
         val ia = ba.value map toInt
 
@@ -139,11 +144,13 @@ object BinaryFormat {
                 ClockPlayer
                   .withConfig(config)
                   .copy(berserk = senteBerserk)
-                  .setRemaining(computeRemaining(config, legacySente)),
+                  .setRemaining(computeRemaining(config, legacySente))
+                  .setPeriods(periodEntries(Sente).size atLeast config.initPeriod),
                 ClockPlayer
                   .withConfig(config)
                   .copy(berserk = goteBerserk)
                   .setRemaining(computeRemaining(config, legacyGote))
+                  .setPeriods(periodEntries(Gote).size atLeast config.initPeriod)
               ),
               timer = timer
             )
@@ -203,9 +210,9 @@ object BinaryFormat {
       val pairs = ba.value.grouped(2)
       (pairs map (backToInt _)).toVector
     }
-    def read(bw: ByteArray, bb: ByteArray) =
+    def read(bs: ByteArray, bg: ByteArray) =
       Try {
-        PeriodEntries(readSide(bw), readSide(bb))
+        PeriodEntries(readSide(bs), readSide(bg))
       }.fold(
         e => { logger.warn(s"Exception decoding period entries", e); none },
         some

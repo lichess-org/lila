@@ -224,13 +224,9 @@ final private[round] class RoundDuct(
     case p: HumanPlay =>
       handle(p.playerId) { pov =>
         if (pov.player.isAi) fufail(s"player $pov can't play AI")
-        else if (pov.game.outoftime(withGrace = true)) {
-          if (pov.game.nextPeriodClock)
-            pov.game.moveToNextPeriod ?? { g =>
-              proxy save g inject List(Event.Reload)
-            }
-          else finisher.outOfTime(pov.game)
-        } else {
+        else if (pov.game.outoftime(withGrace = true))
+          finisher.outOfTime(pov.game)
+        else {
           recordLag(pov)
           player.human(p, this)(pov)
         }
@@ -250,13 +246,9 @@ final private[round] class RoundDuct(
       val res = proxy.withPov(PlayerId(p.playerId)) {
         _ ?? { pov =>
           {
-            if (pov.game.outoftime(withGrace = true)) {
-              if (pov.game.nextPeriodClock)
-                pov.game.moveToNextPeriod ?? { g =>
-                  proxy save g inject List(Event.Reload)
-                }
-              else finisher.outOfTime(pov.game)
-            } else player.bot(p.uci, this)(pov)
+            if (pov.game.outoftime(withGrace = true))
+              finisher.outOfTime(pov.game)
+            else player.bot(p.uci, this)(pov)
           }
         }
       } dmap publish
@@ -265,11 +257,7 @@ final private[round] class RoundDuct(
 
     case FishnetPlay(uci, ply) =>
       handle { game =>
-        if (game.outoftime(withGrace = false)) {
-          if (game.nextPeriodClock)
-            game.moveToNextPeriod ?? { p => player.fishnet(p.game, ply, uci) }
-          else finisher.outOfTime(game)
-        } else player.fishnet(game, ply, uci)
+        player.fishnet(game, ply, uci)
       }.mon(_.round.move.time)
 
     case Abort(playerId) =>
@@ -321,15 +309,7 @@ final private[round] class RoundDuct(
     // checks if any player can safely (grace) be flagged
     case QuietFlag =>
       handle { game =>
-        {
-          (game.outoftime(withGrace = true)) ?? {
-            if (game.nextPeriodClock)
-              game.moveToNextPeriod ?? { g =>
-                proxy save g inject List(Event.Reload)
-              }
-            else finisher.outOfTime(game)
-          }
-        }
+        game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
       }
 
     // flags a specific player, possibly without grace if self
@@ -337,13 +317,7 @@ final private[round] class RoundDuct(
       handle { game =>
         (game.turnColor == color) ?? {
           val toSelf = from has PlayerId(game.player(color).id)
-          (game.outoftime(withGrace = !toSelf)) ?? {
-            if (game.nextPeriodClock)
-              game.moveToNextPeriod ?? { g =>
-                proxy save g inject List(Event.Reload)
-              }
-            else finisher.outOfTime(game)
-          }
+          game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
         }
       }
 
@@ -462,7 +436,11 @@ final private[round] class RoundDuct(
               getPlayer(c).showMillisToGone foreach {
                 _ ?? { millis =>
                   if (millis <= 0) notifyGone(c, true)
-                  else g.clock.exists(_.remainingTime(c).millis > millis + 3000) ?? notifyGoneIn(c, millis)
+                  else
+                    g.clock.exists(_.currentClockFor(c).time.millis > millis + 3000) ?? notifyGoneIn(
+                      c,
+                      millis
+                    )
                 }
               }
             }

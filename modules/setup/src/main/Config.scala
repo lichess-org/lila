@@ -42,18 +42,16 @@ private[setup] trait Config {
 
   def makeGame: ShogiGame = makeGame(variant)
 
-  def validClock = !hasClock || clockHasTimeInc || clockHasTimeByo
+  def validClock = !hasClock || clockHasTime
 
-  def clockHasTimeInc = time + increment > 0
-
-  def clockHasTimeByo = time + byoyomi > 0
+  def clockHasTime = time + increment + byoyomi > 0
 
   def makeClock = hasClock option justMakeClock
 
   protected def justMakeClock = Clock.Config(
     (time * 60).toInt,
-    if (clockHasTimeInc) increment else 0,
-    if (clockHasTimeByo) byoyomi else 0,
+    if (clockHasTime) increment else 0,
+    if (clockHasTime) byoyomi else 5,
     periods
   )
   def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days

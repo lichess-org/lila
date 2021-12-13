@@ -71,7 +71,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
             "initial"   -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds,
             "byoyomi"   -> clock.byoyomiSeconds,
-            "periods"   -> clock.periods
+            "periods"   -> clock.periodsTotal
           )
         })
         .add("daysPerTurn" -> g.daysPerTurn)

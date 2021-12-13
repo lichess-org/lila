@@ -41,7 +41,7 @@ object BSONHandlers {
         "limit"     -> c.limitSeconds,
         "increment" -> c.incrementSeconds,
         "byoyomi"   -> c.byoyomiSeconds,
-        "periods"   -> c.periods
+        "periods"   -> c.periodsTotal
       )
   )
 

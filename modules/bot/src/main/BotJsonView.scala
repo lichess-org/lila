@@ -88,7 +88,7 @@ final class BotJsonView(
 
   private def millisOf(pov: Pov): Int =
     pov.game.clock
-      .map(_.remainingTime(pov.color).millis.toInt)
+      .map(_.currentClockFor(pov.color).time.millis.toInt)
       .orElse(pov.game.correspondenceClock.map(_.remainingTime(pov.color).toInt * 1000))
       .getOrElse(Int.MaxValue)
 
@@ -97,7 +97,7 @@ final class BotJsonView(
       "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis,
       "byoyomi"   -> c.byoyomi.millis,
-      "periods"   -> c.periods
+      "periods"   -> c.periodsTotal
     )
   }
 }

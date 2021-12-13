@@ -55,6 +55,13 @@ object BSONHandlers {
       val playedPlies = plies - startedAtTurn
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
+      val periodEntries = BinaryFormat.periodEntries
+        .read(
+          r bytesD F.periodsSente,
+          r bytesD F.periodsGote
+        )
+        .getOrElse(PeriodEntries.default)
+
       val decoded = {
         val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
         PgnStorage.Decoded(
@@ -82,7 +89,7 @@ object BSONHandlers {
         ),
         pgnMoves = decoded.pgnMoves,
         clock = r.getO[Color => Clock](F.clock) {
-          clockBSONReader(createdAt, light.sentePlayer.berserk, light.gotePlayer.berserk)
+          clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
         } map (_(turnColor)),
         turns = plies,
         startedAtTurn = startedAtTurn,
@@ -91,11 +98,6 @@ object BSONHandlers {
 
       val senteClockHistory = r bytesO F.senteClockHistory
       val goteClockHistory  = r bytesO F.goteClockHistory
-
-      val perSente = r bytesD F.periodsSente
-      val perGote  = r bytesD F.periodsGote
-
-      val perEnt = BinaryFormat.periodEntries.read(perSente, perGote).getOrElse(PeriodEntries.default)
 
       Game(
         id = light.id,
@@ -108,7 +110,7 @@ object BSONHandlers {
             bg <- goteClockHistory
             history <-
               BinaryFormat.clockHistory
-                .read(clk.limit, bs, bg, perEnt, (light.status == Status.Outoftime).option(turnColor))
+                .read(clk.limit, bs, bg, periodEntries, (light.status == Status.Outoftime).option(turnColor))
             _ = lila.mon.game.loadClockHistory.increment()
           } yield history,
         status = light.status,
@@ -228,13 +230,18 @@ object BSONHandlers {
       times = history(color)
     } yield BinaryFormat.clockHistory.writeSide(clk.limit, times, flagged has color)
 
-  private[game] def clockBSONReader(since: DateTime, senteBerserk: Boolean, goteBerserk: Boolean) =
+  private[game] def clockBSONReader(
+      since: DateTime,
+      periodEntries: PeriodEntries,
+      senteBerserk: Boolean,
+      goteBerserk: Boolean
+  ) =
     new BSONReader[Color => Clock] {
       def readTry(bson: BSONValue): Try[Color => Clock] =
         bson match {
           case bin: BSONBinary =>
             ByteArrayBSONHandler readTry bin map { cl =>
-              BinaryFormat.clock(since).read(cl, senteBerserk, goteBerserk)
+              BinaryFormat.clock(since).read(cl, periodEntries, senteBerserk, goteBerserk)
             }
           case b => lila.db.BSON.handlerBadType(b)
         }

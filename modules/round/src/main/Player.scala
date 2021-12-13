@@ -130,20 +130,17 @@ final private class Player(
     (uci match {
       case Uci.Move(orig, dest, prom) => {
         game.shogi(orig, dest, prom, metrics) map {
-          case (ncg, move) => {
-            ncg -> (Left(move): MoveOrDrop)
+          case (nsg, move) => {
+            nsg -> (Left(move): MoveOrDrop)
           }
         }
       }
       case Uci.Drop(role, pos) =>
-        game.shogi.drop(role, pos, metrics) map { case (ncg, drop) =>
-          ncg -> (Right(drop): MoveOrDrop)
+        game.shogi.drop(role, pos, metrics) map { case (nsg, drop) =>
+          nsg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _)
-          if ncg.clock.exists(c =>
-            c.outOfTime(game.turnColor, withGrace = false) && !c.hasPeriodsLeft(game.turnColor)
-          ) =>
+      case (nsg, _) if nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) =>
         Flagged
       case (newShogiGame, moveOrDrop) =>
         MoveApplied(

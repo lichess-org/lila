@@ -24,7 +24,7 @@ private object BsonHandlers {
         "limit"     -> c.limitSeconds,
         "increment" -> c.incrementSeconds,
         "byoyomi"   -> c.byoyomiSeconds,
-        "periods"   -> c.periods
+        "periods"   -> c.periodsTotal
       )
   )
   implicit val variantHandler = lila.db.dsl.quickHandler[Variant](

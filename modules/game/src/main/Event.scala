@@ -237,11 +237,13 @@ object Event {
           "status" -> game.status
         )
         .add("clock" -> game.clock.map { c =>
+          val senteClock = c currentClockFor Color.Sente
+          val goteClock  = c currentClockFor Color.Gote
           Json.obj(
-            "sc" -> c.remainingTime(Color.Sente).centis,
-            "gc" -> c.remainingTime(Color.Gote).centis,
-            "sp" -> c.curPeriod(Color.Sente),
-            "gp" -> c.curPeriod(Color.Gote)
+            "sc" -> senteClock.time.centis,
+            "gc" -> goteClock.time.centis,
+            "sp" -> senteClock.periods,
+            "gp" -> goteClock.periods
           )
         })
         .add("ratingDiff" -> ratingDiff.map { rds =>
@@ -312,14 +314,17 @@ object Event {
         .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
-    def apply(clock: ShogiClock): Clock =
+    def apply(clock: ShogiClock): Clock = {
+      val senteClock = clock currentClockFor Color.Sente
+      val goteClock  = clock currentClockFor Color.Gote
       Clock(
-        sente = clock remainingTime Color.Sente,
-        gote = clock remainingTime Color.Gote,
-        sPer = clock curPeriod Color.Sente,
-        gPer = clock curPeriod Color.Gote,
+        sente = senteClock.time,
+        gote = goteClock.time,
+        sPer = senteClock.periods,
+        gPer = goteClock.periods,
         nextLagComp = clock lagCompEstimate clock.color
       )
+    }
   }
 
   case class Berserk(color: Color) extends Event {

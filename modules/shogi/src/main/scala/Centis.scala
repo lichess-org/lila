@@ -16,6 +16,9 @@ final case class Centis(centis: Int) extends AnyVal with Ordered[Centis] {
   def millis: Long          = centis * 10L
   def toDuration            = FiniteDuration(millis, MILLISECONDS)
 
+  def isPositive = centis > 0
+  def isNegative = centis < 0
+
   def +(other: Centis)   = Centis(centis + other.centis)
   def -(other: Centis)   = Centis(centis - other.centis)
   def *(scalar: Int)     = Centis(scalar * centis)

@@ -5,6 +5,8 @@ import java.text.DecimalFormat
 
 import Clock.Config
 
+case class CurrentClockInfo(time: Centis, periods: Int)
+
 // All unspecified durations are expressed in seconds
 case class Clock(
     config: Config,
@@ -19,27 +21,33 @@ case class Clock(
 
   @inline def pending(c: Color) = timerFor(c).fold(Centis(0))(toNow)
 
-  def remainingTime(c: Color) = (players(c).remaining - pending(c)) nonNeg
-
-  def remainingTimeTurn(c: Color) = {
-    if (players(c).isUsingByoyomi) (players(c).lastMoveTime - pending(c)) nonNeg
-    else (players(c).remaining - pending(c)) nonNeg
+  private def periodsInUse(c: Color, t: Centis): Int = {
+    val player          = players(c)
+    val remainingAfterT = player.remaining - t
+    if (isRunning && !remainingAfterT.isPositive && player.byoyomi.centis > 0)
+      math.min((-remainingAfterT.centis / player.byoyomi.centis) + 1, player.periodsLeft)
+    else 0
   }
 
-  def curPeriod(c: Color) = {
-    players(c).curPeriod + { if (players(c).startsAtZero) 1 else 0 }
+  def currentClockFor(c: Color) = {
+    val elapsed               = pending(c)
+    val remainingAfterElapsed = players(c).remaining - elapsed
+    val periods               = periodsInUse(c, elapsed)
+    CurrentClockInfo(
+      (remainingAfterElapsed + players(c).byoyomi * periods) nonNeg,
+      periods + players(c).spentPeriods
+    )
   }
 
   def outOfTime(c: Color, withGrace: Boolean) = {
-    players(c).remaining <=
-      timerFor(c).fold(Centis(0)) { t =>
-        if (withGrace) (toNow(t) - (players(c).lag.quota atMost Centis(200))) nonNeg
-        else toNow(t)
-      }
+    val player = players(c)
+    player.remaining + player.periodsLeft * player.byoyomi <= timerFor(c).fold(Centis(0)) { t =>
+      if (withGrace) (toNow(t) - (players(c).lag.quota atMost Centis(200))) nonNeg
+      else toNow(t)
+    }
   }
-  def moretimeable(c: Color) = players(c).remaining.centis < 100 * 60 * 60 * 2
 
-  def isInit = players.forall(_.isInit)
+  def moretimeable(c: Color) = players(c).remaining.centis < 100 * 60 * 60 * 2
 
   def isRunning = timer.isDefined
 
@@ -47,8 +55,16 @@ case class Clock(
 
   def stop =
     timer.fold(this) { t =>
+      val curT    = toNow(t)
+      val periods = periodsInUse(color, curT)
       copy(
-        players = players.update(color, _.takeTime(toNow(t))),
+        players = players.update(
+          color,
+          _.takeTime(curT)
+            .giveTime(byoyomiOf(color) * periods)
+            .spendPeriods(periods)
+            .copy(lastMoveTime = curT)
+        ),
         timer = None
       )
     }
@@ -78,82 +94,58 @@ case class Clock(
         val lag     = ~metrics.reportedLag(elapsed) nonNeg
 
         val player              = players(color)
+        val remaining           = player.remaining
         val (lagComp, lagTrack) = player.lag.onMove(lag)
+        val moveTime            = (elapsed - lagComp) nonNeg
 
-        val moveTime = (elapsed - lagComp) nonNeg
+        // As long as game is still in progress, and we have enough time left (including byoyomi and periods)
+        val clockActive = gameActive && moveTime < remaining + player.periodsLeft * player.byoyomi
+        // The number of periods the move stretched over
+        val periodSpan = periodsInUse(color, moveTime)
+        val usingByoyomi =
+          clockActive && player.byoyomi.isPositive && (player.spentPeriods > 0 || periodSpan > 0)
 
-        val clockActive  = gameActive && (player.hasPeriodsLeft || moveTime < player.remaining)
-        val updatePeriod = clockActive && moveTime >= player.remaining
-        val usingByo     = player.isUsingByoyomi || updatePeriod
+        val newC =
+          if (usingByoyomi)
+            updatePlayer(color) {
+              _.setRemaining((remaining - moveTime) atLeast player.byoyomi)
+                .spendPeriods(periodSpan)
+                .copy(lag = lagTrack, lastMoveTime = moveTime)
+            }
+          else
+            updatePlayer(color) {
+              _.takeTime(moveTime - (clockActive ?? player.increment))
+                .spendPeriods(periodSpan)
+                .copy(lag = lagTrack, lastMoveTime = moveTime)
+            }
 
-        val inc          = clockActive ?? player.increment
-        val curRemaining = player.remaining - moveTime
-
-        val newC = if (clockActive && usingByo) {
-          updatePlayer(color) {
-            _.setRemaining(curRemaining atLeast player.byoyomi)
-              .copy(lag = lagTrack, lastMoveTime = moveTime)
-          }
-        } else if (usingByo) {
-          updatePlayer(color) {
-            _.takeTime(moveTime)
-              .copy(lag = lagTrack, lastMoveTime = moveTime)
-          }
-        } else {
-          updatePlayer(color) {
-            _.takeTime(moveTime - inc)
-              .copy(lag = lagTrack)
-          }
-        }
-
-        if (updatePeriod) newC.removePeriod(color) else if (clockActive) newC else newC.hardStop
+        if (clockActive) newC else newC.hardStop
       }
     }).switch
 
-  // To do: safely add this to takeback to remove inc from player.
-  // def deinc = updatePlayer(color, _.giveTime(-incrementOf(color)))
-
-  def takeback(refundPeriod: Boolean = false) = {
-    if (refundPeriod) addPeriod(color)
-    else this
+  def takeback(p: Int) = {
+    updatePlayer(color) {
+      _.refundPeriods(p)
+    }
   } switch
-
-  def addPeriod(c: Color) = {
-    updatePlayer(c) {
-      _.addPeriod
-    }
-  }
-
-  def removePeriod(c: Color) = {
-    updatePlayer(c) {
-      _.removePeriod
-    }
-  }
-
-  def nextPeriod(c: Color) = {
-    updatePlayer(c) {
-      _.nextPeriod
-    }
-  }
-
-  def hasPeriodsLeft(c: Color): Boolean = players(c).hasPeriodsLeft
-
-  def isUsingByoyomi(c: Color): Boolean = players(c).isUsingByoyomi
 
   def giveTime(c: Color, t: Centis) =
     updatePlayer(c) {
       _.giveTime(t)
     }
 
-  def setRemainingTime(c: Color, centis: Centis) =
+  def setRemainingTime(c: Color, t: Centis) =
     updatePlayer(c) {
-      _.setRemaining(centis)
+      _.setRemaining(t)
     }
 
-  def incrementOf(c: Color) = players(c).increment
-  def byoyomiOf(c: Color)   = players(c).byoyomi
-
   def goBerserk(c: Color) = updatePlayer(c) { _.copy(berserk = true) }
+
+  def incrementOf(c: Color)    = players(c).increment
+  def byoyomiOf(c: Color)      = players(c).byoyomi
+  def spentPeriodsOf(c: Color) = players(c).spentPeriods
+
+  def lastMoveTimeOf(c: Color) = players(c).lastMoveTime
 
   def berserked(c: Color) = players(c).berserk
   def lag(c: Color)       = players(c).lag
@@ -169,40 +161,28 @@ case class Clock(
   def incrementSeconds     = config.incrementSeconds
   def byoyomi              = config.byoyomi
   def byoyomiSeconds       = config.byoyomiSeconds
-  def periods              = config.periods
+  def periodsTotal         = config.periodsTotal
   def limit                = config.limit
   def limitInMinutes       = config.limitInMinutes
   def limitSeconds         = config.limitSeconds
-  def startsAtZero         = config.startsAtZero
 }
 
 case class ClockPlayer(
     config: Clock.Config,
     lag: LagTracker,
     elapsed: Centis = Centis(0),
+    spentPeriods: Int = 0,
     berserk: Boolean = false,
-    curPeriod: Int = 0,
     lastMoveTime: Centis = Centis(0)
 ) {
 
-  def isUsingByoyomi = config.hasByoyomi && (curPeriod > 0 || startsAtZero) && curPeriod <= periods
-
-  def nextPeriod = copy(elapsed = elapsed - byoyomi, curPeriod = curPeriod + 1)
-
-  def addPeriod = copy(curPeriod = curPeriod - 1)
-
-  def removePeriod = copy(curPeriod = curPeriod + 1)
-
-  def hasPeriodsLeft = periods > curPeriod && config.hasByoyomi
-
-  def limit = {
+  def limit =
     if (berserk) config.initTime - config.berserkPenalty
     else config.initTime
-  }
 
   def recordLag(l: Centis) = copy(lag = lag.recordLag(l))
 
-  def isInit = elapsed.centis == 0
+  def periodsLeft = math.max((periodsTotal - spentPeriods), 0)
 
   def remaining = limit - elapsed
 
@@ -212,17 +192,17 @@ case class ClockPlayer(
 
   def setRemaining(t: Centis) = copy(elapsed = limit - t)
 
-  def startsAtZero = config.startsAtZero
+  def setPeriods(p: Int) = copy(spentPeriods = p)
+
+  def spendPeriods(p: Int) = copy(spentPeriods = spentPeriods + p)
+
+  def refundPeriods(p: Int) = spendPeriods(-(math.min(p, spentPeriods)))
 
   def increment = if (berserk) Centis(0) else config.increment
 
   def byoyomi = if (berserk) Centis(0) else config.byoyomi
 
-  def periods = {
-    if (berserk) 0
-    else if (startsAtZero) config.periods - 1
-    else config.periods
-  }
+  def periodsTotal = if (berserk) 0 else config.periodsTotal
 }
 
 object ClockPlayer {
@@ -230,7 +210,7 @@ object ClockPlayer {
     ClockPlayer(
       config,
       LagTracker.init(config)
-    )
+    ).setPeriods(config.initPeriod)
 }
 
 object Clock {
@@ -245,7 +225,7 @@ object Clock {
     def emergSeconds = math.min(90, math.max(10, limitSeconds / 8))
 
     // Estimate 60 moves (per player) per game
-    def estimateTotalSeconds = limitSeconds + 60 * incrementSeconds + 25 * periods * byoyomiSeconds
+    def estimateTotalSeconds = limitSeconds + 60 * incrementSeconds + 25 * periodsTotal * byoyomiSeconds
 
     def estimateTotalTime = Centis.ofSeconds(estimateTotalSeconds)
 
@@ -259,9 +239,26 @@ object Clock {
 
     def limit = Centis.ofSeconds(limitSeconds)
 
+    def periodsTotal =
+      if (hasByoyomi) math.max(periods, 1)
+      else 0
+
     def limitInMinutes = limitSeconds / 60d
 
     def toClock = Clock(this)
+
+    def startsAtZero = limitSeconds == 0 && hasByoyomi
+
+    def berserkPenalty =
+      if (limitSeconds < 60 * incrementSeconds || limitSeconds < 25 * byoyomiSeconds) Centis(0)
+      else Centis(limitSeconds * (100 / 2))
+
+    def initTime =
+      if (limitSeconds == 0 && hasByoyomi) byoyomi atLeast Centis(500)
+      else if (limitSeconds == 0) increment atLeast Centis(500)
+      else limit
+
+    def initPeriod = if (startsAtZero) 1 else 0
 
     def limitString: String =
       limitSeconds match {
@@ -277,23 +274,11 @@ object Clock {
 
     def byoyomiString: String = if (hasByoyomi || !hasIncrement) s"|${byoyomiSeconds}" else ""
 
-    def periodsString: String = if (periods > 1) s"(${periods}x)" else ""
+    def periodsString: String = if (periodsTotal > 1) s"(${periodsTotal}x)" else ""
 
     def show = toString
 
     override def toString = s"${limitString}${incrementString}${byoyomiString}${periodsString}"
-
-    def startsAtZero = limitSeconds == 0 && hasByoyomi
-
-    def berserkPenalty =
-      if (limitSeconds < 60 * incrementSeconds || limitSeconds < 25 * byoyomiSeconds) Centis(0)
-      else Centis(limitSeconds * (100 / 2))
-
-    def initTime = {
-      if (limitSeconds == 0 && hasByoyomi) byoyomi atLeast Centis(500)
-      else if (limitSeconds == 0) increment atLeast Centis(500)
-      else limit
-    }
   }
 
   def parseJPTime(str: String): Option[Int] = {

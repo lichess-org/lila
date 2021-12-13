@@ -130,7 +130,7 @@ final class PlaybanApi(
           else
             game.clock
               .filter {
-                _.remainingTime(loser.color) < Centis(1000) &&
+                _.currentClockFor(loser.color).time < Centis(1000) &&
                 game.turnOf(loser) &&
                 Status.Resign.is(status)
               }

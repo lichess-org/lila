@@ -113,7 +113,7 @@ case class HookConfig(
       time = game.clock.map(_.limitInMinutes) | time,
       increment = game.clock.map(_.incrementSeconds) | increment,
       byoyomi = game.clock.map(_.byoyomiSeconds) | byoyomi,
-      periods = game.clock.map(_.periods) | periods,
+      periods = game.clock.map(_.periodsTotal) | periods,
       days = game.daysPerTurn | days,
       mode = game.mode
     )

@@ -24,7 +24,7 @@ final case class ApiAiConfig(
   val days      = ~daysO
   val increment = clock.??(_.increment.roundSeconds)
   val byoyomi   = clock.??(_.byoyomi.roundSeconds)
-  val periods   = clock.??(_.periods)
+  val periods   = clock.??(_.periodsTotal)
   val time      = clock.??(_.limit.roundSeconds / 60)
   val timeMode =
     if (clock.isDefined) TimeMode.RealTime

@@ -316,7 +316,7 @@ final class GameApiV2(
           "initial"   -> clock.limitSeconds,
           "increment" -> clock.incrementSeconds,
           "byoyomi"   -> clock.byoyomiSeconds,
-          "periods"   -> clock.periods,
+          "periods"   -> clock.periodsTotal,
           "totalTime" -> clock.estimateTotalSeconds
         )
       })

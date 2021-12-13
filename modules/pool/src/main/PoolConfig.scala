@@ -30,7 +30,7 @@ object PoolConfig {
       "lim"  -> p.clock.limitInMinutes,
       "inc"  -> p.clock.incrementSeconds,
       "byo"  -> p.clock.byoyomiSeconds,
-      "per"  -> p.clock.periods,
+      "per"  -> p.clock.periodsTotal,
       "perf" -> p.perfType.trans(lila.i18n.defaultLang)
     )
   }

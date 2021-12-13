@@ -1,5 +1,5 @@
 import { updateElements } from './clockView';
-import { RoundData } from '../interfaces';
+import { Redraw, RoundData } from '../interfaces';
 import * as game from 'game';
 
 export type Seconds = number;
@@ -8,6 +8,7 @@ export type Millis = number;
 
 interface ClockOpts {
   onFlag(): void;
+  redraw: Redraw;
   soundColor?: Color;
   nvui: boolean;
 }
@@ -89,7 +90,7 @@ export class ClockController {
   byoyomi: number;
   initial: number;
 
-  startPeriod: number;
+  totalPeriods: number;
   curPeriods = {} as ColorMap<number>;
 
   private tickCallback?: number;
@@ -107,7 +108,7 @@ export class ClockController {
     this.byoyomi = cdata.byoyomi;
     this.initial = cdata.initial;
 
-    this.startPeriod = cdata.periods;
+    this.totalPeriods = cdata.periods;
     this.curPeriods['sente'] = cdata.sPeriods ?? 0;
     this.curPeriods['gote'] = cdata.gPeriods ?? 0;
 
@@ -188,7 +189,10 @@ export class ClockController {
     const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
     this.scheduleTick(millis, color, 0);
-    if (millis === 0) this.opts.onFlag();
+    if (millis === 0 && this.byoyomi > 0 && this.curPeriods[color] < this.totalPeriods) {
+      this.nextPeriod(color);
+      this.opts.redraw();
+    } else if (millis === 0) this.opts.onFlag();
     else updateElements(this, this.elements[color], millis, color);
 
     if (this.opts.soundColor === color) {

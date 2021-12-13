@@ -58,7 +58,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
             }),
             renderByoyomiTime(
               clock.byoyomi,
-              clock.startPeriod - clock.curPeriods[player.color],
+              clock.totalPeriods - clock.curPeriods[player.color],
               ctrl.goneBerserk[player.color]
             ),
           ]),
@@ -77,9 +77,12 @@ const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
 function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean = false) {
-  const byo = !berserk && byoyomi > 0 ? `+${byoyomi}s` : '';
-  const per = !berserk && periods > 1 ? `(${periods}x)` : '';
-  return h('div.byoyomi', byo + per);
+  const perStr = periods > 1 ? `(${periods}x)` : '';
+  return h(
+    `div.byoyomi.per${periods}`,
+    { berserk: berserk },
+    !berserk && byoyomi && periods ? `+${byoyomi}s${perStr}` : ''
+  );
 }
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {

@@ -24,19 +24,17 @@ object Rewind {
       .flatMap(_.valid) map { replay =>
       val rewindedGame = replay.state
       val color        = game.turnColor
-      val prevTurn     = game.shogi.fullMoveNumber
-      //val prevTurn     = if(color == shogi.Color.Gote) game.shogi.fullMoveNumber else game.shogi.fullMoveNumber -1
-      val refundPeriod = (game.clockHistory map (_.turnIsPresent(color, prevTurn))).getOrElse(false)
+      val turn         = game.shogi.fullMoveNumber
+      val refundPeriod = ~(game.clockHistory map (_.countSpentPeriods(color, turn)))
       val newClock = game.clock.map(_.takeback(refundPeriod)) map { clk =>
-        game.clockHistory.flatMap(_.last(color)).fold(clk) { t =>
-          {
-            val backInTime = {
-              if (clk.isUsingByoyomi(color)) clk.byoyomi
-              else t
-            }
-            clk.setRemainingTime(color, backInTime)
+        game.clockHistory
+          .flatMap { ch =>
+            if (ch.firstEnteredPeriod(color).exists(_ < turn)) clk.byoyomiOf(color).some
+            else ch.last(color)
           }
-        }
+          .fold(clk) { t =>
+            clk.setRemainingTime(color, t)
+          }
       }
       def rewindPlayer(player: Player) = player.copy(proposeTakebackAt = 0)
       val newGame = game.copy(
@@ -49,7 +47,7 @@ object Rewind {
         },
         loadClockHistory = _ =>
           game.clockHistory.map { ch =>
-            (ch.update(!color, _.dropRight(1))).dropTurn(!color, prevTurn)
+            (ch.update(!color, _.dropRight(1))).refundSpentPeriods(!color, turn)
           },
         movedAt = DateTime.now
       )

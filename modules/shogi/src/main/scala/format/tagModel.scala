@@ -235,7 +235,7 @@ object Tag {
           if (c.hasByoyomi) s"+${c.byoyomi.roundSeconds}秒"
           else ""
         val periods =
-          if (c.periods > 1) s"(${c.periods})"
+          if (c.periodsTotal > 1) s"(${c.periodsTotal})"
           else ""
         val inc =
           if (c.hasIncrement) s"+${c.increment.roundSeconds}秒"

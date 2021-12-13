@@ -23,7 +23,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
       clockByoyomi = tour.clock.byoyomiSeconds,
-      periods = tour.clock.periods,
+      periods = tour.clock.periodsTotal,
       minutes = tour.minutes,
       variant = tour.variant.id,
       position = tour.position,
