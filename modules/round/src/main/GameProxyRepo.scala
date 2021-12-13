@@ -51,7 +51,12 @@ final class GameProxyRepo(
       }.sequenceFu map { povs =>
         try {
           povs sortWith Pov.priority
-        } catch { case _: IllegalArgumentException => povs.sortBy(-_.game.movedAt.getSeconds) }
+        } catch {
+          case e: IllegalArgumentException => {
+            lila.log("round").error(s"Could not sort current games of $user: $e")
+            povs.sortBy(-_.game.movedAt.getSeconds)
+          }
+        }
       }
     }
 }

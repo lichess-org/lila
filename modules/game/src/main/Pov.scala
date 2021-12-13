@@ -79,6 +79,7 @@ object Pov {
   private def povVecOrder(a: Pov) = Vector(!a.isMyTurn, orInf(a.remainingSeconds) < 30, a.hasMoved)
 
   def priority(a: Pov, b: Pov) =
+    // sort according to (in order), my turn first, then games with 30s or less, then games not started, then games with less time on clock
     if (!a.isMyTurn && !b.isMyTurn) isFresher(a, b)
     else
       povVecOrder(a)
