@@ -11,8 +11,8 @@ class BinaryClockTest extends Specification {
   val _0_                  = "00000000"
   val since                = org.joda.time.DateTime.now.minusHours(1)
   def writeBytes(c: Clock) = BinaryFormat.clock(since) write c
-  def readBytes(bytes: ByteArray, berserk: Boolean = false): Clock =
-    (BinaryFormat.clock(since).read(bytes, berserk, false))(Sente)
+  def readBytes(bytes: ByteArray, periodEntries: PeriodEntries = PeriodEntries.default, berserk: Boolean = false): Clock =
+    (BinaryFormat.clock(since).read(bytes, periodEntries, berserk, false))(Sente)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))
 
   def write(c: Clock): List[String] = writeBytes(c).showBytes.split(',').toList
@@ -96,17 +96,30 @@ class BinaryClockTest extends Specification {
         Clock(120, 60, 0, 0) pipe { c =>
           isomorphism(c) must_== c
         }
+
+        val c5 = Clock(15, 0, 10, 1).giveTime(Sente, Centis.ofSeconds(-20)).start
+        isomorphism(c5).timer.get.value must beCloseTo(c5.timer.get.value, 10)
+        isomorphism(c5).currentClockFor(Sente) pipe { cc =>
+          cc.periods must_== 1
+          cc.time.centis must beCloseTo(500, 10)
+        }
       }
 
       "with berserk" in {
         val b1 = clock.goBerserk(Sente)
-        readBytes(writeBytes(b1), true) must_== b1
+        readBytes(writeBytes(b1), berserk = true) must_== b1
 
         val b2 = clock.giveTime(Sente, Centis(15)).goBerserk(Sente)
-        readBytes(writeBytes(b2), true) must_== b2
+        readBytes(writeBytes(b2), berserk = true) must_== b2
 
         val b3 = Clock(60, 2, 0, 0).goBerserk(Sente)
-        readBytes(writeBytes(b3), true) must_== b3
+        readBytes(writeBytes(b3), berserk = true) must_== b3
+      }
+
+      "periods" in {
+        val b1 = Clock(60, 0, 10, 2).updatePlayer(Sente)(_.spendPeriods(1))
+        val pe = PeriodEntries.default.update(Sente, _ => Vector(5))
+        readBytes(writeBytes(b1), periodEntries = pe) must_== b1
       }
     }
   }

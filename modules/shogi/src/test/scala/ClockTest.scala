@@ -15,6 +15,24 @@ class ClockTest extends ShogiTest {
     })
     .start
 
+  val fakeClockByo = Clock(15, 0, 5, 1)
+    .copy(timestamper = new Timestamper {
+      val now = Timestamp(0)
+    })
+    .start
+
+  val fakeClockZero = Clock(0, 0, 10, 1)
+    .copy(timestamper = new Timestamper {
+      val now = Timestamp(0)
+    })
+    .start
+
+  val fakeClockPeriods = Clock(10, 0, 10, 3)
+    .copy(timestamper = new Timestamper {
+      val now = Timestamp(0)
+    })
+    .start
+
   def advance(c: Clock, t: Int) =
     c.copy(timestamper = new Timestamper {
       val now = c.timestamper.now + Centis(t)
@@ -45,6 +63,17 @@ class ClockTest extends ShogiTest {
     "with 30 seconds" in {
       Clock(30, 0, 0, 0).limitInMinutes must_== 0.5
     }
+    "with time and byo" in {
+      val c = Clock(30, 0, 10, 1)
+      c.limitInMinutes must_== 0.5
+      c.spentPeriodsOf(Sente) must_== 0
+      c.spentPeriodsOf(Gote) must_== 0
+    }
+    "without limit, only byo" in {
+      val c = Clock(0, 0, 10, 1)
+      c.spentPeriodsOf(Sente) must_== 1
+      c.spentPeriodsOf(Gote) must_== 1
+    }
   }
   "lag compensation" should {
     def durOf(lag: Int) = MoveMetrics(clientLag = Option(Centis(lag)))
@@ -52,7 +81,7 @@ class ClockTest extends ShogiTest {
     def clockStep(clock: Clock, wait: Int, lags: Int*) = {
       (lags.foldLeft(clock) { (clk, lag) =>
         advance(clk.step(), wait + lag) step durOf(lag)
-      } remainingTime Gote).centis
+      } currentClockFor Gote).time.centis
     }
 
     def clockStep60(w: Int, l: Int*)  = clockStep(fakeClock60, w, l: _*)
@@ -60,7 +89,7 @@ class ClockTest extends ShogiTest {
 
     def clockStart(lag: Int) = {
       val clock = fakeClock60.step()
-      ((clock step durOf(lag)) remainingTime Sente).centis
+      ((clock step durOf(lag)) currentClockFor Sente).time.centis
     }
 
     "start" in {
@@ -135,23 +164,79 @@ class ClockTest extends ShogiTest {
   "live time checks" in {
     "60s stall" in {
       val clock60 = advance(fakeClock60, 60 * 100)
+      val cc = clock60.currentClockFor(Sente)
 
-      clock60.remainingTime(Sente).centis must_== 0
+      cc.time.centis must_== 0
+      cc.periods must_== 0
       clock60.outOfTime(Gote, withGrace = true) must beFalse
       clock60.outOfTime(Sente, withGrace = true) must beFalse
       clock60.outOfTime(Sente, withGrace = false) must beTrue
     }
     "61s stall" in {
       val clock61 = advance(fakeClock60, 61 * 100)
-      clock61.remainingTime(Sente).centis must_== 0
+      val cc = clock61.currentClockFor(Sente)
+
+      cc.time.centis must_== 0
+      cc.periods must_== 0
       clock61.outOfTime(Sente, withGrace = true) must beFalse
+
+      advance(fakeClock60, 63 * 100).outOfTime(Sente, withGrace = true) must beTrue
     }
+    "byoyomi clock before entering byoyomi" in {
+      val clock10 = advance(fakeClockByo, 10 * 100)
+      val cc = clock10.currentClockFor(Sente)
+
+      cc.time.centis must_== 5 * 100
+      cc.periods must_== 0
+      clock10.outOfTime(Gote, withGrace = false) must beFalse
+      clock10.outOfTime(Sente, withGrace = false) must beFalse
+    }
+    "entering byoyomi, still having byo time" in {
+      val clock17 = advance(fakeClockByo, 19 * 100)
+      val cc = clock17.currentClockFor(Sente)
+
+      cc.time.centis must_== 1 * 100
+      cc.periods must_== 1
+      clock17.outOfTime(Sente, withGrace = false) must beFalse
+    }
+    "entering byoyomi, not having byo time" in {
+      val clock20 = advance(fakeClockByo, 20 * 100)
+      val cc = clock20.currentClockFor(Sente)
+
+      cc.time.centis must_== 0
+      cc.periods must_== 1
+      clock20.outOfTime(Sente, withGrace = false) must beTrue
+    }
+    "10s stall for zero clock with byo" in {
+      val clock10 = advance(fakeClockZero, 10 * 100)
+      val cc = clock10.currentClockFor(Sente)
+
+      cc.time.centis must_== 0
+      cc.periods must_== 1
+      clock10.outOfTime(Sente, withGrace = true) must beFalse
+      clock10.outOfTime(Sente, withGrace = false) must beTrue
+    }
+    "11s stall for zero clock with byo" in {
+      val clock11 = advance(fakeClockZero, 11 * 100)
+
+      clock11.currentClockFor(Sente).time.centis must_== 0
+      clock11.outOfTime(Sente, withGrace = true) must beFalse
+    }
+    "spanning over multiple periods" in {
+      val clockPers = advance(fakeClockPeriods, 32 * 100)
+      val cc = clockPers.currentClockFor(Sente)
+
+      cc.time.centis must_== 8 * 100
+      cc.periods must_== 3
+      clockPers.outOfTime(Sente, withGrace = false) must beFalse
+    }
+    
     "over quota stall" >> advance(fakeClock60, 6190).outOfTime(Sente, true)
     "stall within quota" >> !advance(fakeClock600, 60190).outOfTime(Sente, true)
     "max grace stall" >> advance(fakeClock600, 602 * 100).outOfTime(Sente, true)
   }
 
-  "Kif config" in {
+  "kif config" in {
     "everything" in {
       Clock.readKifConfig("10分|20秒(1)+0秒") must_== Option(Clock.Config(600, 0, 20, 1))
     }

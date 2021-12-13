@@ -24,7 +24,7 @@ case class Clock(
   private def periodsInUse(c: Color, t: Centis): Int = {
     val player          = players(c)
     val remainingAfterT = player.remaining - t
-    if (isRunning && !remainingAfterT.isPositive && player.byoyomi.centis > 0)
+    if (isRunning && !remainingAfterT.isPositive && player.byoyomi.isPositive)
       math.min((-remainingAfterT.centis / player.byoyomi.centis) + 1, player.periodsLeft)
     else 0
   }
