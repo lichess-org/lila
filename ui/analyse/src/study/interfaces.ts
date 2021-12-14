@@ -135,6 +135,7 @@ export interface StudyFeatures {
 export interface StudyChapterMeta {
   id: string;
   name: string;
+  variant: VariantKey;
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {

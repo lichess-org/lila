@@ -32,6 +32,7 @@ export function ctrl(
     current({
       id: data.id,
       name: data.name,
+      variant: data.variant,
     });
     chapterConfig(data.id).then(d => {
       current(d!);

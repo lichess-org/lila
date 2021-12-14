@@ -14,7 +14,6 @@ interface StudyShareCtrl {
   relay: boolean;
   cloneable: boolean;
   notation: number;
-  variant: VariantKey;
   offset: number;
   redraw: () => void;
   trans: Trans;
@@ -24,7 +23,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove(
     {
       notation: ctrl.notation,
-      variant: ctrl.variant,
+      variant: ctrl.chapter().variant,
       withDots: true,
       showEval: false,
       offset: ctrl.offset,
@@ -58,7 +57,6 @@ export function ctrl(
   relay: boolean,
   redraw: () => void,
   notation: number,
-  variant: VariantKey,
   offset: number,
   trans: Trans
 ): StudyShareCtrl {
@@ -74,7 +72,6 @@ export function ctrl(
     relay,
     cloneable: data.features.cloneable,
     notation: notation,
-    variant: variant,
     redraw,
     trans,
     offset,
@@ -188,18 +185,20 @@ export function view(ctrl: StudyShareCtrl): VNode {
         },
         ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterKif')
       ),
-      h(
-        'a.button.text',
-        {
-          attrs: {
-            'data-icon': 'x',
-            href: `/study/${studyId}/${chapter.id}.csa`,
-            download: true,
-          },
-        },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterCsa')
-      ),
-      ['standard', 'fromPosition'].includes(ctrl.variant)
+      ['standard', 'fromPosition'].includes(chapter.variant)
+        ? h(
+            'a.button.text',
+            {
+              attrs: {
+                'data-icon': 'x',
+                href: `/study/${studyId}/${chapter.id}.csa`,
+                download: true,
+              },
+            },
+            ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterCsa')
+          )
+        : null,
+      ['standard', 'fromPosition'].includes(chapter.variant)
         ? h(
             'a.button.text',
             {

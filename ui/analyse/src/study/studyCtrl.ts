@@ -277,7 +277,6 @@ export default function (
     !!relay,
     redraw,
     ctrl.data.pref.pieceNotation,
-    ctrl.data.game.variant.key,
     ctrl.plyOffset(),
     ctrl.trans
   );

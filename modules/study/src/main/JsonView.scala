@@ -202,7 +202,7 @@ object JsonView {
   }
   implicit private val chapterSetupWrites = Json.writes[Chapter.Setup]
   implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
-    Json.obj("id" -> c._id, "name" -> c.name)
+    Json.obj("id" -> c._id, "name" -> c.name, "variant" -> c.setup.variant.key)
   }
 
   implicit private[study] val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
