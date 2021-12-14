@@ -123,11 +123,12 @@ case class Clock(
       }
     }).switch
 
-  def takeback(p: Int) = {
-    updatePlayer(color) {
+  def takeback = switch
+
+  def refundPeriods(c: Color, p: Int) =
+    updatePlayer(c) {
       _.refundPeriods(p)
     }
-  } switch
 
   def giveTime(c: Color, t: Centis) =
     updatePlayer(c) {

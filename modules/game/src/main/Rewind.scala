@@ -25,8 +25,8 @@ object Rewind {
       val rewindedGame = replay.state
       val color        = game.turnColor
       val turn         = game.shogi.fullMoveNumber
-      val refundPeriod = ~(game.clockHistory map (_.countSpentPeriods(color, turn)))
-      val newClock = game.clock.map(_.takeback(refundPeriod)) map { clk =>
+      val refundPeriod = ~(game.clockHistory map (_.countSpentPeriods(!color, turn)))
+      val newClock = game.clock.map(_.refundPeriods(!color, refundPeriod).takeback) map { clk =>
         game.clockHistory
           .flatMap { ch =>
             if (ch.firstEnteredPeriod(color).exists(_ < turn)) clk.byoyomiOf(color).some
