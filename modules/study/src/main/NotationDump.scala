@@ -32,7 +32,8 @@ final class NotationDump(
         chapter.root.shapes
       ).toList
     )
-    if (flags.csa) Csa(tags, moves, initial) else Kif(tags, moves, initial)
+    if (flags.csa && chapter.setup.variant.standardBased) Csa(tags, moves, initial)
+    else Kif(tags, moves, initial)
   }
 
   private val fileR = """[\s,]""".r
