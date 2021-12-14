@@ -8,6 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.ContentSecurityPolicy
 import lila.common.String.html.safeJsonValue
+import lila.common.base.StringUtils.escapeHtmlRaw
 
 import controllers.routes
 
@@ -159,8 +160,6 @@ object layout {
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")
 
-  val transpBgProxy = "https://lishogi.ovh/trbg/"
-
   def apply(
       title: String,
       fullTitle: Option[String] = None,
@@ -213,7 +212,8 @@ object layout {
           ),
           ctx.transpBgImg map { img =>
             raw(
-              s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$transpBgProxy$img');}</style>"""
+              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
+                .replace("&amp;", "&")}");}</style>"""
             )
           },
           fontPreload,
