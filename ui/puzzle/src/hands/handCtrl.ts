@@ -30,6 +30,12 @@ export function drag(ctrl: Controller, e: cg.MouchEvent): void {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
+  const sg = ctrl.ground();
+  if (sg && ctrl.vm.dropmodeActive && role !== sg.state.dropmode.piece?.role) {
+    cancelDropMode(sg.state);
+    ctrl.vm.dropmodeActive = false;
+    ctrl.redraw();
+  }
   dragNewPiece(ctrl.ground()!.state, { color, role }, e);
 }
 

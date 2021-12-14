@@ -26,6 +26,11 @@ export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
+  if (ctrl.dropmodeActive && role !== ctrl.shogiground.state.dropmode.piece?.role) {
+    cancelDropMode(ctrl.shogiground.state);
+    ctrl.dropmodeActive = false;
+    ctrl.redraw();
+  }
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
 }
 
