@@ -129,13 +129,15 @@ final class PlaybanApi(
             save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
           else
             game.clock
-              .filter {
-                _.currentClockFor(loser.color).time < Centis(1000) &&
+              .filter { c =>
+                val cc = c.currentClockFor(loser.color)
+                cc.time < Centis(1000) &&
+                cc.periods == c.periodsTotal &&
                 game.turnOf(loser) &&
                 Status.Resign.is(status)
               }
               .map { c =>
-                (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
+                (c.estimateTotalSeconds / 10) atLeast 30 atMost (3 * 60)
               }
               .exists(_ < nowSeconds - game.movedAt.getSeconds)
               .option {
