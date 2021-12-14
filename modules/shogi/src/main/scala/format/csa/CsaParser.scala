@@ -55,7 +55,6 @@ object CsaParser {
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>
-        println(csa)
         sys error "### StackOverflowError ### in CSA parser"
     }
 

@@ -91,7 +91,6 @@ object KifParser {
       } yield ParsedNotation(init, tags, parsedMoves)
     } catch {
       case _: StackOverflowError =>
-        println(kif)
         sys error "### StackOverflowError ### in KIF parser"
     }
 
