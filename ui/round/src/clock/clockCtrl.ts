@@ -92,6 +92,7 @@ export class ClockController {
 
   totalPeriods: number;
   curPeriods = {} as ColorMap<number>;
+  goneBerserk = {} as ColorMap<boolean>;
 
   private tickCallback?: number;
 
@@ -111,6 +112,9 @@ export class ClockController {
     this.totalPeriods = cdata.periods;
     this.curPeriods['sente'] = cdata.sPeriods ?? 0;
     this.curPeriods['gote'] = cdata.gPeriods ?? 0;
+
+    this.goneBerserk[d.player.color] = !!d.player.berserk;
+    this.goneBerserk[d.opponent.color] = !!d.opponent.berserk;
 
     this.showBar['sente'] = cdata.showBar && !this.opts.nvui && this.curPeriods['sente'] === 0;
     this.showBar['gote'] = cdata.showBar && !this.opts.nvui && this.curPeriods['gote'] === 0;
@@ -145,6 +149,10 @@ export class ClockController {
 
   addTime = (color: Color, time: Centis): void => {
     this.times[color] += time * 10;
+  };
+
+  setBerserk = (color: Color): void => {
+    this.goneBerserk[color] = true;
   };
 
   nextPeriod = (color: Color): void => {
@@ -189,7 +197,7 @@ export class ClockController {
     const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
     this.scheduleTick(millis, color, 0);
-    if (millis === 0 && this.byoyomi > 0 && this.curPeriods[color] < this.totalPeriods) {
+    if (millis === 0 && !this.goneBerserk[color] && this.byoyomi > 0 && this.curPeriods[color] < this.totalPeriods) {
       this.nextPeriod(color);
       this.opts.redraw();
     } else if (millis === 0) this.opts.onFlag();

@@ -620,6 +620,7 @@ export default class RoundController {
   };
 
   setBerserk = (color: Color): void => {
+    if (this.clock) this.clock.setBerserk(color);
     if (this.goneBerserk[color]) return;
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) li.sound.berserk();
