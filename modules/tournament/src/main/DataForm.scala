@@ -121,7 +121,7 @@ final class DataForm {
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(TournamentSetup.unapply)
       .verifying("Invalid clock", _.validClock)
-      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
+      .verifying("Games with this time control cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
 }

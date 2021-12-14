@@ -143,9 +143,9 @@ case class Game(
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
-      // Also if we timed out over a period or periods, we need to calculate
+      // Also if we timed out over a period or periods, we need to
       // multiply byoyomi by number of periods entered that turn and add
-      // previous remaining time, which could be either be byoyomi or
+      // previous remaining time, which could either be byoyomi or
       // remaining time
       val byoyomiStart = history.firstEnteredPeriod(color)
       val byoyomiTimeout =
