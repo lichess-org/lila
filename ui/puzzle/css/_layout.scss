@@ -64,7 +64,7 @@ $pocket-col1-height: auto;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
-    grid-template-rows: $square-max fit-content(0) $square-max;
+    grid-template-rows: $square-max-taller fit-content(0) $square-max-taller;
     grid-template-areas:
       'board   gauge pocket-top'
       'board   gauge tools'
@@ -87,7 +87,6 @@ $pocket-col1-height: auto;
     grid-template-columns:
       $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap)
       $col3-uniboard-table;
-    grid-template-rows: $square-max fit-content(0) $square-max;
   }
 
   &__side {
