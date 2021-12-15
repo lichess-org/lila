@@ -209,7 +209,7 @@ case class Game(
       clk <- game.clock
       ch  <- clockHistory
     } yield ch
-      .record(turnColor, clk, game.fullMoveNumber)
+      .record(turnColor, clk, shogi.fullMoveNumber)
 
     val updated = copy(
       sentePlayer = copyPlayer(sentePlayer),
