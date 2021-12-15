@@ -76,7 +76,7 @@ object Pov {
     val bDate = b.game.movedAt.getSeconds
     aDate > bDate
   }
-  private def povVecOrder(a: Pov) = Vector(!a.isMyTurn, orInf(a.remainingSeconds) < 30, a.hasMoved)
+  private def povVecOrder(a: Pov) = Vector(!a.isMyTurn, orInf(a.remainingSeconds) > 30, a.hasMoved)
 
   def priority(a: Pov, b: Pov) =
     // sort according to (in order), my turn first, then games with 30s or less, then games not started, then games with less time on clock
