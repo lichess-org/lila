@@ -1,6 +1,6 @@
 var shogi = require('shogiops');
 var sfen = require('shogiops/fen');
-var util = require('shogiops/util');
+var util = require('shogiops/variantUtil');
 
 $(function () {
   lishogi.requestIdleCallback(function () {
@@ -50,7 +50,7 @@ $(function () {
                       key,
                       {
                         color: piece.color,
-                        role: util.promote(piece.role),
+                        role: util.promote('shogi')(piece.role),
                         promoted: true,
                       },
                     ],
