@@ -68,16 +68,15 @@ final class FishnetApi(
             $doc("lastTryByKey" $ne client.key) // client alternation
           } ++ {
             slow ?? $doc("sender.system" -> true)
-          } ++
+          } ++ {
             $or(
               repo.selectVariants(client.getVariants.map(_.id)), // only variants client supports
-              client.isNNUE ?? {                                 // or try from position games with NNUE once
-                $and(
-                  $doc("game.variant" $eq shogi.variant.FromPosition.id),
-                  $doc("tries" $lt 1)
-                )
-              }
+              $doc(
+                "game.variant" $eq shogi.variant.FromPosition.id,
+                "tries" $lt 1
+              )
             )
+          }
         )
         .sort(
           $doc(
