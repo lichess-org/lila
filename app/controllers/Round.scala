@@ -217,7 +217,7 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && ctx.me.fold(true)(env.chat.panic.allowed) && {
+    ctx.noKid && ctx.me.fold(HTTPRequest isHuman ctx.req)(env.chat.panic.allowed) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } ?? {

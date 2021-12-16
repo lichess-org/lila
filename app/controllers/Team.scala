@@ -10,9 +10,10 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.common.HTTPRequest
+import lila.memo.RateLimit
 import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ User => UserModel, Holder }
-import lila.memo.RateLimit
 
 final class Team(
     env: Env,
@@ -76,7 +77,7 @@ final class Team(
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
       implicit ctx: Context
   ): Boolean =
-    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && {
+    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       (isGranted(_.ChatTimeout) && requestModView)
