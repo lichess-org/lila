@@ -206,10 +206,7 @@ final class Tournament(
             .flatMap { isLeader =>
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
                 negotiate(
-                  html = fuccess {
-                    if (result) Redirect(routes.Tournament.show(id))
-                    else BadRequestWithReason("wrong password maybe?")
-                  },
+                  html = Redirect(routes.Tournament.show(id)).fuccess,
                   api = _ =>
                     fuccess {
                       if (result) jsonOkResult
