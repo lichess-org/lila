@@ -162,7 +162,7 @@ case class Game(
 
           if (!pairs.hasNext && byoyomiTimeout) {
             val prevTurnByoyomi = byoyomiStart ?? (_ < turn)
-            (if (prevTurnByoyomi) first else byo) + byo * history.countSpentPeriods(color, turn)
+            (if (prevTurnByoyomi) byo else first) + byo * history.countSpentPeriods(color, turn)
           } else mt + cInc
         } nonNeg
       } toList
