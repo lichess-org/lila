@@ -70,7 +70,7 @@ object tournaments {
                   )
                 ),
               s =>
-                a(href := routes.Page.notSupported())(
+                a(href := routes.Page.notSupported)(
                   span(cls := "name")(s.name),
                   span(cls := "setup")(
                     s.clock.show,

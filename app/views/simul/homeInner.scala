@@ -53,7 +53,7 @@ object homeInner {
           },
           ctx.isAuth option tr(cls := "create")(
             td(colspan := "4")(
-              a(href := routes.Simul.form(), cls := "action button text")(trans.hostANewSimul())
+              a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
             )
           )
         ),

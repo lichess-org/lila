@@ -173,7 +173,7 @@ Allow: /
   def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
     Open { _ =>
       MovedPermanently {
-        val faq = routes.Main.faq().url
+        val faq = routes.Main.faq.url
         id match {
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
@@ -188,7 +188,7 @@ Allow: /
           case 547  => s"$faq#leaving"
           case 259  => s"$faq#trophies"
           case 342  => s"$faq#provisional"
-          case 50   => routes.Page.help().url
+          case 50   => routes.Page.help.url
           case 46   => s"$faq#name"
           case 122  => s"$faq#marks"
           case _    => faq

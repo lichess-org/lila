@@ -44,8 +44,8 @@ lishogi.insight = LishogiInsight(document.getElementById('insight'), ${safeJsonV
               "stale"   -> stale,
               "shareId" -> prefId
             ),
-            "pageUrl" -> routes.Page.notSupported().url,
-            "postUrl" -> routes.Page.notSupported().url
+            "pageUrl" -> routes.Page.notSupported.url,
+            "postUrl" -> routes.Page.notSupported.url
           )
         )});
 });""")
@@ -89,7 +89,7 @@ lishogi.insight = LishogiInsight(document.getElementById('insight'), ${safeJsonV
     )
 
   def refreshForm(u: User, action: String) =
-    postForm(cls := "insight-refresh", st.action := routes.Page.notSupported())(
+    postForm(cls := "insight-refresh", st.action := routes.Page.notSupported)(
       button(dataIcon := "E", cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,

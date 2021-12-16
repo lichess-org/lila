@@ -206,7 +206,10 @@ final class Tournament(
             .flatMap { isLeader =>
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
                 negotiate(
-                  html = Redirect(routes.Tournament.show(id)).fuccess,
+                  html = fuccess {
+                    if (result) Redirect(routes.Tournament.show(id))
+                    else BadRequestWithReason("wrong password maybe?")
+                  },
                   api = _ =>
                     fuccess {
                       if (result) jsonOkResult
@@ -260,7 +263,7 @@ final class Tournament(
     key = "tournament.ip"
   )
 
-  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home()))
+  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home))
 
   private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result]
@@ -448,7 +451,7 @@ final class Tournament(
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
           env.mod.logApi.terminateTournament(me.id, tour.name())
-          Redirect(routes.Tournament.home())
+          Redirect(routes.Tournament.home)
         }
       }
     }

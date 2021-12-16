@@ -42,7 +42,7 @@ final class Dev(env: Env) extends LilaController(env) {
                   case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
                   case _                                =>
                 }
-                Redirect(routes.Dev.settings())
+                Redirect(routes.Dev.settings)
               }
             }
           )

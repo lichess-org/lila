@@ -17,7 +17,7 @@ object categ {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Lishogi community forum",
-          url = s"$netBaseUrl${routes.ForumCateg.index().url}",
+          url = s"$netBaseUrl${routes.ForumCateg.index.url}",
           description = "Shogi discussions and feedback about Lishogi development"
         )
         .some
@@ -89,7 +89,7 @@ object categ {
       main(cls := "forum forum-categ box")(
         h1(
           a(
-            href := categ.team.fold(routes.ForumCateg.index())(routes.Team.show(_)),
+            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
             dataIcon := "I",
             cls := "text"
           ),

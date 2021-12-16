@@ -29,7 +29,7 @@ object appeal2 {
       h1("Appeal a moderation decision"),
       renderHelp,
       div(cls := "body")(
-        renderForm(textForm, action = routes.Appeal.post().url, isNew = true)
+        renderForm(textForm, action = routes.Appeal.post.url, isNew = true)
       )
     )
 
@@ -146,7 +146,7 @@ object appeal2 {
           textForm,
           action =
             if (asMod) routes.Appeal.reply(appeal.id).url
-            else routes.Appeal.post().url,
+            else routes.Appeal.post.url,
           isNew = false
         )
       )
@@ -166,14 +166,14 @@ object appeal2 {
     div(cls := "appeal__help")(
       p(
         "If your account has been restricted for violation of ",
-        a(href := routes.Page.tos())("the Lishogi rules"),
+        a(href := routes.Page.tos)("the Lishogi rules"),
         ", and you are absolutely certain that you did not break ",
-        a(href := routes.Page.tos())("said rules"),
+        a(href := routes.Page.tos)("said rules"),
         ", then you may file an appeal here."
       ),
       p(
         "If you did break ",
-        a(href := routes.Page.tos())("the Lishogi rules"),
+        a(href := routes.Page.tos)("the Lishogi rules"),
         ", even once, then your account is lost. We don't have the luxury of being forgiving."
       ),
       p(

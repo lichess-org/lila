@@ -36,17 +36,17 @@ object chatPanic {
           div(cls := "forms")(
             if (state.isDefined)
               frag(
-                postForm(action := s"${routes.Mod.chatPanicPost()}?v=0")(
+                postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
                   submitButton(cls := "button button-fat button-red text", dataIcon := "L")("Disable")
                 ),
-                postForm(action := s"${routes.Mod.chatPanicPost()}?v=1")(
+                postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
                   submitButton(cls := "button button-fat button-green text", dataIcon := "E")(
                     "Renew for two hours"
                   )
                 )
               )
             else
-              postForm(action := s"${routes.Mod.chatPanicPost()}?v=1")(
+              postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
                 submitButton(cls := "button button-fat text", dataIcon := "E")("Enable")
               )
           )

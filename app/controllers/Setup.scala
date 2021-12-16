@@ -42,7 +42,7 @@ final class Setup(
             form("fen").value flatMap ValidFen(getBool("strict"))
           )
         }
-      } else Redirect(s"${routes.Lobby.home()}#ai").fuccess
+      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
     }
 
   def ai =
@@ -66,7 +66,7 @@ final class Setup(
         }
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home()}#friend")
+          Redirect(s"${routes.Lobby.home}#friend")
         }
     }
 
@@ -121,7 +121,7 @@ final class Setup(
                         )
                       case false =>
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home())),
+                          html = fuccess(Redirect(routes.Lobby.home)),
                           api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
                         )
                     }
@@ -139,7 +139,7 @@ final class Setup(
         }
         else
           fuccess {
-            Redirect(s"${routes.Lobby.home()}#hook")
+            Redirect(s"${routes.Lobby.home}#hook")
           }
       }
     }

@@ -95,7 +95,7 @@ object mine {
             div(cls := "follow-up")(
               h1("Challenge declined"),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
@@ -109,7 +109,7 @@ object mine {
             div(cls := "follow-up")(
               h1("Challenge canceled."),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }
       )

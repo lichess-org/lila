@@ -67,7 +67,7 @@ object theirs {
                       "You must ",
                       a(
                         cls := "button",
-                        href := s"${routes.Auth.login()}?referrer=${routes.Round.watcher(c.id, "sente")}"
+                        href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "sente")}"
                       )(trans.signIn()),
                       " to join it."
                     )
@@ -78,7 +78,7 @@ object theirs {
             div(cls := "follow-up")(
               h1("Challenge declined"),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
@@ -96,7 +96,7 @@ object theirs {
             div(cls := "follow-up")(
               h1("Challenge canceled."),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }
       )

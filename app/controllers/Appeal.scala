@@ -25,7 +25,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
             env.appeal.api.mine(me) map { appeal =>
               BadRequest(html.appeal2.home(appeal, err))
             },
-          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home()).flashSuccess
+          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
         )
     }
 

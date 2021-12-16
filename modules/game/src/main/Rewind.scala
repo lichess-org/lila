@@ -26,7 +26,7 @@ object Rewind {
       val color        = game.turnColor
       val turn         = rewindedGame.fullMoveNumber
       val refundPeriod = ~(game.clockHistory map (_.countSpentPeriods(!color, turn)))
-      
+
       val newClock = game.clock.map(_.refundPeriods(!color, refundPeriod).takeback) map { clk =>
         game.clockHistory
           .flatMap { ch =>

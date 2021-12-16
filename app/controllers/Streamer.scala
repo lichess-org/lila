@@ -68,8 +68,8 @@ final class Streamer(
         NoLame {
           NoShadowban {
             api find me flatMap {
-              case None => api.create(me) inject Redirect(routes.Streamer.edit())
-              case _    => Redirect(routes.Streamer.edit()).fuccess
+              case None => api.create(me) inject Redirect(routes.Streamer.edit)
+              case _    => Redirect(routes.Streamer.edit).fuccess
             }
           }
         }
@@ -114,13 +114,13 @@ final class Streamer(
                     env.streamer.pager.nextRequestId map { nextId =>
                       Redirect {
                         nextId.fold(s"${routes.Streamer.index()}?requests=1") { id =>
-                          s"${routes.Streamer.edit().url}?u=$id"
+                          s"${routes.Streamer.edit.url}?u=$id"
                         }
                       }
                     }
                   else {
                     val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
-                    Redirect(s"${routes.Streamer.edit().url}${next}").fuccess
+                    Redirect(s"${routes.Streamer.edit.url}${next}").fuccess
                   }
                 }
             )
@@ -130,7 +130,7 @@ final class Streamer(
 
   def approvalRequest =
     AuthBody { _ => me =>
-      api.approval.request(me) inject Redirect(routes.Streamer.edit())
+      api.approval.request(me) inject Redirect(routes.Streamer.edit)
     }
 
   def picture =
@@ -147,8 +147,8 @@ final class Streamer(
           case Some(pic) =>
             api.uploadPicture(s.streamer, pic) recover { case e: lila.base.LilaException =>
               BadRequest(html.streamer.picture(s, e.message.some))
-            } inject Redirect(routes.Streamer.edit())
-          case None => fuccess(Redirect(routes.Streamer.edit()))
+            } inject Redirect(routes.Streamer.edit)
+          case None => fuccess(Redirect(routes.Streamer.edit))
         }
       }
     }
@@ -156,7 +156,7 @@ final class Streamer(
   def pictureDelete =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
-        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit())
+        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit)
       }
     }
 

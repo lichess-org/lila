@@ -28,7 +28,7 @@ object form {
             if (fields.isTeamBattle) "New Team Battle"
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create())(
+          postForm(cls := "form3", action := routes.Tournament.create)(
             form3.globalError(form),
             fields.name,
             form3.split(fields.rated, fields.variant),
@@ -45,7 +45,7 @@ object form {
             ),
             fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
             form3.actions(
-              a(href := routes.Tournament.home())(trans.cancel()),
+              a(href := routes.Tournament.home)(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = "g".some)
             )
           )
@@ -201,7 +201,7 @@ object form {
     "It only works for standard games, not with variants.",
     br,
     "You can use the ",
-    a(href := routes.Editor.index(), target := "_blank")("board editor"),
+    a(href := routes.Editor.index, target := "_blank")("board editor"),
     " to generate a SFEN position, then paste it here.",
     br,
     "Leave empty to start games from the normal initial position."

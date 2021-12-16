@@ -22,22 +22,22 @@ object bits {
     ~currentTab pipe { tab =>
       st.nav(cls := "page-menu__menu subnav")(
         (ctx.teamNbRequests > 0) option
-          a(cls := tab.active("requests"), href := routes.Team.requests())(
+          a(cls := tab.active("requests"), href := routes.Team.requests)(
             xJoinRequests.pluralSame(ctx.teamNbRequests)
           ),
         ctx.isAuth option
-          a(cls := tab.active("mine"), href := routes.Team.mine())(
+          a(cls := tab.active("mine"), href := routes.Team.mine)(
             myTeams()
           ),
         ctx.isAuth option
-          a(cls := tab.active("leader"), href := routes.Team.leader())(
+          a(cls := tab.active("leader"), href := routes.Team.leader)(
             "Leader teams"
           ),
         a(cls := tab.active("all"), href := routes.Team.all())(
           allTeams()
         ),
         ctx.isAuth option
-          a(cls := tab.active("form"), href := routes.Team.form())(
+          a(cls := tab.active("form"), href := routes.Team.form)(
             newTeam()
           )
       )

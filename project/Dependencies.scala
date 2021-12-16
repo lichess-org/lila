@@ -18,7 +18,7 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
-  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.2" % "compile"
+  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.1.1" % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.3.0"
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "3.6.0"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.10.0"
@@ -53,19 +53,19 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.2"
+    val version = "2.8.8"
     val api     = "com.typesafe.play" %% "play"      % version
     val json    = "com.typesafe.play" %% "play-json" % "2.9.2"
   }
   object kamon {
-    val version    = "2.1.12"
+    val version    = "2.2.3"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.5"
+    val version    = "2.6.14"
     val akka       = "com.typesafe.akka" %% "akka-actor"       % version
     val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version

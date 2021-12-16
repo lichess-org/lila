@@ -31,7 +31,7 @@ LishogiLearn(document.getElementById('learn-app'), ${safeJsonValue(
         .OpenGraph(
           title = "Learn shogi by playing",
           description = "You don't know much about shogi? Excellent! Let's have fun and learn to play shogi!",
-          url = s"$netBaseUrl${routes.Learn.index()}"
+          url = s"$netBaseUrl${routes.Learn.index}"
         )
         .some,
       zoomable = true

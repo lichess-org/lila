@@ -34,13 +34,13 @@ final class OAuthToken(env: Env) extends LilaController(env) {
           err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
           setup =>
             tokenApi.create(setup make me) inject
-              Redirect(routes.OAuthToken.index()).flashSuccess
+              Redirect(routes.OAuthToken.index).flashSuccess
         )
     }
 
   def delete(id: String) =
     Auth { _ => me =>
       tokenApi.deleteBy(AccessToken.Id(id), me) inject
-        Redirect(routes.OAuthToken.index()).flashSuccess
+        Redirect(routes.OAuthToken.index).flashSuccess
     }
 }

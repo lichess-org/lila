@@ -16,7 +16,7 @@ object bits {
     a(
       dataIcon := "g",
       cls := "text",
-      href := routes.Page.notSupported().url
+      href := routes.Page.notSupported.url
     )(name)
 
   def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
@@ -32,7 +32,7 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
+        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage())
       )
     }
 
@@ -48,7 +48,7 @@ object bits {
           )(
             td(cls := "icon")(iconTag(iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Page.notSupported())(
+              a(href := routes.Page.notSupported)(
                 span(cls := "name")(s.name),
                 span(cls := "setup")(
                   s.clock.show,

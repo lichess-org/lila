@@ -2,6 +2,7 @@ package controllers
 
 import ornicar.scalalib.Zero
 import play.api.data.Form
+import play.api.data.FormBinding
 import play.api.http._
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Writes }
@@ -41,6 +42,8 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit protected def LilaFragToResult(frag: Frag): Result = Ok(frag)
 
   implicit protected def makeApiVersion(v: Int) = ApiVersion(v)
+
+  implicit protected lazy val formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val jsonOkBody   = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
@@ -451,7 +454,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
-        Redirect(routes.Auth.signup()) withCookies env.lilaCookie
+        Redirect(routes.Auth.signup) withCookies env.lilaCookie
           .session(env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ =>
@@ -576,7 +579,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def XhrOrRedirectHome(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res
-    else Redirect(routes.Lobby.home()).fuccess
+    else Redirect(routes.Lobby.home).fuccess
 
   protected def Reasonable(
       page: Int,
@@ -647,6 +650,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
+
+  protected def makeCustomResult(status: Int, reasonPhrase: String) =
+    Result(
+      header = new ResponseHeader(status, reasonPhrase = reasonPhrase.some).pp,
+      body = play.api.http.HttpEntity.NoEntity
+    )
 
   protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
 

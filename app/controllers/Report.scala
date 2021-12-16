@@ -44,7 +44,7 @@ final class Report(
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
       api.inquiries.toggle(AsMod(me), id) map { newInquiry =>
-        newInquiry.fold(Redirect(routes.Report.list()))(onInquiryStart)
+        newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
       }
     }
 
@@ -69,7 +69,7 @@ final class Report(
         }
         inquiry match {
           case None =>
-            goTo.fold(Redirect(routes.Report.list()).fuccess) { s =>
+            goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
               userC.modZoneOrRedirect(s.user.username)
             }
           case Some(prev) =>
@@ -106,7 +106,7 @@ final class Report(
 
   def xfiles(id: String) =
     Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id) inject Redirect(routes.Report.list())
+      api.moveToXfiles(id) inject Redirect(routes.Report.list)
     }
 
   def currentCheatInquiry(username: String) =

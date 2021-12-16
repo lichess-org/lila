@@ -39,7 +39,7 @@ final class Relay(
       auth = implicit ctx =>
         me =>
           env.relay.forms.create
-            .bindFromRequest()(ctx.body)
+            .bindFromRequest()(ctx.body, formBinding)
             .fold(
               err => BadRequest(html.relay.form.create(err)).fuccess,
               setup =>
@@ -50,7 +50,7 @@ final class Relay(
       scoped = req =>
         me =>
           env.relay.forms.create
-            .bindFromRequest()(req)
+            .bindFromRequest()(req, formBinding)
             .fold(
               err => BadRequest(apiFormError(err)).fuccess,
               setup =>

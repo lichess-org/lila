@@ -75,8 +75,9 @@ object layout {
       )
   }
   private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${routes.Main
-      .toggleBlindMode()}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind)
+    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (
+      ctx.blind
+    )
       0
     else
       1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
@@ -113,7 +114,7 @@ object layout {
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login()}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
+<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
       .txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
@@ -205,7 +206,7 @@ object layout {
           noTranslate,
           openGraph.map(_.frags),
           link(
-            href := routes.Blog.atom(),
+            href := routes.Blog.atom,
             `type` := "application/atom+xml",
             rel := "alternate",
             st.title := trans.blog.txt()
@@ -297,7 +298,7 @@ object layout {
         a(
           cls := "link data-count link-center",
           title := "Moderation",
-          href := routes.Report.list(),
+          href := routes.Report.list,
           dataCount := blockingReportNbOpen,
           dataIcon := ""
         )
@@ -306,7 +307,7 @@ object layout {
       ctx.teamNbRequests > 0 option
         a(
           cls := "link data-count link-center",
-          href := routes.Team.requests(),
+          href := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon := "f",
           title := trans.team.teams.txt()

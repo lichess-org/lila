@@ -122,7 +122,7 @@ object list {
                 )
               },
               (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := routes.Appeal.queue(),
+                href := routes.Appeal.queue,
                 cls := List(
                   "new"    -> true,
                   "active" -> (filter == "appeal")

@@ -25,7 +25,7 @@ object topic {
         main(cls := "page-menu__content study-topics box box-pad")(
           h1("Study topics"),
           myForm.map { form =>
-            postForm(cls := "form3", action := routes.Study.topics())(
+            postForm(cls := "form3", action := routes.Study.topics)(
               form3.group(form("topics"), frag("Topics to organize your studies with"))(
                 form3.textarea(_)(rows := 10)
               ),

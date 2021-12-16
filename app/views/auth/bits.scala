@@ -47,7 +47,7 @@ object bits {
           },
           trans.passwordReset()
         ),
-        postForm(cls := "form3", action := routes.Auth.passwordResetApply())(
+        postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
           form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
           views.html.base.captcha(form, captcha),
           form3.action(form3.submit(trans.emailMeALink()))
@@ -114,7 +114,7 @@ object bits {
           "Log in by email"
         ),
         p("We will send you an email containing a link to log you in."),
-        postForm(cls := "form3", action := routes.Auth.magicLinkApply())(
+        postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
           form3.group(form("email"), trans.email())(
             form3.input(_, typ = "email")(autofocus, autocomplete := "email")
           ),
@@ -164,7 +164,7 @@ body { margin-top: 45px; }
 """),
       div(id := "email-confirm")(
         s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
-        a(href := routes.Auth.checkYourEmail())("Click here for help")
+        a(href := routes.Auth.checkYourEmail)("Click here for help")
       )
     )
 

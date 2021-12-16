@@ -18,7 +18,7 @@ object features {
       openGraph = lila.app.ui
         .OpenGraph(
           title = title,
-          url = s"$netBaseUrl${routes.Plan.features().url}",
+          url = s"$netBaseUrl${routes.Plan.features.url}",
           description = "All of Lishogi features are free for all and forever. We do it for the shogi!"
         )
         .some
@@ -29,18 +29,18 @@ object features {
           tbody(
             tr(unlimited)(
               "Play and create ",
-              a(href := routes.Tournament.home())("tournaments")
+              a(href := routes.Tournament.home)("tournaments")
             ),
             tr(unlimited)(
               "Play and create ",
-              a(href := routes.Simul.home())("simultaneous exhibitions")
+              a(href := routes.Simul.home)("simultaneous exhibitions")
             ),
             tr(unlimited)(
               "Correspondence shogi with conditional premoves"
             ),
             tr(check)(
               "Standard shogi and ",
-              a(href := routes.Page.variantHome())("shogi variants - WIP")
+              a(href := routes.Page.variantHome)("shogi variants - WIP")
             ),
             tr(unlimited)(
               s"Instant local $engineName analysis"
@@ -59,13 +59,13 @@ object features {
               )
             ),
             tr(check)(
-              a(href := routes.Learn.index())("All shogi basics lessons")
+              a(href := routes.Learn.index)("All shogi basics lessons")
             ),
             tr(unlimited)(
-              a(href := routes.Puzzle.home())("Tactical puzzles from user games")
+              a(href := routes.Puzzle.home)("Tactical puzzles from user games")
             ),
             //tr(unlimited)(
-            //  a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),
+            //  a(href := s"${routes.UserAnalysis.index}#explorer")("Opening explorer"),
             //  " (62 million games!)"
             //),
             //tr(unlimited)(
@@ -81,7 +81,7 @@ object features {
               " through more than 600 thousand Lishogi games"
             ),
             tr(unlimited)(
-              a(href := routes.Video.index())("Shogi video library")
+              a(href := routes.Video.index)("Shogi video library")
             ),
             tr(check)(
               "Forum, teams, messaging, friends, challenges"
@@ -112,13 +112,13 @@ object features {
           //    "Bullet, Blitz, Rapid, Classical and Correspondence chess"
           //  ),
           //  tr(unlimited)(
-          //    a(href := routes.Tournament.home())("Arena tournaments")
+          //    a(href := routes.Tournament.home)("Arena tournaments")
           //  ),
           //  tr(check)(
           //    s"Board editor and analysis board with $engineName"
           //  ),
           //  tr(unlimited)(
-          //    a(href := routes.Puzzle.home())("Tactics puzzles")
+          //    a(href := routes.Puzzle.home)("Tactics puzzles")
           //  ),
           //  tr(check)(
           //    "Available in many languages"
@@ -150,7 +150,7 @@ object features {
             st.tr(cls := "price")(
               th,
               td(cls := "green")("$0"),
-              td(a(href := routes.Plan.index(), cls := "green button")("$5/month"))
+              td(a(href := routes.Plan.index, cls := "green button")("$5/month"))
             )
           )
         ),
@@ -165,7 +165,7 @@ object features {
           strong("all features are free for everybody, forever!"),
           br,
           "If you love Lishogi, ",
-          a(cls := "button", href := routes.Plan.index())("Support us with a Patron account!")
+          a(cls := "button", href := routes.Plan.index)("Support us with a Patron account!")
         )
       )
     }

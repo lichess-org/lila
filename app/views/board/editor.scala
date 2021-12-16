@@ -30,7 +30,7 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Shogi board editor",
-          url = s"$netBaseUrl${routes.Editor.index().url}",
+          url = s"$netBaseUrl${routes.Editor.index.url}",
           description = "Load opening positions or create your own shogi position on a shogi board editor"
         )
         .some

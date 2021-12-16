@@ -227,7 +227,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       tv: Boolean = false
   )(implicit ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
-    if (tv) routes.Tv.index()
+    if (tv) routes.Tv.index
     else
       owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
         routes.Round.player(game fullIdOf o.color)
@@ -264,7 +264,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val isLive  = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
     a(
-      href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
+      href := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
         s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen variant-$variant" -> true,

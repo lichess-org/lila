@@ -52,7 +52,7 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.name}: ${s.variant.name} ${s.clock.show} #${s.id}",
-          url = s"$netBaseUrl${routes.Page.notSupported().url}",
+          url = s"$netBaseUrl${routes.Page.notSupported.url}",
           description =
             s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +

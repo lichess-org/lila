@@ -23,7 +23,7 @@ object coordinate {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Shogi board coordinates trainer",
-          url = s"$netBaseUrl${routes.Coordinate.home().url}",
+          url = s"$netBaseUrl${routes.Coordinate.home.url}",
           description =
             "Knowing the shogi board coordinates is a very important shogi skill. A square name appears on the board and you must click on the correct square."
         )
@@ -34,7 +34,7 @@ object coordinate {
         id := "trainer",
         cls := "coord-trainer training init",
         attr("data-color-pref") := ctx.pref.coordColorName,
-        attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score().url)
+        attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score.url)
       )(
         div(cls := "coord-trainer__side")(
           div(cls := "box")(
@@ -43,7 +43,7 @@ object coordinate {
               div(cls := "scores")(scoreCharts(score))
             }
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color())(
+          form(cls := "color buttons", action := routes.Coordinate.color)(
             st.group(cls := "radio")(
               List(Color.GOTE, Color.RANDOM, Color.SENTE).map { id =>
                 div(

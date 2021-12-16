@@ -29,10 +29,10 @@ object side {
               span(cls := "swiss__meta__round")(s"${s.round}/${s.settings.nbRounds}"),
               " rounds",
               separator,
-              a(href := routes.Page.notSupported())("Swiss"),
+              a(href := routes.Page.notSupported)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
-                a(href := routes.Page.notSupported(), title := "Edit tournament")(iconTag("%"))
+                a(href := routes.Page.notSupported, title := "Edit tournament")(iconTag("%"))
               )
             ),
             bits.showInterval(s)

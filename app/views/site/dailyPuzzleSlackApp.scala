@@ -33,7 +33,7 @@ object dailyPuzzleSlackApp {
           h2("Summary"),
           p(
             "By default, the app will post the ",
-            a(href := routes.Page.notSupported())("daily shogi puzzle"), // puzzle daily
+            a(href := routes.Page.notSupported)("daily shogi puzzle"), // puzzle daily
             " from Lishogi to the channel in which it was installed every day (at the same time of day it was installed). Use the ",
             code("/puzzletime"),
             " command to change this setting, e.g. ",

@@ -21,7 +21,7 @@ object close {
         if (managed)
           p("Your account is managed, and cannot be closed.")
         else
-          postForm(cls := "form3", action := routes.Account.closeConfirm())(
+          postForm(cls := "form3", action := routes.Account.closeConfirm)(
             div(cls := "form-group")(closeAccountExplanation()),
             div(cls := "form-group")(cantOpenSimilarAccount()),
             form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),

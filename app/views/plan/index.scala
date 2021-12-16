@@ -31,7 +31,7 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${routes.Plan.index().url}",
+          url = s"$netBaseUrl${routes.Plan.index.url}",
           description = freeChess.txt()
         )
         .some,
@@ -237,7 +237,7 @@ object index {
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact(), target := "_blank")(contactSupport()))
+          changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
@@ -249,7 +249,7 @@ object index {
         dd(
           noPatronFeatures(),
           br,
-          a(href := routes.Plan.features(), target := "_blank")(featuresComparison()),
+          a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
           "."
         )
       )

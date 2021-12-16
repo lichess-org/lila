@@ -33,10 +33,10 @@ object faq {
           howCanIContributeToLishogi.txt(),
           p(lishogiPoweredByDonationsAndVolunteers()),
           p(
-            a(href := routes.Page.patron())(beingAPatron()) // patron
+            a(href := routes.Page.patron)(beingAPatron())
           ),
           p(
-            a(href := routes.Page.help())(otherWaysToContribute()) // other ways to contribute
+            a(href := routes.Page.help)(otherWaysToContribute())
           )
         ),
         h2(fairPlay()),
@@ -137,7 +137,7 @@ object faq {
           howDoLeaderoardsWork.txt(),
           p(
             inOrderToAppearsYouMust(
-              a(href := routes.User.list())(ratingLeaderboards())
+              a(href := routes.User.list)(ratingLeaderboards())
             )
           ),
           ol(

@@ -33,7 +33,7 @@ final class Team(
   def home(page: Int) =
     Open { implicit ctx =>
       ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine())
+        case true  => Redirect(routes.Team.mine)
         case false => Redirect(routes.Team.all(page))
       }
     }

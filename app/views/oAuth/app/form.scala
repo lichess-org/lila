@@ -15,7 +15,7 @@ object form {
     views.html.account.layout(title = title, active = "oauth.app") {
       div(cls := "account oauth box box-pad")(
         h1(title),
-        postForm(cls := "form3", action := routes.OAuthApp.create())(
+        postForm(cls := "form3", action := routes.OAuthApp.create)(
           div(cls := "form-group")(
             "Want to build something that integrates with and extends Lishogi? Register a new OAuth App to get started developing on the Lishogi API."
           ),
@@ -72,7 +72,7 @@ object form {
         )(form3.input(_, typ = "url"))
       ),
       form3.actions(
-        a(href := routes.OAuthApp.index())("Cancel"),
+        a(href := routes.OAuthApp.index)("Cancel"),
         form3.submit(trans.apply())
       )
     )

@@ -31,7 +31,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx.me.fold(indexAnon) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser => Redirect(routes.Plan.index()).fuccess
+          case ReloadUser => Redirect(routes.Plan.index).fuccess
           case Synced(Some(patron), None) =>
             env.user.repo email me.id flatMap { email =>
               renderIndex(email, patron.some)
@@ -44,12 +44,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def list =
     Open { implicit ctx =>
-      ctx.me.fold(Redirect(routes.Plan.index()).fuccess) { me =>
+      ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser         => Redirect(routes.Plan.list()).fuccess
+          case ReloadUser         => Redirect(routes.Plan.list).fuccess
           case Synced(Some(_), _) => indexFreeUser(me)
-          case _                  => Redirect(routes.Plan.index()).fuccess
+          case _                  => Redirect(routes.Plan.index).fuccess
         }
       }
     }
@@ -107,12 +107,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         .fold(
           _ => funit,
           data => env.plan.api.switch(me, data.cents)
-        ) inject Redirect(routes.Plan.index())
+        ) inject Redirect(routes.Plan.index)
     }
 
   def cancel =
     AuthBody { _ => me =>
-      env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
+      env.plan.api.cancel(me) inject Redirect(routes.Plan.index)
     }
 
   def thanks =
@@ -144,8 +144,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     env.plan.api
       .createSession(
         CreateStripeSession(
-          s"${env.net.baseUrl}${routes.Plan.thanks()}",
-          s"${env.net.baseUrl}${routes.Plan.index()}",
+          s"${env.net.baseUrl}${routes.Plan.thanks}",
+          s"${env.net.baseUrl}${routes.Plan.index}",
           customerId,
           checkout
         )

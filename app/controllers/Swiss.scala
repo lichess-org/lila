@@ -84,13 +84,13 @@ final class Swiss(
         case false => notFound
         case _ =>
           env.swiss.forms.create
-            .bindFromRequest()(ctx.body)
+            .bindFromRequest()(ctx.body, formBinding)
             .fold(
               err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
               data =>
                 tourC.rateLimitCreation(me, false, ctx.req) {
                   env.swiss.api.create(data, me, teamId) map { _ =>
-                    Redirect(routes.Page.notSupported())
+                    Redirect(routes.Page.notSupported)
                   }
                 }
             )
@@ -124,7 +124,7 @@ final class Swiss(
         env.team.cached.teamIds(me.id) flatMap { teamIds =>
           env.swiss.api.join(SwissId(id), me, teamIds.contains) flatMap { result =>
             negotiate(
-              html = Redirect(routes.Page.notSupported()).fuccess,
+              html = Redirect(routes.Page.notSupported).fuccess,
               api = _ =>
                 fuccess {
                   if (result) jsonOkResult
@@ -140,7 +140,7 @@ final class Swiss(
     Auth { implicit ctx => me =>
       env.swiss.api.withdraw(SwissId(id), me.id) >>
         negotiate(
-          html = Redirect(routes.Page.notSupported()).fuccess,
+          html = Redirect(routes.Page.notSupported).fuccess,
           api = _ => fuccess(jsonOkResult)
         )
     }
@@ -161,7 +161,7 @@ final class Swiss(
           .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
-            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Page.notSupported())
+            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Page.notSupported)
           )
       }
     }
@@ -173,8 +173,8 @@ final class Swiss(
         env.swiss.forms.nextRound
           .bindFromRequest()
           .fold(
-            _ => Redirect(routes.Page.notSupported()).fuccess,
-            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Page.notSupported())
+            _ => Redirect(routes.Page.notSupported).fuccess,
+            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Page.notSupported)
           )
       }
     }
@@ -238,7 +238,7 @@ final class Swiss(
     WithSwiss(id) { swiss =>
       if (swiss.createdBy == me.id && !swiss.isFinished) f(swiss)
       else if (isGranted(_.ManageTournament)) f(swiss)
-      else Redirect(routes.Page.notSupported()).fuccess
+      else Redirect(routes.Page.notSupported).fuccess
     }
 
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =

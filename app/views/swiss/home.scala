@@ -50,7 +50,7 @@ object home {
           tr(
             td(cls := "icon")(iconTag(bits.iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Page.notSupported())(
+              a(href := routes.Page.notSupported)(
                 span(cls := "name")(s.name),
                 trans.by(span(cls := "team")(teamIdToName(s.teamId)))
               )

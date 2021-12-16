@@ -24,7 +24,7 @@ object bits {
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "'")(trans.leaderboard()),
-          a(cls := "more", href := routes.User.list())(trans.more(), " »")
+          a(cls := "more", href := routes.User.list)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -45,7 +45,7 @@ object bits {
       div(cls := "lobby__winners lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
-          a(cls := "more", href := routes.Tournament.leaderboard())(trans.more(), " »")
+          a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -65,7 +65,7 @@ object bits {
         )
       ),
       div(cls := "lobby__tournaments lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Tournament.home())(
+        a(cls := "lobby__box__top", href := routes.Tournament.home)(
           h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
           span(cls := "more")(trans.more(), " »")
         ),
@@ -74,7 +74,7 @@ object bits {
         )
       ),
       div(cls := "lobby__simuls lobby__box")(
-        a(cls := "lobby__box__top", href := routes.Simul.home())(
+        a(cls := "lobby__box__top", href := routes.Simul.home)(
           h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
           span(cls := "more")(trans.more(), " »")
         ),

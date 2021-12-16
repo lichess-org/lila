@@ -130,7 +130,7 @@ object dashboard {
           ),
           dashOpt.flatMap(body) |
             div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
+              a(href := routes.Puzzle.home)("Nothing to show, go play some puzzles first!")
             )
         )
       )

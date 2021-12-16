@@ -31,7 +31,7 @@ object layout {
                   "full"    -> (checked || t.nb > 0),
                   "empty"   -> !(checked || t.nb > 0)
                 ),
-                href := (checked || t.nb > 0) option s"${routes.Video.index()}?${control.toggleTag(t.tag).queryString}"
+                href := (checked || t.nb > 0) option s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}"
               )(
                 span(t.tag.capitalize),
                 (!checked && t.nb > 0) option em(t.nb)
@@ -40,9 +40,9 @@ object layout {
           ),
           div(cls := "under-tags")(
             if (control.filter.tags.nonEmpty)
-              a(cls := "button button-empty", href := routes.Video.index())("Clear search")
+              a(cls := "button button-empty", href := routes.Video.index)("Clear search")
             else
-              a(dataIcon := "o", href := routes.Video.tags())("View more tags")
+              a(dataIcon := "o", href := routes.Video.tags)("View more tags")
           )
         ),
         div(cls := "page-menu__content box")(body)

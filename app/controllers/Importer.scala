@@ -48,7 +48,7 @@ final class Importer(env: Env) extends LilaController(env) {
                   s"Imported game validates but can't be replayed:\n${data.notation}",
                   e
                 )
-              Redirect(routes.Importer.importGame())
+              Redirect(routes.Importer.importGame)
             }
         )
     }

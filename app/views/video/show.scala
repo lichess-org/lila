@@ -39,7 +39,7 @@ object show {
           )
         ),
         h1(cls := "box__pad")(
-          a(cls := "is4 text", dataIcon := "i", href := s"${routes.Video.index()}?${control.queryString}"),
+          a(cls := "is4 text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}"),
           video.title
         ),
         div(cls := "meta box__pad")(
@@ -51,7 +51,7 @@ object show {
             a(
               cls := "tag",
               dataIcon := "o",
-              href := s"${routes.Video.index()}?tags=${tag.replace(" ", "+")}"
+              href := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
             )(
               tag.capitalize
             )

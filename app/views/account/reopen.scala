@@ -30,7 +30,7 @@ object reopen {
         p(
           "Solve the shogi captcha below, and we will send you an email containing a link to reopen your account."
         ),
-        postForm(cls := "form3", action := routes.Account.reopenApply())(
+        postForm(cls := "form3", action := routes.Account.reopenApply)(
           error.map { err =>
             p(cls := "error")(strong(err))
           },

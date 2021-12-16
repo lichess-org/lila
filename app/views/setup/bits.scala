@@ -23,7 +23,7 @@ private object bits {
         shogi.StartingPosition.categories(0).positions.map { v =>
           (v.fen, v.fullName, None)
         }
-    val url = form("fen").value.fold(routes.Editor.index())(routes.Editor.load).url
+    val url = form("fen").value.fold(routes.Editor.index)(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(
         div(cls := "handicap label_select")(
@@ -39,7 +39,7 @@ private object bits {
         ),
         div(
           cls := "fen_form",
-          dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}"""
+          dataValidateUrl := s"""${routes.Setup.validateFen}${strict.??("?strict=1")}"""
         )(
           form3.input(form("fen"))(st.placeholder := trans.pasteTheFenStringHere.txt()),
           a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)

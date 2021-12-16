@@ -17,7 +17,7 @@ object form {
   def create(form: Form[Data])(implicit ctx: Context) =
     layout(newBroadcast.txt())(
       h1(newBroadcast()),
-      inner(form, routes.Relay.create())
+      inner(form, routes.Relay.create)
     )
 
   def edit(r: lila.relay.Relay, form: Form[Data])(implicit ctx: Context) =
