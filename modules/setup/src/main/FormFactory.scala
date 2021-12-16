@@ -33,7 +33,7 @@ final class FormFactory {
       "fen"       -> fenField
     )(AiConfig.from)(_.>>)
       .verifying("invalidFen", _.validFen)
-      .verifying("Can't play that time control from a position", _.timeControlFromPosition)
+      .verifying("Can't play that time control with this variant", _.timeControlNonStandard)
   )
 
   def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
