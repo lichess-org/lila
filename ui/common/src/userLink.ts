@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 
-export function userLink(u: string, title?: string, patron?: boolean): VNode {
+export default function userLink(u: string, title?: string, patron?: boolean): VNode {
   const line = patron
     ? h('line.line.patron', {
         attrs: {

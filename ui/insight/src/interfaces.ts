@@ -21,6 +21,8 @@ export interface Env {
 export interface EnvUser {
   id: string;
   name: string;
+  title?: string;
+  patron?: boolean;
   nbGames: number;
   shareId: number;
   stale: boolean;

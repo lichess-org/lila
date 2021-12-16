@@ -8,7 +8,6 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.chat.Chat
 import lila.common.{ HTTPRequest, Preload }
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
@@ -75,12 +74,13 @@ final class Tournament(
     }
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
-    tour.hasChat && !ctx.kid &&           // no public chats for kids
-      ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
-        (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
-          _.ChatTimeout
-        )) && // private tournament that I joined or has ChatTimeout
-        (env.chat.panic.allowed(u) || isGranted(_.ChatTimeout))
+    tour.hasChat && !ctx.kid && // no public chats for kids
+      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
+        u => // anon can see public chats, except for private tournaments
+          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
+            _.ChatTimeout
+          )) && // private tournament that I joined or has ChatTimeout
+          (env.chat.panic.allowed(u) || isGranted(_.ChatTimeout))
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
@@ -91,7 +91,7 @@ final class Tournament(
       repo byId id flatMap { tourOption =>
         def loadChat(tour: Tour, json: JsObject) =
           canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
-            .findMine(Chat.Id(tour.id), ctx.me)
+            .findMine(lila.chat.Chat.Id(tour.id), ctx.me)
             .flatMap { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds) inject c.some
             }

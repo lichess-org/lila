@@ -45,7 +45,7 @@ final private class FishnetOpeningBook(
             for {
               data <- res.body[JsValue].validate[Response](responseReader).asOpt
               _ = if (data.moves.isEmpty) outOfBook.put(game.id)
-              move <- data randomPonderedMove(game.turnColor, level)
+              move <- data randomPonderedMove (game.turnColor, level)
             } yield move.uci
         }
         .monTry { res =>
@@ -68,9 +68,9 @@ object FishnetOpeningBook {
   case class Response(moves: List[Move]) {
 
     def randomPonderedMove(turn: Color, level: Int): Option[Move] = {
-      val sum         = moves.map(_.score(turn, level)).sum
-      val novelty     = 5L * 14 // score of 5 winning games
-      val rng         = ThreadLocalRandom.nextLong(sum + novelty)
+      val sum     = moves.map(_.score(turn, level)).sum
+      val novelty = 5L * 14 // score of 5 winning games
+      val rng     = ThreadLocalRandom.nextLong(sum + novelty)
       moves
         .foldLeft((none[Move], 0L)) { case ((found, it), next) =>
           val nextIt = it + next.score(turn, level)
@@ -84,8 +84,8 @@ object FishnetOpeningBook {
     def score(turn: Color, level: Int): Long =
       // interpolate: real frequency at lvl 1, expectation value at lvl 8
       14L * turn.fold(white, black) +
-      (15L - level) * draws +
-      (16L - 2 * level) * turn.fold(black, white)
+        (15L - level) * draws +
+        (16L - 2 * level) * turn.fold(black, white)
   }
 
   implicit val moveReader     = Json.reads[Move]

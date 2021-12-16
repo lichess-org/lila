@@ -244,7 +244,7 @@ object layout {
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), color := "black"),
+          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,

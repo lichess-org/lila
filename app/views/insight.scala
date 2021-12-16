@@ -35,13 +35,11 @@ object insight {
               "initialQuestion" -> question,
               "i18n"            -> Json.obj(),
               "myUserId"        -> ctx.userId,
-              "user" -> Json.obj(
-                "id"      -> u.id,
-                "name"    -> u.username,
+              "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
                 "nbGames" -> cache.count,
                 "stale"   -> stale,
                 "shareId" -> prefId
-              ),
+              )),
               "pageUrl" -> routes.Insight.index(u.username).url,
               "postUrl" -> routes.Insight.json(u.username).url
             )

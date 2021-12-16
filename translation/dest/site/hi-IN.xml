@@ -419,7 +419,7 @@
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="winRate">जीत दर</string>
-  <string name="berserkRate">समय की कमी की दर</string>
+  <string name="berserkRate">निडर की दर</string>
   <string name="performance">प्रदर्शन</string>
   <string name="tournamentComplete">टूर्नामेंट पूर्ण</string>
   <string name="movesPlayed">चालें चलायीं</string>
@@ -472,7 +472,7 @@
   <string name="yes">हाँ</string>
   <string name="help">सहायता</string>
   <string name="createANewTopic">एक नया विषय बनाएँ</string>
-  <string name="topics">विषयों की संख्या</string>
+  <string name="topics">विषय</string>
   <string name="posts">पोस्ट की संख्या</string>
   <string name="lastPost">आख़िरी  पोस्ट</string>
   <string name="views">देखे जाने की संख्या</string>

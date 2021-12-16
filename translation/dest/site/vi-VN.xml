@@ -46,6 +46,8 @@
   <string name="blackResigned">Đen chịu thua</string>
   <string name="whiteLeftTheGame">Trắng đã thoát khỏi ván cờ</string>
   <string name="blackLeftTheGame">Đen đã thoát khỏi ván cờ</string>
+  <string name="whiteDidntMove">Bên trắng không đi quân</string>
+  <string name="blackDidntMove">Bên đen không đi quân</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Máy tính phân tích</string>
   <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
@@ -83,6 +85,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\"\" được làm tròn, dựa vào số nước đi quân cho tới nước bắt quân hoặc đi tốt tiếp theo</string>
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openingExplorer">Sách khai cuộc</string>

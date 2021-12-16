@@ -750,7 +750,7 @@
   <string name="doItAgain">Қайта жасау</string>
   <string name="reviewWhiteMistakes">Ақтардың қателерін қарау</string>
   <string name="reviewBlackMistakes">Қаралардың қателерін қарау</string>
-  <string name="advantage">Артықшылық</string>
+  <string name="advantage">Басымдылық</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунд</item>
     <item quantity="other">%s секунд</item>

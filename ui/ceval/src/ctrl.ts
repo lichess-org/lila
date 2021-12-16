@@ -117,7 +117,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads)
   );
 
-  const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
+  const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
+  const maxHashSize = Math.min(
+    ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
+    growableSharedMem ? 1024 : 16
+  );
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
