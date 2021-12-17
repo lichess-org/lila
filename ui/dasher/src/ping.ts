@@ -40,28 +40,23 @@ function signalBars(d: PingData) {
   return h('signal.q' + lagRating, bars);
 }
 
-function showMillis(m: number): [string, VNode] {
-  return ['' + Math.floor(m), h('small', '.' + Math.round((m - Math.floor(m)) * 10))];
-}
+const showMillis = (name: string, m?: number) => [h('em', name), h('strong', defined(m) ? m : '?'), h('em', 'ms')];
 
-export function view(ctrl: PingCtrl): VNode {
-  const d = ctrl.data;
-
-  return h('a.status', { attrs: { href: '/lag' } }, [
-    signalBars(d),
+export const view = (ctrl: PingCtrl): VNode =>
+  h('a.status', { attrs: { href: '/lag' } }, [
+    signalBars(ctrl.data),
     h(
       'span.ping',
       {
         attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') },
       },
-      [h('em', 'PING'), h('strong', defined(d.ping) ? '' + d.ping : '?'), h('em', 'ms')]
+      showMillis('PING', ctrl.data.ping)
     ),
     h(
       'span.server',
       {
         attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') },
       },
-      [h('em', 'SERVER'), h('strong', defined(d.server) ? showMillis(d.server) : ['?']), h('em', 'ms')]
+      showMillis('SERVER', ctrl.data.server)
     ),
   ]);
-}
