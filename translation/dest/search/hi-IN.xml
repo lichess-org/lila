@@ -26,4 +26,5 @@
   <string name="onlyAnalysed">केवल ऐसे गेम जहां कंप्यूटर विश्लेषण उपलब्ध है</string>
   <string name="color">रंग</string>
   <string name="evaluation">मूल्यांकन</string>
+  <string name="maxNumber">अधिकतम संख्या</string>
 </resources>

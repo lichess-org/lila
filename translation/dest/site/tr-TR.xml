@@ -94,6 +94,7 @@
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
+  <string name="unknownDueToRounding">Kazanma/kaybetme, Syzygy tablo tabanlarında DTZ değerlerinin olası yuvarlanması nedeniyle, yalnızca son yakalama veya piyon hareketinden bu yana önerilen tablo tabanı çizgisi izlendiğinde garanti edilir.</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="importPgn">PGN\'yi içe aktar</string>
   <string name="delete">Sil</string>
@@ -159,7 +160,7 @@
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
   <string name="discussions">Tartışmalar</string>
-  <string name="today">Bugün</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Bugün</string>
   <string name="yesterday">Dün</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
@@ -431,9 +432,9 @@
   <string name="popularOpenings">Popüler açılışlar</string>
   <string name="endgamePositions">Oyunsonu pozisyonları</string>
   <string name="chess960StartPosition">Chess960 başlangıç pozisyonu: %s</string>
-  <string name="startPosition">Başlangıç konumu</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
-  <string name="loadPosition">Konumu yükle</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Konumu yükle</string>
   <string name="isPrivate">Özel</string>
   <string name="reportXToModerators">%s \'i Moderatörlere bildir</string>
   <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
@@ -452,7 +453,7 @@
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>
   <string name="activePlayers">Aktif oyuncular</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Dikkat, oyun puanlı ama suresizdir.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Dikkat, oyun puanlı ama suresizdir.</string>
   <string name="success">Başarı</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
@@ -521,7 +522,7 @@
   <string name="onSlowGames">Yavaş oyunlarda</string>
   <string name="always">Her zaman</string>
   <string name="never">Asla</string>
-  <string name="xCompetesInY">%1$s, %2$s\'ya katıldı</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s, %2$s\'ya katıldı</string>
   <string name="victory">Zafer</string>
   <string name="defeat">Yenilgi</string>
   <string name="victoryVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
@@ -556,10 +557,10 @@
   <string name="error.email_acceptable">Bu e-posta adresi kabul edilemez. Lütfen tekrar kontrol edin ve tekrar deneyin.</string>
   <string name="error.email_unique">E-posta adresi geçersiz veya önceden alınmış</string>
   <string name="error.email_different">Zaten bu e-postayı kullanıyorsun</string>
-  <string name="error.minLength">Asgari uzunluk: %s</string>
-  <string name="error.maxLength">Azami uzunluk: %s</string>
-  <string name="error.min">%s değerinden büyük veya eşit olmalıdır</string>
-  <string name="error.max">%s değerinden küçük veya eşit olmalıdır</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Asgari uzunluk: %s</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Azami uzunluk: %s</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">%s değerinden büyük veya eşit olmalıdır</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">%s değerinden küçük veya eşit olmalıdır</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
   <string name="onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
@@ -808,7 +809,7 @@
   <string name="youCannotPostYetPlaySomeGames">Henüz forumda konu açamazsınız. Biraz daha maç yaptıktan sonra tekrar deneyin.</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
-  <string name="mentionedYouInX">\"%1$s\" adlı gönderide sizden bahsetti.</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">\"%1$s\" adlı gönderide sizden bahsetti.</string>
   <string name="xMentionedYouInY">%1$s sizden bahsetti: \"%2$s\".</string>
   <string name="invitedYouToX">sizi \"%1$s\" adlı çalışmaya davet etti.</string>
   <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
