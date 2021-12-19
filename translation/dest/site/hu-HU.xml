@@ -87,6 +87,7 @@
     <item quantity="one">Matt %s féllépésben</item>
     <item quantity="other">Matt %s féllépésben</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
@@ -94,6 +95,8 @@
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
+  <string name="winOr50MovesByPriorMistake">Győzelem, vagy 50 lépéses szabály korábbi hiba alapján</string>
+  <string name="lossOr50MovesByPriorMistake">Vereség, vagy 50 lépéses szabály korábbi hiba alapján</string>
   <string name="allSet">Mehet!</string>
   <string name="importPgn">PGN importálás</string>
   <string name="delete">Töröl</string>
@@ -159,7 +162,7 @@
   <string name="players">Játékosok</string>
   <string name="friends">Barátok</string>
   <string name="discussions">Beszélgetések</string>
-  <string name="today">Ma</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Ma</string>
   <string name="yesterday">Tegnap</string>
   <string name="minutesPerSide">Perc játékosonként</string>
   <string name="variant">Variáns</string>
@@ -365,6 +368,7 @@
   <string name="follow">Követés</string>
   <string name="following">Követve</string>
   <string name="unfollow">Követés vége</string>
+  <string name="followX">%s követése</string>
   <string name="block">Letiltás</string>
   <string name="blocked">Letiltva</string>
   <string name="unblock">Letiltás feloldása</string>
@@ -429,9 +433,9 @@
   <string name="popularOpenings">Népszerű megnyitások</string>
   <string name="endgamePositions">Végjáték állások</string>
   <string name="chess960StartPosition">Chess960 kezdőállás: %s</string>
-  <string name="startPosition">Alapállás</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Alapállás</string>
   <string name="clearBoard">Üres tábla</string>
-  <string name="loadPosition">Állás betöltése</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Állás betöltése</string>
   <string name="isPrivate">Privát</string>
   <string name="reportXToModerators">%s jelentése a moderátoroknak</string>
   <string name="profileCompletion">Profil teljessége: %s</string>
@@ -450,7 +454,7 @@
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
   <string name="onlinePlayers">Online játékosok</string>
   <string name="activePlayers">Aktív játékosok</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">A játszma értékelt, de nincs időmérés!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">A játszma értékelt, de nincs időmérés!</string>
   <string name="success">Sikerült!</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s játszma fut</item>
@@ -519,7 +523,7 @@
   <string name="onSlowGames">Lassú játékok esetén</string>
   <string name="always">Mindig</string>
   <string name="never">Soha</string>
-  <string name="xCompetesInY">%1$s részt vett ezen a versenyen: %2$s</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s részt vett ezen a versenyen: %2$s</string>
   <string name="victory">Helyes megoldás</string>
   <string name="defeat">Vereség</string>
   <string name="victoryVsYInZ">%1$s %2$s ellen %3$s játékban</string>
@@ -554,10 +558,10 @@
   <string name="error.email_acceptable">A megadott email cím nem használható. Kérjük ellenőrizd és próbáld újra.</string>
   <string name="error.email_unique">Érvénytelen vagy már foglalt email cím</string>
   <string name="error.email_different">Már ez az email címed</string>
-  <string name="error.minLength">Legalább %s karakter</string>
-  <string name="error.maxLength">Legfeljebb %s karakter</string>
-  <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
-  <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
+  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Legalább %s karakter</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Legfeljebb %s karakter</string>
+  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
+  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
@@ -806,7 +810,7 @@
   <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
-  <string name="mentionedYouInX">megemlített itt: \"%1$s\".</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">megemlített itt: \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s megemlített itt: \"%2$s\".</string>
   <string name="invitedYouToX">meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
