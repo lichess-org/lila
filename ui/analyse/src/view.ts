@@ -394,7 +394,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'has-players': !!playerBars,
         'has-clocks': !!clocks,
         'has-intro': !!intro,
-        'analyse-hunter': ctrl.opts.hunter,
+        //'analyse-hunter': ctrl.opts.hunter,
       },
     },
     [
