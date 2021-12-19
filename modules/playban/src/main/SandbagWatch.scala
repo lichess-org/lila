@@ -55,7 +55,8 @@ final private class SandbagWatch(
     }
 
   private def isSandbag(game: Game): Boolean =
-    game.turns <= 6
+    if (game.variant.standardBased) game.turns <= 6
+    else game.turns <= 4
 }
 
 private object SandbagWatch {
