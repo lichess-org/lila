@@ -9,6 +9,10 @@ $clock-height: 20px;
 
   &.top {
     top: #{-$clock-height};
+
+    .is3d & {
+      top: #{-$clock-height - 35px};
+    }
   }
 
   &.bottom {
@@ -37,6 +41,10 @@ $clock-height: 20px;
 
   &.top {
     @extend %box-radius-top;
+
+    .is3d & {
+      @extend %box-radius;
+    }
   }
 
   &.bottom {

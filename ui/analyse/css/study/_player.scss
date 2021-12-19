@@ -34,6 +34,12 @@ $player-height: 1.6rem;
     @extend %box-radius-top;
 
     top: #{-$player-height};
+
+    .is3d & {
+      @extend %box-radius;
+
+      top: calc(#{-$player-height} - 35px);
+    }
   }
 
   &-bot {
