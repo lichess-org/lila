@@ -232,7 +232,7 @@ final private[round] class RoundAsyncActor(
         lap => {
           p.promise.foreach(_ success {})
           lila.mon.round.move.time.record(lap.nanos)
-          MoveLatMonitor record lap.micros
+          MoveLatMonitor recordMicros lap.micros
         }
       )
 

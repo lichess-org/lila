@@ -88,12 +88,12 @@ coords {
       left: 0;
       text-align: center;
     }
+  }
 
-    &.ranks,
-    .is2d &.files {
-      coord {
-        color: $c-font-page !important;
-      }
+  .coords-out coords.ranks,
+  .coords-out .is2d coords.files {
+    coord {
+      color: $c-font-page !important;
     }
   }
 }
