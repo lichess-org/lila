@@ -16,7 +16,7 @@ export default class TransientMove {
   current: number | undefined = undefined;
 
   register = () => {
-    this.current = setTimeout(this.expire, 10000);
+    this.current = setTimeout(this.expire, 7500);
   };
 
   clear = () => {
@@ -24,7 +24,6 @@ export default class TransientMove {
   };
 
   expire = () => {
-    $.post('/statlog?e=roundTransientExpire');
     this.socket.reload({});
   };
 }
