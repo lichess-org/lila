@@ -149,16 +149,20 @@ object mod {
           )
         } else if (erased.value) {
           "Erased"
-        } else {
-          postForm(
-            action := routes.Mod.reopenAccount(u.username),
-            title := "Re-activates this account.",
-            cls := "xhr"
-          )(
-            submitButton(cls := "btn-rack__btn active")("Closed")
+        } else
+          frag(
+            postForm(
+              action := routes.Mod.reopenAccount(u.username),
+              title := "Re-activates this account.",
+              cls := "xhr"
+            )(submitButton(cls := "btn-rack__btn active")("Closed")),
+            postForm(action := routes.Mod.gdprErase(u.username), cls := "gdpr-erasure")(
+              submitButton(
+                cls := "btn-rack__btn confirm",
+                title := "Definitely erase everything about this user"
+              )("GDPR erasure")
+            )
           )
-
-        }
       ),
       div(cls := "btn-rack")(
         (u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) option {

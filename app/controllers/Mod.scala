@@ -34,7 +34,7 @@ final class Mod(
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user, me)
+          _       <- (v && sus.user.enabled) ?? env.api.accountClosure.close(sus.user, me)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -140,7 +140,7 @@ final class Mod(
     OAuthMod(_.CloseAccount) { _ => me =>
       env.user.repo named username flatMap {
         _ ?? { user =>
-          env.closeAccount(user, me) map some
+          env.api.accountClosure.close(user, me) map some
         }
       }
     }(actionResult(username))
@@ -397,10 +397,11 @@ final class Mod(
     }
 
   def gdprErase(username: String) =
-    Secure(_.CloseAccount) { _ => _ =>
-      implicit val lightUser = env.user.lightUserSync
-      JsonOptionOk {
-        env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+    Secure(_.CloseAccount) { _ => me =>
+      val res = Redirect(routes.User.show(username))
+      env.api.accountClosure.closeThenErase(username, me) map {
+        case Right(msg) => res flashSuccess msg
+        case Left(err)  => res flashFailure err
       }
     }
 

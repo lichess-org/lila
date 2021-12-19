@@ -174,7 +174,7 @@ object search {
             eraseButton option td(
               postForm(action := routes.Mod.gdprErase(u.username))(
                 submitButton(
-                  cls := "button-red button-empty confirm",
+                  cls := "button button-red button-empty confirm",
                   title := "Definitely erase everything about this user"
                 )("GDPR erasure")
               )

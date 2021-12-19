@@ -19,6 +19,7 @@ final private class PushConfig(
     val firebase: FirebasePush.Config
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,

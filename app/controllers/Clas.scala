@@ -552,7 +552,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         WithStudent(clas, username) { s =>
           if (s.student.managed)
             env.clas.api.student.closeAccount(s) >>
-              env.closeAccount(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
+              env.api.accountClosure.close(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
           else Redirect(routes.Clas.show(clas.id.value)).fuccess
         }
       }
