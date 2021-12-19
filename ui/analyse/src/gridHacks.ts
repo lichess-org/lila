@@ -3,10 +3,7 @@ import * as gridHacks from 'common/gridHacks';
 let booted = false;
 
 export function start(container: HTMLElement) {
-  const runHacks = () => {
-    if (gridHacks.needsBoardHeightFix()) gridHacks.fixMainBoardHeight(container);
-    fixChatHeight(container);
-  };
+  const runHacks = () => fixChatHeight(container);
 
   gridHacks.runner(runHacks);
 
