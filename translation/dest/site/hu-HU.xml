@@ -369,6 +369,7 @@
   <string name="following">Követve</string>
   <string name="unfollow">Követés vége</string>
   <string name="followX">%s követése</string>
+  <string name="unfollowX">%s követésének kikapcsolása</string>
   <string name="block">Letiltás</string>
   <string name="blocked">Letiltva</string>
   <string name="unblock">Letiltás feloldása</string>
