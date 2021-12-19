@@ -386,8 +386,8 @@ final private[round] class RoundDuct(
             g.clock.fold(Progress(g)) { clock =>
               g.withClock {
                 clock
-                  .giveTime(g.turnColor, Centis(2000))
-                  .giveTime(!g.turnColor, Centis(1000))
+                  .giveTime(g.turnColor, Centis(5000))
+                  .giveTime(!g.turnColor, Centis(2000))
               }
             }
           }
@@ -399,7 +399,7 @@ final private[round] class RoundDuct(
         game.playable ?? {
           messenger.system(game, "Lishogi has been updated! Sorry for the inconvenience.")
           val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
-          proxy save progress inject progress.events
+          proxy save progress inject (progress.events :+ Event.Reload)
         }
       }
 
