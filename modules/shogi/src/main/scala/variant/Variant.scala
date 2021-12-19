@@ -118,7 +118,7 @@ abstract class Variant private[variant] (
 
   def drop(sit: Situation, role: Role, pos: Pos): Validated[String, Drop] =
     for {
-      d1 <- sit.board.crazyData toValid "Board has no hand data"
+      d1 <- sit.board.handData toValid "Board has no hand data"
       piece = Piece(sit.color, role)
       _ <-
         if (isValidPieceDrop(piece, pos, sit)) Validated.valid(d1)
@@ -132,11 +132,11 @@ abstract class Variant private[variant] (
       piece = piece,
       pos = pos,
       situationBefore = sit,
-      after = board1 withCrazyData d2
+      after = board1 withHandData d2
     )
 
   private def canDropStuff(sit: Situation) =
-    sit.board.crazyData.fold(false) { (hands: Hands) =>
+    sit.board.handData.fold(false) { (hands: Hands) =>
       val hand = hands(sit.color)
       hand.size > 0 && possibleDrops(sit).fold(true) { squares =>
         squares.nonEmpty && {
@@ -198,20 +198,20 @@ abstract class Variant private[variant] (
   def materialImbalance(board: Board): Int =
     board.pieces.values.foldLeft(0) { case (acc, Piece(color, role)) =>
       acc + Role.valueOf(role) * color.fold(1, -1)
-    } + board.crazyData.fold(0) { hs =>
+    } + board.handData.fold(0) { hs =>
       hs.value
     }
 
   // Returns true if neither player can win. The game should end immediately.
   def isInsufficientMaterial(board: Board) =
-    ((board.crazyData.fold(0) { _.size } + board.pieces.size) <= 2) &&
+    ((board.handData.fold(0) { _.size } + board.pieces.size) <= 2) &&
       board.pieces.forall { p => p._2 is King }
 
   // Returns true if the other player cannot win. This is relevant when the
   // side to move times out or disconnects. Instead of losing on time,
   // the game should be drawn.
   def opponentHasInsufficientMaterial(situation: Situation) =
-    (situation.board.crazyData
+    (situation.board.handData
       .fold(0) { hs => hs(!situation.color).size } + situation.board.piecesOf(!situation.color).size) <= 2
 
   // Once a move has been decided upon from the available legal moves, the board is finalized
@@ -221,11 +221,11 @@ abstract class Variant private[variant] (
     }
     uci match {
       case Uci.Move(_, _, _) =>
-        board2.crazyData.fold(board2) { data =>
+        board2.handData.fold(board2) { data =>
           capture.fold(board2) { p =>
             val unpromotedRole  = unpromote(p.role).getOrElse(p.role)
             val unpromotedPiece = Piece(p.color, unpromotedRole)
-            board2 withCrazyData data.store(unpromotedPiece)
+            board2 withHandData data.store(unpromotedPiece)
           }
         }
       case _ => board2
@@ -245,7 +245,7 @@ abstract class Variant private[variant] (
       roles.length <= pieces.size && roles.count(_ == King) == 1
     }) &&
     !unmovablePieces(board) && pawnFiles.distinct.length == pawnFiles.length &&
-    roles.count(_ == King) <= 1 && board.crazyData.fold(true)(_.roles.forall(handRoles contains _))
+    roles.count(_ == King) <= 1 && board.handData.fold(true)(_.roles.forall(handRoles contains _))
   }
 
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict) _

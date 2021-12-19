@@ -242,8 +242,8 @@ case class Game(
 
     val events = List(
       moveOrDrop.fold(
-        Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-        Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+        Event.Move(_, game.situation, state, clockEvent),
+        Event.Drop(_, game.situation, state, clockEvent)
       )
     )
 
@@ -789,7 +789,7 @@ object Game {
     val rated             = "ra"
     val analysed          = "an"
     val variant           = "v"
-    val crazyData         = "hs"
+    val handData          = "hs"
     val bookmarks         = "bm"
     val createdAt         = "ca"
     val movedAt           = "ua" // ua = updatedAt (bc)

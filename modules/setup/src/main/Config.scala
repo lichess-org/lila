@@ -96,7 +96,7 @@ trait Positional { self: Config =>
               board = game.board.copy(
                 history = board.history,
                 variant = FromPosition,
-                crazyData = board.crazyData
+                handData = board.handData
               )
             ),
             turns = sit.turns,

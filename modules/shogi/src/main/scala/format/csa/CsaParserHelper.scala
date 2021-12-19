@@ -99,7 +99,7 @@ object CsaParserHelper {
           board: Board
       ): Validated[String, Board] = {
         if (str == "00AL") {
-          val hands        = board.crazyData.getOrElse(Hands.init(Standard))
+          val hands        = board.handData.getOrElse(Hands.init(Standard))
           val otherHand    = hands(!color)
           val initialRoles = Standard.pieces.values.toList
           val curBoard     = board.pieces.values.toList
@@ -111,7 +111,7 @@ object CsaParserHelper {
             hands.copy(sente = newHand),
             hands.copy(gote = newHand)
           )
-          valid(board withCrazyData newHands)
+          valid(board withHandData newHands)
         } else
           for {
             _ <-
@@ -122,8 +122,8 @@ object CsaParserHelper {
             _ <-
               if (Standard.handRoles.contains(role)) valid(role)
               else invalid(s"Can't have $role in hand: $line")
-            hands = board.crazyData.getOrElse(Hands.init(Standard))
-          } yield (board.withCrazyData(hands.store(Piece(!color, role))))
+            hands = board.handData.getOrElse(Hands.init(Standard))
+          } yield (board.withHandData(hands.store(Piece(!color, role))))
       }
       def parseBoardAddition(str: String, color: Color, board: Board): Validated[String, Board] = {
         for {

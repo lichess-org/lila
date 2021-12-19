@@ -205,8 +205,7 @@ final class JsonView(
             ply = game.turns,
             move = Uci.WithSan(move.fold(l => l.toUci, r => r.toUci), game.pgnMoves.last),
             fen = shogi.format.Forsyth >> game,
-            check = game.situation.check,
-            crazyData = game.situation.board.crazyData
+            check = game.situation.check
           )
           (game, branch :: branches)
       }

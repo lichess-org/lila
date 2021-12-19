@@ -6,7 +6,7 @@ case class Board(
     pieces: PieceMap,
     history: History,
     variant: Variant,
-    crazyData: Option[Hands] = None
+    handData: Option[Hands] = None
 ) {
 
   def apply(at: Pos): Option[Piece] = pieces get at
@@ -110,15 +110,15 @@ case class Board(
   def withPieces(newPieces: PieceMap) = copy(pieces = newPieces)
 
   def withVariant(v: Variant): Board = {
-    copy(variant = v).ensureCrazyData
+    copy(variant = v).ensureHandData
   }
 
-  def withCrazyData(data: Hands)         = copy(crazyData = Option(data))
-  def withCrazyData(data: Option[Hands]) = copy(crazyData = data)
-  def withCrazyData(f: Hands => Hands): Board =
-    withCrazyData(f(crazyData | Hands.init(variant)))
+  def withHandData(data: Hands)         = copy(handData = Option(data))
+  def withHandData(data: Option[Hands]) = copy(handData = data)
+  def withHandData(f: Hands => Hands): Board =
+    withHandData(f(handData | Hands.init(variant)))
 
-  def ensureCrazyData = withCrazyData(crazyData | Hands.init(variant))
+  def ensureHandData = withHandData(handData | Hands.init(variant))
 
   def updateHistory(f: History => History) = copy(history = f(history))
 
@@ -132,7 +132,7 @@ case class Board(
   def enoughImpasseValue(c: Color): Boolean = {
     val rp = rolesInPromotionZoneOf(c)
     val piecesValue = rp.foldLeft(0) { (acc, r) => acc + Role.impasseValueOf(r) } +
-      crazyData.fold(0)(h => h.impasseValueOf(c))
+      handData.fold(0)(h => h.impasseValueOf(c))
     rp.size > 10 && piecesValue >= c.fold(28, 27)
   }
 
@@ -156,7 +156,7 @@ case class Board(
 
   def materialImbalance: Int = variant.materialImbalance(this)
 
-  override def toString = s"$variant Position after ${history.lastMove}\n$visual\n$crazyData"
+  override def toString = s"$variant Position after ${history.lastMove}\n$visual\n$handData"
 }
 
 object Board {

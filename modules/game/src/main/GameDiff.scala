@@ -87,8 +87,8 @@ object GameDiff {
       (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
     )
     d(
-      crazyData,
-      shogi.format.Forsyth exportCrazyPocket _.board,
+      handData,
+      shogi.format.Forsyth exportHands _.board,
       w.str
     )
     d(turns, _.turns, w.int)

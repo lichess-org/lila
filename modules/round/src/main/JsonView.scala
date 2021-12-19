@@ -118,7 +118,6 @@ final class JsonView(
           .add("correspondence" -> game.correspondenceClock)
           .add("takebackable" -> takebackable)
           .add("moretimeable" -> moretimeable)
-          .add("crazyhouse" -> pov.game.board.crazyData) // todo remove
           .add("possibleMoves" -> possibleMoves(pov, apiVersion))
           .add("possibleDrops" -> possibleDrops(pov))
           .add("expiration" -> game.expirable.option {

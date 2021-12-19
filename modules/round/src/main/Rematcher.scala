@@ -111,9 +111,9 @@ final private class Rematcher(
       game <- Game.make(
         shogi = ShogiGame(
           situation = Situation(
-            board = Board(pieces, variant = pov.game.variant).withCrazyData {
+            board = Board(pieces, variant = pov.game.variant).withHandData {
               situation
-                .fold[Option[shogi.Hands]](Some(Hands.init(pov.game.variant)))(_.situation.board.crazyData)
+                .fold[Option[shogi.Hands]](Some(Hands.init(pov.game.variant)))(_.situation.board.handData)
             },
             color = situation.fold[shogi.Color](Sente)(_.situation.color)
           ),

@@ -69,18 +69,6 @@ object JsonView {
   // }
   // implicit val crosstableWithMatchupWrites = Json.writes[Crosstable.WithMatchup]
 
-  implicit val crazyhousePocketWriter: OWrites[Hand] = OWrites { h =>
-    JsObject(
-      h.handMap.filter(kv => 0 < kv._2).map { kv =>
-        kv._1.name -> JsNumber(kv._2)
-      }
-    )
-  }
-
-  implicit val crazyhouseDataWriter: OWrites[Hands] = OWrites { v =>
-    Json.obj("pockets" -> List(v.sente, v.gote))
-  }
-
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
     Json.obj(
       "nb"   -> blurs.nb,

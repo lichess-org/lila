@@ -33,8 +33,7 @@ case class AnaDrop(
           opening = Variant.openingSensibleVariants(variant) ?? {
             FullOpeningDB findByFen FEN(fen)
           },
-          drops = if (movable) game.situation.drops else Some(Nil),
-          crazyData = game.situation.board.crazyData
+          drops = if (movable) game.situation.drops else Some(Nil)
         )
       }
     }

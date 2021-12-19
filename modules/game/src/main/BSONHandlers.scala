@@ -70,7 +70,7 @@ object BSONHandlers {
           positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
           lastMove = r strO F.historyLastMove flatMap Uci.apply,
           checkCount = r.intsD(F.checkCount),
-          hands = r strO F.crazyData map { Forsyth.readHands(gameVariant, _) }
+          hands = r strO F.handData map { Forsyth.readHands(gameVariant, _) }
         )
       }
       val shogiGame = ShogiGame(
@@ -83,7 +83,7 @@ object BSONHandlers {
               checkCount = CheckCount(~decoded.checkCount.headOption, ~decoded.checkCount.lastOption)
             ),
             variant = gameVariant,
-            crazyData = decoded.hands
+            handData = decoded.hands
           ),
           color = turnColor
         ),
@@ -180,7 +180,7 @@ object BSONHandlers {
           F.positionHashes  -> o.history.positionHashes,
           F.historyLastMove -> o.history.lastMove.map(_.uci),
           F.checkCount      -> o.history.checkCount,
-          F.crazyData       -> Forsyth.exportCrazyPocket(o.board)
+          F.handData        -> Forsyth.exportHands(o.board)
         )
       }
   }

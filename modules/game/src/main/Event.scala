@@ -45,8 +45,7 @@ object Event {
         state: State,
         clock: Option[ClockEvent],
         possibleMoves: Map[Pos, List[Pos]],
-        possibleDrops: Option[List[Pos]],
-        crazyData: Option[Hands]
+        possibleDrops: Option[List[Pos]]
     )(extra: JsObject) = {
       extra ++ Json
         .obj(
@@ -60,7 +59,6 @@ object Event {
         .add("check" -> check)
         .add("sDraw" -> state.senteOffersDraw)
         .add("gDraw" -> state.goteOffersDraw)
-        .add("crazyhouse" -> crazyData) // todo remove
         .add("drops" -> possibleDrops.map { squares =>
           JsString(squares.map(_.uciKey).mkString)
         })
@@ -77,12 +75,11 @@ object Event {
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      possibleDrops: Option[List[Pos]],
-      crazyData: Option[Hands]
+      possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "move"
     def data = {
-      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
         Json
           .obj(
             "uci" -> s"${orig.uciKey}${dest.uciKey}${if (promotion) "+" else ""}",
@@ -99,8 +96,7 @@ object Event {
         move: ShogiMove,
         situation: Situation,
         state: State,
-        clock: Option[ClockEvent],
-        crazyData: Option[Hands]
+        clock: Option[ClockEvent]
     ): Move =
       Move(
         orig = move.orig,
@@ -112,8 +108,7 @@ object Event {
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,
-        possibleDrops = situation.drops,
-        crazyData = crazyData
+        possibleDrops = situation.drops
       )
   }
 
@@ -126,12 +121,11 @@ object Event {
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      crazyData: Option[Hands],
       possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "drop"
     def data =
-      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
         Json.obj(
           "role" -> role.name,
           "uci"  -> s"${role.pgn}*${pos.uciKey}",
@@ -146,8 +140,7 @@ object Event {
         drop: ShogiDrop,
         situation: Situation,
         state: State,
-        clock: Option[ClockEvent],
-        crazyData: Option[Hands]
+        clock: Option[ClockEvent]
     ): Drop =
       Drop(
         role = drop.piece.role,
@@ -158,8 +151,7 @@ object Event {
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,
-        possibleDrops = situation.drops,
-        crazyData = crazyData
+        possibleDrops = situation.drops
       )
   }
 

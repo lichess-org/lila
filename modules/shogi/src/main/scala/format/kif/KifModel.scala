@@ -128,12 +128,12 @@ object Kif {
       if (y < nbRanks) kifBoard append '\n'
     }
     List(
-      sit.board.crazyData.fold("")(hs => "後手の持駒：" + renderHand(hs(Gote))),
+      sit.board.handData.fold("")(hs => "後手の持駒：" + renderHand(hs(Gote))),
       s" ${" ９ ８ ７ ６ ５ ４ ３ ２ １".takeRight(nbFiles * 2)}",
       s"+${"-" * (nbFiles * 3)}+",
       kifBoard.toString,
       s"+${"-" * (nbFiles * 3)}+",
-      sit.board.crazyData.fold("")(hs => "先手の持駒：" + renderHand(hs(Sente))),
+      sit.board.handData.fold("")(hs => "先手の持駒：" + renderHand(hs(Sente))),
       if (sit.color == Gote) "後手番" else ""
     ).filter(_.nonEmpty).mkString("\n")
   }

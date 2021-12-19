@@ -58,7 +58,7 @@ object Forsyth {
           if (splitted.length < 3 || splitted.lift(2).get == "-") board
           else {
             val hands = readHands(variant, splitted.lift(2).get)
-            board.withCrazyData(hands)
+            board.withHandData(hands)
           }
         }
       } else None
@@ -129,7 +129,7 @@ object Forsyth {
     List(
       exportBoard(game.board),
       game.player.letter,
-      exportCrazyPocket(game.board),
+      exportHands(game.board),
       game.moveNumber
     ) mkString " "
 
@@ -137,11 +137,11 @@ object Forsyth {
     List(
       exportBoard(situation.board),
       situation.color.letter,
-      exportCrazyPocket(situation.board)
+      exportHands(situation.board)
     ) mkString " "
 
-  def exportCrazyPocket(board: Board): String =
-    board.crazyData.fold("-") { hands =>
+  def exportHands(board: Board): String =
+    board.handData.fold("-") { hands =>
       def exportHand(hand: Hand): String =
         board.variant.handRoles map { r =>
           val cnt = hand(r)

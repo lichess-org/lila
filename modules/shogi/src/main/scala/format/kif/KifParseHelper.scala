@@ -40,7 +40,7 @@ object KifParserHelper {
         senteHand <- parseHand(variant, senteHandStr)
         goteHand  <- parseHand(variant, goteHandStr)
         hands    = Hands(senteHand, goteHand)
-        board    = Board(pieces, variant).withCrazyData(hands)
+        board    = Board(pieces, variant).withHandData(hands)
         goteTurn = lines.exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
       } yield (Situation(board, Color.fromSente(!goteTurn)))
     } else {

@@ -26,7 +26,7 @@ object Hash {
         java.lang.Long.parseLong(s.substring(start + 8, start + 16), 16)
     val senteTurnMask    = hexToLong(ZobristTables.senteTurnMask)
     val actorMasks       = ZobristTables.actorMasks.map(hexToLong)
-    val crazyPocketMasks = ZobristTables.crazyPocketMasks.map(hexToLong)
+    val handMasks  = ZobristTables.handMasks.map(hexToLong)
   }
 
   // The following masks are compatible with the Polyglot
@@ -61,14 +61,14 @@ object Hash {
 
   private def get(situation: Situation, table: ZobristConstants): Long = {
 
-    def crazyPocketMask(role: Role, colorshift: Int, count: Int) = {
+    def handMask(role: Role, colorshift: Int, count: Int) = {
       // There should be no kings or promoted pieces (7 roles) and at most 18 pieces(2*9 pawns)
       // of any given type in a pocket.
       // 18+ pieces in hand will get hashed as (18+)%19. Theoretically some false positives for repetition
       val minCount = count % 19
       if (minCount > 0 && roleIndex(role) < 7)
         Option(
-          table.crazyPocketMasks(18 * roleIndex(role) + minCount + colorshift)
+          table.handMasks(18 * roleIndex(role) + minCount + colorshift)
         )
       else None
     }
@@ -83,18 +83,18 @@ object Hash {
       .fold(hturn)(_ ^ _)
 
     // Hash in hand data.
-    val hcrazy = board.crazyData.fold(hactors) { hands =>
+    val hhand = board.handData.fold(hactors) { hands =>
       Color.all
         .flatMap { color =>
           val colorshift = color.fold(125, -1)
           hands(color).handMap flatMap { case (role, rolecount) =>
-            crazyPocketMask(role, colorshift, rolecount)
+            handMask(role, colorshift, rolecount)
           }
         }
         .fold(hactors)(_ ^ _)
     }
 
-    hcrazy
+    hhand
   }
 
   private val h = new Hash(size)
@@ -2379,7 +2379,7 @@ private object ZobristTables {
 
   val senteTurnMask = "f8d626aaaf2785093815e537b6222c85"
 
-  val crazyPocketMasks = Array(
+  val handMasks = Array(
     "82907095d2302e0b8e6072a3c95a2a90",
     "b6c62507400c1403d989f3a5d6b03351",
     "90925a66e330a4676f8909d216e572c8",

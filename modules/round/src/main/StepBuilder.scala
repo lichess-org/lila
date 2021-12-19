@@ -26,8 +26,7 @@ object StepBuilder {
             fen = Forsyth >> init,
             check = init.situation.check,
             dests = None,
-            drops = None,
-            crazyData = init.situation.board.crazyData
+            drops = None
           )
           val moveSteps = games.map { case (g, m) =>
             Step(
@@ -36,8 +35,7 @@ object StepBuilder {
               fen = Forsyth >> g,
               check = g.situation.check,
               dests = None,
-              drops = None,
-              crazyData = g.situation.board.crazyData
+              drops = None
             )
           }
           (initStep :: moveSteps).map(_.toJson)

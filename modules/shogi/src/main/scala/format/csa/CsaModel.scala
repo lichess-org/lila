@@ -108,8 +108,8 @@ object Csa {
     }
     List(
       csaBoard.toString,
-      sit.board.crazyData.fold("")(hs => renderHand(hs(Sente), "P+")),
-      sit.board.crazyData.fold("")(hs => renderHand(hs(Gote), "P-")),
+      sit.board.handData.fold("")(hs => renderHand(hs(Sente), "P+")),
+      sit.board.handData.fold("")(hs => renderHand(hs(Gote), "P-")),
       if (sit.color == Gote) "-" else "+"
     ).filter(_.nonEmpty).mkString("\n")
   }
