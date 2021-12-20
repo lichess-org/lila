@@ -325,7 +325,8 @@ final class Mod(
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         assessApi.refreshAssessOf(user) >>
-          env.irwin.api.requests.fromMod(Suspect(user), me) >>
+          env.irwin.irwinApi.requests.fromMod(Suspect(user), me) >>
+          env.irwin.kaladinApi.modRequest(Suspect(user), me) >>
           userC.renderModZoneActions(username)
       }
     }

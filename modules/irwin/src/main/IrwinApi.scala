@@ -1,5 +1,6 @@
 package lila.irwin
 
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
@@ -14,7 +15,7 @@ import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ Holder, User, UserRepo }
 
 final class IrwinApi(
-    reportColl: Coll,
+    reportColl: Coll @@ IrwinColl,
     gameRepo: GameRepo,
     userRepo: UserRepo,
     analysisRepo: AnalysisRepo,
@@ -26,12 +27,12 @@ final class IrwinApi(
 
   import BSONHandlers._
 
-  def dashboard: Fu[IrwinDashboard] =
+  def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
       .find($empty)
       .sort($sort desc "date")
       .cursor[IrwinReport]()
-      .list(20) dmap IrwinDashboard.apply
+      .list(20) dmap IrwinReport.Dashboard.apply
 
   object reports {
 

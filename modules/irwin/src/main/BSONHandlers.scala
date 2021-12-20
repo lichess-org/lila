@@ -40,4 +40,8 @@ object BSONHandlers {
   // private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
   // private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   implicit val ReportBSONHandler = Macros.handler[IrwinReport]
+
+  import KaladinUser.Response
+  implicit val KaladinResponseBSONHandler = Macros.handler[Response]
+  implicit val KaladinUserBSONHandler     = Macros.handler[KaladinUser]
 }
