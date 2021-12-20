@@ -21,7 +21,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
     insightApi: lila.insight.InsightApi,
-    db: lila.db.Db
+    db: lila.db.Db,
+    insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -35,7 +36,7 @@ final class Env(
 
   lazy val irwinApi = wire[IrwinApi]
 
-  private lazy val kaladinColl = db(CollName("kaladin_queue")).taggedWith[KaladinColl]
+  private lazy val kaladinColl = insightDb(CollName("kaladin_queue")).taggedWith[KaladinColl]
 
   lazy val kaladinApi = wire[KaladinApi]
 

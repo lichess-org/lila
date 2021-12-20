@@ -8,6 +8,7 @@ import reactivemongo.api.Cursor
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.game.BinaryFormat
 import lila.game.GameRepo
@@ -20,7 +21,7 @@ import lila.user.User
 import lila.user.UserRepo
 
 final class KaladinApi(
-    coll: Coll @@ KaladinColl,
+    coll: AsyncColl @@ KaladinColl,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
@@ -36,15 +37,16 @@ final class KaladinApi(
     new lila.hub.AsyncActorSequencer(maxSize = 512, timeout = 2 minutes, name = "kaladinApi")
 
   private def sequence[A](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
-    workQueue { coll.byId[KaladinUser](user.id.value) flatMap f }
+    workQueue { coll(_.byId[KaladinUser](user.id.value)) flatMap f }
 
   def dashboard: Fu[KaladinUser.Dashboard] = for {
-    completed <- coll
+    c <- coll.get
+    completed <- c
       .find($doc("response.at" $exists true))
       .sort($doc("response.at" -> -1))
       .cursor[KaladinUser]()
       .list(30)
-    queued <- coll
+    queued <- c
       .find($doc("response.at" $exists false))
       .sort($doc("queuedAt" -> -1))
       .cursor[KaladinUser]()
@@ -64,24 +66,25 @@ final class KaladinApi(
           case true =>
             lila.mon.mod.kaladin.request(requester.name).increment()
             insightApi.indexAll(user.user) >>
-              coll.update.one($id(req._id), req, upsert = true).void
+              coll(_.update.one($id(req._id), req, upsert = true)).void
         }
       }
     }
 
   private[irwin] def countQueued: Fu[Map[Int, Int]] =
-    coll
-      .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+    coll {
+      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
       }
-      .map { res =>
-        for {
-          obj      <- res
-          priority <- obj int "_id"
-          nb       <- obj int "nb"
-        } yield priority -> nb
-      }
+        .map { res =>
+          for {
+            obj      <- res
+            priority <- obj int "_id"
+            nb       <- obj int "nb"
+          } yield priority -> nb
+        }
+    }
       .map(_.toMap)
 
   private object hasEnoughRecentMoves {
