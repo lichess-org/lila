@@ -256,6 +256,11 @@ object mon {
       def ownerReport(name: String)     = counter("mod.irwin.ownerReport").withTag("name", name)
       def streamEventType(name: String) = counter("mod.irwin.stream.eventType").withTag("name", name)
     }
+    object kaladin {
+      def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
+      def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
+      def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
+    }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
     }

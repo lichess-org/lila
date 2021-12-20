@@ -525,6 +525,9 @@ GET   /irwin                           controllers.Irwin.dashboard
 POST  /irwin/report                    controllers.Irwin.saveReport
 GET   /api/stream/irwin                controllers.Irwin.eventStream
 
+# Kaladin
+GET   /kaladin                         controllers.Irwin.kaladin
+
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/search                    controllers.ForumPost.search(text: String ?= "", page: Int ?= 1)

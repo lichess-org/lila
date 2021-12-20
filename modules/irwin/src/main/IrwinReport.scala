@@ -51,4 +51,11 @@ object IrwinReport {
         povs get gameReport.gameId map { GameReport.WithPov(gameReport, _) }
       }
   }
+
+  case class Dashboard(recent: List[IrwinReport]) {
+
+    def lastSeenAt = recent.headOption.map(_.date)
+
+    def seenRecently = lastSeenAt.??(DateTime.now.minusMinutes(15).isBefore)
+  }
 }

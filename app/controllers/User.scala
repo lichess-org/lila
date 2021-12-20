@@ -414,7 +414,7 @@ final class User(
           Granter.is(_.ViewPrintNoIP)(holder) ??
             html.user.mod.identification(holder, user, logins)
         }
-        val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
+        val irwin = isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).map {
           _ ?? { reps =>
             html.irwin.report(reps)
           }
