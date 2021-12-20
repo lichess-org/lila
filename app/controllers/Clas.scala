@@ -36,6 +36,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
       }
     }
 
+  def teacher(username: String) = Secure(_.Admin) { implicit ctx => _ =>
+    env.user.repo named username flatMap {
+      _ ?? { teacher =>
+        env.clas.api.clas.of(teacher) map { classes =>
+          Ok(html.mod.search.teacher(teacher.id, classes))
+        }
+      }
+    }
+  }
+
   private def renderHome(implicit ctx: Context) =
     fuccess {
       pageHit

@@ -554,7 +554,7 @@ object mod {
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
+              (max < 1000 || othersWithEmail.others.sizeIs >= max) option frag(
                 nbsp,
                 a(cls := "more-others")("Load more")
               )
