@@ -648,7 +648,8 @@ object Game {
 
   val syntheticId = "synthetic"
 
-  val maxPlayingRealtime = 100 // plus 200 correspondence games
+  val maxPlaying         = 200 // including correspondence
+  val maxPlayingRealtime = 100
 
   val maxPlies = 600 // unlimited can cause StackOverflowError
 

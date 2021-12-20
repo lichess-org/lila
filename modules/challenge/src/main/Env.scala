@@ -31,8 +31,6 @@ final class Env(
     mode: play.api.Mode
 ) {
 
-  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
-
   private val colls = wire[ChallengeColls]
 
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
