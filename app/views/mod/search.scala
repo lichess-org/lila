@@ -196,7 +196,9 @@ object search {
       )
     }
 
-  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(implicit ctx: Context) =
+  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(implicit
+      ctx: Context
+  ) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -206,6 +208,7 @@ object search {
           th("Closed"),
           th("Created"),
           th("Active"),
+          isGranted(_.CloseAccount) option th,
           eraseButton option th
         )
       ),
