@@ -69,6 +69,21 @@ final class KaladinApi(
       }
     }
 
+  private[irwin] def countQueued: Fu[Map[Int, Int]] =
+    coll
+      .aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
+      }
+      .map { res =>
+        for {
+          obj      <- res
+          priority <- obj int "_id"
+          nb       <- obj int "nb"
+        } yield priority -> nb
+      }
+      .map(_.toMap)
+
   private object hasEnoughRecentMoves {
     private val minMoves = 1050
     private val cache = cacheApi[User.ID, Boolean](1024, "kaladin.hasEnoughRecentMoves") {

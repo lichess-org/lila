@@ -61,6 +61,14 @@ final class Env(
       _         <- kaladinApi.topOnline(topOnline)
     } yield ()).unit
   }
+
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    kaladinApi.countQueued foreach {
+      _ foreach { case (priority, nb) =>
+        lila.mon.mod.kaladin.queue(priority).update(nb)
+      }
+    }
+  }
 }
 
 trait IrwinColl
