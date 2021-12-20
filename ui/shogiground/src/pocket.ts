@@ -19,26 +19,14 @@ export function makePockets(str?: string): Pockets | undefined {
   ];
   if (!str) return pockets;
 
-  // we might not need JSON anymore? I would prefer to always get it from from sfen
-  try {
-    let jsonParsed = JSON.parse(str);
-    // if pocket is a json like "[{pawn: 1, gold: 1},{pawn: 3, silver: 1}]
-    for (const i of [0, 1]) {
-      for (const role of droppableRoles) {
-        pockets[i][role] = jsonParsed[i][role] || 0;
-      }
-    }
-  } catch {
-    // if pocket is a string like "PGppps"
-    let num = 0;
-    for (const c of str) {
-      const role = droppableLetters[c.toLowerCase()];
-      if (role) {
-        pockets[c.toLowerCase() === c ? 1 : 0][role] += num ? num : 1;
-        num = 0;
-      } else {
-        num = num * 10 + Number(c);
-      }
+  let num = 0;
+  for (const c of str) {
+    const role = droppableLetters[c.toLowerCase()];
+    if (role) {
+      pockets[c.toLowerCase() === c ? 1 : 0][role] += num ? num : 1;
+      num = 0;
+    } else {
+      num = num * 10 + Number(c);
     }
   }
 
