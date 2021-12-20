@@ -19,6 +19,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
+    cacheApi: lila.memo.CacheApi,
+    insightApi: lila.insight.InsightApi,
     db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
