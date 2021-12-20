@@ -31,7 +31,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     privateMessage: {
       html: n =>
-        generic(n, '/inbox/' + n.content.user.name, '', [
+        generic(n, '/inbox/' + n.content.user?.name, '', [
           h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
           h('span', n.content.text),
         ]),
@@ -130,11 +130,11 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     irwinDone: {
       html: n =>
-        generic(n, '/@/' + n.content.user.name + '?mod', '', [
+        generic(n, '/@/' + n.content.user?.name + '?mod', '', [
           h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
           h('span', 'Irwin job complete!'),
         ]),
-      text: n => n.content.user.name + ': Irwin job complete!',
+      text: n => n.content.user?.name + ': Irwin job complete!',
     },
   };
 }
