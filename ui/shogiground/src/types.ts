@@ -14,7 +14,7 @@ export type Role =
   | 'promotedknight'
   | 'promotedlance'
   | 'tokin';
-export type Key = 'a0' | `${File}${Rank}`;
+export type Key = '00' | `${File}${Rank}`;
 export type File = typeof files[number];
 export type Rank = typeof ranks[number];
 export type FEN = string;
@@ -120,8 +120,8 @@ export type Milliseconds = number;
 export type KHz = number;
 
 export const colors = ['sente', 'gote'] as const;
-export const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'] as const;
-export const ranks = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+export const files = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+export const ranks = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'] as const;
 
 export const enum Notation {
   WESTERN,

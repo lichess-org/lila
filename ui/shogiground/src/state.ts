@@ -10,12 +10,12 @@ export interface HeadlessState {
   pockets?: cg.Pockets;
   orientation: cg.Color; // board orientation. sente | gote
   turnColor: cg.Color; // turn to play. sente | gote
-  check?: cg.Key; // square currently in check "a2"
-  lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
-  selected?: cg.Key; // square currently selected "a1"
+  check?: cg.Key; // square currently in check "5a"
+  lastMove?: cg.Key[]; // squares part of the last move ["2b"; "8h"]
+  selected?: cg.Key; // square currently selected "1a"
   coordinates: boolean; // include coords attributes
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
-  disableContextMenu: boolean; // because who needs a context menu on a chessboard
+  disableContextMenu: boolean; // because who needs a context menu on a shogi board
   resizable: boolean; // listens to shogiground.resize on document.body to clear bounds cache
   blockTouchScroll: boolean; // block scrolling via touch dragging on the board, e.g. for coordinate training
   pieceKey: boolean; // add a data-key attribute to piece elements
@@ -31,7 +31,7 @@ export interface HeadlessState {
   movable: {
     free: boolean; // all moves are valid - board editor
     color?: cg.Color | 'both'; // color that can move. sente | gote | both
-    dests?: cg.Dests; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
+    dests?: cg.Dests; // valid moves. {"7g" ["7f"] "5i" ["4h" "5h" "6h"]}
     showDests: boolean; // whether to add the move-dest class on squares
     events: {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played
@@ -42,7 +42,7 @@ export interface HeadlessState {
     enabled: boolean; // allow premoves for color that can not move
     showDests: boolean; // whether to add the premove-dest class on squares
     dests?: cg.Key[]; // premove destinations for the current selection
-    current?: cg.KeyPair; // keys of the current saved premove ["e2" "e4"]
+    current?: cg.KeyPair; // keys of the current saved premove ["5f" "5d"]
     events: {
       set?: (orig: cg.Key, dest: cg.Key, metadata?: cg.SetPremoveMetadata) => void; // called after the premove has been set
       unset?: () => void; // called after the premove has been unset
@@ -53,7 +53,7 @@ export interface HeadlessState {
     showDropDests: boolean; // whether to add the premove-dest class on squares
     dropDests?: cg.Key[]; // premove destinations for the drop selection
     current?: {
-      // current saved predrop {role: 'knight'; key: 'e4'}
+      // current saved predrop {role: 'knight'; key: '5e'}
       role: cg.Role;
       key: cg.Key;
     };

@@ -87,14 +87,12 @@ export function premove(pieces: cg.Pieces, key: cg.Key, dims: cg.Dimensions): cg
     .map(util.pos2key);
 }
 
-function lastRow(dims: cg.Dimensions, key: cg.Key, color: cg.Color): boolean {
-  return color === 'sente' ? key[1] === dims.ranks.toString() : key[1] === '1';
+function lastRow(dims: cg.Dimensions, pos: cg.Pos, color: cg.Color): boolean {
+  return color === 'sente' ? pos[1] === dims.ranks - 1 : pos[1] === 1;
 }
 
-function lastTwoRows(dims: cg.Dimensions, key: cg.Key, color: cg.Color): boolean {
-  return color === 'sente'
-    ? key[1] === (dims.ranks - 1).toString() || key[1] === dims.ranks.toString()
-    : key[1] === '1' || key[1] === '2';
+function lastTwoRows(dims: cg.Dimensions, pos: cg.Pos, color: cg.Color): boolean {
+  return lastRow(dims, pos, color) || (color === 'sente' ? pos[1] === dims.ranks - 2 : pos[1] === 2);
 }
 
 export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece, dims: cg.Dimensions): cg.Key[] {
@@ -108,9 +106,9 @@ export function predrop(pieces: cg.Pieces, dropPiece: cg.Piece, dims: cg.Dimensi
       pos[0] < dims.files &&
       pos[1] < dims.ranks &&
       (role === 'pawn' || role === 'lance'
-        ? !lastRow(dims, key, color)
+        ? !lastRow(dims, pos, color)
         : role === 'knight'
-        ? !lastTwoRows(dims, key, color)
+        ? !lastTwoRows(dims, pos, color)
         : true)
     );
   });

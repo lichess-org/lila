@@ -1,4 +1,4 @@
-import { pos2key, invRanks } from './util';
+import { pos2key, invFiles } from './util';
 import * as cg from './types';
 
 export const initial: cg.FEN = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL';
@@ -84,9 +84,9 @@ export function read(sfen: cg.FEN, dims: cg.Dimensions): cg.Pieces {
 }
 
 export function write(pieces: cg.Pieces): cg.FEN {
-  return invRanks
+  return cg.ranks
     .map(y =>
-      cg.files
+      invFiles
         .map(x => {
           const piece = pieces.get((x + y) as cg.Key);
           if (piece) {

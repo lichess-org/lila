@@ -220,7 +220,7 @@ export function isPredroppable(state: HeadlessState): boolean {
   const piece = state.dropmode.active ? state.dropmode.piece : state.draggable.current?.piece;
   return (
     !!piece &&
-    (state.dropmode.active || state.draggable.current?.orig === 'a0') &&
+    (state.dropmode.active || state.draggable.current?.orig === '00') &&
     state.predroppable.enabled &&
     state.movable.color === piece.color &&
     state.turnColor !== piece.color

@@ -51,7 +51,7 @@ export function render(s: State): void {
 
       // if the last move was drop we add fix-blur class - css will-change: auto; - bug in chrome?
       el.classList.remove('fix-blur');
-      if (k === 'a0') el.classList.add('fix-blur');
+      if (k === '00') el.classList.add('fix-blur');
 
       // if piece not being dragged anymore, remove dragging style
       if (el.cgDragging && (!curDrag || curDrag.orig !== k)) {
@@ -234,7 +234,7 @@ function computeSquareClasses(s: State): SquareClasses {
           addSquare(squares, k, 'premove-dest' + (s.pieces.has(k) ? ' oc' : ''));
         }
     }
-  } else if (s.dropmode.active || s.draggable.current?.orig === 'a0') {
+  } else if (s.dropmode.active || s.draggable.current?.orig === '00') {
     const piece = s.dropmode.active ? s.dropmode.piece : s.draggable.current?.piece;
     if (piece && s.dropmode.showDropDests) {
       const dests = s.dropmode.dropDests?.get(piece.role);

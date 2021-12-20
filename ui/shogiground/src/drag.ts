@@ -88,7 +88,7 @@ function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
 }
 
 export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?: boolean): void {
-  const key: cg.Key = 'a0';
+  const key: cg.Key = '00';
   s.pieces.set(key, piece);
   board.unselect(s);
   s.dom.redraw();

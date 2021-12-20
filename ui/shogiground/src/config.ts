@@ -109,9 +109,9 @@ export function configure(state: HeadlessState, config: Config): void {
   // if a fen was provided, replace the pieces
   if (config.fen) {
     state.dimensions = config.dimensions || getDimensions(config.fen);
-    const pieceToDrop = state.pieces.get('a0');
+    const pieceToDrop = state.pieces.get('00');
     state.pieces = fenRead(config.fen, state.dimensions);
-    if (pieceToDrop) state.pieces.set('a0', pieceToDrop);
+    if (pieceToDrop) state.pieces.set('00', pieceToDrop);
     state.drawable.shapes = [];
   }
 
