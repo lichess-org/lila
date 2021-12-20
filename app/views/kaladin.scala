@@ -5,6 +5,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
+import lila.irwin.KaladinUser
 
 object kaladin {
 
@@ -61,7 +62,12 @@ object kaladin {
                   td(cls := "little")(momentFromNow(entry.queuedAt)),
                   td(cls := "little")(entry.startedAt map { momentFromNow(_) }),
                   td(cls := "little completed")(entry.response.map(_.at) map { momentFromNow(_) }),
-                  td(userIdLink(entry.queuedBy.some)),
+                  td {
+                    entry.queuedBy match {
+                      case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
+                      case requester                     => em(requester.name)
+                    }
+                  },
                   entry.response.fold(td) { res =>
                     td(cls := s"little activation ${predClass(res.pred)}")(
                       strong(res.pred)

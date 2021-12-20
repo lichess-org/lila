@@ -106,22 +106,11 @@ final class IrwinApi(
         "irwin"
       )
 
-    private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
-      lila.common.Future.applySequentially(leaders.toList) { case (tour, top) =>
-        userRepo byIds top.value.zipWithIndex
-          .filter(_._2 <= tour.nbPlayers * 2 / 100)
-          .map(_._1.userId)
-          .take(20) flatMap { users =>
-          lila.common.Future.applySequentially(users) { user =>
-            insert(Suspect(user), _.Tournament)
-          }
-        }
-      }
+    private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
+      lila.common.Future.applySequentially(suspects) { insert(_, _.Tournament) }
 
-    private[irwin] def fromLeaderboard(leaders: List[User]): Funit =
-      lila.common.Future.applySequentially(leaders) { user =>
-        insert(Suspect(user), _.Leaderboard)
-      }
+    private[irwin] def topOnline(leaders: List[Suspect]): Funit =
+      lila.common.Future.applySequentially(leaders) { insert(_, _.Leaderboard) }
 
     import lila.game.BSONHandlers._
 

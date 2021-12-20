@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.tournament.TournamentApi
+import lila.report.Suspect
 
 final class Env(
     tournamentApi: TournamentApi,
@@ -32,16 +33,32 @@ final class Env(
 
   lazy val irwinApi = wire[IrwinApi]
 
-  system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
-    tournamentApi.allCurrentLeadersInStandard.flatMap(irwinApi.requests.fromTournamentLeaders).unit
-  }
-  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
-    userCache.getTop50Online.flatMap(irwinApi.requests.fromLeaderboard).unit
-  }
-
   private lazy val kaladinColl = db(CollName("kaladin_queue")).taggedWith[KaladinColl]
 
   lazy val kaladinApi = wire[KaladinApi]
+
+  system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
+    (for {
+      leaders <- tournamentApi.allCurrentLeadersInStandard
+      suspects <- lila.common.Future
+        .linear(leaders.toList) { case (tour, top) =>
+          userRepo byIds top.value.zipWithIndex
+            .filter(_._2 <= tour.nbPlayers * 2 / 100)
+            .map(_._1.userId)
+            .take(20)
+        }
+        .map(_.flatten.map(Suspect))
+      _ <- irwinApi.requests.fromTournamentLeaders(suspects)
+      _ <- kaladinApi.tournamentLeaders(suspects)
+    } yield ()).unit
+  }
+  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
+    (for {
+      topOnline <- userCache.getTop50Online.map(_ map Suspect)
+      _         <- irwinApi.requests.topOnline(topOnline)
+      _         <- kaladinApi.topOnline(topOnline)
+    } yield ()).unit
+  }
 }
 
 trait IrwinColl

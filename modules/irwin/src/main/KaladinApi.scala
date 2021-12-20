@@ -8,9 +8,13 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.report.{ Suspect }
+import lila.tournament.Tournament
+import lila.tournament.TournamentTop
 import lila.user.Holder
+import lila.user.User
+import lila.user.UserRepo
 
-final class KaladinApi(coll: Coll @@ KaladinColl)(implicit
+final class KaladinApi(coll: Coll @@ KaladinColl, userRepo: UserRepo)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
@@ -37,15 +41,29 @@ final class KaladinApi(coll: Coll @@ KaladinColl)(implicit
   } yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect, by: Holder) =
+    request(user, KaladinUser.Requester.Mod(by.id))
+
+  def request(user: Suspect, requester: KaladinUser.Requester) =
     sequence[Unit](user) { prev =>
-      val request: Option[KaladinUser] = prev match {
-        case Some(prev) if prev.recentlyQueued => none
-        case Some(prev)                        => prev.queueAgain(by).some
-        case _                                 => KaladinUser.make(user, by).some
-      }
-      request ?? { req =>
-        lila.mon.mod.kaladin.request.increment()
+      prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) ?? { req =>
+        lila.mon.mod.kaladin.request(requester.name).increment()
         coll.update.one($id(req._id), req, upsert = true).void
       }
     }
+
+  private[irwin] def autoRequest(requester: KaladinUser.Requester)(user: Suspect) =
+    request(user, requester)
+
+  private[irwin] def tournamentLeaders(suspects: List[Suspect]): Funit =
+    lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TournamentLeader))
+
+  private[irwin] def topOnline(suspects: List[Suspect]): Funit =
+    lila.common.Future.applySequentially(suspects)(autoRequest(KaladinUser.Requester.TopOnline))
+
+  private def getSuspect(suspectId: User.ID) =
+    userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
+
+  lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
+    getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report) unit
+  }
 }
