@@ -156,4 +156,8 @@
   <string name="nextChapter">Seuraava luku</string>
   <string name="prevChapter">Edellinen luku</string>
   <string name="studyActions">Tutkielmatoiminnot</string>
+  <string name="topics">Aiheet</string>
+  <string name="myTopics">Omat aiheeni</string>
+  <string name="popularTopics">Suositut aiheet</string>
+  <string name="manageTopics">Aiheiden hallinta</string>
 </resources>
