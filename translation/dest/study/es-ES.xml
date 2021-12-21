@@ -156,4 +156,8 @@
   <string name="nextChapter">Capítulo siguiente</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Acciones de estudio</string>
+  <string name="topics">Temas</string>
+  <string name="myTopics">Mis temas</string>
+  <string name="popularTopics">Temas populares</string>
+  <string name="manageTopics">Administrar temas</string>
 </resources>
