@@ -156,4 +156,8 @@
   <string name="nextChapter">Next chapter</string>
   <string name="prevChapter">Previous chapter</string>
   <string name="studyActions">Study actions</string>
+  <string name="topics">Topics</string>
+  <string name="myTopics">My topics</string>
+  <string name="popularTopics">Popular topics</string>
+  <string name="manageTopics">Manage topics</string>
 </resources>

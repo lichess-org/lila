@@ -36,6 +36,8 @@ object jsI18n {
       pgnTags,
       like,
       unlike,
+      topics,
+      manageTopics,
       newTag,
       commentThisPosition,
       commentThisMove,
