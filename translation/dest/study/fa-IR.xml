@@ -155,4 +155,8 @@
   <string name="nextChapter">فصل بعدی</string>
   <string name="prevChapter">فصل قبلی</string>
   <string name="studyActions">عملگرهای مطالعه</string>
+  <string name="topics">مباحث</string>
+  <string name="myTopics">مباحث من</string>
+  <string name="popularTopics">مباحث معروف</string>
+  <string name="manageTopics">مدیریت مباحث</string>
 </resources>
