@@ -1,6 +1,7 @@
 import { WorkerOpts, Work } from './types';
-import { assureUsi, lishogiVariantRules } from 'shogiops/compat';
+import { lishogiVariantRules } from 'shogiops/compat';
 import { Deferred, defer } from 'common/defer';
+import { pretendItsUsi } from 'common';
 
 const EVAL_REGEX = new RegExp(
   '' +
@@ -23,7 +24,7 @@ export default class Protocol {
     ['Threads', 1],
     ['Hash', 16],
     ['MultiPV', 1],
-    ['UCI_Variant', 'chess'],
+    ['UCI_Variant', 'shogi'],
   ]);
 
   constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
@@ -135,7 +136,7 @@ export default class Protocol {
     this.stopped = null;
     this.expectedPvs = 1;
 
-    const usiMoves = this.work.moves.map(m => assureUsi(m)!);
+    const usiMoves = this.work.moves.map(m => pretendItsUsi(m));
     console.log('sending this sfen: ', this.work.initialFen, 'and these moves', usiMoves);
     console.log('for this variant: ', this.opts.variant);
 

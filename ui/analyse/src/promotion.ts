@@ -5,8 +5,10 @@ import * as util from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import AnalyseCtrl from './ctrl';
 import { MaybeVNode, JustCaptured } from './interfaces';
-import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
+import { lishogiVariantRules } from 'shogiops/compat';
 import { pieceCanPromote, promote } from 'shogiops/variantUtil';
+import { parseSquare } from 'shogiops/util';
+import { pretendItsSquare } from 'common';
 
 interface Promoting {
   orig: Key;
@@ -33,8 +35,8 @@ export function start(
   if (
     pieceCanPromote(lishogiVariantRules(ctrl.data.game.variant.key))(
       piece,
-      parseChessSquare(orig)!,
-      parseChessSquare(dest)!
+      parseSquare(pretendItsSquare(orig))!,
+      parseSquare(pretendItsSquare(dest))!
     )
   ) {
     promoting = {

@@ -194,7 +194,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     } else {
       for (let i = 1; i < steps.length; i++) {
         const s = steps[i];
-        work.moves.push(s.uci!);
+        work.moves.push(s.usi!);
       }
     }
 
@@ -245,12 +245,12 @@ export default function (opts: CevalOpts): CevalCtrl {
     maxHashSize,
     infinite,
     hovering,
-    setHovering(fen: Fen, uci?: Uci) {
+    setHovering(fen: Fen, usi?: Usi) {
       hovering(
-        uci
+        usi
           ? {
               fen,
-              uci,
+              usi,
             }
           : null
       );

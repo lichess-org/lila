@@ -139,7 +139,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
       notationStyle(ctx.ctrl.data.pref.pieceNotation)({
         san: node.san!,
-        uci: node.uci!,
+        usi: node.usi!,
         fen: node.fen,
         variant: ctx.variant,
       }),

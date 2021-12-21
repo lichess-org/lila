@@ -67,7 +67,7 @@ export function iconTag(icon: string) {
 }
 
 export function nodeFullName(node: Tree.Node, notation: number, variant: VariantKey) {
-  if (node.san && node.uci)
+  if (node.san && node.usi)
     return (
       node.ply +
       '.' +
@@ -75,7 +75,7 @@ export function nodeFullName(node: Tree.Node, notation: number, variant: Variant
       notationStyle(notation)({
         san: node.san,
         fen: node.fen,
-        uci: node.uci,
+        usi: node.usi,
         variant: variant,
       })
     );

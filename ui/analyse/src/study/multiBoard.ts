@@ -19,7 +19,7 @@ export class MultiBoardCtrl {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
     if (cp && cp.playing) {
       cp.fen = node.fen;
-      cp.lastMove = node.uci;
+      cp.lastMove = node.usi;
       this.redraw();
     }
   }
@@ -150,7 +150,7 @@ function makePlayer(player: ChapterPreviewPlayer): VNode {
   ]);
 }
 
-function uciToLastMove(lm?: string): Key[] | undefined {
+function usiToLastMove(lm?: string): Key[] | undefined {
   return lm ? ((lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) as Key[]) : undefined;
 }
 
@@ -167,7 +167,7 @@ function makeCg(preview: ChapterPreview): VNode {
           fen: preview.fen,
           hasPockets: true,
           pockets: preview.fen && preview.fen.split(' ').length > 2 ? preview.fen.split(' ')[2] : '',
-          lastMove: uciToLastMove(preview.lastMove),
+          lastMove: usiToLastMove(preview.lastMove),
         });
         vnode.data!.cp = { cg, fen: preview.fen };
       },
@@ -175,7 +175,7 @@ function makeCg(preview: ChapterPreview): VNode {
         if (old.data!.cp.fen !== preview.fen) {
           old.data!.cp.cg.set({
             fen: preview.fen,
-            lastMove: uciToLastMove(preview.lastMove),
+            lastMove: usiToLastMove(preview.lastMove),
           });
           old.data!.cp.fen = preview.fen;
         }

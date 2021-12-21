@@ -5,8 +5,7 @@ import sign from 'puz/sign';
 import { Api as CgApi } from 'shogiground/api';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
-import { makeLishogiUci, parseChessSquare, parseLishogiUci } from 'shogiops/compat';
-import { prop, Prop } from 'common';
+import { pretendItsSquare, pretendItsUsi, prop, Prop } from 'common';
 import { Piece, Role } from 'shogiground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
 import { Promotion, Run } from 'puz/interfaces';
@@ -16,6 +15,7 @@ import { Clock } from 'puz/clock';
 import { isDrop, Move } from 'shogiops/types';
 import { cancelDropMode } from 'shogiground/drop';
 import { backrank, secondBackrank } from 'shogiops/variantUtil';
+import { makeUsi, parseSquare, parseUsi } from 'shogiops/util';
 
 export default class StormCtrl {
   private data: StormData;
@@ -88,15 +88,15 @@ export default class StormCtrl {
   userDrop = (piece: Piece, dest: Key): void => {
     const move = {
       role: piece.role,
-      to: parseChessSquare(dest)!,
+      to: parseSquare(pretendItsSquare(dest))!,
     };
     this.finishMoveOrDrop(move);
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: boolean): void => {
     const move = {
-      from: parseChessSquare(orig)!,
-      to: parseChessSquare(dest)!,
+      from: parseSquare(pretendItsSquare(orig))!,
+      to: parseSquare(pretendItsSquare(dest))!,
       promotion: !!promotion,
     };
     this.finishMoveOrDrop(move);
@@ -109,7 +109,7 @@ export default class StormCtrl {
 
     const puzzle = this.run.current;
     const pos = puzzle.position();
-    const uci = makeLishogiUci(move);
+    const usi = makeUsi(move);
 
     if (isDrop(move) && !pos.isLegal(move)) {
       this.withGround(g => {
@@ -125,8 +125,8 @@ export default class StormCtrl {
     pos.play(move);
     if (
       pos.isCheckmate() ||
-      uci == puzzle.expectedMove() ||
-      (!isDrop(move) && this.isForcedPromotion(uci, puzzle.expectedMove(), pos.turn, pos.board.getRole(move.from)))
+      usi == puzzle.expectedMove() ||
+      (!isDrop(move) && this.isForcedPromotion(usi, puzzle.expectedMove(), pos.turn, pos.board.getRole(move.from)))
     ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
@@ -141,7 +141,8 @@ export default class StormCtrl {
         if (!this.incPuzzle()) this.end();
       } else {
         puzzle.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseLishogiUci(puzzle.line[puzzle.moveIndex]!)!.to);
+        captureSound =
+          captureSound || pos.board.occupied.has(parseUsi(pretendItsUsi(puzzle.line[puzzle.moveIndex]))!.to);
       }
       sound.move(captureSound);
     } else {
@@ -169,10 +170,10 @@ export default class StormCtrl {
     window.lishogi.pubsub.emit('ply', this.run.moves);
   }
 
-  // When not promotion isn't an option uci in solution might not contain '+'
+  // When not promotion isn't an option usi in solution might not contain '+'
   private isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role): boolean {
-    const m1 = parseLishogiUci(u1);
-    const m2 = parseLishogiUci(u2);
+    const m1 = parseUsi(pretendItsUsi(u1));
+    const m2 = parseUsi(pretendItsUsi(u2));
     if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
     return (
       (role === 'knight' && secondBackrank('shogi')(turn).has(m1.to)) ||

@@ -47,7 +47,7 @@ export interface CevalOpts {
 
 export interface Hovering {
   fen: string;
-  uci: string;
+  usi: string;
 }
 
 export interface Started {
@@ -67,7 +67,7 @@ export interface CevalCtrl {
   isComputing(): boolean;
   engineName(): string | undefined;
   variant: Variant;
-  setHovering: (fen: string, uci?: string) => void;
+  setHovering: (fen: string, usi?: string) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode?: boolean, deeper?: boolean) => void;
   stop(): void;
@@ -95,7 +95,7 @@ export interface ParentCtrl {
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;
   ongoing: boolean;
-  playUci(uci: string): void;
+  playUsi(usi: string): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
@@ -113,7 +113,7 @@ export interface Step {
   ply: number;
   fen: string;
   san?: string;
-  uci?: string;
+  usi?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
 }

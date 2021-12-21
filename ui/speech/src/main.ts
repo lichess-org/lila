@@ -14,10 +14,10 @@ const roles: { [letter: string]: string } = {
   T: 'tokin',
 };
 
-function renderSan(san: San, uci: Uci) {
+function renderSan(san: San, usi: Usi) {
   let move = notationStyle(Notation.WesternEngine)({
     san: san,
-    uci: uci,
+    usi: usi,
     fen: '',
     variant: 'standard',
   });
@@ -52,6 +52,6 @@ export function say(text: string, cut: boolean) {
   window.lishogi.sound.say(msg);
 }
 
-export function step(s: { san?: San; uci?: Uci }, cut: boolean) {
-  say(s.san ? renderSan(s.san, s.uci || '') : 'Game start', cut);
+export function step(s: { san?: San; usi?: Usi }, cut: boolean) {
+  say(s.san ? renderSan(s.san, s.usi || '') : 'Game start', cut);
 }

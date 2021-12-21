@@ -88,7 +88,7 @@ module.exports = function (ctrl) {
             class: 'text',
             'data-icon': '7',
           },
-          'Chess Insights'
+          'Shogi Insights'
         ),
       ]),
       m('div.meat.box', renderMeat(ctrl)),

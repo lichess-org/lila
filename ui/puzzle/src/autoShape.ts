@@ -3,30 +3,30 @@ import { DrawShape } from 'shogiground/draw';
 import { Vm } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
 import { opposite } from 'shogiground/util';
-import { assureLishogiUci, makeChessSquare, parseLishogiUci } from 'shogiops/compat';
-import { isDrop } from 'shogiops/types';
 import { Pieces } from 'shogiground/types';
-import { defined } from 'common';
+import { isDrop } from 'shogiops/types';
+import { makeSquare, parseUsi } from 'shogiops/util';
+import { defined, pretendItsUsi } from 'common';
 
 interface Opts {
   vm: Vm;
   ceval: CevalCtrl;
   ground: CgApi;
-  nextNodeBest?: Uci;
+  nextNodeBest?: Usi;
   threatMode: boolean;
 }
 
-function makeAutoShapesFromUci(uci: Uci, color: Color, brush: string, pieces?: Pieces, modifiers?: any): DrawShape[] {
-  const move = parseLishogiUci(assureLishogiUci(uci)!);
+function makeAutoShapesFromUsi(usi: Usi, color: Color, brush: string, pieces?: Pieces, modifiers?: any): DrawShape[] {
+  const move = parseUsi(pretendItsUsi(usi));
   if (!move) return [];
   if (isDrop(move))
     return [
       {
-        orig: makeChessSquare(move.to),
+        orig: makeSquare(move.to),
         brush,
       },
       {
-        orig: makeChessSquare(move.to),
+        orig: makeSquare(move.to),
         piece: {
           role: move.role,
           color: color,
@@ -37,16 +37,16 @@ function makeAutoShapesFromUci(uci: Uci, color: Color, brush: string, pieces?: P
   else {
     const shapes: DrawShape[] = [
       {
-        orig: makeChessSquare(move.from),
-        dest: makeChessSquare(move.to),
+        orig: makeSquare(move.from),
+        dest: makeSquare(move.to),
         brush: brush,
         modifiers: modifiers,
       },
     ];
-    const pieceToPromote = move.promotion ? pieces?.get(uci.slice(0, 2) as Key) : undefined;
+    const pieceToPromote = move.promotion ? pieces?.get(usi.slice(0, 2) as Key) : undefined;
     if (defined(pieceToPromote)) {
       shapes.push({
-        orig: makeChessSquare(move.to),
+        orig: makeSquare(move.to),
         piece: {
           color: pieceToPromote.color,
           role: pieceToPromote.role,
@@ -67,13 +67,13 @@ export default function (opts: Opts): DrawShape[] {
     turnColor = opts.ground.state.turnColor;
   let shapes: DrawShape[] = [];
   if (hovering && hovering.fen === n.fen)
-    shapes = shapes.concat(makeAutoShapesFromUci(hovering.uci, turnColor, 'paleBlue'));
+    shapes = shapes.concat(makeAutoShapesFromUsi(hovering.usi, turnColor, 'paleBlue'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
-    if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(n.eval.best!, turnColor, 'paleGreen'));
+    if (n.eval) shapes = shapes.concat(makeAutoShapesFromUsi(n.eval.best!, turnColor, 'paleGreen'));
     if (!hovering) {
-      let nextBest: Uci | undefined = opts.nextNodeBest;
+      let nextBest: Usi | undefined = opts.nextNodeBest;
       if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
-      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(nextBest, turnColor, 'paleBlue'));
+      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUsi(nextBest, turnColor, 'paleBlue'));
       if (
         opts.ceval.enabled() &&
         n.ceval &&
@@ -86,7 +86,7 @@ export default function (opts: Opts): DrawShape[] {
           const shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
           shapes = shapes.concat(
-            makeAutoShapesFromUci(pv.moves[0], turnColor, 'paleGrey', opts.ground.state.pieces, {
+            makeAutoShapesFromUsi(pv.moves[0], turnColor, 'paleGrey', opts.ground.state.pieces, {
               lineWidth: Math.round(12 - shift * 50), // 12 to 2
             })
           );
@@ -96,17 +96,17 @@ export default function (opts: Opts): DrawShape[] {
   }
   if (opts.ceval.enabled() && opts.threatMode && n.threat) {
     if (n.threat.pvs[1]) {
-      shapes = shapes.concat(makeAutoShapesFromUci(n.threat.pvs[0].moves[0], turnColor, 'paleRed'));
+      shapes = shapes.concat(makeAutoShapesFromUsi(n.threat.pvs[0].moves[0], turnColor, 'paleRed'));
       n.threat.pvs.slice(1).forEach(function (pv) {
         const shift = winningChances.povDiff(opposite(color as Color), pv, n.threat!.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
         shapes = shapes.concat(
-          makeAutoShapesFromUci(pv.moves[0], turnColor, 'paleRed', opts.ground.state.pieces, {
+          makeAutoShapesFromUsi(pv.moves[0], turnColor, 'paleRed', opts.ground.state.pieces, {
             lineWidth: Math.round(11 - shift * 45), // 11 to 2
           })
         );
       });
-    } else shapes = shapes.concat(makeAutoShapesFromUci(n.threat.pvs[0].moves[0], turnColor, 'red'));
+    } else shapes = shapes.concat(makeAutoShapesFromUsi(n.threat.pvs[0].moves[0], turnColor, 'red'));
   }
   return shapes;
 }

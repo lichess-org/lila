@@ -45,7 +45,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, 
         },
         notationStyle(notation)({
           san: step.san,
-          uci: step.uci,
+          usi: step.usi,
           fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + ' ' + toBW(color),
           variant: variant,
         })

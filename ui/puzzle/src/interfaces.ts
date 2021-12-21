@@ -42,7 +42,7 @@ export interface Controller extends KeyboardController {
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;
   ongoing: boolean;
-  playUci(uci: string): void;
+  playUsi(usi: string): void;
   getOrientation(): Color;
   getDropmodeActive(): boolean;
   threatMode: Prop<boolean>;
@@ -176,7 +176,7 @@ export interface PuzzleUser {
 
 export interface Puzzle {
   id: string;
-  solution: Uci[];
+  solution: Usi[];
   rating: number;
   plays: number;
   initialPly: number;

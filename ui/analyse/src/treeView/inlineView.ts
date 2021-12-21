@@ -117,7 +117,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       opts.withIndex || node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
       notationStyle(ctx.notation)({
         san: node.san!,
-        uci: node.uci!,
+        usi: node.usi!,
         fen: node.fen,
         variant: ctx.variant,
       }),

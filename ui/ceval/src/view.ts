@@ -1,15 +1,14 @@
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { renderEval, cubicRegressionEval } from './util';
 import * as winningChances from './winningChances';
-import { defined } from 'common';
+import { defined, pretendItsUsi } from 'common';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { ExtendedMoveInfo, notationStyle } from 'common/notation';
 import { Position } from 'shogiops/shogi';
-import { makeLishogiUci, assureUsi, lishogiVariantRules } from 'shogiops/compat';
-import { opposite, parseUsi } from 'shogiops/util';
+import { lishogiVariantRules } from 'shogiops/compat';
+import { makeUsi, opposite, parseUsi } from 'shogiops/util';
 import { makeFen, parseFen } from 'shogiops/fen';
-import { makeSanAndPlay } from 'shogiops/san';
 import { Move } from 'shogiops/types';
 import { setupPosition } from 'shogiops/variant';
 
@@ -243,15 +242,15 @@ function getElFen(el: HTMLElement): string {
   return el.getAttribute('data-fen')!;
 }
 
-function getElUci(e: MouseEvent): string | undefined {
+function getElUsi(e: MouseEvent): string | undefined {
   return $(e.target as HTMLElement)
     .closest('div.pv')
-    .attr('data-uci');
+    .attr('data-usi');
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   window.lishogi.requestIdleCallback(() => {
-    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci'));
+    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-usi'));
   });
 }
 
@@ -259,17 +258,17 @@ function makeExtendedMoveVariation(pos: Position, variation: Move[], variant: Va
   pos = pos.clone();
   const extendedLine = [];
   for (let i = 0; i < variation.length; i++) {
-    const san = makeSanAndPlay(pos, variation[i]);
+    //const san = makeSanAndPlay(pos, variation[i]);
     const fen = makeFen(pos.toSetup());
     extendedLine.push({
-      san: san,
-      uci: makeLishogiUci(pos.lastMove!),
+      san: '',
+      usi: makeUsi(pos.lastMove!),
       fen: fen,
       variant: variant,
     });
-    if (san === '--') return extendedLine;
+    //if (san === '--') return extendedLine;
     if (i === variation.length - 1 && pos.outcome()?.winner)
-      extendedLine.push({ san: '投了', uci: '投了', fen: '投了', variant: variant });
+      extendedLine.push({ san: '投了', usi: '投了', fen: '投了', variant: variant });
   }
   return extendedLine;
 }
@@ -315,14 +314,14 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
-            instance.setHovering(getElFen(el), getElUci(e));
+            instance.setHovering(getElFen(el), getElUsi(e));
           });
           el.addEventListener('mouseout', () => {
             instance.setHovering(getElFen(el));
           });
           el.addEventListener('mousedown', (e: MouseEvent) => {
-            const uci = getElUci(e);
-            if (uci) ctrl.playUci(uci);
+            const usi = getElUsi(e);
+            if (usi) ctrl.playUsi(usi);
           });
           checkHover(el, instance);
         },
@@ -336,7 +335,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
         threat
           ? {}
           : {
-              attrs: { 'data-uci': pvs[i].moves[0] },
+              attrs: { 'data-usi': pvs[i].moves[0] },
             },
         [
           multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
@@ -349,7 +348,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
                   turn,
                   makeExtendedMoveVariation(
                     pos,
-                    pvs[i].moves.slice(0, 10).map(m => parseUsi(assureUsi(m)!)!),
+                    pvs[i].moves.slice(0, 10).map(m => parseUsi(pretendItsUsi(m))!),
                     instance.variant.key
                   ),
                   notation

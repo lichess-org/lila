@@ -64,7 +64,7 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
               effectiveVariant,
               fen,
               root.nodeList[0].fen,
-              root.nodeList.slice(1).map(s => s.uci!),
+              root.nodeList.slice(1).map(s => s.usi!),
               config.data,
               withGames
             );
@@ -136,12 +136,12 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
         root.autoScroll();
       }
     },
-    setHovering(fen, uci) {
+    setHovering(fen, usi) {
       hovering(
-        uci
+        usi
           ? {
               fen,
-              uci,
+              usi,
             }
           : null
       );
@@ -177,7 +177,7 @@ export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl 
         if (move && move.dtz == null) throw 'unknown tablebase position';
         return {
           fen: fen,
-          best: move && move.uci,
+          best: move && move.usi,
           winner: res.checkmate ? opposite(colorOf(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
         } as SimpleTablebaseHit;
       });

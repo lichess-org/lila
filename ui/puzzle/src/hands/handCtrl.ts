@@ -2,10 +2,11 @@ import { dragNewPiece } from 'shogiground/drag';
 import { setDropMode, cancelDropMode } from 'shogiground/drop';
 import * as cg from 'shogiground/types';
 import { Shogi } from 'shogiops/shogi';
-import { parseChessSquare } from 'shogiops/compat';
 import { parseFen } from 'shogiops/fen';
 import { Controller } from '../interfaces';
 import { Role } from 'shogiops/types';
+import { parseSquare } from 'shogiops/util';
+import { pretendItsSquare } from 'common';
 
 export function shadowDrop(ctrl: Controller, e: cg.MouchEvent): void {
   const el = e.target as HTMLElement;
@@ -60,14 +61,14 @@ export function selectToDrop(ctrl: Controller, e: cg.MouchEvent): void {
   ctrl.redraw();
 }
 
-export function valid(fen: string, piece: cg.Piece, pos: Key): boolean {
+export function valid(fen: string, piece: cg.Piece, key: Key): boolean {
   const setup = parseFen(fen).unwrap();
   const shogi = Shogi.fromSetup(setup, false);
   return shogi.unwrap(
     s => {
       return s.isLegal({
         role: piece.role as Role,
-        to: parseChessSquare(pos)!,
+        to: parseSquare(pretendItsSquare(key))!,
       });
     },
     _ => false

@@ -9,7 +9,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
-    return fc.map(node => node.ply + ':' + node.uci).join(',');
+    return fc.map(node => node.ply + ':' + node.usi).join(',');
   }
 
   function contains(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
@@ -24,7 +24,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
 
   function collides(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
     for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
-      if (fc1[i].uci !== fc2[i].uci) {
+      if (fc1[i].usi !== fc2[i].usi) {
         if (cfg.onMyTurn) return i !== 0 && i % 2 === 0;
         return i % 2 === 1;
       }
@@ -99,8 +99,8 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     });
   }
 
-  function encodeUci(uci: string): string {
-    return uci.replace(/\+/, '%2B');
+  function encodeUsi(usi: string): string {
+    return usi.replace(/\+/, '%2B');
   }
 
   function playAndSave(node: ForecastStep) {
@@ -109,7 +109,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     redraw();
     $.ajax({
       method: 'POST',
-      url: saveUrl + '/' + encodeUci(node.uci),
+      url: saveUrl + '/' + encodeUsi(node.usi),
       data: JSON.stringify(
         findStartingWithNode(node)
           .filter(function (fc) {

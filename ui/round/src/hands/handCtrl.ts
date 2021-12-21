@@ -3,11 +3,13 @@ import { dragNewPiece } from 'shogiground/drag';
 import { setDropMode, cancelDropMode } from 'shogiground/drop';
 import RoundController from '../ctrl';
 import * as cg from 'shogiground/types';
-import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
+import { lishogiVariantRules } from 'shogiops/compat';
 import { handRoles } from 'shogiops/variantUtil';
 import { parseFen, parseHands } from 'shogiops/fen';
 import { setupPosition } from 'shogiops/variant';
 import { lastStep } from '../round';
+import { parseSquare } from 'shogiops/util';
+import { pretendItsSquare } from 'common';
 
 const li = window.lishogi;
 
@@ -70,7 +72,7 @@ let dropWithDrag = false;
 export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key): boolean {
   const data = ctrl.data;
   const lastStep = data.steps[data.steps.length - 1];
-  const move = { role: role, to: parseChessSquare(key)! };
+  const move = { role: role, to: parseSquare(pretendItsSquare(key))! };
 
   if (handKeys.length === 0) dropWithDrag = true;
   else dropWithKey = true;

@@ -1,13 +1,14 @@
 import { Role, Square, Color } from 'shogiops/types';
-import { lishogiCharToRole, lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
-import { squareFile, squareRank, makeSquare, opposite } from 'shogiops/util';
+import { lishogiCharToRole, lishogiVariantRules } from 'shogiops/compat';
+import { squareFile, squareRank, makeSquare, opposite, parseSquare } from 'shogiops/util';
 import { parseFen } from 'shogiops/fen';
 import { SquareSet } from 'shogiops/squareSet';
 import { setupPosition } from 'shogiops/variant';
+import { pretendItsUsi } from './common';
 
 export interface ExtendedMoveInfo {
   san: string;
-  uci: string;
+  usi: Usi;
   fen: string;
   variant?: VariantKey;
 }
@@ -82,11 +83,12 @@ const NUMBER_FILE_RANKS = ['9', '8', '7', '6', '5', '4', '3', '2', '1'] as const
 const JAPANESE_NUMBER_RANKS = ['九', '八', '七', '六', '五', '四', '三', '二', '一'] as const;
 const FULL_WIDTH_NUMBER_FILE_RANKS = ['９', '８', '７', '６', '５', '４', '３', '２', '１'] as const;
 
-function parseMove(san: string, uci: string): ParsedMove {
+function parseMove(san: string, usi: string): ParsedMove {
+  usi = pretendItsUsi(usi);
   return {
     role: lishogiCharToRole(san[0])!,
-    orig: parseChessSquare(uci.slice(0, 2))!,
-    dest: parseChessSquare(uci.slice(2, 4))!,
+    orig: parseSquare(usi.slice(0, 2))!,
+    dest: parseSquare(usi.slice(2, 4))!,
     capture: san.includes('x'),
     drop: san.includes('*'),
     promotion: san.includes('=') ? '=' : san.includes('+') ? '+' : '',
@@ -104,7 +106,7 @@ function sanContainsOrigin(san: string): boolean {
 }
 
 function kawasakiShogiNotation(move: ExtendedMoveInfo): string {
-  const parsed = parseMove(move.san, move.uci);
+  const parsed = parseMove(move.san, move.usi);
   const piece = JAPANESE_ROLE_SYMBOLS[parsed.role];
   const origin = sanContainsOrigin(move.san)
     ? `(${NUMBER_FILE_RANKS[squareFile(parsed.orig)]}${NUMBER_FILE_RANKS[squareRank(parsed.orig)]})`
@@ -121,7 +123,7 @@ function kawasakiShogiNotation(move: ExtendedMoveInfo): string {
 }
 
 function westernShogiNotation(move: ExtendedMoveInfo): string {
-  const parsed = parseMove(move.san, move.uci);
+  const parsed = parseMove(move.san, move.usi);
   const piece = WESTERN_ROLE_SYMBOLS[parsed.role];
   const origin = sanContainsOrigin(move.san)
     ? `${NUMBER_FILE_RANKS[squareFile(parsed.orig)]}${NUMBER_FILE_RANKS[squareRank(parsed.orig)]}`
@@ -133,7 +135,7 @@ function westernShogiNotation(move: ExtendedMoveInfo): string {
 }
 
 function westernShogiNotation2(move: ExtendedMoveInfo): string {
-  const parsed = parseMove(move.san, move.uci);
+  const parsed = parseMove(move.san, move.usi);
   const piece = WESTERN_ROLE_SYMBOLS[parsed.role];
   const origin = sanContainsOrigin(move.san) ? `${makeSquare(parsed.orig)}` : '';
   const connector = parsed.capture ? 'x' : parsed.drop ? '*' : '-';
@@ -143,7 +145,7 @@ function westernShogiNotation2(move: ExtendedMoveInfo): string {
 }
 
 function japaneseShogiNotation(move: ExtendedMoveInfo): string {
-  const parsed = parseMove(move.san, move.uci);
+  const parsed = parseMove(move.san, move.usi);
   const piece = JAPANESE_ROLE_SYMBOLS[parsed.role];
   const dropped =
     parsed.drop && isDropAmbiguos(move.variant ?? 'standard', move.fen, parsed.role, parsed.dest) ? '打' : '';

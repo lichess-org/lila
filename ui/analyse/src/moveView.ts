@@ -45,7 +45,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
       'san',
       notationStyle(ctx.notation)({
         san: node.san!,
-        uci: node.uci!,
+        usi: node.usi!,
         fen: node.fen,
         variant: ctx.variant,
       })

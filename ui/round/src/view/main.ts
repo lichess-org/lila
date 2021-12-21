@@ -5,7 +5,6 @@ import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
-import * as gridHacks from './gridHacks';
 import handView from '../hands/handView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
@@ -30,7 +29,6 @@ export function main(ctrl: RoundController): VNode {
         'div.round__app.variant-' + d.game.variant.key,
         {
           class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
-          hook: util.onInsert(gridHacks.start),
         },
         [
           h(

@@ -1,6 +1,6 @@
 /* kind like $.data, except simpler */
 
-const makeKey = (key: string) => `lichess-${key}`;
+const makeKey = (key: string) => `lishogi-${key}`;
 
 export const get = (owner: Element, key: string): any => (owner as any)[makeKey(key)];
 

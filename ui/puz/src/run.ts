@@ -1,6 +1,6 @@
 import { Run } from './interfaces';
 import { Config as CgConfig } from 'shogiground/config';
-import { uciToLastMove } from './util';
+import { usiToLastMove } from './util';
 import { makeFen } from 'shogiops/fen';
 import { shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
 
@@ -19,6 +19,6 @@ export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
       dropDests: canMove ? shogigroundDropDests(pos) : undefined,
     },
     check: !!pos.isCheck(),
-    lastMove: cur.moveIndex > 0 ? uciToLastMove(cur.lastMove()) : undefined,
+    lastMove: cur.moveIndex > 0 ? usiToLastMove(cur.lastMove()) : undefined,
   };
 };

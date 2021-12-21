@@ -21,7 +21,7 @@ export function makeConfig(ctrl: RoundController): Config {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'sente' : 'gote',
-    lastMove: util.uci2move(step.uci),
+    lastMove: util.usi2move(step.usi),
     check: !!step.check,
     coordinates: data.pref.coords !== 0,
     highlight: {

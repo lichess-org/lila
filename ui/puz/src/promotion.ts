@@ -5,9 +5,9 @@ import { Config as CgConfig } from 'shogiground/config';
 import * as cgUtil from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import { MaybeVNode, Redraw, Promotion } from './interfaces';
-import { defined } from 'common';
-import { parseChessSquare } from 'shogiops/compat';
+import { defined, pretendItsSquare } from 'common';
 import { pieceCanPromote, promote as shogiopsPromote } from 'shogiops/variantUtil';
+import { parseSquare } from 'shogiops/util';
 
 export default function (
   withGround: <A>(f: (cg: CgApi) => A) => A | false,
@@ -20,7 +20,7 @@ export default function (
     return !!withGround(g => {
       const piece = g.state.pieces.get(dest);
       if (!defined(piece)) return false;
-      if (pieceCanPromote('shogi')(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
+      if (pieceCanPromote('shogi')(piece, parseSquare(pretendItsSquare(orig))!, parseSquare(pretendItsSquare(dest))!)) {
         promoting = {
           orig: orig,
           dest: dest,

@@ -6,7 +6,7 @@
     height: 2em;
     line-height: 2em;
     border-top: $border;
-    &[data-uci]:hover {
+    &[data-usi]:hover {
       background: mix($c-secondary, $c-bg-box, 20%);
       cursor: pointer;
     }

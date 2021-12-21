@@ -84,7 +84,7 @@ interface Lishogi {
 
 interface LishogiSpeech {
   say(t: string, cut: boolean): void;
-  step(s: { san?: San; uci?: Uci }, cut: boolean): void;
+  step(s: { san?: San; usi?: Usi }, cut: boolean): void;
 }
 
 interface PalantirOpts {
@@ -204,90 +204,10 @@ declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'fromP
 
 declare type Color = 'sente' | 'gote';
 
-declare type Key =
-  | 'a0'
-  | 'a1'
-  | 'b1'
-  | 'c1'
-  | 'd1'
-  | 'e1'
-  | 'f1'
-  | 'g1'
-  | 'h1'
-  | 'i1'
-  | 'a2'
-  | 'b2'
-  | 'c2'
-  | 'd2'
-  | 'e2'
-  | 'f2'
-  | 'g2'
-  | 'h2'
-  | 'i2'
-  | 'a3'
-  | 'b3'
-  | 'c3'
-  | 'd3'
-  | 'e3'
-  | 'f3'
-  | 'g3'
-  | 'h3'
-  | 'i3'
-  | 'a4'
-  | 'b4'
-  | 'c4'
-  | 'd4'
-  | 'e4'
-  | 'f4'
-  | 'g4'
-  | 'h4'
-  | 'i4'
-  | 'a5'
-  | 'b5'
-  | 'c5'
-  | 'd5'
-  | 'e5'
-  | 'f5'
-  | 'g5'
-  | 'h5'
-  | 'i5'
-  | 'a6'
-  | 'b6'
-  | 'c6'
-  | 'd6'
-  | 'e6'
-  | 'f6'
-  | 'g6'
-  | 'h6'
-  | 'i6'
-  | 'a7'
-  | 'b7'
-  | 'c7'
-  | 'd7'
-  | 'e7'
-  | 'f7'
-  | 'g7'
-  | 'h7'
-  | 'i7'
-  | 'a8'
-  | 'b8'
-  | 'c8'
-  | 'd8'
-  | 'e8'
-  | 'f8'
-  | 'g8'
-  | 'h8'
-  | 'i8'
-  | 'a9'
-  | 'b9'
-  | 'c9'
-  | 'd9'
-  | 'e9'
-  | 'f9'
-  | 'g9'
-  | 'h9'
-  | 'i9';
-declare type Uci = string;
+declare type Files = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+declare type Ranks = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i';
+declare type Key = '00' | `${Files}${Ranks}`;
+
 declare type Usi = string;
 declare type San = string;
 declare type Fen = string;
@@ -330,7 +250,7 @@ declare namespace Tree {
   export interface ServerEval {
     cp?: number;
     mate?: number;
-    best?: Uci;
+    best?: Usi;
   }
 
   export interface PvData {
@@ -341,13 +261,13 @@ declare namespace Tree {
 
   export interface TablebaseHit {
     winner: Color | undefined;
-    best?: Uci;
+    best?: Usi;
   }
 
   export interface Node {
     id: string;
     ply: Ply;
-    uci?: Uci;
+    usi?: Usi;
     fen: Fen;
     children: Node[];
     comments?: Comment[];

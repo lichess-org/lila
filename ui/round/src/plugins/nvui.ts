@@ -26,7 +26,7 @@ import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 
 type Sans = {
-  [key: string]: Uci;
+  [key: string]: Usi;
 };
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
@@ -102,7 +102,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
                 'aria-atomic': true,
               },
             },
-            renderSan(step.san, step.uci, style)
+            renderSan(step.san, step.usi, style)
           ),
           ...(ctrl.isPlaying()
             ? [
@@ -191,21 +191,21 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
-        legalUcis = destsToUcis(ctrl.shogiground.state.movable.dests!),
-        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
-      let uci = sanToUci(input, sans) || input,
+        legalUsis = destsToUsis(ctrl.shogiground.state.movable.dests!),
+        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUsis) as Sans;
+      let usi = sanToUsi(input, sans) || input,
         promotion = '';
 
       if (input.match(promotionRegex)) {
-        uci = sanToUci(input.slice(0, -2), sans) || input;
+        usi = sanToUsi(input.slice(0, -2), sans) || input;
         promotion = input.slice(-1).toLowerCase();
       }
 
-      if (legalUcis.includes(uci.toLowerCase()))
+      if (legalUsis.includes(usi.toLowerCase()))
         ctrl.socket.send(
           'move',
           {
-            u: uci + promotion,
+            u: usi + promotion,
           },
           { ackable: true }
         );
@@ -247,18 +247,18 @@ function anyClock(ctrl: RoundController, position: Position) {
   );
 }
 
-function destsToUcis(dests: Dests) {
-  const ucis: string[] = [];
+function destsToUsis(dests: Dests) {
+  const usis: string[] = [];
   for (const [orig, d] of dests) {
     if (d)
       d.forEach(function (dest) {
-        ucis.push(orig + dest);
+        usis.push(orig + dest);
       });
   }
-  return ucis;
+  return usis;
 }
 
-function sanToUci(san: string, sans: Sans): Uci | undefined {
+function sanToUsi(san: string, sans: Sans): Usi | undefined {
   if (san in sans) return sans[san];
   const lowered = san.toLowerCase();
   for (let i in sans) if (i.toLowerCase() === lowered) return sans[i];
@@ -269,7 +269,7 @@ function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
     if (s.ply & 1) res.push(Math.ceil(s.ply / 2) + ' ');
-    res.push(renderSan(s.san, s.uci, style) + ', ');
+    res.push(renderSan(s.san, s.usi, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;

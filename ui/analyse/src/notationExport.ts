@@ -11,9 +11,9 @@ import { kifDestSquare, kifOrigSquare } from 'shogiops/kifUtil';
 import { makeCsaSquare } from 'shogiops/csaUtil';
 import { parseFen, INITIAL_FEN } from 'shogiops/fen';
 import { defined } from 'common';
-import { roleTo2Kanji, roleToCsa } from 'shogiops/util';
+import { parseUsi, roleTo2Kanji, roleToCsa } from 'shogiops/util';
 import { isDrop, Square, Role, Move } from 'shogiops/types';
-import { lishogiCharToRole, parseLishogiUci } from 'shogiops/compat';
+import { lishogiCharToRole } from 'shogiops/compat';
 import { renderTime } from './clocks';
 import { promote } from 'shogiops/variantUtil';
 
@@ -50,8 +50,8 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
   let timesSoFar: number[] = [0, 0];
 
   for (const m of mainline) {
-    if (defined(m.san) && defined(m.uci)) {
-      const move = parseLishogiUci(m.uci);
+    if (defined(m.san) && defined(m.usi)) {
+      const move = parseUsi(m.usi);
       const role = lishogiCharToRole(m.san[0]);
       if (defined(move) && defined(role)) {
         const kifMove = renderKifMove(move, role, lastDest === move.to);
@@ -126,8 +126,8 @@ function renderCsaMainline(node: Tree.Node): string[] {
   const mainline = treeOps.mainlineNodeList(node);
 
   for (const m of mainline) {
-    if (defined(m.san) && defined(m.uci)) {
-      const move = parseLishogiUci(m.uci);
+    if (defined(m.san) && defined(m.usi)) {
+      const move = parseUsi(m.usi);
       const role = lishogiCharToRole(m.san[0]);
       if (defined(move) && defined(role)) {
         const csaMove = renderCsaMove(move, role, m.ply % 2 ? 'sente' : 'gote');
@@ -194,14 +194,14 @@ export function renderNodesHtml(nodes: ForecastStep[], notation: number, variant
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [];
   nodes.forEach(node => {
-    if (!defined(node.san) || !defined(node.uci)) return;
+    if (!defined(node.san) || !defined(node.usi)) return;
     tags.push(h('index', node.ply + '.'));
     tags.push(
       h(
         'san',
         notationStyle(notation)({
           san: node.san,
-          uci: node.uci,
+          usi: node.usi,
           fen: node.fen,
           variant: variant,
         })

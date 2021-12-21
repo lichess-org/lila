@@ -21,9 +21,9 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
 
 export const getNow = (): number => Math.round(performance.now());
 
-export const uciToLastMove = (uci: string): [Key, Key] | [Key] => {
-  if (uci[1] === '*') return [uci.substr(2, 2) as Key];
-  return [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+export const usiToLastMove = (usi: string): [Key, Key] | [Key] => {
+  if (usi[1] === '*') return [usi.substr(2, 2) as Key];
+  return [usi.substr(0, 2) as Key, usi.substr(2, 2) as Key];
 };
 
 export const puzzlePov = (puzzle: Puzzle) => parseFen(puzzle.fen).unwrap().turn;

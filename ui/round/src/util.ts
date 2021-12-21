@@ -13,10 +13,10 @@ export function justIcon(icon: string): VNodeData {
   };
 }
 
-export function uci2move(uci: string): cg.Key[] | undefined {
-  if (!uci) return undefined;
-  if (uci[1] === '*') return [uci.slice(2, 4) as cg.Key];
-  return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
+export function usi2move(usi: string): cg.Key[] | undefined {
+  if (!usi) return undefined;
+  if (usi[1] === '*') return [usi.slice(2, 4) as cg.Key];
+  return [usi.slice(0, 2), usi.slice(2, 4)] as cg.Key[];
 }
 
 export function onInsert(f: (el: HTMLElement) => void): Hooks {

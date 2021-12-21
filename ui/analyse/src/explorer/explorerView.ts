@@ -46,23 +46,23 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
             $(el).attr('data-fen'),
             $(e.target as HTMLElement)
               .parents('tr')
-              .attr('data-uci')
+              .attr('data-usi')
           );
         });
         el.addEventListener('mouseout', _ => {
           ctrl.explorer.setHovering($(el).attr('data-fen'), null);
         });
         el.addEventListener('mousedown', e => {
-          const uci = $(e.target as HTMLElement)
+          const usi = $(e.target as HTMLElement)
             .parents('tr')
-            .attr('data-uci');
-          if (uci) ctrl.explorerMove(uci);
+            .attr('data-usi');
+          if (usi) ctrl.explorerMove(usi);
         });
       },
       postpatch: (_, vnode) => {
         setTimeout(() => {
           const el = vnode.elm as HTMLElement;
-          ctrl.explorer.setHovering($(el).attr('data-fen'), $(el).find('tr:hover').attr('data-uci'));
+          ctrl.explorer.setHovering($(el).attr('data-fen'), $(el).find('tr:hover').attr('data-usi'));
         }, 100);
       },
     },
@@ -83,9 +83,9 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
         return h(
           'tr',
           {
-            key: move.uci,
+            key: move.usi,
             attrs: {
-              'data-uci': move.uci,
+              'data-usi': move.usi,
               title: ctrl.trans('averageRatingX', move.averageRating),
             },
           },
@@ -234,8 +234,8 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
           return h(
             'tr',
             {
-              key: move.uci,
-              attrs: { 'data-uci': move.uci },
+              key: move.usi,
+              attrs: { 'data-usi': move.usi },
             },
             [h('td', move.san), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])]
           );

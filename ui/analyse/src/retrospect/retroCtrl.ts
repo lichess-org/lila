@@ -61,7 +61,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         node: solutionNode,
         path: prevPath + solutionNode!.id,
       },
-      openingUcis: [],
+      openingUsis: [],
     });
     // fetch opening explorer moves
     if (
@@ -71,15 +71,15 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     ) {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
-        const ucis: Uci[] = [];
+        const usis: Usi[] = [];
         res!.moves.forEach(m => {
-          if (m.sente + m.draws + m.gote > 1) ucis.push(m.uci);
+          if (m.sente + m.draws + m.gote > 1) usis.push(m.usi);
         });
-        if (ucis.includes(fault.node.uci!)) {
+        if (usis.includes(fault.node.usi!)) {
           explorerCancelPlies.push(fault.node.ply);
           setTimeout(jumpToNext, 100);
         } else {
-          cur.openingUcis = ucis;
+          cur.openingUsis = usis;
           current(cur);
         }
       });
@@ -99,7 +99,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci)) onWin();
+      if (cur.openingUsis.includes(node.usi)) onWin();
       // found in opening explorer
       else if (node.comp) onWin();
       // the computer solution line

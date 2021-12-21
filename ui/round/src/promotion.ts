@@ -8,7 +8,9 @@ import { bind, onInsert } from './util';
 import RoundController from './ctrl';
 import { MaybeVNode } from './interfaces';
 import { pieceCanPromote, promote } from 'shogiops/variantUtil';
-import { lishogiVariantRules, parseChessSquare } from 'shogiops/compat';
+import { lishogiVariantRules } from 'shogiops/compat';
+import { parseSquare } from 'shogiops/util';
+import { pretendItsSquare } from 'common';
 
 interface Promoting {
   move: [cg.Key, cg.Key];
@@ -50,14 +52,14 @@ export function start(
       piece &&
       pieceCanPromote(lishogiVariantRules(d.game.variant.key))(
         piece,
-        parseChessSquare(orig)!,
-        parseChessSquare(dest)!
+        parseSquare(pretendItsSquare(orig))!,
+        parseSquare(pretendItsSquare(dest))!
       )) ||
     (premovePiece &&
       pieceCanPromote(lishogiVariantRules(d.game.variant.key))(
         premovePiece,
-        parseChessSquare(orig)!,
-        parseChessSquare(dest)!
+        parseSquare(pretendItsSquare(orig))!,
+        parseSquare(pretendItsSquare(dest))!
       ))
   ) {
     if (

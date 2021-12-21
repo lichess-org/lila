@@ -32,7 +32,7 @@ function hasBlundered(comment: Comment | null) {
 // returns null = ongoing, true = win, false = fail
 export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
   const node = root.node;
-  if (!node.uci) return null;
+  if (!node.usi) return null;
   const outcome = root.outcome();
   if (outcome && outcome.winner && outcome.winner !== root.bottomColor()) return false;
   if (outcome && outcome.winner && outcome.winner === root.bottomColor()) return true;
@@ -56,7 +56,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (!mateIn || (mateIn as number) + nbMoves > goal.moves!) return false;
       break;
     case 'promotion':
-      if (!node.uci[4]) return null;
+      if (!node.usi[4]) return null;
       return isWinning(node, goal.cp!, root.bottomColor());
     case 'mate':
   }

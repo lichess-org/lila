@@ -9,7 +9,7 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as shogiUtil from 'shogi';
-import { defined, prop, Prop } from 'common';
+import { defined, pretendItsUsi, prop, Prop } from 'common';
 import throttle from 'common/throttle';
 import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
@@ -34,14 +34,8 @@ import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { cancelDropMode } from 'shogiground/drop';
-import {
-  lishogiVariantRules,
-  assureLishogiUci,
-  parseLishogiUci,
-  makeChessSquare,
-  shogigroundDropDests,
-} from 'shogiops/compat';
-import { opposite, roleToChar } from 'shogiops/util';
+import { lishogiVariantRules, shogigroundDropDests } from 'shogiops/compat';
+import { makeSquare, opposite, parseUsi, roleToChar } from 'shogiops/util';
 import { Outcome, isNormal } from 'shogiops/types';
 import { parseFen } from 'shogiops/fen';
 import { Position, PositionError } from 'shogiops/shogi';
@@ -260,10 +254,10 @@ export default class AnalyseCtrl {
     this.actionMenu.open = false;
   }
 
-  private uciToLastMove(uci?: Uci): Key[] | undefined {
-    if (!uci) return;
-    if (uci[1] === '*') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
-    return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
+  private usiToLastMove(usi?: Usi): Key[] | undefined {
+    if (!usi) return;
+    if (usi[1] === '*') return [usi.substr(2, 2), usi.substr(2, 2)] as Key[];
+    return [usi.substr(0, 2), usi.substr(2, 2)] as Key[];
   }
 
   private showGround(): void {
@@ -323,7 +317,7 @@ export default class AnalyseCtrl {
               dropDests: (movableColor === color && this.getDropDests()) || new Map(),
             },
         check: !!node.check,
-        lastMove: this.uciToLastMove(node.uci),
+        lastMove: this.usiToLastMove(node.usi),
       };
     if (!dests && !node.check) {
       // premove while dests are loading from server
@@ -365,7 +359,7 @@ export default class AnalyseCtrl {
     this.autoScrollRequested = true;
   }
 
-  playedLastMoveMyself = () => !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
+  playedLastMoveMyself = () => !!this.justPlayed && !!this.node.usi && this.node.usi.startsWith(this.justPlayed);
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
@@ -376,7 +370,7 @@ export default class AnalyseCtrl {
       const playedMyself = this.playedLastMoveMyself();
       if (this.study) this.study.setPath(path, this.node, playedMyself);
       if (isForwardStep) {
-        if (!this.node.uci) this.sound.move();
+        if (!this.node.usi) this.sound.move();
         // initial position
         else if (!playedMyself) {
           if (this.node.san!.includes('x')) this.sound.capture();
@@ -477,15 +471,15 @@ export default class AnalyseCtrl {
       encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (handValid(this, piece, pos)) {
-      this.justPlayed = roleToChar(piece.role).toUpperCase() + '*' + pos;
+  userNewPiece = (piece: cg.Piece, key: Key): void => {
+    if (handValid(this, piece, key)) {
+      this.justPlayed = roleToChar(piece.role).toUpperCase() + '*' + key;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
       this.sound.move();
       const drop = {
         role: piece.role,
-        pos,
+        pos: key,
         variant: this.data.game.variant.key,
         fen: this.node.fen,
         path: this.path,
@@ -806,14 +800,14 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  playUci(uci: Uci): void {
-    const move = parseLishogiUci(assureLishogiUci(uci)!)!;
-    const to = makeChessSquare(move.to);
+  playUsi(usi: Usi): void {
+    const move = parseUsi(pretendItsUsi(usi))!;
+    const to = makeSquare(move.to);
     if (isNormal(move)) {
-      const piece = this.shogiground.state.pieces.get(makeChessSquare(move.from));
+      const piece = this.shogiground.state.pieces.get(makeSquare(move.from));
       const capture = this.shogiground.state.pieces.get(to);
       this.sendMove(
-        makeChessSquare(move.from),
+        makeSquare(move.from),
         to,
         capture && piece && capture.color !== piece.color ? capture : undefined,
         move.promotion
@@ -828,14 +822,14 @@ export default class AnalyseCtrl {
       );
   }
 
-  explorerMove(uci: Uci) {
-    this.playUci(uci);
+  explorerMove(usi: Usi) {
+    this.playUsi(usi);
     this.explorer.loading(true);
   }
 
   playBestMove() {
-    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
-    if (uci) this.playUci(uci);
+    const usi = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    if (usi) this.playUsi(usi);
   }
 
   canEvalGet(): boolean {

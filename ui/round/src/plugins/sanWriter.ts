@@ -1,5 +1,5 @@
-function decomposeUci(uci) {
-  return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
+function decomposeUsi(usi) {
+  return [usi.slice(0, 2), usi.slice(2, 4), usi.slice(4, 5)];
 }
 
 function square(name) {
@@ -91,10 +91,10 @@ function slidingMovesTo(s: number, deltas: number[], board, promotedDeltas: numb
   return result;
 }
 
-function sanOf(board, uci) {
-  if (uci.includes('*')) return uci;
+function sanOf(board, usi) {
+  if (usi.includes('*')) return usi;
 
-  var move = decomposeUci(uci);
+  var move = decomposeUsi(usi);
   var from = square(move[0]);
   var to = square(move[1]);
   var p = board.pieces[from];
@@ -122,8 +122,8 @@ function sanOf(board, uci) {
     if (from % 9 === candidates[i] % 9) rank = true;
     file = true;
   }
-  if (file) san += uci[0];
-  if (rank) san += uci[1];
+  if (file) san += usi[0];
+  if (rank) san += usi[1];
 
   // target
   san += d ? 'x' : '-';

@@ -5,7 +5,7 @@ import { VNode } from 'snabbdom/vnode';
 import { PracticeCtrl, Comment } from './practiceCtrl';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { assureUsi } from 'shogiops/compat';
+import { pretendItsUsi } from 'common';
 
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
@@ -24,7 +24,7 @@ function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVN
               destroy: () => ctrl.commentShape(false),
             },
           },
-          assureUsi(c.best.uci)
+          pretendItsUsi(c.best.usi)
         )
       )
     : [];

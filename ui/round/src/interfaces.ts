@@ -26,7 +26,7 @@ export interface SocketOpts {
 }
 
 export interface SocketMove {
-  u: Uci;
+  u: Usi;
   b?: 1;
 }
 export interface SocketDrop {
@@ -97,7 +97,7 @@ export interface Step {
   ply: Ply;
   fen: Fen;
   san: San;
-  uci: Uci;
+  usi: Usi;
   check?: boolean;
 }
 

@@ -3,7 +3,7 @@ import { StoredProp, StoredJsonProp } from 'common/storage';
 
 export interface Hovering {
   fen: Fen;
-  uci: Uci;
+  usi: Usi;
 }
 
 export type ExplorerDb = 'lishogi' | 'masters';
@@ -82,7 +82,7 @@ export interface TablebaseData extends ExplorerData {
 }
 
 export interface MoveStats {
-  uci: Uci;
+  usi: Usi;
   san: San;
 }
 
@@ -113,7 +113,7 @@ export function isTablebase(m: ExplorerData): m is TablebaseData {
 
 export interface SimpleTablebaseHit {
   fen: Fen;
-  best?: Uci; // no move if checkmate/stalemate
+  best?: Usi; // no move if checkmate/stalemate
   winner: Color | undefined;
 }
 
@@ -131,7 +131,7 @@ export interface ExplorerCtrl {
   setNode();
   toggle();
   disable();
-  setHovering(fen: Fen, uci: Uci | null);
+  setHovering(fen: Fen, usi: Usi | null);
   fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>;
   fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit>;
 }
