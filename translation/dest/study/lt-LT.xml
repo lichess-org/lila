@@ -47,7 +47,7 @@
   <string name="youAreNowASpectator">Dabar esate žiūrovas</string>
   <string name="pgnTags">PGN žymos</string>
   <string name="like">Mėgti</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Nebemėgti</string>
+  <string name="unlike">Nebemėgti</string>
   <string name="newTag">Nauja žyma</string>
   <string name="commentThisPosition">Komentuoti šią poziciją</string>
   <string name="commentThisMove">Komentuoti šį ėjimą</string>
