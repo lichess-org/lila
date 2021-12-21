@@ -130,4 +130,8 @@
   <string name="myTopics">My onderwerpe</string>
   <string name="popularTopics">Gewilde onderwerpe</string>
   <string name="manageTopics">Bestuur onderwerpe</string>
+  <string name="back">Terug</string>
+  <string name="playAgain">Speel weer</string>
+  <string name="whatWouldYouPlay">Wat sal jy in hierdie posisie speel?</string>
+  <string name="youCompletedThisLesson">Geluk! Jy het hierdie les voltooi.</string>
 </resources>
