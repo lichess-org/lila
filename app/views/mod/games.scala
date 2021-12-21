@@ -162,7 +162,7 @@ object games {
                       case Some(ass) =>
                         ass.fold(_.basics, identity) pipe { basics =>
                           frag(
-                            td(dataSort := basics.moveTimes.avg)(
+                            td(dataSort := basics.moveTimes.sd)(
                               s"${basics.moveTimes / 10}",
                               basics.mtStreak ?? frag(br, "streak")
                             ),
