@@ -164,4 +164,8 @@
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
   <string name="studyActions">Действия в студии</string>
+  <string name="topics">Темы</string>
+  <string name="myTopics">Мои темы</string>
+  <string name="popularTopics">Популярные темы</string>
+  <string name="manageTopics">Управление темами</string>
 </resources>
