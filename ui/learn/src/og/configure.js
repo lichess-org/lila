@@ -8,6 +8,9 @@ module.exports = function (data, config) {
   // don't merge destinations. Just override.
   if (config.movable && config.movable.dests) delete data.movable.dests;
 
+  // don't merge dropmode. Just override.
+  if (config.dropmode) delete data.dropmode;
+
   merge.recursive(data, config);
 
   // if a fen was provided, replace the pieces
@@ -22,6 +25,9 @@ module.exports = function (data, config) {
 
   // forget about the last dropped piece
   data.movable.dropped = [];
+
+  // forget about selected pocket piece
+  data.dropmode.active = false;
 
   // fix move/premove dests
   if (data.selected) board.setSelected(data, data.selected);

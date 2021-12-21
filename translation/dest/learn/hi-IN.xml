@@ -135,18 +135,6 @@
 	<string name="thisIsTheInitialPosition">यह प्रारंभिक स्थिति है
 shogi के हर खेल के !
 जारी रखने के लिए कोई भी कदम उठाएं।</string>
-	<string name="firstPlaceTheRooks">पहले रूक को रखो !
-वे कोनों में जाते हैं।</string>
-	<string name="thenPlaceTheKnights">फिर नाइट लगाएं !
-वे रूक के बगल में जाते हैं।</string>
-	<string name="placeTheBishops">बिशप रखें !
-वे नाइट के बगल में जाते हैं।</string>
-	<string name="placeTheQueen">रानी को रखो !
-वह अपने रंग पर जाती है।</string>
-	<string name="placeTheKing">राजा को रखे !
-ठीक उसकी रानी के बगल में।</string>
-	<string name="pawnsFormTheFrontLine">पॉन सामने की रेखा बनाते हैं।
-जारी रखने के लिए कोई भी कदम उठाएं।</string>
 	<string name="boardSetupComplete">बधाई हो ! आप जानते हैं कि shogi बोर्ड कैसे स्थापित किया जाता है।</string>
 	<string name="stalemate">स्टेलमेट (Stalemate)</string>
 	<string name="theGameIsADraw">खेल ड्रॉ है।</string>
@@ -158,24 +146,11 @@ shogi के हर खेल के !
 	<string name="advanced">उन्नत</string>
 	<string name="pieceValue">टुकड़ा का मूल्य</string>
 	<string name="evaluatePieceStrength">टुकड़ा ताकत का मूल्यांकन करें</string>
-	<string name="pieceValueIntro">उच्च गतिशीलता वाले मोहरों का उच्च मूल्य है!
-रानी = 9
-रूक = 5
-बिशप = 3
-नाइट = 3
-पॉन = 1
-राजा अनमोल है ! इसे खोने का मतलब है खेल को खोना।</string>
 	<string name="queenOverBishop">टुकड़ा ले लो
 उच्चतम मूल्य के साथ !
 रानी &gt; बिशप</string>
 	<string name="takeThePieceWithTheHighestValue">टुकड़ा ले लो
 उच्चतम मूल्य के साथ !</string>
-	<string name="pieceValueComplete">बधाई हो! आप मोहरों का मूल्य जानते हैं !
-रानी = 9
-रूक = 5
-बिशप = 3
-नाइट = 3
-पॉन = 1</string>
 	<string name="checkInTwo">दो में चेक करें</string>
 	<string name="twoMovesToGiveCheck">दो चाल मैं चेक दे</string>
 	<string name="checkInTwoIntro">प्रतिद्वंदी के राजा को दो सही चाल चला कर शह दे !</string>

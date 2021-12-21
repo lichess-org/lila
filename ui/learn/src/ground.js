@@ -31,6 +31,7 @@ module.exports = {
       },
       events: {
         move: opts.onMove,
+        dropNewPiece: opts.onDrop,
       },
       items: opts.items,
       premovable: {
@@ -50,6 +51,10 @@ module.exports = {
       },
       disableContextMenu: true,
       notation: document.getElementsByClassName('notation-0')[0] ? 0 : 1,
+      dropmode: {
+        showDropDests: opts.dropmode.showDropDests,
+        dropDests: opts.dropmode.dropDests,
+      },
     });
     setTimeout(function () {
       cg.set({
@@ -86,7 +91,7 @@ module.exports = {
   check: function (shogi) {
     var checks = shogi.checks();
     cg.set({
-      check: checks ? checks[0].dest : null,
+      check: checks && checks[0] ? checks[0].dest : null,
     });
     if (checks)
       cg.setShapes(
@@ -116,7 +121,7 @@ module.exports = {
   get: function (key) {
     return cg.data.pieces[key];
   },
-  showCapture: function (move) {
+  showCapture: function (move, shogiopsMove, m) {
     raf(function () {
       var $square = $('#learn-app piece[data-key=' + move.orig + ']');
       $square.addClass('wriggle');
@@ -124,12 +129,22 @@ module.exports = {
         $square.removeClass('wriggle');
         cg.setShapes([]);
         cg.apiMove(move.orig, move.dest);
+        if (shogiopsMove && m) {
+          shogiopsMove();
+          m.redraw();
+        }
       }, 600);
     });
   },
+  showNifu: function (squares) {
+    cg.setShapes(
+      squares.map(function (square) {
+        return util.circle(square, 'red');
+      })
+    );
+  },
   showCheckmate: function (shogi) {
-    // didin't test this
-    const kingSquare = shogi.board.kingOf(opposite(shogi.color()));
+    const kingSquare = shogi.instance.board.kingOf(opposite(shogi.color()));
     const allDests = shogi.instance.allDests({
       king: undefined,
       blockers: squareSet.SquareSet.empty(),
@@ -139,7 +154,7 @@ module.exports = {
     });
     var attacksOnKing = [];
     for (let m of allDests.keys()) {
-      if (allDests[m].has(kingSquare)) attacksOnKing.push(m);
+      if (allDests.get(m).has(kingSquare)) attacksOnKing.push(m);
     }
     const shapes = attacksOnKing.map(function (m) {
       return util.arrow(makeChessSquare(m) + makeChessSquare(kingSquare), 'red');

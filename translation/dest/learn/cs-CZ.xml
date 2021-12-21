@@ -125,12 +125,6 @@ Chcete-li tak učinit, klikněte na ozubené kolo nebo vašem uživatelském jm�
 	<string name="thisIsTheInitialPosition">Toto je pozice 
 ze které začíná každá shogi hra!
 Udělejte libovolný tah pro pokračování.</string>
-	<string name="firstPlaceTheRooks">Nejprve umístěte věže! Patří do rohu šachovnice.</string>
-	<string name="thenPlaceTheKnights">Poté umístěte jezdce hned vedle věží!</string>
-	<string name="placeTheBishops">Nyní je řada na střelcích! Patří vedle jezdců.</string>
-	<string name="placeTheQueen">Umístěte dámu! Patří na pole vlastní barvy.</string>
-	<string name="placeTheKing">A jako poslední figura král! Bude po boku své dámy.</string>
-	<string name="pawnsFormTheFrontLine">Pěšci tvoří první linii. Proveďte libovolný tah pro pokračování.</string>
 	<string name="boardSetupComplete">Gratulujeme! Nyní víte, jaké je postavení kamenů na začátku hry.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">Hra končí remízou</string>
@@ -143,23 +137,10 @@ nikdo neprohrál.</string>
 	<string name="advanced">Pokročilé</string>
 	<string name="pieceValue">Hodnota figur</string>
 	<string name="evaluatePieceStrength">Vyhodnocení síly figur</string>
-	<string name="pieceValueIntro">Figury s vyšší pohyblivostí mají větší hodnotu!
-Dáma = 9
-Věž = 5
-Střelec = 3
-Jezdec = 3
-Pěšec = 1
-Král má nevyčíslitelnou hodnotu! Ztráta krále znamená prohru partie.</string>
 	<string name="queenOverBishop">Vyberte figuru
 s nejvyšší hodnotou!
 Dáma &gt; Střelec</string>
 	<string name="takeThePieceWithTheHighestValue">Vyberte figuru s nejvyšší hodnotou!</string>
-	<string name="pieceValueComplete">Blahopřejeme! Nyní znáte hodnotu materiálu!
-Dáma = 9
-Věž = 5
-Střelec = 3
-Jezdec = 3
-Pěšec = 1</string>
 	<string name="checkInTwo">Šach 2. tahem</string>
 	<string name="twoMovesToGiveCheck">Dejte šach druhým tahem</string>
 	<string name="checkInTwoIntro">Najděte správnou kombinaci dvou tahů, abyste dali soupeřovu králi šach!</string>

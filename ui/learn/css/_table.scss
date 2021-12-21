@@ -116,7 +116,8 @@
   }
 
   .progress {
-    @extend %flex-center-nowrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
     text-align: center;
     border: $border;
     border-top: 0;

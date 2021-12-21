@@ -46,6 +46,7 @@ function start(data, e) {
       previouslySelected: previouslySelected,
       orig: orig,
       piece: hashPiece(piece),
+      pieceObj: piece,
       rel: position,
       epos: position,
       pos: [0, 0],
@@ -65,15 +66,51 @@ function start(data, e) {
   processDrag(data);
 }
 
+function dragNewPiece(data, piece, e) {
+  var key = 'a0';
+  data.pieces[key] = piece;
+  board.setSelected(data, null);
+  var position = util.eventPosition(e);
+  var previouslySelected = data.selected;
+  var bounds = data.bounds();
+  var squareBounds = computeSquareBounds(data, bounds, key);
+
+  if (!previouslySelected && (data.drawable.eraseOnClick || !piece || piece.color !== data.turnColor)) draw.clear(data);
+
+  data.draggable.current = {
+    previouslySelected: previouslySelected,
+    orig: key,
+    piece: hashPiece(piece),
+    pieceObj: piece,
+    rel: position,
+    epos: position,
+    pos: [0, 0],
+    dec: data.draggable.centerPiece
+      ? [
+          position[0] - (squareBounds.left + squareBounds.width / 2),
+          position[1] - (squareBounds.top + squareBounds.height / 2),
+        ]
+      : [0, 0],
+    started: true,
+    // element: () => pieceElementByKey,
+    newPiece: true,
+    bounds: bounds,
+  };
+  processDrag(data);
+}
+
 function processDrag(data) {
   util.requestAnimationFrame(function () {
     var cur = data.draggable.current;
     if (cur.orig) {
       // cancel animations while dragging
-      if (data.animation.current.start && data.animation.current.anims[cur.orig]) data.animation.current = {};
+      if (data.animation.current.start && data.animation.current.anims[cur.orig]) {
+        data.animation.current = {};
+      }
       // if moving piece is gone, cancel
-      if (hashPiece(data.pieces[cur.orig]) !== cur.piece) cancel(data);
-      else {
+      if (hashPiece(data.pieces[cur.orig]) !== cur.piece) {
+        cancel(data);
+      } else {
         if (!cur.started && util.distance(cur.epos, cur.rel) >= data.draggable.distance) cur.started = true;
         if (cur.started) {
           cur.pos = [cur.epos[0] - cur.rel[0], cur.epos[1] - cur.rel[1]];
@@ -92,6 +129,7 @@ function move(data, e) {
 }
 
 function end(data, e) {
+  // console.log('drag end', data, e);
   var cur = data.draggable.current;
   var orig = cur ? cur.orig : null;
   if (!orig) return;
@@ -119,6 +157,7 @@ function end(data, e) {
 }
 
 function cancel(data) {
+  // console.log('drag cancel', data);
   if (data.draggable.current.orig) {
     data.draggable.current = {};
     board.selectSquare(data, null);
@@ -130,5 +169,6 @@ module.exports = {
   move: move,
   end: end,
   cancel: cancel,
+  dragNewPiece: dragNewPiece,
   processDrag: processDrag, // must be exposed for board editors
 };

@@ -131,18 +131,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Спочатку розставте тури!
-Вони знаходяться по кутах.</string>
-	<string name="thenPlaceTheKnights">Потім розставте коней!
-Вони стоять поряд з турами.</string>
-	<string name="placeTheBishops">Розставте слонів!
-Вони йдуть поруч з кіньми.</string>
-	<string name="placeTheQueen">Поставте ферзя!
-Ферзь любить свій колір.</string>
-	<string name="placeTheKing">Поставте короля!
-Він стоїть поруч з ферзем.</string>
-	<string name="pawnsFormTheFrontLine">Пішаки стоять на передній лінії.
-Зробіть будь-який хід, щоб продовжити.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Пат</string>
 	<string name="theGameIsADraw">Гра є нічийною</string>
@@ -154,22 +142,9 @@ Make any move to continue.</string>
 	<string name="advanced">Просунутий етап</string>
 	<string name="pieceValue">Цінність фігур</string>
 	<string name="evaluatePieceStrength">Оцініть силу фігури</string>
-	<string name="pieceValueIntro">Фігури з високою рухливістю мають більш високу цінність!
-Ферзь = 9 пішаків
-Тура = 5 пішаків
-Слон = 3 пішаки
-Кінь = 3 пішаки
-Пішка = 1 пішак
-Король безцінний! Його втрата означає, що гру програно.</string>
 	<string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
 Ферзь &gt; Слон</string>
 	<string name="takeThePieceWithTheHighestValue">Атакуйте фігури з найбільшою цінністю!</string>
-	<string name="pieceValueComplete">Вітаємо! Ви знаєте цінність фігур!
-Ферзь = 9 пішаків
-Тура = 5 пішаків
-Слон = 3 пішаки
-Кінь = 3 пішаки
-Пішак = 1 пішак</string>
 	<string name="checkInTwo">Шах в 2 ходи</string>
 	<string name="twoMovesToGiveCheck">Два ходи на те, щоб зробити шах</string>
 	<string name="checkInTwoIntro">Знайдіть комбінацію в два ходи, щоб поставити шах королю супротивника!</string>

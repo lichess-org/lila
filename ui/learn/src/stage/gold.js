@@ -14,14 +14,14 @@ module.exports = {
       goal: 'grabAllTheStars',
       fen: '9/9/9/9/9/4G4/9/9/9 b -',
       apples: 'f6',
-      nbMoves: 4,
+      nbMoves: 2,
       shapes: [arrow('e4e5'), arrow('e5f6')],
     },
     {
       goal: 'theFewerMoves',
       fen: '9/9/9/9/1G7/9/9/9/9 b -',
       apples: 'b3 b4 c3 d4',
-      nbMoves: 5,
+      nbMoves: 4,
     },
     {
       goal: 'theFewerMoves',
@@ -42,6 +42,9 @@ module.exports = {
       nbMoves: 2,
       shapes: [circle('d4'), circle('d5'), circle('e5'), circle('f5'), circle('f4'), circle('e3')],
     },
-  ].map(util.toLevel),
+  ].map(function (l, i) {
+    l.noPocket = true;
+    return util.toLevel(l, i);
+  }),
   complete: 'goldComplete',
 };

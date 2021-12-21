@@ -133,18 +133,6 @@
 	<string name="howTheGameStarts">Начало шахматной партии</string>
 	<string name="boardSetupIntro">Две армии, готовые к бою, встретились лицом к лицу.</string>
 	<string name="thisIsTheInitialPosition">Это начальная позиция в сёги! Сделайте любой ход, чтобы продолжить.</string>
-	<string name="firstPlaceTheRooks">Сначала расставьте ладьи!
-Они находятся по углам.</string>
-	<string name="thenPlaceTheKnights">Затем расставьте коней!
-Они стоят рядом с ладьями.</string>
-	<string name="placeTheBishops">Расставьте слонов!
-Их место рядом с конями.</string>
-	<string name="placeTheQueen">Поставьте ферзя!
-Ферзь любит свой цвет.</string>
-	<string name="placeTheKing">Поставьте короля!
-Он стоит рядом с ферзём.</string>
-	<string name="pawnsFormTheFrontLine">Пешки выстроились в линию перед фигурами.
-Сделайте любой ход, чтобы продолжить.</string>
 	<string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как расставить фигуры на доске.</string>
 	<string name="stalemate">Пат</string>
 	<string name="theGameIsADraw">Игра заканчивается вничью</string>
@@ -156,22 +144,9 @@
 	<string name="advanced">Продвинутый уровень</string>
 	<string name="pieceValue">Ценность фигур</string>
 	<string name="evaluatePieceStrength">Оцените силу фигуры</string>
-	<string name="pieceValueIntro">Фигуры с высокой подвижностью имеют более высокую ценность!
-• Ферзь = 9 пешек
-• Ладья = 5 пешек
-• Слон = 3 пешки
-• Конь = 3 пешки
-• Пешка = 1 пешка
-Король бесценен! Его потеря означает, что игра проиграна.</string>
 	<string name="queenOverBishop">Атакуйте фигуры с более высокой ценностью!
 Ферзь &gt; Слон</string>
 	<string name="takeThePieceWithTheHighestValue">Атакуйте фигуры с более высокой ценностью!</string>
-	<string name="pieceValueComplete">Поздравляем! Вы знаете ценность фигур!
-• Ферзь = 9 пешек
-• Ладья = 5 пешек
-• Слон = 3 пешки
-• Конь = 3 пешки
-• Пешка = 1 пешка</string>
 	<string name="checkInTwo">Шах в два хода</string>
 	<string name="twoMovesToGiveCheck">Два хода на то, чтобы поставить шах</string>
 	<string name="checkInTwoIntro">Найдите комбинацию в два хода, чтобы поставить шах королю противника!</string>

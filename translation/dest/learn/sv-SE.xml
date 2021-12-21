@@ -125,12 +125,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Placera först tornen! De står i hörnen.</string>
-	<string name="thenPlaceTheKnights">Placera sedan springarna! De står bredvid tornen.</string>
-	<string name="placeTheBishops">Placera löparna! De står bredvid springarna.</string>
-	<string name="placeTheQueen">Placera drottningen! Hon står på sin egen färg.</string>
-	<string name="placeTheKing">Placera kungen! Alldeles intill sin drottning.</string>
-	<string name="pawnsFormTheFrontLine">Bönder bildar frontlinjen. Gör ett valfritt drag för att fortsätta.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Patt</string>
 	<string name="theGameIsADraw">Partiet är remi</string>
@@ -142,21 +136,8 @@ Make any move to continue.</string>
 	<string name="advanced">Avancerat</string>
 	<string name="pieceValue">Pjäsernas värdering</string>
 	<string name="evaluatePieceStrength">Värdera pjäser</string>
-	<string name="pieceValueIntro">Ju högre rörlighet - desto högre värde har en pjäs!
-Dam = 9
-Torn = 5
-Löpare = 3
-Springare = 3
-Bonde = 1
-Kungen är ovärderlig, om du förlorar den har du förlorat partiet.</string>
 	<string name="queenOverBishop">Slå den mest värdefulla pjäsen! Dam &gt; löpare</string>
 	<string name="takeThePieceWithTheHighestValue">Slå pjäsen med högst värde!</string>
-	<string name="pieceValueComplete">Grattis! Nu vet du hur schackpjäserna värderas!
-Dam = 9
-Torn = 5
-Löpare = 3
-Springare = 3
-Bonde = 1</string>
 	<string name="checkInTwo">Schacka i två drag</string>
 	<string name="twoMovesToGiveCheck">Schacka efter två drag</string>
 	<string name="checkInTwoIntro">Hitta rätt dragföljd som schackar motståndarens kung i två drag!</string>

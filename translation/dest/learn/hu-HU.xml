@@ -134,18 +134,6 @@ hogy ne tudja kivédeni!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Először a bástyákat helyezd el!
-A sarokban van a helyük.</string>
-	<string name="thenPlaceTheKnights">Ezután a huszárokat tedd a helyükre!
-A bástyák mellett állnak.</string>
-	<string name="placeTheBishops">Majd a futókat!
-Ők a huszárok mellett állnak.</string>
-	<string name="placeTheQueen">Majd a vezért!
-Sajátmagával azonos színű mezőn áll.</string>
-	<string name="placeTheKing">Helyezd el a királyt!
-A vezér mellett áll.</string>
-	<string name="pawnsFormTheFrontLine">A gyalogok alkotják a frontvonalat.
-A folytatáshoz lépj bármit.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Patt</string>
 	<string name="theGameIsADraw">A döntetlen játszma</string>
@@ -158,22 +146,9 @@ A játszma döntetlen: senki sem győzött vagy vesztett.</string>
 	<string name="advanced">Haladó</string>
 	<string name="pieceValue">Figura érték</string>
 	<string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>
-	<string name="pieceValueIntro">A mozgékonyabb figuráknak nagyobb az értéke!
-Királynő = 9
-Bástya = 5
-Futó = 3
-Huszár = 3
-Gyalog = 1
-A király a legértékesebb! Ha elesik, elveszett a játszma.</string>
 	<string name="queenOverBishop">Üsd ki a legértékesebb figurát!
 Vezér &gt; Futó</string>
 	<string name="takeThePieceWithTheHighestValue">Üsd ki a legértékesebb figurát!</string>
-	<string name="pieceValueComplete">Gratulálunk! Most már ismered a figurák anyagi értékét!
-Vezér = 9
-Bástya = 5
-Futó = 3
-Huszár = 3
-Gyalog = 1</string>
 	<string name="checkInTwo">Sakk két lépésben</string>
 	<string name="twoMovesToGiveCheck">Adj sakkot két lépésből</string>
 	<string name="checkInTwoIntro">Találd meg azt a kombinációt, ami két lépésben sakkot ad az ellenfél királyának!</string>

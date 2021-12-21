@@ -1,9 +1,11 @@
 var drag = require('./drag');
+var drop = require('./drop');
 var draw = require('./draw');
 var util = require('./util');
 var svg = require('./svg');
 var makeCoords = require('./coords');
 var m = require('mithril');
+var board = require('./board');
 
 var pieceTag = 'piece';
 var squareTag = 'square';
@@ -13,6 +15,7 @@ function pieceClass(p) {
 }
 
 function renderPiece(d, key, ctx) {
+  // console.log('view renderPiece', d, key, ctx);
   var attrs = {
     key: 'p' + key,
     style: {},
@@ -117,6 +120,22 @@ function renderSquares(ctrl, ctx) {
         else if (d.movable.showDests) addSquare(squares, k, 'premove-dest' + (d.pieces[k] ? ' oc' : ''));
       });
   }
+  if (d.dropmode.active || (d.draggable.current && d.draggable.current.orig === 'a0')) {
+    var piece = d.dropmode.active ? d.dropmode.piece : d.draggable.current.pieceObj;
+    if (piece && d.dropmode.showDropDests) {
+      var dests = d.dropmode.dropDests && d.dropmode.dropDests.get(piece.role);
+      if (dests)
+        for (var k of dests) {
+          addSquare(squares, k, 'move-dest');
+        }
+      const pDests = d.predroppable && d.predroppable.dropDests;
+      if (pDests && !dests)
+        for (const k of pDests) {
+          addSquare(squares, k, 'premove-dest' + (d.pieces.has(k) ? ' oc' : ''));
+        }
+    }
+  }
+
   var premove = d.premovable.current;
   if (premove)
     premove.forEach(function (k) {
@@ -174,10 +193,10 @@ function renderContent(ctrl) {
     for (i = 0; i < 81; i++) {
       if (d.pieces[keys[i]]) children.push(renderPiece(d, keys[i], ctx));
     }
-    // the hack to drag new pieces on the board (editor and crazyhouse)
-    // is to put it on a0 then set it as being dragged
-    if (d.draggable.current && d.draggable.current.newPiece) children.push(renderPiece(d, 'a0', ctx));
   }
+  // the hack to drag new pieces on the board (editor and crazyhouse)
+  // is to put it on a0 then set it as being dragged
+  if (d.draggable.current && d.draggable.current.newPiece) children.push(renderPiece(d, 'a0', ctx));
 
   if (d.draggable.showGhost) {
     var dragOrig = d.draggable.current.orig;
@@ -194,7 +213,14 @@ function startDragOrDraw(d) {
       d.draggable.current = {};
       d.selected = null;
     } else if ((e.shiftKey || util.isRightButton(e)) && d.drawable.enabled) draw.start(d, e);
-    else drag.start(d, e);
+    else {
+      if (d.dropmode.active && !squareOccupied(d, e)) drop.drop(d, e);
+      else {
+        drop.cancelDropMode(d);
+        m.redraw();
+        drag.start(d, e);
+      }
+    }
   };
 }
 
@@ -203,6 +229,14 @@ function dragOrDraw(d, withDrag, withDraw) {
     if ((e.shiftKey || util.isRightButton(e)) && d.drawable.enabled) withDraw(d, e);
     else if (!d.viewOnly) withDrag(d, e);
   };
+}
+
+function squareOccupied(d, e) {
+  var position = util.eventPosition(e);
+  var bounds = d.bounds();
+  var dest = position && board.getKeyAtDomPos(d, position, bounds);
+  if (dest && d.pieces[dest]) return true;
+  return false;
 }
 
 function bindEvents(ctrl, el, context) {

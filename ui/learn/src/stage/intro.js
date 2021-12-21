@@ -13,7 +13,7 @@ module.exports = {
       goal: 'choosePieceDesign',
       fen: '9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -',
       nbMoves: 0,
-      text: "Click here after you've chosen the piece design you like.",
+      text: 'clickHereAfterYouveChosen',
       end: true,
     },
     {
@@ -56,6 +56,9 @@ module.exports = {
       fen: '9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -',
       nbMoves: 1,
     },
-  ].map(util.toLevel),
-  complete: 'introComplete',
+  ].map(function (l, i) {
+    l.noPocket = true;
+    return util.toLevel(l, i);
+  }),
+  complete: 'introCompleteTwo',
 };

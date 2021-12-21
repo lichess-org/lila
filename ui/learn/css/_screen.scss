@@ -2,16 +2,19 @@
   @extend %fullscreen-mask;
   background: rgba(0, 0, 0, 0.65);
   cursor: pointer;
+  display: grid;
 }
 
 .learn__screen {
   @extend %popup-shadow, %box-radius;
-  margin: 150px auto;
+  margin: auto;
   background-color: $c-bg-box;
   width: 350px;
   overflow: hidden;
   text-align: center;
   padding-top: 36px;
+  max-height: 100%;
+  overflow: auto;
   > :nth-child(1) {
     animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
   }

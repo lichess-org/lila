@@ -128,18 +128,6 @@ sau blochează atacul!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Prima dată, așază turnurile!
-Ele vor fi în colțuri.</string>
-	<string name="thenPlaceTheKnights">Apoi caii!
-Vor fi lângă turnuri.</string>
-	<string name="placeTheBishops">Urmează nebunii!
-Vor fi lângă cai.</string>
-	<string name="placeTheQueen">Așază regina!
-Va fi pusă pe culoarea ei.</string>
-	<string name="placeTheKing">Și regele!
-Fix lângă regina sa.</string>
-	<string name="pawnsFormTheFrontLine">Pionii formează prima linie.
-Mută oricare piesă pentru a continua.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">Acest meci este o remiză</string>
@@ -151,24 +139,11 @@ Mută oricare piesă pentru a continua.</string>
 	<string name="advanced">Avansat</string>
 	<string name="pieceValue">Valoarea piesei</string>
 	<string name="evaluatePieceStrength">Evaluează puterea piesei</string>
-	<string name="pieceValueIntro">Piesele cu mobilitate mare au o valoare mai mare!
-Regina = 9
-Turnul = 5
-Nebunul = 3
-Calul = 3
-Pionul = 1
-Regele este de neprețuit! Pierzându-l, pierzi jocul.</string>
 	<string name="queenOverBishop">Capturează piesa
 cu cea mai mare valoare!
 Regina &gt; Nebunul</string>
 	<string name="takeThePieceWithTheHighestValue">Capturează piesa
 cu cea mai mare valoare!</string>
-	<string name="pieceValueComplete">Felicitări! Acum știi valoarea pieselor!
-Regina = 9
-Turnul = 5
-Nebunul = 3
-Calul = 3
-Pionul = 1</string>
 	<string name="checkInTwo">Șah mat în două mutări</string>
 	<string name="twoMovesToGiveCheck">Două mutări pentru a da șah</string>
 	<string name="checkInTwoIntro">Găsește combinația corectă de două mutări care dă șah regelui oponentului!</string>

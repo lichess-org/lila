@@ -134,18 +134,6 @@ in un modo in cui non possa essere difeso!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Per prima cosa posiziona le torri!
-Vanno messe negli angoli.</string>
-	<string name="thenPlaceTheKnights">Poi posiziona i cavalli!
-Vanno posizionati al fianco delle torri.</string>
-	<string name="placeTheBishops">Posiziona gli alfieri!
-Vanno posizionati al fianco dei cavalli.</string>
-	<string name="placeTheQueen">Posiziona la regina!
-Va messa sulla casa del suo stesso colore.</string>
-	<string name="placeTheKing">Posiziona il re!
-Proprio al fianco della sua regina.</string>
-	<string name="pawnsFormTheFrontLine">I pedoni formano la linea più avanzata.
-Fai una mossa per continuare.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Stallo</string>
 	<string name="theGameIsADraw">La partita è patta</string>
@@ -157,24 +145,11 @@ Fai una mossa per continuare.</string>
 	<string name="advanced">Livello avanzato</string>
 	<string name="pieceValue">Il valore del pezzo</string>
 	<string name="evaluatePieceStrength">Valuta la forza del pezzo</string>
-	<string name="pieceValueIntro">I pezzi con maggiore mobilità hanno un valore maggiore!
-Regina = 9
-Torre = 5
-Alfiere = 3
-Cavallo = 3
-Pedone = 1
-Il re è inestimabile! Perdere il re significa essere sconfitti.</string>
 	<string name="queenOverBishop">Cattura il pezzo
 con il più alto valore!
 Regina &gt; Alfiere</string>
 	<string name="takeThePieceWithTheHighestValue">Cattura il pezzo 
 con il valore più alto!</string>
-	<string name="pieceValueComplete">Congratulazioni! Ora conosci il valore dei pezzi! 
-Regina = 9 
-Torre = 5 
-Alfiere = 3
-Cavallo = 3 
-Pedone = 1</string>
 	<string name="checkInTwo">Scacco in due mosse</string>
 	<string name="twoMovesToGiveCheck">Due mosse per dare uno scacco</string>
 	<string name="checkInTwoIntro">Trova la combinazione di due mosse che dia scacco al re avversario!</string>

@@ -133,18 +133,6 @@ de forma que no es pugui defendre!</string>
 	<string name="thisIsTheInitialPosition">Aquesta és la posició inicial
 de cada partida de shogi!
 Fes un moviment per continuar.</string>
-	<string name="firstPlaceTheRooks">Primer posa les torres!
-Van a les cantonades.</string>
-	<string name="thenPlaceTheKnights">Llavors posa els cavalls!
-Van al costat de les torres.</string>
-	<string name="placeTheBishops">Col·loca el àlfils!
-van al costat dels cavalls.</string>
-	<string name="placeTheQueen">Posa la dama!
-va al seu propi color.</string>
-	<string name="placeTheKing">Posa el rei!
-Va al costat de la seva reina.</string>
-	<string name="pawnsFormTheFrontLine">Els peons formen la primera línia.
-fer un moviment per continuar.</string>
 	<string name="boardSetupComplete">Feliçitats! Saps com col·locar les peces de shogi.</string>
 	<string name="stalemate">Taules</string>
 	<string name="theGameIsADraw">El joc és un empat</string>
@@ -156,23 +144,10 @@ fer un moviment per continuar.</string>
 	<string name="advanced">Avançat</string>
 	<string name="pieceValue">Valor de la peça</string>
 	<string name="evaluatePieceStrength">Avaluar la força de la peça</string>
-	<string name="pieceValueIntro">Les peces amb alta mobilitat tenen un valor més alt! 
-Dama = 9 
-Torre = 5 
-Àlfil = 3 
-Cavall = 3 
-Peó = 1 
-El rei no té preu! Perdre\'l vol dir perdre el joc.</string>
 	<string name="queenOverBishop">Captura la peça 
 amb el valor més alt!
 Dama &gt; Àlfil</string>
 	<string name="takeThePieceWithTheHighestValue">Captura la peça amb el valor més alt!</string>
-	<string name="pieceValueComplete">Felicitats! Saps el valor del material! 
-Dama = 9 
-Torre = 5 
-Àlfil = 3 
-Cavall = 3 
-Peó = 1</string>
 	<string name="checkInTwo">Escac en dos</string>
 	<string name="twoMovesToGiveCheck">Dos moviments per fer un escac</string>
 	<string name="checkInTwoIntro">Trobar la combinació correcta de dos moviments que posa en escac el rei del contrincant!</string>

@@ -1,6 +1,7 @@
 var util = require('../util');
 var assert = require('../assert');
-var arrow = util.arrow;
+var arrow = util.arrow,
+  circle = util.circle;
 
 var imgUrl = util.assetUrl + 'images/learn/guillotine.svg';
 
@@ -13,46 +14,83 @@ module.exports = {
   illustration: util.roundSvg(imgUrl),
   levels: [
     {
-      // rook
-      goal: 'attackYourOpponentsKing',
-      fen: '3qk3/3ppp2/8/8/2B5/5Q2/8/8 b -',
-      shapes: [arrow('f3f7')],
+      goal: 'toWinInShogi',
+      fen: '6k2/9/6P2/9/9/9/9/9/9 b G2r2b3g4s4n4l17p 1',
     },
     {
-      // smothered
-      goal: 'attackYourOpponentsKing',
-      fen: '6rk/6pp/7P/6N1/8/8/8/8 b -',
+      goal: 'dropsCommonDeliverMate',
+      fen: '7k1/9/7S1/9/9/9/9/9/9 b S2r2b4g2s4n4l18p 1',
     },
     {
-      // rook
       goal: 'attackYourOpponentsKing',
-      fen: 'R7/8/7k/2r5/5n2/8/6Q1/8 b -',
+      fen: '7nk/7bl/9/9/6N2/9/9/9/9 b 2rb4g4s2n3l18p 1',
     },
     {
-      // Q+N
       goal: 'attackYourOpponentsKing',
-      fen: '2rb4/2k5/5N2/1Q6/8/8/8/8 b -',
+      fen: '4R3G/7k1/6ppp/9/9/9/9/9/9 b r2b3g4s4n4l15p 1',
     },
     {
-      // discovered
       goal: 'attackYourOpponentsKing',
-      fen: '1r2kb2/ppB1p3/2P2p2/2p1N3/B7/8/8/3R4 b -',
+      fen: '7kl/7s1/6PSp/9/9/9/9/9/9 b 2r2b4g2s4n3l16p 1',
     },
     {
-      // tricky
       goal: 'attackYourOpponentsKing',
-      fen: '8/pk1N4/n7/b7/6B1/1r3b2/8/1RR5 b -',
+      fen: '9/5n2+B/5pk2/9/7+R1/9/9/9/9 b rb4g4s3n4l17p 1',
+    },
+    {
+      goal: 'attackYourOpponentsKing',
+      fen: '5k3/6s2/5NB2/9/9/9/9/9/9 b 2rb4g3s3n4l18p 2',
+    },
+    {
+      goal: 'attackYourOpponentsKing',
+      fen: '4R3l/6g1k/5gsp1/6p1P/9/9/9/9/8L b r2b2g3s4n2l15p 1',
+    },
+    {
+      goal: 'chooseYourPieceCarefully',
+      fen: '8l/6S1k/9/9/8g/9/9/9/9 b GS2r2b2g2s4n3l18p 1',
+    },
+    {
+      goal: 'chooseYourPieceCarefully',
+      fen: '8l/7k1/7pb/7N1/9/9/9/9/9 b RGrb3g4s3n3l17p 1',
+    },
+    {
+      goal: 'chooseYourPieceCarefully',
+      fen: '8l/6+Rgk/7pp/9/9/9/9/9/9 b GSr2b2g3s4n3l16p 1',
+    },
+    {
+      // pawn
+      goal: 'mateWithADroppedPawnIs',
+      fen: '7+P1/8g/7pk/9/7Sp/9/9/9/9 b LP2r2b3g3s4n3l14p 1',
       scenario: [
         {
-          move: 'g4f3',
-          shapes: [arrow('b1b7', 'yellow'), arrow('f3b7', 'yellow')],
+          levelFail: 'fail',
+          move: 'p*i6',
+          shapes: [circle('i6', 'red')],
         },
       ],
     },
     {
-      // tricky
+      // pawn 2
+      goal: 'mateWithAPushedPawnIs',
+      fen: '7+P1/8g/7pk/9/7SP/9/9/9/9 b 2r2b3g3s4n4l15p 1',
+    },
+    {
       goal: 'attackYourOpponentsKing',
-      fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 b -',
+      fen: '8l/5BSk1/6p1P/9/9/9/9/9/9 b 2rb4g3s4n3l16p 1',
+      scenario: [
+        {
+          move: 'f8g9+',
+          shapes: [arrow('g9i7', 'yellow')],
+        },
+      ],
+    },
+    {
+      goal: 'attackYourOpponentsKing',
+      fen: '5lk2/8R/5Ps2/6N2/6L2/9/9/9/9 b r2b4g3s3n2l17p 1',
+    },
+    {
+      goal: 'attackYourOpponentsKing',
+      fen: '2R3gkl/3R3s1/7p1/7Np/9/9/9/9/9 b 2b3g3s3n3l16p 1',
     },
   ].map(function (l, i) {
     l.nbMoves = 1;

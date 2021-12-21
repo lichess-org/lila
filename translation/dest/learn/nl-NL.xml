@@ -134,14 +134,6 @@ op een manier die niet kan worden verdedigd!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Plaats eerst de torens!
-Zij staan in de hoeken.</string>
-	<string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>
-	<string name="placeTheBishops">Plaats de lopers! Zij staan naast de paarden.</string>
-	<string name="placeTheQueen">Plaats de dame! Zij staat op haar eigen kleur.</string>
-	<string name="placeTheKing">Plaats de koning! Aan de zijde van zijn koningin.</string>
-	<string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. 
-Doe een willekeurige welke zet om door te gaan.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Patstelling</string>
 	<string name="theGameIsADraw">De partij eindigt in remise</string>
@@ -153,24 +145,11 @@ Doe een willekeurige welke zet om door te gaan.</string>
 	<string name="advanced">Voor geavanceerden</string>
 	<string name="pieceValue">Waarde van stukken</string>
 	<string name="evaluatePieceStrength">Evalueer de kracht van stukken</string>
-	<string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!
-Dame = 9
-Toren = 5
-Loper = 3
-Paard = 3
-Pion = 1
-De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
 	<string name="queenOverBishop">Sla het stuk
 met de hoogste waarde!
 Koningin &gt; Loper</string>
 	<string name="takeThePieceWithTheHighestValue">Sla het stuk
 met de hoogste waarde!</string>
-	<string name="pieceValueComplete">Gefeliciteerd! Je kent nu de waarde van materiaal! 
-Koningin = 9 
-Toren = 5 
-Loper = 3 
-Paard = 3 
-Pion = 1</string>
 	<string name="checkInTwo">Schaak in twee zetten</string>
 	<string name="twoMovesToGiveCheck">Twee zetten om hem schaak te zetten</string>
 	<string name="checkInTwoIntro">Vind de juiste twee zetten om de vijandige koning schaak te zetten!</string>

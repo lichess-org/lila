@@ -163,7 +163,7 @@ function computeUsedBrushes(d, drawn, current) {
 }
 
 // don't use mithril keys here, they're buggy with SVG
-// likely because of var dummy = $document.createElement("div");
+// likely because of var dummy = $document.createElement('div');
 // in handleKeysDiffer
 module.exports = function (ctrl) {
   if (!ctrl.data.bounds) return;

@@ -127,18 +127,6 @@
 	<string name="boardSetupIntro">두 군대가 맞서 싸울 준비를 합니다</string>
 	<string name="thisIsTheInitialPosition">이것이 쇼기의 맨처음 배치입니다.
 계속하려면 원하는 다음 수를 둬보세요.</string>
-	<string name="firstPlaceTheRooks">우선 \'비차[飛車]\'!
-\'비차[飛車]\'는 구석에 놓입니다</string>
-	<string name="thenPlaceTheKnights">그럼 \'계마[桂馬]\'를 배치해봅시다!
- \'계마[桂馬]\'는 비차[飛車]의 다음 위치에 놓입니다.</string>
-	<string name="placeTheBishops">이제 \'보병[歩兵]\'을 배치해보세요!
-\'보병[歩兵]\'은 비차[飛車]의 앞에 놓입니다.</string>
-	<string name="placeTheQueen">\'금장/은장[金将/銀将]\'을 배치하십시오!
-금장/은장[金将/銀将]은 다음과 같은 칸 위를 이동합니다</string>
-	<string name="placeTheKing">왕을 놓아봅시다!
-금장/은장[金将/銀将] 옆에 있어요</string>
-	<string name="pawnsFormTheFrontLine">\'보병[歩兵]\'은 나머지 말들을 뒤로하고 가장 최전방에 섭니다.
-아무 수나 둬서 진행해보십시오.</string>
 	<string name="boardSetupComplete">축하합니다! 쇼기판을 셋팅하는 법을 배우셨습니다!</string>
 	<string name="stalemate">스테일메이트[Stalemate, 무승부]</string>
 	<string name="theGameIsADraw">이 게임은 무승부입니다</string>
@@ -150,24 +138,10 @@
 	<string name="advanced">상급</string>
 	<string name="pieceValue">기물의 가치</string>
 	<string name="evaluatePieceStrength">말의 강함을 대략 평가해봅시다</string>
-	<string name="pieceValueIntro">이동력이 높은 말일수록 가치가 높습니다
-금장/은장[金将/銀将] = 9
-비차[飛車] = 5
-각행[角行] = 3
-계마[桂馬] = 3
-보병[歩兵] = 1
-왕은 가치를 잴 수 없습니다. 왕이 잡힌다는 것은 게임에서 패배한다는 것이니까요.
-굳이 말하면 무한대입니다.</string>
 	<string name="queenOverBishop">가장 높은 가치가 있는 말을 잡으세요!
 힌트: 
 금장/은장[金将/銀将] &gt; 각행[角行]</string>
 	<string name="takeThePieceWithTheHighestValue">가장 높은 가치가 있는 말을 잡으세요!</string>
-	<string name="pieceValueComplete">축하드립니다! 이제 말의 가치를 아실겁니다!
-금장/은장[金将/銀将] = 9
-비차[飛車] = 5
-각행[角行] = 3
-계마[桂馬] = 3
-보병[歩兵] = 1</string>
 	<string name="checkInTwo">두 수 안에 체크하기</string>
 	<string name="twoMovesToGiveCheck">두 수 만에 위협하기</string>
 	<string name="checkInTwoIntro">두 수 만에 상대의 왕을 체크시킬 방법을 찾아내세요!</string>

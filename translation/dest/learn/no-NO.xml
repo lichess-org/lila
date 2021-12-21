@@ -135,18 +135,6 @@ in a way that cannot be defended!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">First place the rooks!
-They go in the corners.</string>
-	<string name="thenPlaceTheKnights">Then place the knights!
-They go next to the rooks.</string>
-	<string name="placeTheBishops">Place the bishops!
-They go next to the knights.</string>
-	<string name="placeTheQueen">Place the queen!
-She goes on her own colour.</string>
-	<string name="placeTheKing">Place the king!
-Right next to his queen.</string>
-	<string name="pawnsFormTheFrontLine">Pawns form the front line.
-Make any move to continue.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Stalemate</string>
 	<string name="theGameIsADraw">The game is a draw</string>
@@ -158,24 +146,11 @@ Make any move to continue.</string>
 	<string name="advanced">Advanced</string>
 	<string name="pieceValue">Piece value</string>
 	<string name="evaluatePieceStrength">Evaluate piece strength</string>
-	<string name="pieceValueIntro">Pieces with high mobility have a higher value!
-Queen = 9
-Rook = 5
-Bishop = 3
-Knight = 3
-Pawn = 1
-The king is priceless! Losing it means losing the game.</string>
 	<string name="queenOverBishop">Take the piece
 with the highest value!
 Queen &gt; Bishop</string>
 	<string name="takeThePieceWithTheHighestValue">Take the piece
 with the highest value!</string>
-	<string name="pieceValueComplete">Congratulations! You know the value of material!
-Queen = 9
-Rook = 5
-Bishop = 3
-Knight = 3
-Pawn = 1</string>
 	<string name="checkInTwo">Check in two</string>
 	<string name="twoMovesToGiveCheck">Two moves to give a check</string>
 	<string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>

@@ -133,18 +133,6 @@ op \'n manier wat nie verdedig kan word nie!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Sit die torings eerste op hulle plek!
-Hulle hoort in die hoeke.</string>
-	<string name="thenPlaceTheKnights">Plaas die ruiters volgende!
-Hulle staan langs die torings.</string>
-	<string name="placeTheBishops">Plaas die lopers op hulle plek!
-Hulle kom langsaan die ruiters.</string>
-	<string name="placeTheQueen">Plaas die dame op haar blokkie!
-Sy staan op haar eie kleur.</string>
-	<string name="placeTheKing">Plaas die koning op sy blokkie!
-Hy staan reg langs sy dame.</string>
-	<string name="pawnsFormTheFrontLine">Pionne vorm die voorste linie.
-Maak enige skuif om voort te gaan.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">Die spel is gelykop</string>
@@ -156,24 +144,11 @@ Maak enige skuif om voort te gaan.</string>
 	<string name="advanced">Gevorderd</string>
 	<string name="pieceValue">Stuk waarde</string>
 	<string name="evaluatePieceStrength">Evalueer stuk sterkte</string>
-	<string name="pieceValueIntro">Stukke met \'n hoë beweeglikheid het \'n hoër waarde!
-Dame = 9
-Toring = 5
-Loper = 3
-Ruiter = 3
-Pion = 1
-Die koning is van onskatbare waarde! Verloor die koning en jy verloor die spel.</string>
 	<string name="queenOverBishop">Vat die stuk
 met die hoogste waarde!
 Dame &gt; Loper</string>
 	<string name="takeThePieceWithTheHighestValue">Vat die stuk
 met die hoogste waarde!</string>
-	<string name="pieceValueComplete">Jy is aan die brand! Jy ken die waarde van materiaal!
-Dame = 9
-Toring = 5
-Loper = 3
-Ruiter = 3
-Pion = 1</string>
 	<string name="checkInTwo">Skaak in twee</string>
 	<string name="twoMovesToGiveCheck">Twee skuiwe om \'n skaak te gee</string>
 	<string name="checkInTwoIntro">Vind die regte kombinasie van twee skuiwe wat die opponent se koning skaak!</string>

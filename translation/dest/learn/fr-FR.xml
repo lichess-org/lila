@@ -125,17 +125,6 @@ ou bloquez l\'attaque !</string>
 	<string name="thisIsTheInitialPosition">Voici la position initiale
 de toute partie de shogi!
 Faites un coup pour continuer.</string>
-	<string name="firstPlaceTheRooks">Placez tout d\'abord les Tours !
-Elles se placent dans les coins.</string>
-	<string name="thenPlaceTheKnights">Placez ensuite les Cavaliers !
-Ils se placent à côté des Tours.</string>
-	<string name="placeTheBishops">Placez les Fous !
-Ils se placent à côté des Cavaliers.</string>
-	<string name="placeTheQueen">Placez la Dame !
-Elle se place sur sa propre couleur.</string>
-	<string name="placeTheKing">Placez le Roi !
-Il se place à côté de sa Dame.</string>
-	<string name="pawnsFormTheFrontLine">Les pions forment la ligne de front. Jouez un coup pour continuer.</string>
 	<string name="boardSetupComplete">Félicitations ! Vous savez maintenant la mise en place du jeu de shogi.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">La partie est nulle</string>
@@ -147,24 +136,11 @@ Il se place à côté de sa Dame.</string>
 	<string name="advanced">Avancé</string>
 	<string name="pieceValue">Valeur des pièces</string>
 	<string name="evaluatePieceStrength">Évaluer la valeur des pièces</string>
-	<string name="pieceValueIntro">Les pièces ayant une grande mobilité ont une valeur plus importante :
-Dame = 9
-Tour = 5
-Fou = 3
-Cavalier = 3
-Pion = 1
-Le Roi est irremplaçable ! Le perdre signifie perdre la partie.</string>
 	<string name="queenOverBishop">Prenez la pièce avec
 la valeur la plus élevée !
 Dame &gt; Fou</string>
 	<string name="takeThePieceWithTheHighestValue">Prenez la pièce avec
 la valeur la plus élevée !</string>
-	<string name="pieceValueComplete">Félicitations ! Vous connaissez la valeur des pièces !
-Dame = 9
-Tour = 5
-Fou = 3
-Cavalier = 3
-Pion = 1</string>
 	<string name="checkInTwo">Échec en deux coups</string>
 	<string name="twoMovesToGiveCheck">Donnez un échec en deux coups</string>
 	<string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le Roi de l\'adversaire en échec !</string>

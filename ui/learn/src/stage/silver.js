@@ -49,6 +49,9 @@ module.exports = {
       nbMoves: 2,
       shapes: [circle('d4'), circle('d5'), circle('e5'), circle('f5'), circle('f4'), circle('e3')],
     },
-  ].map(util.toLevel),
+  ].map(function (l, i) {
+    l.noPocket = true;
+    return util.toLevel(l, i);
+  }),
   complete: 'silverComplete',
 };

@@ -123,12 +123,6 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="howTheGameStarts">Wie das Spiel beginnt</string>
 	<string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
 	<string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Shogi-Partie. Mache einen beliebigen Zug, um fortzufahren.</string>
-	<string name="firstPlaceTheRooks">Setze zuerst die Türme! Sie stehen in den Ecken.</string>
-	<string name="thenPlaceTheKnights">Platziere jetzt die Springer! Sie stehen neben den Türmen.</string>
-	<string name="placeTheBishops">Platziere die Läufer! Sie stehen neben den Springern.</string>
-	<string name="placeTheQueen">Platziere die Dame. Sie steht auf ihrer eigenen Farbe.</string>
-	<string name="placeTheKing">Platziere den König! Direkt neben der Dame.</string>
-	<string name="pawnsFormTheFrontLine">Bauern bilden die Front. Ziehe einen beliebigen Zug, um fortzufahren.</string>
 	<string name="boardSetupComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man die Shogi-Figuren aufstellt.</string>
 	<string name="stalemate">Patt</string>
 	<string name="theGameIsADraw">Das Spiel ist Remis</string>
@@ -140,24 +134,11 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="advanced">Fortgeschritten</string>
 	<string name="pieceValue">Figurenwerte</string>
 	<string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
-	<string name="pieceValueIntro">Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
-Dame = 9
-Turm = 5
-Läufer = 3
-Springer = 3
-Bauer = 1
-Der König ist unbezahlbar! Ihn zu verlieren bedeutet das Spiel zu verlieren.</string>
 	<string name="queenOverBishop">Schlage die Figur
 mit dem höchsten Wert!
 Dame &gt; Läufer</string>
 	<string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
-	<string name="pieceValueComplete">Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!
-Dame = 9
-Turm = 5
-Läufer = 3
-Springer = 3
-Bauer = 1</string>
 	<string name="checkInTwo">Schach in zwei Zügen</string>
 	<string name="twoMovesToGiveCheck">Zwei Züge um Schach zu bieten</string>
 	<string name="checkInTwoIntro">Finde die richtige Kombination von zwei Zügen, die den gegnerischen König Schach setzt!</string>

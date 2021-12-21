@@ -16,18 +16,23 @@ module.exports = {
       apples: 'd6 b4',
       nbMoves: 2,
       shapes: [arrow('g3d6'), arrow('d6b4')],
+      noPocket: true,
     },
     {
-      goal: 'theFewerMoves',
-      fen: '9/9/9/9/9/9/2B6/9/9 b -',
+      goal: 'ehThereIsNoPiece',
+      fen: '9/9/9/9/9/9/9/9/9 b B',
       apples: 'b2 c1 c5 e1 e3 f2',
-      nbMoves: 6,
+      nbMoves: 7,
+      shapes: [circle('e5'), arrow('e5b2')],
+      noPocket: false,
+      doNotShowPawnsInPocket: true,
     },
     {
       goal: 'bishopPromotion',
       fen: '9/9/9/9/9/9/2B6/9/9 b -',
       apples: 'h8 g8 b3',
       nbMoves: 3,
+      noPocket: true,
     },
     {
       goal: 'bishopSummary',
@@ -35,6 +40,7 @@ module.exports = {
       apples: 'a1',
       nbMoves: 1,
       shapes: [arrow('e5i9', 'green'), arrow('e5i1', 'green'), arrow('e5a1', 'green'), arrow('e5a9', 'green')],
+      noPocket: true,
     },
     {
       goal: 'horseSummary',
@@ -55,7 +61,10 @@ module.exports = {
         circle('d5'),
         circle('d6'),
       ],
+      noPocket: true,
     },
-  ].map(util.toLevel),
+  ].map(function (l, i) {
+    return util.toLevel(l, i);
+  }),
   complete: 'bishopComplete',
 };

@@ -31,12 +31,15 @@ module.exports = {
       shapes: [arrow('e4e9', 'green')],
     },
     {
-      goal: 'planceSummary',
+      goal: 'planceSummaryTwo',
       fen: '9/9/9/9/9/4+L4/9/9/9 b -',
       apples: 'e6',
       nbMoves: 2,
       shapes: [circle('d4'), circle('d5'), circle('e5'), circle('f5'), circle('f4'), circle('e3')],
     },
-  ].map(util.toLevel),
+  ].map(function (l, i) {
+    l.noPocket = true;
+    return util.toLevel(l, i);
+  }),
   complete: 'lanceComplete',
 };

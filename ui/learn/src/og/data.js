@@ -6,9 +6,9 @@ module.exports = function (cfg) {
     pieces: fen.read(fen.initial),
     orientation: 'sente', // board orientation. sente | gote
     turnColor: 'sente', // turn to play. sente | gote
-    check: null, // square currently in check "a2" | null
-    lastMove: null, // squares part of the last move ["c3", "c4"] | null
-    selected: null, // square currently selected "a1" | null
+    check: null, // square currently in check 'a2' | null
+    lastMove: null, // squares part of the last move ['c3', 'c4'] | null
+    selected: null, // square currently selected 'a1' | null
     coordinates: true, // include coords attributes
     render: null, // function that rerenders the board
     renderRAF: null, // function that rerenders the board using requestAnimationFrame
@@ -46,11 +46,17 @@ module.exports = function (cfg) {
        *}*/
       current: {},
     },
+    dropmode: {
+      active: false,
+      showDropDests: true,
+      piece: {}, // { color: 'sente', role: 'rook' }
+      dropDests: undefined, // ['a1, 'a2', 'a3', ...]
+    },
     movable: {
       free: true, // all moves are valid - board editor
       color: 'both', // color that can move. sente | gote | both | null
-      dests: {}, // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]} | null
-      dropOff: 'revert', // when a piece is dropped outside the board. "revert" | "trash"
+      dests: {}, // valid moves. {'a2' ['a3' 'a4'] 'b1' ['a3' 'c3']} | null
+      dropOff: 'revert', // when a piece is dropped outside the board. 'revert' | 'trash'
       dropped: [], // last dropped [orig, dest], not to be animated
       showDests: true, // whether to add the move-dest class on squares
       events: {
@@ -62,7 +68,7 @@ module.exports = function (cfg) {
       enabled: true, // allow premoves for color that can not move
       showDests: true, // whether to add the premove-dest class on squares
       dests: [], // premove destinations for the current selection
-      current: null, // keys of the current saved premove ["e2" "e4"] | null
+      current: null, // keys of the current saved premove ['e2' 'e4'] | null
       events: {
         set: function (orig, dest) {}, // called after the premove has been set
         unset: function () {}, // called after the premove has been unset
@@ -83,11 +89,11 @@ module.exports = function (cfg) {
       centerPiece: true, // center the piece on cursor at drag start
       showGhost: true, // show ghost of piece being dragged
       /*{ // current
-       *  orig: "a2", // orig key of dragging piece
+       *  orig: 'a2', // orig key of dragging piece
        *  rel: [100, 170] // x, y of the piece at original position
        *  pos: [20, -12] // relative current position
        *  dec: [4, -8] // piece center decay
-       *  over: "b3" // square being moused over
+       *  over: 'b3' // square being moused over
        *  bounds: current cached board bounds
        *  started: whether the drag has started, as per the distance setting
        *}*/
@@ -127,9 +133,9 @@ module.exports = function (cfg) {
         // {brush: 'paleRed', orig: 'c4', dest: 'f7'}
       ],
       /*{ // current
-       *  orig: "a2", // orig key of drawing
+       *  orig: 'a2', // orig key of drawing
        *  pos: [20, -12] // relative current position
-       *  dest: "b3" // square being moused over
+       *  dest: 'b3' // square being moused over
        *  bounds: // current cached board bounds
        *  brush: 'green' // brush name for shape
        *}*/

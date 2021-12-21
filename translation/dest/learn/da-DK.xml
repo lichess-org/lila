@@ -125,12 +125,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Placer tårnene! De hører til i hjørnerne.</string>
-	<string name="thenPlaceTheKnights">Placer dernæst springerne! De skal stå ved siden af tårnene.</string>
-	<string name="placeTheBishops">Placer løberne! De skal stå ved siden af springerne.</string>
-	<string name="placeTheQueen">Placer dronningen! Hun skal stå på sin egen farve.</string>
-	<string name="placeTheKing">Placer kongen! Lige ved siden af hans dronning.</string>
-	<string name="pawnsFormTheFrontLine">Bønder udgør frontlinjen. Lav et træk for at fortsætte.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">Partiet ender med remis</string>
@@ -142,21 +136,8 @@ Make any move to continue.</string>
 	<string name="advanced">Avanceret</string>
 	<string name="pieceValue">Brikværdi</string>
 	<string name="evaluatePieceStrength">Vurder brikstyrke</string>
-	<string name="pieceValueIntro">Brikker med stor bevægelighed har højere værdi!
-Dronning = 9
-Tårn = 5
-Løber = 3
-Springer = 3
-Bonde = 1
-Kongen er uvurderlig! Mistes den, er spillet tabt.</string>
 	<string name="queenOverBishop">Snup brikken med den højeste værdi! Dronning &gt; løber</string>
 	<string name="takeThePieceWithTheHighestValue">Tag brikken med den højeste værdi!</string>
-	<string name="pieceValueComplete">Tillykke! Du kender brikkernes værdi!
-Dronning = 9
-Tårn = 5
-Løber = 3
-Springer = 3
-Bonde = 1</string>
 	<string name="checkInTwo">Skak i to</string>
 	<string name="twoMovesToGiveCheck">To træk til at sætte skak</string>
 	<string name="checkInTwoIntro">Find den rette kombination af to træk, der sætter modstanderens konge skak!</string>

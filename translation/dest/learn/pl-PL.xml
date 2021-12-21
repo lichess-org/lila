@@ -124,12 +124,6 @@
 	<string name="thisIsTheInitialPosition">To jest początkowa pozycja
 każdej partii shogi!
 Wykonaj dowolny ruch, aby kontynuować.</string>
-	<string name="firstPlaceTheRooks">Najpierw ustaw wieże! Umieść je w rogach.</string>
-	<string name="thenPlaceTheKnights">Następnie ustaw skoczki! Umieść je obok wież.</string>
-	<string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
-	<string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
-	<string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
-	<string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Wykonaj dowolny ruch, aby kontynuować.</string>
 	<string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać bierki na szachownicy.</string>
 	<string name="stalemate">Pat</string>
 	<string name="theGameIsADraw">Partia zakończona remisem</string>
@@ -141,22 +135,9 @@ Wykonaj dowolny ruch, aby kontynuować.</string>
 	<string name="advanced">Zaawansowane</string>
 	<string name="pieceValue">Wartości bierek</string>
 	<string name="evaluatePieceStrength">Oceń siłę bierek</string>
-	<string name="pieceValueIntro">Bierki o wyższej mobilności są warte więcej!
-Hetman – 9
-Wieża – 5
-Goniec – 3
-Skoczek – 3
-Pion – 1
-Król jest bezcenny! Tracąc go przegrywasz partię.</string>
 	<string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
 	<string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
-	<string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
-Hetman – 9
-Wieża – 5
-Goniec – 3
-Skoczek – 3
-Pionek – 1</string>
 	<string name="checkInTwo">Szach w 2 ruchach</string>
 	<string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
 	<string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>

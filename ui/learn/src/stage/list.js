@@ -18,38 +18,39 @@ var categs = [
       require('./pawn'),
     ],
   },
-  //{
-  //  key: "fundamentals",
-  //  name: "fundamentals",
-  //  stages: [
-  //    require("./capture"),
-  //    require("./protection"),
-  //    require("./combat"),
-  //    require("./check1"),
-  //    require("./outOfCheck.js"),
-  //    require("./checkmate1"),
-  //  ],
-  //},
-  //{
-  //  key: "intermediate",
-  //  name: "intermediate",
-  //  stages: [
-  //    require("./setup"),
-  //    require("./castling"),
-  //    require("./enpassant"),
-  //    require("./stalemate"),
-  //  ],
-  //},
-  //{
-  //  key: "advanced",
-  //  name: "advanced",
-  //  stages: [
-  //    require("./value"),
-  //    // require('./draw'),
-  //    // require('./fork'),
-  //    require("./check2"),
-  //  ],
-  //},
+  {
+    key: 'fundamentals',
+    name: 'fundamentals',
+    stages: [
+      require('./capture'),
+      require('./drop'),
+      require('./protection'),
+      //require('./combat'),
+      require('./check1'),
+      require('./outOfCheck.js'),
+      require('./checkmate1'),
+    ],
+  },
+  {
+    key: 'intermediate',
+    name: 'intermediate',
+    stages: [
+      require('./setup'),
+      require('./repetition'),
+      //    require('./castling'),
+      //    require('./enpassant'),
+      //    require('./stalemate'),
+    ],
+  },
+  {
+    key: 'advanced',
+    name: 'advanced',
+    stages: [
+      require('./value'),
+      // require('./attack'),
+      // require('./fork'),
+    ],
+  },
 ];
 
 var stageId = 1;

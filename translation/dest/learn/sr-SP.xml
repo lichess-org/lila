@@ -126,18 +126,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Прво ставите топове!
-Они иду у ћошкове.</string>
-	<string name="thenPlaceTheKnights">Затим ставите скакаче!
-Они иду поред топова.</string>
-	<string name="placeTheBishops">Ставите ловчеве!
-Они иду поред скакача.</string>
-	<string name="placeTheQueen">Ставите краљицу!
-Она иде на њену боју.</string>
-	<string name="placeTheKing">Ставите краља!
-Одмах поред његове краљице.</string>
-	<string name="pawnsFormTheFrontLine">Пешаци формирају предњу линију.
-Направите било који потез да наставите.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Пат</string>
 	<string name="theGameIsADraw">Партија је нерешена</string>
@@ -149,24 +137,11 @@ Make any move to continue.</string>
 	<string name="advanced">Напредно</string>
 	<string name="pieceValue">Вредност фигура</string>
 	<string name="evaluatePieceStrength">Процените снагу фигуре</string>
-	<string name="pieceValueIntro">Фигуре са више поља на које могу да се помере су вредније!
-Дама = 9
-Топ = 5
-Ловац = 3
-Скакач = 3
-Пешак = 1
-Краљ нема вредност! Ако га изгубите, изгубили сте партију.</string>
 	<string name="queenOverBishop">Поједите фигуру
 са највећом вредношћу!
 Дама &gt; Ловац</string>
 	<string name="takeThePieceWithTheHighestValue">Поједите фигуру
 са највећом вредношћу!</string>
-	<string name="pieceValueComplete">Честитамо! Знате вредност материјала!
-Дама = 9
-Топ = 5
-Ловац = 3
-Скакач = 3
-Пешак = 1</string>
 	<string name="checkInTwo">Шах у два</string>
 	<string name="twoMovesToGiveCheck">Два потеза да дате шах</string>
 	<string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза која шахира противниковог краља!</string>

@@ -129,18 +129,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Πρώτα τοποθετήστε τους πύργους!
-Μπαίνουν στις γωνίες.</string>
-	<string name="thenPlaceTheKnights">Μετά τοποθετήστε τους ίππους!
-Μπαίνουν δίπλα στους πύργους.</string>
-	<string name="placeTheBishops">Τοποθετήστε τους αξιωματικούς!
-Μπαίνουν δίπλα στους ίππους.</string>
-	<string name="placeTheQueen">Τοποθετήστε την βασίλισσα!
-Μπαίνει στο χρώμα της.</string>
-	<string name="placeTheKing">Τοποθετήστε τον βασιλιά!
-Ακριβώς δίπλα στη βασίλισσά του.</string>
-	<string name="pawnsFormTheFrontLine">Τα πιόνια αποτελούν την πρώτη γραμμή.
-Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Πατ</string>
 	<string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
@@ -152,24 +140,11 @@ Make any move to continue.</string>
 	<string name="advanced">Προχωρημένο στάδιο</string>
 	<string name="pieceValue">Αξία πιονιού</string>
 	<string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε πιονιού</string>
-	<string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
-Βασίλισσα = 9
-Πύργος = 5
-Αξιωματικός = 3
-Ίππος = 3
-Πιόνι = 1
-Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
 	<string name="queenOverBishop">Πάρτε το κομμάτι
 με την υψηλότερη αξία!
 Βασίλισσα &gt; Αξιωματικός</string>
 	<string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι
 με την υψηλότερη αξία!</string>
-	<string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
-Βασίλισσα = 9 
-Πύργος = 5 
-Αξιωματικός = 3 
-Ίππος = 3
-Πιόνι = 1</string>
 	<string name="checkInTwo">Σαχ σε δύο</string>
 	<string name="twoMovesToGiveCheck">Δύο κινήσεις για να κάνετε σαχ</string>
 	<string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που κάνει σαχ στον βασιλιά του αντιπάλου!</string>

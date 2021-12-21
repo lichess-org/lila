@@ -125,12 +125,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">תחילה שים את הצריחים בארבע פינות הלוח.</string>
-	<string name="thenPlaceTheKnights">לידם באותה שורה, הפרשים.</string>
-	<string name="placeTheBishops">אחריהם בשורה, הרצים.</string>
-	<string name="placeTheQueen">את המלכה שים במשבצת שנותרה, לבן על לבן ושחור על שחור.</string>
-	<string name="placeTheKing">ולצידה, המלך.</string>
-	<string name="pawnsFormTheFrontLine">שים את הרגלים בשורה שלפני הקצינים, לכל אורכה. בצע כל פעולה להמשך.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">פט</string>
 	<string name="theGameIsADraw">המשחק מסתיים בתיקו</string>
@@ -140,21 +134,8 @@ Make any move to continue.</string>
 	<string name="advanced">מתקדם</string>
 	<string name="pieceValue">הערך של כל כלי</string>
 	<string name="evaluatePieceStrength">למד להעריך את כוח כליך</string>
-	<string name="pieceValueIntro">לכלים בעלי ניידות גבוהה יש ערך גבוה יותר!
-מלכה = 9
-צריח = 5
-רץ = 3
-פרש = 3
-רגלי = 1
-המלך לא יסולא בפז! הפסדת המלך משמעותה הפסדת המשחק.</string>
 	<string name="queenOverBishop">עדיף לקחת מהיריב כלים יותר חזקים! מלכה &gt; רץ</string>
 	<string name="takeThePieceWithTheHighestValue">קח את הכלי החזק יותר!</string>
-	<string name="pieceValueComplete">יפה, אתה מכיר את הערך של הכלים! 
-מלכה=9, 
-צריח=5,
-רץ=3,
-פרש=3,
-רגלי=1.</string>
 	<string name="checkInTwo">שח בשני מהלכים</string>
 	<string name="twoMovesToGiveCheck">איך לתת שח בשני מסעים</string>
 	<string name="checkInTwoIntro">מצא שילוב שני מסעים שבסופו תאיים על מלך היריב!</string>

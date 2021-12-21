@@ -127,18 +127,6 @@
 	<string name="boardSetupIntro">兩方對峙，準備開戰。</string>
 	<string name="thisIsTheInitialPosition">這就是每一盤將棋開局的盤面！
 請走任意一步棋來繼續。</string>
-	<string name="firstPlaceTheRooks">首先來擺城堡！
-它們待在角落。</string>
-	<string name="thenPlaceTheKnights">接下來是騎士！
-它們在城堡旁邊。</string>
-	<string name="placeTheBishops">換主教了！
-它們在騎士旁邊。</string>
-	<string name="placeTheQueen">再來是皇后！
-它在跟它相同顏色的格子上。</string>
-	<string name="placeTheKing">再來是國王了！
-就在皇后旁邊。</string>
-	<string name="pawnsFormTheFrontLine">士兵在最前線。
-請任意走一步棋來繼續。</string>
 	<string name="boardSetupComplete">恭喜！你已經知道該如何準備一場將棋對局了。</string>
 	<string name="stalemate">逼和</string>
 	<string name="theGameIsADraw">這是一場平局</string>
@@ -149,22 +137,9 @@
 	<string name="advanced">高級</string>
 	<string name="pieceValue">棋子的價值</string>
 	<string name="evaluatePieceStrength">對棋子的價值進行評估</string>
-	<string name="pieceValueIntro">移動能力越強的價值越高！
-皇后 = 9
-城堡 = 5
-主教 = 3
-騎士 = 3
-士兵 = 1
-國王無價！你失去國王就輸了棋局。</string>
 	<string name="queenOverBishop">吃掉價值高的棋子！
 皇后　&gt;　主教</string>
 	<string name="takeThePieceWithTheHighestValue">吃掉價值高的棋子！</string>
-	<string name="pieceValueComplete">恭喜！你知道各棋子的價值了！
-皇后 = 9
-城堡 = 5
-主教 = 3
-騎士 = 3
-士兵 = 1</string>
 	<string name="checkInTwo">兩步將</string>
 	<string name="twoMovesToGiveCheck">走兩步棋並將軍對方</string>
 	<string name="checkInTwoIntro">找出可以兩步將軍對手的正確組合！</string>

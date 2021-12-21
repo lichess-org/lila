@@ -21,6 +21,8 @@ function getLevelBonus(l, nbMoves) {
 function getLevelMaxScore(l) {
   var score = util.readKeys(l.apples).length * apple;
   if (l.pointsForCapture) score += (l.captures || 0) * capture;
+  // console.log('score.js: getLevelMaxScore of', l);
+  // console.log(score + levelBonus[1]);
   return score + levelBonus[1];
 }
 

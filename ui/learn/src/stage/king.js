@@ -40,6 +40,7 @@ module.exports = {
       ],
     },
   ].map(function (s, i) {
+    s.noPocket = true;
     s = util.toLevel(s, i);
     s.emptyApples = true;
     return s;

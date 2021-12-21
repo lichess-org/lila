@@ -133,18 +133,6 @@
 	<string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
 	<string name="thisIsTheInitialPosition">これが将棋の初期盤面です。
 続けるには好きな次の手をどうぞ。</string>
-	<string name="firstPlaceTheRooks">まずルークを
-両隅に置く。</string>
-	<string name="thenPlaceTheKnights">次にナイトを
-ルークのとなりに。</string>
-	<string name="placeTheBishops">ビショップを
-ナイトのとなりに。</string>
-	<string name="placeTheQueen">クイーンは
-自分と同じ色のマスに。</string>
-	<string name="placeTheKing">キングは
-クイーンのとなりに。</string>
-	<string name="pawnsFormTheFrontLine">ポーンはその前に並びます。
-好きな手を指して。</string>
 	<string name="boardSetupComplete">おめでとう！駒の並べ方を覚えました！</string>
 	<string name="stalemate">ステイルメイト</string>
 	<string name="theGameIsADraw">引き分けになります</string>
@@ -156,24 +144,11 @@
 	<string name="advanced">上級</string>
 	<string name="pieceValue">駒の価値</string>
 	<string name="evaluatePieceStrength">駒の価値を数字で</string>
-	<string name="pieceValueIntro">動きの大きい駒ほど価値があります。
-クイーン = 9
-ルーク = 5
-ビショップ = 3
-ナイト = 3
-ポーン = 1
-キングは無限大です！　キングを失えば負けですから。</string>
 	<string name="queenOverBishop">いちばん価値の大きい
 駒を取ってください。
 クイーン ＞ ビショップ</string>
 	<string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
 駒を取ってください。</string>
-	<string name="pieceValueComplete">おめでとう！　駒の価値を覚えました！
-クイーン = 9
-ルーク = 5
-ビショップ = 3
-ナイト = 3
-ポーン = 1</string>
 	<string name="checkInTwo">３手で王手する</string>
 	<string name="twoMovesToGiveCheck">２手動かして王手する</string>
 	<string name="checkInTwoIntro">相手の王将/玉将を王手する３手の組み合わせを考えてください。</string>

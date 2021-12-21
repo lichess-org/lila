@@ -1,5 +1,6 @@
 var util = require('../util');
-var arrow = util.arrow;
+var arrow = util.arrow,
+  circle = util.circle;
 
 var imgUrl = util.assetUrl + 'images/learn/bolt-shield.svg';
 
@@ -13,48 +14,76 @@ module.exports = {
   levels: [
     {
       goal: 'escape',
-      fen: '8/8/8/4bb2/8/8/P2P4/R2K4 b -',
-      shapes: [arrow('e5a1', 'red'), arrow('a1c1')],
+      fen: '9/1r7/9/9/9/2PP5/Pp7/1B7/LNS6 b - 1',
+      shapes: [arrow('b3b2', 'red'), circle('b2')],
     },
     {
       // escape
       goal: 'escape',
-      fen: '8/8/2q2N2/8/8/8/8/8 b -',
+      fen: '9/9/9/9/7Pb/9/8P/6+p2/3S3RL b - 1',
     },
     {
       // protect
       goal: 'noEscape',
-      fen: '8/N2q4/8/8/8/8/6R1/8 b -',
+      fen: '9/9/2n6/2r6/4P4/2S6/1PBP5/2R6/9 b - 1',
+      shapes: [arrow('c6c4', 'red'), arrow('c2c3', 'green')],
       scenario: [
         {
-          move: 'g2a2',
-          shapes: [arrow('a2a7', 'green')],
+          move: ['c3a5', 'c3b4', 'c3d4', 'c3a1', 'c3b2', 'c3d2', 'c3e1'],
+          shapes: [arrow('c2c4', 'green')],
         },
       ],
     },
     {
-      goal: 'noEscape',
-      fen: '8/8/1Bq5/8/2P5/8/8/8 b -',
+      goal: 'makeSureAllSafe',
+      fen: '9/9/6b2/7R1/9/9/1P7/1S7/9 b - 1',
     },
     {
-      goal: 'noEscape',
-      fen: '1r6/8/5b2/8/8/5N2/P2P4/R1B5 b -',
-      shapes: [arrow('f6a1', 'red'), arrow('d2d4')],
+      goal: 'makeSureAllSafe',
+      fen: '9/9/6n2/9/9/5Pp2/6N2/9/9 b - 1',
+      shapes: [arrow('g4g3', 'red')],
+      scenario: [
+        {
+          move: 'g3f5',
+          shapes: [arrow('g7f5', 'red'), arrow('f4f5', 'green')],
+        },
+      ],
+    },
+    {
+      goal: 'makeSureAllSafe',
+      fen: '9/9/7+P1/6s2/5N3/9/9/9/9 b - 1',
+    },
+    {
+      goal: 'makeSureAllSafe',
+      fen: '9/9/9/9/9/9/5G3/9/3+bS4 b - 1',
+    },
+    {
+      goal: 'makeSureAllSafe',
+      fen: '9/9/9/9/3n5/9/2PPS4/3R5/9 b - 1',
+    },
+    {
+      goal: 'dontForgetYouCanDropToDefend',
+      fen: '9/9/4S4/9/4r4/9/4G4/9/9 b L 1',
+    },
+    {
+      goal: 'dontForgetYouCanDropToDefend',
+      fen: '9/9/9/9/9/3B5/7S1/9/3G3r1 b NLP 1',
     },
     {
       goal: 'dontLetThemTakeAnyUndefendedPiece',
-      fen: '8/1b6/8/8/8/3P2P1/5NRP/r7 b -',
+      fen: '9/9/9/9/9/9/4P4/4G4/2S2+r3 b NLP 1',
     },
     {
       goal: 'dontLetThemTakeAnyUndefendedPiece',
-      fen: 'rr6/3q4/4n3/4P1B1/7P/P7/1B1N1PP1/R5K1 b -',
+      fen: '9/9/9/9/7S1/7+b1/9/5G3/9 b NLP 1',
     },
     {
       goal: 'dontLetThemTakeAnyUndefendedPiece',
-      fen: '8/3q4/8/1N3R2/8/2PB4/8/8 b -',
+      fen: '8l/9/9/7n1/8P/8L/6PP1/6S2/7N1 b LP 1',
     },
   ].map(function (l, i) {
     l.nbMoves = 1;
+    l.detectCapture = 'unprotected';
     return util.toLevel(l, i);
   }),
   complete: 'protectionComplete',

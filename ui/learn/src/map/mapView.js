@@ -62,10 +62,10 @@ function whatNext(ctrl) {
         : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLishogiAccount'),
       makeStage('/resources', 'pieces/K', 'shogiResources', 'curatedShogiResources'),
       //makeStage(
-      //  "/practice",
-      //  "robot-golem",
-      //  "practice",
-      //  "learnCommonChessPositions"
+      //  '/practice',
+      //  'robot-golem',
+      //  'practice',
+      //  'learnCommonChessPositions'
       //),
       makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
       makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),

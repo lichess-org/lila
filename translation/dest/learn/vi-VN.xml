@@ -125,15 +125,6 @@ Nhưng đừng để mất quân của bạn.</string>
 	<string name="howTheGameStarts">Ván đấu bắt đầu như thế nào</string>
 	<string name="boardSetupIntro">Hai bên quân đối mặt với nhau, sẵn sàng cho cuộc chiến.</string>
 	<string name="thisIsTheInitialPosition">Đây là vị trí ban đầu của mọi ván cờ. Hãy đi nước bất kỳ để tiếp tục.</string>
-	<string name="firstPlaceTheRooks">Hãy đặt những quân xe! Vị trí ở phía các góc bàn cờ.</string>
-	<string name="thenPlaceTheKnights">Rồi đặt những quân Mã! ngay cạnh quân Xe.</string>
-	<string name="placeTheBishops">Đặt quân Tượng! Ngay cạnh quân Mã.</string>
-	<string name="placeTheQueen">Đặt quân Hậu!
-Nó ở ô cùng màu với quân của bạn.</string>
-	<string name="placeTheKing">Đặt quân Vua!
-Bên phải cạnh quân Hậu.</string>
-	<string name="pawnsFormTheFrontLine">Các quân tốt tạo nên hàng phía trước.
-Hãy đi nước bất kỳ để tiếp tục.</string>
 	<string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
 	<string name="stalemate">Hòa pat</string>
 	<string name="theGameIsADraw">Ván cờ kết thúc hòa</string>
@@ -145,23 +136,10 @@ Hãy đi nước bất kỳ để tiếp tục.</string>
 	<string name="advanced">Nâng cao</string>
 	<string name="pieceValue">Giá trị của quân</string>
 	<string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>
-	<string name="pieceValueIntro">Quân cờ có khả năng di chuyển linh hoạt có giá trị cao hơn!
-Hậu = 9
-Xe = 5
-Tượng = 3
-Mã = 3
-Tốt = 1
-Quân Vua là vô giá. Mất Vua là bị thua cuộc.</string>
 	<string name="queenOverBishop">Chọn quân cờ giá trị cao nhất!
 Hậu &gt; Tượng</string>
 	<string name="takeThePieceWithTheHighestValue">Hãy ăn quân
 với giá trị cao nhất!</string>
-	<string name="pieceValueComplete">Chúc mừng! Bạn đã hiểu giá trị từng quân cờ!
-Hậu = 9
-Xe = 5
-Tượng = 3
-Mã = 3
-Tốt = 1</string>
 	<string name="checkInTwo">Chiếu trong hai nước</string>
 	<string name="twoMovesToGiveCheck">Hai nước để chiếu</string>
 	<string name="checkInTwoIntro">Timf sự kết hợp chính xác 2 nước đi để chiếu Vua đối phương!</string>

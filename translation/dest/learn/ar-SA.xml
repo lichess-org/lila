@@ -125,12 +125,6 @@ To do that click on the cog wheel or your username(top right corner) and then cl
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">أولاً ضع الرخان! في الزوايا.</string>
-	<string name="thenPlaceTheKnights">ثم ضع الحصانان! إلى جانب الرخان.</string>
-	<string name="placeTheBishops">ضع الفيلان! إلى جانب الحصانان.</string>
-	<string name="placeTheQueen">مكان الملكة! في نفس لونها.</string>
-	<string name="placeTheKing">مكان الملك! بجوار الملكة.</string>
-	<string name="pawnsFormTheFrontLine">البيادق تشكل الخط الأمامي. قم بأي نقلة للإستمرار.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">الملك مخنوق</string>
 	<string name="theGameIsADraw">المباراة تعادل</string>
@@ -142,21 +136,8 @@ Make any move to continue.</string>
 	<string name="advanced">متقدم</string>
 	<string name="pieceValue">قيمة القطعة</string>
 	<string name="evaluatePieceStrength">تقييم قوة قطعة</string>
-	<string name="pieceValueIntro">القطع ذات القدرة العالية على الحركة لها قيمة أعلى!
- الملكة = 9
- الرخ= 5
- الفيل = 3
- الحصان= 3
-البيدق = 1
-الملك لا يقدر بثمن! فقدانه يعني خسارة المباراة.</string>
 	<string name="queenOverBishop">خذ القطعة ذات أعلى قيمة! الملكة &gt; الفيل</string>
 	<string name="takeThePieceWithTheHighestValue">خذ القطعة ذات أعلى قيمة!</string>
-	<string name="pieceValueComplete">تهانينا! أنت تعرف القيم المادية!
-الملكة =9
- الرخ = 5 
-الفيل= 3
-الحصان = 3
-البيدق = 1</string>
 	<string name="checkInTwo">كش في اثنين</string>
 	<string name="twoMovesToGiveCheck">نقلتين لإعطاء كش</string>
 	<string name="checkInTwoIntro">جد التكوينة الصحيحة من نقلتين لإعطاء كش لملك المنافس!</string>

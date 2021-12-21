@@ -135,18 +135,6 @@ de forma a que este não se possa defender!</string>
 	<string name="thisIsTheInitialPosition">This is the initial position
 of every game of shogi!
 Make any move to continue.</string>
-	<string name="firstPlaceTheRooks">Primeiro coloca as torres!
-Elas ficam nos cantos.</string>
-	<string name="thenPlaceTheKnights">Depois coloca os cavalos!
-Eles ficam ao lado das torres.</string>
-	<string name="placeTheBishops">Coloca os bispos!
-Eles ficam ao lado dos cavalos.</string>
-	<string name="placeTheQueen">Coloca a rainha!
-Ela fica na casa da sua cor.</string>
-	<string name="placeTheKing">Coloca o rei!
-Ao lado da rainha.</string>
-	<string name="pawnsFormTheFrontLine">Os peões formam a linha da frente.
-Faz qualquer movimentos para continuar.</string>
 	<string name="boardSetupComplete">Congratulations! You know how to set up the shogi board.</string>
 	<string name="stalemate">Rei afogado</string>
 	<string name="theGameIsADraw">O jogo é um empate</string>
@@ -158,24 +146,11 @@ Faz qualquer movimentos para continuar.</string>
 	<string name="advanced">Avançado</string>
 	<string name="pieceValue">Valor das peças</string>
 	<string name="evaluatePieceStrength">Avalia a força das peças</string>
-	<string name="pieceValueIntro">Peças com alta mobilidade têm maior valor!
-Rainha = 9
-Torre = 5
-Bispo = 3
-Cavalo = 3
-Peão = 1
-O rei não tem preço! Perdê-lo significa perder o jogo.</string>
 	<string name="queenOverBishop">Captura a peça
 de maior valor!
 Rainha &gt; bispo</string>
 	<string name="takeThePieceWithTheHighestValue">Captura a peça
 de maior valor!</string>
-	<string name="pieceValueComplete">Parabéns! Sabes o valor do material!
-Rainha = 9
-Torre = 5
-Bispo = 3
-Cavalo = 3
-Peão = 1</string>
 	<string name="checkInTwo">Xeque em dois lances</string>
 	<string name="twoMovesToGiveCheck">Dois movimentos para fazer xeque</string>
 	<string name="checkInTwoIntro">Encontra a combinação correta de dois movimentos que faz xeque ao rei adversário!</string>

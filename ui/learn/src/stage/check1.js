@@ -14,37 +14,30 @@ module.exports = {
   levels: [
     {
       goal: 'checkInOneGoal',
-      fen: '4k3/8/2b5/8/8/8/8/R7 b -',
-      shapes: [arrow('a1e1')],
+      fen: '5R3/4Ssk2/5p3/9/7L1/9/9/9/9 b r2b4g2s4n3l17p 3',
+      shapes: [arrow('f9h9')],
     },
     {
       goal: 'checkInOneGoal',
-      fen: '8/8/4k3/3n4/8/1Q6/8/8 b -',
+      fen: '3g5/2rk1g3/pps2pppp/2S6/9/9/9/9/9 b G 1',
     },
     {
       goal: 'checkInOneGoal',
-      fen: '3qk3/1pp5/3p4/4p3/8/3B4/6r1/8 b -',
+      fen: '9/9/9/2B2r3/9/4L4/9/9/7k1 b - 1',
     },
     {
       goal: 'checkInOneGoal',
-      fen: '2r2q2/2n5/8/4k3/8/2N1P3/3P2B1/8 b -',
+      fen: '5+B2s/7k1/7N1/6Ss1/9/9/9/9/9 b r2b4g2s4n3l17p 1',
     },
     {
       goal: 'checkInOneGoal',
-      fen: '8/2b1q2n/1ppk4/2N5/8/8/8/8 b -',
-    },
-    {
-      goal: 'checkInOneGoal',
-      fen: '6R1/1k3r2/8/4Q3/8/2n5/8/8 b -',
-    },
-    {
-      goal: 'checkInOneGoal',
-      fen: '7r/4k3/8/3n4/4N3/8/2R5/4Q3 b -',
+      fen: '6snl/4+Rgk2/5pppp/9/9/9/9/9/9 b GSr2b2g2s3n3l14p 1',
     },
   ].map(function (l, i) {
     l.nbMoves = 1;
     l.failure = assert.not(assert.check);
     l.success = assert.check;
+    l.detectCapture = 'unprotected';
     return util.toLevel(l, i);
   }),
   complete: 'checkInOneComplete',
