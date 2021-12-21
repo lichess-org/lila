@@ -125,7 +125,15 @@ object jsI18n {
       nbChapters,
       nbGames,
       nbMembers,
-      pasteYourPgnTextHereUpToNbGames
+      pasteYourPgnTextHereUpToNbGames,
+      // gamebook play
+      back,
+      playAgain,
+      nextChapter,
+      trans.retry,
+      goodMovePlayed,
+      whatWouldYouPlay,
+      youCompletedThisLesson
     ).map(_.key)
   }
 }
