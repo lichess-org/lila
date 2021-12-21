@@ -160,4 +160,8 @@
   <string name="myTopics">Omat aiheeni</string>
   <string name="popularTopics">Suositut aiheet</string>
   <string name="manageTopics">Aiheiden hallinta</string>
+  <string name="back">Takaisin</string>
+  <string name="playAgain">Pelaa uudelleen</string>
+  <string name="whatWouldYouPlay">Mitä pelaisit tässä asemassa?</string>
+  <string name="youCompletedThisLesson">Onnittelut! Olet suorittanut tämän oppiaiheen.</string>
 </resources>
