@@ -80,7 +80,7 @@ Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass 
     <item quantity="one">%s zu wiederholen</item>
     <item quantity="other">%s zu wiederholen</item>
   </plurals>
-  <string name="percentSolved" comment="percentSolved&#10;&#10;%s is a percentage, e.g. 90% solved from all the puzzles you have played.&#10;&#10;Please note %s is on a separate line.">%s gelöst</string>
+  <string name="percentSolved">%s gelöst</string>
   <string name="noPuzzlesToShow">Nichts zu zeigen, spiel erst ein paar Aufgaben!</string>
   <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
   <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
