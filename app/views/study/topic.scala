@@ -25,17 +25,12 @@ object topic {
         main(cls := "page-menu__content study-topics box box-pad")(
           h1(trans.study.topics()),
           myForm.map { form =>
-            postForm(cls := "form3", action := routes.Study.topics)(
-              form3.group(form("topics"), frag("Topics to organize your studies with"))(
-                form3.textarea(_)(rows := 10)
-              ),
-              form3.submit(trans.save())
-            )
-          },
-          mine.filter(_.value.nonEmpty) map { topics =>
             frag(
               h2(trans.study.myTopics()),
-              topicsList(topics, Order.Mine)
+              postForm(cls := "form3", action := routes.Study.topics)(
+                form3.textarea(form("topics"))(rows := 10),
+                form3.submit(trans.save())
+              )
             )
           },
           h2(trans.study.popularTopics()),
