@@ -169,4 +169,7 @@
   <string name="popularTopics">Популярные темы</string>
   <string name="manageTopics">Управление темами</string>
   <string name="back">Назад</string>
+  <string name="playAgain">Сыграть снова</string>
+  <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
+  <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
 </resources>
