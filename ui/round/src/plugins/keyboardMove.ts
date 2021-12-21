@@ -69,7 +69,7 @@ window.lishogi.keyboardMove = function (opts: any) {
   };
   makeBindings(opts, submit, clear);
   return function (fen: string, dests: Dests | undefined, yourMove: boolean) {
-    sans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
+    sans = dests && dests.size > 0 ? sanWriter(fen, destsToUsis(dests)) : null;
     submit(opts.input.value, {
       server: true,
       yourMove: yourMove,
@@ -115,7 +115,7 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
   });
 }
 
-function sanToUci(san: string, sans): Key[] | undefined {
+function sanToUsi(san: string, sans): Key[] | undefined {
   if (san in sans) return sans[san];
   const lowered = san.replace(/[-x]/, '').toLowerCase();
   for (let i in sans) if (i.replace(/[-x]/, '').toLowerCase() === lowered) return sans[i];
@@ -145,14 +145,14 @@ function coordinate(square) {
   );
 }
 
-function destsToUcis(dests: Dests) {
-  const ucis: string[] = [];
+function destsToUsis(dests: Dests) {
+  const usis: string[] = [];
   for (const [orig, d] of dests) {
     d.forEach(function (dest) {
-      ucis.push(coordinate(orig) + coordinate(dest));
+      usis.push(coordinate(orig) + coordinate(dest));
     });
   }
-  return ucis;
+  return usis;
 }
 
 function focusChat() {

@@ -1,7 +1,7 @@
 package lila.study
 
 import shogi.format.kif._
-import shogi.format.{ FEN, Usi, UciCharPair }
+import shogi.format.{ FEN, Usi, UsiCharPair }
 import shogi.variant
 import shogi.Hands
 import Node._
@@ -15,7 +15,7 @@ class KifDumpTest extends Specification {
 
   def node(ply: Int, usi: String, san: String, children: Children = emptyChildren) =
     Node(
-      id = UciCharPair(Usi(usi).get),
+      id = UsiCharPair(Usi(usi).get),
       ply = ply,
       move = Usi.WithSan(Usi(usi).get, san),
       fen = FEN("<sfen>"),
