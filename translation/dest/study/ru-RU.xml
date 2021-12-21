@@ -47,7 +47,7 @@
   <string name="youAreNowASpectator">Теперь вы зритель</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Нравится</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Не нравится</string>
+  <string name="unlike">Не нравится</string>
   <string name="newTag">Новый тег</string>
   <string name="commentThisPosition">Комментировать эту позицию</string>
   <string name="commentThisMove">Комментировать этот ход</string>
