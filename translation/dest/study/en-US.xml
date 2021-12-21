@@ -160,4 +160,5 @@
   <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">My topics</string>
   <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Popular topics</string>
   <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Manage topics</string>
+  <string name="back" comment="back&#10;&#10;As in 'return', in a study tutorial.">Back</string>
 </resources>
