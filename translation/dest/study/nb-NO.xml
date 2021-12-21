@@ -156,4 +156,11 @@
   <string name="nextChapter">Neste kapittel</string>
   <string name="prevChapter">Forrige kapittel</string>
   <string name="studyActions">Studiehandlinger</string>
+  <string name="topics">Emner</string>
+  <string name="myTopics">Mine emner</string>
+  <string name="popularTopics">Populære emner</string>
+  <string name="manageTopics">Administrer emner</string>
+  <string name="back">Tilbake</string>
+  <string name="playAgain">Spill igjen</string>
+  <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
 </resources>
