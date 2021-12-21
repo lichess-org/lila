@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Сіз енді көрерменсіз</string>
   <string name="pgnTags">PGN тэгтері</string>
   <string name="like">Ұнату</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Ұнатпаймын</string>
+  <string name="unlike">Ұнатпаймын</string>
   <string name="newTag">Жаңа тэг</string>
   <string name="commentThisPosition">Осы тақта күйі туралы пікір қалдыру</string>
   <string name="commentThisMove">Осы жүріс туралы пікір қалдыру</string>
