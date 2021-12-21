@@ -17,7 +17,7 @@ import { Role } from 'chessground/types';
 import { storedProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 
-export default class StormCtrl {
+export default class RacerCtrl {
   private data: RacerData;
   private redraw: () => void;
   private sign = Math.random().toString(36);
