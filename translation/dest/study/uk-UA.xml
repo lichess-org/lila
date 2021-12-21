@@ -47,7 +47,7 @@
   <string name="youAreNowASpectator">Тепер ви глядач</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Подобається</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Не подобається</string>
+  <string name="unlike">Не подобається</string>
   <string name="newTag">Новий тег</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
   <string name="commentThisMove">Коментувати цей хід</string>
