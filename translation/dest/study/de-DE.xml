@@ -160,4 +160,8 @@
   <string name="myTopics">Meine Themen</string>
   <string name="popularTopics">Beliebte Themen</string>
   <string name="manageTopics">Themen verwalten</string>
+  <string name="back">Zurück</string>
+  <string name="playAgain">Erneut spielen</string>
+  <string name="whatWouldYouPlay">Was würdest du in dieser Stellung spielen?</string>
+  <string name="youCompletedThisLesson">Gratulation! Du hast diese Lektion abgeschlossen.</string>
 </resources>
