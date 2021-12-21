@@ -105,7 +105,7 @@ object SetupBulk {
   ) {
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
-      pairAt == other.pairAt || startClocksAt == startClocksAt
+      pairAt == other.pairAt || startClocksAt == other.startClocksAt
     } && userSet.exists(other.userSet.contains)
   }
 
