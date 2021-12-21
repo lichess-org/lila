@@ -162,4 +162,8 @@
   <string name="myTopics">Moje teme</string>
   <string name="popularTopics">Popularne teme</string>
   <string name="manageTopics">Upravljajte temama</string>
+  <string name="back">Nazad</string>
+  <string name="playAgain">Igrajte ponovo</string>
+  <string name="whatWouldYouPlay">Šta biste odigrali u ovoj poziciji?</string>
+  <string name="youCompletedThisLesson">Čestitamo! Kompletirali ste ovu lekciju.</string>
 </resources>
