@@ -33,6 +33,8 @@ sealed trait UserContext {
 
   def kid   = me.exists(_.kid)
   def noKid = !kid
+
+  def noBot = !me.exists(_.isBot)
 }
 
 sealed abstract class BaseUserContext(

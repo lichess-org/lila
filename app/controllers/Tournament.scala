@@ -74,7 +74,7 @@ final class Tournament(
     }
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
-    tour.hasChat && !ctx.kid && // no public chats for kids
+    tour.hasChat && ctx.noKid && ctx.noBot && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
