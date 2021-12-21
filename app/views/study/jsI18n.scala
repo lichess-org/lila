@@ -131,7 +131,6 @@ object jsI18n {
       playAgain,
       nextChapter,
       trans.retry,
-      goodMovePlayed,
       whatWouldYouPlay,
       youCompletedThisLesson
     ).map(_.key)

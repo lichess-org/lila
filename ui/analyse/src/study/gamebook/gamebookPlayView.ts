@@ -93,7 +93,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
               h('em', ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
             ]),
           ]
-        : ctrl.trans.noarg('goodMovePlayed')
+        : ctrl.trans.noarg('goodMove')
     )
   );
 }

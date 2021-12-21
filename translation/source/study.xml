@@ -162,7 +162,6 @@
   <string name="manageTopics">Manage topics</string>
   <string name="back">Back</string>
   <string name="playAgain">Play again</string>
-  <string name="goodMovePlayed">Good move!</string>
   <string name="whatWouldYouPlay">What would you play in this position?</string>
   <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
 </resources>
