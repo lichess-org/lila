@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Olet nyt katsoja</string>
   <string name="pgnTags">PGN-tunnisteet</string>
   <string name="like">Tykkää</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Poista tykkäys</string>
+  <string name="unlike">Poista tykkäys</string>
   <string name="newTag">Uusi tunniste</string>
   <string name="commentThisPosition">Kommentoi asemaa</string>
   <string name="commentThisMove">Kommentoi siirtoa</string>
