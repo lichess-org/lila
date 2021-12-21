@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
   <string name="pgnTags">PGN टैग</string>
   <string name="like">लाइक</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">नापसन्द करे</string>
+  <string name="unlike">नापसन्द करे</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
