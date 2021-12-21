@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">You are now a spectator</string>
   <string name="pgnTags">PGN tags</string>
   <string name="like">Like</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Unlike</string>
+  <string name="unlike">Unlike</string>
   <string name="newTag">New tag</string>
   <string name="commentThisPosition">Comment on this position</string>
   <string name="commentThisMove">Comment on this move</string>
