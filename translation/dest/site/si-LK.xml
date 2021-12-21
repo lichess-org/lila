@@ -95,6 +95,9 @@
   <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
   <string name="winPreventedBy50MoveRule">ඇදීම් 50 නීතීයෙන් ජයග්‍රහණය නැතිවුණා</string>
   <string name="lossSavedBy50MoveRule">ඇදීම් 50 නීතියෙන් පරාජය නැතිවුණා</string>
+  <string name="winOr50MovesByPriorMistake">පෙර වැරදීමකින් ජයග්‍රහණය හෝ චලනයන් 50 ක්</string>
+  <string name="lossOr50MovesByPriorMistake">පෙර වැරදීමකින් අලාභය හෝ චලනයන් 50 ක්</string>
+  <string name="unknownDueToRounding">Syzygy වගු පාදකවල DTZ අගයන් වට කළ හැකි නිසා, අවසාන ග්‍රහණයේ හෝ උකස් චලනයේ සිට නිර්දේශිත වගු පදනම අනුගමනය කර ඇත්නම් පමණක් ජයග්‍රහණය/අහිමි සහතික වේ.</string>
   <string name="allSet">සියල්ල හරි!</string>
   <string name="importPgn">PGN දමන්න</string>
   <string name="delete">මකන්න</string>
@@ -238,7 +241,16 @@
   <string name="freeOnlineChess">නොමිලේ මර්ගගත චෙස්</string>
   <string name="exportGames">තරග ආනයනය කරන්න</string>
   <string name="ratingRange">ශ්‍රේණිගත පරාසය</string>
+  <string name="takebackPropositionCanceled">ආපසු ගැනීම අවලංගු කරන ලදී</string>
+  <string name="yourOpponentProposesATakeback">ඔබේ විරුද්ධවාදියා ආපසු හැරීමක් යෝජනා කරයි</string>
+  <string name="bookmarkThisGame">මෙම ක්‍රීඩාව පිටු සලකුණු කරන්න</string>
+  <string name="tournament">තරඟාවලිය</string>
+  <string name="tournaments">තරඟාවලි</string>
   <string name="viewTournament">තරඟාවලිය බලන්න</string>
+  <string name="location">ස්ථානය</string>
+  <string name="reset">යළි පිහිටුවන්න</string>
+  <string name="apply">ඉදිරිපත් කරන්න</string>
+  <string name="save">සුරකින්න</string>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
