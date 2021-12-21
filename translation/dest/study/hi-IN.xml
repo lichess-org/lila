@@ -142,4 +142,7 @@
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">नवीनता</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">विकास</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">आक्रमण</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">विषय</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">मेरे विषय</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">लोकप्रिय विषय</string>
 </resources>
