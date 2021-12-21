@@ -11,7 +11,7 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { Run } from 'puz/interfaces';
-import { prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedProp } from 'common/storage';
@@ -46,7 +46,7 @@ export default class RacerCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(config, opts.data.startsIn ? Math.max(0, -opts.data.startsIn) : undefined),
+      clock: new Clock(config, defined(opts.data.startsIn) ? Math.max(0, -opts.data.startsIn) : undefined),
       history: [],
       combo: new Combo(config),
       modifier: {
@@ -54,7 +54,7 @@ export default class RacerCtrl {
       },
     };
     this.vm = {
-      alreadyStarted: !!opts.data.startsIn && opts.data.startsIn <= 0,
+      alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
     };
     this.countdown = new Countdown(
       this.run.clock,
@@ -91,7 +91,7 @@ export default class RacerCtrl {
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    if (data.startsIn) {
+    if (data.startsIn && this.status() == 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
       else this.run.clock.start();
