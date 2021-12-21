@@ -89,5 +89,11 @@
   <string name="smotheredMate">مات مختنق</string>
   <string name="superGM">بازی سوپر استاد بزرگ</string>
   <string name="superGMDescription">پازل هایی از بازی های بهترین بازیکنان جهان.</string>
+  <string name="trappedPieceDescription">یک مهره قادر به فرار کردن از زده شدن نیست چون حرکات محدودی دارد.</string>
+  <string name="underPromotion">ارتقا به غیر از وزیر</string>
+  <string name="underPromotionDescription">ارتقا به اسب، فیل یا رخ.</string>
+  <string name="veryLong">پازل خیلی طولانی</string>
+  <string name="veryLongDescription">چهار حرکت یا بیشتر برای برنده شدن.</string>
+  <string name="xRayAttack">حمله پیکانی</string>
   <string name="playerGames">بازی‌های بازیکن</string>
 </resources>
