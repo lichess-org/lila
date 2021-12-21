@@ -186,14 +186,14 @@ class ForsythTest extends ShogiTest {
       }
       "empty hand" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1" must beSome.like { case s =>
-          s.situation.board.crazyData must beSome.like { case d =>
+          s.situation.board.handData must beSome.like { case d =>
             d must_== Hands.init(Standard)
           }
         }
       }
       "simple hand" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b PNr 1" must beSome.like { case s =>
-          s.situation.board.crazyData must beSome.like {
+          s.situation.board.handData must beSome.like {
             case d => {
               val sente: HandMap =
                 Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 1, Lance -> 0, Pawn -> 1)
@@ -207,7 +207,7 @@ class ForsythTest extends ShogiTest {
       "hand with numbers" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 15P3Nr2LB7R3s230gG12pl 1" must beSome
           .like { case s =>
-            s.situation.board.crazyData must beSome.like {
+            s.situation.board.handData must beSome.like {
               case d => {
                 val sente: HandMap =
                   Map(Rook -> 7, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 3, Lance -> 2, Pawn -> 15)
@@ -221,7 +221,7 @@ class ForsythTest extends ShogiTest {
       "hand repeating" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b ppBG15ppppP 1" must beSome.like {
           case s =>
-            s.situation.board.crazyData must beSome.like {
+            s.situation.board.handData must beSome.like {
               case d => {
                 val sente: HandMap =
                   Map(Rook -> 0, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 1)
@@ -235,7 +235,7 @@ class ForsythTest extends ShogiTest {
       "invalid roles" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b T13k10t 1" must beSome.like {
           case s =>
-            s.situation.board.crazyData must beSome.like {
+            s.situation.board.handData must beSome.like {
               case d => {
                 d must_== Hands.init(Standard)
               }
@@ -244,7 +244,7 @@ class ForsythTest extends ShogiTest {
       }
       "open number" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 120 1" must beSome.like { case s =>
-          s.situation.board.crazyData must beSome.like {
+          s.situation.board.handData must beSome.like {
             case d => {
               d must_== Hands.init(Standard)
             }
@@ -254,7 +254,7 @@ class ForsythTest extends ShogiTest {
       "read till correct, ignore wrong input" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 3P2ljk 1" must beSome.like {
           case s =>
-            s.situation.board.crazyData must beSome.like {
+            s.situation.board.handData must beSome.like {
               case d => {
                 val sente: HandMap =
                   Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 3)

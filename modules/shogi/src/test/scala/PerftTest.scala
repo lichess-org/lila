@@ -15,7 +15,7 @@ class PerftTest extends ShogiTest {
       }
 
   def dropMoves(game: Game): List[Drop] =
-    game.situation.board.crazyData.fold(List[Drop]()) { hands: Hands =>
+    game.situation.board.handData.fold(List[Drop]()) { hands: Hands =>
       hands(game.situation.color).handMap.foldLeft(List[Drop]()) { case (acc, cur) =>
         if (cur._2 > 0)
           acc ::: findPossibleDrops(cur._1, game.situation)

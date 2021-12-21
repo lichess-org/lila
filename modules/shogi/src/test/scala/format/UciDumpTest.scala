@@ -1,76 +1,36 @@
 package shogi
 package format
 
-class UciDumpTest extends ShogiTest {
+class UsiDumpTest extends ShogiTest {
 
   import pgn.Fixtures._
 
   "only raw moves" should {
     "empty" in {
-      UciDump(Nil, None, variant.Standard) must beValid.like { case x =>
+      UsiDump(Nil, None, variant.Standard) must beValid.like { case x =>
         x must beEmpty
       }
     }
     // Pc4 Pb6 Pb4 Gd9e8
     "simple" in {
-      UciDump(simple.split(' ').toList, None, variant.Standard) must beValid.like { case moves =>
-        moves must_== "c3c4 b7b6 b3b4 d9e8".split(" ").toList
+      UsiDump(simple.split(' ').toList, None, variant.Standard) must beValid.like { case moves =>
+        moves must_== "7g7f 8c8d 8g8f 6a5b".split(" ").toList
       }
     }
     "complete" in {
-      UciDump(fromProd2.split(' ').toList, None, variant.Standard) must beValid.like { case moves =>
+      UsiDump(fromProd2.split(' ').toList, None, variant.Standard) must beValid.like { case moves =>
         moves must_== List(
-          "c3c4",
-          "b7b6",
-          "b1c3",
-          "b6b5",
-          "c3b5",
-          "b8b5",
-          "a3a4",
-          "b5b3+",
-          "b2d4",
-          "b3b1",
-          "c1d2",
-          "b1a1",
-          "e1f2",
-          "a1a4",
-          "d4g7+",
-          "h8g7",
-          "h3h4",
-          "a4c4",
-          "f3f4",
-          "c4f4",
-          "f2e2",
-          "f4g3",
-          "h1g3",
-          "g7e5",
-          "h2f2",
-          "e5g3+",
-          "f2f7+",
-          "f9e8",
-          "f7h7",
-          "P*h8",
-          "h7h5",
-          "g3i1",
-          "R*h3",
-          "i1i2",
-          "h3f3",
-          "B*h3",
-          "f3f2",
-          "i2i3",
-          "h5e5",
-          "h3g4+",
-          "e2e1",
-          "N*f3",
-          "f2f3",
-          "g4f3",
-          "g1f2",
-          "f3g4",
-          "d2c3",
-          "R*a1",
-          "N*h1",
-          "g4d1"
-        )
+      "7g7f",  "8c8d",  "8i7g",  "8d8e", "7g8e",
+      "8b8e",  "9g9f",  "8e8g+", "8h6f", "8g8i",
+      "7i6h",  "8i9i",  "5i4h",  "9i9f", "6f3c+",
+      "2b3c",  "2g2f",  "9f7f",  "4g4f", "7f4f",
+      "4h5h",  "4f3g",  "2i3g",  "3c5e", "2h4h",
+      "5e3g+", "4h4c+", "4a5b",  "4c2c", "P*2b",
+      "2c2e",  "3g1i",  "R*2g",  "1i1h", "2g4g",
+      "B*2g",  "4g4h",  "1h1g",  "2e5e", "2g3f+",
+      "5h5i",  "N*4g",  "4h4g",  "3f4g", "3i4h",
+      "4g3f",  "6h7g",  "R*9i",  "N*2i", "3f6i"
+)
       }
     }
   }

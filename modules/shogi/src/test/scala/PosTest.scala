@@ -14,28 +14,19 @@ class PosTest extends ShogiTest {
     }
 
     "be a string" in {
-      "SQ6E" in { SQ6E.toString must_== "d5" }
+      "SQ6E" in { SQ6E.toString must_== "6e" }
     }
-    "USI/UCI" in {
+    "USI" in {
       "be correctly converted" in {
         SQ9I.usiKey must_== "9i"
-        SQ9I.uciKey must_== "a1"
         SQ9A.usiKey must_== "9a"
-        SQ9A.uciKey must_== "a9"
         SQ1A.usiKey must_== "1a"
-        SQ1A.uciKey must_== "i9"
         SQ1I.usiKey must_== "1i"
-        SQ1I.uciKey must_== "i1"
         SQ5E.usiKey must_== "5e"
-        SQ5E.uciKey must_== "e5"
         SQ5G.usiKey must_== "5g"
-        SQ5G.uciKey must_== "e3"
         SQ5C.usiKey must_== "5c"
-        SQ5C.uciKey must_== "e7"
         SQ6E.usiKey must_== "6e"
-        SQ6E.uciKey must_== "d5"
         SQ4E.usiKey must_== "4e"
-        SQ4E.uciKey must_== "f5"
       }
     }
 
