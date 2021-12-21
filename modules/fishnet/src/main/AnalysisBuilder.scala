@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import shogi.format.Uci
+import shogi.format.Usi
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
@@ -28,16 +28,16 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       shogi
-        .Replay(work.game.uciList, work.game.initialFen.map(_.value), work.game.variant)
+        .Replay(work.game.usiList, work.game.initialFen.map(_.value), work.game.variant)
         .fold(
           fufail(_),
           replay =>
-            UciToPgn(
+            UsiToPgn(
               replay,
               Analysis(
                 id = work.game.id,
                 studyId = work.game.studyId,
-                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
+                infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.usiList, work.startPly),
                 startPly = work.startPly,
                 uid = work.sender.userId,
                 by = !client.lishogi option client.userId.value,
@@ -46,7 +46,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
             ) match {
               case (analysis, errors) =>
                 errors foreach { e =>
-                  logger.debug(s"[UciToPgn] $debug $e")
+                  logger.debug(s"[UsiToPgn] $debug $e")
                 }
                 if (analysis.valid) {
                   if (!isPartial && analysis.emptyRatio >= 1d / 10)
@@ -74,7 +74,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
         }
     }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Uci], startedAtPly: Int): List[Info] =
+  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Usi], startedAtPly: Int): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPv match {
@@ -89,7 +89,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
             after.score.mate,
             best
           ),
-          variation = variation.map(_.uci)
+          variation = variation.map(_.usi)
         )
         if (info.ply % 2 == 1) info.invert else info
       }

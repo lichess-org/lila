@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext
 
 import actorApi._
 import actorApi.round._
-import shogi.format.Uci
+import shogi.format.Usi
 import shogi.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
@@ -94,8 +94,8 @@ final class RoundSocket(
   private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
-    case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
-      tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
+    case Protocol.In.PlayerMove(fullId, usi, blur, lag) if !stopping =>
+      tellRound(fullId.gameId, HumanPlay(fullId.playerId, usi, blur, lag, none))
     case Protocol.In.PlayerDo(id, tpe) if !stopping =>
       tpe match {
         case "moretime"     => tellRound(id.gameId, Moretime(id.playerId))
@@ -234,7 +234,7 @@ object RoundSocket {
 
       case class PlayerOnlines(onlines: Iterable[(Game.Id, Option[RoomCrowd])])        extends P.In
       case class PlayerDo(fullId: FullId, tpe: String)                                 extends P.In
-      case class PlayerMove(fullId: FullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
+      case class PlayerMove(fullId: FullId, usi: Usi, blur: Boolean, lag: MoveMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String)
           extends P.In
       case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String)                    extends P.In
@@ -266,9 +266,9 @@ object RoundSocket {
               } yield PlayerDo(FullId(fullId), tpe)
             }
           case "r/move" =>
-            raw.get(5) { case Array(fullId, uciS, blurS, lagS, mtS) =>
-              Uci(uciS) map { uci =>
-                PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
+            raw.get(5) { case Array(fullId, usiS, blurS, lagS, mtS) =>
+              Usi(usiS) map { usi =>
+                PlayerMove(FullId(fullId), usi, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
               }
             }
           case "chat/say" =>

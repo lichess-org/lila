@@ -3,7 +3,7 @@ package actorApi
 
 import scala.concurrent.Promise
 
-import shogi.format.Uci
+import shogi.format.Usi
 import shogi.{ Color, MoveMetrics }
 
 import lila.common.IpAddress
@@ -30,7 +30,7 @@ package round {
 
   case class HumanPlay(
       playerId: PlayerId,
-      uci: Uci,
+      usi: Usi,
       blur: Boolean,
       moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
@@ -51,7 +51,7 @@ package round {
   case object QuietFlag
   case class ClientFlag(color: Color, fromPlayerId: Option[PlayerId])
   case object Abandon
-  case class ForecastPlay(lastMove: Uci)
+  case class ForecastPlay(lastMove: Usi)
   case class Cheat(color: Color)
   case class HoldAlert(playerId: PlayerId, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)

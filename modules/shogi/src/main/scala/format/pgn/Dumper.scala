@@ -22,7 +22,7 @@ object Dumper {
         val disambiguation = if (candidates.isEmpty) {
           ""
         } else {
-          orig.uciKey
+          orig.chessKey
         }
         val promotes = {
           if (!promotion && situation.board.variant.canPromote(data))
@@ -30,13 +30,13 @@ object Dumper {
           else if (promotion) "+"
           else ""
         }
-        s"${role.pgn}$disambiguation${if (captures) "x" else ""}${dest.uciKey}$promotes"
+        s"${role.pgn}$disambiguation${if (captures) "x" else ""}${dest.chessKey}$promotes"
       }
     })
   }
 
   def apply(data: shogi.Drop): String = {
-    data.toUci.uci
+    data.toUsi.chess
   }
 
   def apply(data: shogi.Move): String =

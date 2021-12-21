@@ -1,14 +1,14 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import shogi.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Usi }
 
 import lila.rating.Glicko
 
 case class Puzzle(
     id: Puzzle.Id,
     fen: String,
-    line: NonEmptyList[Uci],
+    line: NonEmptyList[Usi],
     glicko: Glicko,
     plays: Int,
     vote: Float, // denormalized ratio of voteUp/voteDown
@@ -30,8 +30,8 @@ case class Puzzle(
         for {
           sit1 <- Forsyth << fen
           sit2 <- line.head match {
-            case Uci.Drop(role, pos)        => sit1.drop(role, pos).toOption.map(_.situationAfter)
-            case Uci.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
+            case Usi.Drop(role, pos)        => sit1.drop(role, pos).toOption.map(_.situationAfter)
+            case Usi.Move(orig, dest, prom) => sit1.move(orig, dest, prom).toOption.map(_.situationAfter)
           }
         } yield FEN(Forsyth >> sit2)
       case None =>
@@ -50,7 +50,7 @@ case class Puzzle(
 
   def lastMove: String =
     gameId match {
-      case Some(_) => line.head.uci
+      case Some(_) => line.head.usi
       case None    => ""
     }
 }

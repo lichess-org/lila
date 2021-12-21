@@ -1,7 +1,7 @@
 package lila.round
 
 import shogi.Centis
-import shogi.format.{ FEN, Forsyth, Glyphs, Uci, UciCharPair }
+import shogi.format.{ FEN, Forsyth, Glyphs, Usi, UsiCharPair }
 import shogi.opening._
 import shogi.variant.Variant
 import JsonView.WithFlags
@@ -65,12 +65,12 @@ object TreeBuilder {
           clock = withClocks.flatMap(_.headOption),
           eval = infos lift 0 map makeEval
         )
-        def makeBranch(index: Int, g: shogi.Game, m: Uci.WithSan) = {
+        def makeBranch(index: Int, g: shogi.Game, m: Usi.WithSan) = {
           val fen    = Forsyth >> g
           val info   = infos lift (index - 1)
           val advice = advices get g.turns
           val branch = Branch(
-            id = UciCharPair(m.uci),
+            id = UsiCharPair(m.usi),
             ply = g.turns,
             move = m,
             fen = fen,
@@ -113,10 +113,10 @@ object TreeBuilder {
       fromFen: FEN,
       openingOf: OpeningOf
   )(info: Info): Branch = {
-    def makeBranch(g: shogi.Game, m: Uci.WithSan) = {
+    def makeBranch(g: shogi.Game, m: Usi.WithSan) = {
       val fen = Forsyth >> g
       Branch(
-        id = UciCharPair(m.uci),
+        id = UsiCharPair(m.usi),
         ply = g.turns,
         move = m,
         fen = fen,

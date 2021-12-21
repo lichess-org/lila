@@ -3,7 +3,7 @@ package lila.bot
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import shogi.format.Uci
+import shogi.format.Usi
 import lila.common.Bus
 import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov }
@@ -23,16 +23,16 @@ final class BotPlayer(
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 
-  def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
+  def apply(pov: Pov, me: User, usiStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
-      Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
+      Usi(usiStr).fold(clientError[Unit](s"Invalid USI: $usiStr")) { usi =>
         lila.mon.bot.moves(me.username).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]()
           if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
-          tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
+          tellRound(pov.gameId, BotPlay(pov.playerId, usi, promise.some))
           promise.future
         }
       }

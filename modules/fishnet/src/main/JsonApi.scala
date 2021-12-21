@@ -3,7 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.{ FEN, Uci }
+import shogi.format.{ FEN, Usi }
 import shogi.variant.Variant
 
 import lila.common.{ IpAddress, Maths }
@@ -71,7 +71,7 @@ object JsonApi {
         with Result {}
 
     case class MoveResult(bestmove: String) {
-      def uci: Option[Uci] = Uci(bestmove)
+      def usi: Option[Usi] = Usi(bestmove)
     }
 
     case class PostAnalysis(
@@ -113,7 +113,7 @@ object JsonApi {
     )
 
     case class Evaluation(
-        pv: List[Uci],
+        pv: List[Usi],
         score: Evaluation.Score,
         time: Option[Int],
         nodes: Option[Int],
@@ -205,12 +205,12 @@ object JsonApi {
     implicit val MoveResultReads    = Json.reads[Request.MoveResult]
     implicit val PostMoveReads      = Json.reads[Request.PostMove]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
-    implicit val uciListReads = Reads.of[String] map { str =>
-      ~Uci.readList(str)
+    implicit val usiListReads       = Reads.of[String] map { str =>
+      ~Usi.readList(str)
     }
 
     implicit val EvaluationReads: Reads[Request.Evaluation] = (
-      (__ \ "pv").readNullable[List[Uci]].map(~_) and
+      (__ \ "pv").readNullable[List[Usi]].map(~_) and
         (__ \ "score").read[Request.Evaluation.Score] and
         (__ \ "time").readNullable[Int] and
         (__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)) and

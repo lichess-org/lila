@@ -2,7 +2,7 @@ package lila.tree
 
 import play.api.libs.json._
 
-import shogi.format.{ Glyph, Glyphs, Uci, UciCharPair }
+import shogi.format.{ Glyph, Glyphs, Usi, UsiCharPair }
 import shogi.opening.FullOpening
 import shogi.{ Hands, Hand, Pos, Piece => ShogiPiece }
 
@@ -29,8 +29,8 @@ sealed trait Node {
   def forceVariation: Boolean
 
   // implementation dependent
-  def idOption: Option[UciCharPair]
-  def moveOption: Option[Uci.WithSan]
+  def idOption: Option[UsiCharPair]
+  def moveOption: Option[Usi.WithSan]
 
   // who's color plays next
   def color = shogi.Color.fromPly(ply)
@@ -67,9 +67,9 @@ case class Root(
 }
 
 case class Branch(
-    id: UciCharPair,
+    id: UsiCharPair,
     ply: Int,
-    move: Uci.WithSan,
+    move: Usi.WithSan,
     fen: String,
     check: Boolean,
     // None when not computed yet
@@ -198,7 +198,7 @@ object Node {
   }
 
   implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
-    JsString(p.uciKey)
+    JsString(p.usiKey)
   }
   implicit private val pieceWrites: Writes[ShogiPiece] = Writes[ShogiPiece] { p =>
     Json.obj(
@@ -266,8 +266,7 @@ object Node {
             "fen" -> fen
           )
           .add("id", idOption.map(_.toString))
-          .add("uci", moveOption.map(_.uci.uci))
-          //.add("usi", moveOption.map(_.uci.usi))
+          .add("usi", moveOption.map(_.usi.usi))
           .add("san", moveOption.map(_.san))
           .add("check", check)
           .add("eval", eval.filterNot(_.isEmpty))
@@ -280,7 +279,7 @@ object Node {
           .add(
             "drops",
             drops.map { drops =>
-              JsString(drops.map(_.uciKey).mkString)
+              JsString(drops.map(_.usiKey).mkString)
             }
           )
           .add("clock", clock)

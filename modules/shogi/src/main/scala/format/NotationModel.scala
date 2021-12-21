@@ -38,7 +38,7 @@ object Initial {
 
 case class NotationMove(
     ply: Int,
-    uci: Uci,    // a2a3 - for orig and dest
+    usi: Usi,    // a2a3 - for orig and dest
     san: String, // Pa3 - for piece
     comments: List[String] = Nil,
     glyphs: Glyphs = Glyphs.empty,
@@ -50,6 +50,6 @@ case class NotationMove(
     secondsTotal: Option[Int] = None
 ) {
 
-  def dest: Pos = uci.origDest._2
+  def dest: Pos = usi.origDest._2
 
 }

@@ -1,6 +1,6 @@
 package lila.socket
 
-import shogi.format.Uci
+import shogi.format.Usi
 import shogi.{ Hand, Hands, Pos }
 
 import play.api.libs.json._
@@ -23,9 +23,9 @@ case class Step(
 
 object Step {
 
-  case class Move(uci: Uci, san: String) {
-    def uciString = uci.uci
-    def usiString = uci.usi
+  case class Move(usi: Usi, san: String) {
+    def chessString = usi.chess
+    def usiString = usi.usi
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
@@ -33,8 +33,7 @@ object Step {
     Json
       .obj(
         "ply" -> ply,
-        "uci" -> move.map(_.uciString),
-        //"usi" -> move.map(_.usiString),
+        "usi" -> move.map(_.usiString),
         "san" -> move.map(_.san),
         "fen" -> fen
       )
@@ -50,7 +49,7 @@ object Step {
       .add(
         "drops",
         drops.map { drops =>
-          JsString(drops.map(_.uciKey).mkString)
+          JsString(drops.map(_.usiKey).mkString)
         }
       )
   }

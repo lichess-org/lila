@@ -50,19 +50,19 @@ case class Csa(
 object Csa {
 
   def renderNotationMove(cur: NotationMove, turn: Option[Color]) = {
-    val csaMove     = renderCsaMove(cur.uci, cur.san, turn)
+    val csaMove     = renderCsaMove(cur.usi, cur.san, turn)
     val timeStr     = clockString(cur).getOrElse("")
     val commentsStr = cur.comments.map { text => s"\n'${fixComment(text)}" }.mkString("")
     val resultStr   = cur.result.fold("")(t => s"\n$t")
     s"$csaMove$timeStr$commentsStr$resultStr"
   }
 
-  def renderCsaMove(uci: Uci, san: String, turn: Option[Color]) =
-    uci match {
-      case Uci.Drop(role, pos) =>
+  def renderCsaMove(usi: Usi, san: String, turn: Option[Color]) =
+    usi match {
+      case Usi.Drop(role, pos) =>
         s"${turn.fold("")(_.fold("+", "-"))}00${makeSquare(pos)}${role.csa}"
-      case Uci.Move(orig, dest, prom) => {
-        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $uci, $san") { r =>
+      case Usi.Move(orig, dest, prom) => {
+        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $usi, $san") { r =>
           val finalRole = if (prom) Standard.promote(r).getOrElse(r) else r
           s"${turn.fold("")(_.fold("+", "-"))}${makeSquare(orig)}${makeSquare(dest)}${finalRole.csa}"
         }

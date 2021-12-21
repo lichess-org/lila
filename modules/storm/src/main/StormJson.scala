@@ -60,7 +60,7 @@ object StormJson {
     Json.obj(
       "id"     -> p.id,
       "fen"    -> p.fen,
-      "line"   -> p.line.toList.map(_.uci).mkString(" "),
+      "line"   -> p.line.toList.map(_.usi).mkString(" "),
       "rating" -> p.rating
     )
   }

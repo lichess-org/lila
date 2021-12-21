@@ -45,15 +45,15 @@ final class NotationDump(
           game.variant
         ) match {
           case (_, games, _) =>
-            games map { case (_, uciSan) =>
-              (uciSan.san, uciSan.uci)
+            games map { case (_, usiSan) =>
+              (usiSan.san, usiSan.usi)
             }
         }
-        extendedMoves.zipWithIndex.map { case ((san, uci), index) =>
+        extendedMoves.zipWithIndex.map { case ((san, usi), index) =>
           NotationMove(
             ply = index + 1,
             san = san,
-            uci = uci,
+            usi = usi,
             secondsSpent = clocksSpent lift (index - clockOffset) map (_.roundSeconds),
             secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds)
           )

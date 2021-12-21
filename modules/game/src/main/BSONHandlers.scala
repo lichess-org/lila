@@ -1,6 +1,6 @@
 package lila.game
 
-import shogi.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Usi }
 import shogi.variant.Variant
 import shogi.{
   CheckCount,
@@ -68,7 +68,7 @@ object BSONHandlers {
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
-          lastMove = r strO F.historyLastMove flatMap Uci.apply,
+          lastMove = r strO F.historyLastMove flatMap Usi.apply,
           checkCount = r.intsD(F.checkCount),
           hands = r strO F.handData map { Forsyth.readHands(gameVariant, _) }
         )
@@ -178,7 +178,7 @@ object BSONHandlers {
           F.oldPgn          -> f.encode(o.pgnMoves take Game.maxPlies),
           F.binaryPieces    -> BinaryFormat.piece.write(o.board.pieces),
           F.positionHashes  -> o.history.positionHashes,
-          F.historyLastMove -> o.history.lastMove.map(_.uci),
+          F.historyLastMove -> o.history.lastMove.map(_.usi),
           F.checkCount      -> o.history.checkCount,
           F.handData        -> Forsyth.exportHands(o.board)
         )

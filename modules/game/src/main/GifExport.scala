@@ -9,7 +9,7 @@ import lila.common.Maths
 import lila.common.config.BaseUrl
 
 import shogi.{ Centis, Color, Replay, Situation, Game => ShogiGame }
-import shogi.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Usi }
 
 final class GifExport(
     ws: WSClient,
@@ -113,8 +113,8 @@ final class GifExport(
       game.variant
     ) match {
       case (init, games, _) =>
-        val steps = (init, None) :: (games map { case (g, Uci.WithSan(uci, _)) =>
-          (g, uci.some)
+        val steps = (init, None) :: (games map { case (g, Usi.WithSan(usi, _)) =>
+          (g, usi.some)
         })
         framesRec(
           steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),
@@ -124,20 +124,20 @@ final class GifExport(
   }
 
   @annotation.tailrec
-  private def framesRec(games: List[((ShogiGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
+  private def framesRec(games: List[((ShogiGame, Option[Usi]), Option[Centis])], arr: JsArray): JsArray =
     games match {
-      case ((game, uci), scaledMoveTime) :: tail =>
+      case ((game, usi), scaledMoveTime) :: tail =>
         // longer delay for last frame
         val delay = if (tail.isEmpty) Centis(500).some else scaledMoveTime
-        framesRec(tail, arr :+ frame(game.situation, uci, delay))
+        framesRec(tail, arr :+ frame(game.situation, usi, delay))
       case _ => arr
     }
 
-  private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
+  private def frame(situation: Situation, usi: Option[Usi], delay: Option[Centis]) =
     Json
       .obj(
         "sfen"     -> (Forsyth >> situation),
-        "lastMove" -> uci.map(_.usi)
+        "lastMove" -> usi.map(_.usi)
       )
       .add("check", situation.checkSquare.map(_.usiKey))
       .add("delay", delay.map(_.centis))

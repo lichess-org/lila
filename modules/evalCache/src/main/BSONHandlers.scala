@@ -4,7 +4,7 @@ import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 import cats.data.NonEmptyList
 
-import shogi.format.Uci
+import shogi.format.Usi
 import lila.db.dsl._
 import lila.tree.Eval._
 
@@ -25,9 +25,9 @@ private object BSONHandlers {
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
-    private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
+    private def movesWrite(moves: Moves): String = Usi writeListPiotr moves.value.toList
     private def movesRead(str: String): Option[Moves] =
-      Uci readListPiotr str flatMap (_.toNel) map Moves.apply
+      Usi readListPiotr str flatMap (_.toNel) map Moves.apply
     private val scoreSeparator = '@'
     private val pvSeparator    = '?'
     private val pvSeparatorStr = pvSeparator.toString

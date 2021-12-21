@@ -219,7 +219,7 @@ GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fu
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: String)
 GET   /$gameId<\w{8}>/$color<sente|gote>/analysis controllers.UserAnalysis.game(gameId: String, color: String)
 POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: String)
-POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: String, uci: String)
+POST  /$fullId<\w{12}>/forecasts/:usi            controllers.UserAnalysis.forecastsOnMyTurn(fullId: String, usi: String)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: String)
 
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: String, color: String = "sente")
@@ -598,13 +598,13 @@ GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id: String)
-POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
+POST  /api/bot/game/:id/move/:usi      controllers.PlayApi.botMove(id: String, usi: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/bot/*cmd                    controllers.PlayApi.botCommand(cmd: String)
 GET   /player/bots                     controllers.PlayApi.botOnline
 
 # Board API
 GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id: String)
-POST  /api/board/game/:id/move/:uci     controllers.PlayApi.boardMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
+POST  /api/board/game/:id/move/:usi     controllers.PlayApi.boardMove(id: String, usi: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/board/seek                   controllers.Setup.boardApiHook
 POST  /api/board/*cmd                   controllers.PlayApi.boardCommand(cmd: String)
 

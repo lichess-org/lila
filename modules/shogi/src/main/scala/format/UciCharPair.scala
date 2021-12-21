@@ -1,21 +1,21 @@
 package shogi
 package format
 
-case class UciCharPair(a: Char, b: Char) {
+case class UsiCharPair(a: Char, b: Char) {
 
   override def toString = s"$a$b"
 }
 
-object UciCharPair {
+object UsiCharPair {
 
   import implementation._
 
-  def apply(uci: Uci): UciCharPair = {
-    uci match {
-      case Uci.Move(orig, dest, false) => UciCharPair(toChar(orig), toChar(dest))
-      case Uci.Move(orig, dest, true)  => UciCharPair(toChar(orig), toChar(dest, true))
-      case Uci.Drop(role, pos) =>
-        UciCharPair(
+  def apply(usi: Usi): UsiCharPair = {
+    usi match {
+      case Usi.Move(orig, dest, false) => UsiCharPair(toChar(orig), toChar(dest))
+      case Usi.Move(orig, dest, true)  => UsiCharPair(toChar(orig), toChar(dest, true))
+      case Usi.Drop(role, pos) =>
+        UsiCharPair(
           toChar(pos),
           dropRole2charMap.getOrElse(role, voidChar)
         )

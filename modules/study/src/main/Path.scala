@@ -1,24 +1,24 @@
 package lila.study
 
-import shogi.format.UciCharPair
+import shogi.format.UsiCharPair
 
-case class Path(ids: Vector[UciCharPair]) extends AnyVal {
+case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
 
-  def head: Option[UciCharPair] = ids.headOption
+  def head: Option[UsiCharPair] = ids.headOption
 
   // def tail: Path = Path(ids drop 1)
 
   def parent: Path = Path(ids dropRight 1)
 
-  def split: Option[(UciCharPair, Path)] = head.map(_ -> Path(ids.drop(1)))
+  def split: Option[(UsiCharPair, Path)] = head.map(_ -> Path(ids.drop(1)))
 
   def isEmpty = ids.isEmpty
 
-  def +(id: UciCharPair): Path = Path(ids appended id)
+  def +(id: UsiCharPair): Path = Path(ids appended id)
   def +(node: Node): Path      = Path(ids appended node.id)
   def +(more: Path): Path      = Path(ids appendedAll more.ids)
 
-  def prepend(id: UciCharPair) = Path(ids prepended id)
+  def prepend(id: UsiCharPair) = Path(ids prepended id)
 
   def intersect(other: Path): Path =
     Path {
@@ -44,7 +44,7 @@ object Path {
         .grouped(2)
         .flatMap { p =>
           p lift 1 map { b =>
-            UciCharPair(p(0), b)
+            UsiCharPair(p(0), b)
           }
         }
         .toVector
@@ -59,7 +59,7 @@ object Path {
 
   // mongodb objects don't support '.' and '$' in keys
   def encodeDbKey(path: Path): String        = encodeDbKey(path.ids.mkString)
-  def encodeDbKey(pair: UciCharPair): String = encodeDbKey(pair.toString)
+  def encodeDbKey(pair: UsiCharPair): String = encodeDbKey(pair.toString)
   def encodeDbKey(pathStr: String): String   = pathStr.replace('.', 251.toChar).replace('$', 252.toChar)
   def decodeDbKey(key: String): String       = key.replace(251.toChar, '.').replace(252.toChar, '$')
 

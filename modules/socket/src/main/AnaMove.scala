@@ -1,7 +1,7 @@
 package lila.socket
 
 import cats.data.Validated
-import shogi.format.{ FEN, Uci, UciCharPair }
+import shogi.format.{ FEN, Usi, UsiCharPair }
 import shogi.opening._
 import shogi.variant.Variant
 import play.api.libs.json._
@@ -28,13 +28,13 @@ case class AnaMove(
   def branch: Validated[String, Branch] = {
     shogi.Game(variant.some, fen.some)(orig, dest, promotion) flatMap { case (game, move) =>
       game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
-        val uci     = Uci(move)
+        val usi     = Usi(move)
         val movable = game.situation playable false
         val fen     = shogi.format.Forsyth >> game
         Branch(
-          id = UciCharPair(uci),
+          id = UsiCharPair(usi),
           ply = game.turns,
-          move = Uci.WithSan(uci, san),
+          move = Usi.WithSan(usi, san),
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),

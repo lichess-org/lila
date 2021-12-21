@@ -1,12 +1,12 @@
 package lila.round
 
-import shogi.format.{ Forsyth, Uci }
+import shogi.format.{ Forsyth, Usi }
 import shogi.{ Centis, MoveMetrics, MoveOrDrop, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Event, Game, Pov, Progress, UciMemo }
+import lila.game.{ Event, Game, Pov, Progress, UsiMemo }
 import lila.game.Game.PlayerId
 import cats.data.Validated
 
@@ -14,7 +14,7 @@ final private class Player(
     fishnetPlayer: lila.fishnet.Player,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
-    uciMemo: UciMemo
+    usiMemo: UsiMemo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait MoveResult
@@ -25,13 +25,13 @@ final private class Player(
       pov: Pov
   )(implicit proxy: GameProxy): Fu[Events] =
     play match {
-      case HumanPlay(_, uci, blur, lag, _) =>
+      case HumanPlay(_, usi, blur, lag, _) =>
         pov match {
           case Pov(game, _) if game.turns > Game.maxPlies =>
             round ! TooManyPlies
             fuccess(Nil)
           case Pov(game, color) if game playableBy color =>
-            applyUci(game, uci, blur, lag)
+            applyUsi(game, usi, blur, lag)
               .leftMap(e => s"$pov $e")
               .fold(errs => fufail(ClientError(errs.toString)), fuccess)
               .flatMap {
@@ -47,13 +47,13 @@ final private class Player(
         }
     }
 
-  private[round] def bot(uci: Uci, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def bot(usi: Usi, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
-        applyUci(game, uci, false, botLag)
+        applyUsi(game, usi, false, botLag)
           .fold(errs => fufail(ClientError(errs.toString)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
@@ -72,7 +72,7 @@ final private class Player(
       progress: Progress,
       moveOrDrop: MoveOrDrop
   )(implicit proxy: GameProxy): Fu[Events] = {
-    if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
+    if (pov.game.hasAi) usiMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
     if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
     else {
@@ -81,23 +81,23 @@ final private class Player(
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
       if (progress.game.forecastable)
         moveOrDrop.fold(
-          move => round ! ForecastPlay(move.toUci),
-          drop => round ! ForecastPlay(drop.toUci)
+          move => round ! ForecastPlay(move.toUsi),
+          drop => round ! ForecastPlay(drop.toUsi)
         )
       scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
   }
 
-  private[round] def fishnet(game: Game, ply: Int, uci: Uci)(implicit proxy: GameProxy): Fu[Events] = {
+  private[round] def fishnet(game: Game, ply: Int, usi: Usi)(implicit proxy: GameProxy): Fu[Events] = {
     if (game.playable && game.player.isAi && game.playedTurns == ply) {
-      applyUci(game, uci, blur = false, metrics = fishnetLag)
+      applyUsi(game, usi, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.toString)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
           case MoveApplied(progress, moveOrDrop) =>
             proxy.save(progress) >>-
-              uciMemo.add(progress.game, moveOrDrop) >>-
+              usiMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else
@@ -107,7 +107,7 @@ final private class Player(
     } else
       fufail(
         FishnetError(
-          s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"
+          s"Not AI turn move: ${usi} id: ${game.id} playable: ${game.playable} player: ${game.player}"
         )
       )
   }
@@ -121,21 +121,21 @@ final private class Player(
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(10).some)
 
-  private def applyUci(
+  private def applyUsi(
       game: Game,
-      uci: Uci,
+      usi: Usi,
       blur: Boolean,
       metrics: MoveMetrics
   ): Validated[String, MoveResult] = {
-    (uci match {
-      case Uci.Move(orig, dest, prom) => {
+    (usi match {
+      case Usi.Move(orig, dest, prom) => {
         game.shogi(orig, dest, prom, metrics) map {
           case (nsg, move) => {
             nsg -> (Left(move): MoveOrDrop)
           }
         }
       }
-      case Uci.Drop(role, pos) =>
+      case Usi.Drop(role, pos) =>
         game.shogi.drop(role, pos, metrics) map { case (nsg, drop) =>
           nsg -> (Right(drop): MoveOrDrop)
         }
@@ -156,7 +156,7 @@ final private class Player(
     val moveEvent = MoveEvent(
       gameId = game.id,
       fen = Forsyth exportSituation game.situation,
-      move = moveOrDrop.fold(_.toUci.uciKeys, _.toUci.uci)
+      move = moveOrDrop.fold(_.toUsi.usiKeys, _.toUsi.usi)
     )
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,

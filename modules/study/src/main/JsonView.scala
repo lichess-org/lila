@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.{ FEN, Uci }
+import shogi.format.{ FEN, Usi }
 import shogi.{ Pos, Piece => ShogiPiece }
 import play.api.libs.json._
 import scala.util.chaining._
@@ -127,8 +127,8 @@ object JsonView {
   implicit val chapterIdWrites: Writes[Chapter.Id]     = stringIsoWriter(Chapter.idIso)
   implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
 
-  implicit private[study] val uciWrites: Writes[Uci] = Writes[Uci] { u =>
-    JsString(u.uci)
+  implicit private[study] val usiWrites: Writes[Usi] = Writes[Usi] { u =>
+    JsString(u.usi)
   }
   implicit private val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.fromKey).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))

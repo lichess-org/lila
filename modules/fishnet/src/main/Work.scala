@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import shogi.format.{ FEN, Uci }
+import shogi.format.{ FEN, Usi }
 import shogi.variant.Variant
 import lila.common.IpAddress
 
@@ -50,7 +50,7 @@ object Work {
       variant: Variant,
       moves: String
   ) {
-    def uciList: List[Uci] = ~(Uci readList moves)
+    def usiList: List[Usi] = ~(Usi readList moves)
     def ply                = if (moves.isEmpty) 0 else moves.count(' '.==) + 1
   }
 

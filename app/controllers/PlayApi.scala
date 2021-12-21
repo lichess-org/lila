@@ -23,9 +23,9 @@ final class PlayApi(
       WithPovAsBot(id, me) { impl.gameStream(me, _) }
     }
 
-  def botMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+  def botMove(id: String, usi: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Bot.Play) { _ => me =>
-      WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
+      WithPovAsBot(id, me) { impl.move(me, _, usi, offeringDraw) }
     }
 
   def botCommand(cmd: String) =
@@ -53,10 +53,10 @@ final class PlayApi(
       WithPovAsBoard(id, me) { impl.gameStream(me, _) }
     }
 
-  def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+  def boardMove(id: String, usi: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ => me =>
       WithPovAsBoard(id, me) {
-        impl.move(me, _, uci, offeringDraw)
+        impl.move(me, _, usi, offeringDraw)
       }
     }
 
@@ -73,8 +73,8 @@ final class PlayApi(
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }
 
-    def move(me: UserModel, pov: Pov, uci: String, offeringDraw: Option[Boolean]) =
-      env.bot.player(pov, me, uci, offeringDraw) pipe toResult
+    def move(me: UserModel, pov: Pov, usi: String, offeringDraw: Option[Boolean]) =
+      env.bot.player(pov, me, usi, offeringDraw) pipe toResult
 
     def command(me: UserModel, cmd: String)(
         as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result]

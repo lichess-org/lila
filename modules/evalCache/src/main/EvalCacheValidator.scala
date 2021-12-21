@@ -8,7 +8,7 @@ private object Validator {
     in.eval.pvs.toList.foldLeft(none[Error]) {
       case (None, pv) =>
         shogi.Replay
-          .boardsFromUci(
+          .boardsFromUsi(
             pv.moves.value.toList,
             in.fen.some,
             in.id.variant

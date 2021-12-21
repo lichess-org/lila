@@ -1,7 +1,7 @@
 package shogi
 
 import cats.syntax.option.none
-import format.Uci
+import format.Usi
 
 case class Drop(
     piece: Piece,
@@ -21,10 +21,10 @@ case class Drop(
     val board = after.variant.finalizeBoard(
       after updateHistory { h =>
         h.copy(
-          lastMove = Option(Uci.Drop(piece.role, pos))
+          lastMove = Option(Usi.Drop(piece.role, pos))
         )
       },
-      toUci,
+      toUsi,
       none,
       !situationBefore.color
     )
@@ -42,7 +42,7 @@ case class Drop(
 
   def withMetrics(m: MoveMetrics) = copy(metrics = m)
 
-  def toUci = Uci.Drop(piece.role, pos)
+  def toUsi = Usi.Drop(piece.role, pos)
 
-  override def toString = toUci.uci
+  override def toString = toUsi.usi
 }

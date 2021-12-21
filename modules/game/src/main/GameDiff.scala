@@ -80,7 +80,7 @@ object GameDiff {
     dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
     dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
     d(positionHashes, _.history.positionHashes, w.bytes)
-    d(historyLastMove, _.history.lastMove.map(_.uci) | "", w.str)
+    d(historyLastMove, _.history.lastMove.map(_.usi) | "", w.str)
     dOpt(
       checkCount,
       _.history.checkCount,

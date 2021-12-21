@@ -47,11 +47,11 @@ final class BotJsonView(
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] = {
     import wf._
-    shogi.format.UciDump(game.pgnMoves, fen.map(_.value), game.variant).toFuture map { uciMoves =>
+    shogi.format.UsiDump(game.pgnMoves, fen.map(_.value), game.variant).toFuture map { usiMoves =>
       Json
         .obj(
           "type"   -> "gameState",
-          "moves"  -> uciMoves.mkString(" "),
+          "moves"  -> usiMoves.mkString(" "),
           "btime"  -> millisOf(game.sentePov),
           "wtime"  -> millisOf(game.gotePov),
           "binc"   -> game.clock.??(_.config.increment.millis),

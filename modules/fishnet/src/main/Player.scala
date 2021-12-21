@@ -6,13 +6,13 @@ import org.joda.time.DateTime
 import shogi.{ Clock, Gote, Sente }
 
 import lila.common.Future
-import lila.game.{ Game, GameRepo, UciMemo }
+import lila.game.{ Game, GameRepo, UsiMemo }
 import ornicar.scalalib.Random.approximately
 
 final class Player(
     moveDb: MoveDB,
     gameRepo: GameRepo,
-    uciMemo: UciMemo,
+    usiMemo: UsiMemo,
     val maxPlies: Int
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -50,7 +50,7 @@ final class Player(
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)
-      if (game.turns <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
+      if (game.turns <= maxPlies) gameRepo.initialFen(game) zip usiMemo.get(game) map {
         case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,

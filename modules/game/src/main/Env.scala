@@ -50,7 +50,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val uciMemo = wire[UciMemo]
+  lazy val usiMemo = wire[UsiMemo]
 
   lazy val notationDump = wire[NotationDump]
 

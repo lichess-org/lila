@@ -5,7 +5,7 @@ import cats.data.Validated
 
 import shogi.variant.Variant
 
-object UciDump {
+object UsiDump {
 
   // a2a4, b8c6
   def apply(replay: Replay): List[String] =
@@ -21,7 +21,7 @@ object UciDump {
 
   def move(mod: MoveOrDrop): String =
     mod match {
-      case Left(m)  => m.toUci.uci
-      case Right(d) => d.toUci.uci
+      case Left(m)  => m.toUsi.usi
+      case Right(d) => d.toUsi.usi
     }
 }

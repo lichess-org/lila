@@ -5,7 +5,7 @@ import cats.data.Validated
 import cats.syntax.option._
 import scala.annotation.nowarn
 
-import format.Uci
+import format.Usi
 import Pos._
 
 // Correctness depends on singletons for each variant ID
@@ -182,7 +182,7 @@ abstract class Variant private[variant] (
 
   // Player wins or loses after their move
   def winner(sit: Situation): Option[Color] = {
-    val pawnDrop = sit.board.history.lastMove.fold(false) { l => l.uci(0) == 'P' }
+    val pawnDrop = sit.board.history.lastMove.fold(false) { l => l.usi(0) == 'P' }
     if (sit.checkMate && pawnDrop) Option(sit.color)
     else if (sit.checkMate || sit.staleMate) Option(!sit.color)
     else if (sit.impasse || sit.perpetualCheck) Option(sit.color)
@@ -215,12 +215,12 @@ abstract class Variant private[variant] (
       .fold(0) { hs => hs(!situation.color).size } + situation.board.piecesOf(!situation.color).size) <= 2
 
   // Once a move has been decided upon from the available legal moves, the board is finalized
-  def finalizeBoard(board: Board, uci: format.Uci, capture: Option[Piece], color: Color): Board = {
+  def finalizeBoard(board: Board, usi: format.Usi, capture: Option[Piece], color: Color): Board = {
     val board2 = board updateHistory {
       _.withCheck(color, board.check(color))
     }
-    uci match {
-      case Uci.Move(_, _, _) =>
+    usi match {
+      case Usi.Move(_, _, _) =>
         board2.handData.fold(board2) { data =>
           capture.fold(board2) { p =>
             val unpromotedRole  = unpromote(p.role).getOrElse(p.role)

@@ -9,7 +9,7 @@ final class Ecopening(
     val name: String,
     private val moves: String,
     val fen: Ecopening.FEN,
-    val lastMoveUci: String
+    val lastMoveUsi: String
 ) extends Ordered[Ecopening] {
 
   private lazy val moveList = moves.split(' ').toList

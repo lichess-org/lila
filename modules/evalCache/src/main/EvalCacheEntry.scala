@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import shogi.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Usi }
 import shogi.variant.Variant
 import org.joda.time.DateTime
 import cats.data.NonEmptyList
@@ -56,7 +56,7 @@ object EvalCacheEntry {
 
     def bestPv: Pv = pvs.head
 
-    def bestMove: Uci = bestPv.moves.value.head
+    def bestMove: Usi = bestPv.moves.value.head
 
     def looksValid =
       pvs.toList.forall(_.looksValid) && {
@@ -94,7 +94,7 @@ object EvalCacheEntry {
     def truncate = copy(moves = moves.truncate)
   }
 
-  case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
+  case class Moves(value: NonEmptyList[Usi]) extends AnyVal {
 
     def truncate = copy(value = NonEmptyList(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }

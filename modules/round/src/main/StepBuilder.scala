@@ -31,7 +31,7 @@ object StepBuilder {
           val moveSteps = games.map { case (g, m) =>
             Step(
               ply = g.turns,
-              move = Step.Move(m.uci, m.san).some,
+              move = Step.Move(m.usi, m.san).some,
               fen = Forsyth >> g,
               check = g.situation.check,
               dests = None,

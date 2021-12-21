@@ -300,7 +300,7 @@ object Parser {
 
     val rank = mapParser(rankMap, "rank")
 
-    val dest = mapParser(Pos.allUciKeys, "dest")
+    val dest = mapParser(Pos.allChessKeys, "dest")
 
     def exists(c: String): Parser[Boolean] = c ^^^ true | success(false)
 

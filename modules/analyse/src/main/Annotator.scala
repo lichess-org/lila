@@ -24,10 +24,4 @@ final class Annotator {
           )
       )
     }
-
-  // We also need uci to export this properly, so nah for now
-  //private def makeVariation(ply: Int, advice: Advice): List[Move] =
-  //  (advice.info.variation take 20).zipWithIndex.map { case (san, index) =>
-  //    KifMove(ply + index, san)
-  //  }
 }

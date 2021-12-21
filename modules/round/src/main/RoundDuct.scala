@@ -248,16 +248,16 @@ final private[round] class RoundDuct(
           {
             if (pov.game.outoftime(withGrace = true))
               finisher.outOfTime(pov.game)
-            else player.bot(p.uci, this)(pov)
+            else player.bot(p.usi, this)(pov)
           }
         }
       } dmap publish
       p.promise.foreach(_ completeWith res)
       res
 
-    case FishnetPlay(uci, ply) =>
+    case FishnetPlay(usi, ply) =>
       handle { game =>
-        player.fishnet(game, ply, uci)
+        player.fishnet(game, ply, usi)
       }.mon(_.round.move.time)
 
     case Abort(playerId) =>

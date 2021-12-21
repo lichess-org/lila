@@ -1,11 +1,11 @@
 package lila.tree
 
-import shogi.format.Uci
+import shogi.format.Usi
 
 case class Eval(
     cp: Option[Eval.Cp],
     mate: Option[Eval.Mate],
-    best: Option[Uci]
+    best: Option[Usi]
 ) {
 
   def isEmpty = cp.isEmpty && mate.isEmpty
@@ -90,8 +90,8 @@ object Eval {
   object JsonHandlers {
     import play.api.libs.json._
 
-    implicit private val uciWrites: Writes[Uci] = Writes { uci =>
-      JsString(uci.uci)
+    implicit private val usiWrites: Writes[Usi] = Writes { usi =>
+      JsString(usi.usi)
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](
       Reads.of[Int] map Cp.apply,

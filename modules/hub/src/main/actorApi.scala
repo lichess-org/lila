@@ -1,7 +1,7 @@
 package lila.hub
 package actorApi
 
-import shogi.format.Uci
+import shogi.format.Usi
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.Promise
@@ -228,7 +228,7 @@ package fishnet {
       chapterId: String,
       initialFen: Option[shogi.format.FEN],
       variant: shogi.variant.Variant,
-      moves: List[Uci],
+      moves: List[Usi],
       userId: String
   )
 }
@@ -262,9 +262,9 @@ package round {
   case class IsOnGame(color: shogi.Color, promise: Promise[Boolean])
   case class TourStandingOld(data: JsArray)
   case class TourStanding(tourId: String, data: JsArray)
-  case class FishnetPlay(uci: Uci, ply: Int)
+  case class FishnetPlay(usi: Usi, ply: Int)
   case object FishnetStart
-  case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
+  case class BotPlay(playerId: String, usi: Usi, promise: Option[scala.concurrent.Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)

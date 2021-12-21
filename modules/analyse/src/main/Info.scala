@@ -2,14 +2,14 @@ package lila.analyse
 
 import cats.implicits._
 import shogi.Color
-import shogi.format.Uci
+import shogi.format.Usi
 
 import lila.tree.Eval
 
 case class Info(
     ply: Int,
     eval: Eval,
-    // variation is first in UCI, then converted to SAN before storage
+    // variation is first in USI, then converted to SAN before storage
     variation: List[String] = Nil
 ) {
 
@@ -75,7 +75,7 @@ object Info {
       case Array(cp, ma)     => Info(ply, Eval(strCp(cp), strMate(ma), None)).some
       case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strMate(ma), None), va.split(' ').toList).some
       case Array(cp, ma, va, be) =>
-        Info(ply, Eval(strCp(cp), strMate(ma), Uci piotr be), va.split(' ').toList).some
+        Info(ply, Eval(strCp(cp), strMate(ma), Usi piotr be), va.split(' ').toList).some
       case _ => none
     }
 

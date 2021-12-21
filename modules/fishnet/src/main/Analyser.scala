@@ -5,13 +5,13 @@ import shogi.format.Forsyth
 import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
-import lila.game.{ Game, UciMemo }
+import lila.game.{ Game, UsiMemo }
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
     gameRepo: lila.game.GameRepo,
-    uciMemo: UciMemo,
+    usiMemo: UsiMemo,
     evalCache: FishnetEvalCache,
     limiter: Limiter
 )(implicit
@@ -77,7 +77,7 @@ final class Analyser(
                     initialFen.exists(_.value != Forsyth.initial)
                   ) shogi.variant.FromPosition
                   else variant,
-                moves = moves take maxPlies map (_.uci) mkString " "
+                moves = moves take maxPlies map (_.usi) mkString " "
               ),
               // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
               startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
@@ -101,7 +101,7 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
+    gameRepo.initialFen(game) zip usiMemo.get(game) map { case (initialFen, moves) =>
       makeWork(
         game = Work.Game(
           id = game.id,

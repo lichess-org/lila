@@ -1,6 +1,6 @@
 package shogi
 
-import format.Uci
+import format.Usi
 
 case class Move(
     piece: Piece,
@@ -22,10 +22,10 @@ case class Move(
     val board = after.variant.finalizeBoard(
       after updateHistory { h =>
         h.copy(
-          lastMove = Option(toUci)
+          lastMove = Option(toUsi)
         )
       },
-      toUci,
+      toUsi,
       capture flatMap before.apply,
       !situationBefore.color
     )
@@ -52,9 +52,9 @@ case class Move(
 
   def withMetrics(m: MoveMetrics) = copy(metrics = m)
 
-  def toUci = {
-    Uci.Move(orig, dest, promotion)
+  def toUsi = {
+    Usi.Move(orig, dest, promotion)
   }
 
-  override def toString = s"$piece ${toUci.uci}"
+  override def toString = s"$piece ${toUsi.usi}"
 }

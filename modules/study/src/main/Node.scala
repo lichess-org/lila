@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.{ FEN, Glyph, Glyphs, Uci, UciCharPair }
+import shogi.format.{ FEN, Glyph, Glyphs, Usi, UsiCharPair }
 
 import shogi.Centis
 import lila.tree.Eval.Score
@@ -21,13 +21,13 @@ sealed trait RootOrNode {
   def fullMoveNumber = 1 + ply / 2
   def mainline: Vector[Node]
   def color = shogi.Color.fromPly(ply)
-  def moveOption: Option[Uci.WithSan]
+  def moveOption: Option[Usi.WithSan]
 }
 
 case class Node(
-    id: UciCharPair,
+    id: UsiCharPair,
     ply: Int,
-    move: Uci.WithSan,
+    move: Usi.WithSan,
     fen: FEN,
     check: Boolean,
     shapes: Shapes = Shapes(Nil),
@@ -176,14 +176,14 @@ object Node {
         case (head, tail)      => updateChildren(head, _.updateAt(tail, f))
       }
 
-    def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
+    def get(id: UsiCharPair): Option[Node] = nodes.find(_.id == id)
 
-    def getNodeAndIndex(id: UciCharPair): Option[(Node, Int)] =
+    def getNodeAndIndex(id: UsiCharPair): Option[(Node, Int)] =
       nodes.zipWithIndex.collectFirst {
         case pair if pair._1.id == id => pair
       }
 
-    def has(id: UciCharPair): Boolean = nodes.exists(_.id == id)
+    def has(id: UsiCharPair): Boolean = nodes.exists(_.id == id)
 
     def updateAllWith(op: Node => Node): Children =
       Children {
@@ -192,10 +192,10 @@ object Node {
         }
       }
 
-    def updateWith(id: UciCharPair, op: Node => Option[Node]): Option[Children] =
+    def updateWith(id: UsiCharPair, op: Node => Option[Node]): Option[Children] =
       get(id) flatMap op map update
 
-    def updateChildren(id: UciCharPair, f: Children => Option[Children]): Option[Children] =
+    def updateChildren(id: UsiCharPair, f: Children => Option[Children]): Option[Children] =
       updateWith(id, _ withChildren f)
 
     def update(child: Node): Children =
@@ -358,7 +358,7 @@ object Node {
 
   object BsonFields {
     val ply            = "p"
-    val uci            = "u"
+    val usi            = "u"
     val san            = "s"
     val fen            = "f"
     val check          = "c"

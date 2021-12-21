@@ -13,7 +13,7 @@ object JsonView {
         .obj()
         .add("eval" -> info.cp)
         .add("mate" -> info.mate)
-        .add("best" -> info.best.map(_.uci))
+        .add("best" -> info.best.map(_.usi))
         .add("variation" -> info.variation.nonEmpty.option(info.variation mkString " "))
         .add("judgment" -> adviceOption.map { a =>
           Json

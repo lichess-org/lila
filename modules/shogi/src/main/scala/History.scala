@@ -1,6 +1,6 @@
 package shogi
 
-import format.Uci
+import format.Usi
 
 // Checks received by the respective side.
 case class CheckCount(sente: Int = 0, gote: Int = 0) {
@@ -24,7 +24,7 @@ case class CheckCount(sente: Int = 0, gote: Int = 0) {
 }
 
 case class History(
-    lastMove: Option[Uci] = None,
+    lastMove: Option[Usi] = None,
     positionHashes: PositionHash = Array.empty,
     checkCount: CheckCount = CheckCount(0, 0)
 ) {
@@ -45,7 +45,7 @@ case class History(
 
   def fourfoldRepetition = isRepetition(4)
 
-  def withLastMove(m: Uci) = copy(lastMove = Option(m))
+  def withLastMove(m: Usi) = copy(lastMove = Option(m))
 
   def withCheck(color: Color, v: Boolean) =
     if (v) copy(checkCount = checkCount add color) else copy(checkCount = checkCount reset color)
@@ -54,7 +54,7 @@ case class History(
 
   override def toString = {
     val positions = (positionHashes grouped Hash.size).toList
-    s"${lastMove.fold("-")(_.uci)} ${positions.map(Hash.debug).mkString(" ")}"
+    s"${lastMove.fold("-")(_.usi)} ${positions.map(Hash.debug).mkString(" ")}"
   }
 }
 
@@ -64,7 +64,7 @@ object History {
       lastMove: Option[String] // a2a4
   ): History =
     History(
-      lastMove = lastMove flatMap Uci.apply,
+      lastMove = lastMove flatMap Usi.apply,
       positionHashes = Array()
     )
 }

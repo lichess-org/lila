@@ -3,29 +3,29 @@ package lila.game
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
-import shogi.format.UciDump
+import shogi.format.UsiDump
 
-final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
+final class UsiMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  type UciVector = Vector[String]
+  type UsiVector = Vector[String]
 
-  private val cache: Cache[Game.ID, UciVector] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[Game.ID, UsiVector] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
-    .build[Game.ID, UciVector]()
+    .build[Game.ID, UsiVector]()
 
   private val hardLimit = 300
 
-  def add(game: Game, uciMove: String): Unit = {
+  def add(game: Game, usiMove: String): Unit = {
     val current = ~cache.getIfPresent(game.id)
-    cache.put(game.id, current :+ uciMove)
+    cache.put(game.id, current :+ usiMove)
   }
   def add(game: Game, move: shogi.MoveOrDrop): Unit =
-    add(game, UciDump.move(move))
+    add(game, UsiDump.move(move))
 
-  def set(game: Game, uciMoves: Seq[String]) =
-    cache.put(game.id, uciMoves.toVector)
+  def set(game: Game, usiMoves: Seq[String]) =
+    cache.put(game.id, usiMoves.toVector)
 
-  def get(game: Game, max: Int = hardLimit): Fu[UciVector] =
+  def get(game: Game, max: Int = hardLimit): Fu[UsiVector] =
     cache getIfPresent game.id filter { moves =>
       moves.size.min(max) == game.pgnMoves.size.min(max)
     } match {
@@ -38,9 +38,9 @@ final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionC
     cache.put(game.id, current.take(current.size - nb))
   }
 
-  private def compute(game: Game, max: Int): Fu[UciVector] =
+  private def compute(game: Game, max: Int): Fu[UsiVector] =
     for {
       fen      <- gameRepo initialFen game
-      uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).toFuture
-    } yield uciMoves.toVector
+      usiMoves <- UsiDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).toFuture
+    } yield usiMoves.toVector
 }

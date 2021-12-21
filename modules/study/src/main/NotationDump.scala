@@ -101,7 +101,7 @@ object NotationDump {
   ) =
     NotationMove(
       san = node.move.san,
-      uci = node.move.uci,
+      usi = node.move.usi,
       ply = node.ply - startingPly,
       glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
       comments = flags.comments ?? {

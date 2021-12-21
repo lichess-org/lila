@@ -3,7 +3,7 @@ package shogi
 import cats.data.Validated
 import cats.implicits._
 
-import format.Uci
+import format.Usi
 
 case class Situation(board: Board, color: Color) {
 
@@ -72,12 +72,15 @@ case class Situation(board: Board, color: Color) {
     board.variant.move(this, from, to, promotion)
   }
 
-  def move(uci: Uci.Move): Validated[String, Move] = {
-    board.variant.move(this, uci.orig, uci.dest, uci.promotion)
+  def move(usi: Usi.Move): Validated[String, Move] = {
+    board.variant.move(this, usi.orig, usi.dest, usi.promotion)
   }
 
   def drop(role: Role, pos: Pos): Validated[String, Drop] =
     board.variant.drop(this, role, pos)
+
+  def drop(usi: Usi.Drop): Validated[String, Drop] =
+    board.variant.drop(this, usi.role, usi.pos)
 
   def withHistory(history: History) =
     copy(

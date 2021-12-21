@@ -1,6 +1,6 @@
 //package lila.fishnet
 //
-//import shogi.format.Uci
+//import shogi.format.Usi
 //import io.lettuce.core._
 //import io.lettuce.core.pubsub._
 //import scala.concurrent.Future
@@ -33,9 +33,9 @@
 //
 //        case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
 //
-//        case Array(gameId, plyS, uci) =>
+//        case Array(gameId, plyS, usi) =>
 //          for {
-//            move <- Uci(uci)
+//            move <- Usi(usi)
 //            ply  <- plyS.toIntOption
 //          } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundSocket")
 //        case _ =>

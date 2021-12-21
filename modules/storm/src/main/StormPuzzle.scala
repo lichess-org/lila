@@ -1,7 +1,7 @@
 package lila.storm
 
 import cats.data.NonEmptyList
-import shogi.format.{ FEN, Forsyth, Uci }
+import shogi.format.{ FEN, Forsyth, Usi }
 
 import lila.puzzle.Puzzle
 
@@ -9,7 +9,7 @@ import lila.puzzle.Puzzle
 case class StormPuzzle(
     id: Puzzle.Id,
     fen: String,
-    line: NonEmptyList[Uci],
+    line: NonEmptyList[Usi],
     rating: Int
 ) {
   // ply after "initial move" when we start solving

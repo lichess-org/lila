@@ -3,7 +3,7 @@ package lila.round
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.Uci
+import shogi.format.Usi
 import lila.common.Json.jodaWrites
 import lila.game.Game
 
@@ -13,7 +13,7 @@ case class Forecast(
     date: DateTime
 ) {
 
-  def apply(g: Game, lastMove: Uci): Option[(Forecast, Uci)] =
+  def apply(g: Game, lastMove: Usi): Option[(Forecast, Usi)] =
     nextMove(g, lastMove) map { move =>
       copy(
         steps = steps.collect {
@@ -27,9 +27,9 @@ case class Forecast(
   // accept up to 30 lines of 30 moves each
   def truncate = copy(steps = steps.take(30).map(_ take 30))
 
-  private def nextMove(g: Game, last: Uci) =
-    steps.foldLeft(none[Uci]) {
-      case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.uciMove
+  private def nextMove(g: Game, last: Usi) =
+    steps.foldLeft(none[Usi]) {
+      case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.usiMove
       case (move, _)                                                     => move
     }
 }
@@ -42,15 +42,15 @@ object Forecast {
 
   case class Step(
       ply: Int,
-      uci: String,
+      usi: String,
       san: String,
       fen: String,
       check: Option[Boolean]
   ) {
 
-    def is(move: Uci) = move.uci == uci
+    def is(move: Usi) = move.usi == usi
 
-    def uciMove = Uci(uci)
+    def usiMove = Usi(usi)
   }
 
   implicit val forecastStepJsonFormat = Json.format[Step]

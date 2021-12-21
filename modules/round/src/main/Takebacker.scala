@@ -2,7 +2,7 @@ package lila.round
 
 import shogi.Color
 import lila.common.Bus
-import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
+import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UsiMemo }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 import RoundDuct.TakebackSituation
@@ -10,7 +10,7 @@ import RoundDuct.TakebackSituation
 final private class Takebacker(
     messenger: Messenger,
     gameRepo: GameRepo,
-    uciMemo: UciMemo,
+    usiMemo: UsiMemo,
     prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -102,7 +102,7 @@ final private class Takebacker(
     for {
       fen      <- gameRepo initialFen game
       progress <- Rewind(game, fen).toFuture
-      _        <- fuccess { uciMemo.drop(game, 1) }
+      _        <- fuccess { usiMemo.drop(game, 1) }
       events   <- saveAndNotify(progress)
     } yield events
 
@@ -113,7 +113,7 @@ final private class Takebacker(
       prog2 <- Rewind(prog1.game, fen).toFuture dmap { progress =>
         prog1 withGame progress.game
       }
-      _      <- fuccess { uciMemo.drop(game, 2) }
+      _      <- fuccess { usiMemo.drop(game, 2) }
       events <- saveAndNotify(prog2)
     } yield events
 

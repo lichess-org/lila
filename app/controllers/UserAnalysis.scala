@@ -199,7 +199,7 @@ final class UserAnalysis(
       }
     }
 
-  def forecastsOnMyTurn(fullId: String, uci: String) =
+  def forecastsOnMyTurn(fullId: String, usi: String) =
     AuthBody(parse.json) { implicit ctx => _ =>
       import lila.round.Forecast
       OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
@@ -211,7 +211,7 @@ final class UserAnalysis(
               err => BadRequest(err.toString).fuccess,
               forecasts => {
                 val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-                env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+                env.round.forecastApi.playAndSave(pov, usi, forecasts) >>
                   lila.common.Future.sleep(wait.millis) inject
                   Ok(Json.obj("reload" -> true))
               }

@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.{ FEN, Forsyth, Glyphs, Uci, UciCharPair }
+import shogi.format.{ FEN, Forsyth, Glyphs, Usi, UsiCharPair }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -30,13 +30,13 @@ object ServerEval {
             initialFen = chapter.root.fen.some,
             variant = chapter.setup.variant,
             moves = shogi.format
-              .UciDump(
+              .UsiDump(
                 moves = chapter.root.mainline.map(_.move.san),
                 initialFen = chapter.root.fen.value.some,
                 variant = chapter.setup.variant
               )
               .toOption
-              .map(_.flatMap(shogi.format.Uci.apply)) | List.empty,
+              .map(_.flatMap(shogi.format.Usi.apply)) | List.empty,
             userId = userId
           )
         }
@@ -137,9 +137,9 @@ object ServerEval {
           }
       }
 
-    private def makeBranch(g: shogi.Game, m: Uci.WithSan) =
+    private def makeBranch(g: shogi.Game, m: Usi.WithSan) =
       Node(
-        id = UciCharPair(m.uci),
+        id = UsiCharPair(m.usi),
         ply = g.turns,
         move = m,
         fen = FEN(Forsyth >> g),

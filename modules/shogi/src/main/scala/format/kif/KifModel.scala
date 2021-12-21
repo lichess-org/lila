@@ -49,21 +49,21 @@ object Kif {
 
   def renderNotationMove(cur: NotationMove, lastDest: Option[Pos]): String = {
     val resultStr   = cur.result.fold("")(r => s"\n${plyOffset(cur.ply + 1)}$offset$r")
-    val kifMove     = renderKifMove(cur.uci, cur.san, lastDest)
+    val kifMove     = renderKifMove(cur.usi, cur.san, lastDest)
     val timeStr     = clockString(cur).getOrElse("")
     val glyphsNames = cur.glyphs.toList.map(_.name)
     val commentsStr = (glyphsNames ::: cur.comments).map { text => s"\n* ${fixComment(text)}" }.mkString("")
     s"${plyOffset(cur.ply)}$offset$kifMove$timeStr$commentsStr$resultStr"
   }
 
-  def renderKifMove(uci: Uci, san: String, lastDest: Option[Pos]): String =
-    uci match {
-      case Uci.Drop(role, pos) =>
+  def renderKifMove(usi: Usi, san: String, lastDest: Option[Pos]): String =
+    usi match {
+      case Usi.Drop(role, pos) =>
         s"${makeDestSquare(pos)}${role.kif}打"
-      case Uci.Move(orig, dest, prom) => {
+      case Usi.Move(orig, dest, prom) => {
         val destStr = if (lastDest.fold(false)(_ == dest)) "同　" else makeDestSquare(dest)
         val promStr = if (prom) "成" else ""
-        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $uci, $san") { r =>
+        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $usi, $san") { r =>
           s"$destStr${r.kif}$promStr(${makeOrigSquare(orig)})"
         }
       }

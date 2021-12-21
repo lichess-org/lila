@@ -117,8 +117,8 @@ final class JsonView(
     "plays"      -> puzzle.plays,
     "initialPly" -> puzzle.initialPly,
     "solution" -> {
-      if (puzzle.gameId.isDefined) puzzle.line.tail.map(_.uci).toList
-      else puzzle.line.map(_.uci).toList
+      if (puzzle.gameId.isDefined) puzzle.line.tail.map(_.usi).toList
+      else puzzle.line.map(_.usi).toList
     },
     "themes" -> simplifyThemes(puzzle.themes)
   )
@@ -180,11 +180,11 @@ final class JsonView(
       "lines" -> {
         if (puzzle.gameId.isDefined)
           puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")) { case (acc, move) =>
-            Json.obj(move.uci -> acc)
+            Json.obj(move.usi -> acc)
           }
         else
           puzzle.line.reverse.foldLeft[JsValue](JsString("win")) { case (acc, move) =>
-            Json.obj(move.uci -> acc)
+            Json.obj(move.usi -> acc)
           }
       },
       "vote"   -> 0,
@@ -196,14 +196,14 @@ final class JsonView(
       val init     = shogi.Game(none, puzzle.fenAfterInitialMove.value.some).withTurns(puzzle.initialPly + 1)
       val solution = puzzle.gameId.fold(puzzle.line.toList)(_ => puzzle.line.tail)
       val (_, branchList) = solution.foldLeft[(shogi.Game, List[tree.Branch])]((init, Nil)) {
-        case ((prev, branches), uci) =>
+        case ((prev, branches), usi) =>
           val (game, move) =
-            prev(uci)
+            prev(usi)
               .fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
           val branch = tree.Branch(
-            id = UciCharPair(move.fold(l => l.toUci, r => r.toUci)),
+            id = UsiCharPair(move.fold(l => l.toUsi, r => r.toUsi)),
             ply = game.turns,
-            move = Uci.WithSan(move.fold(l => l.toUci, r => r.toUci), game.pgnMoves.last),
+            move = Usi.WithSan(move.fold(l => l.toUsi, r => r.toUsi), game.pgnMoves.last),
             fen = shogi.format.Forsyth >> game,
             check = game.situation.check
           )

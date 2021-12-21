@@ -42,14 +42,14 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   def xDist(other: Pos) = abs(x - other.x)
   def yDist(other: Pos) = abs(y - other.y)
 
-  val uciFile = ((10 - x) + 96).toChar.toString
-  val uciRank = (10 - y).toString
-  val uciKey  = s"$uciFile$uciRank"
+  val chessFile = ((10 - x) + 96).toChar.toString
+  val chessRank = (10 - y).toString
+  val chessKey  = s"$chessFile$chessRank"
 
   val usiKey   = x.toString + (96 + y).toChar.toString
   val piotrStr = piotr.toString
 
-  override val toString = uciKey
+  override val toString = usiKey
 
   override val hashCode = 9 * ((10 - y) - 1) + ((10 - x) - 1)
 }
@@ -61,7 +61,7 @@ object Pos {
     if (x < 1 || x > 9 || y < 1 || y > 9) None
     else posCache.lift(x + 9 * y - 10)
 
-  def fromKey(key: String): Option[Pos] = allUciKeys.get(key).orElse(allUsiKeys.get(key))
+  def fromKey(key: String): Option[Pos] = allChessKeys.get(key).orElse(allUsiKeys.get(key))
 
   def piotr(c: Char): Option[Pos] = allPiotrs get c
 
@@ -182,9 +182,9 @@ object Pos {
   val allDirections =
     List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight, _.downLeft, _.downRight): Directions
 
-  val allUciKeys: Map[String, Pos] = all9x9
+  val allChessKeys: Map[String, Pos] = all9x9
     .map { pos =>
-      pos.uciKey -> pos
+      pos.chessKey -> pos
     }
     .to(Map)
 

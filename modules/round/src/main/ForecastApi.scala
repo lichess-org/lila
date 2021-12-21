@@ -7,7 +7,7 @@ import lila.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import shogi.format.Uci
+import shogi.format.Usi
 import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
@@ -41,18 +41,18 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
 
   def playAndSave(
       pov: Pov,
-      uciMove: String,
+      usiMove: String,
       steps: Forecast.Steps
   ): Funit =
     if (!pov.isMyTurn) funit
     else
-      Uci(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
+      Usi(usiMove).fold[Funit](fufail(s"Invalid move $usiMove on $pov")) { usi =>
         val promise = Promise[Unit]()
         tellRound(
           pov.gameId,
           actorApi.round.HumanPlay(
             playerId = PlayerId(pov.playerId),
-            uci = uci,
+            usi = usi,
             blur = true,
             promise = promise.some
           )
@@ -76,15 +76,15 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
         else fuccess(fc.some)
     }
 
-  def nextMove(g: Game, last: Uci): Fu[Option[Uci]] =
+  def nextMove(g: Game, last: Usi): Fu[Option[Usi]] =
     g.forecastable ?? {
       loadForPlay(Pov player g) flatMap {
         case None => fuccess(none)
         case Some(fc) =>
           fc(g, last) match {
-            case Some((newFc, uci)) if newFc.steps.nonEmpty =>
-              coll.update.one($id(fc._id), newFc) inject uci.some
-            case Some((_, uci)) => clearPov(Pov player g) inject uci.some
+            case Some((newFc, usi)) if newFc.steps.nonEmpty =>
+              coll.update.one($id(fc._id), newFc) inject usi.some
+            case Some((_, usi)) => clearPov(Pov player g) inject usi.some
             case _              => clearPov(Pov player g) inject none
           }
       }
