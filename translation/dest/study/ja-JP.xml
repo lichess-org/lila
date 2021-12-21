@@ -38,7 +38,7 @@
   <string name="youAreNowASpectator">観戦者になりました</string>
   <string name="pgnTags">PGN タグ</string>
   <string name="like">いいね</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">いいね解除</string>
+  <string name="unlike">いいね解除</string>
   <string name="newTag">新しいタグ</string>
   <string name="commentThisPosition">この局面にコメントする</string>
   <string name="commentThisMove">この手にコメントする</string>
