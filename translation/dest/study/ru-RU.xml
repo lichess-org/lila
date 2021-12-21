@@ -168,4 +168,5 @@
   <string name="myTopics">Мои темы</string>
   <string name="popularTopics">Популярные темы</string>
   <string name="manageTopics">Управление темами</string>
+  <string name="back">Назад</string>
 </resources>
