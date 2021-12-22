@@ -869,4 +869,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="playComputerMove">Speel die beste rekenaarskuif</string>
   <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Sedert</string>
   <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Tot</string>
+  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Gegradeerde spelle gekies uit alle Lichess-spelers</string>
+  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Ruil kante</string>
 </resources>
