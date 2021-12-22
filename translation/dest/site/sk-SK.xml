@@ -103,6 +103,7 @@
   <string name="lossSavedBy50MoveRule">Od prehry zachránilo pravidlo 50-tich ťahov</string>
   <string name="winOr50MovesByPriorMistake">Výhra alebo 50 ťahov na základe predchádzajúcej chyby</string>
   <string name="lossOr50MovesByPriorMistake">Prehra alebo 50 ťahov v dôsledku predchádzajúcej chyby</string>
+  <string name="unknownDueToRounding">Výhra/prehra je garantovaná iba ak bol od posledného brania alebo ťahu pešiakom dodržaný odporúčaný variant databázy, kvôli možnému zaokrúhleniu hodnoty DTZ v Syzygy databáze.</string>
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Importovať PGN</string>
   <string name="delete">Vymazať</string>
@@ -153,6 +154,7 @@
     <item quantity="other">%s pripojených hráčov</item>
   </plurals>
   <string name="drawByMutualAgreement">Remíza po vzájomnej dohode</string>
+  <string name="fiftyMovesWithoutProgress">Päťdesiat ťahov bez posunu vpred</string>
   <string name="currentGames">Práve prebiehajúce partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
@@ -720,6 +722,7 @@
   <string name="downloadImported">Stiahnuť importované</string>
   <string name="crosstable">Tabuľka</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Prejdite kurzorom ponad počítačové varianty pre zobrazenie ich náhľadu.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom aby Vám napísali správu</string>
   <string name="receiveForumNotifications">Dostávať upozornenia keď ťa niekto spomenie na fóre</string>
