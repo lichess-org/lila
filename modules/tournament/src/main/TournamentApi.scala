@@ -393,16 +393,14 @@ final class TournamentApi(
     proxyRepo game gameId flatMap {
       _.filter(_.berserkable) ?? { game =>
         game.tournamentId ?? { tourId =>
-          Sequencing(tourId, "berserk")(tournamentRepo.startedById) { tour =>
-            pairingRepo.findPlaying(tour.id, userId) flatMap {
-              case Some(pairing) if !pairing.berserkOf(userId) =>
-                (pairing colorOf userId) ?? { color =>
-                  roundSocket.rounds.ask(gameId) { GoBerserk(color, _) } flatMap {
-                    _ ?? pairingRepo.setBerserk(pairing, userId)
-                  }
+          pairingRepo.findPlaying(tourId, userId) flatMap {
+            case Some(pairing) if !pairing.berserkOf(userId) =>
+              (pairing colorOf userId) ?? { color =>
+                roundSocket.rounds.ask(gameId) { GoBerserk(color, _) } flatMap {
+                  _ ?? pairingRepo.setBerserk(pairing, userId)
                 }
-              case _ => funit
-            }
+              }
+            case _ => funit
           }
         }
       }
