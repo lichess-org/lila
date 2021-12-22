@@ -175,7 +175,7 @@
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
   <string name="discussions">Беседы</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Сегодня</string>
+  <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
@@ -491,9 +491,9 @@
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="endgamePositions">Эндшпильные позиции</string>
   <string name="chess960StartPosition">Начальная позиция в шахматах Фишера: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Начальная позиция</string>
+  <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Загрузить позицию</string>
+  <string name="loadPosition">Загрузить позицию</string>
   <string name="isPrivate">Закрытый</string>
   <string name="reportXToModerators">Сообщить о %s модераторам</string>
   <string name="profileCompletion">Профиль заполнен на %s</string>
@@ -512,7 +512,7 @@
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
   <string name="onlinePlayers">Игроки в сети</string>
   <string name="activePlayers">Активные игроки</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Внимание, это рейтинговая игра, хотя и без ограничения по времени!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Внимание, это рейтинговая игра, хотя и без ограничения по времени!</string>
   <string name="success">Получилось</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партия</item>
@@ -583,7 +583,7 @@
   <string name="onSlowGames">В медленных играх</string>
   <string name="always">Всегда</string>
   <string name="never">Никогда</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s решил участвовать в %2$s</string>
+  <string name="xCompetesInY">%1$s решил участвовать в %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Поражение</string>
   <string name="victoryVsYInZ">%1$s против %2$s в %3$s</string>
@@ -622,10 +622,10 @@
   <string name="error.email_acceptable">Этот адрес электронной почты недопустим. Проверьте его и повторите попытку.</string>
   <string name="error.email_unique">Адрес электронной почты недействителен или уже занят</string>
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Минимальная длина — %s</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Максимальная длина — %s</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Значение должно быть больше либо равным %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Значение должно быть меньше либо равным %s</string>
+  <string name="error.minLength">Минимальная длина — %s</string>
+  <string name="error.maxLength">Максимальная длина — %s</string>
+  <string name="error.min">Значение должно быть больше либо равным %s</string>
+  <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyExistingConversations">Только существующие обсуждения</string>
   <string name="onlyFriends">Только друзьям</string>
@@ -886,7 +886,7 @@
   <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать на форуме. Сыграйте несколько партий!</string>
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">упомянул вас в «%1$s».</string>
+  <string name="mentionedYouInX">упомянул вас в «%1$s».</string>
   <string name="xMentionedYouInY">%1$s упомянул вас в «%2$s».</string>
   <string name="invitedYouToX">пригласил вас в «%1$s».</string>
   <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
