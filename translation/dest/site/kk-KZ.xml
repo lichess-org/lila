@@ -162,7 +162,7 @@
   <string name="players">Ойыншылар</string>
   <string name="friends">Достарыңыз</string>
   <string name="discussions">Сұхбаттар</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Бүгін</string>
+  <string name="today">Бүгін</string>
   <string name="yesterday">Кеше</string>
   <string name="minutesPerSide">Әр түске берілген уақыт</string>
   <string name="variant">Түрі</string>
@@ -434,9 +434,9 @@
   <string name="popularOpenings">Танымал бастаулар</string>
   <string name="endgamePositions">Ойынсоңы күйлері</string>
   <string name="chess960StartPosition">Шахмат960 бастапқы күйі: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Бастапқы күй</string>
+  <string name="startPosition">Бастапқы күй</string>
   <string name="clearBoard">Тақтаны жинау</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Күйді жүктеп алу</string>
+  <string name="loadPosition">Күйді жүктеп алу</string>
   <string name="isPrivate">Жасырын</string>
   <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
   <string name="profileCompletion">Куәлігіңіздің толуы: %s</string>
@@ -455,7 +455,7 @@
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activePlayers">Белсенділер</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
   <string name="success">Бәрі дұрыс!</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ойын өтуде</item>
@@ -524,7 +524,7 @@
   <string name="onSlowGames">Ұзақ ойындар кезінде</string>
   <string name="always">Әрқашан</string>
   <string name="never">Ешқашан</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$s-та жарысты</string>
+  <string name="xCompetesInY">%1$s %2$s-та жарысты</string>
   <string name="victory">Жеңіс</string>
   <string name="defeat">Жеңіліс</string>
   <string name="victoryVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
@@ -559,10 +559,10 @@
   <string name="error.email_acceptable">Бұл пошта мекенжайы қабылданбайды. Оны тексеріп, қайта көріңіз.</string>
   <string name="error.email_unique">Пошта мекенжайы қате немесе бос емес</string>
   <string name="error.email_different">Бұл сіздің бұрыңғы поштаңыз</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Кемінде %s таңба болу керек</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Ең көбі %s таңба болу керек</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Кемінде %s болу керек</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Ең көбі %s болу керек</string>
+  <string name="error.minLength">Кемінде %s таңба болу керек</string>
+  <string name="error.maxLength">Ең көбі %s таңба болу керек</string>
+  <string name="error.min">Кемінде %s болу керек</string>
+  <string name="error.max">Ең көбі %s болу керек</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
@@ -811,7 +811,7 @@
   <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">%1$s біреу сіз туралы жазды.</string>
+  <string name="mentionedYouInX">%1$s біреу сіз туралы жазды.</string>
   <string name="xMentionedYouInY">%1$s сіз туралы %2$s жазды.</string>
   <string name="invitedYouToX">сізді %1$s шақырды.</string>
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
