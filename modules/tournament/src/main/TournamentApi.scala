@@ -355,8 +355,12 @@ final class TournamentApi(
       }
     }
 
-  private def updateNbPlayers(tourId: Tournament.ID): Funit =
-    playerRepo count tourId flatMap { tournamentRepo.setNbPlayers(tourId, _) }
+  private object updateNbPlayers {
+    private val onceEvery = lila.memo.OnceEvery(1 second)
+    def apply(tourId: Tournament.ID): Funit = onceEvery(tourId) ?? {
+      playerRepo count tourId flatMap { tournamentRepo.setNbPlayers(tourId, _) }
+    }
+  }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)
