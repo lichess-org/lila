@@ -31,29 +31,26 @@ export function throttlePromise<T extends (...args: any) => Promise<any>>(
   delay: number,
   callback: T
 ): (...args: Parameters<T>) => void {
-  let timeout: Timeout | undefined;
   let lastComplete = 0;
-  let onFlight: Promise<any> | undefined;
+  let onFlight: boolean = false;
+  let lastPending: boolean | Timeout = false;
 
   return function (this: any, ...args: Parameters<T>): void {
     const self = this;
     const elapsed = performance.now() - lastComplete;
 
     function exec() {
-      timeout = undefined;
-      onFlight = callback.apply(self, args).finally(() => {
-        onFlight = undefined;
+      lastPending = false;
+      onFlight = true;
+      callback.apply(self, args).finally(() => {
+        onFlight = false;
         lastComplete = performance.now();
+        if (lastPending === true) lastPending = setTimeout(exec, delay);
       });
     }
 
-    if (timeout) clearTimeout(timeout);
-
-    if (elapsed > delay && !onFlight) exec();
-    else
-      timeout = setTimeout(() => {
-        if (onFlight) onFlight.finally(exec);
-        else exec();
-      }, delay - elapsed);
+    if (!onFlight && elapsed > delay) exec();
+    else if (onFlight) lastPending = true;
+    else if (!lastPending) lastPending = setTimeout(exec, delay - elapsed);
   };
 }
