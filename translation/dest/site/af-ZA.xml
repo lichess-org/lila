@@ -17,6 +17,8 @@
   <string name="stalemate">Dooiepunt</string>
   <string name="white">Wit</string>
   <string name="black">Swart</string>
+  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">as wit</string>
+  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">as swart</string>
   <string name="randomColor">Lukrake kant</string>
   <string name="createAGame">Skep \'n spel</string>
   <string name="whiteIsVictorious">Wit het gewen</string>
@@ -865,4 +867,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="onlyTeamLeaders">Slegs spanleiers</string>
   <string name="onlyTeamMembers">Slegs spanlede</string>
   <string name="playComputerMove">Speel die beste rekenaarskuif</string>
+  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Sedert</string>
+  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Tot</string>
 </resources>
