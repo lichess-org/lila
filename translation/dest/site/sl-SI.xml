@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Beli</string>
   <string name="black">Črni</string>
+  <string name="asWhite">kot beli</string>
+  <string name="asBlack">kot črni</string>
   <string name="randomColor">Naključna stran</string>
   <string name="createAGame">Nova igra</string>
   <string name="whiteIsVictorious">Beli je zmagal</string>
@@ -954,4 +956,8 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="abortTheGame">Prekinite igro</string>
   <string name="resignTheGame">Predaj igro</string>
   <string name="youCantStartNewGame">Ne morete začeti nove igre, dokler se ta ne konča.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Rangirane igre, vzorčene od vseh igralcev Lichess</string>
+  <string name="switchSides">Zamenjaj strani</string>
 </resources>
