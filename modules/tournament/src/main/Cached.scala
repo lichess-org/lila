@@ -17,6 +17,20 @@ final private[tournament] class Cached(
     ec: scala.concurrent.ExecutionContext
 ) {
 
+  object tourCache {
+
+    private val cache = cacheApi[Tournament.ID, Option[Tournament]](512, "tournament.tournament") {
+      _.expireAfterWrite(1 second)
+        .buildAsyncFuture(tournamentRepo.byId)
+    }
+    def clear(id: Tournament.ID) = cache.invalidate(id)
+
+    def byId                         = cache.get _
+    def created(id: Tournament.ID)   = cache.get(id).dmap(_.filter(_.isCreated))
+    def started(id: Tournament.ID)   = cache.get(id).dmap(_.filter(_.isStarted))
+    def enterable(id: Tournament.ID) = cache.get(id).dmap(_.filter(_.isEnterable))
+  }
+
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
     initialCapacity = 65536,
