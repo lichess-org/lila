@@ -133,8 +133,8 @@ final class Env(
   def cli =
     new lila.common.Cli {
       def process = {
-        case "tournament" :: "leaderboard" :: "generate" :: Nil =>
-          leaderboardIndexer.generateAll inject "Done!"
+        // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
           api.toggleFeaturing(id, true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
