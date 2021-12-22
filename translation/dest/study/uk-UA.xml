@@ -164,5 +164,6 @@
   <string name="nextChapter">Наступний розділ</string>
   <string name="prevChapter">Попередній розділ</string>
   <string name="studyActions">Команди дослідження</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Повернутись</string>
   <string name="playAgain">Грати знову</string>
 </resources>
