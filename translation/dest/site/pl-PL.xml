@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
+  <string name="asWhite">jako białe</string>
+  <string name="asBlack">jako czarne</string>
   <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
@@ -961,4 +963,8 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="abortTheGame">Przerwij partię</string>
   <string name="resignTheGame">Przerwij partię</string>
   <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Gry rankingowe próbkowane od wszystkich graczy Lichess</string>
+  <string name="switchSides">Zmień strony</string>
 </resources>
