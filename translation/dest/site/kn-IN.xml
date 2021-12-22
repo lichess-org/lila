@@ -163,7 +163,7 @@
   <string name="players">ಆಟಗಾರರು</string>
   <string name="friends">ಗೆಳೆಯ(ತಿ) ಯರು</string>
   <string name="discussions">ಸಂಭಾಷಣೆಗಳು</string>
-  <string name="today">ಇವತ್ತು</string>
+  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">ಇವತ್ತು</string>
   <string name="yesterday">ನಿನ್ನೆ</string>
   <string name="minutesPerSide">ಪ್ರತಿ ಆಟಗಾರರಿಗೆ ಇರುವ ನಿಮಿಷಗಳು</string>
   <string name="variant">ಶೈಲಿ</string>
@@ -435,9 +435,9 @@
   <string name="popularOpenings">ಜನಪ್ರಿಯ ಪ್ರಾರಂಭಿಕ ನಡೆಗಳು</string>
   <string name="endgamePositions">ಕೊನೆಯಾಟದ ಸನ್ನಿವೇಶಗಳು</string>
   <string name="chess960StartPosition">Chess960 ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ: %s</string>
-  <string name="startPosition">ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ</string>
+  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">ಪ್ರಾರಂಭಿಕ ಸ್ಥಾನ</string>
   <string name="clearBoard">ಚೆಸ್ ಮಣೆಯನ್ನು ಖಾಲಿ ಮಾಡಿ</string>
-  <string name="loadPosition">ಸನ್ನಿವೇಶವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
+  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">ಸನ್ನಿವೇಶವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="isPrivate">ಖಾಸಗಿ</string>
   <string name="reportXToModerators">%s ಅವರ ಖಾತೆಯ ಬಗ್ಗೆ ಲೀಚೆಸ್ ನಿಯಂತ್ರಕರಿಗೆ ದೂರು ಸಲ್ಲಿಸಿ</string>
   <string name="profileCompletion">ಪ್ರೊಫೈಲ್ ಪೂರ್ಣತೆ: %s</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
   <string name="onlinePlayers">ಆನ್ಲೈನ್ ಇರುವ ಆಟಗಾರರು</string>
   <string name="activePlayers">ಸಕ್ರಿಯವಾಗಿರುವ ಆಟಗಾರರು</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">ಎಚ್ಚರಿಕೆ, ಈ ಆಟ ಧಾರಣೆ-ಸಹಿತವಾಗಿದೆ, ಆದರೆ ಯಾವುದೇ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ!</string>
   <string name="success">ಯಶಸ್ವಿ</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ಆಟ ನಡೆಯುತ್ತಿದೆ</item>
@@ -525,7 +525,7 @@
   <string name="onSlowGames">ನಿಧಾನ ಗತಿಯ ಆಟಗಳಲ್ಲಿ</string>
   <string name="always">ಯಾವಾಗಲೂ</string>
   <string name="never">ಯಾವತ್ತೂ ಬೇಡ</string>
-  <string name="xCompetesInY">%1$s ಅವರು %2$s ನಲ್ಲಿ ಸ್ಪರ್ಧಿಸುತ್ತಿದ್ದಾರೆ</string>
+  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s ಅವರು %2$s ನಲ್ಲಿ ಸ್ಪರ್ಧಿಸುತ್ತಿದ್ದಾರೆ</string>
   <string name="victory">ಗೆಲುವು</string>
   <string name="defeat">ಸೋಲು</string>
   <string name="victoryVsYInZ">%3$s ನಲ್ಲಿ %2$s ಅವರ ವಿರುದ್ಧ %1$s</string>
@@ -812,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">ಈ ವೇದಿಕೆಯಲ್ಲಿ ನೀವು ಸಧ್ಯಕ್ಕೆ ಬರೆಯುವಂತಿಲ್ಲ. ಇನ್ನೂ ಕೆಲವು ಚೆಸ್ ಆಟಗಳನ್ನು ಆಡಿ!</string>
   <string name="subscribe">ಚಂದಾದಾರರಾಗಿ</string>
   <string name="unsubscribe">ಚಂದಾದಾರಿಕೆ ನಿಲ್ಲಿಸಿ</string>
-  <string name="mentionedYouInX">ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ \"%1$s\".</string>
+  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">\"%1$s\" ರಲ್ಲಿ ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="xMentionedYouInY">%1$s ಅವರು ನಿಮ್ಮನ್ನು %2$s ನಲ್ಲಿ ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
