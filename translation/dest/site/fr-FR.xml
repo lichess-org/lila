@@ -887,6 +887,6 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="resignTheGame">Rejoindre la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
   <string name="since">Depuis</string>
-  <string name="lichessDbExplanation">Parties classées de tous les joueurs de Lichess</string>
+  <string name="lichessDbExplanation">Jeux classés pris au hasard parmi tous les joueurs de Lichess</string>
   <string name="switchSides">Tourner l\'échiquier</string>
 </resources>
