@@ -415,15 +415,15 @@ final class TournamentApi(
 
   private[tournament] def finishGame(game: Game): Funit =
     game.tournamentId ?? { tourId =>
-      Sequencing(tourId, "finishGame")(cached.tourCache.started) { tour =>
-        pairingRepo.finish(game) >>
+      pairingRepo.finish(game) >>
+        Sequencing(tourId, "finishGame")(cached.tourCache.started) { tour =>
           game.userIds.map(updatePlayer(tour, game.some)).sequenceFu.void >>- {
             duelStore.remove(game)
             socket.reload(tour.id)
             updateTournamentStanding(tour)
             withdrawNonMover(game)
           }
-      }
+        }
     }
 
   private[tournament] def sittingDetected(game: Game, player: User.ID): Funit =
