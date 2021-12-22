@@ -17,8 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Blancs</string>
   <string name="black">Noirs</string>
-  <string name="asWhite">en tant que blanc</string>
-  <string name="asBlack">en tant que noir</string>
+  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">avec les blancs</string>
+  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">avec les noirs</string>
   <string name="randomColor">Couleur aléatoire</string>
   <string name="createAGame">Créer une partie</string>
   <string name="whiteIsVictorious">Victoire des Blancs</string>
@@ -886,7 +886,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="abortTheGame">Annuler la partie</string>
   <string name="resignTheGame">Rejoindre la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
-  <string name="since">Depuis</string>
-  <string name="lichessDbExplanation">Jeux classés pris au hasard parmi tous les joueurs de Lichess</string>
-  <string name="switchSides">Tourner l\'échiquier</string>
+  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Depuis</string>
+  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Parties classées prises au hasard parmi tous les joueurs de Lichess</string>
+  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Tourner l\'échiquier</string>
 </resources>
