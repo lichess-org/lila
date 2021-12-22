@@ -21,10 +21,11 @@ final class Tournament(
     mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
-  private def repo     = env.tournament.tournamentRepo
-  private def api      = env.tournament.api
-  private def jsonView = env.tournament.jsonView
-  private def forms    = env.tournament.forms
+  private def repo       = env.tournament.tournamentRepo
+  private def api        = env.tournament.api
+  private def jsonView   = env.tournament.jsonView
+  private def forms      = env.tournament.forms
+  private def cachedTour = env.tournament.cached.tourCache byId _
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
@@ -88,7 +89,7 @@ final class Tournament(
   def show(id: String) =
     Open { implicit ctx =>
       val page = getInt("page")
-      repo byId id flatMap { tourOption =>
+      cachedTour(id) flatMap { tourOption =>
         def loadChat(tour: Tour, json: JsObject) =
           canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
             .findMine(lila.chat.Chat.Id(tour.id), ctx.me)
@@ -150,7 +151,7 @@ final class Tournament(
 
   def standing(id: String, page: Int) =
     Open { implicit ctx =>
-      OptionFuResult(repo byId id) { tour =>
+      OptionFuResult(cachedTour(id)) { tour =>
         JsonOk {
           env.tournament.standingApi(tour, page)
         }
@@ -159,7 +160,7 @@ final class Tournament(
 
   def pageOf(id: String, userId: String) =
     Open { implicit ctx =>
-      OptionFuResult(repo byId id) { tour =>
+      OptionFuResult(cachedTour(id)) { tour =>
         api.pageOf(tour, UserModel normalize userId) flatMap {
           _ ?? { page =>
             JsonOk {
@@ -172,7 +173,7 @@ final class Tournament(
 
   def player(tourId: String, userId: String) =
     Action.async {
-      repo byId tourId flatMap {
+      cachedTour(tourId) flatMap {
         _ ?? { tour =>
           JsonOk {
             api.playerInfo(tour, userId) flatMap {
@@ -185,7 +186,7 @@ final class Tournament(
 
   def teamInfo(tourId: String, teamId: TeamID) =
     Open { implicit ctx =>
-      repo byId tourId flatMap {
+      cachedTour(tourId) flatMap {
         _ ?? { tour =>
           env.team.teamRepo mini teamId flatMap {
             _ ?? { team =>
@@ -264,7 +265,7 @@ final class Tournament(
 
   def pause(id: String) =
     Auth { implicit ctx => me =>
-      OptionResult(repo byId id) { tour =>
+      OptionResult(cachedTour(id)) { tour =>
         api.selfPause(tour.id, me.id)
         if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
         else Redirect(routes.Tournament.show(tour.id))
@@ -273,7 +274,7 @@ final class Tournament(
 
   def apiWithdraw(id: String) =
     ScopedBody(_.Tournament.Write) { _ => me =>
-      repo byId id flatMap {
+      cachedTour(id) flatMap {
         _ ?? { tour =>
           api.selfPause(tour.id, me.id) inject jsonOkResult
         }
@@ -401,7 +402,7 @@ final class Tournament(
   def apiUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       implicit def lang = reqLang
-      repo byId id flatMap {
+      cachedTour(id) flatMap {
         _.filter(_.createdBy == me.id || isGranted(_.ManageTournament, me)) ?? { tour =>
           env.team.api.lightsByLeader(me.id) flatMap { teams =>
             forms
@@ -430,7 +431,7 @@ final class Tournament(
 
   def apiTerminate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
-      repo byId id flatMap {
+      cachedTour(id) flatMap {
         _ ?? {
           case tour if tour.createdBy == me.id || isGranted(_.ManageTournament, me) =>
             api
@@ -443,7 +444,7 @@ final class Tournament(
 
   def teamBattleEdit(id: String) =
     Auth { implicit ctx => me =>
-      repo byId id flatMap {
+      cachedTour(id) flatMap {
         _ ?? {
           case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
             tour.teamBattle ?? { battle =>
@@ -468,7 +469,7 @@ final class Tournament(
 
   def teamBattleUpdate(id: String) =
     AuthBody { implicit ctx => me =>
-      repo byId id flatMap {
+      cachedTour(id) flatMap {
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
@@ -488,7 +489,7 @@ final class Tournament(
   def apiTeamBattleUpdate(id: String) =
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       implicit def lang = reqLang
-      repo byId id flatMap {
+      cachedTour(id) flatMap {
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament, me)) && !tour.isFinished =>
             lila.tournament.TeamBattle.DataForm.empty
@@ -497,7 +498,7 @@ final class Tournament(
                 newJsonFormError,
                 res =>
                   api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
-                    repo byId tour.id map (_ | tour) flatMap { tour =>
+                    cachedTour(tour.id) map (_ | tour) flatMap { tour =>
                       jsonView(
                         tour,
                         none,
@@ -610,12 +611,10 @@ final class Tournament(
 
   def battleTeams(id: String) =
     Open { implicit ctx =>
-      repo byId id flatMap {
-        _ ?? { tour =>
-          tour.isTeamBattle ?? {
-            env.tournament.cached.battle.teamStanding.get(tour.id) map { standing =>
-              Ok(views.html.tournament.teamBattle.standing(tour, standing))
-            }
+      cachedTour(id) flatMap {
+        _.filter(_.isTeamBattle) ?? { tour =>
+          env.tournament.cached.battle.teamStanding.get(tour.id) map { standing =>
+            Ok(views.html.tournament.teamBattle.standing(tour, standing))
           }
         }
       }
@@ -624,7 +623,7 @@ final class Tournament(
   private def WithEditableTournament(id: String, me: UserModel)(
       f: Tour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    repo byId id flatMap {
+    cachedTour(id) flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
         f(t)
       case Some(t) => Redirect(routes.Tournament.show(t.id)).fuccess
