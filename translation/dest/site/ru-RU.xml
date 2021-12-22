@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Белые</string>
   <string name="black">Чёрные</string>
+  <string name="asWhite">за белых</string>
+  <string name="asBlack">за чёрных</string>
   <string name="randomColor">Случайный цвет</string>
   <string name="createAGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
@@ -958,4 +960,8 @@
   <string name="abortTheGame">Прервать игру</string>
   <string name="resignTheGame">Сдаться</string>
   <string name="youCantStartNewGame">Вы не можете начать новую игру, пока не завершена текущая.</string>
+  <string name="since">С</string>
+  <string name="until">До</string>
+  <string name="lichessDbExplanation">Рейтинговые игры по всем игрокам Lichess</string>
+  <string name="switchSides">Сменить сторону</string>
 </resources>
