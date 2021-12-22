@@ -129,6 +129,7 @@ final class Tournament(
                 for {
                   playerInfoExt <- get("playerInfo").?? { api.playerInfo(tour, _) }
                   socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
+                  partial = getBool("partial")
                   json <- jsonView(
                     tour = tour,
                     page = page,
@@ -137,9 +138,9 @@ final class Tournament(
                     getTeamName = env.team.getTeamName,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
-                    partial = getBool("partial")
+                    partial = partial
                   )
-                  chat <- loadChat(tour, json)
+                  chat <- !partial ?? loadChat(tour, json)
                 } yield Ok(json.add("chat" -> chat.map { c =>
                   lila.chat.JsonView.mobile(chat = c.chat)
                 }))
