@@ -153,7 +153,7 @@
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
   <string name="discussions">સંવાદો</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">આજે</string>
+  <string name="today">આજે</string>
   <string name="yesterday">ગઇકાલે</string>
   <string name="minutesPerSide">બાજુ દીઠ મિનિટ</string>
   <string name="variant">પ્રકાર</string>
