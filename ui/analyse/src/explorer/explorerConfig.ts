@@ -138,7 +138,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
-      h('label', 'Player'),
+      h('label', ctrl.root.trans('player')),
       h('div', [
         h(
           'div.choices',

@@ -173,7 +173,8 @@ object userAnalysisI18n {
     trans.since,
     trans.until,
     trans.switchSides,
-    trans.lichessDbExplanation
+    trans.lichessDbExplanation,
+    trans.player
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(

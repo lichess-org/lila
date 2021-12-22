@@ -346,7 +346,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           explorer.reload
         ),
       },
-      'Player'
+      explorer.root.trans('player')
     );
   const active = (nodes: MaybeVNodes, title: string) =>
     h(
