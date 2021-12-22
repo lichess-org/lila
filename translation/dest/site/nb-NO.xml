@@ -888,4 +888,6 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
   <string name="since">Siden</string>
   <string name="until">Til</string>
+  <string name="lichessDbExplanation">Ratede partier plukket fra alle Lichess-spillerne</string>
+  <string name="switchSides">Skift side</string>
 </resources>
