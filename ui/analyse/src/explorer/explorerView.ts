@@ -359,7 +359,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     );
   const playerName = explorer.config.data.playerName.value();
   const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021'),
-    lichessDbExplanation = 'Rated games sampled from all Lichess players';
+    lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
   return h('div.explorer-title', [
     db == 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
@@ -380,7 +380,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
                 ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
                 : undefined,
             ],
-            'Switch sides'
+            explorer.root.trans('switchSides')
           )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),

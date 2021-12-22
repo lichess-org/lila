@@ -171,8 +171,8 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
-      h('label', ['Since', yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-      h('label', ['Until', yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
+      h('label', [ctrl.root.trans.noarg('since'), yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+      h('label', [ctrl.root.trans.noarg('until'), yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
     ]),
   ]);
 
@@ -185,7 +185,7 @@ const radioButton =
         attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : '' + v
+      render ? render(v) : ctrl.root.trans.noarg('' + v)
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
@@ -274,8 +274,8 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
-    h('label', ['Since', monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
-    h('label', ['Until', monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
+    h('label', [ctrl.root.trans.noarg('since'), monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+    h('label', [ctrl.root.trans.noarg('until'), monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw)]),
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
