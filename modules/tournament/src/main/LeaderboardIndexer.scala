@@ -8,7 +8,6 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 
 final private class LeaderboardIndexer(
-    tournamentRepo: TournamentRepo,
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo

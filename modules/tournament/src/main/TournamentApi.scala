@@ -208,7 +208,11 @@ final class TournamentApi(
   private[tournament] def destroy(tour: Tournament): Funit =
     tournamentRepo.remove(tour).void >>
       pairingRepo.removeByTour(tour.id) >>
-      playerRepo.removeByTour(tour.id) >>- publish() >>- socket.reload(tour.id)
+      playerRepo.removeByTour(tour.id) >>- {
+        cached.tourCache.clear(tour.id)
+        publish()
+        socket.reload(tour.id)
+      }
 
   private[tournament] def finish(oldTour: Tournament): Funit =
     Sequencing(oldTour.id, "finish")(cached.tourCache.started) { tour =>
