@@ -163,7 +163,7 @@
   <string name="players">Jugadors</string>
   <string name="friends">Amics</string>
   <string name="discussions">Discussions</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Avui</string>
+  <string name="today">Avui</string>
   <string name="yesterday">Ahir</string>
   <string name="minutesPerSide">Minuts per jugador</string>
   <string name="variant">Variant</string>
@@ -435,9 +435,9 @@
   <string name="popularOpenings">Obertures populars</string>
   <string name="endgamePositions">Posicions dels finals</string>
   <string name="chess960StartPosition">Posició inicial de Chess960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Posició inicial</string>
+  <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Neteja el tauler</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Carrega la posició</string>
+  <string name="loadPosition">Carrega la posició</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Denuncia %s als moderadors</string>
   <string name="profileCompletion">Perfil completat: %s</string>
@@ -456,7 +456,7 @@
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>
   <string name="activePlayers">Jugadors actius</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Compte, la partida és puntuada però no hi ha rellotge!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Compte, la partida és puntuada però no hi ha rellotge!</string>
   <string name="success">Èxit</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partides en joc</item>
@@ -525,7 +525,7 @@
   <string name="onSlowGames">En els jocs lents</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s competeix a %2$s</string>
+  <string name="xCompetesInY">%1$s competeix a %2$s</string>
   <string name="victory">Victòria</string>
   <string name="defeat">Derrota</string>
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
@@ -560,10 +560,10 @@
   <string name="error.email_acceptable">Aquesta adreça de correu electrònic no és acceptable. Si us plau comprova-ho i intenta-ho de nou.</string>
   <string name="error.email_unique">Adreça de correu electrònic invàlida o ja en ús</string>
   <string name="error.email_different">Aquesta ja és la teva adreça de correu electrònic</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Com a mínim ha de tenir %s caràcters</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Com a màxim ha de tenir %s caràcters</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Ha de ser major o igual que %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Ha de ser menor o igual que %s</string>
+  <string name="error.minLength">Com a mínim ha de tenir %s caràcters</string>
+  <string name="error.maxLength">Com a màxim ha de tenir %s caràcters</string>
+  <string name="error.min">Ha de ser major o igual que %s</string>
+  <string name="error.max">Ha de ser menor o igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
   <string name="onlyExistingConversations">Només converses existents</string>
   <string name="onlyFriends">Només amics</string>
@@ -812,7 +812,7 @@
   <string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
   <string name="subscribe">Subscriure’s</string>
   <string name="unsubscribe">Anul·la subscripció</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">t\'ha mencionat en \"%1$s\".</string>
+  <string name="mentionedYouInX">t\'ha mencionat en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s t\'ha mencionat en \"%2$s\".</string>
   <string name="invitedYouToX">t\'ha invitat a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
