@@ -140,7 +140,7 @@
   <string name="players">Senarai pemain</string>
   <string name="friends">Senarai rakan</string>
   <string name="discussions">Senarai perbualan</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hari ini</string>
+  <string name="today">Hari ini</string>
   <string name="yesterday">Semalam</string>
   <string name="minutesPerSide">Minit bagi setiap bahagian</string>
   <string name="variant">Variasi</string>
@@ -352,7 +352,7 @@
   <string name="whiteWins">Buah putih menang</string>
   <string name="blackWins">Menang Hitam</string>
   <string name="draws">Seri</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Posisi permulaan</string>
+  <string name="startPosition">Posisi permulaan</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
