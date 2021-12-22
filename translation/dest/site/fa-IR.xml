@@ -17,6 +17,8 @@
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
   <string name="black">سیاه</string>
+  <string name="asWhite">به عنوان سفید</string>
+  <string name="asBlack">به عنوان سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
@@ -879,4 +881,7 @@
   <string name="abortTheGame">انصراف از بازی</string>
   <string name="resignTheGame">تسلیم</string>
   <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
+  <string name="since">از وقتی که</string>
+  <string name="until">تا وقتی که</string>
+  <string name="switchSides">تعویض سمت</string>
 </resources>
