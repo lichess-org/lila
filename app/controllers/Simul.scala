@@ -73,7 +73,7 @@ final class Simul(env: Env) extends LilaController(env) {
     }
 
   private[controllers] def canHaveChat(simul: Sim)(implicit ctx: Context): Boolean =
-    !ctx.kid &&                                   // no public chats for kids
+    ctx.noKid && ctx.noBot &&                     // no public chats for kids or bots
       ctx.me.fold(HTTPRequest.isHuman(ctx.req)) { // anon can see public chats
         env.chat.panic.allowed
       } && simul.team.fold(true) { teamId =>

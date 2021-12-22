@@ -337,7 +337,7 @@ final class Swiss(
     canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
-    (ctx.noKid && HTTPRequest.isHuman(ctx.req)) ?? {
+    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
       swiss.chatFor match {
         case ChatFor.NONE                  => fuFalse
         case _ if isGranted(_.ChatTimeout) => fuTrue
