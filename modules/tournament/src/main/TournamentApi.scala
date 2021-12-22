@@ -161,7 +161,7 @@ final class TournamentApi(
                       pairings
                         .map { pairing =>
                           pairingRepo.insert(pairing) >>
-                            autoPairing(tour, pairing, playersMap, ranking)
+                            autoPairing(tour, pairing, playersMap, ranking.ranking)
                               .mon(_.tournament.pairing.createAutoPairing)
                               .map {
                                 socket.startGame(tour.id, _)
@@ -169,7 +169,7 @@ final class TournamentApi(
                         }
                         .sequenceFu
                         .mon(_.tournament.pairing.createInserts) >>
-                        featureOneOf(tour, pairings, ranking)
+                        featureOneOf(tour, pairings, ranking.ranking)
                           .mon(_.tournament.pairing.createFeature) >>-
                         lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
                     }
@@ -353,7 +353,7 @@ final class TournamentApi(
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {
-      _ get userId map { rank =>
+      _.ranking get userId map { rank =>
         rank / 10 + 1
       }
     }
@@ -381,7 +381,7 @@ final class TournamentApi(
         for {
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
-            if (isPause) cached.ranking(tour).map { _ get userId exists (7 >) }
+            if (isPause) cached.ranking(tour).map { _.ranking get userId exists (7 >) }
             else
               fuccess(isStalling)
         } yield {
@@ -600,7 +600,7 @@ final class TournamentApi(
           game.blackPlayer.userId map { blackId =>
             cached ranking tour map { ranking =>
               import cats.implicits._
-              (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
+              (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)) mapN { (whiteR, blackR) =>
                 GameRanks(whiteR + 1, blackR + 1)
               }
             }

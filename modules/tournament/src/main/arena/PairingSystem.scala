@@ -21,12 +21,12 @@ final private[tournament] class PairingSystem(
   def createPairings(
       tour: Tournament,
       users: WaitingUsers,
-      ranking: Ranking
+      ranking: FullRanking
   ): Fu[Pairings] = {
     for {
       lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers <= 12) ?? playerRepo.countActive(tour.id).dmap(2 ==)
-      data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
+      data = Data(tour, lastOpponents, ranking.ranking, onlyTwoActivePlayers)
       preps    <- (lastOpponents.hash.isEmpty || users.haveWaitedEnough) ?? evenOrAll(data, users)
       pairings <- prepsToPairings(preps)
     } yield pairings

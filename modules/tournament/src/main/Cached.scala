@@ -47,9 +47,22 @@ final private[tournament] class Cached(
       .buildAsyncFuture(_ => tournamentRepo.onHomepage)
   }
 
-  def ranking(tour: Tournament): Fu[Ranking] =
+  def ranking(tour: Tournament): Fu[FullRanking] =
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
+
+  // only applies to ongoing tournaments
+  private val ongoingRanking = cacheApi[Tournament.ID, FullRanking](64, "tournament.ongoingRanking") {
+    _.expireAfterWrite(3 seconds)
+      .buildAsyncFuture(playerRepo.computeRanking)
+  }
+
+  // only applies to finished tournaments
+  private val finishedRanking = cacheApi[Tournament.ID, FullRanking](1024, "tournament.finishedRanking") {
+    _.expireAfterAccess(1 hour)
+      .maximumSize(2048)
+      .buildAsyncFuture(playerRepo.computeRanking)
+  }
 
   private[tournament] val teamInfo =
     cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
@@ -59,19 +72,6 @@ final private[tournament] class Cached(
           playerRepo.teamInfo(tourId, teamId) dmap some
         }
     }
-
-  // only applies to ongoing tournaments
-  private val ongoingRanking = cacheApi[Tournament.ID, Ranking](64, "tournament.ongoingRanking") {
-    _.expireAfterWrite(3 seconds)
-      .buildAsyncFuture(playerRepo.computeRanking)
-  }
-
-  // only applies to finished tournaments
-  private val finishedRanking = cacheApi[Tournament.ID, Ranking](1024, "tournament.finishedRanking") {
-    _.expireAfterAccess(1 hour)
-      .maximumSize(2048)
-      .buildAsyncFuture(playerRepo.computeRanking)
-  }
 
   object battle {
 

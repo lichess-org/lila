@@ -3,6 +3,7 @@ package lila.tournament
 import play.api.i18n.Lang
 
 import lila.hub.LightTeam.TeamID
+import lila.user.User
 
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
@@ -53,6 +54,8 @@ case class PlayerInfoExt(
     player: Player,
     recentPovs: List[lila.game.LightPov]
 )
+
+case class FullRanking(ranking: Map[User.ID, Int], userIndex: Array[User.ID])
 
 case class GameRanks(whiteRank: Int, blackRank: Int)
 

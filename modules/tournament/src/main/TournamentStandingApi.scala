@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import lila.common.WorkQueue
 import lila.memo.CacheApi._
+import lila.user.User
 
 /*
  * Getting a standing page of a tournament can be very expensive
@@ -29,12 +30,16 @@ final class TournamentStandingApi(
     parallelism = 6
   )
 
-  def apply(tour: Tournament, page: Int): Fu[JsObject] =
+  private val perPage = 10
+
+  def apply(tour: Tournament, forPage: Int): Fu[JsObject] = {
+    val page = forPage atLeast 1
     if (page == 1) first get tour.id
     else if (page > 50) {
       if (tour.isCreated) createdCache.get(tour.id -> page)
       else computeMaybe(tour.id, page)
     } else compute(tour, page)
+  }
 
   private val first = cacheApi[Tournament.ID, JsObject](64, "tournament.page.first") {
     _.expireAfterWrite(1 second)
@@ -69,9 +74,17 @@ final class TournamentStandingApi(
   private def compute(id: Tournament.ID, page: Int): Fu[JsObject] =
     cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page) }
 
+  private def userIdsOnPage(tour: Tournament, page: Int): Fu[List[User.ID]] =
+    cached.ranking(tour).map { ranking =>
+      ((page - 1) * perPage until page * perPage).toList.flatMap(ranking.userIndex.lift)
+    }
+
   private def compute(tour: Tournament, page: Int): Fu[JsObject] =
     for {
-      rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, 10, page atLeast 1)
+      rankedPlayers <- {
+        if (page < 10) playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
+        else userIdsOnPage(tour, page) flatMap { playerRepo.byUserIdsOnPage(tour.id, _, page) }
+      }
       sheets <-
         rankedPlayers
           .map { p =>

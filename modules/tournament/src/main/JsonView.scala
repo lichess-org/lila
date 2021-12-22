@@ -162,7 +162,7 @@ final class JsonView(
   // guess its rank based on other players scores in the DB
   private def getOrGuessRank(tour: Tournament, player: Player): Fu[Int] =
     cached ranking tour flatMap {
-      _ get player.userId match {
+      _.ranking get player.userId match {
         case Some(rank) => fuccess(rank)
         case None       => playerRepo.computeRankOf(player)
       }
@@ -190,7 +190,7 @@ final class JsonView(
             )
             .add("title" -> user.title)
             .add("performance" -> player.performanceOption)
-            .add("rank" -> ranking.get(user.id).map(1 +))
+            .add("rank" -> ranking.ranking.get(user.id).map(1 +))
             .add("provisional" -> player.provisional)
             .add("withdraw" -> player.withdraw)
             .add("team" -> player.team),
@@ -222,8 +222,8 @@ final class JsonView(
               playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map { pairOption =>
                 for {
                   (p1, p2) <- pairOption
-                  rp1      <- RankedPlayer(ranking)(p1)
-                  rp2      <- RankedPlayer(ranking)(p2)
+                  rp1      <- RankedPlayer(ranking.ranking)(p1)
+                  rp2      <- RankedPlayer(ranking.ranking)(p2)
                 } yield FeaturedGame(game, rp1, rp2)
               }
             }
