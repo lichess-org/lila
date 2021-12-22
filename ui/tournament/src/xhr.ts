@@ -1,11 +1,11 @@
-import throttle from 'common/throttle';
+import { throttlePromise } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 
 // when the tournament no longer exists
 const onFail = () => lichess.reload();
 
-export const join = throttle(1000, (ctrl: TournamentController, password?: string, team?: string) =>
+export const join = throttlePromise(1000, (ctrl: TournamentController, password?: string, team?: string) =>
   xhr
     .textRaw('/tournament/' + ctrl.data.id + '/join', {
       method: 'POST',
@@ -25,7 +25,7 @@ export const join = throttle(1000, (ctrl: TournamentController, password?: strin
     })
 );
 
-export const withdraw = throttle(1000, (ctrl: TournamentController) =>
+export const withdraw = throttlePromise(1000, (ctrl: TournamentController) =>
   xhr
     .text('/tournament/' + ctrl.data.id + '/withdraw', {
       method: 'POST',
@@ -33,7 +33,7 @@ export const withdraw = throttle(1000, (ctrl: TournamentController) =>
     .catch(onFail)
 );
 
-export const loadPage = throttle(1000, (ctrl: TournamentController, p: number, callback?: () => void) =>
+export const loadPage = throttlePromise(1000, (ctrl: TournamentController, p: number, callback?: () => void) =>
   xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
     callback?.();
@@ -44,7 +44,7 @@ export const loadPage = throttle(1000, (ctrl: TournamentController, p: number, c
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/page-of/${userId}`);
 
-export const reloadNow = (ctrl: TournamentController) =>
+export const reloadNow = (ctrl: TournamentController): Promise<void> =>
   xhr
     .json(
       xhr.url('/tournament/' + ctrl.data.id, {
@@ -58,7 +58,7 @@ export const reloadNow = (ctrl: TournamentController) =>
       ctrl.redraw();
     }, onFail);
 
-export const reloadSoon = throttle(4000, reloadNow);
+export const reloadSoon = throttlePromise(4000, reloadNow);
 
 export const playerInfo = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/player/${userId}`).then(data => {
