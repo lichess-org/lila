@@ -163,4 +163,5 @@
   <string name="back" comment="back&#10;&#10;As in 'return', in a study tutorial.">Retour</string>
   <string name="playAgain">Recommencer</string>
   <string name="whatWouldYouPlay">Quel coup joueriez-vous dans cette position ?</string>
+  <string name="youCompletedThisLesson">Félicitations! Vous avez terminé le cours.</string>
 </resources>
