@@ -848,4 +848,15 @@
   <string name="maximumWeeklyRating">जास्तीत जास्त आठवढ्यातील मूल्यांकन</string>
   <string name="onlyTitled">फक्त मानांकित खेळाडूंसाठी</string>
   <string name="onlyTitledHelp">स्पर्धेत भाग घेण्याकरिताअधिकृत मानांकन गरजेचे आहे</string>
+  <string name="positionInputHelp">खेळ हव्या असलेल्या जागेवरून सुरू करण्याकरिता योग्य FEN पेस्ट करा.
+ही प्रक्रिया फक्त प्रमाणित खेळास वापरता येईल, आणि भिन्नता असणाऱ्या खेळास नाही.
+आपण %s वापरून FEN जागा तयार करू शकता, नंतर ती इथे पेस्ट करावी.
+सर्वसामान्य जागेवरून खेळ चालू करण्यासाठी जागा मोकळ्या सोडाव्यात.</string>
+  <string name="cancelSimul">सिम्युलेशन बंद करा</string>
+  <string name="simulHostcolor">प्रत्येक खेळासाठी रंग होस्ट करा</string>
+  <string name="estimatedStart">अंदाजे सुरुवात वेळ</string>
+  <string name="simulFeatured">%s वरची वैशिष्ट्ये</string>
+  <string name="simulFeaturedHelp">आपले सिम्युलेशन सगळ्यांना %s वरती दाखवा.
+खाजगी सिम्युलेशन साठी बंद करा.</string>
+  <string name="simulDescription">सिम्युलेशन चे वर्णन</string>
 </resources>
