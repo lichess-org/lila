@@ -151,14 +151,13 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             name || selectText
           )
         ),
-        ' as ',
         h(
           'button.button-link.text.color',
           {
             attrs: dataIcon(''),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ctrl.data.color()
+          ctrl.data.color() == 'white' ? ' ' + ctrl.root.trans('asWhite') : ' ' + ctrl.root.trans('asBlack')
         ),
       ]),
     ]),

@@ -17,6 +17,8 @@
   <string name="stalemate">Stalemate</string>
   <string name="white">White</string>
   <string name="black">Black</string>
+  <string name="asWhite">as white</string>
+  <string name="asBlack">as black</string>
   <string name="randomColor">Random side</string>
   <string name="createAGame">Create a game</string>
   <string name="whiteIsVictorious">White is victorious</string>
