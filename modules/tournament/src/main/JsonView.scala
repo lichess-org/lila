@@ -243,7 +243,7 @@ final class JsonView(
     _.expireAfterWrite(1 second)
       .buildAsyncFuture { id =>
         for {
-          tour <- tournamentRepo byId id
+          tour <- cached.tourCache byId id
           duels = duelStore.bestRated(id, 6)
           jsonDuels <- duels.map(duelJson).sequenceFu
           duelTeams <- tour.exists(_.isTeamBattle) ?? {

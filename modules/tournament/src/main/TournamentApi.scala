@@ -99,28 +99,26 @@ final class TournamentApi(
     } inject tour
   }
 
-  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
-    val tour = postUpdate(old, data, data updateAll old, leaderTeams)
-    tournamentRepo update tour inject tour
-  }
+  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] =
+    updateTour(old, data, data updateAll old, leaderTeams)
 
-  def apiUpdate(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
-    val tour = postUpdate(old, data, data updatePresent old, leaderTeams)
-    tournamentRepo update tour inject tour
-  }
+  def apiUpdate(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] =
+    updateTour(old, data, data updatePresent old, leaderTeams)
 
-  private def postUpdate(
+  private def updateTour(
       old: Tournament,
       data: TournamentSetup,
       tour: Tournament,
       leaderTeams: List[LeaderTeam]
-  ) =
-    tour.copy(
+  ): Fu[Tournament] = {
+    val finalized = tour.copy(
       conditions = data.conditions
         .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
         .copy(teamMember = old.conditions.teamMember), // can't change that
       mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
     )
+    tournamentRepo.update(finalized) >>- cached.tourCache.clear(tour.id) inject finalized
+  }
 
   def teamBattleUpdate(
       tour: Tournament,
@@ -128,7 +126,8 @@ final class TournamentApi(
       filterExistingTeamIds: Set[TeamID] => Fu[Set[TeamID]]
   ): Funit =
     filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
-      tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
+      tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders)) >>-
+        cached.tourCache.clear(tour.id)
     }
 
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.TeamInfo]] =
