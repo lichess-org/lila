@@ -32,7 +32,7 @@ export function throttlePromise<T extends (...args: any) => Promise<any>>(
   callback: T
 ): (...args: Parameters<T>) => void {
   let lastComplete = 0;
-  let onFlight: boolean = false;
+  let inFlight: boolean = false;
   let lastPending: boolean | Timeout = false;
 
   return function (this: any, ...args: Parameters<T>): void {
@@ -41,16 +41,16 @@ export function throttlePromise<T extends (...args: any) => Promise<any>>(
 
     function exec() {
       lastPending = false;
-      onFlight = true;
+      inFlight = true;
       callback.apply(self, args).finally(() => {
-        onFlight = false;
+        inFlight = false;
         lastComplete = performance.now();
         if (lastPending === true) lastPending = setTimeout(exec, delay);
       });
     }
 
-    if (!onFlight && elapsed > delay) exec();
-    else if (onFlight) lastPending = true;
+    if (!inFlight && elapsed > delay) exec();
+    else if (inFlight) lastPending = true;
     else if (!lastPending) lastPending = setTimeout(exec, delay - elapsed);
   };
 }
