@@ -74,7 +74,7 @@
   <plurals name="nbToReplay">
     <item quantity="other">%s 다시 풀기</item>
   </plurals>
-  <string name="percentSolved" comment="percentSolved&#10;&#10;%s is a percentage, e.g. 90% solved from all the puzzles you have played.&#10;&#10;Please note %s is on a separate line.">%s 해결함</string>
+  <string name="percentSolved">%s 해결함</string>
   <string name="noPuzzlesToShow">표시할 것이 없습니다. 먼저 퍼즐을 플레이하세요!</string>
   <string name="improvementAreasDescription">실력을 높이기 위해 훈련하세요!</string>
   <string name="strengthDescription">이 테마에서 최고의 성적을 냈습니다</string>

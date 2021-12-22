@@ -12,7 +12,7 @@
   <string name="leaveTheStudy">ଅଧ୍ୟୟନ ଛାଡ଼ି ଦିଅନ୍ତୁ</string>
   <string name="pgnTags">PGN ଟ୍ୟାଗ୍</string>
   <string name="like">ପସନ୍ଦ କରନ୍ତୁ</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
+  <string name="unlike">ପସନ୍ଦ ହଟାନ୍ତୁ</string>
   <string name="shareAndExport">ଅଂଶୀଦାର ଓ ରପ୍ତାନି</string>
   <string name="studyPgn">ଅଧ୍ୟୟନର PGN</string>
   <string name="chapterPgn">ଅଧ୍ୟାୟର PGN</string>

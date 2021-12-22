@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Ahora eres un espectador</string>
   <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Me gusta</string>
-  <string name="unlike">A diferencia de</string>
+  <string name="unlike">No me gusta</string>
   <string name="newTag">Nueva etiqueta</string>
   <string name="commentThisPosition">Comentar esta posición</string>
   <string name="commentThisMove">Comentar este movimiento</string>
@@ -156,4 +156,12 @@
   <string name="nextChapter">Capítulo siguiente</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Acciones de estudio</string>
+  <string name="topics">Temas</string>
+  <string name="myTopics">Mis temas</string>
+  <string name="popularTopics">Temas populares</string>
+  <string name="manageTopics">Administrar temas</string>
+  <string name="back">Volver</string>
+  <string name="playAgain">Jugar de nuevo</string>
+  <string name="whatWouldYouPlay">¿Qué jugarías en esta posición?</string>
+  <string name="youCompletedThisLesson">¡Felicidades! Has completado esta lección.</string>
 </resources>

@@ -156,4 +156,12 @@
   <string name="nextChapter">Næste kapitel</string>
   <string name="prevChapter">Forrige kapitel</string>
   <string name="studyActions">Studiehandlinger</string>
+  <string name="topics">Emner</string>
+  <string name="myTopics">Mine emner</string>
+  <string name="popularTopics">Populære emner</string>
+  <string name="manageTopics">Administrér emner</string>
+  <string name="back">Tilbage</string>
+  <string name="playAgain">Spil igen</string>
+  <string name="whatWouldYouPlay">Hvad ville du spille i denne position?</string>
+  <string name="youCompletedThisLesson">Tillykke! Du har fuldført denne lektion.</string>
 </resources>

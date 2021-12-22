@@ -155,4 +155,12 @@
   <string name="nextChapter">فصل بعدی</string>
   <string name="prevChapter">فصل قبلی</string>
   <string name="studyActions">عملگرهای مطالعه</string>
+  <string name="topics">مباحث</string>
+  <string name="myTopics">مباحث من</string>
+  <string name="popularTopics">مباحث معروف</string>
+  <string name="manageTopics">مدیریت مباحث</string>
+  <string name="back">بازگشت</string>
+  <string name="playAgain">دوباره بازی کنید</string>
+  <string name="whatWouldYouPlay">شما در این موقعیت چه حرکتی می کنید؟</string>
+  <string name="youCompletedThisLesson">تبریک! شما این درس را کامل کردید.</string>
 </resources>

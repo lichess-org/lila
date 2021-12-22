@@ -152,7 +152,7 @@
   <string name="players">Хъазджытæ</string>
   <string name="friends">Æмбалтæ</string>
   <string name="discussions">Ныхæстæ</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Абон</string>
+  <string name="today">Абон</string>
   <string name="yesterday">Знон</string>
   <string name="minutesPerSide">Минутты партийæн</string>
   <string name="variant">Вариант</string>
@@ -420,9 +420,9 @@
   <string name="boardEditor">Фæйнæджы редактор</string>
   <string name="setTheBoard">Æрæвæрын позици</string>
   <string name="popularOpenings">Адæмы уарзон райдайæнтæ</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Райдайæн позици</string>
+  <string name="startPosition">Райдайæн позици</string>
   <string name="clearBoard">Фæйнæг асыгъдæг кæнын</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Позици бавгæнын</string>
+  <string name="loadPosition">Позици бавгæнын</string>
   <string name="isPrivate">Æхгæд</string>
   <string name="reportXToModerators">Фехъусын кæнын %s-ы тыххæй модератортæн</string>
   <string name="profileCompletion">Профилы дзагдзинад: %s</string>
@@ -440,7 +440,7 @@
   <string name="previouslyOnLichessTV">Раздæр Lichess TV-йы</string>
   <string name="onlinePlayers">Онлайн хъазджытæ</string>
   <string name="activePlayers">Разæнгард хъазджытæ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Хъус бадар, ацы хъазт у рейтингимæ, фæлæ нæй йын рæстæджы цæстдарды!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Хъус бадар, ацы хъазт у рейтингимæ, фæлæ нæй йын рæстæджы цæстдарды!</string>
   <string name="success">Рауади</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s парти</item>
@@ -509,7 +509,7 @@
   <string name="onSlowGames">Сындæг хъæзтыты</string>
   <string name="always">Æдзух</string>
   <string name="never">Никуы</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s сфæнд кодта %2$s-ы хайад исын</string>
+  <string name="xCompetesInY">%1$s сфæнд кодта %2$s-ы хайад исын</string>
   <string name="victory">Уæлахиз</string>
   <string name="defeat">Дæрæн</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>

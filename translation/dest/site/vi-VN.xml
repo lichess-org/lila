@@ -152,7 +152,7 @@
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
   <string name="discussions">Trò chuyện</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Hôm nay</string>
+  <string name="today">Hôm nay</string>
   <string name="yesterday">Hôm qua</string>
   <string name="minutesPerSide">Thời gian cho mỗi bên</string>
   <string name="variant">Biến thể</string>
@@ -402,9 +402,9 @@
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các vị trí trong tàn cuộc</string>
   <string name="chess960StartPosition">Thế cờ đầu cho Chess960: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Thế trận ban đầu</string>
+  <string name="startPosition">Thế trận ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Tải thế trận</string>
+  <string name="loadPosition">Tải thế trận</string>
   <string name="isPrivate">Riêng tư</string>
   <string name="reportXToModerators">Báo cáo %s tới quản trị viên</string>
   <string name="profileCompletion">Hoàn thành profile: %s</string>
@@ -423,7 +423,7 @@
   <string name="previouslyOnLichessTV">Kênh trước</string>
   <string name="onlinePlayers">Các kỳ thủ có mặt</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s trận đang chơi</item>
@@ -491,7 +491,7 @@
   <string name="onSlowGames">Trên cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s hoàn thành trong %2$s</string>
+  <string name="xCompetesInY">%1$s hoàn thành trong %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
   <string name="victoryVsYInZ">%1$s với %2$s trong %3$s</string>
@@ -762,7 +762,7 @@
   <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
   <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">đã đề cập đến bạn trong \"%1$s\".</string>
+  <string name="mentionedYouInX">đã đề cập đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã đề cập đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s đã mời bạn tham gia \"%2$s\".</string>

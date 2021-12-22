@@ -47,7 +47,7 @@
   <string name="youAreNowASpectator">Тепер ви глядач</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Подобається</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Не подобається</string>
+  <string name="unlike">Не подобається</string>
   <string name="newTag">Новий тег</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
   <string name="commentThisMove">Коментувати цей хід</string>
@@ -164,4 +164,8 @@
   <string name="nextChapter">Наступний розділ</string>
   <string name="prevChapter">Попередній розділ</string>
   <string name="studyActions">Команди дослідження</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Повернутись</string>
+  <string name="playAgain">Грати знову</string>
+  <string name="whatWouldYouPlay">Що б ви грали на цій позиції?</string>
+  <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>
 </resources>

@@ -160,4 +160,12 @@
   <string name="nextChapter">Capitolul următor</string>
   <string name="prevChapter">Capitolul precedent</string>
   <string name="studyActions">Acţiuni de studiu</string>
+  <string name="topics">Subiecte</string>
+  <string name="myTopics">Subiectele mele</string>
+  <string name="popularTopics">Subiecte populare</string>
+  <string name="manageTopics">Gestionează subiecte</string>
+  <string name="back">Înapoi</string>
+  <string name="playAgain">Joacă din nou</string>
+  <string name="whatWouldYouPlay">Ce ai juca în această poziție?</string>
+  <string name="youCompletedThisLesson">Felicitări! Ai terminat această lecție.</string>
 </resources>

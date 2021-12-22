@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
   <string name="pgnTags">Étiquettes PGN</string>
   <string name="like">Aimer</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">Je n’aime pas</string>
+  <string name="unlike">Je n’aime pas</string>
   <string name="newTag">Nouvelle étiquette</string>
   <string name="commentThisPosition">Commenter la position</string>
   <string name="commentThisMove">Commenter ce coup</string>
@@ -156,4 +156,12 @@
   <string name="nextChapter">Chapitre suivant</string>
   <string name="prevChapter">Chapitre précédent</string>
   <string name="studyActions">Options pour les études</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Thèmes</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Mes thèmes</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Thèmes populaires</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Gérer les thèmes</string>
+  <string name="back" comment="back&#10;&#10;As in 'return', in a study tutorial.">Retour</string>
+  <string name="playAgain">Recommencer</string>
+  <string name="whatWouldYouPlay">Quel coup joueriez-vous dans cette position ?</string>
+  <string name="youCompletedThisLesson">Félicitations! Vous avez terminé le cours.</string>
 </resources>
