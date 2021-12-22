@@ -859,4 +859,10 @@
   <string name="simulFeaturedHelp">आपले सिम्युलेशन सगळ्यांना %s वरती दाखवा.
 खाजगी सिम्युलेशन साठी बंद करा.</string>
   <string name="simulDescription">सिम्युलेशन चे वर्णन</string>
+  <string name="simulDescriptionHelp">सदस्यांना काही सांगावेसे वाटते काय?</string>
+  <string name="markdownAvailable">%s हे जास्त प्रगत मांडणी साठी उपलब्ध आहे.</string>
+  <string name="embedsAvailable">एम्बेड करण्यासाठी खेळाचा URL Paste करावा किंवा अभ्यासातील अध्यायाचा URL Paste करावा.</string>
+  <string name="inYourLocalTimezone">आपल्या स्थानिक वेळेप्रमाणे</string>
+  <string name="tournChat">स्पर्धेतील गप्पा</string>
+  <string name="noChat">Chat बंद</string>
 </resources>
