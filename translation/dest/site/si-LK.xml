@@ -155,7 +155,7 @@
   <string name="players">ක්‍රීඩකයන්</string>
   <string name="friends">යහළුවන්</string>
   <string name="discussions">සංවාද</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">අද</string>
+  <string name="today">අද</string>
   <string name="yesterday">ඊයේ</string>
   <string name="minutesPerSide">එක් පැත්තකට මිනිත්තු</string>
   <string name="variant">වර්ගය</string>
