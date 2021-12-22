@@ -374,9 +374,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
         ? active(
             [
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              explorer.config.data.color() == 'white'
-                ? ' ' + explorer.root.trans('asWhite')
-                : ' ' + explorer.root.trans('asBlack'),
+              ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
               explorer.isIndexing() && !explorer.config.data.open()
                 ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
                 : undefined,

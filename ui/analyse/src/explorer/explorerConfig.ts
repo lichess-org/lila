@@ -157,7 +157,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(''),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ctrl.data.color() == 'white' ? ' ' + ctrl.root.trans('asWhite') : ' ' + ctrl.root.trans('asBlack')
+          ' ' + ctrl.root.trans(ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack')
         ),
       ]),
     ]),
