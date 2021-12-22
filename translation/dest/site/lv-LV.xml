@@ -922,4 +922,8 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="abortTheGame">Atcelt spēli</string>
   <string name="resignTheGame">Padoties</string>
   <string name="youCantStartNewGame">Kamēr neesat pabeidzis šo spēli, nevarat sākt jaunu partiju.</string>
+  <string name="since">Kopš</string>
+  <string name="until">Līdz</string>
+  <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
+  <string name="switchSides">Mainīties ar pusēm</string>
 </resources>
