@@ -74,16 +74,16 @@ final class TournamentStandingApi(
   private def compute(id: Tournament.ID, page: Int): Fu[JsObject] =
     cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page) }
 
-  private def userIdsOnPage(tour: Tournament, page: Int): Fu[List[User.ID]] =
+  private def playerIdsOnPage(tour: Tournament, page: Int): Fu[List[User.ID]] =
     cached.ranking(tour).map { ranking =>
-      ((page - 1) * perPage until page * perPage).toList.flatMap(ranking.userIndex.lift)
+      ((page - 1) * perPage until page * perPage).toList.flatMap(ranking.playerIndex.lift)
     }
 
   private def compute(tour: Tournament, page: Int): Fu[JsObject] =
     for {
       rankedPlayers <- {
         if (page < 10) playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
-        else userIdsOnPage(tour, page) flatMap { playerRepo.byUserIdsOnPage(tour.id, _, page) }
+        else playerIdsOnPage(tour, page) flatMap { playerRepo.byPlayerIdsOnPage(tour.id, _, page) }
       }
       sheets <-
         rankedPlayers

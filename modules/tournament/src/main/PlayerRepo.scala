@@ -25,13 +25,13 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
 
   def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
 
-  private[tournament] def byUserIdsOnPage(
+  private[tournament] def byPlayerIdsOnPage(
       tourId: Tournament.ID,
-      userIds: List[User.ID],
+      playerIds: List[Player.ID],
       page: Int
   ): Fu[RankedPlayers] =
-    coll.find($doc("tid" -> tourId, "uid" $in userIds)).cursor[Player]().list() map { players =>
-      userIds.flatMap(id => players.find(_.userId == id)).zipWithIndex.map { case (player, index) =>
+    coll.find($inIds(playerIds)).cursor[Player]().list() map { players =>
+      playerIds.flatMap(id => players.find(_._id == id)).zipWithIndex.map { case (player, index) =>
         RankedPlayer((page - 1) * 10 + index + 1, player)
       }
     }
@@ -249,20 +249,28 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        List(Match(selectTour(tourId)), Sort(Descending("m")), Group(BSONNull)("uids" -> PushField("uid")))
+        List(
+          Match(selectTour(tourId)),
+          Sort(Descending("m")),
+          Group(BSONNull)(
+            "all" -> Push(
+              $doc("$concat" -> $arr("$_id", "$uid"))
+            )
+          )
+        )
       }
       .headOption
       .map {
-        _.flatMap(_.getAsOpt[BSONArray]("uids"))
-          .fold(FullRanking(Map.empty, Array.empty)) { uids =>
+        _.flatMap(_.getAsOpt[BSONArray]("all"))
+          .fold(FullRanking(Map.empty, Array.empty)) { all =>
             // mutable optimized implementation
-            val index   = new Array[User.ID](uids.size)
+            val index   = new Array[User.ID](all.size)
             val ranking = Map.newBuilder[User.ID, Int]
             var r       = 0
-            for (u <- uids.values) {
-              val uid = u.asInstanceOf[BSONString].value
-              index(r) = uid
-              ranking += (uid -> r)
+            for (u <- all.values) {
+              val both = u.asInstanceOf[BSONString].value
+              index(r) = both.take(8)
+              ranking += (both.drop(8) -> r)
               r = r + 1
             }
             FullRanking(ranking.result(), index)
