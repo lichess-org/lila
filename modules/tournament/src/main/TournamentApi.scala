@@ -380,7 +380,7 @@ final class TournamentApi(
     withdraw(tourId, userId, isPause = false, isStalling = true)
 
   private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean, isStalling: Boolean): Funit =
-    Sequencing(joinQueue)(tourId, "withdraw")(cached.tourCache.enterable) {
+    Sequencing(mainQueue)(tourId, "withdraw")(cached.tourCache.enterable) {
       case tour if tour.isCreated =>
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- {
           socket.reload(tour.id)
