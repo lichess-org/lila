@@ -34,37 +34,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 
-  def byIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
-    coll.list[Tournament]($inIds(ids))
-
-  def byOrderedIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
-    coll.byOrderedIds[Tournament, Tournament.ID](ids, readPreference = ReadPreference.secondaryPreferred)(
-      _.id
-    )
-
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
 
-  def byIdAndPlayerId(id: Tournament.ID, userId: User.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ $doc("players.id" -> userId))
-
-  def createdById(id: Tournament.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ createdSelect)
-
-  def enterableById(id: Tournament.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ enterableSelect)
-
-  def startedById(id: Tournament.ID): Fu[Option[Tournament]] =
-    coll.one[Tournament]($id(id) ++ startedSelect)
-
   def finishedById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ finishedSelect)
-
-  def startedOrFinishedById(id: Tournament.ID): Fu[Option[Tournament]] =
-    byId(id) map { _ filterNot (_.isCreated) }
-
-  def createdByIdAndCreator(id: Tournament.ID, userId: User.ID): Fu[Option[Tournament]] =
-    createdById(id) map (_ filter (_.createdBy == userId))
 
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
@@ -73,9 +47,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def startedCursor =
     coll.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
-
-  def startedIds: Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
 
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](
@@ -149,9 +120,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
-
-  def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
-    coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
   def byTeamCursor(teamId: TeamID) =
     coll
@@ -372,8 +340,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.insert(ordered = false).many(tours).void
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))
-
-  def exists(id: Tournament.ID) = coll exists $id(id)
 
   def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
     coll
