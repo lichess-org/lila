@@ -13,7 +13,6 @@ import lila.memo.CacheApi._
  * overloading mongodb.
  */
 final class TournamentStandingApi(
-    tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     cached: Cached,
     cacheApi: lila.memo.CacheApi,
@@ -68,7 +67,7 @@ final class TournamentStandingApi(
     }
 
   private def compute(id: Tournament.ID, page: Int): Fu[JsObject] =
-    tournamentRepo byId id orFail s"No such tournament: $id" flatMap { compute(_, page) }
+    cached.tourCache.byId(id) orFail s"No such tournament: $id" flatMap { compute(_, page) }
 
   private def compute(tour: Tournament, page: Int): Fu[JsObject] =
     for {
