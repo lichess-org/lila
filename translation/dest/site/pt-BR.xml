@@ -887,4 +887,6 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="youCantStartNewGame">Você não pode iniciar um novo jogo até que este acabe.</string>
   <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Desde</string>
   <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Até</string>
+  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
+  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Trocar de lado</string>
 </resources>
