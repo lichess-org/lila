@@ -39,4 +39,18 @@
   <string name="hardest">सर्वात अवघड</string>
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">अजून एक विषय वाढवा</string>
+  <string name="jumpToNextPuzzleImmediately">लगेच पुढचे कोडे सुरू करा</string>
+  <string name="puzzleDashboard">कोड्यांचा dashboard</string>
+  <string name="improvementAreas">सुधारण्याचे क्षेत्र</string>
+  <string name="strengths">शक्ति</string>
+  <string name="history">कोड्यांचा इतिहास</string>
+  <string name="solved">सोडवलेले</string>
+  <string name="failed">अयशस्वी झालेले</string>
+  <string name="streakDescription">उत्तरोत्तर अवघड कोडी सोडवत चला आणि जिंकण्याची मालिका तयार करत चला. इथे वेळ मोजला जाणार नाही, त्यामुळे हवा तेवढा वेळ वापरा. एक चुकीची चाल खेळा आणि खेळ संपून जाईल! पण आपण प्रत्येक सत्रामध्ये एक चाल सोडून देऊ शकता.</string>
+  <string name="yourStreakX">तुमची मालिका: %s</string>
+  <string name="streakSkipExplanation">तुमची मालिका टिकवण्यासाठी ही चाल सोडून द्या! हे फक्त एकदाच काम करू शकेल.</string>
+  <string name="continueTheStreak">मालिका चालू ठेवा</string>
+  <string name="newStreak">नवीन मालिका</string>
+  <string name="fromMyGames">माझ्या खेळांमधून</string>
+  <string name="lookupOfPlayer">एखाद्या खेळाडूच्या खेळांमधून कोडी शोधून काढा</string>
 </resources>
