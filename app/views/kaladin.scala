@@ -69,8 +69,8 @@ object kaladin {
                     }
                   },
                   entry.response.fold(td) { res =>
-                    td(cls := s"little activation ${predClass(res.pred)}")(
-                      strong(res.pred)
+                    td(cls := s"little activation ${predClass(res.pred.activation)}")(
+                      strong(res.pred.activation)
                     )
                   }
                 )
