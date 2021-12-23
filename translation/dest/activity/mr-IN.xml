@@ -6,6 +6,10 @@
     <item quantity="one">%s कोडे सोडवले</item>
     <item quantity="other">%s कोडी सोडवली</item>
   </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s नवीन अनुयायी मिळवला</item>
+    <item quantity="other">%s नवीन अनुयायी मिळवले</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">\"%s नवीन अभ्यास बनवलॆ.\"</item>
     <item quantity="other">\"%s नवीन अभ्यास बनवलॆ.\"</item>
