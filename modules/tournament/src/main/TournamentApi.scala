@@ -496,7 +496,7 @@ final class TournamentApi(
   private[tournament] def kickFromTeam(teamId: TeamID, userId: User.ID): Funit =
     tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam") flatMap {
       _.map { tourId =>
-        Sequencing(joinQueue)(tourId, "kickFromTeam")(tournamentRepo.byId) { tour =>
+        Sequencing(mainQueue)(tourId, "kickFromTeam")(tournamentRepo.byId) { tour =>
           val fu =
             if (tour.isCreated) playerRepo.remove(tour.id, userId)
             else playerRepo.withdraw(tour.id, userId)
