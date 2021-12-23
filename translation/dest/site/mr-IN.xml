@@ -869,4 +869,7 @@
   <string name="onlyTeamMembers">फक्त संघातील सदस्य</string>
   <string name="navigateMoveTree">पुढच्या चाली बघा</string>
   <string name="mouseTricks">Mouse ची युक्ती</string>
+  <string name="toggleLocalAnalysis">स्थानिक संगणकाचे विश्लेषण बदला</string>
+  <string name="toggleAllAnalysis">संगणकाचे सर्व विश्लेषण बदला</string>
+  <string name="playComputerMove">संगणकाची सर्वोत्तम चाल खेळा</string>
 </resources>
