@@ -150,6 +150,7 @@
   <string name="youCannotCastleIfAttacked">तुम्ही कॅसलिंग करू शकत नाही जर 
 जर राज्याच्या मार्गात हल्ला झाला आहे.
 आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
+  <string name="findAWayToCastleKingSide">राजाच्या बाजूला किल्लेकोट!</string>
   <string name="enPassant">इन पासंट</string>
   <string name="theSpecialPawnMove">प्याद्याची विशेष चाल</string>
   <string name="stalemate">अर्धवट मात</string>
