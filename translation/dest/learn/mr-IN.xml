@@ -172,6 +172,26 @@
   <string name="advanced">प्रगत</string>
   <string name="pieceValue">सोंगट्यांचे मूल्य</string>
   <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तिचे मूल्यमापन करा</string>
+  <string name="pieceValueIntro">सोंगट्यांच्या हालचाली प्रमाणे त्यांना जास्त किंमत असते!
+वजीर = 9
+हत्ती = 5
+उंट = 3
+घोडा = 3
+प्यादे = 1
+राजा अनमोल आहे! राजा गमावला म्हणजे खेळ हरला.</string>
+  <string name="queenOverBishop">सर्वाधिक किंमतीप्रमाणे सोंगटी मारा!
+वजीर &gt; उंट</string>
+  <string name="pieceValueExchange">सोंगटी सर्वाधिक किंमतीने मारा!
+जास्त किंमतीच्या सोंगटी साठी कमी किंमतीच्या सोंगटीची देवाणघेवाण करू नका.</string>
+  <string name="pieceValueLegal">सोंगटी सर्वाधिक किंमतीने मारा!
+पण चाल वैध आहे याची खात्री करा!</string>
+  <string name="takeThePieceWithTheHighestValue">सोंगटी सर्वाधिक किंमतीने मारा!</string>
+  <string name="pieceValueComplete">अभिनंदन! आता तुम्हाला सोंगट्यांची किंमत समजली आहे!
+वजीर = 9
+हत्ती = 5
+उंट = 3
+घोडा = 3
+प्यादे = 1</string>
   <string name="checkInTwo">दोन चालीमध्ये शह</string>
   <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
   <string name="checkInTwoGoal">प्रतिस्पर्ध्याच्या राजाला दोन चालीमध्ये धमकवा!</string>
