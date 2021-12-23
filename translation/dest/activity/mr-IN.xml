@@ -2,9 +2,29 @@
 <resources>
   <string name="activity">सक्रियता</string>
   <string name="hostedALiveStream">एक थेट प्रक्षेपण होस्ट करत आहे</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Lichess.org ला %2$s यांनी %1$s महिन्यासाठी सहकार्य केले</item>
+    <item quantity="other">Lichess.org ला %2$s यांनी %1$s महिन्यांसाठी सहकार्य केले</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">%2$s या स्थितीचा %1$s वेळ सराव केला</item>
+    <item quantity="other">%2$s या स्थितीचा %1$s वेळ सराव केला</item>
+  </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s कोडे सोडवले</item>
     <item quantity="other">%s कोडी सोडवली</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%2$s प्रकार %1$s वेळ खेळला</item>
+    <item quantity="other">%2$s प्रकार %1$s वेळा खेळला</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%2$s या फोरम मध्ये %1$s वेळ लिहिले</item>
+    <item quantity="other">%2$s या फोरम मध्ये %1$s वेळा लिहिले</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s वेळ चाल खेळले</item>
+    <item quantity="other">%1$s वेळा चाल खेळले</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">%s नवीन अनुयायी मिळवला</item>
