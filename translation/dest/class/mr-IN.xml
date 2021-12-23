@@ -3,6 +3,9 @@
   <string name="lichessClasses">शिकवणी</string>
   <string name="teachClassesOfChessStudents">Lichess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
   <string name="features">वैशिष्ट्ये</string>
+  <string name="quicklyGenerateSafeUsernames">विद्यार्थ्यांसाठी त्वरीत सुरक्षित वापरकर्तानाव आणि पासवर्ड तयार करा</string>
+  <string name="trackStudentProgress">खेळ आणि कोड्यांमध्ये विद्यार्थ्यांच्या प्रगतीचा मोगावा घ्या</string>
+  <string name="messageAllStudents">नवीन वर्ग सामग्रीबद्दल सर्व विद्यार्थ्यांना संदेश द्या</string>
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नविन शिकवणी</string>
   <string name="closeClass">शिकवणी संपली</string>
