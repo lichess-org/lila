@@ -51,7 +51,7 @@ object kaladin {
                 th("Queued"),
                 th("Started"),
                 th("Completed"),
-                th("Owner"),
+                th("Requester"),
                 th("Score")
               )
             ),
