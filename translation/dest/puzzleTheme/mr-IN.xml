@@ -27,4 +27,10 @@
   <string name="doubleBishopMate">दोन उंटाचा मात</string>
   <string name="doubleBishopMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
   <string name="dovetailMate">डवटेल मात</string>
+  <string name="dovetailMateDescription">वजीर जवळच्या राजाला मात देतो, जिथे राजाला सुटकेसाठी फक्त दोन उपलब्ध घरे त्याच्याच सोंगट्यांनी अडवली आहेत.</string>
+  <string name="equality">समानता</string>
+  <string name="equalityDescription">एखाद्या हारणाऱ्या स्थितीतून परत येणे, जिथे खेळाचा निर्णय अनिर्णित सुरक्षित करता येईल, अथवा संतुलित स्थिति आंत येईल. (मूल्यांकन ≤ 200cp)</string>
+  <string name="kingsideAttack">राजाच्या बाजुचा हल्ला</string>
+  <string name="kingsideAttackDescription">विरोधकाच्या राजाने किल्लेकोट केल्यावर त्याच राजाच्या बाजुने हल्ला चढवणे.</string>
+  <string name="clearance">जागा मोकळी करणे</string>
 </resources>
