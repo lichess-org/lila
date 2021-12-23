@@ -194,11 +194,17 @@
 प्यादे = 1</string>
   <string name="checkInTwo">दोन चालीमध्ये शह</string>
   <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
+  <string name="checkInTwoIntro">2 चालींचे योग्य संयोजन शोधा जे विरोधकाच्या राजाला मात देऊ शकतील!</string>
   <string name="checkInTwoGoal">प्रतिस्पर्ध्याच्या राजाला दोन चालीमध्ये धमकवा!</string>
+  <string name="checkInTwoComplete">अभिनंदन! तुम्ही विरोधकाला मात दिली, त्यांना राजाचा बचाव करणे भाग पडले आहे!</string>
   <string name="whatNext">पुढे काय?</string>
+  <string name="youKnowHowToPlayChess">तुम्हाला बुद्धिबळ कसे खेळायचे ते समजले आहे, अभिनंदन! तुम्हाला अजून मजबूत खेळाडू व्ह्यायचे आहे का?</string>
   <string name="register">सदस्य खाते तयार करा</string>
+  <string name="getAFreeLichessAccount">फुकट lichess खाते घ्या</string>
   <string name="practice">सराव</string>
+  <string name="learnCommonChessPositions">बुद्धिबळाच्या सामान्य स्थिति शिका</string>
   <string name="puzzles">कोडी</string>
+  <string name="exerciseYourTacticalSkills">तुमच्या डावपेच कौशल्याचा सराव करा</string>
   <string name="videos">व्हिडिओ</string>
   <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धीबळ व्हिडिओ पहा</string>
   <string name="playPeople">लोकांसोबत खेळा</string>
@@ -212,6 +218,7 @@
   <string name="greatJob">मस्तच!</string>
   <string name="perfect">अतिशय छान!</string>
   <string name="outstanding">एकदम छान!</string>
+  <string name="wayToGo">चांगले चालले आहे!</string>
   <string name="yesYesYes">बरोबर!</string>
   <string name="youreGoodAtThis">तुम्ही यात उत्तम आहात!</string>
   <string name="nailedIt">पूर्ण करा.</string>
