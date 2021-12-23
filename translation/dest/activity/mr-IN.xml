@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="activity">सक्रियता</string>
+  <string name="hostedALiveStream">एक थेट प्रक्षेपण होस्ट करत आहे</string>
   <plurals name="createdNbStudies">
     <item quantity="one">\"%s नवीन अभ्यास बनवलॆ.\"</item>
     <item quantity="other">\"%s नवीन अभ्यास बनवलॆ.\"</item>
