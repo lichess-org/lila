@@ -26,6 +26,8 @@
   <string name="currentStreak">Текуща поредица: %s</string>
   <string name="bestRated">Най-добри победи в игри с рейтинг</string>
   <string name="worstRated">Най-тежки загуби в игри с рейтинг</string>
+  <string name="gamesInARow">Изиграни игри подред</string>
+  <string name="lessThanOneHour">По-малко от час между игри</string>
   <string name="maxTimePlaying">Най-дълго време прекарано в игра</string>
   <string name="now">сега</string>
 </resources>
