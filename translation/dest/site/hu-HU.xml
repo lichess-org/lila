@@ -99,6 +99,7 @@
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
   <string name="winOr50MovesByPriorMistake">Győzelem, vagy 50 lépéses szabály korábbi hiba alapján</string>
   <string name="lossOr50MovesByPriorMistake">Vereség, vagy 50 lépéses szabály korábbi hiba alapján</string>
+  <string name="unknownDueToRounding">Győzelem/vereség csak akkor garantált, ha az adatbázis által ajánlott lépéssort követték az utolsó ütés vagy gyaloglépés óta, a Syzygy tábla DTZ értékeinek lehetséges kerekítései miatt.</string>
   <string name="allSet">Mehet!</string>
   <string name="importPgn">PGN importálás</string>
   <string name="delete">Töröl</string>
