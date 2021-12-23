@@ -32,7 +32,7 @@ export function throttlePromise<T extends (...args: any) => Promise<any>>(
   callback: T
 ): (...args: Parameters<T>) => void {
   let lastComplete = 0;
-  let inFlight: boolean = false;
+  let inFlight = false;
   let lastPending: boolean | Timeout = false;
 
   return function (this: any, ...args: Parameters<T>): void {
