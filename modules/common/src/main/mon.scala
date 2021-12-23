@@ -337,13 +337,6 @@ object mon {
       def twitch             = future("tv.streamer.twitch")
     }
   }
-  object crosstable {
-    val create                      = future("crosstable.create.time")
-    def createOffer(result: String) = counter("crosstable.create.offer").withTag("result", result)
-    val duplicate                   = counter("crosstable.create.duplicate").withoutTags()
-    val found                       = counter("crosstable.create.found").withoutTags()
-    val createNbGames               = histogram("crosstable.create.nbGames").withoutTags()
-  }
   object playTime {
     val create         = future("playTime.create.time")
     val createPlayTime = histogram("playTime.create.playTime").withoutTags()
