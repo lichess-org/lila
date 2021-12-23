@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">पुढे गेलेले प्यादे</string>
+  <string name="advancedPawnDescription">तुमचे एखादे प्यादे विरोधकाच्या स्थितीमध्ये खूप आत गेले आहे, बहुधा बढती करायची धमकी देत आहे.</string>
+  <string name="advantage">फायदा</string>
+  <string name="advantageDescription">निर्णायक फायद्याने संधीचे सोने करून घ्या (200 cp ≤ मूल्यांकन ≤ 600cp)</string>
+</resources>
