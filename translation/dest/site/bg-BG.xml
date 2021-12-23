@@ -89,6 +89,7 @@
     <item quantity="one">Мат в %s полуход</item>
     <item quantity="other">Мат в %s полухода</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' със закръгляне, базирано на броя полуходове до следващото вземане на фигура или преместване на пешка</string>
   <string name="noGameFound">Няма намерени игри</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
@@ -96,6 +97,9 @@
   <string name="xOpeningExplorer">%s датабаза</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="lossSavedBy50MoveRule">Загубата е преодоляна от правилото за 50 хода</string>
+  <string name="winOr50MovesByPriorMistake">Победа или 50 хода заради грешка</string>
+  <string name="lossOr50MovesByPriorMistake">Загуба или 50 хода заради грешка</string>
+  <string name="unknownDueToRounding">Победа/загуба е гарантирана само ако е следвана препоръчваната вариация от последното вземане на фигура или преместване на пешка, поради възможното закръгляне на оставащите ходове до петдесетходовото правила в Syzygy ендшпил базата.</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Въведи PGN</string>
   <string name="delete">Изтрий</string>
