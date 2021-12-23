@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Опонентът има малко възможни ходове и всеки един от тях води до влошаване на положението му.</string>
   <string name="healthyMix">От всичко по малко</string>
   <string name="healthyMixDescription">По малко от всичко. Не знаете какво да очаквате, така че бъдете готови за всичко! Точно като в истинските игри.</string>
+  <string name="playerGames">Партии на играча</string>
+  <string name="playerGamesDescription">Разгледайте пъзели генерирани от вашите игри, или игрите на други играчи.</string>
+  <string name="puzzleDownloadInformation">Тези пъзели са публични и могат да бъдат изтеглени от %s.</string>
 </resources>
