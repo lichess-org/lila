@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Hvit</string>
   <string name="black">Sort</string>
+  <string name="asWhite">som hvit</string>
+  <string name="asBlack">som svart</string>
   <string name="randomColor">Tilfeldig side</string>
   <string name="createAGame">Start et parti</string>
   <string name="whiteIsVictorious">Hvit har vunnet</string>
@@ -884,4 +886,8 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gi opp partiet</string>
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
+  <string name="since">Siden</string>
+  <string name="until">Til</string>
+  <string name="lichessDbExplanation">Ratede partier plukket fra alle Lichess-spillerne</string>
+  <string name="switchSides">Skift side</string>
 </resources>

@@ -17,6 +17,8 @@
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
   <string name="black">Negras</string>
+  <string name="asWhite">de brancas</string>
+  <string name="asBlack">de negras</string>
   <string name="randomColor">Cor aleatoria</string>
   <string name="createAGame">Crear unha partida</string>
   <string name="whiteIsVictorious">As brancas gañan</string>
@@ -884,4 +886,8 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="abortTheGame">Abortar partida</string>
   <string name="resignTheGame">Abandoar partida</string>
   <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
+  <string name="since">Desde</string>
+  <string name="until">Ata</string>
+  <string name="lichessDbExplanation">Partidas por puntos de todos os xogadores/as de Lichess</string>
+  <string name="switchSides">Cambiar de lado</string>
 </resources>

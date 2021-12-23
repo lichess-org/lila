@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Білі</string>
   <string name="black">Чорні</string>
+  <string name="asWhite">за бiлих</string>
+  <string name="asBlack">за чорних</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
   <string name="whiteIsVictorious">Білі перемогли</string>
@@ -91,6 +93,7 @@
     <item quantity="many">Мат в %s напівходів</item>
     <item quantity="other">Мат у %s напівходів</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' при округленні в залежності від кількості напівходів, доки не почнеться наступне захоплення або хiд пiшаком</string>
   <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
@@ -98,6 +101,8 @@
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
+  <string name="winOr50MovesByPriorMistake">Перемога або 50 ходiв за попередньою помилкою</string>
+  <string name="lossOr50MovesByPriorMistake">Програш або 50 ходiв за попередньою помилкою</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Імпорт PGN</string>
   <string name="delete">Видалити</string>
@@ -957,4 +962,8 @@
   <string name="abortTheGame">Скасувати гру</string>
   <string name="resignTheGame">Здатися</string>
   <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
+  <string name="since">Від</string>
+  <string name="until">До</string>
+  <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
+  <string name="switchSides">Змінити сторону</string>
 </resources>

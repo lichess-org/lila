@@ -338,6 +338,8 @@
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>
   <string name="unfollow">팔로우 취소</string>
+  <string name="followX">%s 팔로우하기</string>
+  <string name="unfollowX">%s 팔로우 취소하기</string>
   <string name="block">차단</string>
   <string name="blocked">차단됨</string>
   <string name="unblock">차단 해제</string>

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">कोडी</string>
+  <string name="puzzleThemes">कोड्यांचे विषय</string>
+  <string name="recommended">शिफारस केलेले</string>
+  <string name="phases">टप्पे</string>
+  <string name="motifs">आकृतिबंध</string>
+  <string name="advanced">प्रगत</string>
+  <string name="lengths">लांबी</string>
+  <string name="mates">मात</string>
+  <string name="goals">लक्ष्य</string>
+  <string name="origin">मूळ</string>
+  <string name="specialMoves">विशिष्ट चाली</string>
+  <string name="didYouLikeThisPuzzle">आपल्याला हे कोडे आवडले का?</string>
 </resources>

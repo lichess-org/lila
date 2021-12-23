@@ -17,6 +17,8 @@
   <string name="stalemate">Ofegat</string>
   <string name="white">Blanques</string>
   <string name="black">Negres</string>
+  <string name="asWhite">amb blanques</string>
+  <string name="asBlack">amb negres</string>
   <string name="randomColor">Banda aleatòria</string>
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
@@ -884,4 +886,8 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="abortTheGame">Avortar el joc</string>
   <string name="resignTheGame">Rendir-se</string>
   <string name="youCantStartNewGame">No pots començar un joc nou fins que aquest acabi.</string>
+  <string name="since">Des de</string>
+  <string name="until">Fins a</string>
+  <string name="lichessDbExplanation">Mostra de partides puntuades de tots els jugadors de Lichess</string>
+  <string name="switchSides">Canviar de banda</string>
 </resources>

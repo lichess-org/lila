@@ -17,6 +17,8 @@
   <string name="stalemate">अर्धवट मात</string>
   <string name="white">पांढरा</string>
   <string name="black">काळा</string>
+  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">पांढऱ्या रंगासाठी</string>
+  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">काळ्या रंगासाठी</string>
   <string name="randomColor">एच्छिक बाजू</string>
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढऱ्याचा विजय झाला</string>
@@ -47,42 +49,42 @@
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
-  <string name="whiteDidntMove">पांढरा नाही खेळला</string>
+  <string name="whiteDidntMove">पांढरा खेळला नाही</string>
   <string name="blackDidntMove">काळा खेळला नाही</string>
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
-  <string name="computerAnalysisDisabled">संगणक विश्लेषण अक्षम आहे</string>
+  <string name="computerAnalysisDisabled">संगणक विश्लेषण बंद आहे</string>
   <string name="analysis">विश्लेषण मंच</string>
-  <string name="depthX">खोली %s</string>
-  <string name="usingServerAnalysis">संगणक विश्लेषण</string>
+  <string name="depthX">%s ची खोली</string>
+  <string name="usingServerAnalysis">संगणक विश्लेषणाच्या वापराने</string>
   <string name="loadingEngine">इंजिन लोड करीत आहे ...</string>
   <string name="cloudAnalysis">क्लाऊड संगणक विश्लेषण</string>
-  <string name="goDeeper">गहन विश्लेषण</string>
+  <string name="goDeeper">अजून गहन विश्लेषण</string>
   <string name="showThreat">धोका दाखवा</string>
   <string name="inLocalBrowser">स्थानिक ब्राउझरमध्ये</string>
   <string name="toggleLocalEvaluation">स्थानिक मूल्यमापन चालू / बंद</string>
-  <string name="promoteVariation">प्रकार प्रोत्साहित करा</string>
+  <string name="promoteVariation">भिन्नता प्रोत्साहित करा</string>
   <string name="makeMainLine">मुख्य लाइन बनवा</string>
   <string name="deleteFromHere">येथून हटवा</string>
-  <string name="forceVariation">प्रकार सक्तीची करा</string>
+  <string name="forceVariation">भिन्नता सक्तीची करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
   <string name="variantWin">प्रकार विजयी</string>
   <string name="insufficientMaterial">अपर्याप्त सोंगट्या</string>
-  <string name="pawnMove">प्याद्याच्या चाली</string>
+  <string name="pawnMove">प्याद्याची चाल</string>
   <string name="capture">ताब्यात घेतले</string>
   <string name="close">बंद</string>
   <string name="winning">जिंकणारा</string>
-  <string name="losing">तोट्याचा</string>
-  <string name="drawn">अनिर्णीत</string>
+  <string name="losing">हारणारा</string>
+  <string name="drawn">बरोबरी</string>
   <string name="unknown">अज्ञात</string>
   <string name="database">माहितीसंच</string>
   <string name="whiteDrawBlack">पांढरा / बरोबरी / काळा</string>
-  <string name="averageRatingX">सरासरी दर्जा: %s</string>
+  <string name="averageRatingX">सरासरी मानांकन: %s</string>
   <string name="recentGames">अलीकडचे खेळ</string>
-  <string name="topGames">शीर्ष खेळ</string>
-  <string name="masterDbExplanation">%2$s s ते %3$s पर्यंत %1$s FIDE- रेट केलेल्या खेळाडूंचे दोन दशलक्ष खेळ</string>
+  <string name="topGames">उत्तम खेळ</string>
+  <string name="masterDbExplanation">%2$s पासून %3$s पर्यंत %1$s आणि FIDE मानांकित खेळाडूंचे 20 लाख प्रत्यक्ष खेळ</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s अर्ध्याचालीत मात</item>
     <item quantity="other">%s अर्ध चालीत मात</item>
@@ -842,4 +844,51 @@
   <string name="onlyMembersOfTeam">फक्त टीमचे सदस्य</string>
   <string name="noRestriction">निर्बंध नाहीत</string>
   <string name="minimumRatedGames">किमान रेट केलेले खेळ</string>
+  <string name="minimumRating">कमीत कमी मूल्यांकन</string>
+  <string name="maximumWeeklyRating">जास्तीत जास्त आठवढ्यातील मूल्यांकन</string>
+  <string name="onlyTitled">फक्त मानांकित खेळाडूंसाठी</string>
+  <string name="onlyTitledHelp">स्पर्धेत भाग घेण्याकरिताअधिकृत मानांकन गरजेचे आहे</string>
+  <string name="positionInputHelp">खेळ हव्या असलेल्या जागेवरून सुरू करण्याकरिता योग्य FEN पेस्ट करा.
+ही प्रक्रिया फक्त प्रमाणित खेळास वापरता येईल, आणि भिन्नता असणाऱ्या खेळास नाही.
+आपण %s वापरून FEN जागा तयार करू शकता, नंतर ती इथे पेस्ट करावी.
+सर्वसामान्य जागेवरून खेळ चालू करण्यासाठी जागा मोकळ्या सोडाव्यात.</string>
+  <string name="cancelSimul">सिम्युलेशन बंद करा</string>
+  <string name="simulHostcolor">प्रत्येक खेळासाठी रंग होस्ट करा</string>
+  <string name="estimatedStart">अंदाजे सुरुवात वेळ</string>
+  <string name="simulFeatured">%s वरची वैशिष्ट्ये</string>
+  <string name="simulFeaturedHelp">आपले सिम्युलेशन सगळ्यांना %s वरती दाखवा.
+खाजगी सिम्युलेशन साठी बंद करा.</string>
+  <string name="simulDescription">सिम्युलेशन चे वर्णन</string>
+  <string name="simulDescriptionHelp">सदस्यांना काही सांगावेसे वाटते काय?</string>
+  <string name="markdownAvailable">%s हे जास्त प्रगत मांडणी साठी उपलब्ध आहे.</string>
+  <string name="embedsAvailable">एम्बेड करण्यासाठी खेळाचा URL Paste करावा किंवा अभ्यासातील अध्यायाचा URL Paste करावा.</string>
+  <string name="inYourLocalTimezone">आपल्या स्थानिक वेळेप्रमाणे</string>
+  <string name="tournChat">स्पर्धेतील गप्पा</string>
+  <string name="noChat">Chat बंद</string>
+  <string name="onlyTeamLeaders">फक्त संघ प्रमुख</string>
+  <string name="onlyTeamMembers">फक्त संघातील सदस्य</string>
+  <string name="navigateMoveTree">पुढच्या चाली बघा</string>
+  <string name="mouseTricks">Mouse ची युक्ती</string>
+  <string name="toggleLocalAnalysis">स्थानिक संगणकाचे विश्लेषण बदला</string>
+  <string name="toggleAllAnalysis">संगणकाचे सर्व विश्लेषण बदला</string>
+  <string name="playComputerMove">संगणकाची सर्वोत्तम चाल खेळा</string>
+  <string name="analysisOptions">विश्लेषण पर्याय</string>
+  <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
+  <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
+  <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
+  <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले असेल, पान आपले मत नंतर बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
+  <string name="onlyWorksOnce">ही प्रक्रिया एकदा कामी येईल.</string>
+  <string name="cantDoThisTwice">जर आपण आपले खाते दुसऱ्यांदा बंद केले, तर ते परत मिळवता येणार नाही.</string>
+  <string name="emailAssociatedToaccount">खात्याशी संबंधित ईमेल अॅड्रेस</string>
+  <string name="sentEmailWithLink">आम्ही आपल्याला लिंक सहित एक ईमेल पाठवला आहे.</string>
+  <string name="tournamentEntryCode">स्पर्धेचा प्रवेश संकेतशब्द</string>
+  <string name="hangOn">जरा थांबा!</string>
+  <string name="gameInProgress">आपला एक खेळ %s यांच्याबरोबर चालू आहे.</string>
+  <string name="abortTheGame">खेळ मध्येच थांबवा</string>
+  <string name="resignTheGame">खेळातून राजीनामा द्या</string>
+  <string name="youCantStartNewGame">आपण आत्ताचा खेळ संपवल्याशीवाय नवीन खेळ चालू करू शकत नाही.</string>
+  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">पासून</string>
+  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">पर्यन्त</string>
+  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
+  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">रंग बदला</string>
 </resources>

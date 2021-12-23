@@ -17,6 +17,8 @@
   <string name="stalemate">Stalemate</string>
   <string name="white">White</string>
   <string name="black">Black</string>
+  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">as white</string>
+  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">as black</string>
   <string name="randomColor">Random side</string>
   <string name="createAGame">Create a game</string>
   <string name="whiteIsVictorious">White is victorious</string>
@@ -885,4 +887,8 @@ Leave empty to start games from the normal initial position.</string>
   <string name="abortTheGame">Abort the game</string>
   <string name="resignTheGame">Resign the game</string>
   <string name="youCantStartNewGame">You can\'t start a new game until this one is finished.</string>
+  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Since</string>
+  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Until</string>
+  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Rated games sampled from all Lichess players</string>
+  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Switch sides</string>
 </resources>

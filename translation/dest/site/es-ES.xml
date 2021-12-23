@@ -17,6 +17,8 @@
   <string name="stalemate">Ahogado</string>
   <string name="white">Blancas</string>
   <string name="black">Negras</string>
+  <string name="asWhite">de blancas</string>
+  <string name="asBlack">de negras</string>
   <string name="randomColor">Color aleatorio</string>
   <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
@@ -884,4 +886,8 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
   <string name="youCantStartNewGame">No puedes empezar otra partida hasta que termines ésta.</string>
+  <string name="since">Desde</string>
+  <string name="until">Hasta</string>
+  <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>
+  <string name="switchSides">Cambiar lados</string>
 </resources>
