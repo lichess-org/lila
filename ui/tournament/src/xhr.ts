@@ -30,7 +30,7 @@ export const withdraw = throttlePromise(1000, (ctrl: TournamentController) =>
     .text('/tournament/' + ctrl.data.id + '/withdraw', {
       method: 'POST',
     })
-    .catch(onFail)
+    .then(_ => {}, onFail)
 );
 
 export const loadPage = throttlePromise(1000, (ctrl: TournamentController, p: number, callback?: () => void) =>

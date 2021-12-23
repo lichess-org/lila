@@ -27,7 +27,7 @@ export default function throttle<T extends (...args: any) => void>(
 // Ensures calls to the wrapped function are spaced by the given delay,
 // plus the duration of the promise.
 // Any extra calls are dropped, except the last one.
-export function throttlePromise<T extends (...args: any) => Promise<any>>(
+export function throttlePromise<T extends (...args: any) => Promise<void>>(
   delay: number,
   callback: T
 ): (...args: Parameters<T>) => void {
