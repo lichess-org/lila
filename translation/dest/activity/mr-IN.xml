@@ -2,6 +2,10 @@
 <resources>
   <string name="activity">सक्रियता</string>
   <string name="hostedALiveStream">एक थेट प्रक्षेपण होस्ट करत आहे</string>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s कोडे सोडवले</item>
+    <item quantity="other">%s कोडी सोडवली</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">\"%s नवीन अभ्यास बनवलॆ.\"</item>
     <item quantity="other">\"%s नवीन अभ्यास बनवलॆ.\"</item>
