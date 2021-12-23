@@ -872,4 +872,21 @@
   <string name="toggleLocalAnalysis">स्थानिक संगणकाचे विश्लेषण बदला</string>
   <string name="toggleAllAnalysis">संगणकाचे सर्व विश्लेषण बदला</string>
   <string name="playComputerMove">संगणकाची सर्वोत्तम चाल खेळा</string>
+  <string name="analysisOptions">विश्लेषण पर्याय</string>
+  <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
+  <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
+  <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
+  <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले असेल, पान आपले मत नंतर बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
+  <string name="onlyWorksOnce">ही प्रक्रिया एकदा कामी येईल.</string>
+  <string name="cantDoThisTwice">जर आपण आपले खाते दुसऱ्यांदा बंद केले, तर ते परत मिळवता येणार नाही.</string>
+  <string name="emailAssociatedToaccount">खात्याशी संबंधित ईमेल अॅड्रेस</string>
+  <string name="sentEmailWithLink">आम्ही आपल्याला लिंक सहित एक ईमेल पाठवला आहे.</string>
+  <string name="tournamentEntryCode">स्पर्धेचा प्रवेश संकेतशब्द</string>
+  <string name="hangOn">जरा थांबा!</string>
+  <string name="gameInProgress">आपला एक खेळ %s यांच्याबरोबर चालू आहे.</string>
+  <string name="abortTheGame">खेळ मध्येच थांबवा</string>
+  <string name="resignTheGame">खेळातून राजीनामा द्या</string>
+  <string name="youCantStartNewGame">आपण आत्ताचा खेळ संपवल्याशीवाय नवीन खेळ चालू करू शकत नाही.</string>
+  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">पासून</string>
+  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">पर्यन्त</string>
 </resources>
