@@ -41,7 +41,6 @@ final class KaladinApi(
 
   def dashboard: Fu[KaladinUser.Dashboard] = for {
     c <- coll.get
-    docs <- c
     completed <- c
       .find($doc("response" $exists true))
       .sort($doc("response.at" -> -1))
