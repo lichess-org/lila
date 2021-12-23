@@ -34,7 +34,7 @@ final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = tru
         if (!success) {
           lila.mon.asyncActor.overflow(name).increment()
           if (logging) lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
-        } else if (q.size >= monitorQueueSize) {
+        } else if (logging && q.size >= monitorQueueSize) {
           lila.mon.asyncActor.queueSize(name).record(q.size)
         }
         success

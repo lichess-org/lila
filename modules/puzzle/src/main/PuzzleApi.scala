@@ -63,8 +63,9 @@ final class PuzzleApi(
       new lila.hub.AsyncActorSequencers(
         maxSize = 16,
         expiration = 1 minute,
-        timeout = 3 seconds,
-        name = "puzzle.vote"
+        timeout = 2 seconds,
+        name = "puzzle.vote",
+        logging = false
       )
 
     def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
