@@ -55,6 +55,8 @@
   <string name="students">विद्यार्थी</string>
   <string name="progress">प्रगती</string>
   <string name="noStudents">अजून शिकवणीत कोणताही विद्यार्थी नाही.</string>
+  <string name="noRemovedStudents">काढलेले विद्यार्थी नाहीत.</string>
+  <string name="timePlaying">खेळलेला वेळ</string>
   <string name="variantXOverLastY">%1$s मागील %2$s</string>
   <string name="winrate">जिंकण्याचे प्रमाण</string>
   <string name="na">लागू नाही</string>
