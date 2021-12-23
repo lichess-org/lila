@@ -556,6 +556,13 @@
   <string name="increment">Прибавяне</string>
   <string name="error.required">Това поле е задължително</string>
   <string name="error.email">Този имейл адрес е невалиден</string>
+  <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
+  <string name="error.email_unique">Този имейл адрес е невалиден или вече се използва</string>
+  <string name="error.email_different">Това е текущият Ви имейл адрес</string>
+  <string name="error.minLength">Трябва да е поне %s символа</string>
+  <string name="error.maxLength">Трябва да е максимум %s символа</string>
+  <string name="error.min">Трябва да е минимум %s</string>
+  <string name="error.max">Трябва да е максимум %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
@@ -873,4 +880,6 @@
   <string name="abortTheGame">Прекъсване на играта</string>
   <string name="resignTheGame">Предаване</string>
   <string name="youCantStartNewGame">Не можете да започнете нова игра преди тази да е приключила.</string>
+  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">От</string>
+  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">До</string>
 </resources>
