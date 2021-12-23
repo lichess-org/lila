@@ -202,7 +202,7 @@ object mon {
   }
   object asyncActor {
     def overflow(name: String)  = counter("asyncActor.overflow").withTag("name", name)
-    def queueSize(name: String) = gauge("asyncActor.queueSize").withTag("name", name)
+    def queueSize(name: String) = histogram("asyncActor.queueSize").withTag("name", name)
   }
   object irc {
     object zulip {
