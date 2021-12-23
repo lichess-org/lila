@@ -20,16 +20,27 @@
   <string name="weAreNonProfit">Ние сме асоциация с нестопанска цел, защото вярваме че всеки трябва да има достъп до безплатна шахматна платформа на световно ниво.</string>
   <string name="weRelyOnSupport">Ние разчитаме на подкрепа от хора като вас за да направим това реалност. Ако се наслаждавате на Lichess, можете да ни подкрепите като станете Дарител!</string>
   <string name="lifetime">До живот</string>
+  <string name="payLifetimeOnce">Платете %s веднъж. Станете Lichess Дарител завинаги!</string>
+  <string name="lifetimePatron">Доживотен Lichess Дарител</string>
   <string name="monthly">Ежемесечно</string>
+  <string name="recurringBilling">Регулярни дарения, подновявайте своите Дарителски крила всеки месец.</string>
   <string name="onetime">Еднократно</string>
+  <string name="singleDonation">Еднократно дарение, което Ви дава дарителски крила за 1 месец.</string>
   <string name="otherAmount">Друго</string>
   <string name="pleaseEnterAmountInX">Моля въведете сума в %s</string>
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
+  <string name="celebratedPatrons">Почетни Дарители, които правят Lichess възможен</string>
   <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>
+  <string name="serversAndDeveloper">На първо място, за мощни сървъри.
+След това плащаме на нашия разработчик на пълно работно време: %s, основателя на Lichess.</string>
+  <string name="costBreakdown">Вижте подробна разбивка на разходите</string>
   <string name="officialNonProfit">Lichess официална организация с нестопанска цел ли е?</string>
   <string name="actOfCreation">Да, ето тук е документът (на френски)</string>
+  <string name="changeMonthlySupport">Мога ли да променя/прекратя ежемесечния си абонамент?</string>
+  <string name="changeOrContact">Да, по всяко време, от тази страница.
+Или можете да се %s.</string>
   <string name="otherMethods">Други начини за дарение?</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Дарител за един месец</item>
