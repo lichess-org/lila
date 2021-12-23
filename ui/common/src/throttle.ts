@@ -1,56 +1,44 @@
-// Ensures calls to the wrapped function are spaced by the given delay.
-// Any extra calls are dropped, except the last one.
+/***
+ * Wraps an asynchronous function to ensure only one call at a time is in
+ * flight. Any extra calls are dropped, except the last one, which waits for
+ * the previous call to complete.
+ */
+export function throttlePromise<T extends (...args: any) => Promise<void>>(
+  callback: T
+): (...args: Parameters<T>) => void {
+  let current: Promise<void> | undefined;
+  let afterCurrent: (() => void) | undefined;
+
+  return function (this: any, ...args: Parameters<T>): void {
+    const self = this;
+
+    const exec = () => {
+      afterCurrent = undefined;
+      current = callback.apply(self, args).finally(() => {
+        current = undefined;
+        if (afterCurrent) afterCurrent();
+      });
+    };
+
+    if (current) afterCurrent = exec;
+    else exec();
+  };
+}
+
+export function sleep(delay: number): () => Promise<void> {
+  return () => new Promise(resolve => setTimeout(resolve, delay));
+}
+
+/**
+ * Ensures calls to the wrapped function are spaced by the given delay.
+ * Any extra calls are dropped, except the last one, which waits for the delay.
+ */
 export default function throttle<T extends (...args: any) => void>(
   delay: number,
   callback: T
 ): (...args: Parameters<T>) => void {
-  let timeout: Timeout | undefined;
-  let lastExec = 0;
-
-  return function (this: any, ...args: Parameters<T>): void {
-    const self = this;
-    const elapsed = performance.now() - lastExec;
-
-    function exec() {
-      timeout = undefined;
-      lastExec = performance.now();
-      callback.apply(self, args);
-    }
-
-    if (timeout) clearTimeout(timeout);
-
-    if (elapsed > delay) exec();
-    else timeout = setTimeout(exec, delay - elapsed);
-  };
-}
-
-// Ensures calls to the wrapped function are spaced by the given delay,
-// plus the duration of the promise.
-// Any extra calls are dropped, except the last one.
-export function throttlePromise<T extends (...args: any) => Promise<void>>(
-  delay: number,
-  callback: T
-): (...args: Parameters<T>) => void {
-  let lastComplete = 0;
-  let inFlight = false;
-  let lastPending: boolean | Timeout = false;
-
-  return function (this: any, ...args: Parameters<T>): void {
-    const self = this;
-    const elapsed = performance.now() - lastComplete;
-
-    function exec() {
-      lastPending = false;
-      inFlight = true;
-      callback.apply(self, args).finally(() => {
-        inFlight = false;
-        lastComplete = performance.now();
-        if (lastPending === true) lastPending = setTimeout(exec, delay);
-      });
-    }
-
-    if (!inFlight && elapsed > delay) exec();
-    else if (inFlight) lastPending = true;
-    else if (!lastPending) lastPending = setTimeout(exec, delay - elapsed);
-  };
+  return throttlePromise(function (this: any, ...args: Parameters<T>) {
+    callback.apply(this, args);
+    return sleep(delay)();
+  });
 }
