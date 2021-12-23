@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Дарете</string>
+  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Дарете като %s</string>
   <string name="lichessPatron">Lichess Дарител</string>
   <string name="freeAccount">Безплатна регистрация</string>
   <string name="becomePatron">Станете дарител на Lichess</string>
@@ -11,7 +12,10 @@
   </plurals>
   <string name="newPatrons">Нови дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
+  <string name="noAdsNoSubs">Без реклами, без абонаменти; просто отворен код и страст.</string>
   <string name="thankYou">Благодарим Ви за дарението!</string>
+  <string name="youHaveLifetime">Имате доживотен дарителски акаунт. Това е просто невероятно!</string>
+  <string name="patronUntil">Имате дарителски акаунт до %s.</string>
   <string name="monthly">Ежемесечно</string>
   <string name="onetime">Еднократно</string>
   <string name="otherAmount">Друго</string>
