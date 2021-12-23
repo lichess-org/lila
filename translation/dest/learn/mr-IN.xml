@@ -159,10 +159,19 @@
   <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!
 तुम्ही एन पसांट नियमाने ते मारा.</string>
   <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पसांट फक्त लगेचच्या चालीसाठी वैध असेल.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">जर आपले प्यादे 5 व्या पंक्तीत असेल तरच एन पसांट नियम वापरता येतो.</string>
+  <string name="takeAllThePawnsEnPassant">एन पसांट नियमाने सर्व प्यादी मारा!</string>
+  <string name="enPassantComplete">अभिनंदन! आपण आता एन पसांट नियमाने मारू शकता.</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
+  <string name="stalemateIntro">जेव्हा एखादा खेळाडू मात देऊ शकत नाही आणि त्याच्याकडे वैध चाल उपलब्ध नसेल, तर त्याला अर्धवट मात म्हणतात. या प्रसंगी खेळ अनिर्णित घोषित केला जातो: कोणीही जिंकत नाही, कोणीही हरत नाही.</string>
+  <string name="stalemateGoal">काळ्याला अर्धवट मात देण्यासाठी:
+- काळा कुठलीही चाल करू शकत नाही
+- कुठलाही मात उपलब्ध नाही.</string>
+  <string name="stalemateComplete">अभिनंदन! शह मिळण्यापेक्षा अर्धवट मात चांगली आहे!</string>
   <string name="advanced">प्रगत</string>
   <string name="pieceValue">सोंगट्यांचे मूल्य</string>
+  <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तिचे मूल्यमापन करा</string>
   <string name="checkInTwo">दोन चालीमध्ये शह</string>
   <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
   <string name="checkInTwoGoal">प्रतिस्पर्ध्याच्या राजाला दोन चालीमध्ये धमकवा!</string>
