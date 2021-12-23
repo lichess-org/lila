@@ -21,4 +21,10 @@
   <string name="castling">किल्लाकोट</string>
   <string name="castlingDescription">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा.</string>
   <string name="capturingDefender">रक्षकाला मारा</string>
+  <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला मारणे, म्हणजे नवीन बचाव नसलेली सोंगटी पुढच्या चलित परत मारता येऊ शकते.</string>
+  <string name="crushing">चिरडणे</string>
+  <string name="crushingDescription">विरोधकाच्या घोडचुकीवर लक्ष ठेवा, म्हणजे जिंकण्यासाठी फायदे मिळवू शकतो. (मूल्यांकन ≥ 600cp)</string>
+  <string name="doubleBishopMate">दोन उंटाचा मात</string>
+  <string name="doubleBishopMateDescription">दोन हल्ले करणारे उंट तिरक्या कर्णावरुन विरोधकाच्याच सोंगट्यामध्ये अडकलेल्या राजाला मात देतात.</string>
+  <string name="dovetailMate">डवटेल मात</string>
 </resources>
