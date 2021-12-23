@@ -26,6 +26,18 @@
     <item quantity="one">%1$s वेळ चाल खेळले</item>
     <item quantity="other">%1$s वेळा चाल खेळले</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s दीर्घकालीन खेळामध्ये</item>
+    <item quantity="other">%1$s दीर्घकालीन खेळांमध्ये</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s दीर्घकालीन खेळ पूर्ण केले</item>
+    <item quantity="other">%s दीर्घकालीन खेळ पूर्ण केले</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s खेळाडूला फॉलो करणे चालू केले</item>
+    <item quantity="other">%s खेळाडूंना फॉलो करणे चालू केले</item>
+  </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">%s नवीन अनुयायी मिळवला</item>
     <item quantity="other">%s नवीन अनुयायी मिळवले</item>
