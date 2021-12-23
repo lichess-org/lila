@@ -4,4 +4,9 @@
   <string name="advancedPawnDescription">तुमचे एखादे प्यादे विरोधकाच्या स्थितीमध्ये खूप आत गेले आहे, बहुधा बढती करायची धमकी देत आहे.</string>
   <string name="advantage">फायदा</string>
   <string name="advantageDescription">निर्णायक फायद्याने संधीचे सोने करून घ्या (200 cp ≤ मूल्यांकन ≤ 600cp)</string>
+  <string name="anastasiaMate">एनास्ताशियाची मात</string>
+  <string name="anastasiaMateDescription">घोडा आणि हत्ती किंवा वजीर एकत्र येऊन राजाला पटाच्या बाजूला आणि त्याच्याच सोंगटी यामध्ये अडकवतात.</string>
+  <string name="arabianMate">अरेबीयन मात</string>
+  <string name="arabianMateDescription">घोडा आणि हत्ती एकत्र येऊन विरोधकाच्या राजाला पटाच्या कोपऱ्यात अडकवतात.</string>
+  <string name="attackingF2F7">f 2 किंवा f7 वर हल्ला</string>
 </resources>
