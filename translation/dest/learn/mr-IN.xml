@@ -151,8 +151,14 @@
 जर राज्याच्या मार्गात हल्ला झाला आहे.
 आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
   <string name="findAWayToCastleKingSide">राजाच्या बाजूला किल्लेकोट!</string>
+  <string name="findAWayToCastleQueenSide">वजिराच्या बाजूला किल्लेकोट!</string>
+  <string name="castlingComplete">अभिनंदन! आपण खेळामध्ये जवळजवळ नेहमीच किल्लेकोट करायला पाहिजे.</string>
   <string name="enPassant">इन पासंट</string>
   <string name="theSpecialPawnMove">प्याद्याची विशेष चाल</string>
+  <string name="enPassantIntro">जेव्हा विरोधकाचे प्यादे दोन घर पुढे सरकले असेल, तर तुम्ही ते एकच चाल चालले आहे याप्रमाणे ते तुम्ही मारू शकता.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!
+तुम्ही एन पसांट नियमाने ते मारा.</string>
+  <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पसांट फक्त लगेचच्या चालीसाठी वैध असेल.</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
   <string name="advanced">प्रगत</string>
