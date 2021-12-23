@@ -28,7 +28,7 @@
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.9",
-    "highcharts": "=4.2.5",
+    "highcharts": "=9.0.0",
     "hopscotch": "^0.3.1",
     "prop-types": "^15.7.2",
     "stockfish-mv.wasm": "^0.6.1",

@@ -2610,10 +2610,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-highcharts@=4.2.5:
-  version "4.2.5"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-4.2.5.tgz#f18bbda5ca326fdff7d816c94814fe8509cec969"
-  integrity sha1-8Yu9pcoyb9/32BbJSBT+hQnOyWk=
+highcharts@=9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.0.0.tgz#2e5d382481f71c50ac7f086e7bdead394fab71d4"
+  integrity sha512-MJCtidFytGSQvsV3OEM+vFTLpjUcp7jmFpLn8h3oL4WKp0gxUOQg6Nw00sqMWGdiadst0gOZO4804zynTcYjZQ==
 
 homedir-polyfill@^1.0.1:
   version "1.0.3"
