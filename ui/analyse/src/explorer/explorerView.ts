@@ -244,7 +244,7 @@ function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse()
         ? null
-        : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu'))
+        : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
     ]),
   ]);
 }
