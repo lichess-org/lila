@@ -17,7 +17,7 @@
   <string name="stalemate">Patti</string>
   <string name="white">Valkea</string>
   <string name="black">Musta</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">valkoisena</string>
+  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">valkeana</string>
   <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">mustana</string>
   <string name="randomColor">Satunnainen</string>
   <string name="createAGame">Luo uusi peli</string>
