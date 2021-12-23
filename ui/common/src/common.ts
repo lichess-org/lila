@@ -1,4 +1,4 @@
-export const defined = <A>(v: A | undefined): v is A => typeof v !== 'undefined';
+export const defined = <T>(value: T | undefined): value is T => value !== undefined;
 
 export const notNull = <T>(value: T | null | undefined): value is T => value !== null && value !== undefined;
 
