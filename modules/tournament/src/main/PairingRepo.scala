@@ -60,7 +60,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .toMat(Sink.lastOption)(Keep.right)
         .run()
         .dmap(~_)
-    } dmap Pairing.LastOpponents.apply
+    } dmap Pairing.LastOpponents
 
   def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] =
     coll

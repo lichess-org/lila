@@ -80,16 +80,15 @@ private[tournament] object Pairing {
       berserk2 = false
     )
 
-  case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(gameId: Game.ID): Pairing =
-      make(gameId, tourId, user1, user2)
+  case class Prep(user1: User.ID, user2: User.ID) {
+    def toPairing(tourId: Tournament.ID, gameId: Game.ID): Pairing = make(gameId, tourId, user1, user2)
   }
 
-  def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
+  def prepWithColor(p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
     if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => ThreadLocalRandom.nextBoolean()))
-      Prep(tour.id, p1.player.userId, p2.player.userId)
-    else Prep(tour.id, p2.player.userId, p1.player.userId)
+      Prep(p1.player.userId, p2.player.userId)
+    else Prep(p2.player.userId, p1.player.userId)
 
-  def prepWithRandomColor(tour: Tournament, u1: User.ID, u2: User.ID) =
-    if (ThreadLocalRandom.nextBoolean()) Prep(tour.id, u1, u2) else Prep(tour.id, u2, u1)
+  def prepWithRandomColor(u1: User.ID, u2: User.ID) =
+    if (ThreadLocalRandom.nextBoolean()) Prep(u1, u2) else Prep(u2, u1)
 }
