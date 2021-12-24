@@ -119,9 +119,9 @@ final private[tournament] class Cached(
         arena.Sheet(key.userId, _, key.version, key.streakable)
       }
 
-    private val cache = cacheApi[SheetKey, Sheet](8192, "tournament.sheet") {
+    private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet") {
       _.expireAfterAccess(3 minutes)
-        .maximumSize(32768)
+        .maximumSize(65536)
         .buildAsyncFuture(compute)
     }
   }
