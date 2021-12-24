@@ -517,7 +517,7 @@ object JsonView {
         "scores" -> s.scores.reverse.map(sheetScoreJson),
         "total"  -> s.total
       )
-      .add("fire" -> (streakable && s.onFire))
+      .add("fire" -> (streakable && s.isOnFire))
 
   private[tournament] def sheetScoreJson(score: arena.Sheet.Score) =
     if (score.flag == arena.Sheet.Flag.Normal) JsNumber(score.value)

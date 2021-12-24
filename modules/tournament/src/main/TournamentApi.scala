@@ -450,7 +450,7 @@ final class TournamentApi(
         cached.sheet.addResult(tour, userId, pairing).map { sheet =>
           player.copy(
             score = sheet.total,
-            fire = tour.streakable && sheet.onFire,
+            fire = tour.streakable && sheet.isOnFire,
             rating = perf.fold(player.rating)(_.intRating),
             provisional = perf.fold(player.provisional)(_.provisional),
             performance = {
@@ -530,7 +530,7 @@ final class TournamentApi(
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(
             score = sheet.total,
-            fire = tour.streakable && sheet.onFire,
+            fire = tour.streakable && sheet.isOnFire,
             rating = perf.fold(player.rating)(_.intRating),
             provisional = perf.fold(player.provisional)(_.provisional)
           )
