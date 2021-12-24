@@ -422,17 +422,17 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     )
 
   def setCheckAt(g: Game, at: DateTime) =
-    coll.update.one($id(g.id), $set(F.checkAt -> at))
+    coll.updateField($id(g.id), F.checkAt, at).void
 
   def unsetCheckAt(id: Game.ID): Funit =
-    coll.update.one($id(id), $unset(F.checkAt)).void
+    coll.unsetField($id(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids)).unit
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
-    coll.update.one($id(g.id), $set("pgni.ca" -> g.createdAt)).void
+    coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
   def initialFen(gameId: ID): Fu[Option[FEN]] =
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
