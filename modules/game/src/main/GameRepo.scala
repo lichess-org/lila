@@ -404,7 +404,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     val checkInHours =
       if (g2.isPgnImport) none
       else if (g2.hasClock) 1.some
-      else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
       else (24 * 10).some
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
