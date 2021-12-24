@@ -17,6 +17,8 @@
   <string name="stalemate">ଷ୍ଟାଲେମେଟ୍</string>
   <string name="white">ଧଳା</string>
   <string name="black">କଳା</string>
+  <string name="asWhite">ଧଳା ଭାବରେ</string>
+  <string name="asBlack">କଳା ଭାବରେ</string>
   <string name="randomColor">ଅନିୟମିତ ପାର୍ଶ୍ୱ</string>
   <string name="createAGame">ଏକ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="whiteIsVictorious">ଧଳା ବିଜୟୀ ଅଟେ</string>
