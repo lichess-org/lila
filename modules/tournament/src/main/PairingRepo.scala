@@ -161,9 +161,11 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       .cursor[Pairing]()
       .list()
 
-  def insert(pairing: Pairing) =
-    coll.insert.one {
-      pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
+  def insert(pairings: List[Pairing]) =
+    coll.insert.many {
+      pairings.map { p =>
+        pairingHandler.write(p) ++ $doc("d" -> DateTime.now)
+      }
     }.void
 
   def finishAndGet(g: Game): Fu[Option[Pairing]] =

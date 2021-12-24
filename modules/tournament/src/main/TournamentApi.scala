@@ -156,21 +156,21 @@ final class TournamentApi(
               .flatMap {
                 case Nil => funit
                 case pairings =>
-                  hadPairings put tour.id
-                  pairings
-                    .map { pairing =>
-                      pairingRepo.insert(pairing.pairing) >>
+                  pairingRepo.insert(pairings.map(_.pairing)) >>
+                    pairings
+                      .map { pairing =>
                         autoPairing(tour, pairing, ranking.ranking)
                           .mon(_.tournament.pairing.createAutoPairing)
                           .map { socket.startGame(tour.id, _) }
+                      }
+                      .sequenceFu
+                      .void
+                      .mon(_.tournament.pairing.createInserts) >>- {
+                      lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                      socket.reload(tour.id)
+                      hadPairings put tour.id
+                      featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
                     }
-                    .sequenceFu
-                    .void
-                    .mon(_.tournament.pairing.createInserts) >>- {
-                    lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
-                    socket.reload(tour.id)
-                    featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
-                  }
               }
           }
           .monSuccess(_.tournament.pairing.create)
