@@ -371,6 +371,7 @@
   <string name="leaderboard">Clasament</string>
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
+  <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
