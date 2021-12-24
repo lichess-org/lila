@@ -166,6 +166,7 @@
   <string name="apply">ଜମା କରନ୍ତୁ</string>
   <string name="pasteTheFenStringHere">FEN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
+  <string name="orUploadPgnFile">କିମ୍ୱା ଏକ PGN ଫାଇଲ୍ ଅପଲୋଡ୍ କରନ୍ତୁ</string>
   <string name="toStudy">ଅଧ୍ୟୟନ</string>
   <string name="importGame">ଖେଳ ଆମଦାନୀ କରନ୍ତୁ</string>
   <string name="notACheckmate">ଚେକମେଟ୍ ନୁହେଁ</string>
