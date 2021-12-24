@@ -141,7 +141,7 @@ final class Report(
     }
 
   def currentCheatInquiry(username: String) =
-    Secure(_.Hunter) { implicit ctx => me =>
+    Secure(_.CheatHunter) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>

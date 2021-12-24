@@ -21,6 +21,7 @@ object Permission {
   case object GamifyView            extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case object UserModView           extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
+  case object GamesModView          extends Permission("GAMES_MOD_VIEW", "User games mod view")
   case object SendToZulip           extends Permission("NOTIFY_SLACK", List(UserModView), "Send to Zulip")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserModView, ChatTimeout), "Shadowban")
@@ -89,15 +90,34 @@ object Permission {
         "Timeout mod"
       )
 
-  case object Hunter
+  case object BoostHunter
       extends Permission(
-        "HUNTER",
+        "BOOST_HUNTER",
+        List(
+          LichessTeam,
+          MarkBooster,
+          UserModView,
+          GamesModView,
+          GamifyView,
+          SeeReport,
+          ModLog,
+          ModMessage,
+          ModNote,
+          ViewPrintNoIP,
+          SendToZulip
+        ),
+        "Boost Hunter"
+      )
+
+  case object CheatHunter
+      extends Permission(
+        "CHEAT_HUNTER",
         List(
           LichessTeam,
           ViewBlurs,
           MarkEngine,
-          MarkBooster,
           UserModView,
+          GamesModView,
           GamifyView,
           UserEvaluate,
           SeeReport,
@@ -110,7 +130,7 @@ object Permission {
           ViewPrintNoIP,
           SendToZulip
         ),
-        "Hunter"
+        "Cheat Hunter"
       )
 
   case object Shusher
@@ -139,7 +159,8 @@ object Permission {
       extends Permission(
         "ADMIN",
         List(
-          Hunter,
+          BoostHunter,
+          CheatHunter,
           Shusher,
           Appeals,
           IpBan,
@@ -253,7 +274,8 @@ object Permission {
     "Package" -> List(
       LichessTeam,
       TimeoutMod,
-      Hunter,
+      BoostHunter,
+      CheatHunter,
       Shusher,
       Admin,
       SuperAdmin

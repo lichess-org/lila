@@ -342,7 +342,7 @@ final class Puzzle(
   def dashboard(days: Int, path: String = "home") =
     Auth { implicit ctx => me =>
       get("u")
-        .ifTrue(isGranted(_.Hunter))
+        .ifTrue(isGranted(_.CheatHunter))
         .??(env.user.repo.named)
         .map(_ | me)
         .flatMap { user =>
@@ -371,7 +371,7 @@ final class Puzzle(
   def history(page: Int) =
     Auth { implicit ctx => me =>
       get("u")
-        .ifTrue(isGranted(_.Hunter))
+        .ifTrue(isGranted(_.CheatHunter))
         .??(env.user.repo.named)
         .map(_ | me)
         .flatMap { user =>

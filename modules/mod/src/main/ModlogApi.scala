@@ -318,8 +318,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       _ ?? {
         val monitorType = m.action match {
           case M.closeAccount | M.alt => None
-          case M.engine | M.unengine | M.booster | M.unbooster | M.reopenAccount | M.unalt =>
-            Some(IrcApi.ModDomain.Hunt)
+          case M.engine | M.unengine | M.reopenAccount | M.unalt =>
+            Some(IrcApi.ModDomain.Cheat)
+          case M.booster | M.unbooster => Some(IrcApi.ModDomain.Boost)
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
               M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier |
               M.blogPostEdit =>
