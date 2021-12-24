@@ -651,6 +651,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">sin la, sina ken tawa lon tenpo tawa kepeken ilo sike nasin pi ilo nasin sina.</string>
   <string name="analysisShapesHowTo">sina wile sitelen lon supa musi la, o pilin e nena \"Shift\", e nena #1 pi ilo nasin. anu la, o pilin e nena #2 pi ilo nasin.</string>
   <string name="letOtherPlayersMessageYou">jan ante li ken ala ken toki tawa sina?</string>
+  <string name="receiveForumNotifications">jan li toki e nimi sina lon ma toki la, o kama jo e pana</string>
   <string name="shareYourInsightsData">o pana e sona pi nasin musi mi</string>
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
@@ -831,6 +832,9 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
 ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="cancelTournament">o moli e musi</string>
   <string name="tournDescription">toki musi</string>
+  <string name="ratedFormHelp">musi li jo e nanpa wawa
+li ante e nanpa wawa</string>
+  <string name="onlyMembersOfTeam">jan kulupu taso</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>
