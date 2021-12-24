@@ -555,7 +555,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
   <string name="error.required">sina wile sitelen lon ma ni</string>
-  <string name="error.email">nimi pana len ni li ike</string>
+  <string name="error.email">nimi e-mail ni li ike</string>
+  <string name="error.email_acceptable">nimi e-mail ni li ike. o lukin e ona, o pali lon tenpo sin.</string>
+  <string name="error.email_unique">nimi e-mail li ike anu alasa</string>
+  <string name="error.email_different">ni li nimi e-mail sina kin</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
   <string name="onlyExistingConversations">toki pi tenpo ni taso</string>
   <string name="onlyFriends">jan pona taso</string>
