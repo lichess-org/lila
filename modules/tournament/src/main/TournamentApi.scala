@@ -167,10 +167,11 @@ final class TournamentApi(
                           }
                     }
                     .sequenceFu
-                    .mon(_.tournament.pairing.createInserts) >>
-                    featureOneOf(tour, pairings, ranking.ranking)
-                      .mon(_.tournament.pairing.createFeature) >>-
+                    .void
+                    .mon(_.tournament.pairing.createInserts) >>- {
                     lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                    featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
+                  }
               }
           }
           .monSuccess(_.tournament.pairing.create)
