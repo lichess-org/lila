@@ -100,11 +100,14 @@ final private[tournament] class Cached(
     def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
       cache.get(keyOf(tour, userId))
 
+    /* This is not thread-safe! But only called from within a tournament sequencer. */
     def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] = {
-      val key    = keyOf(tour, userId)
-      val nextFu = cache.get(key) map { Sheet.addResult(_, userId, pairing, tour.streakable) }
-      cache.put(key, nextFu)
-      nextFu
+      val key = keyOf(tour, userId)
+      cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
+        val next = prev map { Sheet.addResult(_, userId, pairing, tour.streakable) }
+        cache.put(key, next)
+        next
+      }
     }
 
     def recompute(tour: Tournament, userId: User.ID): Fu[Sheet] = {
