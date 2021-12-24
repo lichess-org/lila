@@ -396,6 +396,7 @@
   <string name="leaderboard">Lyderiai</string>
   <string name="pasteTheFenStringHere">FEN tekstą įrašykite čia</string>
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
+  <string name="orUploadPgnFile">Arba įkelkite PGN failą</string>
   <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="toStudy">Studijuoti</string>
