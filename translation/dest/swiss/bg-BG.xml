@@ -45,6 +45,7 @@
   <string name="dutchSystem">Холандската система</string>
   <string name="FIDEHandbook">Правилника на ФИДЕ</string>
   <string name="pairingsA">По %1$s, осъществена чрез %2$s, според %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Какво става ако турнир има повече рундове отколкото играчи?</string>
   <string name="restrictedToTeamsA">Швейцарските турнири не са подходящи за онлайн шах. Те изискват точност, отдаденост и търпение от играчите.
 Смятаме, че тези условия е по-вероятно да бъдат изпълнени в отборни турнири, отколкото в глобални турнири.</string>
   <string name="lateJoinA">Да, докато не са започнали повече от половината рундове; например в 11-рундов швейцарски турнир играчи могат да се присъединят преди началото на рунд 6, а в 12-рундов, преди началото на рунд 7.
@@ -65,5 +66,6 @@
   <string name="pause">Пауза</string>
   <string name="pauseSwiss">Да, но може да намали броя на рундовете</string>
   <string name="streaksAndBerserk">Поредици и Берсерк</string>
+  <string name="similarToOTB">Подобно на класическите турнири</string>
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
 </resources>
