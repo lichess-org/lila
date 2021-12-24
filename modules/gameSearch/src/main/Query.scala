@@ -99,7 +99,7 @@ object Query {
   val clockIncs =
     options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
 
-  val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
+  val winnerColors = List(1 -> "White", 2 -> "Black")
 
   val sources = lila.game.Source.searchable map { v =>
     v.id -> v.name.capitalize
@@ -111,11 +111,11 @@ object Query {
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
-    "%d move{s}"
+    "%d"
   )
 
   val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e =>
-    e -> s"$e Rating"
+    e -> s"$e"
   }
 
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
