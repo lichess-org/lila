@@ -152,7 +152,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   private[tournament] def finishedByPlayerChronological(
       tourId: Tournament.ID,
       userId: User.ID
-  ): Fu[Pairings] =
+  ): Fu[List[Pairing]] =
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectFinished

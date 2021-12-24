@@ -22,7 +22,7 @@ final private[tournament] class PairingSystem(
       tour: Tournament,
       users: WaitingUsers,
       ranking: FullRanking
-  ): Fu[Pairings] = {
+  ): Fu[List[Pairing.WithPlayers]] = {
     for {
       lastOpponents <-
         if (tour.isRecentlyStarted) fuccess(Pairing.LastOpponents(Map.empty))
@@ -49,12 +49,12 @@ final private[tournament] class PairingSystem(
   private def makePreps(data: Data, users: Set[User.ID]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.sizeIs < 2) fuccess(Nil)
-    else if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle)
-      fuccess(proximityPairings(users, ranking))
     else
       playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-        val nbIdles = idles.size
-        if (nbIdles > maxGroupSize) {
+        lazy val nbIdles = idles.size
+        if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle)
+          proximityPairings(idles)
+        else if (nbIdles > maxGroupSize) {
           // make sure groupSize is even with / 4 * 2
           val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
           bestPairings(data, idles take groupSize) :::
@@ -69,7 +69,7 @@ final private[tournament] class PairingSystem(
     }
     .result
 
-  private def prepsToPairings(tour: Tournament, preps: List[Pairing.Prep]): Fu[List[Pairing]] =
+  private def prepsToPairings(tour: Tournament, preps: List[Pairing.Prep]): Fu[List[Pairing.WithPlayers]] =
     idGenerator.games(preps.size) map { ids =>
       preps.zip(ids).map { case (prep, id) =>
         //color was chosen in prepWithColor function
@@ -77,12 +77,9 @@ final private[tournament] class PairingSystem(
       }
     }
 
-  private def proximityPairings(
-      users: Set[User.ID],
-      ranking: Map[User.ID, Int]
-  ): List[Pairing.Prep] =
-    users.toList.sortBy(ranking.get) grouped 2 collect { case List(u1, u2) =>
-      Pairing.prepWithRandomColor(u1, u2)
+  private def proximityPairings(players: RankedPlayers): List[Pairing.Prep] =
+    players grouped 2 collect { case List(p1, p2) =>
+      Pairing.prepWithRandomColor(p1.player, p2.player)
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =

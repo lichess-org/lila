@@ -69,7 +69,12 @@ object Sheet {
 
   val emptySheet = Sheet(Nil)
 
-  def buildFromScratch(userId: User.ID, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
+  def buildFromScratch(
+      userId: User.ID,
+      pairings: List[Pairing],
+      version: Version,
+      streakable: Streakable
+  ): Sheet =
     Sheet {
       val nexts = (pairings drop 1 map some) :+ None
       pairings.zip(nexts).foldLeft(List.empty[Score]) { case (scores, (p, n)) =>
