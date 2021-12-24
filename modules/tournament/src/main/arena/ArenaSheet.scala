@@ -48,7 +48,12 @@ case class Sheet(scores: List[Sheet.Score], total: Int) {
 object Sheet {
   val empty = Sheet(Nil, 0)
 
-  def buildFromScratch(userId: User.ID, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
+  def buildFromScratch(
+      userId: User.ID,
+      pairings: List[Pairing],
+      version: Version,
+      streakable: Streakable
+  ): Sheet =
     pairings.foldLeft(empty) { case (sheet, pairing) =>
       sheet.addResult(userId, pairing, version, streakable)
     }
