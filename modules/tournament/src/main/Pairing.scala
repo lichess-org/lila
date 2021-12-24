@@ -3,6 +3,7 @@ package lila.tournament
 import chess.Color
 import lila.game.Game
 import lila.user.User
+import lila.common.ThreadLocalRandom
 
 case class Pairing(
     id: Game.ID,
@@ -85,7 +86,10 @@ private[tournament] object Pairing {
   }
 
   def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
-    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => lila.common.ThreadLocalRandom.nextBoolean()))
+    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => ThreadLocalRandom.nextBoolean()))
       Prep(tour.id, p1.player.userId, p2.player.userId)
     else Prep(tour.id, p2.player.userId, p1.player.userId)
+
+  def prepWithRandomColor(tour: Tournament, u1: User.ID, u2: User.ID) =
+    if (ThreadLocalRandom.nextBoolean()) Prep(tour.id, u1, u2) else Prep(tour.id, u2, u1)
 }
