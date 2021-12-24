@@ -63,14 +63,15 @@ object Sheet {
     }) + {
       if (res == ResWin && berserk == ValidBerserk) 1 else 0
     }
+
+    def withFlag(newFlag: Flag) = new Score(res, newFlag, berserk)
   }
 
   val emptySheet = Sheet(Nil)
 
   def buildFromScratch(userId: User.ID, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
     Sheet {
-      val streaks = streakable == Streaks
-      val nexts   = (pairings drop 1 map some) :+ None
+      val nexts = (pairings drop 1 map some) :+ None
       pairings.zip(nexts).foldLeft(List.empty[Score]) { case (scores, (p, n)) =>
         val berserk = if (p berserkOf userId) {
           if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
@@ -80,7 +81,7 @@ object Sheet {
           case None =>
             new Score(
               ResDraw,
-              if (streaks && isOnFire(scores)) Double
+              if (streakable && isOnFire(scores)) Double
               else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
               else Normal,
               berserk
@@ -88,7 +89,7 @@ object Sheet {
           case Some(w) if userId == w =>
             new Score(
               ResWin,
-              if (!streaks) Normal
+              if (!streakable) Normal
               else if (isOnFire(scores)) Double
               else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
               else
@@ -106,8 +107,7 @@ object Sheet {
 
   def addResult(sheet: Sheet, userId: User.ID, p: Pairing, streakable: Streakable): Sheet =
     Sheet {
-      val scores  = sheet.scores
-      val streaks = streakable == Streaks
+      val scores = sheet.scores
       val berserk = if (p berserkOf userId) {
         if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
       } else NoBerserk
@@ -116,7 +116,7 @@ object Sheet {
         case None =>
           new Score(
             ResDraw,
-            if (streaks && isOnFire(scores)) Double
+            if (streakable && isOnFire(scores)) Double
             else if (!p.longGame && isDrawStreak(scores)) Null
             else Normal,
             berserk
@@ -124,20 +124,19 @@ object Sheet {
         case Some(w) if userId == w =>
           new Score(
             ResWin,
-            if (!streaks) Normal
+            if (!streakable) Normal
             else if (isOnFire(scores)) Double
-            else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
             else StreakStarter,
-            // n match {
-            //   case None                       => StreakStarter
-            //   case Some(s) if s.wonBy(userId) => StreakStarter
-            //   case _                          => Normal
-            // },
             berserk
           )
         case _ => new Score(ResLoss, Normal, berserk)
       }
-      score :: scores
+      // update the streak flag of the previous score
+      val prevScores = scores.headOption
+        .filter(_.flag == StreakStarter && !p.wonBy(userId))
+        .fold(scores)(_.withFlag(Normal) :: scores.tail)
+
+      score :: prevScores
     }
 
   private val v2date = new DateTime(2020, 4, 21, 0, 0, 0)
