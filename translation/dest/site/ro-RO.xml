@@ -17,8 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">cu albele</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">cu negrele</string>
+  <string name="asWhite">cu albele</string>
+  <string name="asBlack">cu negrele</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -925,6 +925,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="abortTheGame">Abandonează jocul</string>
   <string name="resignTheGame">Cedează jocul</string>
   <string name="youCantStartNewGame">Nu poți începe un joc nou până când acesta nu se termină.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">De la</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Până la</string>
+  <string name="since">De la</string>
+  <string name="until">Până la</string>
 </resources>
