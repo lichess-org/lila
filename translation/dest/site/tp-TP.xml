@@ -17,8 +17,8 @@
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
   <string name="black">pimeja</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">sama walo</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">sama pimeja</string>
+  <string name="asWhite">sama walo</string>
+  <string name="asBlack">sama pimeja</string>
   <string name="randomColor">kule pi sona ala</string>
   <string name="createAGame">o pali e musi</string>
   <string name="whiteIsVictorious">walo li pini pona</string>
