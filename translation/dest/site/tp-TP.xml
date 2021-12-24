@@ -432,6 +432,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardEditor">ilo pi ante e supa</string>
   <string name="setTheBoard">o ante e supa musi</string>
   <string name="popularOpenings">open musi pi jan mute</string>
+  <string name="endgamePositions">nasin pi tenpo pi musi open</string>
+  <string name="chess960StartPosition">Chess960 nasin open: %s</string>
   <string name="startPosition">musi lon open</string>
   <string name="clearBoard">supa musi sin</string>
   <string name="loadPosition">o kama jo e musi lon open</string>
@@ -553,6 +555,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
   <string name="error.required">sina wile sitelen lon ma ni</string>
+  <string name="error.email">nimi pana len ni li ike</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
   <string name="onlyExistingConversations">toki pi tenpo ni taso</string>
   <string name="onlyFriends">jan pona taso</string>
