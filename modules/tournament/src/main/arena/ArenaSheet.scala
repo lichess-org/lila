@@ -10,36 +10,35 @@ case class Sheet(scores: List[Sheet.Score]) {
 
 object Sheet {
 
-  sealed trait Version
-  case object V1 extends Version
-  case object V2 extends Version // second draw gives zero point
+  // Using Int/Boolean instead of sealed traits
+  // because loads of them are in heap cache
 
-  sealed trait Streakable
-  case object Streaks   extends Streakable
-  case object NoStreaks extends Streakable
+  type Version = Int
+  val V1 = 1
+  val V2 = 2 // second draw gives zero point
 
-  sealed abstract class Flag(val id: Int)
-  case object Double        extends Flag(3)
-  case object StreakStarter extends Flag(2)
-  case object Normal        extends Flag(1)
-  case object Null          extends Flag(0)
+  type Streakable = Boolean
+  val NoStreaks = false
+  val Streaks   = true
 
-  sealed trait Berserk
-  case object NoBerserk      extends Berserk
-  case object ValidBerserk   extends Berserk
-  case object InvalidBerserk extends Berserk
+  type Flag = Int
+  val Null          = 0
+  val Normal        = 1
+  val StreakStarter = 2
+  val Double        = 3
 
-  sealed trait Result
-  case object ResWin  extends Result
-  case object ResDraw extends Result
-  case object ResLoss extends Result
-  case object ResDQ   extends Result
+  type Berserk = Int
+  val NoBerserk      = 0
+  val ValidBerserk   = 1
+  val InvalidBerserk = 2
 
-  case class Score(
-      res: Result,
-      flag: Flag,
-      berserk: Berserk
-  ) {
+  type Result = Int
+  val ResWin  = 0
+  val ResDraw = 1
+  val ResLoss = 2
+  val ResDQ   = 3
+
+  final class Score(val res: Result, val flag: Flag, val berserk: Berserk) {
 
     def isBerserk = berserk != NoBerserk
 
@@ -75,9 +74,9 @@ object Sheet {
           if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
         } else NoBerserk
         (p.winner match {
-          case None if p.quickDraw => Score(ResDQ, Normal, berserk)
+          case None if p.quickDraw => new Score(ResDQ, Normal, berserk)
           case None =>
-            Score(
+            new Score(
               ResDraw,
               if (streaks && isOnFire(scores)) Double
               else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
@@ -85,7 +84,7 @@ object Sheet {
               berserk
             )
           case Some(w) if userId == w =>
-            Score(
+            new Score(
               ResWin,
               if (!streaks) Normal
               else if (isOnFire(scores)) Double
@@ -98,7 +97,7 @@ object Sheet {
                 },
               berserk
             )
-          case _ => Score(ResLoss, Normal, berserk)
+          case _ => new Score(ResLoss, Normal, berserk)
         }) :: scores
       }
     }

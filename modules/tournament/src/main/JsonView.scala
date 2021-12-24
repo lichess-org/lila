@@ -521,7 +521,7 @@ object JsonView {
 
   private[tournament] def sheetScoreJson(score: arena.Sheet.Score) =
     if (score.flag == arena.Sheet.Normal) JsNumber(score.value)
-    else Json.arr(score.value, score.flag.id)
+    else Json.arr(score.value, score.flag)
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
