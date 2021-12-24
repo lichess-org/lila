@@ -392,6 +392,7 @@
   <string name="leaderboard">Лучшие игроки</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
+  <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="toStudy">Студия</string>
