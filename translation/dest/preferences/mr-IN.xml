@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">प्राधान्ये</string>
+  <string name="materialDifference">मोहऱ्यांचा फरक</string>
   <string name="displayBoardResizeHandle">पट लहान/मोठा करायचे बटन दाखवा</string>
   <string name="onlyOnInitialPosition">केवळ सुरुवातीच्या स्थितीवर</string>
   <string name="blindfoldChess">अदृश्य बुद्धिबळ (मोहरे अदृश्य होतात)</string>
@@ -18,6 +19,7 @@
   <string name="inCasualGamesOnly">मैत्री सामन्यात फक्त</string>
   <string name="promoteToQueenAutomatically">आपोआप राणी बनवा</string>
   <string name="whenPremoving">फक्त प्रतिस्पर्ध्याच्या डावावर खेळताना</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">तीन पुनरावृतींनवर आपोआप सामना अनिर्णित घोषित करा</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">जेव्हा वेळ &lt; ३० सेकंद</string>
   <string name="moveConfirmation">चालींचे पुष्टीकरण</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">पराभव किंवा अनिर्णित झाल्यावर \"चांगला खेळ झाला, उत्तम खेळला\" असे म्हणा</string>
