@@ -396,6 +396,7 @@
   <string name="leaderboard">Lestvica</string>
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
+  <string name="orUploadPgnFile">Ali pa naložite datoteko PGN</string>
   <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
   <string name="toStudy">Študiraj</string>
