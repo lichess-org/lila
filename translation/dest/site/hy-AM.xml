@@ -17,6 +17,8 @@
   <string name="stalemate">Պատ</string>
   <string name="white">Սպիտակներ</string>
   <string name="black">Սևեր</string>
+  <string name="asWhite">սպիտակների կողմից</string>
+  <string name="asBlack">սևերի կողմից</string>
   <string name="randomColor">Կամայական գույն</string>
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
@@ -776,4 +778,8 @@
   <string name="abortTheGame">Ընդհատել խաղը</string>
   <string name="resignTheGame">Հանձնվել</string>
   <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
+  <string name="since">Սկսած</string>
+  <string name="until">Մինչև</string>
+  <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
+  <string name="switchSides">Փոխել կողմը</string>
 </resources>

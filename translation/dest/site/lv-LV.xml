@@ -17,8 +17,8 @@
   <string name="stalemate">Pats</string>
   <string name="white">Baltie</string>
   <string name="black">Melnie</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">ar baltajiem</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">ar melnajiem</string>
+  <string name="asWhite">ar baltajiem</string>
+  <string name="asBlack">ar melnajiem</string>
   <string name="randomColor">Nejauša krāsa</string>
   <string name="createAGame">Izveidot spēli</string>
   <string name="whiteIsVictorious">Baltie ir uzvarējuši</string>

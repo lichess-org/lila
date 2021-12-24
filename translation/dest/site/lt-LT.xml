@@ -17,6 +17,8 @@
   <string name="stalemate">Patas</string>
   <string name="white">Baltieji</string>
   <string name="black">Juodieji</string>
+  <string name="asWhite">kaip baltieji</string>
+  <string name="asBlack">kaip juodieji</string>
   <string name="randomColor">Atsitiktinė spalva</string>
   <string name="createAGame">Kurti žaidimą</string>
   <string name="whiteIsVictorious">Baltieji laimėjo</string>
@@ -963,4 +965,8 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="abortTheGame">Atšaukti partiją</string>
   <string name="resignTheGame">Pasiduoti</string>
   <string name="youCantStartNewGame">Jūs negalite pradėti naujos partijos kol nepabaigta ši.</string>
+  <string name="since">Nuo</string>
+  <string name="until">Iki</string>
+  <string name="lichessDbExplanation">Reitinguoti žaidimai paimti iš visų Lichess žaidėjų</string>
+  <string name="switchSides">Pakeisti puses</string>
 </resources>

@@ -17,6 +17,8 @@
   <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
+  <string name="asWhite">持白</string>
+  <string name="asBlack">持黑</string>
   <string name="randomColor">随机选色</string>
   <string name="createAGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
@@ -841,4 +843,8 @@
   <string name="abortTheGame">中止本局</string>
   <string name="resignTheGame">认输</string>
   <string name="youCantStartNewGame">在本局结束前，你不能开始新的对局。</string>
+  <string name="since">自</string>
+  <string name="until">直到</string>
+  <string name="lichessDbExplanation">来自 Lichess 用户的所有 Rated 游戏</string>
+  <string name="switchSides">更换所持颜色</string>
 </resources>

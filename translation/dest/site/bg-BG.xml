@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Бели</string>
   <string name="black">Черни</string>
+  <string name="asWhite">с белите</string>
+  <string name="asBlack">с черните</string>
   <string name="randomColor">Произволна страна</string>
   <string name="createAGame">Създай игра</string>
   <string name="whiteIsVictorious">Белите победиха</string>
@@ -87,6 +89,7 @@
     <item quantity="one">Мат в %s полуход</item>
     <item quantity="other">Мат в %s полухода</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' със закръгляне, базирано на броя полуходове до следващото вземане на фигура или преместване на пешка</string>
   <string name="noGameFound">Няма намерени игри</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
@@ -94,6 +97,9 @@
   <string name="xOpeningExplorer">%s датабаза</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="lossSavedBy50MoveRule">Загубата е преодоляна от правилото за 50 хода</string>
+  <string name="winOr50MovesByPriorMistake">Победа или 50 хода заради грешка</string>
+  <string name="lossOr50MovesByPriorMistake">Загуба или 50 хода заради грешка</string>
+  <string name="unknownDueToRounding">Победа/загуба е гарантирана само ако е следвана препоръчваната вариация от последното вземане на фигура или преместване на пешка, поради възможното закръгляне на оставащите ходове до петдесетходовото правила в Syzygy ендшпил базата.</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Въведи PGN</string>
   <string name="delete">Изтрий</string>
@@ -366,6 +372,8 @@
   <string name="follow">Следвай</string>
   <string name="following">Следвам</string>
   <string name="unfollow">Не следвай</string>
+  <string name="followX">Последвай %s</string>
+  <string name="unfollowX">Прекрати следването на %s</string>
   <string name="block">Блокирай</string>
   <string name="blocked">Блокирани</string>
   <string name="unblock">Отблокирай</string>
@@ -551,6 +559,14 @@
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
   <string name="error.required">Това поле е задължително</string>
+  <string name="error.email">Този имейл адрес е невалиден</string>
+  <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
+  <string name="error.email_unique">Този имейл адрес е невалиден или вече се използва</string>
+  <string name="error.email_different">Това е текущият Ви имейл адрес</string>
+  <string name="error.minLength">Трябва да е поне %s символа</string>
+  <string name="error.maxLength">Трябва да е максимум %s символа</string>
+  <string name="error.min">Трябва да е минимум %s</string>
+  <string name="error.max">Трябва да е максимум %s</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
@@ -868,4 +884,8 @@
   <string name="abortTheGame">Прекъсване на играта</string>
   <string name="resignTheGame">Предаване</string>
   <string name="youCantStartNewGame">Не можете да започнете нова игра преди тази да е приключила.</string>
+  <string name="since">От</string>
+  <string name="until">До</string>
+  <string name="lichessDbExplanation">Игри с рейтинг измежду всички Lichess играчи</string>
+  <string name="switchSides">Смени страната</string>
 </resources>

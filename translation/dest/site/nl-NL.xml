@@ -17,8 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Wit</string>
   <string name="black">Zwart</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">met wit</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">met zwart</string>
+  <string name="asWhite">met wit</string>
+  <string name="asBlack">met zwart</string>
   <string name="randomColor">Willekeurige kleur</string>
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
@@ -886,7 +886,8 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="abortTheGame">Partij afbreken</string>
   <string name="resignTheGame">Partij opgeven</string>
   <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Vanaf</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Tot</string>
-  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Van kleur wisselen</string>
+  <string name="since">Vanaf</string>
+  <string name="until">Tot</string>
+  <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
+  <string name="switchSides">Van kleur wisselen</string>
 </resources>

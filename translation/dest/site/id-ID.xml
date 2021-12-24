@@ -17,6 +17,8 @@
   <string name="stalemate">Langkah buntu</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
+  <string name="asWhite">sebagai Putih</string>
+  <string name="asBlack">sebagai Hitam</string>
   <string name="randomColor">Warna acak</string>
   <string name="createAGame">Mulai permainan baru</string>
   <string name="whiteIsVictorious">Putih menang</string>
@@ -316,6 +318,7 @@
   <string name="leaderboard">Peringkat Terbaik</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
+  <string name="orUploadPgnFile">Atau muat berkas PGN</string>
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="toStudy">Studi</string>
