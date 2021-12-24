@@ -156,30 +156,20 @@ final class TournamentApi(
               .flatMap {
                 case Nil => funit
                 case pairings =>
-                  hadPairings put tour.id
-                  playerRepo
-                    .byTourAndUserIds(tour.id, pairings.flatMap(_.users))
-                    .map {
-                      _.view.map { player =>
-                        player.userId -> player
-                      }.toMap
-                    }
-                    .mon(_.tournament.pairing.createPlayerMap)
-                    .flatMap { playersMap =>
-                      pairings
-                        .map { pairing =>
-                          pairingRepo.insert(pairing) >>
-                            autoPairing(tour, pairing, playersMap, ranking.ranking)
-                              .mon(_.tournament.pairing.createAutoPairing)
-                              .map {
-                                socket.startGame(tour.id, _)
-                              }
-                        }
-                        .sequenceFu
-                        .mon(_.tournament.pairing.createInserts) >>
-                        featureOneOf(tour, pairings, ranking.ranking)
-                          .mon(_.tournament.pairing.createFeature) >>-
-                        lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                  pairingRepo.insert(pairings.map(_.pairing)) >>
+                    pairings
+                      .map { pairing =>
+                        autoPairing(tour, pairing, ranking.ranking)
+                          .mon(_.tournament.pairing.createAutoPairing)
+                          .map { socket.startGame(tour.id, _) }
+                      }
+                      .sequenceFu
+                      .void
+                      .mon(_.tournament.pairing.createInserts) >>- {
+                      lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                      socket.reload(tour.id)
+                      hadPairings put tour.id
+                      featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
                     }
               }
           }
@@ -189,17 +179,18 @@ final class TournamentApi(
           .result
       }
 
-  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit = {
+  private def featureOneOf(tour: Tournament, pairings: List[Pairing.WithPlayers], ranking: Ranking): Funit = {
     import cats.implicits._
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
-        pairings.flatMap(RankedPairing(ranking)).minimumByOption(_.bestRank) ?? { bestCandidate =>
-          def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
-          curOption.filter(_.pairing.playing) match {
-            case Some(current) if bestCandidate.bestRank < current.bestRank => switch
-            case Some(_)                                                    => funit
-            case _                                                          => switch
-          }
+        pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank) ?? {
+          bestCandidate =>
+            def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
+            curOption.filter(_.pairing.playing) match {
+              case Some(current) if bestCandidate.bestRank < current.bestRank => switch
+              case Some(_)                                                    => funit
+              case _                                                          => switch
+            }
         }
       }
   }
