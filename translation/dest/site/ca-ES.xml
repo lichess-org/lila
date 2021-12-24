@@ -346,6 +346,7 @@
   <string name="leaderboard">Llista de líders</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
+  <string name="orUploadPgnFile">O penjar un arxiu PGN</string>
   <string name="fromPosition">Des de la posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="toStudy">Estudi</string>
