@@ -17,8 +17,8 @@
   <string name="stalemate">अर्धवट मात</string>
   <string name="white">पांढरा</string>
   <string name="black">काळा</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">पांढऱ्या रंगासाठी</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">काळ्या रंगासाठी</string>
+  <string name="asWhite">पांढऱ्या रंगासाठी</string>
+  <string name="asBlack">काळ्या रंगासाठी</string>
   <string name="randomColor">एच्छिक बाजू</string>
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढऱ्याचा विजय झाला</string>
@@ -887,8 +887,8 @@
   <string name="abortTheGame">खेळ मध्येच थांबवा</string>
   <string name="resignTheGame">खेळातून राजीनामा द्या</string>
   <string name="youCantStartNewGame">आपण आत्ताचा खेळ संपवल्याशीवाय नवीन खेळ चालू करू शकत नाही.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">पासून</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">पर्यन्त</string>
-  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
-  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">रंग बदला</string>
+  <string name="since">पासून</string>
+  <string name="until">पर्यन्त</string>
+  <string name="lichessDbExplanation">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
+  <string name="switchSides">रंग बदला</string>
 </resources>
