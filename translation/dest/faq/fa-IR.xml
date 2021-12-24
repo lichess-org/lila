@@ -27,6 +27,8 @@
   <string name="whatUsernameCanIchoose">نام کاربری من چه می‌تواند باشد؟</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
+  <string name="lichessRatings">rating های lichess</string>
+  <string name="whichRatingSystemUsedByLichess">lichess از چه سیستم امتیاز دهی ای استفاده می کند؟</string>
   <string name="similarOpponents">بازیکنان با قدرت یکسان</string>
   <string name="howToHideRatingWhilePlaying">چگونه وقتی بازی می کنیم ریتینگ ها را پنهان کنیم؟</string>
   <string name="displayPreferences">تنظیمات نمایش</string>
