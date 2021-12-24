@@ -2,7 +2,9 @@ package lila.tournament
 package arena
 
 import org.joda.time.DateTime
+import lila.user.User
 
+// most recent first
 case class Sheet(scores: List[Sheet.Score]) {
   val total  = scores.foldLeft(0)(_ + _.value)
   def onFire = Sheet.isOnFire(scores)
@@ -65,7 +67,7 @@ object Sheet {
 
   val emptySheet = Sheet(Nil)
 
-  def apply(userId: String, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
+  def buildFromScratch(userId: User.ID, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
     Sheet {
       val streaks = streakable == Streaks
       val nexts   = (pairings drop 1 map some) :+ None
@@ -91,15 +93,51 @@ object Sheet {
               else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
               else
                 n match {
-                  case None                                 => StreakStarter
-                  case Some(s) if s.winner.contains(userId) => StreakStarter
-                  case _                                    => Normal
+                  case None                       => StreakStarter
+                  case Some(s) if s.wonBy(userId) => StreakStarter
+                  case _                          => Normal
                 },
               berserk
             )
           case _ => new Score(ResLoss, Normal, berserk)
         }) :: scores
       }
+    }
+
+  def addResult(sheet: Sheet, userId: User.ID, p: Pairing, streakable: Streakable): Sheet =
+    Sheet {
+      val scores  = sheet.scores
+      val streaks = streakable == Streaks
+      val berserk = if (p berserkOf userId) {
+        if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
+      } else NoBerserk
+      val score = p.winner match {
+        case None if p.quickDraw => new Score(ResDQ, Normal, berserk)
+        case None =>
+          new Score(
+            ResDraw,
+            if (streaks && isOnFire(scores)) Double
+            else if (!p.longGame && isDrawStreak(scores)) Null
+            else Normal,
+            berserk
+          )
+        case Some(w) if userId == w =>
+          new Score(
+            ResWin,
+            if (!streaks) Normal
+            else if (isOnFire(scores)) Double
+            else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
+            else StreakStarter,
+            // n match {
+            //   case None                       => StreakStarter
+            //   case Some(s) if s.wonBy(userId) => StreakStarter
+            //   case _                          => Normal
+            // },
+            berserk
+          )
+        case _ => new Score(ResLoss, Normal, berserk)
+      }
+      score :: scores
     }
 
   private val v2date = new DateTime(2020, 4, 21, 0, 0, 0)

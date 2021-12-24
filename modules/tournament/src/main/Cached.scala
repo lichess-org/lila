@@ -100,6 +100,13 @@ final private[tournament] class Cached(
     def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
       cache.get(keyOf(tour, userId))
 
+    def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] = {
+      val key    = keyOf(tour, userId)
+      val nextFu = cache.get(key) map { Sheet.addResult(_, userId, pairing, tour.streakable) }
+      cache.put(key, nextFu)
+      nextFu
+    }
+
     def recompute(tour: Tournament, userId: User.ID): Fu[Sheet] = {
       val key = keyOf(tour, userId)
       cache.invalidate(key)
@@ -116,7 +123,7 @@ final private[tournament] class Cached(
 
     private def compute(key: SheetKey): Fu[Sheet] =
       pairingRepo.finishedByPlayerChronological(key.tourId, key.userId) map {
-        arena.Sheet(key.userId, _, key.version, key.streakable)
+        arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable)
       }
 
     private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet") {

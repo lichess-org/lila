@@ -430,21 +430,24 @@ final class TournamentApi(
 
   private[tournament] def finishGame(game: Game): Funit =
     game.tournamentId ?? { tourId =>
-      pairingRepo.finish(game) >>
+      pairingRepo.finishAndGet(game) flatMap { pairingOpt =>
         Sequencing(mainQueue)(tourId, "finishGame")(cached.tourCache.started) { tour =>
-          game.userIds.map(updatePlayerAfterGame(tour, game)).sequenceFu.void >>- {
+          pairingOpt ?? { pairing =>
+            game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).sequenceFu.void
+          } >>- {
             duelStore.remove(game)
             socket.reload(tour.id)
             updateTournamentStanding(tour)
             withdrawNonMover(game)
           }
         }
+      }
     }
 
-  private def updatePlayerAfterGame(tour: Tournament, game: Game)(userId: User.ID): Funit =
+  private def updatePlayerAfterGame(tour: Tournament, game: Game, pairing: Pairing)(userId: User.ID): Funit =
     tour.mode.rated ?? { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
-        cached.sheet.recompute(tour, userId).map { sheet =>
+        cached.sheet.addResult(tour, userId, pairing).map { sheet =>
           player.copy(
             score = sheet.total,
             fire = tour.streakable && sheet.onFire,

@@ -166,19 +166,18 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
     }.void
 
-  def finish(g: lila.game.Game) =
-    if (g.aborted) coll.delete.one($id(g.id)).void
+  def finishAndGet(g: Game): Fu[Option[Pairing]] =
+    if (g.aborted) coll.delete.one($id(g.id)) inject none
     else
-      coll.update
-        .one(
-          $id(g.id),
-          $set(
-            "s" -> g.status.id,
-            "w" -> g.winnerColor.map(_.white),
-            "t" -> g.turns
-          )
-        )
-        .void
+      coll.ext.findAndUpdate[Pairing](
+        selector = $id(g.id),
+        update = $set(
+          "s" -> g.status.id,
+          "w" -> g.winnerColor.map(_.white),
+          "t" -> g.turns
+        ),
+        fetchNewObject = true
+      )
 
   def setBerserk(pairing: Pairing, userId: User.ID) = {
     if (pairing.user1 == userId) "b1".some
