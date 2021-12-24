@@ -236,7 +236,7 @@ final class JsonView(
     Json.obj(
       "game"    -> s.scores.size,
       "berserk" -> s.scores.count(_.isBerserk),
-      "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
+      "win"     -> s.scores.count(_.res == arena.Sheet.Result.Win)
     )
 
   private val cachableData = cacheApi[Tournament.ID, CachableData](64, "tournament.json.cachable") {
@@ -520,8 +520,8 @@ object JsonView {
       .add("fire" -> (streakable && s.onFire))
 
   private[tournament] def sheetScoreJson(score: arena.Sheet.Score) =
-    if (score.flag == arena.Sheet.Normal) JsNumber(score.value)
-    else Json.arr(score.value, score.flag)
+    if (score.flag == arena.Sheet.Flag.Normal) JsNumber(score.value)
+    else Json.arr(score.value, score.flag.value)
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
