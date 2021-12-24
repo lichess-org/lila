@@ -44,4 +44,6 @@
   <string name="doubleCheckDescription">एकाच वेळी दोन सोंगट्यांनी शह देणे, त्यामुळे शोधला गेलेला हल्ला जो एखादी सोंगटी हलवून लांबच्या पल्ल्याच्या सोंगटीकडून समोरच्या राजावर हल्ला केला जाईल.</string>
   <string name="endgame">अंतिम खेळ</string>
   <string name="endgameDescription">खेळाच्या शेवटच्या भागातील डावपेच.</string>
+  <string name="enPassantDescription">एन पासंट नियमाचा समावेश असलेली एक युक्ती, जिथे एक मोहरा प्रतिस्पर्धी मोहरा पकडू शकतो ज्याने त्याच्या सुरुवातीच्या दोन-चौरस चालीचा वापर करून त्यास मागे टाकले आहे.</string>
+  <string name="exposedKing">उघड राजा</string>
 </resources>
