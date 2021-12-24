@@ -39,4 +39,5 @@
   <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Թեմաներ</string>
   <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Իմ թեմաները</string>
   <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Շատ դիտվող թեմաներ</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Թեմաների կառավարում</string>
 </resources>
