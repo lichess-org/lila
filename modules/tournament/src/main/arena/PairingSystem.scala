@@ -69,7 +69,7 @@ final private[tournament] class PairingSystem(
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
     idGenerator.games(preps.size) map { ids =>
       preps.zip(ids).map { case (prep, id) =>
-        //color was chosen in prepWithColor function
+        // color was chosen in prepWithColor function
         prep.toPairing(id)
       }
     }

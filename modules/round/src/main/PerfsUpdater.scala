@@ -5,7 +5,7 @@ import org.goochjs.glicko2._
 
 import lila.game.{ Game, GameRepo, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
-import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, PerfType => PT }
+import lila.rating.{ Glicko, Perf, PerfType => PT, RatingFactors, RatingRegulator }
 import lila.user.{ Perfs, RankingApi, User, UserRepo }
 
 final class PerfsUpdater(

@@ -149,7 +149,7 @@ final private class Streaming(
     streams
       .foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {
         case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) => (streamerIds, streams)
-        case ((streamerIds, streams), stream)                                    => (streamerIds + stream.streamer.id, stream :: streams)
+        case ((streamerIds, streams), stream) => (streamerIds + stream.streamer.id, stream :: streams)
       }
       ._2
 }

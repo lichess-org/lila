@@ -25,8 +25,8 @@ object embed {
           layout.dataSoundSet := SoundSet.silent.key,
           layout.dataAssetUrl,
           layout.dataAssetVersion := assetVersion.value,
-          layout.dataTheme := config.bg,
-          layout.dataPieceSet := config.pieceSet.name,
+          layout.dataTheme        := config.bg,
+          layout.dataPieceSet     := config.pieceSet.name,
           body
         )
       )

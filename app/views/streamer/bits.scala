@@ -46,7 +46,7 @@ object bits {
         )
       } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
-        cls := active.active("requests"),
+        cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
@@ -69,7 +69,7 @@ object bits {
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
       redirectLink(s.streamer.id.value)(
-        cls := "stream highlight",
+        cls   := "stream highlight",
         title := s.status
       )(
         strong(cls := "text", dataIcon := "")(l titleName s),
