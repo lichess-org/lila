@@ -28,8 +28,8 @@ public class Result {
 	 * @param loser
 	 */
 	public Result(Rating winner, Rating loser) {
-		if ( ! validPlayers(winner, loser) ) {
-			throw new IllegalArgumentException();
+		if ( ! arePlayersIdentical(winner, loser) ) {
+			throw new IllegalArgumentException("The winner and the loser are the same player");
 		}
 
 		this.winner = winner;
@@ -45,8 +45,10 @@ public class Result {
 	 * @param isDraw (must be set to "true")
 	 */
 	public Result(Rating player1, Rating player2, boolean isDraw) {
-		if (! isDraw || ! validPlayers(player1, player2) ) {
-			throw new IllegalArgumentException();
+		if (! isDraw ) {
+			throw new IllegalArgumentException("The argument isDraw is false");
+		} else if (!arePlayersIdentical(player1, player2)) {
+			throw new IllegalArgumentException("The winner and the loser are the same player");	
 		}
 
 		this.winner = player1;
@@ -60,9 +62,9 @@ public class Result {
 	 *
 	 * @param player1
 	 * @param player2
-	 * @return
+	 * @return boolean (true if players are identical)
 	 */
-	private boolean validPlayers(Rating player1, Rating player2) {
+	private boolean arePlayersIdentical(Rating player1, Rating player2) {
 		return !player1.equals(player2);
 	}
 
@@ -108,7 +110,7 @@ public class Result {
 	 * Given a particular player, returns the opponent.
 	 *
 	 * @param player
-	 * @return opponent
+	 * @return Rating (returns the opponent)
 	 */
 	public Rating getOpponent(Rating player) {
 		Rating opponent;
