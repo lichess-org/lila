@@ -5,12 +5,54 @@ import org.joda.time.DateTime
 import lila.user.User
 
 // most recent first
-case class Sheet(scores: List[Sheet.Score]) {
-  val total  = scores.foldLeft(0)(_ + _.value)
-  def onFire = Sheet.isOnFire(scores)
+case class Sheet(scores: List[Sheet.Score], total: Int) {
+  import Sheet._
+
+  def isOnFire: Boolean =
+    scores.headOption.exists(_.res == Result.Win) &&
+      scores.lift(1).exists(_.res == Result.Win)
+
+  def addResult(userId: User.ID, p: Pairing, version: Version, streakable: Streakable): Sheet = {
+    val berserk = if (p berserkOf userId) {
+      if (p.notSoQuickFinish) Berserk.Valid else Berserk.Invalid
+    } else Berserk.No
+    val score = p.winner match {
+      case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
+      case None =>
+        Score(
+          Result.Draw,
+          if (streakable.value && isOnFire) Flag.Double
+          else if (version != Version.V1 && !p.longGame && isDrawStreak(scores)) Flag.Null
+          else Flag.Normal,
+          berserk
+        )
+      case Some(w) if userId == w =>
+        Score(
+          Result.Win,
+          if (!streakable.value) Flag.Normal
+          else if (isOnFire) Flag.Double
+          else Flag.StreakStarter,
+          berserk
+        )
+      case _ => Score(Result.Loss, Flag.Normal, berserk)
+    }
+    // update the streak flag of the previous score
+    val prevScores = scores.headOption
+      .filter(_.flag == Flag.StreakStarter && !p.wonBy(userId))
+      .fold(scores)(_.withFlag(Flag.Normal) :: scores.tail)
+
+    Sheet(score :: prevScores, score.value + total)
+  }
 }
 
 object Sheet {
+  val empty = Sheet(Nil, 0)
+
+  def buildFromScratch(userId: User.ID, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
+    pairings.foldLeft(empty) { case (sheet, pairing) =>
+      sheet.addResult(userId, pairing, version, streakable)
+    }
+
   case class Version private (id: Int) extends AnyVal
   object Version {
     val V1 = Version(1)
@@ -86,87 +128,6 @@ object Sheet {
       flag.value | berserk.encoded | res.encoded
     )
   }
-
-  val emptySheet = Sheet(Nil)
-
-  def buildFromScratch(
-      userId: User.ID,
-      pairings: List[Pairing],
-      version: Version,
-      streakable: Streakable
-  ): Sheet =
-    Sheet {
-      val nexts = (pairings drop 1 map some) :+ None
-      pairings.zip(nexts).foldLeft(List.empty[Score]) { case (scores, (p, n)) =>
-        val berserk = if (p berserkOf userId) {
-          if (p.notSoQuickFinish) Berserk.Valid else Berserk.Invalid
-        } else Berserk.No
-        (p.winner match {
-          case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
-          case None =>
-            Score(
-              Result.Draw,
-              if (streakable.value && isOnFire(scores)) Flag.Double
-              else if (version != Version.V1 && !p.longGame && isDrawStreak(scores)) Flag.Null
-              else Flag.Normal,
-              berserk
-            )
-          case Some(w) if userId == w =>
-            Score(
-              Result.Win,
-              if (!streakable.value) Flag.Normal
-              else if (isOnFire(scores)) Flag.Double
-              else if (scores.headOption.exists(_.flag == Flag.StreakStarter)) Flag.StreakStarter
-              else
-                n match {
-                  case None                       => Flag.StreakStarter
-                  case Some(s) if s.wonBy(userId) => Flag.StreakStarter
-                  case _                          => Flag.Normal
-                },
-              berserk
-            )
-          case _ => Score(Result.Loss, Flag.Normal, berserk)
-        }) :: scores
-      }
-    }
-
-  def addResult(sheet: Sheet, userId: User.ID, p: Pairing, streakable: Streakable): Sheet =
-    Sheet {
-      val scores = sheet.scores
-      val berserk = if (p berserkOf userId) {
-        if (p.notSoQuickFinish) Berserk.Valid else Berserk.Invalid
-      } else Berserk.No
-      val score = p.winner match {
-        case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
-        case None =>
-          Score(
-            Result.Draw,
-            if (streakable.value && isOnFire(scores)) Flag.Double
-            else if (!p.longGame && isDrawStreak(scores)) Flag.Null
-            else Flag.Normal,
-            berserk
-          )
-        case Some(w) if userId == w =>
-          Score(
-            Result.Win,
-            if (!streakable.value) Flag.Normal
-            else if (isOnFire(scores)) Flag.Double
-            else Flag.StreakStarter,
-            berserk
-          )
-        case _ => Score(Result.Loss, Flag.Normal, berserk)
-      }
-      // update the streak flag of the previous score
-      val prevScores = scores.headOption
-        .filter(_.flag == Flag.StreakStarter && !p.wonBy(userId))
-        .fold(scores)(_.withFlag(Flag.Normal) :: scores.tail)
-
-      score :: prevScores
-    }
-
-  private def isOnFire(scores: List[Score]) =
-    scores.headOption.exists(_.res == Result.Win) &&
-      scores.lift(1).exists(_.res == Result.Win)
 
   @scala.annotation.tailrec
   private def isDrawStreak(scores: List[Score]): Boolean =

@@ -104,7 +104,7 @@ final private[tournament] class Cached(
     def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] = {
       val key = keyOf(tour, userId)
       cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
-        val next = prev map { Sheet.addResult(_, userId, pairing, Sheet.Streakable(tour.streakable)) }
+        val next = prev map { _.addResult(userId, pairing, Sheet.Version.V2, Sheet.Streakable(tour.streakable)) }
         cache.put(key, next)
         next
       }
