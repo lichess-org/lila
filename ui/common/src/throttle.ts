@@ -4,7 +4,7 @@
  * the previous call to complete.
  */
 export function throttlePromise<T extends (...args: any) => Promise<void>>(
-  callback: T
+  wrapped: T
 ): (...args: Parameters<T>) => void {
   let current: Promise<void> | undefined;
   let afterCurrent: (() => void) | undefined;
@@ -14,7 +14,7 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
 
     const exec = () => {
       afterCurrent = undefined;
-      current = callback.apply(self, args).finally(() => {
+      current = wrapped.apply(self, args).finally(() => {
         current = undefined;
         if (afterCurrent) afterCurrent();
       });
@@ -25,8 +25,21 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
   };
 }
 
-export function sleep(delay: number): () => Promise<void> {
-  return () => new Promise(resolve => setTimeout(resolve, delay));
+/**
+ * Wraps an asynchronous function to return a promise that resolves
+ * after completion plus a delay (regardless if the wrapped function resolves
+ * or rejects).
+ */
+export function finallyDelay<T extends (...args: any) => Promise<void>>(
+  delay: number,
+  wrapped: T
+): (...args: Parameters<T>) => Promise<void> {
+  return function (this: any, ...args: Parameters<T>): Promise<void> {
+    const self = this;
+    return new Promise(resolve => {
+      wrapped.apply(self, args).finally(() => setTimeout(resolve, delay));
+    });
+  };
 }
 
 /**
@@ -35,10 +48,10 @@ export function sleep(delay: number): () => Promise<void> {
  */
 export default function throttle<T extends (...args: any) => void>(
   delay: number,
-  callback: T
+  wrapped: T
 ): (...args: Parameters<T>) => void {
   return throttlePromise(function (this: any, ...args: Parameters<T>) {
-    callback.apply(this, args);
-    return sleep(delay)();
+    wrapped.apply(this, args);
+    return new Promise(resolve => setTimeout(resolve, delay));
   });
 }
