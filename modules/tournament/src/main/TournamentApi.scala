@@ -162,14 +162,13 @@ final class TournamentApi(
                       pairingRepo.insert(pairing.pairing) >>
                         autoPairing(tour, pairing, ranking.ranking)
                           .mon(_.tournament.pairing.createAutoPairing)
-                          .map {
-                            socket.startGame(tour.id, _)
-                          }
+                          .map { socket.startGame(tour.id, _) }
                     }
                     .sequenceFu
                     .void
                     .mon(_.tournament.pairing.createInserts) >>- {
                     lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
+                    socket.reload(tour.id)
                     featureOneOf(tour, pairings, ranking.ranking).unit // do outside of queue
                   }
               }
