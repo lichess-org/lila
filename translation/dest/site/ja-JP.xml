@@ -321,6 +321,7 @@
   <string name="leaderboard">ランキング</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
+  <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
   <string name="toStudy">研究</string>
