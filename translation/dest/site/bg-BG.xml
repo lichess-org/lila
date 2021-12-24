@@ -346,6 +346,7 @@
   <string name="leaderboard">Водещи играчи</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
+  <string name="orUploadPgnFile">Или качете PGN файл</string>
   <string name="fromPosition">От позиция</string>
   <string name="continueFromHere">Продължи от тук</string>
   <string name="toStudy">Разучи</string>
