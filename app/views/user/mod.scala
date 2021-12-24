@@ -23,6 +23,7 @@ object mod {
   def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
+      a(href := "#mz_kaladin")("Kaladin"),
       a(href := "#mz_irwin")("Irwin"),
       a(href := "#mz_assessments")("Evaluation"),
       a(href := "#mz_mod_log")("Mod log"),
@@ -43,7 +44,7 @@ object mod {
         isGranted(_.UserEvaluate) option {
           postForm(
             action := routes.Mod.refreshUserAssess(u.username),
-            title := "Collect data and ask irwin",
+            title := "Collect data and ask irwin and Kaladin",
             cls := "xhr"
           )(
             submitButton(cls := "btn-rack__btn")("Evaluate")

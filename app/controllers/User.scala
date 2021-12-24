@@ -414,6 +414,15 @@ final class User(
           Granter.is(_.ViewPrintNoIP)(holder) ??
             html.user.mod.identification(holder, user, logins)
         }
+
+        val kaladin = isGranted(_.MarkEngine) ?? env.irwin.kaladinApi.get(user).map {
+          _ ?? {
+            _.response ?? { response =>
+              html.kaladin.report(response)
+            }
+          }
+        }
+
         val irwin = isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).map {
           _ ?? { reps =>
             html.irwin.report(reps)
@@ -439,6 +448,7 @@ final class User(
             modZoneSegment(rageSit, "rageSit", user) merge
             modZoneSegment(others, "others", user) merge
             modZoneSegment(identification, "identification", user) merge
+            modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
             EventSource.flow

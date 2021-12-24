@@ -91,28 +91,32 @@
     flex: 1 1 auto;
   }
 
-  &--irwin {
+  &--kaladin {
     order: 6;
   }
 
-  &--assessments {
+  &--irwin {
     order: 7;
   }
 
-  &--mod_log {
+  &--assessments {
     order: 8;
   }
 
-  &--reports {
+  &--mod_log {
     order: 9;
   }
 
-  &--identification {
+  &--reports {
     order: 10;
   }
 
-  &--others {
+  &--identification {
     order: 11;
+  }
+
+  &--others {
+    order: 12;
   }
 
   &--menu {
@@ -439,6 +443,82 @@
     .match {
       font-weight: bold;
       color: $c-good;
+    }
+  }
+
+    &--kaladin {
+    max-height: 60vh;
+    overflow-y: auto;
+
+    header {
+      margin-top: 10px;
+      display: flex;
+      border: $border;
+
+      > * {
+        flex: 1 1 100%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        border-left: $border;
+        padding: 5px 10px;
+      }
+
+      > *:first-child {
+        border-left: none;
+      }
+
+      .title {
+        flex-flow: row;
+        color: $c-link;
+        font-size: 1.4em;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+
+        .beta {
+         display: block;
+         color: $c-warn;
+       }
+      }
+
+      .infos {
+        font-size: 0.9em;
+      }
+
+      strong {
+        display: block;
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+
+      .assess strong {
+        font-size: 2em;
+      }
+    .text {
+      .green {
+        /* actually blue */
+        color: #2077c0;
+      }
+
+      .yellow {
+        color: #ddcf3f;
+      }
+
+      .orange {
+        color: #e79b64;
+      }
+
+      .red {
+        color: $c-bad;
+      }
+    }
+    }
+    > div {
+      text-align: center;
+      font-size: 1.2em;
+      border: $border;
     }
   }
 

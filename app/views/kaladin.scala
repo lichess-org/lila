@@ -3,6 +3,7 @@ package views.html
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.richText
 
 import controllers.routes
 import lila.irwin.KaladinUser
@@ -80,4 +81,29 @@ object kaladin {
         )
       )
     }
+
+  def report(response: lila.irwin.KaladinUser.Response)(implicit ctx: Context): Frag =
+    div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
+      header(
+        span(cls := "title")(
+          a(href := routes.Irwin.kaladin)("Kaladin "),
+          strong(cls := "beta")("BETA")
+        ),
+        div(cls := "infos")(
+          p("Updated ", momentFromNowServer(response.at))
+        ),
+        div(cls := "assess text")(
+          strong(cls := predClass(response.pred.activation))(response.pred.activation),
+          " Overall assessment"
+        )
+      ),
+      div("Insights (by order of relevance)"),
+      table(cls := "slist")(
+        tbody(
+          response.pred.insights.map { insight =>
+            tr(cls := "text")(td(richText(insight)))
+          }
+        )
+      )
+    )
 }

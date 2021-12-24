@@ -39,6 +39,9 @@ final class KaladinApi(
   private def sequence[A](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
     workQueue { coll(_.byId[KaladinUser](user.id.value)) flatMap f }
 
+  def get(user: User): Fu[Option[KaladinUser]] =
+    coll(_.byId[KaladinUser](user.id))
+
   def dashboard: Fu[KaladinUser.Dashboard] = for {
     c <- coll.get
     completed <- c

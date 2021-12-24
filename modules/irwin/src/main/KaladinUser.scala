@@ -59,7 +59,7 @@ object KaladinUser {
   }
 
   case class Response(at: DateTime, pred: Pred)
-  // Pred, short for Predication, activation, float between 0 and 1, 
+  // Pred, short for Predication, activation, float between 0 and 1,
   // the higher the more likely the user is cheating
   case class Pred(activation: Float, insights: List[String], tc: Int)
 
