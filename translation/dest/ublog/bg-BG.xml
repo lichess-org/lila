@@ -2,13 +2,13 @@
 <resources>
   <string name="xBlog">Блогът на %s</string>
   <string name="newPost">Нова публикация</string>
-  <string name="editYourBlogPost">Редактирайте вашата публикация</string>
+  <string name="editYourBlogPost">Редактирайте Вашата публикация</string>
   <string name="saveDraft">Запазване на черновата</string>
   <string name="postTitle">Заглавие на публикацията</string>
   <string name="postIntro">Цитат от публикацията (интро)</string>
   <string name="postBody">Текст на публикацията</string>
   <string name="drafts">Чернови</string>
-  <string name="published">Публикуван</string>
+  <string name="published">Публикувана</string>
   <string name="publishOnYourBlog">Публикувайте във Вашия блог</string>
   <string name="publishHelp">Ако е отбелязано, публикацията ще бъде показана във Вашия блог. В противен случай ще остане частна, във Вашите чернови</string>
   <plurals name="publishedNbBlogPosts">
