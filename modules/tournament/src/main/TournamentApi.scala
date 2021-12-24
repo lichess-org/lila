@@ -379,6 +379,9 @@ final class TournamentApi(
   private def stallPause(tourId: Tournament.ID, userId: User.ID): Funit =
     withdraw(tourId, userId, isPause = false, isStalling = true)
 
+  private[tournament] def sittingDetected(game: Game, player: User.ID): Funit =
+    game.tournamentId ?? { stallPause(_, player) }
+
   private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean, isStalling: Boolean): Funit =
     Sequencing(mainQueue)(tourId, "withdraw")(cached.tourCache.enterable) {
       case tour if tour.isCreated =>
@@ -429,7 +432,7 @@ final class TournamentApi(
     game.tournamentId ?? { tourId =>
       pairingRepo.finish(game) >>
         Sequencing(mainQueue)(tourId, "finishGame")(cached.tourCache.started) { tour =>
-          game.userIds.map(updatePlayer(tour, game.some)).sequenceFu.void >>- {
+          game.userIds.map(updatePlayerAfterGame(tour, game)).sequenceFu.void >>- {
             duelStore.remove(game)
             socket.reload(tour.id)
             updateTournamentStanding(tour)
@@ -438,18 +441,10 @@ final class TournamentApi(
         }
     }
 
-  private[tournament] def sittingDetected(game: Game, player: User.ID): Funit =
-    game.tournamentId ?? { stallPause(_, player) }
-
-  private def updatePlayer(
-      tour: Tournament,
-      finishing: Option[
-        Game
-      ] // if set, update the player performance. Leave to none to just recompute the sheet.
-  )(userId: User.ID): Funit =
+  private def updatePlayerAfterGame(tour: Tournament, game: Game)(userId: User.ID): Funit =
     tour.mode.rated ?? { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
-        cached.sheet.update(tour, userId).map { sheet =>
+        cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(
             score = sheet.total,
             fire = tour.streakable && sheet.onFire,
@@ -457,8 +452,7 @@ final class TournamentApi(
             provisional = perf.fold(player.provisional)(_.provisional),
             performance = {
               for {
-                g           <- finishing
-                performance <- performanceOf(g, userId).map(_.toDouble)
+                performance <- performanceOf(game, userId).map(_.toDouble)
                 nbGames = sheet.scores.size
                 if nbGames > 0
               } yield Math.round {
@@ -466,7 +460,7 @@ final class TournamentApi(
               } toInt
             } | player.performance
           )
-        } >>- finishing.flatMap(_.whitePlayer.userId).foreach { whiteUserId =>
+        } >>- game.whitePlayer.userId.foreach { whiteUserId =>
           colorHistoryApi.inc(player.id, chess.Color.fromWhite(player is whiteUserId))
         }
       }
@@ -519,12 +513,26 @@ final class TournamentApi(
               }
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
+                lila.common.Future.applySequentially(uids.toList)(recomputePlayerAndSheet(tour))
             }
           }
         } >>
           updateNbPlayers(tour.id) >>-
           socket.reload(tour.id) >>- publish()
+    }
+
+  private def recomputePlayerAndSheet(tour: Tournament)(userId: User.ID): Funit =
+    tour.mode.rated ?? { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
+      playerRepo.update(tour.id, userId) { player =>
+        cached.sheet.recompute(tour, userId).map { sheet =>
+          player.copy(
+            score = sheet.total,
+            fire = tour.streakable && sheet.onFire,
+            rating = perf.fold(player.rating)(_.intRating),
+            provisional = perf.fold(player.provisional)(_.provisional)
+          )
+        }
+      }
     }
 
   // erases player from tournament and reassigns winner

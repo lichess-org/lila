@@ -100,7 +100,7 @@ final private[tournament] class Cached(
     def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
       cache.get(keyOf(tour, userId))
 
-    def update(tour: Tournament, userId: User.ID): Fu[Sheet] = {
+    def recompute(tour: Tournament, userId: User.ID): Fu[Sheet] = {
       val key = keyOf(tour, userId)
       cache.invalidate(key)
       cache.get(key)
