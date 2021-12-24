@@ -33,7 +33,8 @@ final class Preload(
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
     lastPostCache: lila.blog.LastPostCache,
-    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]]
+    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
+    msgApi: lila.msg.MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
@@ -61,9 +62,10 @@ final class Preload(
         .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) zip
-      lastPostsCache.get {} flatMap {
+      lastPostsCache.get {} zip
+      ((ctx.nbNotifications > 0) ?? ctx.userId ?? msgApi.hasUnreadLichessMessage.apply) flatMap {
         // format: off
-        case ((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts) =>
+        case (((((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames), ublogPosts), lichessMsg) =>
         // format: on
         (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
           .mon(_.lobby segment "currentGame") zip
@@ -91,7 +93,8 @@ final class Preload(
               blindGames,
               lobbySocket.counters,
               lastPostCache.apply,
-              ublogPosts
+              ublogPosts,
+              hasUnreadLichessMessage = lichessMsg
             )
           }
       }
@@ -136,7 +139,8 @@ object Preload {
       blindGames: List[Pov],
       counters: lila.lobby.LobbyCounters,
       lastPost: Option[lila.blog.MiniPost],
-      ublogPosts: List[UblogPost.PreviewPost]
+      ublogPosts: List[UblogPost.PreviewPost],
+      hasUnreadLichessMessage: Boolean
   )
 
   case class CurrentGame(pov: Pov, opponent: String)
