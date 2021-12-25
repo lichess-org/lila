@@ -104,7 +104,8 @@ final private[tournament] class Cached(
     def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] = {
       val key = keyOf(tour, userId)
       cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
-        val next = prev map { _.addResult(userId, pairing, Sheet.Version.V2, Sheet.Streakable(tour.streakable)) }
+        val next =
+          prev map { _.addResult(userId, pairing, Sheet.Version.V2, Sheet.Streakable(tour.streakable)) }
         cache.put(key, next)
         next
       }
@@ -130,7 +131,7 @@ final private[tournament] class Cached(
       }
 
     private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet") {
-      _.expireAfterAccess(3 minutes)
+      _.expireAfterAccess(4 minutes)
         .maximumSize(65536)
         .buildAsyncFuture(compute)
     }

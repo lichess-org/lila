@@ -85,13 +85,12 @@ final class TournamentStandingApi(
         if (page < 10) playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
         else playerIdsOnPage(tour, page) flatMap { playerRepo.byPlayerIdsOnPage(tour.id, _, page) }
       }
-      sheets <-
-        rankedPlayers
-          .map { p =>
-            cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
-          }
-          .sequenceFu
-          .dmap(_.toMap)
+      sheets <- rankedPlayers
+        .map { p =>
+          cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
+        }
+        .sequenceFu
+        .dmap(_.toMap)
       players <- rankedPlayers.map(JsonView.playerJson(lightUserApi, sheets, tour.streakable)).sequenceFu
     } yield Json.obj(
       "page"    -> page,
