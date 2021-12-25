@@ -461,7 +461,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       initialFen(game) dmap { game -> _ }
     }.sequenceFu
 
-  def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
+  def count(query: Query.type => Bdoc): Fu[Int]    = coll countSel query(Query)
+  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)
 
   private[game] def favoriteOpponents(
       userId: String,
