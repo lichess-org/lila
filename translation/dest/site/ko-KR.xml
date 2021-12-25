@@ -521,6 +521,11 @@
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
   <string name="error.required">필수 기입 사항입니다.</string>
+  <string name="error.email">이메일 주소가 유효하지 않습니다</string>
+  <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
+  <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
+  <string name="error.minLength">최소 %s자여야 합니다.</string>
+  <string name="error.maxLength">최대 %s자여야 합니다</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
