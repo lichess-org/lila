@@ -3,7 +3,6 @@ package views.html
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
 
 import controllers.routes
 import lila.irwin.KaladinUser
@@ -100,9 +99,9 @@ object kaladin {
       div("Insights (by order of relevance)"),
       table(cls := "slist")(
         tbody(
-          response.pred.insights.map { insight =>
-            tr(cls := "text")(td(richText(insight)))
-          }
+          tr(cls := "text")(response.pred.insights.map { insight =>
+            td(a(href := insight)(insight.split("/").drop(5).mkString("/")))
+          })
         )
       )
     )

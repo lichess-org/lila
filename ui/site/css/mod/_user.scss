@@ -446,7 +446,7 @@
     }
   }
 
-    &--kaladin {
+  &--kaladin {
     max-height: 60vh;
     overflow-y: auto;
 
@@ -478,9 +478,9 @@
         letter-spacing: 3px;
 
         .beta {
-         display: block;
-         color: $c-warn;
-       }
+          display: block;
+          color: $c-warn;
+        }
       }
 
       .infos {
@@ -496,29 +496,33 @@
       .assess strong {
         font-size: 2em;
       }
-    .text {
-      .green {
-        /* actually blue */
-        color: #2077c0;
-      }
+      .text {
+        .green {
+          /* actually blue */
+          color: #2077c0;
+        }
 
-      .yellow {
-        color: #ddcf3f;
-      }
+        .yellow {
+          color: #ddcf3f;
+        }
 
-      .orange {
-        color: #e79b64;
-      }
+        .orange {
+          color: #e79b64;
+        }
 
-      .red {
-        color: $c-bad;
+        .red {
+          color: $c-bad;
+        }
       }
-    }
     }
     > div {
       text-align: center;
       font-size: 1.2em;
       border: $border;
+    }
+
+    table .text {
+      text-align: center;
     }
   }
 
