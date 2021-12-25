@@ -3,7 +3,6 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
-import lila.common.ThreadLocalRandom
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -16,14 +15,14 @@ final private class StartedOrganizer(
   implicit def ec = context.dispatcher
 
   override def preStart(): Unit = {
-    context setReceiveTimeout 120.seconds
-    context.system.scheduler.scheduleOnce(25 seconds, self, Tick).unit
+    context setReceiveTimeout 60.seconds
+    context.system.scheduler.scheduleOnce(25 seconds, self, Tick(0)).unit
   }
 
-  case object Tick
+  case class Tick(it: Int)
 
-  def scheduleNext(): Unit =
-    context.system.scheduler.scheduleOnce(2 seconds, self, Tick).unit
+  def scheduleNext(prev: Int): Unit =
+    context.system.scheduler.scheduleOnce(1 second, self, Tick(prev + 1)).unit
 
   def receive = {
 
@@ -32,8 +31,13 @@ final private class StartedOrganizer(
       pairingLogger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick =>
-      tournamentRepo.startedCursor
+    case Tick(tickIt) =>
+      tournamentRepo
+        .startedCursor {
+          if (tickIt % 20 == 0) 2 // every 20s, do all tournaments with 2+ players
+          else if (tickIt % 2 == 0) 50 // every 2s, do all decent tournaments
+          else 1000 // always do massive tournaments
+        }
         .documentSource()
         .mapAsyncUnordered(4) { tour =>
           processTour(tour) recover { case e: Exception =>
@@ -50,13 +54,13 @@ final private class StartedOrganizer(
           lila.mon.tournament.waitingPlayers.record(users).unit
         }
         .monSuccess(_.tournament.startedOrganizer.tick)
-        .addEffectAnyway(scheduleNext())
+        .addEffectAnyway(scheduleNext(tickIt))
         .unit
   }
 
   private def processTour(tour: Tournament): Fu[Int] =
     if (tour.secondsToFinish <= 0) api finish tour inject 0
-    else if (!tour.isScheduled && tour.nbPlayers < 30 && ThreadLocalRandom.nextInt(10) == 0) {
+    else if (tour.nbPlayers < 30) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour)
       }
