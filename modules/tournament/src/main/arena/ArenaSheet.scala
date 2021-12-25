@@ -93,7 +93,7 @@ object Sheet {
     val DQ   = Result(3 << 4)
   }
 
-  case class Score private (encoded: Int) extends AnyVal {
+  final case class Score private (encoded: Int) extends AnyVal {
     // flag:    2 bits
     // berserk: 2 bits
     // result:  2 bits
