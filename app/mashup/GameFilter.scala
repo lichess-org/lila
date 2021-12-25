@@ -9,6 +9,7 @@ import lila.user.User
 import play.api.mvc.Request
 import cats.data.NonEmptyList
 import play.api.data.FormBinding
+import play.api.i18n.Lang
 
 sealed abstract class GameFilter(val name: String)
 
@@ -98,7 +99,7 @@ object GameFilterMenu {
         filter: GameFilter,
         me: Option[User],
         page: Int
-    )(implicit req: Request[_], formBinding: FormBinding): Fu[Paginator[Game]] = {
+    )(implicit req: Request[_], formBinding: FormBinding, lang: Lang): Fu[Paginator[Game]] = {
       val nb               = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match {
@@ -138,7 +139,7 @@ object GameFilterMenu {
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
-  )(implicit req: Request[_], formBinding: FormBinding): play.api.data.Form[_] =
+  )(implicit req: Request[_], formBinding: FormBinding, lang: Lang): play.api.data.Form[_] =
     filter match {
       case Search => userGameSearch.requestForm
       case _      => userGameSearch.defaultForm

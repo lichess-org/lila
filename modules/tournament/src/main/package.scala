@@ -1,6 +1,5 @@
 package lila
 
-
 package object tournament extends PackageObject {
 
   private[tournament] type RankedPlayers = List[RankedPlayer]

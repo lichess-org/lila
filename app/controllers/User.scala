@@ -119,7 +119,7 @@ final class User(
                   filter = filters.current,
                   me = ctx.me,
                   page = page
-                )(ctx.body, formBinding)
+                )(ctx.body, formBinding, reqLang)
                 _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
                 _ <- env.tournament.cached.nameCache preloadMany {
                   pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
@@ -134,7 +134,8 @@ final class User(
                     social <- env.socialInfo(u, ctx)
                     searchForm =
                       (filters.current == GameFilter.Search) option
-                        GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body, formBinding)
+                        GameFilterMenu
+                          .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
                   } yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                   else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
               } yield res,
@@ -256,7 +257,7 @@ final class User(
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(ctx.body, formBinding)
+        )(ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)

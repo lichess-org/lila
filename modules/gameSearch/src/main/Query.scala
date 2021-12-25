@@ -54,6 +54,8 @@ object Query {
 
   import lila.common.Form._
   import play.api.libs.json._
+  import play.api.i18n.Lang
+  import lila.i18n.{ I18nKeys => trans }
 
   import Range.rangeJsonWriter
   implicit private val sortingJsonWriter  = Json.writes[Sorting]
@@ -99,15 +101,13 @@ object Query {
   val clockIncs =
     options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
 
-  val winnerColors = List(1 -> "White", 2 -> "Black")
+  def winnerColors(implicit lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
 
   val sources = lila.game.Source.searchable map { v =>
     v.id -> v.name.capitalize
   }
 
-  val modes = Mode.all map { mode =>
-    mode.id -> mode.name.capitalize
-  }
+  def modes(implicit lang: Lang) = List(0 -> trans.casual.txt(), 1 -> trans.rated.txt())
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
@@ -118,7 +118,7 @@ object Query {
     e -> s"$e"
   }
 
-  val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
+  def hasAis(implicit lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
 
   val aiLevels = (1 to 8) map { l =>
     l -> ("level " + l)
