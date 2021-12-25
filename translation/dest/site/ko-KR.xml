@@ -17,6 +17,8 @@
   <string name="stalemate">스테일메이트</string>
   <string name="white">백색</string>
   <string name="black">흑색</string>
+  <string name="asWhite">백일때</string>
+  <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
   <string name="whiteIsVictorious">백색 승리</string>
