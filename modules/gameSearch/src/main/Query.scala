@@ -74,7 +74,6 @@ object Query {
       (60 * 60 * 3 -> "Three hours")
 
   val clockInits = List(
-    (0, "0 seconds"),
     (30, "30 seconds"),
     (45, "45 seconds")
   ) ::: options(
@@ -99,7 +98,7 @@ object Query {
   ).toList
 
   val clockIncs =
-    options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
+    options(List(1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
 
   def winnerColors(implicit lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
 
