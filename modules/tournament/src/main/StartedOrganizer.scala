@@ -60,7 +60,10 @@ final private class StartedOrganizer(
 
   private def processTour(tour: Tournament): Fu[Int] =
     if (tour.secondsToFinish <= 0) api finish tour inject 0
-    else if (tour.nbPlayers < 30) {
+    else if (api.killSchedule contains tour.id) {
+      api.killSchedule remove tour.id
+      api finish tour inject 0
+    } else if (tour.nbPlayers < 30) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour)
       }
