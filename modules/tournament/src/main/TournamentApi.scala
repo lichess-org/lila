@@ -420,10 +420,10 @@ final class TournamentApi(
     }
 
   private[tournament] def finishGame(game: Game): Funit =
-    game.tournamentId ?? { tourId =>
-      pairingRepo.finishAndGet(game) flatMap { pairingOpt =>
-        Sequencing(mainQueue)(tourId, "finishGame")(cached.tourCache.started) { tour =>
-          pairingOpt ?? { pairing =>
+    game.tournamentId ?? cached.tourCache.started flatMap {
+      _ ?? { tour =>
+        pairingRepo.finishAndGet(game) flatMap {
+          _ ?? { pairing =>
             game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).sequenceFu.void
           } >>- {
             duelStore.remove(game)
