@@ -343,6 +343,7 @@
   <string name="leaderboard">بهترین بازیکنان</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
+  <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
   <string name="fromPosition">شروع از پوزیشن</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>

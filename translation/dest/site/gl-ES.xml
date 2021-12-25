@@ -346,6 +346,7 @@
   <string name="leaderboard">Líder do cadro</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
+  <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
   <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>

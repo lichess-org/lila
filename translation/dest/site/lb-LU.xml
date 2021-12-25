@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Wäiss</string>
   <string name="black">Schwaarz</string>
+  <string name="asWhite">als wäiss</string>
+  <string name="asBlack">als schwaarz</string>
   <string name="randomColor">Zoufälleg Säit</string>
   <string name="createAGame">Erstell eng Partie</string>
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Ranglëscht</string>
   <string name="pasteTheFenStringHere">FEN Text hei afügen</string>
   <string name="pasteThePgnStringHere">PGN Text hei afügen</string>
+  <string name="orUploadPgnFile">Oder PGN Datei héichlueden</string>
   <string name="fromPosition">Aus Positioun</string>
   <string name="continueFromHere">Vun hei weiderspillen</string>
   <string name="toStudy">Etüd</string>
@@ -884,4 +887,8 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="abortTheGame">Partie ofbriechen</string>
   <string name="resignTheGame">Partie opginn</string>
   <string name="youCantStartNewGame">Du kanns keng nei Partie ufänken bis déi do fäerdeg ass.</string>
+  <string name="since">Säit</string>
+  <string name="until">Bis</string>
+  <string name="lichessDbExplanation">Gewäert Partien vun allen Lichess Spiller</string>
+  <string name="switchSides">Faarf wiesselen</string>
 </resources>

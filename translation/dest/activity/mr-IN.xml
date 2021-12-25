@@ -58,6 +58,10 @@
     <item quantity="one">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
     <item quantity="other">\"%s प्रतियॊगीतांमध्यॆ भाग घॆतला.\"</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%4$s या प्रकारात %1$s क्रमांक (पहिल्या %2$s%% मध्ये) %3$s खेळ खेळून आला</item>
+    <item quantity="other">%4$s या प्रकारात %1$s क्रमांक (पहिल्या %2$s%% मध्ये) %3$s खेळ खेळून आला</item>
+  </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">%s स्विस प्रतिस्पर्धेत सहभाग घेतला</item>
     <item quantity="other">%s स्विस प्रतिस्पर्धेत सहभाग घेतला</item>

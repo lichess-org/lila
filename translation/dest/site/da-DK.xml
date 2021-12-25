@@ -346,6 +346,7 @@
   <string name="leaderboard">Førertavle</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
+  <string name="orUploadPgnFile">Eller upload en PGN-fil</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsæt herfra</string>
   <string name="toStudy">Studér</string>

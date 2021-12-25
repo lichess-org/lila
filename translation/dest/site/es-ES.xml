@@ -346,7 +346,7 @@
   <string name="leaderboard">Clasificación</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
-  <string name="orUploadPgnFile">..o sube un archivo CSV</string>
+  <string name="orUploadPgnFile">o sube un archivo PGN</string>
   <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
@@ -861,7 +861,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownAvailable">Se puede usar %s para formatear el texto.</string>
-  <string name="embedsAvailable">Pegar un enlace del juego o un capítulo de estudio para incrustarla.</string>
+  <string name="embedsAvailable">Pegar un enlace de una partida o de un capítulo de estudio para insertarlo.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>
   <string name="noChat">Sin chat</string>

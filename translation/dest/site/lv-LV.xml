@@ -371,6 +371,7 @@
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
+  <string name="orUploadPgnFile">Augšuplādēt PGN datni</string>
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
   <string name="toStudy">Izpētīt</string>

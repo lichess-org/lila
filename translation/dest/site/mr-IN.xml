@@ -346,6 +346,7 @@
   <string name="leaderboard">आघाडीचे खेळाडू</string>
   <string name="pasteTheFenStringHere">FEN टेक्स्ट येथे पेस्ट करा</string>
   <string name="pasteThePgnStringHere">PGN टेक्स्ट येथे पेस्ट करा</string>
+  <string name="orUploadPgnFile">किंवा PGN फाईल अपलोड करा</string>
   <string name="fromPosition">ह्या रचनेतून</string>
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>

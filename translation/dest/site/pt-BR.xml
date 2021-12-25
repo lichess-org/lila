@@ -346,6 +346,7 @@
   <string name="leaderboard">Classificação</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
+  <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="toStudy">Estudo</string>
