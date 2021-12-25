@@ -641,14 +641,10 @@ final class TournamentApi(
     }
 
   def playerInfo(tour: Tournament, userId: User.ID): Fu[Option[PlayerInfoExt]] =
-    userRepo named userId flatMap {
-      _ ?? { user =>
-        playerRepo.find(tour.id, user.id) flatMap {
-          _ ?? { player =>
-            playerPovs(tour, user.id, 50) map { povs =>
-              PlayerInfoExt(user, player, povs).some
-            }
-          }
+    playerRepo.find(tour.id, userId) flatMap {
+      _ ?? { player =>
+        playerPovs(tour, userId, 50) map { povs =>
+          PlayerInfoExt(userId, player, povs).some
         }
       }
     }
