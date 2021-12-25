@@ -1727,6 +1727,8 @@ val `evaluation` = new I18nKey("search:evaluation")
 val `maxNumber` = new I18nKey("search:maxNumber")
 val `maxNumberExplanation` = new I18nKey("search:maxNumberExplanation")
 val `include` = new I18nKey("search:include")
+val `descending` = new I18nKey("search:descending")
+val `ascending` = new I18nKey("search:ascending")
 val `searchInXGames` = new I18nKey("search:searchInXGames")
 val `xGamesFound` = new I18nKey("search:xGamesFound")
 
