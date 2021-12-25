@@ -834,4 +834,8 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="abortTheGame">게임 중단</string>
   <string name="resignTheGame">게임 기권</string>
   <string name="youCantStartNewGame">이 게임이 끝나기 전까지 새 게임을 시작할 수 없습니다.</string>
+  <string name="since">부터</string>
+  <string name="until">까지</string>
+  <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
+  <string name="switchSides">색 바꾸기</string>
 </resources>
