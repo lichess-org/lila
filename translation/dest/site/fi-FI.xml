@@ -346,6 +346,7 @@
   <string name="leaderboard">Pistetaulukko</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
+  <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
   <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
