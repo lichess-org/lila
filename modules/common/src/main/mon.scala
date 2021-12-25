@@ -396,8 +396,8 @@ object mon {
         )
       )
     def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
-    def sequencer(tourId: String, action: String) =
-      timer("tournament.api.sequencer").withTags(Map("tourId" -> tourId, "action" -> action))
+    def action(tourId: String, action: String) =
+      timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
     def standingOverload      = counter("swiss.standing.overload").withoutTags()
