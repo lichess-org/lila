@@ -138,7 +138,7 @@ export default class EditorCtrl {
 
   makeAnalysisUrl(legalFen: string): string {
     const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
-    return `/analysis/${variant}/${urlFen(legalFen)}`;
+    return `/analysis/${variant}${urlFen(legalFen)}`;
   }
 
   makeEditorUrl(fen: string): string {
