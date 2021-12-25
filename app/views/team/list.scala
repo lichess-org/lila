@@ -84,8 +84,8 @@ object list {
           div(cls := "box__top")(
             h1(name),
             div(cls := "box__top__actions")(
-              st.form(cls := "search", action := routes.Team.search())(
-                input(st.name := "text", value := search, placeholder := trans.search.search.txt())
+              st.form(cls     := "search", action := routes.Team.search())(
+                input(st.name := "text", value    := search, placeholder := trans.search.search.txt())
               )
             )
           ),

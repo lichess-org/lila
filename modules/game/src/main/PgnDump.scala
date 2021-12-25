@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Forsyth
 import chess.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
-import chess.format.{ FEN, pgn => chessPgn }
+import chess.format.{ pgn => chessPgn, FEN }
 import chess.{ Centis, Color }
 
 import lila.common.config.BaseUrl

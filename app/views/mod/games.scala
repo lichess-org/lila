@@ -71,8 +71,8 @@ object games {
         ),
         postForm(action := routes.GameMod.post(user.id), cls := "mod-games__analysis-form")(
           isGranted(_.UserEvaluate) option submitButton(
-            cls := "button button-empty button-thin",
-            name := "action",
+            cls   := "button button-empty button-thin",
+            name  := "action",
             value := "analyse"
           )(
             "Analyse selected"
@@ -85,8 +85,8 @@ object games {
               tr(
                 sortNoneTh(
                   input(
-                    tpe := "checkbox",
-                    name := s"game[]",
+                    tpe      := "checkbox",
+                    name     := s"game[]",
                     st.value := "all"
                   )
                 ),
@@ -102,13 +102,13 @@ object games {
               )
             ),
             tbody(
-              games.fold(_.map(_ -> None), _.map({ case (pov, ass) => pov -> Some(ass) })).map {
+              games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
                   tr(
                     td(cls := pov.game.analysable.option("input"))(
                       pov.game.analysable option input(
-                        tpe := "checkbox",
-                        name := s"game[]",
+                        tpe      := "checkbox",
+                        name     := s"game[]",
                         st.value := pov.gameId
                       )
                     ),
@@ -129,15 +129,15 @@ object games {
                       pov.game.tournamentId map { tourId =>
                         a(
                           dataIcon := "",
-                          href := routes.Tournament.show(tourId).url,
-                          title := tournamentIdToName(tourId)
+                          href     := routes.Tournament.show(tourId).url,
+                          title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId map { swissId =>
                         a(
                           dataIcon := "",
-                          href := routes.Swiss.show(swissId).url,
-                          title := s"Swiss #${swissId}"
+                          href     := routes.Swiss.show(swissId).url,
+                          title    := s"Swiss #${swissId}"
                         )
                       }
                     ),

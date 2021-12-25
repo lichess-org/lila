@@ -22,7 +22,7 @@ object form {
       main(cls := "page-small box box-pad report")(
         h1(trans.reportAUser()),
         postForm(
-          cls := "form3",
+          cls    := "form3",
           action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(

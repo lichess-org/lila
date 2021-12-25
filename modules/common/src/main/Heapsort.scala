@@ -11,7 +11,7 @@ import scala.math.Ordering
 object Heapsort {
 
   private[this] def moveN[T](p: PriorityQueue[T], g: Growable[T], n: Int): Unit = {
-    //Only the dequeue and dequeueAll methods will return elements in priority order (while removing elements from the heap).
+    // Only the dequeue and dequeueAll methods will return elements in priority order (while removing elements from the heap).
     var k = p.length atMost n
     while (k > 0) {
       g += p.dequeue()

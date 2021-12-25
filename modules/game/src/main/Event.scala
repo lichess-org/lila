@@ -5,13 +5,13 @@ import play.api.libs.json._
 import chess.variant.Crazyhouse
 import chess.{
   Centis,
-  PromotableRole,
-  Pos,
-  Color,
-  Situation,
-  Move => ChessMove,
-  Drop => ChessDrop,
   Clock => ChessClock,
+  Color,
+  Drop => ChessDrop,
+  Move => ChessMove,
+  Pos,
+  PromotableRole,
+  Situation,
   Status
 }
 import JsonView._
