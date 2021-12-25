@@ -49,7 +49,7 @@ object mod {
             submitButton(cls := "btn-rack__btn")("Evaluate")
           )
         },
-        isGranted(_.Hunter) option {
+        isGranted(_.GamesModView) option {
           a(
             cls := "btn-rack__btn",
             href := routes.GameMod.index(u.username),

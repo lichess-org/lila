@@ -35,14 +35,12 @@ final private class TournamentSocket(
       delay = 1.seconds.some
     )
 
-  def startGame(tourId: Tournament.ID, game: Game): Unit = {
+  def startGame(tourId: Tournament.ID, game: Game): Unit =
     game.players foreach { player =>
       player.userId foreach { userId =>
         send(RP.Out.tellRoomUser(RoomId(tourId), userId, makeMessage("redirect", game fullIdOf player.color)))
       }
     }
-    reload(tourId)
-  }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
     send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.name()(lila.i18n.defaultLang)))

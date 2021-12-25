@@ -224,13 +224,15 @@ final class Mod(
                 user = user,
                 mod = me,
                 domain = report.room match {
-                  case Room.Cheat | Room.Boost => ModDomain.Hunt
-                  case Room.Comm               => ModDomain.Comm
+                  case Room.Cheat => ModDomain.Cheat
+                  case Room.Boost => ModDomain.Boost
+                  case Room.Comm  => ModDomain.Comm
                   // spontaneous inquiry
-                  case _ if Granter(_.Admin)(me.user)   => ModDomain.Admin
-                  case _ if Granter(_.Hunter)(me.user)  => ModDomain.Hunt // heuristic
-                  case _ if Granter(_.Shusher)(me.user) => ModDomain.Comm
-                  case _                                => ModDomain.Admin
+                  case _ if Granter(_.Admin)(me.user)       => ModDomain.Admin
+                  case _ if Granter(_.CheatHunter)(me.user) => ModDomain.Cheat // heuristic
+                  case _ if Granter(_.Shusher)(me.user)     => ModDomain.Comm
+                  case _ if Granter(_.BoostHunter)(me.user) => ModDomain.Boost
+                  case _                                    => ModDomain.Admin
 
                 },
                 room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name

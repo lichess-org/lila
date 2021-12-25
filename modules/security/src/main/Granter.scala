@@ -36,7 +36,8 @@ object Granter {
 
   def canViewAltUsername(mod: Holder, user: User): Boolean =
     is(_.Admin)(mod) || {
-      (is(_.Hunter)(mod) && user.marks.engine) ||
+      (is(_.CheatHunter)(mod) && user.marks.engine) ||
+      (is(_.BoostHunter)(mod) && user.marks.boost) ||
       (is(_.Shusher)(mod) && user.marks.troll)
     }
 }

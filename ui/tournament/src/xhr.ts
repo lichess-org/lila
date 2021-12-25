@@ -1,49 +1,50 @@
-import { throttlePromise, sleep } from 'common/throttle';
+import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 
 // when the tournament no longer exists
 const onFail = () => lichess.reload();
 
-export const join = throttlePromise((ctrl: TournamentController, password?: string, team?: string) =>
-  xhr
-    .textRaw('/tournament/' + ctrl.data.id + '/join', {
-      method: 'POST',
-      // must use JSON body for app compat
-      body: JSON.stringify({
-        p: password || null,
-        team: team || null,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-    .then(res => {
-      if (!res.ok)
-        res.text().then(t => {
-          if (t.startsWith('<!DOCTYPE html>')) lichess.reload();
-          else alert(t);
-        });
-    }, onFail)
-    .then(sleep(1000))
+export const join = throttlePromise(
+  finallyDelay(1000, (ctrl: TournamentController, password?: string, team?: string) =>
+    xhr
+      .textRaw('/tournament/' + ctrl.data.id + '/join', {
+        method: 'POST',
+        // must use JSON body for app compat
+        body: JSON.stringify({
+          p: password || null,
+          team: team || null,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(res => {
+        if (!res.ok)
+          res.text().then(t => {
+            if (t.startsWith('<!DOCTYPE html>')) lichess.reload();
+            else alert(t);
+          });
+      }, onFail)
+  )
 );
 
-export const withdraw = throttlePromise((ctrl: TournamentController) =>
-  xhr
-    .text('/tournament/' + ctrl.data.id + '/withdraw', {
-      method: 'POST',
-    })
-    .then(_ => {}, onFail)
-    .then(sleep(1000))
+export const withdraw = throttlePromise(
+  finallyDelay(1000, (ctrl: TournamentController) =>
+    xhr
+      .text('/tournament/' + ctrl.data.id + '/withdraw', {
+        method: 'POST',
+      })
+      .then(_ => {}, onFail)
+  )
 );
 
-export const loadPage = throttlePromise((ctrl: TournamentController, p: number, callback?: () => void) =>
-  xhr
-    .json(`/tournament/${ctrl.data.id}/standing/${p}`)
-    .then(data => {
+export const loadPage = throttlePromise(
+  finallyDelay(1000, (ctrl: TournamentController, p: number, callback?: () => void) =>
+    xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
       ctrl.loadPage(data);
       callback?.();
       ctrl.redraw();
     }, onFail)
-    .then(sleep(1000))
+  )
 );
 
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
@@ -63,7 +64,7 @@ export const reloadNow = (ctrl: TournamentController): Promise<void> =>
       ctrl.redraw();
     }, onFail);
 
-export const reloadSoon = throttlePromise((ctrl: TournamentController) => reloadNow(ctrl).then(sleep(4000)));
+export const reloadSoon = throttlePromise(finallyDelay(4000, reloadNow));
 
 export const playerInfo = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/player/${userId}`).then(data => {

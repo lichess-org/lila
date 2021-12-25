@@ -1,11 +1,8 @@
 package lila
 
-
 package object tournament extends PackageObject {
 
   private[tournament] type RankedPlayers = List[RankedPlayer]
-
-  private[tournament] type Pairings = List[tournament.Pairing]
 
   private[tournament] type Ranking = Map[lila.user.User.ID, Int]
 

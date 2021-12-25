@@ -60,7 +60,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .toMat(Sink.lastOption)(Keep.right)
         .run()
         .dmap(~_)
-    } dmap Pairing.LastOpponents.apply
+    } dmap Pairing.LastOpponents
 
   def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] =
     coll
@@ -152,7 +152,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   private[tournament] def finishedByPlayerChronological(
       tourId: Tournament.ID,
       userId: User.ID
-  ): Fu[Pairings] =
+  ): Fu[List[Pairing]] =
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectFinished
@@ -161,9 +161,11 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       .cursor[Pairing]()
       .list()
 
-  def insert(pairing: Pairing) =
-    coll.insert.one {
-      pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
+  def insert(pairings: List[Pairing]) =
+    coll.insert.many {
+      pairings.map { p =>
+        pairingHandler.write(p) ++ $doc("d" -> DateTime.now)
+      }
     }.void
 
   def finishAndGet(g: Game): Fu[Option[Pairing]] =

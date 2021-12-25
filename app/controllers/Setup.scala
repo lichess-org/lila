@@ -17,6 +17,7 @@ import views._
 
 final class Setup(
     env: Env,
+    editorC: => Editor,
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)
@@ -48,7 +49,8 @@ final class Setup(
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
-            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict"))
+            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict")),
+            editorC.editorUrl
           )
         }
       } else Redirect(s"${routes.Lobby.home}#ai").fuccess
@@ -65,11 +67,11 @@ final class Setup(
         fuccess(forms friendFilled get("fen").map(FEN.clean)) flatMap { form =>
           val validFen = form("fen").value map FEN.clean flatMap ValidFen(strict = false)
           userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
+            case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
             case Some(user) =>
               env.challenge.granter(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen))
+                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
               }
           }
         }
