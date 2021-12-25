@@ -346,6 +346,7 @@
   <string name="leaderboard">Ledertabell</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
+  <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="toStudy">Studie</string>
