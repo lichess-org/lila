@@ -51,7 +51,7 @@ object kaladin {
                 th("Queued"),
                 th("Started"),
                 th("Completed"),
-                th("Owner"),
+                th("Requester"),
                 th("Score")
               )
             ),
@@ -69,8 +69,8 @@ object kaladin {
                     }
                   },
                   entry.response.fold(td) { res =>
-                    td(cls := s"little activation ${predClass(res.pred)}")(
-                      strong(res.pred)
+                    td(cls := s"little activation ${predClass(res.pred.activation)}")(
+                      strong(res.pred.activation)
                     )
                   }
                 )
@@ -80,4 +80,29 @@ object kaladin {
         )
       )
     }
+
+  def report(response: lila.irwin.KaladinUser.Response)(implicit ctx: Context): Frag =
+    div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
+      header(
+        span(cls := "title")(
+          a(href := routes.Irwin.kaladin)("Kaladin "),
+          strong(cls := "beta")("BETA")
+        ),
+        div(cls := "infos")(
+          p("Updated ", momentFromNowServer(response.at))
+        ),
+        div(cls := "assess text")(
+          strong(cls := predClass(response.pred.activation))(response.pred.activation),
+          " Overall assessment"
+        )
+      ),
+      div("Insights (by order of relevance)"),
+      table(cls := "slist")(
+        tbody(
+          tr(cls := "text")(response.pred.insights.map { insight =>
+            td(a(href := insight)(insight.split("/").drop(5).mkString("/")))
+          })
+        )
+      )
+    )
 }
