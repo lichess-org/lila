@@ -39,15 +39,18 @@ final class KaladinApi(
   private def sequence[A](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
     workQueue { coll(_.byId[KaladinUser](user.id.value)) flatMap f }
 
+  def get(user: User): Fu[Option[KaladinUser]] =
+    coll(_.byId[KaladinUser](user.id))
+
   def dashboard: Fu[KaladinUser.Dashboard] = for {
     c <- coll.get
     completed <- c
-      .find($doc("response.at" $exists true))
+      .find($doc("response" $exists true))
       .sort($doc("response.at" -> -1))
       .cursor[KaladinUser]()
       .list(30)
     queued <- c
-      .find($doc("response.at" $exists false))
+      .find($doc("response" $exists false))
       .sort($doc("queuedAt" -> -1))
       .cursor[KaladinUser]()
       .list(30)

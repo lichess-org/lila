@@ -91,28 +91,32 @@
     flex: 1 1 auto;
   }
 
-  &--irwin {
+  &--kaladin {
     order: 6;
   }
 
-  &--assessments {
+  &--irwin {
     order: 7;
   }
 
-  &--mod_log {
+  &--assessments {
     order: 8;
   }
 
-  &--reports {
+  &--mod_log {
     order: 9;
   }
 
-  &--identification {
+  &--reports {
     order: 10;
   }
 
-  &--others {
+  &--identification {
     order: 11;
+  }
+
+  &--others {
+    order: 12;
   }
 
   &--menu {
@@ -442,7 +446,24 @@
     }
   }
 
-  &--irwin {
+  &--kaladin {
+    header .title .beta {
+      display: block;
+      color: $c-warn;
+    }
+    > div {
+      text-align: center;
+      font-size: 1.2em;
+      border: $border;
+    }
+
+    table .text {
+      text-align: center;
+    }
+  }
+
+  &--irwin,
+  &--kaladin {
     max-height: 60vh;
     overflow-y: auto;
 
@@ -495,6 +516,27 @@
       }
     }
 
+    .text {
+      .green {
+        /* actually blue */
+        color: #2077c0;
+      }
+
+      .yellow {
+        color: #ddcf3f;
+      }
+
+      .orange {
+        color: #e79b64;
+      }
+
+      .red {
+        color: $c-bad;
+      }
+    }
+  }
+
+  &--irwin {
     table strong {
       margin-top: 0;
       font-size: 1.6em;
@@ -536,25 +578,6 @@
 
       .red {
         background-color: $c-bad;
-      }
-    }
-
-    .text {
-      .green {
-        /* actually blue */
-        color: #2077c0;
-      }
-
-      .yellow {
-        color: #ddcf3f;
-      }
-
-      .orange {
-        color: #e79b64;
-      }
-
-      .red {
-        color: $c-bad;
       }
     }
   }

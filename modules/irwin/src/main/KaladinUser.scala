@@ -58,7 +58,10 @@ object KaladinUser {
     case object Report           extends Requester(30)
   }
 
-  case class Response(at: DateTime, pred: Float)
+  case class Response(at: DateTime, pred: Pred)
+  // Pred, short for Predication, activation, float between 0 and 1,
+  // the higher the more likely the user is cheating
+  case class Pred(activation: Float, insights: List[String], tc: Int)
 
   case class Dashboard(recent: List[KaladinUser]) {
 
