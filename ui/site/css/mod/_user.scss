@@ -447,73 +447,9 @@
   }
 
   &--kaladin {
-    max-height: 60vh;
-    overflow-y: auto;
-
-    header {
-      margin-top: 10px;
-      display: flex;
-      border: $border;
-
-      > * {
-        flex: 1 1 100%;
-        display: flex;
-        flex-flow: column;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        border-left: $border;
-        padding: 5px 10px;
-      }
-
-      > *:first-child {
-        border-left: none;
-      }
-
-      .title {
-        flex-flow: row;
-        color: $c-link;
-        font-size: 1.4em;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-
-        .beta {
-          display: block;
-          color: $c-warn;
-        }
-      }
-
-      .infos {
-        font-size: 0.9em;
-      }
-
-      strong {
-        display: block;
-        font-size: 1.1em;
-        margin-top: 0;
-      }
-
-      .assess strong {
-        font-size: 2em;
-      }
-      .text {
-        .green {
-          /* actually blue */
-          color: #2077c0;
-        }
-
-        .yellow {
-          color: #ddcf3f;
-        }
-
-        .orange {
-          color: #e79b64;
-        }
-
-        .red {
-          color: $c-bad;
-        }
-      }
+    header .title .beta {
+      display: block;
+      color: $c-warn;
     }
     > div {
       text-align: center;
@@ -526,7 +462,8 @@
     }
   }
 
-  &--irwin {
+  &--irwin,
+  &--kaladin {
     max-height: 60vh;
     overflow-y: auto;
 
@@ -579,6 +516,27 @@
       }
     }
 
+    .text {
+      .green {
+        /* actually blue */
+        color: #2077c0;
+      }
+
+      .yellow {
+        color: #ddcf3f;
+      }
+
+      .orange {
+        color: #e79b64;
+      }
+
+      .red {
+        color: $c-bad;
+      }
+    }
+  }
+
+  &--irwin {
     table strong {
       margin-top: 0;
       font-size: 1.6em;
@@ -620,25 +578,6 @@
 
       .red {
         background-color: $c-bad;
-      }
-    }
-
-    .text {
-      .green {
-        /* actually blue */
-        color: #2077c0;
-      }
-
-      .yellow {
-        color: #ddcf3f;
-      }
-
-      .orange {
-        color: #e79b64;
-      }
-
-      .red {
-        color: $c-bad;
       }
     }
   }
