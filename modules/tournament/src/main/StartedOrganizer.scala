@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
+import lila.common.LilaStream
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -45,37 +46,32 @@ final private class StartedOrganizer(
             0
           }
         }
-        .toMat(Sink.fold(0 -> 0) { case ((tours, users), tourUsers) =>
-          (tours + 1, users + tourUsers)
-        })(Keep.right)
+        .toMat(LilaStream.sinkCount)(Keep.right)
         .run()
-        .addEffect { case (tours, users) =>
-          lila.mon.tournament.started.update(tours)
-          lila.mon.tournament.waitingPlayers.record(users).unit
-        }
+        .addEffect { lila.mon.tournament.started.update(_).unit }
         .monSuccess(_.tournament.startedOrganizer.tick)
         .addEffectAnyway(scheduleNext(tickIt))
         .unit
   }
 
-  private def processTour(tour: Tournament): Fu[Int] =
-    if (tour.secondsToFinish <= 0) api finish tour inject 0
+  private def processTour(tour: Tournament): Funit =
+    if (tour.secondsToFinish <= 0) api finish tour
     else if (api.killSchedule contains tour.id) {
       api.killSchedule remove tour.id
-      api finish tour inject 0
+      api finish tour
     } else if (tour.nbPlayers < 30) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour)
       }
     } else startPairing(tour)
 
-  // returns number of users actively awaiting a pairing
-  private def startPairing(tour: Tournament): Fu[Int] =
+  private def startPairing(tour: Tournament): Funit =
     (!tour.pairingsClosed && tour.nbPlayers > 1) ??
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap { waiting =>
-          api.makePairings(tour, waiting) inject waiting.size
+          lila.mon.tournament.waitingPlayers(tour.id).record(waiting.size).unit
+          api.makePairings(tour, waiting)
         }
 }
