@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Kvit</string>
   <string name="black">Svart</string>
+  <string name="asWhite">som kvit</string>
+  <string name="asBlack">som svart</string>
   <string name="randomColor">Vilkårleg farge</string>
   <string name="createAGame">Start eit parti</string>
   <string name="whiteIsVictorious">Kvit vann partiet</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
+  <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
   <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="toStudy">Studér</string>
@@ -885,4 +888,8 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gje opp partiet</string>
   <string name="youCantStartNewGame">Du kan ikkje starte eit nytt parti før dette er avslutta.</string>
+  <string name="since">Frå</string>
+  <string name="until">Til</string>
+  <string name="lichessDbExplanation">Rata parti samla inn frå alle Lichess-spelarar</string>
+  <string name="switchSides">Byt side</string>
 </resources>
