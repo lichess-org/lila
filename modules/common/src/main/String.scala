@@ -69,7 +69,9 @@ object String {
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
     (c >= '\u2000' && c <= '\u200F') ||
       // weird stuff https://www.compart.com/en/unicode/block/U+2000
-      (c >= '\u2028' && c <= '\u202F')
+      (c >= '\u2028' && c <= '\u202F') ||
+      // Hangul fillers
+      (c == '\u115f' || c == '\u1160')
 
   object normalize {
 
