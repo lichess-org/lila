@@ -346,6 +346,7 @@
   <string name="leaderboard">Classifica</string>
   <string name="pasteTheFenStringHere">Incolla qui la stringa FEN</string>
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
+  <string name="orUploadPgnFile">O carica un file PGN</string>
   <string name="fromPosition">Da una posizione</string>
   <string name="continueFromHere">Continua da qui</string>
   <string name="toStudy">Studia</string>
