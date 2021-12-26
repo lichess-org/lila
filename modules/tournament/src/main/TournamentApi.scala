@@ -291,10 +291,7 @@ final class TournamentApi(
               else {
                 def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
                   playerRepo.join(tour.id, me, tour.perfType, team, prevPlayer) >>
-                    updateNbPlayers(tour.id) >>- {
-                      socket.reload(tour.id)
-                      publish()
-                    } inject JoinResult.Ok
+                    updateNbPlayers(tour.id) >>- publish() inject JoinResult.Ok
                 withTeamId match {
                   case None if tour.isTeamBattle && prevPlayer.isDefined => proceedWithTeam(none)
                   case None if tour.isTeamBattle                         => fuccess(JoinResult.MissingTeam)
@@ -316,7 +313,7 @@ final class TournamentApi(
             withTeamId.ifTrue(asLeader && tour.isTeamBattle) foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
-          else socket.reload(tour.id)
+          socket.reload(tour.id)
           promise.foreach(_ success result)
         }
       }
