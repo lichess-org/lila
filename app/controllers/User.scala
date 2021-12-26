@@ -416,11 +416,7 @@ final class User(
         }
 
         val kaladin = isGranted(_.MarkEngine) ?? env.irwin.kaladinApi.get(user).map {
-          _ ?? {
-            _.response ?? { response =>
-              html.kaladin.report(response)
-            }
-          }
+          _.flatMap(_.response) ?? html.kaladin.report
         }
 
         val irwin = isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).map {
