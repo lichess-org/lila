@@ -33,9 +33,10 @@ final private class StartedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick(tickIt) =>
+      val doAllTournaments = tickIt % 20 == 0
       tournamentRepo
         .startedCursor {
-          if (tickIt % 20 == 0) 2 // every 20s, do all tournaments with 2+ players
+          if (doAllTournaments) 2 // every 20s, do all tournaments with 2+ players
           else if (tickIt % 2 == 0) 50 // every 2s, do all decent tournaments
           else 1000 // always do massive tournaments
         }
@@ -48,7 +49,9 @@ final private class StartedOrganizer(
         }
         .toMat(LilaStream.sinkCount)(Keep.right)
         .run()
-        .addEffect { lila.mon.tournament.started.update(_).unit }
+        .addEffect { nb =>
+          if (doAllTournaments) lila.mon.tournament.started.update(nb).unit
+        }
         .monSuccess(_.tournament.startedOrganizer.tick)
         .addEffectAnyway(scheduleNext(tickIt))
         .unit
