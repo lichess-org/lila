@@ -153,8 +153,8 @@ final class RelayRound(
         }
       },
       scoped = _ =>
-        me =>
-          env.relay.api.byIdAndContributor(id, me) flatMap {
+        _ =>
+          env.relay.api.byIdWithTour(id) flatMap {
             _ ?? { rt =>
               env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
                 JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))

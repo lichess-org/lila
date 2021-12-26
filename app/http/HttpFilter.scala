@@ -35,8 +35,8 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
     val client     = HTTPRequest clientName req
-    if (env.net.isProd) httpMon.time(actionName, client, req.method, statusCode).record(reqTime)
-    else if (logRequests) logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
+    httpMon.time(actionName, client, req.method, statusCode).record(reqTime)
+    if (logRequests) logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
   }
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] =
