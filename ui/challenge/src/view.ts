@@ -1,6 +1,7 @@
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import spinner from 'common/spinner';
+import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>
   ctrl.redirecting()
@@ -54,6 +55,16 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
             attrs: { 'data-icon': c.perf.icon },
           }),
         ]),
+        c.variant.key === 'fromPosition'
+          ? h('div.position.mini-board.cg-wrap.is2d', {
+              attrs: { 'data-state': `${c.initialFen},${opposite(c.finalColor)}` },
+              hook: {
+                insert(vnode) {
+                  lichess.miniBoard.init(vnode.elm as HTMLElement);
+                },
+              },
+            })
+          : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ]
     );
