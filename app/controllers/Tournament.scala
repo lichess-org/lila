@@ -213,22 +213,9 @@ final class Tournament(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[String]
           )
-          doJoin(id, data, me) flatMap { result =>
-            negotiate(
-              html = fuccess {
-                result.error match {
-                  case None        => Redirect(routes.Tournament.show(id))
-                  case Some(error) => BadRequest(error)
-                }
-              },
-              api = _ =>
-                fuccess {
-                  result.error match {
-                    case None        => jsonOkResult
-                    case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-                  }
-                }
-            )
+          doJoin(id, data, me).dmap(_.error) map {
+            case None        => jsonOkResult
+            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
           }
         }
       }
