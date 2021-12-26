@@ -57,7 +57,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
         ]),
         c.variant.key === 'fromPosition'
           ? h('div.position.mini-board.cg-wrap.is2d', {
-              attrs: { 'data-state': `${c.initialFen},${opposite(c.finalColor)}` },
+              attrs: { 'data-state': `${c.initialFen},${dir === 'in' ? opposite(c.finalColor) : c.finalColor}` },
               hook: {
                 insert(vnode) {
                   lichess.miniBoard.init(vnode.elm as HTMLElement);
