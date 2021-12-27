@@ -421,7 +421,7 @@ object Pref {
 
   object Agreement {
     val current   = 2
-    val changedAt = new DateTime(2021, 11, 20, 8, 0)
+    val changedAt = new DateTime(2021, 12, 28, 8, 0)
   }
 
   object Zen     extends BooleanPref {}
@@ -433,11 +433,7 @@ object Pref {
 
   def create(user: User) = default.copy(
     _id = user.id,
-    bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT
-  )
-
-  def create(user: User) = default.copy(
-    _id = user.id,
+    bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT,
     agreement = if (user.createdAt isAfter Agreement.changedAt) Agreement.current else 0
   )
 
