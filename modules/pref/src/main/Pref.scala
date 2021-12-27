@@ -45,6 +45,7 @@ case class Pref(
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
+    agreement: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -122,6 +123,10 @@ case class Pref(
   val showRatings = ratings == Ratings.YES
 
   def is2d = !is3d
+
+  def agreementNeededSince: Option[DateTime] = agreement < Agreement.current option Agreement.changedAt
+
+  def agree = copy(agreement = Agreement.current)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -414,6 +419,11 @@ object Pref {
     )
   }
 
+  object Agreement {
+    val current   = 2
+    val changedAt = new DateTime(2021, 11, 20, 8, 0)
+  }
+
   object Zen     extends BooleanPref {}
   object Ratings extends BooleanPref {}
 
@@ -424,6 +434,11 @@ object Pref {
   def create(user: User) = default.copy(
     _id = user.id,
     bg = if (user.createdAt isAfter darkByDefaultSince) Bg.DARK else Bg.LIGHT
+  )
+
+  def create(user: User) = default.copy(
+    _id = user.id,
+    agreement = if (user.createdAt isAfter Agreement.changedAt) Agreement.current else 0
   )
 
   lazy val default = Pref(
@@ -467,6 +482,7 @@ object Pref {
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
+    agreement = Agreement.current,
     tags = Map.empty
   )
 
