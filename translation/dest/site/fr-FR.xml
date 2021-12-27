@@ -890,5 +890,5 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="since">De</string>
   <string name="until">À</string>
   <string name="lichessDbExplanation">Parties classées prises au hasard parmi tous les joueurs de Lichess</string>
-  <string name="switchSides">Tourner l\'échiquier</string>
+  <string name="switchSides">Changer de couleur</string>
 </resources>
