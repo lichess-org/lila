@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 
 // when the tournament no longer exists
-const onFail = () => lichess.reload();
+const onFail = () => {}; //lichess.reload();
 
 export const join = throttlePromise(
   finallyDelay(
@@ -56,15 +56,22 @@ export const loadPage = throttlePromise(
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/page-of/${userId}`);
 
+// don't use xhr.json to avoid getting the X-Requested-With header
+// that causes a CORS preflight check
+// TODO FIXME
 export const reloadNow = (ctrl: TournamentController): Promise<void> =>
-  xhr
-    .json(
-      xhr.url('/tournament/' + ctrl.data.id, {
-        page: ctrl.focusOnMe ? undefined : ctrl.page,
-        playerInfo: ctrl.playerInfo.id,
-        partial: true,
-      })
-    )
+  fetch(
+    xhr.url('http://127.0.0.1:3000/' + ctrl.data.id, {
+      page: ctrl.focusOnMe ? undefined : ctrl.page,
+      playerInfo: ctrl.playerInfo.id,
+      partial: true,
+    }),
+    {
+      ...xhr.defaultInit,
+      headers: xhr.jsonHeader,
+    }
+  )
+    .then(res => xhr.ensureOk(res).json())
     .then(data => {
       ctrl.reload(data);
       ctrl.redraw();
