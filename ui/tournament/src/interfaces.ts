@@ -54,7 +54,6 @@ export interface TournamentData {
   };
   me?: {
     rank: number;
-    username: string;
     gameId: string;
     withdraw: boolean;
     pauseDelay?: number;
@@ -102,6 +101,7 @@ export interface TournamentData {
   };
   duels: Duel[];
   duelTeams?: DuelTeams;
+  myUsername?: string;
 }
 
 export interface FeaturedGame {

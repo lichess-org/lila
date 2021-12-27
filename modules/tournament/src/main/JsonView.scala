@@ -90,27 +90,12 @@ final class JsonView(
       }))
       teamStanding <- getTeamStanding(tour)
       myTeam       <- myInfo.flatMap(_.teamId) ?? { getMyRankedTeam(tour, _) }
-    } yield Json
-      .obj(
-        "nbPlayers" -> tour.nbPlayers,
-        "duels"     -> data.duels,
-        "standing"  -> stand
-      )
-      .add("isStarted" -> tour.isStarted)
-      .add("isFinished" -> tour.isFinished)
-      .add("isRecentlyFinished" -> tour.isRecentlyFinished)
-      .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
-      .add("secondsToStart" -> tour.isCreated.option(tour.secondsToStart))
+    } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json
+      .obj("standing" -> stand)
       .add("me" -> myInfo.map(myInfoJson(me, pauseDelay)))
-      .add("featured" -> data.featured)
-      .add("podium" -> data.podium)
       .add("playerInfo" -> playerInfoJson)
-      .add("pairingsClosed" -> tour.pairingsClosed)
-      .add("stats" -> stats)
       .add("socketVersion" -> socketVersion.map(_.value))
-      .add("teamStanding" -> teamStanding)
-      .add("myTeam" -> myTeam)
-      .add("duelTeams" -> data.duelTeams) ++
+      .add("myTeam" -> myTeam) ++
       full.?? {
         Json
           .obj(
@@ -145,6 +130,7 @@ final class JsonView(
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
           })
           .add("description" -> tour.description)
+          .add("myUsername" -> me.map(_.username))
       }
 
   def clearCache(tour: Tournament): Unit = {
@@ -245,13 +231,19 @@ final class JsonView(
       "win"     -> s.scores.count(_.res == arena.Sheet.Result.Win)
     )
 
+  private def duelsJson(tourId: Tournament.ID): Fu[(List[Duel], JsArray)] = {
+    val duels = duelStore.bestRated(tourId, 6)
+    duels.map(duelJson).sequenceFu map { jsons =>
+      (duels, JsArray(jsons))
+    }
+  }
+
   private val cachableData = cacheApi[Tournament.ID, CachableData](64, "tournament.json.cachable") {
     _.expireAfterWrite(1 second)
       .buildAsyncFuture { id =>
         for {
-          tour <- cached.tourCache byId id
-          duels = duelStore.bestRated(id, 6)
-          jsonDuels <- duels.map(duelJson).sequenceFu
+          tour               <- cached.tourCache byId id
+          (duels, jsonDuels) <- duelsJson(id)
           duelTeams <- tour.exists(_.isTeamBattle) ?? {
             playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map { teams =>
               JsObject(teams map { case (userId, teamId) =>
@@ -262,7 +254,7 @@ final class JsonView(
           featured <- tour ?? fetchFeaturedGame
           podium   <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
         } yield CachableData(
-          duels = JsArray(jsonDuels),
+          duels = jsonDuels,
           duelTeams = duelTeams,
           featured = featured map featuredJson,
           podium = podium
@@ -460,6 +452,44 @@ final class JsonView(
     tour.isTeamBattle ?? {
       teamInfoCache get (tour.id -> teamId)
     }
+
+  private def commonTournamentJson(
+      tour: Tournament,
+      data: CachableData,
+      stats: Option[TournamentStats],
+      teamStanding: Option[JsArray]
+  ): JsObject =
+    Json
+      .obj(
+        "nbPlayers" -> tour.nbPlayers,
+        "duels"     -> data.duels
+      )
+      .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
+      .add("secondsToStart" -> tour.isCreated.option(tour.secondsToStart))
+      .add("isStarted" -> tour.isStarted)
+      .add("isFinished" -> tour.isFinished)
+      .add("isRecentlyFinished" -> tour.isRecentlyFinished)
+      .add("featured" -> data.featured)
+      .add("podium" -> data.podium)
+      .add("pairingsClosed" -> tour.pairingsClosed)
+      .add("stats" -> stats)
+      .add("teamStanding" -> teamStanding)
+      .add("duelTeams" -> data.duelTeams)
+
+  def lilarena(tour: Tournament): Fu[JsObject] = for {
+    data         <- cachableData get tour.id
+    stats        <- statsApi(tour)
+    teamStanding <- getTeamStanding(tour)
+    ranking      <- cached ranking tour
+  } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json.obj(
+    // TODO optimize as a single string
+    "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
+      JsObject(all.view.flatMap { duel =>
+        duel.userIds.map { uid => uid -> JsString(duel.gameId) }
+      }.toMap)
+    },
+    "ranking" -> ranking.userIdsString
+  )
 }
 
 object JsonView {
