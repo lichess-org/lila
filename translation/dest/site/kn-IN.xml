@@ -886,4 +886,8 @@
   <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
   <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
   <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
+  <string name="since">ರಿಂದ</string>
+  <string name="until">ವರೆಗೆ</string>
+  <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
+  <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
 </resources>
