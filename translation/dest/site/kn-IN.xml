@@ -17,6 +17,8 @@
   <string name="stalemate">ಬಿಕ್ಕಟ್ಟು</string>
   <string name="white">ಬಿಳಿ ದಳ</string>
   <string name="black">ಕಪ್ಪು ದಳ</string>
+  <string name="asWhite">ಬಿಳಿ ದಳವಾಗಿ</string>
+  <string name="asBlack">ಕಪ್ಪು ದಳವಾಗಿ</string>
   <string name="randomColor">ಯಾವುದಾದರೊಂದು ಬಣ್ಣ</string>
   <string name="createAGame">ಆಟ ರಚಿಸಿ</string>
   <string name="whiteIsVictorious">ಬಿಳಿ ದಳ ಜಯಶಾಲಿಯಾಗಿದ್ದಾರೆ</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="orUploadPgnFile">ಅಥವಾ PGN ಫೈಲ್ ಅನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
   <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
   <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
   <string name="toStudy">ಅಧ್ಯಯನ</string>
