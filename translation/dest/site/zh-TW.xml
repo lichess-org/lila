@@ -17,6 +17,8 @@
   <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
+  <string name="asWhite">使用白棋</string>
+  <string name="asBlack">使用黑棋</string>
   <string name="randomColor">隨機選色</string>
   <string name="createAGame">開始對局</string>
   <string name="whiteIsVictorious">白方勝</string>
