@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">שדרנים בליצ׳ס</string>
+  <string name="lichessStreamer">שדרן ליצ׳ס</string>
   <string name="live">בשידור חי!</string>
+  <string name="currentlyStreaming">משדרים כרגע: %s</string>
+  <string name="lastStream">שידור חי %s</string>
   <string name="doYouHaveStream">יש לך ערוץ יוטיוב או טוויץ\'?</string>
   <string name="perk4">הצג את השידור שלך במשחקים, טורנירים ולוחות למידה שלך.</string>
   <string name="headline">כּוֹתֶרֶת</string>
