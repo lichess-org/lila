@@ -2,6 +2,7 @@ package lila.tournament
 
 import akka.actor._
 import com.softwaremill.macwire._
+import io.lettuce.core.{ RedisClient, RedisURI }
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
@@ -121,6 +122,9 @@ final class Env(
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }
   }
+
+  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
+  private val lilaHttp    = wire[TournamentLilaHttp]
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId)(GetVersion)

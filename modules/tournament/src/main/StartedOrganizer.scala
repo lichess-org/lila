@@ -35,7 +35,7 @@ final private class StartedOrganizer(
     case Tick(tickIt) =>
       val doAllTournaments = tickIt % 20 == 0
       tournamentRepo
-        .startedCursor {
+        .startedCursorWithNbPlayersGte {
           if (doAllTournaments) 2 // every 20s, do all tournaments with 2+ players
           else if (tickIt % 2 == 0) 50 // every 2s, do all decent tournaments
           else 1000 // always do massive tournaments

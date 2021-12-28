@@ -476,12 +476,13 @@ final class JsonView(
       .add("teamStanding" -> teamStanding)
       .add("duelTeams" -> data.duelTeams)
 
-  def lilarena(tour: Tournament): Fu[JsObject] = for {
+  def lilaHttp(tour: Tournament): Fu[JsObject] = for {
     data         <- cachableData get tour.id
     stats        <- statsApi(tour)
     teamStanding <- getTeamStanding(tour)
     ranking      <- cached ranking tour
   } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json.obj(
+    "id" -> tour.id,
     // TODO optimize as a single string
     "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
       JsObject(all.view.flatMap { duel =>

@@ -14,10 +14,7 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     akka: ActorSystem
 ) {
-
-  private val RedisUri = appConfig.get[String]("socket.redis.uri")
-
-  private val redisClient = RedisClient create RedisURI.create(RedisUri)
+  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
 
   val remoteSocket: RemoteSocket = wire[RemoteSocket]
 

@@ -613,14 +613,6 @@ final class Tournament(
       }
     }
 
-  def lilarena(id: String) = Scoped() { req => me =>
-    (me.id == "lilarena") ?? cachedTour(id) flatMap {
-      _.fold(notFoundJson()) { tour =>
-        env.tournament.jsonView.lilarena(tour) dmap { Ok(_) }
-      }
-    }
-  }
-
   private def WithEditableTournament(id: String, me: UserModel)(
       f: Tour => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
