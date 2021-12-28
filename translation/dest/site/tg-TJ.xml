@@ -6,7 +6,7 @@
   <string name="gameOver">Бозӣ тамом шуд</string>
   <string name="waitingForOpponent">Интизори ҳариф</string>
   <string name="waiting">Интизор шавед</string>
-  <string name="yourTurn">Гашти шумо</string>
+  <string name="yourTurn">Навбати гашти шумо</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Дараҷаи</string>
   <string name="toggleTheChat">Чатро нишон додан</string>
@@ -16,6 +16,8 @@
   <string name="stalemate">Пот</string>
   <string name="white">Сафедҳо</string>
   <string name="black">Сиеҳҳо</string>
+  <string name="asWhite">бо сафедхо</string>
+  <string name="asBlack">бо сиёхо</string>
   <string name="randomColor">Тарафи тасодуфӣ</string>
   <string name="createAGame">Бозии нав</string>
   <string name="whiteIsVictorious">Ғалабаи сафедҳо</string>
