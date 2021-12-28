@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
-  <string name="waiting">ಎದುರಾಳಿಯು ಸವಾಲು ಸ್ವೀಕರಿಸಲು ಕಾಯುತ್ತಿದ್ದೇವೆ</string>
+  <string name="waiting">ಕಾಯಲಾಗುತ್ತಿದೆ</string>
   <string name="yourTurn">ನಿಮ್ಮ ಸರದಿ</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
   <string name="level">ಮಟ್ಟ</string>
