@@ -938,7 +938,7 @@
   <string name="simulHostcolor">צבע מנחה המשחק</string>
   <string name="estimatedStart">זמן התחלה משוער</string>
   <string name="simulFeatured">תכונה ב-%s</string>
-  <string name="simulFeaturedHelp">גרום למשחק להיות ציבורי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
+  <string name="simulFeaturedHelp">גרום למשחק להיות פומבי ב-%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
   <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
