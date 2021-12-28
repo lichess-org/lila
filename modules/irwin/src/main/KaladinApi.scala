@@ -74,21 +74,35 @@ final class KaladinApi(
       }
     }
 
-  private[irwin] def countQueued: Fu[Map[Int, Int]] =
-    coll {
-      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-        import framework._
-        Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
-      }
-        .map { res =>
-          for {
-            obj      <- res
-            priority <- obj int "_id"
-            nb       <- obj int "nb"
-          } yield priority -> nb
+  private[irwin] def countQueued: Fu[KaladinApi.Queue] =
+    for {
+      errors <- coll {
+        _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          Match($doc("response.err" $exists true)) -> List(GroupField("response.err")("nb" -> SumAll))
         }
-    }
-      .map(_.toMap)
+          .map { res =>
+            for {
+              obj     <- res
+              errKind <- obj string "_id"
+              nb      <- obj int "nb"
+            } yield (errKind, nb)
+          }
+      }
+      queued <- coll {
+        _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
+        }
+          .map { res =>
+            for {
+              obj      <- res
+              priority <- obj int "_id"
+              nb       <- obj int "nb"
+            } yield (priority, nb)
+          }
+      }
+    } yield KaladinApi.Queue(errors, queued)
 
   private object hasEnoughRecentMoves {
     private val minMoves = 1050
@@ -138,4 +152,9 @@ final class KaladinApi(
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
     getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report) unit
   }
+}
+
+private[irwin] object KaladinApi {
+
+  case class Queue(errors: List[(String, Int)], queued: List[(Int, Int)])
 }
