@@ -889,4 +889,5 @@
   <string name="youCantStartNewGame">जब तक यह गेम समाप्त नहीं हो जाता तब तक आप एक नया गेम शुरू नहीं कर सकते।</string>
   <string name="since">दिनांक से</string>
   <string name="until">दिनांक तक​</string>
+  <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
 </resources>
