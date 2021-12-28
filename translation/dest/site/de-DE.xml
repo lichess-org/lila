@@ -889,6 +889,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
   <string name="since">Von</string>
   <string name="until">Bis</string>
-  <string name="lichessDbExplanation">Gewertete Partien von allen Lichess-Spielern</string>
+  <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
   <string name="switchSides">andere Farbe</string>
 </resources>
