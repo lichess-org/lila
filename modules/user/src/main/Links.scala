@@ -14,16 +14,14 @@ object Links {
       .flatMap(toLink)
 
   private def toLink(line: String): Option[Link] =
-    Try(URL.parse(line)).toOption
-      .flatMap { url =>
-        val host = url.host.toString
-        host.nonEmpty && (url.scheme == "http" || url.scheme == "https") option {
-          Link.Site.allKnown.find(_ matches host).map(site => Link(site, url.toString)) | Link(
-            Link.Site.Other(host),
-            url.toString
-          )
-        }
-      }
+    for {
+      url <- Try(URL.parse(line)).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toString)
+    } yield Link.Site.allKnown.find(_ matches host).map(site => Link(site, url.toString)) | Link(
+      Link.Site.Other(host),
+      url.toString
+    )
 }
 
 case class Link(site: Link.Site, url: String)

@@ -43,7 +43,7 @@ object IpAddress {
     else IpV6Address(parseIPv6Address(str).toString)
   }
   def from(str: String): Option[IpAddress] = parse(str).toOption
-  def unchecked(str: String): IpAddress = parse(str).get
+  def unchecked(str: String): IpAddress    = parse(str).get
 }
 
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
