@@ -74,35 +74,41 @@ final class KaladinApi(
       }
     }
 
-  private[irwin] def countQueued: Fu[KaladinApi.Queue] =
-    for {
-      errors <- coll {
-        _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-          import framework._
-          Match($doc("response.err" $exists true)) -> List(GroupField("response.err")("nb" -> SumAll))
-        }
-          .map { res =>
-            for {
-              obj     <- res
-              errKind <- obj string "_id"
-              nb      <- obj int "nb"
-            } yield (errKind, nb)
-          }
+  private[irwin] def monitorQueued: Funit = for {
+    errors <- coll {
+      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        Match($doc("response.err" $exists true)) -> List(GroupField("response.err")("nb" -> SumAll))
       }
-      queued <- coll {
-        _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-          import framework._
-          Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
+        .map { res =>
+          for {
+            obj     <- res
+            errKind <- obj string "_id"
+            nb      <- obj int "nb"
+          } yield (errKind, nb)
         }
-          .map { res =>
-            for {
-              obj      <- res
-              priority <- obj int "_id"
-              nb       <- obj int "nb"
-            } yield (priority, nb)
-          }
+    }
+    queued <- coll {
+      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+        import framework._
+        Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
       }
-    } yield KaladinApi.Queue(errors, queued)
+        .map { res =>
+          for {
+            obj      <- res
+            priority <- obj int "_id"
+            nb       <- obj int "nb"
+          } yield (priority, nb)
+        }
+    }
+  } yield {
+    errors foreach { case (errKind, nb) =>
+      lila.mon.mod.kaladin.queueErrors(errKind).update(nb)
+    }
+    queued foreach { case (priority, nb) =>
+      lila.mon.mod.kaladin.queue(priority).update(nb)
+    }
+  }
 
   private object hasEnoughRecentMoves {
     private val minMoves = 1050
@@ -152,9 +158,4 @@ final class KaladinApi(
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
     getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report) unit
   }
-}
-
-private[irwin] object KaladinApi {
-
-  case class Queue(errors: List[(String, Int)], queued: List[(Int, Int)])
 }

@@ -64,14 +64,7 @@ final class Env(
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    kaladinApi.countQueued foreach { queue =>
-      queue.queued foreach { case (priority, nb) =>
-        lila.mon.mod.kaladin.queue(priority).update(nb)
-      }
-      queue.errors foreach { case (errKind, nb) =>
-        lila.mon.mod.kaladin.queueErrors(errKind).update(nb)
-      }
-    }
+    kaladinApi.monitorQueued.unit
   }
 }
 
