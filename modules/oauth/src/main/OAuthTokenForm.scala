@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import reactivemongo.api.bson.BSONObjectID
 
 import lila.common.Bearer
-import lila.common.Form.{ absoluteUrl, cleanText }
+import lila.common.Form.cleanText
 import lila.user.User
 
 object OAuthTokenForm {
