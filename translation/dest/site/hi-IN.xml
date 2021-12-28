@@ -17,6 +17,8 @@
   <string name="stalemate">गतिरोध (स्टेलमेट )</string>
   <string name="white">सफेद</string>
   <string name="black">काला</string>
+  <string name="asWhite">सफ़ेद से</string>
+  <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद विजय हुआ</string>
@@ -342,6 +344,7 @@
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
+  <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
   <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
   <string name="toStudy">पढ़े</string>
@@ -884,4 +887,7 @@
   <string name="abortTheGame">खेल रद्द करें</string>
   <string name="resignTheGame">हार मान ले</string>
   <string name="youCantStartNewGame">जब तक यह गेम समाप्त नहीं हो जाता तब तक आप एक नया गेम शुरू नहीं कर सकते।</string>
+  <string name="since">दिनांक से</string>
+  <string name="until">दिनांक तक​</string>
+  <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
 </resources>

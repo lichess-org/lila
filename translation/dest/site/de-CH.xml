@@ -346,6 +346,7 @@
   <string name="leaderboard">Ranglischtä</string>
   <string name="pasteTheFenStringHere">Chasch dä FEN-Texscht do iifüegä</string>
   <string name="pasteThePgnStringHere">Chasch dä PGN-Texscht do iifüegä</string>
+  <string name="orUploadPgnFile">Oder lad en PGN-Datei ufe</string>
   <string name="fromPosition">Vonärä Position uus</string>
   <string name="continueFromHere">Vo do uus wiiterschpillä</string>
   <string name="toStudy">Schtudiä</string>
