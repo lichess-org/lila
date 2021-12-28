@@ -733,7 +733,7 @@
   <string name="getAHint">Obtenir un indice</string>
   <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
-  <string name="blackWinsGame">Les Noirs gagnent</string>
+  <string name="blackWinsGame">Les noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="learnFromThisMistake">Apprendre de cette erreur</string>
   <string name="skipThisMove">Passer ce coup</string>
