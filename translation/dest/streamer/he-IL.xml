@@ -5,7 +5,12 @@
   <string name="live">בשידור חי!</string>
   <string name="currentlyStreaming">משדרים כרגע: %s</string>
   <string name="lastStream">שידור חי %s</string>
+  <string name="becomeStreamer">הפוך לשדרן ליצ׳ס</string>
   <string name="doYouHaveStream">יש לך ערוץ יוטיוב או טוויץ\'?</string>
+  <string name="allStreamers">כל השדרנים</string>
+  <string name="xIsStreaming">%s משדר/ת</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">קראו את %s על מנת לאפשר משחק הוגן לכולם בזמן שידורכם.</string>
+  <string name="streamingFairplayFAQ">מדריך השידור ההוגן</string>
   <string name="perk4">הצג את השידור שלך במשחקים, טורנירים ולוחות למידה שלך.</string>
   <string name="headline">כּוֹתֶרֶת</string>
   <string name="changePicture">שנה\מחק את התמונה שלך</string>
