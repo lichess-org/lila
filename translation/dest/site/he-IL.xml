@@ -17,6 +17,8 @@
   <string name="stalemate">פט</string>
   <string name="white">לבן</string>
   <string name="black">שחור</string>
+  <string name="asWhite">בתור לבן</string>
+  <string name="asBlack">בתור שחור</string>
   <string name="randomColor">צבע אקראי</string>
   <string name="createAGame">צור משחק</string>
   <string name="whiteIsVictorious">הלבן ניצח</string>
