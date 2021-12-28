@@ -91,7 +91,7 @@ final class KaladinApi(
     queued <- coll {
       _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
         import framework._
-        Match($doc("response" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
+        Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
       }
         .map { res =>
           for {
