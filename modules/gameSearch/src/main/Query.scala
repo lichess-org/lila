@@ -63,18 +63,18 @@ object Query {
   implicit val jsonWriter                 = Json.writes[Query]
 
   def durations(implicit lang: Lang): List[(Int, String)] =
-    ((30, trans.nbSeconds.plural(30, 30.toString()).render) ::
+    ((30, trans.nbSeconds.pluralSame(30).render) ::
       options(
         List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30),
-        i => trans.nbMinutes.plural(i / 60, (i / 60).toString()).render
+        i => trans.nbMinutes.pluralSame(i / 60).render
       ).toList) :+
-      (60 * 60 * 1 -> trans.nbHours.plural(1, 1.toString()).render) :+
-      (60 * 60 * 2 -> trans.nbHours.plural(2, 2.toString()).render) :+
-      (60 * 60 * 3 -> trans.nbHours.plural(3, 3.toString()).render)
+      (60 * 60 * 1 -> trans.nbHours.pluralSame(1).render) :+
+      (60 * 60 * 2 -> trans.nbHours.pluralSame(2).render) :+
+      (60 * 60 * 3 -> trans.nbHours.pluralSame(3).render)
 
   def clockInits(implicit lang: Lang) = List(
-    (30, trans.nbSeconds.plural(30, 30.toString()).render),
-    (45, trans.nbSeconds.plural(45, 45.toString()).render)
+    (30, trans.nbSeconds.pluralSame(30).render),
+    (45, trans.nbSeconds.pluralSame(45).render)
   ) ::: options(
     List(
       60 * 1,
@@ -92,13 +92,13 @@ object Query {
       60 * 150,
       60 * 180
     ),
-    i => trans.nbMinutes.plural(i / 60, (i / 60).toString()).render
+    i => trans.nbMinutes.pluralSame(i / 60).render
   ).toList
 
   def clockIncs(implicit lang: Lang) =
     options(
       List(1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180),
-      i => trans.nbSeconds.plural(i, i.toString()).render
+      i => trans.nbSeconds.pluralSame(i).render
     ).toList
 
   def winnerColors(implicit lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
