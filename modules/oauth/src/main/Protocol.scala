@@ -1,7 +1,6 @@
 package lila.oauth
 
 import java.util.Base64
-import java.net.URLEncoder
 import scala.util.Try
 import cats.data.Validated
 import play.api.libs.json.Json

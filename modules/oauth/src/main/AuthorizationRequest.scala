@@ -1,6 +1,5 @@
 package lila.oauth
 
-import java.net.URLEncoder
 import cats.data.Validated
 import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
