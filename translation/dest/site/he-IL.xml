@@ -917,7 +917,7 @@
   <string name="lichessPatronInfo">ליצ\'ס היא ארגון צדקה ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנים אך ורק על ידי תרומות משתמשים.</string>
   <string name="coachManager">אזור המאמן</string>
-  <string name="streamerManager">אזור ניהול שדרן</string>
+  <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">בטל טורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
   <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. יש קישורי מארקאפ זמינים.[name](https://url)</string>
