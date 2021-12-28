@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">פרטי</string>
-  <string name="myStudies">הלימודים שלי</string>
+  <string name="myStudies">הניתוחים שלי</string>
   <string name="studiesIContributeTo">לימודים שתרמתי להם</string>
   <string name="myPublicStudies">הלימודים הפומביים שלי</string>
   <string name="myPrivateStudies">הלימודים הפרטיים שלי</string>
