@@ -23,7 +23,7 @@
   <string name="perk2">תועלו למעלה ברשימת המשדרים.</string>
   <string name="perk4">הצג את השידור שלך במשחקים, טורנירים ולוחות למידה שלך.</string>
   <string name="approved">המשדר שלכם אושר.</string>
-  <string name="pendingReview">המשדר שלכם עוברת בדיקת מנהלים.</string>
+  <string name="pendingReview">המשדר שלכם עוברת בדיקת הנהלה.</string>
   <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונת משדר.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להכנס לרשימת השדרני ליצ׳ס, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">בקשו בדיקת הנהלה</string>
@@ -32,6 +32,7 @@
 כתבו את תוית השפה בכותרת המשדר בעמוד הטוויץ׳ או היוטיוב ולא בהגדרות משדר של ליצ׳ס.
 במידה והמשדר שלכם באנגלית, אין צורך לצרף תוית שפה.</string>
   <string name="streamerName">השם שדרן שלכם בליצ׳ס</string>
+  <string name="visibility">הצג בעמוד המשדרים</string>
   <string name="headline">כּוֹתֶרֶת</string>
   <string name="tellUsAboutTheStream">ספרו לנו על שידורכם במשפט אחד</string>
   <string name="xStreamerPicture">תמונה של שדרן %s</string>
