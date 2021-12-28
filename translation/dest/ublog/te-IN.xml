@@ -24,4 +24,13 @@
   <string name="thisIsADraft">ఇది డ్రాఫ్ట్</string>
   <string name="moreBlogPostsBy">%s ద్వారా మరిన్ని బ్లాగ్ పోస్ట్‌లు</string>
   <string name="noPostsInThisBlogYet">ఈ బ్లాగ్‌లో ఇంకా పోస్ట్‌లు లేవు.</string>
+  <string name="noDrafts">చూపించడానికి డ్రాఫ్ట్ లు లేవు.</string>
+  <string name="latestBlogPosts">తాజా బ్లాగ్ పోస్ట్‌లు</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">ఒక పోస్ట్‌ని వీక్షించండి</item>
+    <item quantity="other">మొత్తం %s పోస్ట్‌లను చూడండి</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">మీ పోస్ట్ కోసం చిత్రాన్ని అప్‌లోడ్ చేయండి</string>
+  <string name="imageAlt">చిత్రం ప్రత్యామ్నాయ టెక్స్ట్</string>
+  <string name="imageCredit">చిత్ర క్రెడిట్</string>
 </resources>
