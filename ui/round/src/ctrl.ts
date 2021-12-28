@@ -797,7 +797,7 @@ export default class RoundController {
           alert('Play enhancement extensions are no longer allowed!');
           lichess.socket.destroy();
           this.setRedirecting();
-          location.href = '/help/play-extensions';
+          location.href = '/page/play-extensions';
         }
       }, 1000);
 
