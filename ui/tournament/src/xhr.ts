@@ -65,6 +65,7 @@ export const reloadNow = (ctrl: TournamentController): Promise<void> =>
       page: ctrl.focusOnMe ? undefined : ctrl.page,
       playerInfo: ctrl.playerInfo.id,
       partial: true,
+      me: ctrl.data.myUsername,
     }),
     {
       ...xhr.defaultInit,
