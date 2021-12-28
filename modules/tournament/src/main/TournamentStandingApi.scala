@@ -1,6 +1,8 @@
 package lila.tournament
 
+import akka.stream.scaladsl._
 import play.api.libs.json._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.WorkQueue
@@ -31,6 +33,27 @@ final class TournamentStandingApi(
   )
 
   private val perPage = 10
+
+  def fullStanding(tour: Tournament): Fu[JsArray] =
+    playerRepo
+      .sortedCursor(tour.id, 100, ReadPreference.primary)
+      .documentSource()
+      .zipWithIndex
+      .mapAsync(16) { case (player, index) =>
+        for {
+          sheet <- cached.sheet(tour, player.userId)
+          json <- JsonView.playerJson(
+            lightUserApi,
+            sheet.some,
+            RankedPlayer(index.toInt + 1, player),
+            streakable = tour.streakable,
+            withScores = true
+          )
+        } yield json
+      }
+      .toMat(Sink.seq)(Keep.right)
+      .run()
+      .map(JsArray(_))
 
   def apply(tour: Tournament, forPage: Int, withScores: Boolean): Fu[JsObject] = {
     val page = forPage atLeast 1

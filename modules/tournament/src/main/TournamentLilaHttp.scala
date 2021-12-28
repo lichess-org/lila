@@ -44,14 +44,14 @@ final private class TournamentLilaHttp(
           .documentSource()
           .mapAsyncUnordered(4)(jsonView.lilaHttp)
           .map { json =>
-            conn.async.publish(channel, Json stringify json).unit
+            val str = Json stringify json
+            lila.mon.tournament.lilaHttp.fullSize.record(str.size.pp)
+            conn.async.publish(channel, str).unit
           }
           .toMat(LilaStream.sinkCount)(Keep.right)
           .run()
-          .addEffect { nb =>
-            lila.mon.tournament.started.update(nb).unit
-          }
-          .monSuccess(_.tournament.startedOrganizer.tick)
+          .monSuccess(_.tournament.lilaHttp.tick)
+          .addEffectAnyway(scheduleNext())
           .unit
     }
   }))

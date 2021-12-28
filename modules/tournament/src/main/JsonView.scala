@@ -481,6 +481,7 @@ final class JsonView(
     stats        <- statsApi(tour)
     teamStanding <- getTeamStanding(tour)
     ranking      <- cached ranking tour
+    fullStanding <- standingApi.fullStanding(tour)
   } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json.obj(
     "id" -> tour.id,
     // TODO optimize as a single string
@@ -489,7 +490,8 @@ final class JsonView(
         duel.userIds.map { uid => uid -> JsString(duel.gameId) }
       }.toMap)
     },
-    "ranking" -> ranking.userIdsString
+    "ranking"  -> ranking.userIdsString,
+    "standing" -> fullStanding
   )
 }
 
