@@ -396,6 +396,7 @@
   <string name="leaderboard">טבלת השחקנים המובילים</string>
   <string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
+  <string name="orUploadPgnFile">או העלה קובץ PGN</string>
   <string name="fromPosition">מהעמדה</string>
   <string name="continueFromHere">המשך מכאן</string>
   <string name="toStudy">לחקור</string>
@@ -967,4 +968,8 @@
   <string name="abortTheGame">בטל את המשחק</string>
   <string name="resignTheGame">הכנע</string>
   <string name="youCantStartNewGame">לא תוכל להתחיל משחק חדש עד גמר הנוכחי.</string>
+  <string name="since">מאז</string>
+  <string name="until">עד</string>
+  <string name="lichessDbExplanation">משחקים מדורגים אשר נדגמו מכלל שחקני ליצ׳ס</string>
+  <string name="switchSides">הפוך לוח</string>
 </resources>
