@@ -60,13 +60,7 @@ object authorize {
             ),
             p(cls := "oauth__redirect")(
               "Will redirect to ",
-              raw(
-                escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
-                  .replaceFirst(
-                    prompt.redirectUri.clientOrigin,
-                    prompt.redirectUri.clientOrigin.render
-                  )
-              )
+              prompt.redirectUri.withoutQuery
             )
           )
         )
