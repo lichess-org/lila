@@ -1,10 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
-import views._
+import lila.common.HTTPRequest
 
 final class Pref(env: Env) extends LilaController(env) {
 
@@ -53,6 +54,10 @@ final class Pref(env: Env) extends LilaController(env) {
     OpenBody { implicit ctx =>
       if (name == "zoom") {
         Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString)).fuccess
+      } else if (name == "agreement") {
+        ctx.me ?? api.agree inject {
+          if (HTTPRequest.isXhr(ctx.req)) NoContent else Redirect(routes.Lobby.home)
+        }
       } else {
         implicit val req = ctx.body
         (setters get name) ?? { case (form, fn) =>

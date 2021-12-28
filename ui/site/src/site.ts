@@ -3,6 +3,7 @@ import * as miniGame from './component/mini-game';
 import * as timeago from './component/timeago';
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
+import agreement from './component/agreement';
 import exportLichessGlobals from './site.lichess.globals';
 import info from './component/info';
 import loadClockWidget from './component/clock-widget';
@@ -155,6 +156,8 @@ lichess.load.then(() => {
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
+
+    agreement();
 
     serviceWorker();
 

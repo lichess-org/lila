@@ -23,8 +23,8 @@
   <string name="createAGame">Créer une partie</string>
   <string name="whiteIsVictorious">Victoire des Blancs</string>
   <string name="blackIsVictorious">Victoire des Noirs</string>
-  <string name="youPlayTheWhitePieces">Vous jouez les Blancs</string>
-  <string name="youPlayTheBlackPieces">Vous jouez les Noirs</string>
+  <string name="youPlayTheWhitePieces">Vous jouez avec les blancs</string>
+  <string name="youPlayTheBlackPieces">Vous jouez avec les noirs</string>
   <string name="itsYourTurn">C\'est votre tour !</string>
   <string name="cheatDetected">Tricherie détectée</string>
   <string name="kingInTheCenter">Roi au centre</string>
@@ -889,6 +889,6 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
   <string name="since">De</string>
   <string name="until">À</string>
-  <string name="lichessDbExplanation">Parties classées prises au hasard parmi tous les joueurs de Lichess</string>
-  <string name="switchSides">Tourner l\'échiquier</string>
+  <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
+  <string name="switchSides">Changer de couleur</string>
 </resources>

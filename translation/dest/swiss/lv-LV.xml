@@ -50,8 +50,8 @@
   <string name="sonnebornBergerScore">Zonnenborna—Bergera koeficientu</string>
   <string name="tiebreaksCalculationA">Ar %s.
 Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu pretinieku punktu summu.</string>
-  <string name="pairingsQ">Kā sapāro spēlētājus?</string>
-  <string name="dutchSystem">Nīderlandes sistēmu</string>
+  <string name="pairingsQ">Kā tiek noteikti pāri?</string>
+  <string name="dutchSystem">Holandiešu sistēmu</string>
   <string name="FIDEHandbook">FIDE rokasgrāmatu</string>
   <string name="pairingsA">Ar %1$s, īstenotu ar \"%2$s\", saskaņā ar %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kas notiek, ja turnīrā ir vairāk raundu nekā spēlētāju?</string>

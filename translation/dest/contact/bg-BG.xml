@@ -8,7 +8,7 @@
   <string name="noConfirmationEmail">Не получих имейл за потвърждение</string>
   <string name="forgotPassword">Забравих паролата си</string>
   <string name="forgotUsername">Забравих потребителското си име</string>
-  <string name="youCanLoginWithEmail">Можете да влезе с имейл адреса, с който сте регистрирани</string>
+  <string name="youCanLoginWithEmail">Можете да влезете с имейл адреса, с който сте регистрирани</string>
   <string name="lost2FA">Нямам достъп до 2-стъпковите кодове за аутентикация</string>
   <string name="doPasswordReset">Направете нулиране на паролата, за да премахнете втория фактор</string>
   <string name="accountSupport">Имам нужда от помощ за акаунта</string>

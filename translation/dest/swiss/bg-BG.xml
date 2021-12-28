@@ -55,6 +55,8 @@
   <string name="comparison">Сравнение</string>
   <string name="tournDuration">Продължителност на турнира</string>
   <string name="numberOfGames">Брой партии</string>
+  <string name="numberOfGamesAsManyAsPossible">Толкова, колкото могат да се изиграят за даденото време</string>
+  <string name="numberOfGamesPreDefined">Задава се предварително, еднакво за всички играчи</string>
   <string name="pairingSystem">Система за съчетаване</string>
   <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Бързо: не се изчакват всички играчи</string>
   <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Бавно: изчакват се всички играчи</string>
