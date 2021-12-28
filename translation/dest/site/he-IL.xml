@@ -386,7 +386,7 @@
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר קבוצה %2$s</string>
-  <string name="xStartedStreaming">%s התחיל שידור חי</string>
+  <string name="xStartedStreaming">%s התחיל לשדר</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>
   <string name="filterGames">סנן משחקים</string>
@@ -917,7 +917,7 @@
   <string name="lichessPatronInfo">ליצ\'ס היא ארגון צדקה ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנים אך ורק על ידי תרומות משתמשים.</string>
   <string name="coachManager">אזור המאמן</string>
-  <string name="streamerManager">אזור יוצר התוכן</string>
+  <string name="streamerManager">אזור ניהול שדרן</string>
   <string name="cancelTournament">בטל טורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>
   <string name="tournDescriptionHelp">יש לך משהו להגיד למשתתפים? עדיף בקיצור. יש קישורי מארקאפ זמינים.[name](https://url)</string>
