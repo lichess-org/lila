@@ -75,7 +75,7 @@
     <item quantity="other">השתתף ב%s משחק ידידות</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">יצר %s ניתוח חדש</item>
+    <item quantity="one">יצר %s לוח למידה חדש</item>
     <item quantity="two">יצר %s ניתוחים חדשים</item>
     <item quantity="many">יצר %s ניתוחים חדשים</item>
     <item quantity="other">יצר %s ניתוחים חדשים</item>
