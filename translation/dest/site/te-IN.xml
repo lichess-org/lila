@@ -17,6 +17,8 @@
   <string name="stalemate">దిగ్బంధం (ఎటు పోవడానికి దారి లేదు)</string>
   <string name="white">తెలుపు రంగు</string>
   <string name="black">నలుపు రంగు</string>
+  <string name="asWhite">తెల్లగా</string>
+  <string name="asBlack">నల్లగా</string>
   <string name="randomColor">ఏ రంగైనా సరే</string>
   <string name="createAGame">ఒక ఆట మొదలుపెడదాం</string>
   <string name="whiteIsVictorious">తెలుపు పక్షం గెలిచింది</string>
