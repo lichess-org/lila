@@ -111,7 +111,7 @@
   <string name="replayMode">מצב הרצת המסעים</string>
   <string name="realtimeReplay">זמן אמת</string>
   <string name="byCPL">ע\"י CPL</string>
-  <string name="openStudy">פתח ניתוח</string>
+  <string name="openStudy">פתח לוח למידה</string>
   <string name="enable">אפשר</string>
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="evaluationGauge">מד הערכה</string>
@@ -342,10 +342,10 @@
     <item quantity="other">%s נקודות טורניר</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s לימוד</item>
-    <item quantity="two">%s למידות</item>
-    <item quantity="many">%s למידות</item>
-    <item quantity="other">%s למידות</item>
+    <item quantity="one">לוח למידה %s</item>
+    <item quantity="two">%s לוחות למידה</item>
+    <item quantity="many">%s לוחות למידה</item>
+    <item quantity="other">%s לוחות למידה</item>
   </plurals>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
@@ -399,7 +399,7 @@
   <string name="orUploadPgnFile">או העלה קובץ PGN</string>
   <string name="fromPosition">מהעמדה</string>
   <string name="continueFromHere">המשך מכאן</string>
-  <string name="toStudy">לחקור</string>
+  <string name="toStudy">למד לוח</string>
   <string name="importGame">ייבא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN אתה מקבל הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ\'אט משחק וקישור לשיתוף.</string>
   <plurals name="nbImportedGames">
@@ -579,7 +579,7 @@
   <string name="privacyPolicy">מדיניות הפרטיות</string>
   <string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
   <string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
-  <string name="letOtherPlayersInviteYouToStudy">תן לשחקנים אחרים להזמין אותך ללמידה</string>
+  <string name="letOtherPlayersInviteYouToStudy">אפשר לשחקנים אחרים להזמין אותך ללוחות למידה</string>
   <string name="sound">צלילים</string>
   <string name="none">ללא</string>
   <string name="fast">מהיר</string>
@@ -622,7 +622,7 @@
   <string name="clock">שעון</string>
   <string name="opponent">יריב</string>
   <string name="learnMenu">למד</string>
-  <string name="studyMenu">לימודים</string>
+  <string name="studyMenu">לוחות למידה</string>
   <string name="practice">תרגול</string>
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
@@ -942,7 +942,7 @@
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
   <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
-  <string name="embedsAvailable">הדבק כתובת אתר של משחק או כתובת אתר של פרק לימוד כדי להטמיע אותו.</string>
+  <string name="embedsAvailable">הדבק כתובת משחק או כתובת של פרק לוח לימוד כדי להטמיע אותו.</string>
   <string name="inYourLocalTimezone">באזור הזמן שלך</string>
   <string name="tournChat">צ\'אט טורניר</string>
   <string name="noChat">בטל אפשרות צ\'ט</string>
