@@ -14,7 +14,6 @@ object Dependencies {
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
   val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.2"  % "compile"
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.3.0"
-  val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.6.0"
   val galimatias  = "io.mola.galimatias"          % "galimatias"                      % "0.2.1"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.10.0"
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.5.RELEASE"
