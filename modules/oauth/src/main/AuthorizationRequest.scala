@@ -3,7 +3,6 @@ package lila.oauth
 import java.net.URLEncoder
 import cats.data.Validated
 import com.roundeights.hasher.Algo
-import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
 import play.api.libs.json._
 
