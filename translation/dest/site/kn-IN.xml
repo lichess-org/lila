@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಗೆಳಯ(ತಿ) ಯೊಡನೆ ಆಡಿ</string>
+  <string name="playWithAFriend">ಗೆಳಯ/ಗೆಳತಿಯೊಡನೆ  ಆಡಿ</string>
   <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
@@ -60,7 +60,7 @@
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
   <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
   <string name="cloudAnalysis">ಕ್ಲೌಡ್ ವಿಶ್ಲೇಷಣೆ</string>
-  <string name="goDeeper">ಆಳಕ್ಕೆ ಇಳಿ</string>
+  <string name="goDeeper">ಆಳ ಹೆಚ್ಚಿಸಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
   <string name="inLocalBrowser">ಸ್ಥಳೀಯ ಬ್ರೌಸರ್ ನಲ್ಲಿ</string>
   <string name="toggleLocalEvaluation">ಸ್ಥಳೀಯ ಮೌಲ್ಯಮಾಪನ ಅದಲುಬದಲಿಸಿ</string>
