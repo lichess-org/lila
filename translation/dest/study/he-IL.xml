@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">פרטי</string>
-  <string name="myStudies">הניתוחים שלי</string>
-  <string name="studiesIContributeTo">לימודים שתרמתי להם</string>
-  <string name="myPublicStudies">הלימודים הפומביים שלי</string>
-  <string name="myPrivateStudies">הלימודים הפרטיים שלי</string>
-  <string name="myFavoriteStudies">הלימודים המועדפים שלי</string>
-  <string name="whatAreStudies">מה הם לימודים?</string>
-  <string name="allStudies">כל הלימודים</string>
-  <string name="studiesCreatedByX">לימודים שנוצרו על ידי %s</string>
+  <string name="myStudies">לוחות הלמידה שלי</string>
+  <string name="studiesIContributeTo">לוחות למידה שתרמתי להם</string>
+  <string name="myPublicStudies">לוחות הלמידה הפומביים שלי</string>
+  <string name="myPrivateStudies">לוחות הלמידה הפרטיים שלי</string>
+  <string name="myFavoriteStudies">לוחות הלמידה המועדפים שלי</string>
+  <string name="whatAreStudies">מה הם לוחות למידה?</string>
+  <string name="allStudies">כל לוחות הלמידה</string>
+  <string name="studiesCreatedByX">לוחות למידה שנוצרו על ידי %s</string>
   <string name="noneYet">אין עדיין.</string>
   <string name="hot">הכי נצפים</string>
   <string name="dateAddedNewest">תאריך שבו הוסף (החדש ביותר)</string>
@@ -76,7 +76,7 @@
   <string name="startAtX">מתחיל ב%s</string>
   <string name="embedInYourWebsite">הטמע באתר שלך</string>
   <string name="readMoreAboutEmbedding">קרא עוד אודות הטמעה</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">ניתו להטמי אך ורק לוחות למידה ציבוריות!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">ניתו להטמיע אך ורק לוחות למידה פומביים!</string>
   <string name="open">פתח</string>
   <string name="xBroughtToYouByY">%1$s מוגש על ידי %2$s</string>
   <string name="studyNotFound">לוח הלמידה לא נמצא</string>
@@ -117,7 +117,7 @@
   <string name="createStudy">צור לוח למידה</string>
   <string name="editStudy">ערוך לוח למידה</string>
   <string name="visibility">נראות</string>
-  <string name="public">ציבורי</string>
+  <string name="public">פומבי</string>
   <string name="unlisted">לא רשום</string>
   <string name="inviteOnly">מוזמנים בלבד</string>
   <string name="allowCloning">אפשר שיבוט</string>
