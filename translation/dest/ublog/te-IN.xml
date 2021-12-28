@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xBlog">%s\'s బ్లాగు</string>
+  <string name="newPost">కొత్త పోస్ట్</string>
+  <string name="editYourBlogPost">మీ బ్లాగ్ పోస్ట్ సవరించు</string>
+  <string name="saveDraft">డ్రాఫ్ట్ సేవ్ చేయండి</string>
+  <string name="postTitle">పోస్ట్ శీర్షిక</string>
+  <string name="postIntro">ఇంట్రో పోస్ట్</string>
+  <string name="postBody">పోస్ట్ బాడీ</string>
+  <string name="drafts">డ్రాఫ్ట్ లు</string>
+  <string name="published">ప్రచురణ</string>
+  <string name="publishOnYourBlog">మీ బ్లాగులో ప్రచురించండి</string>
+  <string name="publishHelp">ఒకవేళ చెక్ చేయబడినట్లయితే, పోస్ట్ మీ బ్లాగ్ లో జాబితా చేయబడుతుంది. కాకపోతే, మీ డ్రాఫ్ట్ పోస్ట్ లలో ఇది ప్రైవేట్ గా ఉంటుంది</string>
+</resources>
