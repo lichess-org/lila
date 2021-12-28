@@ -17,6 +17,8 @@
   <string name="stalemate">गतिरोध (स्टेलमेट )</string>
   <string name="white">सफेद</string>
   <string name="black">काला</string>
+  <string name="asWhite">सफ़ेद से</string>
+  <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद विजय हुआ</string>
@@ -161,7 +163,7 @@
   <string name="players">शतरंज खिलाड़ी</string>
   <string name="friends">मित्र</string>
   <string name="discussions">वार्तालाप</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">आज</string>
+  <string name="today">आज</string>
   <string name="yesterday">एक दिन पूर्व</string>
   <string name="minutesPerSide">मिनट प्रति खिलाड़ी</string>
   <string name="variant">प्रकार</string>
@@ -342,6 +344,7 @@
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
+  <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
   <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
   <string name="toStudy">पढ़े</string>
@@ -419,7 +422,7 @@
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="winRate">जीत दर</string>
-  <string name="berserkRate">समय की कमी की दर</string>
+  <string name="berserkRate">निडर की दर</string>
   <string name="performance">प्रदर्शन</string>
   <string name="tournamentComplete">टूर्नामेंट पूर्ण</string>
   <string name="movesPlayed">चालें चलायीं</string>
@@ -433,9 +436,9 @@
   <string name="popularOpenings">लोकप्रिय शुरुआती चाल</string>
   <string name="endgamePositions">अंतिम चरण के खेल की स्थिति</string>
   <string name="chess960StartPosition">चेस960 खेल की प्रारम्भिक स्थिति: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">शुरू करने की स्थिति:</string>
+  <string name="startPosition">शुरू करने की स्थिति:</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">इस स्थिति से चालू करें</string>
+  <string name="loadPosition">इस स्थिति से चालू करें</string>
   <string name="isPrivate">गोपनीय</string>
   <string name="reportXToModerators">संचालकों को %s रिपोर्ट करें</string>
   <string name="profileCompletion">प्रोफाइल पूरा: %s</string>
@@ -454,7 +457,7 @@
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
   <string name="onlinePlayers">ऑनलाइन खिलाड़ियों</string>
   <string name="activePlayers">सक्रिय  खिलाडी</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">सावधान, खेल मूल्यांकित है लेकिन कोई समय नियंत्रण नहीं है!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल मूल्यांकित है लेकिन कोई समय नियंत्रण नहीं है!</string>
   <string name="success">सफलता</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेल खेले जा रहे है</item>
@@ -472,7 +475,7 @@
   <string name="yes">हाँ</string>
   <string name="help">सहायता</string>
   <string name="createANewTopic">एक नया विषय बनाएँ</string>
-  <string name="topics">विषयों की संख्या</string>
+  <string name="topics">विषय</string>
   <string name="posts">पोस्ट की संख्या</string>
   <string name="lastPost">आख़िरी  पोस्ट</string>
   <string name="views">देखे जाने की संख्या</string>
@@ -523,7 +526,7 @@
   <string name="onSlowGames">धीमे खेलों पर</string>
   <string name="always">हमेशा</string>
   <string name="never">कभी नहीं</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s %2$s में हिस्सा लेता है</string>
+  <string name="xCompetesInY">%1$s %2$s में हिस्सा लेता है</string>
   <string name="victory">जीत!</string>
   <string name="defeat">हार</string>
   <string name="victoryVsYInZ">%1$s बनाम %2$s
@@ -561,10 +564,10 @@
   <string name="error.email_acceptable">यह ई-मेल स्वीकार नहीं की जा सकती है। कृप्या इसे पुनः जांच करके प्रयास करें।</string>
   <string name="error.email_unique">यह ईमेल या तो सही नही ह्ऐ अथवा पहले इस्तेमाल हो गया ह्ऐ</string>
   <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">कम से कम %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">%s से ज़्यादा नही।</string>
+  <string name="error.minLength">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
+  <string name="error.maxLength">कम से कम %s वर्ण का शब्द होना चाहिए।</string>
+  <string name="error.min">कम से कम %s</string>
+  <string name="error.max">%s से ज़्यादा नही।</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
   <string name="onlyExistingConversations">केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
@@ -813,7 +816,7 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">आपने \"%1$s\" में उल्लेख किया है।</string>
+  <string name="mentionedYouInX">आपने \"%1$s\" में उल्लेख किया है।</string>
   <string name="xMentionedYouInY">%1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
   <string name="invitedYouToX">आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
   <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
@@ -884,4 +887,7 @@
   <string name="abortTheGame">खेल रद्द करें</string>
   <string name="resignTheGame">हार मान ले</string>
   <string name="youCantStartNewGame">जब तक यह गेम समाप्त नहीं हो जाता तब तक आप एक नया गेम शुरू नहीं कर सकते।</string>
+  <string name="since">दिनांक से</string>
+  <string name="until">दिनांक तक​</string>
+  <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
 </resources>

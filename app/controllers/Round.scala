@@ -131,7 +131,7 @@ final class Round(
     Open { implicit ctx =>
       proxyPov(gameId, color) flatMap {
         case Some(pov) =>
-          get("pov") match {
+          get("pov").map(UserModel.normalize) match {
             case Some(requestedPov) =>
               (pov.player.userId, pov.opponent.userId) match {
                 case (Some(_), Some(opponent)) if opponent == requestedPov =>
@@ -217,7 +217,9 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.noKid && ctx.me.fold(true)(env.chat.panic.allowed) && {
+    ctx.noKid && (ctx.noBot || ctx.userId.exists(game.userIds.contains)) && ctx.me.fold(
+      HTTPRequest isHuman ctx.req
+    )(env.chat.panic.allowed) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } ?? {

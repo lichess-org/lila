@@ -55,13 +55,18 @@ object forms {
       )
     }
 
-  def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
+  def ai(
+      form: Form[_],
+      ratings: Map[Int, Int],
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
+  )(implicit
       ctx: Context
   ) =
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
-        fenInput(form("fen"), strict = true, validFen),
+        fenInput(form("fen"), strict = true, validFen, editorUrl),
         renderTimeMode(form, allowAnon = true),
         if (ctx.blind)
           frag(
@@ -93,7 +98,8 @@ object forms {
       form: Form[_],
       user: Option[User],
       error: Option[String],
-      validFen: Option[lila.setup.ValidFen]
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
   )(implicit ctx: Context) =
     layout(
       "friend",
@@ -106,7 +112,7 @@ object forms {
           userLink(u, cssClass = "target".some)
         },
         renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
-        fenInput(form("fen"), strict = false, validFen),
+        fenInput(form("fen"), strict = false, validFen, editorUrl),
         renderTimeMode(form, allowAnon = true),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)

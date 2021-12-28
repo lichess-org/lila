@@ -17,6 +17,8 @@
   <string name="stalemate">ಬಿಕ್ಕಟ್ಟು</string>
   <string name="white">ಬಿಳಿ ದಳ</string>
   <string name="black">ಕಪ್ಪು ದಳ</string>
+  <string name="asWhite">ಬಿಳಿ ದಳವಾಗಿ</string>
+  <string name="asBlack">ಕಪ್ಪು ದಳವಾಗಿ</string>
   <string name="randomColor">ಯಾವುದಾದರೊಂದು ಬಣ್ಣ</string>
   <string name="createAGame">ಆಟ ರಚಿಸಿ</string>
   <string name="whiteIsVictorious">ಬಿಳಿ ದಳ ಜಯಶಾಲಿಯಾಗಿದ್ದಾರೆ</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="orUploadPgnFile">ಅಥವಾ PGN ಫೈಲ್ ಅನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
   <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
   <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
   <string name="toStudy">ಅಧ್ಯಯನ</string>
@@ -560,10 +563,10 @@
   <string name="error.email_acceptable">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸ್ವೀಕಾರಾರ್ಹವಲ್ಲ. ದಯವಿಟ್ಟು ಮರುಪರಿಶೀಲಿಸಿ ನೋಡಿ, ಹಾಗೂ ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="error.email_unique">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಸರಿ ಇಲ್ಲ ಅಥವಾ ಬೇರೆ ಯಾರೋ ಈಗಾಗಲೇ ಉಪಯೋಗಿಸುತ್ತಿದ್ದಾರೆ</string>
   <string name="error.email_different">ಈ ಇಮೇಲ್ ವಿಳಾಸ ಅದಾಗಲೇ ನಿಮ್ಮದಾಗಿದೆ</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">ಕನಿಷ್ಠ %s ಅಕ್ಷರಗಳಾದರೂ ಖಡ್ಡಾಯವಾಗಿ ಬೇಕು</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">ಗರಿಷ್ಟ %s ಅಕ್ಷರಗಳು ಇರಬಹುದಷ್ಟೇ</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">ಕನಿಷ್ಠ %s ಸಂಖ್ಯೆಗಳು ಆದರೂ ಇರಬೇಕು</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">ಗರಿಷ್ಟ %s ಅಂಕೆಗಳು ಮಾತ್ರ ಇರಬಹುದಷ್ಟೇ</string>
+  <string name="error.minLength">ಕನಿಷ್ಠ %s ಅಕ್ಷರಗಳಾದರೂ ಖಡ್ಡಾಯವಾಗಿ ಬೇಕು</string>
+  <string name="error.maxLength">ಗರಿಷ್ಟ %s ಅಕ್ಷರಗಳು ಇರಬಹುದಷ್ಟೇ</string>
+  <string name="error.min">ಕನಿಷ್ಠ %s ಸಂಖ್ಯೆಗಳು ಆದರೂ ಇರಬೇಕು</string>
+  <string name="error.max">ಗರಿಷ್ಟ %s ಅಂಕೆಗಳು ಮಾತ್ರ ಇರಬಹುದಷ್ಟೇ</string>
   <string name="ifRatingIsPlusMinusX">ಧಾರಣೆ ± %s ಇದ್ದರೆ ಮಾತ್ರ</string>
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
@@ -812,7 +815,7 @@
   <string name="youCannotPostYetPlaySomeGames">ಈ ವೇದಿಕೆಯಲ್ಲಿ ನೀವು ಸಧ್ಯಕ್ಕೆ ಬರೆಯುವಂತಿಲ್ಲ. ಇನ್ನೂ ಕೆಲವು ಚೆಸ್ ಆಟಗಳನ್ನು ಆಡಿ!</string>
   <string name="subscribe">ಚಂದಾದಾರರಾಗಿ</string>
   <string name="unsubscribe">ಚಂದಾದಾರಿಕೆ ನಿಲ್ಲಿಸಿ</string>
-  <string name="mentionedYouInX">ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ \"%1$s\".</string>
+  <string name="mentionedYouInX">\"%1$s\" ರಲ್ಲಿ ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="xMentionedYouInY">%1$s ಅವರು ನಿಮ್ಮನ್ನು %2$s ನಲ್ಲಿ ಉಲ್ಲೇಖಿಸಿದ್ದಾರೆ.</string>
   <string name="invitedYouToX">\"%1$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
   <string name="xInvitedYouToY">%1$s ಅವರು \"%2$s\" ಗೆ ನಿಮ್ಮನ್ನು ಆಹ್ವಾನಿಸಿದ್ದಾರೆ.</string>
@@ -883,4 +886,8 @@
   <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
   <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
   <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
+  <string name="since">ರಿಂದ</string>
+  <string name="until">ವರೆಗೆ</string>
+  <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
+  <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
 </resources>

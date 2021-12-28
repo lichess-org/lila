@@ -109,6 +109,10 @@ export default rollupProject({
     input: 'src/modGames.ts',
     output: 'mod.games',
   },
+  modSearch: {
+    input: 'src/modSearch.ts',
+    output: 'mod.search',
+  },
   clas: {
     input: 'src/clas.ts',
     output: 'clas',

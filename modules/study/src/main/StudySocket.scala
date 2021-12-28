@@ -124,7 +124,7 @@ final private class StudySocket(
         case "addChapter" =>
           reading[ChapterMaker.Data](o) { data =>
             val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-            who foreach api.addChapter(studyId, data, sticky = sticky)
+            who foreach api.addChapter(studyId, data, sticky = sticky, withRatings = true)
           }
         case "setChapter" =>
           o.get[Chapter.Id]("d") foreach { chapterId =>
@@ -304,7 +304,8 @@ final private class StudySocket(
         "w"          -> who
       )
     )
-  def setLiking(liking: Study.Liking, who: Who) = notify("liking", Json.obj("l" -> liking, "w" -> who))
+  def setLiking(liking: Study.Liking, who: Who) =
+    notifySri(who.sri, "liking", Json.obj("l" -> liking, "w" -> who))
   def setShapes(pos: Position.Ref, shapes: Shapes, who: Who) =
     version(
       "shapes",

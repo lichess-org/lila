@@ -277,7 +277,7 @@ package round {
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
-  case class Mlat(micros: Int)
+  case class Mlat(millis: Int)
 }
 
 package evaluation {

@@ -26,5 +26,11 @@
   <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
   <string name="noDrafts">Nincsenek piszkozatok.</string>
   <string name="latestBlogPosts">Legutóbbi blogbejegyzések</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Nézz meg egy bejegyzést</item>
+    <item quantity="other">Nézd meg az összes %s bejegyzést</item>
+  </plurals>
   <string name="uploadAnImageForYourPost">Tölts fel egy képet a bejegyzésedhez</string>
+  <string name="imageAlt">Szöveget helyettesítő kép - látássérüléssel élők számára</string>
+  <string name="imageCredit">Kép jogtulajdonosa</string>
 </resources>

@@ -47,9 +47,12 @@
   <string name="blackResigned">কালো হার মেনে নিলেন</string>
   <string name="whiteLeftTheGame">সাদা খেলাটি ছেড়ে চলে গেছেন</string>
   <string name="blackLeftTheGame">কালো খেলাটি ছেড়ে চলে গেছেন</string>
+  <string name="whiteDidntMove">সাদা চাল দিল না</string>
+  <string name="blackDidntMove">কালো চাল দিল না</string>
   <string name="requestAComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অবেদন করুন</string>
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
+  <string name="computerAnalysisDisabled">কম্পিউটার বিশ্লেষণ নিষ্ক্রিয় করা আছে</string>
   <string name="analysis">বিশ্লেষণ বোর্ড</string>
   <string name="depthX">গভীরতা %s</string>
   <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
@@ -360,6 +363,8 @@
   <string name="follow">অনুসরণ</string>
   <string name="following">অনুসরণ করছেন</string>
   <string name="unfollow">আর অনুসরণ নয়</string>
+  <string name="followX">%sকে অননুসরণ করুন</string>
+  <string name="unfollowX">%sকে অননুসরণ করুন</string>
   <string name="block">বাধা দিন</string>
   <string name="blocked">বাধাগ্রস্ত</string>
   <string name="unblock">বাধা উঠিয়ে নিন</string>
@@ -543,6 +548,8 @@
   <string name="tools">সরঞ্জামসমূহ</string>
   <string name="increment">মুনাফা</string>
   <string name="error.required">এই ঘরটি পূরন করা আবশ্যক</string>
+  <string name="error.email">ইমেইল ঠিকানাটি বৈধ নয়</string>
+  <string name="error.email_acceptable">ইমেইল ঠিকানাটি গ্রহণযোগ্য নয়। দয়া করে পুনরায় চেক করুন, অত‍ঃপর চেষ্টা করুন।</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
   <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
   <string name="onlyFriends">শুধু বন্ধুরা</string>

@@ -51,6 +51,7 @@
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>
+  <string name="computerAnalysisDisabled">Analisis komputer ditutup</string>
   <string name="analysis">Analisis papan</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
@@ -84,6 +85,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mate dalam %s separuh-pergerakan</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\" yang dibundar, mengikut jumlah pegerakkan separuh sehingga sebuah bidak dimakan atau pegerakkan pion seterusnya</string>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
   <string name="openingExplorer">Membuka explorer</string>

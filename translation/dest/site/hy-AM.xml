@@ -17,6 +17,8 @@
   <string name="stalemate">Պատ</string>
   <string name="white">Սպիտակներ</string>
   <string name="black">Սևեր</string>
+  <string name="asWhite">սպիտակների կողմից</string>
+  <string name="asBlack">սևերի կողմից</string>
   <string name="randomColor">Կամայական գույն</string>
   <string name="createAGame">Ստեղծել նոր խաղ</string>
   <string name="whiteIsVictorious">Սպիտակները հաղթեցին</string>
@@ -318,6 +320,8 @@
     <item quantity="other">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ձեր վարկանիշը %s-ում դեռևս վավեր չէ</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ձեր ամենշաբաթյա վարկանիշը %1$sում (%2$s) չափազանց բարձր է</string>
+  <string name="yourPerfRatingIsTooLow">Ձեր վարկանիշը %1$sին (%2$s) մասնակցելու համար բավարար չէ</string>
   <string name="ratedMoreThanInPerf">Վարկանիշը ≥ %1$s %2$s-ում</string>
   <string name="ratedLessThanInPerf">Վարկանիշը ≤ %1$s %2$s-ում</string>
   <string name="mustBeInTeam">Դուք պետք է լինեք %s ակումբի անդամ</string>
@@ -336,6 +340,7 @@
   <string name="leaderboard">Առաջատարներ</string>
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
+  <string name="orUploadPgnFile">Կամ վերբեռնեք PGN ֆայլը</string>
   <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="toStudy">Սովորել</string>
@@ -774,4 +779,8 @@
   <string name="abortTheGame">Ընդհատել խաղը</string>
   <string name="resignTheGame">Հանձնվել</string>
   <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
+  <string name="since">Սկսած</string>
+  <string name="until">Մինչև</string>
+  <string name="lichessDbExplanation">Lichess-ի բոլոր խաղացողների վարկանիշային խաղեր</string>
+  <string name="switchSides">Փոխել կողմը</string>
 </resources>

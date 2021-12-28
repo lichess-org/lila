@@ -17,6 +17,8 @@
   <string name="stalemate">Pats</string>
   <string name="white">Baltie</string>
   <string name="black">Melnie</string>
+  <string name="asWhite">ar baltajiem</string>
+  <string name="asBlack">ar melnajiem</string>
   <string name="randomColor">Nejauša krāsa</string>
   <string name="createAGame">Izveidot spēli</string>
   <string name="whiteIsVictorious">Baltie ir uzvarējuši</string>
@@ -369,6 +371,7 @@
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
+  <string name="orUploadPgnFile">Augšuplādēt PGN datni</string>
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
   <string name="toStudy">Izpētīt</string>
@@ -922,4 +925,8 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="abortTheGame">Atcelt spēli</string>
   <string name="resignTheGame">Padoties</string>
   <string name="youCantStartNewGame">Kamēr neesat pabeidzis šo spēli, nevarat sākt jaunu partiju.</string>
+  <string name="since">Kopš</string>
+  <string name="until">Līdz</string>
+  <string name="lichessDbExplanation">Vērtērtu spēļu paraugi no visiem Lichess spēlētājiem</string>
+  <string name="switchSides">Mainīties ar pusēm</string>
 </resources>

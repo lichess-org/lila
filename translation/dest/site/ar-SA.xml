@@ -17,6 +17,8 @@
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
+  <string name="asWhite">الأبيض</string>
+  <string name="asBlack">الأسود</string>
   <string name="randomColor">لون عشوائي</string>
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
@@ -1039,4 +1041,8 @@
   <string name="abortTheGame">الغي المباراة</string>
   <string name="resignTheGame">انسحاب طوعي</string>
   <string name="youCantStartNewGame">لا يمكن أن تبدأ مباراة قبل الانتهاء من المباراة الحالية.</string>
+  <string name="since">منذ</string>
+  <string name="until">حتى</string>
+  <string name="lichessDbExplanation">عينة من الألعاب المقيمة من جميع لاعبي Lichess</string>
+  <string name="switchSides">تبديل جهة اللعب</string>
 </resources>

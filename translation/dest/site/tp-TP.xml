@@ -17,6 +17,8 @@
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
   <string name="black">pimeja</string>
+  <string name="asWhite">sama walo</string>
+  <string name="asBlack">sama pimeja</string>
   <string name="randomColor">kule pi sona ala</string>
   <string name="createAGame">o pali e musi</string>
   <string name="whiteIsVictorious">walo li pini pona</string>
@@ -430,6 +432,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardEditor">ilo pi ante e supa</string>
   <string name="setTheBoard">o ante e supa musi</string>
   <string name="popularOpenings">open musi pi jan mute</string>
+  <string name="endgamePositions">nasin pi tenpo pi musi open</string>
+  <string name="chess960StartPosition">Chess960 nasin open: %s</string>
   <string name="startPosition">musi lon open</string>
   <string name="clearBoard">supa musi sin</string>
   <string name="loadPosition">o kama jo e musi lon open</string>
@@ -551,6 +555,14 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
   <string name="error.required">sina wile sitelen lon ma ni</string>
+  <string name="error.email">nimi e-mail ni li ike</string>
+  <string name="error.email_acceptable">nimi e-mail ni li ike. o lukin e ona, o pali lon tenpo sin.</string>
+  <string name="error.email_unique">nimi e-mail li ike anu alasa</string>
+  <string name="error.email_different">ni li nimi e-mail sina kin</string>
+  <string name="error.minLength">ona li wile jo e wan nimi %s anu mute</string>
+  <string name="error.maxLength">ona li wile jo e wan nimi %s anu lili</string>
+  <string name="error.min">ona li wile %s anu mute</string>
+  <string name="error.max">ona li wile %s anu lili</string>
   <string name="ifRatingIsPlusMinusX">nanpa wawa ona li lon poka %s pi nanpa wawa sina</string>
   <string name="onlyExistingConversations">toki pi tenpo ni taso</string>
   <string name="onlyFriends">jan pona taso</string>
@@ -639,6 +651,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">sin la, sina ken tawa lon tenpo tawa kepeken ilo sike nasin pi ilo nasin sina.</string>
   <string name="analysisShapesHowTo">sina wile sitelen lon supa musi la, o pilin e nena \"Shift\", e nena #1 pi ilo nasin. anu la, o pilin e nena #2 pi ilo nasin.</string>
   <string name="letOtherPlayersMessageYou">jan ante li ken ala ken toki tawa sina?</string>
+  <string name="receiveForumNotifications">jan li toki e nimi sina lon ma toki la, o kama jo e pana</string>
   <string name="shareYourInsightsData">o pana e sona pi nasin musi mi</string>
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
@@ -819,6 +832,9 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
 ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="cancelTournament">o moli e musi</string>
   <string name="tournDescription">toki musi</string>
+  <string name="ratedFormHelp">musi li jo e nanpa wawa
+li ante e nanpa wawa</string>
+  <string name="onlyMembersOfTeam">jan kulupu taso</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>

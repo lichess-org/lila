@@ -167,7 +167,16 @@ object userAnalysisI18n {
     trans.lossSavedBy50MoveRule,
     trans.allSet,
     trans.study.searchByUsername,
-    trans.mode
+    trans.mode,
+    trans.rated,
+    trans.casual,
+    trans.since,
+    trans.until,
+    trans.switchSides,
+    trans.lichessDbExplanation,
+    trans.player,
+    trans.asWhite,
+    trans.asBlack
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(

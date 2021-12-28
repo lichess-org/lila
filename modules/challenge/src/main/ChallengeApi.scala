@@ -21,7 +21,6 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
-    maxPlaying: Max,
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -134,7 +133,7 @@ final class ChallengeApi(
     else
       c.userIds
         .map { userId =>
-          gameCache.nbPlaying(userId) dmap (maxPlaying <=)
+          gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
         }
         .sequenceFu
         .dmap(_ exists identity)

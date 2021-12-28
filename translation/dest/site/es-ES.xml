@@ -17,6 +17,8 @@
   <string name="stalemate">Ahogado</string>
   <string name="white">Blancas</string>
   <string name="black">Negras</string>
+  <string name="asWhite">de blancas</string>
+  <string name="asBlack">de negras</string>
   <string name="randomColor">Color aleatorio</string>
   <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Clasificación</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
+  <string name="orUploadPgnFile">o sube un archivo PGN</string>
   <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
@@ -858,7 +861,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownAvailable">Se puede usar %s para formatear el texto.</string>
-  <string name="embedsAvailable">Pegar un enlace del juego o un capítulo de estudio para incrustarla.</string>
+  <string name="embedsAvailable">Pegar un enlace de una partida o de un capítulo de estudio para insertarlo.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>
   <string name="noChat">Sin chat</string>
@@ -884,4 +887,8 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
   <string name="youCantStartNewGame">No puedes empezar otra partida hasta que termines ésta.</string>
+  <string name="since">Desde</string>
+  <string name="until">Hasta</string>
+  <string name="lichessDbExplanation">Partidas por puntos de todos los jugadores de Lichess</string>
+  <string name="switchSides">Cambiar color</string>
 </resources>

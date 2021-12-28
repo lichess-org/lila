@@ -46,8 +46,8 @@ object picture {
       img(
         widthA := Coach.imageSize,
         heightA := Coach.imageSize,
-        width := cssSize,
-        height := cssSize,
+        cssWidth := cssSize,
+        cssHeight := cssSize,
         cls := "picture",
         src := url(c.coach),
         alt := s"${c.user.titleUsername} Lichess coach picture"

@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Bijeli</string>
   <string name="black">Crni</string>
+  <string name="asWhite">kao bijeli</string>
+  <string name="asBlack">kao crni</string>
   <string name="randomColor">Slučajna boja</string>
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
@@ -360,6 +362,7 @@
   <string name="leaderboard">Tabela rezultata</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN tekst ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
+  <string name="orUploadPgnFile">Ili postavite PGN datoteku</string>
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavite odavde</string>
   <string name="toStudy">Prostudiraj</string>
@@ -852,4 +855,8 @@ Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donaci
   <string name="coachManager">Postavke za trenera</string>
   <string name="streamerManager">Postavke za strimera</string>
   <string name="tournamentEntryCode">Lozinka za ulaz u turnir</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
+  <string name="switchSides">Zamijenite strane</string>
 </resources>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">تم پازل هت</string>
+  <string name="puzzleThemes">تم پازل ها</string>
   <string name="recommended">توصیه شده
-عنوان برای تم های پازل ها قابل مشاهده است در  https://lichess.org/training/themes
-تنها موضوع تحت عنوان \"healthy mix\" است. تغییرd نخواهد کرد.</string>
+
+عنوان های پازل ها در  https://lichess.org/training/themes قابل مشاهده است
+
+تنها موضوع تحت عنوان \"healthy mix\" است که تغییری نخواهد کرد.</string>
   <string name="phases">فاز ها</string>
   <string name="motifs">موضوع</string>
   <string name="advanced">پیشرفته</string>
@@ -15,6 +17,7 @@
   <string name="specialMoves">حرکات مخصوص</string>
   <string name="didYouLikeThisPuzzle">شما این پازل را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">برای بارگزاری بعدی رای دهید</string>
+  <string name="yourPuzzleRatingWillNotChange">ریتینگ پازل شما تغییری نخواهد کرد. توجه کنید که پازل ها یک مسابقه نیستند. ریتینگ پازل شما به انتخاب پازل مناسب در سطح خودتان کمک می کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه بیابید</string>
   <string name="toGetPersonalizedPuzzles">برای دریافت پازل شخصی سازی شده</string>

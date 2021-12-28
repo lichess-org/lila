@@ -19,6 +19,7 @@ private class PlanConfig(
     @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,

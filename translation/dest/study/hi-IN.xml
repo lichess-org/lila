@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
   <string name="pgnTags">PGN टैग</string>
   <string name="like">लाइक</string>
-  <string name="unlike" comment="unlike&#10;&#10;Removes your 'like' from the study.">नापसन्द करे</string>
+  <string name="unlike">नापसन्द करे</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
@@ -133,4 +133,16 @@
   <string name="brilliantMove">अद्भुत चाल​।</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="interestingMove">दिलचस्प चाल​ |</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">संदिग्ध चाल</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">इकलौता चाल</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">जबरन चाल</string>
+  <string name="equalPosition">बराबर स्थिति</string>
+  <string name="whiteIsWinning">सफेद जीत रहा है</string>
+  <string name="blackIsWinning">काला जीत रहा है</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">नवीनता</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">विकास</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">आक्रमण</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">विषय</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">मेरे विषय</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">लोकप्रिय विषय</string>
 </resources>

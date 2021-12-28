@@ -166,6 +166,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")
-    kamon.Kamon.loadModules()
+    kamon.Kamon.init()
   }
 }

@@ -23,9 +23,10 @@ final class IrcApi(
 
   def inquiry(user: User, mod: Holder, domain: ModDomain, room: String): Funit = {
     val stream = domain match {
-      case ModDomain.Comm => ZulipClient.stream.mod.commsPrivate
-      case ModDomain.Hunt => ZulipClient.stream.mod.hunterCheat
-      case _              => ZulipClient.stream.mod.adminGeneral
+      case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
+      case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
+      case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
+      case _               => ZulipClient.stream.mod.adminGeneral
     }
     noteApi
       .byUserForMod(user.id)
@@ -38,7 +39,7 @@ final class IrcApi(
           )
         case Some(note) =>
           zulip.sendAndGetLink(stream, "/" + user.username)(
-            s"${markdown.modLink(mod.user.username)} :pepenote: **${markdown
+            s"${markdown.modLink(mod.user)} :pepenote: **${markdown
               .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
@@ -70,7 +71,7 @@ final class IrcApi(
   def commlog(mod: Holder, user: User, reportBy: Option[User.ID]): Funit =
     zulip(_.mod.adminLog, "private comms checks")({
       val finalS = if (user.username endsWith "s") "" else "s"
-      s"**${markdown modLink mod.user.username}** checked out **${markdown userLink user.username}**'$finalS communications "
+      s"**${markdown modLink mod.user}** checked out **${markdown userLink user.username}**'$finalS communications "
     } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
       s"while investigating a report created by ${markdown.userLink(by)}"
     })
@@ -196,12 +197,11 @@ final class IrcApi(
 
 object IrcApi {
 
-  sealed trait ModDomain {
-    def key = toString.toLowerCase
-  }
+  sealed trait ModDomain
   object ModDomain {
     case object Admin extends ModDomain
-    case object Hunt  extends ModDomain
+    case object Cheat extends ModDomain
+    case object Boost extends ModDomain
     case object Comm  extends ModDomain
     case object Other extends ModDomain
   }
@@ -212,7 +212,7 @@ object IrcApi {
   private object markdown {
     def link(url: String, name: String)         = s"[$name]($url)"
     def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
-    def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
+    def userLink(name: String): String          = lichessLink(s"/@/$name?mod&notes", name)
     def userLink(user: User): String            = userLink(user.username)
     def modLink(name: String): String           = lichessLink(s"/@/$name", name)
     def modLink(user: User): String             = modLink(user.username)

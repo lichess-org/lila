@@ -22,10 +22,15 @@
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">Permainan yang sedang berlangsung</item>
   </plurals>
+  <string name="tournStartDate">Tanggal mulai turnamen</string>
   <string name="numberOfRounds">Jumlah babak</string>
   <string name="numberOfRoundsHelp">Sebuah babak yang ganjil mengizinkan keseimbangan warna yang optimal.</string>
+  <string name="roundInterval">Jarak antar ronde</string>
   <string name="newSwiss">Turnamen Swiss baru</string>
   <string name="sonnebornBergerScore">penilaian Sonneborn–Berger</string>
+  <string name="lateJoinQ">Dapatkah pemain telat bergabung?</string>
+  <string name="lateJoinA">Ya, sampai lebih dari setengah putaran dimulai; misalnya dalam 11 ronde swiss, pemain dapat bergabung sebelum ronde 6 dimulai dan dalam 12 ronde, sebelum ronde 7 dimulai.
+Peserta yang terlambat mendapatkan satu \"bye\", bahkan jika mereka melewatkan beberapa ronde.</string>
   <string name="nowPlaying">Sedang berlangsung</string>
   <string name="startingSoon">Segera dimulai</string>
   <string name="comparison">Perbandingan</string>

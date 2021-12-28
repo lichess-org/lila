@@ -9,13 +9,16 @@ import scala.concurrent.duration._
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.memo.SettingStore
 import lila.socket.Socket
+import lila.user.User
 
 final class EvalCacheApi(
     coll: AsyncCollFailingSilently,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    setting: SettingStore[Boolean]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import EvalCacheEntry._
@@ -36,7 +39,7 @@ final class EvalCacheApi(
   def put(trustedUser: TrustedUser, candidate: Input.Candidate, sri: Socket.Sri): Funit =
     candidate.input ?? { put(trustedUser, _, sri) }
 
-  def shouldPut = truster shouldPut _
+  def shouldPut(user: User) = setting.get() && truster.shouldPut(user)
 
   def getSinglePvEval(variant: Variant, fen: FEN): Fu[Option[Eval]] =
     getEval(

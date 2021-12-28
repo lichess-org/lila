@@ -24,6 +24,9 @@
   <string name="youPlayTheWhitePieces">તમે સફેદ ટુકડાઓ સાથે રમસો</string>
   <string name="youPlayTheBlackPieces">તમે કાળા ટુકડાઓ સાથે રમસો</string>
   <string name="itsYourTurn">તમારો વારો!</string>
+  <string name="cheatDetected">આ રમત સમાપ્તિની સ્થિતિ છે, જો રમત ચાલુ હોય ત્યારે કોઈ ખેલાડી છેતરપિંડી કરે છે. રમત તરત જ સમાપ્ત થાય છે.
+
+ અનુવાદ નિષ્ક્રિય અવાજમાં હોવો જોઈએ કારણ કે ખેલાડીઓ અને દર્શકો બંને તેને જુએ છે. કૃપા કરીને શક્ય તેટલું ટૂંકું રાખો.</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ ચેક</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
@@ -86,12 +89,17 @@
     <item quantity="one">મેટ %s ચાલ માં</item>
     <item quantity="other">મેટ %s ચાલ માં</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' રાઉન્ડિંગ સાથે, આગામી કેપ્ચર અથવા પ્યાદાની ચાલ સુધી અર્ધ-ચાલની સંખ્યાના આધારે</string>
   <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
   <string name="openingExplorer">રમત પ્રારંભ સંશોધક</string>
+  <string name="openingEndgameExplorer">ઓપનિંગ/એન્ડગેમ એક્સપ્લોરર</string>
   <string name="xOpeningExplorer">%s રમત પ્રારંભ સંશોધક</string>
   <string name="winPreventedBy50MoveRule">જીતને 50-ચાલના નિયમ દ્વારા અટકાવવામાં આવી છે</string>
   <string name="lossSavedBy50MoveRule">50-ચાલના નિયમ દ્વારા હાર અટકાવવામાં આવી છે</string>
+  <string name="winOr50MovesByPriorMistake">અગાઉની ભૂલથી જીત અથવા 50 ચાલ</string>
+  <string name="lossOr50MovesByPriorMistake">અગાઉની ભૂલથી નુકશાન અથવા 50 ચાલ</string>
+  <string name="unknownDueToRounding">Syzygy ટેબલબેસેસમાં DTZ મૂલ્યોના સંભવિત રાઉન્ડિંગને કારણે, છેલ્લી કેપ્ચર અથવા પ્યાદાની ચાલથી ભલામણ કરેલ ટેબલબેઝ લાઇનને અનુસરવામાં આવે તો જ જીત/હારની ખાતરી આપવામાં આવે છે.</string>
   <string name="allSet">બધું સેટ છે!</string>
   <string name="importPgn">PGN આયાત કરો</string>
   <string name="delete">કાઢી નાખો</string>
@@ -125,6 +133,8 @@
   <string name="claimADraw">ડ્રો માગણું</string>
   <string name="offerDraw">ડ્રો પ્રસ્તાવો</string>
   <string name="draw">ડ્રો</string>
+  <string name="drawByMutualAgreement">પરસ્પર કરાર દ્વારા દોરો</string>
+  <string name="fiftyMovesWithoutProgress">પ્રગતિ વિના પચાસ ચાલ</string>
   <string name="currentGames">વર્તમાન રમતો</string>
   <plurals name="nbGames">
     <item quantity="one">%s રમત</item>
@@ -143,7 +153,7 @@
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
   <string name="discussions">સંવાદો</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">આજે</string>
+  <string name="today">આજે</string>
   <string name="yesterday">ગઇકાલે</string>
   <string name="minutesPerSide">બાજુ દીઠ મિનિટ</string>
   <string name="variant">પ્રકાર</string>
@@ -185,6 +195,7 @@
   <string name="cancel">રદ કરો</string>
   <string name="whiteTimeOut">સફેદની સમય મર્યાદા પૂરી</string>
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
+  <string name="drawOfferSent">ડ્રો ઓફર મોકલી</string>
   <string name="accept">સ્વીકારો</string>
   <string name="decline">નકારો</string>
   <string name="playingRightNow">અત્યારે રમાય છે</string>

@@ -76,11 +76,7 @@ export default class EditorCtrl {
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      const params = new URLSearchParams();
-      if (fen !== INITIAL_FEN || this.rules !== 'chess') params.set('fen', fen);
-      if (this.rules !== 'chess') params.set('variant', lichessVariant(this.rules));
-      const paramsString = params.toString();
-      window.history.replaceState(null, '', '/editor' + (paramsString ? '?' + paramsString : ''));
+      window.history.replaceState(null, '', this.makeEditorUrl(fen));
     }
     this.options.onChange?.(fen);
     this.redraw();
@@ -142,11 +138,13 @@ export default class EditorCtrl {
 
   makeAnalysisUrl(legalFen: string): string {
     const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
-    return this.makeUrl(`/analysis/${variant}`, legalFen);
+    return `/analysis/${variant}${urlFen(legalFen)}`;
   }
 
-  makeUrl(baseUrl: string, fen: string): string {
-    return baseUrl + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  makeEditorUrl(fen: string): string {
+    if (fen === INITIAL_FEN && this.rules === 'chess') return this.cfg.baseUrl;
+    const variant = this.rules === 'chess' ? '' : '?variant=' + lichessVariant(this.rules);
+    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}`;
   }
 
   bottomColor(): Color {
@@ -219,4 +217,8 @@ export default class EditorCtrl {
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
   }
+}
+
+function urlFen(fen: string): string {
+  return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }

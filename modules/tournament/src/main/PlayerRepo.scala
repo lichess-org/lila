@@ -1,10 +1,10 @@
 package lila.tournament
 
+import BSONHandlers._
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import BSONHandlers._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
@@ -24,6 +24,17 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   private val bestSort       = $doc("m" -> -1)
 
   def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
+
+  private[tournament] def byPlayerIdsOnPage(
+      tourId: Tournament.ID,
+      playerIds: List[Player.ID],
+      page: Int
+  ): Fu[RankedPlayers] =
+    coll.find($inIds(playerIds)).cursor[Player]().list() map { players =>
+      playerIds.flatMap(id => players.find(_._id == id)).zipWithIndex.map { case (player, index) =>
+        RankedPlayer((page - 1) * 10 + index + 1, player)
+      }
+    }
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().list(nb)
@@ -234,28 +245,37 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
-  private[tournament] def computeRanking(tourId: Tournament.ID): Fu[Ranking] =
+  private[tournament] def computeRanking(tourId: Tournament.ID): Fu[FullRanking] =
     coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        List(Match(selectTour(tourId)), Sort(Descending("m")), Group(BSONNull)("uids" -> PushField("uid")))
+        List(
+          Match(selectTour(tourId)),
+          Sort(Descending("m")),
+          Group(BSONNull)(
+            "all" -> Push(
+              $doc("$concat" -> $arr("$_id", "$uid"))
+            )
+          )
+        )
       }
-      .headOption map {
-      _ ?? {
-        _ get "uids" match {
-          case Some(BSONArray(uids)) =>
+      .headOption
+      .map {
+        _.flatMap(_.getAsOpt[BSONArray]("all"))
+          .fold(FullRanking(Map.empty, Array.empty)) { all =>
             // mutable optimized implementation
-            val b = Map.newBuilder[User.ID, Int]
-            var r = 0
-            for (u <- uids) {
-              b += (u.asInstanceOf[BSONString].value -> r)
+            val index   = new Array[User.ID](all.size)
+            val ranking = Map.newBuilder[User.ID, Int]
+            var r       = 0
+            for (u <- all.values) {
+              val both = u.asInstanceOf[BSONString].value
+              index(r) = both.take(8)
+              ranking += (both.drop(8) -> r)
               r = r + 1
             }
-            b.result()
-          case _ => Map.empty
-        }
+            FullRanking(ranking.result(), index)
+          }
       }
-    }
 
   def computeRankOf(player: Player): Fu[Int] =
     coll.countSel(selectTour(player.tourId) ++ $doc("m" $gt player.magicScore))

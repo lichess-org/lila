@@ -11,10 +11,17 @@ private object bits {
 
   val prefix = "sf_"
 
-  def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
+  def fenInput(
+      field: Field,
+      strict: Boolean,
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
+  )(implicit
       ctx: Context
   ) = {
-    val url = field.value.fold(routes.Editor.index)(routes.Editor.load).url
+    val url = field.value.fold(routes.Editor.index.url) { fen =>
+      editorUrl(chess.format.FEN(fen), chess.variant.Standard)
+    }
     div(cls := "fen_position optional_config")(
       frag(
         div(

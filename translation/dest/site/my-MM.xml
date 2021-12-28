@@ -16,6 +16,8 @@
   <string name="stalemate">Stalemate</string>
   <string name="white">အဖြူ</string>
   <string name="black">အမည်း</string>
+  <string name="asWhite">အဖြူ အနေဖြင့်</string>
+  <string name="asBlack">အနက် အနေဖြင့်</string>
   <string name="randomColor">အဆင်ပြေသည့်ဘက်</string>
   <string name="createAGame">ဂိမ်းဖန်တီးမည်</string>
   <string name="whiteIsVictorious">အဖြူရောင်အနိုင်ရသည်</string>
@@ -69,6 +71,7 @@
   <string name="play">ကစားမည်</string>
   <string name="thisAccountViolatedTos">ဤအကောင့်က Lichess ၏ ဝန်ဆောင်မှု ဆိုင်ရာ စည်းကမ်းသတ်မှတ်ချက်များကို ဖောက်ဖျက်ခဲ့ပါသည်</string>
   <string name="mustBeInTeam">Must be in team %s</string>
+  <string name="orUploadPgnFile">သို့မဟုတ် PGN ဖိုင် တစ်ခုကို တင်ပို့</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Less than %s minute</item>
   </plurals>
@@ -124,4 +127,8 @@
   <string name="cantDoThisTwice">လူကြီးမင်း၏ အကောင့်အား ဒုတိယ အကြိမ် ပိတ်လိုက်လျှင် ပြန်လည် မရနိုင်တော့ပါ။</string>
   <string name="emailAssociatedToaccount">အကောင့်နှင့် ဆက်စပ်သော အီးမေးလ် လိပ်စာ</string>
   <string name="sentEmailWithLink">လင့်ခ် ပါဝင်သော အီးမေးလ် တစ်စောင် သင့်ထံ ပို့လိုက်ပါပြီ။</string>
+  <string name="since">မှ</string>
+  <string name="until">ထိ</string>
+  <string name="lichessDbExplanation">Lichess ရှိ ကစားသမား အားလုံးထံမှ ကျပန်း ရွေးချယ်ထားသည့် လက်ရည်တွက် ကစားပွဲများ</string>
+  <string name="switchSides">ဘက်ပြောင်း</string>
 </resources>

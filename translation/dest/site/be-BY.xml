@@ -175,7 +175,7 @@
   <string name="players">Гульцы</string>
   <string name="friends">Сябры</string>
   <string name="discussions">Размовы</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">Сёння</string>
+  <string name="today">Сёння</string>
   <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>
   <string name="variant">Варыянт</string>
@@ -491,9 +491,9 @@
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
   <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">Пачатковая пазіцыя</string>
+  <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">Загрузіць пазіцыю</string>
+  <string name="loadPosition">Загрузіць пазіцыю</string>
   <string name="isPrivate">Прыватна</string>
   <string name="reportXToModerators">Паведаміць пра %s мадэратару</string>
   <string name="profileCompletion">Запоўненасць профілю: %s</string>
@@ -512,7 +512,7 @@
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activePlayers">Актыўныя гульцы</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
   <string name="success">Поспех</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s бягучая гульня</item>
@@ -551,7 +551,7 @@
   <string name="ratingManipulation">Махінацыі з рэйтынгам</string>
   <string name="other">Іншае</string>
   <string name="reportDescriptionHelp">Пакіньце ніжэй спасылку на гульню (ці гульні) і патлумачце, што вас непакоіць у паводзінах гэтага карыстальніка. Не пішыце нешта кшталту «ён чмут!» – патлумачце, як вы прыйшлі да гэтага выніку. Мы хутчэй разбярэмся ў сітуацыі, калі вы напішаце нам па-англійску.</string>
-  <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку сама менш на адну гульню, дзе, на вашу думку, былі парушаны правілы.</string>
+  <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
   <string name="blog">Блог</string>
@@ -583,7 +583,7 @@
   <string name="onSlowGames">У павольных гульнях</string>
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s прымае ўдзел у турніры %2$s</string>
+  <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
   <string name="victory">Перамога</string>
   <string name="defeat">Параза</string>
   <string name="victoryVsYInZ">%1$s супраць %2$s у %3$s</string>
@@ -622,10 +622,10 @@
   <string name="error.email_acceptable">Гэты адрас электроннай пошты непрымальны. Калі ласка, пераправерце і паспрабуйце зноўку.</string>
   <string name="error.email_unique">Адрас электронай пошты немагчымы або ўжо заняты</string>
   <string name="error.email_different">Гэта ўжо ваш адрас электронай пошты</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">Павінна быць не менш за %s сімвалаў</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">Павінна быць не больш за %s сімвалаў</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">Павінна быць не менш за %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">Павінна быць не больш за %s</string>
+  <string name="error.minLength">Павінна быць не менш за %s сімвалаў</string>
+  <string name="error.maxLength">Павінна быць не больш за %s сімвалаў</string>
+  <string name="error.min">Павінна быць не менш за %s</string>
+  <string name="error.max">Павінна быць не больш за %s</string>
   <string name="ifRatingIsPlusMinusX">Калі рэйтынг ± %s</string>
   <string name="onlyExistingConversations">Толькі існыя размовы</string>
   <string name="onlyFriends">Толькі з сябрамі</string>
@@ -757,7 +757,7 @@
   <string name="quickPairing">Хуткі старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Ананімны гулец</string>
-  <string name="yourScore">Ваш вынік: %s</string>
+  <string name="yourScore">Ваш лік: %s</string>
   <string name="language">Мова</string>
   <string name="background">Фон</string>
   <string name="light">Светлы</string>
@@ -856,14 +856,14 @@
   <string name="temporaryInconvenience">Мы просім прабачэння за часовыя нязручнасці,</string>
   <string name="wishYouGreatGames">і жадаем вам вельмі добрых гульняў на lichess.org.</string>
   <string name="thankYouForReading">Дзякуй за ўвагу!</string>
-  <string name="lifetimeScore">Рахунак за ўсё время</string>
-  <string name="currentMatchScore">Рахунак у бягучым матчы</string>
+  <string name="lifetimeScore">Лік за ўвесь час</string>
+  <string name="currentMatchScore">Лік бягучага матчу</string>
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
   <string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
   <string name="agreementAccount">Я згаджаюся, што я не буду ствараць некалькі ўліковых запісаў.</string>
   <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
-  <string name="edit">Змяніць</string>
+  <string name="edit">Рэдагаваць</string>
   <string name="rapid">Хуткія</string>
   <string name="classical">Класіка</string>
   <string name="ultraBulletDesc">Па-вар\'яцку хуткія гульні: меней 30 секунд</string>
@@ -886,7 +886,7 @@
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
   <string name="unsubscribe">Адпісацца</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">вас згадалі ў «%1$s».</string>
+  <string name="mentionedYouInX">вас згадалі ў «%1$s».</string>
   <string name="xMentionedYouInY">%1$s вас згадаў у «%2$s».</string>
   <string name="invitedYouToX">вас запрасілі ў «%1$s».</string>
   <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>

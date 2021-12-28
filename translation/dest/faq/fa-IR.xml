@@ -15,6 +15,7 @@
   <string name="fairPlay">بازی منصفانه</string>
   <string name="leavingGameWithoutResigningExplanation">اگر حریف شما به صورت مداوم بازی را ترک کند، از بازی محروم می شود این به این معنی است که به صورت موقت اجازه بازی کردن را نخواهد داشت. این امر در حساب کاربری فرد نمایش داده نمی شود. اگر این رفتار ادامه پیدا کند، مدت زمان محرومیت از بازی افزایش می یابد و انجام این کار در مدت زمان طولانی ممکن است منجر به مسدود شدن حساب کاربر شود.</string>
   <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
+  <string name="gameplay">گیم پلی</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
   <string name="positions">موقعیت‌ها</string>
   <string name="configure">پیکربندی نمایید</string>
@@ -26,6 +27,8 @@
   <string name="whatUsernameCanIchoose">نام کاربری من چه می‌تواند باشد؟</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
+  <string name="lichessRatings">rating های lichess</string>
+  <string name="whichRatingSystemUsedByLichess">lichess از چه سیستم امتیاز دهی ای استفاده می کند؟</string>
   <string name="similarOpponents">بازیکنان با قدرت یکسان</string>
   <string name="howToHideRatingWhilePlaying">چگونه وقتی بازی می کنیم ریتینگ ها را پنهان کنیم؟</string>
   <string name="displayPreferences">تنظیمات نمایش</string>

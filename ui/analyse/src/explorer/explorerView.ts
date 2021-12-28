@@ -245,7 +245,6 @@ function showEmpty(ctrl: AnalyseCtrl, data?: OpeningData): VNode {
       ctrl.explorer.config.fullHouse()
         ? null
         : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
-      closeButton(ctrl),
     ]),
   ]);
 }
@@ -346,7 +345,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           explorer.reload
         ),
       },
-      'Player'
+      explorer.root.trans('player')
     );
   const active = (nodes: MaybeVNodes, title: string) =>
     h(
@@ -359,7 +358,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     );
   const playerName = explorer.config.data.playerName.value();
   const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021'),
-    lichessDbExplanation = 'Rated games sampled from all Lichess players';
+    lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
   return h('div.explorer-title', [
     db == 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
@@ -374,13 +373,12 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
         ? active(
             [
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ' as ',
-              explorer.config.data.color(),
+              ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
               explorer.isIndexing() && !explorer.config.data.open()
                 ? h('i.ddloader', { attrs: { title: 'Indexing...' } })
                 : undefined,
             ],
-            'Switch sides'
+            explorer.root.trans('switchSides')
           )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),

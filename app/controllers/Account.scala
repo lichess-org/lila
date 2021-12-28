@@ -306,7 +306,7 @@ final class Account(
           FormFuResult(form) { err =>
             fuccess(html.account.close(me, err, managed = false))
           } { _ =>
-            env.closeAccount(me, Holder(me)) inject {
+            env.api.accountClosure.close(me, Holder(me)) inject {
               Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
             }
           }

@@ -46,7 +46,7 @@ object otherTrophies {
           ariaTitle(t.kind.name),
           style := "width: 65px; margin: 0 3px!important;"
         )(
-          img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
+          img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
         )
       },
       info.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>

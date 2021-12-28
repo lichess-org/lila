@@ -17,6 +17,8 @@
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
   <string name="black">Pretas</string>
+  <string name="asWhite">de brancas</string>
+  <string name="asBlack">de pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Classificação</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
+  <string name="orUploadPgnFile">Ou suba um arquivo PGN</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="toStudy">Estudo</string>
@@ -883,4 +886,8 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="abortTheGame">Cancelar a partida</string>
   <string name="resignTheGame">Abandonar a partida</string>
   <string name="youCantStartNewGame">Você não pode iniciar um novo jogo até que este acabe.</string>
+  <string name="since">Desde</string>
+  <string name="until">Até</string>
+  <string name="lichessDbExplanation">Amostra de partidas rankeadas de todos os jogadores do Lichess</string>
+  <string name="switchSides">Trocar de lado</string>
 </resources>

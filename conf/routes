@@ -506,6 +506,7 @@ GET   /mod/search                      controllers.Mod.search
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
 GET   /mod/:username/permissions       controllers.Mod.permissions(username: String)
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
+POST  /mod/:username/gdpr-erase        controllers.Mod.gdprErase(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/public-chat/timeout         controllers.Mod.publicChatTimeout
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
@@ -523,6 +524,9 @@ GET   /api/stream/mod                  controllers.Mod.eventStream
 GET   /irwin                           controllers.Irwin.dashboard
 POST  /irwin/report                    controllers.Irwin.saveReport
 GET   /api/stream/irwin                controllers.Irwin.eventStream
+
+# Kaladin
+GET   /kaladin                         controllers.Irwin.kaladin
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index
@@ -572,6 +576,7 @@ POST  /class/become-teacher            controllers.Clas.becomeTeacher
 POST  /class/new                       controllers.Clas.create
 GET   /class/invitation/:id            controllers.Clas.invitation(id: String)
 POST  /class/invitation/:id            controllers.Clas.invitationAccept(id: String)
+GET   /class/teacher/:username         controllers.Clas.teacher(username: String)
 GET   /class/$id<\w{8}>                controllers.Clas.show(id: String)
 GET   /class/$id<\w{8}>/edit           controllers.Clas.edit(id: String)
 POST  /class/$id<\w{8}>/edit           controllers.Clas.update(id: String)
@@ -707,10 +712,10 @@ GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id: String)
 POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
+GET   /api/bot/online                  controllers.PlayApi.botOnlineApi
 POST  /api/bot/*cmd                    controllers.PlayApi.botCommand(cmd: String)
 GET   /api/bot/*cmd                    controllers.PlayApi.botCommandGet(cmd: String)
 GET   /player/bots                     controllers.PlayApi.botOnline
-GET   /api/bot/online                  controllers.PlayApi.botOnlineApi
 
 # Board API
 GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id: String)
@@ -761,6 +766,7 @@ GET    /account/oauth/token/create     controllers.OAuthToken.create
 POST   /account/oauth/token/create     controllers.OAuthToken.createApply
 POST   /account/oauth/token/:id/delete controllers.OAuthToken.delete(id: String)
 POST   /api/token/admin-challenge      controllers.OAuth.challengeTokens
+POST   /api/token/test                 controllers.OAuth.testTokens
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)

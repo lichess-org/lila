@@ -17,6 +17,8 @@
   <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
+  <string name="asWhite">持白</string>
+  <string name="asBlack">持黑</string>
   <string name="randomColor">随机选色</string>
   <string name="createAGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
@@ -152,7 +154,7 @@
   <string name="players">棋手</string>
   <string name="friends">棋友</string>
   <string name="discussions">讨论组</string>
-  <string name="today" comment="today&#10;&#10;Heading for messages that came in today. See https://lichess.org/inbox&#10;&#10;Also appears in the Puzzle storm dashboard:  https://lichess.org/storm/dashboard - referrintg to your best Puzzle Storm record today.">今天</string>
+  <string name="today">今天</string>
   <string name="yesterday">昨天</string>
   <string name="minutesPerSide">各方限时（分钟）</string>
   <string name="variant">变体</string>
@@ -316,6 +318,7 @@
   <string name="leaderboard">排行榜</string>
   <string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
   <string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>
+  <string name="orUploadPgnFile">或者上传一个PGN文件</string>
   <string name="fromPosition">自定义局面</string>
   <string name="continueFromHere">从此处继续下棋</string>
   <string name="toStudy">研讨</string>
@@ -402,9 +405,9 @@
   <string name="popularOpenings">常见开局</string>
   <string name="endgamePositions">残局局面</string>
   <string name="chess960StartPosition">Chess960 起始局面： %s</string>
-  <string name="startPosition" comment="startPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor&#10;&#10;Also used on the 'create tournament' page to specify a different starting position.">起始局面</string>
+  <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
-  <string name="loadPosition" comment="loadPosition&#10;&#10;Appears in the board editor: https://lichess.org/editor">载入局面</string>
+  <string name="loadPosition">载入局面</string>
   <string name="isPrivate">私人锦标赛</string>
   <string name="reportXToModerators">举报%s</string>
   <string name="profileCompletion">资料完成度：%s</string>
@@ -423,7 +426,7 @@
   <string name="previouslyOnLichessTV">过去的 Lichess 直播</string>
   <string name="onlinePlayers">在线棋手</string>
   <string name="activePlayers">活跃棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock" comment="bewareTheGameIsRatedButHasNoClock&#10;&#10;No clock means 'no time limit' in this context.">注意，此棋局是排位赛，但是不计时！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">注意，此棋局是排位赛，但是不计时！</string>
   <string name="success">解题成功</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 场对局进行中</item>
@@ -491,7 +494,7 @@
   <string name="onSlowGames">在慢棋时</string>
   <string name="always">总是</string>
   <string name="never">从不</string>
-  <string name="xCompetesInY" comment="xCompetesInY&#10;&#10;%1$s the name of the player you follow.&#10;%2$s is the name of the tournament, e.g. 'Hourly Blitz Arena'&#10;&#10;Appears in the activity feed on the home page, for players you follow.">%1$s参加%2$s</string>
+  <string name="xCompetesInY">%1$s参加%2$s</string>
   <string name="victory">获胜</string>
   <string name="defeat">负败</string>
   <string name="victoryVsYInZ">%1$s，与 %2$s 进行的 %3$s</string>
@@ -524,10 +527,10 @@
   <string name="error.email_acceptable">该电子邮件地址是不可用。请重新检查后重试。</string>
   <string name="error.email_unique">电子邮件地址无效或已被使用</string>
   <string name="error.email_different">这已经是您的电子邮件地址</string>
-  <string name="error.minLength" comment="error.minLength&#10;&#10;%s is a number  This is generic error message for when the length of text that you have entered in a form is too long.">最少 %s 个字符</string>
-  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.">最长 %s 个字符</string>
-  <string name="error.min" comment="error.minLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too low. For example, the length of text that you have entered in a form is too short.">最少不小于 %s</string>
-  <string name="error.max" comment="error.maxLength&#10;&#10;%s is a number.&#10;&#10;This is generic error message for when the number entered is too high. For example, the amount of text that you have entered in a form is too great.">最大不能超过 %s</string>
+  <string name="error.minLength">最少 %s 个字符</string>
+  <string name="error.maxLength">最长 %s 个字符</string>
+  <string name="error.min">最少不小于 %s</string>
+  <string name="error.max">最大不能超过 %s</string>
   <string name="ifRatingIsPlusMinusX">允许等级分范围±%s</string>
   <string name="onlyExistingConversations">仅现有的对话</string>
   <string name="onlyFriends">仅好友</string>
@@ -770,7 +773,7 @@
   <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
   <string name="subscribe">订阅</string>
   <string name="unsubscribe">取消订阅</string>
-  <string name="mentionedYouInX" comment="mentionedYouInX&#10;&#10;%1$s will be the title of a forum topic, where another player @mentioned you. You can see a range of topic titles here: https://lichess.org/forum/lichess-feedback&#10;&#10;Appears as a notification. Immediately above this text will be the name of the person who notified you. The text is in a different style, so it appears as if it is cut off e.g.&#10;**thibault**&#10;mentioned you in &quot;%1$s&quot;.">在 “%1$s” 中提到了你。</string>
+  <string name="mentionedYouInX">在 “%1$s” 中提到了你。</string>
   <string name="xMentionedYouInY">%1$s 在 \"%2$s\" 中提到了你。</string>
   <string name="invitedYouToX">邀请你加入\"%1$s\"。</string>
   <string name="xInvitedYouToY">%1$s 邀请你加入 \"%2$s\"。</string>
@@ -841,4 +844,8 @@
   <string name="abortTheGame">中止本局</string>
   <string name="resignTheGame">认输</string>
   <string name="youCantStartNewGame">在本局结束前，你不能开始新的对局。</string>
+  <string name="since">自</string>
+  <string name="until">直到</string>
+  <string name="lichessDbExplanation">来自 Lichess 用户的所有 Rated 游戏</string>
+  <string name="switchSides">更换所持颜色</string>
 </resources>

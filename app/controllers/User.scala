@@ -396,9 +396,9 @@ final class User(
           }
           .map(view.reportLog(user))
 
-        val prefs = isGranted(_.Hunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
+        val prefs = isGranted(_.CheatHunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
 
-        val rageSit = isGranted(_.Hunter) ?? env.playban.api.getRageSit(user.id).map(view.showRageSit)
+        val rageSit = isGranted(_.CheatHunter) ?? env.playban.api.getRageSit(user.id).map(view.showRageSit)
 
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))
@@ -414,7 +414,12 @@ final class User(
           Granter.is(_.ViewPrintNoIP)(holder) ??
             html.user.mod.identification(holder, user, logins)
         }
-        val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
+
+        val kaladin = isGranted(_.MarkEngine) ?? env.irwin.kaladinApi.get(user).map {
+          _.flatMap(_.response) ?? html.kaladin.report
+        }
+
+        val irwin = isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).map {
           _ ?? { reps =>
             html.irwin.report(reps)
           }
@@ -439,6 +444,7 @@ final class User(
             modZoneSegment(rageSit, "rageSit", user) merge
             modZoneSegment(others, "others", user) merge
             modZoneSegment(identification, "identification", user) merge
+            modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
             EventSource.flow

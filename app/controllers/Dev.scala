@@ -27,7 +27,8 @@ final class Dev(env: Env) extends LilaController(env) {
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
     env.prizeTournamentMakers,
-    env.pieceImageExternal
+    env.pieceImageExternal,
+    env.evalCache.enable
   )
 
   def settings =

@@ -2,7 +2,7 @@ package lila.fishnet
 
 import chess.format.Forsyth
 import chess.format.Uci
-import chess.Speed
+import chess.{ Color, Speed }
 import com.softwaremill.tagging._
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyReadables._
@@ -44,11 +44,9 @@ final private class FishnetOpeningBook(
           case res =>
             for {
               data <- res.body[JsValue].validate[Response](responseReader).asOpt
-              move <- data.randomPonderedMove
-            } yield {
-              if (data.moves.isEmpty) outOfBook.put(game.id)
-              move.uci
-            }
+              _ = if (data.moves.isEmpty) outOfBook.put(game.id)
+              move <- data randomPonderedMove (game.turnColor, level)
+            } yield move.uci
         }
         .monTry { res =>
           _.fishnet
@@ -68,21 +66,26 @@ object FishnetOpeningBook {
   trait Depth
 
   case class Response(moves: List[Move]) {
-    def randomPonderedMove: Option[Move] = {
-      val sum     = moves.map(_.nb).sum
-      val novelty = 1
-      val rng     = ThreadLocalRandom.nextInt(sum + novelty)
+
+    def randomPonderedMove(turn: Color, level: Int): Option[Move] = {
+      val sum     = moves.map(_.score(turn, level)).sum
+      val novelty = 5L * 14 // score of 5 winning games
+      val rng     = ThreadLocalRandom.nextLong(sum + novelty)
       moves
-        .foldLeft((none[Move], 0)) { case ((found, it), next) =>
-          val nextIt = it + next.nb
+        .foldLeft((none[Move], 0L)) { case ((found, it), next) =>
+          val nextIt = it + next.score(turn, level)
           (found orElse (nextIt > rng).option(next), nextIt)
         }
         ._1
     }
   }
 
-  case class Move(uci: Uci, white: Int, draws: Int, black: Int) {
-    def nb = white + draws + black
+  case class Move(uci: Uci, white: Long, draws: Long, black: Long) {
+    def score(turn: Color, level: Int): Long =
+      // interpolate: real frequency at lvl 1, expectation value at lvl 8
+      14L * turn.fold(white, black) +
+        (15L - level) * draws +
+        (16L - 2 * level) * turn.fold(black, white)
   }
 
   implicit val moveReader     = Json.reads[Move]

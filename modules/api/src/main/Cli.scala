@@ -3,7 +3,6 @@ package lila.api
 import lila.common.Bus
 
 final private[api] class Cli(
-    userRepo: lila.user.UserRepo,
     security: lila.security.Env,
     teamSearch: lila.teamSearch.Env,
     forumSearch: lila.forumSearch.Env,
@@ -16,7 +15,7 @@ final private[api] class Cli(
     plan: lila.plan.Env,
     msg: lila.msg.Env,
     video: lila.video.Env,
-    email: lila.mailer.AutomaticEmail
+    accountClosure: AccountClosure
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
 
@@ -36,15 +35,7 @@ final private[api] class Cli(
       AssetVersion.change()
       fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
-      userRepo named username map {
-        case None                       => "No such user."
-        case Some(user) if user.enabled => "That user account is not closed. Can't erase."
-        case Some(user) =>
-          userRepo setEraseAt user
-          email gdprErase user
-          Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
-          s"Erasing all search data about ${user.username} now"
-      }
+      accountClosure.eraseClosed(username).map(_.fold(identity, identity))
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore set none
       Bus.publish(AnnounceStore.cancel, "announce")

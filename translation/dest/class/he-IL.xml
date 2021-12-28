@@ -71,6 +71,8 @@
   <string name="realUniqueEmail">כתובת דוא\"ל אמיתית וייחודית של התלמיד. אנו נשלח אליו דוא\"ל לאישור, עם קישור לשחרור החשבון.</string>
   <string name="closeStudent">סגור את החשבון</string>
   <string name="closeTheAccount">סגור את חשבון התלמיד לצמיתות.</string>
+  <string name="closeDesc1">התלמיד לעולם לא יוכל עוד להשתמש בחשבון זה. סגירת החשבון היא סופית. אנא וודא שהתלמיד מבין ומסכים.</string>
+  <string name="closeDesc2">אולי תרצה במקום לתת לתלמיד שליטה על החשבון, כך שיוכל להמשיך להשתמש בו.</string>
   <string name="teachers">מורים</string>
   <plurals name="nbTeachers">
     <item quantity="one">מורה</item>

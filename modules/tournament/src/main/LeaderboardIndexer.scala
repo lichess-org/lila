@@ -8,7 +8,6 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 
 final private class LeaderboardIndexer(
-    tournamentRepo: TournamentRepo,
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo
@@ -20,22 +19,22 @@ final private class LeaderboardIndexer(
   import LeaderboardApi._
   import BSONHandlers._
 
-  def generateAll: Funit =
-    leaderboardRepo.coll.delete.one($empty) >>
-      tournamentRepo.coll
-        .find(tournamentRepo.finishedSelect)
-        .sort($sort desc "startsAt")
-        .cursor[Tournament](ReadPreference.secondaryPreferred)
-        .documentSource()
-        .via(lila.common.LilaStream.logRate[Tournament]("leaderboard index tour")(logger))
-        .mapAsyncUnordered(1)(generateTourEntries)
-        .mapConcat(identity)
-        .via(lila.common.LilaStream.logRate[Entry]("leaderboard index entries")(logger))
-        .grouped(500)
-        .mapAsyncUnordered(1)(saveEntries)
-        .toMat(Sink.ignore)(Keep.right)
-        .run()
-        .void
+  // def generateAll: Funit =
+  //   leaderboardRepo.coll.delete.one($empty) >>
+  //     tournamentRepo.coll
+  //       .find(tournamentRepo.finishedSelect)
+  //       .sort($sort desc "startsAt")
+  //       .cursor[Tournament](ReadPreference.secondaryPreferred)
+  //       .documentSource()
+  //       .via(lila.common.LilaStream.logRate[Tournament]("leaderboard index tour")(logger))
+  //       .mapAsyncUnordered(1)(generateTourEntries)
+  //       .mapConcat(identity)
+  //       .via(lila.common.LilaStream.logRate[Entry]("leaderboard index entries")(logger))
+  //       .grouped(500)
+  //       .mapAsyncUnordered(1)(saveEntries)
+  //       .toMat(Sink.ignore)(Keep.right)
+  //       .run()
+  //       .void
 
   def indexOne(tour: Tournament): Funit =
     leaderboardRepo.coll.delete.one($doc("t" -> tour.id)) >>

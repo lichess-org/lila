@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Világos</string>
   <string name="black">Sötét</string>
+  <string name="asWhite">világossal</string>
+  <string name="asBlack">sötéttel</string>
   <string name="randomColor">Véletlen szín</string>
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
@@ -87,6 +89,7 @@
     <item quantity="one">Matt %s féllépésben</item>
     <item quantity="other">Matt %s féllépésben</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' kerekítéssel, a következő ütésig vagy gyalog lépésig megtett féllépések száma alapján</string>
   <string name="noGameFound">Nem található játszma</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
   <string name="openingExplorer">Megnyitás böngésző</string>
@@ -94,6 +97,9 @@
   <string name="xOpeningExplorer">%s megnyitás böngésző</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
+  <string name="winOr50MovesByPriorMistake">Győzelem, vagy 50 lépéses szabály korábbi hiba alapján</string>
+  <string name="lossOr50MovesByPriorMistake">Vereség, vagy 50 lépéses szabály korábbi hiba alapján</string>
+  <string name="unknownDueToRounding">Győzelem/vereség csak akkor garantált, ha az adatbázis által ajánlott lépéssort követték az utolsó ütés vagy gyaloglépés óta, a Syzygy tábla DTZ értékeinek lehetséges kerekítései miatt.</string>
   <string name="allSet">Mehet!</string>
   <string name="importPgn">PGN importálás</string>
   <string name="delete">Töröl</string>
@@ -340,6 +346,7 @@
   <string name="leaderboard">Ranglista</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
+  <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
   <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="toStudy">Tanulmány</string>
@@ -365,6 +372,8 @@
   <string name="follow">Követés</string>
   <string name="following">Követve</string>
   <string name="unfollow">Követés vége</string>
+  <string name="followX">%s követése</string>
+  <string name="unfollowX">%s követésének kikapcsolása</string>
   <string name="block">Letiltás</string>
   <string name="blocked">Letiltva</string>
   <string name="unblock">Letiltás feloldása</string>
@@ -878,4 +887,8 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="abortTheGame">Játszma elvetése</string>
   <string name="resignTheGame">Játszma feladása</string>
   <string name="youCantStartNewGame">Nem kezdhetsz új játszmát amíg ezt be nem fejezted.</string>
+  <string name="since">Ettől</string>
+  <string name="until">Eddig</string>
+  <string name="lichessDbExplanation">A Lichess játékosok értékelt játszmáiból összeállítva</string>
+  <string name="switchSides">Oldal megfordítása</string>
 </resources>

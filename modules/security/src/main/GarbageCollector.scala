@@ -97,25 +97,31 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, msg: => String): Funit =
-    justOnce(user.id) ?? {
-      val armed = isArmed()
-      val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
-      val message =
-        s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
-      logger.info(message)
-      noteApi.lichessWrite(user, s"Garbage collected because of $msg")
-      irc.garbageCollector(message) >>- {
-        if (armed) {
-          doInitialSb(user)
-          system.scheduler
-            .scheduleOnce(wait) {
-              doCollect(user)
-            }
-            .unit
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit = justOnce(user.id) ?? {
+    hasBeenCollectedBefore(user) flatMap {
+      case true => funit
+      case _ =>
+        val armed = isArmed()
+        val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
+        val message =
+          s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
+        logger.info(message)
+        noteApi.lichessWrite(user, s"Garbage collected because of $msg")
+        irc.garbageCollector(message) >>- {
+          if (armed) {
+            doInitialSb(user)
+            system.scheduler
+              .scheduleOnce(wait) {
+                doCollect(user)
+              }
+              .unit
+          }
         }
-      }
     }
+  }
+
+  private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
+    noteApi.byUserForMod(user.id).map(_.exists(_.text startsWith "Garbage collected"))
 
   private def doInitialSb(user: User): Unit =
     Bus.publish(

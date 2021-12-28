@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
+  <string name="asWhite">białymi</string>
+  <string name="asBlack">czarnymi</string>
   <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
@@ -394,6 +396,7 @@
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
+  <string name="orUploadPgnFile">lub wgraj plik PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
@@ -961,4 +964,8 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="abortTheGame">Przerwij partię</string>
   <string name="resignTheGame">Przerwij partię</string>
   <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
+  <string name="switchSides">Zmień kolor</string>
 </resources>

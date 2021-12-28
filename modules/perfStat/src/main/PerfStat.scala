@@ -1,6 +1,5 @@
 package lila.perfStat
 
-import chess.Color
 import org.joda.time.{ DateTime, Period }
 
 import lila.common.Heapsort
@@ -197,7 +196,7 @@ object RatingAt {
       } orElse cur
 }
 
-case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String, color: Color)
+case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
 
 case class Results(results: List[Result]) extends AnyVal {
   def agg(pov: Pov, comp: Int) =
@@ -211,8 +210,7 @@ case class Results(results: List[Result]) extends AnyVal {
               opInt,
               UserId(~pov.opponent.userId),
               pov.game.movedAt,
-              pov.gameId,
-              pov.player.color
+              pov.gameId
             ) :: results,
             Results.nb,
             Ordering.by[Result, Int](_.opInt * comp)

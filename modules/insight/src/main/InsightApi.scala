@@ -52,11 +52,11 @@ final class InsightApi(
         }
     }
 
-  def indexAll(userId: User.ID) =
+  def indexAll(user: User) =
     indexer
-      .all(userId)
+      .all(user)
       .monSuccess(_.insight.index) >>
-      insightUserApi.remove(userId)
+      insightUserApi.remove(user.id)
 
   def updateGame(g: Game) =
     Pov(g)

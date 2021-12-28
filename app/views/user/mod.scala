@@ -23,6 +23,7 @@ object mod {
   def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
+      a(href := "#mz_kaladin")("Kaladin"),
       a(href := "#mz_irwin")("Irwin"),
       a(href := "#mz_assessments")("Evaluation"),
       a(href := "#mz_mod_log")("Mod log"),
@@ -43,13 +44,13 @@ object mod {
         isGranted(_.UserEvaluate) option {
           postForm(
             action := routes.Mod.refreshUserAssess(u.username),
-            title := "Collect data and ask irwin",
+            title := "Collect data and ask irwin and Kaladin",
             cls := "xhr"
           )(
             submitButton(cls := "btn-rack__btn")("Evaluate")
           )
         },
-        isGranted(_.Hunter) option {
+        isGranted(_.GamesModView) option {
           a(
             cls := "btn-rack__btn",
             href := routes.GameMod.index(u.username),
@@ -149,16 +150,20 @@ object mod {
           )
         } else if (erased.value) {
           "Erased"
-        } else {
-          postForm(
-            action := routes.Mod.reopenAccount(u.username),
-            title := "Re-activates this account.",
-            cls := "xhr"
-          )(
-            submitButton(cls := "btn-rack__btn active")("Closed")
+        } else
+          frag(
+            postForm(
+              action := routes.Mod.reopenAccount(u.username),
+              title := "Re-activates this account.",
+              cls := "xhr"
+            )(submitButton(cls := "btn-rack__btn active")("Closed")),
+            postForm(action := routes.Mod.gdprErase(u.username), cls := "gdpr-erasure")(
+              submitButton(
+                cls := "btn-rack__btn confirm",
+                title := "Definitely erase everything about this user"
+              )("GDPR erasure")
+            )
           )
-
-        }
       ),
       div(cls := "btn-rack")(
         (u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) option {
@@ -550,7 +555,7 @@ object mod {
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
+              (max < 1000 || othersWithEmail.others.sizeIs >= max) option frag(
                 nbsp,
                 a(cls := "more-others")("Load more")
               )

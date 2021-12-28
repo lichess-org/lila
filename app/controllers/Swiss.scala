@@ -8,6 +8,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
+import lila.common.HTTPRequest
 import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
 import lila.swiss.{ Swiss => SwissModel, SwissForm }
 
@@ -336,7 +337,7 @@ final class Swiss(
     canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
-    ctx.noKid ?? {
+    (ctx.noKid && ctx.noBot && HTTPRequest.isHuman(ctx.req)) ?? {
       swiss.chatFor match {
         case ChatFor.NONE                  => fuFalse
         case _ if isGranted(_.ChatTimeout) => fuTrue

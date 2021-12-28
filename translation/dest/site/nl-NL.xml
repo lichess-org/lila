@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Wit</string>
   <string name="black">Zwart</string>
+  <string name="asWhite">met wit</string>
+  <string name="asBlack">met zwart</string>
   <string name="randomColor">Willekeurige kleur</string>
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Ranglijst</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
+  <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="toStudy">Studie</string>
@@ -884,4 +887,8 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="abortTheGame">Partij afbreken</string>
   <string name="resignTheGame">Partij opgeven</string>
   <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
+  <string name="since">Vanaf</string>
+  <string name="until">Tot</string>
+  <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
+  <string name="switchSides">Van kleur wisselen</string>
 </resources>

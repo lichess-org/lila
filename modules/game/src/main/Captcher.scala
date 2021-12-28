@@ -47,21 +47,16 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
     private val capacity   = 256
     private var challenges = NonEmptyList.one(Captcha.default)
 
-    private def add(c: Captcha): Unit = {
-      find(c.gameId) ifNone {
+    private def add(c: Captcha): Unit =
+      if (find(c.gameId).isEmpty) {
         challenges = NonEmptyList(c, challenges.toList take capacity)
       }
-    }
 
     private def find(id: String): Option[Captcha] =
       challenges.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
-      findCheckmateInDb(10) flatMap {
-        _.fold(findCheckmateInDb(1))(g => fuccess(g.some))
-      } flatMap {
-        _ ?? fromGame
-      }
+      findCheckmateInDb(10) orElse findCheckmateInDb(1) flatMap { _ ?? fromGame }
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
       gameRepo findRandomStandardCheckmate distribution

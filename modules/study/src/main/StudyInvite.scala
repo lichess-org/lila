@@ -40,7 +40,9 @@ final private class StudyInvite(
       invited <-
         userRepo
           .named(invitedUsername)
-          .map(_.filterNot(_.id == User.lichessId)) orFail "No such invited"
+          .map(
+            _.filterNot(_.id == User.lichessId && !Granter(_.StudyAdmin)(inviter))
+          ) orFail "No such invited"
       _         <- study.members.contains(invited) ?? fufail[Unit]("Already a member")
       relation  <- relationApi.fetchRelation(invited.id, byUserId)
       _         <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
@@ -62,7 +64,6 @@ final private class StudyInvite(
         else if (inviter.roles has "ROLE_COACH") 20
         else if (inviter.hasTitle) 20
         else if (inviter.perfs.bestRating >= 2000) 50
-        else if (invited.hasTitle) 200
         else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
         val notificationContent = InvitedToStudy(

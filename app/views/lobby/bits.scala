@@ -105,6 +105,17 @@ object bits {
       ctx.noKid option (uposts map { views.html.ublog.post.card(_, showAuthor = false, showIntro = false) })
     )
 
+  def showUnreadLichessMessage(implicit ctx: Context) =
+    nopeInfo(
+      cls := "unread-lichess-message",
+      p("You have received a private message from Lichess."),
+      p(
+        a(cls := "button button-big", href := routes.Msg.convo(lila.user.User.lichessId))(
+          "Click here to read it"
+        )
+      )
+    )
+
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
     nopeInfo(
       h1(trans.sorry()),

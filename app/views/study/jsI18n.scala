@@ -36,6 +36,8 @@ object jsI18n {
       pgnTags,
       like,
       unlike,
+      topics,
+      manageTopics,
       newTag,
       commentThisPosition,
       commentThisMove,
@@ -123,7 +125,14 @@ object jsI18n {
       nbChapters,
       nbGames,
       nbMembers,
-      pasteYourPgnTextHereUpToNbGames
+      pasteYourPgnTextHereUpToNbGames,
+      // gamebook play
+      back,
+      playAgain,
+      nextChapter,
+      trans.retry,
+      whatWouldYouPlay,
+      youCompletedThisLesson
     ).map(_.key)
   }
 }

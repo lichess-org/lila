@@ -126,4 +126,12 @@
   <string name="deleteTheStudyChatHistory">Vee die gesprek uit? Onthou, jy kan dit nie terug kry nie!</string>
   <string name="deleteStudy">Vee die studie uit</string>
   <string name="whereDoYouWantToStudyThat">Waar wil jy dit bestudeer?</string>
+  <string name="topics">Onderwerpe</string>
+  <string name="myTopics">My onderwerpe</string>
+  <string name="popularTopics">Gewilde onderwerpe</string>
+  <string name="manageTopics">Bestuur onderwerpe</string>
+  <string name="back">Terug</string>
+  <string name="playAgain">Speel weer</string>
+  <string name="whatWouldYouPlay">Wat sal jy in hierdie posisie speel?</string>
+  <string name="youCompletedThisLesson">Geluk! Jy het hierdie les voltooi.</string>
 </resources>

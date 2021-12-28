@@ -17,6 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Wiis</string>
   <string name="black">Schwarz</string>
+  <string name="asWhite">für Wiis</string>
+  <string name="asBlack">für Schwarz</string>
   <string name="randomColor">Zuäfälligi Farb</string>
   <string name="createAGame">Neui Partii erschtellä</string>
   <string name="whiteIsVictorious">Wiis gwünnt</string>
@@ -87,7 +89,7 @@
     <item quantity="one">Matt i %s Halbzug</item>
     <item quantity="other">Matt i %s Halbzüg</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' mit Rundung, basierend auf der Anzahl der Halbzüge bis zum nächsten Schlag- oder Bauernzug</string>
+  <string name="dtzWithRounding">DTZ50\'\' mit Runde, basierend uf dä Ahzahl Halbzüüg bis zum nächstä Schlag- oder Puurezug</string>
   <string name="noGameFound">Käs Schpiil gfundä</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht söted meh Schpiil vom Iischteligs Menu iibezogä werdä?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
@@ -95,9 +97,9 @@
   <string name="xOpeningExplorer">%s Eröffnigsbuäch</string>
   <string name="winPreventedBy50MoveRule">Sieg dur d 50-Züg-Reglä verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
-  <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züge durch vorherigen Fehler</string>
+  <string name="winOr50MovesByPriorMistake">Siig odär 50 Züüg dur en vorherigä Fählär</string>
   <string name="lossOr50MovesByPriorMistake">Verlust odär 50 Züüg dur en vorherigä Fählär</string>
-  <string name="unknownDueToRounding">Gewinn/Verlust ist nur garantiert, falls die empfohlene Datenbank-Zugfolge seit dem letzten Schlag- oder Bauernzug befolgt wurde, da möglicherweise DTZ-Werte in den Syzygy-Datenbanken gerundet sind.</string>
+  <string name="unknownDueToRounding">Gwünn/Verlust isch nur garantiert, falls diä empfohlänä Datebank-Zugfolge sit äm letztä Schlag- oder Puurezug befolgt worde sind, da möglicherwiis DTZ-Wärt ih de Syzygy-Datebank grundet sind.</string>
   <string name="allSet">Färtig!</string>
   <string name="importPgn">PGN importierä</string>
   <string name="delete">Löschä</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Ranglischtä</string>
   <string name="pasteTheFenStringHere">Chasch dä FEN-Texscht do iifüegä</string>
   <string name="pasteThePgnStringHere">Chasch dä PGN-Texscht do iifüegä</string>
+  <string name="orUploadPgnFile">Oder lad en PGN-Datei ufe</string>
   <string name="fromPosition">Vonärä Position uus</string>
   <string name="continueFromHere">Vo do uus wiiterschpillä</string>
   <string name="toStudy">Schtudiä</string>
@@ -556,14 +559,14 @@
   <string name="tools">Wärchzüüg</string>
   <string name="increment">Inkremänt</string>
   <string name="error.required">Das Fäld isch Pflicht</string>
-  <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
-  <string name="error.email_acceptable">Diese E-Mail-Adresse ist nicht akzeptabel. Bitte überprüfe sie und versuche es erneut.</string>
-  <string name="error.email_unique">E-Mail-Adresse ungültig oder bereits vergeben</string>
-  <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
-  <string name="error.minLength">Mindestlänge ist %s</string>
-  <string name="error.maxLength">Maximallänge ist %s</string>
-  <string name="error.min">Muss mindestens %s sein</string>
-  <string name="error.max">Darf höchstens %s sein</string>
+  <string name="error.email">Diä E-Mail-Adrässä isch ungültig</string>
+  <string name="error.email_acceptable">Diä E-Mail-Adrässe wird nöd akzeptiärt. Bitte überprüäf si und probiär dänn nomol.</string>
+  <string name="error.email_unique">Diä E-Mail-Adrässe isch invalid oder scho vergäh</string>
+  <string name="error.email_different">Das isch scho dini E-Mail-Adrässä</string>
+  <string name="error.minLength">Mues mindestens %s Zeichä lang sii</string>
+  <string name="error.maxLength">Mues höchstens %s Zeichä lang sii</string>
+  <string name="error.min">Mues mindestens %s sii</string>
+  <string name="error.max">Mues höchstens %s sii</string>
   <string name="ifRatingIsPlusMinusX">Nur, wänn d\'Wärtigszahl ± %s isch</string>
   <string name="onlyExistingConversations">Nur bestehändi Konversazionä</string>
   <string name="onlyFriends">Nur Fründä</string>
@@ -883,4 +886,8 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="abortTheGame">Partii abbrächä</string>
   <string name="resignTheGame">Partii ufgää</string>
   <string name="youCantStartNewGame">Du chasch kä neui Partii startä, bevor du diä abgschlossä häsch.</string>
+  <string name="since">Sit</string>
+  <string name="until">Bis</string>
+  <string name="lichessDbExplanation">Gwerteti Schpiel gsampled vo allne Lichess-Schpiler</string>
+  <string name="switchSides">Siite wechsle</string>
 </resources>

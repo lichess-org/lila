@@ -10,7 +10,6 @@ import lila.user.{ User, UserContext }
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
     gameRepo: GameRepo,
-    maxPlaying: Max,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext, idGenerator: IdGenerator) {
@@ -55,7 +54,7 @@ final private[setup] class Processor(
   def createSeekIfAllowed(seek: Seek, userId: User.ID): Fu[Processor.HookResult] =
     gameCache.nbPlaying(userId) map { nbPlaying =>
       import Processor.HookResult._
-      if (maxPlaying <= nbPlaying) Refused
+      if (nbPlaying >= lila.game.Game.maxPlaying) Refused
       else {
         Bus.publish(AddSeek(seek), "lobbyActor")
         Created(seek.id)

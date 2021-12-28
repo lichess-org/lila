@@ -156,4 +156,12 @@
   <string name="nextChapter">Próximo capítulo</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Opções de estudo</string>
+  <string name="topics">Tópicos</string>
+  <string name="myTopics">Os meus tópicos</string>
+  <string name="popularTopics">Tópicos populares</string>
+  <string name="manageTopics">Gerir tópicos</string>
+  <string name="back">Voltar</string>
+  <string name="playAgain">Jogar novamente</string>
+  <string name="whatWouldYouPlay">O que jogaria nessa situação?</string>
+  <string name="youCompletedThisLesson">Parabéns! Completou esta lição.</string>
 </resources>

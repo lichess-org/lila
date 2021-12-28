@@ -32,10 +32,10 @@ object bits {
   def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "") =
     mini(fen, color, lastMove)(span)
 
-  def jsData(fen: Option[String] = None)(implicit ctx: Context) =
+  def editorJsData(fen: Option[String] = None)(implicit ctx: Context) =
     Json
       .obj(
-        "baseUrl"   -> s"$netBaseUrl${routes.Editor.load("")}",
+        "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
         "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
         "is3d"      -> ctx.pref.is3d,
         "i18n"      -> i18nJsObject(i18nKeyes)

@@ -100,7 +100,7 @@ object replay {
               "chat"     -> chatJson,
               "explorer" -> views.html.board.bits.explorerConfig
             )
-            .add("hunter" -> isGranted(_.Hunter))
+            .add("hunter" -> isGranted(_.ViewBlurs))
         )})""")
       ),
       openGraph = povOpenGraph(pov).some

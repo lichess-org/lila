@@ -201,7 +201,8 @@ object mon {
       )
   }
   object asyncActor {
-    def overflow(name: String) = counter("asyncActor.overflow").withTag("name", name)
+    def overflow(name: String)  = counter("asyncActor.overflow").withTag("name", name)
+    def queueSize(name: String) = histogram("asyncActor.queueSize").withTag("name", name)
   }
   object irc {
     object zulip {
@@ -255,6 +256,11 @@ object mon {
       val mark                          = counter("mod.report.irwin.mark").withoutTags()
       def ownerReport(name: String)     = counter("mod.irwin.ownerReport").withTag("name", name)
       def streamEventType(name: String) = counter("mod.irwin.stream.eventType").withTag("name", name)
+    }
+    object kaladin {
+      def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
+      def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
+      def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
     }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
@@ -331,13 +337,6 @@ object mon {
       def twitch             = future("tv.streamer.twitch")
     }
   }
-  object crosstable {
-    val create                      = future("crosstable.create.time")
-    def createOffer(result: String) = counter("crosstable.create.offer").withTag("result", result)
-    val duplicate                   = counter("crosstable.create.duplicate").withoutTags()
-    val found                       = counter("crosstable.create.found").withoutTags()
-    val createNbGames               = histogram("crosstable.create.nbGames").withoutTags()
-  }
   object playTime {
     val create         = future("playTime.create.time")
     val createPlayTime = histogram("playTime.create.playTime").withoutTags()
@@ -377,9 +376,9 @@ object mon {
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags()
     }
-    val created        = gauge("tournament.count").withTag("type", "created")
-    val started        = gauge("tournament.count").withTag("type", "started")
-    val waitingPlayers = histogram("tournament.waitingPlayers").withoutTags()
+    val created                        = gauge("tournament.count").withTag("type", "created")
+    val started                        = gauge("tournament.count").withTag("type", "started")
+    def waitingPlayers(tourId: String) = histogram("tournament.waitingPlayers").withTag("tourId", tourId)
     object startedOrganizer {
       val tick         = future("tournament.startedOrganizer.tick")
       val waitingUsers = future("tournament.startedOrganizer.waitingUsers")
@@ -397,6 +396,8 @@ object mon {
         )
       )
     def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
+    def action(tourId: String, action: String) =
+      timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
     def standingOverload      = counter("swiss.standing.overload").withoutTags()

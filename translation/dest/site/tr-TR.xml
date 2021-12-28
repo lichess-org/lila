@@ -17,6 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Beyaz</string>
   <string name="black">Siyah</string>
+  <string name="asWhite">beyazlarda</string>
+  <string name="asBlack">siyahlarda</string>
   <string name="randomColor">Rastgele renk</string>
   <string name="createAGame">Yeni bir oyun kur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
@@ -94,6 +96,7 @@
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
+  <string name="unknownDueToRounding">Kazanma/kaybetme, Syzygy tablo tabanlarında DTZ değerlerinin olası yuvarlanması nedeniyle, yalnızca son yakalama veya piyon hareketinden bu yana önerilen tablo tabanı çizgisi izlendiğinde garanti edilir.</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="importPgn">PGN\'yi içe aktar</string>
   <string name="delete">Sil</string>
@@ -878,4 +881,8 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="abortTheGame">Maçı iptal et</string>
   <string name="resignTheGame">Maçı terk et</string>
   <string name="youCantStartNewGame">Mevcut oyun bitene kadar yeni bir oyuna başlayamazsın.</string>
+  <string name="since">Seçili tarihten beri</string>
+  <string name="until">Seçili tarihe kadar</string>
+  <string name="lichessDbExplanation">Tüm Lichess oyuncularının puanlı oyunlarından alınan örnekler</string>
+  <string name="switchSides">Renk değiştir</string>
 </resources>
