@@ -30,6 +30,7 @@ class ReferrerRedirectTest extends Specification {
       r.valid("//lichess.org.evil.com") must beNone
       r.valid("/\t/evil.com") must beNone
       r.valid("/ /evil.com") must beNone
+      r.valid("http://lichess.org/") must beNone // downgrade to http
     }
   }
 }
