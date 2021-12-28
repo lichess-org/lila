@@ -11,4 +11,17 @@
   <string name="published">ప్రచురణ</string>
   <string name="publishOnYourBlog">మీ బ్లాగులో ప్రచురించండి</string>
   <string name="publishHelp">ఒకవేళ చెక్ చేయబడినట్లయితే, పోస్ట్ మీ బ్లాగ్ లో జాబితా చేయబడుతుంది. కాకపోతే, మీ డ్రాఫ్ట్ పోస్ట్ లలో ఇది ప్రైవేట్ గా ఉంటుంది</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">ఒక బ్లాగ్ పోస్ట్ ప్రచురించబడింది</item>
+    <item quantity="other">%s ప్రచురించబడిన బ్లాగ్ పోస్ట్ లు</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">ఒక దృశ్యం</item>
+    <item quantity="other">%s వీక్షణాలు</item>
+  </plurals>
+  <string name="xPublishedY">%1$s %2$s ప్రచురించారు</string>
+  <string name="thisPostIsPublished">ఈ పోస్ట్ ప్రచురించబడింది</string>
+  <string name="thisIsADraft">ఇది డ్రాఫ్ట్</string>
+  <string name="moreBlogPostsBy">%s ద్వారా మరిన్ని బ్లాగ్ పోస్ట్‌లు</string>
+  <string name="noPostsInThisBlogYet">ఈ బ్లాగ్‌లో ఇంకా పోస్ట్‌లు లేవు.</string>
 </resources>
