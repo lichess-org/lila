@@ -58,12 +58,18 @@ Creiem que és més probable que aquestes condicions es compleixin dins d\'un eq
   <string name="numberOfByesA">Un jugador obté un bye d\'un punt cada vegada que el sistema d\'aparellament no pot trobar una parella.
 A més, s\'atribueix un únic bye de mig punt quan un jugador s\'uneix tard a un torneig.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa si un jugador no juga una partida?</string>
+  <string name="whatIfOneDoesntPlayA">El rellotge farà tic-tac, li caurà la bandera i perdrà la partida.
+Aleshores, el sistema retirarà el jugador del torneig perquè no perdi més jocs.
+Podrà tornar a unir-se al torneig en qualsevol moment.</string>
   <string name="lateJoinQ">Pot un jugador unir-se a un torneig que ja ha començat?</string>
   <string name="lateJoinA">Si, fins que s\'hagin iniciat més de la meitat de les rondes. Per exemple, en un torneig suís de 11 rondes, els jugadors poden unir-se abans que comenci la ronda 6; en un torneig de 12 rondes podran unir-se abans de que comenci la ronda 7.
 El jugadors que s\'afegeixin a un torneig ja començat rebran un únic bye, encara que no es presentin a varies rondes.</string>
   <string name="willSwissReplaceArenasQ">Els tornejos suïssos substituiran als arena?</string>
   <string name="willSwissReplaceArenasA">No, son funcionalitats complementaries.</string>
   <string name="roundRobinQ">Que passa amb els emparellament de tots contra tots?</string>
+  <string name="roundRobinA">Ens agradaria afegir-lo, però malauradament l\'emparellament de tots contra tots no funciona en línia.
+La raó per això és que no hi ha una manera justa de gestionar els jugadors que abandonen el torneig abans d\'hora. No podem esperar que tots els jugadors juguin tots els seus jocs en un esdeveniment en línia. Senzillament, no passarà i, com a resultat, la majoria dels tornejos de tots contra tots serien defectuosos i injustos, cosa que anul·laria la seva raó de ser.
+El més a prop que pots arribar a un emparellament de tots contra tots en línia és jugar un torneig suís amb un nombre molt elevat de rondes. En aquest cas, es jugaran tots els aparellaments possibles abans que finalitzi el torneig.</string>
   <string name="otherSystemsQ">Que passa amb els altres sistemes de tornejos?</string>
   <string name="otherSystemsA">Actualment no tenim previst afegir cap més tipus de torneig a Lichess.</string>
   <string name="teamOnly">Ens tornejos suïssos només es poden crear pels líders d\'equip i només es poden jugar pels seus membres. 
