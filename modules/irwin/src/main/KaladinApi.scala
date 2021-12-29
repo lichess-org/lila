@@ -45,12 +45,12 @@ final class KaladinApi(
   def dashboard: Fu[KaladinUser.Dashboard] = for {
     c <- coll.get
     completed <- c
-      .find($doc("response" $exists true))
+      .find($doc("response.at" $exists true))
       .sort($doc("response.at" -> -1))
       .cursor[KaladinUser]()
       .list(30)
     queued <- c
-      .find($doc("response" $exists false))
+      .find($doc("response.at" $exists false))
       .sort($doc("queuedAt" -> -1))
       .cursor[KaladinUser]()
       .list(30)
