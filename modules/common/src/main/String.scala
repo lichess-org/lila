@@ -24,7 +24,7 @@ object String {
     slug.toLowerCase
   }
 
-  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
 
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
 
