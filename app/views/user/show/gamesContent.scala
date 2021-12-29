@@ -36,7 +36,7 @@ object gamesContent {
           if (pager.nbResults > 0)
             frag(
               div(cls := "search__status")(
-                strong(trans.gamesFound(pager.nbResults.localize))
+                strong(trans.gamesFound.plural(pager.nbResults, pager.nbResults.localize))
               ),
               div(cls := "search__rows infinite-scroll")(
                 views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
