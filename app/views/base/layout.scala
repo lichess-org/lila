@@ -329,8 +329,6 @@ object layout {
             div(id := "agreement")(
               div(
                 "Lichess has updated the ",
-                a(href := routes.Page.menuBookmark("privacy"))("Privacy Policy"),
-                " and ",
                 a(href := routes.Page.tos)("Terms of Service"),
                 " as of ",
                 showDate(date),
