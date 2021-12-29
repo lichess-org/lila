@@ -230,11 +230,11 @@
   <string name="standard">nasin pi ante ala</string>
   <string name="unlimited">tenpo pi pini ala</string>
   <string name="mode">nasin</string>
-  <string name="casual">o ante ala e nanpa wawa</string>
-  <string name="rated">nanpa pi pona jan</string>
-  <string name="casualTournament">o ante ala e nanpa wawa</string>
-  <string name="ratedTournament">musi li ante e esun musi sina</string>
-  <string name="thisGameIsRated">sina kama jo e nanpa pi pona jan lon musi ni</string>
+  <string name="casual">musi pi nanpa wawa ala</string>
+  <string name="rated">musi pi nanpa wawa</string>
+  <string name="casualTournament">utala pi nanpa wawa ala</string>
+  <string name="ratedTournament">utala pi nanpa wawa</string>
+  <string name="thisGameIsRated">musi ni li ken ante e nanpa wawa</string>
   <string name="rematch">musi sin</string>
   <string name="rematchOfferSent">sina wile e musi sin</string>
   <string name="rematchOfferAccepted">jan ante li wile kin e musi sin</string>
@@ -255,8 +255,8 @@
   <string name="incrementInSeconds">tenpo sin pi tawa wan</string>
   <string name="freeOnlineChess">musi pi mani ala</string>
   <plurals name="nbRated">
-    <item quantity="one">musi %s li ante e nanpa wawa</item>
-    <item quantity="other">musi %s li ante e nanpa wawa</item>
+    <item quantity="one">musi %s pi nanpa wawa</item>
+    <item quantity="other">musi %s pi nanpa wawa</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">pini pona %s</item>
@@ -305,20 +305,20 @@
   <string name="backToTournament">o tawa musi</string>
   <string name="thematic">nasin suli</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">musi %s ni: ona li ante e nanpa wawa</item>
-    <item quantity="other">musi %s ni: ona li ante e nanpa wawa</item>
+    <item quantity="one">musi %s (anu mute pi ante suli) pi nanpa wawa</item>
+    <item quantity="other">musi %s (anu mute pi ante suli) pi nanpa wawa</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">musi %1$s pi nasin %2$s ni: ona li ante e nanpa wawa</item>
-    <item quantity="other">musi %1$s pi nasin %2$s ni: ona li ante e nanpa wawa</item>
+    <item quantity="one">musi %1$s (anu mute pi ante suli) pi nasin \"%2$s\" pi nanpa wawa</item>
+    <item quantity="other">musi %1$s (anu mute pi ante suli) pi nasin \"%2$s\" pi nanpa wawa</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">sina wile musi e musi %1$s sin pi nasin %2$s</item>
-    <item quantity="other">sina wile musi e musi %1$s sin pi nasin %2$s</item>
+    <item quantity="one">o musi e musi %1$s sin pi nasin \"%2$s\"</item>
+    <item quantity="other">o musi e musi %1$s sin pi nasin \"%2$s\"</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">sina wile musi e musi %s sin</item>
-    <item quantity="other">sina wile musi e musi %s sin</item>
+    <item quantity="one">o musi e musi %s sin pi nanpa wawa</item>
+    <item quantity="other">o musi e musi %s sin pi nanpa wawa</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">nanpa wawa sina pi nasin %s li pini ala</string>
   <string name="yourPerfRatingIsTooHigh">nanpa wawa sina pi nasin %1$s (%2$s) li suli ike</string>
