@@ -424,7 +424,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="youArePlaying">sina musi lon tenpo ni!</string>
   <string name="winRate">pini pona</string>
   <string name="berserkRate">musi pi lili tenpo</string>
-  <string name="performance">pali pona seme</string>
+  <string name="performance">nanpa wawa pi lipu ni</string>
   <string name="tournamentComplete">utala musi suli li pini</string>
   <string name="movesPlayed">mute tawa</string>
   <string name="whiteWins">pini pona walo</string>
@@ -665,6 +665,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="enableKidMode">o kepeken e nasin pi jan lili</string>
   <string name="disableKidMode">o kepeken ala e nasin pi jan lili</string>
   <string name="security">awen sona</string>
+  <string name="sessions">linja sona ilo pi lipu lawa sina</string>
   <string name="revokeAllSessions">pakala e linja ale</string>
   <string name="playChessEverywhere">o musi lon ma ale</string>
   <string name="asFreeAsLichess">sama ilo Lichess la, ona li wile ala e mani</string>
@@ -833,18 +834,26 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="welcome">o kama pona!</string>
   <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
 ona li wile e mani la jan li wile pana e mani tawa ona.</string>
+  <string name="coachManager">lipu pi jan pi pana sona</string>
+  <string name="streamerManager">nasin pali pi sitelen tawa</string>
   <string name="cancelTournament">o moli e musi</string>
   <string name="tournDescription">toki musi</string>
   <string name="ratedFormHelp">musi li jo e nanpa wawa
 li ante e nanpa wawa</string>
   <string name="onlyMembersOfTeam">jan kulupu taso</string>
+  <string name="noRestriction">ale li pona</string>
+  <string name="minimumRatedGames">o musi pi nanpa wawa lon mute ni</string>
+  <string name="minimumRating">o jo e nanpa wawa ≥ ni</string>
+  <string name="maximumWeeklyRating">o jo e nanpa wawa pi tenpo pali ≤ ni</string>
+  <string name="onlyTitled">jan pi nimi wawa taso</string>
+  <string name="onlyTitledHelp">ni li lon la, jan pi utala musi li wile jo e nimi wawa tan kulupu suli</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>
   <string name="playComputerMove">o tawa e tawa ilo nanpa wan</string>
   <string name="onlyWorksOnce">ni li ken lon tenpo wan taso.</string>
   <string name="sentEmailWithLink">mi pana e sitelen \"e-mail\" tawa sina. ona li jo e nimi nasin.</string>
-  <string name="tournamentEntryCode">nimi awen pi musi utala</string>
+  <string name="tournamentEntryCode">nimi awen pi utala musi</string>
   <string name="hangOn">o awen!</string>
   <string name="gameInProgress">tenpo ni la, sina en jan %s li musi.</string>
   <string name="abortTheGame">o pini e musi ni</string>
