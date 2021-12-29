@@ -96,6 +96,8 @@
   <string name="xOpeningExplorer">ilo open pi nasin %s</string>
   <string name="winPreventedBy50MoveRule">pini pona li kama ala tan nasin pi tawa mute mute luka luka</string>
   <string name="lossSavedBy50MoveRule">pini ike li kama ala tan nasin pi tawa mute mute luka luka</string>
+  <string name="winOr50MovesByPriorMistake">pini pona anu pini pi tawa 50 tan tawa ike pi tenpo pini</string>
+  <string name="lossOr50MovesByPriorMistake">pini ike anu pini pi tawa 50 tan tawa ike pi tenpo pini</string>
   <string name="allSet">pona!</string>
   <string name="importPgn">o kama jo e lipu PGN</string>
   <string name="delete">o weka</string>
