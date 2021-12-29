@@ -76,7 +76,8 @@ final class JsonView(
             )
           case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
         }),
-        "color" -> c.colorChoice.toString.toLowerCase,
+        "color"      -> c.colorChoice.toString.toLowerCase,
+        "finalColor" -> c.finalColor.toString.toLowerCase,
         "perf" -> Json.obj(
           "icon" -> iconChar(c).toString,
           "name" -> c.perfType.trans
