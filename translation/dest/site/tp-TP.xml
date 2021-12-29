@@ -345,6 +345,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="leaderboard">jan pi pona mute</string>
   <string name="pasteTheFenStringHere">o pana e nimi FEN lon ni</string>
   <string name="pasteThePgnStringHere">o pana e nimi PGN lon ni</string>
+  <string name="orUploadPgnFile">ante la, sina ken pana e lipu PGN</string>
   <string name="fromPosition">tan</string>
   <string name="continueFromHere">o tawa tan ni</string>
   <string name="toStudy">o kama sona</string>
@@ -842,4 +843,11 @@ li ante e nanpa wawa</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>
   <string name="playComputerMove">o tawa e tawa ilo nanpa wan</string>
   <string name="onlyWorksOnce">ni li ken lon tenpo wan taso.</string>
+  <string name="hangOn">o awen!</string>
+  <string name="gameInProgress">tenpo ni la, sina en jan %s li musi.</string>
+  <string name="abortTheGame">o pini e musi ni</string>
+  <string name="resignTheGame">o pini e musi ni (pini ike)</string>
+  <string name="youCantStartNewGame">sina wile pali e musi sin la, sina wile pini e musi ni.</string>
+  <string name="since">poki open tenpo</string>
+  <string name="until">poki pini tenpo</string>
 </resources>
