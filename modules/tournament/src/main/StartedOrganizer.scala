@@ -35,10 +35,10 @@ final private class StartedOrganizer(
     case Tick(tickIt) =>
       val doAllTournaments = tickIt % 20 == 0
       tournamentRepo
-        .startedCursor {
-          if (doAllTournaments) 2 // every 20s, do all tournaments with 2+ players
-          else if (tickIt % 2 == 0) 50 // every 2s, do all decent tournaments
-          else 1000 // always do massive tournaments
+        .startedCursorWithNbPlayersGte {
+          if (doAllTournaments) none // every 20s, do all tournaments
+          else if (tickIt % 2 == 0) 50.some // every 2s, do all decent tournaments
+          else 1000.some // always do massive tournaments
         }
         .documentSource()
         .mapAsyncUnordered(4) { tour =>

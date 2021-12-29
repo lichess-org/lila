@@ -46,9 +46,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def fetchCreatedBy(id: Tournament.ID): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(id), "createdBy")
 
-  private[tournament] def startedCursor(nbPlayers: Int) =
+  private[tournament] def startedCursorWithNbPlayersGte(nbPlayers: Option[Int]) =
     coll
-      .find(startedSelect ++ nbPlayersSelect(nbPlayers))
+      .find(startedSelect ++ nbPlayers.??(nbPlayersSelect))
       .batchSize(1)
       .cursor[Tournament]()
 
