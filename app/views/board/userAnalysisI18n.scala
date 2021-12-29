@@ -176,7 +176,9 @@ object userAnalysisI18n {
     trans.lichessDbExplanation,
     trans.player,
     trans.asWhite,
-    trans.asBlack
+    trans.asBlack,
+    trans.explainYearInputFormat,
+    trans.explainMonthInputFormat
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(

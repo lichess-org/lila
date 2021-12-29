@@ -892,4 +892,6 @@ Leave empty to start games from the normal initial position.</string>
   <string name="until">Until</string>
   <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
   <string name="switchSides">Switch sides</string>
+  <string name="explainYearInputFormat" comment="%s is replaced with the minimum year possible">Insert year in YYYY format starting from %s</string>
+  <string name="explainMonthInputFormat" comment="%s is replaced with the minimum month possible">Insert year and month in YYYY-MM format starting from %s</string>
 </resources>

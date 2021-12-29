@@ -171,10 +171,10 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
-      h('label', [ctrl.root.trans.noarg('since'), yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+      h('label', [ctrl.root.trans.noarg('since'), yearInput(ctrl, ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
       h('label', [
         ctrl.root.trans.noarg('until'),
-        yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
+        yearInput(ctrl, ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
       ]),
     ]),
   ]);
@@ -213,7 +213,7 @@ const modeSection = (ctrl: ExplorerConfigCtrl) =>
     h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
   ]);
 
-const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
+const monthInput = (ctrl: ExplorerConfigCtrl, prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
   const validateRange = (input: HTMLInputElement) =>
     input.setCustomValidity(!input.value || after() <= input.value ? '' : 'Invalid date range');
   const max = new Date().toISOString().slice(0, 7);
@@ -221,7 +221,7 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
     key: after() ? 'until-month' : 'since-month',
     attrs: {
       type: 'month',
-      title: `Insert year and month in YYYY-MM format starting from ${minLichessYear}-01`,
+      title: ctrl.root.trans('explainMonthInputFormat', `${minLichessYear}-01`), // `Insert year and month in YYYY-MM format starting from ${minLichessYear}-01`,
       pattern: '^(19|20)[0-9]{2}-(0[1-9]|1[012])$',
       placeholder: 'YYYY-MM',
       min: `${minLichessYear}-01`,
@@ -247,14 +247,14 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
   });
 };
 
-const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
+const yearInput = (ctrl: ExplorerConfigCtrl, prop: StoredProp<Month>, after: () => Month, redraw: Redraw) => {
   const validateRange = (input: HTMLInputElement) =>
     input.setCustomValidity(!input.value || after().split('-')[0] <= input.value ? '' : 'Invalid date range');
   return h('input', {
     attrs: {
       key: after() ? 'until-year' : 'since-year',
       type: 'number',
-      title: `Insert year in YYYY format starting from ${minYear}`,
+      title: ctrl.root.trans('explainYearInputFormat', `${minYear}`),
       placeholder: 'YYYY',
       min: minYear,
       max: new Date().toISOString().slice(0, 4),
@@ -281,10 +281,10 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
-    h('label', [ctrl.root.trans.noarg('since'), monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+    h('label', [ctrl.root.trans.noarg('since'), monthInput(ctrl, ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
     h('label', [
       ctrl.root.trans.noarg('until'),
-      monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
+      monthInput(ctrl, ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
     ]),
   ]);
 
