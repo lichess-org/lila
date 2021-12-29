@@ -17,8 +17,8 @@
   <string name="stalemate">jan ala li ken tawa</string>
   <string name="white">walo</string>
   <string name="black">pimeja</string>
-  <string name="asWhite">sama walo</string>
-  <string name="asBlack">sama pimeja</string>
+  <string name="asWhite">li jan musi walo</string>
+  <string name="asBlack">li jan musi pimeja</string>
   <string name="randomColor">kule pi sona ala</string>
   <string name="createAGame">o pali e musi</string>
   <string name="whiteIsVictorious">walo li pini pona</string>
@@ -847,6 +847,8 @@ li ante e nanpa wawa</string>
   <string name="maximumWeeklyRating">o jo e nanpa wawa pi tenpo pali ≤ ni</string>
   <string name="onlyTitled">jan pi nimi wawa taso</string>
   <string name="onlyTitledHelp">ni li lon la, jan pi utala musi li wile jo e nimi wawa tan kulupu suli</string>
+  <string name="simulHostcolor">kule pi jan musi lawa</string>
+  <string name="estimatedStart">tenpo open</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>
