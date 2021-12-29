@@ -97,8 +97,8 @@ object Query {
 
   def clockIncs(implicit lang: Lang) =
     options(
-      List(1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180),
-      i => trans.nbSeconds.pluralSameTxt(i)
+      List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180),
+      i => { if (i == 0) "0" else trans.nbSeconds.pluralSameTxt(i) }
     ).toList
 
   def winnerColors(implicit lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
