@@ -16,6 +16,7 @@ const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', '
 const allModes: ExplorerMode[] = ['casual', 'rated'];
 const allRatings = [1600, 1800, 2000, 2200, 2500];
 const minYear = 1952;
+const minLichessYear = 2012;
 
 type Month = string;
 type ByDbSetting = {
@@ -53,8 +54,8 @@ export class ExplorerConfigCtrl {
     const byDbData = {} as ByDbSettings;
     for (const db of this.allDbs) {
       byDbData[db] = {
-        since: storedProp('explorer.since-2.' + db, ''),
-        until: storedProp('explorer.until-2.' + db, ''),
+        since: storedProp('explorer.since-2.' + db, (db === 'masters' ? minYear : minLichessYear) + '-01'),
+        until: storedProp('explorer.until-2.' + db, new Date().toISOString().slice(0, 7)),
       };
     }
     this.data = {
@@ -220,7 +221,9 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
     key: after() ? 'until-month' : 'since-month',
     attrs: {
       type: 'month',
+      title: `Insert year and month in YYYY-MM format starting from ${minYear}-01`,
       pattern: '^(19|20)[0-9]{2}-(0[1-9]|1[012])$',
+      placeholder: 'YYYY-MM',
       min: `${minYear}-01`,
       max,
       value: prop() > max ? max : prop(),
@@ -251,6 +254,8 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
     attrs: {
       key: after() ? 'until-year' : 'since-year',
       type: 'number',
+      title: `Insert year in YYYY format starting from ${minYear}`,
+      placeholder: 'YYYY',
       min: minYear,
       max: new Date().toISOString().slice(0, 4),
       value: prop().split('-')[0],
