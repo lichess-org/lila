@@ -843,6 +843,8 @@ li ante e nanpa wawa</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>
   <string name="playComputerMove">o tawa e tawa ilo nanpa wan</string>
   <string name="onlyWorksOnce">ni li ken lon tenpo wan taso.</string>
+  <string name="sentEmailWithLink">mi pana e sitelen \"e-mail\" tawa sina. ona li jo e nimi nasin.</string>
+  <string name="tournamentEntryCode">nimi awen pi musi utala</string>
   <string name="hangOn">o awen!</string>
   <string name="gameInProgress">tenpo ni la, sina en jan %s li musi.</string>
   <string name="abortTheGame">o pini e musi ni</string>
