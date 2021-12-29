@@ -35,13 +35,6 @@ final class JsonView(
 
   import JsonView._
 
-  private case class CachableData(
-      duels: JsArray,
-      duelTeams: Option[JsObject],
-      featured: Option[JsObject],
-      podium: Option[JsArray]
-  )
-
   def apply(
       tour: Tournament,
       page: Option[Int],
@@ -238,29 +231,30 @@ final class JsonView(
     }
   }
 
-  private val cachableData = cacheApi[Tournament.ID, CachableData](64, "tournament.json.cachable") {
-    _.expireAfterWrite(1 second)
-      .buildAsyncFuture { id =>
-        for {
-          tour               <- cached.tourCache byId id
-          (duels, jsonDuels) <- duelsJson(id)
-          duelTeams <- tour.exists(_.isTeamBattle) ?? {
-            playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map { teams =>
-              JsObject(teams map { case (userId, teamId) =>
-                (userId, JsString(teamId))
-              }).some
+  private[tournament] val cachableData =
+    cacheApi[Tournament.ID, CachableData](64, "tournament.json.cachable") {
+      _.expireAfterWrite(1 second)
+        .buildAsyncFuture { id =>
+          for {
+            tour               <- cached.tourCache byId id
+            (duels, jsonDuels) <- duelsJson(id)
+            duelTeams <- tour.exists(_.isTeamBattle) ?? {
+              playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map { teams =>
+                JsObject(teams map { case (userId, teamId) =>
+                  (userId, JsString(teamId))
+                }).some
+              }
             }
-          }
-          featured <- tour ?? fetchFeaturedGame
-          podium   <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
-        } yield CachableData(
-          duels = jsonDuels,
-          duelTeams = duelTeams,
-          featured = featured map featuredJson,
-          podium = podium
-        )
-      }
-  }
+            featured <- tour ?? fetchFeaturedGame
+            podium   <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
+          } yield CachableData(
+            duels = jsonDuels,
+            duelTeams = duelTeams,
+            featured = featured map featuredJson,
+            podium = podium
+          )
+        }
+    }
 
   private def featuredJson(featured: FeaturedGame) = {
     val game = featured.game
@@ -453,7 +447,7 @@ final class JsonView(
       teamInfoCache get (tour.id -> teamId)
     }
 
-  private def commonTournamentJson(
+  private[tournament] def commonTournamentJson(
       tour: Tournament,
       data: CachableData,
       stats: Option[TournamentStats],
@@ -475,27 +469,16 @@ final class JsonView(
       .add("stats" -> stats)
       .add("teamStanding" -> teamStanding)
       .add("duelTeams" -> data.duelTeams)
-
-  def lilaHttp(tour: Tournament): Fu[JsObject] = for {
-    data         <- cachableData get tour.id
-    stats        <- statsApi(tour)
-    teamStanding <- getTeamStanding(tour)
-    ranking      <- cached ranking tour
-    fullStanding <- standingApi.fullStanding(tour)
-  } yield commonTournamentJson(tour, data, stats, teamStanding) ++ Json.obj(
-    "id" -> tour.id,
-    // TODO optimize as a single string
-    "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
-      JsObject(all.view.flatMap { duel =>
-        duel.userIds.map { uid => uid -> JsString(duel.gameId) }
-      }.toMap)
-    },
-    "ranking"  -> ranking.userIdsString,
-    "standing" -> fullStanding
-  )
 }
 
 object JsonView {
+
+  private[tournament] case class CachableData(
+      duels: JsArray,
+      duelTeams: Option[JsObject],
+      featured: Option[JsObject],
+      podium: Option[JsArray]
+  )
 
   def top(t: TournamentTop, getLightUser: LightUser.GetterSync): JsArray =
     JsArray {

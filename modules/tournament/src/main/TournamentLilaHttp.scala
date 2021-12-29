@@ -2,17 +2,25 @@ package lila.tournament
 
 import akka.actor._
 import akka.stream.scaladsl._
-import scala.concurrent.duration._
-import lila.common.LilaStream
 import io.lettuce.core.RedisClient
-import play.api.libs.json.Json
+import play.api.libs.json._
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
+
+import lila.common.LilaStream
+import reactivemongo.api.ReadPreference
 
 final private class TournamentLilaHttp(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
+    playerRepo: PlayerRepo,
+    cached: Cached,
+    duelStore: DuelStore,
+    statsApi: TournamentStatsApi,
     jsonView: JsonView,
+    lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
-)(implicit mat: akka.stream.Materializer, system: ActorSystem) {
+)(implicit mat: akka.stream.Materializer, system: ActorSystem, ec: ExecutionContext) {
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
@@ -40,9 +48,9 @@ final private class TournamentLilaHttp(
 
       case Tick =>
         tournamentRepo
-          .startedCursorWithNbPlayersGte(0)
+          .startedCursorWithNbPlayersGte(1)
           .documentSource()
-          .mapAsyncUnordered(4)(jsonView.lilaHttp)
+          .mapAsyncUnordered(4)(arenaFullJson)
           .map { json =>
             val str = Json stringify json
             lila.mon.tournament.lilaHttp.fullSize.record(str.size.pp)
@@ -55,4 +63,61 @@ final private class TournamentLilaHttp(
           .unit
     }
   }))
+
+  private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
+    data         <- jsonView.cachableData get tour.id
+    stats        <- statsApi(tour)
+    teamStanding <- jsonView.getTeamStanding(tour)
+    ranking      <- cached ranking tour
+    fullStanding <- playerRepo
+      .sortedCursor(tour.id, 100, ReadPreference.primary)
+      .documentSource(100)
+      .zipWithIndex
+      .mapAsync(16) { case (player, index) =>
+        for {
+          sheet <- cached.sheet(tour, player.userId)
+          json <- playerJson(
+            sheet,
+            RankedPlayer(index.toInt + 1, player),
+            streakable = tour.streakable
+          )
+        } yield json
+      }
+      .toMat(Sink.seq)(Keep.right)
+      .run()
+      .map(JsArray(_))
+
+  } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json.obj(
+    "id" -> tour.id,
+    // TODO optimize as a single string
+    "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
+      JsObject(all.view.flatMap { duel =>
+        duel.userIds.map { uid => uid -> JsString(duel.gameId) }
+      }.toMap)
+    },
+    "ranking"  -> ranking.userIdsString,
+    "standing" -> fullStanding
+  )
+
+  private def playerJson(
+      sheet: arena.Sheet,
+      rankedPlayer: RankedPlayer,
+      streakable: Boolean
+  )(implicit ec: ExecutionContext): Fu[JsObject] = {
+    val p = rankedPlayer.player
+    lightUserApi async p.userId map { light =>
+      Json
+        .obj(
+          "name"   -> light.fold(p.userId)(_.name),
+          "rating" -> p.rating,
+          "score"  -> p.score,
+          "sheet"  -> sheet.scores.map(_.encoded)
+        )
+        .add("fire", sheet.isOnFire)
+        .add("title" -> light.flatMap(_.title))
+        .add("provisional" -> p.provisional)
+        .add("withdraw" -> p.withdraw)
+        .add("team" -> p.team)
+    }
+  }
 }
