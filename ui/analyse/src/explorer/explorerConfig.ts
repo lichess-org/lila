@@ -221,10 +221,10 @@ const monthInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw)
     key: after() ? 'until-month' : 'since-month',
     attrs: {
       type: 'month',
-      title: `Insert year and month in YYYY-MM format starting from ${minYear}-01`,
+      title: `Insert year and month in YYYY-MM format starting from ${minLichessYear}-01`,
       pattern: '^(19|20)[0-9]{2}-(0[1-9]|1[012])$',
       placeholder: 'YYYY-MM',
-      min: `${minYear}-01`,
+      min: `${minLichessYear}-01`,
       max,
       value: prop() > max ? max : prop(),
     },
