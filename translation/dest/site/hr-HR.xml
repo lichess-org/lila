@@ -367,6 +367,7 @@
   <string name="leaderboard">Ljestvica</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
+  <string name="orUploadPgnFile">Ili učitaj PGN datoteku</string>
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="toStudy">Prouči</string>
