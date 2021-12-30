@@ -133,7 +133,7 @@
   <string name="offerDraw">引き分けを提案する</string>
   <string name="draw">引き分け</string>
   <plurals name="nbPlayers">
-    <item quantity="other">%s人接続中</item>
+    <item quantity="other">%s 人</item>
   </plurals>
   <string name="drawByMutualAgreement">合意によるドロー</string>
   <string name="fiftyMovesWithoutProgress">50 手中駒取りもポーンの手もなし</string>
