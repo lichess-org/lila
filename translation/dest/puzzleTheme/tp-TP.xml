@@ -12,6 +12,8 @@
   <string name="crushingDescription">jan ante li pali e tawa ike. sina ken lukin e ona la, sina ken pali e tawa ni: ona li wawa e nasin pi ijo musi sina.</string>
   <string name="equality">sama wawa pi nasin ijo</string>
   <string name="equalityDescription">nasin pi ijo musi sina li ike. taso, sina ken sama e ona tawa jan ante.</string>
+  <string name="doubleCheck">jan lawa li ken moli tan ijo tu</string>
+  <string name="doubleCheckDescription">ijo musi wan li tawa, li open e nasin utala tawa ijo musi ante. ijo musi tu li utala e jan lawa lon tenpo sama.</string>
   <string name="endgame">pini musi</string>
   <string name="fork">utala pi nasin tu</string>
   <string name="knightEndgame">pini musi pi soweli tawa</string>
