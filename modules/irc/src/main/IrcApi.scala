@@ -58,10 +58,11 @@ final class IrcApi(
   }
 
   def userModNote(modName: String, username: String, note: String): Funit =
-    zulip(_.mod.adminLog, "notes")(
-      s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
-        markdown.linkifyUsers(note take 2000)
-    )
+    !User.isLichess(modName) ??
+      zulip(_.mod.adminLog, "notes")(
+        s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
+          markdown.linkifyUsers(note take 2000)
+      )
 
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
     zulip(_.mod.adminLog, "self report")(
