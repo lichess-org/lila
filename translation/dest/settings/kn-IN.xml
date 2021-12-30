@@ -2,4 +2,6 @@
 <resources>
   <string name="settings">ಸಂಯೋಜನೆಗಳು</string>
   <string name="closeAccount">ಅಕೌಂಟ್ ಮುಚ್ಚಿ</string>
+  <string name="closingIsDefinitive">ಅಕೌಂಟ್ ಮುಚ್ಚಿದಲ್ಲಿ ಮತ್ತೆ ತೆರೆಯಲಾಗುವುದಿಲ್ಲ. ನಿಮ್ಮ ನಿರ್ಧಾರ ಖಚಿತವೇ?</string>
+  <string name="cantOpenSimilarAccount">ನೀವು ಆ ಅಕೌಂಟ್ ಹೆಸರಿನಲ್ಲಿ ಮುಂದೆ ಮತ್ತೊಂದು ಅಕೌಂಟ್ ತೆರೆಯಲಾಗುವುದಿಲ್ಲ, case(a/A) ಬೇರೆಯಿದ್ದರೂ.</string>
 </resources>
