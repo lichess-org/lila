@@ -465,9 +465,13 @@ final class User(
       doWriteNote(username, me)(
         err => BadRequest(err.errors.toString).fuccess,
         user =>
-          env.socialInfo.fetchNotes(user, me) map { notes =>
-            Ok(views.html.user.show.header.noteZone(user, notes))
+          if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+            Ok(views.html.mod.inquiry.noteZone(user, notes))
           }
+          else
+            env.socialInfo.fetchNotes(user, me) map { notes =>
+              Ok(views.html.user.show.header.noteZone(user, notes))
+            }
       )(ctx.body)
     }
 

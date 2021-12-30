@@ -1,3 +1,5 @@
+import * as xhr from 'common/xhr';
+
 lichess.load.then(() => {
   const noteStore = lichess.storage.make('inquiry-note');
   const usernameNoteStore = lichess.storage.make('inquiry-note-user');
@@ -11,11 +13,20 @@ lichess.load.then(() => {
     noteTextArea.value = noteStore.get() || '';
   });
 
-  const $notes = $('#inquiry .notes');
-  $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
-  $notes.find('form').on('submit', () => {
-    noteStore.remove();
-  });
+  const loadNotes = () => {
+    const $notes = $('#inquiry .notes');
+    $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
+    $notes.find('form').on('submit', function (this: HTMLFormElement) {
+      xhr
+        .formToXhr(this)
+        .then(html => $notes.replaceWith(html))
+        .then(noteStore.remove)
+        .then(() => loadNotes())
+        .catch(() => alert('Invalid note, is it too short or too long?'));
+      return false;
+    });
+  };
+  loadNotes();
 
   $('#inquiry .costello').on('click', () => {
     $('#inquiry').toggleClass('hidden');
