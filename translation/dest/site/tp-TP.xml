@@ -80,7 +80,7 @@
   <string name="drawn">pini sama li kama</string>
   <string name="unknown">sona ala</string>
   <string name="database">poki sona</string>
-  <string name="whiteDrawBlack">walo / pini sama / pimeja</string>
+  <string name="whiteDrawBlack">walo / anpa ala / pimeja</string>
   <string name="averageRatingX">nanpa wawa meso: %s</string>
   <string name="recentGames">musi lon tenpo pini lili</string>
   <string name="topGames">musi pi jan wawa</string>
@@ -654,7 +654,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="downloadImported">o awen e ante tan pi lipu ni</string>
   <string name="crosstable">musi ale pi jan tu ni</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">sin la, sina ken tawa lon tenpo tawa kepeken ilo sike nasin pi ilo nasin sina.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">ilo utala sina li lon sona pi tawa ken la, lipu lili pi tawa ken ni li lon.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">ilo nasin sina li lon sona pi tawa ken la, lipu lili pi tawa ken ni li lon.</string>
   <string name="analysisShapesHowTo">sina wile sitelen lon supa musi la, o pilin e nena \"Shift\", e nena #1 pi ilo nasin. anu la, o pilin e nena #2 pi ilo nasin.</string>
   <string name="letOtherPlayersMessageYou">jan ante li ken ala ken toki tawa sina?</string>
   <string name="receiveForumNotifications">jan li toki e nimi sina lon ma toki la, o kama jo e pana</string>
@@ -861,11 +861,27 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="simulFeatured">o pana lukin lon lipu \"%s\"</string>
   <string name="simulFeaturedHelp">sina ken pana lukin e musi mute sina tawa jan ale lon lipu \"%s\". sina wile len e musi mute sina la, o kepeken ala e nasin ni.</string>
   <string name="simulDescription">sitelen sona pi musi pi tenpo sama</string>
+  <string name="simulDescriptionHelp">sina wile ala wile pana e sona tawa jan musi?</string>
+  <string name="markdownAvailable">sina ken pali e ijo sin kepeken nasin \"%s\".</string>
+  <string name="embedsAvailable">sina wile pana lukin e musi ni kepeken lipu ilo la, o pana e nimi \"URL\" musi anu nimi \"URL\" pi musi sona.</string>
+  <string name="inYourLocalTimezone">tenpo ni li tenpo pi ma tenpo sina</string>
+  <string name="tournChat">toki pi utala musi</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>
   <string name="onlyTeamMembers">jan pi kulupu ni taso</string>
+  <string name="navigateMoveTree">o lukin e lipu pi tawa ale</string>
+  <string name="mouseTricks">ken pi ilo nasin</string>
+  <string name="toggleLocalAnalysis">o ante e ni: ilo sona sina li lukin ala lukin sona e musi?</string>
+  <string name="toggleAllAnalysis">o ante e ni: ilo sona sina en ilo weka li lukin ala lukin sona e musi?</string>
   <string name="playComputerMove">o tawa e tawa ilo nanpa wan</string>
+  <string name="analysisOptions">nasin pi lukin sona</string>
+  <string name="focusChat">o nasin tawa toki jan</string>
+  <string name="showHelpDialog">o pana lukin e lipu sona ni</string>
+  <string name="reopenYourAccount">o open sin e lipu jan sama sina</string>
+  <string name="closedAccountChangedMind">sina pakala e lipu jan sina la, sina ken open sin e ona lon tenpo wan taso.</string>
   <string name="onlyWorksOnce">ni li ken lon tenpo wan taso.</string>
+  <string name="cantDoThisTwice">sina pakala e lipu jan sina lon tenpo nanpa tu la, sina ken ala open sin e ona.</string>
+  <string name="emailAssociatedToaccount">poki sitelen \"e-mail\" pi lipu jan</string>
   <string name="sentEmailWithLink">mi pana e sitelen \"e-mail\" tawa sina. ona li jo e nimi nasin.</string>
   <string name="tournamentEntryCode">nimi awen pi utala musi</string>
   <string name="hangOn">o awen!</string>
@@ -875,5 +891,6 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="youCantStartNewGame">sina wile pali e musi sin la, sina wile pini e musi ni.</string>
   <string name="since">poki open tenpo</string>
   <string name="until">poki pini tenpo</string>
+  <string name="lichessDbExplanation">musi ale pi nanpa wawa tan jan musi ale pi ilo \"Lichess\"</string>
   <string name="switchSides">o lukin tan poka ante</string>
 </resources>
