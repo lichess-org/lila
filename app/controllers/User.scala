@@ -463,34 +463,37 @@ final class User(
   def writeNote(username: String) =
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
-        _ => user => renderShow(user, Results.BadRequest),
-        Redirect(routes.User.show(username)).flashSuccess
+        err => BadRequest(err.errors.toString).fuccess,
+        user =>
+          env.socialInfo.fetchNotes(user, me) map { notes =>
+            Ok(views.html.user.show.header.noteZone(user, notes))
+          }
       )(ctx.body)
     }
 
   def apiWriteNote(username: String) =
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
-        err = err => _ => jsonFormErrorDefaultLang(err),
-        suc = jsonOkResult
+        jsonFormErrorDefaultLang,
+        suc = _ => jsonOkResult.fuccess
       )
     }
 
   private def doWriteNote(
       username: String,
       me: UserModel
-  )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
+  )(err: Form[_] => Fu[Result], suc: UserModel => Fu[Result])(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note
+        lila.user.UserForm.note
           .bindFromRequest()
           .fold(
-            e => err(e)(user),
+            err,
             data =>
               {
                 val isMod = data.mod && isGranted(_.ModNote, me)
                 env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } inject suc
+              } >> suc(user)
           )
       }
     }

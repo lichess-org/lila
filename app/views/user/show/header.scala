@@ -122,59 +122,7 @@ object header {
           )
         )
       ),
-      (!ctx.is(u)) option div(cls := "note-zone")(
-        postForm(action := s"${routes.User.writeNote(u.username)}?note")(
-          textarea(
-            name := "text",
-            placeholder := "Write a private note about this user"
-          ),
-          if (isGranted(_.ModNote))
-            div(cls := "mod-note")(
-              submitButton(cls := "button")(trans.send()),
-              div(
-                div(form3.cmnToggle("note-mod", "mod", checked = true)),
-                label(`for` := "note-mod")("For moderators only")
-              ),
-              isGranted(_.Admin) option div(
-                div(form3.cmnToggle("note-dox", "dox", checked = false)),
-                label(`for` := "note-dox")("Doxing info")
-              )
-            )
-          else
-            frag(
-              input(tpe := "hidden", name := "mod", value := "false"),
-              submitButton(cls := "button")(trans.send())
-            )
-        ),
-        social.notes.isEmpty option div("No note yet"),
-        social.notes
-          .filter { n =>
-            ctx.me.exists(n.isFrom) ||
-            isGranted(_.Admin) ||
-            (!n.dox && isGranted(_.ModNote))
-          }
-          .map { note =>
-            div(cls := "note")(
-              p(cls := "note__text")(richText(note.text, expandImg = false)),
-              p(cls := "note__meta")(
-                userIdLink(note.from.some),
-                br,
-                note.dox option "dox ",
-                momentFromNow(note.date),
-                (ctx.me.exists(note.isFrom) && !note.mod) option frag(
-                  br,
-                  postForm(action := routes.User.deleteNote(note._id))(
-                    submitButton(
-                      cls := "button-empty button-red confirm button text",
-                      style := "float:right",
-                      dataIcon := ""
-                    )("Delete")
-                  )
-                )
-              )
-            )
-          }
-      ),
+      !ctx.is(u) option noteZone(u, social.notes),
       isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
       standardFlash(),
       angle match {
@@ -297,4 +245,57 @@ object header {
         )
       )
     )
+
+  def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(cls := "note-zone")(
+    postForm(action := s"${routes.User.writeNote(u.username)}?note")(
+      form3.textarea(lila.user.UserForm.note("text"))(
+        placeholder := "Write a private note about this user"
+      ),
+      if (isGranted(_.ModNote))
+        div(cls := "mod-note")(
+          submitButton(cls := "button")(trans.send()),
+          div(
+            div(form3.cmnToggle("note-mod", "mod", checked = true)),
+            label(`for` := "note-mod")("For moderators only")
+          ),
+          isGranted(_.Admin) option div(
+            div(form3.cmnToggle("note-dox", "dox", checked = false)),
+            label(`for` := "note-dox")("Doxing info")
+          )
+        )
+      else
+        frag(
+          input(tpe := "hidden", name := "mod", value := "false"),
+          submitButton(cls := "button")(trans.send())
+        )
+    ),
+    notes.isEmpty option div("No note yet"),
+    notes
+      .filter { n =>
+        ctx.me.exists(n.isFrom) ||
+        isGranted(_.Admin) ||
+        (!n.dox && isGranted(_.ModNote))
+      }
+      .map { note =>
+        div(cls := "note")(
+          p(cls := "note__text")(richText(note.text, expandImg = false)),
+          p(cls := "note__meta")(
+            userIdLink(note.from.some),
+            br,
+            note.dox option "dox ",
+            momentFromNow(note.date),
+            (ctx.me.exists(note.isFrom) && !note.mod) option frag(
+              br,
+              postForm(action := routes.User.deleteNote(note._id))(
+                submitButton(
+                  cls := "button-empty button-red confirm button text",
+                  style := "float:right",
+                  dataIcon := ""
+                )("Delete")
+              )
+            )
+          )
+        )
+      }
+  )
 }
