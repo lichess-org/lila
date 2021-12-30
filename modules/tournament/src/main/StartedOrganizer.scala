@@ -62,7 +62,8 @@ final private class StartedOrganizer(
     else if (api.killSchedule contains tour.id) {
       api.killSchedule remove tour.id
       api finish tour
-    } else if (tour.nbPlayers < 30) {
+    } else if (tour.nbPlayers < 2) funit
+    else if (tour.nbPlayers < 30) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour)
       }
