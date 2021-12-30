@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">o awen tawa jan ante</string>
   <string name="waiting">o awen</string>
   <string name="yourTurn">sina o musi</string>
-  <string name="aiNameLevelAiLevel">ilo %1$s nanpa %2$s</string>
+  <string name="aiNameLevelAiLevel">ilo %1$s pi wawa %2$s</string>
   <string name="level">mute pona</string>
   <string name="strength">wawa</string>
   <string name="toggleTheChat">toki o lon ala lon?</string>
@@ -28,7 +28,7 @@
   <string name="itsYourTurn">sina o musi!</string>
   <string name="cheatDetected">kepeken ilo li lon</string>
   <string name="kingInTheCenter">mije lawa li lon insa</string>
-  <string name="threeChecks">tenpo tu wan la kiwen li utala e mije lawa</string>
+  <string name="threeChecks">jan lawa li ken moli lon tenpo tu wan</string>
   <string name="raceFinished">tawa wawa li pini</string>
   <string name="variantEnding">musi ante li pini</string>
   <string name="newOpponent">jan ante sin</string>
@@ -77,7 +77,7 @@
   <string name="close">o pini</string>
   <string name="winning">pini pona li kama</string>
   <string name="losing">pini ike li kama</string>
-  <string name="drawn">pini sama li kama</string>
+  <string name="drawn">pini pi anpa ala li kama</string>
   <string name="unknown">sona ala</string>
   <string name="database">poki sona</string>
   <string name="whiteDrawBlack">walo / anpa ala / pimeja</string>
@@ -134,14 +134,14 @@
   <string name="moveTimes">tenpo tawa</string>
   <string name="flipBoard">o jasima e supa</string>
   <string name="threefoldRepetition">tenpo tu wan la supa li sama</string>
-  <string name="claimADraw">o kama jo e pini sama</string>
-  <string name="offerDraw">o toki e wile pi pini sama</string>
-  <string name="draw">pini sama</string>
+  <string name="claimADraw">o kama jo e pini pi anpa ala</string>
+  <string name="offerDraw">o toki e wile pi anpa ala</string>
+  <string name="draw">pini pi anpa ala</string>
   <plurals name="nbPlayers">
     <item quantity="one">jan musi wan</item>
     <item quantity="other">jan musi %s</item>
   </plurals>
-  <string name="drawByMutualAgreement">pini sama tan wile ale</string>
+  <string name="drawByMutualAgreement">anpa ala tan wile pi jan musi tu</string>
   <string name="fiftyMovesWithoutProgress">tawa mute mute luka luka la musi li tawa ala</string>
   <string name="currentGames">musi pi tenpo ni</string>
   <plurals name="nbGames">
@@ -250,7 +250,7 @@
   <string name="play">o musi</string>
   <string name="inbox">poki toki</string>
   <string name="chatRoom">tomo toki</string>
-  <string name="loginToChat">o open la o toki</string>
+  <string name="loginToChat">sina wile toki la, o open e lipu jan</string>
   <string name="youHaveBeenTimedOut">sina o, ken ala toki.</string>
   <string name="spectatorRoom">tomo lukin</string>
   <string name="composeMessage">o sitelen e toki</string>
