@@ -89,6 +89,7 @@
     <item quantity="one">mije lawa li moli lon tawa kama %s</item>
     <item quantity="other">mije lawa li moli lon tawa kama %s</item>
   </plurals>
+  <string name="dtzWithRounding">nanpa «DTZ50\'\'» pi ante \"sike\" (tan mute tawa ni: anpa ijo anu tawa pi jan utala li kama)</string>
   <string name="noGameFound">musi ala li lon</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">sina ken alasa e musi ante kepeken lipu wile.</string>
   <string name="openingExplorer">ilo open</string>
@@ -98,6 +99,7 @@
   <string name="lossSavedBy50MoveRule">pini ike li kama ala tan nasin pi tawa mute mute luka luka</string>
   <string name="winOr50MovesByPriorMistake">pini pona anu pini pi tawa 50 tan tawa ike pi tenpo pini</string>
   <string name="lossOr50MovesByPriorMistake">pini ike anu pini pi tawa 50 tan tawa ike pi tenpo pini</string>
+  <string name="unknownDueToRounding">musi li ken pini pi anpa ala tan ni: tawa kama li sama ala tawa lipu</string>
   <string name="allSet">pona!</string>
   <string name="importPgn">o kama jo e lipu PGN</string>
   <string name="delete">o weka</string>
@@ -652,6 +654,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="downloadImported">o awen e ante tan pi lipu ni</string>
   <string name="crosstable">musi ale pi jan tu ni</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">sin la, sina ken tawa lon tenpo tawa kepeken ilo sike nasin pi ilo nasin sina.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">ilo utala sina li lon sona pi tawa ken la, lipu lili pi tawa ken ni li lon.</string>
   <string name="analysisShapesHowTo">sina wile sitelen lon supa musi la, o pilin e nena \"Shift\", e nena #1 pi ilo nasin. anu la, o pilin e nena #2 pi ilo nasin.</string>
   <string name="letOtherPlayersMessageYou">jan ante li ken ala ken toki tawa sina?</string>
   <string name="receiveForumNotifications">jan li toki e nimi sina lon ma toki la, o kama jo e pana</string>
@@ -838,6 +841,7 @@ ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="streamerManager">nasin pali pi sitelen tawa</string>
   <string name="cancelTournament">o moli e musi</string>
   <string name="tournDescription">toki musi</string>
+  <string name="tournDescriptionHelp">sina wile pana e sona tawa jan musi la, o kepeken e ma sitelen ni. sina ken pali e nimi nasin kepeken nasin \"Markdown\": [nimi](https://nimi_lipu)</string>
   <string name="ratedFormHelp">musi li jo e nanpa wawa
 li ante e nanpa wawa</string>
   <string name="onlyMembersOfTeam">jan kulupu taso</string>
@@ -847,8 +851,15 @@ li ante e nanpa wawa</string>
   <string name="maximumWeeklyRating">o jo e nanpa wawa pi tenpo pali ≤ ni</string>
   <string name="onlyTitled">jan pi nimi wawa taso</string>
   <string name="onlyTitledHelp">ni li lon la, jan pi utala musi li wile jo e nimi wawa tan kulupu suli</string>
+  <string name="positionInputHelp">sina wile open lon nasin ijo ante, o pana e lipu \"FEN\" kepeken poki pana.
+ni li pali ala lon musi pi nasin ante.
+sina ken pali e sona \"FEN\" kepeken %s.
+sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
+  <string name="cancelSimul">o pini e musi mute pi tenpo sama</string>
   <string name="simulHostcolor">kule pi jan musi lawa</string>
   <string name="estimatedStart">tenpo open</string>
+  <string name="simulFeatured">o pana lukin lon lipu \"%s\"</string>
+  <string name="simulFeaturedHelp">sina ken pana lukin e musi mute sina tawa jan ale lon lipu \"%s\". sina wile len e musi mute sina la, o kepeken ala e nasin ni.</string>
   <string name="simulDescription">sitelen sona pi musi pi tenpo sama</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>
@@ -864,4 +875,5 @@ li ante e nanpa wawa</string>
   <string name="youCantStartNewGame">sina wile pali e musi sin la, sina wile pini e musi ni.</string>
   <string name="since">poki open tenpo</string>
   <string name="until">poki pini tenpo</string>
+  <string name="switchSides">o lukin tan poka ante</string>
 </resources>
