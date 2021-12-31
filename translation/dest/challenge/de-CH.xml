@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Usäfoderigä</string>
-  <string name="challengeToPlay">Zunärä Partii usäfordärä</string>
-  <string name="challengeDeclined">Usäfoderig abglähnt</string>
-  <string name="challengeAccepted">Usäfoderig angnoo!</string>
-  <string name="challengeCanceled">Usäfoderig abbrochää.</string>
-  <string name="registerToSendChallenges">Bitte registiärä di, um Usäfoderigä zu verschickä.</string>
+  <string name="challenges">Useforderige</string>
+  <string name="challengeToPlay">Zunere Partii usefordere</string>
+  <string name="challengeDeclined">Useforderig abglehnt</string>
+  <string name="challengeAccepted">Useforderig aangnaa!</string>
+  <string name="challengeCanceled">Useforderig zrugg\'zoge.</string>
+  <string name="registerToSendChallenges">Bitte regischtier dich, zum Useforderige schicke.</string>
   <string name="youCannotChallengeX">Du chasch %s nöd usäfordärä.</string>
   <string name="xDoesNotAcceptChallenges">%s nimmt kei Usäfoderigä a.</string>
   <string name="yourXRatingIsTooFarFromY">Dinni %1$s Wertung isch z\'weit vo %2$s entfernt.</string>
