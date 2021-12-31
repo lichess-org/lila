@@ -72,7 +72,7 @@
   <string name="variantLoss">Variantä verlorä</string>
   <string name="variantWin">Variantä gwunnä</string>
   <string name="insufficientMaterial">Nümä gnueg Material</string>
-  <string name="pawnMove">Buure-Zug</string>
+  <string name="pawnMove">Puure-Zug</string>
   <string name="capture">Schlag-Zug</string>
   <string name="close">Schlüüsse</string>
   <string name="winning">Gwünnt</string>
@@ -861,7 +861,7 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
   <string name="markdownAvailable">%s isch für erwiitärätä Syntax erhältlich.</string>
   <string name="embedsAvailable">Füäg zum Ibettä ä Spiil-URL odär ä Studiäkapitäl-URL ii.</string>
-  <string name="inYourLocalTimezone">I dinärä eigänä lokalä Ziitzonä</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">I dinärä eigänä lokalä Ziitzonä</string>
   <string name="tournChat">Turniärtschätt</string>
   <string name="noChat">Kein Tschätt</string>
   <string name="onlyTeamLeaders">Nur Teamleitär</string>
