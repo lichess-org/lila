@@ -4,9 +4,9 @@
   <string name="isItRated">Isch es gwertet?</string>
   <string name="willBeNotified">Du wirsch benachrichtiget, wänns Turnier aafangt. Es isch also möglich, während de Warteziit ime andere Tab z\'schpille.</string>
   <string name="isRated">Das Turnier isch gwertet und wird diini Wertig beiiflusse.</string>
-  <string name="isNotRated">Das Turnier isch *nöd* gwärtät und wird dini Wärtigszahl *nöd* beiiflussä.</string>
-  <string name="someRated">Gwüssi Turniere sind gwärtät und werdäd dini Wärtigszahl beiiflussä.</string>
-  <string name="howAreScoresCalculated">Wiä werdäd d\'Pünkt berächnät?</string>
+  <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiiflusse.</string>
+  <string name="someRated">Einigi Turnier sind gwertet und werded diini Wertig beiiflusse.</string>
+  <string name="howAreScoresCalculated">Wie werded d\'Pünkt berächnet?</string>
   <string name="howAreScoresCalculatedAnswer">Grundsätzlich gits fürän Siig 2 Pünkt, 1 Punkt für Remis und 0 Pünkt fürä Niderlag.
 Gwünnsch du zwei Partiiä in Folg, bechunnsch ä Strähnä mit verdopplätär Punktzahl (dargschtellt dur äs Flammäsymbol). Für di nochfolgänd Partiiä bechunnsch du solang di dopplete Punktzahl, bis du ä Partii nöd gwünnsch.
 Das bedüütät, dass du fürän Siig dänn vier, füräs Remis zwei und fürä Niderlag natürlich kei Pünkt bechunnsch.
