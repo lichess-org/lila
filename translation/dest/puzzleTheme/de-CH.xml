@@ -17,10 +17,10 @@
   <string name="bishopEndgame">Läufer-Ändschpiil</string>
   <string name="bishopEndgameDescription">Es Ändschpiil, nur mit Läufer und Puure.</string>
   <string name="bodenMate">Boden-Matt</string>
-  <string name="bodenMateDescription">Zwei aagriifändi Läufer uf sich chrüüzändä Diagonalä setzäd dä König matt, wo dur eigäni Figurä behindärät wird.</string>
-  <string name="castling">Roschaadä</string>
-  <string name="castlingDescription">Bring din König in Sicherheit und dä Turm in Aagriffsposition.</string>
-  <string name="capturingDefender">Schloh dä Verteidiger</string>
+  <string name="bodenMateDescription">Zwei aagriifendi Läufer, uf sich chrüzende Diagonale, setzed de König matt, wo dur eigeni Figure behinderet wird.</string>
+  <string name="castling">Roschaade</string>
+  <string name="castlingDescription">Bring de König i Sicherheit und benutz de Turm zum Aagriffe.</string>
+  <string name="capturingDefender">Schlaa de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlohn ä Figur, wo für d\'Deckig vonärä andärä Figur vo entscheidänder Bedüütig isch, damit diä dänn nümä deckti Figur mitäm folgändä Zug gschlagä wärdä chan.</string>
   <string name="crushing">Vernichtänd</string>
   <string name="crushingDescription">Find dä gegnerisch Patzer, zum än vernichtändä Vorteil z\'becho. (Bewärtig ≥ 600 Hundertschtäl-Puurä)</string>
