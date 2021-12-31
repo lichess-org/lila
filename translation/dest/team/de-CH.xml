@@ -28,7 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Dini Bitrittsafrog wird bald vomänä Teamleiter überprüäft.</string>
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
-  <string name="requestDeclined">Deine Beitrittsanfrage wurde von einem Teamleiter abgelehnt.</string>
+  <string name="requestDeclined">Diini Biitritts-Aafrag isch vume Teamleiter abg\'lehnt worde.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
   <string name="teamBattle">Teamfight</string>
   <string name="teamBattleOverview">En Fight vo mehrere Teams, alli Schpiller/-innä sammläd Pünkt für ihräs Team</string>
@@ -45,7 +45,7 @@
   <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>
   <string name="entryCode">Teamiigangscode</string>
-  <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
+  <string name="entryCodeDescriptionForLeader">(Optional) En Zuegangscode, wo noii Mitgliider känne müend, wänns dem Team wänd biiträte.</string>
   <string name="incorrectEntryCode">Inkorräktä Iigangscode.</string>
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTourns">Kommendi Turnier</string>
