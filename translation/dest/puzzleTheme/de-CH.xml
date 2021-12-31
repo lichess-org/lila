@@ -3,9 +3,9 @@
   <string name="advancedPawn">Vorgrucktä Puur</string>
   <string name="advancedPawnDescription">Ein vo dine Puurä isch tüf idi gegnerisch Schtellig vorgruckt und droht möglicherwys umzuwandlä.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutz dini Chance, zum än entscheidändä Vorteil z\'erlangä. (200 Hundertschtäl-Puurä ≤ Bewärtig ≤ 600 Hundertschtäl-Puurä)</string>
+  <string name="advantageDescription">Nutz dini Chance, zum en entscheidende Vorteil z\'erlange. (200 Hundertschtel-Puurä ≤ Bewertig ≤ 600 Hundertschtel-Puure)</string>
   <string name="anastasiaMate">Anastasia-Matt</string>
-  <string name="anastasiaMateDescription">Än Gaul und än Turm bzw. ä Damä schaffäd zämä, zum dä gegnerisch König zwüschäd äm Brättrand und sinä eigänä Figurä iizschlüssä.</string>
+  <string name="anastasiaMateDescription">En Schpringer und en Turm oder e Dame schaffed zäme, zum de gegnerisch König, zwüschet em Brättrand und sine eigene Figure, zverwütsche.</string>
   <string name="arabianMate">Arabischs Matt</string>
   <string name="arabianMateDescription">Än Gaul und än Turm schaffäd zämä, zum dä gegnerisch König imänä Eggä vom Brätt matt z\'setzä.</string>
   <string name="attackingF2F7">Aagriff uf f2 oder f7</string>
@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">Äs bitzli vo Alläm. Du weisch nöd, was dich erwartät, drum bliibsch am beschtä uf alläs vorbereität! Genau wiä in ächtä Partiiä.</string>
   <string name="playerGames">Schpilär Partiä</string>
   <string name="playerGamesDescription">Suech nach Rätsel, wo us diine Schpiil oder us Schpiil vu andere Schpiller stammed.</string>
-  <string name="puzzleDownloadInformation">Diese Aufgaben sind öffentlich zugänglich und können unter %s heruntergeladen werden.</string>
+  <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
 </resources>
