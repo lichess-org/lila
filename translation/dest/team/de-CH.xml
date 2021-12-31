@@ -11,9 +11,9 @@
   <string name="newTeam">Neus Team</string>
   <string name="myTeams">Mini Teams</string>
   <string name="noTeamFound">Kais Team gfundä</string>
-  <string name="joinTeam">Tritt äm Team bii</string>
+  <string name="joinTeam">Tritt em Team bii</string>
   <string name="quitTeam">Team verloh</string>
-  <string name="manuallyReviewAdmissionRequests">Biitrittsafrogä manuäll überprüäfä</string>
+  <string name="manuallyReviewAdmissionRequests">Biitrittsafrage manuell überprüefe</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Wenn diä Option aktiviert isch, müend Schpiller/-innä än Anfrog schriibä, zum äm Team biiztrete; du chasch si ablehnä oder akzeptierä.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
@@ -30,7 +30,7 @@
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
   <string name="requestDeclined">Diini Biitritts-Aafrag isch vume Teamleiter abg\'lehnt worde.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
-  <string name="teamBattle">Teamfight</string>
+  <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">En Fight vo mehrere Teams, alli Schpiller/-innä sammläd Pünkt für ihräs Team</string>
   <string name="teamTournament">Team-Turniär</string>
   <string name="teamTournamentOverview">Es Arenaturnier, zu däm nur Mitglieder vo dim Team biitrettä chönd</string>
