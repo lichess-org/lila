@@ -39,8 +39,8 @@
   <string name="deflection">Ablänkig</string>
   <string name="deflectionDescription">En Zug, wo e gegnerischi Figur vonere andere Ufgab ablänkt, wie z. B. em Schutz vome wichtige Fäld. Mängisch au \"Überlaschtig\" gnännt.</string>
   <string name="discoveredAttack">Abzugsaagriff</string>
-  <string name="discoveredAttackDescription">Züch ä Figur, wo voranä än Agriff dur än anderi langschrittigi Figur blockiärt hät, wiänän Gaul usäm Wäg vom Turm.</string>
-  <string name="doubleCheck">Doppälschach</string>
+  <string name="discoveredAttackDescription">E Figur (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wiit weg stehendi Figur (z. B. en Turm) blockiert hät, us em Wäg neh.</string>
+  <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Schachgebot mit zwei Figurä gliichziitig als Ergebnis vomänä Abzugsaagriff, bi däm sowohl di abzüchänd als au di zuvor blockiärti Figur dä gegnerisch König aagriifäd.</string>
   <string name="endgame">Ändschpiil</string>
   <string name="endgameDescription">Ä Taktik idä letschtä Phasä vodä Partii.</string>
