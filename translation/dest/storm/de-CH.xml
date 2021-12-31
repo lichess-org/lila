@@ -16,7 +16,7 @@
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Het en Lauf vo %2$s gschpillt</item>
-    <item quantity="other">Het %1$s Läuf vo %2$s gschpillt</item>
+    <item quantity="other">Hät %1$s Läuf vu %2$s gschpillt</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Punkteschtand</string>
