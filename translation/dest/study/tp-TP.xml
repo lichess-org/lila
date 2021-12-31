@@ -56,4 +56,5 @@
   <string name="clearChat">weka e toki lon tomo toki</string>
   <string name="deleteStudy">o weka e lipu sona</string>
   <string name="whereDoYouWantToStudyThat">sina wile kama sona e ni lon ma seme?</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">tawa sin</string>
 </resources>
