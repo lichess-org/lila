@@ -31,17 +31,28 @@
   <string name="leaveTheStudy">o tawa weka tan nasin sona ni</string>
   <string name="youAreNowAContributor">tenpo ni la, sina jan pali pi lipu sona</string>
   <string name="youAreNowASpectator">tenpo ni la, sina jan lukin pi lipu sona</string>
+  <string name="pgnTags">nimi sona pi nasin \"PGN\"</string>
   <string name="like">pona tawa mi</string>
+  <string name="unlike">o weka e \"pilin pona\" mi</string>
   <string name="newTag">nomo sona sin</string>
+  <string name="commentThisPosition">o pana e toki tawa nasin ma pi tenpo ni</string>
+  <string name="commentThisMove">o pana e toki tawa tawa ni</string>
+  <string name="annotateWithGlyphs">o toki kepeken sitelen sin</string>
+  <string name="theChapterIsTooShortToBeAnalysed">mi ken ala lukin sona e wan ni tan ni: ona li lili.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">jan li kepeken e nasin SYNC la, ona ale li lukin e nasin ma sama.</string>
   <string name="playing">musi</string>
   <string name="first">o tawa e nanpa wan</string>
   <string name="previous">monsi</string>
   <string name="next">tawa</string>
   <string name="last">o tawa monsi</string>
+  <string name="shareAndExport">o pana tawa jan ante / o pali e lipu ilo</string>
   <string name="cloneStudy">o kama jo</string>
   <string name="studyPgn">kama sona e PGN</string>
+  <string name="downloadAllGames">o kama jo e lipu ilo pi musi ale</string>
+  <string name="chapterPgn">lipu \"PGN\" pi wan ni</string>
   <string name="downloadGame">o kama jo e musi</string>
   <string name="studyUrl">kama sona e URL</string>
+  <string name="currentChapterUrl">nimi nasin pi wan ni</string>
   <string name="startAtX">open lon %s</string>
   <string name="open">o tawa</string>
   <string name="orientation">poka pi sinpin ona</string>
@@ -65,5 +76,15 @@
   <string name="clearChat">weka e toki lon tomo toki</string>
   <string name="deleteStudy">o weka e lipu sona</string>
   <string name="whereDoYouWantToStudyThat">sina wile kama sona e ni lon ma seme?</string>
+  <string name="goodMove">tawa ni li pona</string>
+  <string name="mistake">tawa ni li ike</string>
+  <string name="brilliantMove">tawa ni li pona mute</string>
+  <string name="blunder">tawa ni li ike mute</string>
+  <string name="interestingMove">tawa ni li musi, li ken pona</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">tawa ni li musi, li ken ike</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">tawa ni li tawa wan ken taso</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">tawa ale kama li ike</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">tawa sin</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">tawa ni li utala</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">tawa ni li kama tan tenpo lili</string>
 </resources>
