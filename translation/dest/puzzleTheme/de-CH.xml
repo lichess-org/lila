@@ -41,9 +41,9 @@
   <string name="discoveredAttack">Abzugsaagriff</string>
   <string name="discoveredAttackDescription">E Figur (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wiit weg stehendi Figur (z. B. en Turm) blockiert hät, us em Wäg neh.</string>
   <string name="doubleCheck">Doppelschach</string>
-  <string name="doubleCheckDescription">Schachgebot mit zwei Figurä gliichziitig als Ergebnis vomänä Abzugsaagriff, bi däm sowohl di abzüchänd als au di zuvor blockiärti Figur dä gegnerisch König aagriifäd.</string>
+  <string name="doubleCheckDescription">Schachgebot, gliichzitig mit 2 Figure, als Ergebnis vome Abzug, wo die abziehend und au di vorher blockierti Figur de gegnerisch König aagriifed.</string>
   <string name="endgame">Ändschpiil</string>
-  <string name="endgameDescription">Ä Taktik idä letschtä Phasä vodä Partii.</string>
+  <string name="endgameDescription">E Taktik für die letscht Fase vu de Partie.</string>
   <string name="enPassantDescription">Ä Taktik, wo d\'Schachreglä \"im Vorbigoh\" iibeziäht, bi därä än Puur än gegnerischä Puur schloh chann.</string>
   <string name="exposedKing">Exponiärtä König</string>
   <string name="exposedKingDescription">Ä Taktik, bi därä dä König nu vo wänigä Figurä verteidigät wird, was oft zum Matt füärt.</string>
