@@ -21,11 +21,11 @@
   <string name="castling">Roschaade</string>
   <string name="castlingDescription">Bring de König i Sicherheit und benutz de Turm zum Aagriffe.</string>
   <string name="capturingDefender">Schlaa de Verteidiger</string>
-  <string name="capturingDefenderDescription">Schlohn ä Figur, wo für d\'Deckig vonärä andärä Figur vo entscheidänder Bedüütig isch, damit diä dänn nümä deckti Figur mitäm folgändä Zug gschlagä wärdä chan.</string>
-  <string name="crushing">Vernichtänd</string>
-  <string name="crushingDescription">Find dä gegnerisch Patzer, zum än vernichtändä Vorteil z\'becho. (Bewärtig ≥ 600 Hundertschtäl-Puurä)</string>
-  <string name="doubleBishopMate">Läuferpaarmatt</string>
-  <string name="doubleBishopMateDescription">Zwei aagriifändi Läufer uf näbädänand liggändä Diagonalä setzäd dä König matt, wo dur eigäni Figurä behindärät wird.</string>
+  <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass sie im nächschte Zug gschlage werde chann.</string>
+  <string name="crushing">Vernichtend</string>
+  <string name="crushingDescription">Find de gegnerische Fähler, für en vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Puure)</string>
+  <string name="doubleBishopMate">Läuferpaar-Matt</string>
+  <string name="doubleBishopMateDescription">Zwei aagriifendi Läufer, uf näbenand liggende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schtärnmatt</string>
   <string name="dovetailMateDescription">Ä Damä setzt dä näbäschtehänd König matt, dessä einzigi zwei Fluchtfälder dur eigäni Figurä verschtellt sind.</string>
   <string name="equality">Uusgliich</string>
