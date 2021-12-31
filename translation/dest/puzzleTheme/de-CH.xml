@@ -120,8 +120,9 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">De Gegner hät nur e limitierti Aazahl Züg und jede Zug verschlächteret sini Schtellig.</string>
   <string name="healthyMix">Gsunde Mix</string>
-  <string name="healthyMixDescription">Äs bitzli vo Alläm. Du weisch nöd, was dich erwartät, drum bliibsch am beschtä uf alläs vorbereität! Genau wiä in ächtä Partiiä.</string>
-  <string name="playerGames">Schpilär Partiä</string>
+  <string name="healthyMixDescription">Ein bisschen von allem. Man weiß nicht, was einen erwartet, also ist man auf alles gefasst! Genau wie in echten Spielen.
+Es bitzli vu Allem. Me weiss nöd, was eim erwartet, drum isch mer uf alles g\'fasst! Genau wie in ächte Partie.</string>
+  <string name="playerGames">Schpiller Partie</string>
   <string name="playerGamesDescription">Suech nach Rätsel, wo us diine Schpiil oder us Schpiil vu andere Schpiller stammed.</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
 </resources>
