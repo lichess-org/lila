@@ -2,6 +2,8 @@
 <resources>
   <string name="contact">toki</string>
   <string name="contactLichess">o toki tawa jan pi ilo Lichess</string>
+  <string name="wantTitle">mi wile e ni: o pana lukin e nimi wawa mi lon lipu \"Lichess\"</string>
   <string name="noRatingPoints">nanpa wawa li ante ala</string>
+  <string name="ratedGame">o musi e musi pi nanpa wawa. musi ante li ante ala e nanpa wawa.</string>
   <string name="errorPage">lipu pakala</string>
 </resources>
