@@ -20,6 +20,6 @@
   <string name="declineCasual">Bitte schick mir, anstell vu dem, e Forderig für es ung\'wertets Spiel.</string>
   <string name="declineStandard">Ich nimme momentan kei Useforderige für anderi Schpiilvariante aa.</string>
   <string name="declineVariant">Ich wott momentan die Variante nöd schpille.</string>
-  <string name="declineNoBot">Ich nimm kei Usäfoderigä von Bots a.</string>
-  <string name="declineOnlyBot">Ich nimm nur Usäfoderig vo Bots a.</string>
+  <string name="declineNoBot">Ich akzeptiere kei Useforderige vu Bots.</string>
+  <string name="declineOnlyBot">Ich akzeptiere nur Useforderige vu Bots.</string>
 </resources>
