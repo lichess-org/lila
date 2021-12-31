@@ -55,6 +55,8 @@
   <string name="sacrificeDescription">o weka e ijo musi lon tenpo ni tawa ni: kama pona li lon tenpo kama.</string>
   <string name="short">musi lili pi tenpo lili</string>
   <string name="shortDescription">o kama pona lon tenpo tawa tu.</string>
+  <string name="superGM">musi pi jan pi wawa mute</string>
+  <string name="superGMDescription">musi lili tan musi pi jan pi wawa mute.</string>
   <string name="zugzwang">tawa ale li ike tawa jan ante</string>
   <string name="zugzwangDescription">jan ante li ken pali e tawa pi mute lili. tawa ale li ike tawa ona.</string>
   <string name="playerGames">musi lili tan musi jan</string>
