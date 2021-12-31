@@ -302,8 +302,8 @@
     <item quantity="other">nanpa pona %s pi utala suli musi</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">ma sona %s</item>
-    <item quantity="other">ma sona %s</item>
+    <item quantity="one">lipu sona %s</item>
+    <item quantity="other">lipu sona %s</item>
   </plurals>
   <string name="viewTournament">o lukin e musi pi musi mute</string>
   <string name="backToTournament">o tawa musi</string>
@@ -350,7 +350,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="orUploadPgnFile">ante la, sina ken pana e lipu PGN</string>
   <string name="fromPosition">tan</string>
   <string name="continueFromHere">o tawa tan ni</string>
-  <string name="toStudy">o kama sona</string>
+  <string name="toStudy">o pali e lipu sona</string>
   <string name="importGame">o pana e musi</string>
   <string name="importGameExplanation">o pana e lipu PGN kepeken poki pana. sina pali e ni la, sina ken lukin e musi kepeken ilo. sina ken toki e musi. sina ken jo e nimi nasin URL pi musi ni.</string>
   <plurals name="nbImportedGames">
@@ -554,7 +554,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="clock">ilo tenpo</string>
   <string name="opponent">jan ante</string>
   <string name="learnMenu">kama sona</string>
-  <string name="studyMenu">o kama sona</string>
+  <string name="studyMenu">lipu sona</string>
   <string name="practice">kama pona</string>
   <string name="community">kulupu</string>
   <string name="tools">ilo musi</string>
