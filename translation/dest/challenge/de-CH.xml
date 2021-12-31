@@ -15,11 +15,11 @@
   <string name="declineLater">Ich han grad kei Ziit, bitte frög spöter nomal.</string>
   <string name="declineTooFast">Die Bedänkziit isch mir z\'churz, bitte forder mich für es langsamers Schpiil.</string>
   <string name="declineTooSlow">Die Bedänkziit isch mir z\'lang, bitte forder mich für es schnällers Schpiil.</string>
-  <string name="declineTimeControl">I nim momentan kei Usäfoderigä me a.</string>
-  <string name="declineRated">Bitte fordrää mich schtattdessä zunärä gwärtätä Partii usä.</string>
-  <string name="declineCasual">Bitte fordärä mich schtattdessä zunärä ungwärtätä Partii usä.</string>
-  <string name="declineStandard">I nimm momentan kei Usäforderigä für anderi Schpiilvariantä a.</string>
-  <string name="declineVariant">I bi im moment nöd parrat, diä Variantä zu spielä.</string>
+  <string name="declineTimeControl">Ich akzeptiere kei Schpiil, mit derä Bedänkziit.</string>
+  <string name="declineRated">Bitte schick mir, anstell vu dem, e Forderig für es g\'wertets Spiel.</string>
+  <string name="declineCasual">Bitte schick mir, anstell vu dem, e Forderig für es ung\'wertets Spiel.</string>
+  <string name="declineStandard">Ich nimme momentan kei Useforderige für anderi Schpiilvariante aa.</string>
+  <string name="declineVariant">Ich wott momentan die Variante nöd schpille.</string>
   <string name="declineNoBot">Ich nimm kei Usäfoderigä von Bots a.</string>
   <string name="declineOnlyBot">Ich nimm nur Usäfoderig vo Bots a.</string>
 </resources>
