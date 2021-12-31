@@ -17,6 +17,10 @@
   <string name="mostPopular">o nasin tan pilin pi jan mute</string>
   <string name="alphabetical">o nasin tan sitelen nimi</string>
   <string name="addNewChapter">o pali e wan sin</string>
+  <plurals name="nbChapters">
+    <item quantity="one">wan %s</item>
+    <item quantity="other">wan %s</item>
+  </plurals>
   <plurals name="nbGames">
     <item quantity="one">musi %s</item>
     <item quantity="other">musi %s</item>
