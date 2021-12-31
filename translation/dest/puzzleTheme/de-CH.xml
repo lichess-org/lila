@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Vorgrucktä Puur</string>
-  <string name="advancedPawnDescription">Ein vo dine Puurä isch tüf idi gegnerisch Schtellig vorgruckt und droht möglicherwys umzuwandlä.</string>
+  <string name="advancedPawn">Vorgruckte Puur</string>
+  <string name="advancedPawnDescription">Eine vu diine Puure isch tüüf idi gegnerisch Schtellig vorgruckt und droht sich möglicherwiis umzuwandle.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutz dini Chance, zum en entscheidende Vorteil z\'erlange. (200 Hundertschtel-Puurä ≤ Bewertig ≤ 600 Hundertschtel-Puure)</string>
   <string name="anastasiaMate">Anastasia-Matt</string>
@@ -13,10 +13,10 @@
   <string name="attraction">Hiilänkig oder \"Magneet\"</string>
   <string name="attractionDescription">En Tuusch oder es Opfer, wo e gegnerischi Figur uf es Fäld länkt oder zwingt, was e Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihe-Matt</string>
-  <string name="backRankMateDescription">Setz dä König uf dä Grundreihä matt, wänn är döt dur sini eigänä Figurä blockiärt wird.</string>
-  <string name="bishopEndgame">Läuferändschpiil</string>
-  <string name="bishopEndgameDescription">Äs Ändschpiil nur mit Läufer und Puurä.</string>
-  <string name="bodenMate">Boudän-Matt</string>
+  <string name="backRankMateDescription">De König uf de Grundreihe matt setze, wänn er dur sini eigene Figure blockiert isch.</string>
+  <string name="bishopEndgame">Läufer-Ändschpiil</string>
+  <string name="bishopEndgameDescription">Es Ändschpiil, nur mit Läufer und Puure.</string>
+  <string name="bodenMate">Boden-Matt</string>
   <string name="bodenMateDescription">Zwei aagriifändi Läufer uf sich chrüüzändä Diagonalä setzäd dä König matt, wo dur eigäni Figurä behindärät wird.</string>
   <string name="castling">Roschaadä</string>
   <string name="castlingDescription">Bring din König in Sicherheit und dä Turm in Aagriffsposition.</string>
@@ -57,7 +57,7 @@
   <string name="interferenceDescription">Ä Figur zwüschäd zwei gegnerischi Figurä züchä, zum eini oder beidi gegnerischä Figurä undeckt z\'loh, zum Biischpiil än Gaul ufämä decktä Fäld zwüschäd zwei Türm.</string>
   <string name="intermezzo">Zwüschäzug</string>
   <string name="intermezzoDescription">Anschtatt dä erwartät Zug z\'schpilä, schiäbsch än andärä Zug däzwüschäd, won ä sofortigi Drohig ufschtellt, wo dä Gegner beantwortä muän.</string>
-  <string name="knightEndgame">Gauländschpiil</string>
+  <string name="knightEndgame">Schpringer-Ändschpiil</string>
   <string name="knightEndgameDescription">Äs Ändschpiil nur mit Gäul und Puurä.</string>
   <string name="long">Mehrzügigi Ufgoob</string>
   <string name="longDescription">Drü Züg zum Siig.</string>
