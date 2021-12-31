@@ -14,25 +14,25 @@
   <string name="joinTeam">Tritt em Team bii</string>
   <string name="quitTeam">Team verloh</string>
   <string name="manuallyReviewAdmissionRequests">Biitrittsafrage manuell überprüefe</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Wenn diä Option aktiviert isch, müend Schpiller/-innä än Anfrog schriibä, zum äm Team biiztrete; du chasch si ablehnä oder akzeptierä.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wänn die Option aktiviert isch, müend d\'Schpiller e Aafrag schriibe, um em Team biizträte - wo du chasch ablähne oder akzeptiere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
   </plurals>
-  <string name="teamRecentMembers">Neuschti Teammitgliider</string>
-  <string name="kickSomeone">Öppert usm Team schmeissä</string>
-  <string name="whoToKick">Wer wottsch usm Team schmeissä?</string>
+  <string name="teamRecentMembers">Neuschti Team-Mitgliider</string>
+  <string name="kickSomeone">Eine us em Team schmeisse</string>
+  <string name="whoToKick">Wen wottsch us em Team schmeisse?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s Bitrittsafrog</item>
+    <item quantity="one">%s Biitrittsafrag</item>
     <item quantity="other">%s Biitrittsafrooge</item>
   </plurals>
-  <string name="willBeReviewed">Dini Bitrittsafrog wird bald vomänä Teamleiter überprüäft.</string>
+  <string name="willBeReviewed">Dini Biitrittsafrag wird bald vume Teamleiter prüeft.</string>
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
   <string name="requestDeclined">Diini Biitritts-Aafrag isch vume Teamleiter abg\'lehnt worde.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
   <string name="teamBattle">Teamkampf</string>
-  <string name="teamBattleOverview">En Fight vo mehrere Teams, alli Schpiller/-innä sammläd Pünkt für ihräs Team</string>
-  <string name="teamTournament">Team-Turniär</string>
+  <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiller sammled Pünkt für ihres Team</string>
+  <string name="teamTournament">Team-Turnier</string>
   <string name="teamTournamentOverview">Es Arenaturnier, zu däm nur Mitglieder vo dim Team biitrettä chönd</string>
   <string name="swissTournamentOverview">Es Schwiizer-System-Turnier, zu däm nur Mitglieder vo dim Team bitrettä chönd</string>
   <string name="messageAllMembers">Benochrichtigä alli Mitgliider</string>
