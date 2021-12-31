@@ -15,21 +15,21 @@
   <string name="notAccepting">Akzeptiert momentan kei neui Schüeler</string>
   <string name="xCoachesStudents">%s traniert Schach-Schüeler</string>
   <string name="viewXProfile">Lichess-Profil von %s</string>
-  <string name="sendPM">Schick ä privati Nochricht</string>
-  <string name="aboutMe">Über mi</string>
-  <string name="playingExperience">Schpielerfahrig</string>
-  <string name="teachingExperience">Lehrerfahrig</string>
-  <string name="otherExperiences">Anderi Erfahrigä</string>
-  <string name="bestSkills">Talent</string>
-  <string name="teachingMethod">Lehrmethodä</string>
-  <string name="publicStudies">Öffentlichi Studiä</string>
-  <string name="youtubeVideos">Youtube-Videos</string>
+  <string name="sendPM">Schick e privati Nachricht</string>
+  <string name="aboutMe">Über mich</string>
+  <string name="playingExperience">Schpiilerfahrig</string>
+  <string name="teachingExperience">Lehr-Erfahrig</string>
+  <string name="otherExperiences">Anderi Erfahrige</string>
+  <string name="bestSkills">Beschti Fähigkeite</string>
+  <string name="teachingMethod">Lehr-Methode</string>
+  <string name="publicStudies">Öffentlichi Studie</string>
+  <string name="youtubeVideos">YouTube-Videos</string>
   <plurals name="studentReviews">
-    <item quantity="one">Ä Schüälerbewärtig</item>
-    <item quantity="other">%s Schülerbewärtigä</item>
+    <item quantity="one">1 Schüeler-Bewertig</item>
+    <item quantity="other">%s Schüler-Bewertige</item>
   </plurals>
-  <string name="thankYouForReview">Merci für dini Bewärtig!</string>
-  <string name="xWillApproveIt">%s wird\'s bald freischaltä oder en Moderator wird en Blick druf wärfä.</string>
-  <string name="reviewCoach">Bewärt dä Trääner</string>
+  <string name="thankYouForReview">Danke villmal für diini Bewertig!</string>
+  <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aaluege.</string>
+  <string name="reviewCoach">De Trainer bewerte</string>
   <string name="describeExperienceWith">Beschriib dini Träningserfahrig mit %s</string>
 </resources>
