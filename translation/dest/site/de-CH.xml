@@ -373,7 +373,7 @@
   <string name="following">Folg ich</string>
   <string name="unfollow">Nümä folgä</string>
   <string name="followX">%s folgä</string>
-  <string name="unfollowX">%s entfolgä</string>
+  <string name="unfollowX">%s nümme folge</string>
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Nümä blockiärä</string>
