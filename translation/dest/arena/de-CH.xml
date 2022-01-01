@@ -34,18 +34,18 @@ Schpill schnäll und gang sofort zrugg zur Turnierübersicht, so schpillsch meh 
   </plurals>
   <string name="thisIsPrivate">Das isch es privats Turnier</string>
   <string name="shareUrl">Teil die URL um anderi Lüt iizlade: %s</string>
-  <string name="drawStreak">Remis-Strähne: Wänn än Schpiller / ä Schpillerin mehreri ufänanderfolgendi Remis ide Arena erziilt, wird nu fürs erschte Remis än Punkt vergeh, oder aber für Remis, wo meh als %s Züg aduuräd. Ä Remis-Strähne cha nur durän Sieg brochä wärdä, nöd durä verloräni Partii oder äs Remis.</string>
-  <string name="history">Arena-Hischtoriä</string>
+  <string name="drawStreak">Remis-Serie: Wänn en Schpiller ide Arena mehreri Remis nachenand spillt, wird nu fürs erschte Remis en Punkt geh, oder für Remis, wo meh als %s Züg gschpillt worde sind. So e Remis-Serie chann nur dur en Sieg underbroche werde, nöd dur e verloreni Partie oder es Remis.</string>
+  <string name="history">Arena Verlauf</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Das Team ansehen</item>
-    <item quantity="other">Alli %s Teams aluägä</item>
+    <item quantity="one">Zeig d\'Teams</item>
+    <item quantity="other">Alli %s Teams zeige</item>
   </plurals>
-  <string name="newTeamBattle">Neuä Teamfight</string>
-  <string name="customStartDate">Benutzärdefiniärts Schtartdatum</string>
-  <string name="customStartDateHelp">I dinärä eigänä, lokalä Ziitzonä. Das wird d Iischtellig \"Ziit bis s Turniär schtartät\" überschriibä</string>
+  <string name="newTeamBattle">Neue Team-Kampf</string>
+  <string name="customStartDate">Benutzerdefinierts Schtartdatum</string>
+  <string name="customStartDateHelp">I dinere eigene, lokale Ziitzone. Das überschriibt d\'Iischtellig \"Ziit bis s Turnierbeginn\"</string>
   <string name="allowBerserk">Berserk erlaube</string>
   <string name="allowBerserkHelp">Erlaubt em Schpiller sini Bedänkziit z\'halbiere, um so en Zuesatzpunkt z\'günne</string>
-  <string name="allowChatHelp">Loh Schpillär/-innä imnä Tschättruum diskutiärä</string>
-  <string name="arenaStreaks">Arena-Schträhnä</string>
+  <string name="allowChatHelp">Lass d\'Schpiller ime Tschättruum diskutiere</string>
+  <string name="arenaStreaks">Arena-Sieges-Serie</string>
   <string name="arenaStreaksHelp">Nach 2 Siig gänd ufänandärfolgändi Siig 4 Pünkt anstatt 2.</string>
 </resources>
