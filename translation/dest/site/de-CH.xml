@@ -835,21 +835,21 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe aazeige]</string>
   <string name="download">Abälade</string>
   <string name="welcome">Willkomme!</string>
-  <string name="lichessPatronInfo">Lichess isch ä Wohltätigkeitsorganisation und ä völlig chostälosi/freii Open-Source-Software.
-Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutzerschpändä finanziärt.</string>
+  <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
+Alli Betriebschoschte, Entwicklig und Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="coachManager">Trääner Mänätscher</string>
   <string name="streamerManager">Schtriimer Mänätscher</string>
-  <string name="cancelTournament">Turniär abbrächä</string>
-  <string name="tournDescription">Turniärbeschriibig</string>
-  <string name="tournDescriptionHelp">Wettsch dä Teilnehmer öppis Bsundrix mitteilä? Halt dich churz. Du chasch ä Url mitmä Namä verseh: [name](https://url)</string>
-  <string name="ratedFormHelp">Partiiä sind gwärtät
-und beeiflussäd Schpillärwärtig</string>
-  <string name="onlyMembersOfTeam">Nur Teammitgliidär</string>
-  <string name="noRestriction">Kä Iischränkigä</string>
-  <string name="minimumRatedGames">Mindeschtaazahl vo gwärtätä Partiiä</string>
-  <string name="minimumRating">Mindäscht-Wärtig</string>
-  <string name="maximumWeeklyRating">Maximali Wärtigszahl i därä Wuchä</string>
-  <string name="onlyTitled">Nur Schpillär mit Titel</string>
+  <string name="cancelTournament">Brich das Turnier ab</string>
+  <string name="tournDescription">Turnier-Beschriibig</string>
+  <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
+  <string name="ratedFormHelp">Partie sind gwertet
+und beeiflussed d\'Schpillerwertig</string>
+  <string name="onlyMembersOfTeam">Nur Mitgliider vum Team</string>
+  <string name="noRestriction">Kei Iischränkige</string>
+  <string name="minimumRatedGames">Minimum gwerteti Partie</string>
+  <string name="minimumRating">Minimali Wertig</string>
+  <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
+  <string name="onlyTitled">Nur Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Brucht än offiziellä Titel, zum a dem Turniär teilznäh</string>
   <string name="positionInputHelp">Füäg än gültigä FEN ii, zum jedi Partii usärä bestimmtä Schtellig z\'schtartä.
 Das funktioniärt nur für Schtandardschpiil, nöd für Variantä.
