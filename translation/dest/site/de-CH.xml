@@ -12,7 +12,7 @@
   <string name="strength">Schpiilstärchi</string>
   <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
   <string name="chat">Tschätt</string>
-  <string name="resign">Ufgää</string>
+  <string name="resign">Schpiil ufgeh</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Wiis</string>
@@ -26,9 +26,9 @@
   <string name="youPlayTheWhitePieces">Du schpilsch mit dä wiisä Figurä</string>
   <string name="youPlayTheBlackPieces">Du schpilsch mit dä schwarzä Figurä</string>
   <string name="itsYourTurn">Du bisch am Zug!</string>
-  <string name="cheatDetected">Bschiss erchännt</string>
+  <string name="cheatDetected">Betrug bemerkt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
-  <string name="threeChecks">Drü Mal Schach gsetzt</string>
+  <string name="threeChecks">3 Mal Schach gseit</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variantä ändät</string>
   <string name="newOpponent">Neuä Gägner</string>
