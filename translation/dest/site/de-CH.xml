@@ -28,7 +28,7 @@
   <string name="itsYourTurn">Du bisch am Zug!</string>
   <string name="cheatDetected">Betrug bemerkt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
-  <string name="threeChecks">3 Mal Schach gseit</string>
+  <string name="threeChecks">3 Schachgebot</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variantä ändät</string>
   <string name="newOpponent">Neuä Gägner</string>
@@ -37,7 +37,7 @@
   <string name="whitePlays">Wiis am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
+    <item quantity="one">Din Gägner hät d\'Partie verlah. Du chasch i %s Sekunde din Sieg beaschpruche.</item>
     <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verloh. Du chasch de Siig beaschpruchä, es Unentschidä machä oder wartä.</string>
@@ -54,24 +54,24 @@
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
-  <string name="computerAnalysisDisabled">Kompianalüsä deaktiviärt</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
   <string name="analysis">Analüsebrätt</string>
   <string name="depthX">Tüüfi: %s</string>
-  <string name="usingServerAnalysis">Server-Analysä am Bruuchä</string>
+  <string name="usingServerAnalysis">Server-Analyse benutze</string>
   <string name="loadingEngine">Engine wird gladä ...</string>
-  <string name="cloudAnalysis">Wulchä-Analysä</string>
-  <string name="goDeeper">D\'Tüüfi erhöchä</string>
+  <string name="cloudAnalysis">Cloud-Analyse</string>
+  <string name="goDeeper">Gang tüüfer</string>
   <string name="showThreat">Bedrohig aazeigä</string>
   <string name="inLocalBrowser">im lokalä Browser</string>
   <string name="toggleLocalEvaluation">Lokali Uuswärtig ii und uus schaltä</string>
   <string name="promoteVariation">Variantä uufwertä</string>
-  <string name="makeMainLine">Zur Hauptvariantä machä</string>
-  <string name="deleteFromHere">Ab do löschä</string>
+  <string name="makeMainLine">Zur Hauptvariante mache</string>
+  <string name="deleteFromHere">Ab det lösche</string>
   <string name="forceVariation">Variantä erzwingä</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variantä verlorä</string>
   <string name="variantWin">Variantä gwunnä</string>
-  <string name="insufficientMaterial">Nümä gnueg Material</string>
+  <string name="insufficientMaterial">Nöd gnueg Material</string>
   <string name="pawnMove">Puure-Zug</string>
   <string name="capture">Schlag-Zug</string>
   <string name="close">Schlüüsse</string>
@@ -295,7 +295,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="takebackPropositionCanceled">Zugrücknahm zruggzogä</string>
   <string name="yourOpponentProposesATakeback">Din Gägner möchti dä letschti Zug zruggnäh</string>
   <string name="bookmarkThisGame">Das Schpiil mitämä Läsezeichä verseh</string>
-  <string name="tournament">Turnier</string>
+  <string name="tournament">Turniär</string>
   <string name="tournaments">Turniär</string>
   <string name="tournamentPoints">Turniärpünkt</string>
   <plurals name="nbTournamentPoints">
@@ -614,7 +614,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="simulAddExtraTime">Du chasch der extra Ziit gäh, demit mit em Simutlan zrächtchunsch.</string>
   <string name="simulHostExtraTime">Extra Bedenkziit vom Veraastalter</string>
   <string name="lichessTournaments">Lichess Turniär</string>
-  <string name="tournamentFAQ">Arena FAQ</string>
+  <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turniär schtartät</string>
   <string name="averageCentipawnLoss">Ø-Verluscht vo Centipuurä pro Zug</string>
   <string name="keyboardShortcuts">Taschtächürzel</string>
