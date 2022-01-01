@@ -84,7 +84,7 @@
   <string name="averageRatingX">Durchschnittlichi Wärtigszahl: %s</string>
   <string name="recentGames">Chürzlichi Partiiä</string>
   <string name="topGames">Schpitzä-Partiiä</string>
-  <string name="masterDbExplanation">Zwei Millionä OTB-Partiiä vo Spiller mit enerä Wärtigszahl über %1$s FIDE us de Jahr vo %2$s bis %3$s</string>
+  <string name="masterDbExplanation">Zwei Millione OTB-Partie vu Spiller mit Wertigszahl über %1$s FIDE us de Jahr %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt i %s Halbzug</item>
     <item quantity="other">Matt i %s Halbzüg</item>
@@ -157,7 +157,8 @@
   <string name="signIn">Iiloggä</string>
   <string name="youNeedAnAccountToDoThat">Dodäzuä bruuchsch än Account</string>
   <string name="signUp">Regischtriärä</string>
-  <string name="computersAreNotAllowedToPlay">D hilf vo Schachprogramm, Datäbankä und vo anderä Schpiller isch wärend em schpille nöd erlaubt. Bitte duen au beachtä, dass d\'Erschtellig vo mehrerä Accounts ungern gseh wird und das exessives erschtellä vo mehrerä Accounts zumenä Bann füerä chan.</string>
+  <string name="computersAreNotAllowedToPlay">Computer und Computer-Understützig isch nöd erlaubt. Bitte lass dir bim Schpille nöd vu Schachengines, Datebanke oder andere Schpiller hälfe. 
+Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multikonteverhalte chann zume Usschluss fühere.</string>
   <string name="games">Partiiä</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s hät zum Thema %2$s öppis gschribä</string>
@@ -195,7 +196,7 @@
   <string name="changePassword">Passwort ändärä</string>
   <string name="changeEmail">E-Mail-Adrässä ändärä</string>
   <string name="email">E-Mail</string>
-  <string name="passwordReset">Passwort zrugsetzä</string>
+  <string name="passwordReset">Passwort zruggsetze</string>
   <string name="forgotPassword">Passwort vergässä?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
@@ -235,7 +236,7 @@
   <string name="unlimited">Unbegränzt</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungwärtät</string>
-  <string name="rated">Gwärtet</string>
+  <string name="rated">Gwertet</string>
   <string name="casualTournament">Ungwärtet</string>
   <string name="ratedTournament">Gwärtät</string>
   <string name="thisGameIsRated">Das Schpiil isch gwärtät</string>
