@@ -7,7 +7,7 @@
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
 
-Lila (li[chess in sca]la) is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
+Lila (li[chess in sca]la) is a free, open source online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use. It is free from adverts, popups and trackers.
 
 It features a [search engine](https://lichess.org/games/search),
 [computer analysis](https://lichess.org/ief49lif) distributed with [fishnet](https://github.com/niklasf/fishnet),
@@ -60,7 +60,7 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 | ----------------- | ------- | ------------------------------------------------- |
 | Chromium / Chrome | last 10 | Full support                                      |
 | Firefox           | 61+     | Full support (fastest local analysis since FF 79) |
-| Opera             | 55+     | Reasonable support                                |
+| Opera             | 55+     | Good support                                |
 | Safari            | 11.1+   | Reasonable support                                |
 | Edge              | 17+     | Reasonable support                                |
 
