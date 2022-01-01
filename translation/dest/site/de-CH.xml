@@ -29,7 +29,7 @@
   <string name="cheatDetected">Bschiss erchännt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
   <string name="threeChecks">Drü Mal Schach gsetzt</string>
-  <string name="raceFinished">Ränä beändät</string>
+  <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variantä ändät</string>
   <string name="newOpponent">Neuä Gägner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wött äs neus Schpiil mit dir schpille</string>
@@ -52,7 +52,7 @@
   <string name="whiteDidntMove">Wiis hät nöt zogä</string>
   <string name="blackDidntMove">Schwarz hät nöt zogä</string>
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
-  <string name="computerAnalysis">Kompianalysä</string>
+  <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
   <string name="computerAnalysisDisabled">Kompianalüsä deaktiviärt</string>
   <string name="analysis">Analüsebrätt</string>
@@ -333,7 +333,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="ratedLessThanInPerf">Wärtig ≤ %1$s in %2$s diä Wuchä</string>
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
-  <string name="backToGame">Zrug zum Spiil</string>
+  <string name="backToGame">Zrugg zum Schpiil</string>
   <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt ufärä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäg än Fründ, dä Kompi oder gäg än zuefälligä Gägnär!</string>
   <string name="xJoinedTeamY">%1$s isch äm Team %2$s biiträttä</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründät</string>
