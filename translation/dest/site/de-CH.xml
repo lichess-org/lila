@@ -242,26 +242,26 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="thisGameIsRated">Das Schpiil isch gwertet</string>
   <string name="rematch">Revanche</string>
   <string name="rematchOfferSent">Aagebot zur Revanche gsändät</string>
-  <string name="rematchOfferAccepted">Aagebot zur Revanche isch aktzeptiärt</string>
-  <string name="rematchOfferCanceled">Aagebot zur Revanche isch zruggzogä wordä</string>
-  <string name="rematchOfferDeclined">Aagebot zur Revanche isch abglehnt wordä</string>
-  <string name="cancelRematchOffer">Aagebot zur Revanche zruggzüchä</string>
-  <string name="viewRematch">Revanche aaluägä</string>
+  <string name="rematchOfferAccepted">Revanche-Agebot aktzeptiert</string>
+  <string name="rematchOfferCanceled">Revanche-Agebot zruggzoge</string>
+  <string name="rematchOfferDeclined">Revanche-Agebot abglehnt</string>
+  <string name="cancelRematchOffer">Revanche-Agebot zruggneh</string>
+  <string name="viewRematch">Revanche aaluege</string>
   <string name="confirmMove">Zug beschtätigä</string>
   <string name="play">Schpilä</string>
   <string name="inbox">Poschtiigang</string>
-  <string name="chatRoom">Tschättruum</string>
-  <string name="loginToChat">Mäld dich aa zum tschättä</string>
-  <string name="youHaveBeenTimedOut">Du machsch etz mol Pausä.</string>
-  <string name="spectatorRoom">Zuäschauärruum</string>
-  <string name="composeMessage">Nochricht verfassä</string>
+  <string name="chatRoom">Chatruum</string>
+  <string name="loginToChat">Zum chatte aamälde</string>
+  <string name="youHaveBeenTimedOut">Du häsch es verordnets timeout.</string>
+  <string name="spectatorRoom">Zueschauerruum</string>
+  <string name="composeMessage">Nachricht verfasse</string>
   <string name="subject">Beträff</string>
-  <string name="send">Sändä</string>
+  <string name="send">Schicke</string>
   <string name="incrementInSeconds">Inkremänt in Sekundä</string>
-  <string name="freeOnlineChess">Choschtälooses Online-Schach</string>
+  <string name="freeOnlineChess">Gratis Online-Schach</string>
   <plurals name="nbRated">
-    <item quantity="one">%s gwärtät</item>
-    <item quantity="other">%s gwärtäti</item>
+    <item quantity="one">%s gwertet</item>
+    <item quantity="other">%s gwerteti</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s Siig</item>
@@ -276,11 +276,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Remis</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s laufändi Partii</item>
-    <item quantity="other">%s laufändi Partiiä</item>
+    <item quantity="one">%s laufendi Partie</item>
+    <item quantity="other">%s laufendi Partie</item>
   </plurals>
-  <string name="exportGames">Partiiä exportiärä</string>
-  <string name="ratingRange">Wärtigsbereich</string>
+  <string name="exportGames">Partie exportiere</string>
+  <string name="ratingRange">Wertigsbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Em Gägner %s Sekundä gä</item>
     <item quantity="other">Em Gägner %s Sekundä gä</item>
@@ -288,13 +288,13 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="thisAccountViolatedTos">Das Konto hät gäg d\'Lichess-Nutzigsrichliniä verschtossä</string>
   <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahm</string>
-  <string name="proposeATakeback">Zugrücknahm vorschloh</string>
-  <string name="takebackPropositionSent">Zugrücknahm vorgschlagä</string>
+  <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
+  <string name="takebackPropositionSent">Zugsrücknahm vorgschlage</string>
   <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
-  <string name="takebackPropositionAccepted">Zugrücknahm aagnoh</string>
-  <string name="takebackPropositionCanceled">Zugrücknahm zruggzogä</string>
-  <string name="yourOpponentProposesATakeback">Din Gägner möchti dä letschti Zug zruggnäh</string>
-  <string name="bookmarkThisGame">Das Schpiil mitämä Läsezeichä verseh</string>
+  <string name="takebackPropositionAccepted">Zugsrücknahm agnah</string>
+  <string name="takebackPropositionCanceled">Zugsrücknahm zruggzoge</string>
+  <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
+  <string name="bookmarkThisGame">Das Schpiil mit Läsezeiche markiere</string>
   <string name="tournament">Turniär</string>
   <string name="tournaments">Turniär</string>
   <string name="tournamentPoints">Turniärpünkt</string>
@@ -306,7 +306,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">%s Studiä</item>
     <item quantity="other">%s Studiä</item>
   </plurals>
-  <string name="viewTournament">Turniär aaluägä</string>
+  <string name="viewTournament">Turnier zueluege</string>
   <string name="backToTournament">Zrugg zum Turniär</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
@@ -318,8 +318,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">≥ %1$s gwärtäti %2$s Schpiil</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du muäsch no %1$s gwärtäti Partii meh %2$s schpilä</item>
-    <item quantity="other">Du muäsch no %1$s gwärtäti Partiiä meh %2$s schpilä</item>
+    <item quantity="one">Du muesch no %1$s gwerteti Partie meh %2$s schpille</item>
+    <item quantity="other">Du muesch no %1$s gwerteti Partie meh %2$s schpille</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Du muäsch no %s gwärtäts Schpiil meh schpilä</item>
