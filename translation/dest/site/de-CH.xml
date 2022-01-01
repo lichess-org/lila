@@ -41,16 +41,16 @@
     <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verloh. Du chasch de Siig beaschpruchä, es Unentschidä machä oder wartä.</string>
-  <string name="forceResignation">Dä Siig beaschpruchä</string>
+  <string name="forceResignation">De Sieg beaschpruche</string>
   <string name="forceDraw">Remis erchläre</string>
-  <string name="talkInChat">Sig bitte fründlich im Tschätt!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Di erschti Pärson, wo dä URL aaklickt, isch din Gägner.</string>
+  <string name="talkInChat">Im Chat bitte nett sii!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die 1. Person, wo die URL klickt, schpillt mit dir.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
-  <string name="whiteLeftTheGame">Wiis hät d\'Partii verloh</string>
+  <string name="whiteLeftTheGame">Wiis hät d\'Partie verlah</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partii verlaa</string>
-  <string name="whiteDidntMove">Wiis hät nöt zogä</string>
-  <string name="blackDidntMove">Schwarz hät nöt zogä</string>
+  <string name="whiteDidntMove">Wiis hät nöd zoge</string>
+  <string name="blackDidntMove">Schwarz hät nöd zoge</string>
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
