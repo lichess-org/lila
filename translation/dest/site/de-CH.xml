@@ -168,7 +168,7 @@
   <string name="today">Hüt</string>
   <string name="yesterday">Geschter</string>
   <string name="minutesPerSide">Minutä pro Schpiller/-in</string>
-  <string name="variant">Variantä</string>
+  <string name="variant">Variante</string>
   <string name="variants">Variantä</string>
   <string name="timeControl">Bedenkziit</string>
   <string name="realTime">Ächtziit</string>
@@ -294,7 +294,7 @@
   <string name="takebackPropositionCanceled">Zugrücknahm zruggzogä</string>
   <string name="yourOpponentProposesATakeback">Din Gägner möchti dä letschti Zug zruggnäh</string>
   <string name="bookmarkThisGame">Das Schpiil mitämä Läsezeichä verseh</string>
-  <string name="tournament">Turniär</string>
+  <string name="tournament">Turnier</string>
   <string name="tournaments">Turniär</string>
   <string name="tournamentPoints">Turniärpünkt</string>
   <plurals name="nbTournamentPoints">
