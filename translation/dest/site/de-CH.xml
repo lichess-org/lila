@@ -359,11 +359,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach än Zug zum bewiisä, das du än Mänsch bisch.</string>
-  <string name="captcha.fail">Lös bitte d\'Schachufgob.</string>
-  <string name="notACheckmate">Keis Schachmatt</string>
-  <string name="whiteCheckmatesInOneMove">Wiis setzt Schwarz i eim Zug Matt</string>
-  <string name="blackCheckmatesInOneMove">Schwarz setzt Wiis i eim Zug Matt</string>
-  <string name="retry">Nomol versuächä</string>
+  <string name="captcha.fail">Bitte lös die Schach-Ufgab.</string>
+  <string name="notACheckmate">Das isch keis Schachmatt</string>
+  <string name="whiteCheckmatesInOneMove">Wiis setzt Matt i 1 Zug</string>
+  <string name="blackCheckmatesInOneMove">Schwarz setzt Matt i 1 Zug</string>
+  <string name="retry">Probiers nomal</string>
   <string name="reconnecting">Widerverbindä</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Fründ online</item>
@@ -372,14 +372,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="favoriteOpponents">Hüfigschti Gägner</string>
   <string name="follow">Folgä</string>
   <string name="following">Folg ich</string>
-  <string name="unfollow">Nümä folgä</string>
-  <string name="followX">%s folgä</string>
+  <string name="unfollow">Nüme folge</string>
+  <string name="followX">%s folge</string>
   <string name="unfollowX">%s nümme folge</string>
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Nümä blockiärä</string>
-  <string name="followsYou">Folgät dir</string>
-  <string name="xStartedFollowingY">%1$s folgät jetzt %2$s</string>
+  <string name="followsYou">Folgt dir</string>
+  <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
     <item quantity="other">%s Follower</item>
@@ -391,9 +391,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="more">Meh</string>
   <string name="memberSince">Mitgliid sit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
-  <string name="player">Schpiller/-in</string>
+  <string name="player">Schpiller</string>
   <string name="list">Lischtä</string>
-  <string name="graph">Graaf</string>
+  <string name="graph">Grafik</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Wenigär als %s Minutä</item>
     <item quantity="other">Wenigär als %s Minutä</item>
@@ -406,7 +406,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="createANewTournament">Neus Turniär erschtellä</string>
   <string name="tournamentCalendar">Turniärkaländär</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
-  <string name="advancedSettings">Erwiitäräti Iischtelligä</string>
+  <string name="advancedSettings">Erwiiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
   <string name="inappropriateNameWarning">Alläs nur äs bitzli Unagmässäs chan zur Schlüssig vo dim Konto füährä.</string>
   <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
