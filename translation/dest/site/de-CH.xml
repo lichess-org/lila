@@ -173,7 +173,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="variants">Variantä</string>
   <string name="timeControl">Bedenkziit</string>
   <string name="realTime">Ächtziit</string>
-  <string name="correspondence">Färnschach</string>
+  <string name="correspondence">Fernschach</string>
   <string name="daysPerTurn">Täg pro Zug</string>
   <string name="oneDay">Ein Tag</string>
   <plurals name="nbDays">
@@ -187,7 +187,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="time">Ziit</string>
   <string name="rating">Wärtigszahl</string>
   <string name="ratingStats">Wärtigsstatistikä</string>
-  <string name="username">Benutzernamä</string>
+  <string name="username">Benutzername</string>
   <string name="usernameOrEmail">Benutzernamä oder E-Mail-Adrässä</string>
   <string name="changeUsername">Benutzernamä ändärä</string>
   <string name="changeUsernameNotSame">Nur d Groos- und Chliischriibig cha gänderet werdä. Zum Bischbiil: \"FritzliMüller\" zu \"FRiTzLiMüLlEr\".</string>
@@ -438,7 +438,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
   <string name="endgamePositions">Ändschpiilpositionä</string>
-  <string name="chess960StartPosition">Fischer Random Aafangsschtellig: %s</string>
+  <string name="chess960StartPosition">Schach960 Aafangsschtellig: %s</string>
   <string name="startPosition">Aafangsposition</string>
   <string name="clearBoard">Brätt löschä</string>
   <string name="loadPosition">Schtellig ladä</string>
