@@ -10,13 +10,13 @@
   <string name="howAreScoresCalculatedAnswer">Für en Sieg gits 2 Pünkt, für es Remis 1 Punkt und für e Niderlag kein Punkt. Wänn du 2 Spiil in Folg günnsch, fangt e Serie vu dopplete Pünkt aa, was dur es Flammesymbol aazeigt wird. Die folgende Spiil sind so lang dopplet gwertet, bis es Spiil verlore wird. Das heisst, für en Sieg gits 4 Pünkt, für es Remis 2 Pünkt und für e Niderlag natürlich keine. 
 Also sind z. B. 2 Sieg, g\'folgt vu 1 Remis 6 Punkte: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Bärsärk</string>
-  <string name="berserkAnswer">Wenn du vor Partiibeginn dä \"Bärsärk\"-Chnopf drucksch, verlürsch d\'Hälfti vo diner Ziit uf de Uhr (also nünt für Berner), aber en Sieg wird mitämä zuäsätzlichä Turnierpunkt honoriärt.
+  <string name="berserkAnswer">Wänn en Schpiller, vor em Schpiil, uf \"Berserk\" klickt, halbiert er sini Bedänkziit, günnt aber - wänn er siegt - en zuesätzliche Turnier-Punkt.
 
-Imänä Ziitmodus mit Inkrement entfärnt \"Bärsärk\" s\'Inkrement. (1+2 ist eine Ausnahme, es wird zu 1+0.)
+Im Ziitmodus mit Inkrement entfernt \"Berserk\" s\'Inkrement. (1+2 isch e Usnahm, es wird zu 1+0.)
 
-Für Partiiä ohni Grundbedenkziit (0+1, 0+2) isch \"Bärsärk\" nöd verfüegbar.
+Für Partie ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd verfüegbar.
 
-Dä zuäsätzlichi Punkt für \"Bärsärk\" wird nu vergeh, wenn du mindeschtens siebä Züg ide Partii gmacht hesch.</string>
+De zuesätzlich Punkt für \"Berserk\" gits nur, wänn du i de Partie mindeschtens 7 Züg gschpillt häsch.</string>
   <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
   <string name="howIsTheWinnerDecidedAnswer">De oder die Schpiller mit de meischte Pünkt, bi Turnierschluss, werded als Sieger bekanntgeh.
 Wänn 2 oder meh Schpiller die gliich Punktzahl erreiched, entscheidet d\'Turnierleischtig.</string>
@@ -47,5 +47,5 @@ Schpill schnäll und gang sofort zrugg zur Turnierübersicht, so schpillsch meh 
   <string name="allowBerserkHelp">Erlaubt em Schpiller sini Bedänkziit z\'halbiere, um so en Zuesatzpunkt z\'günne</string>
   <string name="allowChatHelp">Lass d\'Schpiller ime Tschättruum diskutiere</string>
   <string name="arenaStreaks">Arena-Sieges-Serie</string>
-  <string name="arenaStreaksHelp">Nach 2 Siig gänd ufänandärfolgändi Siig 4 Pünkt anstatt 2.</string>
+  <string name="arenaStreaksHelp">Nach 2 Sieg in Folg gits 4 Pünkt anstatt 2.</string>
 </resources>
