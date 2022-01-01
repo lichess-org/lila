@@ -850,25 +850,25 @@ und beeiflussed d\'Schpillerwertig</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="onlyTitled">Nur Schpiller mit Titel</string>
-  <string name="onlyTitledHelp">Brucht än offiziellä Titel, zum a dem Turniär teilznäh</string>
-  <string name="positionInputHelp">Füäg än gültigä FEN ii, zum jedi Partii usärä bestimmtä Schtellig z\'schtartä.
-Das funktioniärt nur für Schtandardschpiil, nöd für Variantä.
-Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn do iizfüägä. Läär loh, zum Partiiä vode normale Usgangsschtellig us z\'schtartä.</string>
-  <string name="cancelSimul">Simultan abbrächä</string>
-  <string name="simulHostcolor">Farb vom Veraaschtaltär i jedärä Partii</string>
+  <string name="onlyTitledHelp">Es brucht en offizielle Titel, für das Turnier</string>
+  <string name="positionInputHelp">Füeg en gültige FEN ii, zum jedi Partie usere bestimmte Schtellig z\'schtarte.
+Das funktioniert nur für Standardschpiil, nöd für Variante.
+Du chasch de %s verwende, zum e FEN-Schtelliig z\'generiere und die dänn do iizfüege. Leer lah, zum Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
+  <string name="cancelSimul">Simultan abbräche</string>
+  <string name="simulHostcolor">Farb vom Veraaschtalter für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
-  <string name="simulFeatured">Uf %s zeigä</string>
-  <string name="simulFeaturedHelp">Zeig allnä uf %s dis Simultan. Für äs privats Schpiil deaktiviärä.</string>
-  <string name="simulDescription">Simultanbeschriibig</string>
-  <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
-  <string name="markdownAvailable">%s isch für erwiitärätä Syntax erhältlich.</string>
-  <string name="embedsAvailable">Füäg zum Ibettä ä Spiil-URL odär ä Studiäkapitäl-URL ii.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">I dinärä eigänä lokalä Ziitzonä</string>
-  <string name="tournChat">Turniärtschätt</string>
-  <string name="noChat">Kein Tschätt</string>
-  <string name="onlyTeamLeaders">Nur Teamleitär</string>
-  <string name="onlyTeamMembers">Nur Teammitglidär</string>
-  <string name="navigateMoveTree">Dur dä Zugbaum navigiärä</string>
+  <string name="simulFeatured">Uf %s zeige</string>
+  <string name="simulFeaturedHelp">Zeig allne uf %s diini Simultan. Für es privats Schpiil deaktiviere.</string>
+  <string name="simulDescription">Simultan Beschriibig</string>
+  <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
+  <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
+  <string name="embedsAvailable">Füeg zum Ibette e Spiil-URL oder e Studiekapitel-URL ii.</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">I dinere eigene lokale Ziitzone</string>
+  <string name="tournChat">Turnier-Chat</string>
+  <string name="noChat">Kein Chat</string>
+  <string name="onlyTeamLeaders">Nur Teamleiter</string>
+  <string name="onlyTeamMembers">Nur Team-Mitglider</string>
+  <string name="navigateMoveTree">Dur de Zugbaum navigiere</string>
   <string name="mouseTricks">Muus-Tricks</string>
   <string name="toggleLocalAnalysis">Lokali Kompianalyse aktiviärä/deaktiviärä</string>
   <string name="toggleAllAnalysis">Alli Kompianalyse aktiviärä/deaktiviärä</string>
