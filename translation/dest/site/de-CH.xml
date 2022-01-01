@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">Uf de Gägner wartä</string>
   <string name="waiting">Am Wartä</string>
   <string name="yourTurn">Du bisch am Zug</string>
-  <string name="aiNameLevelAiLevel">%1$s Stufä %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
   <string name="level">Schtufä</string>
   <string name="strength">Schpiilstärchi</string>
   <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
@@ -530,7 +530,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="always">Schtändig</string>
   <string name="never">Nie</string>
   <string name="xCompetesInY">%1$s nimmt bi %2$s teil</string>
-  <string name="victory">Siig</string>
+  <string name="victory">Sieg</string>
   <string name="defeat">Niderlag</string>
   <string name="victoryVsYInZ">%1$s gäg %2$s in %3$s</string>
   <string name="defeatVsYInZ">%1$s gäg %2$s in %3$s</string>
