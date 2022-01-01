@@ -7,11 +7,8 @@
   <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiiflusse.</string>
   <string name="someRated">Einigi Turnier sind gwertet und werded diini Wertig beiiflusse.</string>
   <string name="howAreScoresCalculated">Wie werded d\'Pünkt berächnet?</string>
-  <string name="howAreScoresCalculatedAnswer">Grundsätzlich gits fürän Siig 2 Pünkt, 1 Punkt für Remis und 0 Pünkt fürä Niderlag.
-Gwünnsch du zwei Partiiä in Folg, bechunnsch ä Strähnä mit verdopplätär Punktzahl (dargschtellt dur äs Flammäsymbol). Für di nochfolgänd Partiiä bechunnsch du solang di dopplete Punktzahl, bis du ä Partii nöd gwünnsch.
-Das bedüütät, dass du fürän Siig dänn vier, füräs Remis zwei und fürä Niderlag natürlich kei Pünkt bechunnsch.
-
-Biischpiil: Zwei Siige, gfolgt vonänä Remis sind 6 Pünkt wärt: 2 + 2 + (2 * 1)</string>
+  <string name="howAreScoresCalculatedAnswer">Für en Sieg gits 2 Pünkt, für es Remis 1 Punkt und für e Niderlag kein Punkt. Wänn du 2 Spiil in Folg günnsch, fangt e Serie vu dopplete Pünkt aa, was dur es Flammesymbol aazeigt wird. Die folgende Spiil sind so lang dopplet gwertet, bis es Spiil verlore wird. Das heisst, für en Sieg gits 4 Pünkt, für es Remis 2 Pünkt und für e Niderlag natürlich keine. 
+Also sind z. B. 2 Sieg, g\'folgt vu 1 Remis 6 Punkte: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Bärsärk</string>
   <string name="berserkAnswer">Wenn du vor Partiibeginn dä \"Bärsärk\"-Chnopf drucksch, verlürsch d\'Hälfti vo diner Ziit uf de Uhr (also nünt für Berner), aber en Sieg wird mitämä zuäsätzlichä Turnierpunkt honoriärt.
 
@@ -20,11 +17,10 @@ Imänä Ziitmodus mit Inkrement entfärnt \"Bärsärk\" s\'Inkrement. (1+2 ist e
 Für Partiiä ohni Grundbedenkziit (0+1, 0+2) isch \"Bärsärk\" nöd verfüegbar.
 
 Dä zuäsätzlichi Punkt für \"Bärsärk\" wird nu vergeh, wenn du mindeschtens siebä Züg ide Partii gmacht hesch.</string>
-  <string name="howIsTheWinnerDecided">Wiä wird dä Gwünner ermittlät?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Schpiller/-innä mit dä meischtä Pünkt bi Turnierschluss wärdäd als Gwünner/-innä bekanntgeh.
-
-Wenn zwei oder meh Schpiller/-innä di gliich Punktzahl bsitzäd, entscheidät d\'Turnierleischtig als Fiinwärtig.</string>
-  <string name="howDoesPairingWork">Wiä wärdäd d\'Turnierpaarigä ermittlät?</string>
+  <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
+  <string name="howIsTheWinnerDecidedAnswer">De oder die Schpiller mit de meischte Pünkt, bi Turnierschluss, werded als Sieger bekanntgeh.
+Wänn 2 oder meh Schpiller die gliich Punktzahl erreiched, entscheidet d\'Turnierleischtig.</string>
+  <string name="howDoesPairingWork">Wie werded d\'Turnierpaarige gmacht?</string>
   <string name="howDoesPairingWorkAnswer">Am Afang vom Turnier wärdäd d\'Schpiller/-innä uf Grundlag vode Wärtigszahl zuäteilt.
 Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpiller/ ä Schpillerin mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller/-innä im Turnier spillsch.
 Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erziilä.</string>
