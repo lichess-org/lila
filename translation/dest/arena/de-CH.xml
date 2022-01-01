@@ -25,7 +25,7 @@ Wänn 2 oder meh Schpiller die gliich Punktzahl erreiched, entscheidet d\'Turnie
 Sobald du es Schpiil beändet häsch, gahsch zrugg id Turnierübersicht. Dänn wird dir en Schpiller mit ähnlichem Rang zueteilt. So wird d\'Warteziit verchürzt. Es chann aber si, dass du nöd gäge alli Schpiller im Turnier spillsch.
 Schpill schnäll und gang sofort zrugg zur Turnierübersicht, so schpillsch meh Schpiil und gwünnsch meh Pünkt.</string>
   <string name="howDoesItEnd">Wie ändet es Turnier?</string>
-  <string name="howDoesItEndAnswer">Währendmä Turnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh. Laufendi Partiiä münd beändä wärdä, zelläd aber nümä fürs Turniär.</string>
+  <string name="howDoesItEndAnswer">Es Turnier hät e Turnieruhr. Hät d\'Turnierziit Null erreicht, sind alli Räng fix und de Sieger wird bekannt geh. No laufendi Schpiil müend fertig gschpillt werde, doch sie werded nümme fürs Turnier gwertet.</string>
   <string name="otherRules">Anderi wichtigi Regle</string>
   <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
   <plurals name="drawingWithinNbMoves">
