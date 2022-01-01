@@ -120,7 +120,7 @@ private object RelayFormat {
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
   }
 
-  def addPart(url: URL, part: String) = url.withPath(s"${url.path}/$part")
+  def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
   def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
 
   val mostCommonSingleFileName = "games.pgn"

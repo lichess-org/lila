@@ -14,7 +14,7 @@ object activity {
 
   def apply(u: User, as: Iterable[lila.activity.ActivityView])(implicit ctx: Context) =
     div(cls := "activity")(
-      as.toSeq map { a =>
+      as.toSeq filterNot (_.isEmpty) map { a =>
         st.section(
           h2(semanticDate(a.interval.getStart)),
           div(cls := "entries")(
