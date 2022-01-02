@@ -97,11 +97,11 @@ LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
   <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında hiç kimse bu kupaya sahip olamaz.</string>
-  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için berserk açarak %s oyunlarının hepsini kazandı.</string>
+  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için berserk açarak %s oynadığı oyunlarının hepsini kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasında</string>
-  <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
-  <string name="lichessRatings">Lichess puanlama sistemi</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün,ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı.Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi.Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
+  <string name="lichessRatings">Lichess derecelendirmeleri</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE hâlâ eski Elo puanlama sistemini kullanılır).
 
 Glicko sistemi \"güven aralıkları\" aracılığıyla puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500, puanınızı temsil ederken 1000 de güven aralığını temsil eder.
