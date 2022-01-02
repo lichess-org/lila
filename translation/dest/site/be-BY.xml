@@ -12,11 +12,13 @@
   <string name="strength">Складанасць</string>
   <string name="toggleTheChat">Укл./адкл. чат</string>
   <string name="chat">Чат</string>
-  <string name="resign">Здацца</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Здацца</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Белыя</string>
   <string name="black">Чорныя</string>
+  <string name="asWhite">за белыя</string>
+  <string name="asBlack">за чорныя</string>
   <string name="randomColor">Выпадковы колер</string>
   <string name="createAGame">Стварыць гульню</string>
   <string name="whiteIsVictorious">Белыя перамаглі</string>
@@ -390,6 +392,7 @@
   <string name="leaderboard">Лепшыя гульцы</string>
   <string name="pasteTheFenStringHere">Устаўце сюды радок у фармаце FEN</string>
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
+  <string name="orUploadPgnFile">Або загрузіце PGN файл</string>
   <string name="fromPosition">З пазіцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
   <string name="toStudy">Навучанне</string>
@@ -933,7 +936,7 @@
   <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
   <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
   <string name="embedsAvailable">Устаўце спасылку на гульню ці спасылку на раздзел навучання каб убудаваць яе.</string>
-  <string name="inYourLocalTimezone">У вашым часавым поясе</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">У вашым часавым поясе</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
@@ -958,4 +961,7 @@
   <string name="abortTheGame">Скасаваць гульню</string>
   <string name="resignTheGame">Здацца</string>
   <string name="youCantStartNewGame">Вы не можаце пачаць новую гульню, пакуль гэта няскончана.</string>
+  <string name="since">З</string>
+  <string name="until">Да</string>
+  <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>
 </resources>
