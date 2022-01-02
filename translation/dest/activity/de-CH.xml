@@ -52,24 +52,24 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Hät %s neui Schtudie erschtellt</item>
-    <item quantity="other">Hät %s neui Schtuudiä ärschtellt</item>
+    <item quantity="other">Hät %s neui Schtudie erschtellt</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Hät a %s Turniär teilgno</item>
-    <item quantity="other">Hät a %s Turniär teilgno</item>
+    <item quantity="one">Hät a %s Turnier teilgnah</item>
+    <item quantity="other">Hät a %s Turnier teilgnah</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Hät Platz #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
-    <item quantity="other">Hät Platz #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
+    <item quantity="one">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
+    <item quantity="other">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Hät a %s Turniär nach Schwiizär System teilgno</item>
-    <item quantity="other">Hät a %s Turniär nach Schwiizär System teilgno</item>
+    <item quantity="one">Hät a %s Turnier nach Schwiizer System teilgnah</item>
+    <item quantity="other">Hät a %s Turnier nach Schwiizer System teilgnah</item>
   </plurals>
-  <string name="rankedInSwissTournament">Hät Platz #%1$s im Turniär %2$s erreicht</string>
-  <string name="signedUp">Hat sich bei Lichess angemeldet</string>
+  <string name="rankedInSwissTournament">Hät Rang #%1$s im Turnier %2$s erreicht</string>
+  <string name="signedUp">Hät sich bi Lichess aagmäldet</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Ist %s Team beigetreten</item>
-    <item quantity="other">Ist %s Teams beigetreten</item>
+    <item quantity="one">Isch %s Team biiträte</item>
+    <item quantity="other">Isch %s Teams biiträte</item>
   </plurals>
 </resources>
