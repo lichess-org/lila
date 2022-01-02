@@ -56,7 +56,7 @@
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
   <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
   <string name="analysis">Analüsebrätt</string>
-  <string name="depthX">Tüüfi: %s</string>
+  <string name="depthX">Tüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analyse benutze</string>
   <string name="loadingEngine">Engine wird gladä ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
@@ -90,8 +90,8 @@
     <item quantity="other">Matt i %s Halbzüg</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' mit Rundig, basierend uf de Aazahl Halbzüg bis zum nächstä Schlag- oder Puure-Zug</string>
-  <string name="noGameFound">Käs Schpiil gfundä</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht söted meh Schpiil vom Iischteligs Menu iibezogä werdä?</string>
+  <string name="noGameFound">Keis Schpiil gfunde</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht sötted meh Schpiil vom Iischteligs Menü iibezoge werde?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
   <string name="openingEndgameExplorer">Eröffnigs / Ändschpiil Explorer</string>
   <string name="xOpeningExplorer">%s Eröffnigsbuäch</string>
@@ -110,7 +110,7 @@
   <string name="openStudy">Studiä eröffnä</string>
   <string name="enable">Iischaltä</string>
   <string name="bestMoveArrow">Pfiil für dä beschti Zug</string>
-  <string name="evaluationGauge">Bewärtigsaazeig</string>
+  <string name="evaluationGauge">Bewertigs-Massstab</string>
   <string name="multipleLines">Mehreri Variantä</string>
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
@@ -208,7 +208,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">%s Ufgab</item>
     <item quantity="other">%s Ufgabä</item>
   </plurals>
-  <string name="gamesPlayed">Gschpillti Partiiä</string>
+  <string name="gamesPlayed">Gschpillti Partie</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Partii mit dir</item>
     <item quantity="other">%s Partiiä mit dir</item>
@@ -314,16 +314,16 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">≥ %s gwärtäti Schpiil</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s gwärtäts %2$s Schpiil</item>
-    <item quantity="other">≥ %1$s gwärtäti %2$s Schpiil</item>
+    <item quantity="one">≥ %1$s gwertets %2$s Schpiil</item>
+    <item quantity="other">≥ %1$s gwerteti %2$s Schpiil</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du muesch no %1$s gwerteti Partie meh %2$s schpille</item>
     <item quantity="other">Du muesch no %1$s gwerteti Partie meh %2$s schpille</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du muäsch no %s gwärtäts Schpiil meh schpilä</item>
-    <item quantity="other">Du muäsch no %s gwärtäti Schpiil meh schpilä</item>
+    <item quantity="one">Du bruchsch no %s Wertigs-Schpiil meh</item>
+    <item quantity="other">Du bruchsch no %s Wertigs-Schpiil meh</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wärtig isch provisorisch</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wärtig (%2$s) isch z\'höch</string>
@@ -352,7 +352,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="continueFromHere">Vu da us wiiter schpille</string>
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Partie importiere</string>
-  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuägriff uf ä Schpiilwiderholig, ä Kompianalysä, en Tschätt und än teilbarä URL.</string>
+  <string name="importGameExplanation">Wänn du de PGN iifüegsch, häsch du Zuegriff uf e Schpiilwiderholig, e Computeranalyse, en Chat und e teilbari URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partii</item>
     <item quantity="other">%s importierti Partiiä</item>
@@ -404,7 +404,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="winner">Gwünner</string>
   <string name="standing">Tabällä</string>
   <string name="createANewTournament">Erschtell es neus Turnier</string>
-  <string name="tournamentCalendar">Turniärkaländär</string>
+  <string name="tournamentCalendar">Turnier-Kaländer</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
   <string name="advancedSettings">Erwiiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
