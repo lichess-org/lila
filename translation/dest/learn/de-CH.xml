@@ -108,18 +108,16 @@ Mer muesch nöd Umwandle.</string>
   <string name="castlingIntro">Bring din König in Sicherheit und dä Turm in Agriffsposition!</string>
   <string name="castleKingSide">Zieh diin König 2 Fälder, uf de Königssiite, für die churz Rochade!</string>
   <string name="castleQueenSide">Zieh diin König 2 Fälder, uf de Damesiite, für die lang Rochade!</string>
-  <string name="theKnightIsInTheWay">Dä Gaul isch im Wäg! Beweg\'än wägg und roschiär dänn churz.</string>
+  <string name="theKnightIsInTheWay">De Schpringer isch im Wäg! Zieh en weg und mach die churz Rochade.</string>
   <string name="castleKingSideMovePiecesFirst">Roschiär churz! Du muesch zersch Figurä wäggbewegä.</string>
   <string name="castleQueenSideMovePiecesFirst">Roschiär lang! Du muesch zersch Figurä wäggbewegä.</string>
   <string name="youCannotCastleIfMoved">Du chasch nüm rochiärä, wänn dä König oder dä Turm bereits bewegt wordä sind.</string>
-  <string name="youCannotCastleIfAttacked">Du chasch nöd rochiärä, solang dä König uf sim Wäg bedroht wird. Block das Schach und roschiär dänn!</string>
-  <string name="findAWayToCastleKingSide">Find ä Möglichkeit,
-churz z\'rochiärä!</string>
-  <string name="findAWayToCastleQueenSide">Find ä Möglichkeit,
-lang z\'rochiärä!</string>
-  <string name="castlingComplete">Härzlichä Glückwunsch! D\'Roschaadä isch i fascht jedem Spiil empfehlenswärt.</string>
+  <string name="youCannotCastleIfAttacked">Du chasch nöd rochiere, wänn de König uf sim Wäg bedroht wird. Blockier das Schach und roschier!</string>
+  <string name="findAWayToCastleKingSide">Find e Möglichkeit zum churz rochiere!</string>
+  <string name="findAWayToCastleQueenSide">Find e Möglichkeit zum lang rochiere!</string>
+  <string name="castlingComplete">Gratuliere! Du söttsch im Schpiil fascht immer rochiere.</string>
   <string name="enPassant">En passant</string>
-  <string name="theSpecialPawnMove">Dä bsunderi Puuräzug</string>
+  <string name="theSpecialPawnMove">De speziell Puurezug</string>
   <string name="enPassantIntro">Wänn dä gegnärische Puur zwei Fälder zogä worde isch, chasch du in schloh, als wär\'är nur eis Fäld zogä wordä.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät sin Puur um zwei Fälder bewegt!
 Schlohn\'än im Vorbigoh.</string>
