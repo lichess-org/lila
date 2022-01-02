@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.security.{ Permission, Granter => Master }
+import lila.security.{ Granter => Master, Permission }
 import lila.forum.Post
 
 trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>

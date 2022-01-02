@@ -13,7 +13,7 @@ import lila.db.dsl._
 import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
-import lila.report.{ Suspect }
+import lila.report.Suspect
 import lila.tournament.Tournament
 import lila.tournament.TournamentTop
 import lila.user.Holder

@@ -24,7 +24,7 @@ object teacherDashboard {
           a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
           a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),
           a(
-            cls := active.active("progress"),
+            cls  := active.active("progress"),
             href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
           )(trans.clas.progress()),
           a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.edit()),
@@ -37,7 +37,7 @@ object teacherDashboard {
       c.archived map { archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
-          postForm(action := routes.Clas.archive(c.id.value, v = false))(
+          postForm(action                                      := routes.Clas.archive(c.id.value, v = false))(
             form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
           )
         )
@@ -55,8 +55,8 @@ object teacherDashboard {
         div(cls := "clas-show__overview__manage")(
           clas.teachers(c),
           a(
-            href := routes.Clas.studentForm(c.id.value),
-            cls := "button button-clas text",
+            href     := routes.Clas.studentForm(c.id.value),
+            cls      := "button button-clas text",
             dataIcon := ""
           )(trans.clas.addStudent())
         )
@@ -228,7 +228,7 @@ object teacherDashboard {
             PerfType.Puzzle
           ).map { pt =>
             a(
-              cls := progress.map(_.perfType.key.active(pt.key)),
+              cls  := progress.map(_.perfType.key.active(pt.key)),
               href := routes.Clas.progress(c.id.value, pt.key, progress.fold(7)(_.days))
             )(pt.trans)
           },
@@ -243,7 +243,7 @@ object teacherDashboard {
           div(cls := "progress-choices")(
             List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
               a(
-                cls := p.days.toString.active(days.toString),
+                cls  := p.days.toString.active(days.toString),
                 href := routes.Clas.progress(c.id.value, p.perfType.key, days)
               )(days)
             }
