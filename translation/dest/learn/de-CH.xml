@@ -37,15 +37,15 @@
   <string name="knightsHaveAFancyWay">Schpringer händ e usgfalleni Art umezgumpe!</string>
   <string name="knightsCanJumpOverObstacles">Schpringer chönd über Hindernis gumpe! 
 Entchumm und besieg d\'Sterne!</string>
-  <string name="knightComplete">Härzlichä Glückwunsch! Du behärrschisch jetzt au dä Gaul.</string>
-  <string name="thePawn">Dä Puur</string>
-  <string name="itMovesForwardOnly">Är cha sich nur vorwärts bewegä</string>
-  <string name="pawnIntro">Puurä sind schwach, aber si bsitzäd einigäs a Potenzial.</string>
-  <string name="pawnsMoveOneSquareOnly">Puurä bewegäd sich nur um eis Fäld. Aber wänn si di ander Siite vom Brett erreichäd, wärdäd si zunärä stärchärä Figur!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch än Umwandlig zur Damä am beschtä. Aber mängisch chan au än Gaul nützlich sii!</string>
-  <string name="pawnsMoveForward">Puurä bewegäd sich vorwärts, aber si schlönd diagonal!</string>
-  <string name="captureThenPromote">Schloh und wandlä um!</string>
-  <string name="useAllThePawns">Nutz alli Puurä! Kan Zwang zur Umwandlig.</string>
+  <string name="knightComplete">Gratuliere! Du beherrschisch jetzt de Schpringer.</string>
+  <string name="thePawn">De Puur</string>
+  <string name="itMovesForwardOnly">Er chann sich nur vorwärts bewege</string>
+  <string name="pawnIntro">Puure sind schwach, aber händ vill Potänzial.</string>
+  <string name="pawnsMoveOneSquareOnly">Puure beweged sich nur 1 Fäld vorwärts. Aber wänn sie die ander Siite vom Brett erreiched, werdets e stärcheri Figur!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. Aber mängisch chan au en Schpringer nützlich sii!</string>
+  <string name="pawnsMoveForward">Puure ziehnd vorwärts, aber schlah tüends diagonal!</string>
+  <string name="captureThenPromote">Schlahn und dänn umwandle!</string>
+  <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
   <string name="aPawnOnTheSecondRank">Än Puur ufdä zweitä Reihä chan zwei Fäldär uf eimol züchä!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Sammlä alli Stärn! Kan Zwang zur Umwandlig.</string>
   <string name="pawnComplete">Härzlichä Glückwunsch! Puurä händ kei Gheimnis meh vor dir.</string>
