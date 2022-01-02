@@ -93,6 +93,7 @@
     <item quantity="many">Мат за %s паўхадоў</item>
     <item quantity="other">Мат за %s паўхадоў</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' з акругленнем, заснавана на колькасці паўходаў да наступнага ўзяцця ці ходу пешкі</string>
   <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
@@ -100,6 +101,9 @@
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
   <string name="winPreventedBy50MoveRule">Перамога немагчымая: абмежавана правілам 50-га ходу</string>
   <string name="lossSavedBy50MoveRule">Параза немагчымая: абмежавана правілам 50-га ходу</string>
+  <string name="winOr50MovesByPriorMistake">Перамога ці 50 хадоў ад папярэдняй памылкі</string>
+  <string name="lossOr50MovesByPriorMistake">Параза або 50 хадоў ад папярэдняй памылкі</string>
+  <string name="unknownDueToRounding">Перамога/параза гарантуецца толькі ў тым выпадку, калі рэкамендаваная лінія табліцы эндшпіляў выконвалася з моманту апошняга ўзяцця ці ходу пешкі, з-за магчымага акруглення значэнняў DTZ у табліцах эндшпілю Syzygy.</string>
   <string name="allSet">Усё гатова!</string>
   <string name="importPgn">Імпартаваць PGN</string>
   <string name="delete">Выдаліць</string>
