@@ -118,15 +118,11 @@ Mer muesch nöd Umwandle.</string>
   <string name="castlingComplete">Gratuliere! Du söttsch im Schpiil fascht immer rochiere.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speziell Puurezug</string>
-  <string name="enPassantIntro">Wänn dä gegnärische Puur zwei Fälder zogä worde isch, chasch du in schloh, als wär\'är nur eis Fäld zogä wordä.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät sin Puur um zwei Fälder bewegt!
-Schlohn\'än im Vorbigoh.</string>
-  <string name="enPassantOnlyWorksImmediately">Im Vorbigoh funktioniärt nur 
-unmittelbar nochdäm dä Gegnär 
-dä Puur zwei Fälder bewegt hät.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Im Vorbigoh schloh funktioniärt demfall nur, 
-wänn sich din Puur uf dä 5. Reihä befindät.</string>
-  <string name="takeAllThePawnsEnPassant">Schloh alli Puurä im Vorbigoh!</string>
+  <string name="enPassantIntro">Wänn de gägnerisch Puur 2 Fälder vorgschtosse isch, chasch en schlah, wie wänn er nur 1 Fäld gfahre wär.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät sin Puur 2 Fälder vor gschobe! Nimm en \"en passant\".</string>
+  <string name="enPassantOnlyWorksImmediately">\"En passant\" isch nur diräkt nach em gägnerische 2-Fälder-Puurezug erlaubt.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" isch nur erlaubt, wänn diin Puur uf de 5. Reihe staht.</string>
+  <string name="takeAllThePawnsEnPassant">All Puure chönd en passant gschlage werde!</string>
   <string name="enPassantComplete">Härzlichä Glückwunsch! Du chasch jetzt im Vorbigoh schloh.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">S\'Spiil isch Remis</string>
