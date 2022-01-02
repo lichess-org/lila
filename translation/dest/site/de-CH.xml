@@ -31,7 +31,7 @@
   <string name="threeChecks">3 Schachgebot</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variantä ändät</string>
-  <string name="newOpponent">Neuä Gägner</string>
+  <string name="newOpponent">Neue Gegner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wött äs neus Schpiil mit dir schpille</string>
   <string name="joinTheGame">Tritt dä Partii bi</string>
   <string name="whitePlays">Wiis am Zug</string>
@@ -115,13 +115,13 @@
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Ändlosi Analüsä</string>
-  <string name="removesTheDepthLimit">Entfärnt d\'Tüüfäbegränzig und haltät din Kompi warm</string>
+  <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet diin Computer warm</string>
   <string name="blunder">Grobä Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s grobä Fähler</item>
-    <item quantity="other">%s grobi Fählär</item>
+    <item quantity="other">%s Patzer</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s Fähler</item>
@@ -216,7 +216,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="cancel">Abbrächä</string>
   <string name="whiteTimeOut">Wiis hät d\'Ziit überschritte</string>
   <string name="blackTimeOut">Schwarz hät d\'Ziit überschritte</string>
-  <string name="drawOfferSent">Remisaagebot gsändät</string>
+  <string name="drawOfferSent">Remis-Aagebot gsändet</string>
   <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
   <string name="drawOfferCanceled">Remis-Agebot zruggzoge</string>
   <string name="whiteOffersDraw">Wiis offeriert Remis</string>
@@ -358,7 +358,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s importierti Partiiä</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach-CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach än Zug zum bewiisä, das du än Mänsch bisch.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt, mach en Zug, zum Bewiis das du en Mänsch bisch.</string>
   <string name="captcha.fail">Bitte lös die Schach-Ufgab.</string>
   <string name="notACheckmate">Das isch keis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiis setzt Matt i 1 Zug</string>
@@ -411,7 +411,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="inappropriateNameWarning">Alles - au nu liecht Unagmässes - chann zur Schlüssig vu diim Konto fühere. 
 (... die \"Sunntigschuel-Lehrer\" schpilled uf dem Server \"heili Wält\").</string>
   <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
-  <string name="recommendNotTouching">Mir empfehläd, d\'Finger devo z\'loh.</string>
+  <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingigä setzisch, wird dis Turniär wäniger Schpiller/-innä ha.</string>
   <string name="showAdvancedSettings">Zeig die erwiterete Iischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
@@ -428,14 +428,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="winRate">Sieg-Rate</string>
   <string name="berserkRate">Bärsärkratä</string>
   <string name="performance">Leischtig</string>
-  <string name="tournamentComplete">S\'Turniär isch färtig</string>
+  <string name="tournamentComplete">Das Turnier isch fertig</string>
   <string name="movesPlayed">Gschpillti Züg</string>
   <string name="whiteWins">Wiisi Sieg</string>
   <string name="blackWins">Schwarzi Sieg</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächschts %s Turnier:</string>
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
-  <string name="boardEditor">Schtellig ufbouä</string>
+  <string name="boardEditor">Schtellig ufbaue</string>
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
   <string name="endgamePositions">Ändschpiil-Posizione</string>
@@ -470,7 +470,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="automaticallyProceedToNextGameAfterMoving">Noch em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners">Turnier-Siiger</string>
+  <string name="tournamentWinners">Turnier-Sieger</string>
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
@@ -499,11 +499,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="other">Suschtigs</string>
   <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit äm Benutzer sim / dä Benutzerin ihräm Verhaltä. Säg nöd eifach \"bschiist\", sondern säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens ein Link zumnä Spiel aa, wo drin bschisse worde isch.</string>
-  <string name="by">vo %s</string>
+  <string name="by">vu %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch gschlossä wordä.</string>
   <string name="blog">Blog</string>
   <string name="notes">Notize</string>
-  <string name="typePrivateNotesHere">Privati Notizä da iigäh</string>
+  <string name="typePrivateNotesHere">Gib privati Notize da ii</string>
   <string name="invalidUsernameOrPassword">Ungültige Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falschs Passwort</string>
   <string name="invalidAuthenticationCode">Ungültigä Authäntifiziärigscode</string>
@@ -655,7 +655,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="downloadImported">Importierte Download</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpiil vor- oder rückwärts laufe.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Scroll über Kompivariantä, zum ä Vorschau uf si z\'ärhaltä.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
   <string name="analysisShapesHowTo">Mit Shift plus Muusklick - rächts oder links - chasch grüeni oder roti Chreis und Pfiil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
   <string name="receiveForumNotifications">Wird benachrichtigt, wänn du im Forum erwähnt worde bisch</string>
