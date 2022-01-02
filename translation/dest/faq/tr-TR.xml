@@ -117,17 +117,17 @@ Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının
   <string name="ratingDeviationMorethanOneHundredTen">Somut olarak açıklamak gerekirse, Glicko-2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük olursa puan da o kadar istikrarlı olur.</string>
   <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
   <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
-  <string name="ratingLeaderboards">Lider tablosuna</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamış olmak</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">bu kategoride son bir hafta içinde en az bir puanlı maç yapmış olmak,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmanız olmalı,</string>
-  <string name="beInTopTen">Puan sıralamasında ise ilk 10 içinde yer almalısınız.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların lider tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
-  <string name="whyAreRatingHigher">Bu sitedeki puanlar diğer sitelere veya FIDE, USCF ve ICC gibi kuruluşlara göre neden daha yüksek?</string>
-  <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmek ve diğer kuruluşlarla karşılaştırmak pek sağlıklı olmaz. Farklı kuruluşlarda farklı seviyede oyuncular ve farklı puan sistemleri olabilir (Elo, Glicko, Glicko-2 ve benzeri). Bu faktörler yüzünden puanlar arasında ciddi ölçüde farklar oluşabilir.
+  <string name="ratingLeaderboards">Liderlik tablosuna</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmak,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Bu kategoride son bir hafta içinde en az bir puanlı maç yapmış olmak,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmasına sahip olmak,</string>
+  <string name="beInTopTen">Ve bu kategoride ilk 10 içerisinde yer almak gerekir.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların liderlik tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
+  <string name="whyAreRatingHigher">Bu sitedeki puanlarım FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>
+  <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (Elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (puanları) büyük ölçüde etkileyebilir.
 
-Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak ele almak daha doğru olur. Belirli bir oyuncu havuzunda oyuncular arasındaki göreceli puan farkları, kimin ne sıklıkta kazanacağını veya kaybedeceğini tahmin etmenize yardımcı olur. Aynı platformda puanları karşılaştıracak bir oyuncu olmadan \"benim şu kadar puanım var\" demek pek bir şey ifade etmez.</string>
-  <string name="howToHideRatingWhilePlaying">Maç esnasında puanları nasıl gizlerim?</string>
+Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): Belirli bir oyuncu havuzunda, puanlardaki göreceli farklılıkları kimin kazanacağını/berabere kalacağını/kaybedeceğini ve bunların ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, puanları karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
+  <string name="howToHideRatingWhilePlaying">Oynarken derecelendirme nasıl gizlenir?</string>
   <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
   <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
