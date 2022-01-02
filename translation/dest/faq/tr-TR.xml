@@ -135,9 +135,9 @@ Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutl
   <string name="howToThreeDots">Nasıl...</string>
   <string name="enableDisableNotificationPopUps">Bildirimleri etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
-  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğe bağlı olarak Lichess\'ten bildirim alabilirsiniz.
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğinize bağlı olarak Lichess\'ten bildirim alabilirsiniz.
 
 Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
-Ardından site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açın veya kapatın.</string>
+Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
 </resources>
