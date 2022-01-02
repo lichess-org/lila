@@ -191,7 +191,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameOrEmail">Benutzername oder E-Mail-Adrässe</string>
   <string name="changeUsername">Benutzername ändere</string>
   <string name="changeUsernameNotSame">Nur d Groos- und Chliischriibig cha gänderet werdä. Zum Bischbiil: \"FritzliMüller\" zu \"FRiTzLiMüLlEr\".</string>
-  <string name="changeUsernameDescription">Ändärä din Beutzernamä. Das chasch nur eimol machä und du chasch nur Groos- und Chliischriibig ändärä.</string>
+  <string name="changeUsernameDescription">Änder diin Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
@@ -310,8 +310,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="backToTournament">Zrugg zum Turniär</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s gwärtäts Schpiil</item>
-    <item quantity="other">≥ %s gwärtäti Schpiil</item>
+    <item quantity="one">≥ %s gwertets Schpiil</item>
+    <item quantity="other">≥ %s gwerteti Schpiil</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s gwertets %2$s Schpiil</item>
@@ -334,7 +334,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrugg zum Schpiil</string>
-  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt ufärä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäg än Fründ, dä Kompi oder gäg än zuefälligä Gägnär!</string>
+  <string name="siteDescription">Gratis Online Schach Server. Schpill Schach uf ere subere Benutzeroberflächi! Kei Regrischtrierig, kei Werbig, kei Plugins. Schpill Schach gäge Computer, mit Fründe oder zuefälligi Gägner.</string>
   <string name="xJoinedTeamY">%1$s isch jetzt im Team %2$s</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
   <string name="xStartedStreaming">%s hät Streame gschtartet</string>
@@ -474,7 +474,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
-  <string name="descPrivateHelp">Tegscht wo numä Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt är für Teammitglider dä öffentlichi Tegscht.</string>
+  <string name="descPrivateHelp">Tegscht wo nur Teammitgliider gsehnd. Wänn usgfüllt, ersetzt er für Teammitgliider de öffentlicho Tegscht.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hilf:</string>
