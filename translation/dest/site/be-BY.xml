@@ -424,8 +424,8 @@
   <string name="unfollow">Адпісацца</string>
   <string name="followX">Падпісацца на %s</string>
   <string name="unfollowX">Адпісацца ад %s</string>
-  <string name="block">Заблакіраваць</string>
-  <string name="blocked">Заблакіраваны</string>
+  <string name="block">Заблакаваць</string>
+  <string name="blocked">Заблакаваны</string>
   <string name="unblock">Разблакіраваць</string>
   <string name="followsYou">Падпісаны на вас</string>
   <string name="xStartedFollowingY">%1$s падпісаўся на %2$s</string>
@@ -964,4 +964,5 @@
   <string name="since">З</string>
   <string name="until">Да</string>
   <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>
+  <string name="switchSides">Змяніць бок</string>
 </resources>
