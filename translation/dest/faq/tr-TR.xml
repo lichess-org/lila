@@ -127,13 +127,13 @@ Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının
   <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (Elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (puanları) büyük ölçüde etkileyebilir.
 
 Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): Belirli bir oyuncu havuzunda, puanlardaki göreceli farklılıkları kimin kazanacağını/berabere kalacağını/kaybedeceğini ve bunların ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, puanları karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
-  <string name="howToHideRatingWhilePlaying">Oynarken derecelendirme nasıl gizlenir?</string>
-  <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
+  <string name="howToHideRatingWhilePlaying">Maç esnasında puanları nasıl gizlerim?</string>
+  <string name="enableZenMode">%1$s veya oyun sırasındaysanız %2$s tuşuna basarak sade görünümü(Zen modunu) etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
-  <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyundayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
-  <string name="howToThreeDots">Diğer konular</string>
-  <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. Sorunun bizde olması çok nadirdir. Ayrıca Lichess yeniden başladığında veya bakıma girerse ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
+  <string name="howToThreeDots">Nasıl...</string>
+  <string name="enableDisableNotificationPopUps">Bildirimleri etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
   <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğe bağlı olarak Lichess\'ten bildirim alabilirsiniz.
 
