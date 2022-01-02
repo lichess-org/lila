@@ -888,5 +888,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="youCantStartNewGame">Ezin duzu beste partidarik hasi hau bukatu arte.</string>
   <string name="since">Noiztik</string>
   <string name="until">Noiz arte</string>
+  <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
   <string name="switchSides">Aldatu kolorea</string>
 </resources>
