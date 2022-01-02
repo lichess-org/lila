@@ -114,12 +114,12 @@ Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının
   <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz %1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynamamıştır.</string>
   <string name="similarOpponents">benzer puanlı oyuncular</string>
   <string name="notPlayedRecently">Oyuncu yeterince yeni oyun oynamadı. Oynadığınız oyun sayısına bağlı olarak, ilgili kategoride puanınızın tekrar geçici hâle gelmesi yaklaşık bir yıl sürebilir.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Glicko-2 sapması 110\'dan yüksek olursa puan geçici olarak sınıflandırılır. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük ise puan o kadar dengeli demektir.</string>
-  <string name="howDoLeaderoardsWork">Lider tablosuna nasıl girerim?</string>
-  <string name="inOrderToAppearsYouMust">%1$s girmek için ilgili kategoride:</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Somut olarak açıklamak gerekirse, Glicko-2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük olursa puan da o kadar istikrarlı olur.</string>
+  <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
+  <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
   <string name="ratingLeaderboards">Lider tablosuna</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmalı,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Son bir hafta içinde en az bir puanlı maç yapmış olmalı,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamış olmak</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">bu kategoride son bir hafta içinde en az bir puanlı maç yapmış olmak,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmanız olmalı,</string>
   <string name="beInTopTen">Puan sıralamasında ise ilk 10 içinde yer almalısınız.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların lider tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
