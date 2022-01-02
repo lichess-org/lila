@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Ufgoobä</string>
-  <string name="puzzleThemes">Ufgoobäthemänä</string>
+  <string name="puzzles">Ufgabe</string>
+  <string name="puzzleThemes">Ufgabe-Theme</string>
   <string name="recommended">Empfohle</string>
   <string name="phases">Fase</string>
   <string name="motifs">Motiv</string>
@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">Stimm ab, um die nächscht z\'lade!</string>
   <string name="yourPuzzleRatingWillNotChange">Diini Ufgabe-Wertig änderet sich nöd. Die Ufgabe sind kein Wettbewerb. Diini Wertig hilft nur um dir Ufgabe uszwähle, wo zu diinere aktuelle Stärchi passed.</string>
   <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiiss.</string>
-  <string name="findTheBestMoveForBlack">Find dä beschte Zug für Schwarz.</string>
+  <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Zum personalisierti Ufgage z\'erhalte:</string>
   <string name="puzzleId">Aufgabe %s</string>
   <string name="puzzleOfTheDay">Ufgab vom Tag</string>
@@ -67,20 +67,21 @@
   <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
   <string name="fromXGames">Ufgabe us Partie vu %s</string>
   <string name="searchPuzzles">Ufgabe sueche</string>
-  <string name="fromMyGamesNone">Äs befindäd sich kei Ufgoobä vo dir idä Datäbank, aber Lichess schätzt dich immer no sehr.
-Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgoob vo dinä Partiiä hinzuäzfüägä!</string>
-  <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
-  <string name="puzzleDashboardDescription">Träniär, analüsiär und werd bessär</string>
+  <string name="fromMyGamesNone">Du häsch kei Ufgabe i de Datäbank, aber Liches liebt dich immer no sehr.
+
+Schpill schnälli und klassischi Partie, das erhöht d\'Chance Ufgabe us diine Partie zue z\'füege!</string>
+  <string name="fromXGamesFound">%1$s Ufgabe i %2$s Partie gfunde</string>
+  <string name="puzzleDashboardDescription">Trainiere, analysiere und besser wärde</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gschpillt</item>
     <item quantity="other">%s gschpillt</item>
   </plurals>
   <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
-    <item quantity="one">%s zum Wiedärholä</item>
+    <item quantity="one">%s zum wiederhole</item>
     <item quantity="other">%s zum Wiedärholä</item>
   </plurals>
   <string name="percentSolved">%s glöst</string>
-  <string name="noPuzzlesToShow">Nüt z\'zeigä, spill zersch äs paar Ufgoobä!</string>
-  <string name="improvementAreasDescription">Üäb diä zum din Vortschritt z\'optimiärä!</string>
-  <string name="strengthDescription">Dini Leistig isch am bestä i denä Themänä</string>
+  <string name="noPuzzlesToShow">Es git nüt zum zeige, lös zerscht es paar Ugabe!</string>
+  <string name="improvementAreasDescription">Üeb die, zum diin Fortschritt z\'optimiere!</string>
+  <string name="strengthDescription">Diini Leischtig isch am beschte i dene Theme</string>
 </resources>
