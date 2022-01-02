@@ -3,8 +3,8 @@
   <string name="activity">Verlauf</string>
   <string name="hostedALiveStream">Hät en liveschtriim gmacht</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Unterstützt lichess.org sit %1$s Monät als %2$s</item>
-    <item quantity="other">Unterstützt lichess.org seit %1$s Monaten als %2$s</item>
+    <item quantity="one">Underschtüzt lichess.org sit %1$s Monet als %2$s</item>
+    <item quantity="other">Underschtützt lichess.org sit %1$s Mönet als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Hät %1$s Schtellig bi %2$s güebt</item>
