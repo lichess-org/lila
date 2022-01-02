@@ -46,16 +46,17 @@ Entchumm und besieg d\'Sterne!</string>
   <string name="pawnsMoveForward">Puure ziehnd vorwärts, aber schlah tüends diagonal!</string>
   <string name="captureThenPromote">Schlahn und dänn umwandle!</string>
   <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
-  <string name="aPawnOnTheSecondRank">Än Puur ufdä zweitä Reihä chan zwei Fäldär uf eimol züchä!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Sammlä alli Stärn! Kan Zwang zur Umwandlig.</string>
-  <string name="pawnComplete">Härzlichä Glückwunsch! Puurä händ kei Gheimnis meh vor dir.</string>
-  <string name="pawnPromotion">Puurä-n-umwandlig</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Din Puur häts Änd vom Brett erreicht!</string>
-  <string name="itNowPromotesToAStrongerPiece">Är wird jetzt inä stärcheri Figur umgwandlät.</string>
-  <string name="selectThePieceYouWant">Wähl di gwünschte Figur us!</string>
-  <string name="fundamentals">Grundlagä</string>
-  <string name="capture">Schloh</string>
-  <string name="takeTheEnemyPieces">Schloh di gegnärischä Figurä</string>
+  <string name="aPawnOnTheSecondRank">En Puur chann bi siim 1. Zug 2 Fälder vorwärts gah!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir alli Stärne! 
+Mer muesch nöd Umwandle.</string>
+  <string name="pawnComplete">Gratuliere! Puure händ kei Gheimnis für dich.</string>
+  <string name="pawnPromotion">Puure-Umwandlig</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Diin Puur hät s\'Ändi vom Brätt erreicht!</string>
+  <string name="itNowPromotesToAStrongerPiece">Er wandlet sich jetzt in e stärcheri Figur um.</string>
+  <string name="selectThePieceYouWant">Wähl die Figur wo du wottsch!</string>
+  <string name="fundamentals">Grundlage</string>
+  <string name="capture">Schlah</string>
+  <string name="takeTheEnemyPieces">Nimm die feindliche Figure</string>
   <string name="captureIntro">Find di undecktä Figurä vo dim Gegnär und schloh si!</string>
   <string name="takeTheBlackPieces">Schloh di schwarzä Figurä!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Schloh di schwarzä Figurä! Aber verlür dini nöd.</string>
