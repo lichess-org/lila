@@ -2,26 +2,26 @@
 <resources>
   <string name="puzzles">Ufgoobä</string>
   <string name="puzzleThemes">Ufgoobäthemänä</string>
-  <string name="recommended">Empfohlä</string>
-  <string name="phases">Phasä</string>
+  <string name="recommended">Empfohle</string>
+  <string name="phases">Fase</string>
   <string name="motifs">Motiv</string>
-  <string name="advanced">Fortgschrittä</string>
-  <string name="lengths">Längen</string>
+  <string name="advanced">Fortgschritte</string>
+  <string name="lengths">Länge</string>
   <string name="mates">Matts</string>
-  <string name="goals">Ziele</string>
+  <string name="goals">Ziel</string>
   <string name="origin">Herkunft</string>
-  <string name="specialMoves">Besondere Züge</string>
-  <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
-  <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
-  <string name="yourPuzzleRatingWillNotChange">Deine Puzzle-Wertung wird sich nicht ändern. Beachte, dass Aufgaben kein Wettbewerb sind. Deine Wertung hilft, die geeignetsten Aufgaben für deine aktuelle Spielstärke auszuwählen.</string>
-  <string name="findTheBestMoveForWhite">Find dä beschte Zug für Wiiss.</string>
+  <string name="specialMoves">Spezielli Züg</string>
+  <string name="didYouLikeThisPuzzle">Hät dir die Ufgab g\'falle?</string>
+  <string name="voteToLoadNextOne">Stimm ab, um die nächscht z\'lade!</string>
+  <string name="yourPuzzleRatingWillNotChange">Diini Ufgabe-Wertig änderet sich nöd. Die Ufgabe sind kein Wettbewerb. Diini Wertig hilft nur um dir Ufgabe uszwähle, wo zu diinere aktuelle Stärchi passed.</string>
+  <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiiss.</string>
   <string name="findTheBestMoveForBlack">Find dä beschte Zug für Schwarz.</string>
-  <string name="toGetPersonalizedPuzzles">Zum personalisiärti Ufgoobä z\'bechoo:</string>
+  <string name="toGetPersonalizedPuzzles">Zum personalisierti Ufgage z\'erhalte:</string>
   <string name="puzzleId">Aufgabe %s</string>
-  <string name="puzzleOfTheDay">Ufgoob vom Tag</string>
-  <string name="clickToSolve">Zum Lösen klicken</string>
-  <string name="goodMove">Guter Zug</string>
-  <string name="bestMove">Bester Zug!</string>
+  <string name="puzzleOfTheDay">Ufgab vom Tag</string>
+  <string name="clickToSolve">Zum Löse klicke</string>
+  <string name="goodMove">Guete Zug</string>
+  <string name="bestMove">Beschte Zug!</string>
   <string name="keepGoing">Mach weiter…</string>
   <string name="puzzleSuccess">Korrekt!</string>
   <string name="puzzleComplete">Aufgabe abgeschlossen!</string>
@@ -75,7 +75,7 @@ Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgo
     <item quantity="one">%s gschpillt</item>
     <item quantity="other">%s gschpillt</item>
   </plurals>
-  <plurals name="nbToReplay">
+  <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
     <item quantity="one">%s zum Wiedärholä</item>
     <item quantity="other">%s zum Wiedärholä</item>
   </plurals>
