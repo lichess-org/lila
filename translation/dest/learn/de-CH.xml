@@ -23,13 +23,13 @@
   <string name="bishopComplete">Herzlichä Glückwunsch! Du chasch jetzt än Läufer befehligä.</string>
   <string name="theQueen">D\'Damä</string>
   <string name="queenCombinesRookAndBishop">Ä Damä isch än Turm und än Läufer i eim</string>
-  <string name="queenIntro">Di mächtigschti Schachfigur chunnt ufs Schpiilfäld. Ihri Majestät, d\'Damä!</string>
+  <string name="queenIntro">Di mächtigscht Schachfigur chunnt. Ihre Majestät, die Dame!</string>
   <string name="queenComplete">Härzlichä Glückwunsch! Daamä händ kei Gheimnis meh vor dir.</string>
-  <string name="theKing">Dä König</string>
-  <string name="theMostImportantPiece">Di wichtigscht Figur</string>
-  <string name="kingIntro">Du bisch dä König. Wenn du idä Schlacht fallsch, ischs Schpiil verlorä.</string>
-  <string name="theKingIsSlow">Dä König isch langsam winän Berner.</string>
-  <string name="lastOne">No äs letschts Mol!</string>
+  <string name="theKing">De König</string>
+  <string name="theMostImportantPiece">Die allerwichtigscht Figur</string>
+  <string name="kingIntro">Du bisch de König. Wänn du im Kampf um chunnsch, isch s\'Schpiil verlore.</string>
+  <string name="theKingIsSlow">De König isch langsam.</string>
+  <string name="lastOne">S\'letscht Mal!</string>
   <string name="kingComplete">Härzliche Glückwunsch! Du chasch jetzt dä Befehlshaber befehligä!</string>
   <string name="theKnight">Dä Gaul</string>
   <string name="itMovesInAnLShape">Är bewegt sich inärä L-Form</string>
@@ -116,7 +116,7 @@ churz z\'rochiärä!</string>
   <string name="findAWayToCastleQueenSide">Find ä Möglichkeit,
 lang z\'rochiärä!</string>
   <string name="castlingComplete">Härzlichä Glückwunsch! D\'Roschaadä isch i fascht jedem Spiil empfehlenswärt.</string>
-  <string name="enPassant">Im Vorbigoh</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Dä bsunderi Puuräzug</string>
   <string name="enPassantIntro">Wänn dä gegnärische Puur zwei Fälder zogä worde isch, chasch du in schloh, als wär\'är nur eis Fäld zogä wordä.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät sin Puur um zwei Fälder bewegt!
