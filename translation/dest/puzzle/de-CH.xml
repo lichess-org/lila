@@ -58,15 +58,15 @@
   <string name="history">Ufgabe-Verlauf</string>
   <string name="solved">glöst</string>
   <string name="failed">nöd glöst</string>
-  <string name="streakDescription">Lös schwiriger wärdändi Ufgoobä und bau än Erfolgsschträhnä uf. Äs git kei Uhr, also nimm\'der Ziit. Än falschä Zug und äs isch vorbei! Du chasch aber ein Zug pro Sitzig überschpringä.</string>
-  <string name="yourStreakX">Dini Siegesschträhnä: %s</string>
-  <string name="streakSkipExplanation">Überschpring dä Zug, zum dini Erfolgsschträhnä biizbhaltä! Du chasch das nur eimol pro Durchlauf machä.</string>
-  <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
+  <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie. Es lauft kei Uhr, drum nimm dir Ziit. Ein falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Sitzig überschpringe.</string>
+  <string name="yourStreakX">Diini Erfolgsserie: %s</string>
+  <string name="streakSkipExplanation">Überschpring de Zug, um diini Erfolgsserie z\'erhalte! Aber du chasch das nur eimal pro Durchlauf mache.</string>
+  <string name="continueTheStreak">Erfolgsserie wiiterspille</string>
   <string name="newStreak">Neue Erfolgsserie</string>
-  <string name="fromMyGames">Aus meinen Partien</string>
-  <string name="lookupOfPlayer">Suche Aufgaben aus den Partien eines Spielers</string>
-  <string name="fromXGames">Aufgaben aus Partien von %s</string>
-  <string name="searchPuzzles">Aufgaben suchen</string>
+  <string name="fromMyGames">Us miine Schpiil</string>
+  <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
+  <string name="fromXGames">Ufgabe us Partie vu %s</string>
+  <string name="searchPuzzles">Ufgabe sueche</string>
   <string name="fromMyGamesNone">Äs befindäd sich kei Ufgoobä vo dir idä Datäbank, aber Lichess schätzt dich immer no sehr.
 Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgoob vo dinä Partiiä hinzuäzfüägä!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
