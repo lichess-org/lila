@@ -12,7 +12,7 @@
   <string name="strength">Força</string>
   <string name="toggleTheChat">Activa/Desactiva el xat</string>
   <string name="chat">Xat</string>
-  <string name="resign">Rendir-se</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Rendir-se</string>
   <string name="checkmate">Escac i mat</string>
   <string name="stalemate">Ofegat</string>
   <string name="white">Blanques</string>
