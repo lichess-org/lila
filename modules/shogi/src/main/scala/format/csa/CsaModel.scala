@@ -4,6 +4,8 @@ package csa
 
 import cats.syntax.option._
 import variant.Standard
+import shogi.format.usi.Usi
+
 
 case class Csa(
     tags: Tags,
@@ -50,22 +52,20 @@ case class Csa(
 object Csa {
 
   def renderNotationMove(cur: NotationMove, turn: Option[Color]) = {
-    val csaMove     = renderCsaMove(cur.usi, cur.san, turn)
+    val csaMove     = renderCsaMove(cur.usiWithRole, turn)
     val timeStr     = clockString(cur).getOrElse("")
     val commentsStr = cur.comments.map { text => s"\n'${fixComment(text)}" }.mkString("")
     val resultStr   = cur.result.fold("")(t => s"\n$t")
     s"$csaMove$timeStr$commentsStr$resultStr"
   }
 
-  def renderCsaMove(usi: Usi, san: String, turn: Option[Color]) =
-    usi match {
+  def renderCsaMove(usiWithRole: Usi.WithRole, turn: Option[Color]) =
+    usiWithRole.usi match {
       case Usi.Drop(role, pos) =>
-        s"${turn.fold("")(_.fold("+", "-"))}00${makeSquare(pos)}${role.csa}"
+        s"${turn.fold("")(_.fold("+", "-"))}00${pos.numberKey}${role.csa}"
       case Usi.Move(orig, dest, prom) => {
-        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $usi, $san") { r =>
-          val finalRole = if (prom) Standard.promote(r).getOrElse(r) else r
-          s"${turn.fold("")(_.fold("+", "-"))}${makeSquare(orig)}${makeSquare(dest)}${finalRole.csa}"
-        }
+        val finalRole = Standard.promote(usiWithRole.role).filter(_ => prom).getOrElse(usiWithRole.role)
+        s"${turn.fold("")(_.fold("+", "-"))}${orig.numberKey}${dest.numberKey}${finalRole.csa}"
       }
     }
 
@@ -161,9 +161,6 @@ object Csa {
     Tag.GoteTeam,
     Tag.Opening
   )
-
-  private def makeSquare(sq: Pos): String =
-    s"${sq.x}${sq.y}"
 
   private def clockString(cur: NotationMove): Option[String] =
     cur.secondsSpent.map(spent => s",T$spent")

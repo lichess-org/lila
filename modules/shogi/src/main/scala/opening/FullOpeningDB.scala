@@ -7,7 +7,7 @@ import cats.syntax.option._
 object FullOpeningDB {
 
   private def all: Vector[FullOpening] =
-    FullOpeningPartA.db ++ FullOpeningPartB.db ++ FullOpeningPartC.db ++ FullOpeningPartD.db ++ FullOpeningPartE.db
+    FullOpeningPartA.db
 
   private lazy val byFen: collection.Map[String, FullOpening] =
     all
@@ -29,16 +29,16 @@ object FullOpeningDB {
   val SEARCH_MAX_PLIES = 40
 
   // assumes standard initial FEN and variant
-  def search(moveStrs: Iterable[String]): Option[FullOpening.AtPly] =
+  def search(usis: Iterable[shogi.format.usi.Usi]): Option[FullOpening.AtPly] =
     shogi.Replay
       .situations(
-        moveStrs.take(SEARCH_MAX_PLIES),
+        usis.take(SEARCH_MAX_PLIES),
         None,
         variant.Standard
       )
       .toOption
       .flatMap {
-        _.zipWithIndex.drop(1).foldRight(none[FullOpening.AtPly]) {
+        _.zipWithIndex.tail.foldRight(none[FullOpening.AtPly]) {
           case ((situation, ply), None) =>
             // val color = if (ply % 2 == 0) " b " else " w "
             val fen = format.Forsyth.exportSituation(situation)

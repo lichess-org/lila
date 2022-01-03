@@ -1,6 +1,6 @@
 package shogi
 
-import format.Usi
+import format.usi.Usi
 
 // Checks received by the respective side.
 case class CheckCount(sente: Int = 0, gote: Int = 0) {
@@ -44,6 +44,9 @@ case class History(
     }
 
   def fourfoldRepetition = isRepetition(4)
+
+  def perpetualCheck =
+    fourfoldRepetition && (checkCount.sente >= 4 || checkCount.gote >= 4)
 
   def withLastMove(m: Usi) = copy(lastMove = Option(m))
 

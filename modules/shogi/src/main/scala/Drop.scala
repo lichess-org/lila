@@ -1,7 +1,7 @@
 package shogi
 
 import cats.syntax.option.none
-import format.Usi
+import format.usi.Usi
 
 case class Drop(
     piece: Piece,

@@ -2,6 +2,7 @@ package shogi
 package opening
 
 import cats.syntax.option._
+import cats.data.NonEmptyList
 
 final class Ecopening(
     val eco: Ecopening.ECO,
@@ -49,16 +50,16 @@ object Ecopening {
       })
     }
 
-  def fromGame(pgnMoves: List[String]): Option[Ecopening] =
+  def fromGame(usis: Iterable[shogi.format.usi.Usi]): Option[Ecopening] =
     Replay
       .boards(
-        moveStrs = pgnMoves take EcopeningDB.MAX_MOVES,
+        usis = usis take EcopeningDB.MAX_MOVES,
         initialFen = None,
         variant = variant.Standard
       )
       .toOption flatMap matchChronoBoards
 
-  private def matchChronoBoards(boards: List[Board]): Option[Ecopening] =
+  private def matchChronoBoards(boards: NonEmptyList[Board]): Option[Ecopening] =
     boards.reverse.foldLeft(none[Ecopening]) { case (acc, board) =>
       acc orElse {
         EcopeningDB.allByFen get format.Forsyth.exportBoard(board)

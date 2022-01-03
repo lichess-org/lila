@@ -8,12 +8,16 @@ case class Piece(color: Color, role: Role) {
 
   def oneOf(rs: Set[Role]) = rs(role)
 
-  def forsyth: Char       = if (color == Sente) role.forsythUpper else role.forsyth
-  def forsythFull: String = if (color == Sente) role.forsythFullUpper else role.forsythFull
+  // for board representation 
+  def forsyth: String     = if (color == Sente) role.forsythUpper else role.forsyth
   def csa: String         = if (color == Sente) s"+${role.csa}" else s"-${role.csa}"
+  def kif: String         = if (color == Sente) s" ${role.kifSingle}" else s"v${role.kifSingle}"
 
   def shortRangeDirs = if (color == Sente) role.senteShortDirs else role.goteShortDirs
   def longRangeDirs  = if (color == Sente) role.senteProjectionDirs else role.goteProjectionDirs
+
+  def updateRole(f: Role => Option[Role]): Option[Piece] =
+    f(role) map { r => copy(role = r) }
 
   // attackable positions assuming empty full-sized (9x9) board
   def eyes(from: Pos, to: Pos): Boolean =
@@ -58,9 +62,9 @@ case class Piece(color: Color, role: Role) {
 
 object Piece {
 
-  def fromChar(c: Char): Option[Piece] =
-    Role.allByPgn get c.toUpper map {
-      Piece(Color.fromSente(c.isUpper), _)
+  def fromForsyth(s: String): Option[Piece] =
+    Role.allByForsyth get s.toLowerCase map { r =>
+      Piece(Color.fromSente(s != r.forsyth), r)
     }
 
   def fromCsa(s: String): Option[Piece] =

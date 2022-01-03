@@ -1,5 +1,5 @@
 package shogi
-package format
+package format.usi
 
 case class UsiCharPair(a: Char, b: Char) {
 

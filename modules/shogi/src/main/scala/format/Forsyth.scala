@@ -53,7 +53,7 @@ object Forsyth {
       val positions = splitted.lift(0).getOrElse("")
       val ranks     = positions.count('/' ==)
       if (ranks == (variant.numberOfRanks - 1)) {
-        makePiecesList(variant, positions.toList, false, variant.numberOfFiles, 1) map { case pieces =>
+        makePiecesList(variant, positions.toList, "", variant.numberOfFiles, 1) map { case pieces =>
           val board = Board(pieces, variant)
           if (splitted.length < 3 || splitted.lift(2).get == "-") board
           else {
@@ -74,7 +74,7 @@ object Forsyth {
         curCnt = curCnt * 10 + (p - '0').toInt
         total = curCnt
       } else {
-        Role.forsyth(p.toLower).map { role =>
+        Role.allByForsyth.get(p.toLower.toString) map { role =>
           if (variant.handRoles.contains(role)) {
             val toStore = Math.min(total, 81)
             if (p.isUpper) sente = sente.store(role, toStore)
@@ -91,22 +91,20 @@ object Forsyth {
   private def makePiecesList(
       variant: Variant,
       chars: List[Char],
-      promoted: Boolean,
+      current: String,
       x: Int,
       y: Int
   ): Option[List[(Pos, Piece)]] =
     chars match {
       case Nil                               => Option(Nil)
-      case '/' :: rest                       => makePiecesList(variant, rest, false, variant.numberOfFiles, y + 1)
-      case '+' :: rest                       => makePiecesList(variant, rest, true, x, y)
-      case c :: rest if '1' <= c && c <= '9' => makePiecesList(variant, rest, false, x - (c - '0').toInt, y)
+      case '/' :: rest                       => makePiecesList(variant, rest, "", variant.numberOfFiles, y + 1)
+      case '+' :: rest                       => makePiecesList(variant, rest, "+", x, y)
+      case c :: rest if '1' <= c && c <= '9' => makePiecesList(variant, rest, "", x - (c - '0').toInt, y)
       case c :: rest =>
         for {
-          pos       <- Pos.at(x, y)
-          basePiece <- Piece.fromChar(c)
-          piece <-
-            if (promoted) variant.promote(basePiece.role).map(Piece(basePiece.color, _)) else basePiece.some
-          (nextPieces) <- makePiecesList(variant, rest, false, x - 1, y)
+          pos   <- Pos.at(x, y)
+          piece <- Piece.fromForsyth(current + c)
+          (nextPieces) <- makePiecesList(variant, rest, "", x - 1, y)
         } yield (pos -> piece :: nextPieces)
     }
 
@@ -140,16 +138,17 @@ object Forsyth {
       exportHands(situation.board)
     ) mkString " "
 
+  def exportHand(variant: Variant, hand: Hand): String =
+    variant.handRoles map { r =>
+      val cnt = hand(r)
+      if (cnt == 1) r.forsyth
+      else if (cnt > 1) cnt.toString + r.forsyth
+      else ""
+    } mkString ""
+
   def exportHands(board: Board): String =
     board.handData.fold("-") { hands =>
-      def exportHand(hand: Hand): String =
-        board.variant.handRoles map { r =>
-          val cnt = hand(r)
-          if (cnt == 1) r.forsythFull
-          else if (cnt > 1) cnt.toString + r.forsythFull
-          else ""
-        } mkString ""
-      val fullHandString = exportHand(hands.sente).toUpperCase + exportHand(hands.gote)
+      val fullHandString = exportHand(board.variant, hands.sente).toUpperCase + exportHand(board.variant, hands.gote)
       if (fullHandString.isEmpty) "-"
       else fullHandString
     }
@@ -163,9 +162,9 @@ object Forsyth {
         board(x, y) match {
           case None => empty = empty + 1
           case Some(piece) =>
-            if (empty == 0) fen append piece.forsythFull
+            if (empty == 0) fen append piece.forsyth
             else {
-              fen append (empty.toString + piece.forsythFull)
+              fen append (empty.toString + piece.forsyth)
               empty = 0
             }
         }

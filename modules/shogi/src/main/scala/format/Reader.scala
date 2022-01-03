@@ -2,7 +2,7 @@ package shogi
 package format
 
 import cats.data.Validated
-import pgn.Parser
+import format.usi.Usi
 
 object Reader {
 
@@ -19,40 +19,29 @@ object Reader {
     }
   }
 
-  def full(pgn: String, tags: Tags = Tags.empty): Validated[String, Result] =
-    fullWithPgn(pgn, identity, tags)
+  def fromParsedNotation(parsed: ParsedNotation, op: ParsedMoves => ParsedMoves): Result =
+    makeReplayFromParsedMoves(makeGame(parsed.tags), op(parsed.parsedMoves))
 
-  def moves(moveStrs: Iterable[String], tags: Tags): Validated[String, Result] =
-    movesWithPgn(moveStrs, identity, tags)
-
-  def fullWithPgn(
-      pgn: String,
-      op: ParsedMoves => ParsedMoves,
-      tags: Tags = Tags.empty
-  ): Validated[String, Result] =
-    Parser.full(cleanUserInput(pgn)) map { parsed =>
-      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.parsedMoves))
-    }
-
-  def fullWithParsedMoves(parsed: ParsedNotation, op: ParsedMoves => ParsedMoves): Result =
-    makeReplay(makeGame(parsed.tags), op(parsed.parsedMoves))
-
-  def movesWithPgn(
-      moveStrs: Iterable[String],
-      op: ParsedMoves => ParsedMoves,
+  def fromUsi(
+      usis: Iterable[Usi],
       tags: Tags
-  ): Validated[String, Result] =
-    Parser.moves(moveStrs, tags.variant | variant.Variant.default) map { moves =>
-      makeReplay(makeGame(tags), op(moves))
+  ): Result =
+      makeReplayFromUsi(makeGame(tags), usis)
+
+  private def makeReplayFromUsi(game: Game, usis: Iterable[Usi]): Result =
+    usis.foldLeft[Result](Result.Complete(Replay(game))) {
+      case (Result.Complete(replay), usi) =>
+        usi(replay.state.situation).fold(
+          err => Result.Incomplete(replay, err),
+          move => Result.Complete(replay addMove move)
+        )
+      case (r: Result.Incomplete, _) => r
     }
 
-  // remove invisible byte order mark
-  def cleanUserInput(str: String) = str.replace(s"\ufeff", "")
-
-  private def makeReplay(game: Game, parsedMoves: ParsedMoves): Result =
+  private def makeReplayFromParsedMoves(game: Game, parsedMoves: ParsedMoves): Result =
     parsedMoves.value.foldLeft[Result](Result.Complete(Replay(game))) {
-      case (Result.Complete(replay), san) =>
-        san(replay.state.situation).fold(
+      case (Result.Complete(replay), parsedMove) =>
+        parsedMove(replay.state.situation).fold(
           err => Result.Incomplete(replay, err),
           move => Result.Complete(replay addMove move)
         )

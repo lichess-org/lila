@@ -60,7 +60,7 @@ final case class Actor(
           case None => board.move(pos, to) map { move(to, _) }
           case Some(piece) =>
             if (piece is color) None
-            else board.taking(pos, to) map { move(to, _, Option(to)) }
+            else board.taking(pos, to) map { move(to, _) }
         }
       case _ => None
     }
@@ -71,7 +71,7 @@ final case class Actor(
     @tailrec
     def addAll(p: Pos, dir: Direction): Unit = {
       dir(p) match {
-        case s @ Some(to) if isInsideBoard(to) =>
+        case Some(to) if isInsideBoard(to) =>
           board.pieces.get(to) match {
             case None => {
               board.move(pos, to).foreach { buf += move(to, _) }
@@ -79,7 +79,7 @@ final case class Actor(
             }
             case Some(piece) =>
               if (piece.color != color) board.taking(pos, to) foreach {
-                buf += move(to, _, s)
+                buf += move(to, _)
               }
           }
         case _ => ()
@@ -93,7 +93,6 @@ final case class Actor(
   private def move(
       dest: Pos,
       after: Board,
-      capture: Option[Pos] = None,
       promotion: Boolean = false
   ) =
     Move(
@@ -102,7 +101,6 @@ final case class Actor(
       dest = dest,
       situationBefore = Situation(board, piece.color),
       after = after,
-      capture = capture,
       promotion = promotion
     )
 }

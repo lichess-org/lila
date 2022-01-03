@@ -1,5 +1,6 @@
 package shogi
 package format
+import format.usi.Usi
 
 trait Notation {
 
@@ -37,9 +38,8 @@ object Initial {
 }
 
 case class NotationMove(
-    ply: Int,
-    usi: Usi,    // a2a3 - for orig and dest
-    san: String, // Pa3 - for piece
+    moveNumber: Int,
+    usiWithRole: Usi.WithRole,
     comments: List[String] = Nil,
     glyphs: Glyphs = Glyphs.empty,
     result: Option[String] = None,
@@ -48,8 +48,4 @@ case class NotationMove(
     secondsSpent: Option[Int] = None,
     // total time spent playing so far
     secondsTotal: Option[Int] = None
-) {
-
-  def dest: Pos = usi.origDest._2
-
-}
+)

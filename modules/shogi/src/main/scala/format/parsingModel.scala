@@ -2,7 +2,6 @@ package shogi
 package format
 
 import cats.data.Validated
-import cats.syntax.option._
 
 case class ParsedNotation(
     initialPosition: InitialPosition,
@@ -91,48 +90,6 @@ case class CsaStd(
       case Some(move) => Validated valid move
     }
 
-}
-
-case class PGNStd(
-    dest: Pos,
-    role: Role,
-    capture: Boolean = false,
-    file: Option[Int] = None,
-    rank: Option[Int] = None,
-    promotion: Boolean = false,
-    metas: Metas = Metas.empty
-) extends ParsedMove {
-
-  def apply(situation: Situation) = move(situation) map Left.apply
-
-  override def withSuffixes(s: Suffixes) =
-    copy(
-      metas = metas withSuffixes s,
-      promotion = s.promotion
-    )
-
-  def withMetas(m: Metas) = copy(metas = m)
-
-  def getDest = dest
-
-  def move(situation: Situation): Validated[String, shogi.Move] =
-    situation.board.pieces.foldLeft(none[shogi.Move]) {
-      case (None, (pos, piece))
-          if piece.color == situation.color && piece.role == role && compare(file, pos.x) && compare(
-            rank,
-            pos.y
-          ) && piece.eyes(pos, dest) =>
-        val a = Actor(piece, pos, situation.board)
-        a.trustedMoves find { m =>
-          m.dest == dest && m.promotion == promotion && a.board.variant.kingSafety(a, m)
-        }
-      case (m, _) => m
-    } match {
-      case None       => Validated invalid s"No move found: $this\n$situation"
-      case Some(move) => Validated valid move
-    }
-
-  private def compare[A](a: Option[A], b: A) = a.fold(true)(b ==)
 }
 
 // All notations can share drop

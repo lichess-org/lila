@@ -5,7 +5,7 @@ package csa
 import variant.Standard
 
 import cats.data.Validated
-import cats.data.Validated.{ invalid, valid, Valid }
+import cats.data.Validated.{ invalid, valid }
 import cats.implicits._
 
 object CsaParserHelper {
@@ -53,10 +53,7 @@ object CsaParserHelper {
 
     handicap.drop(2).grouped(4).foldLeft(valid(Standard.pieces): Validated[String, PieceMap]) {
       case (acc, cur) =>
-        acc match {
-          case Valid(pieces) => parseSquarePiece(cur, pieces)
-          case _             => acc
-        }
+        acc andThen (parseSquarePiece(cur, _))
     }
   }
 
@@ -78,11 +75,9 @@ object CsaParserHelper {
       )
     else {
       squares.foldLeft(valid(Map()): Validated[String, PieceMap]) { case (acc, cur) =>
-        acc match {
-          case Valid(pieces) =>
-            if (cur._1.contains("*")) acc
-            else parseSquare(cur._1, cur._2, pieces)
-          case _ => acc
+        acc andThen { pieces =>
+          if (cur._1.contains("*")) acc
+          else parseSquare(cur._1, cur._2, pieces)
         }
       }
     }
@@ -144,13 +139,11 @@ object CsaParserHelper {
 
       val color = Color.fromSente(line.lift(1).exists(_ == '+'))
       line.drop(2).grouped(4).foldLeft(valid(board): Validated[String, Board]) { case (acc, cur) =>
-        acc match {
-          case Valid(board) =>
-            if (cur startsWith "00")
-              parseHandAddition(cur, color, board)
-            else
-              parseBoardAddition(cur, color, board)
-          case _ => acc
+        acc andThen { board =>
+          if (cur startsWith "00")
+            parseHandAddition(cur, color, board)
+          else
+            parseBoardAddition(cur, color, board)
         }
       }
     }
@@ -162,10 +155,7 @@ object CsaParserHelper {
       invalid("00AL must be the last addition made")
     else {
       additions.foldLeft(valid(board): Validated[String, Board]) { case (acc, cur) =>
-        acc match {
-          case Valid(board) => parseSingleLine(cur, board)
-          case _            => acc
-        }
+        acc andThen (parseSingleLine(cur, _))
       }
     }
 

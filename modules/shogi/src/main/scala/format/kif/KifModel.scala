@@ -4,6 +4,8 @@ package kif
 
 import cats.syntax.option._
 import variant._
+import shogi.format.usi.Usi
+
 
 case class Kif(
     tags: Tags,
@@ -20,13 +22,13 @@ case class Kif(
   def renderMovesAndVariations(moveline: List[NotationMove]): String = {
     val mainline = moveline
       .foldLeft((List[String](), None: Option[Pos])) { case ((acc, lastDest), cur) =>
-        ((Kif.renderNotationMove(cur, lastDest) :: acc), cur.dest.some)
+        ((Kif.renderNotationMove(cur, lastDest) :: acc), cur.usiWithRole.usi.origDest._2.some)
       }
       ._1
       .reverse mkString "\n"
 
     val variations = moveline.reverse.foldLeft("")((acc, cur) => {
-      acc + cur.variations.map(v => s"\n\n変化：${cur.ply}手\n${renderMovesAndVariations(v)}").mkString("")
+      acc + cur.variations.map(v => s"\n\n変化：${cur.moveNumber}手\n${renderMovesAndVariations(v)}").mkString("")
     })
 
     s"$mainline$variations"
@@ -48,24 +50,23 @@ case class Kif(
 object Kif {
 
   def renderNotationMove(cur: NotationMove, lastDest: Option[Pos]): String = {
-    val resultStr   = cur.result.fold("")(r => s"\n${plyOffset(cur.ply + 1)}$offset$r")
-    val kifMove     = renderKifMove(cur.usi, cur.san, lastDest)
+    val resultStr   = cur.result.fold("")(r => s"\n${moveNumberOffset(cur.moveNumber + 1)}$offset$r")
+    val kifMove     = renderKifMove(cur.usiWithRole, lastDest)
     val timeStr     = clockString(cur).getOrElse("")
     val glyphsNames = cur.glyphs.toList.map(_.name)
     val commentsStr = (glyphsNames ::: cur.comments).map { text => s"\n* ${fixComment(text)}" }.mkString("")
-    s"${plyOffset(cur.ply)}$offset$kifMove$timeStr$commentsStr$resultStr"
+    s"${moveNumberOffset(cur.moveNumber)}$offset$kifMove$timeStr$commentsStr$resultStr"
   }
 
-  def renderKifMove(usi: Usi, san: String, lastDest: Option[Pos]): String =
-    usi match {
+  def renderKifMove(usiWithRole: Usi.WithRole, lastDest: Option[Pos]): String =
+    usiWithRole.usi match {
       case Usi.Drop(role, pos) =>
-        s"${makeDestSquare(pos)}${role.kif}打"
+        s"${makeDestSquare(pos)}${role.kif.head}打"
       case Usi.Move(orig, dest, prom) => {
         val destStr = if (lastDest.fold(false)(_ == dest)) "同　" else makeDestSquare(dest)
         val promStr = if (prom) "成" else ""
-        san.headOption.flatMap(s => Role.allByPgn.get(s)).fold(s"move parse error - $usi, $san") { r =>
-          s"$destStr${r.kif}$promStr(${makeOrigSquare(orig)})"
-        }
+        val roleStr = usiWithRole.role.kif.head
+        s"$destStr$roleStr$promStr(${orig.numberKey})"
       }
     }
 
@@ -107,11 +108,6 @@ object Kif {
 
   def renderSituation(sit: Situation): String = {
     val kifBoard = new scala.collection.mutable.StringBuilder(256)
-    val specialKifs: Map[Role, String] = Map( // one char versions
-      PromotedSilver -> "全",
-      PromotedKnight -> "圭",
-      PromotedLance  -> "杏"
-    )
     val nbRanks = sit.board.variant.numberOfRanks
     val nbFiles = sit.board.variant.numberOfFiles
     for (y <- 1 to nbRanks) {
@@ -120,8 +116,7 @@ object Kif {
         sit.board(x, y) match {
           case None => kifBoard append " ・"
           case Some(piece) =>
-            val color = if (piece.color == Gote) 'v' else ' '
-            kifBoard append s"$color${specialKifs.getOrElse(piece.role, piece.role.kif)}"
+            kifBoard append piece.kif
         }
       }
       kifBoard append s"|${KifUtils.intToKanji(y)}"
@@ -144,8 +139,8 @@ object Kif {
       Standard.handRoles
         .map { r =>
           val cnt = hand(r)
-          if (cnt == 1) r.kif
-          else if (cnt > 1) r.kif + KifUtils.intToKanji(cnt)
+          if (cnt == 1) r.kif.head
+          else if (cnt > 1) r.kif.head + KifUtils.intToKanji(cnt)
           else ""
         }
         .filter(_.nonEmpty)
@@ -186,9 +181,6 @@ object Kif {
   private def makeDestSquare(sq: Pos): String =
     s"${((sq.x) + 48 + 65248).toChar}${KifUtils.intToKanji(sq.y)}"
 
-  private def makeOrigSquare(sq: Pos): String =
-    sq.usiKey.map(KifUtils toDigit _)
-
   private def getHandicapName(fen: FEN): Option[String] =
     StartingPosition.searchHandicapByFen(fen.some).map(t => t.eco)
 
@@ -201,8 +193,8 @@ object Kif {
 
   private val noDoubleLineBreakRegex = "(\r?\n){2,}".r
 
-  private def plyOffset(ply: Int) =
-    f"$ply%4d"
+  private def moveNumberOffset(moveNumber: Int) =
+    f"$moveNumber%4d"
 
   private def fixComment(txt: String) =
     noDoubleLineBreakRegex.replaceAllIn(txt, "\n").replace("\n", "\n* ")

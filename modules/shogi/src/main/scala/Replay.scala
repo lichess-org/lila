@@ -1,11 +1,13 @@
 package shogi
 
 import cats.data.Validated
-import cats.data.Validated.{ invalid, valid }
+import cats.data.Validated.{ valid, invalid }
+import cats.data.NonEmptyList
 import cats.implicits._
 
-import shogi.format.{ FEN, Forsyth, ParsedMove, Reader, Tag, Tags, Usi }
-import format.pgn.Parser
+import shogi.format.{ FEN, Forsyth, Reader, Tag, Tags }
+import shogi.format.usi.Usi
+
 
 case class Replay(setup: Game, moves: List[MoveOrDrop], state: Game) {
 
@@ -26,195 +28,145 @@ object Replay {
   def apply(game: Game) = new Replay(game, Nil, game)
 
   def apply(
-      moveStrs: Iterable[String],
-      initialFen: Option[String],
+      usis: Iterable[Usi],
+      initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Validated[String, Reader.Result] =
-    moveStrs.some.filter(_.nonEmpty) toValid "[replay] pgn is empty" andThen { nonEmptyMoves =>
-      Reader.moves(
-        nonEmptyMoves,
-        Tags(
-          List(
-            initialFen map { fen =>
-              Tag(_.FEN, fen)
-            },
-            variant.some.filterNot(_.standard) map { v =>
-              Tag(_.Variant, v.name)
-            }
-          ).flatten
-        )
+  ): Reader.Result =
+    Reader.fromUsi(
+      usis,
+      Tags(
+        List(
+          initialFen map { fen =>
+            Tag(_.FEN, fen.value)
+          },
+          variant.some.filterNot(_.standard) map { v =>
+            Tag(_.Variant, v.name)
+          }
+        ).flatten
       )
-    }
+    )
 
-  private def recursiveGames(game: Game, parsedMoves: List[ParsedMove]): Validated[String, List[Game]] =
-    parsedMoves match {
-      case Nil => valid(Nil)
-      case parsedMove :: rest =>
-        parsedMove(game.situation) flatMap { moveOrDrop =>
-          val newGame = moveOrDrop.fold(game.apply, game.applyDrop)
-          recursiveGames(newGame, rest) map { newGame :: _ }
+  def replay(
+    usis: Iterable[Usi],
+    initialFen: Option[FEN],
+    variant: shogi.variant.Variant
+  ): Validated[String, Replay] =
+    usis.foldLeft[Validated[String, Replay]](valid(Replay(makeGame(variant, initialFen)))) { case (acc, usi) =>
+      acc andThen { replay => 
+        usi(replay.state.situation) flatMap { moveOrDrop =>
+          valid(replay addMove moveOrDrop)
         }
+      }
     }
 
-  def games(
-      moveStrs: Iterable[String],
-      initialFen: Option[String],
+  def gamesWhileValid(
+      usis: Iterable[Usi],
+      initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Validated[String, List[Game]] =
-    Parser.moves(moveStrs, variant) andThen { moves =>
-      val game = makeGame(variant, initialFen)
-      recursiveGames(game, moves.value) map { game :: _ }
-    }
+  ): (NonEmptyList[Game], Option[String]) = {
 
-  def gameMoveWhileValid(
-      moveStrs: Seq[String],
-      initialFen: String,
-      variant: shogi.variant.Variant
-  ): (Game, List[(Game, Usi.WithSan)], Option[String]) = {
-    def mk(g: Game, moves: List[(ParsedMove, String)]): (List[(Game, Usi.WithSan)], Option[String]) = {
-      moves match {
-        case (san, sanStr) :: rest =>
-          san(g.situation).fold(
+    def mk(g: Game, usis: List[Usi]): (List[Game], Option[String]) =
+      usis match {
+        case Nil => (Nil, None)
+        case usi :: rest =>
+          g(usi).fold(
             err => (Nil, err.some),
-            moveOrDrop => {
-              val newGame = moveOrDrop.fold(g.apply, g.applyDrop)
-              val usi     = moveOrDrop.fold(_.toUsi, _.toUsi)
-              mk(newGame, rest) match {
-                case (next, msg) => ((newGame, Usi.WithSan(usi, sanStr)) :: next, msg)
+            gmd => {
+              mk(gmd._1, rest) match {
+                case (next, msg) => (gmd._1 :: next, msg)
               }
             }
           )
-        case _ => (Nil, None)
       }
-    }
-    val init = makeGame(variant, initialFen.some)
-    Parser
-      .moves(moveStrs, variant)
-      .fold(
-        err => List.empty[(Game, Usi.WithSan)] -> err.some,
-        moves => mk(init, moves.value zip moveStrs)
-      ) match {
-      case (games, err) => (init, games, err)
+    
+    val init = makeGame(variant, initialFen)
+    mk(init, usis.toList) match {
+      case (games, err) => (NonEmptyList(init, games), err)
     }
   }
-
-  private def recursiveSituations(
-      sit: Situation,
-      parsedMoves: List[ParsedMove]
-  ): Validated[String, List[Situation]] =
-    parsedMoves match {
-      case Nil => valid(Nil)
-      case parsedMove :: rest =>
-        parsedMove(sit) flatMap { moveOrDrop =>
-          val after = Situation(moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter), !sit.color)
-          recursiveSituations(after, rest) map { after :: _ }
-        }
-    }
-
-  private def recursiveSituationsFromUsi(
-      sit: Situation,
-      usis: List[Usi]
-  ): Validated[String, List[Situation]] =
-    usis match {
-      case Nil => valid(Nil)
-      case usi :: rest =>
-        usi(sit) andThen { moveOrDrop =>
-          val after = Situation(moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter), !sit.color)
-          recursiveSituationsFromUsi(after, rest) map { after :: _ }
-        }
-    }
-
-  private def recursiveReplayFromUsi(replay: Replay, usis: List[Usi]): Validated[String, Replay] =
-    usis match {
-      case Nil => valid(replay)
-      case usi :: rest =>
-        usi(replay.state.situation) andThen { moveOrDrop =>
-          recursiveReplayFromUsi(replay addMove moveOrDrop, rest)
-        }
-    }
-
-  private def initialFenToSituation(initialFen: Option[FEN], variant: shogi.variant.Variant): Situation = {
-    initialFen.flatMap { fen =>
-      Forsyth << fen.value
-    } | Situation(shogi.variant.Standard)
-  } withVariant variant
 
   def boards(
-      moveStrs: Iterable[String],
+      usis: Iterable[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Validated[String, List[Board]] = situations(moveStrs, initialFen, variant) map (_ map (_.board))
+  ): Validated[String, NonEmptyList[Board]] = situations(usis, initialFen, variant) map (_ map (_.board))
 
   def situations(
-      moveStrs: Iterable[String],
+      usis: Iterable[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
-  ): Validated[String, List[Situation]] = {
-    val sit = initialFenToSituation(initialFen, variant)
-    Parser.moves(moveStrs, sit.board.variant) andThen { moves =>
-      recursiveSituations(sit, moves.value) map { sit :: _ }
-    }
+  ): Validated[String, NonEmptyList[Situation]] = {
+    val init = initialFenToSituation(initialFen, variant)
+    usis.foldLeft[Validated[String, NonEmptyList[Situation]]](valid(NonEmptyList.one(init))) { case (acc, usi) =>
+      acc andThen { sits =>
+        usi(sits.head) andThen { moveOrDrop =>
+          valid(moveOrDrop.fold(_.situationAfter, _.situationAfter) :: sits)
+        }
+      }
+    } map (_.reverse)
   }
-
-  def boardsFromUsi(
-      moves: List[Usi],
-      initialFen: Option[FEN],
-      variant: shogi.variant.Variant
-  ): Validated[String, List[Board]] = situationsFromUsi(moves, initialFen, variant) map (_ map (_.board))
-
-  def situationsFromUsi(
-      moves: List[Usi],
-      initialFen: Option[FEN],
-      variant: shogi.variant.Variant
-  ): Validated[String, List[Situation]] = {
-    val sit = initialFenToSituation(initialFen, variant)
-    recursiveSituationsFromUsi(sit, moves) map { sit :: _ }
-  }
-
-  def apply(
-      moves: List[Usi],
-      initialFen: Option[String],
-      variant: shogi.variant.Variant
-  ): Validated[String, Replay] =
-    recursiveReplayFromUsi(Replay(makeGame(variant, initialFen)), moves)
 
   def plyAtFen(
-      moveStrs: Iterable[String],
-      initialFen: Option[String],
+      usis: Iterable[Usi],
+      initialFen: Option[FEN],
       variant: shogi.variant.Variant,
-      atFen: String
+      atFen: FEN
   ): Validated[String, Int] =
-    if (Forsyth.<<@(variant, atFen).isEmpty) invalid(s"Invalid FEN $atFen")
+    if (Forsyth.<<@(variant, atFen.value).isEmpty) invalid(s"Invalid FEN $atFen")
     else {
-
-      // we don't want to compare the full move number, to match transpositions
-      def truncateFen(fen: String) = fen.split(' ').take(3) mkString " "
-      val atFenTruncated           = truncateFen(atFen)
-      def compareFen(fen: String)  = truncateFen(fen) == atFenTruncated
-
-      def recursivePlyAtFen(sit: Situation, parsedMoves: List[ParsedMove], ply: Int): Validated[String, Int] =
-        parsedMoves match {
-          case Nil => invalid(s"Can't find $atFenTruncated, reached ply $ply")
-          case san :: rest =>
-            san(sit) flatMap { moveOrDrop =>
+      
+      def recursivePlyAtFen(sit: Situation, usis: List[Usi], ply: Int): Validated[String, Int] =
+        usis match {
+          case Nil => invalid(s"Can't find $atFen, reached ply $ply")
+          case usi :: rest =>
+            usi(sit) flatMap { moveOrDrop =>
               val after = moveOrDrop.fold(_.finalizeAfter, _.finalizeAfter)
               val fen   = Forsyth >> Game(Situation(after, Color.fromPly(ply)), turns = ply)
-              if (compareFen(fen)) Validated.valid(ply)
+              if (Forsyth.compareTruncated(fen, atFen.value)) Validated.valid(ply)
               else recursivePlyAtFen(Situation(after, !sit.color), rest, ply + 1)
             }
         }
 
-      val sit = initialFen.flatMap {
-        Forsyth.<<@(variant, _)
-      } | Situation(variant)
+      val sit = initialFenToSituation(initialFen, variant)
 
-      Parser.moves(moveStrs, sit.board.variant) andThen { moves =>
-        recursivePlyAtFen(sit, moves.value, 1)
+      recursivePlyAtFen(sit, usis.toList, 1)
+    }
+
+  // Use for trusted usis
+  // doesn't verify whether the moves are possible
+  def usiWithRoleWhilePossible(
+    usis: Iterable[Usi],
+    initialFen: Option[FEN],
+    variant: shogi.variant.Variant
+  ): List[Usi.WithRole] = {
+
+    def mk(roles: Map[Pos, Role], usis: List[Usi]): List[Usi.WithRole] = {
+      usis match {
+        case usi :: rest => {
+          usi match {
+            case Usi.Move(orig, dest, prom) =>
+              roles.get(orig).fold[List[Usi.WithRole]](Nil) { role =>
+                val maybePromoted = variant.promote(role).filter(_ => prom).getOrElse(role)
+                Usi.WithRole(usi, role) ::
+                  mk(roles - orig + (dest -> maybePromoted), rest)
+              }
+            case Usi.Drop(role, pos) =>
+              Usi.WithRole(usi, role) :: mk(roles + (pos -> role), rest)
+          }
+        }
+        case _ => Nil
       }
     }
 
-  private def makeGame(variant: shogi.variant.Variant, initialFen: Option[String]): Game = {
-    val g = Game(variant.some, initialFen)
-    g.copy(startedAtTurn = g.turns)
+    val init = initialFenToSituation(initialFen, variant)
+    mk(init.board.pieces.map{case (k, v) => k -> v.role}, usis.toList)
   }
+  
+  private def initialFenToSituation(initialFen: Option[FEN], variant: shogi.variant.Variant): Situation =
+    initialFen.flatMap { fen =>
+      Forsyth.<<@(variant, fen.value)
+    } | Situation(variant)
+  
+  private def makeGame(variant: shogi.variant.Variant, initialFen: Option[FEN]): Game =
+    Game(variant.some, initialFen.map(_.value))
 }

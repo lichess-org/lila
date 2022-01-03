@@ -1,15 +1,16 @@
 package shogi
 
-sealed trait Role {
-  val kif: String
-  val csa: String
-  val forsyth: Char
-  val forsythFull: String
+import cats.data.NonEmptyList
 
-  lazy val forsythUpper: Char       = forsyth.toUpper
-  lazy val forsythFullUpper: String = forsythFull.toUpperCase
-  lazy val pgn: Char                = forsythUpper
-  lazy val name: String             = toString.toLowerCase
+sealed trait Role {
+  val forsyth: String
+  val csa: String
+  val kif: NonEmptyList[String]
+
+  lazy val forsythUpper: String = forsyth.toUpperCase
+  lazy val kifSingle: String    = kif.head
+
+  lazy val name: String         = toString.toLowerCase
 
   val senteProjectionDirs: Directions
   val goteProjectionDirs: Directions
@@ -17,16 +18,15 @@ sealed trait Role {
   val senteShortDirs: Directions
   val goteShortDirs: Directions
 
-  // generating next possible position of piece based on previous position
-  // for pieces that don't have long range attacks it's gonna be None
+  // generating next possible position of piece based on previous positions
+  // for pieces that don't have long range attacks it's None
   def dir(from: Pos, to: Pos): Option[Direction]
 }
 
 case object King extends Role {
-  val kif         = "玉"
+  val forsyth     = "k"
   val csa         = "OU"
-  val forsyth     = 'k'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("玉", "王")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -37,10 +37,9 @@ case object King extends Role {
 }
 
 case object Rook extends Role {
-  val kif         = "飛"
+  val forsyth     = "r"
   val csa         = "HI"
-  val forsyth     = 'r'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("飛")
 
   val senteProjectionDirs = List(_.up, _.down, _.left, _.right)
   val goteProjectionDirs  = senteProjectionDirs
@@ -60,10 +59,9 @@ case object Rook extends Role {
 }
 
 case object Bishop extends Role {
-  val kif         = "角"
+  val forsyth     = "b"
   val csa         = "KA"
-  val forsyth     = 'b'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("角")
 
   val senteProjectionDirs = List(_.upLeft, _.upRight, _.downLeft, _.downRight)
   val goteProjectionDirs  = senteProjectionDirs
@@ -83,10 +81,9 @@ case object Bishop extends Role {
 }
 
 case object Knight extends Role {
-  val kif         = "桂"
+  val forsyth     = "n"
   val csa         = "KE"
-  val forsyth     = 'n'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("桂")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -103,10 +100,9 @@ case object Knight extends Role {
 }
 
 case object Pawn extends Role {
-  val kif         = "歩"
+  val forsyth     = "p"
   val csa         = "FU"
-  val forsyth     = 'p'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("歩", "兵")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -117,10 +113,9 @@ case object Pawn extends Role {
 }
 
 case object Gold extends Role {
-  val kif         = "金"
+  val forsyth     = "g"
   val csa         = "KI"
-  val forsyth     = 'g'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("金")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -131,10 +126,9 @@ case object Gold extends Role {
 }
 
 case object Silver extends Role {
-  val kif         = "銀"
+  val forsyth     = "s"
   val csa         = "GI"
-  val forsyth     = 's'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("銀")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -145,10 +139,9 @@ case object Silver extends Role {
 }
 
 case object Lance extends Role {
-  val kif         = "香"
+  val forsyth     = "l"
   val csa         = "KY"
-  val forsyth     = 'l'
-  val forsythFull = forsyth.toString
+  val kif         = NonEmptyList.of("香")
 
   val senteProjectionDirs = List(_.up)
   val goteProjectionDirs  = List(_.down)
@@ -164,10 +157,9 @@ case object Lance extends Role {
 }
 
 case object Tokin extends Role {
-  val kif         = "と"
+  val forsyth     = "+p"
   val csa         = "TO"
-  val forsyth     = 't'
-  val forsythFull = "+p"
+  val kif         = NonEmptyList.of("と", "个")
 
   val senteProjectionDirs = Gold.senteProjectionDirs
   val goteProjectionDirs  = Gold.goteProjectionDirs
@@ -178,10 +170,11 @@ case object Tokin extends Role {
 }
 
 case object PromotedSilver extends Role {
-  val kif         = "成銀"
+  val forsyth     = "+s"
   val csa         = "NG"
-  val forsyth     = 'a'
-  val forsythFull = "+s"
+  val kif         = NonEmptyList.of("成銀", "全")
+
+  override lazy val kifSingle = "全"
 
   val senteProjectionDirs = Gold.senteProjectionDirs
   val goteProjectionDirs  = Gold.goteProjectionDirs
@@ -192,10 +185,11 @@ case object PromotedSilver extends Role {
 }
 
 case object PromotedKnight extends Role {
-  val kif         = "成桂"
+  val forsyth     = "+n"
   val csa         = "NK"
-  val forsyth     = 'm'
-  val forsythFull = "+n"
+  val kif         = NonEmptyList.of("成桂", "今", "圭")
+  
+  override lazy val kifSingle = "圭"
 
   val senteProjectionDirs = Gold.senteProjectionDirs
   val goteProjectionDirs  = Gold.goteProjectionDirs
@@ -206,10 +200,11 @@ case object PromotedKnight extends Role {
 }
 
 case object PromotedLance extends Role {
-  val kif         = "成香"
+  val forsyth     = "+l"
   val csa         = "NY"
-  val forsyth     = 'u'
-  val forsythFull = "+l"
+  val kif         = NonEmptyList.of("成香", "仝", "杏")
+
+  override lazy val kifSingle = "杏"
 
   val senteProjectionDirs = Gold.senteProjectionDirs
   val goteProjectionDirs  = Gold.goteProjectionDirs
@@ -220,10 +215,9 @@ case object PromotedLance extends Role {
 }
 
 case object Horse extends Role {
-  val kif         = "馬"
+  val forsyth     = "+b"
   val csa         = "UM"
-  val forsyth     = 'h'
-  val forsythFull = "+b"
+  val kif         = NonEmptyList.of("馬")
 
   val senteProjectionDirs = Bishop.senteProjectionDirs
   val goteProjectionDirs  = Bishop.goteProjectionDirs
@@ -234,10 +228,9 @@ case object Horse extends Role {
 }
 
 case object Dragon extends Role {
-  val kif         = "龍"
+  val forsyth     = "+r"
   val csa         = "RY"
-  val forsyth     = 'd'
-  val forsythFull = "+r"
+  val kif         = NonEmptyList.of("龍", "竜")
 
   val senteProjectionDirs = Rook.senteProjectionDirs
   val goteProjectionDirs  = Rook.goteProjectionDirs
@@ -266,51 +259,30 @@ object Role {
     Dragon
   )
 
-  val allByForsyth: Map[Char, Role] = all map { r =>
-    (r.forsyth, r)
-  } toMap
-  val allByPgn: Map[Char, Role] = all map { r =>
-    (r.pgn, r)
-  } toMap
   val allByName: Map[String, Role] = all map { r =>
     (r.name, r)
   } toMap
 
-  val singleKifs = Map(
-    "王" -> King,
-    "兵" -> Pawn,
-    "竜" -> Dragon,
-    "全" -> PromotedSilver,
-    "圭" -> PromotedKnight,
-    "今" -> PromotedKnight,
-    "杏" -> PromotedLance,
-    "仝" -> PromotedLance,
-    "个" -> Tokin
-  )
+  val allByForsyth: Map[String, Role] = all map { r =>
+    (r.forsyth, r)
+  } toMap
 
-  val allByKif: Map[String, Role] = (all map { r =>
-    (r.kif, r)
-  } toMap) ++ singleKifs
+  val allByForsythUpper: Map[String, Role] = all map { r =>
+    (r.forsythUpper, r)
+  } toMap
+
+  val allByKif: Map[String, Role] = all flatMap { r =>
+    r.kif.toList map { k =>
+      (k, r)
+    }
+  } toMap
 
   val allByCsa: Map[String, Role] = all map { r =>
     (r.csa, r)
   } toMap
 
-  val allByFullForsyth: Map[String, Role] = (all map { r =>
-    (r.forsythFull, r)
-  }) toMap
-
-  val allByFullForsythUpper: Map[String, Role] = (all map { r =>
-    (r.forsythFullUpper, r)
-  }) toMap
-
   val allByEverything: Map[String, Role] =
-    allByFullForsyth ++ allByFullForsythUpper ++ allByKif ++ allByCsa
-
-  def forsyth(c: Char): Option[Role] = allByForsyth get c
-
-  def kif(c: String): Option[Role] =
-    allByKif get c
+    allByForsyth ++ allByForsythUpper ++ allByKif ++ allByCsa
 
   def valueOf(r: Role): Int =
     r match {

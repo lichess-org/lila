@@ -5,14 +5,14 @@ package kif
 import variant._
 
 import cats.data.Validated
-import cats.data.Validated.{ invalid, valid, Valid }
+import cats.data.Validated.{ invalid, valid }
 import cats.implicits._
 
 object KifParserHelper {
 
   def parseSituation(
       str: String,
-      handicap: Option[String]
+      handicap: Option[String] = None
   ): Validated[String, Situation] = {
     val lines = augmentString(str).linesIterator.to(List).map(_.trim.replace("：", ":").replace("　", " "))
     val ranks = lines
@@ -104,10 +104,7 @@ object KifParserHelper {
     if (values == "なし" || values == "") valid(Hand.init(variant))
     else {
       values.split(" ").foldLeft(valid(Hand.init(variant)): Validated[String, Hand]) { case (acc, cur) =>
-        acc match {
-          case Valid(hand) => parseHandPiece(cur, hand)
-          case _           => acc
-        }
+        acc andThen (parseHandPiece(cur, _))
       }
     }
   }

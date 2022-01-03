@@ -1,6 +1,6 @@
 package shogi
 
-import format.Usi
+import format.usi.Usi
 
 case class Move(
     piece: Piece,
@@ -8,7 +8,6 @@ case class Move(
     dest: Pos,
     situationBefore: Situation,
     after: Board,
-    capture: Option[Pos],
     promotion: Boolean,
     metrics: MoveMetrics = MoveMetrics()
 ) {
@@ -26,7 +25,7 @@ case class Move(
         )
       },
       toUsi,
-      capture flatMap before.apply,
+      before(dest),
       !situationBefore.color
     )
 
@@ -40,9 +39,6 @@ case class Move(
   }
 
   def applyVariantEffect: Move = before.variant addVariantEffect this
-
-  // does this move capture an opponent piece?
-  def captures = capture.isDefined
 
   def promotes = promotion
 

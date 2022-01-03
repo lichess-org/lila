@@ -435,6 +435,7 @@ object KifParser {
       .replace("–", "-")
       .replace('　', ' ')
       .replace("：", ":")
+      .replace(s"\ufeff", "")
 
   private def cleanComments(comments: List[String]) =
     comments.map(_.trim.take(2000)).filter(_.nonEmpty)

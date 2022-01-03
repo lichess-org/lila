@@ -1,13 +1,13 @@
 package shogi
 
 import cats.data.Validated
-import format.{ pgn, Usi }
+import format.usi.Usi
 
 case class Game(
     situation: Situation,
-    pgnMoves: Vector[String] = Vector(),
+    usiMoves: Vector[Usi] = Vector(),
     clock: Option[Clock] = None,
-    turns: Int = 0,         // plies
+    turns: Int = 0,         // plies - todo rename
     startedAtTurn: Int = 0, // plies
     startedAtMove: Int = 1
 ) {
@@ -28,7 +28,7 @@ case class Game(
     copy(
       situation = newSituation,
       turns = turns + 1,
-      pgnMoves = pgnMoves :+ pgn.Dumper(situation, move),
+      usiMoves = usiMoves :+ move.toUsi,
       clock = applyClock(move.metrics, newSituation.status.isEmpty)
     )
   }
@@ -48,7 +48,7 @@ case class Game(
     copy(
       situation = newSituation,
       turns = turns + 1,
-      pgnMoves = pgnMoves :+ pgn.Dumper(drop),
+      usiMoves = usiMoves :+ drop.toUsi,
       clock = applyClock(drop.metrics, newSituation.status.isEmpty)
     )
   }
