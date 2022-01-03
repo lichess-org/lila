@@ -127,6 +127,7 @@
   <string name="clearChat">बातें मिटा दे</string>
   <string name="deleteTheStudyChatHistory">क्या इस पड़ाई से सम्बन्धित बातों को मिटा देना चाहिए? इससे पीछे जाने का कोई रास्ता शेष नहीं है!</string>
   <string name="deleteStudy">अध्याय को मिटा दे</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">संपूर्ण अध्ययन हटाएं? वहां से कोई वापसी नहीं है! पुष्टि करने के लिए अध्ययन का नाम टाइप करें:%s</string>
   <string name="whereDoYouWantToStudyThat">आप इसको खा से पड़ना चाहते है</string>
   <string name="goodMove">अच्छी चाल!</string>
   <string name="mistake">गलती</string>
@@ -137,6 +138,7 @@
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">इकलौता चाल</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">जबरन चाल</string>
   <string name="equalPosition">बराबर स्थिति</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">अस्पष्ट स्थिति</string>
   <string name="whiteIsWinning">सफेद जीत रहा है</string>
   <string name="blackIsWinning">काला जीत रहा है</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">नवीनता</string>
