@@ -39,7 +39,7 @@
     <item quantity="other">Folgt %s Schpiller</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Hät %s neue Folgende</item>
+    <item quantity="one">Hät %s neui Folgendi</item>
     <item quantity="other">Hät %s neui Folgendi</item>
   </plurals>
   <plurals name="hostedNbSimuls">
