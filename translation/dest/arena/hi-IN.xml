@@ -45,7 +45,10 @@
   </plurals>
   <string name="newTeamBattle">नई टीम लड़ाई</string>
   <string name="customStartDate">कस्टम प्रारंभ तिथि</string>
+  <string name="customStartDateHelp">अपने स्थानीय समय क्षेत्र में। यह \"टूर्नामेंट शुरू होने से पहले का समय\" सेटिंग को ओवरराइड करता है</string>
   <string name="allowBerserk">निडर की अनुमति दें</string>
+  <string name="allowBerserkHelp">अतिरिक्त अंक हासिल करने के लिए खिलाड़ियों को घड़ी का समय आधा करने दें</string>
   <string name="allowChatHelp">खिलाड़ियों को बातचीत के कमरे में चर्चा करने दें</string>
   <string name="arenaStreaks">अखाड़ा श्रंखलाएं</string>
+  <string name="arenaStreaksHelp">2 जीत के बाद, लगातार जीत 2 के बजाय 4 अंक देती है।</string>
 </resources>
