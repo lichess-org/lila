@@ -1,37 +1,45 @@
 package shogi
 package format
 
-/** r bqkb r
-  * p ppp pp
-  * pr
-  *    P p
-  *    QnB
-  *  PP  N
-  * P    PPP
-  * RN  K  R
-  */
+import shogi.variant._
+
+import scala.util.chaining._
+
+// Gote: 
+// 
+// l n s g k g s n l
+// . r . . . . .+B .
+// p p p p p p . p p
+// . . . . . . p . .
+// . . . . . . . . .
+// . . P . . . . . .
+// P P . P P P P P P
+// . . . . . . . R .
+// L N S G K G S N L
+//
+// Sente: B
+
 object Visual {
 
-  def <<(source: String): Board = {
-    val lines = augmentString(source).linesIterator.to(List)
-    val filtered = lines.size match {
-      case 9          => lines
-      case n if n > 9 => lines.slice(1, 10)
-      case n          => (List.fill(9 - n)("")) ::: lines
-    }
-    Board(
-      pieces = (for {
-        (l, y) <- (filtered zipWithIndex)
-        (c, x) <- (l zipWithIndex)
-        role   <- Role forsyth c.toLower
-      } yield {
-        Pos.at(9 - x, y + 1) map { pos =>
-          pos -> (Color.fromSente(c isUpper) - role)
-        }
-      }) flatten,
-      variant = shogi.variant.Variant.default
-    )
+  def <<@(source: String, variant: Variant = Standard): Option[Board] = {
+    val clean = source.replaceAll("^\n|\n$| ", "")
+    val lines = augmentString(clean).linesIterator.to(List).map(_.trim).filter(_.nonEmpty)
+    val hands = lines.filter(_ contains ":").flatMap(_.split(':').lift(1)).take(2).mkString("")
+    val sfenReversed = lines.filterNot(_ contains ":").mkString("/").foldLeft(List.empty[(Int, Char)]) {
+      case (fp::lp, cur) if (fp._2 == cur && fp._2 == '.') =>
+        (fp._1 + 1, cur) :: lp
+      case (fp, cur) =>
+        (1, cur) :: fp
+    }.map(ic => 
+      s"${if (ic._2 == '.') ic._1 else ""}${ic._2}"
+    ).mkString("").filter(_ != '.')
+    val pad = sfenReversed.size + variant.numberOfRanks - sfenReversed.count(_ == '/') - 1
+    val sfenPadded = sfenReversed.padTo(pad, "9/").reverse.mkString
+    Forsyth.makeBoard(variant, sfenPadded).map(_.withHandData(Forsyth.readHands(variant, hands)))
   }
+
+  def <<(source: String): Option[Board] =
+    <<@(source, Standard)
 
   def >>(board: Board): String = >>|(board, Map.empty)
 
@@ -41,12 +49,20 @@ object Visual {
         (pos, char)
       })
     }
-    for (y <- 1 to 9) yield {
-      for (x <- 9 to 1 by -1) yield {
-        Pos.at(x, y) flatMap markedPoss.get getOrElse board(x, y).fold(' ')(_ forsyth)
+    for (y <- 1 to board.variant.numberOfRanks) yield {
+      for (x <- board.variant.numberOfFiles to 1 by -1) yield {
+        "%2s" format (Pos.at(x, y) flatMap markedPoss.get getOrElse board(x, y).fold(".")(_ forsyth))
       }
     } mkString
-  } map { """\s*$""".r.replaceFirstIn(_, "") } mkString "\n"
+  } map (_.trim) mkString "\n" pipe { b => 
+    board.handData.filter(_.size > 0).fold(b) { h =>
+      List(
+        s"Gote:${Forsyth.exportHand(board.variant, h(Gote))}",
+        b,
+        s"Sente:${Forsyth.exportHand(board.variant, h(Sente)).toUpperCase}"
+      ) mkString "\n"
+    }
+  }
 
   def addNewLines(str: String) = "\n" + str + "\n"
 }
