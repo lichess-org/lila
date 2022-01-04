@@ -1,7 +1,8 @@
 package lila.socket
 
 import cats.data.Validated
-import shogi.format.{ FEN, Usi, UsiCharPair }
+import shogi.format.FEN
+import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.opening._
 import shogi.variant.Variant
 import play.api.libs.json.JsObject
@@ -19,14 +20,13 @@ case class AnaDrop(
 
   def branch: Validated[String, Branch] =
     shogi.Game(variant.some, fen.some).drop(role, pos) flatMap { case (game, drop) =>
-      game.pgnMoves.lastOption toValid "Dropped but no last move!" map { san =>
-        val usi     = Usi(drop)
+      game.usiMoves.lastOption toValid "Dropped but no last move!" map { usi =>
         val movable = !game.situation.end
         val fen     = shogi.format.Forsyth >> game
         Branch(
           id = UsiCharPair(usi),
           ply = game.turns,
-          move = Usi.WithSan(usi, san),
+          usi = usi,
           fen = fen,
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),

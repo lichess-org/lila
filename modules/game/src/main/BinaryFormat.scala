@@ -3,6 +3,8 @@ package lila.game
 import org.joda.time.DateTime
 import scala.util.Try
 
+import shogi.format.FEN
+import shogi.format.usi.Usi
 import shogi.variant.Variant
 import shogi._
 import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
@@ -11,18 +13,15 @@ import lila.db.ByteArray
 
 object BinaryFormat {
 
-  object pgn {
-
-    def write(moves: PgnMoves): ByteArray =
+  object usi {
+    def write(variant: Variant)(moves: UsiMoves): ByteArray =
       ByteArray {
-        format.pgn.Binary.writeMoves(moves).get
+        format.usi.Binary.encodeMoves(variant, moves)
       }
 
-    def read(ba: ByteArray): PgnMoves =
-      format.pgn.Binary.readMoves(ba.value.toList).get.toVector
+    def read(variant: Variant)(ba: ByteArray): UsiMoves =
+      format.usi.Binary.decodeMoves(variant, ba.value.toList).toVector
 
-    def read(ba: ByteArray, nb: Int): PgnMoves =
-      format.pgn.Binary.readMoves(ba.value.toList, nb).get.toVector
   }
 
   object clockHistory {
@@ -219,76 +218,33 @@ object BinaryFormat {
       )
   }
 
-  object piece {
-
-    // todo better - 81 bytes is too much
-    // maybe something like two bitboards (occupied, sente pieces) and then we can fit two pieces per byte
-    // iterating through occupied we would read the pieces
-    // that would result in something like - 12(3 * int) + 12(3 * int) + #pieces / 2 - bytes (max 44 bytes for standard shogi(max 40 pieces on the board), min 25 bytes for just two kings)
-    // or maybe just store sfen??? starting position is 57 characters long
-    def write(pieces: PieceMap): ByteArray = {
-      def posInt(pos: Pos): Int =
-        (pieces get pos).fold(0) { piece =>
-          piece.color.fold(0, 16) + roleToInt(piece.role)
+  object pieces {
+    def read(variant: Variant)(
+      usis: UsiMoves,
+      initialFen: Option[FEN],
+    ): PieceMap = {
+      val init = initialFen.flatMap { fen =>
+        format.Forsyth.<<@(variant, fen.value)
+      } | Situation(variant)
+      val mm = collection.mutable.Map(init.board.pieces.toSeq: _*)
+      var color = init.color
+      usis.foreach { case usi =>
+        usi match {
+          case Usi.Move(orig, dest, prom) => {
+            mm.remove(orig) map { piece =>
+              val mp = piece.updateRole(variant.promote).filter(_ => prom).getOrElse(piece)
+              mm update (dest, mp)
+              color = !color
+            }
+          }
+          case Usi.Drop(role, pos) => {
+            mm update (pos, Piece(color, role))
+            color = !color
+          }
         }
-      ByteArray(Pos.reversedAll9x9.toArray map { case p1 =>
-        posInt(p1).toByte
-      })
-    }
-
-    def read(ba: ByteArray, variant: Variant): PieceMap = {
-      def splitInts(b: Byte) = b.toInt
-      def intPiece(int: Int): Option[Piece] =
-        intToRole(int & 15, variant) map { role =>
-          Piece(Color.fromSente((int & 16) == 0), role)
-        }
-      val pieceInts = ba.value map splitInts
-      (Pos.reversedAll9x9 zip pieceInts).view
-        .flatMap { case (pos, int) =>
-          intPiece(int) map (pos -> _)
-        }
-        .to(Map)
-    }
-
-    // cache standard start position
-    val standard = write(Board.init(shogi.variant.Standard).pieces)
-
-    private def intToRole(int: Int, variant: Variant): Option[Role] =
-      int match {
-        case 1  => Some(King)
-        case 2  => Some(Gold)
-        case 3  => Some(Silver)
-        case 4  => Some(Knight)
-        case 5  => Some(Lance)
-        case 6  => Some(Bishop)
-        case 7  => Some(Rook)
-        case 8  => Some(Tokin)
-        case 9  => Some(PromotedLance)
-        case 10 => Some(PromotedKnight)
-        case 11 => Some(PromotedSilver)
-        case 12 => Some(Horse)
-        case 13 => Some(Dragon)
-        case 14 => Some(Pawn)
-        case _  => None
       }
-    private def roleToInt(role: Role): Int =
-      role match {
-        case King           => 1
-        case Gold           => 2
-        case Silver         => 3
-        case Knight         => 4
-        case Lance          => 5
-        case Bishop         => 6
-        case Rook           => 7
-        case Tokin          => 8
-        case PromotedLance  => 9
-        case PromotedKnight => 10
-        case PromotedSilver => 11
-        case Horse          => 12
-        case Dragon         => 13
-        case Pawn           => 14
-        case _              => 15
-      }
+      mm.toMap
+    }
   }
 
   @inline private def toInt(b: Byte): Int = b & 0xff

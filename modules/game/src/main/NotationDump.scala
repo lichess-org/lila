@@ -39,21 +39,15 @@ final class NotationDump(
           acc :+ (acc.takeRight(2).headOption.getOrElse(Centis(0)) + cur)
         )
         val clockOffset = game.startColor.fold(0, 1)
-        val extendedMoves = Replay.gameMoveWhileValid(
-          game.pgnMoves,
-          initialFen.map(_.value) | game.variant.initialFen,
+        val extendedMoves = Replay.usiWithRoleWhilePossible(
+          game.usiMoves,
+          initialFen,
           game.variant
-        ) match {
-          case (_, games, _) =>
-            games map { case (_, usiSan) =>
-              (usiSan.san, usiSan.usi)
-            }
-        }
-        extendedMoves.zipWithIndex.map { case ((san, usi), index) =>
+        )
+        extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
           NotationMove(
-            ply = index + 1,
-            san = san,
-            usi = usi,
+            moveNumber = index + 1 + game.shogi.startedAtMove,
+            usiWithRole = usiWithRole,
             secondsSpent = clocksSpent lift (index - clockOffset) map (_.roundSeconds),
             secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds)
           )

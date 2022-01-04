@@ -36,7 +36,7 @@ case class Pref(
     keyboardMove: Int,
     zen: Int,
     moveEvent: Int,
-    pieceNotation: Int,
+    pieceNotation: Int, // rename to moveNotation
     resizeHandle: Int,
     tags: Map[String, String] = Map.empty
 ) {

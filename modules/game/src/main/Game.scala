@@ -1,7 +1,8 @@
 package lila.game
 
 import shogi.Color.{ Gote, Sente }
-import shogi.format.{ FEN, Usi }
+import shogi.format.FEN
+import shogi.format.usi.Usi
 import shogi.opening.{ FullOpening, FullOpeningDB }
 import shogi.variant.{ FromPosition, Standard, Variant }
 import shogi.{
@@ -46,7 +47,7 @@ case class Game(
   def variant   = shogi.situation.board.variant
   def turns     = shogi.turns
   def clock     = shogi.clock
-  def pgnMoves  = shogi.pgnMoves
+  def usiMoves  = shogi.usiMoves
 
   val players = List(sentePlayer, gotePlayer)
 
@@ -183,9 +184,9 @@ case class Game(
   def bothClockStates: Option[Vector[Centis]] =
     clockHistory.map(_.bothClockStates(startColor, clock ?? (_.byoyomi)))
 
-  def pgnMoves(color: Color): PgnMoves = {
+  def usiMoves(color: Color): UsiMoves = {
     val pivot = if (color == startColor) 0 else 1
-    pgnMoves.zipWithIndex.collect {
+    usiMoves.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
   }
@@ -250,19 +251,8 @@ case class Game(
     Progress(this, updated, events)
   }
 
-  def lastMoveKeys: Option[String] = {
-    history.lastMove map {
-      case Usi.Drop(target, pos) => s"${target.forsythUpper}*${pos.usiKey}"
-      case m: Usi.Move           => m.usiKeys
-    }
-  }
-
-  def lastMoveUsiKeys: Option[String] = {
-    history.lastMove map {
-      case Usi.Drop(target, pos) => s"${target.forsythUpper}*${pos.usiKey}"
-      case m: Usi.Move           => m.usiKeys
-    }
-  }
+  def lastMoveKeys: Option[String] =
+    history.lastMove map (_.usi)
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
@@ -620,7 +610,7 @@ case class Game(
 
   lazy val opening: Option[FullOpening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
-    else FullOpeningDB search pgnMoves
+    else FullOpeningDB search usiMoves
 
   def synthetic = id == Game.syntheticId
 
@@ -770,16 +760,13 @@ object Game {
     val playerIds         = "is"
     val playerUids        = "us"
     val playingUids       = "pl"
-    val binaryPieces      = "ps"
-    val oldPgn            = "pg"
-    val huffmanPgn        = "hp"
+    val usiMoves          = "um"
     val status            = "s"
     val turns             = "t"
     val startedAtTurn     = "st"
     val clock             = "c"
     val positionHashes    = "ph"
     val checkCount        = "cc"
-    val historyLastMove   = "cl"
     val daysPerTurn       = "cd"
     val moveTimes         = "mt"
     val senteClockHistory = "cw"
@@ -794,7 +781,7 @@ object Game {
     val createdAt         = "ca"
     val movedAt           = "ua" // ua = updatedAt (bc)
     val source            = "so"
-    val notationImport    = "pgni"
+    val notationImport    = "pgni" // todo - rename
     val tournamentId      = "tid"
     val swissId           = "iid"
     val simulId           = "sid"

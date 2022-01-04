@@ -1,13 +1,13 @@
 package lila.socket
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import shogi.{ Hand, Hands, Pos }
 
 import play.api.libs.json._
 
 case class Step(
     ply: Int,
-    move: Option[Step.Move],
+    usi: Option[Usi],
     fen: String,
     check: Boolean,
     // None when not computed yet
@@ -23,18 +23,12 @@ case class Step(
 
 object Step {
 
-  case class Move(usi: Usi, san: String) {
-    def chessString = usi.chess
-    def usiString = usi.usi
-  }
-
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
     import step._
     Json
       .obj(
         "ply" -> ply,
-        "usi" -> move.map(_.usiString),
-        "san" -> move.map(_.san),
+        "usi" -> usi.map(_.usi),
         "fen" -> fen
       )
       .add("check", check)

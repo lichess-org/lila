@@ -22,7 +22,7 @@ object TreeBuilder {
     tree.Branch(
       id = node.id,
       ply = node.ply,
-      move = node.move,
+      usi = node.usi,
       fen = node.fen.value,
       check = node.check,
       shapes = node.shapes,

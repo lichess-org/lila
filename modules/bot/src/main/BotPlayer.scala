@@ -3,7 +3,7 @@ package lila.bot
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import lila.common.Bus
 import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov }

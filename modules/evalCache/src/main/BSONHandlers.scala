@@ -4,7 +4,7 @@ import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 import cats.data.NonEmptyList
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import lila.db.dsl._
 import lila.tree.Eval._
 

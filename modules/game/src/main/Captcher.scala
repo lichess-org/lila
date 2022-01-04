@@ -68,11 +68,11 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       gameRepo game id flatMap { _ ?? fromGame }
 
     private def fromGame(game: Game): Fu[Option[Captcha]] =
-      gameRepo getOptionPgn game.id map {
+      gameRepo getOptionUsis game.id map {
         _ flatMap { makeCaptcha(game, _) }
       }
 
-    private def makeCaptcha(game: Game, moves: PgnMoves): Option[Captcha] =
+    private def makeCaptcha(game: Game, moves: UsiMoves): Option[Captcha] =
       for {
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
@@ -92,22 +92,14 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         s"${move.orig} ${move.dest}"
       } toNel
 
-    private def rewind(moves: PgnMoves): Option[ShogiGame] =
+    private def rewind(moves: UsiMoves): Option[ShogiGame] =
       Reader
-        .movesWithPgn(
-          moves,
-          parsedMoves => ParsedMoves(safeInit(parsedMoves.value)),
+        .fromUsi(
+          moves.dropRight(1),
           tags = Tags.empty
         )
-        .flatMap(_.valid) map (_.state) toOption
+        .valid.map(_.state).toOption
 
-    private def safeInit[A](list: List[A]): List[A] =
-      list match {
-        case _ :: Nil => Nil
-        case x :: xs  => x :: safeInit(xs)
-        case _        => Nil
-      }
-
-    private def fen(game: ShogiGame): String = Forsyth >> game takeWhile (_ != ' ')
+    private def fen(game: ShogiGame): String = Forsyth >> game
   }
 }

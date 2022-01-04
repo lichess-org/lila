@@ -96,7 +96,7 @@ object StudyForm {
       def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
 
       def toChapterDatas =
-        MultiPgn.split(notation, max = 20).value.zipWithIndex map { case (oneNotation, index) =>
+        MultiNotation.split(notation, max = 20).value.zipWithIndex map { case (oneNotation, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),

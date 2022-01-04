@@ -3,7 +3,7 @@ package lila.round
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import lila.common.Json.jodaWrites
 import lila.game.Game
 
@@ -43,7 +43,6 @@ object Forecast {
   case class Step(
       ply: Int,
       usi: String,
-      san: String,
       fen: String,
       check: Option[Boolean]
   ) {

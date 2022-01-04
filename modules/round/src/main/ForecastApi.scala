@@ -7,7 +7,7 @@ import lila.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }

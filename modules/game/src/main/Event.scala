@@ -68,7 +68,6 @@ object Event {
   case class Move(
       orig: Pos,
       dest: Pos,
-      san: String,
       fen: String,
       check: Boolean,
       promotion: Boolean,
@@ -82,8 +81,7 @@ object Event {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
         Json
           .obj(
-            "usi" -> s"${orig.usiKey}${dest.usiKey}${ if (promotion) "+" else "" }",
-            "san" -> san
+            "usi" -> s"${orig.usiKey}${dest.usiKey}${ if (promotion) "+" else "" }"
           )
           .add("promotion" -> promotion)
       }
@@ -100,7 +98,6 @@ object Event {
       Move(
         orig = move.orig,
         dest = move.dest,
-        san = shogi.format.pgn.Dumper(move),
         fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
         promotion = move.promotion,
@@ -114,7 +111,6 @@ object Event {
   case class Drop(
       role: shogi.Role,
       pos: Pos,
-      san: String,
       fen: String,
       check: Boolean,
       state: State,
@@ -126,9 +122,8 @@ object Event {
     def data =
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
         Json.obj(
-          "role" -> role.name,
-          "usi"  -> s"${role.pgn}*${pos.usiKey}",
-          "san" -> san
+          // "role" -> role.name, ?
+          "usi"  -> s"${role.forsythUpper}*${pos.usiKey}"
         )
       }
     override def moveBy = Some(!state.color)
@@ -143,7 +138,6 @@ object Event {
       Drop(
         role = drop.piece.role,
         pos = drop.pos,
-        san = shogi.format.pgn.Dumper(drop),
         fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
         state = state,

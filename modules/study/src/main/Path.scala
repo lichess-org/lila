@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.format.UsiCharPair
+import shogi.format.usi.UsiCharPair
 
 case class Path(ids: Vector[UsiCharPair]) extends AnyVal {
 

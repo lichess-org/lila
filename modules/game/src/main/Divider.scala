@@ -14,9 +14,9 @@ final class Divider {
     .build[Game.ID, Division]()
 
   def apply(game: Game, initialFen: Option[FEN]): Division =
-    apply(game.id, game.pgnMoves, game.variant, initialFen)
+    apply(game.id, game.usiMoves, game.variant, initialFen)
 
-  def apply(id: Game.ID, pgnMoves: => PgnMoves, variant: Variant, initialFen: Option[FEN]) =
+  def apply(id: Game.ID, usiMoves: => UsiMoves, variant: Variant, initialFen: Option[FEN]) =
     if (!Variant.divisionSensibleVariants(variant)) Division.empty
     else
       cache.get(
@@ -24,11 +24,12 @@ final class Divider {
         _ =>
           shogi.Replay
             .boards(
-              moveStrs = pgnMoves,
+              usis = usiMoves,
               initialFen = initialFen,
               variant = variant
             )
             .toOption
+            .map(_.toList)
             .fold(Division.empty)(shogi.Divider.apply)
       )
 }

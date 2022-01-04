@@ -26,7 +26,6 @@ final private class ExplorerIndexer(
   private val separator           = "\n\n\n"
   private val datePattern         = "yyyy-MM-dd"
   private val dateFormatter       = DateTimeFormat forPattern datePattern
-  private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd";
   private val internalEndPointUrl = s"$internalEndpoint/import/lishogi"
 
   private def parseDate(str: String): Option[DateTime] =
@@ -48,13 +47,13 @@ final private class ExplorerIndexer(
           .sortedCursor(query, Query.sortChronological)
           .documentSource()
           .via(LilaStream.logRate[Game]("fetch")(logger))
-          .mapAsyncUnordered(8) { makeFastPgn(_, botUserIds) }
+          .mapAsyncUnordered(8) { makeFastNotation(_, botUserIds) }
           .via(LilaStream.collect)
           .via(LilaStream.logRate("index")(logger))
           .grouped(50)
           .map(_ mkString separator)
-          .mapAsyncUnordered(2) { pgn =>
-            ws.url(internalEndPointUrl).put(pgn).flatMap {
+          .mapAsyncUnordered(2) { notation =>
+            ws.url(internalEndPointUrl).put(notation).flatMap {
               case res if res.status == 200 => funit
               case res                      => fufail(s"Stop import because of status ${res.status}")
             }
@@ -67,7 +66,7 @@ final private class ExplorerIndexer(
 
   def apply(game: Game): Funit =
     getBotUserIds() flatMap { botUserIds =>
-      makeFastPgn(game, botUserIds) map {
+      makeFastNotation(game, botUserIds) map {
         _ foreach flowBuffer.apply
       }
     }
@@ -75,8 +74,8 @@ final private class ExplorerIndexer(
   private object flowBuffer {
     private val max = 30
     private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
-    def apply(pgn: String): Unit = {
-      buf += pgn
+    def apply(notation: String): Unit = {
+      buf += notation
       val startAt = nowMillis
       if (buf.size >= max) {
         ws.url(internalEndPointUrl).put(buf mkString separator) andThen {
@@ -124,7 +123,8 @@ final private class ExplorerIndexer(
     }
   }
 
-  private def makeFastPgn(game: Game, botUserIds: Set[User.ID]): Fu[Option[String]] =
+  // todo...
+  private def makeFastNotation(game: Game, botUserIds: Set[User.ID]): Fu[Option[String]] =
     ~(for {
       senteRating <- stableRating(game.sentePlayer)
       goteRating  <- stableRating(game.gotePlayer)
@@ -144,22 +144,22 @@ final private class ExplorerIndexer(
             usernames.find(_.toLowerCase == id)
           } orElse game.player(color).userId getOrElse "?"
         val fenTags = initialFen.?? { fen =>
-          List(s"[FEN $fen]")
+          List(s"$$SFEN:$fen]")
         }
         val timeControl = Tag.timeControlCsa(game.clock.map(_.config)).value
         val otherTags = List(
-          s"[LishogiID ${game.id}]",
-          s"[Variant ${game.variant.name}]",
-          s"[TimeControl $timeControl]",
-          s"[Sente ${username(shogi.Sente)}]",
-          s"[Gote ${username(shogi.Gote)}]",
-          s"[SenteElo $senteRating]",
-          s"[GoteElo $goteRating]",
-          s"[Result ${NotationDump.result(game)}]",
-          s"[Start ${pgnDateFormat.print(game.createdAt)}]"
+          s"N+${username(shogi.Sente)}",
+          s"N-${username(shogi.Gote)}",
+          s"$$LishogiID:${game.id}",
+          s"$$Variant:${game.variant.name}",
+          s"[TimeControl $timeControl",
+          s"$$SenteElo $senteRating",
+          s"$$GoteElo $goteRating",
+          s"$$Result ${NotationDump.result(game)}",
+          s"$$Start${dateFormatter.print(game.createdAt)}"
         )
         val allTags = fenTags ::: otherTags
-        s"${allTags.mkString("\n")}\n\n${game.pgnMoves.take(maxPlies).mkString(" ")}".some
+        s"${allTags.mkString("\n")}\n\n${game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")}".some
       }
     })
 

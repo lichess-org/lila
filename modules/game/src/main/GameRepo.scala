@@ -339,7 +339,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll.ext
       .find(
-        Query.mate ++ Query.variantStandard ++ Query.lastMoveNotDrop
+        Query.mate ++ Query.variantStandard
       )
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt distribution)
@@ -466,7 +466,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $doc(s"${F.notationImport}.h" -> NotationImport.hash(notation))
     )
 
-  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
+  def getOptionUsis(id: ID): Fu[Option[UsiMoves]] = game(id) dmap2 { _.usiMoves }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.one[Game](

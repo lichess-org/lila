@@ -9,7 +9,8 @@ import lila.common.Maths
 import lila.common.config.BaseUrl
 
 import shogi.{ Centis, Color, Replay, Situation, Game => ShogiGame }
-import shogi.format.{ FEN, Forsyth, Usi }
+import shogi.format.{ FEN, Forsyth }
+import shogi.format.usi.Usi
 
 final class GifExport(
     ws: WSClient,
@@ -54,7 +55,7 @@ final class GifExport(
         "white"       -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
         "orientation" -> game.firstColor.engName
       ) ::: List(
-        game.lastMoveUsiKeys.map { "lastMove" -> _ },
+        game.lastMoveKeys.map { "lastMove" -> _ },
         game.situation.checkSquare.map { "check" -> _.usiKey }
       ).flatten
 
@@ -107,15 +108,13 @@ final class GifExport(
   }
 
   private def frames(game: Game, initialFen: Option[FEN]) = {
-    Replay.gameMoveWhileValid(
-      game.pgnMoves,
-      initialFen.map(_.value) | game.variant.initialFen,
+    Replay.gamesWhileValid(
+      game.usiMoves,
+      initialFen,
       game.variant
     ) match {
-      case (init, games, _) =>
-        val steps = (init, None) :: (games map { case (g, Usi.WithSan(usi, _)) =>
-          (g, usi.some)
-        })
+      case (games, _) =>
+        val steps = (games.head, None) :: games.tail.zip(game.usiMoves.map(_.some))
         framesRec(
           steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),
           Json.arr()

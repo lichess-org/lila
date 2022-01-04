@@ -49,7 +49,7 @@ final class GifExport(
               "sfen" -> node.fen.value
             )
             .add("check", node.check option true)
-            .add("lastMove", node.moveOption.map(_.usi.usi))
+            .add("lastMove", node.usiOption.map(_.usi))
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )
       case _ => arr

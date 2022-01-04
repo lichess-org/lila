@@ -74,13 +74,11 @@ final class GameStateStream(
       override def preStart(): Unit = {
         super.preStart()
         Bus.subscribe(self, classifiers)
-        jsonView gameFull init foreach { json =>
-          // prepend the full game JSON at the start of the stream
-          queue offer json.some
-          // close stream if game is over
-          if (init.game.finished) onGameOver(none)
-          else self ! SetOnline
-        }
+        // prepend the full game JSON at the start of the stream
+        queue offer (jsonView gameFull init).some
+        // close stream if game is over
+        if (init.game.finished) onGameOver(none)
+        else self ! SetOnline
         lila.mon.bot.gameStream("start").increment()
         Bus.publish(Tell(init.game.id, BotConnected(as, true)), "roundSocket")
       }
@@ -117,7 +115,7 @@ final class GameStateStream(
       }
 
       def pushState(g: Game): Funit =
-        jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer void
+        queue offer jsonView.gameState(Game.WithInitialFen(g, init.fen)).some void
 
       def pushChatLine(username: String, text: String, player: Boolean): Funit =
         queue offer jsonView.chatLine(username, text, player).some void

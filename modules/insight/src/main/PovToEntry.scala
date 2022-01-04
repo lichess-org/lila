@@ -50,12 +50,11 @@ final private class PovToEntry(
               boards <-
                 shogi.Replay
                   .boards(
-                    moveStrs = game.pgnMoves,
+                    usis = game.usiMoves,
                     initialFen = fen,
                     variant = game.variant
                   )
                   .toOption
-                  .flatMap(_.toNel)
               movetimes <- game.moveTimes(pov.color).flatMap(_.toNel)
             } yield RichPov(
               pov = pov,
@@ -75,15 +74,6 @@ final private class PovToEntry(
           }
       }
 
-  private def pgnMoveToRole(pgn: String): Role =
-    pgn.head match {
-      case 'N'       => shogi.Knight
-      case 'B'       => shogi.Bishop
-      case 'R'       => shogi.Rook
-      case 'K' | 'O' => shogi.King
-      case _         => shogi.Pawn
-    }
-
   private def makeMoves(from: RichPov): List[Move] = {
     val cpDiffs = ~from.moveAccuracy toVector
     val prevInfos = from.analysis.?? { an =>
@@ -92,7 +82,12 @@ final private class PovToEntry(
       }
     }
     val movetimes = from.movetimes.toList
-    val roles     = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
+    val roles =
+      shogi.Replay.usiWithRoleWhilePossible(
+        from.pov.game.usiMoves,
+        from.initialFen,
+        from.pov.game.variant
+      ).map(_.role)
     val boards = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.boards.toList.zipWithIndex.collect {
@@ -184,17 +179,15 @@ final private class PovToEntry(
       perfType <- game.perfType
     } yield Entry(
       id = Entry povToId pov,
-      number = 0, // temporary :-/ the Indexer will set it
+      number = 0, // temporary :/ the Indexer will set it
       userId = myId,
       color = pov.color,
       perf = perfType,
       eco =
         if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-        else shogi.opening.Ecopening fromGame game.pgnMoves.toList,
-      myCastling = Castling.fromMoves(game pgnMoves pov.color),
+        else shogi.opening.Ecopening fromGame game.usiMoves.toList,
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),
-      opponentCastling = Castling.fromMoves(game pgnMoves !pov.color),
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
       result = game.winnerUserId match {

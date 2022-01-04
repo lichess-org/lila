@@ -1,12 +1,12 @@
 package lila.study
 
-case class MultiPgn(value: List[String]) extends AnyVal
+case class MultiNotation(value: List[String]) extends AnyVal
 
-object MultiPgn {
+object MultiNotation {
 
   private[this] val splitPat = """\n\n(?=[^変化\r\n]*:)""".r.pattern
   def split(str: String, max: Int) =
-    MultiPgn {
+    MultiNotation {
       splitPat.split(str.replaceIf('\r', "").replaceIf('：', ':'), max + 1).take(max).toList
     }
 }

@@ -2,7 +2,8 @@ package lila.tree
 
 import play.api.libs.json._
 
-import shogi.format.{ Glyph, Glyphs, Usi, UsiCharPair }
+import shogi.format.{ Glyph, Glyphs }
+import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.opening.FullOpening
 import shogi.{ Hands, Hand, Pos, Piece => ShogiPiece }
 
@@ -30,7 +31,7 @@ sealed trait Node {
 
   // implementation dependent
   def idOption: Option[UsiCharPair]
-  def moveOption: Option[Usi.WithSan]
+  def usiOption: Option[Usi]
 
   // who's color plays next
   def color = shogi.Color.fromPly(ply)
@@ -57,7 +58,7 @@ case class Root(
 ) extends Node {
 
   def idOption       = None
-  def moveOption     = None
+  def usiOption      = None
   def comp           = false
   def forceVariation = false
 
@@ -69,7 +70,7 @@ case class Root(
 case class Branch(
     id: UsiCharPair,
     ply: Int,
-    move: Usi.WithSan,
+    usi: Usi,
     fen: String,
     check: Boolean,
     // None when not computed yet
@@ -88,7 +89,7 @@ case class Branch(
 ) extends Node {
 
   def idOption   = Some(id)
-  def moveOption = Some(move)
+  def usiOption  = Some(usi)
 
   def addChild(branch: Branch)     = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
@@ -150,7 +151,6 @@ object Node {
           .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
           .replaceAll("""(?m)(^ *| +(?= |$))""", "")
           .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-          .replaceAll("\\{|\\}", "") // {} are reserved in PGN comments
       }
   }
   case class Comments(value: List[Comment]) extends AnyVal {
@@ -266,8 +266,7 @@ object Node {
             "fen" -> fen
           )
           .add("id", idOption.map(_.toString))
-          .add("usi", moveOption.map(_.usi.usi))
-          .add("san", moveOption.map(_.san))
+          .add("usi", usiOption.map(_.usi))
           .add("check", check)
           .add("eval", eval.filterNot(_.isEmpty))
           .add("comments", if (comments.nonEmpty) Some(comments) else None)

@@ -13,7 +13,7 @@ final class Env(
     appConfig: Configuration,
     ws: WSClient,
     lightUserApi: lila.user.LightUserApi,
-    gamePgnDump: lila.game.NotationDump,
+    gameNotationDump: lila.game.NotationDump,
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
@@ -53,8 +53,6 @@ final class Env(
   private lazy val userTopicRepo = new StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
-
-  private lazy val pgnFetch = wire[PgnFetch]
 
   private lazy val chapterMaker = wire[ChapterMaker]
 

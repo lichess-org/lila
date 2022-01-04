@@ -8,7 +8,7 @@ import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
 import lila.tree.Eval._
 
-final class UsiToPgnTest extends Specification {
+final class VariationValidationTest extends Specification {
 
   private val now = org.joda.time.DateTime.now
 
@@ -18,7 +18,7 @@ final class UsiToPgnTest extends Specification {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  "convert USI analysis to PGN" should {
+  "verify USI analysis" should {
     "work :)" in {
       val usiAnalysis = Analysis(
         "ke5ssdgj",
@@ -92,10 +92,10 @@ final class UsiToPgnTest extends Specification {
         now
       )
 
-      val pgn =
-        "Pc4 Re8 Rd2 Pe6 Gd1e2 Kd8 Kf2 Kc8 Kg2 Kb8 Kh2 Sc8 Sg2 Pg6 Pd4 Sf8 Pg4 Pe5 Ng3 Pf6 Sc2 Pe4 Gf1f2 Pxe3+ Ge2xe3 Pa6 Pa4 Ph6 Ph4"
-      val rep = Replay(pgn.split(' ').toList, None, shogi.variant.Standard).map(evenIncomplete).toOption.get
-      UsiToPgn(rep, usiAnalysis) match {
+      val usi =
+        "1g1f 1c1d 2g2f 2b1c 4g4f 4c4d 1f1e 4d4e 1e1d 1c2b 4f4e 3a3b 2f2e 3c3d 3i3h 7c7d 1d1c+ 1a1c P*1d 1c1d 1i1d P*1c 2e2d 1c1d 2d2c+ 2b5e 2c3b 4a3b 2h2a+ 5a6b 2a3b P*4b 3b2a 7d7e S*4d"
+      val rep = Replay(Usi.readList(usi.split(' ').toList), None, shogi.variant.Standard).map(evenIncomplete).toOption.get
+      VariationValidation(rep, usiAnalysis) match {
         case (_, errs) => errs must beEmpty
       }
     }

@@ -13,15 +13,13 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def gameFull(game: Game)(implicit lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
+  def gameFull(game: Game)(implicit lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) map gameFull
 
-  def gameFull(wf: Game.WithInitialFen)(implicit lang: Lang): Fu[JsObject] =
-    gameState(wf) map { state =>
-      gameImmutable(wf) ++ Json.obj(
-        "type"  -> "gameFull",
-        "state" -> state
-      )
-    }
+  def gameFull(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject =
+    gameImmutable(wf) ++ Json.obj(
+      "type"  -> "gameFull",
+      "state" -> gameState(wf)
+    )
 
   def gameImmutable(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject = {
     import wf._
@@ -45,25 +43,24 @@ final class BotJsonView(
       .add("tournamentId" -> game.tournamentId)
   }
 
-  def gameState(wf: Game.WithInitialFen): Fu[JsObject] = {
+  def gameState(wf: Game.WithInitialFen): JsObject = {
     import wf._
-    shogi.format.UsiDump(game.pgnMoves, fen.map(_.value), game.variant).toFuture map { usiMoves =>
-      Json
-        .obj(
-          "type"   -> "gameState",
-          "moves"  -> usiMoves.mkString(" "),
-          "btime"  -> millisOf(game.sentePov),
-          "wtime"  -> millisOf(game.gotePov),
-          "binc"   -> game.clock.??(_.config.increment.millis),
-          "winc"   -> game.clock.??(_.config.increment.millis),
-          "byo"    -> game.clock.??(_.config.byoyomi.millis),
-          "sdraw"  -> game.sentePlayer.isOfferingDraw,
-          "gdraw"  -> game.gotePlayer.isOfferingDraw,
-          "status" -> game.status.name
-        )
-        .add("winner" -> game.winnerColor)
-        .add("rematch" -> rematches.of(game.id))
-    }
+    Json
+      .obj(
+        "type"   -> "gameState",
+        "moves"  -> game.usiMoves.map(_.uci).mkString(" "), // backwards support
+        "usiMoves" -> game.usiMoves.map(_.usi).mkString(" "),
+        "btime"  -> millisOf(game.sentePov),
+        "wtime"  -> millisOf(game.gotePov),
+        "binc"   -> game.clock.??(_.config.increment.millis),
+        "winc"   -> game.clock.??(_.config.increment.millis),
+        "byo"    -> game.clock.??(_.config.byoyomi.millis),
+        "sdraw"  -> game.sentePlayer.isOfferingDraw,
+        "gdraw"  -> game.gotePlayer.isOfferingDraw,
+        "status" -> game.status.name
+      )
+      .add("winner" -> game.winnerColor)
+      .add("rematch" -> rematches.of(game.id))
   }
 
   def chatLine(username: String, text: String, player: Boolean) =

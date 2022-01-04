@@ -42,7 +42,6 @@ final class Env(
     gameJsonView: lila.game.JsonView,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.notify.NotifyApi,
-    usiMemo: lila.game.UsiMemo,
     rematches: lila.game.Rematches,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,

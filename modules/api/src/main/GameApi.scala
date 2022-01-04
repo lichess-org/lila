@@ -235,17 +235,17 @@ final private[api] class GameApi(
             .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
-        "moves"    -> withFlags.moves.option(g.pgnMoves mkString " "),
+        "moves"    -> withFlags.moves.option(g.usiMoves.map(_.usi) mkString " "),
         "opening"  -> withFlags.opening.??(g.opening),
         "fens" -> (withFlags.fens && g.finished) ?? {
           shogi.Replay
             .situations(
-              moveStrs = g.pgnMoves,
+              usis = g.usiMoves,
               initialFen = initialFen,
               variant = g.variant
             )
             .toOption map { sits =>
-            JsArray(sits map shogi.format.Forsyth.exportSituation map JsString.apply)
+            JsArray(sits.toList map shogi.format.Forsyth.exportSituation map JsString.apply)
           }
         },
         "winner" -> g.winnerColor.map(_.name),

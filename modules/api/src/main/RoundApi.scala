@@ -201,7 +201,7 @@ final private[api] class RoundApi(
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
       lila.round.TreeBuilder(
         id = pov.gameId,
-        pgnMoves = pov.game.pgnMoves,
+        usiMoves = pov.game.usiMoves,
         variant = pov.game.variant,
         analysis = analysis,
         initialFen = initialFen | FEN(pov.game.variant.initialFen),
@@ -213,9 +213,9 @@ final private[api] class RoundApi(
   private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.gameId,
-      pgnMoves = pov.game.pgnMoves,
+      usiMoves = pov.game.usiMoves,
       variant = pov.game.variant,
-      initialFen = initialFen.fold(pov.game.variant.initialFen)(_.value)
+      initialFen = initialFen
     ))
 
   private def withNote(note: String)(json: JsObject) =

@@ -203,7 +203,7 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.PieceNotation.WESTERN, "Western notation"),
       (Pref.PieceNotation.WESTERN2, "Western2 notation"),
       (Pref.PieceNotation.JAPANESE, "Japanese notation"),
-      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation") // trans.preferences.pgnLetter.txt()
+      (Pref.PieceNotation.KAWASAKI, "Kawasaki notation")
     )
 
   def translatedClockTenthsChoices(implicit lang: Lang) =

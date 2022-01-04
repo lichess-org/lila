@@ -3,7 +3,8 @@ package lila.fishnet
 import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.{ FEN, Usi }
+import shogi.format.FEN
+import shogi.format.usi.Usi
 import shogi.variant.Variant
 
 import lila.common.{ IpAddress, Maths }

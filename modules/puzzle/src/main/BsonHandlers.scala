@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
 

@@ -1,6 +1,6 @@
 package lila.storm
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import reactivemongo.api.bson._
 
 import lila.db.dsl._

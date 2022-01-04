@@ -1,6 +1,7 @@
 package lila.study
 
-import shogi.format.{ FEN, Usi }
+import shogi.format.FEN
+import shogi.format.usi.Usi
 import shogi.{ Pos, Piece => ShogiPiece }
 import play.api.libs.json._
 import scala.util.chaining._

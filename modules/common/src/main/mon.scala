@@ -506,10 +506,6 @@ object mon {
     val fetch            = counter("game.fetch.count").withoutTags()
     val fetchLight       = counter("game.fetchLight.count").withoutTags()
     val loadClockHistory = counter("game.loadClockHistory.count").withoutTags()
-    object pgn {
-      def encode(format: String) = timer("game.pgn.encode").withTag("format", format)
-      def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
-    }
     val idCollision = counter("game.idCollision").withoutTags()
   }
   object chat {
@@ -619,14 +615,10 @@ object mon {
     val activity  = counter("api.cost").withTag("endpoint", "activity")
   }
   object export {
-    object pgn {
-      val game         = counter("export.pgn").withTag("type", "game")
-      val study        = counter("export.pgn").withTag("type", "study")
-      val studyChapter = counter("export.pgn").withTag("type", "studyChapter")
-    }
-    object png {
-      val game   = counter("export.png").withTag("type", "game")
-      val puzzle = counter("export.png").withTag("type", "puzzle")
+    object notation {
+      val game         = counter("export.notation").withTag("type", "game")
+      val study        = counter("export.notation").withTag("type", "study")
+      val studyChapter = counter("export.notation").withTag("type", "studyChapter")
     }
   }
   object bus {

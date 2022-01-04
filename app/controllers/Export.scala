@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import play.api.mvc.Result
 
 import shogi.Color
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov

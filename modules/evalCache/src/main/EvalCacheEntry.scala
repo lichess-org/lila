@@ -1,6 +1,7 @@
 package lila.evalCache
 
-import shogi.format.{ FEN, Forsyth, Usi }
+import shogi.format.{ FEN, Forsyth }
+import shogi.format.usi.Usi
 import shogi.variant.Variant
 import org.joda.time.DateTime
 import cats.data.NonEmptyList

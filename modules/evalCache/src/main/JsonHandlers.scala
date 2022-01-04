@@ -3,7 +3,8 @@ package lila.evalCache
 import cats.implicits._
 import play.api.libs.json._
 
-import shogi.format.{ FEN, Usi }
+import shogi.format.FEN
+import shogi.format.usi.Usi
 import lila.common.Json._
 import lila.evalCache.EvalCacheEntry._
 import lila.tree.Eval._

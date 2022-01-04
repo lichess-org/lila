@@ -66,14 +66,14 @@ final private class ExplorerGame(
   private def gameUrl(game: Game) = s"${net.baseUrl}/${game.id}"
 
   private def gameTitle(g: Game): String = {
-    val pgn = g.notationImport.flatMap(ni =>
+    val notation = g.notationImport.flatMap(ni =>
       if (ni.isCsa) CsaParser.full(ni.notation).toOption else KifParser.full(ni.notation).toOption
     )
-    val sente  = pgn.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
-    val gote   = pgn.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
+    val sente  = notation.flatMap(_.tags(_.Sente)) | Namer.playerTextBlocking(g.sentePlayer)(lightUserApi.sync)
+    val gote   = notation.flatMap(_.tags(_.Gote)) | Namer.playerTextBlocking(g.gotePlayer)(lightUserApi.sync)
     val result = shogi.Color.showResult(g.winnerColor)
     val event: Option[String] =
-      (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match {
+      (notation.flatMap(_.tags(_.Event)), notation.flatMap(_.tags.year).map(_.toString)) match {
         case (Some(event), Some(year)) if event.contains(year) => event.some
         case (Some(event), Some(year))                         => s"$event, $year".some
         case (eventO, yearO)                                   => eventO orElse yearO

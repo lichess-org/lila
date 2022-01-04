@@ -1,6 +1,7 @@
 package lila.study
 
-import shogi.format.{ FEN, Forsyth, Glyphs, Usi, UsiCharPair }
+import shogi.format.{ FEN, Forsyth, Glyphs }
+import shogi.format.usi.{ Usi, UsiCharPair }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -29,14 +30,7 @@ object ServerEval {
             chapterId = chapter.id.value,
             initialFen = chapter.root.fen.some,
             variant = chapter.setup.variant,
-            moves = shogi.format
-              .UsiDump(
-                moves = chapter.root.mainline.map(_.move.san),
-                initialFen = chapter.root.fen.value.some,
-                variant = chapter.setup.variant
-              )
-              .toOption
-              .map(_.flatMap(shogi.format.Usi.apply)) | List.empty,
+            moves = chapter.root.mainline.map(_.usi).toList,
             userId = userId
           )
         }
@@ -118,16 +112,17 @@ object ServerEval {
     def divisionOf(chapter: Chapter) =
       divider(
         id = chapter.id.value,
-        pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
+        usiMoves = chapter.root.mainline.map(_.usi).toVector,
         variant = chapter.setup.variant,
         initialFen = chapter.root.fen.some
       )
 
-    private def analysisLine(root: RootOrNode, variant: shogi.variant.Variant, info: Info): Option[Node] =
-      shogi.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
-        case (_, games, error) =>
+    private def analysisLine(root: RootOrNode, variant: shogi.variant.Variant, info: Info): Option[Node] = {
+      val usis = ~Usi.readList(info.variation take 20)
+      shogi.Replay.gamesWhileValid(usis, root.fen.some, variant) match {
+        case (games, error) =>
           error foreach { logger.info(_) }
-          games.reverse match {
+          games.tail.zip(usis).reverse match {
             case Nil => none
             case (g, m) :: rest =>
               rest
@@ -136,12 +131,13 @@ object ServerEval {
                 } some
           }
       }
+    }
 
-    private def makeBranch(g: shogi.Game, m: Usi.WithSan) =
+    private def makeBranch(g: shogi.Game, usi: Usi) =
       Node(
-        id = UsiCharPair(m.usi),
+        id = UsiCharPair(usi),
         ply = g.turns,
-        move = m,
+        usi = usi,
         fen = FEN(Forsyth >> g),
         check = g.situation.check,
         clock = none,

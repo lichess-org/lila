@@ -2,8 +2,8 @@ package lila.study
 
 import cats.data.Validated
 
-import shogi.format.pgn.Dumper
-import shogi.format.{ FEN, Forsyth, Glyphs, ParsedMove, ParsedNotation, Tags, Usi, UsiCharPair }
+import shogi.format.{ FEN, Forsyth, Glyphs, ParsedMove, ParsedNotation, Tags }
+import shogi.format.usi.{ Usi, UsiCharPair }
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
@@ -67,7 +67,7 @@ object NotationImport {
             Result(
               root = commented,
               variant = game.variant,
-              tags = KifTags(parsedNotation.tags),
+              tags = KifTags(parsedNotation.tags), // tags in studies are kif format even for CSA
               end = end
             )
         }
@@ -154,28 +154,27 @@ object NotationImport {
     try {
       parsedMoves match {
         case Nil => none
-        case san :: rest =>
-          san(prev.situation).fold(
+        case parsedMove :: rest =>
+          parsedMove(prev.situation).fold(
             _ => none, // illegal move; stop here.
             moveOrDrop => {
               val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
               val usi    = moveOrDrop.fold(_.toUsi, _.toUsi)
-              val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-              parseComments(san.metas.comments, annotator) match {
+              parseComments(parsedMove.metas.comments, annotator) match {
                 case (shapes, comments) =>
                   Node(
                     id = UsiCharPair(usi),
                     ply = game.turns,
-                    move = Usi.WithSan(usi, sanStr),
+                    usi = usi,
                     fen = FEN(Forsyth >> game),
                     check = game.situation.check,
                     shapes = shapes,
                     comments = comments,
-                    glyphs = san.metas.glyphs,
+                    glyphs = parsedMove.metas.glyphs,
                     // Normally we store time remaining after turn,
                     // which is actually pretty useless with byo...
                     // for imports we are gonna store time spent on this move
-                    clock = san.metas.timeSpent,
+                    clock = parsedMove.metas.timeSpent,
                     children = removeDuplicatedChildrenFirstNode {
                       val variations = makeVariations(rest, game, annotator)
                       Node.Children {
@@ -190,15 +189,10 @@ object NotationImport {
       }
     } catch {
       case _: StackOverflowError =>
-        logger.warn(s"study KifImport.makeNode StackOverflowError")
+        logger.warn(s"study NotationImport.makeNode StackOverflowError")
         None
     }
 
-  /*
-   * Fix bad PGN like this one found on reddit:
-   * 7. c4 (7. c4 Nf6) (7. c4 dxc4) 7... cxd4
-   * where 7. c4 appears three times
-   */
   private def removeDuplicatedChildrenFirstNode(children: Node.Children): Node.Children =
     children.first match {
       case Some(main) if children.variations.exists(_.id == main.id) =>

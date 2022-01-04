@@ -1,6 +1,6 @@
 package lila.tree
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 
 case class Eval(
     cp: Option[Eval.Cp],

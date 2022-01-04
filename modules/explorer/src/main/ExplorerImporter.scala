@@ -19,19 +19,19 @@ final class ExplorerImporter(
       case Some(game) if !game.isNotationImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
         fuccess(game.some)
       case _ =>
-        (gameRepo remove id) >> fetchPgn(id) flatMap {
+        (gameRepo remove id) >> fetchNotation(id) flatMap {
           case None => fuccess(none)
-          case Some(pgn) =>
+          case Some(notation) =>
             gameImporter(
-              ImportData(pgn, none),
+              ImportData(notation, none),
               user = "lishogi".some,
               forceId = id.some
             ) map some
         }
     }
 
-  private def fetchPgn(id: String): Fu[Option[String]] = {
-    ws.url(s"$endpoint/master/pgn/$id").get() map {
+  private def fetchNotation(id: String): Fu[Option[String]] = {
+    ws.url(s"$endpoint/master/notation/$id").get() map {
       case res if res.status == 200 => res.body.some
       case _                        => None
     }

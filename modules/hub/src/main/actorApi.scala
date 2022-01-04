@@ -1,7 +1,7 @@
 package lila.hub
 package actorApi
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.Promise

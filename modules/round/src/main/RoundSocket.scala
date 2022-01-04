@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext
 
 import actorApi._
 import actorApi.round._
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import shogi.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }

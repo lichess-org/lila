@@ -36,14 +36,14 @@ final private class FishnetEvalCache(
 
   private def rawEvals(game: Work.Game): Fu[List[(Int, lila.evalCache.EvalCacheEntry.Eval)]] =
     shogi.Replay
-      .situationsFromUsi(
+      .situations(
         game.usiList.take(maxPlies - 1),
         game.initialFen,
         game.variant
       )
       .fold(
         _ => fuccess(Nil),
-        _.zipWithIndex
+        _.toList.zipWithIndex
           .map { case (sit, index) =>
             evalCacheApi.getSinglePvEval(
               game.variant,

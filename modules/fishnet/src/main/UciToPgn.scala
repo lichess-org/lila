@@ -4,16 +4,14 @@ import cats.data.Validated
 import cats.data.Validated.valid
 import cats.implicits._
 
-import shogi.format.pgn.Dumper
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import shogi.{ Drop, Move, Replay, Situation }
 
-import lila.analyse.{ Analysis, Info, PgnMove }
+import lila.analyse.{ Analysis, Info }
 import lila.base.LilaException
 
-// convert variations from Usi to PGN.
-// also drops extra variations
-private object UsiToPgn {
+// validated usi strings and drops extra variations
+private object VariationValidation {
 
   type WithErrors[A] = (A, List[Exception])
 
@@ -28,7 +26,7 @@ private object UsiToPgn {
       else info.dropVariation
     }
 
-    def usiToPgn(ply: Int, variation: List[String]): Validated[String, List[PgnMove]] =
+    def validateUsi(ply: Int, variation: List[String]): Validated[String, List[String]] =
       for {
         situation <-
           if (ply == replay.setup.startedAtTurn + 1) valid(replay.setup.situation)
@@ -46,14 +44,14 @@ private object UsiToPgn {
               }
             case (failure, _) => failure
           }
-      } yield moves._2.reverse map (_.fold(Dumper.apply, Dumper.apply))
+      } yield moves._2.reverse map (_.fold(_.toUsi.usi, _.toUsi.usi))
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
       case ((infos, errs), info) =>
-        usiToPgn(info.ply, info.variation).fold(
+        validateUsi(info.ply, info.variation).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
-          pgn => (info.copy(variation = pgn) :: infos, errs)
+          usi => (info.copy(variation = usi) :: infos, errs)
         )
     } match {
       case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors

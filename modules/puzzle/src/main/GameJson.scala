@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import shogi.format.Forsyth
-import shogi.format.UsiCharPair
+import shogi.format.usi.UsiCharPair
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -60,11 +60,11 @@ final private class GameJson(
   private def generate(game: Game, plies: Int): JsObject =
     Json
       .obj(
-        "id"      -> game.id,
-        "perf"    -> perfJson(game),
-        "rated"   -> game.rated,
-        "players" -> playersJson(game),
-        "pgn"     -> game.shogi.pgnMoves.take(plies + 1).mkString(" ")
+        "id"       -> game.id,
+        "perf"     -> perfJson(game),
+        "rated"    -> game.rated,
+        "players"  -> playersJson(game),
+        "usiMoves" -> game.shogi.usiMoves.take(plies + 1).map(_.usi).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -97,22 +97,20 @@ final private class GameJson(
         "players" -> playersJson(game),
         "rated"   -> game.rated,
         "treeParts" -> {
-          val pgnMoves = game.pgnMoves.take(plies + 1)
+          val usiMoves = game.usiMoves.take(plies + 1)
           for {
-            pgnMove <- pgnMoves.lastOption
-            situation <- shogi.Replay
-              .situations(pgnMoves, None, game.variant)
+            usi <- usiMoves.lastOption
+            situation = shogi.Replay
+              .situations(usiMoves, None, game.variant)
               .valueOr { err =>
                 sys.error(s"GameJson.generateBc ${game.id} $err")
               }
-              .lastOption
-            usiMove <- situation.board.history.lastMove
+              .last
           } yield Json.obj(
             "fen" -> Forsyth.>>(situation),
             "ply" -> (plies + 1),
-            "san" -> pgnMove,
-            "id"  -> UsiCharPair(usiMove).toString,
-            "usi" -> usiMove.usi
+            "usi" -> usi.usi,
+            "id"  -> UsiCharPair(usi).toString
           )
         }
       )

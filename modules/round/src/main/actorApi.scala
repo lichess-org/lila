@@ -3,7 +3,7 @@ package actorApi
 
 import scala.concurrent.Promise
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import shogi.{ Color, MoveMetrics }
 
 import lila.common.IpAddress

@@ -12,7 +12,6 @@ final private class ChapterMaker(
     lightUser: lila.user.LightUserApi,
     chatApi: ChatApi,
     gameRepo: lila.game.GameRepo,
-    pgnFetch: PgnFetch,
     notationDump: lila.game.NotationDump
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -20,12 +19,7 @@ final private class ChapterMaker(
 
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.game.??(parseGame) flatMap {
-      case None =>
-        data.game ?? pgnFetch.fromUrl flatMap {
-          case Some(notation) =>
-            fromFenOrNotationOrBlank(study, data.copy(notation = notation.some), order, userId)
-          case _ => fromFenOrNotationOrBlank(study, data, order, userId)
-        }
+      case None => fromFenOrNotationOrBlank(study, data, order, userId)
       case Some(game) => fromGame(study, game, data, order, userId)
     } map { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c

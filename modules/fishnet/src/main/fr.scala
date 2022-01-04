@@ -1,6 +1,6 @@
 //package lila.fishnet
 //
-//import shogi.format.Usi
+//import shogi.format.usi.Usi
 //import io.lettuce.core._
 //import io.lettuce.core.pubsub._
 //import scala.concurrent.Future

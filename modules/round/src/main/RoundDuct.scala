@@ -205,7 +205,7 @@ final private[round] class RoundDuct(
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
                   TreeBuilder(
                     id = a.analysis.id,
-                    pgnMoves = a.game.pgnMoves,
+                    usiMoves = a.game.usiMoves,
                     variant = a.variant,
                     analysis = a.analysis.some,
                     initialFen = a.initialFen,

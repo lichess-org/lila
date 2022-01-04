@@ -1,6 +1,7 @@
 package lila.game
 
-import shogi.format.{ FEN, Forsyth, Usi }
+import shogi.format.{ FEN, Forsyth }
+import shogi.format.usi.Usi
 import shogi.variant.Variant
 import shogi.{
   CheckCount,
@@ -46,8 +47,10 @@ object BSONHandlers {
       lila.mon.game.fetch.increment()
 
       val light         = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
+      
+      val initialFen    = r.getO[FEN](F.initialFen)
       val startedAtTurn = r intD F.startedAtTurn
-      val startedAtMove = r.getO[FEN](F.initialFen).flatMap(Forsyth getMoveNumber _.value) | 1
+      val startedAtMove = initialFen.flatMap(Forsyth getMoveNumber _.value) | 1
       val plies         = r int F.turns atMost Game.maxPlies // unlimited can cause StackOverflowError
       val turnColor     = Color.fromPly(plies)
       val createdAt     = r date F.createdAt
@@ -62,32 +65,28 @@ object BSONHandlers {
         )
         .getOrElse(PeriodEntries.default)
 
-      val decoded = {
-        val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
-        PgnStorage.Decoded(
-          pgnMoves = pgnMoves,
-          pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
-          positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
-          lastMove = r strO F.historyLastMove flatMap Usi.apply,
-          checkCount = r.intsD(F.checkCount),
-          hands = r strO F.handData map { Forsyth.readHands(gameVariant, _) }
-        )
-      }
+      val usiMoves = BinaryFormat.usi.read(gameVariant)(r bytesD F.usiMoves)
+      val pieces = BinaryFormat.pieces.read(gameVariant)(usiMoves, initialFen)
+
+      val positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty
+      val checkCounts = r.intsD(F.checkCount)
+      val hands = r.strO(F.handData) map { Forsyth.readHands(gameVariant, _) }
+
       val shogiGame = ShogiGame(
         situation = shogi.Situation(
           shogi.Board(
-            pieces = decoded.pieces,
+            pieces = pieces,
             history = ShogiHistory(
-              lastMove = decoded.lastMove,
-              positionHashes = decoded.positionHashes,
-              checkCount = CheckCount(~decoded.checkCount.headOption, ~decoded.checkCount.lastOption)
+              lastMove = usiMoves.lastOption,
+              positionHashes = positionHashes,
+              checkCount = CheckCount(~checkCounts.headOption, ~checkCounts.lastOption)
             ),
             variant = gameVariant,
-            handData = decoded.hands
+            handData = hands
           ),
           color = turnColor
         ),
-        pgnMoves = decoded.pgnMoves,
+        usiMoves = usiMoves,
         clock = r.getO[Color => Clock](F.clock) {
           clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
         } map (_(turnColor)),
@@ -168,21 +167,12 @@ object BSONHandlers {
         F.tournamentId      -> o.metadata.tournamentId,
         F.swissId           -> o.metadata.swissId,
         F.simulId           -> o.metadata.simulId,
-        F.analysed          -> w.boolO(o.metadata.analysed)
-      ) ++ {
-        // if (false) // one day perhaps
-        //   $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))
-        // else {
-        val f = PgnStorage.OldBin
-        $doc(
-          F.oldPgn          -> f.encode(o.pgnMoves take Game.maxPlies),
-          F.binaryPieces    -> BinaryFormat.piece.write(o.board.pieces),
-          F.positionHashes  -> o.history.positionHashes,
-          F.historyLastMove -> o.history.lastMove.map(_.usi),
-          F.checkCount      -> o.history.checkCount,
-          F.handData        -> Forsyth.exportHands(o.board)
-        )
-      }
+        F.analysed          -> w.boolO(o.metadata.analysed),
+        F.positionHashes    -> o.history.positionHashes,
+        F.checkCount        -> o.history.checkCount,
+        F.handData          -> Forsyth.exportHands(o.board),
+        F.usiMoves          -> BinaryFormat.usi.write(o.board.variant)(o.usiMoves)
+      )
   }
 
   implicit object lightGameBSONHandler extends lila.db.BSONReadOnly[LightGame] {

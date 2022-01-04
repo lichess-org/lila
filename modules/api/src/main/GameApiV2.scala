@@ -306,7 +306,7 @@ final class GameApiV2(
       .add("initialFen" -> initialFen.map(_.value))
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
-      .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
+      .add("moves" -> withFlags.moves.option(g.usiMoves.map(_.usi) mkString " "))
       .add("notation" -> notation)
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))

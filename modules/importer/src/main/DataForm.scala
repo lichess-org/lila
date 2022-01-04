@@ -37,7 +37,9 @@ case class ImportData(notation: String, analyse: Option[String]) {
   private type TagPicker = Tag.type => TagType
 
   private val maxPlies  = 600
-  private val maxLength = 32768 // only for storage
+  private val maxLength = 32768
+
+  val notationTrunc = notation take (maxLength * 2)
 
   private def evenIncomplete(result: Reader.Result): Replay =
     result match {
@@ -59,7 +61,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
     }
 
   private val isCsa: Boolean = {
-    val noKifComments = augmentString(notation).linesIterator
+    val noKifComments = augmentString(notationTrunc).linesIterator
       .to(List)
       .map(_.split("#|\\*").headOption.getOrElse("").trim)
       .mkString("\n")
@@ -69,13 +71,13 @@ case class ImportData(notation: String, analyse: Option[String]) {
 
   private def parseNotation: Validated[String, ParsedNotation] =
     if (isCsa)
-      CsaParser.full(notation).leftMap("CSA parsing error: " + _)
+      CsaParser.full(notationTrunc).leftMap("CSA parsing error: " + _)
     else
-      KifParser.full(notation).leftMap("KIF parsing error: " + _)
+      KifParser.full(notationTrunc).leftMap("KIF parsing error: " + _)
 
   def preprocess(user: Option[String]): Validated[String, Preprocessed] =
     parseNotation map { parsed =>
-      Reader.fullWithParsedMoves(
+      Reader.fromParsedNotation(
         parsed,
         parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(_, _, state) =>

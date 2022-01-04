@@ -1,7 +1,8 @@
 package lila.storm
 
 import cats.data.NonEmptyList
-import shogi.format.{ FEN, Forsyth, Usi }
+import shogi.format.{ FEN, Forsyth }
+import shogi.format.usi.Usi
 
 import lila.puzzle.Puzzle
 

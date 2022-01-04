@@ -2,14 +2,13 @@ package lila.analyse
 
 import cats.implicits._
 import shogi.Color
-import shogi.format.Usi
+import shogi.format.usi.Usi
 
 import lila.tree.Eval
 
 case class Info(
     ply: Int,
     eval: Eval,
-    // variation is first in USI, then converted to SAN before storage
     variation: List[String] = Nil
 ) {
 

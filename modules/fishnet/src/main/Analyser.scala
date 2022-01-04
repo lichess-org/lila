@@ -5,13 +5,12 @@ import shogi.format.Forsyth
 import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
-import lila.game.{ Game, UsiMemo }
+import lila.game.Game
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
     gameRepo: lila.game.GameRepo,
-    usiMemo: UsiMemo,
     evalCache: FishnetEvalCache,
     limiter: Limiter
 )(implicit
@@ -101,14 +100,14 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) zip usiMemo.get(game) map { case (initialFen, moves) =>
+    gameRepo.initialFen(game) map { initialFen =>
       makeWork(
         game = Work.Game(
           id = game.id,
           initialFen = initialFen,
           studyId = none,
           variant = game.variant,
-          moves = moves take maxPlies mkString " "
+          moves = game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")
         ),
         startPly = game.shogi.startedAtTurn,
         sender = sender

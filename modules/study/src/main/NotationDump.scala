@@ -1,9 +1,12 @@
 package lila.study
 
 import akka.stream.scaladsl._
+import shogi.format.FEN
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
+import shogi.format.usi.Usi
 import shogi.format.{ Forsyth, Glyphs, Initial, NotationMove, Tag, Tags }
+import shogi.variant.Variant
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
@@ -26,7 +29,7 @@ final class NotationDump(
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) = {
     val tags  = makeTags(study, chapter)
-    val moves = toMoves(chapter.root)(flags).toList
+    val moves = toMoves(chapter.root, chapter.setup.variant)(flags).toList
     val initial = Initial(
       renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
         chapter.root.shapes
@@ -96,27 +99,6 @@ object NotationDump {
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  private def node2move(node: Node, variations: Variations, startingPly: Int, showAuthors: Boolean)(implicit
-      flags: WithFlags
-  ) =
-    NotationMove(
-      san = node.move.san,
-      usi = node.move.usi,
-      ply = node.ply - startingPly,
-      glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-      comments = flags.comments ?? {
-        renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
-      },
-      result = none,
-      variations = flags.variations ?? {
-        variations.view.map { child =>
-          toMoves(child.mainline, noVariations, startingPly, showAuthors).toList
-        }.toList
-      }
-      //secondsSpent = flags.clocks ?? node.clock.map(_.roundSeconds)
-      //secondsTotal = flags.clocks ?? node.clock.map(_.roundSeconds)
-    )
-
   private def shapeComment(shapes: Shapes): Option[String] = {
     def render(as: String)(shapes: List[String]) =
       shapes match {
@@ -154,19 +136,38 @@ object NotationDump {
     comments.list.map(c => s"${showAuthors ?? s"${getName(c.by)}"}${c.text.value}")
   }
 
-  def toMoves(root: Node.Root)(implicit flags: WithFlags): Vector[NotationMove] =
-    toMoves(root.mainline, root.children.variations, root.ply, root.hasMultipleCommentAuthors)
+  def toMoves(root: Node.Root, variant: Variant)(implicit flags: WithFlags): Vector[NotationMove] =
+    toMoves(root.mainline, root.fen, variant, root.children.variations, root.ply, root.hasMultipleCommentAuthors)
 
   def toMoves(
       line: Vector[Node],
+      initialFen: FEN,
+      variant: Variant,
       variations: Variations,
       startingPly: Int,
       showAuthors: Boolean
-  )(implicit flags: WithFlags): Vector[NotationMove] =
-    line
-      .foldLeft(variations -> Vector.empty[NotationMove]) { case ((variations, moves), first) =>
-        first.children.variations -> (node2move(first, variations, startingPly, showAuthors) +: moves)
+  )(implicit flags: WithFlags): Vector[NotationMove] = {
+    val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialFen.some, variant)
+    line.zip(enriched)
+      .foldLeft(variations -> Vector.empty[NotationMove]) { case ((variations, moves), (node, usiWithRole)) =>
+        node.children.variations -> (
+          NotationMove(
+            moveNumber = node.ply - startingPly,
+            usiWithRole = usiWithRole,
+            glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
+            comments = flags.comments ?? {
+              renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
+            },
+            result = none,
+            variations = flags.variations ?? {
+              variations.view.map { child =>
+                toMoves(child.mainline, child.fen, variant, noVariations, startingPly, showAuthors).toList
+              }.toList
+            }
+          ) +: moves)
       }
       ._2
       .reverse
+    }
+
 }

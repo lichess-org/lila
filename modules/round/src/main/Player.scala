@@ -1,20 +1,20 @@
 package lila.round
 
-import shogi.format.{ Forsyth, Usi }
+import shogi.format.Forsyth
+import shogi.format.usi.Usi
 import shogi.{ Centis, MoveMetrics, MoveOrDrop, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Event, Game, Pov, Progress, UsiMemo }
+import lila.game.{ Event, Game, Pov, Progress }
 import lila.game.Game.PlayerId
 import cats.data.Validated
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,
     finisher: Finisher,
-    scheduleExpiration: ScheduleExpiration,
-    usiMemo: UsiMemo
+    scheduleExpiration: ScheduleExpiration
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait MoveResult
@@ -72,7 +72,6 @@ final private class Player(
       progress: Progress,
       moveOrDrop: MoveOrDrop
   )(implicit proxy: GameProxy): Fu[Events] = {
-    if (pov.game.hasAi) usiMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
     if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
     else {
@@ -97,7 +96,6 @@ final private class Player(
           case Flagged => finisher.outOfTime(game)
           case MoveApplied(progress, moveOrDrop) =>
             proxy.save(progress) >>-
-              usiMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else

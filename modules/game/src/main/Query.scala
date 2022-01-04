@@ -46,8 +46,6 @@ object Query {
 
   def clockHistory(c: Boolean): Bdoc = F.senteClockHistory $exists c
 
-  def lastMoveNotDrop: Bdoc = F.historyLastMove $regex "[a-i][1-9][a-i][1-9]"
-
   def user(u: String): Bdoc = F.playerUids $eq u
   def user(u: User): Bdoc   = F.playerUids $eq u.id
 

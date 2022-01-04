@@ -1,6 +1,7 @@
 package lila.study
 
-import shogi.format.{ FEN, Glyph, Glyphs, Usi, UsiCharPair }
+import shogi.format.{ FEN, Glyph, Glyphs }
+import shogi.format.usi.{ Usi, UsiCharPair }
 
 import shogi.Centis
 import lila.tree.Eval.Score
@@ -21,13 +22,13 @@ sealed trait RootOrNode {
   def fullMoveNumber = 1 + ply / 2
   def mainline: Vector[Node]
   def color = shogi.Color.fromPly(ply)
-  def moveOption: Option[Usi.WithSan]
+  def usiOption: Option[Usi]
 }
 
 case class Node(
     id: UsiCharPair,
     ply: Int,
-    move: Usi.WithSan,
+    usi: Usi,
     fen: FEN,
     check: Boolean,
     shapes: Shapes = Shapes(Nil),
@@ -95,9 +96,9 @@ case class Node(
       forceVariation = n.forceVariation || forceVariation
     )
 
-  def moveOption = move.some
+  def usiOption = usi.some
 
-  override def toString = s"$ply.${move.san}"
+  override def toString = s"$ply.${usi}"
 }
 
 object Node {
@@ -318,7 +319,7 @@ object Node {
 
     def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.size > 1
 
-    def moveOption = none
+    def usiOption = none
 
     override def toString = "ROOT"
   }
@@ -348,7 +349,7 @@ object Node {
     Node(
       id = b.id,
       ply = b.ply,
-      move = b.move,
+      usi = b.usi,
       fen = FEN(b.fen),
       check = b.check,
       clock = b.clock,
@@ -359,7 +360,6 @@ object Node {
   object BsonFields {
     val ply            = "p"
     val usi            = "u"
-    val san            = "s"
     val fen            = "f"
     val check          = "c"
     val shapes         = "h"

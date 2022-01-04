@@ -44,7 +44,7 @@ final class IrwinStream {
           "id"    -> game.id,
           "sente" -> game.sentePlayer.userId,
           "gote"  -> game.gotePlayer.userId,
-          "pgn"   -> game.pgnMoves.mkString(" "),
+          "usiMoves"   -> game.usiMoves.map(_.usi).mkString(" "),
           "emts"  -> game.clockHistory.isDefined ?? game.moveTimes.map(_.map(_.centis)),
           "analysis" -> analysis.map {
             _.infos.map { info =>

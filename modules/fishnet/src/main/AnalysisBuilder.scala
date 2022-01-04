@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import shogi.format.Usi
+import shogi.format.usi.Usi
 import JsonApi.Request.Evaluation
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
@@ -28,11 +28,11 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       shogi
-        .Replay(work.game.usiList, work.game.initialFen.map(_.value), work.game.variant)
+        .Replay.replay(work.game.usiList, work.game.initialFen, work.game.variant)
         .fold(
           fufail(_),
           replay =>
-            UsiToPgn(
+            VariationValidation(
               replay,
               Analysis(
                 id = work.game.id,
@@ -46,7 +46,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
             ) match {
               case (analysis, errors) =>
                 errors foreach { e =>
-                  logger.debug(s"[UsiToPgn] $debug $e")
+                  logger.debug(s"[Variation validation] $debug $e")
                 }
                 if (analysis.valid) {
                   if (!isPartial && analysis.emptyRatio >= 1d / 10)

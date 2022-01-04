@@ -69,8 +69,7 @@ private[study] object CommentParser {
           for {
             color     <- c.headOption
             pos       <- Pos.fromKey(c.drop(1).take(2))
-            pieceChar <- c.lastOption
-            piece     <- shogi.Piece.fromChar(pieceChar)
+            piece     <- shogi.Piece.fromForsyth(c.drop(3))
           } yield Shape.Piece(toBrush(color), pos, piece)
         }
         Shapes(pieces) -> piecesRemoveRegex.replaceAllIn(comment, "").trim

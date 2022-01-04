@@ -111,7 +111,7 @@ final class Analyse(
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       fuccess {
         shogi.Replay
-          .plyAtFen(pov.game.pgnMoves, initialFen.map(_.value), pov.game.variant, atFen)
+          .plyAtFen(pov.game.usiMoves, initialFen, pov.game.variant, FEN(atFen))
           .fold(
             err => {
               lila.log("analyse").info(s"RedirectAtFen: ${pov.gameId} $atFen $err")

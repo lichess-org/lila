@@ -1,6 +1,7 @@
 package lila.study
 
-import shogi.format.{ FEN, Glyph, Glyphs, Tag, Tags, Usi, UsiCharPair }
+import shogi.format.{ FEN, Glyph, Glyphs, Tag, Tags }
+import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.variant.Variant
 import shogi.{ Centis, Piece, Pos, Role }
 import org.joda.time.DateTime
@@ -33,8 +34,8 @@ object BSONHandlers {
     x => BSONString(x.usiKey)
   )
   implicit private val PieceBSONHandler = tryHandler[Piece](
-    { case BSONString(v) => Piece.fromChar(v.head) toTry s"No such piece: $v" },
-    x => BSONString(x.forsyth.toString)
+    { case BSONString(v) => Piece.fromForsyth(v) toTry s"No such piece: $v" },
+    x => BSONString(x.forsyth)
   )
 
   implicit val ShapeBSONHandler = new BSON[Shape] {
@@ -53,13 +54,13 @@ object BSONHandlers {
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.usiKey)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.usiKey, "d" -> dest.usiKey)
         case Shape.Piece(brush, orig, piece) =>
-          $doc("b" -> brush, "o" -> orig.usiKey, "k" -> piece.forsyth.toString)
+          $doc("b" -> brush, "o" -> orig.usiKey, "k" -> piece.forsyth)
       }
   }
 
   implicit val RoleHandler = tryHandler[Role](
-    { case BSONString(v) => v.headOption flatMap Role.allByForsyth.get toTry s"No such role: $v" },
-    x => BSONString(x.forsyth.toString)
+    { case BSONString(v) => Role.allByForsyth get v toTry s"No such role: $v" },
+    x => BSONString(x.forsyth)
   )
 
   implicit val UsiHandler = tryHandler[Usi](
@@ -79,8 +80,6 @@ object BSONHandlers {
 
   import Study.IdName
   implicit val StudyIdNameBSONHandler = Macros.handler[IdName]
-
-  import Usi.WithSan
 
   implicit val ShapesBSONHandler: BSONHandler[Shapes] =
     isoHandler[Shapes, List[Shape]]((s: Shapes) => s.value, Shapes(_))
@@ -146,7 +145,6 @@ object BSONHandlers {
     for {
       ply <- doc.getAsOpt[Int](F.ply)
       usi <- doc.getAsOpt[Usi](F.usi)
-      san <- doc.getAsOpt[String](F.san)
       fen <- doc.getAsOpt[FEN](F.fen)
       check          = ~doc.getAsOpt[Boolean](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
@@ -159,7 +157,7 @@ object BSONHandlers {
     } yield Node(
       id,
       ply,
-      WithSan(usi, san),
+      usi,
       fen,
       check,
       shapes,
@@ -178,8 +176,7 @@ object BSONHandlers {
     val w = new Writer
     $doc(
       ply            -> n.ply,
-      usi            -> n.move.usi,
-      san            -> n.move.san,
+      usi            -> n.usi,
       fen            -> n.fen,
       check          -> w.boolO(n.check),
       shapes         -> n.shapes.value.nonEmpty.option(n.shapes),
@@ -238,11 +235,11 @@ object BSONHandlers {
     x => BSONInteger(x.id)
   )
 
-  implicit val PgnTagBSONHandler = tryHandler[Tag](
+  implicit val TagBSONHandler = tryHandler[Tag](
     { case BSONString(v) =>
       v.split(":", 2) match {
         case Array(name, value) => Success(Tag(name, value))
-        case _                  => handlerBadValue(s"Invalid pgn tag $v")
+        case _                  => handlerBadValue(s"Invalid tag $v")
       }
     },
     t => BSONString(s"${t.name}:${t.value}")
