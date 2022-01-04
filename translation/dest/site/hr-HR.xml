@@ -12,7 +12,7 @@
   <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
   <string name="chat">Chat</string>
-  <string name="resign">Predaj partiju</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Predaj partiju</string>
   <string name="checkmate">Šah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Bijeli</string>
@@ -882,7 +882,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="simulHostcolor">Boja domaćina u svakoj igri</string>
   <string name="estimatedStart">Predviđeno vrijeme početka</string>
   <string name="simulDescription">Opis simultanke</string>
-  <string name="inYourLocalTimezone">U tvojoj vremenskoj zoni</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">U tvojoj vremenskoj zoni</string>
   <string name="tournChat">Turnirski razgovor</string>
   <string name="noChat">Nema razgovora</string>
   <string name="onlyTeamLeaders">Samo vođe timova</string>
@@ -892,6 +892,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="sentEmailWithLink">Poslali smo ti email s linkom.</string>
   <string name="tournamentEntryCode">Lozinka za turnir</string>
   <string name="hangOn">Čekaj!</string>
+  <string name="gameInProgress">U tijeku je igra s %s.</string>
+  <string name="abortTheGame">Prekini igru</string>
+  <string name="resignTheGame">Odustani od igre</string>
+  <string name="youCantStartNewGame">Ne možete započeti novu igru dok se ova ne završi.</string>
   <string name="since">Od</string>
   <string name="until">Do</string>
   <string name="lichessDbExplanation">Odabrane bodovane partije svih igrača na Lichessu</string>
