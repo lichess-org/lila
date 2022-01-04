@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">ଦାନ କରନ୍ତୁ</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
+  <string name="donateAsX">%s ଭାବରେ ଦାନ କରନ୍ତୁ</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">ମାଗଣା ଖାତା</string>
   <string name="becomePatron">ଏକ Lichess Patron ହୁଅନ୍ତୁ</string>
@@ -25,7 +25,6 @@
   <string name="contactSupport">Lichess ସମର୍ଥନ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ</string>
   <string name="otherMethods">ଦାନ କରିବାର ଅନ୍ୟ ପଦ୍ଧତି?</string>
   <string name="bankTransfers">ଆମେ ବ୍ୟାଙ୍କ ଟ୍ରାନ୍ସଫରକୁ ମଧ୍ୟ ଗ୍ରହଣ କରୁ</string>
-  <string name="bitcoin">ଏବଂ ଏଠାରେ ଆମର bitcoin ଠିକଣା ଅଛି: %s</string>
   <string name="youSupportWith">ଆପଣ ପ୍ରତି ମାସରେ %s ସହିତ lichess.org କୁ ସମର୍ଥନ କରନ୍ତି।</string>
   <string name="currentStatus">ବର୍ତ୍ତମାନ ସ୍ଥିତି</string>
   <string name="nextPayment">ଆଗାମୀ ଦେୟ</string>
