@@ -77,16 +77,6 @@ object Preset {
       Question(D.Phase, M.Opportunism, Nil)
     ),
     Preset(
-      "Do I gain rating when I don't castle kingside?",
-      Question(
-        D.Perf,
-        M.RatingDiff,
-        List(
-          Filter(D.MyCastling, List(Castling.Queenside, Castling.None))
-        )
-      )
-    ),
-    Preset(
       "When I trade queens, how do games end?",
       Question(
         D.Perf,

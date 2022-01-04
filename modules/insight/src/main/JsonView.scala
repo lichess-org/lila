@@ -41,8 +41,6 @@ final class JsonView {
         "Game",
         List(
           openingJson,
-          Json.toJson(D.MyCastling: Dimension[_]),
-          Json.toJson(D.OpCastling: Dimension[_]),
           Json.toJson(D.QueenTrade: Dimension[_])
         )
       ),

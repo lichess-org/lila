@@ -29,8 +29,8 @@ private object BSONHandlers {
     e => BSONInteger(e.id)
   )
   implicit val RoleBSONHandler = tryHandler[Role](
-    { case BSONString(v) => Role.allByForsyth get v.head toTry s"Invalid role $v" },
-    e => BSONString(e.forsyth.toString)
+    { case BSONString(v) => Role.allByForsyth get v toTry s"Invalid role $v" },
+    e => BSONString(e.forsyth)
   )
   implicit val TerminationBSONHandler = tryHandler[Termination](
     { case BSONInteger(v) => Termination.byId get v toTry s"Invalid termination $v" },
@@ -38,10 +38,6 @@ private object BSONHandlers {
   )
   implicit val MovetimeRangeBSONHandler = tryHandler[MovetimeRange](
     { case BSONInteger(v) => MovetimeRange.byId get v toTry s"Invalid movetime range $v" },
-    e => BSONInteger(e.id)
-  )
-  implicit val CastlingBSONHandler = tryHandler[Castling](
-    { case BSONInteger(v) => Castling.byId get v toTry s"Invalid Castling $v" },
     e => BSONInteger(e.id)
   )
   implicit val MaterialRangeBSONHandler = tryHandler[MaterialRange](
@@ -109,10 +105,8 @@ private object BSONHandlers {
           color = r.get[Color](color),
           perf = r.get[PerfType](perf),
           eco = r.getO[Ecopening](eco),
-          myCastling = r.get[Castling](myCastling),
           opponentRating = r.int(opponentRating),
           opponentStrength = r.get[RelativeStrength](opponentStrength),
-          opponentCastling = r.get[Castling](opponentCastling),
           moves = r.get[List[Move]](moves),
           queenTrade = r.get[QueenTrade](queenTrade),
           result = r.get[Result](result),
@@ -130,10 +124,8 @@ private object BSONHandlers {
           color            -> e.color,
           perf             -> e.perf,
           eco              -> e.eco,
-          myCastling       -> e.myCastling,
           opponentRating   -> e.opponentRating,
           opponentStrength -> e.opponentStrength,
-          opponentCastling -> e.opponentCastling,
           moves            -> e.moves,
           queenTrade       -> e.queenTrade,
           result           -> e.result,

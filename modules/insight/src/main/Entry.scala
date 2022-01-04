@@ -14,10 +14,8 @@ case class Entry(
     color: Color,
     perf: PerfType,
     eco: Option[Ecopening],
-    myCastling: Castling,
     opponentRating: Int,
     opponentStrength: RelativeStrength,
-    opponentCastling: Castling,
     moves: List[Move],
     queenTrade: QueenTrade,
     result: Result,
@@ -42,10 +40,8 @@ case object Entry {
     val color                    = "c"
     val perf                     = "p"
     val eco                      = "e"
-    val myCastling               = "mc"
     val opponentRating           = "or"
     val opponentStrength         = "os"
-    val opponentCastling         = "oc"
     val moves: String            = "m"
     def moves(f: String): String = s"$moves.$f"
     val queenTrade               = "q"
@@ -139,23 +135,6 @@ object Phase {
           case e if e > ply => Middle
           case _            => End
         }
-    }
-}
-
-sealed abstract class Castling(val id: Int, val name: String)
-object Castling {
-  object Kingside  extends Castling(1, "Kingside castling")
-  object Queenside extends Castling(2, "Queenside castling")
-  object None      extends Castling(3, "No castling")
-  val all = List(Kingside, Queenside, None)
-  val byId = all map { p =>
-    (p.id, p)
-  } toMap
-  def fromMoves(moves: Iterable[String]) =
-    moves.find(_ startsWith "O") match {
-      case Some("O-O")   => Kingside
-      case Some("O-O-O") => Queenside
-      case _             => None
     }
 }
 

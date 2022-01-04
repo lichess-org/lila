@@ -132,24 +132,6 @@ object Dimension {
         raw("The amount of time you spend thinking on each move, in seconds.")
       )
 
-  case object MyCastling
-      extends Dimension[Castling](
-        "myCastling",
-        "My castling side",
-        F.myCastling,
-        Game,
-        raw("The side you castled on during the game: kingside, queenside, or none.")
-      )
-
-  case object OpCastling
-      extends Dimension[Castling](
-        "opCastling",
-        "Opponent castling side",
-        F.opponentCastling,
-        Game,
-        raw("The side your opponent castled on during the game: kingside, queenside, or none.")
-      )
-
   case object QueenTrade
       extends Dimension[QueenTrade](
         "queenTrade",
@@ -207,7 +189,6 @@ object Dimension {
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => shogi.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
-      case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
       case Blur                    => lila.insight.Blur.all
@@ -227,7 +208,6 @@ object Dimension {
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => shogi.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
-      case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
       case Blur                    => lila.insight.Blur(key == "true").some
@@ -254,7 +234,6 @@ object Dimension {
       case OpponentStrength        => v.id
       case PieceRole               => v.name
       case MovetimeRange           => v.id
-      case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
       case Blur                    => v.id
@@ -274,7 +253,6 @@ object Dimension {
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)
-      case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
       case Blur                    => JsString(v.name)
