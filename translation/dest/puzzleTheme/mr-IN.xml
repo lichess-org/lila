@@ -54,4 +54,5 @@
   <string name="hookMate">हुक मात</string>
   <string name="hookMateDescription">हत्ती, घोडा आणि प्यादे याने मात तसेच विरोधकाचे एक प्यादे समोरच्या राजाला अडकवून ठेवतो.</string>
   <string name="interference">हस्तक्षेप</string>
+  <string name="interferenceDescription">एखादी सोंगटी समोरच्याच्या दोन सोंगट्याच्या मधून हलवणे जेणेकरून विरोधकाच्या एक किंवा दोन सोंगट्याचा बचाव जाईल, उदाहरणार्थ एक घोडा जो सुरक्षित घरात आहे आणि जो दोन हत्तीच्या मध्ये असेल.</string>
 </resources>
