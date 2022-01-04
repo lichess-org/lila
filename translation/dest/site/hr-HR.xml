@@ -91,6 +91,7 @@
     <item quantity="few">Mat u %s međupoteza</item>
     <item quantity="other">Mat u %s međupoteza</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na temelju broja polupoteza do sljedećeg hvatanja ili poteza pješaka</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
@@ -98,6 +99,9 @@
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
+  <string name="winOr50MovesByPriorMistake">Pobjeda ili 50 poteza prethodnom greškom</string>
+  <string name="lossOr50MovesByPriorMistake">Gubitak ili 50 poteza prethodnom greškom</string>
+  <string name="unknownDueToRounding">Pobjeda/gubitak su zajamčeni samo ako se slijedila preporučena osnovna linija tablice od posljednjeg hvatanja ili poteza pješaka, zbog mogućeg zaokruživanja DTZ vrijednosti u Syzygy bazama tablica.</string>
   <string name="allSet">U redu</string>
   <string name="importPgn">Uvezi PGN</string>
   <string name="delete">Izbriši</string>
@@ -464,6 +468,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="setTheBoard">Postavi ploču</string>
   <string name="popularOpenings">Popularna otvaranja</string>
   <string name="endgamePositions">Pozicije u završnici</string>
+  <string name="chess960StartPosition">Početna pozicija Chess960: %s</string>
   <string name="startPosition">Početna pozicija</string>
   <string name="clearBoard">Očisti ploču</string>
   <string name="loadPosition">Učitaj poziciju</string>
@@ -868,16 +873,22 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="clickToRevealEmailAddress">[Klikni za prikaz e-mail adrese]</string>
   <string name="download">Preuzmi</string>
   <string name="welcome">Dobrodošli!</string>
+  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
+Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
   <string name="coachManager">Postavke za trenera</string>
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
   <string name="tournDescription">Opis turnira</string>
+  <string name="tournDescriptionHelp">Želite li nešto posebno poručiti sudionicima? Pokušajte biti kratki. Markdown veze su dostupne: [name](https://url)</string>
+  <string name="ratedFormHelp">Igre se ocjenjuju
+i utječu na ocjene igrača</string>
   <string name="onlyMembersOfTeam">Samo za članove tima</string>
   <string name="noRestriction">Bez ograničenja</string>
   <string name="minimumRatedGames">Minimalni broj rejting partija</string>
   <string name="minimumRating">Minimalni rejting</string>
   <string name="maximumWeeklyRating">Maksimalni tjedni rejting</string>
   <string name="onlyTitled">Samo igrači s titulom</string>
+  <string name="onlyTitledHelp">Zahtijevajte službenu titulu radi pridruživanja turniru</string>
   <string name="positionInputHelp">Zalijepite važeći FEN da biste započeli svaku igru s određene pozicije.
 Radi samo za standardne igre, ne i za varijante.
 Možete koristiti %s za generiranje FEN pozicije, a zatim ga zalijepite ovdje.
