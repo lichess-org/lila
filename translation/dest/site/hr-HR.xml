@@ -878,16 +878,36 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="minimumRating">Minimalni rejting</string>
   <string name="maximumWeeklyRating">Maksimalni tjedni rejting</string>
   <string name="onlyTitled">Samo igrači s titulom</string>
+  <string name="positionInputHelp">Zalijepite važeći FEN da biste započeli svaku igru s određene pozicije.
+Radi samo za standardne igre, ne i za varijante.
+Možete koristiti %s za generiranje FEN pozicije, a zatim ga zalijepite ovdje.
+Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="cancelSimul">Otkaži simultanku</string>
   <string name="simulHostcolor">Boja domaćina u svakoj igri</string>
   <string name="estimatedStart">Predviđeno vrijeme početka</string>
+  <string name="simulFeatured">Značajka na %s</string>
+  <string name="simulFeaturedHelp">Pokažite svoju simulaciju svima na %s. Onemogući za privatne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
+  <string name="simulDescriptionHelp">Želite li nešto reći sudionicima?</string>
+  <string name="markdownAvailable">%s je dostupan za napredniju sintaksu.</string>
+  <string name="embedsAvailable">Zalijepite URL igre ili URL poglavlja studije da biste ga ugradili.</string>
   <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">U tvojoj vremenskoj zoni</string>
   <string name="tournChat">Turnirski razgovor</string>
   <string name="noChat">Nema razgovora</string>
   <string name="onlyTeamLeaders">Samo vođe timova</string>
   <string name="onlyTeamMembers">Samo članovi timova</string>
+  <string name="navigateMoveTree">Kreći se po stablu premještanja</string>
+  <string name="mouseTricks">Trikovi s mišem</string>
+  <string name="toggleLocalAnalysis">Uključi analizu lokalnog računala</string>
+  <string name="toggleAllAnalysis">Uključi sve računalne analize</string>
+  <string name="playComputerMove">Igraj najbolji računalni potez</string>
   <string name="analysisOptions">Opcije analize</string>
+  <string name="focusChat">Fokusiraj chat</string>
+  <string name="showHelpDialog">Pokaži poruku pomoći</string>
+  <string name="reopenYourAccount">Ponovno otvorite svoj račun</string>
+  <string name="closedAccountChangedMind">Ako ste zatvorili svoj račun, ali ste se predomislili, imate jednu priliku da vratite svoj račun.</string>
+  <string name="onlyWorksOnce">Ovo će raditi samo jednom.</string>
+  <string name="cantDoThisTwice">Ako drugi put zatvorite svoj račun, nećete ga moći oporaviti.</string>
   <string name="emailAssociatedToaccount">Email adresa povezana s računom</string>
   <string name="sentEmailWithLink">Poslali smo ti email s linkom.</string>
   <string name="tournamentEntryCode">Lozinka za turnir</string>
