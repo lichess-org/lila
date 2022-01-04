@@ -37,7 +37,6 @@ Võimalik on ka %s.</string>
   <string name="contactSupport">võta ühendust Lichessi abiga</string>
   <string name="otherMethods">Teised annetusviisid?</string>
   <string name="bankTransfers">Me võtame vastu ka pangaülekandeid</string>
-  <string name="bitcoin">Ja siin on meie bitcoini aadress: %s</string>
   <string name="patronFeatures">Kas osa funktsioonidest on mõeldud ainult toetajatele?</string>
   <string name="noPatronFeatures">Ei, sest Lichess on täiesti tasuta, igavesti ja kõigile. See on lubadus. Ikkagi, toetajad saavad käia uhkelt ringi uue laheda profiilipildiga.</string>
   <string name="featuresComparison">Vaata üksikasjaline funktsioonide võrdlus</string>
