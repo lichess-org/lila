@@ -18,70 +18,70 @@ class KnightTest extends ShogiTest {
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-k B
-
-   B
-    P
-  N
-    P
-PPP  PPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . B . . . . .
+. . . . P . . . .
+. . N . . . . . .
+. . . P . . . . .
+P P P . . P P P P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-
- x B
-    P
-  N
-    P
-PPP  PPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. x . B . . . . .
+. . . . P . . . .
+. . N . . . . . .
+. . . P . . . . .
+P P P . . P P P P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
 
     "capture opponent pieces" in {
       val board = """
-k B
-
- b B
-n
-  N
-    b
-PPP  PPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. b . B . . . . .
+n . . . . . . . .
+. . N . . . . . .
+. . . . b . . . .
+P P P . . P P P P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-
- x B
-n
-  N
-    b
-PPP  PPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. x . B . . . . .
+n . . . . . . . .
+. . N . . . . . .
+. . . . b . . . .
+P P P . . P P P P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
     "threaten" in {
       val board = """
-k B
-
- b B
-n
-  N
-    R
-PPP  PPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. b . B . . . . .
+n . . . . . . . .
+. . N . . . . . .
+. . . . R . . . .
+P P P . . P P P P
+. . . . . . . . .
+. . . . K . . . .
 """
       "a reachable enemy" in {
         board actorAt SQ7E map (_ threatens SQ8C) must beSome(true)

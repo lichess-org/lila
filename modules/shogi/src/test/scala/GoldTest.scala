@@ -18,70 +18,70 @@ class GoldTest extends ShogiTest {
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-k B
-
-
-
- NG     P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. N G . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-
-
- xxx
- NGx    P
-  x
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. x x x . . . . .
+. N G x . . . P .
+. . x . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
 
     "capture opponent pieces" in {
       val board = """
-k B
-
-
-  p
-N G     P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . p . . . . . .
+N . G . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-
-
- xxx
-NxGx    P
-  x
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. x x x . . . . .
+N x G x . . . P .
+. . x . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
     "threaten" in {
       val board = """
-k B
-  r  r
-p
-  p
-N G     P
-  P
-PP PPPPPP
-
-    K
+k . B . . . . . .
+. . r . r . . . .
+p . . . . . . . .
+. . p . . . . . .
+N . G . . . . P .
+. . P . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       "a reachable enemy" in {
         board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)

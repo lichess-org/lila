@@ -8,71 +8,71 @@ class SituationTest extends ShogiTest {
     "detect check" should {
       "by rook" in {
         ("""
-K  r
+K . . r . . . . .
 """ as Sente).check must beTrue
       }
       "by knight" in {
         ("""
- n
-
-K
+. n . . . . . . .
+. . . . . . . . .
+K . . . . . . . .
 """ as Sente).check must beTrue
       }
       "by bishop" in {
         ("""
-  b
-
-   
-     K
+. . b . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . K . . .
 """ as Sente).check must beTrue
       }
       "by pawn" in {
         ("""
-    p
-    K
+. . . . p . . . .
+. . . . K . . . .
 """ as Sente).check must beTrue
       }
       "not" in {
         ("""
-K
-
- n
+K . . . . . . . .
+. . . . . . . . .
+.+n . . . . . . .
 """ as Sente).check must beFalse
       }
     }
     "detect check mate" in {
       "by rook" in {
         ("""
-PP
-K  r
+P P . . . . . . .
+K . . r . . . . .
 """ as Sente).checkMate must beTrue
       }
       "by knight" in {
         ("""
- n
-PB
-KR
+. n . . . . . . .
+P B . . . . . . .
+K R . . . . . . .
 """ as Sente).checkMate must beTrue
       }
       "not" in {
         ("""
- n
- 
-K
+. n . . . . . . .
+. . . . . . . . .
+K . . . . . . . .
 """ as Sente).checkMate must beFalse
       }
     }
     "stale mate" in {
       "stuck in a corner" in {
         ("""
-brr
-K
+b r r . . . . . .
+K . . . . . . . .
 """ as Sente).staleMate must beTrue
       }
       "not" in {
         ("""
-  b
-K
+. . b . . . . . .
+K . . . . . . . .
 """ as Sente).staleMate must beFalse
       }
     }
@@ -80,8 +80,8 @@ K
     "Give the correct winner for a game" in {
       val game =
         """
-PP
-K  r
+P P . . . . . . .
+K . . r . . . . .
 """ as Sente
 
       game.checkMate must beTrue
@@ -92,9 +92,9 @@ K  r
 
     "Not give a winner if the game is still in progress" in {
       val game = """
-    p
-     K
-    """ as Sente
+. . . . p . . . .
+. . . . . K . . .
+""" as Sente
 
       game.winner must beNone
 
@@ -102,25 +102,25 @@ K  r
 
     "not be playable" in {
       "with touching kings" in {
-        val game = "kK BN" as Gote
+        val game = "k K . B N . . . ." as Gote
         game.playable(true) must beFalse
         game.playable(false) must beFalse
       }
 
       "with other side in check" in {
-        val game = "k Q K" as Sente
+        val game = "k . R . K . . . ." as Sente
         game.playable(true) must beFalse
         game.playable(false) must beFalse
       }
 
       "with doubled pawns" in {
         val game = """
-k
-
-Pp
-P
-K  
-        """ as Sente
+k . . . . . . . .
+. . . . . . . . .
+P p . . . . . . .
+P . . . . . . . .
+K . . . . . . . .
+""" as Sente
         game.playable(true) must beFalse
         game.playable(false) must beFalse
       }

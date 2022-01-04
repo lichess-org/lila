@@ -52,42 +52,42 @@ class RookTest extends ShogiTest {
 
     "not move to positions that are occupied by the same colour" in {
       """
-k B
-
-
-
-N R    P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+N . R . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """ destsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7C, SQ7B, SQ7B, SQ8E, SQ6E, SQ5E, SQ4E, SQ3E)
     }
 
     "capture opponent pieces" in {
       """
-k
-  b
-
-
-n R   p
-
-PPPPPPPPP
-
-    K
+k . . . . . . . .
+. . b . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+n . R . . . p . .
+. . . . . . . . .
+P P P P P P P P P
+. . . . . . . . .
+. . . . K . . . .
 """ destsFrom SQ7E must bePoss(SQ7F, SQ7D, SQ7C, SQ7C, SQ7B, SQ7B, SQ8E, SQ9E, SQ6E, SQ5E, SQ4E, SQ3E)
     }
     "threaten" in {
       val board = """
-k B
-  r  r
-p
-
-n R    P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . r . . r . . .
+p . . . . . . . .
+. . . . . . . . .
+n . R . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       "a reachable enemy to the left" in {
         board actorAt SQ7E map (_ threatens SQ9E) must beSome(true)

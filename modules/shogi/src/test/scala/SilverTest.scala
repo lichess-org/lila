@@ -18,70 +18,70 @@ class SilverTest extends ShogiTest {
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-k B
-
-
-
- NS     P
- G
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. N S . . . . P .
+. G . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-
-
- xxx
- NS     P
- G x
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. x x x . . . . .
+. N S . . . . P .
+. G . x . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
 
     "capture opponent pieces" in {
       val board = """
-k B
-
-
-  p
-N S     P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . p . . . . . .
+N . S . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-
-
- xxx
-N S     P
- x x
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. x x x . . . . .
+N . S . . . . P .
+. x . x . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
     "threaten" in {
       val board = """
-k B
-  r  r
-p
-  p
- NS    P
-   P
-PPP PPPPP
-
-    K
+k . B . . . . . .
+. . r . . r . . .
+p . . . . . . . .
+. . p . . . . . .
+. N S . . . . P .
+. . . P . . . . .
+P P P . P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       "a reachable enemy" in {
         board actorAt SQ7E map (_ threatens SQ7D) must beSome(true)

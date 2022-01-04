@@ -14,94 +14,147 @@ class VisualTest extends ShogiTest {
 
     "import and export is non destructive" in {
       forall(examples) { example =>
-        f.addNewLines(f >> (f << example)) must_== example
+        f.addNewLines(f >> ((f << example).get)) must_== example
       }
+    }
+
+    "partial import" in {
+      f.addNewLines(f >> ((f << partialBoardFormat).get)) must_== fullBoardFormat
+    }
+
+    "hand import" in {
+      f.addNewLines(f >> ((f << handInBoard).get)) must_== fullHandInBoard
     }
 
     "export with special marks" in {
       val board       = Visual << """
-k B
-
-
-
-N B     P
-
-PPPPPPPPP
-
- NSGKGSNL
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+N . B . . . . . P
+. . . . . . . . .
+P P P P P P P P .
+. . . . . . . . .
+. N S G K G S N L
 """
-      val markedBoard = f >>| (board, Map(Set(SQ8F, SQ6F, SQ8D, SQ6D, SQ9C, SQ5C, SQ4B, SQ3A) -> 'x'))
+      val markedBoard = f >>| (board.get, Map(Set(SQ8F, SQ6F, SQ8D, SQ6D, SQ9C, SQ5C, SQ4B, SQ3A) -> 'x'))
       f addNewLines markedBoard must_== """
-k B   x
-     x
-x   x
- x x
-N B     P
- x x
-PPPPPPPPP
-
- NSGKGSNL
+k . B . . . x . .
+. . . . . x . . .
+x . . . x . . . .
+. x . x . . . . .
+N . B . . . . . P
+. x . x . . . . .
+P P P P P P P P .
+. . . . . . . . .
+. N S G K G S N L
 """
     }
   }
 
   val newBoardFormat = """
-lnsgkgsnl
- r     b
-ppppppppp
+l n s g k g s n l
+. r . . . . . b .
+p p p p p p p p p
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+P P P P P P P P P
+. B . . . . . R .
+L N S G K G S N L
+"""
 
+  val partialBoardFormat = """
+. . . . . . . . .
+. . . . k . . . .
+. . . . . . . . .
+P P P P P P P P P
+. B . . . . . R .
+L N S G K G S N L
+"""
 
+  val fullBoardFormat = """
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . k . . . .
+. . . . . . . . .
+P P P P P P P P P
+. B . . . . . R .
+L N S G K G S N L
+"""
 
-PPPPPPPPP
- B     R
-LNSGKGSNL
+  val handInBoard = """
+. . . . . . . . .
+. . . . k . . . .
+. . . . . . . . .
+P P P P P P P P P
+. B . . . . . R .
+L N S G K G S N L
+Sente: LN
+"""
+
+  val fullHandInBoard = """
+Gote:
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . k . . . .
+. . . . . . . . .
+P P P P P P P P P
+. B . . . . . R .
+L N S G K G S N L
+Sente:NL
 """
 
   val examples = Seq(
     newBoardFormat,
     """
-lnsgkgsnl
- r     B
-pppppp pp
-      p
-
-  P
-PP PPPPPP
-       R
-LNSGKGSNL
+l n s g k g s n l
+. r . . . . . B .
+p p p p p p . p p
+. . . . . . p . .
+. . . . . . . . .
+. . P . . . . . .
+P P . P P P P P P
+. . . . . . . R .
+L N S G K G S N L
 """,
     """
-       k
-       P
-
-
-
-
-
-
-K
+. . . . . . k . .
+. . . . . . P . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+K . . . . . . . .
 """,
     """
-lnsgkgsnl
- r     b
-ppppppppp
-
-
-
-
-
-LK     NL
+l n s g k g s n l
+. r . . . . . b .
+p p p p p p p p p
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+L K . . . . . N L
 """,
     """
-  bgkg nl
-p ppp ppp
- r
-   P p
-
-    nB
- PP  N  P
-P    PPP
-LNS K   L
+. . b g k g . n l
+p . p p p . p p p
+. r . . . . . . .
+. . P . p . . . .
+. . . . . . . . .
+. . . . n B . . .
+. P P . . N . . P
+P . . . . P P P .
+L N S . K . . . L
 """
   )
 }

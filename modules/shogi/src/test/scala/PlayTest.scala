@@ -12,30 +12,34 @@ class PlayTest extends ShogiTest {
       "current game" in {
         game must beValid.like { case g =>
           addNewLines(g.board.visual) must_== """
-lnsgkgsnl
- r     B
-pppppp pp
-      p
-
-  P
-PP PPPPPP
-       R
-LNSGKGSNL
+Gote:
+l n s g k g s n l
+. r . . . . . B .
+p p p p p p . p p
+. . . . . . p . .
+. . . . . . . . .
+. . P . . . . . .
+P P . P P P P P P
+. . . . . . . R .
+L N S G K G S N L
+Sente:B
 """
         }
       }
       "after recapture" in {
         game flatMap { _.playMoves(SQ3A -> SQ2B) } must beValid.like { case g =>
           addNewLines(g.board.visual) must_== """
-lnsgkg nl
- r     s
-pppppp pp
-      p
-
-  P
-PP PPPPPP
-       R
-LNSGKGSNL
+Gote:b
+l n s g k g . n l
+. r . . . . . s .
+p p p p p p . p p
+. . . . . . p . .
+. . . . . . . . .
+. . P . . . . . .
+P P . P P P P P P
+. . . . . . . R .
+L N S G K G S N L
+Sente:B
 """
         }
       }

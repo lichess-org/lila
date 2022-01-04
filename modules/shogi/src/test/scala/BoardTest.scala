@@ -123,22 +123,22 @@ class BoardTest extends ShogiTest {
     "navigate in pos based on pieces" in {
       "right to end" in {
         val board: Board = """
-R   K   R"""
+R . . . K . . . R"""
         SQ5I >| (p => board.pieces contains p) must_== List(SQ4I, SQ3I, SQ2I, SQ1I)
       }
       "right to next" in {
         val board: Board = """
-R   KB  R"""
+R . . . K B . . R"""
         SQ5I >| (p => board.pieces contains p) must_== List(SQ4I)
       }
       "left to end" in {
         val board: Board = """
-R   K   R"""
+R . . . K . . . R"""
         SQ5I |< (p => board.pieces contains p) must_== List(SQ6I, SQ7I, SQ8I, SQ9I)
       }
       "right to next" in {
         val board: Board = """
-R  BK   R"""
+R . . B K . . . R"""
         SQ5I |< (p => board.pieces contains p) must_== List(SQ6I)
       }
     }

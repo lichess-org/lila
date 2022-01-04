@@ -13,12 +13,12 @@ import shogi.variant._
 
 trait ShogiTest extends Specification with ValidatedMatchers {
 
-  implicit def stringToBoard(str: String): Board = Visual << str
+  implicit def stringToBoard(str: String): Board = (Visual << str).get
 
   implicit def stringToSituationBuilder(str: String) =
     new {
 
-      def as(color: Color): Situation = Situation(Visual << str, color)
+      def as(color: Color): Situation = Situation((Visual << str).get, color)
     }
 
   case class RichActor(actor: Actor) {
@@ -84,7 +84,7 @@ trait ShogiTest extends Specification with ValidatedMatchers {
     Board(pieces toMap, History(), shogi.variant.Standard)
 
   def makeBoard(str: String, variant: Variant) =
-    Visual << str withVariant variant
+    (Visual.<<@(str, variant)).get
 
   def makeBoard: Board = Board init shogi.variant.Standard
 
@@ -125,17 +125,17 @@ trait ShogiTest extends Specification with ValidatedMatchers {
 
   def beBoard(visual: String): Matcher[Validated[String, Board]] =
     beValid.like { case b =>
-      b.visual must_== (Visual << visual).visual
+      b.visual must_== ((Visual << visual).get).visual
     }
 
   def beSituation(visual: String): Matcher[Validated[String, Situation]] =
     beValid.like { case s =>
-      s.board.visual must_== (Visual << visual).visual
+      s.board.visual must_== ((Visual << visual).get).visual
     }
 
   def beGame(visual: String): Matcher[Validated[String, Game]] =
     beValid.like { case g =>
-      g.board.visual must_== (Visual << visual).visual
+      g.board.visual must_== ((Visual << visual).get).visual
     }
 
   def sortPoss(poss: Seq[Pos]): Seq[Pos] = poss sortBy (_.toString)

@@ -35,70 +35,70 @@ class BishopTest extends ShogiTest {
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-k B
-
-
-
-N B     P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+N . B . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B   x
-     x
-x   x
- x x
-N B     P
- x x
-PPPPPPPPP
-
-    K
+k . B . . . x . .
+. . . . . x . . .
+x . . . x . . . .
+. x . x . . . . .
+N . B . . . . P .
+. x . x . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
 
     "capture opponent pieces" in {
       val board = """
-k B
-     r
-p
-
-N B    P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . r . . .
+p . . . . . . . .
+. . . . . . . . .
+N . B . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-k B
-     x
-x   x
- x x
-N B    P
- x x
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . . . . x . . .
+x . . . x . . . .
+. x . x . . . . .
+N . B . . . . P .
+. x . x . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       )
     }
     "threaten" in {
       val board = """
-k B
-  r  r
-p
-
-N B    P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . r . r . . . .
+p . . . . . . . .
+. . . . . . . . .
+N . B . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       "a reachable enemy" in {
         board actorAt SQ7E map (_ threatens SQ9C) must beSome(true)

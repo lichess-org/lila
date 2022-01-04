@@ -18,76 +18,73 @@ class KingTest extends ShogiTest {
 
     "move behind pawn barrier" in {
       """
-PPPPPPPPP
-LN GK  NL""" destsFrom SQ5I must bePoss(SQ4I)
+P P P P P P P P P
+L N . G K . . N L""" destsFrom SQ5I must bePoss(SQ4I)
     }
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-
-
-  
-   P
-NPKL   P
-
-P P PPP P
-
-  SGKGSNL
+. . . P . . . . .
+N P K L . . . P .
+. . . . . . . . .
+P . P . P P P . P
+. . . . . . . . .
+. . S G K G S N L
 """
       board destsFrom SQ7E must bePoss(
         board,
         """
-
-
-
- xxP
-NPKL   P
- xxx
-P P PPP P
-
-  SGKGSNL
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. x x P . . . . .
+N P K L . . . P .
+. x x x . . . . .
+P . P . P P P . P
+. . . . . . . . .
+. . S G K G S N L
 """
       )
     }
 
     "capture hanging opponent pieces" in {
       val board = """
-k
-
-
-
-
- bpl
-  Kp
- p
-l
+k . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. b p l . . . . .
+. . K p . . . . .
+. p . . . . . . .
+l . . . . . . . .
 """
       board destsFrom SQ7G must bePoss(
         board,
         """
-k
-
-
-
-
- xxx
- xKp
- xx
-l
+k . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. x x x . . . . .
+. x K p . . . . .
+. x x . . . . . .
+l . . . . . . . .
 """
       )
     }
     "threaten" in {
       val board = """
-k B
-
- b B
-bpp
-  Kb
-  P R
-PP   PPPP
-
-LNSG BNL
+k . B . . . . . .
+. . . . . . . . .
+. b . B . . . . .
+b p p . . . . . .
+. . K b . . . . .
+. . P . R . . . .
+P P . . . P P P P
+. . . . . . . . .
+L N S G . G S N L
 """
       "a reachable enemy" in {
         board actorAt SQ7E map (_ threatens SQ8D) must beSome(true)
@@ -101,8 +98,8 @@ LNSG BNL
     }
     "not move near from the other king" in {
       """
-   k
- K
+. . . k
+. K . .
 """ destsFrom SQ8I must bePoss(SQ9I, SQ9H, SQ8H)
     }
   }

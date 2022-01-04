@@ -1,9 +1,16 @@
 package shogi
 package format
+package usi
 
 import cats.syntax.option._
 
 class UsiMoveTest extends ShogiTest {
+
+  "USI" in {
+    Usi("9i1a") must beSome
+    Usi("8h2b+") must beSome
+    Usi("G*8b") must beSome
+  }
 
   "piotr encoding" should {
     "be reflexive" in {

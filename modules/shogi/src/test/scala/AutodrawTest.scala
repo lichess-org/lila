@@ -20,23 +20,23 @@ class AutodrawTest extends ShogiTest {
       }
       "two kings with nothing in hand" in {
         """
-      k
-K      """.autoDraw must_== true
+. . . . . . k
+K . . . . . .""".autoDraw must_== true
       }
       "one pawn" in {
         """
-  P   k
-K      """.autoDraw must_== false
+. . P . . . k
+K . . . . . .""".autoDraw must_== false
       }
       "one bishop" in {
         """
-      k
-K     B""".autoDraw must_== false
+. . . . . . k
+K . . . . B .""".autoDraw must_== false
       }
       "one knight" in {
         """
-      k
-K     N""".autoDraw must_== false
+. . . . . . k
+K . . . . N .""".autoDraw must_== false
       }
     }
     "by fourfold" in {
@@ -71,8 +71,8 @@ K     N""".autoDraw must_== false
       val position = "4k4/9/9/9/9/9/9/9/5K3 b p 1"
       fenToGame(position, Standard) must beValid.like { case game =>
         game.situation.autoDraw must beFalse
-      //game.situation.end must beFalse
-      //game.situation.opponentHasInsufficientMaterial must beFalse
+        game.situation.end must beFalse
+        game.situation.opponentHasInsufficientMaterial must beTrue
       }
     }
     "on a single pawn" in {

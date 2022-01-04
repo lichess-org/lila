@@ -1,5 +1,6 @@
 package shogi
 package format
+package usi
 
 import Pos._
 import Usi._

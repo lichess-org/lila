@@ -1,5 +1,7 @@
 package shogi
 
+import shogi.format.usi._
+
 class BoardReplayPerfTest extends ShogiTest {
 
   //args(skipAll = true)
@@ -9,8 +11,8 @@ class BoardReplayPerfTest extends ShogiTest {
   // val nb = 1
   // val iterations = 1
 
-  val moves  = format.pgn.Fixtures.fromProd2.split(' ').toList
-  def runOne = Replay.boards(moves, None, variant.Standard)
+  val usis  = Usi.readList(format.usi.Fixtures.fromProd2).get
+  def runOne = Replay.boards(usis, None, variant.Standard)
   def run(): Unit = { for (_ <- 1 to nb) runOne }
 
   "playing a game" should {

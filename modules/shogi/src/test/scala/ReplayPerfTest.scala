@@ -1,20 +1,22 @@
 package shogi
 
+import format.usi._
+
 class ReplayPerfTest extends ShogiTest {
 
   //args(skipAll = true)
 
-  val nb = 500
-  val gameMoves = (format.pgn.Fixtures.prod500standard take nb).map {
-    _.split(' ').toList
+  val nb = 100
+  val gameUsis = (format.usi.Fixtures.prod500standard take nb).map { 
+    Usi.readList(_).get
   }
   val iterations = 5
   // val nb = 1
   // val iterations = 1
 
-  def runOne(moves: List[String]): Boolean =
-    Replay.gameMoveWhileValid(moves, format.Forsyth.initial, shogi.variant.Standard)._2.length == moves.length
-  def run: Boolean = { gameMoves forall runOne }
+  def runOne(usis: List[Usi]): Boolean =
+    Replay.gamesWhileValid(usis, None, shogi.variant.Standard)._1.tail.length == usis.length
+  def run: Boolean = { gameUsis forall runOne }
 
   "playing a game" should {
     "many times" in {

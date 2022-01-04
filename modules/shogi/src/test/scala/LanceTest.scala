@@ -16,15 +16,15 @@ class LanceTest extends ShogiTest {
 
     "threaten" in {
       val board = """
-k B
-  r  r
-p
-
-n L    P
-
-PPPPPPPPP
-
-    K
+k . B . . . . . .
+. . r . . r . . .
+p . . . . . . . .
+. . . . . . . . .
+n . L . . . . P .
+. . . . . . . . .
+P P P P P P P . P
+. . . . . . . . .
+. . . . K . . . .
 """
       "an unreachable enemy to the left" in {
         board actorAt SQ7E map (_ threatens SQ9E) must beSome(false)
