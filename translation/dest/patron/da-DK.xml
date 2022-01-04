@@ -44,7 +44,6 @@ Eller du kan %s.</string>
   <string name="contactSupport">kontakte Lichess-support</string>
   <string name="otherMethods">Andre måder at bidrage?</string>
   <string name="bankTransfers">Vi kan også modtage bankoverførsler</string>
-  <string name="bitcoin">Og her er vores bitcoin-adresse: %s</string>
   <string name="patronFeatures">Er nogle funktioner forbeholdt protektorer?</string>
   <string name="noPatronFeatures">Nej, for Lichess er helt gratis, for evigt og for alle. Det er et løfte.
 Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
