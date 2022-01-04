@@ -47,12 +47,12 @@ export interface Team {
   isIn: boolean;
 }
 
-export interface Player extends LightUser {
+export interface Player extends LightUserOnline {
   rating: number;
   provisional?: boolean;
 }
 
-export interface Host extends LightUser {
+export interface Host extends LightUserOnline {
   rating: number;
   gameId?: string;
 }
