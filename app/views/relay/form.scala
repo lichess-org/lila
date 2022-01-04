@@ -5,7 +5,6 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.relay.Relay.Sync.LccRegex
 import lila.relay.RelayForm.Data
 
 import controllers.routes
@@ -81,11 +80,6 @@ object form {
         sourceUrl(),
         help = sourceUrlHelp().some
       )(form3.input(_, typ = "url")),
-      form("syncUrl").value.exists(LccRegex.matches) option {
-        form3.group(form("syncUrlRound"), roundNumber())(
-          form3.input(_, typ = "number")(required := true)
-        )
-      },
       form3.split(
         form3.group(
           form("startsAt"),

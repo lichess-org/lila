@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.memo.CacheApi
-import lila.study.MultiPgn
+import lila.study.MultiNotation
 import lila.tree.Node.Comments
 import Relay.Sync.Upstream
 
@@ -152,15 +152,15 @@ final private class RelayFetch(
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
     import RelayFetch.DgtJson._
-    formatApi get upstream.withRound flatMap {
+    formatApi get upstream flatMap {
       case RelayFormat.SingleFile(doc) =>
         doc.format match {
-          // all games in a single PGN file
-          case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
+          // all games in a single notation file
+          case RelayFormat.DocFormat.Notation => httpGet(doc.url) map { MultiNotation.split(_, max) }
           // maybe a single JSON game? Why not
           case RelayFormat.DocFormat.Json =>
             httpGetJson[GameJson](doc.url)(gameReads) map { game =>
-              MultiPgn(List(game.toPgn()))
+              MultiNotation(List(game.toNotation()))
             }
         }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
@@ -170,17 +170,17 @@ final private class RelayFetch(
               val number  = i + 1
               val gameDoc = makeGameDoc(number)
               (gameDoc.format match {
-                case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
+                case RelayFormat.DocFormat.Notation => httpGet(gameDoc.url)
                 case RelayFormat.DocFormat.Json =>
-                  httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
+                  httpGetJson[GameJson](gameDoc.url) map { _.toNotation(pairing.tags) }
               }) map (number -> _)
             }
             .sequenceFu
             .map { results =>
-              MultiPgn(results.sortBy(_._1).map(_._2).toList)
+              MultiNotation(results.sortBy(_._1).map(_._2).toList)
             }
         }
-    } flatMap RelayFetch.multiPgnToGames.apply
+    } flatMap RelayFetch.multiNotationToGames.apply
   }
 
   private def httpGet(url: Url): Fu[String] =
@@ -252,29 +252,24 @@ private object RelayFetch {
     implicit val roundReads         = Json.reads[RoundJson]
 
     case class GameJson(moves: List[String], result: Option[String]) {
-      def toPgn(extraTags: Tags = Tags.empty) = {
-        //val strMoves = moves.map(_ split ' ') map { move =>
-        //  shogi.format.pgn.Move(
-        //    san = ~move.headOption,
-        //  )
-        //} mkString " "
-        s"${extraTags}\n\n"
+      def toNotation(extraTags: Tags = Tags.empty) = {
+        s"${extraTags}\n\n${moves mkString " "}"
       }
     }
     implicit val gameReads = Json.reads[GameJson]
   }
 
-  object multiPgnToGames {
+  object multiNotationToGames {
 
     import scala.util.{ Failure, Success, Try }
 
-    def apply(multiPgn: MultiPgn): Fu[Vector[RelayGame]] =
-      multiPgn.value
+    def apply(multiNotation: MultiNotation): Fu[Vector[RelayGame]] =
+      multiNotation.value
         .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)) {
-          case (Success((acc, index)), pgn) =>
-            pgnCache.get(pgn) flatMap { f =>
+          case (Success((acc, index)), notation) =>
+            notationCache.get(notation) flatMap { f =>
               val game = f(index)
-              if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))
+              if (game.isEmpty) Failure(LilaException(s"Found an empty notation at index $index"))
               else Success((acc :+ game, index + 1))
             }
           case (acc, _) => acc
@@ -282,14 +277,14 @@ private object RelayFetch {
         .future
         .dmap(_._1)
 
-    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
+    private val notationCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)
       .maximumSize(512)
       .build(compute)
 
-    private def compute(pgn: String): Try[Int => RelayGame] =
+    private def compute(notation: String): Try[Int => RelayGame] =
       lila.study
-        .NotationImport(pgn, Nil)
+        .NotationImport(notation, Nil)
         .fold(
           err => Failure(LilaException(err)),
           res =>

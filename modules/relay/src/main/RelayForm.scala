@@ -22,12 +22,10 @@ final class RelayForm {
       "syncUrl" -> optional {
         nonEmptyText.verifying("Invalid source", validSource _)
       },
-      "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
       "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
-      .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
   )
 
   def create = form
@@ -57,6 +55,7 @@ object RelayForm {
     "youtube.com",
     "youtu.be",
     "lishogi.org",
+    "lichess.org",
     "google.com",
     "chess.com",
     "vk.com",
@@ -72,15 +71,10 @@ object RelayForm {
       markup: Option[String],
       official: Option[Boolean],
       syncUrl: Option[String],
-      syncUrlRound: Option[Int],
       credit: Option[String],
       startsAt: Option[DateTime],
       throttle: Option[Int]
   ) {
-
-    def requiresRound = syncUrl exists Relay.Sync.LccRegex.matches
-
-    def roundMissing = requiresRound && syncUrlRound.isEmpty
 
     def cleanUrl: Option[String] =
       syncUrl.map { u =>
@@ -104,7 +98,7 @@ object RelayForm {
     def makeSync(user: User) =
       Relay.Sync(
         upstream = cleanUrl map { u =>
-          Relay.Sync.Upstream(s"$u${syncUrlRound.??(" " +)}")
+          Relay.Sync.Upstream(u)
         },
         until = none,
         nextAt = none,
@@ -138,8 +132,7 @@ object RelayForm {
         description = relay.description,
         markup = relay.markup,
         official = relay.official option true,
-        syncUrl = relay.sync.upstream.map(_.withRound.url),
-        syncUrlRound = relay.sync.upstream.flatMap(_.withRound.round),
+        syncUrl = relay.sync.upstream.map(_.url),
         credit = relay.credit,
         startsAt = relay.startsAt,
         throttle = relay.sync.delay

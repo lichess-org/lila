@@ -71,7 +71,7 @@ object Relay {
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 
   case class Sync(
-      upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
+      upstream: Option[Sync.Upstream], // if empty, needs a client to push
       until: Option[DateTime],         // sync until then; resets on move
       nextAt: Option[DateTime],        // when to run next sync
       delay: Option[Int],              // override time between two sync (rare)
@@ -114,16 +114,7 @@ object Relay {
     case class Upstream(url: String) extends AnyVal {
       def isLocal =
         url.contains("://127.0.0.1") || url.contains("://localhost") || url.contains("://192.168.1.154")
-      def withRound =
-        url.split(" ", 2) match {
-          case Array(u, round) => {
-            UpstreamWithRound(u, round.toIntOption)
-          }
-          case _ => UpstreamWithRound(url, none)
-        }
     }
-    case class UpstreamWithRound(url: String, round: Option[Int])
-    val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
   }
 
   case class WithStudy(relay: Relay, study: Study)
