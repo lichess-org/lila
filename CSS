@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: lightgreen;
+}
+
+h1 {
+  color: white;
+  text-align: left;
+}
+
+p {
+  font-family: comicsansms;
+  font-size: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>Lichess</h1>
+<p>The forever free, adless chess server.</p>
+
+</body>
+</html>
+
