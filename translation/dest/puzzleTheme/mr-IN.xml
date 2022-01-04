@@ -51,4 +51,7 @@
   <string name="forkDescription">अशी चाल जिथे हलवलेला मोहरा एकाच वेळी दोन प्रतिस्पर्ध्याच्या मोहऱ्यांवर हल्ला करतो.</string>
   <string name="hangingPiece">आधार नसलेला मोहरा</string>
   <string name="hangingPieceDescription">एक डावपेच ज्यात विरोधकाची एखादी सोंगटीचा बचाव नसेल किंवा अपुरा असेल आणि ती मारायला फुकट असेल.</string>
+  <string name="hookMate">हुक मात</string>
+  <string name="hookMateDescription">हत्ती, घोडा आणि प्यादे याने मात तसेच विरोधकाचे एक प्यादे समोरच्या राजाला अडकवून ठेवतो.</string>
+  <string name="interference">हस्तक्षेप</string>
 </resources>
