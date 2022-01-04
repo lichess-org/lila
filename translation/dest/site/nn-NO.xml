@@ -12,7 +12,7 @@
   <string name="strength">Styrke</string>
   <string name="toggleTheChat">Chat av/på</string>
   <string name="chat">Praterom</string>
-  <string name="resign">Gje opp</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Gje opp</string>
   <string name="checkmate">Sjakk matt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Kvit</string>
@@ -84,7 +84,7 @@
   <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
-  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rata spelarar frå %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rangerte spelarar frå %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
@@ -234,7 +234,7 @@
   <string name="standard">Standard</string>
   <string name="unlimited">Uavgrensa</string>
   <string name="mode">Modus</string>
-  <string name="casual">Uformell</string>
+  <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="casualTournament">Uformell</string>
   <string name="ratedTournament">Rangert</string>
@@ -259,8 +259,8 @@
   <string name="incrementInSeconds">Tilleggstid i sekund</string>
   <string name="freeOnlineChess">Fritt tilgjengeleg nettsjakk</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rata</item>
-    <item quantity="other">%s rata</item>
+    <item quantity="one">%s rangert</item>
+    <item quantity="other">%s rangerte</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s siger</item>
@@ -309,12 +309,12 @@
   <string name="backToTournament">Attende til turneringa</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s rata parti</item>
-    <item quantity="other">≥ %s rata parti</item>
+    <item quantity="one">≥ %s rangert parti</item>
+    <item quantity="other">≥ %s rangerte parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rata parti</item>
-    <item quantity="other">≥ %1$s %2$s rata parti</item>
+    <item quantity="one">≥ %1$s %2$s rangert parti</item>
+    <item quantity="other">≥ %1$s %2$s rangerte parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du må spela %1$s fleire %2$s rata parti</item>
@@ -863,7 +863,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
   <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
   <string name="embedsAvailable">Sett inn URLen til eit spel eller studiekapittel for å bygge det inn.</string>
-  <string name="inYourLocalTimezone">I di tidssone</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">I di tidssone</string>
   <string name="tournChat">Turneringschat</string>
   <string name="noChat">Ikkje chat</string>
   <string name="onlyTeamLeaders">Berre lagleiarar</string>
