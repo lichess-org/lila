@@ -38,4 +38,11 @@ Dodajte rezultate svakog protivnika kojeg igrač pobijedi i polovicu rezultata s
   <string name="pairingsQ">Kako se odlučuju uparenja?</string>
   <string name="dutchSystem">Nizozemski sistem</string>
   <string name="FIDEHandbook">FIDE priručnik</string>
+  <string name="pairingsA">S %1$s, implementiran od strane %2$s, u skladu s %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Što se događa ako turnir ima više rundi nego igrača?</string>
+  <string name="moreRoundsThanPlayersA">Kada se odigraju svi mogući parovi, turnir će biti završen i proglašen pobjednik.</string>
+  <string name="restrictedToTeamsQ">Zašto je ograničeno na timove?</string>
+  <string name="restrictedToTeamsA">Švicarski turniri nisu bili dizajnirani za online šah. Od igrača zahtijevaju točnost, predanost i strpljenje.
+Mislimo da je vjerojatnije da će se ti uvjeti ispuniti unutar momčadi nego na svjetskim turnirima.</string>
+  <string name="numberOfByesQ">Koliko \"byes\" igrač može dobiti?</string>
 </resources>
