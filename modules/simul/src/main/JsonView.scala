@@ -110,7 +110,7 @@ final class JsonView(
         .add("title" -> light.map(_.title))
         .add("provisional" -> ~player.provisional)
         .add("patron" -> light.??(_.isPatron))
-        .add("online" -> true)
+        .add("online" -> isOnline(player.user))
     }
 
   private def applicantJson(app: SimulApplicant): Fu[JsObject] =
