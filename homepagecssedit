@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: white;
+}
+
+h1 {
+  color: black;
+  text-align: left;
+}
+
+
+h2 {
+  font-family: comic;
+  font-size: 20px;
+  text-align: right
+</style>
+</head>
+<body>
+
+<h1>♞lichess.org♞ </h1>
+<h2>Username</h2>
+
+</body>
+</html>
