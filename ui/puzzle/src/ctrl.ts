@@ -15,8 +15,8 @@ import { Piece } from 'shogiground/types';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { defer } from 'common/defer';
 import { defined, pretendItsSquare, pretendItsUsi, prop, Prop } from 'common';
-import { parseFen, makeFen } from 'shogiops/fen';
-import { pgnToTree, mergeSolution, fenToTree } from './moveTree';
+import { parseSfen, makeSfen } from 'shogiops/sfen';
+import { usiToTree, mergeSolution, fenToTree } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
 import { Move, Outcome, Role } from 'shogiops/types';
 import { storedProp } from 'common/storage';
@@ -24,6 +24,7 @@ import { cancelDropMode } from 'shogiground/drop';
 import { valid as handValid } from './hands/handCtrl';
 import { plyColor } from './util';
 import { makeSquare, makeUsi, parseSquare, parseUsi } from 'shogiops/util';
+import { makeNotationWithPosition } from 'common/notation';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let vm: Vm = {
@@ -60,7 +61,9 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function initiate(fromData: PuzzleData): void {
     data = fromData;
-    tree = data.game.pgn ? treeBuild(pgnToTree(data.game.pgn.split(' '))) : treeBuild(fenToTree(data.game.fen!));
+    tree = data.game.usi
+      ? treeBuild(usiToTree(data.game.usi.split(' '), opts.pref.pieceNotation))
+      : treeBuild(fenToTree(data.game.fen!));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     vm.mode = 'play';
     vm.next = defer();
@@ -98,7 +101,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function position(): Shogi {
-    const setup = parseFen(vm.node.fen).unwrap();
+    const setup = parseSfen(vm.node.fen).unwrap();
     return Shogi.fromSetup(setup, false).unwrap();
   }
 
@@ -155,10 +158,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     g.set(makeCgOpts());
   }
 
-  function tsumeLength(): number {
-    return data.puzzle.themes.includes('tsume') ? data.puzzle.solution.length - vm.node.ply : 0;
-  }
-
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
@@ -200,15 +199,18 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function sendMoveAt(path: Tree.Path, pos: Shogi, move: Move): void {
-    // const san = makeSanAndPlay(pos, move);
+    const parent = tree.nodeAtPath(path);
+    const lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
+    const notationMove = makeNotationWithPosition(opts.pref.pieceNotation, pos, move, lastMove);
+    pos.play(move);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode(
       {
-        ply: pos.fullmoves - 1, // ?
-        fen: makeFen(pos.toSetup()),
+        ply: pos.fullmoves - 1,
+        fen: makeSfen(pos.toSetup()),
         id: scalashogiCharPair(move),
         usi: makeUsi(move),
-        san: '',
+        notation: notationMove,
         check: defined(check) ? makeSquare(check) : undefined,
         children: [],
       },
@@ -275,7 +277,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     } else if (progress) {
       vm.lastFeedback = 'good';
       setTimeout(() => {
-        const pos = Shogi.fromSetup(parseFen(progress.fen).unwrap(), false).unwrap();
+        const pos = Shogi.fromSetup(parseSfen(progress.fen).unwrap(), false).unwrap();
         sendMoveAt(progress.path, pos, progress.move);
       }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }
@@ -405,8 +407,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         if (!vm.node.usi) sound.move();
         // initial position
         else if (!vm.justPlayed || vm.node.usi.includes(vm.justPlayed)) {
-          if (vm.node.san!.includes('x')) sound.capture();
-          else sound.move();
+          //if (vm.node.san!.includes('x')) sound.capture();
+          sound.move();
         }
         if (vm.node.check) sound.check();
       }
@@ -431,7 +433,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   function viewSolution(): void {
     sendResult(false);
     vm.mode = 'view';
-    mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
+    mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov, opts.pref.pieceNotation);
     reorderChildren(vm.initialPath, true);
 
     // try and play the solution next move
@@ -528,7 +530,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     pref: opts.pref,
     difficulty: opts.difficulty,
     trans: window.lishogi.trans(opts.i18n),
-    tsumeLength,
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),
     outcome,

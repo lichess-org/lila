@@ -1,5 +1,5 @@
 import { Shogi } from 'shogiops/shogi';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { parseUsi } from 'shogiops/util';
 import { Puzzle } from './interfaces';
 import { getNow } from './util';
@@ -13,12 +13,12 @@ export default class CurrentPuzzle {
 
   constructor(readonly index: number, readonly puzzle: Puzzle) {
     this.line = puzzle.line.split(' ');
-    this.pov = parseFen(puzzle.fen).unwrap().turn;
+    this.pov = parseSfen(puzzle.fen).unwrap().turn;
     this.startAt = getNow();
   }
 
   position = (): Shogi => {
-    const pos = Shogi.fromSetup(parseFen(this.puzzle.fen).unwrap(), false).unwrap();
+    const pos = Shogi.fromSetup(parseSfen(this.puzzle.fen).unwrap(), false).unwrap();
     this.line.slice(0, this.moveIndex).forEach(usi => pos.play(parseUsi(pretendItsUsi(usi))!));
     return pos;
   };

@@ -6,7 +6,7 @@ import AnalyseCtrl from '../ctrl';
 import { handRoles, unpromote } from 'shogiops/variantUtil';
 import { lishogiVariantRules } from 'shogiops/compat';
 import { Hands } from 'shogiops/hand';
-import { parseHands } from 'shogiops/fen';
+import { parseHands } from 'shogiops/sfen';
 
 const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];

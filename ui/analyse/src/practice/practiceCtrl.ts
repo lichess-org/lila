@@ -141,7 +141,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       }
     } else {
       comment(null);
-      if (node.san && commentable(node)) {
+      if (node.usi && commentable(node)) {
         const parentNode = root.tree.parentNode(root.path);
         if (commentable(parentNode, +1)) comment(makeComment(parentNode, node, root.path));
         else {

@@ -4,7 +4,7 @@ import { Pieces, files, ranks } from 'shogiground/types';
 import { invFiles, allKeys } from 'shogiground/util';
 import { Setting, makeSetting } from './setting';
 
-export type Style = 'usi' | 'san' | 'literate' | 'nato' | 'anna';
+export type Style = 'usi' | 'literate' | 'nato' | 'anna';
 
 const nato: { [letter: string]: string } = {
   a: 'alpha',
@@ -15,6 +15,7 @@ const nato: { [letter: string]: string } = {
   f: 'foxtrot',
   g: 'golf',
   h: 'hotel',
+  i: 'india',
 };
 const anna: { [letter: string]: string } = {
   a: 'anna',
@@ -25,6 +26,7 @@ const anna: { [letter: string]: string } = {
   f: 'felix',
   g: 'gustav',
   h: 'hector',
+  i: 'ivan',
 };
 const roles: { [letter: string]: string } = {
   P: 'pawn',
@@ -35,12 +37,12 @@ const roles: { [letter: string]: string } = {
   G: 'gold',
   S: 'silver',
   L: 'lance',
-  T: 'tokin',
-  A: 'promotedsilver',
-  M: 'promotedknight',
-  U: 'promotedlance',
-  H: 'horse',
-  D: 'dragon',
+  '+P': 'tokin',
+  '+S': 'promoted silver',
+  '+N': 'promoted knight',
+  '+L': 'promoted lance',
+  '+B': 'horse',
+  '+R': 'dragon',
 };
 const letters = {
   pawn: 'p',
@@ -51,12 +53,12 @@ const letters = {
   gold: 'g',
   silver: 's',
   lance: 'l',
-  tokin: 't',
-  promotedsilver: 'a',
-  promotedknight: 'm',
-  promotedlance: 'u',
-  horse: 'h',
-  dragon: 'd',
+  tokin: '+p',
+  promotedsilver: '+s',
+  promotedknight: '+n',
+  promotedlance: '+l',
+  horse: '+b',
+  dragon: '+r',
 };
 
 export function supportedVariant(key: string) {
@@ -66,7 +68,6 @@ export function supportedVariant(key: string) {
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({
     choices: [
-      ['san', 'SAN: Nxf3'],
       ['usi', 'USI: 7g7f'],
       ['literate', 'Literate: knight takes 3 f'],
       ['anna', 'Anna: knight takes 3 felix'],
@@ -77,31 +78,14 @@ export function styleSetting(): Setting<Style> {
   });
 }
 
-export function renderSan(san: San, usi: Usi | undefined, style: Style) {
-  if (!san) return '';
+export function renderMove(usi: Usi | undefined, style: Style) {
+  if (!usi) return '';
   let move: string;
-  if (san.includes('O-O-O')) move = 'long castling';
-  else if (san.includes('O-O')) move = 'short castling';
-  else if (style === 'san') move = san.replace(/[\+#]/, '');
-  else if (style === 'usi') move = usi || san;
+  if (style === 'usi') move = usi;
   else {
-    move = san
-      .replace(/[\+#]/, '')
-      .split('')
-      .map(c => {
-        if (c == 'x') return 'takes';
-        if (c == '+') return 'promotion';
-        if (c == '#') return 'checkmate';
-        if (c == '=') return 'promotion';
-        const code = c.charCodeAt(0);
-        if (code > 48 && code < 58) return c; // 1-9
-        if (code > 96 && code < 106) return renderFile(c, style); // a-i
-        return roles[c] || c;
-      })
-      .join(' ');
+    // todo - western/japanese notation
+    move = usi;
   }
-  if (san.includes('+')) move += ' promotion';
-  if (san.includes('#')) move += ' checkmate';
   return move;
 }
 
@@ -196,16 +180,4 @@ export function renderFile(f: string, style: Style): string {
 
 export function renderKey(key: string, style: Style): string {
   return `${renderFile(key[0], style)} ${key[1]}`;
-}
-
-export function castlingFlavours(input: string): string {
-  switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
-    case 'oo':
-    case '00':
-      return 'o-o';
-    case 'ooo':
-    case '000':
-      return 'o-o-o';
-  }
-  return input;
 }

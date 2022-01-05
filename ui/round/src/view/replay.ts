@@ -8,9 +8,10 @@ import { game as gameRoute } from 'game/router';
 import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
-import { Step, MaybeVNodes, RoundData } from '../interfaces';
-import { notationStyle } from 'common/notation';
-import { opposite, toBlackWhite, toBW } from 'shogiops/util';
+import { MaybeVNodes, RoundData } from '../interfaces';
+import { makeMoveNotationLine } from 'common/notation';
+import { toBlackWhite } from 'shogiops/util';
+import { INITIAL_SFEN } from 'shogiops/sfen';
 
 const scrollMax = 99999,
   moveTag = 'm2';
@@ -36,23 +37,14 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   })
 );
 
-function renderMove(step: Step, curPly: number, orEmpty: boolean, color: Color, notation: number, variant: VariantKey) {
-  return step
-    ? h(
-        moveTag,
-        {
-          class: { active: step.ply === curPly },
-        },
-        notationStyle(notation)({
-          san: step.san,
-          usi: step.usi,
-          fen: step.fen.split(' ').length > 1 ? step.fen : step.fen + ' ' + toBW(color),
-          variant: variant,
-        })
-      )
-    : orEmpty
-    ? h(moveTag, '…')
-    : undefined;
+function renderMove(moveNotation: MoveNotation, moveNumber: number, activeMoveNumber: number) {
+  return h(
+    moveTag,
+    {
+      class: { active: moveNumber === activeMoveNumber },
+    },
+    moveNotation
+  );
 }
 
 function plyOffset(ctrl: RoundController): number {
@@ -92,32 +84,25 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 }
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
-  const steps = ctrl.data.steps,
-    firstPly = round.firstPly(ctrl.data),
-    lastPly = round.lastPly(ctrl.data);
-  if (typeof lastPly === 'undefined') return [];
-  const color = ctrl.data.game.initialFen?.split(' ')[1] == 'b' ? 'sente' : 'gote';
-  const oppositeColor = opposite(color);
+  const steps = ctrl.data.steps;
+  if (typeof round.lastPly(ctrl.data) === 'undefined') return [];
 
-  const move: Array<any> = [];
+  const usis = steps.slice(1).map(s => s.usi);
+  const movesNotation: MoveNotation[] = makeMoveNotationLine(
+    ctrl.data.pref.pieceNotation,
+    ctrl.data.game.initialFen || INITIAL_SFEN,
+    ctrl.data.game.variant.key,
+    usis
+  );
+
   const els: MaybeVNodes = [],
-    curPly = ctrl.ply;
+    curMove = ctrl.ply - (ctrl.data.game.startedAtTurn || 0) + (ctrl.data.game.startedAtMove ?? 1);
 
-  for (let i = 1; i < steps.length; i++) move.push(steps[i]);
-
-  for (let i = 0; i < move.length; i++) {
-    els.push(h('index', i + firstPly + 1 - (plyOffset(ctrl) % 2) + ''));
-    els.push(
-      renderMove(
-        move[i],
-        curPly,
-        true,
-        i % 2 ? color : oppositeColor,
-        ctrl.data.pref.pieceNotation,
-        ctrl.data.game.variant.key
-      )
-    );
-  }
+  movesNotation.forEach((m, i) => {
+    const moveNumber = i + (ctrl.data.game.startedAtMove || 1);
+    els.push(h('index', moveNumber));
+    els.push(renderMove(m, moveNumber, curMove));
+  });
   els.push(renderResult(ctrl));
 
   return els;

@@ -31,7 +31,7 @@ function miniBoard(board: Board) {
       },
       hook: {
         insert(vnode) {
-          window.lishogi.parseFen($(vnode.elm as HTMLElement));
+          window.lishogi.parseSfen($(vnode.elm as HTMLElement));
           window.lishogi.pubsub.emit('content_loaded');
         },
       },

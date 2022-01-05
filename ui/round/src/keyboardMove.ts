@@ -6,7 +6,7 @@ import { ClockController } from './clock/clockCtrl';
 import { valid as handValid } from './hands/handCtrl';
 import { sendPromotion } from './promotion';
 import { onInsert } from './util';
-import { parseHands } from 'shogiops/fen';
+import { parseHands } from 'shogiops/sfen';
 import { lastStep } from './round';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
@@ -18,11 +18,11 @@ export interface KeyboardMove {
   registerHandler(h: KeyboardMoveHandler): void;
   hasFocus(): boolean;
   setFocus(v: boolean): void;
-  san(orig: cg.Key, dest: cg.Key): void;
+  move(orig: cg.Key, dest: cg.Key): void;
   select(key: cg.Key): void;
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
-  usedSan: boolean;
+  usedMove: boolean;
   jump(delta: number): void;
   justSelected(): boolean;
   clock(): ClockController | undefined;
@@ -54,7 +54,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       lastSelect = Date.now();
     }
   };
-  let usedSan = false;
+  let usedMove = false;
   return {
     drop(key, piece) {
       const role = sanToRole[piece];
@@ -88,8 +88,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       focus = v;
       redraw();
     },
-    san(orig, dest) {
-      usedSan = true;
+    move(orig, dest) {
+      usedMove = true;
       root.shogiground.cancelMove();
       select(orig);
       select(dest);
@@ -99,7 +99,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     confirmMove() {
       root.submitMove(true);
     },
-    usedSan,
+    usedMove,
     jump(delta: number) {
       root.userJump(root.ply + delta);
       redraw();

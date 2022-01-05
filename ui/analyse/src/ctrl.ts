@@ -35,12 +35,13 @@ import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { cancelDropMode } from 'shogiground/drop';
 import { lishogiVariantRules, shogigroundDropDests } from 'shogiops/compat';
-import { makeSquare, opposite, parseUsi, roleToChar } from 'shogiops/util';
+import { makeSquare, opposite, parseUsi, roleToString } from 'shogiops/util';
 import { Outcome, isNormal } from 'shogiops/types';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { Position, PositionError } from 'shogiops/shogi';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'shogiops/variant';
+import { makeNotation, Notation } from 'common/notation';
 
 const li = window.lishogi;
 
@@ -195,6 +196,8 @@ export default class AnalyseCtrl {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
+
+    this.initNotation(data.pref.pieceNotation, data.game.variant.key);
 
     this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
@@ -373,8 +376,8 @@ export default class AnalyseCtrl {
         if (!this.node.usi) this.sound.move();
         // initial position
         else if (!playedMyself) {
-          if (this.node.san!.includes('x')) this.sound.capture();
-          else this.sound.move();
+          //if (this.node.san!.includes('x')) this.sound.capture();
+          this.sound.move();
         }
         if (this.node.check) this.sound.check();
       }
@@ -473,7 +476,7 @@ export default class AnalyseCtrl {
 
   userNewPiece = (piece: cg.Piece, key: Key): void => {
     if (handValid(this, piece, key)) {
-      this.justPlayed = roleToChar(piece.role).toUpperCase() + '*' + key;
+      this.justPlayed = roleToString(piece.role).toUpperCase() + '*' + key;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
       this.sound.move();
@@ -535,9 +538,16 @@ export default class AnalyseCtrl {
 
   addNode(node: Tree.Node, path: Tree.Path) {
     const newPath = this.tree.addNode(node, path);
-    if (!newPath) {
-      return this.redraw();
-    }
+    if (!newPath) return this.redraw();
+    const parent = this.tree.nodeAtPath(path);
+    if (node.usi)
+      node.notation = makeNotation(
+        this.data.pref.pieceNotation,
+        parent.fen,
+        this.data.game.variant.key,
+        node.usi,
+        parent.usi
+      );
     this.jump(newPath);
     this.redraw();
     this.shogiground.playPremove();
@@ -608,6 +618,15 @@ export default class AnalyseCtrl {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   };
 
+  private initNotation = (notation: Notation, variant: VariantKey): void => {
+    function update(node: Tree.Node, prev?: Tree.Node) {
+      if (prev && node.usi && !node.notation)
+        node.notation = makeNotation(notation, prev.fen, variant, node.usi, prev.usi);
+      node.children.forEach(c => update(c, node));
+    }
+    update(this.tree.root);
+  };
+
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
@@ -660,7 +679,7 @@ export default class AnalyseCtrl {
   }
 
   position(node: Tree.Node): Result<Position, PositionError> {
-    const setup = parseFen(node.fen).unwrap();
+    const setup = parseSfen(node.fen).unwrap();
     return setupPosition(lishogiVariantRules(this.data.game.variant.key), setup, false);
   }
 

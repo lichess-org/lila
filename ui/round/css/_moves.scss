@@ -33,7 +33,7 @@
     @extend %roboto;
   }
   #{$move-tag} {
-    @extend %san;
+    @extend %move-notation;
   }
 
   @import 'moves-col1';

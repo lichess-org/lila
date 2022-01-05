@@ -30,8 +30,7 @@ export interface SocketMove {
   b?: 1;
 }
 export interface SocketDrop {
-  role: cg.Role;
-  pos: cg.Key;
+  u: Usi;
   b?: 1;
 }
 
@@ -96,7 +95,6 @@ export interface Chat {
 export interface Step {
   ply: Ply;
   fen: Fen;
-  san: San;
   usi: Usi;
   check?: boolean;
 }

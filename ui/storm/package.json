@@ -21,7 +21,7 @@
     "common": "2.0.0",
     "puz": "2.0.0",
     "shogiground": "7.8.1",
-    "shogiops": "^0.3.1",
+    "shogiops": "^0.5.0",
     "snabbdom": "^0.7.4"
   },
   "scripts": {

@@ -6,7 +6,6 @@ import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
 import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
-import { notationStyle } from 'common/notation';
 
 interface Ctx {
   ctrl: Controller;
@@ -155,12 +154,7 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
 export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
-    notationStyle(ctx.ctrl.pref.pieceNotation ?? 0)({
-      san: node.san!,
-      usi: node.usi!,
-      fen: node.fen,
-      variant: 'standard',
-    }),
+    node.notation,
     ev &&
       (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) ? renderEval('#' + ev.mate) : undefined),
     puzzleGlyph(ctx, node),
@@ -181,16 +175,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
       attrs: { p: path },
       class: classes,
     },
-    [
-      renderIndex(node.ply, true),
-      notationStyle(ctx.ctrl.pref.pieceNotation ?? 0)({
-        san: node.san!,
-        usi: node.usi!,
-        fen: node.fen,
-        variant: 'standard',
-      }),
-      puzzleGlyph(ctx, node),
-    ]
+    [renderIndex(node.ply, true), node.notation, puzzleGlyph(ctx, node)]
   );
 }
 
@@ -246,7 +231,6 @@ export function render(ctrl: Controller): VNode {
       },
     },
     [
-      //...(root.ply % 2 === 1 ? [renderIndex(root.ply, false), emptyMove()] : []),
       ...renderChildrenOf(ctx, root, {
         parentPath: '',
         isMainline: true,

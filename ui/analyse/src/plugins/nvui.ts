@@ -6,7 +6,7 @@ import { makeConfig as makeCgConfig } from '../ground';
 import { Shogiground } from 'shogiground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, Style } from 'nvui/chess';
+import { renderMove, renderPieces, renderBoard, styleSetting, Style } from 'nvui/shogi';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
@@ -176,9 +176,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
                   selected: node.ply === ctrl.node.ply,
                 },
               },
-              [node.ply + ctrl.plyOffset(), renderSan(node.san!, node.usi, style), renderComments(node, style)].join(
-                ' '
-              )
+              [node.ply + ctrl.plyOffset(), renderMove(node.usi, style), renderComments(node)].join(' ')
             )
           )
       )
@@ -213,9 +211,9 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
   const res: Array<string | VNode> = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
-    if (!node.san || !node.usi) return;
+    if (!node.usi) return;
     path += node.id;
-    const content: MaybeVNodes = [node.ply.toString(), renderSan(node.san, node.usi, style)];
+    const content: MaybeVNodes = [node.ply.toString(), renderMove(node.usi, style)];
     res.push(
       h(
         'move',
@@ -226,7 +224,7 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
         content
       )
     );
-    res.push(renderComments(node, style));
+    res.push(renderComments(node));
     res.push(', ');
     if (node.ply % 2 === 0) res.push(h('br'));
   });
@@ -234,19 +232,17 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
 }
 
 function renderCurrentNode(node: Tree.Node, style: Style): string {
-  if (!node.san || !node.usi) return 'Initial position';
-  return [node.ply, renderSan(node.san, node.usi, style), renderComments(node, style)].join(' ');
+  if (!node.usi) return 'Initial position';
+  return [node.ply, renderMove(node.usi, style), renderComments(node)].join(' ');
 }
 
-function renderComments(node: Tree.Node, style: Style): string {
+function renderComments(node: Tree.Node): string {
   if (!node.comments) return '';
-  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
+  return (node.comments || []).map(c => renderComment(c)).join('. ');
 }
 
-function renderComment(comment: Tree.Comment, style: Style): string {
-  return comment.by === 'lishogi'
-    ? comment.text.replace(/Best move was (.+)\./, (_, san) => 'Best move was ' + renderSan(san, undefined, style))
-    : comment.text;
+function renderComment(comment: Tree.Comment): string {
+  return comment.text;
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {

@@ -2,7 +2,6 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
-import { notationStyle } from 'common/notation';
 import { renderTime } from './clocks';
 
 export interface Ctx {
@@ -40,17 +39,7 @@ export function renderIndex(ply: Ply, offset?: number, withDots?: boolean): VNod
 
 export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] {
   const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
-  return [
-    h(
-      'san',
-      notationStyle(ctx.notation)({
-        san: node.san!,
-        usi: node.usi!,
-        fen: node.fen,
-        variant: ctx.variant,
-      })
-    ),
-  ]
+  return [h('move-notation', node.notation)]
     .concat(node.glyphs && ctx.showGlyphs ? renderGlyphs(node.glyphs) : [])
     .concat(
       ctx.showEval
@@ -65,6 +54,6 @@ export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[
 }
 
 export function renderIndexAndMove(ctx: Ctx, node: Tree.Node, moveTime?: number): VNode[] | undefined {
-  if (!node.san) return; // initial position
+  if (!node.usi) return; // initial position
   return [renderIndex(node.ply, ctx.offset, ctx.withDots), ...renderMove(ctx, node, moveTime)];
 }

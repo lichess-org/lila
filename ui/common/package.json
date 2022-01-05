@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "shogiground": "7.8.1",
-    "shogiops": "^0.3.1"
+    "shogiops": "^0.5.0",
+    "typescript": "^4.4.3"
   }
 }

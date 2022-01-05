@@ -112,7 +112,6 @@ export interface NodeEvals {
 export interface Step {
   ply: number;
   fen: string;
-  san?: string;
   usi?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;

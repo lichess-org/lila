@@ -2,7 +2,6 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks';
 import { Attrs } from 'snabbdom/modules/attributes';
-import { notationStyle } from 'common/notation';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
@@ -66,19 +65,8 @@ export function iconTag(icon: string) {
   return h('i', { attrs: dataIcon(icon) });
 }
 
-export function nodeFullName(node: Tree.Node, notation: number, variant: VariantKey) {
-  if (node.san && node.usi)
-    return (
-      node.ply +
-      '.' +
-      ' ' +
-      notationStyle(notation)({
-        san: node.san,
-        fen: node.fen,
-        usi: node.usi,
-        variant: variant,
-      })
-    );
+export function nodeFullName(node: Tree.Node) {
+  if (node.notation) return node.ply + '.' + ' ' + node.notation;
   return 'Initial position';
 }
 

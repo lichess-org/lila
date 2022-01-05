@@ -11,7 +11,7 @@ import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 import { promotionZone } from 'shogiops/variantUtil';
 import { lishogiVariantRules } from 'shogiops/compat';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { setupPosition } from 'shogiops/variant';
 
 function analysisBoardOrientation(data: RoundData) {
@@ -191,7 +191,7 @@ export function impasseHelp(ctrl: RoundController) {
 
   const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
   const rules = lishogiVariantRules(ctrl.data.game.variant.key);
-  const shogi = parseFen(lastStep.fen).chain(s => setupPosition(rules, s, false));
+  const shogi = parseSfen(lastStep.fen).chain(s => setupPosition(rules, s, false));
 
   if (shogi.isErr) return null;
 

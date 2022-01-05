@@ -16,12 +16,7 @@ export const allKeys: readonly cg.Key[] = Array.prototype.concat(...cg.files.map
 
 export const pos2key = (pos: cg.Pos): cg.Key => allKeys[9 * pos[0] + pos[1]];
 
-//export const pos2key = (pos: cg.Pos): cg.Key => allKeys[9 * (8 - pos[0]) + (8 - pos[1])];
 export const key2pos = (k: cg.Key): cg.Pos => [k.charCodeAt(0) - 49, k.charCodeAt(1) - 97];
-//export const key2pos = (k: cg.Key): cg.Pos => {
-//  if (Number.isInteger(k[0])) return [k.charCodeAt(0) - 49, k.charCodeAt(1) - 97];
-//  return [8 - (k.charCodeAt(0) - 97), 8 - (k.charCodeAt(1) - 49)];
-//};
 
 export function memo<A>(f: () => A): cg.Memo<A> {
   let v: A | undefined;

@@ -14,11 +14,8 @@
 %shogi-font {
   font-family: 'Noto Shogi', 'Noto Sans'; // shogi font sometimes?
 }
-%san {
+%move-notation {
   @extend %shogi-font;
-  .piece-letter & {
-    @extend %base-font;
-  }
 }
 
 /* text printed directly on the page background deserves special treatment (transp theme) */

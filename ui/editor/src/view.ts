@@ -7,7 +7,7 @@ import { eventPosition, opposite } from 'shogiground/util';
 import EditorCtrl from './ctrl';
 import shogiground from './shogiground';
 import { OpeningPosition, Selected, EditorState } from './interfaces';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variantUtil';
 import { defined } from 'common';
 
@@ -451,7 +451,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           },
           input(e) {
             const el = e.target as HTMLInputElement;
-            const valid = parseFen(el.value.trim()).isOk;
+            const valid = parseSfen(el.value.trim()).isOk;
             el.setCustomValidity(valid ? '' : 'Invalid SFEN');
           },
           blur(e) {

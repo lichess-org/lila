@@ -211,7 +211,6 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         const data = b[0];
                         data.embed = true;
                         data.options = {
-                          inlineCastling: true,
                           onChange: ctrl.vm.editorFen,
                         };
                         ctrl.vm.editor = window['LishogiEditor'](vnode.elm as HTMLElement, data);

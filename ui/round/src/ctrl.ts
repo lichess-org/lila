@@ -38,7 +38,8 @@ import {
   NvuiPlugin,
 } from './interfaces';
 import { cancelDropMode } from 'shogiground/drop';
-import { notationStyle } from 'common/notation';
+import { makeNotation } from 'common/notation';
+import { isDrop, parseUsi, roleToString } from 'shogiops';
 
 interface GoneBerserk {
   sente?: boolean;
@@ -165,7 +166,7 @@ export default class RoundController {
   };
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
+    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.move(this, meta);
     if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, false, meta);
     cancelDropMode(this.shogiground.state);
     this.dropmodeActive = false;
@@ -253,9 +254,9 @@ export default class RoundController {
       };
     }
     this.shogiground.set(config);
-    if (s.san && isForwardStep) {
-      if (s.san.includes('x')) sound.capture();
-      else sound.move();
+    if (s.usi && isForwardStep) {
+      //if (s.san.includes('x')) sound.capture();
+      sound.move();
       if (s.check) sound.check();
     }
     this.autoScroll();
@@ -333,8 +334,7 @@ export default class RoundController {
 
   sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
     const drop: SocketDrop = {
-      role: role,
-      pos: key,
+      u: roleToString(role).toUpperCase() + '*' + key,
     };
     if (blur.get()) drop.b = 1;
     this.resign(false);
@@ -357,18 +357,16 @@ export default class RoundController {
           opponent = renderUser.userTxt(this, d.opponent);
         if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
         else {
-          const m_step = d.steps[d.steps.length - 1],
-            move =
-              this.ply +
-              '.' +
-              ' ' +
-              notationStyle(this.data.pref.pieceNotation ?? 0)({
-                san: m_step.san,
-                usi: m_step.usi,
-                fen: m_step.fen,
-                variant: this.data.game.variant.key,
-              });
-          txt = opponent + '\nplayed ' + move + '.\n' + txt;
+          const m_step = d.steps[d.steps.length - 1];
+          const prev_step = d.steps[d.steps.length - 2];
+
+          const moveNotation = makeNotation(
+            this.data.pref.pieceNotation,
+            prev_step.fen,
+            this.data.game.variant.key,
+            m_step.usi
+          );
+          txt = opponent + '\nplayed ' + moveNotation + '.\n' + txt;
         }
         return txt;
       });
@@ -395,12 +393,13 @@ export default class RoundController {
     d.possibleMoves = activeColor ? o.dests : undefined;
     d.possibleDrops = activeColor ? o.drops : undefined;
     this.setTitle();
+    const move = parseUsi(o.usi)!;
     if (!this.replaying()) {
       this.ply++;
-      if (o.role)
+      if (isDrop(move))
         this.shogiground.newPiece(
           {
-            role: o.role,
+            role: move.role,
             color: playedColor,
           },
           o.usi.substr(2, 2) as cg.Key
@@ -430,7 +429,6 @@ export default class RoundController {
     const step = {
       ply: round.lastPly(this.data) + 1,
       fen: o.fen,
-      san: o.san,
       usi: o.usi,
       check: o.check,
     };

@@ -6,9 +6,13 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "@babel/core":"^7",
+    "@babel/preset-env":"^7",
+    "babelify": "^10",
     "browserify": "^16",
     "fancy-log": "^1",
     "gulp": "^4",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6",
     "gulp-size": "^3",
     "gulp-terser": "^1",
@@ -24,7 +28,7 @@
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
-    "shogiops": "^0.3.1",
+    "shogiops": "^0.5.0",
     "tablesort": "^5.1"
   },
   "scripts": {

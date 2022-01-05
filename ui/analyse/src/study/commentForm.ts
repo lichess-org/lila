@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { currentComments } from './studyComments';
-import { nodeFullName, bind } from '../util';
+import { bind } from '../util';
 import { prop, Prop } from 'common';
 import throttle from 'common/throttle';
 import AnalyseCtrl from '../ctrl';
@@ -114,7 +114,7 @@ export function view(root: AnalyseCtrl): VNode {
               {
                 hook: bind('mousedown', () => ctrl.root.userJump(current.path), ctrl.redraw),
               },
-              nodeFullName(current.node, root.data.pref.pieceNotation, root.data.game.variant.key)
+              current.node.notation || 'Initial position'
             ),
           ])
         : null,

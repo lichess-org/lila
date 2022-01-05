@@ -1,4 +1,4 @@
-import { charToRole, makeSquare, makeUsi, Move, parseSquare } from 'shogiops';
+import { stringToRole, makeSquare, makeUsi, Move, parseSquare } from 'shogiops';
 
 export function defined<A>(v: A | undefined): v is A {
   return typeof v !== 'undefined';
@@ -33,7 +33,7 @@ function parseChessSquare(str: string): number | undefined {
 
 function parseLishogiUci(str: string): Move | undefined {
   if (str[1] === '*' && str.length === 4) {
-    const role = charToRole(str[0]);
+    const role = stringToRole(str[0]);
     const to = parseChessSquare(str.slice(2));
     if (defined(role) && defined(to)) return { role, to };
   } else if (str.length === 4 || str.length === 5) {

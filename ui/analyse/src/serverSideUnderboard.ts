@@ -2,7 +2,6 @@ import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
 import { baseUrl } from './util';
 import { AnalyseData } from './interfaces';
-import { notationStyle } from 'common/notation';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const li = window.lishogi;
@@ -86,12 +85,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if (!$('#acpl-chart').length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$('#acpl-chart-loader').length) $panel.append(chartLoader());
     li.loadScript('javascripts/chart/acpl.js').then(function () {
-      li.advantageChart!(
-        data,
-        ctrl.trans,
-        $('#acpl-chart')[0] as HTMLElement,
-        notationStyle(ctrl.data.pref.pieceNotation)
-      );
+      li.advantageChart!(data, ctrl.trans, $('#acpl-chart')[0] as HTMLElement);
     });
   }
 
@@ -105,7 +99,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart)
       try {
         li.loadScript('javascripts/chart/movetime.js').then(function () {
-          li.movetimeChart(data, ctrl.trans, notationStyle(data.pref.pieceNotation));
+          li.movetimeChart(data, ctrl.trans, data.pref.pieceNotation);
         });
       } catch (e) {}
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart').length)

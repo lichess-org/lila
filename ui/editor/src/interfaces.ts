@@ -23,7 +23,6 @@ export interface EditorConfig {
 export interface EditorOptions {
   orientation?: Color;
   onChange?: (fen: string) => void;
-  inlineCastling?: boolean;
 }
 
 export interface EditorState {

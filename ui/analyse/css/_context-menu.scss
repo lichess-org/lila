@@ -9,7 +9,7 @@
     display: block;
   }
   .title {
-    @extend %san, %metal;
+    @extend %move-notation, %metal;
     padding: 0.4em;
     text-align: center;
     font-size: 1.2em;

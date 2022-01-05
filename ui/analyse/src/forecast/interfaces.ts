@@ -8,7 +8,6 @@ export interface ForecastData {
 export interface ForecastStep {
   ply: Ply;
   usi: Usi;
-  san: San;
   fen: Fen;
   check?: Key;
 }

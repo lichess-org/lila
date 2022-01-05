@@ -90,7 +90,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
             },
           },
           [
-            h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
+            h('td', move.usi),
             h('td', window.lishogi.numberFormat(move.sente + move.draws + move.gote)),
             h('td', resultBar(move)),
           ]
@@ -237,7 +237,7 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
               key: move.usi,
               attrs: { 'data-usi': move.usi },
             },
-            [h('td', move.san), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])]
+            [h('td', move.usi), h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)])]
           );
         })
       ),
@@ -259,10 +259,6 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
   else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
-  else if (move.zeroing)
-    return move.san.includes('x')
-      ? h('result.' + winnerOf(fen, move), trans('capture'))
-      : h('result.' + winnerOf(fen, move), trans('pawnMove'));
   return h('result.' + winnerOf(fen, move), {}, 'DTZ ' + Math.abs(move.dtz));
 }
 
@@ -340,7 +336,7 @@ function show(ctrl: AnalyseCtrl) {
     const halfmoves = parseInt(data.fen.split(' ')[4], 10) + 1;
     const zeroed = halfmoves === 1;
     const moves = data.moves;
-    const dtz = m => (m.checkmate || m.variant_win || m.variant_loss || m.zeroing ? 0 : m.dtz);
+    const dtz = m => (m.checkmate || m.variant_win || m.variant_loss ? 0 : m.dtz);
     if (moves.length)
       lastShow = h(
         'div.data',

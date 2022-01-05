@@ -50,7 +50,6 @@ export interface Controller extends KeyboardController {
   position(): Shogi;
   showComputer(): boolean;
   trans: Trans;
-  tsumeLength(): number;
   getData(): PuzzleData;
   data: PuzzleOpts;
   getTree(): TreeWrapper;
@@ -144,6 +143,7 @@ export interface PuzzleReplay {
   days: number;
 }
 
+// todo - separate outside sources and lishogi games
 export interface PuzzleGame {
   // From games
   id?: string;
@@ -153,7 +153,7 @@ export interface PuzzleGame {
   };
   rated?: boolean;
   players?: [PuzzlePlayer, PuzzlePlayer];
-  pgn?: string;
+  usi?: string;
   clock?: string;
   // From the outside
   fen?: string;

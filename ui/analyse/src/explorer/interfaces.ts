@@ -83,7 +83,6 @@ export interface TablebaseData extends ExplorerData {
 
 export interface MoveStats {
   usi: Usi;
-  san: San;
 }
 
 export interface OpeningMoveStats extends MoveStats {

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import * as studyView from '../study/studyView';
-import { nodeFullName, bind } from '../util';
+import { bind } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { patch } from '../main';
 
@@ -71,7 +71,7 @@ function view(opts: Opts, coords: Coords): VNode {
       },
     },
     [
-      h('p.title', nodeFullName(node, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
+      h('p.title', node.notation || 'Initial position'),
       onMainline ? null : action('S', trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
       onMainline ? null : action('E', trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
       action('q', trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),

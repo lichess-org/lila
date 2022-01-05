@@ -88,17 +88,17 @@
       }
     }
   }
-  sans {
+  moves-notation {
     @extend %roboto, %flex-center;
   }
-  san {
-    @extend %san;
+  move-notation {
+    @extend %move-notation;
   }
-  sans > * {
+  moves-notation > * {
     display: inline-block;
     margin-right: 0.2em;
   }
-  .add sans {
+  .add moves-notation {
     @extend %flex-wrap;
   }
   .on-my-turn {

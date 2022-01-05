@@ -1,7 +1,6 @@
-import { lishogiCharToRole } from 'shogiops/compat';
 import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { opposite } from 'shogiground/util';
 import { plyColor } from './util';
 import { backrank, secondBackrank } from 'shogiops/variantUtil';
@@ -31,24 +30,16 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
 
   const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
     usi: node.usi,
-    san: node.san!,
     fen: node.fen!,
   }));
 
   for (const i in nodes) {
-    const b: boolean = parseFen(nodes[i].fen).unwrap(
-      s =>
-        Shogi.fromSetup(s, false).unwrap(
-          sh => sh.isCheckmate(),
-          () => false
-        ),
-      () => false
-    );
-    if (b) return (vm.node.puzzle = 'win');
+    const shogi = parseSfen(nodes[i].fen).chain(s => Shogi.fromSetup(s, false));
+    if (shogi.isOk && shogi.value.isCheckmate()) return (vm.node.puzzle = 'win');
     const usi = nodes[i].usi!,
       solUsi = puzzle.solution[i];
-    const role = nodes[i].san[0] as Role;
-    if (usi != solUsi && !isForcedPromotion(usi, solUsi, opposite(playedByColor), lishogiCharToRole(role)))
+    const role = shogi.isOk ? shogi.value.board.getRole(parseUsi(usi)!.to) : undefined;
+    if (usi != solUsi && !isForcedPromotion(usi, solUsi, opposite(playedByColor), role))
       return (vm.node.puzzle = 'fail');
   }
 

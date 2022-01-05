@@ -5,7 +5,7 @@ import RoundController from '../ctrl';
 import * as cg from 'shogiground/types';
 import { lishogiVariantRules } from 'shogiops/compat';
 import { handRoles } from 'shogiops/variantUtil';
-import { parseFen, parseHands } from 'shogiops/fen';
+import { parseSfen, parseHands } from 'shogiops/sfen';
 import { setupPosition } from 'shogiops/variant';
 import { lastStep } from '../round';
 import { parseSquare } from 'shogiops/util';
@@ -79,7 +79,7 @@ export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key): boolea
 
   if (!isPlayerTurn(data)) return false;
 
-  const pos = parseFen(lastStep.fen).chain(s => setupPosition(lishogiVariantRules(data.game.variant.key), s, false));
+  const pos = parseSfen(lastStep.fen).chain(s => setupPosition(lishogiVariantRules(data.game.variant.key), s, false));
   if (pos.isErr) return false;
   return pos.value.isLegal(move);
 }

@@ -1,14 +1,14 @@
 import { Run } from './interfaces';
 import { Config as CgConfig } from 'shogiground/config';
 import { usiToLastMove } from './util';
-import { makeFen } from 'shogiops/fen';
+import { makeSfen } from 'shogiops/sfen';
 import { shogigroundDests, shogigroundDropDests } from 'shogiops/compat';
 
 export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
   const cur = run.current;
   const pos = cur.position();
   return {
-    fen: makeFen(pos.toSetup()),
+    fen: makeSfen(pos.toSetup()),
     orientation: run.pov,
     turnColor: pos.turn,
     movable: {

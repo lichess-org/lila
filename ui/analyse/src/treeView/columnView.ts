@@ -18,7 +18,6 @@ import {
   Opts as BaseOpts,
 } from './treeView';
 import { enrichText, innerHTML } from '../util';
-import { notationStyle } from 'common/notation';
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
@@ -135,15 +134,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    content: MaybeVNodes = [
-      moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
-      notationStyle(ctx.ctrl.data.pref.pieceNotation)({
-        san: node.san!,
-        usi: node.usi!,
-        fen: node.fen,
-        variant: ctx.variant,
-      }),
-    ],
+    content: MaybeVNodes = [moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true), node.notation],
     classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));

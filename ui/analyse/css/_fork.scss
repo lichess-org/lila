@@ -7,7 +7,7 @@ $c-fork: $c-primary;
     display: none;
   }
   move {
-    @extend %san, %flex-center;
+    @extend %move-notation, %flex-center;
     background: mix($c-fork, $c-bg-box, 25%);
     color: $c-font-clear;
     flex: 0 0 50%;

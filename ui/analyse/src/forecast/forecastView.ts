@@ -4,7 +4,7 @@ import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../notationExport';
 import { bind, dataIcon, spinner } from '../util';
-import { notationStyle } from 'common/notation';
+import { makeNotation } from 'common/notation';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   var firstNode = cNodes[0];
@@ -14,6 +14,13 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   var lines = fcs.filter(function (fc) {
     return fc.length > 1;
   });
+  const initialFen = firstNode.fen;
+  const moveNotation = makeNotation(
+    ctrl.data.pref.pieceNotation,
+    initialFen,
+    ctrl.data.game.variant.key,
+    cNodes[0].usi
+  );
   return h(
     'button.on-my-turn.button.text',
     {
@@ -22,18 +29,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
     },
     [
       h('span', [
-        h(
-          'strong',
-          ctrl.trans(
-            'playX',
-            notationStyle(ctrl.data.pref.pieceNotation)({
-              san: cNodes[0].san,
-              usi: cNodes[0].usi,
-              fen: cNodes[0].fen,
-              variant: ctrl.data.game.variant.key,
-            })
-          )
-        ),
+        h('strong', ctrl.trans('playX', moveNotation!)),
         lines.length
           ? h('span', ctrl.trans.plural('andSaveNbPremoveLines', lines.length))
           : h('span', ctrl.trans.noarg('noConditionalPremoves')),
@@ -49,7 +45,6 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
       ply: node.ply,
       fen: node.fen,
       usi: node.usi!,
-      san: node.san!,
       check: node.check,
     }))
   );
@@ -90,7 +85,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   },
                   'x'
                 ),
-                h('sans', renderNodesHtml(nodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
+                h('moves-notation', renderNodesHtml(nodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
               ]
             );
           })
@@ -106,7 +101,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             isCandidate
               ? h('span', [
                   h('span', ctrl.trans.noarg('addCurrentVariation')),
-                  h('sans', renderNodesHtml(cNodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)),
+                  h(
+                    'moves-notation',
+                    renderNodesHtml(cNodes, ctrl.data.pref.pieceNotation, ctrl.data.game.variant.key)
+                  ),
                 ])
               : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
           ]

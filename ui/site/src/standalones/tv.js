@@ -1,4 +1,4 @@
-function parseFen($elem) {
+function parseSfen($elem) {
   $elem.each(function () {
     var $this = $(this).removeClass('parse-fen');
     var lm = $this.data('lastmove');
@@ -37,7 +37,7 @@ $(function () {
   var board = function () {
     return $featured.find('.mini-board');
   };
-  parseFen(board());
+  parseSfen(board());
   if (!window.EventSource) return;
   var source = new EventSource($('body').data('stream-url'));
   source.addEventListener(
@@ -46,9 +46,9 @@ $(function () {
       var data = JSON.parse(e.data);
       if (data.t == 'featured') {
         $featured.html(data.d.html).find('a').attr('target', '_blank');
-        parseFen(board());
+        parseSfen(board());
       } else if (data.t == 'fen') {
-        parseFen(board().data('fen', data.d.fen).data('lastmove', data.d.lm));
+        parseSfen(board().data('fen', data.d.fen).data('lastmove', data.d.lm));
       }
     },
     false

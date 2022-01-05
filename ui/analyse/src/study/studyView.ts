@@ -83,7 +83,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'tags',
-        hint: noarg('pgnTags'),
+        hint: noarg('kifTags'),
         icon: iconTag('o'),
       }),
       toolButton({

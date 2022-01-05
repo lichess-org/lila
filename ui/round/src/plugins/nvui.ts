@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -12,22 +11,10 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import {
-  renderSan,
-  renderPieces,
-  renderBoard,
-  styleSetting,
-  castlingFlavours,
-  supportedVariant,
-  Style,
-} from 'nvui/chess';
+import { renderMove, renderPieces, renderBoard, styleSetting, supportedVariant, Style } from 'nvui/shogi';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-
-type Sans = {
-  [key: string]: Usi;
-};
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -102,7 +89,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
                 'aria-atomic': true,
               },
             },
-            renderSan(step.san, step.usi, style)
+            renderMove(step.usi, style)
           ),
           ...(ctrl.isPlaying()
             ? [
@@ -170,12 +157,6 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
             'takeback: Offer or accept take back.',
             h('br'),
           ]),
-          h('h2', 'Promotion'),
-          h('p', [
-            'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
-            h('br'),
-            'Omission results in promotion to queen',
-          ]),
         ]
       );
     },
@@ -186,18 +167,18 @@ const promotionRegex = /^([RNBSGLP])([a-i]x?)?[a-i][1-9]=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function () {
-    let input = castlingFlavours($input.val().trim());
+    let input = $input.val().trim();
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
-        legalUsis = destsToUsis(ctrl.shogiground.state.movable.dests!),
-        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUsis) as Sans;
-      let usi = sanToUsi(input, sans) || input,
+        legalUsis = destsToUsis(ctrl.shogiground.state.movable.dests!);
+      //moves: Moves = sanWriter(plyStep(d, ctrl.ply).fen, legalUsis) as Moves;
+      let usi = input,
         promotion = '';
 
       if (input.match(promotionRegex)) {
-        usi = sanToUsi(input.slice(0, -2), sans) || input;
+        usi = input;
         promotion = input.slice(-1).toLowerCase();
       }
 
@@ -258,18 +239,11 @@ function destsToUsis(dests: Dests) {
   return usis;
 }
 
-function sanToUsi(san: string, sans: Sans): Usi | undefined {
-  if (san in sans) return sans[san];
-  const lowered = san.toLowerCase();
-  for (let i in sans) if (i.toLowerCase() === lowered) return sans[i];
-  return;
-}
-
 function renderMoves(steps: Step[], style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
     if (s.ply & 1) res.push(Math.ceil(s.ply / 2) + ' ');
-    res.push(renderSan(s.san, s.usi, style) + ', ');
+    res.push(renderMove(s.usi, style) + ', ');
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;

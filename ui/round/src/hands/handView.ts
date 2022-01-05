@@ -7,7 +7,7 @@ import { onInsert } from '../util';
 import { Position } from '../interfaces';
 import { lishogiVariantRules } from 'shogiops/compat';
 import { handRoles, unpromote } from 'shogiops/variantUtil';
-import { parseHands } from 'shogiops/fen';
+import { parseHands } from 'shogiops/sfen';
 import { Hands } from 'shogiops/hand';
 
 const eventNames1 = ['mousedown', 'touchmove'];

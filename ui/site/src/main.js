@@ -231,10 +231,10 @@
     });
   };
 
-  lishogi.parseFen = function ($elem) {
+  lishogi.parseSfen = function ($elem) {
     if (!window.Shogiground)
       return setTimeout(function () {
-        lishogi.parseFen($elem);
+        lishogi.parseSfen($elem);
       }, 500); // if not loaded yet
     // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
     if (!$elem || !$elem.each) $elem = $('.parse-fen');
@@ -922,7 +922,7 @@
   });
 
   $(function () {
-    lishogi.pubsub.on('content_loaded', lishogi.parseFen);
+    lishogi.pubsub.on('content_loaded', lishogi.parseSfen);
 
     var socketOpened = false;
 
@@ -943,7 +943,7 @@
     });
 
     lishogi.requestIdleCallback(function () {
-      lishogi.parseFen();
+      lishogi.parseSfen();
       $('.chat__members').watchers();
       if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
         $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lishogi.reload);

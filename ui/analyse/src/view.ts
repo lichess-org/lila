@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import * as shogiground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
@@ -126,7 +126,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               ctrl.fenInput = el.value;
               el.addEventListener('input', _ => {
                 ctrl.fenInput = el.value;
-                const setup = parseFen(el.value.trim());
+                const setup = parseSfen(el.value.trim());
                 el.setCustomValidity(
                   setup.isOk &&
                     setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup.unwrap(), false).isOk

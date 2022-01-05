@@ -5,7 +5,7 @@ import { Rules } from 'shogiops/types';
 import { Board } from 'shogiops/board';
 import { Setup } from 'shogiops/setup';
 import { setupPosition } from 'shogiops/variant';
-import { makeFen, parseFen, INITIAL_FEN, INITIAL_EPD, EMPTY_FEN } from 'shogiops/fen';
+import { makeSfen, parseSfen, INITIAL_SFEN, INITIAL_EPD, EMPTY_SFEN } from 'shogiops/sfen';
 
 import { defined, prop, Prop } from 'common';
 import { eventPosition, opposite } from 'shogiground/util';
@@ -37,7 +37,7 @@ export default class EditorCtrl {
     this.selected = prop('pointer');
     this.extraPositions = [
       {
-        fen: INITIAL_FEN,
+        fen: INITIAL_SFEN,
         epd: INITIAL_EPD,
         name: this.trans('startPosition'),
       },
@@ -88,7 +88,7 @@ export default class EditorCtrl {
     const fen = this.getFen();
     this.cfg.fen = fen;
     if (!this.cfg.embed) {
-      if (fen == INITIAL_FEN) window.history.replaceState('', '', '/editor');
+      if (fen == INITIAL_SFEN) window.history.replaceState('', '', '/editor');
       else window.history.replaceState('', '', this.makeUrl('/editor/', fen));
     }
     this.options.onChange && this.options.onChange(fen);
@@ -100,7 +100,7 @@ export default class EditorCtrl {
 
   private getSetup(): Setup {
     const boardFen = this.shogiground ? this.shogiground.getFen() : this.cfg.fen;
-    const board = parseFen(boardFen).unwrap(
+    const board = parseSfen(boardFen).unwrap(
       setup => setup.board,
       _ => Board.empty()
     );
@@ -113,13 +113,13 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup());
+    return makeSfen(this.getSetup());
   }
 
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(
       pos => {
-        return makeFen(pos.toSetup());
+        return makeSfen(pos.toSetup());
       },
       _ => undefined
     );
@@ -162,11 +162,11 @@ export default class EditorCtrl {
   }
 
   startPosition(): void {
-    this.setFen(INITIAL_FEN);
+    this.setFen(INITIAL_SFEN);
   }
 
   clearBoard(): void {
-    this.setFen(EMPTY_FEN);
+    this.setFen(EMPTY_SFEN);
   }
 
   loadNewFen(fen: string | 'prompt'): void {
@@ -178,7 +178,7 @@ export default class EditorCtrl {
   }
 
   setFen(fen: string): boolean {
-    return parseFen(fen).unwrap(
+    return parseSfen(fen).unwrap(
       setup => {
         if (this.shogiground) this.shogiground.set({ fen });
         this.hands = setup.hands;

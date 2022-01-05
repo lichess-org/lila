@@ -2,7 +2,7 @@ import { dragNewPiece } from 'shogiground/drag';
 import { setDropMode, cancelDropMode } from 'shogiground/drop';
 import * as cg from 'shogiground/types';
 import { Shogi } from 'shogiops/shogi';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { Controller } from '../interfaces';
 import { Role } from 'shogiops/types';
 import { parseSquare } from 'shogiops/util';
@@ -62,7 +62,7 @@ export function selectToDrop(ctrl: Controller, e: cg.MouchEvent): void {
 }
 
 export function valid(fen: string, piece: cg.Piece, key: Key): boolean {
-  const setup = parseFen(fen).unwrap();
+  const setup = parseSfen(fen).unwrap();
   const shogi = Shogi.fromSetup(setup, false);
   return shogi.unwrap(
     s => {

@@ -54,7 +54,7 @@
     padding-left: 7px;
   }
   .moves td:first-child {
-    @extend %san;
+    @extend %move-notation;
     line-height: 30px;
     padding-left: 7px;
   }
@@ -147,7 +147,7 @@
   .tablebase {
     width: 100%;
     td:first-child {
-      @extend %san;
+      @extend %move-notation;
       font-size: 14px;
       line-height: 30px;
       padding-left: 7px;

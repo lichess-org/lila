@@ -5,7 +5,6 @@ import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 import { Ctx, Opts, mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
-import { notationStyle } from 'common/notation';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children,
@@ -115,12 +114,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
     content: MaybeVNodes = [
       opts.withIndex || node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
-      notationStyle(ctx.notation)({
-        san: node.san!,
-        usi: node.usi!,
-        fen: node.fen,
-        variant: ctx.variant,
-      }),
+      node.notation,
     ];
   if (node.glyphs && ctx.showGlyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h(

@@ -4,13 +4,11 @@ import * as winningChances from './winningChances';
 import { defined, pretendItsUsi } from 'common';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { ExtendedMoveInfo, notationStyle } from 'common/notation';
-import { Position } from 'shogiops/shogi';
 import { lishogiVariantRules } from 'shogiops/compat';
-import { makeUsi, opposite, parseUsi } from 'shogiops/util';
-import { makeFen, parseFen } from 'shogiops/fen';
-import { Move } from 'shogiops/types';
+import { opposite, parseUsi } from 'shogiops/util';
+import { parseSfen } from 'shogiops/sfen';
 import { setupPosition } from 'shogiops/variant';
+import { makeNotationLineWithPosition, Notation } from 'common/notation';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -254,44 +252,12 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   });
 }
 
-function makeExtendedMoveVariation(pos: Position, variation: Move[], variant: VariantKey): ExtendedMoveInfo[] {
-  pos = pos.clone();
-  const extendedLine = [];
-  for (let i = 0; i < variation.length; i++) {
-    //const san = makeSanAndPlay(pos, variation[i]);
-    const fen = makeFen(pos.toSetup());
-    extendedLine.push({
-      san: '',
-      usi: makeUsi(pos.lastMove!),
-      fen: fen,
-      variant: variant,
-    });
-    //if (san === '--') return extendedLine;
-    if (i === variation.length - 1 && pos.outcome()?.winner)
-      extendedLine.push({ san: '投了', usi: '投了', fen: '投了', variant: variant });
-  }
-  return extendedLine;
-}
-
-function applyNotationToVariant(start: number, variation: ExtendedMoveInfo[], notation: number): string {
-  const line = [];
-  for (const m of variation) {
-    line.push(start++ + '. ');
-    if (m.san === '投了') line.push('投了');
-    else {
-      line.push(notationStyle(notation)(m));
-      line.push(' ');
-    }
-  }
-  return line.join('');
-}
-
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
     node = ctrl.getNode(),
-    setup = parseFen(node.fen).unwrap();
+    setup = parseSfen(node.fen).unwrap();
   let pvs: Tree.PvData[],
     threat = false;
   if (ctrl.threatMode() && node.threat) {
@@ -303,7 +269,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     setup.fullmoves += 1;
   }
-  const pos = setupPosition(lishogiVariantRules(instance.variant.key), setup, false);
+  const position = setupPosition(lishogiVariantRules(instance.variant.key), setup, false);
   const turn = setup.fullmoves;
   const notation = ctrl.data.pref.pieceNotation ?? 0;
   return h(
@@ -339,20 +305,16 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             },
         [
           multiPv > 1 ? h('strong', defined(pvs[i].mate) ? '#' + pvs[i].mate : renderEval(pvs[i].cp!)) : null,
-          // Add notation to shogiops?
           h(
             'span',
-            pos.unwrap(
+            position.unwrap(
               pos =>
-                applyNotationToVariant(
-                  turn,
-                  makeExtendedMoveVariation(
-                    pos,
-                    pvs[i].moves.slice(0, 10).map(m => parseUsi(pretendItsUsi(m))!),
-                    instance.variant.key
-                  ),
-                  notation
-                ),
+                makeNotationLineWithPosition(
+                  notation as Notation,
+                  pos,
+                  pvs[i].moves.slice(0, 10).map(m => parseUsi(pretendItsUsi(m))!),
+                  node.usi ? parseUsi(node.usi) : undefined
+                ).map((m, i) => `${turn + i}. ${m} `),
               _ => '--'
             )
           ),

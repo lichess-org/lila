@@ -41,7 +41,7 @@ interface Lishogi {
   reverse(s: string): string;
   sound: any;
   userAutocomplete: any;
-  parseFen(el: any): void;
+  parseSfen(el: any): void;
   challengeApp: any;
   ab?: any;
 
@@ -65,7 +65,7 @@ interface Lishogi {
   // misc
   advantageChart?: {
     update(data: any): void;
-    (data: any, trans: Trans, el: HTMLElement, notation: any): void;
+    (data: any, trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
   RoundNVUI?(redraw: () => void): {
@@ -84,7 +84,7 @@ interface Lishogi {
 
 interface LishogiSpeech {
   say(t: string, cut: boolean): void;
-  step(s: { san?: San; usi?: Usi }, cut: boolean): void;
+  step(s: { usi?: Usi }, cut: boolean): void;
 }
 
 interface PalantirOpts {
@@ -208,8 +208,8 @@ declare type Files = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 declare type Ranks = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i';
 declare type Key = '00' | `${Files}${Ranks}`;
 
+declare type MoveNotation = string;
 declare type Usi = string;
-declare type San = string;
 declare type Fen = string;
 declare type Ply = number;
 
@@ -268,6 +268,7 @@ declare namespace Tree {
     id: string;
     ply: Ply;
     usi?: Usi;
+    notation?: string;
     fen: Fen;
     children: Node[];
     comments?: Comment[];
@@ -285,7 +286,6 @@ declare namespace Tree {
     forceVariation?: boolean;
     shapes?: Shape[];
     comp?: boolean;
-    san?: string;
     fourfold?: boolean;
     fail?: boolean;
     puzzle?: 'win' | 'fail' | 'good' | 'retry';

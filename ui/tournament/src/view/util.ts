@@ -40,7 +40,7 @@ export function miniBoard(game) {
       },
       hook: {
         insert(vnode) {
-          window.lishogi.parseFen($(vnode.elm as HTMLElement));
+          window.lishogi.parseSfen($(vnode.elm as HTMLElement));
         },
       },
     },

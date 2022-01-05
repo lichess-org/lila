@@ -33,7 +33,7 @@ let selectedType: string;
 
 type TagRow = (string | VNode)[];
 
-function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
+function renderKifTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
   let rows: TagRow[] = [];
   const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0]));
   rows = rows.concat(wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]));
@@ -113,7 +113,7 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
 function doRender(root: StudyCtrl): VNode {
   return h(
     'div',
-    renderPgnTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types, root.trans)
+    renderKifTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types, root.trans)
   );
 }
 

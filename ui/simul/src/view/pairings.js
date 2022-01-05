@@ -29,7 +29,7 @@ function miniPairing(ctrl) {
             'data-fen': game.fen,
             'data-lastmove': game.lastMove,
             config: function (el, isUpdate) {
-              if (!isUpdate) lishogi.parseFen($(el));
+              if (!isUpdate) lishogi.parseSfen($(el));
             },
           },
           m('div.cg-wrap')

@@ -1,38 +1,25 @@
 import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
-import { notationStyle } from 'common/notation';
+import { makeMoveNotationLine } from 'common/notation';
 import { ForecastStep } from './forecast/interfaces';
 import { ops as treeOps } from 'tree';
 
-import { makeKifHeader } from 'shogiops/kif';
-import { makeCsaHeader } from 'shogiops/csa';
-import { kifDestSquare, kifOrigSquare } from 'shogiops/kifUtil';
-import { makeCsaSquare } from 'shogiops/csaUtil';
-import { parseFen, INITIAL_FEN } from 'shogiops/fen';
+import { makeKifHeader } from 'shogiops/notation/kif/kif';
+import { makeCsaHeader } from 'shogiops/notation/csa/csa';
+import { parseSfen, INITIAL_SFEN } from 'shogiops/sfen';
 import { defined } from 'common';
-import { parseUsi, roleTo2Kanji, roleToCsa } from 'shogiops/util';
-import { isDrop, Square, Role, Move } from 'shogiops/types';
-import { lishogiCharToRole } from 'shogiops/compat';
+import { parseUsi } from 'shogiops/util';
+import { Square, Rules } from 'shogiops/types';
 import { renderTime } from './clocks';
-import { promote } from 'shogiops/variantUtil';
+import { Position } from 'shogiops';
+import { lishogiVariantRules } from 'shogiops/compat';
+import { PositionError, setupPosition } from 'shogiops/variant';
+import { Result } from '@badrap/result';
+import { makeKifMove } from 'shogiops/notation/kif/kif';
+import { makeCsaMove } from 'shogiops/notation/csa/csa';
 
-function renderKifMove(move: Move, role: Role, same = false): string {
-  if (isDrop(move)) {
-    return kifDestSquare(move.to) + roleTo2Kanji(role) + '打';
-  } else {
-    return (
-      (same ? '同　' : kifDestSquare(move.to)) +
-      roleTo2Kanji(role) +
-      (move.promotion ? '成' : '') +
-      '(' +
-      kifOrigSquare(move.from) +
-      ')'
-    );
-  }
-}
-
-function renderKifTime(moveTime: number, totalTime: number): string {
+function makeKifTime(moveTime: number, totalTime: number): string {
   return '   (' + renderTime(moveTime, false) + '/' + renderTime(totalTime, true) + ')';
 }
 
@@ -41,7 +28,8 @@ function pad(str: string, size: number): string {
   return str + ' ';
 }
 
-function renderKifNodes(node: Tree.Node, offset: number): string[] {
+function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] {
+  pos = pos.clone();
   const res: string[] = [];
 
   const mainline = treeOps.mainlineNodeList(node);
@@ -50,14 +38,14 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
   let timesSoFar: number[] = [0, 0];
 
   for (const m of mainline) {
-    if (defined(m.san) && defined(m.usi)) {
+    if (defined(m.usi)) {
       const move = parseUsi(m.usi);
-      const role = lishogiCharToRole(m.san[0]);
-      if (defined(move) && defined(role)) {
-        const kifMove = renderKifMove(move, role, lastDest === move.to);
-        const kifTime = defined(m.clock) ? renderKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '';
+      if (defined(move)) {
+        const kifMove = makeKifMove(pos, move, lastDest);
+        const kifTime = defined(m.clock) ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '';
         res.push(pad((m.ply - offset).toString(), padding + 1) + kifMove + kifTime);
         lastDest = move.to;
+        pos.play(move);
       }
     }
     if (defined(m.comments)) {
@@ -68,9 +56,12 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
   }
 
   for (const m of mainline.reverse()) {
-    for (const m2 of m.children.slice(1)) {
-      res.push('\n変化：' + m2.ply + '手');
-      res.push(...renderKifNodes(m2, offset));
+    const newPos = makePosition(m.fen, pos.rules);
+    if (newPos.isOk) {
+      for (const m2 of m.children.slice(1)) {
+        res.push('\n変化：' + m2.ply + '手');
+        res.push(...makeKifNodes(m2, newPos.value, offset));
+      }
     }
   }
 
@@ -79,10 +70,11 @@ function renderKifNodes(node: Tree.Node, offset: number): string[] {
 
 export function renderFullKif(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
-  const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
+  const setup = parseSfen(g.initialFen ?? INITIAL_SFEN).unwrap();
   const offset = ctrl.plyOffset();
 
-  const moves = renderKifNodes(ctrl.tree.root, offset % 2).join('\n');
+  const pos = setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup).unwrap();
+  const moves = makeKifNodes(ctrl.tree.root, pos, offset % 2).join('\n');
 
   const tags = ctrl.data.tags ?? [];
   // We either don't want to display these or we display them through other means
@@ -103,35 +95,22 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
   ].join('\n');
 }
 
-function renderCsaTime(moveTime: number): string {
+function makeCsaTime(moveTime: number): string {
   return ',T' + Math.floor(moveTime / 100);
 }
 
-function renderCsaMove(move: Move, role: Role, color: Color): string {
-  if (isDrop(move)) {
-    return (color === 'sente' ? '+' : '-') + '00' + makeCsaSquare(move.to) + roleToCsa(role);
-  } else {
-    return (
-      (color === 'sente' ? '+' : '-') +
-      makeCsaSquare(move.from) +
-      makeCsaSquare(move.to) +
-      roleToCsa(move.promotion ? promote('shogi')(role) : role)
-    );
-  }
-}
-
-function renderCsaMainline(node: Tree.Node): string[] {
+function makeCsaMainline(node: Tree.Node, pos: Position): string[] {
+  pos = pos.clone();
   const res: string[] = [];
 
   const mainline = treeOps.mainlineNodeList(node);
 
   for (const m of mainline) {
-    if (defined(m.san) && defined(m.usi)) {
+    if (defined(m.usi)) {
       const move = parseUsi(m.usi);
-      const role = lishogiCharToRole(m.san[0]);
-      if (defined(move) && defined(role)) {
-        const csaMove = renderCsaMove(move, role, m.ply % 2 ? 'sente' : 'gote');
-        const csaTime = defined(m.clock) ? renderCsaTime(m.clock) : '';
+      if (defined(move)) {
+        const csaMove = makeCsaMove(pos, move);
+        const csaTime = defined(m.clock) ? makeCsaTime(m.clock) : '';
         res.push(csaMove + csaTime);
       }
     }
@@ -180,33 +159,30 @@ function processCsaTags(tags: string[][]): string[] {
     .concat(asciiTags);
 }
 
+function makePosition(initialFen: Fen, rules: Rules): Result<Position, PositionError> {
+  return parseSfen(initialFen).chain(s => setupPosition(rules, s));
+}
+
 export function renderFullCsa(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
   const tags = processCsaTags(ctrl.data.tags ?? []);
-  const setup = parseFen(g.initialFen ?? INITIAL_FEN).unwrap();
-  const moves = renderCsaMainline(ctrl.tree.root).join('\n');
+  const setup = parseSfen(g.initialFen ?? INITIAL_SFEN).unwrap();
+  const pos = setupPosition(lishogiVariantRules(ctrl.data.game.variant.key), setup).unwrap();
+  const moves = makeCsaMainline(ctrl.tree.root, pos).join('\n');
   return [...tags, makeCsaHeader(setup), moves].join('\n');
 }
 
 export function renderNodesHtml(nodes: ForecastStep[], notation: number, variant: VariantKey): MaybeVNodes {
   if (!nodes[0]) return [];
-  if (!nodes[0].san) nodes = nodes.slice(1);
+  const initialFen = nodes[0].fen;
+  if (!nodes[0].usi) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
   const tags: MaybeVNodes = [];
-  nodes.forEach(node => {
-    if (!defined(node.san) || !defined(node.usi)) return;
-    tags.push(h('index', node.ply + '.'));
-    tags.push(
-      h(
-        'san',
-        notationStyle(notation)({
-          san: node.san,
-          usi: node.usi,
-          fen: node.fen,
-          variant: variant,
-        })
-      )
-    );
+  const usis = nodes.map(n => n.usi);
+  const movesNotation = makeMoveNotationLine(notation, initialFen, variant, usis);
+  movesNotation.forEach((notation, index) => {
+    tags.push(h('index', index + 1 + '.'));
+    tags.push(h('move-notation', notation));
   });
   return tags;
 }

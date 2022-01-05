@@ -1,5 +1,5 @@
 var shogi = require('shogiops');
-var sfen = require('shogiops/fen');
+var sfen = require('shogiops/sfen');
 var util = require('shogiops/variantUtil');
 
 $(function () {
@@ -41,9 +41,8 @@ $(function () {
               const key = solution.slice(3, 5);
               const piece = cg.state.pieces.get(key);
               const fen = cg.getFen() + (piece.color === 'sente' ? ' w' : ' b');
-              const mySetup = sfen.parseFen(fen).unwrap();
-              const pos = shogi.Shogi.fromSetup(mySetup, false);
-              if (pos.isOk && !pos.unwrap().isCheckmate()) {
+              const pos = sfen.parseSfen(fen).chain(s => shogi.Shogi.fromSetup(s, false));
+              if (pos.isOk && !pos.value.isCheckmate()) {
                 cg.setPieces(
                   new Map([
                     [
@@ -60,7 +59,7 @@ $(function () {
               $board.data('shogiground').stop();
             } else
               setTimeout(function () {
-                lishogi.parseFen($board);
+                lishogi.parseSfen($board);
                 $board.data('shogiground').set({
                   turnColor: cg.state.orientation,
                   movable: {

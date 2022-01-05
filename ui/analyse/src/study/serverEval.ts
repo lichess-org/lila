@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode';
 import AnalyseCtrl from '../ctrl';
 import { spinner, bind, onInsert } from '../util';
 import { Prop, prop, defined } from 'common';
-import { notationStyle } from 'common/notation';
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
@@ -80,8 +79,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
         ctrl.lastPly(false);
         li.requestIdleCallback(() => {
           li.loadScript('javascripts/chart/acpl.js').then(() => {
-            const notation = ctrl.root.data.pref.pieceNotation;
-            li.advantageChart!(ctrl.root.data, ctrl.root.trans, el, notationStyle(notation));
+            li.advantageChart!(ctrl.root.data, ctrl.root.trans, el);
             ctrl.chartEl(el);
           });
         });

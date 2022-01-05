@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks';
 import * as cg from 'shogiground/types';
 import { Redraw, EncodedDests, Dests } from './interfaces';
-import { parseFen } from 'shogiops/fen';
+import { parseSfen } from 'shogiops/sfen';
 import { lishogiVariantRules, shogigroundDropDests } from 'shogiops/compat';
 import { setupPosition } from 'shogiops/variant';
 
@@ -55,7 +55,7 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
 }
 
 export function getDropDests(fen: string, variant: VariantKey): cg.DropDests {
-  return parseFen(fen)
+  return parseSfen(fen)
     .chain(s => setupPosition(lishogiVariantRules(variant), s, false))
     .unwrap(
       p => shogigroundDropDests(p),

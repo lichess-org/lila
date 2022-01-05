@@ -5,6 +5,7 @@ const colors = require('ansi-colors');
 const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
+const babelify = require('babelify');
 const terser = require('gulp-terser');
 const size = require('gulp-size');
 const tsify = require('tsify');
@@ -67,25 +68,6 @@ const highcharts = () =>
       cwdbase: true,
     })
     .pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
-
-// const stockfishJs = () => gulp.src([
-//   require.resolve('stockfish.js/stockfish.wasm.js'),
-//   require.resolve('stockfish.js/stockfish.wasm'),
-//   require.resolve('stockfish.js/stockfish.js')
-// ]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
-//
-// const stockfishWasm = () => gulp.src([
-//   require.resolve('stockfish.wasm/stockfish.js'),
-//   require.resolve('stockfish.wasm/stockfish.wasm'),
-//   require.resolve('stockfish.wasm/stockfish.worker.js')
-// ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
-//
-// const stockfishMvWasm = () => gulp.src([
-//   require.resolve('stockfish-mv.wasm/stockfish.js'),
-//   require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
-//   require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-//   require.resolve('stockfish-mv.wasm/pthread-main.js')
-// ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
 
 const prodSource = () =>
   browserify(browserifyOpts('src/index.ts', false))
@@ -159,6 +141,7 @@ const standalonesJs = () =>
 function singlePackage(file, dest) {
   return () =>
     browserify(browserifyOpts(file, false))
+      .transform(babelify, { presets: ['@babel/preset-env'], global: true })
       .bundle()
       .pipe(source(dest))
       .pipe(buffer())
