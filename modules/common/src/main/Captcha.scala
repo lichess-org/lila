@@ -19,10 +19,10 @@ object Captcha {
 
   val default = Captcha(
     gameId = "00000000",
-    fen = "9/k1b6/1P+B6/9/9/9/9/9/9 b -",
+    fen = "9/k1b6/1P+B6/9/9/9/9/9/9",
     sente = true,
     solutions = NonEmptyList.one("7c 8b"),
-    moves = Map("7c" -> "8b")
+    moves = Map("7c" -> "8b 6d", "8c" -> "8b")
   )
 
   val failMessage = "captcha.fail"

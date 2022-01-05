@@ -2,7 +2,7 @@ package lila.game
 
 import akka.actor._
 import akka.pattern.pipe
-import shogi.format.{ Forsyth, ParsedMoves, Reader, Tags }
+import shogi.format.{ Forsyth, Reader, Tags }
 import shogi.{ Game => ShogiGame }
 import scala.util.Success
 import cats.data.NonEmptyList
@@ -81,6 +81,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         }
       } yield Captcha(game.id, fen(rewinded), rewinded.player.sente, solutions, moves = moves)
 
+    // Won't find drop checkmates
     private def solve(game: ShogiGame): Option[Captcha.Solutions] =
       game.situation.moves.view
         .flatMap { case (_, moves) =>
@@ -100,6 +101,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         )
         .valid.map(_.state).toOption
 
-    private def fen(game: ShogiGame): String = Forsyth >> game
+    private def fen(game: ShogiGame): String = Forsyth.exportBoard(game.situation.board)
   }
 }
