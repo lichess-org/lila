@@ -4,7 +4,7 @@ import SimulCtrl from '../ctrl';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
-    'a.ulpt.user-link.online',
+    'a.ulpt.user-link.' + (p.online ? 'online' : 'offline'),
     {
       attrs: { href: '/@/' + p.name },
       hook: {
