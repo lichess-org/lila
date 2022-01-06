@@ -26,4 +26,9 @@
   <string name="sortBy">Sortiraj prema</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Samo partije u kojima je dostupna šahovska analiza</string>
+  <string name="color">Boja</string>
+  <string name="evaluation">Vrednovanje</string>
+  <string name="maxNumber">Maksimalan broj</string>
+  <string name="maxNumberExplanation">Maksimalan broj igara za povratak</string>
+  <string name="include">Uključi</string>
 </resources>

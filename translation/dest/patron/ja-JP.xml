@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">寄付</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">%s として寄付</string>
+  <string name="donateAsX">%s として寄付</string>
   <string name="lichessPatron">Lichess パトロン</string>
   <string name="freeAccount">無料アカウント</string>
   <string name="becomePatron">Lichess のパトロンになる</string>
@@ -43,7 +43,6 @@
   <string name="contactSupport">Lichess サポートに連絡</string>
   <string name="otherMethods">寄付するのにほかの方法は？</string>
   <string name="bankTransfers">銀行振込もできます</string>
-  <string name="bitcoin">Lichess のビットコインアドレスでも：%s</string>
   <string name="patronFeatures">パトロン限定の機能はありますか？</string>
   <string name="noPatronFeatures">いいえ、Lichess は誰に対しても永久に無料です。これは約束です。
 ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>

@@ -16,7 +16,7 @@
   <string name="declineTooFast">Denne tidskontrollen er for snøgg for meg, men send gjerne ei ny utfordring til eit langsamare parti.</string>
   <string name="declineTooSlow">Denne tidskontrollen er for langsam for meg, men send gjerne ei ny utfordring til eit snøggare parti.</string>
   <string name="declineTimeControl">Jeg tek ikkje mot utfordringar med denne tidskontrollen.</string>
-  <string name="declineRated">Send meg heller ei utfordring til eit rata parti.</string>
+  <string name="declineRated">Utfordra meg heller til eit rangert parti.</string>
   <string name="declineCasual">Send meg heller ei utfordring til eit uformelt parti.</string>
   <string name="declineStandard">Eg tek ikkje utfordringar til variantar nett no.</string>
   <string name="declineVariant">Eg ønskjer ikkje å spela denne varianten nett no.</string>

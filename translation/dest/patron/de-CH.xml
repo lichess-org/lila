@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Schpändä</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Spändä als %s</string>
+  <string name="donateAsX">Spändä als %s</string>
   <string name="lichessPatron">Lichess Patroon</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Wird Lichess Patroon</string>
@@ -44,7 +44,6 @@ Oder du kannst %s.</string>
   <string name="contactSupport">den Lichess Support kontaktieren</string>
   <string name="otherMethods">Andäri Wäg zum schpändä?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
-  <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
   <string name="patronFeatures">Gits zuäsätzlichi Funktionä für Underschtützer?</string>
   <string name="noPatronFeatures">Nei, will Lichess isch komplett chostälos, für immer und für alli. Das isch äs Versprächä.
 Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z\'blöffä.</string>

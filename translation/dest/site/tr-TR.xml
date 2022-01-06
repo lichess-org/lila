@@ -343,6 +343,7 @@
   <string name="leaderboard">Lider Tablosu</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
+  <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
@@ -856,7 +857,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="simulDescriptionHelp">Katılımcılara söylemek istediğiniz bir şey var mı?</string>
   <string name="markdownAvailable">%s kullanarak metni daha ayrıntılı bir şekilde biçimlendirebilirsiniz.</string>
   <string name="embedsAvailable">Bir maç veya çalışma bölümü eklemek için bağlantıyı buraya yapıştırın.</string>
-  <string name="inYourLocalTimezone">Yerel zaman diliminizde</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Yerel zaman diliminizde</string>
   <string name="tournChat">Turnuva sohbeti</string>
   <string name="noChat">Sohbet yasak</string>
   <string name="onlyTeamLeaders">Yalnızca takım liderleri</string>
