@@ -81,7 +81,7 @@ function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean =
   return h(
     `div.byoyomi.per${periods}`,
     { berserk: berserk },
-    !berserk && byoyomi && periods ? `+${byoyomi}s${perStr}` : ''
+    !berserk && byoyomi && periods ? `|${byoyomi}s${perStr}` : ''
   );
 }
 
