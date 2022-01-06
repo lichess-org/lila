@@ -73,7 +73,7 @@ object insight {
       br,
       p(
         "Maybe ask them to change their ",
-        a(cls := "button", href := routes.Pref.form("privacy"))("privacy settings"),
+        a(cls := "button", href := routes.Pref.form("site"))("insights settings"),
         " ?"
       )
     )
