@@ -681,7 +681,7 @@ object mon {
       }
     }
   }
-  object export {
+  object `export` {
     object png {
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")
