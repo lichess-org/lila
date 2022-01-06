@@ -58,7 +58,7 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ) {
 
-  implicit private val animationLoader = durationLoader(AnimationDuration.apply)
+  implicit private val animationLoader = durationLoader(AnimationDuration)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)

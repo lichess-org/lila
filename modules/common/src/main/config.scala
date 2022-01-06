@@ -48,29 +48,31 @@ object config {
     def isProd = domain == prodDomain
   }
 
-  implicit val maxLoader          = intLoader(Max.apply)
-  implicit val maxPerPageLoader   = intLoader(MaxPerPage.apply)
-  implicit val maxPerSecondLoader = intLoader(MaxPerSecond.apply)
-  implicit val collNameLoader     = strLoader(CollName.apply)
-  implicit val secretLoader       = strLoader(Secret.apply)
-  implicit val baseUrlLoader      = strLoader(BaseUrl.apply)
+  implicit val maxLoader          = intLoader(Max)
+  implicit val maxPerPageLoader   = intLoader(MaxPerPage)
+  implicit val maxPerSecondLoader = intLoader(MaxPerSecond)
+  implicit val collNameLoader     = strLoader(CollName)
+  implicit val secretLoader       = strLoader(Secret)
+  implicit val baseUrlLoader      = strLoader(BaseUrl)
   implicit val emailAddressLoader = strLoader(EmailAddress.apply)
-  implicit val netDomainLoader    = strLoader(NetDomain.apply)
-  implicit val assetDomainLoader  = strLoader(AssetDomain.apply)
-  implicit val assetBaseUrlLoader = strLoader(AssetBaseUrl.apply)
-  implicit val rateLimitLoader    = boolLoader(RateLimit.apply)
+  implicit val netDomainLoader    = strLoader(NetDomain)
+  implicit val assetDomainLoader  = strLoader(AssetDomain)
+  implicit val assetBaseUrlLoader = strLoader(AssetBaseUrl)
+  implicit val rateLimitLoader    = boolLoader(RateLimit)
   implicit val netLoader          = AutoConfig.loader[NetConfig]
 
-  implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>
-    c.getStringList(k).asScala.toList
-  }
+  implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)
+
   implicit def listLoader[A](implicit l: ConfigLoader[A]): ConfigLoader[List[A]] =
     ConfigLoader { c => k =>
       c.getConfigList(k).asScala.toList map { l.load(_) }
     }
 
-  def strLoader[A](f: String => A): ConfigLoader[A]              = ConfigLoader(_.getString) map f
-  def intLoader[A](f: Int => A): ConfigLoader[A]                 = ConfigLoader(_.getInt) map f
-  def boolLoader[A](f: Boolean => A): ConfigLoader[A]            = ConfigLoader(_.getBoolean) map f
-  def durationLoader[A](f: FiniteDuration => A): ConfigLoader[A] = ConfigLoader(_.duration) map f
+  implicit def optionLoader[A](implicit loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
+    ConfigLoader[Option[A]](c => k => if (c.hasPath(k)) Some(loader.load(c, k)) else None)
+
+  def strLoader[A](f: String => A): ConfigLoader[A]              = ConfigLoader.stringLoader map f
+  def intLoader[A](f: Int => A): ConfigLoader[A]                 = ConfigLoader.intLoader map f
+  def boolLoader[A](f: Boolean => A): ConfigLoader[A]            = ConfigLoader.booleanLoader map f
+  def durationLoader[A](f: FiniteDuration => A): ConfigLoader[A] = ConfigLoader.finiteDurationLoader map f
 }
