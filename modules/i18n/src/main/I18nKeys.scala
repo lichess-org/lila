@@ -1404,7 +1404,6 @@ val `changeOrContact` = new I18nKey("patron:changeOrContact")
 val `contactSupport` = new I18nKey("patron:contactSupport")
 val `otherMethods` = new I18nKey("patron:otherMethods")
 val `bankTransfers` = new I18nKey("patron:bankTransfers")
-val `bitcoin` = new I18nKey("patron:bitcoin")
 val `patronFeatures` = new I18nKey("patron:patronFeatures")
 val `noPatronFeatures` = new I18nKey("patron:noPatronFeatures")
 val `featuresComparison` = new I18nKey("patron:featuresComparison")
@@ -2283,6 +2282,14 @@ val `imageCredit` = new I18nKey("ublog:imageCredit")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 val `nbViews` = new I18nKey("ublog:nbViews")
 val `viewAllNbPosts` = new I18nKey("ublog:viewAllNbPosts")
+
+}
+
+object insight {
+val `insightsAreProtected` = new I18nKey("insight:insightsAreProtected")
+val `cantSeeInsights` = new I18nKey("insight:cantSeeInsights")
+val `generateInsights` = new I18nKey("insight:generateInsights")
+val `crunchingData` = new I18nKey("insight:crunchingData")
 
 }
 

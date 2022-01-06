@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name=""></string>
+  <string name="insightsAreProtected">%s's chess insights are protected</string>
+  <string name="cantSeeInsights">Sorry, you cannot see %s's chess insights.</string>
+  <string name="generateInsights">Generate %s's chess insights.</string>
+  <string name="crunchingData">Now crunching data just for you!</string>
+</resources>
