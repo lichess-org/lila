@@ -262,7 +262,10 @@ object mon {
       def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
       def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
       def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
-      def queueErrors(errKind: String)  = gauge("mod.kaladin.queue").withTag("errKind", errKind)
+      def error(errKind: String)        = counter("mod.kaladin.error").withoutTags()
+      val activation                    = histogram("mod.report.kaladin.activation").withoutTags()
+      val report                        = counter("mod.report.kaladin.report").withoutTags()
+      val mark                          = counter("mod.report.kaladin.mark").withoutTags()
     }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
