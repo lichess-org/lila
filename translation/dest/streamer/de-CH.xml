@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess Schtriimer/-in</string>
-  <string name="lichessStreamer">Lichess Schtriimer/-in</string>
+  <string name="lichessStreamers">Lichess Streamer</string>
+  <string name="lichessStreamer">Lichess Streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Schtriimt grad: %s</string>
-  <string name="lastStream">Letschtä Schtriim %s</string>
-  <string name="becomeStreamer">Wird än Lichess Schtriimer / ä Lichess Schtriimerin</string>
+  <string name="currentlyStreaming">Streamt grad: %s</string>
+  <string name="lastStream">Letschtä Stream %s</string>
+  <string name="becomeStreamer">Wird än Lichess Streamer / ä Lichess Streamerin</string>
   <string name="doYouHaveStream">Häsch du än Twitch- oder än YouTube-Kanal?</string>
   <string name="hereWeGo">Los geht\'s!</string>
-  <string name="allStreamers">Alli Schtriimer/-innä</string>
-  <string name="editPage">Schtriimersiitä bearbeitä</string>
+  <string name="allStreamers">Alli Streamer/-innä</string>
+  <string name="editPage">Streamersiite bearbeitä</string>
   <string name="yourPage">Dini Schtriimersiitä</string>
-  <string name="downloadKit">Lad s\'Schtriimerpaket abä</string>
-  <string name="xIsStreaming">%s schtriimt grad</string>
+  <string name="downloadKit">Lad s\'Streamerpaket abä</string>
+  <string name="xIsStreaming">%s streamt grad</string>
   <string name="rules">Schtriimer-Reglä</string>
   <string name="rule1">Füäg s\'Stichwort \"lichess.org\" i dim Schtriimtitäl ii und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess schtriimsch.</string>
   <string name="rule2">Entfärn s\'Stichwort, wänn du grad nöd Lichess-bezogä schtriimsch.</string>
