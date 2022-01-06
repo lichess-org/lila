@@ -139,6 +139,8 @@ final class Env(
           api.toggleFeaturing(id, true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
           api.toggleFeaturing(id, false) inject "Done!"
+        case "tournament" :: "recompute" :: id :: Nil =>
+          api.recomputeEntireTournament(id) inject "Done!"
       }
     }
 }
