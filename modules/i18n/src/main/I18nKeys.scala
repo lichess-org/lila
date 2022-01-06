@@ -394,6 +394,7 @@ val `clockInitialTime` = new I18nKey("clockInitialTime")
 val `clockIncrement` = new I18nKey("clockIncrement")
 val `privacy` = new I18nKey("privacy")
 val `privacyPolicy` = new I18nKey("privacyPolicy")
+val `privacySettings` = new I18nKey("privacySettings")
 val `letOtherPlayersFollowYou` = new I18nKey("letOtherPlayersFollowYou")
 val `letOtherPlayersChallengeYou` = new I18nKey("letOtherPlayersChallengeYou")
 val `letOtherPlayersInviteYouToStudy` = new I18nKey("letOtherPlayersInviteYouToStudy")
@@ -2286,6 +2287,8 @@ val `viewAllNbPosts` = new I18nKey("ublog:viewAllNbPosts")
 }
 
 object insight {
+val `xChessInsights` = new I18nKey("insight:xChessInsights")
+val `xHasNoChessInsights` = new I18nKey("insight:xHasNoChessInsights")
 val `insightsAreProtected` = new I18nKey("insight:insightsAreProtected")
 val `cantSeeInsights` = new I18nKey("insight:cantSeeInsights")
 val `generateInsights` = new I18nKey("insight:generateInsights")
