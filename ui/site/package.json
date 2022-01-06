@@ -6,8 +6,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@babel/core":"^7",
-    "@babel/preset-env":"^7",
+    "@babel/core": "^7",
+    "@babel/preset-env": "^7",
     "babelify": "^10",
     "browserify": "^16",
     "fancy-log": "^1",

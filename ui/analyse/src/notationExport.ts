@@ -5,8 +5,8 @@ import { makeMoveNotationLine } from 'common/notation';
 import { ForecastStep } from './forecast/interfaces';
 import { ops as treeOps } from 'tree';
 
-import { makeKifHeader } from 'shogiops/notation/kif/kif';
-import { makeCsaHeader } from 'shogiops/notation/csa/csa';
+import { makeKifHeader, makeKifMove } from 'shogiops/notation/kif/kif';
+import { makeCsaHeader, makeCsaMove } from 'shogiops/notation/csa/csa';
 import { parseSfen, INITIAL_SFEN } from 'shogiops/sfen';
 import { defined } from 'common';
 import { parseUsi } from 'shogiops/util';
@@ -16,8 +16,6 @@ import { Position } from 'shogiops';
 import { lishogiVariantRules } from 'shogiops/compat';
 import { PositionError, setupPosition } from 'shogiops/variant';
 import { Result } from '@badrap/result';
-import { makeKifMove } from 'shogiops/notation/kif/kif';
-import { makeCsaMove } from 'shogiops/notation/csa/csa';
 
 function makeKifTime(moveTime: number, totalTime: number): string {
   return '   (' + renderTime(moveTime, false) + '/' + renderTime(totalTime, true) + ')';
