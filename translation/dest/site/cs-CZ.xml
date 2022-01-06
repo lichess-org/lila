@@ -324,7 +324,7 @@
   <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
-  <string name="takebackPropositionSent">Návrh na vrácení byl tahu odeslán</string>
+  <string name="takebackPropositionSent">Návrh na vrácení tahu byl odeslán</string>
   <string name="takebackPropositionDeclined">Návrh na vrácení tahu byl odmítnut</string>
   <string name="takebackPropositionAccepted">Návrh na vrácení tahu byl přijat</string>
   <string name="takebackPropositionCanceled">Návrh na vrácení tahu byl zrušen</string>
