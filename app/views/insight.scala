@@ -73,9 +73,9 @@ object insight {
       p(trans.insight.cantSeeInsights(userLink(u))),
       br,
       p(
-        "Maybe ask them to change their ",
-        a(cls := "button", href := routes.Pref.form("site"))("insights settings"),
-        " ?"
+        trans.insight.maybeAskThemToChangeTheir(
+          a(cls := "button", href := routes.Pref.form("site"))(trans.insight.insightsSettings.txt())
+        )
       )
     )
 

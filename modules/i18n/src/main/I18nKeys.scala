@@ -2293,6 +2293,8 @@ val `insightsAreProtected` = new I18nKey("insight:insightsAreProtected")
 val `cantSeeInsights` = new I18nKey("insight:cantSeeInsights")
 val `generateInsights` = new I18nKey("insight:generateInsights")
 val `crunchingData` = new I18nKey("insight:crunchingData")
+val `maybeAskThemToChangeTheir` = new I18nKey("insight:maybeAskThemToChangeTheir")
+val `insightsSettings` = new I18nKey("insight:insightsSettings")
 
 }
 
