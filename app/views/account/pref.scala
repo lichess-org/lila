@@ -191,7 +191,7 @@ object pref {
               frag(
                 radios(form("ratings"), booleanChoices),
                 div(cls := "help text shy", dataIcon := "")(
-                  "This allows hiding all ratings from the website, to help focus on the chess. Games can still be rated, this is only about what you get to see."
+                  explainShowPlayerRatings()
                 )
               )
             )
