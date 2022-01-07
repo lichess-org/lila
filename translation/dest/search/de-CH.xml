@@ -29,4 +29,10 @@
   <string name="maxNumber">Maximali Azahl</string>
   <string name="maxNumberExplanation">Di maximali Azahl vo az\'zeigendä Partiiä</string>
   <string name="include">devo</string>
+  <string name="descending">Abstiigend</string>
+  <string name="ascending">Ufstiigend</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s Partie gfunde</item>
+    <item quantity="other">%s Partie gfunde</item>
+  </plurals>
 </resources>
