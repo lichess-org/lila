@@ -146,7 +146,7 @@ final class KaladinApi(
       subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[KaladinApi] def apply(user: KaladinUser): Funit =
-      subs.get(user.suspectId).orElse(Set(ModId("thibault")).some) ?? { modIds =>
+      subs.get(user.suspectId) ?? { modIds =>
         subs = subs - user.suspectId
         import lila.notify.{ KaladinDone, Notification }
         modIds
