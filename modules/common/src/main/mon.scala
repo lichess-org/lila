@@ -262,7 +262,7 @@ object mon {
       def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
       def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
       def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
-      def error(errKind: String)        = counter("mod.kaladin.error").withoutTags()
+      def error(errKind: String)        = counter("mod.kaladin.error").withTag("error", errKind)
       val activation                    = histogram("mod.report.kaladin.activation").withoutTags()
       val report                        = counter("mod.report.kaladin.report").withoutTags()
       val mark                          = counter("mod.report.kaladin.mark").withoutTags()
