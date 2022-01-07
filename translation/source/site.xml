@@ -91,10 +91,6 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50'' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">No game found</string>
-  <plurals name="gamesFound">
-    <item quantity="one">%s game found</item>
-    <item quantity="other">%s games found</item>
-  </plurals>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer</string>
   <string name="openingEndgameExplorer">Opening/endgame explorer</string>
@@ -189,7 +185,7 @@
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s minute</item>
-    <item quantity="other">%s minute</item>
+    <item quantity="other">%s minutes</item>
   </plurals>
   <string name="time">Time</string>
   <string name="rating">Rating</string>
