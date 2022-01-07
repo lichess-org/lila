@@ -111,17 +111,17 @@ object Query {
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
-    "%d"
+    _.toString
   )
 
   val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e =>
-    e -> s"$e"
+    e -> e.toString
   }
 
   def hasAis(implicit lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
 
   val aiLevels = (1 to 8) map { l =>
-    l -> ("level " + l)
+    l -> s"level $l"
   }
 
   val dates = List("0d" -> "Now") ++
