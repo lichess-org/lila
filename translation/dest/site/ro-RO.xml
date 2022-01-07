@@ -193,6 +193,11 @@
     <item quantity="few">%s ore</item>
     <item quantity="other">%s ore</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="few">%s minute</item>
+    <item quantity="other">%s de minute</item>
+  </plurals>
   <string name="time">Timp</string>
   <string name="rating">Clasament</string>
   <string name="ratingStats">Statistică pentru clasament</string>
