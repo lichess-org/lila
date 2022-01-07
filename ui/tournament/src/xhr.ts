@@ -1,6 +1,7 @@
 import { throttlePromise, finallyDelay } from 'common/throttle';
 import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
+import { TournamentData } from './interfaces';
 
 // when the tournament no longer exists
 const onFail = () => lichess.reload();
@@ -65,9 +66,11 @@ export const reloadNow = (ctrl: TournamentController): Promise<void> =>
         partial: true,
       })
     )
-    .then(data => {
+    .then((data: TournamentData) => {
       ctrl.reload(data);
       ctrl.redraw();
+      const extraDelay = (data.reloadDelay || 0) * (data.me ? 1 : 3);
+      return extraDelay ? new Promise(resolve => setTimeout(resolve, extraDelay * 1000)) : undefined;
     }, onFail);
 
 export const reloadSoon = throttlePromise(finallyDelay(() => 4000 + Math.floor(Math.random() * 1000), reloadNow));
