@@ -142,6 +142,10 @@
     <item quantity="one">%s ଘଣ୍ଟା</item>
     <item quantity="other">%s ଘଣ୍ଟା</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s ମିନିଟ୍</item>
+    <item quantity="other">%s ମିନିଟ୍</item>
+  </plurals>
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
   <string name="ratingStats">ମୂଲ୍ୟାୟନ ପରିସଂଖ୍ୟାନ</string>
