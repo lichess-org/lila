@@ -27,11 +27,11 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   def ?|(other: Pos): Boolean = x == other.x
   def ?-(other: Pos): Boolean = y == other.y
 
-  def <->(other: Pos): Iterable[Pos] =
+  def <->(other: Pos): Seq[Pos] =
     min(x, other.x) to max(x, other.x) flatMap { Pos.at(_, y) }
 
   // from down left corner to top right corner
-  def upTo(other: Pos): Iterable[Pos] =
+  def upTo(other: Pos): Seq[Pos] =
     min(y, other.y) to max(y, other.y) flatMap { Pos.at(x, _) } flatMap { _ <-> other }
 
   def touches(other: Pos): Boolean = xDist(other) <= 1 && yDist(other) <= 1

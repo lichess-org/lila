@@ -4,29 +4,24 @@ package usi
 
 class BinaryPerfTest extends ShogiTest {
 
-  //args(skipAll = true)
-
   val nb = 500
   val gameMoves = (format.usi.Fixtures.prod500standard take nb).map {
     Usi.readList(_).get
   }
-  val iterations = 10
-  // val nb = 1
-  // val iterations = 1
+  val iterations = 15
 
-  def runOne(usis: List[Usi]): Boolean = {
-    val bin = Binary.encodeMoves(variant.Standard, usis).toList
-    Binary.decodeMoves(variant.Standard, bin) must_== usis
+  def runOne(usis: List[Usi]) = {
+    val bin = Binary.encodeMoves(variant.Standard, usis).toVector
+    Binary.decodeMoves(variant.Standard, bin)
   }
-  def run: Boolean = { gameMoves forall runOne }
+  def run(): Unit = { gameMoves foreach runOne }
 
   "playing a game" should {
     "many times" in {
-      run must beTrue
       println("running tests")
       val durations = for (_ <- 1 to iterations) yield {
         val start = System.currentTimeMillis
-        run
+        run()
         val duration = System.currentTimeMillis - start
         println(s"$nb games in $duration ms")
         duration

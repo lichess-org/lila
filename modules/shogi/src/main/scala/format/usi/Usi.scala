@@ -105,18 +105,18 @@ object Usi {
     else Usi.Move.piotr(moveOrDrop)
 
   def readList(moves: String): Option[List[Usi]] =
-    readList(moves.split(' '))
+    readList(moves.split(' ').toList)
 
-  def readList(moves: Iterable[String]): Option[List[Usi]] =
+  def readList(moves: Seq[String]): Option[List[Usi]] =
     moves.toList.map(apply).sequence
 
   def writeList(moves: List[Usi]): String =
     moves.map(_.usi) mkString " "
 
   def readListPiotr(moves: String): Option[List[Usi]] =
-    readListPiotr(moves.split(' '))
+    readListPiotr(moves.split(' ').toList)
 
-  def readListPiotr(moves: Iterable[String]): Option[List[Usi]] =
+  def readListPiotr(moves: Seq[String]): Option[List[Usi]] =
     moves.toList.map(piotr).sequence
 
   def writeListPiotr(moves: List[Usi]): String =

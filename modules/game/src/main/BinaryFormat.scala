@@ -20,7 +20,7 @@ object BinaryFormat {
       }
 
     def read(variant: Variant)(ba: ByteArray): UsiMoves =
-      format.usi.Binary.decodeMoves(variant, ba.value.toList).toVector
+      format.usi.Binary.decodeMoves(variant, ba.value.toList)
 
   }
 

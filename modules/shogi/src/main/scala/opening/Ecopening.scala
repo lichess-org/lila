@@ -50,7 +50,7 @@ object Ecopening {
       })
     }
 
-  def fromGame(usis: Iterable[shogi.format.usi.Usi]): Option[Ecopening] =
+  def fromGame(usis: Seq[shogi.format.usi.Usi]): Option[Ecopening] =
     Replay
       .boards(
         usis = usis take EcopeningDB.MAX_MOVES,

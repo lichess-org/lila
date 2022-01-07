@@ -27,7 +27,7 @@ object Replay {
   def apply(game: Game) = new Replay(game, Nil, game)
 
   def apply(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
   ): Reader.Result =
@@ -46,7 +46,7 @@ object Replay {
     )
 
   def replay(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
   ): Validated[String, Replay] =
@@ -60,7 +60,7 @@ object Replay {
     }
 
   def gamesWhileValid(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
   ): (NonEmptyList[Game], Option[String]) = {
@@ -86,13 +86,13 @@ object Replay {
   }
 
   def boards(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
   ): Validated[String, NonEmptyList[Board]] = situations(usis, initialFen, variant) map (_ map (_.board))
 
   def situations(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
   ): Validated[String, NonEmptyList[Situation]] = {
@@ -108,7 +108,7 @@ object Replay {
   }
 
   def plyAtFen(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant,
       atFen: FEN
@@ -136,7 +136,7 @@ object Replay {
   // Use for trusted usis
   // doesn't verify whether the moves are possible
   def usiWithRoleWhilePossible(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       initialFen: Option[FEN],
       variant: shogi.variant.Variant
   ): List[Usi.WithRole] = {

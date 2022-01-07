@@ -10,8 +10,8 @@ class BinaryTest extends ShogiTest {
   import BinaryTestUtils._
 
   def compareStrAndBin(usisStr: String) = {
-    val bin = Binary.encodeMoves(Standard, Usi.readList(usisStr).get).toList
-    (Binary.decodeMoves(Standard, bin) map (_.usi) mkString " ") must_== usisStr
+    val bin = Binary.encodeMoves(Standard, Usi.readList(usisStr).get)
+    (Binary.decodeMoves(Standard, bin.toVector) map (_.usi) mkString " ") must_== usisStr
     bin.size must be_<=(usisStr.length)
   }
 
@@ -116,12 +116,12 @@ object BinaryTestUtils {
     }.toBinaryString.toInt
 
   def encodeMove(m: String, variant: Variant = Standard): String =
-    Binary.encodeMove(variant, Usi(m).get) map showByte mkString ","
+    Binary.encodeMoves(variant, List(Usi(m).get)) map showByte mkString ","
 
   def decodeMove(m: String, variant: Variant = Standard): String =
     decodeMoves(m, variant).head
 
-  def decodeMoves(m: String, variant: Variant = Standard): List[String] =
+  def decodeMoves(m: String, variant: Variant = Standard): Seq[String] =
     Binary.decodeMoves(variant, m.split(',').toList.map(parseBinary)).map(_.usi)
 
   def parseBinary(s: String): Byte = {

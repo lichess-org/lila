@@ -29,7 +29,7 @@ object FullOpeningDB {
   val SEARCH_MAX_PLIES = 40
 
   // assumes standard initial FEN and variant
-  def search(usis: Iterable[shogi.format.usi.Usi]): Option[FullOpening.AtPly] =
+  def search(usis: Seq[shogi.format.usi.Usi]): Option[FullOpening.AtPly] =
     shogi.Replay
       .situations(
         usis.take(SEARCH_MAX_PLIES),

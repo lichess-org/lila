@@ -5,11 +5,13 @@ import variant.Variant
 
 object Binary {
 
-  def decodeMoves(variant: Variant, bs: List[Byte])          = Reader.decode(variant, bs)
-  def decodeMoves(variant: Variant, bs: List[Byte], nb: Int) = Reader.decode(variant, bs, nb)
+  def decodeMoves(variant: Variant, bs: Seq[Byte]): Vector[Usi] = 
+    Reader.decode(variant, bs)
+  def decodeMoves(variant: Variant, bs: Seq[Byte], nb: Int): Vector[Usi] = 
+    Reader.decode(variant, bs, nb)
 
-  def encodeMove(variant: Variant, m: Usi)             = Writer.encode(variant, m)
-  def encodeMoves(variant: Variant, ms: Iterable[Usi]) = Writer.encode(variant, ms)
+  def encodeMoves(variant: Variant, ms: Seq[Usi]): Array[Byte] = 
+    Writer.encode(variant, ms)
 
   private object Encoding {
     val roleToInt: Map[Role, Int] = Map(
@@ -34,21 +36,20 @@ object Binary {
   private object Reader {
     private val maxPlies = 600
 
-    def decode(variant: Variant, bs: List[Byte]): List[Usi] =
+    def decode(variant: Variant, bs: Seq[Byte]): Vector[Usi] =
       decode(variant, bs, maxPlies * 2)
-    def decode(variant: Variant, bs: List[Byte], nb: Int): List[Usi] =
+    def decode(variant: Variant, bs: Seq[Byte], nb: Int): Vector[Usi] =
       decodeMovesAndDrops(variant, bs take (nb * 2) map toInt)
 
-    private def decodeMovesAndDrops(variant: Variant, is: List[Int]): List[Usi] =
-      is.grouped(2)
+    private def decodeMovesAndDrops(variant: Variant, mds: Seq[Int]): Vector[Usi] =
+      mds.grouped(2)
         .map {
-          case List(i1, i2) =>
+          case Seq(i1, i2) =>
             if (bitAt(i1, 7) && variant.hasHandData)
               decodeDrop(variant, i1, i2)
             else decodeMove(variant, i1, i2)
           case x => !!(x map showByte mkString ",")
-        }
-        .toList
+        }.toVector
 
     private def decodeMove(variant: Variant, i1: Int, i2: Int): Usi =
       Usi.Move(pos(variant, right(i1, 7)), pos(variant, right(i2, 7)), bitAt(i2, 7))
@@ -74,28 +75,28 @@ object Binary {
 
   private object Writer {
 
-    def encode(variant: Variant, usis: Iterable[Usi]): Array[Byte] =
-      usis.flatMap(s => encode(variant, s)).to(Array)
+    def encode(variant: Variant, usis: Seq[Usi]): Array[Byte] =
+      usis.flatMap(encode(variant, _)).toArray
 
-    def encode(variant: Variant, usi: Usi): List[Byte] =
+    private def encode(variant: Variant, usi: Usi): Seq[Byte] =
       usi match {
         case Usi.Move(orig, dest, prom) => encodeMove(variant, orig, dest, prom)
         case Usi.Drop(role, pos)        => encodeDrop(variant, role, pos)
       }
 
-    def encodeMove(variant: Variant, orig: Pos, dest: Pos, prom: Boolean): List[Byte] =
-      List(
+    private def encodeMove(variant: Variant, orig: Pos, dest: Pos, prom: Boolean): Seq[Byte] =
+      Seq(
         posInt(variant, orig),
         (if (prom) (1 << 7) else 0) | posInt(variant, dest)
       ).map(_.toByte)
 
-    def encodeDrop(variant: Variant, role: Role, pos: Pos): List[Byte] =
-      List(
+    private def encodeDrop(variant: Variant, role: Role, pos: Pos): Seq[Byte] =
+      Seq(
         (1 << 7) | Encoding.roleToInt(role),
         posInt(variant, pos)
       ).map(_.toByte)
 
-    def posInt(variant: Variant, pos: Pos): Int =
+    private def posInt(variant: Variant, pos: Pos): Int =
       (variant.numberOfFiles * (pos.y - 1)) + (pos.x - 1)
   }
 

@@ -23,12 +23,12 @@ object Reader {
     makeReplayFromParsedMoves(makeGame(parsed.tags), op(parsed.parsedMoves))
 
   def fromUsi(
-      usis: Iterable[Usi],
+      usis: Seq[Usi],
       tags: Tags
   ): Result =
     makeReplayFromUsi(makeGame(tags), usis)
 
-  private def makeReplayFromUsi(game: Game, usis: Iterable[Usi]): Result =
+  private def makeReplayFromUsi(game: Game, usis: Seq[Usi]): Result =
     usis.foldLeft[Result](Result.Complete(Replay(game))) {
       case (Result.Complete(replay), usi) =>
         usi(replay.state.situation).fold(

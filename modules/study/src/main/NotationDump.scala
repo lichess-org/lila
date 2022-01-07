@@ -4,7 +4,6 @@ import akka.stream.scaladsl._
 import shogi.format.FEN
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
-import shogi.format.usi.Usi
 import shogi.format.{ Forsyth, Glyphs, Initial, NotationMove, Tag, Tags }
 import shogi.variant.Variant
 import org.joda.time.format.DateTimeFormat
