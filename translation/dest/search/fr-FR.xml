@@ -31,4 +31,8 @@
   <string name="include">Inclus</string>
   <string name="descending">Décroissant</string>
   <string name="ascending">Croissant</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s partie trouvée</item>
+    <item quantity="other">%s parties trouvées</item>
+  </plurals>
 </resources>
