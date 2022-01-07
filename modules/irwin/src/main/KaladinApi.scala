@@ -96,7 +96,7 @@ final class KaladinApi(
         .list(50)
         .flatMap { docs =>
           docs.nonEmpty ?? {
-            coll.updateField($inIds(docs.map(_.id)), "response.read", true) >>
+            coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
               lila.common.Future.applySequentially(docs)(readResponse)
           }
         }
