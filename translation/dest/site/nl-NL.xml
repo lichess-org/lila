@@ -183,6 +183,10 @@
     <item quantity="one">%s uur</item>
     <item quantity="other">%s uren</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuut</item>
+    <item quantity="other">%s minuten</item>
+  </plurals>
   <string name="time">Tijd</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingsstatistieken</string>
