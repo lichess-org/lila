@@ -181,6 +181,13 @@ final class KaladinApi(
 
   private object hasEnoughRecentMoves {
     private val minMoves = 1050
+    private case class Counter(blitz: Int, rapid: Int) {
+      def add(nb: Int, speed: Speed) =
+        if (speed == Speed.Blitz) copy(blitz = blitz + nb)
+        else if (speed == Speed.Rapid) copy(rapid = rapid + nb)
+        else this
+      def isEnough = blitz >= minMoves || rapid >= minMoves
+    }
     private val cache = cacheApi[User.ID, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
       _.expireAfterWrite(1 hour).buildAsyncFuture(userId =>
         {
@@ -192,20 +199,20 @@ final class KaladinApi(
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPreference.secondaryPreferred)
-            .foldWhile(0) {
-              case (nb, doc) => {
-                val next = nb + ~(for {
+            .foldWhile(Counter(0, 0)) {
+              case (counter, doc) => {
+                val next = (for {
                   clockBin    <- doc.getAsOpt[BSONBinary](F.clock)
                   clockConfig <- BinaryFormat.clock.readConfig(clockBin.byteArray)
                   speed = Speed(clockConfig)
                   if speed == Speed.Blitz || speed == Speed.Rapid
                   moves <- doc.int(F.turns)
-                } yield moves / 2)
-                if (next > minMoves) Cursor.Done(next)
+                } yield counter.add(moves / 2, speed)) | counter
+                if (next.isEnough) Cursor.Done(next)
                 else Cursor.Cont(next)
               }
             }
-        } dmap (_ >= minMoves)
+        }.dmap(_.isEnough)
       )
     }
     def apply(u: Suspect): Fu[Boolean] =
