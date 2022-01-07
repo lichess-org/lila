@@ -202,6 +202,12 @@
     <item quantity="many">%s часов</item>
     <item quantity="other">%s часов</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минута</item>
+    <item quantity="few">%s минуты</item>
+    <item quantity="many">%s минут</item>
+    <item quantity="other">%s минут</item>
+  </plurals>
   <string name="time">Время</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Распределение рейтингов</string>
