@@ -13,4 +13,8 @@
   <string name="chat">Chat</string>
   <string name="resign">Arrendidi</string>
   <string name="checkmate">Scaccu maccu</string>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutu</item>
+    <item quantity="other">%s minutos</item>
+  </plurals>
 </resources>
