@@ -6,6 +6,7 @@ import lila.report.SuspectId
 import lila.user.User
 import lila.report.Suspect
 import lila.user.Holder
+import lila.rating.PerfType
 
 case class KaladinUser(
     _id: User.ID,
@@ -65,10 +66,10 @@ object KaladinUser {
   // the higher the more likely the user is cheating
   case class Pred(activation: Float, insights: List[String], tc: Int) {
     def percent = (activation * 100).toInt
-    def speed   = chess.Speed(tc)
+    def perf    = PerfType(tc)
 
     def note: String = {
-      s"Kaladin activation: $percent in ${speed.fold("?")(_.name)}, because:" :: insights
+      s"Kaladin activation: $percent in ${perf.fold("?")(_.trans(lila.i18n.defaultLang))}, because:" :: insights
     } mkString ", "
   }
 
