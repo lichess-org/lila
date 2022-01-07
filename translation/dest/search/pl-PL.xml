@@ -35,4 +35,10 @@
   <string name="include">Dołącz</string>
   <string name="descending">Malejąco</string>
   <string name="ascending">Rosnąco</string>
+  <plurals name="gamesFound">
+    <item quantity="one">znaleziono %s partię</item>
+    <item quantity="few">znaleziono %s partie</item>
+    <item quantity="many">znaleziono %s partii</item>
+    <item quantity="other">znaleziono %s partii</item>
+  </plurals>
 </resources>
