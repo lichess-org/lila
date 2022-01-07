@@ -29,4 +29,10 @@
   <string name="maxNumber">Número máximo</string>
   <string name="maxNumberExplanation">O número máximo de jogos para retornar</string>
   <string name="include">Incluir</string>
+  <string name="descending">Decrescente</string>
+  <string name="ascending">Crescente</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s jogo encontrado</item>
+    <item quantity="other">%s jogos encontrados</item>
+  </plurals>
 </resources>
