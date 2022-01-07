@@ -183,6 +183,10 @@
     <item quantity="one">%s ordu</item>
     <item quantity="other">%s ordu</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">Minutu %s</item>
+    <item quantity="other">%s minutu</item>
+  </plurals>
   <string name="time">Denbora</string>
   <string name="rating">Puntuazioa</string>
   <string name="ratingStats">Estatistikak</string>
