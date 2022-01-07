@@ -2,7 +2,6 @@ package lila.fishnet
 
 import shogi.Replay
 import shogi.format.Reader
-import shogi.format.usi.Usi
 import org.specs2.mutable._
 
 import lila.analyse.{ Analysis, Info }
@@ -25,12 +24,12 @@ final class VariationValidationTest extends Specification {
         "ke5ssdgj",
         None,
         List(
-          Info(1, Eval(Some(Cp(12)), None, None), List()),
+          Info(1, Eval(Some(Cp(12)), None, None), List("7g7f", "3c3d", "8h2b+")),
           Info(2, Eval(Some(Cp(36)), None, None), List()),
           Info(
             3,
             Eval(Some(Cp(22)), None, None),
-            List()
+            List("7g7f")
           ),
           Info(4, Eval(Some(Cp(-30)), None, None), List()),
           Info(5, Eval(Some(Cp(-48)), None, None), List()),
@@ -95,8 +94,14 @@ final class VariationValidationTest extends Specification {
 
       val usi =
         "1g1f 1c1d 2g2f 2b1c 4g4f 4c4d 1f1e 4d4e 1e1d 1c2b 4f4e 3a3b 2f2e 3c3d 3i3h 7c7d 1d1c+ 1a1c P*1d 1c1d 1i1d P*1c 2e2d 1c1d 2d2c+ 2b5e 2c3b 4a3b 2h2a+ 5a6b 2a3b P*4b 3b2a 7d7e S*4d"
-      val rep = evenIncomplete(Replay(Usi.readList(usi.split(' ').toList).get, None, shogi.variant.Standard)).toOption.get
-      VariationValidation(rep, usiAnalysis) match {
+      val work = Work.Game(
+        id = "id",
+        initialSfen = None,
+        studyId = None,
+        variant = shogi.variant.Standard,
+        moves = usi
+      )
+      VariationValidation(work, usiAnalysis) match {
         case (_, errs) => errs must beEmpty
       }
     }
