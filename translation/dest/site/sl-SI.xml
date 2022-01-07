@@ -203,6 +203,12 @@
     <item quantity="few">%s ure</item>
     <item quantity="other">%s ur</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="two">%s minuti</item>
+    <item quantity="few">%s minute</item>
+    <item quantity="other">%s minut</item>
+  </plurals>
   <string name="time">Čas</string>
   <string name="rating">Ocena</string>
   <string name="ratingStats">Statistika ratinga</string>
