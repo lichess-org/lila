@@ -11,7 +11,11 @@ class BinaryClockTest extends Specification {
   val _0_                  = "00000000"
   val since                = org.joda.time.DateTime.now.minusHours(1)
   def writeBytes(c: Clock) = BinaryFormat.clock(since) write c
-  def readBytes(bytes: ByteArray, periodEntries: PeriodEntries = PeriodEntries.default, berserk: Boolean = false): Clock =
+  def readBytes(
+      bytes: ByteArray,
+      periodEntries: PeriodEntries = PeriodEntries.default,
+      berserk: Boolean = false
+  ): Clock =
     (BinaryFormat.clock(since).read(bytes, periodEntries, berserk, false))(Sente)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))
 

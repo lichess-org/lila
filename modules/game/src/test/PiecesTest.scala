@@ -10,7 +10,7 @@ import shogi.variant.Standard
 
 // todo
 class BinaryPieceTest extends Specification {
-  val usis  = Usi.readList(Fixtures.fromProd3).get.toVector
+  val usis   = Usi.readList(Fixtures.fromProd3).get.toVector
   def runOne = BinaryFormat.pieces.read(Standard)(usis, None)
 
   "Piece map reader" should {

@@ -81,7 +81,7 @@ object Event {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
         Json
           .obj(
-            "usi" -> s"${orig.usiKey}${dest.usiKey}${ if (promotion) "+" else "" }"
+            "usi" -> s"${orig.usiKey}${dest.usiKey}${if (promotion) "+" else ""}"
           )
           .add("promotion" -> promotion)
       }
@@ -123,7 +123,7 @@ object Event {
       MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops) {
         Json.obj(
           // "role" -> role.name, ?
-          "usi"  -> s"${role.forsythUpper}*${pos.usiKey}"
+          "usi" -> s"${role.forsythUpper}*${pos.usiKey}"
         )
       }
     override def moveBy = Some(!state.color)

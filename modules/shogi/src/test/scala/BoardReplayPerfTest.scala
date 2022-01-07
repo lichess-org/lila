@@ -11,7 +11,7 @@ class BoardReplayPerfTest extends ShogiTest {
   // val nb = 1
   // val iterations = 1
 
-  val usis  = Usi.readList(format.usi.Fixtures.fromProd2).get
+  val usis   = Usi.readList(format.usi.Fixtures.fromProd2).get
   def runOne = Replay.boards(usis, None, variant.Standard)
   def run(): Unit = { for (_ <- 1 to nb) runOne }
 

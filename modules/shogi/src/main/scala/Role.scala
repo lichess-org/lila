@@ -10,7 +10,7 @@ sealed trait Role {
   lazy val forsythUpper: String = forsyth.toUpperCase
   lazy val kifSingle: String    = kif.head
 
-  lazy val name: String         = toString.toLowerCase
+  lazy val name: String = toString.toLowerCase
 
   val senteProjectionDirs: Directions
   val goteProjectionDirs: Directions
@@ -24,9 +24,9 @@ sealed trait Role {
 }
 
 case object King extends Role {
-  val forsyth     = "k"
-  val csa         = "OU"
-  val kif         = NonEmptyList.of("玉", "王")
+  val forsyth = "k"
+  val csa     = "OU"
+  val kif     = NonEmptyList.of("玉", "王")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -37,9 +37,9 @@ case object King extends Role {
 }
 
 case object Rook extends Role {
-  val forsyth     = "r"
-  val csa         = "HI"
-  val kif         = NonEmptyList.of("飛")
+  val forsyth = "r"
+  val csa     = "HI"
+  val kif     = NonEmptyList.of("飛")
 
   val senteProjectionDirs = List(_.up, _.down, _.left, _.right)
   val goteProjectionDirs  = senteProjectionDirs
@@ -59,9 +59,9 @@ case object Rook extends Role {
 }
 
 case object Bishop extends Role {
-  val forsyth     = "b"
-  val csa         = "KA"
-  val kif         = NonEmptyList.of("角")
+  val forsyth = "b"
+  val csa     = "KA"
+  val kif     = NonEmptyList.of("角")
 
   val senteProjectionDirs = List(_.upLeft, _.upRight, _.downLeft, _.downRight)
   val goteProjectionDirs  = senteProjectionDirs
@@ -81,9 +81,9 @@ case object Bishop extends Role {
 }
 
 case object Knight extends Role {
-  val forsyth     = "n"
-  val csa         = "KE"
-  val kif         = NonEmptyList.of("桂")
+  val forsyth = "n"
+  val csa     = "KE"
+  val kif     = NonEmptyList.of("桂")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -100,9 +100,9 @@ case object Knight extends Role {
 }
 
 case object Pawn extends Role {
-  val forsyth     = "p"
-  val csa         = "FU"
-  val kif         = NonEmptyList.of("歩", "兵")
+  val forsyth = "p"
+  val csa     = "FU"
+  val kif     = NonEmptyList.of("歩", "兵")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -113,9 +113,9 @@ case object Pawn extends Role {
 }
 
 case object Gold extends Role {
-  val forsyth     = "g"
-  val csa         = "KI"
-  val kif         = NonEmptyList.of("金")
+  val forsyth = "g"
+  val csa     = "KI"
+  val kif     = NonEmptyList.of("金")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -126,9 +126,9 @@ case object Gold extends Role {
 }
 
 case object Silver extends Role {
-  val forsyth     = "s"
-  val csa         = "GI"
-  val kif         = NonEmptyList.of("銀")
+  val forsyth = "s"
+  val csa     = "GI"
+  val kif     = NonEmptyList.of("銀")
 
   val senteProjectionDirs = Nil
   val goteProjectionDirs  = Nil
@@ -139,9 +139,9 @@ case object Silver extends Role {
 }
 
 case object Lance extends Role {
-  val forsyth     = "l"
-  val csa         = "KY"
-  val kif         = NonEmptyList.of("香")
+  val forsyth = "l"
+  val csa     = "KY"
+  val kif     = NonEmptyList.of("香")
 
   val senteProjectionDirs = List(_.up)
   val goteProjectionDirs  = List(_.down)
@@ -157,9 +157,9 @@ case object Lance extends Role {
 }
 
 case object Tokin extends Role {
-  val forsyth     = "+p"
-  val csa         = "TO"
-  val kif         = NonEmptyList.of("と", "个")
+  val forsyth = "+p"
+  val csa     = "TO"
+  val kif     = NonEmptyList.of("と", "个")
 
   val senteProjectionDirs = Gold.senteProjectionDirs
   val goteProjectionDirs  = Gold.goteProjectionDirs
@@ -170,9 +170,9 @@ case object Tokin extends Role {
 }
 
 case object PromotedSilver extends Role {
-  val forsyth     = "+s"
-  val csa         = "NG"
-  val kif         = NonEmptyList.of("成銀", "全")
+  val forsyth = "+s"
+  val csa     = "NG"
+  val kif     = NonEmptyList.of("成銀", "全")
 
   override lazy val kifSingle = "全"
 
@@ -185,10 +185,10 @@ case object PromotedSilver extends Role {
 }
 
 case object PromotedKnight extends Role {
-  val forsyth     = "+n"
-  val csa         = "NK"
-  val kif         = NonEmptyList.of("成桂", "今", "圭")
-  
+  val forsyth = "+n"
+  val csa     = "NK"
+  val kif     = NonEmptyList.of("成桂", "今", "圭")
+
   override lazy val kifSingle = "圭"
 
   val senteProjectionDirs = Gold.senteProjectionDirs
@@ -200,9 +200,9 @@ case object PromotedKnight extends Role {
 }
 
 case object PromotedLance extends Role {
-  val forsyth     = "+l"
-  val csa         = "NY"
-  val kif         = NonEmptyList.of("成香", "仝", "杏")
+  val forsyth = "+l"
+  val csa     = "NY"
+  val kif     = NonEmptyList.of("成香", "仝", "杏")
 
   override lazy val kifSingle = "杏"
 
@@ -215,9 +215,9 @@ case object PromotedLance extends Role {
 }
 
 case object Horse extends Role {
-  val forsyth     = "+b"
-  val csa         = "UM"
-  val kif         = NonEmptyList.of("馬")
+  val forsyth = "+b"
+  val csa     = "UM"
+  val kif     = NonEmptyList.of("馬")
 
   val senteProjectionDirs = Bishop.senteProjectionDirs
   val goteProjectionDirs  = Bishop.goteProjectionDirs
@@ -228,9 +228,9 @@ case object Horse extends Role {
 }
 
 case object Dragon extends Role {
-  val forsyth     = "+r"
-  val csa         = "RY"
-  val kif         = NonEmptyList.of("龍", "竜")
+  val forsyth = "+r"
+  val csa     = "RY"
+  val kif     = NonEmptyList.of("龍", "竜")
 
   val senteProjectionDirs = Rook.senteProjectionDirs
   val goteProjectionDirs  = Rook.goteProjectionDirs

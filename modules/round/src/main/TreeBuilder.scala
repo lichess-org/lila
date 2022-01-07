@@ -1,7 +1,7 @@
 package lila.round
 
 import shogi.Centis
-import shogi.format.{ FEN, Forsyth, Glyphs}
+import shogi.format.{ FEN, Forsyth, Glyphs }
 import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.opening._
 import shogi.variant.Variant
@@ -50,7 +50,7 @@ object TreeBuilder {
     shogi.Replay.gamesWhileValid(usiMoves, initialFen.some, variant) match {
       case (gamesWithInit, error) =>
         error foreach logShogiError(id)
-        val init = gamesWithInit.head
+        val init  = gamesWithInit.head
         val games = gamesWithInit.tail
         val openingOf: OpeningOf =
           if (withFlags.opening && Variant.openingSensibleVariants(variant)) FullOpeningDB.findByFen

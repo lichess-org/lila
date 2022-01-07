@@ -85,7 +85,7 @@ object Usi {
         role <- Role.allByForsyth.get(drop.takeWhile(_ != '*'))
         pos  <- drop.lastOption flatMap Pos.piotr
       } yield Drop(role, pos)
-    
+
   }
 
   case class WithRole(usi: Usi, role: Role)

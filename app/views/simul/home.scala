@@ -19,8 +19,7 @@ object home {
       moreJs = embedJsUnsafe(s"""$$(function() {
   lishogi.StrongSocket.defaults.params.flag = 'simul';
   lishogi.pubsub.on('socket.in.reload', () => {
-    $$('.simul-list__content').load('${routes.Simul
-        .homeReload}', () => lishogi.pubsub.emit('content_loaded'));
+    $$('.simul-list__content').load('${routes.Simul.homeReload}', () => lishogi.pubsub.emit('content_loaded'));
   });
 });"""),
       title = trans.simultaneousExhibitions.txt(),

@@ -75,8 +75,8 @@ object GameDiff {
       }
 
     dTry(
-      usiMoves, 
-      _.usiMoves, 
+      usiMoves,
+      _.usiMoves,
       writeBytes compose BinaryFormat.usi.write(a.board.variant)
     )
     d(positionHashes, _.history.positionHashes, w.bytes)

@@ -1,6 +1,6 @@
 package lila.round
 
-import shogi.format.{ Forsyth, FEN }
+import shogi.format.{ FEN, Forsyth }
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 import lila.socket.Step

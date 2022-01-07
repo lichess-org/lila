@@ -19,7 +19,9 @@ object Rewind {
       .fromUsi(
         usis = game.usiMoves.dropRight(1),
         tags = createTags(initialFen, game)
-      ).valid.map { replay =>
+      )
+      .valid
+      .map { replay =>
         val rewindedGame = replay.state
         val color        = game.turnColor
         val turn         = rewindedGame.fullMoveNumber
@@ -51,5 +53,5 @@ object Rewind {
           movedAt = DateTime.now
         )
         Progress(game, newGame)
-    }
+      }
 }

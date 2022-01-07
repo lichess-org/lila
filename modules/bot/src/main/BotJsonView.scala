@@ -47,17 +47,17 @@ final class BotJsonView(
     import wf._
     Json
       .obj(
-        "type"   -> "gameState",
-        "moves"  -> game.usiMoves.map(_.uci).mkString(" "), // backwards support
+        "type"     -> "gameState",
+        "moves"    -> game.usiMoves.map(_.uci).mkString(" "), // backwards support
         "usiMoves" -> game.usiMoves.map(_.usi).mkString(" "),
-        "btime"  -> millisOf(game.sentePov),
-        "wtime"  -> millisOf(game.gotePov),
-        "binc"   -> game.clock.??(_.config.increment.millis),
-        "winc"   -> game.clock.??(_.config.increment.millis),
-        "byo"    -> game.clock.??(_.config.byoyomi.millis),
-        "sdraw"  -> game.sentePlayer.isOfferingDraw,
-        "gdraw"  -> game.gotePlayer.isOfferingDraw,
-        "status" -> game.status.name
+        "btime"    -> millisOf(game.sentePov),
+        "wtime"    -> millisOf(game.gotePov),
+        "binc"     -> game.clock.??(_.config.increment.millis),
+        "winc"     -> game.clock.??(_.config.increment.millis),
+        "byo"      -> game.clock.??(_.config.byoyomi.millis),
+        "sdraw"    -> game.sentePlayer.isOfferingDraw,
+        "gdraw"    -> game.gotePlayer.isOfferingDraw,
+        "status"   -> game.status.name
       )
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.of(game.id))

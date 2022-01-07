@@ -99,7 +99,9 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
           moves.dropRight(1),
           tags = Tags.empty
         )
-        .valid.map(_.state).toOption
+        .valid
+        .map(_.state)
+        .toOption
 
     private def fen(game: ShogiGame): String = Forsyth.exportBoard(game.situation.board)
   }

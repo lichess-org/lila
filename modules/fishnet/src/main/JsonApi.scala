@@ -206,7 +206,7 @@ object JsonApi {
     implicit val MoveResultReads    = Json.reads[Request.MoveResult]
     implicit val PostMoveReads      = Json.reads[Request.PostMove]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
-    implicit val usiListReads       = Reads.of[String] map { str =>
+    implicit val usiListReads = Reads.of[String] map { str =>
       ~Usi.readList(str)
     }
 

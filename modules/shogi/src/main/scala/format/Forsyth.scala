@@ -102,8 +102,8 @@ object Forsyth {
       case c :: rest if '1' <= c && c <= '9' => makePiecesList(variant, rest, "", x - (c - '0').toInt, y)
       case c :: rest =>
         for {
-          pos   <- Pos.at(x, y)
-          piece <- Piece.fromForsyth(current + c)
+          pos          <- Pos.at(x, y)
+          piece        <- Piece.fromForsyth(current + c)
           (nextPieces) <- makePiecesList(variant, rest, "", x - 1, y)
         } yield (pos -> piece :: nextPieces)
     }
@@ -148,7 +148,8 @@ object Forsyth {
 
   def exportHands(board: Board): String =
     board.handData.fold("-") { hands =>
-      val fullHandString = exportHand(board.variant, hands.sente).toUpperCase + exportHand(board.variant, hands.gote)
+      val fullHandString =
+        exportHand(board.variant, hands.sente).toUpperCase + exportHand(board.variant, hands.gote)
       if (fullHandString.isEmpty) "-"
       else fullHandString
     }

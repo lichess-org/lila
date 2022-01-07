@@ -6,7 +6,6 @@ import cats.syntax.option._
 import variant._
 import shogi.format.usi.Usi
 
-
 case class Kif(
     tags: Tags,
     moves: List[NotationMove],
@@ -108,8 +107,8 @@ object Kif {
 
   def renderSituation(sit: Situation): String = {
     val kifBoard = new scala.collection.mutable.StringBuilder(256)
-    val nbRanks = sit.board.variant.numberOfRanks
-    val nbFiles = sit.board.variant.numberOfFiles
+    val nbRanks  = sit.board.variant.numberOfRanks
+    val nbFiles  = sit.board.variant.numberOfFiles
     for (y <- 1 to nbRanks) {
       kifBoard append "|"
       for (x <- nbFiles to 1 by -1) {

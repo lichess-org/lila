@@ -137,7 +137,14 @@ object NotationDump {
   }
 
   def toMoves(root: Node.Root, variant: Variant)(implicit flags: WithFlags): Vector[NotationMove] =
-    toMoves(root.mainline, root.fen, variant, root.children.variations, root.ply, root.hasMultipleCommentAuthors)
+    toMoves(
+      root.mainline,
+      root.fen,
+      variant,
+      root.children.variations,
+      root.ply,
+      root.hasMultipleCommentAuthors
+    )
 
   def toMoves(
       line: Vector[Node],
@@ -148,26 +155,26 @@ object NotationDump {
       showAuthors: Boolean
   )(implicit flags: WithFlags): Vector[NotationMove] = {
     val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialFen.some, variant)
-    line.zip(enriched)
+    line
+      .zip(enriched)
       .foldLeft(variations -> Vector.empty[NotationMove]) { case ((variations, moves), (node, usiWithRole)) =>
-        node.children.variations -> (
-          NotationMove(
-            moveNumber = node.ply - startingPly,
-            usiWithRole = usiWithRole,
-            glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
-            comments = flags.comments ?? {
-              renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
-            },
-            result = none,
-            variations = flags.variations ?? {
-              variations.view.map { child =>
-                toMoves(child.mainline, child.fen, variant, noVariations, startingPly, showAuthors).toList
-              }.toList
-            }
-          ) +: moves)
+        node.children.variations -> (NotationMove(
+          moveNumber = node.ply - startingPly,
+          usiWithRole = usiWithRole,
+          glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
+          comments = flags.comments ?? {
+            renderComments(node.comments, showAuthors) ::: shapeComment(node.shapes).toList
+          },
+          result = none,
+          variations = flags.variations ?? {
+            variations.view.map { child =>
+              toMoves(child.mainline, child.fen, variant, noVariations, startingPly, showAuthors).toList
+            }.toList
+          }
+        ) +: moves)
       }
       ._2
       .reverse
-    }
+  }
 
 }

@@ -779,7 +779,7 @@ object Game {
     val handData          = "hs"
     val bookmarks         = "bm"
     val createdAt         = "ca"
-    val movedAt           = "ua" // ua = updatedAt (bc)
+    val movedAt           = "ua"   // ua = updatedAt (bc)
     val source            = "so"
     val notationImport    = "pgni" // todo - rename
     val tournamentId      = "tid"
@@ -790,7 +790,7 @@ object Game {
     val winnerId          = "wid"
     val initialFen        = "if"
     val checkAt           = "ck"
-    val perfType          = "pt" // only set on student games for aggregation
+    val perfType          = "pt"   // only set on student games for aggregation
   }
 }
 

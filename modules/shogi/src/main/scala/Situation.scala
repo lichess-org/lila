@@ -9,18 +9,19 @@ case class Situation(board: Board, color: Color) {
 
   lazy val actors = board actorsOf color
 
-  lazy val moves: Map[Pos, List[Move]] = 
-    actors.collect {
-      case actor if actor.moves.nonEmpty => actor.pos -> actor.moves
-    }
-    .to(Map)
+  lazy val moves: Map[Pos, List[Move]] =
+    actors
+      .collect {
+        case actor if actor.moves.nonEmpty => actor.pos -> actor.moves
+      }
+      .to(Map)
 
   lazy val destinations: Map[Pos, List[Pos]] = moves.view.mapValues { _ map (_.dest) }.to(Map)
 
   def drops: Option[List[Pos]] =
     board.variant match {
       case v if v.hasHandData => v possibleDrops this
-      case _ => None
+      case _                  => None
     }
 
   lazy val kingPos: Option[Pos] = board kingPosOf color
@@ -40,7 +41,7 @@ case class Situation(board: Board, color: Color) {
   def opponentHasInsufficientMaterial: Boolean = board.variant.opponentHasInsufficientMaterial(this)
 
   def perpetualCheck: Boolean = history perpetualCheck
-  
+
   def variantEnd = board.variant specialEnd this
 
   def impasse = board.variant impasse this

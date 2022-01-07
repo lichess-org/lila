@@ -46,8 +46,8 @@ object BSONHandlers {
 
       lila.mon.game.fetch.increment()
 
-      val light         = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
-      
+      val light = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
+
       val initialFen    = r.getO[FEN](F.initialFen)
       val startedAtTurn = r intD F.startedAtTurn
       val startedAtMove = initialFen.flatMap(Forsyth getMoveNumber _.value) | 1
@@ -66,11 +66,11 @@ object BSONHandlers {
         .getOrElse(PeriodEntries.default)
 
       val usiMoves = BinaryFormat.usi.read(gameVariant)(r bytesD F.usiMoves)
-      val pieces = BinaryFormat.pieces.read(gameVariant)(usiMoves, initialFen)
+      val pieces   = BinaryFormat.pieces.read(gameVariant)(usiMoves, initialFen)
 
       val positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty
-      val checkCounts = r.intsD(F.checkCount)
-      val hands = r.strO(F.handData) map { Forsyth.readHands(gameVariant, _) }
+      val checkCounts    = r.intsD(F.checkCount)
+      val hands          = r.strO(F.handData) map { Forsyth.readHands(gameVariant, _) }
 
       val shogiGame = ShogiGame(
         situation = shogi.Situation(

@@ -19,7 +19,7 @@ final private class ChapterMaker(
 
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.game.??(parseGame) flatMap {
-      case None => fromFenOrNotationOrBlank(study, data, order, userId)
+      case None       => fromFenOrNotationOrBlank(study, data, order, userId)
       case Some(game) => fromGame(study, game, data, order, userId)
     } map { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c

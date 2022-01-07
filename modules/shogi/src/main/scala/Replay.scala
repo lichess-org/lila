@@ -1,13 +1,12 @@
 package shogi
 
 import cats.data.Validated
-import cats.data.Validated.{ valid, invalid }
+import cats.data.Validated.{ invalid, valid }
 import cats.data.NonEmptyList
 import cats.implicits._
 
 import shogi.format.{ FEN, Forsyth, Reader, Tag, Tags }
 import shogi.format.usi.Usi
-
 
 case class Replay(setup: Game, moves: List[MoveOrDrop], state: Game) {
 
@@ -47,16 +46,17 @@ object Replay {
     )
 
   def replay(
-    usis: Iterable[Usi],
-    initialFen: Option[FEN],
-    variant: shogi.variant.Variant
+      usis: Iterable[Usi],
+      initialFen: Option[FEN],
+      variant: shogi.variant.Variant
   ): Validated[String, Replay] =
-    usis.foldLeft[Validated[String, Replay]](valid(Replay(makeGame(variant, initialFen)))) { case (acc, usi) =>
-      acc andThen { replay => 
-        usi(replay.state.situation) flatMap { moveOrDrop =>
-          valid(replay addMove moveOrDrop)
+    usis.foldLeft[Validated[String, Replay]](valid(Replay(makeGame(variant, initialFen)))) {
+      case (acc, usi) =>
+        acc andThen { replay =>
+          usi(replay.state.situation) flatMap { moveOrDrop =>
+            valid(replay addMove moveOrDrop)
+          }
         }
-      }
     }
 
   def gamesWhileValid(
@@ -78,7 +78,7 @@ object Replay {
             }
           )
       }
-    
+
     val init = makeGame(variant, initialFen)
     mk(init, usis.toList) match {
       case (games, err) => (NonEmptyList(init, games), err)
@@ -97,12 +97,13 @@ object Replay {
       variant: shogi.variant.Variant
   ): Validated[String, NonEmptyList[Situation]] = {
     val init = initialFenToSituation(initialFen, variant)
-    usis.foldLeft[Validated[String, NonEmptyList[Situation]]](valid(NonEmptyList.one(init))) { case (acc, usi) =>
-      acc andThen { sits =>
-        usi(sits.head) andThen { moveOrDrop =>
-          valid(moveOrDrop.fold(_.situationAfter, _.situationAfter) :: sits)
+    usis.foldLeft[Validated[String, NonEmptyList[Situation]]](valid(NonEmptyList.one(init))) {
+      case (acc, usi) =>
+        acc andThen { sits =>
+          usi(sits.head) andThen { moveOrDrop =>
+            valid(moveOrDrop.fold(_.situationAfter, _.situationAfter) :: sits)
+          }
         }
-      }
     } map (_.reverse)
   }
 
@@ -114,7 +115,7 @@ object Replay {
   ): Validated[String, Int] =
     if (Forsyth.<<@(variant, atFen.value).isEmpty) invalid(s"Invalid FEN $atFen")
     else {
-      
+
       def recursivePlyAtFen(sit: Situation, usis: List[Usi], ply: Int): Validated[String, Int] =
         usis match {
           case Nil => invalid(s"Can't find $atFen, reached ply $ply")
@@ -135,9 +136,9 @@ object Replay {
   // Use for trusted usis
   // doesn't verify whether the moves are possible
   def usiWithRoleWhilePossible(
-    usis: Iterable[Usi],
-    initialFen: Option[FEN],
-    variant: shogi.variant.Variant
+      usis: Iterable[Usi],
+      initialFen: Option[FEN],
+      variant: shogi.variant.Variant
   ): List[Usi.WithRole] = {
 
     def mk(roles: Map[Pos, Role], usis: List[Usi]): List[Usi.WithRole] = {
@@ -159,14 +160,14 @@ object Replay {
     }
 
     val init = initialFenToSituation(initialFen, variant)
-    mk(init.board.pieces.map{case (k, v) => k -> v.role}, usis.toList)
+    mk(init.board.pieces.map { case (k, v) => k -> v.role }, usis.toList)
   }
-  
+
   private def initialFenToSituation(initialFen: Option[FEN], variant: shogi.variant.Variant): Situation =
     initialFen.flatMap { fen =>
       Forsyth.<<@(variant, fen.value)
     } | Situation(variant)
-  
+
   private def makeGame(variant: shogi.variant.Variant, initialFen: Option[FEN]): Game =
     Game(variant.some, initialFen.map(_.value))
 }

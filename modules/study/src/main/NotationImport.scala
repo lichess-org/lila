@@ -158,8 +158,8 @@ object NotationImport {
           parsedMove(prev.situation).fold(
             _ => none, // illegal move; stop here.
             moveOrDrop => {
-              val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
-              val usi    = moveOrDrop.fold(_.toUsi, _.toUsi)
+              val game = moveOrDrop.fold(prev.apply, prev.applyDrop)
+              val usi  = moveOrDrop.fold(_.toUsi, _.toUsi)
               parseComments(parsedMove.metas.comments, annotator) match {
                 case (shapes, comments) =>
                   Node(

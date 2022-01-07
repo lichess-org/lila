@@ -6,7 +6,6 @@ import cats.syntax.option._
 import variant.Standard
 import shogi.format.usi.Usi
 
-
 case class Csa(
     tags: Tags,
     moves: List[NotationMove],

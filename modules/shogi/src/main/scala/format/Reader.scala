@@ -26,7 +26,7 @@ object Reader {
       usis: Iterable[Usi],
       tags: Tags
   ): Result =
-      makeReplayFromUsi(makeGame(tags), usis)
+    makeReplayFromUsi(makeGame(tags), usis)
 
   private def makeReplayFromUsi(game: Game, usis: Iterable[Usi]): Result =
     usis.foldLeft[Result](Result.Complete(Replay(game))) {

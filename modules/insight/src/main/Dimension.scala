@@ -178,40 +178,40 @@ object Dimension {
 
   def valuesOf[X](d: Dimension[X]): List[X] =
     d match {
-      case Period                  => lila.insight.Period.selector
-      case Date                    => Nil // Period is used instead
-      case Perf                    => PerfType.nonPuzzle
-      case Phase                   => lila.insight.Phase.all
-      case Result                  => lila.insight.Result.all
-      case Termination             => lila.insight.Termination.all
-      case Color                   => shogi.Color.all
-      case Opening                 => EcopeningDB.all
-      case OpponentStrength        => RelativeStrength.all
-      case PieceRole               => shogi.Role.all.reverse
-      case MovetimeRange           => lila.insight.MovetimeRange.all
-      case QueenTrade              => lila.insight.QueenTrade.all
-      case MaterialRange           => lila.insight.MaterialRange.all
-      case Blur                    => lila.insight.Blur.all
-      case TimeVariance            => lila.insight.TimeVariance.all
+      case Period           => lila.insight.Period.selector
+      case Date             => Nil // Period is used instead
+      case Perf             => PerfType.nonPuzzle
+      case Phase            => lila.insight.Phase.all
+      case Result           => lila.insight.Result.all
+      case Termination      => lila.insight.Termination.all
+      case Color            => shogi.Color.all
+      case Opening          => EcopeningDB.all
+      case OpponentStrength => RelativeStrength.all
+      case PieceRole        => shogi.Role.all.reverse
+      case MovetimeRange    => lila.insight.MovetimeRange.all
+      case QueenTrade       => lila.insight.QueenTrade.all
+      case MaterialRange    => lila.insight.MaterialRange.all
+      case Blur             => lila.insight.Blur.all
+      case TimeVariance     => lila.insight.TimeVariance.all
     }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] =
     d match {
-      case Period                  => key.toIntOption map lila.insight.Period.apply
-      case Date                    => None
-      case Perf                    => PerfType.byKey get key
-      case Phase                   => key.toIntOption flatMap lila.insight.Phase.byId.get
-      case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
-      case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
-      case Color                   => shogi.Color.fromName(key)
-      case Opening                 => EcopeningDB.allByEco get key
-      case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
-      case PieceRole               => shogi.Role.all.find(_.name == key)
-      case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
-      case QueenTrade              => lila.insight.QueenTrade(key == "true").some
-      case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
-      case Blur                    => lila.insight.Blur(key == "true").some
-      case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
+      case Period           => key.toIntOption map lila.insight.Period.apply
+      case Date             => None
+      case Perf             => PerfType.byKey get key
+      case Phase            => key.toIntOption flatMap lila.insight.Phase.byId.get
+      case Result           => key.toIntOption flatMap lila.insight.Result.byId.get
+      case Termination      => key.toIntOption flatMap lila.insight.Termination.byId.get
+      case Color            => shogi.Color.fromName(key)
+      case Opening          => EcopeningDB.allByEco get key
+      case OpponentStrength => key.toIntOption flatMap RelativeStrength.byId.get
+      case PieceRole        => shogi.Role.all.find(_.name == key)
+      case MovetimeRange    => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
+      case QueenTrade       => lila.insight.QueenTrade(key == "true").some
+      case MaterialRange    => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
+      case Blur             => lila.insight.Blur(key == "true").some
+      case TimeVariance     => key.toFloatOption map lila.insight.TimeVariance.byId
     }
 
   def valueToJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
@@ -223,40 +223,40 @@ object Dimension {
 
   def valueKey[X](d: Dimension[X])(v: X): String =
     (d match {
-      case Date                    => v.toString
-      case Period                  => v.days.toString
-      case Perf                    => v.key
-      case Phase                   => v.id
-      case Result                  => v.id
-      case Termination             => v.id
-      case Color                   => v.name
-      case Opening                 => v.eco
-      case OpponentStrength        => v.id
-      case PieceRole               => v.name
-      case MovetimeRange           => v.id
-      case QueenTrade              => v.id
-      case MaterialRange           => v.id
-      case Blur                    => v.id
-      case TimeVariance            => v.id
+      case Date             => v.toString
+      case Period           => v.days.toString
+      case Perf             => v.key
+      case Phase            => v.id
+      case Result           => v.id
+      case Termination      => v.id
+      case Color            => v.name
+      case Opening          => v.eco
+      case OpponentStrength => v.id
+      case PieceRole        => v.name
+      case MovetimeRange    => v.id
+      case QueenTrade       => v.id
+      case MaterialRange    => v.id
+      case Blur             => v.id
+      case TimeVariance     => v.id
     }).toString
 
   def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue =
     d match {
-      case Date                    => JsNumber(v.min.getSeconds)
-      case Period                  => JsString(v.toString)
-      case Perf                    => JsString(v.trans)
-      case Phase                   => JsString(v.name)
-      case Result                  => JsString(v.name)
-      case Termination             => JsString(v.name)
-      case Color                   => JsString(v.toString)
-      case Opening                 => JsString(v.ecoName)
-      case OpponentStrength        => JsString(v.name)
-      case PieceRole               => JsString(v.toString)
-      case MovetimeRange           => JsString(v.name)
-      case QueenTrade              => JsString(v.name)
-      case MaterialRange           => JsString(v.name)
-      case Blur                    => JsString(v.name)
-      case TimeVariance            => JsString(v.name)
+      case Date             => JsNumber(v.min.getSeconds)
+      case Period           => JsString(v.toString)
+      case Perf             => JsString(v.trans)
+      case Phase            => JsString(v.name)
+      case Result           => JsString(v.name)
+      case Termination      => JsString(v.name)
+      case Color            => JsString(v.toString)
+      case Opening          => JsString(v.ecoName)
+      case OpponentStrength => JsString(v.name)
+      case PieceRole        => JsString(v.toString)
+      case MovetimeRange    => JsString(v.name)
+      case QueenTrade       => JsString(v.name)
+      case MaterialRange    => JsString(v.name)
+      case Blur             => JsString(v.name)
+      case TimeVariance     => JsString(v.name)
     }
 
   def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc =

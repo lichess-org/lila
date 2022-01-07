@@ -8,10 +8,10 @@ case class Piece(color: Color, role: Role) {
 
   def oneOf(rs: Set[Role]) = rs(role)
 
-  // for board representation 
-  def forsyth: String     = if (color == Sente) role.forsythUpper else role.forsyth
-  def csa: String         = if (color == Sente) s"+${role.csa}" else s"-${role.csa}"
-  def kif: String         = if (color == Sente) s" ${role.kifSingle}" else s"v${role.kifSingle}"
+  // for board representation
+  def forsyth: String = if (color == Sente) role.forsythUpper else role.forsyth
+  def csa: String     = if (color == Sente) s"+${role.csa}" else s"-${role.csa}"
+  def kif: String     = if (color == Sente) s" ${role.kifSingle}" else s"v${role.kifSingle}"
 
   def shortRangeDirs = if (color == Sente) role.senteShortDirs else role.goteShortDirs
   def longRangeDirs  = if (color == Sente) role.senteProjectionDirs else role.goteProjectionDirs

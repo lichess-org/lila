@@ -83,11 +83,13 @@ final private class PovToEntry(
     }
     val movetimes = from.movetimes.toList
     val roles =
-      shogi.Replay.usiWithRoleWhilePossible(
-        from.pov.game.usiMoves,
-        from.initialFen,
-        from.pov.game.variant
-      ).map(_.role)
+      shogi.Replay
+        .usiWithRoleWhilePossible(
+          from.pov.game.usiMoves,
+          from.initialFen,
+          from.pov.game.variant
+        )
+        .map(_.role)
     val boards = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.boards.toList.zipWithIndex.collect {

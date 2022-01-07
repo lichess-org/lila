@@ -67,9 +67,9 @@ private[study] object CommentParser {
       case piecesRegex(str) =>
         val pieces = str.split(',').toList.map(_.trim).flatMap { c =>
           for {
-            color     <- c.headOption
-            pos       <- Pos.fromKey(c.drop(1).take(2))
-            piece     <- shogi.Piece.fromForsyth(c.drop(3))
+            color <- c.headOption
+            pos   <- Pos.fromKey(c.drop(1).take(2))
+            piece <- shogi.Piece.fromForsyth(c.drop(3))
           } yield Shape.Piece(toBrush(color), pos, piece)
         }
         Shapes(pieces) -> piecesRemoveRegex.replaceAllIn(comment, "").trim

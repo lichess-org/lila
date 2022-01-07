@@ -506,7 +506,7 @@ object mon {
     val fetch            = counter("game.fetch.count").withoutTags()
     val fetchLight       = counter("game.fetchLight.count").withoutTags()
     val loadClockHistory = counter("game.loadClockHistory.count").withoutTags()
-    val idCollision = counter("game.idCollision").withoutTags()
+    val idCollision      = counter("game.idCollision").withoutTags()
   }
   object chat {
     def message(parent: String, troll: Boolean) =

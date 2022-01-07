@@ -63,7 +63,7 @@ object Pos {
     if (x < 1 || x > 9 || y < 1 || y > 9) None
     else posCache.lift(x + 9 * y - 10)
 
-  def fromKey(key: String): Option[Pos] = 
+  def fromKey(key: String): Option[Pos] =
     allUsiKeys.get(key) orElse allUciKeys.get(key) orElse allNumberKeys.get(key)
 
   def piotr(c: Char): Option[Pos] = allPiotrs get c

@@ -220,13 +220,13 @@ object BinaryFormat {
 
   object pieces {
     def read(variant: Variant)(
-      usis: UsiMoves,
-      initialFen: Option[FEN],
+        usis: UsiMoves,
+        initialFen: Option[FEN]
     ): PieceMap = {
       val init = initialFen.flatMap { fen =>
         format.Forsyth.<<@(variant, fen.value)
       } | Situation(variant)
-      val mm = collection.mutable.Map(init.board.pieces.toSeq: _*)
+      val mm    = collection.mutable.Map(init.board.pieces.toSeq: _*)
       var color = init.color
       usis.foreach { case usi =>
         usi match {

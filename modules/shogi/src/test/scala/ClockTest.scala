@@ -164,7 +164,7 @@ class ClockTest extends ShogiTest {
   "live time checks" in {
     "60s stall" in {
       val clock60 = advance(fakeClock60, 60 * 100)
-      val cc = clock60.currentClockFor(Sente)
+      val cc      = clock60.currentClockFor(Sente)
 
       cc.time.centis must_== 0
       cc.periods must_== 0
@@ -174,7 +174,7 @@ class ClockTest extends ShogiTest {
     }
     "61s stall" in {
       val clock61 = advance(fakeClock60, 61 * 100)
-      val cc = clock61.currentClockFor(Sente)
+      val cc      = clock61.currentClockFor(Sente)
 
       cc.time.centis must_== 0
       cc.periods must_== 0
@@ -184,7 +184,7 @@ class ClockTest extends ShogiTest {
     }
     "byoyomi clock before entering byoyomi" in {
       val clock10 = advance(fakeClockByo, 10 * 100)
-      val cc = clock10.currentClockFor(Sente)
+      val cc      = clock10.currentClockFor(Sente)
 
       cc.time.centis must_== 5 * 100
       cc.periods must_== 0
@@ -193,7 +193,7 @@ class ClockTest extends ShogiTest {
     }
     "entering byoyomi, still having byo time" in {
       val clock17 = advance(fakeClockByo, 19 * 100)
-      val cc = clock17.currentClockFor(Sente)
+      val cc      = clock17.currentClockFor(Sente)
 
       cc.time.centis must_== 1 * 100
       cc.periods must_== 1
@@ -201,7 +201,7 @@ class ClockTest extends ShogiTest {
     }
     "entering byoyomi, not having byo time" in {
       val clock20 = advance(fakeClockByo, 20 * 100)
-      val cc = clock20.currentClockFor(Sente)
+      val cc      = clock20.currentClockFor(Sente)
 
       cc.time.centis must_== 0
       cc.periods must_== 1
@@ -209,7 +209,7 @@ class ClockTest extends ShogiTest {
     }
     "10s stall for zero clock with byo" in {
       val clock10 = advance(fakeClockZero, 10 * 100)
-      val cc = clock10.currentClockFor(Sente)
+      val cc      = clock10.currentClockFor(Sente)
 
       cc.time.centis must_== 0
       cc.periods must_== 1
@@ -224,13 +224,13 @@ class ClockTest extends ShogiTest {
     }
     "spanning over multiple periods" in {
       val clockPers = advance(fakeClockPeriods, 32 * 100)
-      val cc = clockPers.currentClockFor(Sente)
+      val cc        = clockPers.currentClockFor(Sente)
 
       cc.time.centis must_== 8 * 100
       cc.periods must_== 3
       clockPers.outOfTime(Sente, withGrace = false) must beFalse
     }
-    
+
     "over quota stall" >> advance(fakeClock60, 6190).outOfTime(Sente, true)
     "stall within quota" >> !advance(fakeClock600, 60190).outOfTime(Sente, true)
     "max grace stall" >> advance(fakeClock600, 602 * 100).outOfTime(Sente, true)

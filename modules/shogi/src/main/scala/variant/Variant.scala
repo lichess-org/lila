@@ -111,11 +111,11 @@ abstract class Variant private[variant] (
     !pieceInDeadZone(piece, pos) &&
       (
         piece.role != Pawn ||
-        !(
-          sit.board.pieces.exists { case (pPos, p) => 
-            (p is Pawn) && (p is sit.color) && (pPos.x == pos.x)
-          }
-        )
+          !(
+            sit.board.pieces.exists { case (pPos, p) =>
+              (p is Pawn) && (p is sit.color) && (pPos.x == pos.x)
+            }
+          )
       )
 
   def drop(sit: Situation, role: Role, pos: Pos): Validated[String, Drop] =
@@ -174,8 +174,8 @@ abstract class Variant private[variant] (
   private def impasseEligible(sit: Situation): Boolean = {
     val c = sit.color
     val valuesOfRoles = sit.board.pieces.collect {
-      case (pos, piece) if ((piece is c) && (sit.board.variant.promotionRanks(c) contains pos.y))
-        => Role.impasseValueOf(piece.role)
+      case (pos, piece) if (piece is c) && (sit.board.variant.promotionRanks(c) contains pos.y) =>
+        Role.impasseValueOf(piece.role)
     }.toList
     val impasseValue = valuesOfRoles.sum + sit.board.handData.fold(0)(h => h.impasseValueOf(c))
     valuesOfRoles.size > 10 && impasseValue >= c.fold(28, 27)
@@ -250,9 +250,10 @@ abstract class Variant private[variant] (
     }
 
   protected def validSide(board: Board, strict: Boolean)(color: Color) = {
-    val roles     = board rolesOf color
-    val pawnFiles = board.pieces.collect { case (pos, piece) if (piece is Pawn) && (piece is color) =>
-      pos.x
+    val roles = board rolesOf color
+    val pawnFiles = board.pieces.collect {
+      case (pos, piece) if (piece is Pawn) && (piece is color) =>
+        pos.x
     }.toList
     roles.length > 0 && roles.forall(allRoles contains _) &&
     (!strict || {
@@ -323,7 +324,7 @@ abstract class Variant private[variant] (
       case _              => None
     }
   }
-  
+
   override def toString = s"Variant($name)"
 
   override def equals(that: Any): Boolean = this eq that.asInstanceOf[AnyRef]
