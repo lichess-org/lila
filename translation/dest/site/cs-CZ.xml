@@ -12,7 +12,7 @@
   <string name="strength">Obtížnost</string>
   <string name="toggleTheChat">Zapnout/vypnout chat</string>
   <string name="chat">Chat</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Vzdát se</string>
+  <string name="resign">Vzdát se</string>
   <string name="checkmate">Šach mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Bílý</string>
@@ -930,7 +930,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="estimatedStart">Předpokládaný začátek</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Ve vašem časovém pásmu</string>
+  <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
   <string name="noChat">Vypnutý chat</string>
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
