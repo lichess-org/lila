@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="inCasualGamesOnly">In casual games only</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
+  <string name="explainPromoteToQueenAutomatically">Hold the &lt;ctrl&gt; key while promoting to temporarily disable auto-promotion</string>
   <string name="whenPremoving">When premoving</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>

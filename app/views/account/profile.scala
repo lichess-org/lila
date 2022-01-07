@@ -10,7 +10,7 @@ import controllers.routes
 
 object profile {
 
-  private def linksHelp()(implicit lang:Lang) = frag(
+  private def linksHelp()(implicit lang: Lang) = frag(
     "Twitter, Facebook, GitHub, Chess.com, ...",
     br,
     trans.oneUrlPerLine()

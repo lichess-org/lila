@@ -1610,6 +1610,7 @@ val `premovesPlayingDuringOpponentTurn` = new I18nKey("preferences:premovesPlayi
 val `takebacksWithOpponentApproval` = new I18nKey("preferences:takebacksWithOpponentApproval")
 val `inCasualGamesOnly` = new I18nKey("preferences:inCasualGamesOnly")
 val `promoteToQueenAutomatically` = new I18nKey("preferences:promoteToQueenAutomatically")
+val `explainPromoteToQueenAutomatically` = new I18nKey("preferences:explainPromoteToQueenAutomatically")
 val `whenPremoving` = new I18nKey("preferences:whenPremoving")
 val `claimDrawOnThreefoldRepetitionAutomatically` = new I18nKey("preferences:claimDrawOnThreefoldRepetitionAutomatically")
 val `whenTimeRemainingLessThanThirtySeconds` = new I18nKey("preferences:whenTimeRemainingLessThanThirtySeconds")
