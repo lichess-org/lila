@@ -12,7 +12,7 @@
   <string name="strength">Live</string>
   <string name="toggleTheChat">Enaouiñ/lazhañ ar flapañ</string>
   <string name="chat">Kaozeadenn</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Dilezel</string>
+  <string name="resign">Dilezel</string>
   <string name="checkmate">Lamm d\'ar roue</string>
   <string name="stalemate">Gwalllamm</string>
   <string name="white">Ar re wenn</string>
