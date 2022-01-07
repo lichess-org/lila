@@ -31,4 +31,6 @@
   <string name="maxNumber">Maksimalan broj</string>
   <string name="maxNumberExplanation">Maksimalan broj igara za povratak</string>
   <string name="include">Uključi</string>
+  <string name="descending">Silazno</string>
+  <string name="ascending">Uzlazno</string>
 </resources>
