@@ -475,6 +475,7 @@
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
   <string name="descPrivate">Մասնավոր նկարագրություն</string>
+  <string name="descPrivateHelp">Նկարագրություն, որը կտեսնեն միայն ակումբի անդամները։ Եթե սահմանված է, ապա փոխարինում է ակումբի բոլոր անդամների հրապարակային նկարագրությունը։</string>
   <string name="no">Ոչ</string>
   <string name="yes">այո</string>
   <string name="help">Օգնություն.</string>
