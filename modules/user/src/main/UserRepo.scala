@@ -181,8 +181,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def lichess = byId(User.lichessId)
 
-  val irwinId = "irwin"
-  def irwin   = byId(irwinId)
+  val irwinId   = "irwin"
+  def irwin     = byId(irwinId)
+  val kaladinId = "kaladin"
+  def kaladin   = byId(kaladinId)
 
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>

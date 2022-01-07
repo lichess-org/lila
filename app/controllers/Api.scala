@@ -212,7 +212,8 @@ final class Api(
             getTeamName = env.team.getTeamName.apply,
             playerInfoExt = none,
             socketVersion = none,
-            partial = false
+            partial = false,
+            withScores = true
           )(reqLang) map some
         }
       } map toApiResult

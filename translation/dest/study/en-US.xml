@@ -160,5 +160,8 @@
   <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">My topics</string>
   <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Popular topics</string>
   <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Manage topics</string>
-  <string name="back" comment="back&#10;&#10;As in 'return', in a study tutorial.">Back</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Back</string>
+  <string name="playAgain">Play again</string>
+  <string name="whatWouldYouPlay">What would you play in this position?</string>
+  <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
 </resources>

@@ -51,6 +51,7 @@ private object PrefHandlers {
         pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
+        agreement = r.getD("agreement", 0),
         tags = r.getD("tags", Pref.default.tags)
       )
 
@@ -96,6 +97,7 @@ private object PrefHandlers {
         "moveEvent"     -> o.moveEvent,
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle"  -> o.resizeHandle,
+        "agreement"     -> o.agreement,
         "tags"          -> o.tags
       )
   }

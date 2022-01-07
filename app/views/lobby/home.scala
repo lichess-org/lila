@@ -52,7 +52,7 @@ object home {
       main(
         cls := List(
           "lobby"            -> true,
-          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined),
+          "lobby-nope"       -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage),
           "lobby--no-simuls" -> simuls.isEmpty
         )
       )(
@@ -67,7 +67,7 @@ object home {
               href := routes.Setup.hookForm,
               cls := List(
                 "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
+                "disabled"                        -> (playban.isDefined || currentGame.isDefined || hasUnreadLichessMessage || ctx.isBot)
               ),
               trans.createAGame()
             ),
@@ -109,6 +109,7 @@ object home {
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
+          hasUnreadLichessMessage.option(bits.showUnreadLichessMessage) orElse
           playban.map(bits.playbanInfo) getOrElse {
             if (ctx.blind) blindLobby(blindGames)
             else bits.lobbyApp

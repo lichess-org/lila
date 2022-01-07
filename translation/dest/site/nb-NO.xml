@@ -346,6 +346,7 @@
   <string name="leaderboard">Ledertabell</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
+  <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="toStudy">Studie</string>
@@ -886,8 +887,8 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="abortTheGame">Avbryt partiet</string>
   <string name="resignTheGame">Gi opp partiet</string>
   <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
-  <string name="since">Siden</string>
+  <string name="since">Fra</string>
   <string name="until">Til</string>
-  <string name="lichessDbExplanation">Ratede partier plukket fra alle Lichess-spillerne</string>
+  <string name="lichessDbExplanation">Ratede partier sanket inn fra alle Lichess-spillerne</string>
   <string name="switchSides">Skift side</string>
 </resources>

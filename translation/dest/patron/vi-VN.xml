@@ -38,7 +38,6 @@ Hoặc bạn có thể %s.</string>
   <string name="contactSupport">liên hệ với bộ phận hỗ trợ Lichess</string>
   <string name="otherMethods">Phương thức quyên góp khác?</string>
   <string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
-  <string name="bitcoin">Và đây là địa chỉ Bitcoin của chúng tôi: %s</string>
   <string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
   <string name="noPatronFeatures">Không, Lichess hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
 Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>

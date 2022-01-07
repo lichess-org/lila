@@ -112,6 +112,7 @@ final class Tournament(
                   playerInfoExt = none,
                   socketVersion = version.some,
                   partial = false,
+                  withScores = true,
                   myInfo = Preload(myInfo)
                 )
                 chat <- loadChat(tour, json)
@@ -138,7 +139,8 @@ final class Tournament(
                     getTeamName = env.team.getTeamName,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
-                    partial = partial
+                    partial = partial,
+                    withScores = getBoolOpt("scores") | true
                   )
                   chat <- !partial ?? loadChat(tour, json)
                 } yield Ok(json.add("chat" -> chat.map { c =>
@@ -154,7 +156,7 @@ final class Tournament(
     Open { implicit ctx =>
       OptionFuResult(cachedTour(id)) { tour =>
         JsonOk {
-          env.tournament.standingApi(tour, page)
+          env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
         }
       }
     }
@@ -165,7 +167,7 @@ final class Tournament(
         api.pageOf(tour, UserModel normalize userId) flatMap {
           _ ?? { page =>
             JsonOk {
-              env.tournament.standingApi(tour, page)
+              env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
             }
           }
         }
@@ -213,22 +215,9 @@ final class Tournament(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[String]
           )
-          doJoin(id, data, me) flatMap { result =>
-            negotiate(
-              html = fuccess {
-                result.error match {
-                  case None        => Redirect(routes.Tournament.show(id))
-                  case Some(error) => BadRequest(error)
-                }
-              },
-              api = _ =>
-                fuccess {
-                  result.error match {
-                    case None        => jsonOkResult
-                    case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-                  }
-                }
-            )
+          doJoin(id, data, me).dmap(_.error) map {
+            case None        => jsonOkResult
+            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
           }
         }
       }
@@ -392,7 +381,8 @@ final class Tournament(
                     env.team.getTeamName,
                     none,
                     none,
-                    partial = false
+                    partial = false,
+                    withScores = false
                   )(reqLang) map { Ok(_) }
                 }
               }
@@ -421,7 +411,8 @@ final class Tournament(
                       env.team.getTeamName,
                       none,
                       none,
-                      partial = false
+                      partial = false,
+                      withScores = true
                     )(reqLang) map { Ok(_) }
                   }
               )
@@ -508,7 +499,8 @@ final class Tournament(
                         env.team.getTeamName,
                         none,
                         none,
-                        partial = false
+                        partial = false,
+                        withScores = true
                       )
                     } map { Ok(_) }
                   }

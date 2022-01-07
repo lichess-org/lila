@@ -17,6 +17,8 @@
   <string name="stalemate">ଷ୍ଟାଲେମେଟ୍</string>
   <string name="white">ଧଳା</string>
   <string name="black">କଳା</string>
+  <string name="asWhite">ଧଳା ଭାବରେ</string>
+  <string name="asBlack">କଳା ଭାବରେ</string>
   <string name="randomColor">ଅନିୟମିତ ପାର୍ଶ୍ୱ</string>
   <string name="createAGame">ଏକ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="whiteIsVictorious">ଧଳା ବିଜୟୀ ଅଟେ</string>
@@ -166,6 +168,7 @@
   <string name="apply">ଜମା କରନ୍ତୁ</string>
   <string name="pasteTheFenStringHere">FEN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
   <string name="pasteThePgnStringHere">PGN ପାଠ୍ୟ ଏଠାରେ ଲେପନ କରନ୍ତୁ</string>
+  <string name="orUploadPgnFile">କିମ୍ୱା ଏକ PGN ଫାଇଲ୍ ଅପଲୋଡ୍ କରନ୍ତୁ</string>
   <string name="toStudy">ଅଧ୍ୟୟନ</string>
   <string name="importGame">ଖେଳ ଆମଦାନୀ କରନ୍ତୁ</string>
   <string name="notACheckmate">ଚେକମେଟ୍ ନୁହେଁ</string>
@@ -262,4 +265,5 @@
   <string name="embedsAvailable">ଏହାକୁ ଗ୍ରନ୍ଥନ କରିବା ପାଇଁ ଏକ ଖେଳ URL କିମ୍ବା ଏକ ଅଧ୍ୟାୟ URL ପେଷ୍ଟ କରନ୍ତୁ।</string>
   <string name="onlyTeamMembers">କେବଳ ଦଳର ସଦସ୍ୟଗଣ</string>
   <string name="showHelpDialog">ଏହି ସାହାଯ୍ୟ ସଂଳାପ ଦେଖାନ୍ତୁ</string>
+  <string name="switchSides">ପାର୍ଶ୍ୱ ଅଦଳବଦଳ</string>
 </resources>

@@ -46,7 +46,6 @@ Ali pa %s.</string>
   <string name="contactSupport">kontaktirajte Lichess podporo</string>
   <string name="otherMethods">Druge metode donacije?</string>
   <string name="bankTransfers">Sprejemamo tudi bančne transferje</string>
-  <string name="bitcoin">In tukaj je naš bitcoin naslov: %s</string>
   <string name="patronFeatures">Ali je kaj značilnosti rezerviranih za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, ker je Lichess popolnoma zastonj, za vedno in za vsakogar. To je obljuba. Kakorkoli, pokrovitelji dobijo pravice hvalisanja s kul novo ikono profila.</string>
   <string name="featuresComparison">Poglejte podrobno primerjavo lastnosti</string>

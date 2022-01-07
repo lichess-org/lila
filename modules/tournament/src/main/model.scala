@@ -50,7 +50,7 @@ case class VisibleTournaments(
 }
 
 case class PlayerInfoExt(
-    user: lila.user.User,
+    userId: User.ID,
     player: Player,
     recentPovs: List[lila.game.LightPov]
 )

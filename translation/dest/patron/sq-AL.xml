@@ -38,7 +38,6 @@ Ose mund të %s.</string>
   <string name="contactSupport">kontaktoni supportin e Lichess</string>
   <string name="otherMethods">Metoda tjera për të bërë donacion?</string>
   <string name="bankTransfers">Ne po ashtu pranojmë edhe transfere bankare</string>
-  <string name="bitcoin">Dhe këtu është adresa jonë e bitcoin-it: %s</string>
   <string name="patronFeatures">A janë disa opsione të rezervuara për Patronët?</string>
   <string name="noPatronFeatures">Jo, sepse Lichess është krejtësisht falas, përgjithmonë, dhe për të gjithë. Iu premtojmë.
 Sidoqoftë, Patronët mund të mburren me një ikonë të re profili.</string>

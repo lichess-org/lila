@@ -9,11 +9,11 @@ import lila.irwin.KaladinUser
 
 object kaladin {
 
-  private def predClass(pred: Float) = pred match {
-    case p if p < 0.3 => "green"
-    case p if p < 0.6 => "yellow"
-    case p if p < 0.8 => "orange"
-    case _            => "red"
+  private def predClass(pred: KaladinUser.Pred) = pred.percent match {
+    case p if p < 30 => "green"
+    case p if p < 60 => "yellow"
+    case p if p < 80 => "orange"
+    case _           => "red"
   }
 
   def dashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(implicit ctx: Context) =
@@ -51,7 +51,7 @@ object kaladin {
                 th("Queued"),
                 th("Started"),
                 th("Completed"),
-                th("Owner"),
+                th("Requester"),
                 th("Score")
               )
             ),
@@ -69,9 +69,18 @@ object kaladin {
                     }
                   },
                   entry.response.fold(td) { res =>
-                    td(cls := s"little activation ${predClass(res.pred)}")(
-                      strong(res.pred)
-                    )
+                    res.pred
+                      .map { pred =>
+                        td(cls := s"little activation ${predClass(pred)}")(
+                          strong(pred.percent)
+                        )
+                      }
+                      .orElse {
+                        res.err.map { err =>
+                          td(cls := "error")(err)
+                        }
+                      }
+                      .|(td)
                   }
                 )
               }
@@ -80,4 +89,35 @@ object kaladin {
         )
       )
     }
+
+  def report(response: lila.irwin.KaladinUser.Response)(implicit ctx: Context): Frag =
+    div(cls := "mz-section mz-section--kaladin", dataRel := "kaladin")(
+      header(
+        span(cls := "title")(
+          a(href := routes.Irwin.kaladin)("Kaladin "),
+          strong(cls := "beta")("BETA")
+        ),
+        div(cls := "infos")(
+          p("Updated ", momentFromNowServer(response.at))
+        ),
+        response.pred.map { pred =>
+          div(cls := "assess text")(
+            strong(cls := predClass(pred))(pred.percent),
+            " Overall assessment"
+          )
+        }
+      ),
+      response.pred.map { pred =>
+        frag(
+          div("Insights (by order of relevance)"),
+          table(cls := "slist")(
+            tbody(
+              tr(cls := "text")(pred.insights.map { insight =>
+                td(a(href := insight)(insight.split("/").drop(5).mkString("/")))
+              })
+            )
+          )
+        )
+      }
+    )
 }

@@ -182,7 +182,7 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
+      ctx.pageData.inquiry.isDefined option jsModule("inquiry")
     )
 
   private val spinnerMask = raw(
@@ -325,6 +325,20 @@ object layout {
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
+          ctx.pref.agreementNeededSince map { date =>
+            div(id := "agreement")(
+              div(
+                "Lichess has updated the ",
+                a(href := routes.Page.tos)("Terms of Service"),
+                " as of ",
+                showDate(date),
+                "."
+              ),
+              postForm(action := routes.Pref.set("agreement"))(
+                button(cls := "button")("OK")
+              )
+            )
+          },
           spinnerMask,
           loadScripts(moreJs, chessground)
         )

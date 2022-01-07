@@ -31,7 +31,7 @@
   <string name="youCanAlsoReachReportPage">אתה יכול גם להגיע לדף זה על ידי לחיצה על כפתור הדוח %s בדף הפרופיל.</string>
   <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
   <string name="doNotSendReportEmails">אל תשלחו לנו אימיילים כדי לדווח.</string>
-  <string name="doNotMessageModerators">אל תשלח הודעות ישירות לעורכים.</string>
+  <string name="doNotMessageModerators">נא לא לשלוח הודעות ישירות למנהלים.</string>
   <string name="onlyReports">רק דיווח על שחקנים באמצעות טופס הדוח יעיל.</string>
   <string name="wantReportBug">אני רוצה לדווח על תקלה</string>
   <string name="reportBugInForum">בקטע משוב ליצ\'ס בפורום</string>

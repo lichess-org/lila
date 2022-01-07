@@ -17,8 +17,8 @@
   <string name="stalemate">Patt</string>
   <string name="white">Weiß</string>
   <string name="black">Schwarz</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">mit Weiß</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">mit Schwarz</string>
+  <string name="asWhite">mit Weiß</string>
+  <string name="asBlack">mit Schwarz</string>
   <string name="randomColor">Zufällige Farbe</string>
   <string name="createAGame">Neue Partie</string>
   <string name="whiteIsVictorious">Weiß gewinnt</string>
@@ -346,6 +346,7 @@
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
   <string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
+  <string name="orUploadPgnFile">Oder lade eine PGN-Datei hoch</string>
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="toStudy">Studie</string>
@@ -886,8 +887,8 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="abortTheGame">Partie abbrechen</string>
   <string name="resignTheGame">Partie aufgeben</string>
   <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Von</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Bis</string>
-  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Gewertete Partien von allen Lichess-Spielern</string>
-  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">andere Farbe</string>
+  <string name="since">Von</string>
+  <string name="until">Bis</string>
+  <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
+  <string name="switchSides">andere Farbe</string>
 </resources>

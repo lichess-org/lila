@@ -354,6 +354,7 @@
   <string name="leaderboard">Leaderboard</string>
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
+  <string name="orUploadPgnFile">Or upload a PGN file</string>
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>

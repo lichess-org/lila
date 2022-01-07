@@ -12,13 +12,13 @@
   <string name="strength">Putere</string>
   <string name="toggleTheChat">Arată/Ascunde discuţia</string>
   <string name="chat">Discuţie</string>
-  <string name="resign">Abandonează</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Abandonează</string>
   <string name="checkmate">Şah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">cu albele</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">cu negrele</string>
+  <string name="asWhite">cu albele</string>
+  <string name="asBlack">cu negrele</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -371,6 +371,7 @@
   <string name="leaderboard">Clasament</string>
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
+  <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
@@ -900,7 +901,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="simulDescriptionHelp">Ce vrei să spui participanţilor?</string>
   <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
   <string name="embedsAvailable">Lipește un URL al jocului sau un URL de capitol de studiu pentru a-l încorpora.</string>
-  <string name="inYourLocalTimezone">În fusul orar local</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">În fusul orar local</string>
   <string name="tournChat">Conversatie</string>
   <string name="noChat">Fără conversație</string>
   <string name="onlyTeamLeaders">Doar lideri de echipă</string>
@@ -925,6 +926,8 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="abortTheGame">Abandonează jocul</string>
   <string name="resignTheGame">Cedează jocul</string>
   <string name="youCantStartNewGame">Nu poți începe un joc nou până când acesta nu se termină.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">De la</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Până la</string>
+  <string name="since">De la</string>
+  <string name="until">Până la</string>
+  <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
+  <string name="switchSides">Întoarce tabla</string>
 </resources>

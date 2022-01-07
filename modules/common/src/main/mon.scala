@@ -138,14 +138,15 @@ object mon {
     }
     object move {
       object lag {
-        val compDeviation             = histogram("round.move.lag.comp_deviation").withoutTags()
-        def uncomped(key: String)     = histogram("round.move.lag.uncomped_ms").withTag("key", key)
-        def uncompStdDev(key: String) = histogram("round.move.lag.uncomp_stdev_ms").withTag("key", key)
-        val stdDev                    = histogram("round.move.lag.stddev_ms").withoutTags()
-        val mean                      = histogram("round.move.lag.mean_ms").withoutTags()
-        val coefVar                   = histogram("round.move.lag.coef_var_1000").withoutTags()
-        val compEstStdErr             = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
-        val compEstOverErr            = histogram("round.move.lag.avg_over_error_ms").withoutTags()
+        val compDeviation                    = histogram("round.move.lag.comp_deviation").withoutTags()
+        def uncomped(key: String)            = histogram("round.move.lag.uncomped_ms").withTag("key", key)
+        def uncompStdDev(key: String)        = histogram("round.move.lag.uncomp_stdev_ms").withTag("key", key)
+        val stdDev                           = histogram("round.move.lag.stddev_ms").withoutTags()
+        val mean                             = histogram("round.move.lag.mean_ms").withoutTags()
+        val coefVar                          = histogram("round.move.lag.coef_var_1000").withoutTags()
+        val compEstStdErr                    = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
+        val compEstOverErr                   = histogram("round.move.lag.avg_over_error_ms").withoutTags()
+        def moveCompByUserId(userId: String) = timer("round.move.lag.compedByUserId").withTag("user", userId)
       }
       val time = timer("round.move.time").withoutTags()
     }
@@ -261,6 +262,10 @@ object mon {
       def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
       def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
       def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
+      def error(errKind: String)        = counter("mod.kaladin.error").withoutTags()
+      val activation                    = histogram("mod.report.kaladin.activation").withoutTags()
+      val report                        = counter("mod.report.kaladin.report").withoutTags()
+      val mark                          = counter("mod.report.kaladin.mark").withoutTags()
     }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
@@ -376,9 +381,9 @@ object mon {
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags()
     }
-    val created        = gauge("tournament.count").withTag("type", "created")
-    val started        = gauge("tournament.count").withTag("type", "started")
-    val waitingPlayers = histogram("tournament.waitingPlayers").withoutTags()
+    val created                        = gauge("tournament.count").withTag("type", "created")
+    val started                        = gauge("tournament.count").withTag("type", "started")
+    def waitingPlayers(tourId: String) = histogram("tournament.waitingPlayers").withTag("tourId", tourId)
     object startedOrganizer {
       val tick         = future("tournament.startedOrganizer.tick")
       val waitingUsers = future("tournament.startedOrganizer.waitingUsers")
@@ -396,8 +401,8 @@ object mon {
         )
       )
     def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
-    def sequencer(tourId: String, action: String) =
-      timer("tournament.api.sequencer").withTags(Map("tourId" -> tourId, "action" -> action))
+    def action(tourId: String, action: String) =
+      timer("tournament.api.action").withTags(Map("tourId" -> tourId, "action" -> action))
   }
   object swiss {
     def standingOverload      = counter("swiss.standing.overload").withoutTags()
@@ -679,7 +684,7 @@ object mon {
       }
     }
   }
-  object export {
+  object `export` {
     object png {
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")

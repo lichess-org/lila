@@ -24,7 +24,7 @@ object String {
     slug.toLowerCase
   }
 
-  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
 
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
 
@@ -69,7 +69,9 @@ object String {
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
     (c >= '\u2000' && c <= '\u200F') ||
       // weird stuff https://www.compart.com/en/unicode/block/U+2000
-      (c >= '\u2028' && c <= '\u202F')
+      (c >= '\u2028' && c <= '\u202F') ||
+      // Hangul fillers
+      (c == '\u115f' || c == '\u1160')
 
   object normalize {
 

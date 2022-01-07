@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">کمک مالی</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">به عنوان %s اهدا کنید</string>
+  <string name="donateAsX">به عنوان %s اهدا کنید</string>
   <string name="lichessPatron">پشتیبانِ Lichess</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
   <string name="becomePatron">پشتیبانِ Lichess بشوید</string>
@@ -44,7 +44,6 @@
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
-  <string name="bitcoin">و این آدرس بیت‌کوین ما می‌باشد: %s</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
   <string name="noPatronFeatures">نه، چرا که Lichess کاملاً رایگان است، برای همیشه، و برای همه. این یک تعهد و قول است.
 با این حال، پشتیبان‌ها با یک آیکون کاربری جدید و زیبا، حقوقی برای فخرفروشی و پز دادن دریافت می‌کنند.</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಗೆಳಯ(ತಿ) ಯೊಡನೆ ಆಡಿ</string>
+  <string name="playWithAFriend">ಗೆಳಯ/ಗೆಳತಿಯೊಡನೆ  ಆಡಿ</string>
   <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
-  <string name="waiting">ಎದುರಾಳಿಯು ಸವಾಲು ಸ್ವೀಕರಿಸಲು ಕಾಯುತ್ತಿದ್ದೇವೆ</string>
+  <string name="waiting">ಕಾಯಲಾಗುತ್ತಿದೆ</string>
   <string name="yourTurn">ನಿಮ್ಮ ಸರದಿ</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
   <string name="level">ಮಟ್ಟ</string>
@@ -17,6 +17,8 @@
   <string name="stalemate">ಬಿಕ್ಕಟ್ಟು</string>
   <string name="white">ಬಿಳಿ ದಳ</string>
   <string name="black">ಕಪ್ಪು ದಳ</string>
+  <string name="asWhite">ಬಿಳಿ ದಳವಾಗಿ</string>
+  <string name="asBlack">ಕಪ್ಪು ದಳವಾಗಿ</string>
   <string name="randomColor">ಯಾವುದಾದರೊಂದು ಬಣ್ಣ</string>
   <string name="createAGame">ಆಟ ರಚಿಸಿ</string>
   <string name="whiteIsVictorious">ಬಿಳಿ ದಳ ಜಯಶಾಲಿಯಾಗಿದ್ದಾರೆ</string>
@@ -58,7 +60,7 @@
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
   <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
   <string name="cloudAnalysis">ಕ್ಲೌಡ್ ವಿಶ್ಲೇಷಣೆ</string>
-  <string name="goDeeper">ಆಳಕ್ಕೆ ಇಳಿ</string>
+  <string name="goDeeper">ಆಳ ಹೆಚ್ಚಿಸಿ</string>
   <string name="showThreat">ಬೆದರಿಕೆ ತೋರಿಸಿ</string>
   <string name="inLocalBrowser">ಸ್ಥಳೀಯ ಬ್ರೌಸರ್ ನಲ್ಲಿ</string>
   <string name="toggleLocalEvaluation">ಸ್ಥಳೀಯ ಮೌಲ್ಯಮಾಪನ ಅದಲುಬದಲಿಸಿ</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">ಮುಂದಾಳುಗಳ ಪಟ್ಟಿ</string>
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
+  <string name="orUploadPgnFile">ಅಥವಾ PGN ಫೈಲ್ ಅನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
   <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
   <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
   <string name="toStudy">ಅಧ್ಯಯನ</string>
@@ -883,4 +886,8 @@
   <string name="abortTheGame">ಆಟವನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಿ</string>
   <string name="resignTheGame">ಆಟದಿಂದ ರಾಜೀನಾಮೆ ಕೊಡಿ</string>
   <string name="youCantStartNewGame">ಈ ಆಟ ಮುಗಿಯುವ ತನಕ ನೀವು ಇನ್ನೊಂದು ಹೊಸ ಆಟ ಆರಂಭಿಸುವಂತಿಲ್ಲ.</string>
+  <string name="since">ರಿಂದ</string>
+  <string name="until">ವರೆಗೆ</string>
+  <string name="lichessDbExplanation">ಎಲ್ಲಾ ಲೀಚೆಸ್ ಆಟಗಾರರಿಂದ ಮಾದರಿ ಪಡೆದ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
+  <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
 </resources>

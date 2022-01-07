@@ -17,8 +17,8 @@
   <string name="stalemate">Pat</string>
   <string name="white">Biely</string>
   <string name="black">Čierny</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">ako biely</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">ako čierny</string>
+  <string name="asWhite">ako biely</string>
+  <string name="asBlack">ako čierny</string>
   <string name="randomColor">Náhodná farba figúr</string>
   <string name="createAGame">Vytvoriť partiu</string>
   <string name="whiteIsVictorious">Biely zvíťazil</string>
@@ -396,6 +396,7 @@
   <string name="leaderboard">Rebríček</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
+  <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
   <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
   <string name="toStudy">Štúdia</string>
@@ -949,8 +950,8 @@
   <string name="abortTheGame">Zrušiť partiu</string>
   <string name="resignTheGame">Vzdať partiu</string>
   <string name="youCantStartNewGame">Kým neukončíte túto partiu, nemôžete začať novú.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Od</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Do</string>
-  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
-  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Vymeniť strany</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Hodnotené partie vybraté spomedzi všetkých Lichess hráčov</string>
+  <string name="switchSides">Vymeniť strany</string>
 </resources>

@@ -17,6 +17,8 @@
   <string name="stalemate">스테일메이트</string>
   <string name="white">백색</string>
   <string name="black">흑색</string>
+  <string name="asWhite">백일때</string>
+  <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
   <string name="whiteIsVictorious">백색 승리</string>
@@ -519,6 +521,11 @@
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
   <string name="error.required">필수 기입 사항입니다.</string>
+  <string name="error.email">이메일 주소가 유효하지 않습니다</string>
+  <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
+  <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
+  <string name="error.minLength">최소 %s자여야 합니다.</string>
+  <string name="error.maxLength">최대 %s자여야 합니다</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
@@ -832,4 +839,8 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="abortTheGame">게임 중단</string>
   <string name="resignTheGame">게임 기권</string>
   <string name="youCantStartNewGame">이 게임이 끝나기 전까지 새 게임을 시작할 수 없습니다.</string>
+  <string name="since">부터</string>
+  <string name="until">까지</string>
+  <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
+  <string name="switchSides">색 바꾸기</string>
 </resources>

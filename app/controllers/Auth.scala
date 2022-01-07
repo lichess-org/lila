@@ -35,8 +35,8 @@ final class Auth(
       }
     }
 
-  private def getReferrer(implicit ctx: Context) =
-    get("referrer").filter(env.api.referrerRedirect.valid) orElse
+  private def getReferrer(implicit ctx: Context): String =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
       ctxReq.session.get(api.AccessUri) getOrElse
       routes.Lobby.home.url
 
@@ -79,7 +79,7 @@ final class Auth(
 
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(env.api.referrerRedirect.valid)
+      val referrer = get("referrer").flatMap(env.api.referrerRedirect.valid)
       referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess

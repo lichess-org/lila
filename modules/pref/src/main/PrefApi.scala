@@ -88,6 +88,10 @@ final class PrefApi(
     getPref(user) map { _.set(name, value) } orFail
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
 
+  def agree(user: User): Funit =
+    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void >>-
+      cache.invalidate(user.id)
+
   def setBot(user: User): Funit =
     setPref(
       user,

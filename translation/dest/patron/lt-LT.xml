@@ -46,7 +46,6 @@ Arba galite %s.</string>
   <string name="contactSupport">susisiekti su Lichess pagalba</string>
   <string name="otherMethods">Kiti būdai paremti?</string>
   <string name="bankTransfers">Mes taip pat priimame banko pervedimus</string>
-  <string name="bitcoin">Štai mūsų Bitcoin adresas: %s</string>
   <string name="patronFeatures">Ar yra funkcijų, kurios prieinamos tik Rėmėjams?</string>
   <string name="noPatronFeatures">Ne, kadangi Lichess visiškai ir visada nemokamas ir visiems. Tai yra mūsų pažadas.
 Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.</string>

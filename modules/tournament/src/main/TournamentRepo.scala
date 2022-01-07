@@ -29,7 +29,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
-  private val nonEmptySelect           = $doc("nbPlayers" $ne 0)
+  private def nbPlayersSelect(nb: Int) = $doc("nbPlayers" $gte nb)
+  private val nonEmptySelect           = nbPlayersSelect(1)
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
@@ -45,8 +46,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def fetchCreatedBy(id: Tournament.ID): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(id), "createdBy")
 
-  private[tournament] def startedCursor =
-    coll.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
+  private[tournament] def startedCursorWithNbPlayersGte(nbPlayers: Option[Int]) =
+    coll
+      .find(startedSelect ++ nbPlayers.??(nbPlayersSelect))
+      .batchSize(1)
+      .cursor[Tournament]()
 
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](

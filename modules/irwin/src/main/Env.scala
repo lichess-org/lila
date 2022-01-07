@@ -30,15 +30,13 @@ final class Env(
 
   private lazy val irwinReportColl = db(CollName("irwin_report")).taggedWith[IrwinColl]
 
-  lazy val irwinThresholdsSetting = IrwinThresholds makeSetting settingStore
-
   lazy val irwinStream = wire[IrwinStream]
 
-  lazy val irwinApi = wire[IrwinApi]
+  val irwinApi = wire[IrwinApi]
 
   private lazy val kaladinColl = insightDb(CollName("kaladin_queue")).taggedWith[KaladinColl]
 
-  lazy val kaladinApi = wire[KaladinApi]
+  val kaladinApi = wire[KaladinApi]
 
   system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
     (for {
@@ -63,12 +61,12 @@ final class Env(
     } yield ()).unit
   }
 
+  system.scheduler.scheduleWithFixedDelay(83 seconds, 5 seconds) { () =>
+    kaladinApi.readResponses.unit
+  }
+
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    kaladinApi.countQueued foreach {
-      _ foreach { case (priority, nb) =>
-        lila.mon.mod.kaladin.queue(priority).update(nb)
-      }
-    }
+    kaladinApi.monitorQueued.unit
   }
 }
 

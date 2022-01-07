@@ -12,19 +12,19 @@
   <string name="strength">Niveau</string>
   <string name="toggleTheChat">Activer/désactiver la discussion</string>
   <string name="chat">Discussion</string>
-  <string name="resign">Abandonner</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Abandonner</string>
   <string name="checkmate">Échec et mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Blancs</string>
   <string name="black">Noirs</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">avec les blancs</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">avec les noirs</string>
+  <string name="asWhite">avec les blancs</string>
+  <string name="asBlack">avec les noirs</string>
   <string name="randomColor">Couleur aléatoire</string>
   <string name="createAGame">Créer une partie</string>
   <string name="whiteIsVictorious">Victoire des Blancs</string>
   <string name="blackIsVictorious">Victoire des Noirs</string>
-  <string name="youPlayTheWhitePieces">Vous jouez les Blancs</string>
-  <string name="youPlayTheBlackPieces">Vous jouez les Noirs</string>
+  <string name="youPlayTheWhitePieces">Vous jouez avec les blancs</string>
+  <string name="youPlayTheBlackPieces">Vous jouez avec les noirs</string>
   <string name="itsYourTurn">C\'est votre tour !</string>
   <string name="cheatDetected">Tricherie détectée</string>
   <string name="kingInTheCenter">Roi au centre</string>
@@ -49,8 +49,8 @@
   <string name="blackResigned">Les Noirs abandonnent</string>
   <string name="whiteLeftTheGame">Les Blancs ont quitté la partie</string>
   <string name="blackLeftTheGame">Les Noirs ont quitté la partie</string>
-  <string name="whiteDidntMove">Les Blancs n\'ont pas bougé</string>
-  <string name="blackDidntMove">Les Noirs n\'ont pas bougé</string>
+  <string name="whiteDidntMove">Les blancs n\'ont pas bougé</string>
+  <string name="blackDidntMove">Les noirs n\'ont pas bougé</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
@@ -346,6 +346,7 @@
   <string name="leaderboard">Classements</string>
   <string name="pasteTheFenStringHere">Coller le FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
+  <string name="orUploadPgnFile">Ou téléverser un fichier PGN</string>
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="toStudy">Étude</string>
@@ -359,8 +360,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-  <string name="whiteCheckmatesInOneMove">Les Blancs matent en un coup</string>
-  <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
+  <string name="whiteCheckmatesInOneMove">Les blancs matent en un coup</string>
+  <string name="blackCheckmatesInOneMove">Les noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <plurals name="nbFriendsOnline">
@@ -732,7 +733,7 @@
   <string name="getAHint">Obtenir un indice</string>
   <string name="evaluatingYourMove">Evaluation de votre coup ...</string>
   <string name="whiteWinsGame">Les blancs gagnent</string>
-  <string name="blackWinsGame">Les Noirs gagnent</string>
+  <string name="blackWinsGame">Les noirs gagnent</string>
   <string name="learnFromYourMistakes">Apprendre de vos erreurs</string>
   <string name="learnFromThisMistake">Apprendre de cette erreur</string>
   <string name="skipThisMove">Passer ce coup</string>
@@ -861,7 +862,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
-  <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
   <string name="noChat">Aucun salon de discussion</string>
   <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
@@ -886,8 +887,8 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="abortTheGame">Annuler la partie</string>
   <string name="resignTheGame">Rejoindre la partie</string>
   <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">De</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">À</string>
-  <string name="lichessDbExplanation" comment="lichessDbExplanation&#10;&#10;Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer">Parties classées prises au hasard parmi tous les joueurs de Lichess</string>
-  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Tourner l\'échiquier</string>
+  <string name="since">De</string>
+  <string name="until">À</string>
+  <string name="lichessDbExplanation">Échantillon de parties classées jouées par les joueurs de Lichess</string>
+  <string name="switchSides">Changer de couleur</string>
 </resources>

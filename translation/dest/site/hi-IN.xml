@@ -12,11 +12,13 @@
   <string name="strength">ताक़त</string>
   <string name="toggleTheChat">चैट को टोग्ल करें</string>
   <string name="chat">बातचीत</string>
-  <string name="resign">हार मान लें</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">हार मान लें</string>
   <string name="checkmate">शह और मात</string>
   <string name="stalemate">गतिरोध (स्टेलमेट )</string>
   <string name="white">सफेद</string>
   <string name="black">काला</string>
+  <string name="asWhite">सफ़ेद से</string>
+  <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद विजय हुआ</string>
@@ -87,6 +89,7 @@
     <item quantity="one">%s हाफ मूव में मैच</item>
     <item quantity="other">%s आधे-कदम में चेकमैट</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' राउंडिंग के साथ, अगले कैप्चर या पॉन मूव तक आधे-चालों की संख्या के आधार पर</string>
   <string name="noGameFound">कोई गेम नहीं मिला</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
@@ -342,6 +345,7 @@
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
+  <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
   <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
   <string name="toStudy">पढ़े</string>
@@ -859,7 +863,7 @@
   <string name="simulDescriptionHelp">क्या आप प्रतिभागियों को कुछ बताना चाहते हैं?</string>
   <string name="markdownAvailable">%s अत्याधुनिक स्वरूपण के लिए उपलब्ध है।</string>
   <string name="embedsAvailable">खेल अथवा अध्ययन का URL paste करे एमबेड करने के लिये|</string>
-  <string name="inYourLocalTimezone">आपके अपने क्षेत्रीय समयानुसार</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">आपके अपने क्षेत्रीय समयानुसार</string>
   <string name="tournChat">प्रतियोगिता वार्ता</string>
   <string name="noChat">वार्ता निषेध</string>
   <string name="onlyTeamLeaders">केवल टीम नेता</string>
@@ -884,4 +888,8 @@
   <string name="abortTheGame">खेल रद्द करें</string>
   <string name="resignTheGame">हार मान ले</string>
   <string name="youCantStartNewGame">जब तक यह गेम समाप्त नहीं हो जाता तब तक आप एक नया गेम शुरू नहीं कर सकते।</string>
+  <string name="since">दिनांक से</string>
+  <string name="until">दिनांक तक​</string>
+  <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
+  <string name="switchSides">पार्श्व बदलना</string>
 </resources>

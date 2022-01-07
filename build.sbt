@@ -125,7 +125,7 @@ lazy val evaluation = module("evaluation",
 lazy val common = smallModule("common",
   Seq(),
   Seq(
-    scalalib, scalaUri, chess, autoconfig,
+    scalalib, galimatias, chess, autoconfig,
     kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText
   ) ++ reactivemongo.bundle ++ flexmark.bundle
 )
@@ -187,7 +187,7 @@ lazy val mod = module("mod",
 
 lazy val user = smallModule("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, specs2, autoconfig, scalaUri) ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
+  Seq(hasher, specs2, autoconfig, galimatias) ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val game = module("game",
@@ -302,7 +302,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(common, study),
-  Seq(scalaUri) ++ reactivemongo.bundle
+  Seq(galimatias) ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch",

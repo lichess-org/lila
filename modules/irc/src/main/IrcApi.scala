@@ -23,9 +23,10 @@ final class IrcApi(
 
   def inquiry(user: User, mod: Holder, domain: ModDomain, room: String): Funit = {
     val stream = domain match {
-      case ModDomain.Comm => ZulipClient.stream.mod.commsPrivate
-      case ModDomain.Hunt => ZulipClient.stream.mod.hunterCheat
-      case _              => ZulipClient.stream.mod.adminGeneral
+      case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
+      case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
+      case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
+      case _               => ZulipClient.stream.mod.adminGeneral
     }
     noteApi
       .byUserForMod(user.id)
@@ -57,10 +58,11 @@ final class IrcApi(
   }
 
   def userModNote(modName: String, username: String, note: String): Funit =
-    zulip(_.mod.adminLog, "notes")(
-      s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
-        markdown.linkifyUsers(note take 2000)
-    )
+    !User.isLichess(modName) ??
+      zulip(_.mod.adminLog, "notes")(
+        s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
+          markdown.linkifyUsers(note take 2000)
+      )
 
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
     zulip(_.mod.adminLog, "self report")(
@@ -196,12 +198,11 @@ final class IrcApi(
 
 object IrcApi {
 
-  sealed trait ModDomain {
-    def key = toString.toLowerCase
-  }
+  sealed trait ModDomain
   object ModDomain {
     case object Admin extends ModDomain
-    case object Hunt  extends ModDomain
+    case object Cheat extends ModDomain
+    case object Boost extends ModDomain
     case object Comm  extends ModDomain
     case object Other extends ModDomain
   }
@@ -219,8 +220,7 @@ object IrcApi {
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
     def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
-    val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
-    def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll userReplace
+    def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll (m => userLink(m.group(1)))
     val postReplace                             = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
     def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))

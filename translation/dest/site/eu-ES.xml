@@ -12,11 +12,13 @@
   <string name="strength">Indarra</string>
   <string name="toggleTheChat">Erakutsi/ezkutatu txata</string>
   <string name="chat">Txata</string>
-  <string name="resign">Amore eman</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Amore eman</string>
   <string name="checkmate">Xake mate</string>
   <string name="stalemate">Itoa</string>
   <string name="white">Zuria</string>
   <string name="black">Beltza</string>
+  <string name="asWhite">zuriekin</string>
+  <string name="asBlack">beltzekin</string>
   <string name="randomColor">Ausazko kolorea</string>
   <string name="createAGame">Partida bat sortu</string>
   <string name="whiteIsVictorious">Zuria irabazle</string>
@@ -344,6 +346,7 @@
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
+  <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
   <string name="fromPosition">Posizio jakin batetik</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="toStudy">Aztertu</string>
@@ -858,7 +861,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
   <string name="markdownAvailable">%s erabili dezakezu.</string>
   <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
-  <string name="inYourLocalTimezone">Zure ordu-zonan</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>
   <string name="noChat">Txatik ez</string>
   <string name="onlyTeamLeaders">Taldeen kapitainak bakarrik</string>
@@ -883,4 +886,8 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="abortTheGame">Partida bertan behera utzi</string>
   <string name="resignTheGame">Partida utzi</string>
   <string name="youCantStartNewGame">Ezin duzu beste partidarik hasi hau bukatu arte.</string>
+  <string name="since">Noiztik</string>
+  <string name="until">Noiz arte</string>
+  <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
+  <string name="switchSides">Aldatu kolorea</string>
 </resources>

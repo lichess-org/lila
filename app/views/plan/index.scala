@@ -320,9 +320,6 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
           views.html.site.contact.contactEmailLinkEmpty(bankTransfers()),
           ".",
           br,
-          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8")),
-          ".",
-          br,
           strong("Please note that only the donation form above will grant the Patron status.")
         )
       ),

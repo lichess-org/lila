@@ -19,6 +19,7 @@ import views._
 
 final class Study(
     env: Env,
+    editorC: => Editor,
     userAnalysisC: => UserAnalysis,
     apiC: => Api,
     prismicC: Prismic
@@ -272,7 +273,7 @@ final class Study(
               contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
               res <-
                 if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-                else Ok(html.study.create(data, owner, contrib)).fuccess
+                else Ok(html.study.create(data, owner, contrib, editorC.editorUrl)).fuccess
             } yield res
         )
     }
@@ -474,7 +475,7 @@ final class Study(
       }
     }
 
-  def export(username: String) =
+  def exportPgn(username: String) =
     OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)

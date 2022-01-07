@@ -12,13 +12,13 @@
   <string name="strength">Sterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
   <string name="chat">Chat</string>
-  <string name="resign">Geef op</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Geef op</string>
   <string name="checkmate">Schaakmat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Wit</string>
   <string name="black">Zwart</string>
-  <string name="asWhite" comment="asWhite&#10;&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as white.">met wit</string>
-  <string name="asBlack" comment="asBlack&#10;&#10;In the opening explorer, a heading for statistics about games the player has played as black. ">met zwart</string>
+  <string name="asWhite">met wit</string>
+  <string name="asBlack">met zwart</string>
   <string name="randomColor">Willekeurige kleur</string>
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
@@ -346,6 +346,7 @@
   <string name="leaderboard">Ranglijst</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
+  <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="toStudy">Studie</string>
@@ -424,7 +425,7 @@
   <string name="youArePlaying">Je bent aan het spelen!</string>
   <string name="winRate">Win percentage</string>
   <string name="berserkRate">Berserk-percentage</string>
-  <string name="performance">Prestatie</string>
+  <string name="performance">Prestatierating</string>
   <string name="tournamentComplete">Toernooi voltooid</string>
   <string name="movesPlayed">Gespeelde zetten</string>
   <string name="whiteWins">Overwinningen met wit</string>
@@ -861,7 +862,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
   <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>
   <string name="embedsAvailable">Plak de URL van een partij of een studie om deze in te voegen.</string>
-  <string name="inYourLocalTimezone">In je eigen lokale tijdzone</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">In je eigen lokale tijdzone</string>
   <string name="tournChat">Toernooichat</string>
   <string name="noChat">Geen chat</string>
   <string name="onlyTeamLeaders">Alleen teamleiders</string>
@@ -886,7 +887,8 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="abortTheGame">Partij afbreken</string>
   <string name="resignTheGame">Partij opgeven</string>
   <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
-  <string name="since" comment="since&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Vanaf</string>
-  <string name="until" comment="until&#10;&#10;Appears in the opening explorer configuration, to select games in a specific date range: https://lichess.org/analysis#explorer">Tot</string>
-  <string name="switchSides" comment="switchSides&#10;&#10;Description when hovering the mouse over the 'as white/black' option for your own past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Clicking this toggles the game history between white and black.">Van kleur wisselen</string>
+  <string name="since">Vanaf</string>
+  <string name="until">Tot</string>
+  <string name="lichessDbExplanation">Partijen met rating gespeeld op Lichess</string>
+  <string name="switchSides">Van kleur wisselen</string>
 </resources>

@@ -42,7 +42,6 @@
   <string name="contactSupport">लिचेस समर्थन से संपर्क करें</string>
   <string name="otherMethods">दान की अन्य विधियाँ?</string>
   <string name="bankTransfers">हम बैंक हस्तांतरण को भी स्वीकार करते हैं</string>
-  <string name="bitcoin">और यहां हमारा बिटकॉइन पता है: %s</string>
   <string name="patronFeatures">क्या कुछ विशेषताएं संरक्षक के लिए आरक्षित हैं?</string>
   <string name="noPatronFeatures">नहीं, क्योंकि Lichess पूरी तरह से मुक्त है, हमेशा के लिए, और सभी के लिए। यह एक वादा है।
 हालाँकि, Patrons को एक नए आकर्षक प्रोफ़ाइल आइकन के साथ डींग मारने का अधिकार मिलता है।</string>

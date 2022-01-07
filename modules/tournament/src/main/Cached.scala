@@ -100,7 +100,18 @@ final private[tournament] class Cached(
     def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
       cache.get(keyOf(tour, userId))
 
-    def update(tour: Tournament, userId: User.ID): Fu[Sheet] = {
+    /* This is not thread-safe! But only called from within a tournament sequencer. */
+    def addResult(tour: Tournament, userId: String, pairing: Pairing): Fu[Sheet] = {
+      val key = keyOf(tour, userId)
+      cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
+        val next =
+          prev map { _.addResult(userId, pairing, Sheet.Version.V2, Sheet.Streakable(tour.streakable)) }
+        cache.put(key, next)
+        next
+      }
+    }
+
+    def recompute(tour: Tournament, userId: User.ID): Fu[Sheet] = {
       val key = keyOf(tour, userId)
       cache.invalidate(key)
       cache.get(key)
@@ -110,18 +121,18 @@ final private[tournament] class Cached(
       SheetKey(
         tour.id,
         userId,
-        Sheet versionOf tour.startsAt,
-        if (tour.streakable) Sheet.Streaks else Sheet.NoStreaks
+        Sheet.Version.of(tour.startsAt),
+        Sheet.Streakable(tour.streakable)
       )
 
     private def compute(key: SheetKey): Fu[Sheet] =
       pairingRepo.finishedByPlayerChronological(key.tourId, key.userId) map {
-        arena.Sheet(key.userId, _, key.version, key.streakable)
+        arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable)
       }
 
-    private val cache = cacheApi[SheetKey, Sheet](8192, "tournament.sheet") {
-      _.expireAfterAccess(3 minutes)
-        .maximumSize(32768)
+    private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet") {
+      _.expireAfterAccess(4 minutes)
+        .maximumSize(65536)
         .buildAsyncFuture(compute)
     }
   }

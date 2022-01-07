@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donar</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Donar com a %s</string>
+  <string name="donateAsX">Donar com a %s</string>
   <string name="lichessPatron">Patró de Lichess</string>
   <string name="freeAccount">Compte gratuït</string>
   <string name="becomePatron">Fes-te patró de Lichess</string>
@@ -44,7 +44,6 @@ O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
   <string name="otherMethods">Hi ha altres mètodes de donació?</string>
   <string name="bankTransfers">També acceptem transferències bancàries</string>
-  <string name="bitcoin">I aquí està la nostra direcció de bitcoin: %s</string>
   <string name="patronFeatures">Es reserven algunes funcions per als Patrons?</string>
   <string name="noPatronFeatures">No, perquè Lichess es totalment gratuït, per sempre i per a tots. És una promesa.
 Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.</string>
