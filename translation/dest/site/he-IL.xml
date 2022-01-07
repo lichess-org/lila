@@ -203,6 +203,12 @@
     <item quantity="many">%s שעות</item>
     <item quantity="other">%s שעות</item>
   </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="one">%s דקות</item>
+    <item quantity="two">%s דקות</item>
+    <item quantity="many">%s דקות</item>
+    <item quantity="other">%s דקות</item>
+  </plurals>
   <string name="time">זמן</string>
   <string name="rating">דירוג</string>
   <string name="ratingStats">סטטיסטיקת דירוג</string>
