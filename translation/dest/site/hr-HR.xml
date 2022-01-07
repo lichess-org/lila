@@ -193,6 +193,11 @@
     <item quantity="few">%s sata</item>
     <item quantity="other">%s sati</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="few">%s minute</item>
+    <item quantity="other">%s minuta</item>
+  </plurals>
   <string name="time">Vrijeme</string>
   <string name="rating">Rejting</string>
   <string name="ratingStats">Statistike rejtinga</string>
