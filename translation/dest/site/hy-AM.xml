@@ -328,6 +328,7 @@
     <item quantity="other">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ձեր վարկանիշը %s-ում դեռևս վավեր չէ</string>
+  <string name="yourPerfRatingIsTooHigh">Ձեր վարկանիշը %1$sում (%2$s) մասնակցելու համար չափազանց բարձր է</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ձեր ամենշաբաթյա վարկանիշը %1$sում (%2$s) չափազանց բարձր է</string>
   <string name="yourPerfRatingIsTooLow">Ձեր վարկանիշը %1$sին (%2$s) մասնակցելու համար բավարար չէ</string>
   <string name="ratedMoreThanInPerf">Վարկանիշը ≥ %1$s %2$s-ում</string>
@@ -353,6 +354,7 @@
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
+  <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
