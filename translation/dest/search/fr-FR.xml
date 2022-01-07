@@ -29,4 +29,6 @@
   <string name="maxNumber">Nombre maximum</string>
   <string name="maxNumberExplanation">Nombre maximum de parties à retourner</string>
   <string name="include">Inclus</string>
+  <string name="descending">Décroissant</string>
+  <string name="ascending">Croissant</string>
 </resources>
