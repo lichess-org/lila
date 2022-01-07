@@ -203,6 +203,12 @@
     <item quantity="many">%s годин</item>
     <item quantity="other">%s годин</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s хвилина</item>
+    <item quantity="few">%s хвилини</item>
+    <item quantity="many">%s хвилин</item>
+    <item quantity="other">%s хвилин</item>
+  </plurals>
   <string name="time">Час</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Розподіл за рейтингом</string>
