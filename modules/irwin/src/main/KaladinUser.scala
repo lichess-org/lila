@@ -16,6 +16,8 @@ case class KaladinUser(
     response: Option[KaladinUser.Response] = None
 ) {
 
+  def id = _id
+
   def suspectId = SuspectId(_id)
 
   def recentlyQueued = queuedAt isAfter DateTime.now.minusWeeks(1)
@@ -58,10 +60,17 @@ object KaladinUser {
     case object Report           extends Requester(30)
   }
 
-  case class Response(at: DateTime, pred: Pred)
+  case class Response(at: DateTime, pred: Option[Pred], err: Option[String])
   // Pred, short for Predication, activation, float between 0 and 1,
   // the higher the more likely the user is cheating
-  case class Pred(activation: Float, insights: List[String], tc: Int)
+  case class Pred(activation: Float, insights: List[String], tc: Int) {
+    def percent = (activation * 100).toInt
+    def speed   = chess.Speed(tc)
+
+    def note: String = {
+      s"Kaladin activation: $percent in ${speed.fold("?")(_.name)}, because:" :: insights
+    } mkString ", "
+  }
 
   case class Dashboard(recent: List[KaladinUser]) {
 

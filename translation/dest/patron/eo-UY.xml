@@ -38,7 +38,6 @@ Aŭ vi povas %s.</string>
   <string name="contactSupport">kontaktu la subtenon de Lichess</string>
   <string name="otherMethods">Ĉu estas aliaj metodoj por donaci?</string>
   <string name="bankTransfers">Ni ankaŭ akceptas bankmandatojn</string>
-  <string name="bitcoin">Kaj jen nia bitcoin adreso: %s</string>
   <string name="patronFeatures">Ĉu iuj funkcioj estas rezervitaj por Patronoj?</string>
   <string name="noPatronFeatures">Ne, ĉar Lichess estas tute senpaga, por ĉiam kaj por ĉiuj. Tio estas promeso. 
 Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>

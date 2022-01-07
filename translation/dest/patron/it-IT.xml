@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Fai una donazione</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Dona come %s</string>
+  <string name="donateAsX">Dona come %s</string>
   <string name="lichessPatron">Patron di Lichess</string>
   <string name="freeAccount">Account gratis</string>
   <string name="becomePatron">Diventa un Mecenate di Lichess</string>
@@ -44,7 +44,6 @@ Oppure puoi %s.</string>
   <string name="contactSupport">contatta l\'assistenza di Lichess</string>
   <string name="otherMethods">Altri metodi di donazione?</string>
   <string name="bankTransfers">Accettiamo anche bonifici bancari</string>
-  <string name="bitcoin">Ed ecco il nostro indirizzo bitcoin: %s</string>
   <string name="patronFeatures">Alcune funzioni sono riservate ai Mecenati?</string>
   <string name="noPatronFeatures">No, perché Lichess è completamente gratuito, per sempre, e per tutti. Questa è una promessa.
 Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>

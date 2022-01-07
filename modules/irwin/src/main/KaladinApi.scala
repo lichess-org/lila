@@ -13,25 +13,36 @@ import lila.db.dsl._
 import lila.game.BinaryFormat
 import lila.game.GameRepo
 import lila.memo.CacheApi
+import lila.report.Mod
+import lila.report.ModId
+import lila.report.Report
+import lila.report.Reporter
 import lila.report.{ Suspect }
 import lila.tournament.Tournament
 import lila.tournament.TournamentTop
 import lila.user.Holder
 import lila.user.User
 import lila.user.UserRepo
+import lila.report.SuspectId
 
 final class KaladinApi(
     coll: AsyncColl @@ KaladinColl,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
-    insightApi: lila.insight.InsightApi
+    insightApi: lila.insight.InsightApi,
+    modApi: lila.mod.ModApi,
+    reportApi: lila.report.ReportApi,
+    notifyApi: lila.notify.NotifyApi,
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {
 
   import BSONHandlers._
+
+  lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 512, timeout = 2 minutes, name = "kaladinApi")
@@ -74,21 +85,83 @@ final class KaladinApi(
       }
     }
 
-  private[irwin] def monitorQueued: Funit = for {
-    errors <- coll {
-      _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
-        import framework._
-        Match($doc("response.err" $exists true)) -> List(GroupField("response.err")("nb" -> SumAll))
-      }
-        .map { res =>
-          for {
-            obj     <- res
-            errKind <- obj string "_id"
-            nb      <- obj int "nb"
-          } yield (errKind, nb)
+  private[irwin] def readResponses: Funit =
+    coll { coll =>
+      // hits a mongodb index
+      // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
+      coll
+        .find($doc("response.at" $exists true, "response.read" $ne true))
+        .sort($doc("response.at" -> 1))
+        .cursor[KaladinUser]()
+        .list(50)
+        .flatMap { docs =>
+          docs.nonEmpty ?? {
+            coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
+              lila.common.Future.applySequentially(docs)(readResponse)
+          }
+        }
+        .void
+    }
+
+  private def readResponse(user: KaladinUser): Funit = user.response ?? { res =>
+    res.pred match {
+      case Some(pred) =>
+        markOrReport(user, res, pred) >>- {
+          notification(user)
+          lila.mon.mod.kaladin.activation.record(pred.percent).unit
+        }
+      case None =>
+        fuccess {
+          res.err foreach { err =>
+            lila.mon.mod.kaladin.error(err).increment().unit
+          }
         }
     }
-    queued <- coll {
+  }
+
+  private def markOrReport(user: KaladinUser, res: KaladinUser.Response, pred: KaladinUser.Pred): Funit =
+    if (pred.percent >= thresholds.get().mark)
+      modApi.autoMark(user.suspectId, ModId.kaladin, pred.note) >>-
+        lila.mon.mod.kaladin.mark.increment().unit
+    else if (pred.percent >= thresholds.get().report) for {
+      suspect <- getSuspect(user.suspectId.value)
+      kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod
+      _ <- reportApi.create(
+        Report
+          .Candidate(
+            reporter = Reporter(kaladin.user),
+            suspect = suspect,
+            reason = lila.report.Reason.Cheat,
+            text = pred.note
+          )
+      )
+    } yield lila.mon.mod.kaladin.report.increment().unit
+    else funit
+
+  object notification {
+
+    private var subs = Map.empty[SuspectId, Set[ModId]]
+
+    def add(suspectId: SuspectId, modId: ModId): Unit =
+      subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
+
+    private[KaladinApi] def apply(user: KaladinUser): Funit =
+      subs.get(user.suspectId) ?? { modIds =>
+        subs = subs - user.suspectId
+        import lila.notify.{ KaladinDone, Notification }
+        modIds
+          .map { modId =>
+            notifyApi.addNotification(
+              Notification.make(Notification.Notifies(modId.value), KaladinDone(user.suspectId.value))
+            )
+          }
+          .sequenceFu
+          .void
+      }
+  }
+
+  private[irwin] def monitorQueued: Funit =
+    coll {
       _.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
@@ -100,15 +173,11 @@ final class KaladinApi(
             nb       <- obj int "nb"
           } yield (priority, nb)
         }
+    } map {
+      _ foreach { case (priority, nb) =>
+        lila.mon.mod.kaladin.queue(priority).update(nb)
+      }
     }
-  } yield {
-    errors foreach { case (errKind, nb) =>
-      lila.mon.mod.kaladin.queueErrors(errKind).update(nb)
-    }
-    queued foreach { case (priority, nb) =>
-      lila.mon.mod.kaladin.queue(priority).update(nb)
-    }
-  }
 
   private object hasEnoughRecentMoves {
     private val minMoves = 1050

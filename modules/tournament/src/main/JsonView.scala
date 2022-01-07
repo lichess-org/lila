@@ -1,6 +1,7 @@
 package lila.tournament
 
 import chess.format.FEN
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -13,6 +14,7 @@ import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
+import lila.memo.SettingStore
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
 import lila.user.{ LightUserApi, User }
@@ -30,7 +32,8 @@ final class JsonView(
     verify: Condition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
-    pause: Pause
+    pause: Pause,
+    reloadDelaySetting: SettingStore[Int] @@ TournamentReloadDelay
 )(implicit ec: ExecutionContext) {
 
   import JsonView._
@@ -110,7 +113,11 @@ final class JsonView(
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("teamStanding" -> teamStanding)
       .add("myTeam" -> myTeam)
-      .add("duelTeams" -> data.duelTeams) ++
+      .add("duelTeams" -> data.duelTeams)
+      .add("reloadDelay" -> {
+        val d = reloadDelaySetting.get()
+        d > 0 option d
+      }) ++
       full.?? {
         Json
           .obj(

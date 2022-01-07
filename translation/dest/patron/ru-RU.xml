@@ -46,7 +46,6 @@
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
-  <string name="bitcoin">И вот наш биткойн-кошелёк: %s</string>
   <string name="patronFeatures">Есть ли возможности только для спонсоров?</string>
   <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
 Однако, спонсор получает новую классную иконку профиля.</string>

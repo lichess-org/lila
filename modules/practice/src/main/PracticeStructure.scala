@@ -35,6 +35,7 @@ case class PracticeStructure(
 
 case class PracticeSection(
     id: String,
+    hide: Boolean,
     name: String,
     studies: List[PracticeStudy]
 ) {
@@ -49,6 +50,7 @@ case class PracticeSection(
 
 case class PracticeStudy(
     id: Study.Id, // study ID
+    hide: Boolean,
     name: String,
     desc: String,
     chapters: List[Chapter.IdName]
@@ -70,11 +72,13 @@ object PracticeStructure {
       sections = conf.sections.map { sec =>
         PracticeSection(
           id = sec.id,
+          hide = ~sec.hide,
           name = sec.name,
           studies = sec.studies.map { stu =>
             val id = Study.Id(stu.id)
             PracticeStudy(
               id = id,
+              hide = ~stu.hide,
               name = stu.name,
               desc = stu.desc,
               chapters = chapters

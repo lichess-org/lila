@@ -12,7 +12,7 @@
   <string name="strength">Niveau</string>
   <string name="toggleTheChat">Activer/désactiver la discussion</string>
   <string name="chat">Discussion</string>
-  <string name="resign">Abandonner</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Abandonner</string>
   <string name="checkmate">Échec et mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Blancs</string>
@@ -862,7 +862,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
-  <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
   <string name="noChat">Aucun salon de discussion</string>
   <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>

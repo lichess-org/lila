@@ -12,7 +12,7 @@
   <string name="strength">Sterkte</string>
   <string name="toggleTheChat">Chat aan-/uitzetten</string>
   <string name="chat">Chat</string>
-  <string name="resign">Geef op</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Geef op</string>
   <string name="checkmate">Schaakmat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Wit</string>
@@ -425,7 +425,7 @@
   <string name="youArePlaying">Je bent aan het spelen!</string>
   <string name="winRate">Win percentage</string>
   <string name="berserkRate">Berserk-percentage</string>
-  <string name="performance">Prestatie</string>
+  <string name="performance">Prestatierating</string>
   <string name="tournamentComplete">Toernooi voltooid</string>
   <string name="movesPlayed">Gespeelde zetten</string>
   <string name="whiteWins">Overwinningen met wit</string>
@@ -862,7 +862,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
   <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>
   <string name="embedsAvailable">Plak de URL van een partij of een studie om deze in te voegen.</string>
-  <string name="inYourLocalTimezone">In je eigen lokale tijdzone</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">In je eigen lokale tijdzone</string>
   <string name="tournChat">Toernooichat</string>
   <string name="noChat">Geen chat</string>
   <string name="onlyTeamLeaders">Alleen teamleiders</string>

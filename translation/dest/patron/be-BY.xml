@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ахвяраваць</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Ахвяраваць ад імя %s</string>
+  <string name="donateAsX">Ахвяраваць ад імя %s</string>
   <string name="lichessPatron">Спонсар Lichess</string>
   <string name="freeAccount">Бясплатны акаўнт</string>
   <string name="becomePatron">Стаць cпонсарам Lichess</string>
@@ -46,7 +46,6 @@
   <string name="contactSupport">звязацца са службай дапамогі Lichess</string>
   <string name="otherMethods">Іншыя шляхі ахвяравання?</string>
   <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
-  <string name="bitcoin">А вось тут наш біткоін-адрас: %s</string>
   <string name="patronFeatures">Можа нейкія ўнікальныя магчымасці прыдугледжаны для спонсараў?</string>
   <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бясплатны, назаўсёды і для кожнага. Гэта абяцанне.
 Аднак, спонсары атрымліваюць цудоўную іконку да профілю.</string>

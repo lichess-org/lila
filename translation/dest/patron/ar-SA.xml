@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">تبرع</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">تبرع باسم%s</string>
+  <string name="donateAsX">تبرع باسم%s</string>
   <string name="lichessPatron">راعي Lichess</string>
   <string name="freeAccount">حساب مجاني</string>
   <string name="becomePatron">كنّ راعياً في Lichess</string>
@@ -49,7 +49,6 @@
   <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
   <string name="otherMethods">طرق أخرى للتبرع؟</string>
   <string name="bankTransfers">نقبل ايضاً التحويلات المصرفية</string>
-  <string name="bitcoin">وهنا عنوان البيتكوين الخاص بنا: %s</string>
   <string name="patronFeatures">هل هناك بعض الميزات المخصصة للداعمين؟</string>
   <string name="noPatronFeatures">لا، لأن ليشيس مجاني، وإلى الأبد، ولكل شخص. هذا وعد.
 ومع ذلك، يحصل الداعمون على أيقونة جديدة رائعة.</string>

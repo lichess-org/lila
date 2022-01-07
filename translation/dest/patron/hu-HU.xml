@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Adakozz</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Adakozás mint %s</string>
+  <string name="donateAsX">Adakozás mint %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Támogasd a Lichesst</string>
@@ -44,7 +44,6 @@ Vagy ezügyben %s.</string>
   <string name="contactSupport">keress fel minket</string>
   <string name="otherMethods">Más adakozási lehetőségek?</string>
   <string name="bankTransfers">Elfogadunk banki átutalást is</string>
-  <string name="bitcoin">Ez pedig a bitcoin címünk: %s</string>
   <string name="patronFeatures">Vannak csak Patronok számára elérhető funkciók?</string>
   <string name="noPatronFeatures">Nincsenek, mivel a Lichess teljesen ingyenes, mindig, mindenkinek. Ezt megígérjük.
 Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>

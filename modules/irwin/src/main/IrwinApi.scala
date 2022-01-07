@@ -22,8 +22,10 @@ final class IrwinApi(
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
-    thresholds: lila.memo.SettingStore[IrwinThresholds]
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit ec: scala.concurrent.ExecutionContext) {
+
+  lazy val thresholds = IrwinThresholds.makeSetting("irwin", settingStore)
 
   import BSONHandlers._
 

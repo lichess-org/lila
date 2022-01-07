@@ -511,6 +511,31 @@ final class TournamentApi(
       }
     }
 
+  private[tournament] def recomputeEntireTournament(id: Tournament.ID): Funit =
+    tournamentRepo.byId(id) flatMap {
+      _ ?? { tour =>
+        import lila.db.dsl._
+        import reactivemongo.api.ReadPreference
+        playerRepo
+          .sortedCursor(tour.id, 64, ReadPreference.primary)
+          .documentSource()
+          .mapAsyncUnordered(4) { player =>
+            cached.sheet.recompute(tour, player.userId) dmap (player -> _)
+          }
+          .mapAsyncUnordered(4) { case (player, sheet) =>
+            playerRepo.update(
+              player.copy(
+                score = sheet.total,
+                fire = tour.streakable && sheet.isOnFire
+              )
+            )
+          }
+          .toMat(Sink.ignore)(Keep.right)
+          .run()
+          .void
+      }
+    }
+
   // erases player from tournament and reassigns winner
   private[tournament] def removePlayerAndRewriteHistory(tourId: Tournament.ID, userId: User.ID): Funit =
     Parallel(tourId, "removePlayerAndRewriteHistory")(tournamentRepo.finishedById) { tour =>

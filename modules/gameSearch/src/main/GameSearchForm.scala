@@ -4,13 +4,14 @@ import chess.Mode
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import play.api.i18n.Lang
 
 import lila.common.Form._
 import lila.search.Range
 
 final private[gameSearch] class GameSearchForm {
 
-  val search = Form(
+  def search(implicit lang: Lang) = Form(
     mapping(
       "players" -> mapping(
         "a"      -> optional(nonEmptyText),
@@ -38,7 +39,7 @@ final private[gameSearch] class GameSearchForm {
         "initMax" -> optional(numberIn(Query.clockInits)),
         "incMin"  -> optional(numberIn(Query.clockIncs)),
         "incMax"  -> optional(numberIn(Query.clockIncs))
-      )(SearchClock.apply)(SearchClock.unapply),
+      )(SearchClock.apply)(SearchClock.unapply _),
       "dateMin"  -> GameSearchForm.dateField,
       "dateMax"  -> GameSearchForm.dateField,
       "status"   -> optional(numberIn(Query.statuses)),
@@ -49,7 +50,7 @@ final private[gameSearch] class GameSearchForm {
           "order" -> stringIn(Sorting.orders)
         )(SearchSort.apply)(SearchSort.unapply)
       )
-    )(SearchData.apply)(SearchData.unapply)
+    )(SearchData.apply)(SearchData.unapply _)
   ) fill SearchData()
 }
 

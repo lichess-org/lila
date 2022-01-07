@@ -51,7 +51,7 @@ lichess.load.then(() => {
     $(this).html(
       $(this)
         .html()
-        .replace(/(?:https:\/\/)?lichess\.org\/([\w\/]+)/g, '<a href="/$1">lichess.org/$1</a>')
+        .replace(/(?:https:\/\/)?lichess\.org\/([\w\/:]+)/g, '<a href="/$1">lichess.org/$1</a>')
     );
   });
 

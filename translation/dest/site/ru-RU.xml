@@ -12,7 +12,7 @@
   <string name="strength">Сложность</string>
   <string name="toggleTheChat">Показывать окно чата</string>
   <string name="chat">Отправить сообщение</string>
-  <string name="resign">Сдаться</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Сдаться</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Белые</string>
@@ -100,6 +100,9 @@
   <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
+  <string name="winOr50MovesByPriorMistake">Победа или 50 ходов после последней ошибки</string>
+  <string name="lossOr50MovesByPriorMistake">Поражение или 50 ходов после последней ошибки</string>
+  <string name="unknownDueToRounding">Победа/поражение гарантируется только если рекомендуемая последовательность ходов была выполнена с момента последнего взятия фигуры или хода пешки из-за возможного округления значений DTZ в базах Syzygy.</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Импортировать в PGN</string>
   <string name="delete">Удалить</string>
@@ -936,7 +939,7 @@
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
   <string name="markdownAvailable">%s доступен для расширенного форматирования.</string>
   <string name="embedsAvailable">Вставьте URL игры или ссылку на студию, чтобы встроить её.</string>
-  <string name="inYourLocalTimezone">В вашем часовом поясе</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">В вашем часовом поясе</string>
   <string name="tournChat">Чат турнира</string>
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>

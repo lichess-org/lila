@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jugar amb un amic</string>
+  <string name="playWithAFriend">Juga amb un amic</string>
   <string name="playWithTheMachine">Juga amb la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
@@ -12,7 +12,7 @@
   <string name="strength">Força</string>
   <string name="toggleTheChat">Activa/Desactiva el xat</string>
   <string name="chat">Xat</string>
-  <string name="resign">Rendir-se</string>
+  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Rendir-se</string>
   <string name="checkmate">Escac i mat</string>
   <string name="stalemate">Ofegat</string>
   <string name="white">Blanques</string>
@@ -87,7 +87,7 @@
   <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
-    <item quantity="other">Mat en %s mig-moviments</item>
+    <item quantity="other">Escac i mat en %s mig-moviments</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\" amb arrodoniment, basat en el nombre de mig-moviments fins la propera captura o moviment de peó</string>
   <string name="noGameFound">No s\'ha trobat cap partida</string>
@@ -198,7 +198,7 @@
   <string name="passwordReset">Restablir la contrasenya</string>
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
-  <string name="rankX">Classificació: %s</string>
+  <string name="rankX">Posició: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">La classificació s\'actualitza cada minut</item>
     <item quantity="other">La classificació s\'actualitza cada %s minuts</item>
@@ -862,7 +862,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
   <string name="markdownAvailable">%s és disponible per a formats més avançats.</string>
   <string name="embedsAvailable">Enganxa un URL d\'un joc o d\'un capítol d\'estudi per incrustar-ho.</string>
-  <string name="inYourLocalTimezone">El la teva zona horària</string>
+  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">El la teva zona horària</string>
   <string name="tournChat">Xat del tornament</string>
   <string name="noChat">Desactivar xat</string>
   <string name="onlyTeamLeaders">Només per líders de l\'equip</string>
