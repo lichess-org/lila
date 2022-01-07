@@ -47,6 +47,11 @@ li {
   list-style: none;
 }
 
+ol li {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
 time {
   font-size: 90%;
   opacity: 0.9;
