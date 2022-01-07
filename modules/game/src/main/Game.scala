@@ -2,7 +2,6 @@ package lila.game
 
 import shogi.Color.{ Gote, Sente }
 import shogi.format.FEN
-import shogi.format.usi.Usi
 import shogi.opening.{ FullOpening, FullOpeningDB }
 import shogi.variant.{ FromPosition, Standard, Variant }
 import shogi.{

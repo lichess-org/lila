@@ -3,7 +3,7 @@ package lila.game
 import org.joda.time.DateTime
 import cats.data.Validated
 
-import shogi.format.{ FEN, ParsedMoves, Reader, Tag, Tags }
+import shogi.format.{ FEN, Reader, Tag, Tags }
 
 object Rewind {
 

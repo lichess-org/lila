@@ -4,7 +4,7 @@ import scala.util.chaining._
 import cats.data.NonEmptyList
 
 import shogi.format.FEN
-import shogi.{ Board, Centis, Role, Stats }
+import shogi.{ Board, Centis, Stats }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 

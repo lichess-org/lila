@@ -7,7 +7,6 @@ import shogi.{
   Pos,
   Color,
   Situation,
-  Hands,
   Move => ShogiMove,
   Drop => ShogiDrop,
   Clock => ShogiClock,

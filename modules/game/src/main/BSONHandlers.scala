@@ -1,7 +1,6 @@
 package lila.game
 
 import shogi.format.{ FEN, Forsyth }
-import shogi.format.usi.Usi
 import shogi.variant.Variant
 import shogi.{
   CheckCount,
