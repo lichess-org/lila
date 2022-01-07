@@ -91,10 +91,14 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
+  <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
   <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
+  <string name="winOr50MovesByPriorMistake">Հաղթանակ կամ 50 քայլ վերջին սխալից հետո</string>
+  <string name="lossOr50MovesByPriorMistake">Պարտություն կամ 50 քայլ վերջին սխալից հետո</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
@@ -177,6 +181,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ժամ</item>
     <item quantity="other">%s ժամ</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s րոպե</item>
+    <item quantity="other">%s րոպե</item>
   </plurals>
   <string name="time">Ժամանակ</string>
   <string name="rating">Վարկանիշ</string>
