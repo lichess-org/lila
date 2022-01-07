@@ -12,7 +12,7 @@
   <string name="strength">Schpiilstärchi</string>
   <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
   <string name="chat">Tschätt</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Schpiil ufgeh</string>
+  <string name="resign">Schpiil ufgeh</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Wiis</string>
@@ -863,7 +863,7 @@ Du chasch de %s verwende, zum e FEN-Schtelliig z\'generiere und die dänn do iiz
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
   <string name="embedsAvailable">Füeg zum Ibette e Spiil-URL oder e Studiekapitel-URL ii.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">I dinere eigene lokale Ziitzone</string>
+  <string name="inYourLocalTimezone">I dinere eigene lokale Ziitzone</string>
   <string name="tournChat">Turnier-Chat</string>
   <string name="noChat">Kein Chat</string>
   <string name="onlyTeamLeaders">Nur Teamleiter</string>
