@@ -12,7 +12,7 @@
   <string name="strength">Styrke</string>
   <string name="toggleTheChat">Chat av/på</string>
   <string name="chat">Praterom</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Gje opp</string>
+  <string name="resign">Gje opp</string>
   <string name="checkmate">Sjakk matt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Kvit</string>
@@ -863,7 +863,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
   <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
   <string name="embedsAvailable">Sett inn URLen til eit spel eller studiekapittel for å bygge det inn.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">I di tidssone</string>
+  <string name="inYourLocalTimezone">I di tidssone</string>
   <string name="tournChat">Turneringschat</string>
   <string name="noChat">Ikkje chat</string>
   <string name="onlyTeamLeaders">Berre lagleiarar</string>
