@@ -12,7 +12,7 @@
   <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
   <string name="chat">Chat</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Predaj partiju</string>
+  <string name="resign">Predaj partiju</string>
   <string name="checkmate">Šah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Bijeli</string>
@@ -902,7 +902,7 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="simulDescriptionHelp">Želite li nešto reći sudionicima?</string>
   <string name="markdownAvailable">%s je dostupan za napredniju sintaksu.</string>
   <string name="embedsAvailable">Zalijepite URL igre ili URL poglavlja studije da biste ga ugradili.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">U tvojoj vremenskoj zoni</string>
+  <string name="inYourLocalTimezone">U tvojoj vremenskoj zoni</string>
   <string name="tournChat">Turnirski razgovor</string>
   <string name="noChat">Nema razgovora</string>
   <string name="onlyTeamLeaders">Samo vođe timova</string>
