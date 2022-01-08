@@ -926,6 +926,10 @@ a ovplyvnia rating hráčov</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
   <string name="onlyTitled">Iba hráči s titulom</string>
   <string name="onlyTitledHelp">Požadovať oficiálny šachový titul na prihlásenie sa do turnaja</string>
+  <string name="positionInputHelp">Vložte platný FEN pre začatie každej partie z konkrétnej pozície!
+Funguje len pre štandardné partie, nie pre varianty.
+Môžete použiť %s na vygenerovanie FEN pozície a potom ju sem vložiť.
+Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
   <string name="simulDescription">Popis simultánky</string>
