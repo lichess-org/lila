@@ -931,6 +931,7 @@ Funguje len pre štandardné partie, nie pre varianty.
 Môžete použiť %s na vygenerovanie FEN pozície a potom ju sem vložiť.
 Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
+  <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
