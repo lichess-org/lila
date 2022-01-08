@@ -912,9 +912,13 @@
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
   <string name="tournDescription">Popis turnaja</string>
+  <string name="tournDescriptionHelp">Je niečo čo by ste chceli povedať účastníkom turnaja? Snažte sa byť stručný! Môžete použiť markdown značky: [name](https://url)</string>
+  <string name="ratedFormHelp">Partie sú hodnotené
+a ovplyvnia rating hráčov</string>
   <string name="onlyMembersOfTeam">Iba členovia tímu</string>
   <string name="noRestriction">Bez obmedzenia</string>
   <string name="minimumRatedGames">Minimum hodnotených hier</string>
