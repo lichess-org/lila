@@ -925,6 +925,7 @@ a ovplyvnia rating hráčov</string>
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
   <string name="onlyTitled">Iba hráči s titulom</string>
+  <string name="onlyTitledHelp">Požadovať oficiálny šachový titul na prihlásenie sa do turnaja</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
   <string name="simulDescription">Popis simultánky</string>
