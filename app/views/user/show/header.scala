@@ -253,7 +253,7 @@ object header {
       ),
       if (isGranted(_.ModNote))
         div(cls := "mod-note")(
-          submitButton(cls := "button")(trans.send()),
+          submitButton(cls := "button")(trans.save()),
           div(
             div(form3.cmnToggle("note-mod", "mod", checked = true)),
             label(`for` := "note-mod")("For moderators only")
@@ -266,7 +266,7 @@ object header {
       else
         frag(
           input(tpe := "hidden", name := "mod", value := "false"),
-          submitButton(cls := "button")(trans.send())
+          submitButton(cls := "button")(trans.save())
         )
     ),
     notes.isEmpty option div("No note yet"),
