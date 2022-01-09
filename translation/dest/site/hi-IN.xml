@@ -123,7 +123,7 @@
     <item quantity="other">%s गंभीर गल्तियां</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">%s गलती</item>
+    <item quantity="one">%s ग़लती</item>
     <item quantity="other">%s गलतियाँ</item>
   </plurals>
   <plurals name="nbInaccuracies">
