@@ -729,7 +729,7 @@
   </plurals>
   <string name="practiceWithComputer">कंप्यूटर के साथ अभ्यास</string>
   <string name="anotherWasX">%s भी अच्छे कदम थे</string>
-  <string name="bestWasX">सही चाल %s थे</string>
+  <string name="bestWasX">सबसे अच्छा चाल %s थे</string>
   <string name="youBrowsedAway">आप किसी और वेबसाइट को गया</string>
   <string name="resumePractice">अभ्यास जारी रखें</string>
   <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
