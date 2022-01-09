@@ -68,6 +68,7 @@
   <string name="realUniqueEmail">छात्र का वास्तविक, अद्वितीय ईमेल पता। हम खाते को मुक्त करने के लिंक के साथ इसे एक पुष्टिकरण ईमेल भेजेंगे</string>
   <string name="closeStudent">खातें को बंद करें</string>
   <string name="closeTheAccount">छात्र खाता हमेशा के लिए बंद करें।</string>
+  <string name="closeDesc1">छात्र इस खाते का उपयोग फिर कभी नहीं कर पायेगा। बंद करना स्थायी है। सुनिश्चित करें कि छात्र समझता है और सहमत है।</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>
