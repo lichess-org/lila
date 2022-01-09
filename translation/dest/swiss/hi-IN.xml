@@ -8,5 +8,6 @@
   <string name="nextRound">अगला दौर</string>
   <string name="numberOfRounds">दौर की संख्या</string>
   <string name="numberOfRoundsHelp">दौर की एक विषम संख्या इष्टतम रंग संतुलन की अनुमति देता है।</string>
+  <string name="newSwiss">नई स्विस प्रतियोगिता</string>
   <string name="pauseSwiss">हाँ, परन्तु यह दौर की संख्या को कम कर सकता है</string>
 </resources>
