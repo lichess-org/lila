@@ -33,4 +33,12 @@
   <string name="maxNumber">Максімальная колькасць</string>
   <string name="maxNumberExplanation">Максімальная колькасць гульняў, якія будуць вернуты</string>
   <string name="include">Уключыць</string>
+  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Па змяншэнні</string>
+  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Па ўзрастанні</string>
+  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+    <item quantity="one">%s гульня знойдзена</item>
+    <item quantity="few">%s гульні знойдзены</item>
+    <item quantity="many">%s гульняў знойдзена</item>
+    <item quantity="other">%s гульняў знойдзена</item>
+  </plurals>
 </resources>
