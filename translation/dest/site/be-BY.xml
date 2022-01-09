@@ -203,6 +203,12 @@
     <item quantity="many">%s гадзін</item>
     <item quantity="other">%s гадзін</item>
   </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="one">%s хвіліна</item>
+    <item quantity="few">%s хвіліны</item>
+    <item quantity="many">%s хвілін</item>
+    <item quantity="other">%s хвілін</item>
+  </plurals>
   <string name="time">Час</string>
   <string name="rating">Рэйтынг</string>
   <string name="ratingStats">Статыстыка па рэйтынгу</string>
