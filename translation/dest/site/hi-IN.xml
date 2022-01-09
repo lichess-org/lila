@@ -111,7 +111,7 @@
   <string name="bestMoveArrow">सर्वश्रेष्ठ कदम तीर</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
-  <string name="cpus">CPUs</string>
+  <string name="cpus">केंद्रीय संसाधन एकक (CPUs)</string>
   <string name="memory">मेमोरी</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
