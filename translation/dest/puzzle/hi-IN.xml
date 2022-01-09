@@ -14,8 +14,8 @@
   <string name="didYouLikeThisPuzzle">क्या आपको यह पहेली पसंद आई?</string>
   <string name="voteToLoadNextOne">अगले एक को लोड करने के लिए वोट दें!</string>
   <string name="yourPuzzleRatingWillNotChange">आपकी पज़ल रेटिङ नही बदलेगी।पज़ल एक स्पर्धा नही है रेटिङ आपके अनुकुल पज़ल चुनने मे मदद करती है।</string>
-  <string name="findTheBestMoveForWhite">सफेद रंग के लिए सबसे अच्छी चाल का पता लगाएं।</string>
-  <string name="findTheBestMoveForBlack">काले रंग के लिए सबसे अच्छी चाल का पता लगाएं।</string>
+  <string name="findTheBestMoveForWhite">सफेद रंग के लिए सर्वश्रेष्ठ चाल का पता लगाएं।</string>
+  <string name="findTheBestMoveForBlack">काले रंग के लिए सर्वश्रेष्ठ चाल का पता लगाएं।</string>
   <string name="toGetPersonalizedPuzzles">वैयक्तिकृत पहेलियाँ प्राप्त करने के लिए:</string>
   <string name="puzzleId">पहेलियाँ %s</string>
   <string name="puzzleOfTheDay">आज की पहेली</string>
