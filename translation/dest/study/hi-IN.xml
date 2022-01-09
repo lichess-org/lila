@@ -130,7 +130,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">संपूर्ण अध्ययन हटाएं? वहां से कोई वापसी नहीं है! पुष्टि करने के लिए अध्ययन का नाम टाइप करें:%s</string>
   <string name="whereDoYouWantToStudyThat">आप इसको खा से पड़ना चाहते है</string>
   <string name="goodMove">अच्छी चाल!</string>
-  <string name="mistake">गलती</string>
+  <string name="mistake">ग़लती</string>
   <string name="brilliantMove">अद्भुत चाल​।</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="interestingMove">दिलचस्प चाल​ |</string>
