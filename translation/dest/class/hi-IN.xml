@@ -67,6 +67,7 @@
   <string name="releaseDesc2">छात्र अपने खाते के मुक्त होने के बाद भी कक्षा में रहेगा।</string>
   <string name="realUniqueEmail">छात्र का वास्तविक, अद्वितीय ईमेल पता। हम खाते को मुक्त करने के लिंक के साथ इसे एक पुष्टिकरण ईमेल भेजेंगे</string>
   <string name="closeStudent">खातें को बंद करें</string>
+  <string name="closeTheAccount">छात्र खाता हमेशा के लिए बंद करें।</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>
