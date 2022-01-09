@@ -17,10 +17,10 @@
   <string name="manuallyReviewAdmissionRequestsHelp">Se selezionato, i giocatori dovranno scrivere una richiesta per unirsi alla squadra, che puoi rifiutare o accettare.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capogruppo</item>
-    <item quantity="other">Capogruppo</item>
+    <item quantity="other">Capigruppo</item>
   </plurals>
   <string name="teamRecentMembers">Membri più recenti</string>
-  <string name="kickSomeone">Calcia qualcuno fuori dalla squadra</string>
+  <string name="kickSomeone">Espelli qualcuno dalla squadra</string>
   <string name="whoToKick">Chi vuoi espellere dalla squadra?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s richiesta di adesione</item>
