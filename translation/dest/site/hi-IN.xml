@@ -97,8 +97,8 @@
   <string name="xOpeningExplorer">%s ओपनिंग एक्सप्लोरर</string>
   <string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
-  <string name="winOr50MovesByPriorMistake">जीत अथ्वा 50 चाल नियम पुरानी गलती के कारण​।</string>
-  <string name="lossOr50MovesByPriorMistake">हार​ अथ्वा 50 चाल नियम पुरानी गलती के कारण​।</string>
+  <string name="winOr50MovesByPriorMistake">जीत अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
+  <string name="lossOr50MovesByPriorMistake">हार​ अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
   <string name="allSet">सब तैयार!</string>
   <string name="importPgn">PGN आयात करें</string>
   <string name="delete">हटाएँ</string>
