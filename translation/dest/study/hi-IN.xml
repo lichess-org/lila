@@ -139,7 +139,7 @@
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">जबरन चाल</string>
   <string name="equalPosition">बराबर स्थिति</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">अस्पष्ट स्थिति</string>
-  <string name="whiteIsSlightlyBetter">सफेद थोड़ा सा बेहतर है|</string>
+  <string name="whiteIsSlightlyBetter">सफेद थोड़ा सा बेहतर है</string>
   <string name="blackIsSlightlyBetter">काला थोड़ा बेहतर है</string>
   <string name="whiteIsBetter">सफेद बेहतर है!</string>
   <string name="blackIsBetter">काला बेहतर है।</string>
