@@ -108,7 +108,7 @@
   <string name="byCPL">CPL द्वारा</string>
   <string name="openStudy">अध्ययन खोलो</string>
   <string name="enable">सक्षम करें</string>
-  <string name="bestMoveArrow">सर्वश्रेष्ठ कदम तीर</string>
+  <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
   <string name="cpus">केंद्रीय संसाधन एकक (CPUs)</string>
@@ -729,13 +729,13 @@
   </plurals>
   <string name="practiceWithComputer">कंप्यूटर के साथ अभ्यास</string>
   <string name="anotherWasX">%s भी अच्छे कदम थे</string>
-  <string name="bestWasX">सबसे अछी चाल %s थे</string>
+  <string name="bestWasX">सर्वश्रेष्ठ चाल %s थे</string>
   <string name="youBrowsedAway">आप किसी और वेबसाइट को गया</string>
   <string name="resumePractice">अभ्यास जारी रखें</string>
   <string name="theGameIsADraw">खेल ड्रॉ है ।</string>
   <string name="computerThinking">कंप्यूटर सोच...</string>
-  <string name="seeBestMove">सबसे अच्छा कदम देखें</string>
-  <string name="hideBestMove">सबसे अच्छा कदम छिपाएं</string>
+  <string name="seeBestMove">सर्वश्रेष्ठ चाल देखें</string>
+  <string name="hideBestMove">सर्वश्रेष्ठ चाल छिपाएं</string>
   <string name="getAHint">एक संकेत प्राप्त करें</string>
   <string name="evaluatingYourMove">कंप्यूटर आपके कदम का मूल्यांकन कर रहे हैं..</string>
   <string name="whiteWinsGame">सफेद जीत</string>
