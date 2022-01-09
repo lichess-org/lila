@@ -89,7 +89,7 @@
     <item quantity="one">%s हाफ मूव में मैच</item>
     <item quantity="other">%s आधे-कदम में चेकमैट</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' राउंडिंग के साथ, अगले कैप्चर या पॉन मूव तक आधे-चालों की संख्या के आधार पर</string>
+  <string name="dtzWithRounding">DTZ50\'\' गोलाई के साथ, अगले कब्ज़ा या प्यादा की चाल तक आधे-चालों की संख्या के आधार पर</string>
   <string name="noGameFound">कोई गेम नहीं मिला</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
