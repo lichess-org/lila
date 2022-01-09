@@ -5,6 +5,10 @@
     <item quantity="one">दौर देखें</item>
     <item quantity="other">सभी %s दौर देखें</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s दौर</item>
+    <item quantity="other">%s दौर</item>
+  </plurals>
   <string name="nextRound">अगला दौर</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">चल रहा खेल</item>
