@@ -187,6 +187,8 @@ case class Perfs(
 
   def dubiousPuzzle = {
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
+    puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
+    puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||
     puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > 1800)
   }
 }
