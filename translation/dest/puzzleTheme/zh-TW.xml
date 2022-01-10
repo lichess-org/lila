@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">升變兵</string>
+  <string name="advancedPawnDescription">你的其中一個兵已經深入了對方的棋位，或許要威脅升變。</string>
   <string name="advantage">擁有優勢</string>
   <string name="attackingF2F7">攻擊f2或f7</string>
   <string name="attraction">吸引</string>
   <string name="backRankMate">後排將死</string>
+  <string name="backRankMateDescription">在對方的王在底線被自身的棋子困住時，將殺對方的王</string>
   <string name="bishopEndgame">象殘局</string>
   <string name="bishopEndgameDescription">只剩象和兵的殘局</string>
   <string name="castling">易位</string>
