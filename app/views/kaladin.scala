@@ -109,7 +109,7 @@ object kaladin {
       ),
       response.pred.map { pred =>
         frag(
-          div("Insights (by order of relevance)"),
+          div("Top insights (by order of relevance)"),
           table(cls := "slist")(
             tbody(
               tr(cls := "text")(pred.insights.map { insight =>
