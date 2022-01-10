@@ -29,4 +29,6 @@
   <string name="maxNumber">En çok sayı</string>
   <string name="maxNumberExplanation">Getirilecek en çok oyun sayısı</string>
   <string name="include">Dahil et</string>
+  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Azalan</string>
+  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Artan</string>
 </resources>
