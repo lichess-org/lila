@@ -8,7 +8,7 @@
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Um jogo encontrado</item>
-    <item quantity="other">%s jogos encontrados</item>
+    <item quantity="other">%s partidas encontradas</item>
   </plurals>
   <string name="opponentName">Nome do oponente</string>
   <string name="loser">Perdedor</string>
