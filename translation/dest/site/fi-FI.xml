@@ -12,7 +12,7 @@
   <string name="strength">Vahvuus</string>
   <string name="toggleTheChat">Keskustelu päälle / pois</string>
   <string name="chat">Keskustelu</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Luovuta</string>
+  <string name="resign">Luovuta</string>
   <string name="checkmate">Shakkimatti</string>
   <string name="stalemate">Patti</string>
   <string name="white">Valkea</string>
@@ -182,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s tunti</item>
     <item quantity="other">%s tuntia</item>
+  </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="one">%s minuutti</item>
+    <item quantity="other">%s minuuttia</item>
   </plurals>
   <string name="time">Aika</string>
   <string name="rating">Vahvuusluku</string>
@@ -862,7 +866,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
   <string name="markdownAvailable">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
   <string name="embedsAvailable">Voit upottaa pelin tai tutkielman kappaleen liittämällä sen URL-osoitteen.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Omalla aikavyöhykkeelläsi</string>
+  <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
   <string name="tournChat">Turnauksen keskusteluhuone</string>
   <string name="noChat">Ei keskustelua</string>
   <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>

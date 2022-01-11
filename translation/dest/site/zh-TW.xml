@@ -806,4 +806,5 @@
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
   <string name="tournamentEntryCode">錦標賽參賽碼</string>
   <string name="abortTheGame">中止本局</string>
+  <string name="youCantStartNewGame">直到當下這局下完之前，你無法開始新的棋局</string>
 </resources>

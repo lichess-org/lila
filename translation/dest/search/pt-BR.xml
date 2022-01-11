@@ -8,7 +8,7 @@
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Um jogo encontrado</item>
-    <item quantity="other">%s jogos encontrados</item>
+    <item quantity="other">%s partidas encontradas</item>
   </plurals>
   <string name="opponentName">Nome do oponente</string>
   <string name="loser">Perdedor</string>
@@ -29,4 +29,10 @@
   <string name="maxNumber">Número máximo</string>
   <string name="maxNumberExplanation">O número máximo de jogos para retornar</string>
   <string name="include">Incluir</string>
+  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Decrescente</string>
+  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Crescente</string>
+  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+    <item quantity="one">%s partida encontrada</item>
+    <item quantity="other">%s partidas encontradas</item>
+  </plurals>
 </resources>

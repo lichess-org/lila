@@ -864,7 +864,7 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="simulDescriptionHelp">sina wile ala wile pana e sona tawa jan musi?</string>
   <string name="markdownAvailable">sina ken pali e ijo sin kepeken nasin \"%s\".</string>
   <string name="embedsAvailable">sina wile pana lukin e musi ni kepeken lipu ilo la, o pana e nimi \"URL\" musi anu nimi \"URL\" pi musi sona.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">tenpo pi ma tenpo sina</string>
+  <string name="inYourLocalTimezone">tenpo pi ma tenpo sina</string>
   <string name="tournChat">toki pi utala musi</string>
   <string name="noChat">toki ala</string>
   <string name="onlyTeamLeaders">jan lawa kulupu taso</string>

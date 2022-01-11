@@ -91,10 +91,14 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' կլորացումով` կախված կիսաքայլերի քանակից մինչև հաջորդ վերցնելը կամ զինվորի քայլը</string>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Փորձեք կարգավորումներում միացնել ավելի շատ խաղեր։</string>
   <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
+  <string name="openingEndgameExplorer">Սկզբնախաղերի/վերջնախաղերի տեղեկատու</string>
   <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
   <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
+  <string name="winOr50MovesByPriorMistake">Հաղթանակ կամ 50 քայլ վերջին սխալից հետո</string>
+  <string name="lossOr50MovesByPriorMistake">Պարտություն կամ 50 քայլ վերջին սխալից հետո</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
@@ -177,6 +181,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ժամ</item>
     <item quantity="other">%s ժամ</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s րոպե</item>
+    <item quantity="other">%s րոպե</item>
   </plurals>
   <string name="time">Ժամանակ</string>
   <string name="rating">Վարկանիշ</string>
@@ -320,6 +328,7 @@
     <item quantity="other">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ձեր վարկանիշը %s-ում դեռևս վավեր չէ</string>
+  <string name="yourPerfRatingIsTooHigh">Ձեր վարկանիշը %1$sում (%2$s) մասնակցելու համար չափազանց բարձր է</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ձեր ամենշաբաթյա վարկանիշը %1$sում (%2$s) չափազանց բարձր է</string>
   <string name="yourPerfRatingIsTooLow">Ձեր վարկանիշը %1$sին (%2$s) մասնակցելու համար բավարար չէ</string>
   <string name="ratedMoreThanInPerf">Վարկանիշը ≥ %1$s %2$s-ում</string>
@@ -345,6 +354,7 @@
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
+  <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
@@ -465,6 +475,7 @@
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
   <string name="descPrivate">Մասնավոր նկարագրություն</string>
+  <string name="descPrivateHelp">Նկարագրություն, որը կտեսնեն միայն ակումբի անդամները։ Եթե սահմանված է, ապա փոխարինում է ակումբի բոլոր անդամների հրապարակային նկարագրությունը։</string>
   <string name="no">Ոչ</string>
   <string name="yes">այո</string>
   <string name="help">Օգնություն.</string>

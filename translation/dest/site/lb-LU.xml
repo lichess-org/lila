@@ -183,6 +183,10 @@
     <item quantity="one">%s Stonn</item>
     <item quantity="other">%s Stonnen</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s Minutt</item>
+    <item quantity="other">%s Minutten</item>
+  </plurals>
   <string name="time">Zäit</string>
   <string name="rating">Wäertung</string>
   <string name="ratingStats">Wäertungsstatistiken</string>

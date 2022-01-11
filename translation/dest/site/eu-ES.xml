@@ -12,7 +12,7 @@
   <string name="strength">Indarra</string>
   <string name="toggleTheChat">Erakutsi/ezkutatu txata</string>
   <string name="chat">Txata</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Amore eman</string>
+  <string name="resign">Amore eman</string>
   <string name="checkmate">Xake mate</string>
   <string name="stalemate">Itoa</string>
   <string name="white">Zuria</string>
@@ -182,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s ordu</item>
     <item quantity="other">%s ordu</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">Minutu %s</item>
+    <item quantity="other">%s minutu</item>
   </plurals>
   <string name="time">Denbora</string>
   <string name="rating">Puntuazioa</string>
@@ -861,7 +865,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
   <string name="markdownAvailable">%s erabili dezakezu.</string>
   <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">Zure ordu-zonan</string>
+  <string name="inYourLocalTimezone">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>
   <string name="noChat">Txatik ez</string>
   <string name="onlyTeamLeaders">Taldeen kapitainak bakarrik</string>

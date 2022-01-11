@@ -12,7 +12,7 @@
   <string name="strength">Складанасць</string>
   <string name="toggleTheChat">Укл./адкл. чат</string>
   <string name="chat">Чат</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Здацца</string>
+  <string name="resign">Здацца</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Белыя</string>
@@ -202,6 +202,12 @@
     <item quantity="few">%s гадзіны</item>
     <item quantity="many">%s гадзін</item>
     <item quantity="other">%s гадзін</item>
+  </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="one">%s хвіліна</item>
+    <item quantity="few">%s хвіліны</item>
+    <item quantity="many">%s хвілін</item>
+    <item quantity="other">%s хвілін</item>
   </plurals>
   <string name="time">Час</string>
   <string name="rating">Рэйтынг</string>
@@ -940,7 +946,7 @@
   <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
   <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
   <string name="embedsAvailable">Устаўце спасылку на гульню ці спасылку на раздзел навучання каб убудаваць яе.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">У вашым часавым поясе</string>
+  <string name="inYourLocalTimezone">У вашым часавым поясе</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>

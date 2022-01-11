@@ -17,6 +17,8 @@
   <string name="stalemate">Gwalllamm</string>
   <string name="white">Ar re wenn</string>
   <string name="black">Ar re zu</string>
+  <string name="asWhite">gant ar re wenn</string>
+  <string name="asBlack">gant ar re zu</string>
   <string name="randomColor">Liv dre zegouezh</string>
   <string name="createAGame">Kregiñ gant ur c\'hrogad</string>
   <string name="whiteIsVictorious">Trec\'h eo ar re wenn</string>
@@ -50,6 +52,8 @@
   <string name="blackResigned">Ar re zu o deus dilezet</string>
   <string name="whiteLeftTheGame">Ar re wenn o deus kuitaet ar c\'hrogad</string>
   <string name="blackLeftTheGame">Ar re zu o deus kuitaet ar c\'hrogad</string>
+  <string name="whiteDidntMove">Ar re wenn n’o deus ket fiñvet</string>
+  <string name="blackDidntMove">Ar re zu n’o deus ket fiñvet</string>
   <string name="requestAComputerAnalysis">Goulenn un dielfennañ digant an urzhiataer</string>
   <string name="computerAnalysis">Dielfennadenn an urzhiataer</string>
   <string name="computerAnalysisAvailable">Gallout a rit dielfennañ gant an urzhiataer</string>
@@ -508,6 +512,7 @@
   <string name="firstName">Anv</string>
   <string name="lastName">Anv familh</string>
   <string name="biography">Diwar ho penn</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bro pe vanniel</string>
   <string name="thankYou">Trugarez!</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>
   <string name="inlineNotation">Notennoù en-linenn</string>
@@ -880,6 +885,7 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="welcome">Degemer mat!</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
   <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
   <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>

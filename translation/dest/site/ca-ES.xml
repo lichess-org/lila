@@ -12,7 +12,7 @@
   <string name="strength">Força</string>
   <string name="toggleTheChat">Activa/Desactiva el xat</string>
   <string name="chat">Xat</string>
-  <string name="resign" comment="resign&#10;&#10;Appears as hover text on the flag button, during the game. Clicking this will let you resign the game.">Rendir-se</string>
+  <string name="resign">Rendir-se</string>
   <string name="checkmate">Escac i mat</string>
   <string name="stalemate">Ofegat</string>
   <string name="white">Blanques</string>
@@ -182,6 +182,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s hora</item>
     <item quantity="other">%s hores</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="other">%s minuts</item>
   </plurals>
   <string name="time">Temps</string>
   <string name="rating">Puntuació</string>
@@ -862,7 +866,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
   <string name="markdownAvailable">%s és disponible per a formats més avançats.</string>
   <string name="embedsAvailable">Enganxa un URL d\'un joc o d\'un capítol d\'estudi per incrustar-ho.</string>
-  <string name="inYourLocalTimezone" comment="inYourLocalTimezone&#10;&#10;In the &quot;New Swiss tournament&quot; creation form, there is a &quot;Tournament start date&quot; field. This is the help text for that field, indicating that the date should be specified in the user's timezone.">El la teva zona horària</string>
+  <string name="inYourLocalTimezone">El la teva zona horària</string>
   <string name="tournChat">Xat del tornament</string>
   <string name="noChat">Desactivar xat</string>
   <string name="onlyTeamLeaders">Només per líders de l\'equip</string>

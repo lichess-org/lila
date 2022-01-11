@@ -183,6 +183,10 @@
     <item quantity="one">%s hour</item>
     <item quantity="other">%s hours</item>
   </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="one">%s minute</item>
+    <item quantity="other">%s minutes</item>
+  </plurals>
   <string name="time">Time</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>

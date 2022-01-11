@@ -183,6 +183,10 @@
     <item quantity="one">%s часа</item>
     <item quantity="other">%s часа</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минута</item>
+    <item quantity="other">%s минути</item>
+  </plurals>
   <string name="time">Време</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистика</string>

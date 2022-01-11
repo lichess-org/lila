@@ -170,6 +170,9 @@
   <plurals name="nbHours">
     <item quantity="other">%s jam</item>
   </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="other">%s menit</item>
+  </plurals>
   <string name="time">Waktu</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Statistik rating</string>
@@ -844,4 +847,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="abortTheGame">Batalkan permainan</string>
   <string name="resignTheGame">Menyerah dari permainan</string>
   <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
+  <string name="since">Sejak</string>
+  <string name="until">Hingga</string>
+  <string name="switchSides">Tukar Sisi</string>
 </resources>

@@ -130,7 +130,7 @@
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">संपूर्ण अध्ययन हटाएं? वहां से कोई वापसी नहीं है! पुष्टि करने के लिए अध्ययन का नाम टाइप करें:%s</string>
   <string name="whereDoYouWantToStudyThat">आप इसको खा से पड़ना चाहते है</string>
   <string name="goodMove">अच्छी चाल!</string>
-  <string name="mistake">गलती</string>
+  <string name="mistake">ग़लती</string>
   <string name="brilliantMove">अद्भुत चाल​।</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="interestingMove">दिलचस्प चाल​ |</string>
@@ -139,7 +139,7 @@
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">जबरन चाल</string>
   <string name="equalPosition">बराबर स्थिति</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">अस्पष्ट स्थिति</string>
-  <string name="whiteIsSlightlyBetter">सफेद थोड़ा सा बेहतर है|</string>
+  <string name="whiteIsSlightlyBetter">सफेद थोड़ा सा बेहतर है</string>
   <string name="blackIsSlightlyBetter">काला थोड़ा बेहतर है</string>
   <string name="whiteIsBetter">सफेद बेहतर है!</string>
   <string name="blackIsBetter">काला बेहतर है।</string>
@@ -161,4 +161,7 @@
   <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">लोकप्रिय विषय</string>
   <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">विषय प्रबंधन</string>
   <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">पीछे</string>
+  <string name="playAgain">फिर से खेलेंगे?</string>
+  <string name="whatWouldYouPlay">आप इस स्थिति में क्या खेलेंगे?</string>
+  <string name="youCompletedThisLesson">बधाई हो! आपने यह सबक पूरा कर लिया है।</string>
 </resources>
