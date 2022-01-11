@@ -68,7 +68,7 @@ final class KaladinApi(
   } yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect, by: Holder) =
-    request(user, KaladinUser.Requester.Mod(by.id))
+    request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, ModId(by.id))
 
   def request(user: Suspect, requester: KaladinUser.Requester) =
     sequence[Unit](user) { prev =>
