@@ -193,7 +193,7 @@
     <item quantity="one">%s stunda</item>
     <item quantity="other">%s stundas</item>
   </plurals>
-  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+  <plurals name="nbMinutes">
     <item quantity="zero">%s minūšu</item>
     <item quantity="one">%s minūte</item>
     <item quantity="other">%s minūtes</item>
