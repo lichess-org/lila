@@ -13,6 +13,7 @@
   <string name="pgnLetter">Buächschtabä (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zän Modus</string>
   <string name="showPlayerRatings">Wertigszahl vo Spieler ahzeigä</string>
+  <string name="explainShowPlayerRatings">Das erlaubt s\'Usblände vu allne Wertige uf de Site und hilft, sich ufs Schach z\'konzentriere. Partie chönd immer no bewertet werde, es gaht nur um das, was du gsesch.</string>
   <string name="displayBoardResizeHandle">Regler zum Ändärä vodä Brättgrössi aazeigä</string>
   <string name="onlyOnInitialPosition">Nur idä Aafangsschtellig</string>
   <string name="blindfoldChess">Blindschach (unsichtbari Figurä)</string>
@@ -31,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Zugrücknahm (mit Erlaubnis vom Gegner)</string>
   <string name="inCasualGamesOnly">Nur in ungwärtätä Partiiä</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Damä</string>
+  <string name="explainPromoteToQueenAutomatically">Druck dTaschte &lt;ctrl&gt; während de Werbig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruuszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiär automatisch Remis bi drüfacher Schtelligswiderholig</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Räschtziit &lt; 30 Sekundä</string>
