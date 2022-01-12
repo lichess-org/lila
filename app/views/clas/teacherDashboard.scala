@@ -269,7 +269,7 @@ object teacherDashboard {
           students.sortBy(_.user.username).map { case s @ Student.WithUser(student, user) =>
             tr(
               studentTd(c, s),
-              td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
+              td(dataSort := user.perfs.bestRating, cls := "rating")(user.bestAny3Perfs.map {
                 showPerfRating(user, _)
               }),
               td(user.count.game.localize),
