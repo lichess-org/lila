@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights">Introspection échiquéenne de %s</string>
-  <string name="xHasNoChessInsights">%s n\'a pas encore d\'introspection échiquéenne!</string>
-  <string name="insightsAreProtected">L\'introspection échiquéenne de %s est protégée</string>
-  <string name="cantSeeInsights">Pardon, mais vous ne pouvez pas voir l\'introspection échiquéenne de %s.</string>
-  <string name="generateInsights">Générer l\'introspection échiquéenne de %s.</string>
-  <string name="crunchingData">Analyse de vos données!</string>
-  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Peut-être pouvez-vous leur demander de changer leurs %s?</string>
-  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">paramétrisation de l\'introspection</string>
+  <string name="xChessInsights">Synthèse des parties de %s</string>
+  <string name="xHasNoChessInsights">%s n\'a pas encore de synthèse de ses parties !</string>
+  <string name="insightsAreProtected">La synthèse des parties %s est protégée</string>
+  <string name="cantSeeInsights">Désolé, mais vous ne pouvez pas voir la synthèse des parties de %s.</string>
+  <string name="generateInsights">Générer la synthèse des parties de %s.</string>
+  <string name="crunchingData">Analyse de vos données !</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Peut-être pouvez-vous leur demander de changer leurs %s ?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">paramétrisation de la synthèse des parties</string>
 </resources>
