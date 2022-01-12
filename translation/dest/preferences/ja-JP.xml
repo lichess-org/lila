@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">チェス駒シンボル</string>
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
-  <string name="showPlayerRatings" comment="showPlayerRatings&#10;&#10;This is a yes/no setting.&#10;&#10;It lets you show or hide player ratings anywhere on the website. It was introduced as some players have their play affected by their opponent's rating.">レーティングを表示</string>
+  <string name="showPlayerRatings">レーティングを表示</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
