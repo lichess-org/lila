@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">%s sin sjakkforståing</string>
+  <string name="xHasNoChessInsights">%s har så langt ikkje fått vurdert si sjakkforståing!</string>
+  <string name="insightsAreProtected">%s sin sjakkforståing er skjult</string>
+  <string name="cantSeeInsights">Vi ser oss lei for at du ikkje får sjå %s sin sjakkinnsikt.</string>
+</resources>
