@@ -29,9 +29,9 @@
   <string name="maxNumber">Maksimimäärä</string>
   <string name="maxNumberExplanation">Haettavien pelien maksimimäärä</string>
   <string name="include">Sisältää</string>
-  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Laskeva</string>
-  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Nouseva</string>
-  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+  <string name="descending">Laskeva</string>
+  <string name="ascending">Nouseva</string>
+  <plurals name="gamesFound">
     <item quantity="one">Löytyi %s peli</item>
     <item quantity="other">Löytyi %s peliä</item>
   </plurals>
