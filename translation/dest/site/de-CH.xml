@@ -461,6 +461,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flaggä</string>
   <string name="thankYou">Vilä Dank!</string>
   <string name="socialMediaLinks">Soziali-Mediä-Links</string>
+  <string name="oneUrlPerLine">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Online-Schpiller</string>
