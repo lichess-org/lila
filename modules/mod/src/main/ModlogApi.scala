@@ -283,7 +283,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: User.ID): Fu[Int] =
-    coll.countSel(
+    coll.secondaryPreferred.countSel(
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
@@ -292,7 +292,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     )
 
   def countRecentRatingManipulationsWarnings(userId: User.ID): Fu[Int] =
-    coll.countSel(
+    coll.secondaryPreferred.countSel(
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
