@@ -44,6 +44,11 @@ main.importer {
       color: red;
     }
 
+    pre.error {
+      overflow-x: auto;
+      padding-bottom: 1em;
+    }
+
     .wait {
       display: none;
     }

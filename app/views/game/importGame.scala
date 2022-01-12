@@ -38,7 +38,7 @@ object importGame {
               .fold(
                 err =>
                   frag(
-                    code(cls := "error")(err),
+                    pre(cls := "error")(err),
                     br,
                     br
                   ).some,
