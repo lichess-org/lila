@@ -395,6 +395,7 @@ val `clockInitialTime` = new I18nKey("clockInitialTime")
 val `clockIncrement` = new I18nKey("clockIncrement")
 val `privacy` = new I18nKey("privacy")
 val `privacyPolicy` = new I18nKey("privacyPolicy")
+val `privacySettings` = new I18nKey("privacySettings")
 val `letOtherPlayersFollowYou` = new I18nKey("letOtherPlayersFollowYou")
 val `letOtherPlayersChallengeYou` = new I18nKey("letOtherPlayersChallengeYou")
 val `letOtherPlayersInviteYouToStudy` = new I18nKey("letOtherPlayersInviteYouToStudy")
@@ -2290,6 +2291,18 @@ val `imageCredit` = new I18nKey("ublog:imageCredit")
 val `publishedNbBlogPosts` = new I18nKey("ublog:publishedNbBlogPosts")
 val `nbViews` = new I18nKey("ublog:nbViews")
 val `viewAllNbPosts` = new I18nKey("ublog:viewAllNbPosts")
+
+}
+
+object insight {
+val `xChessInsights` = new I18nKey("insight:xChessInsights")
+val `xHasNoChessInsights` = new I18nKey("insight:xHasNoChessInsights")
+val `insightsAreProtected` = new I18nKey("insight:insightsAreProtected")
+val `cantSeeInsights` = new I18nKey("insight:cantSeeInsights")
+val `generateInsights` = new I18nKey("insight:generateInsights")
+val `crunchingData` = new I18nKey("insight:crunchingData")
+val `maybeAskThemToChangeTheir` = new I18nKey("insight:maybeAskThemToChangeTheir")
+val `insightsSettings` = new I18nKey("insight:insightsSettings")
 
 }
 
