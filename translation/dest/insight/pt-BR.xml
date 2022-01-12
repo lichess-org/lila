@@ -5,4 +5,6 @@
   <string name="insightsAreProtected">Os insights de xadrez de %s estão protegidos</string>
   <string name="cantSeeInsights">Desculpe, você não pode ver os insights de %s.</string>
   <string name="generateInsights">Gerar os insights de xadrez de %s.</string>
+  <string name="crunchingData">Processando os dados para você!</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">configurações de insights</string>
 </resources>
