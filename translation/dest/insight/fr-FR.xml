@@ -7,5 +7,5 @@
   <string name="generateInsights">Générer la synthèse des parties de %s.</string>
   <string name="crunchingData">Analyse de vos données !</string>
   <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Peut-être pouvez-vous leur demander de changer leurs %s ?</string>
-  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">paramétrisation de la synthèse des parties</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">paramétrage de la synthèse des parties</string>
 </resources>
