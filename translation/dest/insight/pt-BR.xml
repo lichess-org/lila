@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">Insights de xadrez de %s</string>
+  <string name="xHasNoChessInsights">%s não tem insights de xadrez ainda!</string>
+  <string name="insightsAreProtected">Os insights de xadrez de %s estão protegidos</string>
+  <string name="cantSeeInsights">Desculpe, você não pode ver os insights de %s.</string>
+  <string name="generateInsights">Gerar os insights de xadrez de %s.</string>
+</resources>
