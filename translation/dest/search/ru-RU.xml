@@ -41,4 +41,5 @@
     <item quantity="many">Найдено %s партий</item>
     <item quantity="other">Найдено %s партий</item>
   </plurals>
+  <string name="ratingExplanation">Средний рейтинг обоих игроков</string>
 </resources>
