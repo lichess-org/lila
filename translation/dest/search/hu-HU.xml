@@ -35,4 +35,5 @@
     <item quantity="one">%s talált játszma</item>
     <item quantity="other">%s talált játszma</item>
   </plurals>
+  <string name="ratingExplanation">Mindkét játékos átlagos értékszáma</string>
 </resources>
