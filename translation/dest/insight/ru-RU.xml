@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xChessInsights">Шахматная аналитика %s</string>
+  <string name="xHasNoChessInsights">У %s пока нет аналитики!</string>
+  <string name="insightsAreProtected">У %s аналитика защищена от просмотра</string>
   <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Может быть, попросить их изменить их %s?</string>
 </resources>
