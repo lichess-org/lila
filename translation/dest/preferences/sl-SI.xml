@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Popravljanje potez (z dovoljenjem nasprotnika)</string>
   <string name="inCasualGamesOnly">Samo pri nerangiranih partijah</string>
   <string name="promoteToQueenAutomatically">Vedno promoviraj v damo</string>
+  <string name="explainPromoteToQueenAutomatically">Pridržite ctrl med promocijo, da začasno onemogočite samodejno promocijo</string>
   <string name="whenPremoving">Pri predpremiku poteze</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>
