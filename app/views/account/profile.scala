@@ -4,15 +4,16 @@ package account
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import play.api.i18n.Lang
 
 import controllers.routes
 
 object profile {
 
-  private val linksHelp = frag(
+  private def linksHelp()(implicit lang: Lang) = frag(
     "Twitter, Facebook, GitHub, Chess.com, ...",
     br,
-    "One URL per line."
+    trans.oneUrlPerLine()
   )
 
   def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
@@ -49,7 +50,7 @@ object profile {
               )(form3.input(_, typ = "number"))
             }
           ),
-          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp)) { f =>
+          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp())) { f =>
             form3.textarea(f)(rows := 5)
           },
           form3.action(form3.submit(trans.apply()))

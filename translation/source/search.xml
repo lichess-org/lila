@@ -35,4 +35,5 @@
     <item quantity="one">%s game found</item>
     <item quantity="other">%s games found</item>
   </plurals>
+  <string name="ratingExplanation">The average rating of both players</string>
 </resources>
