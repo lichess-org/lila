@@ -35,4 +35,5 @@
     <item quantity="one">Löytyi %s peli</item>
     <item quantity="other">Löytyi %s peliä</item>
   </plurals>
+  <string name="ratingExplanation">Molempien pelaajien vahvuuslukujen keskiarvo</string>
 </resources>
