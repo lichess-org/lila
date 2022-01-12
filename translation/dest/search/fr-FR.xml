@@ -35,4 +35,5 @@
     <item quantity="one">%s partie trouvée</item>
     <item quantity="other">%s parties trouvées</item>
   </plurals>
+  <string name="ratingExplanation">Le classement moyen des deux joueurs</string>
 </resources>
