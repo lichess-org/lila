@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">%s\'s schaakinzichten</string>
+  <string name="xHasNoChessInsights">%s heeft nog geen schaakinzichten!</string>
+  <string name="insightsAreProtected">De schaakinzichten van %s zijn beschermd</string>
+  <string name="cantSeeInsights">Sorry, u kunt de inzichten van %s niet zien.</string>
+  <string name="generateInsights">Genereer %s\'s schaakinzichten.</string>
+  <string name="crunchingData">Gegevens worden berekend!</string>
+</resources>
