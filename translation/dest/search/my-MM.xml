@@ -4,4 +4,5 @@
   <plurals name="gamesFound">
     <item quantity="other">ကစားပွဲ %s ခု တွေ့သည်</item>
   </plurals>
+  <string name="ratingExplanation">ကစားသမား နှစ်ဦးတို့ရဲ့ ပျမ်းမျှ လက်ရည်အမှတ်များ</string>
 </resources>
