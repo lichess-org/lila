@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">待ったあり（相手が同意すれば）</string>
   <string name="inCasualGamesOnly">非レート戦のみ</string>
   <string name="promoteToQueenAutomatically">自動的にクイーンに昇格する</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">&lt;ctrl&gt; キーを押しながら昇格させると、Q への自動昇格を一時的に無効にできます</string>
   <string name="whenPremoving">プリムーブをした場合</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">持時間が残り30秒以下の場合</string>
