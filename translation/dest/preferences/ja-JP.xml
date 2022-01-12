@@ -13,6 +13,7 @@
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
   <string name="showPlayerRatings">レーティングを表示</string>
+  <string name="explainShowPlayerRatings" comment="explainShowPlayerRatings&#10;&#10;A site-wide setting: https://lichess.org/account/preferences/site">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
