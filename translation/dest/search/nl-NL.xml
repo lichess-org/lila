@@ -35,4 +35,5 @@
     <item quantity="one">%s partij gevonden</item>
     <item quantity="other">%s partijen gevonden</item>
   </plurals>
+  <string name="ratingExplanation">De gemiddelde rating van beide spelers</string>
 </resources>
