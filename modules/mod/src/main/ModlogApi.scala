@@ -3,6 +3,7 @@ package lila.mod
 import org.joda.time.DateTime
 
 import lila.db.dsl._
+import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
@@ -286,6 +287,16 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
+        "date" $gte DateTime.now.minusMonths(6)
+      )
+    )
+
+  def countRecentRatingManipulationsWarnings(userId: User.ID): Fu[Int] =
+    coll.countSel(
+      $doc(
+        "user"   -> userId,
+        "action" -> Modlog.modMessage,
+        $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
         "date" $gte DateTime.now.minusMonths(6)
       )
     )
