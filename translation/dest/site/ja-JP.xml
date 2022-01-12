@@ -429,6 +429,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">URL は 1 行に 1 個です。</string>
   <string name="inlineNotation">棋譜を行書き</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>
