@@ -6,4 +6,6 @@
   <string name="cantSeeInsights">Sorry, u kunt de inzichten van %s niet zien.</string>
   <string name="generateInsights">Genereer %s\'s schaakinzichten.</string>
   <string name="crunchingData">Gegevens worden berekend!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Vraag hun wellicht om hun %s te veranderen?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">instellingen schaakinzichten</string>
 </resources>
