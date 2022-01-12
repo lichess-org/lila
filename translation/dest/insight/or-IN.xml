@@ -5,5 +5,6 @@
   <string name="insightsAreProtected">%sଙ୍କ ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି ସୁରକ୍ଷିତ ଅଛି</string>
   <string name="cantSeeInsights">ଦୁଃଖିତ, ଆପଣ %sଙ୍କ ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି ଦେଖିପାରିବେ ନାହିଁ।</string>
   <string name="generateInsights">%sଙ୍କ ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି ସୃଷ୍ଟି କରନ୍ତୁ।</string>
+  <string name="crunchingData">ଏବେ କେବଳ ଆପଣଙ୍କ ପାଇଁ ଡାଟା କ୍ରଞ୍ଚ କରୁଛି!</string>
   <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ଅନ୍ତର୍ଦୃଷ୍ଟି ସେଟିଂସ୍</string>
 </resources>
