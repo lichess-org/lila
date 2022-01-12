@@ -31,6 +31,7 @@
   <string name="takebacksWithOpponentApproval">Cofanie ruchów (za zgodą przeciwnika)</string>
   <string name="inCasualGamesOnly">Tylko w grach towarzyskich</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
+  <string name="explainPromoteToQueenAutomatically">Przytrzymaj klawisz &lt;ctrl&gt; podczas promocji pionka, aby tymczasowo wyłączyć automatyczną przemianę w hetmana</string>
   <string name="whenPremoving">W czasie ruchu planowanego</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
