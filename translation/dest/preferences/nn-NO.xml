@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motspelaren)</string>
   <string name="inCasualGamesOnly">Berre i parti som ikkje påverkar rating</string>
   <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
+  <string name="explainPromoteToQueenAutomatically">Hald &lt;ctrl&gt;-tasten nede under bondeomvandlinga for å deaktivera auto-omvandlinga mellombels</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
