@@ -35,4 +35,5 @@
     <item quantity="one">S\'ha trobat %s partida</item>
     <item quantity="other">S\'han trobat %s partides</item>
   </plurals>
+  <string name="ratingExplanation">La puntuació mijta dels dos jugadors</string>
 </resources>
