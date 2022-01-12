@@ -31,6 +31,7 @@
   <string name="takebacksWithOpponentApproval">Angre trekk (med motstanders godkjennelse)</string>
   <string name="inCasualGamesOnly">Bare for uformelle partier</string>
   <string name="promoteToQueenAutomatically">Forvandle til dronning automatisk</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Hold &lt;ctrl&gt;-tasten nede under bondeforvandlingen for å unngå auto-dronning</string>
   <string name="whenPremoving">Ved bruk av førtrekk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når gjenværende tid &lt; 30 sekunder</string>
