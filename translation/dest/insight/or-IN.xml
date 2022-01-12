@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">%sଙ୍କ ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି</string>
+  <string name="xHasNoChessInsights">%sଙ୍କର ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି ନାହିଁ!</string>
+  <string name="insightsAreProtected">%sଙ୍କ ଚେସ୍ ଅନ୍ତର୍ଦୃଷ୍ଟି ସୁରକ୍ଷିତ ଅଛି</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ଅନ୍ତର୍ଦୃଷ୍ଟି ସେଟିଂସ୍</string>
+</resources>
