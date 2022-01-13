@@ -138,15 +138,15 @@ object mon {
     }
     object move {
       object lag {
-        val compDeviation                    = histogram("round.move.lag.comp_deviation").withoutTags()
-        def uncomped(key: String)            = histogram("round.move.lag.uncomped_ms").withTag("key", key)
-        def uncompStdDev(key: String)        = histogram("round.move.lag.uncomp_stdev_ms").withTag("key", key)
-        val stdDev                           = histogram("round.move.lag.stddev_ms").withoutTags()
-        val mean                             = histogram("round.move.lag.mean_ms").withoutTags()
-        val coefVar                          = histogram("round.move.lag.coef_var_1000").withoutTags()
-        val compEstStdErr                    = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
-        val compEstOverErr                   = histogram("round.move.lag.avg_over_error_ms").withoutTags()
-        def moveCompByUserId(userId: String) = timer("round.move.lag.compedByUserId").withTag("user", userId)
+        val compDeviation             = histogram("round.move.lag.comp_deviation").withoutTags()
+        def uncomped(key: String)     = histogram("round.move.lag.uncomped_ms").withTag("key", key)
+        def uncompStdDev(key: String) = histogram("round.move.lag.uncomp_stdev_ms").withTag("key", key)
+        val stdDev                    = histogram("round.move.lag.stddev_ms").withoutTags()
+        val mean                      = histogram("round.move.lag.mean_ms").withoutTags()
+        val coefVar                   = histogram("round.move.lag.coef_var_1000").withoutTags()
+        val compEstStdErr             = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
+        val compEstOverErr            = histogram("round.move.lag.avg_over_error_ms").withoutTags()
+        val moveComp                  = timer("round.move.lag.comped").withoutTags()
       }
       val time = timer("round.move.time").withoutTags()
     }

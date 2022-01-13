@@ -24,9 +24,6 @@ final private class Player(
   private case class MoveApplied(progress: Progress, move: MoveOrDrop, compedLag: Option[Centis])
       extends MoveResult
 
-  private def monitorUserLag(userId: User.ID) =
-    userId == "thibault" || userId.hashCode % 3500 == 0 // same on lila-ws
-
   private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
       pov: Pov
   )(implicit proxy: GameProxy): Fu[Events] =
@@ -43,11 +40,9 @@ final private class Player(
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
                 case MoveApplied(progress, moveOrDrop, compedLag) =>
-                  for {
-                    lag    <- compedLag
-                    userId <- pov.player.userId
-                    if monitorUserLag(userId)
-                  } lila.mon.round.move.lag.moveCompByUserId(userId).record(lag.millis, TimeUnit.MILLISECONDS)
+                  compedLag foreach { lag =>
+                    lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
+                  }
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, moveOrDrop)
               }
