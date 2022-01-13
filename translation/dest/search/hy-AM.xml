@@ -29,4 +29,10 @@
   <string name="maxNumber">Առավելագույն քանակ</string>
   <string name="maxNumberExplanation">Վերադարձի համար անհրաժեշտ պարտիաների առավելագույն քանակ</string>
   <string name="include">Ներառյալ</string>
+  <string name="descending">Նվազման կարգով</string>
+  <string name="ascending">Աճման կարգով</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Գտնվել է %s պարտիա</item>
+    <item quantity="other">Գտնվել է %s պարտիա</item>
+  </plurals>
 </resources>

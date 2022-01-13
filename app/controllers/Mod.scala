@@ -35,6 +35,7 @@ final class Mod(
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
           _       <- (v && sus.user.enabled) ?? env.api.accountClosure.close(sus.user, me)
+          _       <- (!v && sus.user.disabled) ?? modApi.reopenAccount(me.id, sus.user.id)
         } yield (inquiry, sus).some
       }
     }(ctx =>

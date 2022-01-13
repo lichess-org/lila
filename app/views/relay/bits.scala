@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 object bits {
 
   def howToUse(implicit ctx: Context) =
-    a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
+    a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
       "How to use Lichess Broadcasts"
     )
 

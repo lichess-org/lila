@@ -31,4 +31,12 @@
   <string name="color">צבע</string>
   <string name="evaluation">הערכה</string>
   <string name="include">כלול</string>
+  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">סדר יורד</string>
+  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">סדר עולה</string>
+  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+    <item quantity="one">נמצא משחק %s</item>
+    <item quantity="two">נמצאו %s משחקים</item>
+    <item quantity="many">נמצאו %s משחקים</item>
+    <item quantity="other">נמצאו %s משחקים</item>
+  </plurals>
 </resources>

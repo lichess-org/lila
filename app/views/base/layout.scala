@@ -182,7 +182,7 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
+      ctx.pageData.inquiry.isDefined option jsModule("inquiry")
     )
 
   private val spinnerMask = raw(

@@ -36,9 +36,9 @@ final private class StartedOrganizer(
       val doAllTournaments = tickIt % 20 == 0
       tournamentRepo
         .startedCursorWithNbPlayersGte {
-          if (doAllTournaments) 2 // every 20s, do all tournaments with 2+ players
-          else if (tickIt % 2 == 0) 50 // every 2s, do all decent tournaments
-          else 1000 // always do massive tournaments
+          if (doAllTournaments) none // every 20s, do all tournaments
+          else if (tickIt % 2 == 0) 50.some // every 2s, do all decent tournaments
+          else 1000.some // always do massive tournaments
         }
         .documentSource()
         .mapAsyncUnordered(4) { tour =>
@@ -62,7 +62,8 @@ final private class StartedOrganizer(
     else if (api.killSchedule contains tour.id) {
       api.killSchedule remove tour.id
       api finish tour
-    } else if (tour.nbPlayers < 30) {
+    } else if (tour.nbPlayers < 2) funit
+    else if (tour.nbPlayers < 30) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour)
       }

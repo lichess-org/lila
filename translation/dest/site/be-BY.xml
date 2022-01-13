@@ -17,6 +17,8 @@
   <string name="stalemate">Пат</string>
   <string name="white">Белыя</string>
   <string name="black">Чорныя</string>
+  <string name="asWhite">за белыя</string>
+  <string name="asBlack">за чорныя</string>
   <string name="randomColor">Выпадковы колер</string>
   <string name="createAGame">Стварыць гульню</string>
   <string name="whiteIsVictorious">Белыя перамаглі</string>
@@ -91,6 +93,7 @@
     <item quantity="many">Мат за %s паўхадоў</item>
     <item quantity="other">Мат за %s паўхадоў</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' з акругленнем, заснавана на колькасці паўходаў да наступнага ўзяцця ці ходу пешкі</string>
   <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
@@ -98,6 +101,9 @@
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
   <string name="winPreventedBy50MoveRule">Перамога немагчымая: абмежавана правілам 50-га ходу</string>
   <string name="lossSavedBy50MoveRule">Параза немагчымая: абмежавана правілам 50-га ходу</string>
+  <string name="winOr50MovesByPriorMistake">Перамога ці 50 хадоў ад папярэдняй памылкі</string>
+  <string name="lossOr50MovesByPriorMistake">Параза або 50 хадоў ад папярэдняй памылкі</string>
+  <string name="unknownDueToRounding">Перамога/параза гарантуецца толькі ў тым выпадку, калі рэкамендаваная лінія табліцы эндшпіляў выконвалася з моманту апошняга ўзяцця ці ходу пешкі, з-за магчымага акруглення значэнняў DTZ у табліцах эндшпілю Syzygy.</string>
   <string name="allSet">Усё гатова!</string>
   <string name="importPgn">Імпартаваць PGN</string>
   <string name="delete">Выдаліць</string>
@@ -196,6 +202,12 @@
     <item quantity="few">%s гадзіны</item>
     <item quantity="many">%s гадзін</item>
     <item quantity="other">%s гадзін</item>
+  </plurals>
+  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+    <item quantity="one">%s хвіліна</item>
+    <item quantity="few">%s хвіліны</item>
+    <item quantity="many">%s хвілін</item>
+    <item quantity="other">%s хвілін</item>
   </plurals>
   <string name="time">Час</string>
   <string name="rating">Рэйтынг</string>
@@ -390,6 +402,7 @@
   <string name="leaderboard">Лепшыя гульцы</string>
   <string name="pasteTheFenStringHere">Устаўце сюды радок у фармаце FEN</string>
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
+  <string name="orUploadPgnFile">Або загрузіце PGN файл</string>
   <string name="fromPosition">З пазіцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
   <string name="toStudy">Навучанне</string>
@@ -421,8 +434,8 @@
   <string name="unfollow">Адпісацца</string>
   <string name="followX">Падпісацца на %s</string>
   <string name="unfollowX">Адпісацца ад %s</string>
-  <string name="block">Заблакіраваць</string>
-  <string name="blocked">Заблакіраваны</string>
+  <string name="block">Заблакаваць</string>
+  <string name="blocked">Заблакаваны</string>
   <string name="unblock">Разблакіраваць</string>
   <string name="followsYou">Падпісаны на вас</string>
   <string name="xStartedFollowingY">%1$s падпісаўся на %2$s</string>
@@ -684,7 +697,7 @@
   <string name="keyEnterOrExitVariation">увайсці/выйсці з варыянту</string>
   <string name="newTournament">Новы турнір</string>
   <string name="tournamentHomeTitle">Шахматны турнір</string>
-  <string name="tournamentHomeDescription">Гуляйце ў хуткія шахматы на турніры! Абірайце любы з афіцыйных турніраў Lichess ці стварыце ўласны. «Куля», бліц, класічны рэжым, шахматы Фішэра, «цар гары», тры шахі і яшчэ бясконцае мноства варыянтаў. Весяліцеся!</string>
+  <string name="tournamentHomeDescription">Грайце ў хутка мінаючыя шахматныя турніры! Далучайцеся да любых з афіцыйна запланаваных турніраў ці стварыце ўласны. «Куля», бліц, класічныя, шахматы Фішэра, «кароль гары», тры шахі і яшчэ бясконцае мноства варыянтаў. Весяліцеся.</string>
   <string name="tournamentNotFound">Турнір не знойдзены</string>
   <string name="tournamentDoesNotExist">Гэты турнір не існуе.</string>
   <string name="tournamentMayHaveBeenCanceled">Магчыма, ён быў скасаваны, калі ўсе гульцы выйшлі да пачатку.</string>
@@ -958,4 +971,8 @@
   <string name="abortTheGame">Скасаваць гульню</string>
   <string name="resignTheGame">Здацца</string>
   <string name="youCantStartNewGame">Вы не можаце пачаць новую гульню, пакуль гэта няскончана.</string>
+  <string name="since">З</string>
+  <string name="until">Да</string>
+  <string name="lichessDbExplanation">Рэйтынгавыя партыі ўсіх гульцоў на Lichess</string>
+  <string name="switchSides">Змяніць бок</string>
 </resources>

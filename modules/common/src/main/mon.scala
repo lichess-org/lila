@@ -146,6 +146,7 @@ object mon {
         val coefVar                   = histogram("round.move.lag.coef_var_1000").withoutTags()
         val compEstStdErr             = histogram("round.move.lag.comp_est_stderr_1000").withoutTags()
         val compEstOverErr            = histogram("round.move.lag.avg_over_error_ms").withoutTags()
+        val moveComp                  = timer("round.move.lag.comped").withoutTags()
       }
       val time = timer("round.move.time").withoutTags()
     }
@@ -261,7 +262,10 @@ object mon {
       def request(by: String)           = counter("mod.kaladin.request").withTag("by", by)
       def insufficientMoves(by: String) = counter("mod.kaladin.insufficientMoves").withTag("by", by)
       def queue(priority: Int)          = gauge("mod.kaladin.queue").withTag("priority", priority)
-      def queueErrors(errKind: String)  = gauge("mod.kaladin.queue").withTag("errKind", errKind)
+      def error(errKind: String)        = counter("mod.kaladin.error").withTag("error", errKind)
+      val activation                    = histogram("mod.report.kaladin.activation").withoutTags()
+      val report                        = counter("mod.report.kaladin.report").withoutTags()
+      val mark                          = counter("mod.report.kaladin.mark").withoutTags()
     }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
@@ -684,7 +688,7 @@ object mon {
       }
     }
   }
-  object export {
+  object `export` {
     object png {
       val game   = counter("export.png").withTag("type", "game")
       val puzzle = counter("export.png").withTag("type", "puzzle")

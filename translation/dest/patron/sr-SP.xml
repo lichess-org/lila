@@ -36,7 +36,6 @@
   <string name="contactSupport">контактирати Личес подршку</string>
   <string name="otherMethods">Остали методи донација?</string>
   <string name="bankTransfers">Такође прихватамо банковне трансфере</string>
-  <string name="bitcoin">А ево и наше биткоин адресе: %s</string>
   <string name="patronFeatures">Да ли су неке могућности дозвољене само Патронима?</string>
   <string name="noPatronFeatures">Не, јер је Lichess потпуно бесплатан, заувек и за све. То је обећање.
 Ипак, Патрони добијају права да се хвале својом новом кул иконом на профилу.</string>

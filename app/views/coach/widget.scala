@@ -63,7 +63,7 @@ object widget {
                   frag("FIDE: ", r)
                 },
                 a(href := routes.User.show(c.user.username))(
-                  c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map {
+                  c.user.best6Perfs.filter(c.user.hasEstablishedRating).map {
                     showPerfRating(c.user, _)
                   }
                 )

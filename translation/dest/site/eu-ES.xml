@@ -17,6 +17,8 @@
   <string name="stalemate">Itoa</string>
   <string name="white">Zuria</string>
   <string name="black">Beltza</string>
+  <string name="asWhite">zuriekin</string>
+  <string name="asBlack">beltzekin</string>
   <string name="randomColor">Ausazko kolorea</string>
   <string name="createAGame">Partida bat sortu</string>
   <string name="whiteIsVictorious">Zuria irabazle</string>
@@ -181,6 +183,10 @@
     <item quantity="one">%s ordu</item>
     <item quantity="other">%s ordu</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">Minutu %s</item>
+    <item quantity="other">%s minutu</item>
+  </plurals>
   <string name="time">Denbora</string>
   <string name="rating">Puntuazioa</string>
   <string name="ratingStats">Estatistikak</string>
@@ -344,6 +350,7 @@
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
+  <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
   <string name="fromPosition">Posizio jakin batetik</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="toStudy">Aztertu</string>
@@ -883,4 +890,8 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="abortTheGame">Partida bertan behera utzi</string>
   <string name="resignTheGame">Partida utzi</string>
   <string name="youCantStartNewGame">Ezin duzu beste partidarik hasi hau bukatu arte.</string>
+  <string name="since">Noiztik</string>
+  <string name="until">Noiz arte</string>
+  <string name="lichessDbExplanation">Lichesseko jokalari guztien artetik aukeratutako partidetatik aterata</string>
+  <string name="switchSides">Aldatu kolorea</string>
 </resources>

@@ -134,6 +134,7 @@ export const userBox = (ctrl: Controller): VNode => {
               attrs: {
                 type: 'checkbox',
                 checked: ctrl.rated(),
+                disabled: ctrl.vm.lastFeedback != 'init',
               },
               hook: {
                 insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),

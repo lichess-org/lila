@@ -58,10 +58,11 @@ final class IrcApi(
   }
 
   def userModNote(modName: String, username: String, note: String): Funit =
-    zulip(_.mod.adminLog, "notes")(
-      s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
-        markdown.linkifyUsers(note take 2000)
-    )
+    !User.isLichess(modName) ??
+      zulip(_.mod.adminLog, "notes")(
+        s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
+          markdown.linkifyUsers(note take 2000)
+      )
 
   def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
     zulip(_.mod.adminLog, "self report")(
@@ -219,8 +220,7 @@ object IrcApi {
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
     def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
-    val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
-    def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll userReplace
+    def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll (m => userLink(m.group(1)))
     val postReplace                             = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
     def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))

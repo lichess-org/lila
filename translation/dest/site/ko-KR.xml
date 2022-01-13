@@ -317,6 +317,7 @@
   <string name="leaderboard">리더보드</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
+  <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>

@@ -30,7 +30,8 @@ final class JsonView(
     verify: Condition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
-    pause: Pause
+    pause: Pause,
+    reloadDelaySetting: SettingStore[Int] @@ TournamentReloadDelay
 )(implicit ec: ExecutionContext) {
 
   import JsonView._
@@ -123,7 +124,6 @@ final class JsonView(
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
           })
           .add("description" -> tour.description)
-          .add("myUsername" -> me.map(_.username))
       }
 
   def clearCache(tour: Tournament): Unit = {
@@ -469,6 +469,10 @@ final class JsonView(
       .add("stats" -> stats)
       .add("teamStanding" -> teamStanding)
       .add("duelTeams" -> data.duelTeams)
+      .add("reloadDelay" -> {
+        val d = reloadDelaySetting.get()
+        d > 0 option d
+      })
 }
 
 object JsonView {

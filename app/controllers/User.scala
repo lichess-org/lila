@@ -119,7 +119,7 @@ final class User(
                   filter = filters.current,
                   me = ctx.me,
                   page = page
-                )(ctx.body, formBinding)
+                )(ctx.body, formBinding, reqLang)
                 _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
                 _ <- env.tournament.cached.nameCache preloadMany {
                   pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
@@ -134,7 +134,8 @@ final class User(
                     social <- env.socialInfo(u, ctx)
                     searchForm =
                       (filters.current == GameFilter.Search) option
-                        GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body, formBinding)
+                        GameFilterMenu
+                          .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
                   } yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                   else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
               } yield res,
@@ -256,7 +257,7 @@ final class User(
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(ctx.body, formBinding)
+        )(ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
@@ -463,34 +464,41 @@ final class User(
   def writeNote(username: String) =
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
-        _ => user => renderShow(user, Results.BadRequest),
-        Redirect(routes.User.show(username)).flashSuccess
+        err => BadRequest(err.errors.toString).fuccess,
+        user =>
+          if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+            Ok(views.html.mod.inquiry.noteZone(user, notes))
+          }
+          else
+            env.socialInfo.fetchNotes(user, me) map { notes =>
+              Ok(views.html.user.show.header.noteZone(user, notes))
+            }
       )(ctx.body)
     }
 
   def apiWriteNote(username: String) =
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
-        err = err => _ => jsonFormErrorDefaultLang(err),
-        suc = jsonOkResult
+        jsonFormErrorDefaultLang,
+        suc = _ => jsonOkResult.fuccess
       )
     }
 
   private def doWriteNote(
       username: String,
       me: UserModel
-  )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
+  )(err: Form[_] => Fu[Result], suc: UserModel => Fu[Result])(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note
+        lila.user.UserForm.note
           .bindFromRequest()
           .fold(
-            e => err(e)(user),
+            err,
             data =>
               {
                 val isMod = data.mod && isGranted(_.ModNote, me)
                 env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } inject suc
+              } >> suc(user)
           )
       }
     }

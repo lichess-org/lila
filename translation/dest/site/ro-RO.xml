@@ -193,6 +193,11 @@
     <item quantity="few">%s ore</item>
     <item quantity="other">%s ore</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minut</item>
+    <item quantity="few">%s minute</item>
+    <item quantity="other">%s de minute</item>
+  </plurals>
   <string name="time">Timp</string>
   <string name="rating">Clasament</string>
   <string name="ratingStats">Statistică pentru clasament</string>
@@ -928,4 +933,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="youCantStartNewGame">Nu poți începe un joc nou până când acesta nu se termină.</string>
   <string name="since">De la</string>
   <string name="until">Până la</string>
+  <string name="lichessDbExplanation">Partide evaluate obținute de la toți jucătorii Lichess</string>
+  <string name="switchSides">Întoarce tabla</string>
 </resources>

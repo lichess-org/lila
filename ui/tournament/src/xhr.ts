@@ -3,7 +3,8 @@ import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 
 // when the tournament no longer exists
-const onFail = () => {}; //lichess.reload();
+// randomly delay reloads in case of massive tournament to avoid ddos
+const onFail = () => setTimeout(lichess.reload, Math.floor(Math.random() * 9000));
 
 export const join = throttlePromise(
   finallyDelay(

@@ -105,6 +105,10 @@ export default rollupProject({
     input: 'src/modUser.ts',
     output: 'mod.user',
   },
+  inquiry: {
+    input: 'src/inquiry.ts',
+    output: 'inquiry',
+  },
   modGames: {
     input: 'src/modGames.ts',
     output: 'mod.games',

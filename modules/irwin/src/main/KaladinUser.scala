@@ -6,6 +6,7 @@ import lila.report.SuspectId
 import lila.user.User
 import lila.report.Suspect
 import lila.user.Holder
+import lila.rating.PerfType
 
 case class KaladinUser(
     _id: User.ID,
@@ -15,6 +16,8 @@ case class KaladinUser(
     startedAt: Option[DateTime] = None,
     response: Option[KaladinUser.Response] = None
 ) {
+
+  def id = _id
 
   def suspectId = SuspectId(_id)
 
@@ -58,10 +61,17 @@ object KaladinUser {
     case object Report           extends Requester(30)
   }
 
-  case class Response(at: DateTime, pred: Pred)
+  case class Response(at: DateTime, pred: Option[Pred], err: Option[String])
   // Pred, short for Predication, activation, float between 0 and 1,
   // the higher the more likely the user is cheating
-  case class Pred(activation: Float, insights: List[String], tc: Int)
+  case class Pred(activation: Float, insights: List[String], tc: Int) {
+    def percent = (activation * 100).toInt
+    def perf    = PerfType(tc)
+
+    def note: String = {
+      s"Kaladin activation: $percent in ${perf.fold("?")(_.trans(lila.i18n.defaultLang))}, because:" :: insights
+    } mkString ", "
+  }
 
   case class Dashboard(recent: List[KaladinUser]) {
 

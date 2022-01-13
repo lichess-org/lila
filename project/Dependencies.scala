@@ -8,7 +8,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"         %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"            %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"                   % "joda-time"                       % "2.10.13"
-  val chess       = "org.lichess"                %% "scalachess"                      % "10.2.11"
+  val chess       = "org.lichess"                %% "scalachess"                      % "10.3.4"
   val compression = "org.lichess"                %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
@@ -16,7 +16,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.3.0"
   val galimatias  = "io.mola.galimatias"          % "galimatias"                      % "0.2.1"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.10.0"
-  val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.5.RELEASE"
+  val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.6.RELEASE"
   val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.1.0"  % Test
@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.8"
+    val version = "1.0.10"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version

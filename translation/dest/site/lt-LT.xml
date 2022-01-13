@@ -203,6 +203,12 @@
     <item quantity="many">%s valandų</item>
     <item quantity="other">%s valandų</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutė</item>
+    <item quantity="few">%s minutės</item>
+    <item quantity="many">%s minutės</item>
+    <item quantity="other">%s minučių</item>
+  </plurals>
   <string name="time">Laikas</string>
   <string name="rating">Reitingas</string>
   <string name="ratingStats">Reitingų statistika</string>

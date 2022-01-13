@@ -84,7 +84,7 @@
   <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
-  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rata spelarar frå %2$s til %3$s</string>
+  <string name="masterDbExplanation">To millionar over-bordet spel av %1$s+ FIDE rangerte spelarar frå %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt om %s halvtrekk</item>
     <item quantity="other">Matt om %s halvtrekk</item>
@@ -183,6 +183,10 @@
     <item quantity="one">%s time</item>
     <item quantity="other">%s timar</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutt</item>
+    <item quantity="other">%s minutt</item>
+  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistikk</string>
@@ -234,7 +238,7 @@
   <string name="standard">Standard</string>
   <string name="unlimited">Uavgrensa</string>
   <string name="mode">Modus</string>
-  <string name="casual">Uformell</string>
+  <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="casualTournament">Uformell</string>
   <string name="ratedTournament">Rangert</string>
@@ -259,8 +263,8 @@
   <string name="incrementInSeconds">Tilleggstid i sekund</string>
   <string name="freeOnlineChess">Fritt tilgjengeleg nettsjakk</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rata</item>
-    <item quantity="other">%s rata</item>
+    <item quantity="one">%s rangert</item>
+    <item quantity="other">%s rangerte</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s siger</item>
@@ -309,27 +313,27 @@
   <string name="backToTournament">Attende til turneringa</string>
   <string name="thematic">Tematisk</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s rata parti</item>
-    <item quantity="other">≥ %s rata parti</item>
+    <item quantity="one">≥ %s rangert parti</item>
+    <item quantity="other">≥ %s rangerte parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rata parti</item>
-    <item quantity="other">≥ %1$s %2$s rata parti</item>
+    <item quantity="one">≥ %1$s %2$s rangert parti</item>
+    <item quantity="other">≥ %1$s %2$s rangerte parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du må spela %1$s fleire %2$s rata parti</item>
-    <item quantity="other">Du må spela %1$s fleire %2$s rata parti</item>
+    <item quantity="one">Du må spille endå %1$s rangert %2$s-parti</item>
+    <item quantity="other">Du må spela endå %1$s rangerte %2$s parti</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du må spela %s fleire rata parti</item>
-    <item quantity="other">Du må spela %s fleire rata parti</item>
+    <item quantity="one">Du må spela endå %s rangert parti</item>
+    <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den høgste vekentlege %1$s toppratinga di (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
-  <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
-  <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
+  <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
+  <string name="ratedLessThanInPerf">Rangert ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Du må vera medlem av lag %s</string>
   <string name="youAreNotInTeam">Du er ikkje med i lag %s</string>
   <string name="backToGame">Attende til partiet</string>
@@ -460,7 +464,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
   <string name="onlinePlayers">Innlogga spelarar</string>
   <string name="activePlayers">Aktive spelarar</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Til informasjon, spelet er rata, men er ikkje tidsavgrensa!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Legg merke til at partiet er rangert, men ikkje tidsavgrensa!</string>
   <string name="success">Korrekt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti pågår</item>
@@ -841,11 +845,11 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="cancelTournament">Avlys turneringa</string>
   <string name="tournDescription">Beskriving av turneringa</string>
   <string name="tournDescriptionHelp">Noko du vil seie til deltakarane? Ver kortfatta. Du kan gje URL\'en eit namn: [name](https://url)</string>
-  <string name="ratedFormHelp">Partia er rata
-og påverkar ratinga til spelarane</string>
+  <string name="ratedFormHelp">Partia er rangert
+og påverkar rangeringa til spelarane</string>
   <string name="onlyMembersOfTeam">Berre medlemar av laget</string>
   <string name="noRestriction">Inga avgrensingar</string>
-  <string name="minimumRatedGames">Minste antal rata parti</string>
+  <string name="minimumRatedGames">Minste antal rangerte parti</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
   <string name="onlyTitled">Berre spelarar med sjakktittel</string>
@@ -890,6 +894,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="youCantStartNewGame">Du kan ikkje starte eit nytt parti før dette er avslutta.</string>
   <string name="since">Frå</string>
   <string name="until">Til</string>
-  <string name="lichessDbExplanation">Rata parti samla inn frå alle Lichess-spelarar</string>
+  <string name="lichessDbExplanation">Rangerte parti samla inn frå alle Lichess-spelarar</string>
   <string name="switchSides">Byt side</string>
 </resources>

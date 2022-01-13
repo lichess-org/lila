@@ -72,7 +72,7 @@ private object bits {
             label(
               trans.rating(),
               " ",
-              span(cls := "help", title := "The average rating of both players")("(?)")
+              span(cls := "help", title := ratingExplanation.txt())("(?)")
             )
           ),
           td(cls := "two-columns")(

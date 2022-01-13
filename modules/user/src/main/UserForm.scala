@@ -9,16 +9,6 @@ import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
 final class UserForm(authenticator: Authenticator) {
 
-  val note = Form(
-    mapping(
-      "text" -> cleanText(minLength = 3, maxLength = 2000),
-      "mod"  -> boolean,
-      "dox"  -> optional(boolean)
-    )(NoteData.apply)(NoteData.unapply)
-  )
-
-  case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
-
   def username(user: User): Form[String] =
     Form(
       single(
@@ -73,6 +63,16 @@ final class UserForm(authenticator: Authenticator) {
 }
 
 object UserForm {
+
+  val note = Form(
+    mapping(
+      "text" -> cleanText(minLength = 3, maxLength = 2000),
+      "mod"  -> boolean,
+      "dox"  -> optional(boolean)
+    )(NoteData.apply)(NoteData.unapply)
+  )
+
+  case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
 
   val title = Form(single("title" -> optional(nonEmptyText)))
 

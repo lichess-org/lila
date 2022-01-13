@@ -170,6 +170,9 @@
   <plurals name="nbHours">
     <item quantity="other">%s 个小时</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s 分钟</item>
+  </plurals>
   <string name="time">时间限制</string>
   <string name="rating">等级分</string>
   <string name="ratingStats">等级分统计</string>

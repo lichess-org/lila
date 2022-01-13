@@ -44,7 +44,6 @@ Ou vous pouvez %s.</string>
   <string name="contactSupport">contacter l\'assistance de Lichess</string>
   <string name="otherMethods">Y a-t-il d\'autres moyens pour donner ?</string>
   <string name="bankTransfers">Nous acceptons aussi les virements</string>
-  <string name="bitcoin">Et voici notre adresse bitcoin : %s</string>
   <string name="patronFeatures">Certaines fonctionnalités sont-elles réservées aux mécènes ?</string>
   <string name="noPatronFeatures">Non, parce que Lichess est entièrement gratuit, pour toujours et pour tout le monde. C\'est une promesse.
 Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de profil très sympa.</string>

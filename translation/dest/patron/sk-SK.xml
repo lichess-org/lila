@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Prispieť</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Prispieť ako %s</string>
+  <string name="donateAsX">Prispieť ako %s</string>
   <string name="lichessPatron">Lichess Patrón</string>
   <string name="freeAccount">Účet zdarma</string>
   <string name="becomePatron">Staňte sa Lichess Patrónom</string>
@@ -46,7 +46,6 @@ Alebo môžete %s.</string>
   <string name="contactSupport">kontaktovať podporu Lichess</string>
   <string name="otherMethods">Iné spôsoby podpory?</string>
   <string name="bankTransfers">Prijímame aj bankové prevody</string>
-  <string name="bitcoin">A tu je naša bitcoinová adresa: %s</string>
   <string name="patronFeatures">Sú niektoré funkcie vyhradené pre patrónov?</string>
   <string name="noPatronFeatures">Nie, pretože Lichess je úplne zadarmo, navždy a pre všetkých. To je prísľub.
 Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</string>

@@ -2,6 +2,7 @@ package lila.gameSearch
 
 import play.api.data.FormBinding
 import play.api.mvc.Request
+import play.api.i18n.Lang
 
 import lila.game.Game
 
@@ -10,7 +11,7 @@ final class UserGameSearch(
     paginator: lila.search.PaginatorBuilder[Game, Query]
 ) {
 
-  def apply(user: lila.user.User, page: Int)(implicit req: Request[_], formBinding: FormBinding) =
+  def apply(user: lila.user.User, page: Int)(implicit req: Request[_], formBinding: FormBinding, lang: Lang) =
     paginator(
       query = forms.search
         .bindFromRequest()
@@ -25,7 +26,8 @@ final class UserGameSearch(
       page = page
     )
 
-  def requestForm(implicit req: Request[_], formBinding: FormBinding) = forms.search.bindFromRequest()
+  def requestForm(implicit req: Request[_], formBinding: FormBinding, lang: Lang) =
+    forms.search.bindFromRequest()
 
-  def defaultForm = forms.search
+  def defaultForm(implicit lang: Lang) = forms.search
 }

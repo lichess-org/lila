@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donasi</string>
-  <string name="donateAsX" comment="donateAsX&#10;&#10;This appears as an option on the donation page – the other option is to give the donation &quot;in the name of&quot; someone else, gifting them the patron wings (otherwise only available to those who donate).&#10;&#10;%s is the user's username.">Donasi sebagai %s</string>
+  <string name="donateAsX">Donasi sebagai %s</string>
   <string name="lichessPatron">Penyokong Lichess</string>
   <string name="freeAccount">Akun gratis</string>
   <string name="becomePatron">Menjadi Penyokong Lichess</string>
@@ -42,7 +42,6 @@ Lalu kami membayar pengembang dengan penuh-waktu: %s, pendiri Lichess.</string>
   <string name="contactSupport">kontak dukungan Lichess</string>
   <string name="otherMethods">Metode donasi lainnya?</string>
   <string name="bankTransfers">Kami juga menerima transfer bank</string>
-  <string name="bitcoin">Dan ini alamat bitcoin kami: %s</string>
   <string name="patronFeatures">Apakah beberapa fitur disediakan untuk para Penyokong?</string>
   <string name="noPatronFeatures">Tidak, karena Lichess sepenuhnya gratis, selamanya, dan untuk semua orang. Itu janji.
 Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>

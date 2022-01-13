@@ -105,7 +105,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val dev: Dev                       = wire[Dev]
   lazy val editor: Editor                 = wire[Editor]
   lazy val event: Event                   = wire[Event]
-  lazy val export: Export                 = wire[Export]
+  lazy val `export`: Export               = wire[Export]
   lazy val fishnet: Fishnet               = wire[Fishnet]
   lazy val forumCateg: ForumCateg         = wire[ForumCateg]
   lazy val forumPost: ForumPost           = wire[ForumPost]

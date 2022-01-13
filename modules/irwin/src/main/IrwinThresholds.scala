@@ -9,7 +9,7 @@ case class IrwinThresholds(report: Int, mark: Int)
 
 private object IrwinThresholds {
 
-  private val defaultThresholds = IrwinThresholds(88, 95)
+  private val defaultThresholds = IrwinThresholds(101, 101)
 
   val thresholdsIso = lila.common.Iso
     .ints(",")
@@ -26,10 +26,10 @@ private object IrwinThresholds {
   implicit val thresholdsFormable =
     new Formable[IrwinThresholds](t => Form(single("v" -> text)) fill thresholdsIso.to(t))
 
-  def makeSetting(store: lila.memo.SettingStore.Builder) =
+  def makeSetting(name: String, store: lila.memo.SettingStore.Builder) =
     store[IrwinThresholds](
-      "irwinThresholds",
+      s"${name}Thresholds",
       default = defaultThresholds,
-      text = "Irwin report and mark thresholds, separated with a comma. Set to 101 to disable.".some
+      text = s"${name} report and mark thresholds, separated with a comma. Set to 101 to disable.".some
     )
 }

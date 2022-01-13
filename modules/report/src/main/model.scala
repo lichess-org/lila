@@ -10,6 +10,7 @@ case class ModId(value: User.ID) extends AnyVal
 object ModId {
   def lichess                     = ModId(lila.user.User.lichessId)
   def irwin                       = ModId("irwin")
+  def kaladin                     = ModId("kaladin")
   def normalize(username: String) = ModId(User normalize username)
 }
 

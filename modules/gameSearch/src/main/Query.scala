@@ -54,27 +54,27 @@ object Query {
 
   import lila.common.Form._
   import play.api.libs.json._
+  import play.api.i18n.Lang
+  import lila.i18n.{ I18nKeys => trans }
 
   import Range.rangeJsonWriter
   implicit private val sortingJsonWriter  = Json.writes[Sorting]
   implicit private val clockingJsonWriter = Json.writes[Clocking]
   implicit val jsonWriter                 = Json.writes[Query]
 
-  val durations: List[(Int, String)] =
-    ((30, "30 seconds") ::
+  def durations(implicit lang: Lang): List[(Int, String)] =
+    ((30, trans.nbSeconds.pluralSameTxt(30)) ::
       options(
         List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30),
-        _ / 60,
-        "%d minute{s}"
+        i => trans.nbMinutes.pluralSameTxt(i / 60)
       ).toList) :+
-      (60 * 60 * 1 -> "One hour") :+
-      (60 * 60 * 2 -> "Two hours") :+
-      (60 * 60 * 3 -> "Three hours")
+      (60 * 60 * 1 -> trans.nbHours.pluralSameTxt(1)) :+
+      (60 * 60 * 2 -> trans.nbHours.pluralSameTxt(2)) :+
+      (60 * 60 * 3 -> trans.nbHours.pluralSameTxt(3))
 
-  val clockInits = List(
-    (0, "0 seconds"),
-    (30, "30 seconds"),
-    (45, "45 seconds")
+  def clockInits(implicit lang: Lang) = List(
+    (30, trans.nbSeconds.pluralSameTxt(30)),
+    (45, trans.nbSeconds.pluralSameTxt(45))
   ) ::: options(
     List(
       60 * 1,
@@ -92,36 +92,36 @@ object Query {
       60 * 150,
       60 * 180
     ),
-    _ / 60,
-    "%d minute{s}"
+    i => trans.nbMinutes.pluralSameTxt(i / 60)
   ).toList
 
-  val clockIncs =
-    options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
+  def clockIncs(implicit lang: Lang) =
+    options(
+      List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180),
+      i => trans.nbSeconds.pluralSameTxt(i)
+    ).toList
 
-  val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
+  def winnerColors(implicit lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
 
   val sources = lila.game.Source.searchable map { v =>
     v.id -> v.name.capitalize
   }
 
-  val modes = Mode.all map { mode =>
-    mode.id -> mode.name.capitalize
-  }
+  def modes(implicit lang: Lang) = List(0 -> trans.casual.txt(), 1 -> trans.rated.txt())
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
-    "%d move{s}"
+    _.toString
   )
 
   val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e =>
-    e -> s"$e Rating"
+    e -> e.toString
   }
 
-  val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
+  def hasAis(implicit lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
 
   val aiLevels = (1 to 8) map { l =>
-    l -> ("level " + l)
+    l -> s"level $l"
   }
 
   val dates = List("0d" -> "Now") ++

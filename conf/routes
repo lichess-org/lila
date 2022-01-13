@@ -171,7 +171,7 @@ GET   /study/public/:order             controllers.Study.minePublic(order: Strin
 GET   /study/private/:order            controllers.Study.minePrivate(order: String, page: Int ?= 1)
 GET   /study/likes/:order              controllers.Study.mineLikes(order: String, page: Int ?= 1)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: String, page: Int ?= 1)
-GET   /study/by/:username/export.pgn   controllers.Study.export(username: String)
+GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username: String)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: String, order: String, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q: String ?= "", page: Int ?= 1)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
@@ -201,6 +201,8 @@ GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: String)
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
+GET   /broadcast/calendar                     controllers.RelayTour.calendar
+GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/:rs/$anyId<\w{8}>            controllers.RelayTour.redirectOrApiTour(rs: String, anyId: String)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId: String)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: String)

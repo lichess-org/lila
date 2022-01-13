@@ -43,7 +43,6 @@ Eller så kan du %s.</string>
   <string name="contactSupport">kontakta Lichess support</string>
   <string name="otherMethods">Andra metoder för donation?</string>
   <string name="bankTransfers">Vi godtar även banköverföringar</string>
-  <string name="bitcoin">Och här är vår bitcoin-adress: %s</string>
   <string name="patronFeatures">Är vissa funktioner reserverade för Beskyddare (Patroner)?</string>
   <string name="noPatronFeatures">Nej, eftersom Lichess är helt gratis, för alltid och för alla. Det är ett löfte.
 Men beskyddare får skryta med rätten till en cool ny profilikon.</string>

@@ -912,16 +912,26 @@
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="coachManager">Nastavenia trénera</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="cancelTournament">Zrušiť turnaj</string>
   <string name="tournDescription">Popis turnaja</string>
+  <string name="tournDescriptionHelp">Je niečo čo by ste chceli povedať účastníkom turnaja? Snažte sa byť stručný! Môžete použiť markdown značky: [name](https://url)</string>
+  <string name="ratedFormHelp">Partie sú hodnotené
+a ovplyvnia rating hráčov</string>
   <string name="onlyMembersOfTeam">Iba členovia tímu</string>
   <string name="noRestriction">Bez obmedzenia</string>
   <string name="minimumRatedGames">Minimum hodnotených hier</string>
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
   <string name="onlyTitled">Iba hráči s titulom</string>
+  <string name="onlyTitledHelp">Požadovať oficiálny šachový titul na prihlásenie sa do turnaja</string>
+  <string name="positionInputHelp">Vložte platný FEN pre začatie každej partie z konkrétnej pozície!
+Funguje len pre štandardné partie, nie pre varianty.
+Môžete použiť %s na vygenerovanie FEN pozície a potom ju sem vložiť.
+Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="cancelSimul">Zrušiť simultánku</string>
+  <string name="simulHostcolor">Farba figúr hostiteľa pre každú partiu</string>
   <string name="estimatedStart">Predpokladaný čas začiatku</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>

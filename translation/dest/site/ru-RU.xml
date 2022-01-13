@@ -100,6 +100,9 @@
   <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
+  <string name="winOr50MovesByPriorMistake">Победа или 50 ходов после последней ошибки</string>
+  <string name="lossOr50MovesByPriorMistake">Поражение или 50 ходов после последней ошибки</string>
+  <string name="unknownDueToRounding">Победа/поражение гарантируется только если рекомендуемая последовательность ходов была выполнена с момента последнего взятия фигуры или хода пешки из-за возможного округления значений DTZ в базах Syzygy.</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Импортировать в PGN</string>
   <string name="delete">Удалить</string>
@@ -198,6 +201,12 @@
     <item quantity="few">%s часа</item>
     <item quantity="many">%s часов</item>
     <item quantity="other">%s часов</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минута</item>
+    <item quantity="few">%s минуты</item>
+    <item quantity="many">%s минут</item>
+    <item quantity="other">%s минут</item>
   </plurals>
   <string name="time">Время</string>
   <string name="rating">Рейтинг</string>

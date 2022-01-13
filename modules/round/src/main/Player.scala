@@ -1,14 +1,16 @@
 package lila.round
 
-import chess.format.{ Forsyth, Uci }
-import chess.{ Centis, MoveMetrics, MoveOrDrop, Status }
-
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
-import lila.game.actorApi.MoveGameEvent
-import lila.common.Bus
-import lila.game.{ Game, Pov, Progress, UciMemo }
-import lila.game.Game.PlayerId
 import cats.data.Validated
+import chess.format.{ Forsyth, Uci }
+import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status }
+import java.util.concurrent.TimeUnit
+
+import lila.common.Bus
+import lila.game.actorApi.MoveGameEvent
+import lila.game.Game.PlayerId
+import lila.game.{ Game, Pov, Progress, UciMemo }
+import lila.user.User
 
 final private class Player(
     fishnetPlayer: lila.fishnet.FishnetPlayer,
@@ -18,8 +20,9 @@ final private class Player(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait MoveResult
-  private case object Flagged                                          extends MoveResult
-  private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
+  private case object Flagged extends MoveResult
+  private case class MoveApplied(progress: Progress, move: MoveOrDrop, compedLag: Option[Centis])
+      extends MoveResult
 
   private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
       pov: Pov
@@ -36,7 +39,10 @@ final private class Player(
               .fold(errs => fufail(ClientError(errs)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
-                case MoveApplied(progress, moveOrDrop) =>
+                case MoveApplied(progress, moveOrDrop, compedLag) =>
+                  compedLag foreach { lag =>
+                    lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
+                  }
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, moveOrDrop)
               }
@@ -57,7 +63,7 @@ final private class Player(
           .fold(errs => fufail(ClientError(errs)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress, moveOrDrop) =>
+            case MoveApplied(progress, moveOrDrop, _) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
           }
       case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(pov))
@@ -93,7 +99,7 @@ final private class Player(
         .fold(errs => fufail(ClientError(errs)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
-          case MoveApplied(progress, moveOrDrop) =>
+          case MoveApplied(progress, moveOrDrop, _) =>
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
               lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
@@ -127,19 +133,20 @@ final private class Player(
   ): Validated[String, MoveResult] =
     (uci match {
       case Uci.Move(orig, dest, prom) =>
-        game.chess(orig, dest, prom, metrics) map { case (ncg, move) =>
+        game.chess.moveWithCompensated(orig, dest, prom, metrics) map { case (ncg, move) =>
           ncg -> (Left(move): MoveOrDrop)
         }
       case Uci.Drop(role, pos) =>
         game.chess.drop(role, pos, metrics) map { case (ncg, drop) =>
-          ncg -> (Right(drop): MoveOrDrop)
+          Clock.WithCompensatedLag(ncg, None) -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
-      case (newChessGame, moveOrDrop) =>
+      case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
+      case (ncg, moveOrDrop) =>
         MoveApplied(
-          game.update(newChessGame, moveOrDrop, blur),
-          moveOrDrop
+          game.update(ncg.value, moveOrDrop, blur),
+          moveOrDrop,
+          ncg.compensated
         )
     }
 

@@ -183,6 +183,10 @@
     <item quantity="one">%s ora</item>
     <item quantity="other">%s ore</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuto</item>
+    <item quantity="other">%s minuti</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Punteggio</string>
   <string name="ratingStats">Statistiche punteggi</string>

@@ -357,7 +357,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021'),
+  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2021-11'),
     lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
   return h('div.explorer-title', [
     db == 'masters'

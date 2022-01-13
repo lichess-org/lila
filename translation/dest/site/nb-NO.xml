@@ -183,6 +183,10 @@
     <item quantity="one">%s time</item>
     <item quantity="other">%s timer</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minutt</item>
+    <item quantity="other">%s minutter</item>
+  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistikk</string>

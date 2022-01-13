@@ -102,6 +102,7 @@ export interface TournamentData {
   duels: Duel[];
   duelTeams?: DuelTeams;
   myUsername?: string;
+  reloadDelay?: number;
 }
 
 export interface FeaturedGame {

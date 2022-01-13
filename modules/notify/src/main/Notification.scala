@@ -123,6 +123,10 @@ case class IrwinDone(
     userId: lila.user.User.ID
 ) extends NotificationContent("irwinDone")
 
+case class KaladinDone(
+    userId: lila.user.User.ID
+) extends NotificationContent("kaladinDone")
+
 case class GenericLink(
     url: String,
     title: Option[String],
