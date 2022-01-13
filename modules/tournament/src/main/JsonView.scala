@@ -293,12 +293,9 @@ final class JsonView(
 
   private def myInfoJson(u: Option[User], delay: Option[Pause.Delay])(i: MyInfo) =
     Json
-      .obj(
-        "rank"     -> i.rank,
-        "withdraw" -> i.withdraw,
-        "gameId"   -> i.gameId,
-        "username" -> u.map(_.titleUsername)
-      )
+      .obj("rank" -> i.rank)
+      .add("withdraw", i.withdraw)
+      .add("gameId", i.gameId)
       .add("pauseDelay", delay.map(_.seconds))
 
   private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {

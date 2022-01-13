@@ -7,7 +7,7 @@ export type Score = number | [number] | [number, number];
 
 export interface StandingPlayer extends SimplePlayer {
   id: string;
-  withdraw: boolean;
+  withdraw?: boolean;
   score: number;
   fire: boolean;
   rank: number;
@@ -54,8 +54,8 @@ export interface TournamentData {
   };
   me?: {
     rank: number;
-    gameId: string;
-    withdraw: boolean;
+    gameId?: string;
+    withdraw?: boolean;
     pauseDelay?: number;
   };
   playerInfo?: PlayerInfo;
