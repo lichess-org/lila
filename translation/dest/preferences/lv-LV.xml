@@ -32,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Gājienu atsaukšana (ar pretinieka piekrišanu)</string>
   <string name="inCasualGamesOnly">Tikai nevērtētajās spēlēs</string>
   <string name="promoteToQueenAutomatically">Automātiski pārvērst par Dāmu</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Turiet nospiestu taustiņu &lt;ctrl&gt;, kad paaugstinat bandinieku, lai īslaicīgi atspējotu automātisko paaugstināšanu</string>
   <string name="whenPremoving">Tikai priekšgājienos</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automātiski pieprasīt trīskāršās atkārtošanās neizšķirtu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
