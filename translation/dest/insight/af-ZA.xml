@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">%s se skaakinsigte</string>
+  <string name="xHasNoChessInsights">%s het nog nie enige skaakinsigte nie!</string>
+  <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">%s se skaakinsigte is privaat</string>
+</resources>
