@@ -171,7 +171,7 @@ export interface Player extends SimplePlayer {
   fire: boolean;
   nb: Nb;
   performance?: number;
-  withdraw: boolean;
+  withdraw?: boolean;
   team?: string;
 }
 

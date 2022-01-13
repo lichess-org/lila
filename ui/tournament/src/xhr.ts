@@ -4,7 +4,9 @@ import TournamentController from './ctrl';
 
 // when the tournament no longer exists
 // randomly delay reloads in case of massive tournament to avoid ddos
-const onFail = () => setTimeout(lichess.reload, Math.floor(Math.random() * 9000));
+const onFail = (): void => {
+  setTimeout(lichess.reload, Math.floor(Math.random() * 9000));
+};
 
 export const join = throttlePromise(
   finallyDelay(
