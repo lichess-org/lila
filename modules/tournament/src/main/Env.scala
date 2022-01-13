@@ -157,3 +157,5 @@ final class Env(
       }
     }
 }
+
+trait TournamentReloadDelay

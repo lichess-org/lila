@@ -1,6 +1,7 @@
 package lila.tournament
 
 import chess.format.FEN
+import com.softwaremill.tagging._
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -13,6 +14,7 @@ import lila.common.{ GreatPlayer, LightUser, Preload, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
+import lila.memo.SettingStore
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
 import lila.user.{ LightUserApi, User }

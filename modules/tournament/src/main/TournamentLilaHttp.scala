@@ -48,7 +48,7 @@ final private class TournamentLilaHttp(
 
       case Tick =>
         tournamentRepo
-          .startedCursorWithNbPlayersGte(1)
+          .startedCursorWithNbPlayersGte(1.some)
           .documentSource()
           .mapAsyncUnordered(4)(arenaFullJson)
           .map { json =>
