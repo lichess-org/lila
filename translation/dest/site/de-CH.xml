@@ -226,7 +226,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="whiteOffersDraw">Wiss offeriert Remis</string>
   <string name="blackOffersDraw">Schwarz offeriert Remis</string>
   <string name="whiteDeclinesDraw">Wiss lähnt sRemis ab</string>
-  <string name="blackDeclinesDraw">Schwarz lehnt es Remis ab</string>
+  <string name="blackDeclinesDraw">Schwarz lähnt sRemis ab</string>
   <string name="yourOpponentOffersADraw">Din Gägner offeriert es Remis</string>
   <string name="accept">Akzeptiere</string>
   <string name="decline">Ablehnä</string>
@@ -245,14 +245,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="ratedTournament">Gwertet</string>
   <string name="thisGameIsRated">Das Schpiil isch gwertet</string>
   <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Aagebot zur Revanche gsändät</string>
-  <string name="rematchOfferAccepted">Revanche-Agebot aktzeptiert</string>
-  <string name="rematchOfferCanceled">Revanche-Agebot zruggzoge</string>
-  <string name="rematchOfferDeclined">Revanche-Agebot abglehnt</string>
-  <string name="cancelRematchOffer">Revanche-Agebot zruggneh</string>
+  <string name="rematchOfferSent">Aagebot zur Revanche gsändet</string>
+  <string name="rematchOfferAccepted">Revanche-Aagebot aktzeptiert</string>
+  <string name="rematchOfferCanceled">Revanche-Aagebot zruggzoge</string>
+  <string name="rematchOfferDeclined">Revanche-Aagebot abglehnt</string>
+  <string name="cancelRematchOffer">Revanche-Aagebot zruggneh</string>
   <string name="viewRematch">Revanche aaluege</string>
-  <string name="confirmMove">Zug beschtätigä</string>
-  <string name="play">Schpilä</string>
+  <string name="confirmMove">Zug beschtätige</string>
+  <string name="play">Schpille</string>
   <string name="inbox">Poschtiigang</string>
   <string name="chatRoom">Chatruum</string>
   <string name="loginToChat">Zum chatte aamälde</string>
@@ -261,7 +261,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="composeMessage">Nachricht verfasse</string>
   <string name="subject">Beträff</string>
   <string name="send">Schicke</string>
-  <string name="incrementInSeconds">Inkremänt in Sekundä</string>
+  <string name="incrementInSeconds">Inkrement in Sekunde</string>
   <string name="freeOnlineChess">Gratis Online-Schach</string>
   <plurals name="nbRated">
     <item quantity="one">%s gwertet</item>
@@ -272,7 +272,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Siig</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s Niderlag</item>
+    <item quantity="one">%s Niderlaag</item>
     <item quantity="other">%s Niderlagä</item>
   </plurals>
   <plurals name="nbDraws">
@@ -284,7 +284,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s laufendi Partie</item>
   </plurals>
   <string name="exportGames">Partie exportiere</string>
-  <string name="ratingRange">Wertigsbereich</string>
+  <string name="ratingRange">Wertigsbereiich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Em Gägner %s Sekundä gä</item>
     <item quantity="other">Em Gägner %s Sekundä gä</item>
