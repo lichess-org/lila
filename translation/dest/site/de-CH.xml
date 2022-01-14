@@ -189,12 +189,12 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Minute</item>
   </plurals>
   <string name="time">Ziit</string>
-  <string name="rating">Wärtigszahl</string>
-  <string name="ratingStats">Wärtigsstatistikä</string>
+  <string name="rating">Wertig</string>
+  <string name="ratingStats">Wertigs-Statistike</string>
   <string name="username">Benutzername</string>
   <string name="usernameOrEmail">Benutzername oder E-Mail-Adrässe</string>
   <string name="changeUsername">Benutzername ändere</string>
-  <string name="changeUsernameNotSame">Nur d Groos- und Chliischriibig cha gänderet werdä. Zum Bischbiil: \"FritzliMüller\" zu \"FRiTzLiMüLlEr\".</string>
+  <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chliischriibig verändere, z. B. \"hansmuster\" in \"HansMuster\".</string>
   <string name="changeUsernameDescription">Änder diin Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
@@ -217,15 +217,15 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">%s Partii mit dir</item>
     <item quantity="other">%s Partiiä mit dir</item>
   </plurals>
-  <string name="cancel">Abbrächä</string>
-  <string name="whiteTimeOut">Wiis hät d\'Ziit überschritte</string>
+  <string name="cancel">Abbräche</string>
+  <string name="whiteTimeOut">Wiss hät d\'Ziit überschritte</string>
   <string name="blackTimeOut">Schwarz hät d\'Ziit überschritte</string>
   <string name="drawOfferSent">Remis-Aagebot gsändet</string>
-  <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
-  <string name="drawOfferCanceled">Remis-Agebot zruggzoge</string>
-  <string name="whiteOffersDraw">Wiis offeriert Remis</string>
+  <string name="drawOfferAccepted">Remis-Aagebot akzeptiert</string>
+  <string name="drawOfferCanceled">Remis-Aagebot zruggzoge</string>
+  <string name="whiteOffersDraw">Wiss offeriert Remis</string>
   <string name="blackOffersDraw">Schwarz offeriert Remis</string>
-  <string name="whiteDeclinesDraw">Wiis lehnt es Remis ab</string>
+  <string name="whiteDeclinesDraw">Wiss lähnt sRemis ab</string>
   <string name="blackDeclinesDraw">Schwarz lehnt es Remis ab</string>
   <string name="yourOpponentOffersADraw">Din Gägner offeriert es Remis</string>
   <string name="accept">Akzeptiere</string>
