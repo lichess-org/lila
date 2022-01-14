@@ -365,8 +365,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug - zum Bewiis das du en Mänsch bisch.</string>
   <string name="captcha.fail">Bitte lös die Schach-Ufgab.</string>
   <string name="notACheckmate">Das isch keis Schachmatt</string>
-  <string name="whiteCheckmatesInOneMove">Wiis setzt Matt i 1 Zug</string>
-  <string name="blackCheckmatesInOneMove">Schwarz setzt Matt i 1 Zug</string>
+  <string name="whiteCheckmatesInOneMove">Wiss setzt i eim Zug Matt</string>
+  <string name="blackCheckmatesInOneMove">Schwarz setzt i eim Zug Matt</string>
   <string name="retry">Probiers nomal</string>
   <string name="reconnecting">Widerverbindä</string>
   <plurals name="nbFriendsOnline">
