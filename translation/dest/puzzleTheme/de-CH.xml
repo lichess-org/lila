@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Vorgruckte Puur</string>
-  <string name="advancedPawnDescription">Eine vu diine Puure isch tüüf idi gegnerisch Schtellig vorgruckt und droht sich möglicherwiis umzuwandle.</string>
+  <string name="advancedPawnDescription">En Puur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutz dini Chance, zum en entscheidende Vorteil z\'erlange. (200 Hundertschtel-Puurä ≤ Bewertig ≤ 600 Hundertschtel-Puure)</string>
-  <string name="anastasiaMate">Anastasia-Matt</string>
+  <string name="advantageDescription">Nutz diini Chance, en entscheidende Vorteil z\'erlange</string>
+  <string name="anastasiaMate">Anastasia\'s Matt</string>
   <string name="anastasiaMateDescription">En Schpringer und en Turm oder e Dame schaffed zäme, zum de gegnerisch König, zwüschet em Brättrand und sine eigene Figure, zverwütsche.</string>
   <string name="arabianMate">Arabischs Matt</string>
   <string name="arabianMateDescription">En Schpringer und en Turm schaffed zäme, zum de gegnerisch König imene Egge vom Brätt matt z\'setze.</string>
@@ -53,8 +53,8 @@
   <string name="hangingPieceDescription">E Taktik, wo e gägnerischi Figur nöd oder nur z\'wenig deckt isch und drum mit Vorteil gschlage wärde chan.</string>
   <string name="hookMate">Haake Matt</string>
   <string name="hookMateDescription">Matt mit Turm, Schpringer und Puur, plus eme gegnerische Puur, wo em König d\'Flucht verschperrt.</string>
-  <string name="interference">Underbrächig</string>
-  <string name="interferenceDescription">Ä Figur zwüschäd zwei gegnerischi Figurä züchä, zum eini oder beidi gegnerischä Figurä undeckt z\'loh, zum Biischpiil än Gaul ufämä decktä Fäld zwüschäd zwei Türm.</string>
+  <string name="interference">Störig</string>
+  <string name="interferenceDescription">E Figur zwüsche 2 gegnerischi Figure stelle, zum einere oder beide de Schutz z\'näh - z. B. en Schpringer uf es verteidigts Fäld, zwüsche 2 Türm, stelle.</string>
   <string name="intermezzo">Zwüschezug</string>
   <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo e unmittelbari Drohig darstellt, uf die de Gägner antworte muess - au bekannt als \"Zwüschezug\".</string>
   <string name="knightEndgame">Schpringer-Ändschpiil</string>
