@@ -70,8 +70,8 @@ final class KaladinApi(
   def modRequest(user: Suspect, by: Holder) =
     request(user, KaladinUser.Requester.Mod(by.id)) >>- notification.add(user.id, ModId(by.id))
 
-  def request(user: Suspect, requester: KaladinUser.Requester) =
-    sequence[Unit](user) { prev =>
+  def request(user: Suspect, requester: KaladinUser.Requester) = user.user.noBot ??
+    sequence(user) { prev =>
       prev.fold(KaladinUser.make(user, requester).some)(_.queueAgain(requester)) ?? { req =>
         hasEnoughRecentMoves(user) flatMap {
           case false =>
