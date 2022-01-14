@@ -885,17 +885,17 @@ Leer lah, um d\'Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
   <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance diis Konto wider zrugg z\'hole.</string>
   <string name="onlyWorksOnce">Das funktioniert aber nur eimal.</string>
-  <string name="cantDoThisTwice">Wänn du diin Account es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
-  <string name="emailAssociatedToaccount">E-Mail-Adrässe vu diim Account</string>
+  <string name="cantDoThisTwice">Wänn du diis Konto es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
+  <string name="emailAssociatedToaccount">E-Mail-Adrässe vu diim Konto</string>
   <string name="sentEmailWithLink">Mir hän dir e E-Mail mit eme Link gschickt.</string>
   <string name="tournamentEntryCode">Turnier-Biitrittscode</string>
   <string name="hangOn">En Momänt!</string>
   <string name="gameInProgress">Du häsch no e laufedi Partie mit %s.</string>
   <string name="abortTheGame">Partie abbräche</string>
   <string name="resignTheGame">Partie ufgeh</string>
-  <string name="youCantStartNewGame">Du chasch kei neui Partie starte, bevor die Laufend nöd fertig isch.</string>
+  <string name="youCantStartNewGame">Du chasch kei neui Partie starte, bevor die no Laufendi nöd fertig gschpillt isch.</string>
   <string name="since">Sit</string>
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess-Schpiller</string>
-  <string name="switchSides">Siite wechsle</string>
+  <string name="switchSides">Siite wächsle</string>
 </resources>
