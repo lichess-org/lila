@@ -291,16 +291,16 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsbedingige verschtosse</string>
   <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
-  <string name="takeback">Zugrücknahm</string>
+  <string name="takeback">Zugsrücknahm</string>
   <string name="proposeATakeback">Zugsrücknahm vorschlah</string>
-  <string name="takebackPropositionSent">Zugsrücknahm vorgschlage</string>
+  <string name="takebackPropositionSent">Vorschlag zur Zugsrücknahm gsändet</string>
   <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
-  <string name="takebackPropositionAccepted">Zugsrücknahm agnah</string>
+  <string name="takebackPropositionAccepted">Zugsrücknahm akzeptiert</string>
   <string name="takebackPropositionCanceled">Zugsrücknahm zruggzoge</string>
   <string name="yourOpponentProposesATakeback">Din Gägner wott de letscht Zug zruggneh</string>
   <string name="bookmarkThisGame">Das Schpiil mit Läsezeiche markiere</string>
-  <string name="tournament">Turniär</string>
-  <string name="tournaments">Turniär</string>
+  <string name="tournament">Turnier</string>
+  <string name="tournaments">Turnier</string>
   <string name="tournamentPoints">Turniärpünkt</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turniärpunkt</item>
