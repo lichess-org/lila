@@ -648,12 +648,12 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="cumulative">Summiert</string>
   <string name="glicko2Rating">Glicko-2 Wertig</string>
   <string name="checkYourEmail">Check dini E-Mail</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir e E-Mail gschickt. Klick de Link i de Email, um dis Konto z\'aktiviere.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, lueg au in andere Ordner, z. B. Spamordner oder de Papierchorb.</string>
-  <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick i de Mail uf de Link, um dis Passwort zrugg zsetze.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Mit de Regischtrierig schtimmsch du de %s zue.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir e E-Mail gschickt: Klick de Link i de Nachricht, zum dis Konto aktiviere.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech wiiteri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
+  <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz diis Passwort zrugg.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
-  <string name="networkLagBetweenYouAndLichess">NetzwerkVerzögerig zwüschet dir und Lichess (lag)</string>
+  <string name="networkLagBetweenYouAndLichess">Netzwerch-Verzögerig, zwüschet dir und Lichess (lag)</string>
   <string name="timeToProcessAMoveOnLichessServer">Ziit zum en Zug uf em Lichess-Server z\'verarbeite</string>
   <string name="downloadAnnotated">Download mit Kommentär</string>
   <string name="downloadRaw">Download ohni Kommentär</string>
@@ -663,7 +663,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
   <string name="analysisShapesHowTo">Mit Shift plus Muusklick - rächts oder links - chasch grüeni oder roti Chreis und Pfiil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
-  <string name="receiveForumNotifications">Wird benachrichtigt, wänn du im Forum erwähnt worde bisch</string>
+  <string name="receiveForumNotifications">Benachrichtigt chunnt, wänn du im Forum erwähnt worde bisch</string>
   <string name="shareYourInsightsData">Teil diini persönliche Schpilldate</string>
   <string name="withNobody">Mit niemertem</string>
   <string name="withFriends">Mit Fründe</string>
