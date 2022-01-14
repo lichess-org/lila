@@ -55,8 +55,8 @@
   <string name="hookMateDescription">Matt mit Turm, Gaul und Puur, zämä mitämä gegnerischä Puur, wo sim König äs Fluchtfäld nimmt.</string>
   <string name="interference">Underbrächig</string>
   <string name="interferenceDescription">Ä Figur zwüschäd zwei gegnerischi Figurä züchä, zum eini oder beidi gegnerischä Figurä undeckt z\'loh, zum Biischpiil än Gaul ufämä decktä Fäld zwüschäd zwei Türm.</string>
-  <string name="intermezzo">Zwüschäzug</string>
-  <string name="intermezzoDescription">Anschtatt dä erwartät Zug z\'schpilä, schiäbsch än andärä Zug däzwüschäd, won ä sofortigi Drohig ufschtellt, wo dä Gegner beantwortä muän.</string>
+  <string name="intermezzo">Zwüschezug</string>
+  <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo e unmittelbari Drohig darstellt, uf die de Gägner antworte muess - au bekannt als \"Zwüschezug\".</string>
   <string name="knightEndgame">Schpringer-Ändschpiil</string>
   <string name="knightEndgameDescription">Es Ändschpiil, nur mit Schpringer und Puure.</string>
   <string name="long">Mehrzügigi Ufgab</string>
