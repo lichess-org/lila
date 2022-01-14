@@ -5,13 +5,13 @@
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutz diini Chance, en entscheidende Vorteil z\'erlange</string>
   <string name="anastasiaMate">Anastasia\'s Matt</string>
-  <string name="anastasiaMateDescription">En Schpringer und en Turm oder e Dame schaffed zäme, zum de gegnerisch König, zwüschet em Brättrand und sine eigene Figure, zverwütsche.</string>
+  <string name="anastasiaMateDescription">En Schpringer und en Turm oder e Dame schaffed zäme, um de König, zwüschet em Brättrand und sine eigene Figure, z\'verwütsche.</string>
   <string name="arabianMate">Arabischs Matt</string>
-  <string name="arabianMateDescription">En Schpringer und en Turm schaffed zäme, zum de gegnerisch König imene Egge vom Brätt matt z\'setze.</string>
+  <string name="arabianMateDescription">En Schpringer und en Turm schaffed zäme, um de König im Egge z\'fange.</string>
   <string name="attackingF2F7">Aagriff uf f2 oder f7</string>
-  <string name="attackingF2F7Description">En Aagriff, wo sich uf d\'Puure uf f2 oder f7 konzentriert, wie z. B. bi de Fegatello-Variante.</string>
-  <string name="attraction">Hiilänkig oder \"Magneet\"</string>
-  <string name="attractionDescription">En Tuusch oder es Opfer, wo e gegnerischi Figur uf es Fäld länkt oder zwingt, was e Folgetaktik erlaubt.</string>
+  <string name="attackingF2F7Description">En Aagriff, wo sich uf d\'Puure uf f2 oder f7 konzentriert.</string>
+  <string name="attraction">Aaziehigschraft</string>
+  <string name="attractionDescription">En Tuusch oder es Opfer, wo e gägnerischi Figur uf es Fäld länkt oder zwingt, was dänn e Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihe-Matt</string>
   <string name="backRankMateDescription">De König uf de Grundreihe matt setze, wänn er dur sini eigene Figure blockiert isch.</string>
   <string name="bishopEndgame">Läufer-Ändschpiil</string>
@@ -19,7 +19,7 @@
   <string name="bodenMate">Boden-Matt</string>
   <string name="bodenMateDescription">Zwei aagriifendi Läufer, uf sich chrüzende Diagonale, setzed de König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="castling">Rochade</string>
-  <string name="castlingDescription">Bring de König i Sicherheit und benutz de Turm zum Aagriffe.</string>
+  <string name="castlingDescription">Bring de König in Sicherheit und benutz de Turm zum aagriffe.</string>
   <string name="capturingDefender">Schlaa de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass sie im nächschte Zug gschlage werde chann.</string>
   <string name="crushing">Vernichtend</string>
