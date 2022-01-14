@@ -29,10 +29,11 @@
   <string name="maxNumber">Maximum number</string>
   <string name="maxNumberExplanation">The maximum number of games to return</string>
   <string name="include">Include</string>
-  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Descending</string>
-  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Ascending</string>
-  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+  <string name="descending">Descending</string>
+  <string name="ascending">Ascending</string>
+  <plurals name="gamesFound">
     <item quantity="one">%s game found</item>
     <item quantity="other">%s games found</item>
   </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">The average rating of both players</string>
 </resources>

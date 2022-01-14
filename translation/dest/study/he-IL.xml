@@ -170,4 +170,5 @@
   <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">נהל נושאים</string>
   <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">חזרה</string>
   <string name="playAgain">הפעל שוב</string>
+  <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
 </resources>

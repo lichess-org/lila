@@ -41,4 +41,5 @@
     <item quantity="many">Rasta %s partijos</item>
     <item quantity="other">Rasta %s partijų</item>
   </plurals>
+  <string name="ratingExplanation">Vidutinis abiejų žaidėjų reitingas</string>
 </resources>

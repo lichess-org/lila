@@ -522,6 +522,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Šalis arba vėliava</string>
   <string name="thankYou">Ačiū!</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
+  <string name="oneUrlPerLine">Vienas adresas per eilutę.</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
   <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
   <string name="onlinePlayers">Prisijungę žaidėjai</string>

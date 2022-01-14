@@ -403,8 +403,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
     val checkInHours =
       if (g2.isPgnImport) none
+      else if (g2.fromApi) some(24 * 7)
       else if (g2.hasClock) 1.some
-      else (24 * 10).some
+      else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(DateTime.now.plusHours),

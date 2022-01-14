@@ -41,4 +41,5 @@
     <item quantity="few">%s partije najdene</item>
     <item quantity="other">%s partij najdenih</item>
   </plurals>
+  <string name="ratingExplanation">Povprečje ratingov obeh igralcev</string>
 </resources>

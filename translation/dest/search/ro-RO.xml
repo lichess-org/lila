@@ -38,4 +38,5 @@
     <item quantity="few">%s partide găsite</item>
     <item quantity="other">%s de partide găsite</item>
   </plurals>
+  <string name="ratingExplanation">Evaluarea medie a ambilor jucători</string>
 </resources>

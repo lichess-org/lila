@@ -460,6 +460,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
+  <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
   <string name="onlinePlayers">Jogadores online</string>

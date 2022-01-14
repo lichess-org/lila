@@ -3,6 +3,7 @@
   <string name="lichessStreamers">שדרני ליצ׳ס</string>
   <string name="lichessStreamer">שדרן ליצ׳ס</string>
   <string name="live">בשידור חי!</string>
+  <string name="offline">מנותק</string>
   <string name="currentlyStreaming">משדרים כרגע: %s</string>
   <string name="lastStream">משדר אחרון %s</string>
   <string name="becomeStreamer">הפוך לשדרן ליצ׳ס</string>
@@ -31,11 +32,20 @@
 לדוגמא \"[RU]\" עבור רוסית, \"[TR]\" עבור טורקית, \"[FR]\" עבור צרפתית, וכד׳.
 כתבו את תוית השפה בכותרת המשדר בעמוד הטוויץ׳ או היוטיוב ולא בהגדרות משדר של ליצ׳ס.
 במידה והמשדר שלכם באנגלית, אין צורך לצרף תוית שפה.</string>
+  <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
+  <string name="youtubeChannel">כתובת או מספר זיהוי ערוץ היוטיוב שלכם</string>
   <string name="streamerName">השם שדרן שלכם בליצ׳ס</string>
+  <plurals name="keepItShort">
+    <item quantity="one">עד %s תווים</item>
+    <item quantity="two">עד %s תווים</item>
+    <item quantity="many">עד %s תווים</item>
+    <item quantity="other">עד %s תווים</item>
+  </plurals>
   <string name="visibility">הצג בעמוד המשדרים</string>
   <string name="whenApproved">לאחר אישור מנהלים</string>
   <string name="headline">כּוֹתֶרֶת</string>
   <string name="tellUsAboutTheStream">ספרו לנו על שידורכם במשפט אחד</string>
+  <string name="longDescription">תיאור ארוך</string>
   <string name="xStreamerPicture">תמונה של שדרן %s</string>
   <string name="changePicture">שנה\מחק את התמונה שלך</string>
   <string name="uploadPicture">העלאת תמונה</string>
