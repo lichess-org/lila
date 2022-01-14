@@ -440,14 +440,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="nextXTournament">Nächschts %s Turnier:</string>
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
   <string name="boardEditor">Schtellig ufbaue</string>
-  <string name="setTheBoard">Brätt ufbouä</string>
+  <string name="setTheBoard">Brätt ufbaue</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
   <string name="endgamePositions">Ändschpiil-Posizione</string>
   <string name="chess960StartPosition">Schach960 Aafangsschtellig: %s</string>
-  <string name="startPosition">Afangs-Posizion</string>
+  <string name="startPosition">Aafangsposition</string>
   <string name="clearBoard">Brätt löschä</string>
   <string name="loadPosition">Schtellig lade</string>
-  <string name="isPrivate">Privaat</string>
+  <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Mäld %s dä Moderatorä</string>
   <string name="profileCompletion">Profil-Vollschtändigkeit: %s</string>
   <string name="xRating">%s Wärtigszahl</string>
@@ -458,9 +458,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="firstName">Vornamä</string>
   <string name="lastName">Nachname</string>
   <string name="biography">Biografii</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flaggä</string>
-  <string name="thankYou">Vilä Dank!</string>
-  <string name="socialMediaLinks">Soziali-Mediä-Links</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
+  <string name="thankYou">Ich danke dir!</string>
+  <string name="socialMediaLinks">Soziali-Medie-Links</string>
   <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
