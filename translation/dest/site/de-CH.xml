@@ -856,15 +856,16 @@ und beeiflussed diini Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="onlyTitled">Nur Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Es brucht en offizielle Titel, für das Turnier</string>
-  <string name="positionInputHelp">Füeg en gültige FEN ii, zum jedi Partie usere bestimmte Schtellig z\'schtarte.
-Das funktioniert nur für Standardschpiil, nöd für Variante.
-Du chasch de %s verwende, zum e FEN-Schtelliig z\'generiere und die dänn do iizfüege. Leer lah, zum Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
-  <string name="cancelSimul">Simultan abbräche</string>
-  <string name="simulHostcolor">Farb vom Veraaschtalter für jedi Partie</string>
+  <string name="positionInputHelp">Füeg en gültige FEN ii, zum jedi Partie ab ere beschtimmte Schtellig z\'schtarte.
+Das funktioniert nur für Standardschpiil und nöd für Variante.
+Du chasch de %s verwende, um e FEN-Schtelliig z\'generiere und die dänn da iizfüege.
+Leer lah, um d\'Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
+  <string name="cancelSimul">Simultanschach abbräche</string>
+  <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
   <string name="simulFeatured">Uf %s zeige</string>
-  <string name="simulFeaturedHelp">Zeig allne uf %s diini Simultan. Für es privats Schpiil deaktiviere.</string>
-  <string name="simulDescription">Simultan Beschriibig</string>
+  <string name="simulFeaturedHelp">Zeig allne uf %s diis Simultanschach. Für es privats Schpiil deaktiviere.</string>
+  <string name="simulDescription">Simultanschach Beschriibig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
   <string name="embedsAvailable">Füeg zum Ibette e Spiil-URL oder e Studiekapitel-URL ii.</string>
@@ -882,7 +883,7 @@ Du chasch de %s verwende, zum e FEN-Schtelliig z\'generiere und die dänn do iiz
   <string name="focusChat">Chat fokussiere</string>
   <string name="showHelpDialog">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
-  <string name="closedAccountChangedMind">Häsch du diin Account gschlosse, jetzt aber diini Meinig gänderet, dänn gits 1 Chance diin Account wider zrugg überzchoo.</string>
+  <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance diis Konto wider zrugg z\'hole.</string>
   <string name="onlyWorksOnce">Das funktioniert aber nur eimal.</string>
   <string name="cantDoThisTwice">Wänn du diin Account es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
   <string name="emailAssociatedToaccount">E-Mail-Adrässe vu diim Account</string>
