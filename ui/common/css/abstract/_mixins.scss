@@ -31,6 +31,16 @@
 
 @mixin hoverflow {
   overflow-y: auto;
+
+  @media (hover: hover) {
+    &:not(:hover) {
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
 }
 
 @mixin hide {
