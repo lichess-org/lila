@@ -756,11 +756,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="waitingForAnalysis">Warte uf d\'Analyse</string>
   <string name="noMistakesFoundForWhite">Kei Fähler vu Wiss gfunde</string>
   <string name="noMistakesFoundForBlack">Kei Fähler vu Schwarz gfunde</string>
-  <string name="doneReviewingWhiteMistakes">Überprüefig vu de Fähler mit Wiis beändet</string>
-  <string name="doneReviewingBlackMistakes">Fertig mit de Überprüefig vu Fähler vu Schwarz</string>
+  <string name="doneReviewingWhiteMistakes">Fähler vu Wiss prüeft</string>
+  <string name="doneReviewingBlackMistakes">Fähler vu Schwarz prüeft</string>
   <string name="doItAgain">Machs nomal</string>
-  <string name="reviewWhiteMistakes">Überprüefe Fähler vu Wiis</string>
-  <string name="reviewBlackMistakes">Überprüefe Fähler vu Schwarz</string>
+  <string name="reviewWhiteMistakes">Fähler vu Wiss werded prüeft</string>
+  <string name="reviewBlackMistakes">Fähler vu Schwarz werded prüeft</string>
   <string name="advantage">Vorteil</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s Sekunde</item>
@@ -779,8 +779,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">und speichärä %s Variantä im Voruus</item>
   </plurals>
   <string name="sorry">Äxgüsi :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Du häsch es wiili timeout.</string>
-  <string name="timeoutExpires">Das timeout ändet i %s.</string>
+  <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Wiili gschperrt.</string>
+  <string name="timeoutExpires">Diini Schperrig ändet i %s.</string>
   <string name="why">Wieso?</string>
   <string name="pleasantChessExperience">Mir wänd allne e möglichscht gueti Schach-Erfahrig büte.</string>
   <string name="goodPractice">Zum dem Zwäck müend mir sicher sii, dass sich all Schpiller korräkt verhalted.</string>
