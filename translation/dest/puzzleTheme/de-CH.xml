@@ -18,7 +18,7 @@
   <string name="bishopEndgameDescription">Es Ändschpiil, nur mit Läufer und Puure.</string>
   <string name="bodenMate">Boden-Matt</string>
   <string name="bodenMateDescription">Zwei aagriifendi Läufer, uf sich chrüzende Diagonale, setzed de König matt, wo dur eigeni Figure behinderet wird.</string>
-  <string name="castling">Roschaade</string>
+  <string name="castling">Rochade</string>
   <string name="castlingDescription">Bring de König i Sicherheit und benutz de Turm zum Aagriffe.</string>
   <string name="capturingDefender">Schlaa de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass sie im nächschte Zug gschlage werde chann.</string>
@@ -49,7 +49,7 @@
   <string name="exposedKingDescription">E Taktik, wo de König nu vu wenige Figure verteidigt wird, was oft zume Matt füert.</string>
   <string name="fork">Gablä</string>
   <string name="forkDescription">Än Zug, bi däm di zogene Figur zwei gegnerischi Figurä uf eimol aagriift.</string>
-  <string name="hangingPiece">Hängändi Figur</string>
+  <string name="hangingPiece">Hängendi Figur</string>
   <string name="hangingPieceDescription">Ä Taktik, bi därä ä gegnerischi Figur nöd oder nur unzuäreichänd deckt isch und drum mit Vorteil gschlagä wärdä chan.</string>
   <string name="hookMate">Hoogämatt</string>
   <string name="hookMateDescription">Matt mit Turm, Gaul und Puur, zämä mitämä gegnerischä Puur, wo sim König äs Fluchtfäld nimmt.</string>
@@ -120,8 +120,7 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">De Gegner hät nur e limitierti Aazahl Züg und jede Zug verschlächteret sini Schtellig.</string>
   <string name="healthyMix">Gsunde Mix</string>
-  <string name="healthyMixDescription">Ein bisschen von allem. Man weiß nicht, was einen erwartet, also ist man auf alles gefasst! Genau wie in echten Spielen.
-Es bitzli vu Allem. Me weiss nöd, was eim erwartet, drum isch mer uf alles g\'fasst! Genau wie in ächte Partie.</string>
+  <string name="healthyMixDescription">Es bitzli vu Allem, me weiss nöd, was eim erwartet, drum isch mer uf alles g\'fasst - genau wie in ächte Partie.</string>
   <string name="playerGames">Schpiller Partie</string>
   <string name="playerGamesDescription">Suech nach Rätsel, wo us diine Schpiil oder us Schpiil vu andere Schpiller stammed.</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
