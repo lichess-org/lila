@@ -423,7 +423,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="withdraw">Zruggzieh</string>
   <string name="points">Pünkt</string>
   <string name="wins">Sieg</string>
-  <string name="losses">Niderlage</string>
+  <string name="losses">Niderlaage</string>
   <string name="createdBy">Erschtellt vo</string>
   <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiil meh gschpillt.</string>
@@ -434,8 +434,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="performance">Leischtig</string>
   <string name="tournamentComplete">Das Turnier isch fertig</string>
   <string name="movesPlayed">Gschpillti Züg</string>
-  <string name="whiteWins">Wiisi Sieg</string>
-  <string name="blackWins">Schwarzi Sieg</string>
+  <string name="whiteWins">Sieg mit Wiss</string>
+  <string name="blackWins">Sieg mit Schwarz</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächschts %s Turnier:</string>
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
