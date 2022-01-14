@@ -93,8 +93,8 @@
   <string name="noGameFound">Keis Schpiil gfunde</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht sötted meh Schpiil vom Iischteligs Menü iibezoge werde?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
-  <string name="openingEndgameExplorer">Eröffnigs / Ändschpiil Explorer</string>
-  <string name="xOpeningExplorer">%s Eröffnigsbuäch</string>
+  <string name="openingEndgameExplorer">Eröffnigs- / Ändschpiil-Explorer</string>
+  <string name="xOpeningExplorer">%s Eröffnigs-Explorer</string>
   <string name="winPreventedBy50MoveRule">Sieg dur d 50-Züg-Reglä verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
   <string name="winOr50MovesByPriorMistake">Sieg oder 50 Züg dur en vorherige Fähler</string>
