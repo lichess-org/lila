@@ -807,7 +807,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="blitzDesc">Schnälli Schpiil: 3 bis 8 Minute</string>
   <string name="rapidDesc">Schnäll-Schach: 8 bis 25 Minute</string>
   <string name="classicalDesc">Klassischi Schpiil: 25 Minute und meh</string>
-  <string name="correspondenceDesc">Fernschachschpiil: eine oder mehreri Täg pro Zug</string>
+  <string name="correspondenceDesc">Fernschach Partie: 1 oder mehreri Täg pro Zug</string>
   <string name="puzzleDesc">Schach-Taktik Trainer</string>
   <string name="important">Wichtig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Dini Frag chönnt bereits %1$s beantwortet worde sii</string>
@@ -819,7 +819,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="thisTopicIsArchived">Das Thema isch archiviert und chann nüme beantwortet werde.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bii, um i dem Forum Biiträg z\'schriibe</string>
   <string name="teamNamedX">%1$s Team</string>
-  <string name="youCannotPostYetPlaySomeGames">Du chasch nonig im Forum schriibe. Schpill zersch es paar Partie!</string>
+  <string name="youCannotPostYetPlaySomeGames">Du chasch nonig im Forum schriibe: Schpill zerscht no es paar Partie!</string>
   <string name="subscribe">Abonniere</string>
   <string name="unsubscribe">Abmälde</string>
   <string name="mentionedYouInX">hät dich in \"%1$s\" erwähnt.</string>
@@ -841,14 +841,14 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="download">Abälade</string>
   <string name="welcome">Willkomme!</string>
   <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
-Alli Betriebschoschte, Entwicklig und Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
-  <string name="coachManager">Trääner Mänätscher</string>
+Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
+  <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
   <string name="tournDescription">Turnier-Beschriibig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Partie sind gwertet
-und beeiflussed d\'Schpillerwertig</string>
+und beeiflussed diini Wertig</string>
   <string name="onlyMembersOfTeam">Nur Mitgliider vum Team</string>
   <string name="noRestriction">Kei Iischränkige</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
