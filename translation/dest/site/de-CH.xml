@@ -374,9 +374,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Fründä online</item>
   </plurals>
   <string name="favoriteOpponents">Hüfigschti Gägner</string>
-  <string name="follow">Folgä</string>
-  <string name="following">Folg ich</string>
-  <string name="unfollow">Nüme folge</string>
+  <string name="follow">Verfolge</string>
+  <string name="following">Verfolg ich</string>
+  <string name="unfollow">Nümme folge</string>
   <string name="followX">%s folge</string>
   <string name="unfollowX">%s nümme folge</string>
   <string name="block">Blockiärä</string>
@@ -405,7 +405,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="required">Pflichtfäld.</string>
   <string name="openTournaments">Offeni Turniär</string>
   <string name="duration">Duur</string>
-  <string name="winner">Gwünner</string>
+  <string name="winner">Sieger</string>
   <string name="standing">Tabällä</string>
   <string name="createANewTournament">Erschtell es neus Turnier</string>
   <string name="tournamentCalendar">Turnier-Kaländer</string>
@@ -414,9 +414,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
   <string name="inappropriateNameWarning">Alles - au nu liecht Unagmässes - chann zur Schlüssig vu diim Konto fühere. 
 (... die \"Sunntigschuel-Lehrer\" schpilled uf dem Server \"heili Wält\").</string>
-  <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
+  <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
-  <string name="fewerPlayers">Wänn du Teilnahmebedingigä setzisch, wird dis Turniär wäniger Schpiller/-innä ha.</string>
+  <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
   <string name="showAdvancedSettings">Zeig die erwiterete Iischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
   <string name="join">Teilnää</string>
