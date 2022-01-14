@@ -120,7 +120,7 @@
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s grobä Patzer</item>
+    <item quantity="one">%s grobe Patzer</item>
     <item quantity="other">%s Patzer</item>
   </plurals>
   <plurals name="nbMistakes">
@@ -132,18 +132,18 @@
     <item quantity="other">%s Ungnauigkeitä</item>
   </plurals>
   <string name="moveTimes">Zugziitä</string>
-  <string name="flipBoard">Brätt dreiä</string>
+  <string name="flipBoard">Brätt umcheere</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
-  <string name="claimADraw">Remis beaschpruchä</string>
-  <string name="offerDraw">Remis aabütä</string>
+  <string name="claimADraw">Es Remis beaschpruche</string>
+  <string name="offerDraw">Remis aabüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s Schpiller/-in</item>
+    <item quantity="one">%s Schpiller</item>
     <item quantity="other">%s Schpiller/-innä</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis dur Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
-  <string name="currentGames">Laufendi Partiiä</string>
+  <string name="currentGames">Laufendi Partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partii</item>
     <item quantity="other">%s Partiiä</item>
@@ -152,25 +152,25 @@
     <item quantity="one">%s Läsezeichä</item>
     <item quantity="other">%s Läsezeichä</item>
   </plurals>
-  <string name="viewInFullSize">Volli Grössi azeige</string>
-  <string name="logOut">Abmäldä</string>
+  <string name="viewInFullSize">In voller Grössi aazeige</string>
+  <string name="logOut">Abmälde</string>
   <string name="signIn">Iilogge</string>
   <string name="youNeedAnAccountToDoThat">Für das bruchsch du es Benutzerkonto</string>
   <string name="signUp">Regischtriere</string>
   <string name="computersAreNotAllowedToPlay">Computer und Computer-Understützig isch nöd erlaubt. Bitte lass dir bim Schpille nöd vu Schachengines, Datebanke oder andere Schpiller hälfe. 
 Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multikonteverhalte chann zume Usschluss fühere.</string>
-  <string name="games">Partiiä</string>
+  <string name="games">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s hät zum Thema %2$s öppis gschribä</string>
   <string name="latestForumPosts">Neuschti Forum-Biiträg</string>
   <string name="players">Schpiller</string>
-  <string name="friends">Fründä</string>
-  <string name="discussions">Konvärsazion</string>
+  <string name="friends">Fründe</string>
+  <string name="discussions">Underhaltige</string>
   <string name="today">Hüt</string>
   <string name="yesterday">Geschter</string>
   <string name="minutesPerSide">Minute pro Schpiller</string>
   <string name="variant">Variante</string>
-  <string name="variants">Variantä</string>
+  <string name="variants">Variante</string>
   <string name="timeControl">Bedänkziit</string>
   <string name="realTime">Ächtziit</string>
   <string name="correspondence">Fernschach</string>
