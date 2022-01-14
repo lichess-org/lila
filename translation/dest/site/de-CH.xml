@@ -330,18 +330,18 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">Du bruchsch no %s Wertigs-Schpiil meh</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wärtig isch provisorisch</string>
-  <string name="yourPerfRatingIsTooHigh">Dini %1$s Wärtig (%2$s) isch z\'höch</string>
+  <string name="yourPerfRatingIsTooHigh">Dini %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wärtig (%2$s) isch z\'höch</string>
-  <string name="yourPerfRatingIsTooLow">Dini %1$s Wärtig (%2$s) isch z\'tüüf</string>
-  <string name="ratedMoreThanInPerf">Wärtig ≥ %1$s in %2$s</string>
+  <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüüf</string>
+  <string name="ratedMoreThanInPerf">Gwertet ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Wärtig ≤ %1$s in %2$s diä Wuchä</string>
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrugg zum Schpiil</string>
-  <string name="siteDescription">Gratis Online Schach Server. Schpill Schach uf ere subere Benutzeroberflächi! Kei Regrischtrierig, kei Werbig, kei Plugins. Schpill Schach gäge Computer, mit Fründe oder zuefälligi Gägner.</string>
+  <string name="siteDescription">Gratis Online Schach Server. Schpill Schach uf ere suubere Benutzeroberflächi! Kei Regrischtrierig, kei Werbig, kei Plugins. Schpill Schach gäge Computer, mit Fründe oder gäge zuefällig gwählte Gägner.</string>
   <string name="xJoinedTeamY">%1$s isch jetzt im Team %2$s</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
-  <string name="xStartedStreaming">%s hät en Stream gschtartet</string>
+  <string name="xStartedStreaming">%s hät aagfange Streame</string>
   <string name="averageElo">Durchschnittswertig</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partie filtere</string>
