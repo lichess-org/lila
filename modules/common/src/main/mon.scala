@@ -363,8 +363,8 @@ object mon {
       def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
       def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
       object bloomFilter {
-        def count = gauge("clas.student.bloomFilter.count").withoutTags()
-        def fu    = future("clas.student.bloomFilter.future")
+        val count = gauge("clas.student.bloomFilter.count").withoutTags()
+        val fu    = future("clas.student.bloomFilter.future")
       }
     }
   }
@@ -500,20 +500,23 @@ object mon {
       def attempt(user: Boolean, theme: String, rated: Boolean) =
         counter("puzzle.attempt.count").withTags(Map("user" -> user, "theme" -> theme, "rated" -> rated))
     }
-    def vote(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTags(
-      Map(
-        "up"  -> up,
-        "win" -> win
-      )
-    )
-    def voteTheme(key: String, up: Option[Boolean], win: Boolean) =
-      counter("puzzle.vote.theme").withTags(
+    object vote {
+      def count(up: Boolean, win: Boolean) = counter("puzzle.vote.count").withTags(
         Map(
-          "up"    -> up.fold("cancel")(_.toString),
-          "theme" -> key,
-          "win"   -> win
+          "up"  -> up,
+          "win" -> win
         )
       )
+      def theme(key: String, up: Option[Boolean], win: Boolean) =
+        counter("puzzle.vote.theme").withTags(
+          Map(
+            "up"    -> up.fold("cancel")(_.toString),
+            "theme" -> key,
+            "win"   -> win
+          )
+        )
+      val future = mon.future("puzzle.vote.future")
+    }
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   }
   object storm {

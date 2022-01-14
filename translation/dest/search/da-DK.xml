@@ -35,4 +35,5 @@
     <item quantity="one">%s parti fundet</item>
     <item quantity="other">%s partier fundet</item>
   </plurals>
+  <string name="ratingExplanation">Den gennemsnitlige rating af begge spillere</string>
 </resources>

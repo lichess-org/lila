@@ -33,9 +33,9 @@
   <string name="maxNumber">Максимальне число</string>
   <string name="maxNumberExplanation">Максимальна кількість ігор для пошуку</string>
   <string name="include">Включаючи</string>
-  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">За спаданням</string>
-  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">За зростанням</string>
-  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+  <string name="descending">За спаданням</string>
+  <string name="ascending">За зростанням</string>
+  <plurals name="gamesFound">
     <item quantity="one">%s гра знайдена</item>
     <item quantity="few">%s гри знайдено</item>
     <item quantity="many">%s ігор знайдено</item>

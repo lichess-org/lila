@@ -456,6 +456,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Een skakel per lyn.</string>
   <string name="inlineNotation">Binnelyn notasie</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
   <string name="onlinePlayers">Aanlyn spelers</string>

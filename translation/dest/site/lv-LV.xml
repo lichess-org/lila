@@ -193,7 +193,7 @@
     <item quantity="one">%s stunda</item>
     <item quantity="other">%s stundas</item>
   </plurals>
-  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+  <plurals name="nbMinutes">
     <item quantity="zero">%s minūšu</item>
     <item quantity="one">%s minūte</item>
     <item quantity="other">%s minūtes</item>
@@ -490,6 +490,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Valsts vai karogs</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
   <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>

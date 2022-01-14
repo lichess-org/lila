@@ -459,6 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flagge</string>
   <string name="thankYou">Vielen Dank!</string>
   <string name="socialMediaLinks">Social-Media-Links</string>
+  <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>

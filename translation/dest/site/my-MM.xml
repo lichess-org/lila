@@ -63,7 +63,7 @@
   <string name="moveTimes">အလှည့်ကြာချိန်</string>
   <string name="flipBoard">ကစားခုံလှန်ပါ</string>
   <string name="threefoldRepetition">အနေအထား  သုံးကြိမ် ထပ်သည်</string>
-  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+  <plurals name="nbMinutes">
     <item quantity="other">%s မိနစ်</item>
   </plurals>
   <string name="time">အချိန်</string>

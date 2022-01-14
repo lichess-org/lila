@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Insights de xadrez de %s</string>
+  <string name="xHasNoChessInsights">%s não tem insights de xadrez ainda!</string>
+  <string name="insightsAreProtected">Os insights de xadrez de %s estão protegidos</string>
+  <string name="cantSeeInsights">Desculpe, você não pode ver os insights de %s.</string>
+  <string name="generateInsights">Gerar os insights de xadrez de %s.</string>
+  <string name="crunchingData">Processando os dados para você!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Você pode lhe pedir para que mude as %s.</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">configurações de insights</string>
+</resources>

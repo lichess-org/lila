@@ -460,6 +460,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
+  <string name="oneUrlPerLine">Ei nettadresse (URL) på kvar line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
   <string name="onlinePlayers">Innlogga spelarar</string>

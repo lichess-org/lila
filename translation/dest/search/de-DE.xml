@@ -35,4 +35,5 @@
     <item quantity="one">%s Partie gefunden</item>
     <item quantity="other">%s Partien gefunden</item>
   </plurals>
+  <string name="ratingExplanation">Die durchschnittliche Wertungszahl beider Spieler</string>
 </resources>

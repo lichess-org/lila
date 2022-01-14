@@ -38,4 +38,5 @@
     <item quantity="few">Pronađene su %s partije</item>
     <item quantity="other">Pronađeno je %s partija</item>
   </plurals>
+  <string name="ratingExplanation">Prosječni rejting oba igrača</string>
 </resources>

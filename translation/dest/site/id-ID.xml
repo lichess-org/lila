@@ -170,7 +170,7 @@
   <plurals name="nbHours">
     <item quantity="other">%s jam</item>
   </plurals>
-  <plurals name="nbMinutes" comment="nbMinutes [one] [other]&#10;&#10;Appears in the advanced search tool (https://lichess.org/games/search), among other places, and generally relates to time controls for chess games.">
+  <plurals name="nbMinutes">
     <item quantity="other">%s menit</item>
   </plurals>
   <string name="time">Waktu</string>

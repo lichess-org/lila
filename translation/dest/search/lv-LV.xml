@@ -31,11 +31,12 @@
   <string name="maxNumber">Maksimālais daudzums</string>
   <string name="maxNumberExplanation">Lielākais daudzums spēļu, ko atgriezt</string>
   <string name="include">Iekļaut</string>
-  <string name="descending" comment="descending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Dilstošā secībā</string>
-  <string name="ascending" comment="ascending&#10;&#10;General method for sorting games in the Advanced Search function. Applies to multiple categories for sorting games. https://lichess.org/games/search">Augošā secībā</string>
-  <plurals name="gamesFound" comment="gamesFound [one] [other]&#10;&#10;%s are the number of games matching your search criteria.&#10;&#10;Appears in the Advanced Search tool: https://lichess.org/games/search">
+  <string name="descending">Dilstošā secībā</string>
+  <string name="ascending">Augošā secībā</string>
+  <plurals name="gamesFound">
     <item quantity="zero">Atrastas %s spēles</item>
     <item quantity="one">Atrasta %s spēle</item>
     <item quantity="other">Atrastas %s spēles</item>
   </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Abu spēlētāju vidējais reitings</string>
 </resources>
