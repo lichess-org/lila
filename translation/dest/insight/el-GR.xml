@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">στατιστικά του χρήστη %s</string>
+  <string name="xHasNoChessInsights">Δεν υπάρχουν στατιστικά για τον χρήστη %s ακόμα!</string>
+  <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">Τα στατιστικά του χρήστη %s είναι προστατευμένα</string>
+  <string name="cantSeeInsights">Δυστυχώς δεν μπορείτε να δείτε τα στατιστικά του χρήστη %s.</string>
+</resources>
