@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Schpill mitämä Fründ</string>
-  <string name="playWithTheMachine">Schpill mit em Kompi</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Zum öpper zumänä Schpiil iizlade, schickäm dä Link</string>
+  <string name="playWithAFriend">Schpill mit eme Fründ</string>
+  <string name="playWithTheMachine">Schpill mit em Computer</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille iilade - schick die URL</string>
   <string name="gameOver">Schpiil verbii</string>
-  <string name="waitingForOpponent">Uf de Gägner wartä</string>
-  <string name="waiting">Am Wartä</string>
-  <string name="yourTurn">Du bisch am Zug</string>
+  <string name="waitingForOpponent">Uf de Gägner warte</string>
+  <string name="waiting">Am Warte</string>
+  <string name="yourTurn">Du bisch draa</string>
   <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
-  <string name="level">Schtufä</string>
+  <string name="level">Schtufe</string>
   <string name="strength">Schpiilstärchi</string>
-  <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
-  <string name="chat">Tschätt</string>
+  <string name="toggleTheChat">Chat aa und abschalte</string>
+  <string name="chat">Chat</string>
   <string name="resign">Schpiil ufgeh</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
@@ -461,7 +461,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flaggä</string>
   <string name="thankYou">Vilä Dank!</string>
   <string name="socialMediaLinks">Soziali-Mediä-Links</string>
-  <string name="oneUrlPerLine">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
   <string name="onlinePlayers">Online-Schpiller</string>
