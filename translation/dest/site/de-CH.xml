@@ -614,11 +614,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="aboutSimulRules">Bim Simultanschach schpilled beliebig vill Simultangägner je 1 Partie gäge en Simultanschpiller und sGanzi ändet, wänn alli Schpiil fertig gschpillt sind.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du es Simultan erschtellsch, chasch du mit mehrere Gägner glichziitig schpille.</string>
-  <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Schpiller ussueche, was er schpille will.</string>
+  <string name="whenCreateSimul">Wänn du es Simultanschach erschtellsch, chasch du glichziitig gäge mehreri Gägner schpille.</string>
+  <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr-Iistellig. Je meh Gägner du häsch, umso meh Ziit bruchsch wahrschinli.</string>
   <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass mit em Simutlan zrächt chunsch.</string>
-  <string name="simulHostExtraTime">Extra Bedänkziit vum Veraastalter</string>
+  <string name="simulHostExtraTime">Extra Ziit vum Simultanschpiller</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turnier afangt</string>
