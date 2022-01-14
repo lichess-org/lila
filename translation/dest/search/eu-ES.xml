@@ -35,4 +35,5 @@
     <item quantity="one">Partida %s aurkitu da</item>
     <item quantity="other">%s partida aurkitu dira</item>
   </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Bi jokalarien batez besteko puntuazioa</string>
 </resources>
