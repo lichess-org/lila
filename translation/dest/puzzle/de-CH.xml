@@ -13,11 +13,11 @@
   <string name="specialMoves">Spezielli Züg</string>
   <string name="didYouLikeThisPuzzle">Hät dir die Ufgab g\'falle?</string>
   <string name="voteToLoadNextOne">Stimm ab, um die nächscht z\'lade!</string>
-  <string name="yourPuzzleRatingWillNotChange">Diini Ufgabe-Wertig änderet sich nöd. Die Ufgabe sind kein Wettbewerb. Diini Wertig hilft nur um dir Ufgabe uszwähle, wo zu diinere aktuelle Stärchi passed.</string>
-  <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiiss.</string>
+  <string name="yourPuzzleRatingWillNotChange">Diini Ufgabe-Wertig änderet sich nöd. Die Ufgabe sind kein Wettbewerb. Diini Wertig hilft nur, zum Ufgabe z\'wähle, wo zu diinere aktuelle Stärchi passed.</string>
+  <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiss.</string>
   <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>
-  <string name="toGetPersonalizedPuzzles">Zum personalisierti Ufgage z\'erhalte:</string>
-  <string name="puzzleId">Aufgabe %s</string>
+  <string name="toGetPersonalizedPuzzles">Um personalisierti Ufgage z\'erhalte:</string>
+  <string name="puzzleId">Ufgabe %s</string>
   <string name="puzzleOfTheDay">Ufgab vom Tag</string>
   <string name="clickToSolve">Zum Löse klicke</string>
   <string name="goodMove">Guete Zug</string>
