@@ -41,4 +41,5 @@
     <item quantity="many">znaleziono %s partii</item>
     <item quantity="other">znaleziono %s partii</item>
   </plurals>
+  <string name="ratingExplanation">Średni ranking obu graczy</string>
 </resources>

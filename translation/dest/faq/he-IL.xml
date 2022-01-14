@@ -64,6 +64,7 @@
   <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
   <string name="notRepeatedMoves">לא חזרנו על מהלכים, מדוע המשחק הסתיים בתיקו ע\"י חזרתיות?</string>
+  <string name="repeatedPositionsThatMatters">חזרה משולש מתיחסת ל%1$s, לא תורות. החזרות אינן חייבות להתקיים ברצף.</string>
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
@@ -78,6 +79,7 @@
   <string name="noUpperCaseDot">לא.</string>
   <string name="guidelines">הנחיות</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
+  <string name="uniqueTrophies">גביעים ייחודיים</string>
   <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
   <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
   <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
