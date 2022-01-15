@@ -78,7 +78,7 @@ object features {
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),
-              " through more than 700 thousand Lishogi games"
+              " through more than 800 thousand Lishogi games"
             ),
             tr(unlimited)(
               a(href := routes.Video.index)("Shogi video library")
