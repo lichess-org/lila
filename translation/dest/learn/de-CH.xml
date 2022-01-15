@@ -98,12 +98,16 @@ Umwandle muesch nöd.</string>
   <string name="boardSetup">Uufschtellig</string>
   <string name="howTheGameStarts">Wie das Spiil aafangt</string>
   <string name="boardSetupIntro">Die beide Armee stöhnd sich gägenüber, parat für d\'Schlacht.</string>
-  <string name="thisIsTheInitialPosition">Das isch d\'Usgangsposizion vu jedem Schachschpiil. Mach irgendein Zug zum wiiter mache.</string>
-  <string name="firstPlaceTheRooks">Stell zerscht d\'Türm uf! Sie chömmed id Egge.</string>
-  <string name="thenPlaceTheKnights">Dänn schtellsch d\'Schpringer uf! Sie chömmed diräkt näbe de Türm.</string>
-  <string name="placeTheBishops">Jetzt chömmed d\'Läufer! Sie stöhnd näbe de Schpringer.</string>
-  <string name="placeTheQueen">Dänn d\'Dame. Die Wiis ufs wiisse und die Schwarz ufs schwarze Fäld.</string>
-  <string name="placeTheKing">Und no de König! Grad näbe siinere Königin.</string>
+  <string name="thisIsTheInitialPosition">Das isch die richtig Aafangsstellig vu jedem Schachschpiil. Mach irgend en Zug zum wiiter fahre.</string>
+  <string name="firstPlaceTheRooks">Stell zerscht die beide Türm uf!
+Sie chömmed in Egge.</string>
+  <string name="thenPlaceTheKnights">Dänn schtellsch zwei Schpringer uf!
+Grad näbe de Turm.</string>
+  <string name="placeTheBishops">Jetzt chömmed no zwei Läufer!
+Grad nach de Schpringer.</string>
+  <string name="placeTheQueen">Dänn e Dame, ufs wiss Fäld, die Wiss und ufs schwarz Fäld die Schwarz.</string>
+  <string name="placeTheKing">Und dänn no de König!
+Zu de Dame oder Königin.</string>
   <string name="pawnsFormTheFrontLine">Puure mached die vorderscht Linie. Mach irgendein Zug zum wiiter mache.</string>
   <string name="boardSetupComplete">Gratuliere! Du weisch, wie mer d\'Schachfigure ufschtellt.</string>
   <string name="castling">Rochade</string>
