@@ -152,11 +152,10 @@ Läufer = 3
 Schpringer = 3
 Puur = 1
 De König hät kein Priis, gaht er verlore, isch au s\'Schpiil verlore.</string>
-  <string name="queenOverBishop">Schlag die Figur
-mit em höchschten Wert!
+  <string name="queenOverBishop">Schlag d\'Figur mit em höchschte Wert!
 Dame &gt; Läufer</string>
-  <string name="pieceValueExchange">Schlage die Figur mit dem höchsten Wert!
- Tausche keine höherwertige Figur gegen eine weniger wertvolle ab.</string>
+  <string name="pieceValueExchange">Schlag die Figur wo de höchschti Wert hät!
+Tuusch kei wertvolli Figur gäge eini mit weniger Wert.</string>
   <string name="pieceValueLegal">Schlage die Figur mit dem höchsten Wert!
 Stelle sicher, dass dein Zug regelgerecht ist!</string>
   <string name="takeThePieceWithTheHighestValue">Schlage die Figur 
