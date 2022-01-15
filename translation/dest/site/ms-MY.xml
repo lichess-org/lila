@@ -327,6 +327,7 @@
   <string name="orUploadPgnFile">Atau muat naik fail PGN</string>
   <string name="fromPosition">Dari kedudukan</string>
   <string name="continueFromHere">Teruskan dari sini</string>
+  <string name="toStudy">Belajar</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s rakan dalam talian</item>
   </plurals>
