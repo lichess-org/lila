@@ -89,11 +89,11 @@ Umwandle muesch nöd.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">De Schpringer bütet Schach, dur diini Verteidigung!</string>
   <string name="escapeOrBlock">Mit em König flüchte oder de Aagriff blockiere!</string>
   <string name="outOfCheckComplete">Gratuliere, diin König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
-  <string name="mateInOne">Matt i 1 Zug</string>
+  <string name="mateInOne">Matt mit 1 Zug</string>
   <string name="defeatTheOpponentsKing">Besieg de gägnerisch König</string>
-  <string name="mateInOneIntro">Du günnsch, wänn diin Gägner es Schachgebot nöd abwehre chann.</string>
-  <string name="attackYourOpponentsKing">Griif de gägnerisch König so aa, dass es nöd abgwehrt werde chann!</string>
-  <string name="mateInOneComplete">Gratuliere! So günnsch du Schachschpiil!</string>
+  <string name="mateInOneIntro">Du günnsch, wänn diin Gägner diis Schachgebot nöd abwehre cha.</string>
+  <string name="attackYourOpponentsKing">Griif de gägnerisch König so aa, dass diin Aagriff nöd abgwehrt werde cha!</string>
+  <string name="mateInOneComplete">Gratuliere, genau so günnsch du Schachschpiil!</string>
   <string name="intermediate">Mittlers Niveau</string>
   <string name="boardSetup">Uufschtellig</string>
   <string name="howTheGameStarts">Wie das Spiil aafangt</string>
