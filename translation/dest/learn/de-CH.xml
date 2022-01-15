@@ -131,9 +131,9 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="enPassantIntro">Isch en Puur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Puur 2 Fälder vor gschobe!
 Schlag de Puur \"en passant\".</string>
-  <string name="enPassantOnlyWorksImmediately">\"En passant\" isch nur diräkt nach em gägnerische 2-Fälder-Puurezug erlaubt.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" isch nur erlaubt, wänn diin Puur uf de 5. Reihe staht.</string>
-  <string name="takeAllThePawnsEnPassant">Schlah all Puure \"en passant\"!</string>
+  <string name="enPassantOnlyWorksImmediately">\"En passant\" isch nur unmittelbar nach em Puurezug - über die erschte zwei Fälder - erlaubt.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" isch nur erlaubt, wänn de Puur wo schlaht, uf de 5. Reihe (Schwarz uf de 4. Reihe) staht.</string>
+  <string name="takeAllThePawnsEnPassant">Schlag jetzt jede Puur \"en passant\"!</string>
   <string name="enPassantComplete">Gratuliere! Du chasch jetzt \"en passant\" schlah.</string>
   <string name="stalemate">Patt-Schtellig</string>
   <string name="theGameIsADraw">Das Spiil isch es Remis (unentschiede)</string>
