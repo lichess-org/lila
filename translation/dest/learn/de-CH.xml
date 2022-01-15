@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Lärn Schach</string>
-  <string name="byPlaying">indäm\'d schpillsch!</string>
+  <string name="learnChess">Lern Schach</string>
+  <string name="byPlaying">idem du schpillsch!</string>
   <string name="menu">Menü</string>
   <string name="progressX">Fortschritt: %s</string>
-  <string name="resetMyProgress">Min Fortschritt zruggsetzä</string>
-  <string name="youWillLoseAllYourProgress">Du verlürsch all din Fortschritt!</string>
-  <string name="play">Schpill!</string>
-  <string name="chessPieces">Schachfigurä</string>
-  <string name="theRook">Dä Turm</string>
-  <string name="itMovesInStraightLines">Er bewegt sich i gradä Liniä</string>
-  <string name="rookIntro">Dä Turm isch ä mächtigi Figur. Widä Münschterturm. Bisch parat, inn z\'befehligä?</string>
-  <string name="rookGoal">Klick uf dä Turm, um än Stärn z\'becho!</string>
+  <string name="resetMyProgress">Min Fortschritt zruggsetze</string>
+  <string name="youWillLoseAllYourProgress">So verlürsch diin ganze Fortschritt!</string>
+  <string name="play">schpill!</string>
+  <string name="chessPieces">Schachfigure</string>
+  <string name="theRook">De Turm</string>
+  <string name="itMovesInStraightLines">Er bewegt sich nur i grade Linie</string>
+  <string name="rookIntro">De Turm isch e starchi Figur. 
+Bisch parat, ihn z\'kommandiere?</string>
+  <string name="rookGoal">Klick uf de Turm und beweg ihn zum Stern!</string>
   <string name="grabAllTheStars">Schnapp dir alli Stärn!</string>
   <string name="theFewerMoves">Je wäniger Züg du machsch, desto meh Pünkt gwünnsch!</string>
   <string name="useTwoRooks">Nimm zwei Türm, zum diä Sach z\'beschleunigä!</string>
