@@ -19,18 +19,18 @@
   <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zähntelsekunde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Räschtziit &lt; 10 Sekundä</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Bi Reschtziit &lt; 10 Sekunde</string>
   <string name="horizontalGreenProgressBars">Horizontali grüeni Fortschrittsbalke</string>
-  <string name="soundWhenTimeGetsCritical">Toon, wänn d\'Ziit knapp wird</string>
-  <string name="giveMoreTime">Meh Ziit gäh</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpiilverhaltä</string>
-  <string name="howDoYouMovePieces">Wiä wöttsch du d\'Figurä bewegä?</string>
-  <string name="clickTwoSquares">Zwei Fälder aaklickä</string>
-  <string name="dragPiece">D\'Figur züchä</string>
-  <string name="bothClicksAndDrag">Klickä oder züchä</string>
-  <string name="premovesPlayingDuringOpponentTurn">Voruuszüg (Premoves), währänd dä Gegner am Zug isch</string>
-  <string name="takebacksWithOpponentApproval">Zugrücknahm (mit Erlaubnis vom Gegner)</string>
-  <string name="inCasualGamesOnly">Nur in ungwärtätä Partiiä</string>
+  <string name="soundWhenTimeGetsCritical">Warnig, bi wenig Ziit</string>
+  <string name="giveMoreTime">Gib meh Ziit</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Schpiilverhalte</string>
+  <string name="howDoYouMovePieces">Wie wottsch Figure bewege?</string>
+  <string name="clickTwoSquares">Klick Schtartfäld und Zielfäld</string>
+  <string name="dragPiece">Figur mit Cursor zieh</string>
+  <string name="bothClicksAndDrag">Beides</string>
+  <string name="premovesPlayingDuringOpponentTurn">Voruszüg (Premoves), während de Gägner am Zug isch</string>
+  <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
+  <string name="inCasualGamesOnly">Nur bi ungwertete Schpiil</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Damä</string>
   <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Druck dTaschte &lt;ctrl&gt; während de Umwandlig, so wird sie vorübergehend abgschtellt</string>
   <string name="whenPremoving">Bim Voruuszug</string>
