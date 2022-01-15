@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Züch zum afoh</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Du schpillsch in allne Ufgabe mit de wiisse Figure</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Du schpillsch in allne Ufgabe mit de schwarze Figure</string>
+  <string name="moveToStart">Zieh zum schtarte</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du schpillsch bi allne Ufgabe mit Wiss</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du schpillsch bi allne Ufgabe mit Schwarz</string>
   <string name="puzzlesSolved">glösti Ufgabe</string>
   <string name="newDailyHighscore">Neuä Tagesrekord!</string>
   <string name="newWeeklyHighscore">Neuä Wuchärekord!</string>
