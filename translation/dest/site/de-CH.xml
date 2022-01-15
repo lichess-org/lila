@@ -847,15 +847,15 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="cancelTournament">Brich das Turnier ab</string>
   <string name="tournDescription">Turnier-Beschriibig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
-  <string name="ratedFormHelp">Partie sind gwertet
-und beeiflussed diini Wertig</string>
+  <string name="ratedFormHelp">Alli Partie sind gwertet
+und beiiflussed diini Wertig</string>
   <string name="onlyMembersOfTeam">Nur Mitgliider vum Team</string>
   <string name="noRestriction">Kei Iischränkige</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
-  <string name="onlyTitled">Nur Schpiller mit Titel</string>
-  <string name="onlyTitledHelp">Es brucht en offizielle Titel, für das Turnier</string>
+  <string name="onlyTitled">Nur für Schpiller mit Titel</string>
+  <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel haa</string>
   <string name="positionInputHelp">Füeg en gültige FEN ii, zum jedi Partie ab ere beschtimmte Schtellig z\'schtarte.
 Das funktioniert nur für Standardschpiil und nöd für Variante.
 Du chasch de %s verwende, um e FEN-Schtelliig z\'generiere und die dänn da iizfüege.
@@ -864,7 +864,7 @@ Leer lah, um d\'Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
   <string name="simulFeatured">Uf %s zeige</string>
-  <string name="simulFeaturedHelp">Zeig allne uf %s diis Simultanschach. Für es privats Schpiil deaktiviere.</string>
+  <string name="simulFeaturedHelp">Zeig allne uf %s diis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschriibig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
@@ -879,7 +879,7 @@ Leer lah, um d\'Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
   <string name="toggleLocalAnalysis">Lokali Computer-Analyse aa-/abschalte</string>
   <string name="toggleAllAnalysis">Alli Computer-Analyse aa-/abschalte</string>
   <string name="playComputerMove">Spill de bescht Computerzug</string>
-  <string name="analysisOptions">Analyse Opzione</string>
+  <string name="analysisOptions">Analyse Möglichkeite</string>
   <string name="focusChat">Chat fokussiere</string>
   <string name="showHelpDialog">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
