@@ -29,13 +29,6 @@ final class Env(
 
   private val colls = new UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
-  val rankFactorSetting = settingStore[Float](
-    "ublogRankFactor",
-    default = 1f,
-    text = "Ublog rank factor".some,
-    onSet = _ => rank.recomputeRankOfAllPosts
-  ).taggedWith[UblogRankFactor]
-
   val topic = wire[UblogTopicApi]
 
   val rank: UblogRank = wire[UblogRank]
@@ -63,4 +56,3 @@ final class Env(
 }
 
 final private class UblogColls(val blog: Coll, val post: Coll)
-trait UblogRankFactor
