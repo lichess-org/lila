@@ -13,7 +13,13 @@ object review {
 
   def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
-      h2(studentReviews(reviews.list.size)),
+      h2(
+        studentReviews(reviews.list.size),
+        iconTag("")(
+          cls := "coach-show__reviews__disclaimer",
+          st.title := "Comments are approved by the coach. Negative comments are reviewed by moderators."
+        )
+      ),
       reviews.list.map { r =>
         div(cls := "coach-review")(
           div(cls := "top")(
