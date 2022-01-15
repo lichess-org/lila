@@ -39,7 +39,7 @@
   <string name="deflection">Ablänkig</string>
   <string name="deflectionDescription">En Zug, wo e gägnerischi Figur ablänkt, z. B. e Figur oder es wichtigs Fäld z\'schütze. Au \"Überlaschtig\" gnännt.</string>
   <string name="discoveredAttack">Abzugsaagriff</string>
-  <string name="discoveredAttackDescription">E Figur (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wiit weg stehendi Figur (z. B. en Turm) blockiert hät, us em Wäg neh.</string>
+  <string name="discoveredAttackDescription">Me nimmt (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wiit weg stehendi, Figur (z. B. en Turm) blockiert hät, us em Wäg.</string>
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Schachgebot, gliichzitig mit 2 Figure, als Ergebnis vome Abzug, wo die abziehend und au di vorher blockierti Figur de gegnerisch König aagriifed.</string>
   <string name="endgame">Ändschpiil</string>
