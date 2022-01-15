@@ -26,13 +26,13 @@ Bisch parat, ihn z\'kommandiere?</string>
   <string name="queenCombinesRookAndBishop">Dame = zieht wie Turm und Läufer</string>
   <string name="queenIntro">Die stärchscht Schachfigur chunnt: 
 \"Ihre Majestät die Dame!\"!</string>
-  <string name="queenComplete">Härzlichä Glückwunsch! Daamä händ kei Gheimnis meh vor dir.</string>
+  <string name="queenComplete">Gratuliere! Königinne händ kei Gheimnis meh für dich.</string>
   <string name="theKing">De König</string>
   <string name="theMostImportantPiece">Die allerwichtigscht Figur</string>
-  <string name="kingIntro">Du bisch de König. Wänn du im Kampf um chunnsch, isch s\'Schpiil verlore.</string>
+  <string name="kingIntro">Du bisch de König, wänn du im Kampf ums Läbe chunnsch, isch s\'Schpiil verlore.</string>
   <string name="theKingIsSlow">De König isch langsam.</string>
   <string name="lastOne">S\'letscht Mal!</string>
-  <string name="kingComplete">Gratuliere! Du chasch jetzt de Befehlshaber befehle!</string>
+  <string name="kingComplete">Gratuliere, du chasch jetzt de Befehlshaber befehle!</string>
   <string name="theKnight">De Schpringer</string>
   <string name="itMovesInAnLShape">Er bewegt sich in ere L-Form</string>
   <string name="knightIntro">Da isch e Useforderig für dich. De Schpringer isch... e kniffligi Figur.</string>
