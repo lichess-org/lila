@@ -144,16 +144,16 @@ Schlag de Puur \"en passant\".</string>
   <string name="stalemateComplete">Gratuliere, lieber es Patt als es Matt!</string>
   <string name="advanced">Fortgschritte</string>
   <string name="pieceValue">Figurewert</string>
-  <string name="evaluatePieceStrength">Bewärt d\'Stärchi vo dä Figurä</string>
-  <string name="pieceValueIntro">Figurä mit meh Zugmöglichkeitä besitzäd än höcherä Wärt! Mä chan sich das so verbildlichä, dass diä mit höchärä Zahlä Oschtschwiizer sind.
-Damä = 9
+  <string name="evaluatePieceStrength">Lueg uf de Wert vu de Figure</string>
+  <string name="pieceValueIntro">Figure mit meh Mobilität händ en höchere Wert!
+Dame = 9
 Turm = 5
 Läufer = 3
-Gaul = 3
+Schpringer = 3
 Puur = 1
-De König isch unbezahlbar! Wänn mä dää verlüürt, hät mä verlorä.</string>
-  <string name="queenOverBishop">Schlage die Figur
-mit dem höchsten Wert!
+De König hät kein Priis, gaht er verlore, isch au s\'Schpiil verlore.</string>
+  <string name="queenOverBishop">Schlag die Figur
+mit em höchschten Wert!
 Dame &gt; Läufer</string>
   <string name="pieceValueExchange">Schlage die Figur mit dem höchsten Wert!
  Tausche keine höherwertige Figur gegen eine weniger wertvolle ab.</string>
