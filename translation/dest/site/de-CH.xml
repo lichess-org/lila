@@ -32,7 +32,7 @@
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variante ändet</string>
   <string name="newOpponent">En neue Gägner</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wött es neus Schpiil mit dir schpille</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpiil mit dir schpille</string>
   <string name="joinTheGame">Tritt dä Partii bi</string>
   <string name="whitePlays">Wiis am Zug</string>
   <string name="blackPlays">Schwarz isch am Zug</string>
@@ -44,7 +44,7 @@
   <string name="forceResignation">De Sieg beaschpruche</string>
   <string name="forceDraw">Remis erchläre</string>
   <string name="talkInChat">Im Chat bitte nett sii!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die 1. Person, wo die URL klickt, schpillt mit dir.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
   <string name="whiteLeftTheGame">Wiss hät d\'Partie verlah</string>
