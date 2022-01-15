@@ -122,9 +122,9 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="castleKingSideMovePiecesFirst">Zieh zerscht - uf de Königssiite - Figure weg und mach dänn die churz Rochade - \"0-0\".</string>
   <string name="castleQueenSideMovePiecesFirst">Zieh zerscht - uf de Damesiite - Figure weg und mach dänn die lang Rochade \"0-0-0\".</string>
   <string name="youCannotCastleIfMoved">Du chasch e Rochade nümme mache, wänn de König oder de Turm bereits bewegt worde isch.</string>
-  <string name="youCannotCastleIfAttacked">Du chasch nöd rochiere, wänn de König uf sim Wäg bedroht wird. Blockier das Schach und roschier!</string>
-  <string name="findAWayToCastleKingSide">Find e Möglichkeit zum churz rochiere!</string>
-  <string name="findAWayToCastleQueenSide">Find e Möglichkeit zum lang rochiere!</string>
+  <string name="youCannotCastleIfAttacked">Du chasch e Rochade nöd über aagriffeni Fälder mache! Blockier das vorher!</string>
+  <string name="findAWayToCastleKingSide">Find en Wäg für die churz Rochade!</string>
+  <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
   <string name="castlingComplete">Gratuliere! Du söttsch im Schpiil fascht immer rochiere.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speziell Puurezug</string>
