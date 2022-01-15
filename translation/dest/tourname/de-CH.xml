@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Schtündlichi Schnellschach-Arena</string>
-  <string name="hourlyRapid">Schtündlichs Schnellschach</string>
-  <string name="hourlyXArena">Schtündlichi %s-Arena</string>
+  <string name="hourlyRapidArena">Schtündlichi Schnällschach Arena</string>
+  <string name="hourlyRapid">Schtündlichs Schnällschach</string>
+  <string name="hourlyXArena">Schtündlichi %s Arena</string>
   <string name="hourlyX">Schtündlichs %s</string>
-  <string name="dailyRapidArena">Täglichi Schnellschach-Arena</string>
-  <string name="dailyRapid">Täglichs Schnellschach</string>
+  <string name="dailyRapidArena">Täglichi Schnällschach Arena</string>
+  <string name="dailyRapid">Täglichs Schnällschach</string>
   <string name="dailyClassicalArena">Täglichi Klassisch-Arena</string>
   <string name="dailyClassical">Täglichs Klassisch</string>
   <string name="dailyXArena">Täglichi %s-Arena</string>
