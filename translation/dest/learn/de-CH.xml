@@ -198,8 +198,8 @@ Puur = 1</string>
   <string name="rightOn">Uf de Punkt!</string>
   <string name="stageXComplete">Schtufe %s beändet</string>
   <string name="yourScore">Diini Punktzahl</string>
-  <string name="next">Als Nächstes</string>
-  <string name="backToMenu">Zurück zum Menü</string>
-  <string name="puzzleFailed">Aufgabe misslungen!</string>
-  <string name="retry">Erneut versuchen</string>
+  <string name="next">Wiiter mit</string>
+  <string name="backToMenu">Zrugg zum Menü</string>
+  <string name="puzzleFailed">Ufgab nöd glöst!</string>
+  <string name="retry">Probiers nomal</string>
 </resources>
