@@ -20,7 +20,8 @@ case class UblogPost(
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes,
-    views: UblogPost.Views
+    views: UblogPost.Views,
+    rank: Option[UblogPost.Rank] = None
 ) extends UblogPost.BasePost {
 
   def isBy(u: User) = created.by == u.id
@@ -55,6 +56,7 @@ object UblogPost {
     val image: Option[UblogImage]
     val created: Recorded
     val lived: Option[Recorded]
+    val rank: Option[UblogPost.Rank]
     def id   = _id
     def slug = UblogPost slug title
   }
@@ -66,7 +68,8 @@ object UblogPost {
       intro: String,
       image: Option[UblogImage],
       created: Recorded,
-      lived: Option[Recorded]
+      lived: Option[Recorded],
+      rank: Option[UblogPost.Rank] = None
   ) extends BasePost
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])

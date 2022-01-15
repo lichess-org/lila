@@ -132,29 +132,39 @@ final class UblogRank(
     else
       liveAt plusHours {
 
-        val boostedLikes = likes.value.toFloat + ((tier - 2) * 15).atLeast(0) // initial boost
+        import UblogBlog.Tier._
 
-        val baseHours =
-          if (boostedLikes < 1) 0
-          else (3 * math.log(boostedLikes) + 1).toFloat.atMost(boostedLikes)
-
-        val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
-          case 0 => 0.2
-          case 1 => 1
-          case _ => 1.2
+        val tierBase = tier match {
+          case LOW    => -24 * 14
+          case NORMAL => 0
+          case HIGH   => 24 * 7
+          case BEST   => 24 * 10
+          case _      => 0
         }
 
-        val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
+        // val boostedLikes = likes.value.toFloat + ((tier - 2) * 15).atLeast(0) // initial boost
 
-        val tierMultiplier = tier match {
-          case UblogBlog.Tier.LOW    => 0.2
-          case UblogBlog.Tier.NORMAL => 3
-          case UblogBlog.Tier.HIGH   => 6
-          case UblogBlog.Tier.BEST   => 8
-          case _                     => 0
-        }
+        // val baseHours =
+        //   if (boostedLikes < 1) 0
+        //   else (3 * math.log(boostedLikes) + 1).toFloat.atMost(boostedLikes)
 
-        (baseHours * topicsMultiplier * langMultiplier * tierMultiplier * factor.get()).toInt
+        // val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
+        //   case 0 => 0.2
+        //   case 1 => 1
+        //   case _ => 1.2
+        // }
+
+        // val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
+
+        // val tierMultiplier = tier match {
+        //   case UblogBlog.Tier.LOW    => 0.2
+        //   case UblogBlog.Tier.NORMAL => 3
+        //   case UblogBlog.Tier.HIGH   => 6
+        //   case UblogBlog.Tier.BEST   => 8
+        //   case _                     => 0
+        // }
+
+        // (baseHours * topicsMultiplier * langMultiplier * tierMultiplier * factor.get()).toInt
       }
   }
 }
