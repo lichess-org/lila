@@ -47,6 +47,8 @@ export function userLinkReplace(_: string, prefix: string, user: string) {
   return prefix + linkReplace('/@/' + user, '@' + user);
 }
 
+export const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
+
 export function enrichText(text: string, allowNewlines = true): string {
   let html = autolink(lichess.escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
