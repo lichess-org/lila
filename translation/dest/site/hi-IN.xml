@@ -655,7 +655,7 @@
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="downloadAnnotated">एनोटेट डाउनलोड करें</string>
-  <string name="downloadRaw">कच्चा डाउनलोड करें</string>
+  <string name="downloadRaw">कच्चा नीचे लादें</string>
   <string name="downloadImported">डाउनलोड आयातित</string>
   <string name="crosstable">विजय और पराजय का अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
