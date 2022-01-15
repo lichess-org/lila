@@ -43,12 +43,13 @@ Scgpring los und triff all Stern!</string>
   <string name="thePawn">De Puur</string>
   <string name="itMovesForwardOnly">Er chann sich nur vorwärts bewege</string>
   <string name="pawnIntro">Puure sind schwach, aber sie händ vill Möglichkeite.</string>
-  <string name="pawnsMoveOneSquareOnly">Puure beweged sich nur 1 Fäld vorwärts. Aber wänn sie die ander Siite vom Brätt erreiched, werdets e stärcheri Figur!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. Aber mängisch chan au en Schpringer nützlich sii!</string>
+  <string name="pawnsMoveOneSquareOnly">En Puur bewegt sich nur eis Fäld vorwärts. Aber wänn er die ander Siite vom Brätt erreicht, chann er sich in e stärcheri Figur umwandle!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. 
+Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Puure ziehnd vorwärts, aber schlah tüends diagonal!</string>
-  <string name="captureThenPromote">Schlahn und dänn umwandle!</string>
+  <string name="captureThenPromote">Zerscht schlahn und dänn umwandle!</string>
   <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
-  <string name="aPawnOnTheSecondRank">En Puur chann bi siim 1. Zug 2 Fälder vorwärts gah!</string>
+  <string name="aPawnOnTheSecondRank">En Puur dörf bi erschte Zug zwei Fälder vorwärts gah!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir alli Stärne! 
 Mer muesch nöd Umwandle.</string>
   <string name="pawnComplete">Gratuliere! Puure händ kei Gheimnis für dich.</string>
