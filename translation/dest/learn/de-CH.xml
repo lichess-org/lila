@@ -125,11 +125,12 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="youCannotCastleIfAttacked">Du chasch e Rochade nöd über aagriffeni Fälder mache! Blockier das vorher!</string>
   <string name="findAWayToCastleKingSide">Find en Wäg für die churz Rochade!</string>
   <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
-  <string name="castlingComplete">Gratuliere! Du söttsch im Schpiil fascht immer rochiere.</string>
+  <string name="castlingComplete">Gratuliere, mer sött im Schach fascht immer e Rochade mache.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speziell Puurezug</string>
-  <string name="enPassantIntro">Wänn de gägnerisch Puur 2 Fälder vorgschtosse isch, chasch en schlah, wie wänn er nur 1 Fäld gfahre wär.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät sin Puur 2 Fälder vor gschobe! Nimm en \"en passant\".</string>
+  <string name="enPassantIntro">Isch en Puur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Puur 2 Fälder vor gschobe!
+Schlag de Puur \"en passant\".</string>
   <string name="enPassantOnlyWorksImmediately">\"En passant\" isch nur diräkt nach em gägnerische 2-Fälder-Puurezug erlaubt.</string>
   <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" isch nur erlaubt, wänn diin Puur uf de 5. Reihe staht.</string>
   <string name="takeAllThePawnsEnPassant">Schlah all Puure \"en passant\"!</string>
