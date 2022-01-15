@@ -796,9 +796,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="currentMatchScore">Aktuelle Schpiilschtand</string>
   <string name="agreementAssistance">Ich schtimme zue, dass ich zum Schpille, kei Hilf benutze (z. B. Schach-Computer, Büecher, Datäbanke oder Drittpersone).</string>
   <string name="agreementNice">Ich schtimme zue, dass ich mit andere Schpiller immer reschpäktvoll umgang.</string>
-  <string name="agreementAccount">Ich schtimme zue, dass ich nöd mehreri Kontos erschtelle.</string>
+  <string name="agreementAccount">Ich schtimme zue, dass ich nöd mehreri Kontoi erschtelle.</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
-  <string name="searchOrStartNewDiscussion">Suech oder beginn e neui Underhaltig</string>
+  <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui aa</string>
   <string name="edit">Bearbeite</string>
   <string name="rapid">Schnällschach</string>
   <string name="classical">Klassisch</string>
@@ -813,9 +813,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="yourQuestionMayHaveBeenAnswered">Dini Frag chönnt bereits %1$s beantwortet worde sii</string>
   <string name="inTheFAQ">i de hüfig gschtellte Frage (FAQ)</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Zum en Nutzer wäge Betrug oder schlächtem Verhalte mälde, %1$s</string>
-  <string name="useTheReportForm">benutz bitte das Mälde-Formular</string>
+  <string name="useTheReportForm">benutz euses Mälde-Formular</string>
   <string name="toRequestSupport">Zum Hilf überchoo, %1$s</string>
-  <string name="tryTheContactPage">probier d\'Kontaktsite</string>
+  <string name="tryTheContactPage">probiers uf de Kontaktsite</string>
   <string name="thisTopicIsArchived">Das Thema isch archiviert und chann nüme beantwortet werde.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bii, um i dem Forum Biiträg z\'schriibe</string>
   <string name="teamNamedX">%1$s Team</string>
