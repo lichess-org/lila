@@ -34,14 +34,14 @@
   <string name="yearlyClassical">Jährlichs Klassisch</string>
   <string name="yearlyXArena">Jöhrlichi %s-Arena</string>
   <string name="yearlyX">Jährlichs %s</string>
-  <string name="rapidShieldArena">Schnällschach Wanderpokal-Arena</string>
-  <string name="rapidShield">Schnellschach Wanderpokal</string>
-  <string name="classicalShieldArena">Klassische Wanderpokal-Arena</string>
-  <string name="classicalShield">Klassisch-Wanderpokal</string>
-  <string name="xShieldArena">%s Wanderpokal-Arena</string>
-  <string name="xShield">%s Wanderpokal</string>
+  <string name="rapidShieldArena">Schnällschach Wanderpriis Arena</string>
+  <string name="rapidShield">Schnällschach Wanderpriis</string>
+  <string name="classicalShieldArena">Klassisch Wanderpriis Arena</string>
+  <string name="classicalShield">Klassisch Wanderpriis</string>
+  <string name="xShieldArena">%s Wanderpriis Arena</string>
+  <string name="xShield">%s Wanderpriis</string>
   <string name="xTeamBattle">%s Teamkampf</string>
   <string name="eliteXArena">Elite %s-Arena</string>
   <string name="eliteX">Elite %s</string>
-  <string name="xArena">%s-Arena</string>
+  <string name="xArena">%s Arena</string>
 </resources>
