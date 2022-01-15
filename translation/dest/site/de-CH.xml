@@ -828,8 +828,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="xInvitedYouToY">%1$s hät dich zu \"%2$s\" iiglade.</string>
   <string name="youAreNowPartOfTeam">Du bisch jetzt es Mitgliid vu dem Team.</string>
   <string name="youHaveJoinedTeamX">Du bisch \"%1$s\" biiträte.</string>
-  <string name="someoneYouReportedWasBanned">Öpper, wo du gmäldet häsch, isch bannt worde</string>
-  <string name="congratsYouWon">Glückwunsch, du häsch gunne!</string>
+  <string name="someoneYouReportedWasBanned">Öpper wo du gmäldet häsch, isch bannt worde</string>
+  <string name="congratsYouWon">Gratuliere, du häsch gunne!</string>
   <string name="gameVsX">Partie gäge %1$s</string>
   <string name="resVsX">%1$s gäge %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Öpper hät dis Trainerprofil überprüeft.</string>
@@ -845,7 +845,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="coachManager">Trainer Verwalter</string>
   <string name="streamerManager">Streamer Verwalter</string>
   <string name="cancelTournament">Brich das Turnier ab</string>
-  <string name="tournDescription">Turnier-Beschriibig</string>
+  <string name="tournDescription">Turnier Beschriibig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Alli Partie sind gwertet
 und beiiflussed diini Wertig</string>
