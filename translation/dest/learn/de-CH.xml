@@ -107,14 +107,17 @@ Grad näbe de Turm.</string>
 Grad nach de Schpringer.</string>
   <string name="placeTheQueen">Dänn e Dame, ufs wiss Fäld, die Wiss und ufs schwarz Fäld die Schwarz.</string>
   <string name="placeTheKing">Und dänn no de König!
-Zu de Dame oder Königin.</string>
-  <string name="pawnsFormTheFrontLine">Puure mached die vorderscht Linie. Mach irgendein Zug zum wiiter mache.</string>
-  <string name="boardSetupComplete">Gratuliere! Du weisch, wie mer d\'Schachfigure ufschtellt.</string>
+Zu de Dame - zu siinere Königin.</string>
+  <string name="pawnsFormTheFrontLine">Puure bilded die vorderscht Linie.
+Mach irgend en Zug zum wiiter fahre.</string>
+  <string name="boardSetupComplete">Gratuliere, du weisch jetzt, wie mer all Schachfigure richtig ufschtellt.</string>
   <string name="castling">Rochade</string>
   <string name="theSpecialKingMove">De spezielli Königszug</string>
   <string name="castlingIntro">Bring diin König i Sicherheit und de Turm i Agriffsposizion!</string>
-  <string name="castleKingSide">Zieh diin König 2 Fälder, uf de Königssiite, für die churz Rochade!</string>
-  <string name="castleQueenSide">Zieh diin König 2 Fälder, uf de Damesiite, für die lang Rochade!</string>
+  <string name="castleKingSide">Zieh diin König - uf de Königssite - 2 Fälder. 
+Das isch die churz Rochade \"0 - 0\"!</string>
+  <string name="castleQueenSide">Zieh de König - uf de Damesiite - zwei Fälder.
+Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="theKnightIsInTheWay">De Schpringer isch im Wäg! Zieh en weg und mach die churz Rochade.</string>
   <string name="castleKingSideMovePiecesFirst">Rochier churz! Du muesch zersch Figure weg bewege.</string>
   <string name="castleQueenSideMovePiecesFirst">Rochier lang! Du muesch zersch Figure weg bewege.</string>
