@@ -41,7 +41,6 @@ private object UblogBsonHandlers {
       "intro"   -> true,
       "image"   -> true,
       "created" -> true,
-      "lived"   -> true,
-      "rank"    -> true
+      "lived"   -> true
     )
 }

@@ -21,7 +21,6 @@ final class Dev(env: Env) extends LilaController(env) {
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.plan.paymentMethodsSetting,
-    env.ublog.rankFactorSetting,
     env.apiTimelineSetting,
     env.apiExplorerGamesPerSecond,
     env.fishnet.openingBookDepth,
