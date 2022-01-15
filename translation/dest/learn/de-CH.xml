@@ -26,7 +26,7 @@ Bisch parat, ihn z\'kommandiere?</string>
   <string name="queenCombinesRookAndBishop">Dame = zieht wie Turm und Läufer</string>
   <string name="queenIntro">Die stärchscht Schachfigur chunnt: 
 \"Ihre Majestät die Dame!\"!</string>
-  <string name="queenComplete">Gratuliere! Königinne händ kei Gheimnis meh für dich.</string>
+  <string name="queenComplete">Gratuliere, die Königin hät kei Gheimnis meh für dich.</string>
   <string name="theKing">De König</string>
   <string name="theMostImportantPiece">Die allerwichtigscht Figur</string>
   <string name="kingIntro">Du bisch de König, wänn du im Kampf ums Läbe chunnsch, isch s\'Schpiil verlore.</string>
@@ -49,16 +49,16 @@ Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Puure ziehnd vorwärts, aber schlah tüends diagonal!</string>
   <string name="captureThenPromote">Zerscht schlahn und dänn umwandle!</string>
   <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
-  <string name="aPawnOnTheSecondRank">En Puur dörf bi erschte Zug zwei Fälder vorwärts gah!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir alli Stärne! 
-Mer muesch nöd Umwandle.</string>
-  <string name="pawnComplete">Gratuliere! Puure händ kei Gheimnis für dich.</string>
+  <string name="aPawnOnTheSecondRank">En Puur dörf - bim 1. Zug - grad 2 Fälder vorwärts!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir all die Stern! 
+Umwandle muesch nöd.</string>
+  <string name="pawnComplete">Gratuliere, au Puure sind keis Gheimnis meh für dich.</string>
   <string name="pawnPromotion">Puure-Umwandlig</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Diin Puur hät s\'Ändi vom Brätt erreicht!</string>
   <string name="itNowPromotesToAStrongerPiece">Er wandlet sich jetzt in e stärcheri Figur um.</string>
   <string name="selectThePieceYouWant">Wähl die Figur wo du wottsch!</string>
   <string name="fundamentals">Grundlage</string>
-  <string name="capture">Schlah</string>
+  <string name="capture">Figure schlah</string>
   <string name="takeTheEnemyPieces">Nimm die feindliche Figure</string>
   <string name="captureIntro">Entdeck die ungschützte Figure vu diim Gägner und schlah sie!</string>
   <string name="takeTheBlackPieces">Schlah die schwarze Figure!</string>
