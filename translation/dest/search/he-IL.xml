@@ -31,6 +31,7 @@
   <string name="color">צבע</string>
   <string name="evaluation">הערכה</string>
   <string name="maxNumber">מספר מירבי</string>
+  <string name="maxNumberExplanation">מספר מקסימלי שלי משחקים במקביל</string>
   <string name="include">כלול</string>
   <string name="descending">סדר יורד</string>
   <string name="ascending">סדר עולה</string>
