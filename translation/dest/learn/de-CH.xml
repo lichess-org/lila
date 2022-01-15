@@ -114,14 +114,14 @@ Mach irgend en Zug zum wiiter fahre.</string>
   <string name="castling">Rochade</string>
   <string name="theSpecialKingMove">De spezielli Königszug</string>
   <string name="castlingIntro">Bring diin König i Sicherheit und de Turm i Agriffsposizion!</string>
-  <string name="castleKingSide">Zieh diin König - uf de Königssite - 2 Fälder. 
-Das isch die churz Rochade \"0 - 0\"!</string>
+  <string name="castleKingSide">Zieh de König - uf de Königssiite - zwei Fälder. 
+Das isch die churz Rochade \"0-0\"!</string>
   <string name="castleQueenSide">Zieh de König - uf de Damesiite - zwei Fälder.
 Das isch die lang Rochade \"0-0-0\"!</string>
-  <string name="theKnightIsInTheWay">De Schpringer isch im Wäg! Zieh en weg und mach die churz Rochade.</string>
-  <string name="castleKingSideMovePiecesFirst">Rochier churz! Du muesch zersch Figure weg bewege.</string>
-  <string name="castleQueenSideMovePiecesFirst">Rochier lang! Du muesch zersch Figure weg bewege.</string>
-  <string name="youCannotCastleIfMoved">Du chasch nümme roschiere, wänn de König oder de Turm bereits bewegt worde isch.</string>
+  <string name="theKnightIsInTheWay">De Schpringer staht im Wäg, ziehn en weg und mach dänn die churz Rochade.</string>
+  <string name="castleKingSideMovePiecesFirst">Zieh zerscht - uf de Königssiite - Figure weg und mach dänn die churz Rochade - \"0-0\".</string>
+  <string name="castleQueenSideMovePiecesFirst">Zieh zerscht - uf de Damesiite - Figure weg und mach dänn die lang Rochade \"0-0-0\".</string>
+  <string name="youCannotCastleIfMoved">Du chasch e Rochade nümme mache, wänn de König oder de Turm bereits bewegt worde isch.</string>
   <string name="youCannotCastleIfAttacked">Du chasch nöd rochiere, wänn de König uf sim Wäg bedroht wird. Blockier das Schach und roschier!</string>
   <string name="findAWayToCastleKingSide">Find e Möglichkeit zum churz rochiere!</string>
   <string name="findAWayToCastleQueenSide">Find e Möglichkeit zum lang rochiere!</string>
