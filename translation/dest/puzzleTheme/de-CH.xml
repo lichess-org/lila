@@ -19,11 +19,11 @@
   <string name="bodenMate">Boden Matt</string>
   <string name="bodenMateDescription">Zwei aagriifendi Läufer, uf sich chrüzende Diagonale, setzed de König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="castling">Rochade</string>
-  <string name="castlingDescription">Bring de König in Sicherheit und benutz de Turm zum aagriffe.</string>
-  <string name="capturingDefender">Schlaa de Verteidiger</string>
+  <string name="castlingDescription">Bring de König in Sicherheit und bring de Turm in Aagriff.</string>
+  <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
   <string name="crushing">Vernichtend</string>
-  <string name="crushingDescription">Find de gägnerische Patzer und erlang en vernichtende Vorteil</string>
+  <string name="crushingDescription">Find de gägnerisch Patzer und chumm zu vernichtendem Vorteil</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
   <string name="doubleBishopMateDescription">Zwei aagriifendi Läufer, uf näbenand liggende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
@@ -31,7 +31,7 @@
   <string name="equality">Uusgliich</string>
   <string name="equalityDescription">Befrei dich us verlorener Schtellig und sicher dir es Remis oder e usglicheni Schtellig</string>
   <string name="kingsideAttack">Aagriff am Königsflügel</string>
-  <string name="kingsideAttackDescription">En Aagriff uf de gägnerisch König, nachdem er am Königsflügel rochiert hät.</string>
+  <string name="kingsideAttackDescription">En Aagriff uf de gägnerisch König, nachdem er am Königsflügel d\'Rochade gmacht hät.</string>
   <string name="clearance">Öffnig</string>
   <string name="clearanceDescription">En Zug - oft mit Tämpo - wo es Fäld, e Linie oder e Diagonale für e folgendi, taktischi Idee frei macht.</string>
   <string name="defensiveMove">Verteidigungszug</string>
