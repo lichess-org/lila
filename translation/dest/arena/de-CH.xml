@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena-Turnier</string>
+  <string name="arenaTournaments">Arena Turnier</string>
   <string name="isItRated">Isch es gwertet?</string>
   <string name="willBeNotified">Du wirsch benachrichtiget, wänns Turnier aafangt. Es isch also möglich, während de Warteziit ime andere Tab z\'schpille.</string>
   <string name="isRated">Das Turnier isch gwertet und wird diini Wertig beiiflusse.</string>
