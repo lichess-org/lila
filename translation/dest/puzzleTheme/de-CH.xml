@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">Abzug mit doppletem Schachgebot, wobi die vorher verdeckti Figur- und die Abzogeni, de König gliichziitig aagriifed.</string>
   <string name="endgame">Ändschpiil</string>
   <string name="endgameDescription">E Taktik für die letscht Fase vu de Partie.</string>
-  <string name="enPassantDescription">E Taktik wo \"En-Passant\" beinhaltet - e Regle wo en Puur chann en gegnerische Puur schlaa, falls er ihn mit em Zwei-Fälder-Zug umgange hät.</string>
+  <string name="enPassantDescription">E Taktik wo \"En-Passant\" beinhaltet - e Regle wo en Puur cha en gägnerische Puur schlaa, wänn de ihn mit em \"Zwei-Fälder-Zug\" übergange hät.</string>
   <string name="exposedKing">Exponierte König</string>
   <string name="exposedKingDescription">E Taktik, wo de König nu vu wenige Figure verteidigt wird, was oft zume Matt füert.</string>
   <string name="fork">Gablä</string>
