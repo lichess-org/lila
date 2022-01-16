@@ -47,7 +47,7 @@ Hüpf los und triff uf jede Stern!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. 
 Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Puure ziehnd vorwärts, aber schlah tüends diagonal!</string>
-  <string name="captureThenPromote">Zerscht schlahn und dänn umwandle!</string>
+  <string name="captureThenPromote">Zerscht schlah und nachher umwandle!</string>
   <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
   <string name="aPawnOnTheSecondRank">En Puur dörf - bim 1. Zug - grad 2 Fälder vorwärts!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir all die Stern! 
@@ -177,7 +177,7 @@ Puur = 1</string>
   <string name="practice">Training</string>
   <string name="learnCommonChessPositions">Lern mit gängige Stellige</string>
   <string name="puzzles">Ufgabe löse</string>
-  <string name="exerciseYourTacticalSkills">Tranier diini taktische Fähigkeite</string>
+  <string name="exerciseYourTacticalSkills">Trainier diini taktische Fähigkeite</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Lueg lehrriichi Schach-Videos</string>
   <string name="playPeople">Schpill online mit Lüt</string>
