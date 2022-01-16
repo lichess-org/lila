@@ -35,9 +35,9 @@
   <string name="clearance">Öffnig</string>
   <string name="clearanceDescription">En Zug - oft mit Tämpo - wo es Fäld, e Linie oder e Diagonale für e folgendi, taktischi Idee frei macht.</string>
   <string name="defensiveMove">Verteidigungszug</string>
-  <string name="defensiveMoveDescription">En gnaue Zug oder e Zugfolg, wo nötig isch, zum kei Material oder en Vorteil z\'verlüre.</string>
+  <string name="defensiveMoveDescription">En gnaue Zug oder e Zugfolg, wo nötig isch, um kei Material oder Vorteil z\'verlüre.</string>
   <string name="deflection">Ablänkig</string>
-  <string name="deflectionDescription">En Zug, wo e gägnerischi Figur ablänkt, z. B. e Figur oder es wichtigs Fäld z\'schütze. Au \"Überlaschtig\" gnännt.</string>
+  <string name="deflectionDescription">En Zug, wo e gägnerischi Figur devoo ablänkt e Figur oder es wichtigs Fäld z\'schütze. Wird au als \"Überlaschtig\" bezeichnet.</string>
   <string name="discoveredAttack">Abzugsaagriff</string>
   <string name="discoveredAttackDescription">Me nimmt (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wiit weg stehendi, Figur (z. B. en Turm) blockiert hät, us em Wäg.</string>
   <string name="doubleCheck">Doppelschach</string>
