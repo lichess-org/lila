@@ -10,17 +10,17 @@
   <string name="howAreScoresCalculatedAnswer">En Sieg git 2 Pünkt, es Remis 1 Punkt, e Niderlag 0. Werdet 2 Schpiil in Serie gunne, gits für die nächschte Schpiil doppleti Pünkt. E Flamme bi de Punktzahl zeigt das. Doppleti Pünkt gits so lang, bis es Schpiil verlore wird oder Remis ändet. 
 Biischpiil: 4 Sieg und dänn Remis git 14 Pünkt ( 2 + 2 + 2x2 + 2x2 + 2x1) dänn wider normal</string>
   <string name="berserk">Arena Bärsärk</string>
-  <string name="berserkAnswer">Wänn en Schpiller, vor em Schpiil, uf \"Berserk\" klickt, halbiert er sini Bedänkziit, günnt aber - wänn er siegt - en zuesätzliche Turnier-Punkt.
+  <string name="berserkAnswer">Klickt en Schpiller vor Schpiilbeginn uf \"Berserk\", dänn halbiert er sini Bedänkziit. Wänn er das Schpiil trotzdem günnt, gits 1 zuesätzliche Turnier Punkt.
 
 Im Ziitmodus mit Inkrement entfernt \"Berserk\" s\'Inkrement. (1+2 isch e Usnahm, es wird zu 1+0.)
 
-Für Partie ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd verfüegbar.
+Bi Schpiil ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd möglich.
 
-De zuesätzlich Punkt für \"Berserk\" gits nur, wänn du i de Partie mindeschtens 7 Züg gschpillt häsch.</string>
+De zuesätzlich \"Berserk Punkt\" gits nur, wänn im Schpiil meh als 6 Züg gschpillt worde sind.</string>
   <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
-  <string name="howIsTheWinnerDecidedAnswer">De oder die Schpiller mit de meischte Pünkt, bi Turnierschluss, werded als Sieger bekanntgeh.
-Wänn 2 oder meh Schpiller die gliich Punktzahl erreiched, entscheidet d\'Turnierleischtig.</string>
-  <string name="howDoesPairingWork">Wie werded d\'Turnierpaarige gmacht?</string>
+  <string name="howIsTheWinnerDecidedAnswer">De/die Schpiller wo bi Turnierändi die meischte Pünkt händ werded als Sieger bekanntgeh. 
+Wänn 2 oder meh Schpiller gliich vill Pünkt händ, entscheidet d\'Turnierleischtig d\'Reihefolg.</string>
+  <string name="howDoesPairingWork">Wie werded d\'Paarige gmacht?</string>
   <string name="howDoesPairingWorkAnswer">Am Aafang vom Turnier werded d\'Schpiller nach de Wertigszahl zueteilt. 
 Sobald du es Schpiil beändet häsch, gahsch zrugg id Turnierübersicht. Dänn wird dir en Schpiller mit ähnlichem Rang zueteilt. So wird d\'Warteziit verchürzt. Es chann aber si, dass du nöd gäge alli Schpiller im Turnier spillsch.
 Schpill schnäll und gang sofort zrugg zur Turnierübersicht, so schpillsch meh Schpiil und gwünnsch meh Pünkt.</string>
