@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.Json._
+import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.game.GameRepo
 import lila.rating.Perf
 import lila.tree
@@ -112,18 +113,6 @@ final class JsonView(
     "performance"     -> res.performance
   )
 
-  private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
-    "id"         -> puzzle.id,
-    "rating"     -> puzzle.glicko.intRating,
-    "plays"      -> puzzle.plays,
-    "initialPly" -> puzzle.initialPly,
-    "solution"   -> puzzle.line.tail.map(_.uci),
-    "themes"     -> simplifyThemes(puzzle.themes)
-  )
-
-  private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
-    themes.filterNot(_ == PuzzleTheme.mate.key)
-
   object bc {
 
     def apply(puzzle: Puzzle, user: Option[User])(implicit
@@ -210,5 +199,34 @@ object JsonView {
 
   implicit val puzzleIdWrites: Writes[Puzzle.Id] = stringIsoWriter(Puzzle.idIso)
 
-  implicit val puzzleThemeKeyWrites: Writes[PuzzleTheme.Key] = stringIsoWriter(PuzzleTheme.keyIso)
+  implicit val puzzleThemeKeyWrites: Writes[PuzzleTheme.Key]      = stringIsoWriter(PuzzleTheme.keyIso)
+  implicit val puzzleRoundThemeWrites: OWrites[PuzzleRound.Theme] = Json.writes[PuzzleRound.Theme]
+  implicit val puzzleRoundIdWrites: OWrites[PuzzleRound.Id]       = Json.writes[PuzzleRound.Id]
+  implicit val puzzleRoundWrites: OWrites[PuzzleRound]            = Json.writes[PuzzleRound]
+
+  private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
+    "id"         -> puzzle.id,
+    "rating"     -> puzzle.glicko.intRating,
+    "plays"      -> puzzle.plays,
+    "initialPly" -> puzzle.initialPly,
+    "solution"   -> puzzle.line.tail.map(_.uci),
+    "themes"     -> simplifyThemes(puzzle.themes)
+  )
+
+  private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
+    themes.filterNot(_ == PuzzleTheme.mate.key)
+
+  implicit val sessionRoundWrites: OWrites[PuzzleHistory.SessionRound] = OWrites { sessionRound =>
+    Json.obj(
+      "round"  -> sessionRound.round,
+      "puzzle" -> puzzleJson(sessionRound.puzzle),
+      "theme"  -> sessionRound.theme
+    )
+  }
+  implicit val puzzleSessionWrites: OWrites[PuzzleHistory.PuzzleSession] = OWrites { puzzleSession =>
+    Json.obj(
+      "theme"   -> puzzleSession.theme,
+      "puzzles" -> puzzleSession.puzzles.toList
+    )
+  }
 }
