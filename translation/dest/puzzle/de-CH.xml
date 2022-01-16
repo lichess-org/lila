@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Ufgabe</string>
-  <string name="puzzleThemes">Ufgabe-Theme</string>
+  <string name="puzzleThemes">Ufgabe Theme</string>
   <string name="recommended">Empfohle</string>
   <string name="phases">Fase</string>
   <string name="motifs">Motiv</string>
@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiss.</string>
   <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierti Ufgage z\'erhalte:</string>
-  <string name="puzzleId">Ufgabe %s</string>
+  <string name="puzzleId">Ufgab %s</string>
   <string name="puzzleOfTheDay">Ufgab vom Tag</string>
   <string name="clickToSolve">Zum Löse klicke</string>
   <string name="goodMove">Guete Zug</string>
