@@ -71,14 +71,14 @@
 
 Schpill schnälli und klassischi Partie, das erhöht d\'Chance Ufgabe us diine Partie zue z\'füege!</string>
   <string name="fromXGamesFound">%1$s Ufgabe i %2$s Partie gfunde</string>
-  <string name="puzzleDashboardDescription">Trainiere, analysiere und besser wärde</string>
+  <string name="puzzleDashboardDescription">Trainiere analysiere und besser werde</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gschpillt</item>
     <item quantity="other">%s gschpillt</item>
   </plurals>
   <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
-    <item quantity="one">%s zum wiederhole</item>
-    <item quantity="other">%s zum Wiedärholä</item>
+    <item quantity="one">%s widerhole</item>
+    <item quantity="other">%s widerhole</item>
   </plurals>
   <string name="percentSolved">%s glöst</string>
   <string name="noPuzzlesToShow">Es git nüt zum zeige, lös zerscht es paar Ugabe!</string>
