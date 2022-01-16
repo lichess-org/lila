@@ -104,9 +104,9 @@
   <string name="short">Churzi Ufgab</string>
   <string name="shortDescription">2 Züg zum Sieg.</string>
   <string name="skewer">Schpiess (Hinderschtellig)</string>
-  <string name="skewerDescription">Es Motiv, wo e Figur mit höchem Wert aagriffe wird - uswiicht und es so ere niedrigere Figur, dehinder ermöglicht, g\'schlage oder aagriffe z\'werden - e umkehrti Fesslig.</string>
-  <string name="smotheredMate">Erschtickigs-Matt</string>
-  <string name="smotheredMateDescription">Es Matt dur en Springer, wo sich de König nöd bewege chann, wil er vu sine eigene Figuren umstellt (erschtickt) wird.</string>
+  <string name="skewerDescription">Bim \"Schpiess\" wird e Figur, wo vor ere Andere staht - oft wird sie au dezue zwunge, sich vor die Ander z\'schtelle - aagriffe, so dass sie us em Wäg muess und ermöglicht, die Hinder z\'schlah. Quasi umgekehrti Fesslig.</string>
+  <string name="smotheredMate">Erschtickigs Matt</string>
+  <string name="smotheredMateDescription">Es Schachmatt mit em Springer wo sich de König nöd bewege cha, will er vu sine eigene Figuren umstellt, also vollkomme iigschlosse, wird.</string>
   <string name="superGM">Super-Grossmeischter-Partie</string>
   <string name="superGMDescription">Ufgabe us Partie, vu de beschte Schpiller uf de Wält.</string>
   <string name="trappedPiece">G\'fangeni Figur</string>
