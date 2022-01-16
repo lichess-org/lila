@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Verlauf</string>
-  <string name="hostedALiveStream">Hät en liveschtriim gmacht</string>
+  <string name="activity">Aktivitäte</string>
+  <string name="hostedALiveStream">Hät en Live Stream gmacht</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Underschtüzt lichess.org sit %1$s Monet als %2$s</item>
     <item quantity="other">Underschtützt lichess.org sit %1$s Mönet als %2$s</item>
@@ -43,12 +43,12 @@
     <item quantity="other">Hät %s neui Folgendi</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Hät %s Simultanvorstellig gäh</item>
-    <item quantity="other">Hät %s Simultanvorstellige gäh</item>
+    <item quantity="one">Hät %s Simultanschach gmacht</item>
+    <item quantity="other">Hät %s Simultanschachs gmacht</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Hät a %s Simultanvorstellig mitgmacht</item>
-    <item quantity="other">Hät a %s Simultanvorstellige mitgmacht</item>
+    <item quantity="one">Hät a %s Simultanschach mitgmacht</item>
+    <item quantity="other">Hät a %s Simultanschachs mitgmacht</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Hät %s neui Schtudie erschtellt</item>
@@ -67,7 +67,7 @@
     <item quantity="other">Hät a %s Turnier nach Schwiizer System teilgnah</item>
   </plurals>
   <string name="rankedInSwissTournament">Hät Rang #%1$s im Turnier %2$s erreicht</string>
-  <string name="signedUp">Hät sich bi Lichess aagmäldet</string>
+  <string name="signedUp">Hät sich bi lichess.org aagmäldet</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Isch %s Team biiträte</item>
     <item quantity="other">Isch %s Teams biiträte</item>
