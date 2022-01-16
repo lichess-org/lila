@@ -94,13 +94,13 @@
   <string name="queenRookEndgame">Dame und Turm</string>
   <string name="queenRookEndgameDescription">Es Ändschpiil nur mit Dame Türm und Puure.</string>
   <string name="queensideAttack">Aagriff am Dameflügel</string>
-  <string name="queensideAttackDescription">En Aagriff uf de gegnerisch König, nachdem er am Dameflügel roschiert hät.</string>
+  <string name="queensideAttackDescription">En Aagriff uf de gägnerisch König, nachdem er am Dameflügel d\'Rochade gmacht hät.</string>
   <string name="quietMove">Schtille Zug</string>
-  <string name="quietMoveDescription">En Zug, wo weder Schach git, no schlaht, no unmittelbar z\'schlah droht, aber e verschteckti, unvermeidlichi Drohig dur en schpötere Zug vorbereitet.</string>
-  <string name="rookEndgame">Turm-Ändschpiil</string>
+  <string name="quietMoveDescription">En Zug wo kei \"Schach\" bütet, wo nüt schlaht und au nöd droht öppis z\'schlah, wo aber - verschteckt - e unvermeidlichi Drohig dur en schpöter folgende Zug vorbereitet.</string>
+  <string name="rookEndgame">Turm Ändschpiil</string>
   <string name="rookEndgameDescription">Es Ändschpiil nur mit Türm und Puure.</string>
   <string name="sacrifice">Opfer</string>
-  <string name="sacrificeDescription">E Taktik, wo churzfrischtig Material aufgeh wird, zum mit erzwungener Zugfolg, wieder en Vorteil zu g\'wünne.</string>
+  <string name="sacrificeDescription">E Taktik, wo churzfrischtig Material gopferet wird, um dänn mit erzwungener Zugfolg wieder en Vorteil z\'günne.</string>
   <string name="short">Churzi Ufgab</string>
   <string name="shortDescription">2 Züg zum Sieg.</string>
   <string name="skewer">Schpiess (Hinderschtellig)</string>
