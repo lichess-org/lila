@@ -40,22 +40,22 @@
   <string name="easier">Eifacher</string>
   <string name="easiest">Am eifachschte</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">1 Punkt under diinere Ufgabe-Wertig</item>
-    <item quantity="other">%s Pünkt under diinere Ufgabe-Wertig</item>
+    <item quantity="one">1 Punkt under diinere Ufgabe Wertig</item>
+    <item quantity="other">%s Pünkt under diinere Ufgabe Wertig</item>
   </plurals>
   <string name="harder">Schwieriger</string>
   <string name="hardest">Am schwierigschte</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">1 Punkt über dinere Ufgabe-Wertig</item>
-    <item quantity="other">%s Pünkt über diinere Ufgabe-Wertig</item>
+    <item quantity="one">1 Punkt über dinere Ufgabe Wertig</item>
+    <item quantity="other">%s Pünkt über diinere Ufgabe Wertig</item>
   </plurals>
   <string name="example">Biischpiil</string>
   <string name="addAnotherTheme">Es wiiters Motiv zuefüege</string>
-  <string name="jumpToNextPuzzleImmediately">Sofort zur nächschte Ufgab gumpe</string>
-  <string name="puzzleDashboard">Ufgabe-Übersicht</string>
-  <string name="improvementAreas">Verbesserigs-Bereich</string>
+  <string name="jumpToNextPuzzleImmediately">Diräkt zur nächschte Ufgab</string>
+  <string name="puzzleDashboard">Ufgabe Übersicht</string>
+  <string name="improvementAreas">Verbesserigs Bereich</string>
   <string name="strengths">Stärche</string>
-  <string name="history">Ufgabe-Verlauf</string>
+  <string name="history">Ufgabe Verlauf</string>
   <string name="solved">glöst</string>
   <string name="failed">nöd glöst</string>
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie. Es lauft kei Uhr, drum nimm dir Ziit. Ein falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Sitzig überschpringe.</string>
