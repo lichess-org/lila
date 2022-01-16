@@ -32,16 +32,16 @@
   <string name="takebacksWithOpponentApproval">Zugsrücknahm (mit Erlaubnis vom Gägner)</string>
   <string name="inCasualGamesOnly">Nur bi ungwertete Schpiil</string>
   <string name="promoteToQueenAutomatically">Automatischi Umwandlig zur Damä</string>
-  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Druck dTaschte &lt;ctrl&gt; während de Umwandlig, so wird sie vorübergehend abgschtellt</string>
-  <string name="whenPremoving">Bim Voruuszug</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiär automatisch Remis bi drüfacher Schtelligswiderholig</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Räschtziit &lt; 30 Sekundä</string>
-  <string name="moveConfirmation">Zugbeschtätigung</string>
-  <string name="inCorrespondenceGames">Im Färnschach</string>
-  <string name="correspondenceAndUnlimited">Färnschach und unbegränzt</string>
-  <string name="confirmResignationAndDrawOffers">Ufgob und Remis-Aagebot beschtätigä</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Roschaadä-Methodä</string>
-  <string name="castleByMovingTwoSquares">Züch dä König zwei Fälder wiit</string>
+  <string name="explainPromoteToQueenAutomatically" comment="explainPromoteToQueenAutomatically&#10;&#10;A setting related to auto-promoting the queen: https://lichess.org/account/preferences/game-behavior">Druck &lt;ctrl&gt; bi de Umwandlig, so wird sie vorübergehend abgschtellt</string>
+  <string name="whenPremoving">Bim Voruszug</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatischs Remis bi 3 Mal gliicher Stellig</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Bi Reschtziit &lt; 30 Sekunde</string>
+  <string name="moveConfirmation">Zugsbeschtätigung</string>
+  <string name="inCorrespondenceGames">Bi Fernschach</string>
+  <string name="correspondenceAndUnlimited">Bi Fernschach und ohni Uhr</string>
+  <string name="confirmResignationAndDrawOffers">Beschtätig Ufgab und Remis-Aagebot</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochade Usfüherig</string>
+  <string name="castleByMovingTwoSquares">Zieh de König 2 Fälder</string>
   <string name="castleByMovingOntoTheRook">Züch dä König uf dä Turm</string>
   <string name="inputMovesWithTheKeyboard">Züg mit dä Taschtatur iigäh</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Pfiil markiäräd immer möglichi Züg</string>
