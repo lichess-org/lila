@@ -1,5 +1,7 @@
 import * as xhr from 'common/xhr';
 
+import { expandMentions } from 'common/richText';
+
 lichess.load.then(() => {
   const noteStore = lichess.storage.make('inquiry-note');
   const usernameNoteStore = lichess.storage.make('inquiry-note-user');
@@ -49,9 +51,11 @@ lichess.load.then(() => {
 
   $('#inquiry .atom p').each(function (this: HTMLParagraphElement) {
     $(this).html(
-      $(this)
-        .html()
-        .replace(/(?:https:\/\/)?lichess\.org\/([\w\/:]+)/g, '<a href="/$1">lichess.org/$1</a>')
+      expandMentions(
+        $(this)
+          .html()
+          .replace(/(?:https:\/\/)?lichess\.org\/([\w\/:(&;)?=@\.]+)/gi, '<a href="/$1">lichess.org/$1</a>')
+      )
     );
   });
 

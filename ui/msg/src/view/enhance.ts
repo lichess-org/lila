@@ -1,5 +1,5 @@
 import { scroller } from './scroller';
-import { linkRegex, linkReplace, newLineRegex, userPattern, userLinkReplace } from 'common/richText';
+import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/richText';
 
 export { isMoreThanText } from 'common/richText';
 
@@ -28,8 +28,6 @@ const expandUrl = (url: string) => expandImgur(url) || expandGiphy(url) || expan
 
 const expandUrls = (html: string) =>
   html.replace(linkRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
-
-const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
 const expandGameIds = (html: string) =>
   html.replace(
