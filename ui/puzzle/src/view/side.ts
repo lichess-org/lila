@@ -208,7 +208,12 @@ export function config(ctrl: Controller): MaybeVNode {
           },
           hook: {
             insert: vnode =>
-              (vnode.elm as HTMLElement).addEventListener('change', () => ctrl.autoNext(!ctrl.autoNext())),
+              (vnode.elm as HTMLElement).addEventListener('change', () => {
+                ctrl.autoNext(!ctrl.autoNext());
+                if (ctrl.autoNext() && ctrl.vm.resultSent) {
+                  ctrl.nextPuzzle();
+                }
+              }),
           },
         }),
         h('label', { attrs: { for: autoNextId } }),

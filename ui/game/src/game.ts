@@ -73,6 +73,6 @@ export const setGone = (data: GameData, color: Color, gone: number | boolean): v
 };
 
 export const nbMoves = (data: GameData, color: Color): number =>
-  Math.floor((data.game.turns + (color == 'white' ? 1 : 0)) / 2);
+  Math.floor((playedTurns(data) + (color == 'white' ? 1 : 0)) / 2);
 
 export const isSwitchable = (data: GameData): boolean => !hasAi(data) && (!!data.simul || isCorrespondence(data));

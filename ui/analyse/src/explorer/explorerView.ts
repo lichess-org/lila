@@ -76,14 +76,17 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
 
 function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
-  if (!ctrl.explorer.opts.showRatings) return '';
   if (move.game) {
     const g = move.game;
     const result = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
-    return `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`;
+    return ctrl.explorer.opts.showRatings
+      ? `${g.white.name} (${g.white.rating}) ${result} ${g.black.name} (${g.black.rating})`
+      : `${g.white.name} ${result} ${g.black.name}`;
   }
-  if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
-  if (move.averageOpponentRating) return `Average opponent rating: ${move.averageOpponentRating}`;
+  if (ctrl.explorer.opts.showRatings) {
+    if (move.averageRating) return ctrl.trans('averageRatingX', move.averageRating);
+    if (move.averageOpponentRating) return `Average opponent rating: ${move.averageOpponentRating}`;
+  }
   return '';
 }
 

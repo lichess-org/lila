@@ -45,7 +45,7 @@
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
-  <string name="annotateWithGlyphs">Glyphs के साथ टिप्पणी करे</string>
+  <string name="annotateWithGlyphs">प्रतीक के साथ टिप्पणी करें</string>
   <string name="theChapterIsTooShortToBeAnalysed">यह अध्याय विश्लेषण के लिए बहुत छोटा है</string>
   <string name="onlyContributorsCanRequestAnalysis">केवल अध्ययन योगदानकर्ता ही कंप्यूटर विश्लेषण का अनुरोध कर सकते हैं।</string>
   <string name="getAFullComputerAnalysis">मेनलाइन का पूर्ण सर्वर-साइड कंप्यूटर विश्लेषण प्राप्त करें।</string>
@@ -60,9 +60,9 @@
   <string name="shareAndExport">शेयर &amp; एक्सपोर्ट करें</string>
   <string name="cloneStudy">प्रतिलिपि</string>
   <string name="studyPgn">PGN का अध्ययन करें</string>
-  <string name="downloadAllGames">सभी गेम डाउनलोड करें</string>
+  <string name="downloadAllGames">सभी खेल नीचे लादें</string>
   <string name="chapterPgn">अध्याय PGN</string>
-  <string name="downloadGame">गेम डाउनलोड करो</string>
+  <string name="downloadGame">खेल नीचे लादें</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
@@ -83,7 +83,7 @@
   <string name="clearAnnotations">टिप्पणी मिटाएँ</string>
   <string name="deleteChapter">अध्याय हटाएं</string>
   <string name="deleteThisChapter">इस अध्याय को हटाएं? हटाने के पश्चात वापसी नहीं होगी!</string>
-  <string name="clearAllCommentsInThisChapter">इस अध्याय में सभी टिप्पणियाँ, glyphs और आकृतियाँ साफ़ करें?</string>
+  <string name="clearAllCommentsInThisChapter">इस अध्याय में सभी टिप्पणियाँ, प्रतीक, और आकृतियाँ साफ़ करें?</string>
   <string name="rightUnderTheBoard">बोर्ड के ठीक नीचे</string>
   <string name="noPinnedComment">खाली</string>
   <string name="normalAnalysis">सामान्य विश्लेषण</string>

@@ -16,8 +16,7 @@ import lila.user.User
 
 final class UblogRank(
     colls: UblogColls,
-    timeline: lila.hub.actors.Timeline,
-    factor: SettingStore[Float] @@ UblogRankFactor
+    timeline: lila.hub.actors.Timeline
 )(implicit ec: ExecutionContext, mat: akka.stream.Materializer) {
 
   import UblogBsonHandlers._
@@ -128,33 +127,26 @@ final class UblogRank(
       language: Lang,
       tier: UblogBlog.Tier
   ) = UblogPost.Rank {
-    if (tier < UblogBlog.Tier.LOW) liveAt minusMonths 1
+    import UblogBlog.Tier._
+    if (tier < LOW) liveAt minusMonths 3
     else
       liveAt plusHours {
 
-        val boostedLikes = likes.value.toFloat + ((tier - 2) * 15).atLeast(0) // initial boost
+        val tierBase = 24 * (tier match {
+          case LOW    => -30
+          case NORMAL => 0
+          case HIGH   => 10
+          case BEST   => 15
+          case _      => 0
+        })
 
-        val baseHours =
-          if (boostedLikes < 1) 0
-          else (3 * math.log(boostedLikes) + 1).toFloat.atMost(boostedLikes)
+        val likesBonus = math.sqrt(likes.value * 25) + likes.value / 100
 
-        val topicsMultiplier = topics.count(t => UblogTopic.chessExists(t.value)) match {
-          case 0 => 0.2
-          case 1 => 1
-          case _ => 1.2
-        }
+        val topicsBonus = if (topics.exists(t => UblogTopic.chessExists(t.value))) 0 else -24 * 5
 
-        val langMultiplier = if (language.language == lila.i18n.defaultLang.language) 1 else 0.5
+        val langBonus = if (language.language == lila.i18n.defaultLang.language) 0 else -24 * 10
 
-        val tierMultiplier = tier match {
-          case UblogBlog.Tier.LOW    => 0.2
-          case UblogBlog.Tier.NORMAL => 3
-          case UblogBlog.Tier.HIGH   => 6
-          case UblogBlog.Tier.BEST   => 8
-          case _                     => 0
-        }
-
-        (baseHours * topicsMultiplier * langMultiplier * tierMultiplier * factor.get()).toInt
+        (tierBase + likesBonus + topicsBonus + langBonus).toInt
       }
   }
 }

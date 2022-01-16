@@ -56,5 +56,10 @@
   <string name="streakSkipExplanation">דלג על מהלך זה בכדי לשמור על הרצף שלך! ניתן לבצע דילוג כזה רק פעם אחת בכל הפעלה.</string>
   <string name="continueTheStreak">המשך את הרצף</string>
   <string name="newStreak">רצף חדש</string>
+  <string name="fromMyGames">מהמשחקים שלי</string>
+  <string name="lookupOfPlayer">פאזלים שנוצרו ממשחקים של שחקן ספציפי (כל פאזלים של עשויים ממשחקים הקיימים במסד הנתונים של האתר)</string>
+  <string name="fromXGames">פזלים ממשחקים</string>
+  <string name="searchPuzzles">חיפוש פזלים</string>
+  <string name="fromMyGamesNone">כל החידות באתר Lichess מורכבות ממשחקים ששוחקו באתר במקרה שלך עדיין אין פאזלים ממשחקים שלך!</string>
   <string name="puzzleDashboardDescription">אימון וניתוח יובילו לשיפור</string>
 </resources>

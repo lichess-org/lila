@@ -19,6 +19,7 @@
   <string name="timePerMove">זמן לכל מהלך</string>
   <string name="highestSolved">הכי גבוה נשפתר</string>
   <string name="puzzlesPlayed">פאזלים ששוחקו</string>
+  <string name="newRun">סיבוב חדש</string>
   <string name="endRun">סיים ריצה</string>
   <string name="highscores">הניקודים הכי גבוהים</string>
   <string name="viewBestRuns">ראה את הריצות הכי טובות</string>
