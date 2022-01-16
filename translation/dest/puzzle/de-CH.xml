@@ -57,16 +57,16 @@
   <string name="strengths">Stärche</string>
   <string name="history">Ufgabe Verlauf</string>
   <string name="solved">glöst</string>
-  <string name="failed">nöd glöst</string>
-  <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie. Es lauft kei Uhr, drum nimm dir Ziit. Ein falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Sitzig überschpringe.</string>
+  <string name="failed">unglöst</string>
+  <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie. Es lauft kei Uhr, drum nimm dir Ziit. Ein falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Serie überschpringe.</string>
   <string name="yourStreakX">Diini Erfolgsserie: %s</string>
-  <string name="streakSkipExplanation">Überschpring de Zug, um diini Erfolgsserie z\'erhalte! Aber du chasch das nur eimal pro Durchlauf mache.</string>
+  <string name="streakSkipExplanation">Überschpring de Zug, um diini Erfolgsserie z\'bhalte! Aber du chasch das nur 1x pro Serie mache.</string>
   <string name="continueTheStreak">Erfolgsserie wiiterspille</string>
-  <string name="newStreak">Neue Erfolgsserie</string>
-  <string name="fromMyGames">Us miine Schpiil</string>
+  <string name="newStreak">Neui Erfolgsserie</string>
+  <string name="fromMyGames">Us eigene Schpiil</string>
   <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
   <string name="fromXGames">Ufgabe us Partie vu %s</string>
-  <string name="searchPuzzles">Ufgabe sueche</string>
+  <string name="searchPuzzles">Suech Ufgabe</string>
   <string name="fromMyGamesNone">Du git kei Ufgabe - us diine Schpiil - i de Datäbank, aber Lichess schätzt dich immerno sehr.
 
 Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufgabe us diine eigene Schpiil zuegfüegt werded!</string>
