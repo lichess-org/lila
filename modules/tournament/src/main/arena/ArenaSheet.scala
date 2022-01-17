@@ -36,12 +36,8 @@ case class Sheet(scores: List[Sheet.Score], total: Int) {
         )
       case _ => Score(Result.Loss, Flag.Normal, berserk)
     }
-    // update the streak flag of the previous score
-    val prevScores = scores.headOption
-      .filter(_.flag == Flag.StreakStarter && !p.wonBy(userId))
-      .fold(scores)(_.withFlag(Flag.Normal) :: scores.tail)
 
-    Sheet(score :: prevScores, score.value + total)
+    Sheet(score :: scores, score.value + total)
   }
 }
 
