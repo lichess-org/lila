@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Turniär im Schwiizer Syschtem</string>
+  <string name="swissTournaments">Turnier nach \"Schweizer System\"</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">D\'Rundi aaluege</item>
     <item quantity="other">Alli %s Runde aaluege</item>
@@ -75,26 +75,26 @@ Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo
   <string name="teamOnly">Turnier nach \"Schweizer System\" chönd nur vu Teamleiter erschtellt werde.
 Und nur Teammitglieder chönd im Turnier mitschpille.
 %1$s zum a Turnier nach \"Schweizer System\" schpille.</string>
-  <string name="joinOrCreateTeam">Team biiträtä odär erschtellä</string>
+  <string name="joinOrCreateTeam">Es Team gründe oder eim biiträte</string>
   <string name="nowPlaying">Lauft grad</string>
-  <string name="startingSoon">Schtartät grad</string>
+  <string name="startingSoon">Schtartet bald</string>
   <string name="comparison">Vergliich</string>
-  <string name="tournDuration">Längi vom Turniär</string>
-  <string name="predefinedDuration">Vordefinierti Duuer ih Minutä</string>
-  <string name="durationUnknown">Vordefinierti maximali Rundeazahl, aber unbekannti Duur</string>
-  <string name="numberOfGames">Aazahl Partiiä</string>
-  <string name="numberOfGamesAsManyAsPossible">So viel wie ih de zuegwiisene Duur gschpielt werde chönt</string>
-  <string name="numberOfGamesPreDefined">Im Voruus entschiide, für all Spieler gliich</string>
-  <string name="pairingSystem">Paarigssüschtem</string>
-  <string name="pairingSystemArena">Jede verfügbari Gägner mit ähnlichem Rang</string>
-  <string name="pairingSystemSwiss">Besti Paarig, basierend uf Pünkt und Feinwertungen</string>
-  <string name="pairingWaitTime">Warteziit für d Paarig</string>
-  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Schnäll: wartet nöd uf all Spieler</string>
-  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Langsam: wartet uuf all Spieler</string>
+  <string name="tournDuration">Turnier Längi</string>
+  <string name="predefinedDuration">Vordefinierti Längi in Minute</string>
+  <string name="durationUnknown">Vordefinierti maximali Rundezahl, aber unbekannti Längi</string>
+  <string name="numberOfGames">Aazahl Partie</string>
+  <string name="numberOfGamesAsManyAsPossible">So viel wie die zuegwiiseni Längi zuelaht</string>
+  <string name="numberOfGamesPreDefined">Vorher entschiede, für all Spieler gliich</string>
+  <string name="pairingSystem">Paarigs System</string>
+  <string name="pairingSystemArena">Jede verfüegbari Gägner mit ähnlichem Rang</string>
+  <string name="pairingSystemSwiss">Beschti Paarig errächnet mit Punktezahl und Fiinwertig</string>
+  <string name="pairingWaitTime">Warteziit uf d\'Paarig</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Churz - wartet nöd uf all Spiller</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lang - wartet uf all Spiller</string>
   <string name="identicalPairing">Idäntischi Paarig</string>
-  <string name="possibleButNotConsecutive">Möglich, abär nöd hindäränand</string>
-  <string name="identicalForbidden">Verbottä</string>
-  <string name="lateJoin">Spaatä Biitritt</string>
+  <string name="possibleButNotConsecutive">Möglich, aber nöd nachenand</string>
+  <string name="identicalForbidden">Verbote</string>
+  <string name="lateJoin">Schpätere Biitritt</string>
   <string name="lateJoinUntil">Ja, wenn meh als d\'Hälfti vo de Rundä ahgfange händ</string>
   <string name="pause">Pausä</string>
   <string name="pauseSwiss">Ja, chönnt aber d\'Azahl Rundä verringärä</string>
