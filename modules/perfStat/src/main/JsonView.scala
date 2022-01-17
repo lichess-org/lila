@@ -46,7 +46,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
 
 object JsonView {
 
-  private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundAt(v, depth)
+  private def round(v: Double, depth: Int = 2) = lila.common.Maths.roundDownAt(v, depth)
 
   private val isoFormatter = ISODateTimeFormat.dateTime
   implicit private val dateWriter: Writes[DateTime] = Writes { d =>
