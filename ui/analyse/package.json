@@ -31,7 +31,7 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^8.1.9",
+    "chessground": "^8.2.0",
     "chessops": "^0.10.2",
     "common": "2.0.0",
     "debounce-promise": "^3.1.2",
