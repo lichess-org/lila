@@ -19,7 +19,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "chessground": "^8.1.9",
+    "chessground": "^8.2.0",
     "chessops": "^0.10.2",
     "common": "2.0.0",
     "snabbdom": "^3.0.1"
