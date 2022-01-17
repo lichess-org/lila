@@ -58,9 +58,9 @@
   <string name="banAppeal">Iischpruch gäge en Usschluss oder IP-Beschränkig</string>
   <string name="engineAppeal">Markierig vu Computer Underschtützig oder Betrug</string>
   <string name="sendAppealTo">Du chasch diin Iischpruch a %s sände.</string>
-  <string name="falsePositives">Falschi Positivärgebnis chönd ab und zuä ufträtä, wofür mir üs entschuldigäd.</string>
-  <string name="ifLegit">Falls din Iischprich grächtfärtigät isch, wärdäd mir dä Bann so schnäll wi möglich ufhebä.</string>
-  <string name="accountLost">Falls du aber au nur äs einzigs Mol Maschinä-Underschtützig bruucht und dämit bschissä häsch, isch dis Konto leider verlorä.</string>
+  <string name="falsePositives">Fählalarm chömmed öppe Mal vor - das tuet eus leid.</string>
+  <string name="ifLegit">Wänn diin Iischpruch legitim isch, ziehd mir de Usschluss sch schnäll wie möglich zrugg.</string>
+  <string name="accountLost">Falls du aber tatsächlich Computer Underschtützig benutzt häsch - nur eis einzigs Mal - häsch diis Konto leider verloore. (... ja, ja, soo schträng sind mir ebe!).</string>
   <string name="doNotDeny">Beschtriit dä Bschiss nöd. Falls du \'Ärlaubnis wöttsch, äs neus Konto z\'eröffnä, gib eifach zuä was du boosgät häsch und zeig, dass du iisichtig bisch, dass das än Fähler gsi isch.</string>
   <string name="otherRestriction">Andäri Beschränkigä</string>
   <string name="collaboration">Zämänarbät, Rächtlichäs, Kommerziälls</string>
