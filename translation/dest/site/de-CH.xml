@@ -412,8 +412,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
   <string name="advancedSettings">Erwiiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
-  <string name="inappropriateNameWarning">Alles - au nu liecht Unagmässes - chann zur Schlüssig vu diim Konto fühere. 
-(... die \"Sunntigschuel-Lehrer\" schpilled uf dem Server \"heili Wält\").</string>
+  <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu diim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
@@ -579,8 +578,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="onlyFriends">Nur Fründe</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
-  <string name="whiteCastlingKingside">Wiss O - O</string>
-  <string name="blackCastlingKingside">Schwarz 0 - 0</string>
+  <string name="whiteCastlingKingside">Wiss 0-0</string>
+  <string name="blackCastlingKingside">Schwarz 0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum-Biitrag</item>
     <item quantity="other">%s Forum-Biiträg</item>
