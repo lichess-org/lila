@@ -610,13 +610,13 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
   <string name="aboutSimul">Bim Simultanschach schpillt 1 Simultanschpiller gliichziitig gäge beliebig vill Simultangägner.</string>
   <string name="aboutSimulImage">Hät de Fischer gäge 50 Gägner 47 Sieg plus 2 Remis gschafft und nur 1 Partie verlore.</string>
-  <string name="aboutSimulRealLife">S\'Konzept isch wie bi reale Simultanschach-Veraschtaltige: De Simultanschpiller bewegt vu eim Simultangägner zum Nächschte und macht a jedem Brätt immer 1 Zug.</string>
-  <string name="aboutSimulRules">Bim Simultanschach schpilled beliebig vill Simultangägner je 1 Partie gäge en Simultanschpiller und sGanzi ändet, wänn alli Schpiil fertig gschpillt sind.</string>
+  <string name="aboutSimulRealLife">Bim Simultanschach schpillt 1 Simultanschpiller gliichziitig gäge beliebig vill Simultangägner und das so lang, bis all Partie fertig gschpillt sind.</string>
+  <string name="aboutSimulRules">Wie bi reale Simultanschach Veraaschteltige, gaht de Simultanschpiller vu eim Simultangägner zum Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
   <string name="create">Erschtelle</string>
   <string name="whenCreateSimul">Wänn du es Simultanschach erschtellsch, chasch du glichziitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
-  <string name="simulClockHint">Fischer Uhr-Iistellig. Je meh Gägner du häsch, umso meh Ziit bruchsch wahrschinli.</string>
+  <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass mit em Simutlan zrächt chunsch.</string>
   <string name="simulHostExtraTime">Extra Ziit vum Simultanschpiller</string>
   <string name="lichessTournaments">Lichess Turnier</string>
