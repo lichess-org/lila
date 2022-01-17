@@ -42,17 +42,17 @@ Dänn zahled mir en Vollziit-Entwickler: %s, de Gründer vu Lichess.</string>
   <string name="changeOrContact">Ja, jederziit vu dere Site us.
 Oder du chasch %s.</string>
   <string name="contactSupport">de Lichess Support kontaktiere</string>
-  <string name="otherMethods">Andäri Wäg zum schpändä?</string>
-  <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
-  <string name="patronFeatures">Gits zuäsätzlichi Funktionä für Underschtützer?</string>
-  <string name="noPatronFeatures">Nei, will Lichess isch komplett chostälos, für immer und für alli. Das isch äs Versprächä.
-Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z\'blöffä.</string>
-  <string name="featuresComparison">Sieh dir den Detailvergleich der Funktionen an</string>
+  <string name="otherMethods">Anderi Schpändemöglichkeite?</string>
+  <string name="bankTransfers">Mir akzeptiered au Überwiisige</string>
+  <string name="patronFeatures">Gits zuesätzlichi Funktione für Gönner?</string>
+  <string name="noPatronFeatures">Nei, will Lichess isch komplett gratis, für immer und für alli. Das isch es Verschpräche.
+Aber en Gönner chann sich mit dem neue, coole Profil-Flamme-Icon schmücke.</string>
+  <string name="featuresComparison">Check de Detailvergliich vu de Funktione</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Patroon für ein Monät</item>
-    <item quantity="other">Lichess Patroon für %s Mönät</item>
+    <item quantity="one">Lichess Gönner für 1 Monet</item>
+    <item quantity="other">Lichess Gönner für %s Mönet</item>
   </plurals>
-  <string name="youSupportWith">Du unterstützt lichess.org mit %s pro Monat.</string>
+  <string name="youSupportWith">Du underschtützisch lichess.org mit %s pro Monet.</string>
   <string name="tyvm">Merci vill Mal für dini Unterschtützig. Du rocksch!</string>
   <string name="currentStatus">Aktuellä Status</string>
   <string name="nextPayment">Nächschti Zahlig</string>
