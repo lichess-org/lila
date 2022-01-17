@@ -66,10 +66,10 @@ So \"Nachzügler\" erhalted en halbe Punkt, obwohl sie mehreri Runde verpasst h�
   <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena-Turnier ersetze?</string>
   <string name="willSwissReplaceArenasA">Nei - sie sind nur e zusätzlichi Spillmöglichkeit.</string>
   <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
-  <string name="roundRobinA">Wir möchten es hinzufügen, aber leider funktionieren Rundenturniere online nicht.
-Der Grund dafür ist, dass es keine faire Möglichkeit gibt, mit Leuten umzugehen, die das Turnier vorzeitig verlassen. Wir können nicht erwarten, dass alle Spieler in einem Online-Event alle ihre Spiele spielen. Das wird einfach nicht passieren, und dadurch wären die meisten Rundenturniere fehlerhaft und unfair, was ihren eigentlichen Sinn zunichte macht.
-Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer System und einer sehr hohen Anzahl an Runden zu spielen. Dadurch werden alle möglichen Paarungen gespielt, bevor das Turnier endet.</string>
-  <string name="otherSystemsQ">Was isch mit anderä Turniersystem?</string>
+  <string name="roundRobinA">Mir würdet das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
+De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorziitig verlöhnd. Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event beändet und alli siini Partie schpillt. Das wird eifach nie passiere und darum wäred die meischte vu dene Turnier fählerhaft und unfair, was dänn de eigentlichi Sinn vu \"Round Robin\" verunmöglicht.
+Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo e möglichscht höchi Aazahl vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
+  <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Wir planen derzeit keine weiteren Turniersysteme zu Lichess hinzuzufügen.</string>
   <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen in jeder Runde eins gegen eins aufeinander und werden mithilfe einer Reihe von Regeln einander zugelost, um sicherzustellen, dass jeder Wettbewerber gegen Gegner mit einem ähnlichen Punktestand spielt, aber nicht gegen den gleichen Gegner mehr als einmal. Der Gewinner ist der Teilnehmer mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine ungerade Anzahl an Teilnehmern.\"</string>
   <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
