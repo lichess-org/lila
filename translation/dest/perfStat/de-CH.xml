@@ -25,8 +25,8 @@
   <string name="longestStreak">Längschti Serie: %s</string>
   <string name="currentStreak">Aktuelli Serie: %s</string>
   <string name="bestRated">Sieg gäge besser Gwerteti</string>
-  <string name="worstRated">Niderlage gäge schwach Gwerteti</string>
-  <string name="gamesInARow">In Folg gschpillti Schpiil</string>
+  <string name="worstRated">Niderlage gäge tüfer Gwerteti</string>
+  <string name="gamesInARow">In Serie gschpillti Partie</string>
   <string name="lessThanOneHour">Weniger als 1 Schtund zwüsche dä Schpiil</string>
   <string name="maxTimePlaying">Maximali Schpillziit</string>
   <string name="now">jetzt</string>
