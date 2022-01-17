@@ -2,37 +2,37 @@
 <resources>
   <string name="swissTournaments">Turniär im Schwiizer Syschtem</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="one">Die Runde ansehen</item>
-    <item quantity="other">Alli %s Rundenä aluegä</item>
+    <item quantity="one">D\'Rundi aaluege</item>
+    <item quantity="other">Alli %s Runde aaluege</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s Rundi</item>
-    <item quantity="other">%s Rundänä</item>
+    <item quantity="other">%s Runde</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="one">Ei Rundi pro Tag</item>
-    <item quantity="other">Ei Rundi all %s Täg</item>
+    <item quantity="one">1 Rundi pro Tag</item>
+    <item quantity="other">1 Rundi all %s Täg</item>
   </plurals>
-  <string name="roundsAreStartedManually">Rundänä wärdäd manuell gschtartät</string>
+  <string name="roundsAreStartedManually">Runde werded manuell gschtartet</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">%s Sekundä zwüschäd dä Rundänä</item>
-    <item quantity="other">%s Sekundä zwüschäd dä Rundänä</item>
+    <item quantity="one">%s Sekunde zwüschet de Runde</item>
+    <item quantity="other">%s Sekunde zwüschet de Runde</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s Minutä zwüschäd dä Rundänä</item>
-    <item quantity="other">%s Minutä zwüschäd dä Rundänä</item>
+    <item quantity="one">%s Minute zwüschet de Runde</item>
+    <item quantity="other">%s Minute zwüschet de Runde</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Schtartät in</string>
-  <string name="nextRound">Nögscht Rundi</string>
+  <string name="startingIn" comment="Displayed above a timer">Schtartet in</string>
+  <string name="nextRound">Nächschti Rundi</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">Laufändi Partii</item>
-    <item quantity="other">Laufändi Partiiä</item>
+    <item quantity="one">Laufendi Partie</item>
+    <item quantity="other">Laufendi Partie</item>
   </plurals>
-  <string name="tournStartDate">Turniär-Schtartdatum</string>
-  <string name="numberOfRounds">Aazahl Rundänä</string>
-  <string name="numberOfRoundsHelp">Ä ungeradi Aazahl Rundänä ermöglicht ä optimali Farbäverteilig.</string>
-  <string name="roundInterval">Ziitabschtänd zwüschäd Rundänä</string>
-  <string name="forbiddenPairings">Verbotäni Paarig</string>
+  <string name="tournStartDate">Turnier Schtartdatum</string>
+  <string name="numberOfRounds">Aazahl Runde</string>
+  <string name="numberOfRoundsHelp">E ungradi Aazahl Runde ermöglicht e optimali Farbeverteilig.</string>
+  <string name="roundInterval">Ziitabschtand zwüschet de Runde</string>
+  <string name="forbiddenPairings">Verboteni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernamä vo Schpiller/-innä, wo nöd gegänand schpilä dörfäd (zum Biischpiil Gschwüschtärti). Zwei Benutzernamä pro Ziilä, trännt dur äs Läärzeichä.</string>
   <string name="newSwiss">Neus Turniär noch Schwiizär Syschtem</string>
   <string name="swissVsArenaQ">Wänn sölläd Turniär noch Schwiizer Syschtem anschtatt Arena-Turniär verwändät wärdä?</string>
