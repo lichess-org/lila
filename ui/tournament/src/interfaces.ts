@@ -9,11 +9,9 @@ export interface StandingPlayer extends SimplePlayer {
   id: string;
   withdraw?: boolean;
   score: number;
-  fire: boolean;
   rank: number;
   sheet: {
     fire: boolean;
-    total: number;
     scores: Score[];
   };
   nb: Nb;
@@ -168,7 +166,6 @@ export interface Player extends SimplePlayer {
   id: string;
   rank: number;
   score: number;
-  fire: boolean;
   nb: Nb;
   performance?: number;
   withdraw?: boolean;
