@@ -57,9 +57,10 @@ Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, als
   <string name="numberOfByesQ">Wievill \"byes\" (spiilfreii Runde) chan en Schpiller überchoo?</string>
   <string name="numberOfByesA">Än Spillär chunnt jedes Mal, wänn s Paarigssystem kä Paarig für ihn findät, äs Adiö vo eim Punkt übär. Zuäsätzlich wird än halbä Punkt vergäh, wänn än Spillär ämnä Turniär z\'spaat biitritt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en Schpiller nöd zur Partie ahtritt?</string>
-  <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
- Er kann jederzeit wieder am Turnier teilnehmen.</string>
-  <string name="lateJoinQ">Chönd Spillär au z\'spaat biiträtä?</string>
+  <string name="whatIfOneDoesntPlayA">Siini Ziit wird laufe und wänn sie um isch, verlürt er das Schpiil.
+De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 
+Doch er chann jederziit wieder is Turnier iischtiige.</string>
+  <string name="lateJoinQ">Chönd Schpiller au schpöter is Turnier iischtiige?</string>
   <string name="lateJoinA">Jawoll, bis meh als d\'Hälfti vodä Rundänä aagfangä händ; so chönd Schpiller/-innä zum Biischpiil amänä elfründigä Turniär noch Schwiizer Syschtem vor Beginn vo Rundi 6 und imänä zwölfrundigä vor Beginn vo Rundi 7 biiträtä. Noochzügler bechömäd en halbä Punkt guätgschribä, au wenn si mehräri Rundänä verpasst händ.</string>
   <string name="willSwissReplaceArenasQ">Werdet Turnier nach Schwiizer System Arena-Turnier ersetzä?</string>
   <string name="willSwissReplaceArenasA">Nei. Sie sind komplementäri Funktionä.</string>
