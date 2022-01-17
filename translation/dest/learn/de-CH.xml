@@ -23,7 +23,7 @@ Bisch parat, ihn z\'kommandiere?</string>
   <string name="youNeedBothBishops">En wissfäldrige und en schwarzfäldrige Läufer, du bruchsch beidi!</string>
   <string name="bishopComplete">Gratuliere, du chasch jetzt de Läufer kommandiere.</string>
   <string name="theQueen">Dame oder Königin</string>
-  <string name="queenCombinesRookAndBishop">Dame = zieht wie Turm und Läufer</string>
+  <string name="queenCombinesRookAndBishop">Bewegt sich wie Turm und Läufer</string>
   <string name="queenIntro">Die stärchscht Schachfigur chunnt: 
 \"Ihre Majestät die Dame!\"!</string>
   <string name="queenComplete">Gratuliere, die Königin hät kei Gheimnis meh für dich.</string>
