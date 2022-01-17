@@ -71,9 +71,10 @@ De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es
 Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo e möglichscht höchi Aazahl vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
-  <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen in jeder Runde eins gegen eins aufeinander und werden mithilfe einer Reihe von Regeln einander zugelost, um sicherzustellen, dass jeder Wettbewerber gegen Gegner mit einem ähnlichen Punktestand spielt, aber nicht gegen den gleichen Gegner mehr als einmal. Der Gewinner ist der Teilnehmer mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine ungerade Anzahl an Teilnehmern.\"</string>
-  <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
-%1$s um an Turnieren nach Schweizer System teilzunehmen.</string>
+  <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s spillt jede Schpiller nöd notwändigerwiis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zuegloost, zum sicher stelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de gliichi Gägner trifft. De Sieger isch, am Schluss, de Schpiller mit de höchschte Aazahl Pünkt, wo us allne Runde addiert worde sind. Alli Spieler spilled i jedere Rundi, es sei denn, es git e ungradi Anzahl vu Schpiller</string>
+  <string name="teamOnly">Turnier nach \"Schweizer System\" chönd nur vu Teamleiter erschtellt werde.
+Und nur Teammitglieder chönd im Turnier mitschpille.
+%1$s zum a Turnier nach \"Schweizer System\" schpille.</string>
   <string name="joinOrCreateTeam">Team biiträtä odär erschtellä</string>
   <string name="nowPlaying">Lauft grad</string>
   <string name="startingSoon">Schtartät grad</string>
