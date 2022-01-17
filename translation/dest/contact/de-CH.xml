@@ -68,9 +68,9 @@
   <string name="buyingLichess">Lichess chaufe</string>
   <string name="authorizationToUse">Genehmigung Lichess z\'benutze</string>
   <string name="welcomeToUse">Du chasch Lichess für Aktivitäte verwände, au für Kommerzielli.</string>
-  <string name="videosAndBooks">Du chasch das i dinä Videos zeigä und du chasch au Screenshots vo Lichess in dini Büächer truckä.</string>
-  <string name="creditAppreciated">Än Erwähnig isch wünschenswärt, aber nöd notwändig.</string>
+  <string name="videosAndBooks">Du chasch Lichess i diine Videos zeige und au Screenshots usdrucke und verwände.</string>
+  <string name="creditAppreciated">Erwähnig isch g\'wünscht, aber nöd notwändig.</string>
   <string name="noneOfTheAbove">Öppis anders</string>
-  <string name="sendEmailAt">Schick üs äs Mail a %s.</string>
-  <string name="explainYourRequest">Bitte beschriib dini Afrog klar und düütlich. Nenn din Lichess Nutzernamä und jeglichi Informationä, won üs hälfä chöntäd, Dir z\'hälfä.</string>
+  <string name="sendEmailAt">Schick eus e E-Mail a %s.</string>
+  <string name="explainYourRequest">Bitte erchlär diini Aafrag klar und dütlich. Nänn eus diin Nutzername und alli Infos wo eus chönnd hälfe, diir z\'hälfe.</string>
 </resources>
