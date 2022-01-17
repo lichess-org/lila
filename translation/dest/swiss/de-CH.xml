@@ -95,10 +95,10 @@ Und nur Teammitglieder chönd im Turnier mitschpille.
   <string name="possibleButNotConsecutive">Möglich, aber nöd nachenand</string>
   <string name="identicalForbidden">Verbote</string>
   <string name="lateJoin">Schpätere Biitritt</string>
-  <string name="lateJoinUntil">Ja, wenn meh als d\'Hälfti vo de Rundä ahgfange händ</string>
-  <string name="pause">Pausä</string>
-  <string name="pauseSwiss">Ja, chönnt aber d\'Azahl Rundä verringärä</string>
-  <string name="streaksAndBerserk">Schträhnä und Bärsärk</string>
-  <string name="similarToOTB">Ähnlich zu OTB Turniär</string>
+  <string name="lateJoinUntil">Ja - maximal bis Turnier Halbziit</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, chann aber d\'Aazahl Runde verringere</string>
+  <string name="streaksAndBerserk">Serie und Berserk</string>
+  <string name="similarToOTB">Ähnlich wie OTB Turnier</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
 </resources>
