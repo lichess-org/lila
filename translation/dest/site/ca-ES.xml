@@ -69,7 +69,7 @@
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="forceVariation">Forçar variació</string>
   <string name="move">Moviment</string>
-  <string name="variantLoss">Derrota de variant</string>
+  <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Moviment de peó</string>
@@ -459,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
-  <string name="oneUrlPerLine">Una URL per línia.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Una URL per línia.</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
   <string name="onlinePlayers">Jugadors connectats</string>

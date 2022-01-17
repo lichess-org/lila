@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights">%s\'s Schachiiblick</string>
+  <string name="xChessInsights" comment="xChessInsights&#10;&#10;Appears as the tab/window title when viewing a player's insights, for example https://lichess.org/insights/thibault/acpl/variant">%s\'s Schachiiblick</string>
   <string name="xHasNoChessInsights">%s hät no kei Schachiiblick!</string>
-  <string name="insightsAreProtected">%s\'s Schachiiblick sind gschützt</string>
+  <string name="insightsAreProtected" comment="insightsAreProtected&#10;&#10;This means they will not be displayed to you.">%s\'s Schachiiblick sind gschützt</string>
   <string name="cantSeeInsights">Sorry, du chasch em %s sini Schachiiblick nöd gseh.</string>
-  <string name="generateInsights">Generier %s\'s Schachiiblick.</string>
-  <string name="crunchingData">Bearbeitet Date nur für dich!</string>
-  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Du chönntschs fröge, obs ihri %s ändered?</string>
-  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">schachiiblick iistelle</string>
+  <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.">Generier %ss Schachiiblick.</string>
+  <string name="crunchingData" comment="crunchingData&#10;&#10;For chess insights, when you ask to create a new set of chess insights based on your/another player's game history.">Bearbeitet Date nur für dich!</string>
+  <string name="maybeAskThemToChangeTheir" comment="maybeAskThemToChangeTheir&#10;%s is the translation for 'insights settings'.&#10;&#10;Your settings control privacy for your chess insights, and determine who can and cannot see them.">Du chönntschs fröge, obs ihri %s ändered?</string>
+  <string name="insightsSettings" comment="insightsSettings&#10;In the context of 'Maybe ask them to change their insight settings?' - separate string available for translation.">Schachiiblick-Iistellige</string>
 </resources>
