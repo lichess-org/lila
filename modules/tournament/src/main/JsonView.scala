@@ -555,10 +555,10 @@ object JsonView {
   private[tournament] def sheetJson(streakable: Boolean, withScores: Boolean)(s: arena.Sheet) =
     Json
       .obj()
-      .add("scores", withScores option scoresToString(s.scores.reverse))
+      .add("scores", withScores option scoresToString(s))
       .add("fire", (streakable && s.isOnFire))
 
-  def scoresToString(scores: Iterable[arena.Sheet.Score]): String = scores.map(_.value).mkString
+  def scoresToString(sheet: arena.Sheet): String = sheet.scores.reverse.map(_.value).mkString
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 

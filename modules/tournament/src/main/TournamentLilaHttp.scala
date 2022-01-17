@@ -111,12 +111,13 @@ final private class TournamentLilaHttp(
           "name"   -> light.fold(p.userId)(_.name),
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> JsonView.scoresToString(sheet.scores)
+          "sheet"  -> JsonView.scoresToString(sheet)
         )
         .add("title" -> light.flatMap(_.title))
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
+        .add("fire" -> p.fire)
     }
   }
 }
