@@ -111,7 +111,6 @@ final private class TournamentLilaHttp(
           "score"  -> p.score,
           "sheet"  -> sheet.scores.map(_.encoded)
         )
-        .add("fire", sheet.isOnFire)
         .add("title" -> light.flatMap(_.title))
         .add("provisional" -> p.provisional)
         .add("withdraw" -> p.withdraw)

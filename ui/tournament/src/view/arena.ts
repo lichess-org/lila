@@ -3,16 +3,27 @@ import { bind, dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes, Pagination, PodiumPlayer, Score, StandingPlayer } from '../interfaces';
+import { MaybeVNodes, Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 
-const scoreTagNames = ['score', 'streak', 'double'];
-
-function scoreTag(s: Score) {
-  const [score, tag] = Array.isArray(s) ? s : [s];
-  return h(scoreTagNames[(tag || 1) - 1], [score]);
-}
+const renderScoreString = (scoreString: string, streakable: boolean) => {
+  const values = scoreString.split('').map(s => parseInt(s));
+  if (!streakable) return values.map(v => h('score', v));
+  let nodes = [],
+    streak = 0;
+  for (let v of values) {
+    const win = v == 2 ? streak < 2 : v > 2;
+    const tag = streak > 1 && v > 1 ? 'double' : win ? 'streak' : 'score';
+    if (win) {
+      streak++;
+    } else {
+      streak = 0;
+    }
+    nodes.push(h(tag, v));
+  }
+  return nodes;
+};
 
 function playerTr(ctrl: TournamentController, player: StandingPlayer) {
   const userId = player.name.toLowerCase(),
@@ -46,7 +57,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
         renderPlayer(player, false, ctrl.opts.showRatings, userId === ctrl.data.defender),
         ...(battle && player.team ? [' ', teamName(battle, player.team)] : []),
       ]),
-      h('td.sheet', player.sheet.scores.map(scoreTag)),
+      h('td.sheet', renderScoreString(player.sheet.scores, !ctrl.data.noStreak)),
       h('td.total', [
         player.sheet.fire && !ctrl.data.isFinished
           ? h('strong.is-gold', { attrs: dataIcon('') }, player.score)

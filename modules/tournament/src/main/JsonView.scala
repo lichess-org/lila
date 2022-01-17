@@ -107,6 +107,7 @@ final class JsonView(
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
+          .add("noStreak" -> tour.noStreak)
           .add("position" -> tour.position.ifTrue(full).map(positionJson))
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
@@ -190,7 +191,7 @@ final class JsonView(
                 "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
                 "win"    -> score.flatMap(_.isWin),
                 "status" -> pov.game.status.id,
-                "score"  -> score.map(sheetScoreJson)
+                "score"  -> score.map(_.value)
               )
               .add("berserk" -> pov.player.berserk)
           }
@@ -556,12 +557,10 @@ object JsonView {
       .obj(
         "total" -> s.total
       )
-      .add("scores", withScores option s.scores.reverse.map(sheetScoreJson))
+      .add("scores", withScores option scoreString(s.scores.reverse))
       .add("fire", (streakable && s.isOnFire))
 
-  private[tournament] def sheetScoreJson(score: arena.Sheet.Score) =
-    if (score.flag == arena.Sheet.Flag.Normal) JsNumber(score.value)
-    else Json.arr(score.value, score.flag.value)
+  private def scoreString(scores: Iterable[arena.Sheet.Score]): String = scores.map(_.value).mkString
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
