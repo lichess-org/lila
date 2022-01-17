@@ -61,10 +61,11 @@ Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, als
 De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 
 Doch er chann jederziit wieder is Turnier iischtiige.</string>
   <string name="lateJoinQ">Chönd Schpiller au schpöter is Turnier iischtiige?</string>
-  <string name="lateJoinA">Jawoll, bis meh als d\'Hälfti vodä Rundänä aagfangä händ; so chönd Schpiller/-innä zum Biischpiil amänä elfründigä Turniär noch Schwiizer Syschtem vor Beginn vo Rundi 6 und imänä zwölfrundigä vor Beginn vo Rundi 7 biiträtä. Noochzügler bechömäd en halbä Punkt guätgschribä, au wenn si mehräri Rundänä verpasst händ.</string>
-  <string name="willSwissReplaceArenasQ">Werdet Turnier nach Schwiizer System Arena-Turnier ersetzä?</string>
-  <string name="willSwissReplaceArenasA">Nei. Sie sind komplementäri Funktionä.</string>
-  <string name="roundRobinQ">Was isch mit Rundlaufturniär?</string>
+  <string name="lateJoinA">Ja - sogar bis d\'Helfti vu de Runde gschpillt sind. Mer chann z. B. bi me 11-rundige Turnier vor em Schtart vu Rundi 6 und bi me 12-rundige, vor Beginn vu rundi 7 no iischtiige.
+So \"Nachzügler\" erhalted en halbe Punkt, obwohl sie mehreri Runde verpasst händ.</string>
+  <string name="willSwissReplaceArenasQ">Werded Turnier nach \"Schweizer System\" die aktuelle Arena-Turnier ersetze?</string>
+  <string name="willSwissReplaceArenasA">Nei - sie sind nur e zusätzlichi Spillmöglichkeit.</string>
+  <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
   <string name="roundRobinA">Wir möchten es hinzufügen, aber leider funktionieren Rundenturniere online nicht.
 Der Grund dafür ist, dass es keine faire Möglichkeit gibt, mit Leuten umzugehen, die das Turnier vorzeitig verlassen. Wir können nicht erwarten, dass alle Spieler in einem Online-Event alle ihre Spiele spielen. Das wird einfach nicht passieren, und dadurch wären die meisten Rundenturniere fehlerhaft und unfair, was ihren eigentlichen Sinn zunichte macht.
 Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer System und einer sehr hohen Anzahl an Runden zu spielen. Dadurch werden alle möglichen Paarungen gespielt, bevor das Turnier endet.</string>
