@@ -43,11 +43,11 @@ Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
 Hät en Schpiller mal kein Gägner, gits es Freilos d. h. 1 Gratispunkt.</string>
   <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger Wertig</string>
-  <string name="tiebreaksCalculationA">Mit dem %s.
-Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen die der Spieler remisiert.</string>
-  <string name="pairingsQ">Wiä wärdäd Paarigä entschidä?</string>
-  <string name="dutchSystem">Niderländischs Syschtem</string>
-  <string name="FIDEHandbook">FIDE-Handbuäch</string>
+  <string name="tiebreaksCalculationA">Mit de %s.
+Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gägner ergänd zämme die sog. SB-Zahl (Sonneborn Zahl) für en Schpiller. Bi Punktgliichheit isch die höcher SB-Zahl vorne.</string>
+  <string name="pairingsQ">Wie werded Paarige gmacht?</string>
+  <string name="dutchSystem">Niederländische System</string>
+  <string name="FIDEHandbook">FIDE Handbuech</string>
   <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit dem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
