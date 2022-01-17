@@ -580,7 +580,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
   <string name="whiteCastlingKingside">Wiss O - O</string>
-  <string name="blackCastlingKingside">Schwarz O - O</string>
+  <string name="blackCastlingKingside">Schwarz 0 - 0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum-Biitrag</item>
     <item quantity="other">%s Forum-Biiträg</item>
@@ -614,7 +614,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="aboutSimulRules">Wie bi reale Simultanschach Veraaschteltige, gaht de Simultanschpiller vu eim Simultangägner zum Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du es Simultanschach erschtellsch, chasch du glichziitig gäge mehreri Gägner schpille.</string>
+  <string name="whenCreateSimul">Wänn du diir es Simultanschach machsch, chasch glichziitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
