@@ -12,12 +12,12 @@
   </plurals>
   <string name="newPatrons">Neui Gönner</string>
   <string name="freeChess">Gratis Schach für alli - für immer!</string>
-  <string name="noAdsNoSubs">Kei Wärbig, kei Abos; aber open-source und mit Lidäschaft.</string>
-  <string name="thankYou">Vielen Dank für die Spende!</string>
-  <string name="youHaveLifetime">Du bsitzisch äs läbänslangs Underschtützerkonto. Das isch schlichtwäg grossartig!</string>
-  <string name="patronUntil">Du bsitzisch äs Patroonkonto bis %s.</string>
-  <string name="ifNotRenewed">Falls nicht erneuert, wird dein Konto zu einem kostenlosen herabgestuft.</string>
-  <string name="weAreNonProfit">Mir sind ä Non-Profit-Organisation, will mir dra glaubäd, dass alli än Zuägang zunärä choschtälosä Schachplattform vo Wältklass ha söttäd.</string>
+  <string name="noAdsNoSubs">Kei Werbig, kei Abos - aber en open-source und Liideschaft.</string>
+  <string name="thankYou">Ville Dank für die Spänd!</string>
+  <string name="youHaveLifetime">Du häsch es läbelangs Gönnerkonto. Das isch grossartig!</string>
+  <string name="patronUntil">Du häsch es Gönnerkonto bis %s.</string>
+  <string name="ifNotRenewed">Wänns nöd erneuerisch, wird diis Konto zum Gratiskonto zrugg g\'schtuuft.</string>
+  <string name="weAreNonProfit">Mir sind e \"Non-Profit-Organisation\", will mir glaubed, dass jede sött Zuegang zu ere gratis, \"Wältklass Schach Plattform\" haa.</string>
   <string name="weRelyOnSupport">Mir sind uf Underschtützig vo Lüüt wi dir aagwisä, um das möglich z\'machä. Falls dir Lichess gfallt, chasch du Lichess underschtützä, indäm du schpändisch und än Patroon wirsch!</string>
   <string name="lifetime">Lebenslang</string>
   <string name="payLifetimeOnce">Zall eimalig %s. Wird für immer Lichess Patroon!</string>
