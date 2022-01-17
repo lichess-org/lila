@@ -52,11 +52,11 @@ Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gäg
   <string name="moreRoundsThanPlayersQ">Was passiert, wänn es Turnier meh Runde hät, als Schpiller?</string>
   <string name="moreRoundsThanPlayersA">Wänn alli mögliche Paarige gschpillt sind, ischs Turnier fertig und de Sieger wird ermittlet.</string>
   <string name="restrictedToTeamsQ">Wieso isch es (bi Lichess) nur uf Teams beschränkt?</string>
-  <string name="restrictedToTeamsA">Turniär noch Schwiizer Syschtem sind für Onlineschach echli ung\'eignät. Si verlangäd Pünktlichkeit, Durchhaltevermögä und Geduld.
-Mir glaubäd, dass die Bedingigä ehnder innerhalb vu Teams als in öffentlichä Turniär erfüllt wärdäd.</string>
-  <string name="numberOfByesQ">Wievill Adiös chan än Spillär übercho?</string>
+  <string name="restrictedToTeamsA">Turnier nach \"Schweizer System\" sind nöd fürs Online-Schach konzipiert. Vu de Schpiller wird Pünktlichkeit, Durchhaltevermöge und Geduld verlangt.
+Mir glaubed, dass so Bedingige vu Teammitglieder/Teams eher erfüllt werded, als villiicht vu \"Krethi und Plethi\", wänn so es Turnier öffentlich isch.</string>
+  <string name="numberOfByesQ">Wievill \"byes\" (spiilfreii Runde) chan en Schpiller überchoo?</string>
   <string name="numberOfByesA">Än Spillär chunnt jedes Mal, wänn s Paarigssystem kä Paarig für ihn findät, äs Adiö vo eim Punkt übär. Zuäsätzlich wird än halbä Punkt vergäh, wänn än Spillär ämnä Turniär z\'spaat biitritt.</string>
-  <string name="whatIfOneDoesntPlayQ">Was passiert, wenn än Spieler nöd zur Partie ahtritt?</string>
+  <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en Schpiller nöd zur Partie ahtritt?</string>
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Chönd Spillär au z\'spaat biiträtä?</string>
