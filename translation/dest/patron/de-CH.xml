@@ -30,18 +30,18 @@
   <string name="pleaseEnterAmountInX">Bitte gib en Betrag in %s ii</string>
   <string name="withCreditCard">Kreditcharte</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">Wir sind ein kleines Team, deswegen macht deine Unterstützung einen riesen Unterschied!</string>
-  <string name="celebratedPatrons">Di gfiirätä Underschtützer, wo Lichess möglich machäd</string>
-  <string name="whereMoneyGoes">Wohin fließt das Geld?</string>
-  <string name="serversAndDeveloper">Zallererscht in leischtigsstarchi Server. 
-Dänn zahläd mir än Vollziit-Entwickler: %s, dä Gründer vo Lichess.</string>
-  <string name="costBreakdown">Detaillierte Kostenaufteilung anzeigen</string>
-  <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit-Organisation?</string>
-  <string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in Französisch)</string>
-  <string name="changeMonthlySupport">Kann ich meine monatliche Unterstützung ändern/beenden?</string>
-  <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
-Oder du kannst %s.</string>
-  <string name="contactSupport">den Lichess Support kontaktieren</string>
+  <string name="weAreSmallTeam">Mir sind es chliises Team, drum macht diini Underschtützig en riese Underschied!</string>
+  <string name="celebratedPatrons">Die g\'fiirete Gönner, wo Lichess möglich mached</string>
+  <string name="whereMoneyGoes">Wohi flüüst das Gäld?</string>
+  <string name="serversAndDeveloper">Ganz zerscht i leischtigsstarchi Server. 
+Dänn zahled mir en Vollziit-Entwickler: %s, de Gründer vu Lichess.</string>
+  <string name="costBreakdown">Da die detailliert Choschte Uufteilig</string>
+  <string name="officialNonProfit">Isch Lichess e offizielli Non-Profit-Organisation?</string>
+  <string name="actOfCreation">Ja, da isch d\'Gründigsurkund (uf französisch)</string>
+  <string name="changeMonthlySupport">Chann ich miini monetlichi Underschtützig ändere oder chünde?</string>
+  <string name="changeOrContact">Ja, jederziit vu dere Site us.
+Oder du chasch %s.</string>
+  <string name="contactSupport">de Lichess Support kontaktiere</string>
   <string name="otherMethods">Andäri Wäg zum schpändä?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
   <string name="patronFeatures">Gits zuäsätzlichi Funktionä für Underschtützer?</string>
