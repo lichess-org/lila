@@ -33,11 +33,12 @@
   <string name="numberOfRoundsHelp">E ungradi Aazahl Runde ermöglicht e optimali Farbeverteilig.</string>
   <string name="roundInterval">Ziitabschtand zwüschet de Runde</string>
   <string name="forbiddenPairings">Verboteni Paarig</string>
-  <string name="forbiddenPairingsHelp">Benutzernamä vo Schpiller/-innä, wo nöd gegänand schpilä dörfäd (zum Biischpiil Gschwüschtärti). Zwei Benutzernamä pro Ziilä, trännt dur äs Läärzeichä.</string>
-  <string name="newSwiss">Neus Turniär noch Schwiizär Syschtem</string>
-  <string name="swissVsArenaQ">Wänn sölläd Turniär noch Schwiizer Syschtem anschtatt Arena-Turniär verwändät wärdä?</string>
-  <string name="swissVsArenaA">Imänä Turniär mit Schwiiizer System, spiiläd alli glich viil partie und jede spielt nur einisch gege jede andär. Ds chöönt ä guäti Waal si für Cklubs und offiziäli Turniär.</string>
-  <string name="pointsCalculationQ">Wiä wärdäd Pünkt berächnät?</string>
+  <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nod gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Ziile, trännt dur e Leerschtell.</string>
+  <string name="newSwiss">Neus Turnier nach Schwiizer Syschtem</string>
+  <string name="swissVsArenaQ">Wänn nach Schwiizer Syschtem anstatt Arena Turnier?</string>
+  <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliich Aazahl Schpiil und 2 Schpiller träffed nur 1 Mal ufenand.
+Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
+  <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
   <string name="pointsCalculationA">En Sieg isch ein Punkt wärt, es Remi zwei, und wenn verlürsch bechumsch keine. Wenn du kein Gänger  hesch, bechumsch eifoch en Punkt.</string>
   <string name="tiebreaksCalculationQ">Wie wärdäd Tie-Breaks berächnät?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger-Wärtig</string>
