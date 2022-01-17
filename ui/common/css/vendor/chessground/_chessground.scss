@@ -142,7 +142,7 @@ cg-container {
 
 cg-container .cg-shapes,
 cg-container .cg-custom-svgs,
-cg-container cg-auto-pieces {
+cg-auto-pieces {
   overflow: visible;
   position: absolute;
   top: 0px;
@@ -169,7 +169,7 @@ cg-container .cg-custom-svgs svg {
   overflow: visible;
 }
 
-cg-container cg-auto-pieces {
+cg-auto-pieces {
   z-index: z('cg__cg-auto-pieces');
 
   piece {
