@@ -37,8 +37,8 @@
 Benutzername: %2$s
 Passwort: %3$s</string>
   <string name="inviteALichessAccount">En Lichess Nutzer iilade</string>
-  <string name="inviteDesc1">Falls der Schüler bereits ein Lichess-Konto besitzt, kannst du ihn zur Klasse hinzufügen.</string>
-  <string name="inviteDesc2">Er wird eine Nachricht mit einem Link zum Beitreten auf Lichess erhalten.</string>
+  <string name="inviteDesc1">Wänn de Schüeler bereits es Lichess Konto hät, chasch ihn id Klass ufneh.</string>
+  <string name="inviteDesc2">Er wird uf Lichess e Nachricht erhalte, mit Link zum de Klass biizträte.</string>
   <string name="inviteDesc3">Wichtig: Lade nur Schüler ein, die du kennst und die aktiv der Klasse beitreten wollen.</string>
   <string name="inviteDesc4">Versende niemals unerwünschte Einladungen an beliebige Spieler.</string>
   <string name="createANewLichessAccount">Erstelle ein neues Lichess-Konto</string>
