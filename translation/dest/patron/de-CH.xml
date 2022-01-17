@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Schpändä</string>
-  <string name="donateAsX">Spändä als %s</string>
-  <string name="lichessPatron">Lichess Patroon</string>
-  <string name="freeAccount">Kostenloses Konto</string>
-  <string name="becomePatron">Wird Lichess Patroon</string>
-  <string name="xBecamePatron">%s isch Lichess Patroon wordä</string>
+  <string name="donate">Schpände</string>
+  <string name="donateAsX">Spänd als %s</string>
+  <string name="lichessPatron">Lichess Gönner</string>
+  <string name="freeAccount">Choschteloses Konto</string>
+  <string name="becomePatron">Wird Lichess Gönner</string>
+  <string name="xBecamePatron">%s isch Lichess Gönner worde</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s underschtützt Lichess sit %2$s Mönät als Patroon</item>
-    <item quantity="other">%1$s underschtützt Lichess sit %2$s Monät als Patroon</item>
+    <item quantity="one">%1$s underschtützt Lichess sit %2$s Monet als Gönner</item>
+    <item quantity="other">%1$s underschtützt Lichess sit %2$s Mönet als Gönner</item>
   </plurals>
-  <string name="newPatrons">Neui Patroons</string>
-  <string name="freeChess">Choschtälosäs Schach für alli, für immer!</string>
+  <string name="newPatrons">Neui Gönner</string>
+  <string name="freeChess">Gratis Schach für alli - für immer!</string>
   <string name="noAdsNoSubs">Kei Wärbig, kei Abos; aber open-source und mit Lidäschaft.</string>
   <string name="thankYou">Vielen Dank für die Spende!</string>
   <string name="youHaveLifetime">Du bsitzisch äs läbänslangs Underschtützerkonto. Das isch schlichtwäg grossartig!</string>
