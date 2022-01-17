@@ -89,12 +89,9 @@ final private class TournamentLilaHttp(
   } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
     .obj(
       "id" -> tour.id,
-      // TODO optimize as a single string
-      "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
-        JsObject(all.view.flatMap { duel =>
-          duel.userIds.map { uid => uid -> JsString(duel.gameId) }
-        }.toMap)
-      },
+      "ongoingUserGames" -> duelStore
+        .get(tour.id)
+        .?? { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") },
       "standing" -> fullStanding
     )
     .add("noStreak" -> tour.noStreak)
