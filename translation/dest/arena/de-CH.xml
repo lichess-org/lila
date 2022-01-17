@@ -25,12 +25,12 @@ Wänn 2 oder meh Schpiller gliich vill Pünkt händ, entscheidet d\'Turnierleisc
 Sobald Partie gschpillt sind, gahts zrugg zur Turnierübersicht. Dänn werded Schpiller mit ähnlichem Rang paaret. Es cha si, dass mer nöd gäge all Schpiller im Turnier spillt.
 Wer schnäll schpillt und sofort wider zrugg zur Turnierbersicht gaht, de hät meh Schpiil und chann au meh Pünkt mache.</string>
   <string name="howDoesItEnd">Wie ändet es Turnier?</string>
-  <string name="howDoesItEndAnswer">Es Turnier hät e Turnieruhr. Hät d\'Turnierziit Null erreicht, sind alli Räng fix und de Sieger wird bekannt geh. No laufendi Schpiil müend fertig gschpillt werde, doch sie werded nümme fürs Turnier gwertet.</string>
+  <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierziit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpiil wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
   <string name="otherRules">Anderi wichtigi Regle</string>
-  <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
+  <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug. Isch nach 12 Sekunde nöd zoge, gits es Forfait für de Gägner.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Es Remis innerhalb vu de erschte %s Züg git für beidi Schpiller kei Pünkt.</item>
-    <item quantity="other">Es Remis innerhalb vu %s Züg git für beidi Schpiller kei Pünkt.</item>
+    <item quantity="one">Es Remis innerhalb vu de erschte %s Züg git für beidi Schpiller 0 Pünkt.</item>
+    <item quantity="other">Es Remis innerhalb vu %s Züg git für beidi Schpiller 0 Pünkt.</item>
   </plurals>
   <string name="thisIsPrivate">Das isch es privats Turnier</string>
   <string name="shareUrl">Teil die URL um anderi Lüt iizlade: %s</string>
