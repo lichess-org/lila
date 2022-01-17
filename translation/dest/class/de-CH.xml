@@ -69,31 +69,31 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="realUniqueEmail">Reali, einmaligi E-Mail-Adrässe vum Schüeler. Mir schicked e Beschtätigungs Mail, mit Link, für d\'Freigab vum Konto.</string>
   <string name="closeStudent">Benutzerkonto schlüsse</string>
   <string name="closeTheAccount">Schüeler Konto duurhaft schlüsse.</string>
-  <string name="closeDesc1">Dä Schüäler / diä Schüälerin cha das Konto niä meh verwändä. Gschlüssä isch endgültig. Schtell sicher, dass dä Schüäler / d\'Schüälerin das verschtoht und akzeptiärt.</string>
-  <string name="closeDesc2">Du chasch schattdessä äm Schüäler / dä Schüälerin d\'Kontrollä über s Konto gäh, damit är sis / si ihräs Konto wiiterhin verwändä chan.</string>
+  <string name="closeDesc1">De Schüeler chann das Konto nie meh verwände. Die Schlüssig isch ändgültig. Schtell sicher, dass de Schüeler das verstaht und akzeptiert.</string>
+  <string name="closeDesc2">Du chasch aber au em Schüeler d\'Kontrolle übers Konto geh, so dass ers wiiter chann benutze.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>
     <item quantity="other">%s Lehrer</item>
   </plurals>
   <plurals name="nbStudents">
-    <item quantity="one">Schüler</item>
-    <item quantity="other">%s Schüler</item>
+    <item quantity="one">Schüeler</item>
+    <item quantity="other">%s Schüeler</item>
   </plurals>
   <string name="students">Schüler</string>
   <string name="progress">Fortschritt</string>
-  <string name="noStudents">Bisher keine Schüler in dieser Klasse.</string>
-  <string name="noRemovedStudents">Keine entfernten Schüler.</string>
+  <string name="noStudents">Bis jetzt kei Schüeler i dere Klass.</string>
+  <string name="noRemovedStudents">Kei entfernti Schüeler.</string>
   <string name="overDays">Über Täg</string>
-  <string name="timePlaying">Spielzeit</string>
-  <string name="variantXOverLastY">%1$s über die letzten %2$s</string>
-  <string name="winrate">Gewinnquote</string>
-  <string name="na">Nicht verfügbar</string>
-  <string name="news">Klassenneuigkeiten</string>
-  <string name="editNews">Neuigkeiten bearbeiten</string>
-  <string name="notifyAllStudents">Benachrichtige alle Schüler</string>
-  <string name="nothingHere">Noch nichts hier.</string>
-  <string name="newsEdit1">Alle Klassennachrichten in einem einzigen Feld.</string>
+  <string name="timePlaying">Spillziit</string>
+  <string name="variantXOverLastY">%1$s über die letschte %2$s</string>
+  <string name="winrate">Gwünnrate</string>
+  <string name="na">Nöd verfüegbar</string>
+  <string name="news">Klasse Neuigkeite</string>
+  <string name="editNews">Neuigkeite bearbeite</string>
+  <string name="notifyAllStudents">Benachrichtig alli Schüeler</string>
+  <string name="nothingHere">No nüt da.</string>
+  <string name="newsEdit1">All Klasse Nachrichte i eim einzige Fäld.</string>
   <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
   <string name="newsEdit3">Trenne Neuigkeiten mit --- Es wird als horizontale Linie angezeigt.</string>
 </resources>
