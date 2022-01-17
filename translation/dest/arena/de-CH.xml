@@ -34,13 +34,13 @@ Wer schnäll schpillt und sofort wider zrugg zur Turnierbersicht gaht, de hät m
   </plurals>
   <string name="thisIsPrivate">Das isch es privats Turnier</string>
   <string name="shareUrl">Teil die URL um anderi Lüt iizlade: %s</string>
-  <string name="drawStreak">Remis-Serie: Wänn en Schpiller ide Arena mehreri Remis nachenand spillt, wird nu fürs erschte Remis en Punkt geh, oder für Remis, wo meh als %s Züg gschpillt worde sind. So e Remis-Serie chann nur dur en Sieg underbroche werde, nöd dur e verloreni Partie oder es Remis.</string>
+  <string name="drawStreak">Remis Serie: Werded i de Arena mehreri Remis in Serie gschpillt, gits nur fürs 1. Remis oder für Remis mit meh als %s Züg en Punkt. So e Serie cha nur dur en Sieg abbroche werde und nöd dur e Niderlag oder es erneuts Remis.</string>
   <string name="history">Arena Verlauf</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Zeig d\'Teams</item>
-    <item quantity="other">Alli %s Teams zeige</item>
+    <item quantity="one">Zeig s\'Team</item>
+    <item quantity="other">Zeig all %s Teams</item>
   </plurals>
-  <string name="newTeamBattle">Neue Team-Kampf</string>
+  <string name="newTeamBattle">Neue Team Kampf</string>
   <string name="customStartDate">Benutzerdefinierts Schtartdatum</string>
   <string name="customStartDateHelp">I dinere eigene, lokale Ziitzone. Das überschriibt d\'Iischtellig \"Ziit bis s Turnierbeginn\"</string>
   <string name="allowBerserk">Berserk erlaube</string>
