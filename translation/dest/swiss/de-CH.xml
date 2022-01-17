@@ -34,8 +34,8 @@
   <string name="roundInterval">Ziitabschtand zwüschet de Runde</string>
   <string name="forbiddenPairings">Verboteni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nod gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Ziile, trännt dur e Leerschtell.</string>
-  <string name="newSwiss">Neus Turnier nach Schwiizer Syschtem</string>
-  <string name="swissVsArenaQ">Wänn nach Schwiizer Syschtem anstatt Arena Turnier?</string>
+  <string name="newSwiss">Neus Turnier nach \"Schweizer System\"</string>
+  <string name="swissVsArenaQ">Wänn nach \"Schweizer System\" anstatt Arena Turnier?</string>
   <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliich Aazahl Schpiil und 2 Schpiller träffed nur 1 Mal ufenand.
 Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
@@ -48,10 +48,10 @@ Alli Pünkt vu de gschlagene Gägner plus die halbe Pünkt vu de remisierte Gäg
   <string name="pairingsQ">Wie werded Paarige gmacht?</string>
   <string name="dutchSystem">Niederländische System</string>
   <string name="FIDEHandbook">FIDE Handbuech</string>
-  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit dem %3$s.</string>
-  <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
-  <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
-  <string name="restrictedToTeamsQ">Wieso isch es uf Teams beschränkt?</string>
+  <string name="pairingsA">Mit em %1$s, umgsetzt mit %2$s, in Übereinschtimmig mit em %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Was passiert, wänn es Turnier meh Runde hät, als Schpiller?</string>
+  <string name="moreRoundsThanPlayersA">Wänn alli mögliche Paarige gschpillt sind, ischs Turnier fertig und de Sieger wird ermittlet.</string>
+  <string name="restrictedToTeamsQ">Wieso isch es (bi Lichess) nur uf Teams beschränkt?</string>
   <string name="restrictedToTeamsA">Turniär noch Schwiizer Syschtem sind für Onlineschach echli ung\'eignät. Si verlangäd Pünktlichkeit, Durchhaltevermögä und Geduld.
 Mir glaubäd, dass die Bedingigä ehnder innerhalb vu Teams als in öffentlichä Turniär erfüllt wärdäd.</string>
   <string name="numberOfByesQ">Wievill Adiös chan än Spillär übercho?</string>
