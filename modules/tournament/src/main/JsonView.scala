@@ -554,13 +554,11 @@ object JsonView {
 
   private[tournament] def sheetJson(streakable: Boolean, withScores: Boolean)(s: arena.Sheet) =
     Json
-      .obj(
-        "total" -> s.total
-      )
-      .add("scores", withScores option scoreString(s.scores.reverse))
+      .obj()
+      .add("scores", withScores option scoresToString(s.scores.reverse))
       .add("fire", (streakable && s.isOnFire))
 
-  private def scoreString(scores: Iterable[arena.Sheet.Score]): String = scores.map(_.value).mkString
+  def scoresToString(scores: Iterable[arena.Sheet.Score]): String = scores.map(_.value).mkString
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 

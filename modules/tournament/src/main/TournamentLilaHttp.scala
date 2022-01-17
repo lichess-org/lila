@@ -86,16 +86,18 @@ final private class TournamentLilaHttp(
       .run()
       .map(JsArray(_))
 
-  } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json.obj(
-    "id" -> tour.id,
-    // TODO optimize as a single string
-    "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
-      JsObject(all.view.flatMap { duel =>
-        duel.userIds.map { uid => uid -> JsString(duel.gameId) }
-      }.toMap)
-    },
-    "standing" -> fullStanding
-  )
+  } yield jsonView.commonTournamentJson(tour, data, stats, teamStanding) ++ Json
+    .obj(
+      "id" -> tour.id,
+      // TODO optimize as a single string
+      "ongoingUserGames" -> duelStore.get(tour.id).fold(Json.obj()) { all =>
+        JsObject(all.view.flatMap { duel =>
+          duel.userIds.map { uid => uid -> JsString(duel.gameId) }
+        }.toMap)
+      },
+      "standing" -> fullStanding
+    )
+    .add("noStreak" -> tour.noStreak)
 
   private def playerJson(
       sheet: arena.Sheet,
@@ -109,7 +111,7 @@ final private class TournamentLilaHttp(
           "name"   -> light.fold(p.userId)(_.name),
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> sheet.scores.map(_.encoded)
+          "sheet"  -> JsonView.scoresToString(sheet.scores)
         )
         .add("title" -> light.flatMap(_.title))
         .add("provisional" -> p.provisional)
