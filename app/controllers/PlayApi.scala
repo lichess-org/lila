@@ -74,7 +74,7 @@ final class PlayApi(
   // common code for bot & board APIs
   private object impl {
 
-    def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
+    def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang, req: RequestHeader) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }
