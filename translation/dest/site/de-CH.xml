@@ -855,10 +855,10 @@ und beiiflussed diini Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="onlyTitled">Nur für Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel haa</string>
-  <string name="positionInputHelp">Füeg en gültige FEN ii, zum jedi Partie ab ere beschtimmte Schtellig z\'schtarte.
-Das funktioniert nur für Standardschpiil und nöd für Variante.
-Du chasch de %s verwende, um e FEN-Schtelliig z\'generiere und die dänn da iizfüege.
-Leer lah, um d\'Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
+  <string name="positionInputHelp">E gültigi FEN startet jedes Schpiil ab ere beschtimmte Schtellig. 
+Das funktioniert nur für Standardschpiil und nöd für Variante!
+Chasch mit %s so e FEN-Schtelliig generiere und sie dänn im Fäld 
+iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="cancelSimul">Simultanschach abbräche</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
