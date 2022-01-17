@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess Klasse</string>
+  <string name="lichessClasses">Klasse</string>
   <string name="teachClassesOfChessStudents">Klasse vu Schachlerende mit Lichess Werchzüg underrichte.</string>
   <string name="features">Funktione</string>
   <string name="quicklyGenerateSafeUsernames">Schnälli Erschtellig vu Benutzernäme und Passwörter für Schüeler</string>
@@ -94,6 +94,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="notifyAllStudents">Benachrichtig alli Schüeler</string>
   <string name="nothingHere">No nüt da.</string>
   <string name="newsEdit1">All Klasse Nachrichte i eim einzige Fäld.</string>
-  <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
-  <string name="newsEdit3">Trenne Neuigkeiten mit --- Es wird als horizontale Linie angezeigt.</string>
+  <string name="newsEdit2">Füeg die aktuelle Neuigkeite obe zue. Lösch kei vorherigi Neuigkeite.</string>
+  <string name="newsEdit3">Tränn Neuigkeite mit ---
+Es wird als horizontali Linie aazeigt.</string>
 </resources>
