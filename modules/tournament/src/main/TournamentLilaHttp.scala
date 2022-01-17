@@ -53,7 +53,7 @@ final private class TournamentLilaHttp(
           .mapAsyncUnordered(4)(arenaFullJson)
           .map { json =>
             val str = Json stringify json
-            lila.mon.tournament.lilaHttp.fullSize.record(str.size.pp)
+            lila.mon.tournament.lilaHttp.fullSize.record(str.size)
             conn.async.publish(channel, str).unit
           }
           .toMat(LilaStream.sinkCount)(Keep.right)
@@ -68,7 +68,6 @@ final private class TournamentLilaHttp(
     data         <- jsonView.cachableData get tour.id
     stats        <- statsApi(tour)
     teamStanding <- jsonView.getTeamStanding(tour)
-    ranking      <- cached ranking tour
     fullStanding <- playerRepo
       .sortedCursor(tour.id, 100, ReadPreference.primary)
       .documentSource(100)
@@ -95,7 +94,6 @@ final private class TournamentLilaHttp(
         duel.userIds.map { uid => uid -> JsString(duel.gameId) }
       }.toMap)
     },
-    "ranking"  -> ranking.userIdsString,
     "standing" -> fullStanding
   )
 
