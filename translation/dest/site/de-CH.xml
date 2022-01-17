@@ -458,7 +458,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="firstName">Vornamä</string>
   <string name="lastName">Nachname</string>
   <string name="biography">Biografii</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flagge</string>
   <string name="thankYou">Ich danke dir!</string>
   <string name="socialMediaLinks">Soziali-Medie-Links</string>
   <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
