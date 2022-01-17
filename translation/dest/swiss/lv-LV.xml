@@ -45,12 +45,13 @@
   <string name="swissVsArenaA">Šveices turnīrā, visi dalībnieki izspēlēs vienādu skaitu spēļu, un pret katru pretinieku var spēlēt tikai vienreiz.
 Šī var būt laba izvēle klubiem un oficiāliem turnīriem.</string>
   <string name="pointsCalculationQ">Kā tiek aprēķināti punkti?</string>
+  <string name="pointsCalculationA">Par uzvaru piešķir vienu punktu, par neizšķirtu puspunktu savukārt par zaudējumu nulle punktu. Ja spēlētājam neizdodas atrast kārtas pretinieku, tad tam piešķir vienu punktu par tehnisko uzvaru.</string>
   <string name="tiebreaksCalculationQ">Kā izšķir vienādu punktu skaitus?</string>
   <string name="sonnebornBergerScore">Zonnenborna—Bergera koeficientu</string>
   <string name="tiebreaksCalculationA">Ar %s.
 Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu pretinieku punktu summu.</string>
-  <string name="pairingsQ">Kā sapāro spēlētājus?</string>
-  <string name="dutchSystem">Nīderlandes sistēmu</string>
+  <string name="pairingsQ">Kā tiek noteikti pāri?</string>
+  <string name="dutchSystem">Holandiešu sistēmu</string>
   <string name="FIDEHandbook">FIDE rokasgrāmatu</string>
   <string name="pairingsA">Ar %1$s, īstenotu ar \"%2$s\", saskaņā ar %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kas notiek, ja turnīrā ir vairāk raundu nekā spēlētāju?</string>
@@ -58,11 +59,15 @@ Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu preti
   <string name="restrictedToTeamsQ">Kāpēc tas ir tikai komandām?</string>
   <string name="restrictedToTeamsA">Šveices turnīri nav domāti interneta šaham. Tie pieprasa spēlētāju punktualitāti, apņemšanos un pacietību.
 Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumiem nekā neierobežotu turnīru dalībnieki.</string>
+  <string name="numberOfByesQ">Cik reižu var saņemt tehnisko uzvaru?</string>
+  <string name="numberOfByesA">Spēlētājs saņem punktu par tehnisko uzvaru ik reizi kad sistēma nevar piemeklēt pretinieku. Papildus tiek piešķirts tehniskais puspunkts ja spēlētājs nokavē turnīra sākumu.</string>
   <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
   <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
 Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="lateJoinQ">Vai spēlētāji var pievienoties ar aizkavēšanos?</string>
+  <string name="lateJoinA">Jā, līdz kamēr aizvadīti vairāk nekā puse kārtu. Piemēram, 11 kārtu turnīrā spēlētāji var pievienoties pirms 6. kārtas un 12 kārtu turnīrā pirms 7. kārtas.
+Tie kur pievienojas vēlāk tiek kompensēti pat tad ja ir izlaistas vairākas kārtas.</string>
   <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ">Kādas ir iespējas apļa sistēmas turnīriem?</string>
@@ -88,8 +93,8 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="pairingSystemArena">Jebkurš pretinieks ar līdzīgu vietu</string>
   <string name="pairingSystemSwiss">Vislabākie pāri balstoties uz punktiem un vienādu punktu izšķiršanu</string>
   <string name="pairingWaitTime">Pārošanas gaidīšanas laiks</string>
-  <string name="pairingWaitTimeFast">Īss: negaida visus spēlētājus</string>
-  <string name="pairingWaitTimeSlow">Ilgs: jāsagaida visi spēlētāji</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Īss: negaida visus spēlētājus</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Ilgs: jāsagaida visi spēlētāji</string>
   <string name="identicalPairing">Atkārtoti pretinieki</string>
   <string name="possibleButNotConsecutive">Iespējams, bet ne secīgās spēlēs</string>
   <string name="identicalForbidden">Nav atļauts</string>

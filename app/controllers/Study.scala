@@ -19,6 +19,7 @@ import views._
 
 final class Study(
     env: Env,
+    editorC: => Editor,
     userAnalysisC: => UserAnalysis,
     apiC: => Api,
     prismicC: Prismic
@@ -250,8 +251,8 @@ final class Study(
     }
 
   private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
-    !ctx.kid &&         // no public chats for kids
-    ctx.me.fold(true) { // anon can see public chats
+    ctx.noKid && ctx.noBot // no public chats for kids and bots
+    ctx.me.fold(true) {    // anon can see public chats
       env.chat.panic.allowed
     }
   } ?? env.chat.api.userChat
@@ -272,7 +273,7 @@ final class Study(
               contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
               res <-
                 if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-                else Ok(html.study.create(data, owner, contrib)).fuccess
+                else Ok(html.study.create(data, owner, contrib, editorC.editorUrl)).fuccess
             } yield res
         )
     }
@@ -291,7 +292,7 @@ final class Study(
   private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(implicit
       ctx: Context
   ) =
-    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
+    env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).fuccess
       }
@@ -299,7 +300,7 @@ final class Study(
 
   def delete(id: String) =
     Auth { _ => me =>
-      env.study.api.byIdAndOwner(id, me) flatMap {
+      env.study.api.byIdAndOwnerOrAdmin(id, me) flatMap {
         _ ?? { study =>
           env.study.api.delete(study) >> env.relay.api.deleteRound(lila.relay.RelayRound.Id(id)).map {
             case None       => Redirect(routes.Study.mine("hot"))
@@ -311,7 +312,7 @@ final class Study(
 
   def clearChat(id: String) =
     Auth { _ => me =>
-      env.study.api.isOwner(id, me) flatMap {
+      env.study.api.isOwnerOrAdmin(id, me) flatMap {
         _ ?? env.chat.api.userChat.clear(Chat.Id(id))
       } inject Redirect(routes.Study.show(id))
     }
@@ -328,20 +329,25 @@ final class Study(
               env.study.api.importPgns(
                 StudyModel.Id(id),
                 data.toChapterDatas,
-                sticky = data.sticky
+                sticky = data.sticky,
+                ctx.pref.showRatings
               )(Who(me.id, lila.socket.Socket.Sri(sri)))
           )
       }
     }
 
   def admin(id: String) =
-    Secure(_.StudyAdmin) { _ => me =>
-      env.study.api.adminInvite(id, me) inject Redirect(routes.Study.show(id))
+    Secure(_.StudyAdmin) { ctx => me =>
+      env.study.api.adminInvite(id, me) inject (if (HTTPRequest isXhr ctx.req) NoContent
+                                                else Redirect(routes.Study.show(id)))
     }
 
   def embed(id: String, chapterId: String) =
     Action.async { implicit req =>
-      env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
+      val studyWithChapter =
+        if (chapterId == "autochap") env.study.api.byIdWithChapter(id)
+        else env.study.api.byIdWithChapter(id, chapterId)
+      studyWithChapter.map(_.filterNot(_.study.isPrivate)) flatMap {
         _.fold(embedNotFound) { case WithChapter(study, chapter) =>
           for {
             chapters <- env.study.chapterRepo.idNames(study.id)
@@ -407,7 +413,7 @@ final class Study(
     Auth { implicit ctx => me =>
       val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
       CloneLimitPerUser(me.id, cost = cost) {
-        CloneLimitPerIP(HTTPRequest ipAddress ctx.req, cost = cost) {
+        CloneLimitPerIP(ctx.ip, cost = cost) {
           OptionFuResult(env.study.api.byId(id)) { prev =>
             CanView(prev, me.some) {
               env.study.api.clone(me, prev) map { study =>
@@ -427,7 +433,7 @@ final class Study(
 
   def pgn(id: String) =
     Open { implicit ctx =>
-      PgnRateLimitPerIp(HTTPRequest ipAddress ctx.req) {
+      PgnRateLimitPerIp(ctx.ip) {
         OptionFuResult(env.study.api byId id) { study =>
           CanView(study, ctx.me) {
             doPgn(study, ctx.req).fuccess
@@ -436,25 +442,19 @@ final class Study(
       }(rateLimitedFu)
     }
 
-  def apiPgn(id: String) = {
-    def handle(me: Option[lila.user.User], req: RequestHeader): Fu[Result] =
-      env.study.api.byId(id).map {
-        _.fold(NotFound(jsonError("Study not found"))) { study =>
-          PgnRateLimitPerIp(HTTPRequest ipAddress req) {
-            CanView(study, me) {
-              doPgn(study, req)
-            }(privateUnauthorizedJson, privateForbiddenJson)
-          }(rateLimitedJson)
-        }
+  def apiPgn(id: String) = AnonOrScoped(_.Study.Read) { req => me =>
+    env.study.api.byId(id).map {
+      _.fold(NotFound(jsonError("Study not found"))) { study =>
+        PgnRateLimitPerIp(HTTPRequest ipAddress req) {
+          CanView(study, me) {
+            doPgn(study, req)
+          }(privateUnauthorizedJson, privateForbiddenJson)
+        }(rateLimitedJson)
       }
-    AnonOrScoped(_.Study.Read)(
-      anon = req => handle(none, req),
-      scoped = req => me => handle(me.some, req)
-    )
+    }
   }
 
   private def doPgn(study: StudyModel, req: RequestHeader) = {
-    lila.mon.export.pgn.study.increment()
     Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
       .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
       .as(pgnContentType)
@@ -465,7 +465,6 @@ final class Study(
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
-            lila.mon.export.pgn.studyChapter.increment()
             env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
               Ok(pgn.toString)
                 .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
@@ -476,7 +475,7 @@ final class Study(
       }
     }
 
-  def export(username: String) =
+  def exportPgn(username: String) =
     OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)

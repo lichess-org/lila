@@ -13,7 +13,7 @@
   <string name="specialMoves">Īpaši gājieni</string>
   <string name="didYouLikeThisPuzzle">Vai patika šī puzle?</string>
   <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
-  <string name="yourPuzzleRatingX">Jūsu pužļu reitings: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Jūsu pužļu reitings nemainīsies. Ievērojiet, ka pužļu risināšana nav sacensības. Reitings mums palīdz atlasīt labākās puzles jūsu prasmju līmenim.</string>
   <string name="findTheBestMoveForWhite">Atrodiet labāko gājienu baltajiem.</string>
   <string name="findTheBestMoveForBlack">Atrodiet labāko gājienu melnajiem.</string>
   <string name="toGetPersonalizedPuzzles">Lai iegūtu pielāgotas puzles:</string>

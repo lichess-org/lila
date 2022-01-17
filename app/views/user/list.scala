@@ -40,7 +40,7 @@ object list {
             ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
-                showBestPerf(u)
+                ctx.pref.showRatings option showBestPerf(u)
               )
             })
           ),
@@ -83,7 +83,7 @@ object list {
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit lang: Lang) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -91,7 +91,7 @@ object list {
       ol(users map { l =>
         li(
           lightUserLink(l.user),
-          l.rating
+          ctx.pref.showRatings option l.rating
         )
       })
     )

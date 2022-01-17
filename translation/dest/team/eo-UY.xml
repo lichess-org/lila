@@ -7,6 +7,7 @@
     <item quantity="other">%s teamanoj</item>
   </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Teamoj kiujn mi gvidas</string>
   <string name="newTeam">Nova teamo</string>
   <string name="myTeams">Miaj teamoj</string>
   <string name="noTeamFound">Ne trovis teamon</string>
@@ -16,7 +17,6 @@
     <item quantity="one">Teamestro</item>
     <item quantity="other">Teamestroj</item>
   </plurals>
-  <string name="teamBestPlayers">Plej bonaj ludantoj</string>
   <string name="teamRecentMembers">Lastaj membroj</string>
   <string name="kickSomeone">Forpelu iun el la teamo</string>
   <string name="whoToKick">Kiun vi volas forpeli el la teamo?</string>

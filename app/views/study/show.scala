@@ -43,10 +43,7 @@ object show {
                 localMod = ctx.userId exists s.canContribute
               )
             },
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
+            "explorer"      -> views.html.board.bits.explorerConfig,
             "socketUrl"     -> socketUrl(s.id.value),
             "socketVersion" -> socketVersion.value
           )
@@ -55,7 +52,7 @@ object show {
       robots = s.isPublic,
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withPeer.some,
+      csp = defaultCsp.withWebAssembly.withPeer.withWikiBooks.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,

@@ -13,7 +13,7 @@
   <string name="specialMoves">Erityissiirrot</string>
   <string name="didYouLikeThisPuzzle">Piditkö tästä tehtävästä?</string>
   <string name="voteToLoadNextOne">Äänestä, niin seuraava latautuu!</string>
-  <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Tehtävävahvuuslukusi ei muutu. Huomaa, että tehtävien ratkaisu ei ole kilpailu. Vahvuusluvun perusteella saat ratkaistavaksesi tämänhetkistä taitotasoasi parhaiten vastaavia tehtäviä.</string>
   <string name="findTheBestMoveForWhite">Löydä valkean paras siirto.</string>
   <string name="findTheBestMoveForBlack">Löydä mustan paras siirto.</string>
   <string name="toGetPersonalizedPuzzles">Halutessasi henkilökohtaisia tehtäviä:</string>

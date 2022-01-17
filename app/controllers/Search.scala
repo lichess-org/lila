@@ -3,12 +3,14 @@ package controllers
 import scala.concurrent.duration._
 import views._
 
+import play.api.i18n.Lang
+
 import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 
 final class Search(env: Env) extends LilaController(env) {
 
-  def searchForm = env.gameSearch.forms.search
+  def searchForm(implicit lang: Lang) = env.gameSearch.forms.search
 
   private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
@@ -33,7 +35,6 @@ final class Search(env: Env) extends LilaController(env) {
           OnlyHumans {
             val page = p atLeast 1
             Reasonable(page, 100) {
-              val ip           = HTTPRequest ipAddress ctx.req
               val cost         = scala.math.sqrt(page.toDouble).toInt
               implicit def req = ctx.body
               def limited =
@@ -46,8 +47,8 @@ final class Search(env: Env) extends LilaController(env) {
                     )
                   TooManyRequests(html.search.index(form, none, nbGames))
                 }
-              SearchRateLimitPerIP(ip, cost = cost) {
-                SearchConcurrencyLimitPerIP(ip, limited = limited) {
+              SearchRateLimitPerIP(ctx.ip, cost = cost) {
+                SearchConcurrencyLimitPerIP(ctx.ip, limited = limited) {
                   negotiate(
                     html = searchForm
                       .bindFromRequest()

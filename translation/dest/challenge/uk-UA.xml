@@ -9,8 +9,8 @@
   <string name="youCannotChallengeX">Ви не можете викликати на гру %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не приймає викликів.</string>
   <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s занадто далекий від %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Неможливо через недостовірність рейтингу %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s приймає виклики тільки від друзів.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Неможливо через умовність рейтингу %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s приймає виклики лише від друзів.</string>
   <string name="declineGeneric">Зараз я не приймаю викликів.</string>
   <string name="declineLater">Зараз не найкращий час для мене, будь ласка, напишіть пізніше.</string>
   <string name="declineTooFast">Цей контроль часу занадто швидкий для мене, будь ласка, киньте виклик з більш повільною грою.</string>

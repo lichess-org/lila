@@ -37,7 +37,7 @@ final private class MsgSecurity(
       if (u.isApiHog) hog
       else if (u.isVerified) verified
       else if (u isDaysOld 3) normal
-      else if (u isHoursOld 3) normal * 2
+      else if (u isHoursOld 12) normal * 2
       else normal * 4
   }
 
@@ -119,7 +119,7 @@ final private class MsgSecurity(
       spam.detect(text) ?? fuccess(Spam.some)
 
     private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
-      (contacts.orig.isTroll && !contacts.dest.isTroll) ?? fuccess(Troll.some)
+      contacts.orig.isTroll ?? fuccess(Troll.some)
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && Analyser(text).dirty) ??

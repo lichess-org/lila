@@ -17,7 +17,7 @@ object bits {
         div(cls := "personal-data__header")(
           p("Here is all personal information Lichess has about ", userLink(u)),
           a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1", downloadAttr)(
-            trans.downloadRaw()
+            trans.download()
           )
         )
       )
@@ -28,6 +28,6 @@ object bits {
       case PrefCateg.GameDisplay  => trans.preferences.gameDisplay.txt()
       case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
       case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()
-      case PrefCateg.Privacy      => trans.privacy.txt()
+      case PrefCateg.Site         => "Site settings"
     }
 }

@@ -18,7 +18,6 @@
     <item quantity="one">Jamoa sardori</item>
     <item quantity="other">Jamoa sardorlari</item>
   </plurals>
-  <string name="teamBestPlayers">Zo\'r o\'yinchilar</string>
   <string name="teamRecentMembers">Yangi a\'zolar</string>
   <string name="kickSomeone">Jamoadan kimnidir chiqaring</string>
   <string name="whoToKick">Kimni jamoadan chiqarishni xohlaysiz?</string>

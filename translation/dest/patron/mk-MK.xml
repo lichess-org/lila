@@ -38,7 +38,6 @@
   <string name="contactSupport">контактирај Lichess подршка</string>
   <string name="otherMethods">Други методи на донација?</string>
   <string name="bankTransfers">Ние исто така прифаќаме донации преку банки</string>
-  <string name="bitcoin">Еве ја нашата биткоин адреса:%s</string>
   <string name="patronFeatures">Дали некои карактеристики се задржани за донаторите?</string>
   <string name="noPatronFeatures">Не, бидејќи Lichess е целосно бесплатен, засекогаш и за секој. Тоа е ветување. Сепак донаторите добиваат нова икона на профилот.</string>
   <string name="featuresComparison">Погледнете ги деталните споредби на карактеристики</string>

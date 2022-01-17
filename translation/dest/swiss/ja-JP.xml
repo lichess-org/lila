@@ -46,7 +46,7 @@
   <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
   <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
   <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
-  <string name="restrictedToTeamsA">スイス式はオンラインチェスのために作られたものではありません。時間厳守、熱意、忍耐が参加者に求められます。
+  <string name="restrictedToTeamsA">スイス式はネットチェス用に作られたものではありません。時間厳守、熱意、忍耐が参加者に求められます。
 こういった条件を満たすには自由参加ではなくチーム内限定のほうがいいと考えています。</string>
   <string name="numberOfByesQ">プレイヤーがもらえるバイの上限は？</string>
   <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
@@ -83,8 +83,8 @@
   <string name="pairingSystemArena">手の空いている近い順位の相手</string>
   <string name="pairingSystemSwiss">スコアとタイブレークによる最適の組み合わせ</string>
   <string name="pairingWaitTime">ペアリング待ち時間</string>
-  <string name="pairingWaitTimeFast">短い。全員の対局終了を待たない</string>
-  <string name="pairingWaitTimeSlow">長い。全員の対局終了を待つ</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">短い。全員の対局終了を待たない</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">長い。全員の対局終了を待つ</string>
   <string name="identicalPairing">同じ相手との対戦</string>
   <string name="possibleButNotConsecutive">あり（ただし連続はしない）</string>
   <string name="identicalForbidden">なし</string>

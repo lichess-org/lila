@@ -61,9 +61,9 @@ body {
   }
 
   --meta-height: auto;
-
-  @include proper-grid {
-    --meta-height: max-content;
+  --chat-height: fit-content(0);
+  &--wiki {
+    --chat-height: 0;
   }
 
   grid-template-rows: auto auto minmax(20em, 30vh);

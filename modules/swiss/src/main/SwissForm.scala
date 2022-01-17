@@ -28,17 +28,22 @@ final class SwissForm(implicit mode: Mode) {
           "increment" -> number(min = 0, max = 120)
         )(ClockConfig.apply)(ClockConfig.unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-        "startsAt"          -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "variant"           -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
-        "rated"             -> optional(boolean),
-        "nbRounds"          -> number(min = minRounds, max = 100),
-        "description"       -> optional(cleanNonEmptyText),
-        "position"          -> optional(lila.common.Form.fen.playableStrict),
-        "chatFor"           -> optional(numberIn(chatForChoices.map(_._1))),
-        "roundInterval"     -> optional(numberIn(roundIntervals)),
-        "password"          -> optional(cleanNonEmptyText),
-        "conditions"        -> SwissCondition.DataForm.all,
-        "forbiddenPairings" -> optional(cleanNonEmptyText)
+        "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
+        "rated"         -> optional(boolean),
+        "nbRounds"      -> number(min = minRounds, max = 100),
+        "description"   -> optional(cleanNonEmptyText),
+        "position"      -> optional(lila.common.Form.fen.playableStrict),
+        "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
+        "roundInterval" -> optional(numberIn(roundIntervals)),
+        "password"      -> optional(cleanNonEmptyText),
+        "conditions"    -> SwissCondition.DataForm.all,
+        "forbiddenPairings" -> optional(
+          cleanNonEmptyText.verifying(
+            s"Maximum forbidden pairings: ${Swiss.maxForbiddenPairings}",
+            str => str.linesIterator.size <= Swiss.maxForbiddenPairings
+          )
+        )
       )(SwissData.apply)(SwissData.unapply)
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )

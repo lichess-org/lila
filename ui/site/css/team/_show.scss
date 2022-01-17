@@ -87,6 +87,11 @@ $section-margin-more: 5vh;
     background: $c-bg-high;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
+
+    ol li {
+      list-style: decimal;
+      list-style-position: inside;
+    }
   }
 
   &__members {

@@ -105,9 +105,17 @@ export default rollupProject({
     input: 'src/modUser.ts',
     output: 'mod.user',
   },
+  inquiry: {
+    input: 'src/inquiry.ts',
+    output: 'inquiry',
+  },
   modGames: {
     input: 'src/modGames.ts',
     output: 'mod.games',
+  },
+  modSearch: {
+    input: 'src/modSearch.ts',
+    output: 'mod.search',
   },
   clas: {
     input: 'src/clas.ts',
@@ -230,5 +238,9 @@ export default rollupProject({
   ublog: {
     input: 'src/ublog.ts',
     output: 'ublog',
+  },
+  ublogForm: {
+    input: 'src/ublogForm.ts',
+    output: 'ublogForm',
   },
 });

@@ -2,11 +2,12 @@ package lila.perfStat
 
 import reactivemongo.api.bson._
 
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-final class PerfStatStorage(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PerfStatStorage(coll: AsyncCollFailingSilently)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val UserIdBSONHandler       = stringAnyValHandler[UserId](_.value, UserId.apply)
   implicit private val RatingAtBSONHandler     = Macros.handler[RatingAt]
@@ -22,13 +23,12 @@ final class PerfStatStorage(coll: Coll)(implicit ec: scala.concurrent.ExecutionC
   implicit private val PerfStatBSONHandler     = Macros.handler[PerfStat]
 
   def find(userId: String, perfType: PerfType): Fu[Option[PerfStat]] =
-    coll.byId[PerfStat](PerfStat.makeId(userId, perfType))
+    coll(_.byId[PerfStat](PerfStat.makeId(userId, perfType)))
 
   def insert(perfStat: PerfStat): Funit =
-    coll.insert.one(perfStat).void
+    coll(_.insert.one(perfStat).void)
 
-  def update(a: PerfStat, b: PerfStat): Funit = {
-
+  def update(a: PerfStat, b: PerfStat): Funit = coll { c =>
     val sets = $doc(
       docDiff(a.count, b.count).mapKeys(k => s"count.$k").toList :::
         List(
@@ -77,7 +77,7 @@ final class PerfStatStorage(coll: Coll)(implicit ec: scala.concurrent.ExecutionC
         ).flatten
     )
 
-    coll.update
+    c.update
       .one($id(a.id), $doc("$set" -> sets))
       .void
   }

@@ -10,8 +10,6 @@ import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
 
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
 export type Seconds = number;
 
 export { Key, Piece } from 'chessground/types';
@@ -60,6 +58,7 @@ export interface AnalysePref {
   highlight?: boolean;
   showCaptured?: boolean;
   animationDuration?: number;
+  moveEvent: Prefs.MoveEvent;
 }
 
 export interface ServerEvalData {
@@ -143,6 +142,7 @@ export interface AnalyseOpts {
     parseMoves: boolean;
     instance?: Promise<ChatCtrl>;
   };
+  wiki?: boolean;
 }
 
 export interface JustCaptured extends cg.Piece {

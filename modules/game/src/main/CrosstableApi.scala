@@ -3,12 +3,13 @@ package lila.game
 import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
 
+import lila.db.AsyncCollFailingSilently
 import lila.db.dsl._
 import lila.user.User
 
 final class CrosstableApi(
     coll: Coll,
-    matchupColl: Coll
+    matchupColl: AsyncCollFailingSilently
 )(implicit ec: ExecutionContext) {
 
   import Crosstable.{ Matchup, Result }
@@ -25,18 +26,15 @@ final class CrosstableApi(
     }
 
   def apply(u1: User.ID, u2: User.ID): Fu[Crosstable] =
-    justFetch(u1, u2) getOrElse create(u1, u2)
+    justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
+
+  def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] =
+    coll.one[Crosstable](select(u1, u2))
 
   def withMatchup(u1: User.ID, u2: User.ID): Fu[Crosstable.WithMatchup] =
     apply(u1, u2) zip getMatchup(u1, u2) dmap { case (crosstable, matchup) =>
       Crosstable.WithMatchup(crosstable, matchup)
     }
-
-  def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] =
-    coll.one[Crosstable](select(u1, u2))
-
-  def fetchOrEmpty(u1: User.ID, u2: User.ID): Fu[Crosstable] =
-    justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
 
   def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
     coll
@@ -75,19 +73,23 @@ final class CrosstableApi(
               "$each"  -> List(bsonResult),
               "$slice" -> -Crosstable.maxGames
             )
-          )
+          ),
+          upsert = true
         )
-        val updateMatchup =
-          matchupColl.update.one(
-            select(u1, u2),
-            $inc(
-              F.score1 -> inc1,
-              F.score2 -> inc2
-            ) ++ $set(
-              F.lastPlayed -> DateTime.now
-            ),
-            upsert = true
-          )
+        val updateMatchup = matchupColl {
+          _.update
+            .one(
+              select(u1, u2),
+              $inc(
+                F.score1 -> inc1,
+                F.score2 -> inc2
+              ) ++ $set(
+                F.lastPlayed -> DateTime.now
+              ),
+              upsert = true
+            )
+            .void
+        }
         updateCrosstable zip updateMatchup void
       case _ => funit
     }
@@ -95,12 +97,7 @@ final class CrosstableApi(
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
-
-  private def create(u1: User.ID, u2: User.ID): Fu[Crosstable] = {
-    val crosstable = Crosstable.empty(u1, u2)
-    coll.insert.one(crosstable) recover lila.db.recoverDuplicateKey(_ => ()) inject crosstable
-  }
+    matchupColl(_.find(select(u1, u2), matchupProjection.some).one[Matchup])
 
   private def select(u1: User.ID, u2: User.ID) =
     $id(Crosstable.makeKey(u1, u2))

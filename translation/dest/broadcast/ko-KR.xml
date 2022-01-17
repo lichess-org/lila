@@ -24,4 +24,5 @@
   <string name="broadcastUrl">방송 URL</string>
   <string name="currentRoundUrl">현재 라운드 URL</string>
   <string name="currentGameUrl">현재 게임 URL</string>
+  <string name="downloadAllRounds">모든 라운드 다운로드</string>
 </resources>

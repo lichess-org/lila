@@ -16,7 +16,7 @@ object irwin {
       case _           => "red"
     }
 
-  def dashboard(dashboard: lila.irwin.IrwinDashboard)(implicit ctx: Context) =
+  def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Irwin dashboard",
       moreCss = cssTag("mod.misc")

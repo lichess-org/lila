@@ -46,4 +46,7 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
     <item quantity="few">Pogledajte sve timove %s</item>
     <item quantity="other">Pogledajte sve timove %s</item>
   </plurals>
+  <string name="allowChatHelp">Igrači mogu diskutovati u chat room-u</string>
+  <string name="arenaStreaks">Nizovi u Areni</string>
+  <string name="arenaStreaksHelp">Nakon dvije uzastopne pobjede, dalje uzastopne pobjede donose 4 poena umjesto 2.</string>
 </resources>

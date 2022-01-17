@@ -65,10 +65,11 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
-  protected def EnableSharedArrayBuffer(res: Result): Result =
+  protected def EnableSharedArrayBuffer(res: Result)(implicit req: RequestHeader): Result =
     res.withHeaders(
-      "Cross-Origin-Opener-Policy"   -> "same-origin",
-      "Cross-Origin-Embedder-Policy" -> "require-corp"
+      "Cross-Origin-Opener-Policy" -> "same-origin",
+      "Cross-Origin-Embedder-Policy" -> (if (HTTPRequest isChrome96OrMore req) "credentialless"
+                                         else "require-corp")
     )
 
   protected def NoCache(res: Result): Result =
@@ -122,21 +123,20 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
-      anon: RequestHeader => Fu[Result],
-      scoped: RequestHeader => UserModel => Fu[Result]
+      f: RequestHeader => Option[UserModel] => Fu[Result]
   ): Action[Unit] =
     Action.async(parse.empty) { req =>
-      if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
-      else anon(req)
+      if (HTTPRequest isOAuth req) handleScoped(selectors)((req: RequestHeader) => me => f(req)(me.some))(req)
+      else f(req)(none)
     }
 
   protected def AnonOrScopedBody[A](parser: BodyParser[A])(selectors: OAuthScope.Selector*)(
-      anon: Request[A] => Fu[Result],
-      scoped: Request[A] => UserModel => Fu[Result]
+      f: Request[A] => Option[UserModel] => Fu[Result]
   ): Action[A] =
     Action.async(parser) { req =>
-      if (HTTPRequest isOAuth req) ScopedBody(parser)(selectors)(scoped)(req)
-      else anon(req)
+      if (HTTPRequest isOAuth req)
+        ScopedBody(parser)(selectors)((req: Request[A]) => me => f(req)(me.some))(req)
+      else f(req)(none)
     }
 
   protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
@@ -296,7 +296,7 @@ abstract private[controllers] class LilaController(val env: Env)
     else keyPages.blacklisted.fuccess
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
-    if (env.security.tor isExitNode HTTPRequest.ipAddress(ctx.req))
+    if (env.security.tor isExitNode ctx.ip)
       Unauthorized(views.html.auth.bits.tor()).fuccess
     else res
 
@@ -606,7 +606,7 @@ abstract private[controllers] class LilaController(val env: Env)
       max: Int = 40,
       errorPage: => Fu[Result] = BadRequest("resource too old").fuccess
   )(result: => Fu[Result]): Fu[Result] =
-    if (page < max) result else errorPage
+    if (page < max && page > 0) result else errorPage
 
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f

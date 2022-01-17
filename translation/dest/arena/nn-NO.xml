@@ -4,7 +4,7 @@
   <string name="isItRated">Er det rangert?</string>
   <string name="willBeNotified">Du blir varsla når turneringa startar. Det er difor mogleg å bruke ventetida til å spela i ei anna fane.</string>
   <string name="isRated">Denne turnering er rangert og vil påverke ratinga di.</string>
-  <string name="isNotRated">Turneringa er *ikkje* rata og vil *ikkje* påverke ratinga di.</string>
+  <string name="isNotRated">Turneringa er *ikkje* rangert og vil *ikkje* påverke ratinga di.</string>
   <string name="someRated">Nokre av turneringane er rangerte og vil påverke ratingen din.</string>
   <string name="howAreScoresCalculated">Korleis vert poenga rekna ut?</string>
   <string name="howAreScoresCalculatedAnswer">Ein siger gjev to basispoeng, ein remis eitt poeng og eit tap null poeng. Vinn du to parti på rad vert det starta ein dobbelpoeng-serie, det kjem då fram ein flamme som ikon. Partia som fylgjer er då verde doble poeng heilt til du mislukkast i å vinne eit parti. Dette vil seie at ein siger er verd fire poeng, ein remis to poeng og eit tap null poeng.
@@ -43,6 +43,6 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="allowBerserk">Tillat berserk</string>
   <string name="allowBerserkHelp">Lat spelarane halvere tida si på klokka for eit ekstra poeng</string>
   <string name="allowChatHelp">Lat spelarane diskutera i samtalerom</string>
-  <string name="arenaStreaks">Arena-sigersrekkjer</string>
+  <string name="arenaStreaks">Arena-vinstrekkjer</string>
   <string name="arenaStreaksHelp">Etter to sigrar gjev seinara sigrar fire poeng i staden for to.</string>
 </resources>

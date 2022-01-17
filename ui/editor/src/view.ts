@@ -364,7 +364,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: {
           readonly: true,
           spellcheck: false,
-          value: ctrl.makeUrl(ctrl.cfg.baseUrl, fen),
+          value: ctrl.makeEditorUrl(fen),
         },
       }),
     ]),

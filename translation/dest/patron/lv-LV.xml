@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ziedot</string>
+  <string name="donateAsX">Ziedojums no %s</string>
   <string name="lichessPatron">Lichess Sponsors</string>
   <string name="freeAccount">Bezmaksas konts</string>
   <string name="becomePatron">Kļūstiet par Lichess Sponsoru</string>
@@ -44,7 +45,6 @@ Varat arī %s.</string>
   <string name="contactSupport">sazināties ar Lichess atbalsta dienestu</string>
   <string name="otherMethods">Citi ziedojumu veidi?</string>
   <string name="bankTransfers">Mēs pieņemam arī bankas pārskaitījumus</string>
-  <string name="bitcoin">Un lūk mūsu bitcoin adrese: %s</string>
   <string name="patronFeatures">Vai dažas iespējas ir rezervētas Sponsoriem?</string>
   <string name="noPatronFeatures">Nē, jo Lichess ir pilnīgi bezmaksas visiem mūžīgi. Tas ir solījums.
 Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</string>

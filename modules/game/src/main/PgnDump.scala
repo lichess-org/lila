@@ -25,7 +25,15 @@ final class PgnDump(
       Parser.full(pgni.pgn).toOption
     }
     val tagsFuture =
-      if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening, teams = teams)
+      if (flags.tags)
+        tags(
+          game,
+          initialFen,
+          imported,
+          withOpening = flags.opening,
+          withRating = flags.rating,
+          teams = teams
+        )
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
@@ -49,10 +57,12 @@ final class PgnDump(
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
 
-  private def rating(p: Player) = p.rating.fold("?")(_.toString)
+  private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
   def player(p: Player, u: Option[LightUser]) =
-    p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
+    p.aiLevel.fold(u.fold(p.nameSplit.map(_._1).orElse(p.name) | lila.user.User.anonymous)(_.name))(
+      "lichess AI level " + _
+    )
 
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
@@ -78,6 +88,7 @@ final class PgnDump(
       initialFen: Option[FEN],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
+      withRating: Boolean,
       teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (wu, bu) =>
@@ -102,10 +113,10 @@ final class PgnDump(
             _.UTCTime,
             imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
           ),
-          Tag(_.WhiteElo, rating(game.whitePlayer)).some,
-          Tag(_.BlackElo, rating(game.blackPlayer)).some,
-          ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
-          ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
+          withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
+          withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
+          withRating ?? ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
+          withRating ?? ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
           wu.flatMap(_.title).map { t =>
             Tag(_.WhiteTitle, t)
           },
@@ -132,9 +143,11 @@ final class PgnDump(
             }
           ).some
         ).flatten ::: customStartPosition(game.variant).??(
-          List(
-            Tag(_.FEN, (initialFen | Forsyth.initial).value),
-            Tag("SetUp", "1")
+          initialFen.??(fen =>
+            List(
+              Tag(_.FEN, fen.value),
+              Tag("SetUp", "1")
+            )
           )
         )
       }
@@ -177,6 +190,7 @@ object PgnDump {
       tags: Boolean = true,
       evals: Boolean = true,
       opening: Boolean = true,
+      rating: Boolean = true,
       literate: Boolean = false,
       pgnInJson: Boolean = false,
       delayMoves: Boolean = false

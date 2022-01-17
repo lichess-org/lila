@@ -24,4 +24,7 @@
   <string name="sortBy">Sorteer volgens</string>
   <string name="analysis">Analise</string>
   <string name="onlyAnalysed">Slegs wedstryde waarvan daar rekenaar analise beskikbaar is</string>
+  <string name="descending">Dalende</string>
+  <string name="ascending">Stygende</string>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Die gemiddelde gradering van albei spelers</string>
 </resources>

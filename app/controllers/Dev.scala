@@ -11,7 +11,8 @@ final class Dev(env: Env) extends LilaController(env) {
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
     env.mailer.mailerSecondaryPermilleSetting,
-    env.irwin.irwinThresholdsSetting,
+    env.irwin.irwinApi.thresholds,
+    env.irwin.kaladinApi.thresholds,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdsSetting,
     env.report.discordScoreThresholdSetting,
@@ -21,9 +22,14 @@ final class Dev(env: Env) extends LilaController(env) {
     env.plan.donationGoalSetting,
     env.plan.paymentMethodsSetting,
     env.apiTimelineSetting,
+    env.apiExplorerGamesPerSecond,
+    env.fishnet.openingBookDepth,
     env.noDelaySecretSetting,
     env.featuredTeamsSetting,
-    env.prizeTournamentMakers
+    env.prizeTournamentMakers,
+    env.pieceImageExternal,
+    env.evalCache.enable,
+    env.tournament.reloadDelaySetting
   )
 
   def settings =

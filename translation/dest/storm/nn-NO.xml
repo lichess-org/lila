@@ -22,7 +22,7 @@
   <string name="score">Poengsum</string>
   <string name="moves">Trekk</string>
   <string name="accuracy">Presisjon</string>
-  <string name="combo">Kombinasjon</string>
+  <string name="combo">Kombo</string>
   <string name="time">Tid</string>
   <string name="timePerMove">Tid per trekk</string>
   <string name="highestSolved">Høgste vanskegrad</string>
@@ -50,4 +50,12 @@
   <string name="skip">hopp over</string>
   <string name="skipHelp">Du kan hoppe over eit trekk for kvart race:</string>
   <string name="skipExplanation">Hopp over dette trekket for å bevare komboen din! Fungere berre ein gong for kvart race.</string>
+  <string name="failedPuzzles">Mislukka oppgåveløysingar</string>
+  <string name="slowPuzzles">Langsame oppgåver</string>
+  <string name="thisWeek">Denne veka</string>
+  <string name="thisMonth">Denne månaden</string>
+  <string name="allTime">Frå starten av</string>
+  <string name="clickToReload">Klikk for å lasta inn på ny</string>
+  <string name="thisRunHasExpired">Denne runden er avslutta!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Denne runden vart opna i ei anna fane!</string>
 </resources>

@@ -35,7 +35,7 @@ final class PerfStatIndexer(
           case (perfStat, _) => perfStat
         }
         .flatMap { ps =>
-          storage insert ps recover lila.db.recoverDuplicateKey(_ => ()) inject ps
+          storage insert ps recover lila.db.ignoreDuplicateKey inject ps
         }
         .mon(_.perfStat.indexTime)
     }

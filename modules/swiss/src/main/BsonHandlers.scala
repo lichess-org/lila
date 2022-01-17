@@ -77,17 +77,19 @@ object BsonHandlers {
             round = r.get[SwissRound.Number](round),
             white = w,
             black = b,
-            status = r.getO[SwissPairing.Status](status) | Right(none)
+            status = r.getO[SwissPairing.Status](status) | Right(none),
+            isForfeit = r.boolD(isForfeit)
           )
         case _ => sys error "Invalid swiss pairing users"
       }
     def writes(w: BSON.Writer, o: SwissPairing) =
       $doc(
-        id      -> o.id,
-        swissId -> o.swissId,
-        round   -> o.round,
-        players -> o.players,
-        status  -> o.status
+        id        -> o.id,
+        swissId   -> o.swissId,
+        round     -> o.round,
+        players   -> o.players,
+        status    -> o.status,
+        isForfeit -> w.boolO(o.isForfeit)
       )
   }
 

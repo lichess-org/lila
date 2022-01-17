@@ -18,7 +18,7 @@ object roundForm {
     layout(newBroadcast.txt())(
       h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound()),
       standardFlash(),
-      inner(form, routes.RelayRound.create(tour.id.value), tour)
+      inner(form, routes.RelayRound.create(tour.id.value), tour, create = true)
     )
 
   def edit(rt: RelayRound.WithTour, form: Form[Data])(implicit ctx: Context) =
@@ -29,7 +29,7 @@ object roundForm {
         " > ",
         a(href := rt.path)(rt.round.name)
       ),
-      inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour),
+      inner(form, routes.RelayRound.update(rt.round.id.value), rt.tour, create = false),
       div(cls := "relay-round__actions")(
         postForm(action := routes.RelayRound.reset(rt.round.id.value))(
           submitButton(
@@ -58,12 +58,14 @@ object roundForm {
       main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour)(implicit ctx: Context) = {
+  private def inner(form: Form[Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(implicit
+      ctx: Context
+  ) = {
     val isLcc = form("syncUrl").value.exists(LccRegex.matches)
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
-        p(dataIcon := "", cls := "text")(
+        create option p(dataIcon := "", cls := "text")(
           "The new round will have the same members and contributors as the previous one."
         )
       ),

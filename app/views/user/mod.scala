@@ -6,6 +6,8 @@ import play.api.i18n.Lang
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.appeal.Appeal
+import lila.common.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.ModPresets
@@ -13,7 +15,6 @@ import lila.playban.RageSit
 import lila.security.Granter
 import lila.security.{ Permission, UserLogins }
 import lila.user.{ Holder, User }
-import lila.appeal.Appeal
 
 object mod {
   private def mzSection(key: String) =
@@ -22,6 +23,7 @@ object mod {
   def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
+      a(href := "#mz_kaladin")("Kaladin"),
       a(href := "#mz_irwin")("Irwin"),
       a(href := "#mz_assessments")("Evaluation"),
       a(href := "#mz_mod_log")("Mod log"),
@@ -42,13 +44,13 @@ object mod {
         isGranted(_.UserEvaluate) option {
           postForm(
             action := routes.Mod.refreshUserAssess(u.username),
-            title := "Collect data and ask irwin",
+            title := "Collect data and ask irwin and Kaladin",
             cls := "xhr"
           )(
             submitButton(cls := "btn-rack__btn")("Evaluate")
           )
         },
-        isGranted(_.Hunter) option {
+        isGranted(_.GamesModView) option {
           a(
             cls := "btn-rack__btn",
             href := routes.GameMod.index(u.username),
@@ -137,30 +139,31 @@ object mod {
           )
         }
       ),
-      div(cls := "btn-rack")(
+      isGranted(_.CloseAccount) option div(cls := "btn-rack")(
         if (u.enabled) {
-          isGranted(_.CloseAccount) option {
-            postForm(
-              action := routes.Mod.closeAccount(u.username),
-              title := "Disables this account.",
-              cls := "xhr"
-            )(
-              submitButton(cls := "btn-rack__btn")("Close")
-            )
-          }
+          postForm(
+            action := routes.Mod.closeAccount(u.username),
+            title := "Disables this account.",
+            cls := "xhr"
+          )(
+            submitButton(cls := "btn-rack__btn")("Close")
+          )
         } else if (erased.value) {
           "Erased"
-        } else {
-          isGranted(_.CloseAccount) option {
+        } else
+          frag(
             postForm(
               action := routes.Mod.reopenAccount(u.username),
               title := "Re-activates this account.",
               cls := "xhr"
-            )(
-              submitButton(cls := "btn-rack__btn active")("Closed")
+            )(submitButton(cls := "btn-rack__btn active")("Closed")),
+            postForm(action := routes.Mod.gdprErase(u.username), cls := "gdpr-erasure")(
+              submitButton(
+                cls := "btn-rack__btn confirm",
+                title := "Definitely erase everything about this user"
+              )("GDPR erasure")
             )
-          }
-        }
+          )
       ),
       div(cls := "btn-rack")(
         (u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) option {
@@ -238,7 +241,7 @@ object mod {
       )
     )
 
-  def showRageSit(rageSit: RageSit) =
+  def showRageSit(rageSit: RageSit): Frag =
     mzSection("sitdccounter")(
       strong(cls := "text inline")("Ragesit counter"),
       strong(cls := "fat")(rageSit.counterView)
@@ -459,6 +462,7 @@ object mod {
             th("Move Times", br, "(Avg ± SD)"),
             th(span(title := "The frequency of which the user leaves the game page.")("Blurs")),
             th(span(title := "Bot detection using grid click analysis.")("Bot")),
+            th("Date"),
             th(span(title := "Aggregate match")(raw("&Sigma;")))
           )
         ),
@@ -507,6 +511,13 @@ object mod {
                   if (result.basics.hold) "Yes" else "No"
                 ),
                 td(
+                  pag.pov(result).map { p =>
+                    a(href := routes.Round.watcher(p.gameId, p.color.name), cls := "glpt")(
+                      momentFromNowServerText(p.game.movedAt)
+                    )
+                  }
+                ),
+                td(
                   div(cls := "aggregate")(
                     span(cls := s"sig sig_${result.assessment.id}")(result.assessment.emoticon)
                   )
@@ -544,7 +555,7 @@ object mod {
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
+              (max < 1000 || othersWithEmail.others.sizeIs >= max) option frag(
                 nbsp,
                 a(cls := "more-others")("Load more")
               )
@@ -578,7 +589,7 @@ object mod {
               if (o == u || Granter.canViewAltUsername(mod, o))
                 td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
               else td,
-              isGranted(_.Admin) option td(othersWithEmail emailValueOf o),
+              isGranted(_.Admin) option td(emailValueOf(othersWithEmail)(o)),
               td(
                 // show prints and ips separately
                 dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
@@ -638,13 +649,19 @@ object mod {
     )
   }
 
+  private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails)(u: User) =
+    emails.emails.get(u.id).map(_.value) map {
+      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
+      case email                        => frag(email)
+    }
+
   def identification(mod: Holder, user: User, logins: UserLogins)(implicit
       ctx: Context,
       renderIp: RenderIp
   ): Frag = {
     val canIpBan  = isGranted(_.IpBan)
     val canFpBan  = isGranted(_.PrintBan)
-    val canLocate = isGranted(_.Admin) || user.lameOrTrollOrAlt
+    val canLocate = isGranted(_.Admin)
     mzSection("identification")(
       canLocate option div(cls := "spy_locs")(
         table(cls := "slist slist--sort")(

@@ -11,6 +11,16 @@
     padding: 2rem 0;
   }
 
+  .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    &:hover {
+      color: $c-bad;
+    }
+  }
+
   .spinner {
     margin: 50px auto;
   }
@@ -58,15 +68,17 @@
 
   .content {
     flex: 0 1 100%;
+    overflow: hidden;
 
-    span:first-child {
-      @extend %flex-between;
-    }
+    span {
+      &:first-child {
+        @extend %flex-between;
+      }
 
-    span:last-child {
-      @extend %ellipsis;
-
-      display: block;
+      &:last-child {
+        @extend %ellipsis;
+        display: block;
+      }
     }
 
     time {

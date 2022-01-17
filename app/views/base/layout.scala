@@ -34,23 +34,38 @@ object layout {
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.css"),
+        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() ?? "external."}css"),
         rel := "stylesheet"
       )
   }
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
-  private def fontPreload(implicit ctx: Context) =
-    raw {
-      s"""<link rel="preload" href="${assetUrl(
-        s"font/lichess.woff2"
-      )}" as="font" type="font/woff2" crossorigin>""" +
-        !ctx.pref.pieceNotationIsLetter ??
-        s"""<link rel="preload" href="${assetUrl(
-          s"font/lichess.chess.woff2"
-        )}" as="font" type="font/woff2" crossorigin>"""
+
+  private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+    raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
+      s"""type="$t" """
+    )}${crossorigin ?? "crossorigin"}>""")
+
+  private def fontPreload(implicit ctx: Context) = frag(
+    preload(assetUrl(s"font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
+    !ctx.pref.pieceNotationIsLetter option
+      preload(assetUrl(s"font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
+  )
+  private def boardPreload(implicit ctx: Context) = frag(
+    preload(assetUrl(s"images/board/${ctx.currentTheme.file}"), "image", crossorigin = false),
+    ctx.pref.is3d option
+      preload(s"images/staunton/board/${ctx.currentTheme3d.file}", "image", crossorigin = false)
+  )
+  private def piecesPreload(implicit ctx: Context) =
+    env.pieceImageExternal.get() option raw {
+      (for {
+        c <- List('w', 'b')
+        p <- List('K', 'Q', 'R', 'B', 'N', 'P')
+        href = staticAssetUrl(s"piece/${ctx.currentPieceSet.name}/$c$p.svg")
+      } yield s"""<link rel="preload" href="$href" as="image">""").mkString
     }
+
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
   )
@@ -149,7 +164,7 @@ object layout {
 
   def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
     embedJsUnsafe(
-      s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n
+      s"""lichess={load:new Promise(r=>{document.addEventListener("DOMContentLoaded",r)}),quantity:${lila.i18n
         .JsQuantity(lang)}};$timeagoLocaleScript""",
       nonce
     )
@@ -167,8 +182,12 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
+      ctx.pageData.inquiry.isDefined option jsModule("inquiry")
     )
+
+  private val spinnerMask = raw(
+    """<svg width="0" height="0"><mask id="mask"><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/></mask></svg>"""
+  )
 
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
@@ -182,7 +201,7 @@ object layout {
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataPieceSet              = attr("data-piece-set")
-  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl
+  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev") := (!netConfig.minifiedAssets).option("true")
 
@@ -197,7 +216,8 @@ object layout {
       chessground: Boolean = true,
       zoomable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
-      wrapClass: String = ""
+      wrapClass: String = "",
+      atomLinkTag: Option[Tag] = None
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,
@@ -224,16 +244,17 @@ object layout {
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), color := "black"),
+          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
-          link(
+          (atomLinkTag | link(
             href := routes.Blog.atom,
-            tpe := "application/atom+xml",
-            rel := "alternate",
             st.title := trans.blog.txt()
+          ))(
+            tpe := "application/atom+xml",
+            rel := "alternate"
           ),
           ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(
@@ -242,6 +263,8 @@ object layout {
             )
           },
           fontPreload,
+          boardPreload,
+          piecesPreload,
           manifests,
           jsLicense
         ),
@@ -257,7 +280,8 @@ object layout {
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> ctx.isMobileBrowser,
-              "playing fixed-scroll" -> playing
+              "playing fixed-scroll" -> playing,
+              "no-rating"            -> !ctx.pref.showRatings
             )
           },
           dataDev,
@@ -301,6 +325,21 @@ object layout {
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
+          ctx.pref.agreementNeededSince map { date =>
+            div(id := "agreement")(
+              div(
+                "Lichess has updated the ",
+                a(href := routes.Page.tos)("Terms of Service"),
+                " as of ",
+                showDate(date),
+                "."
+              ),
+              postForm(action := routes.Pref.set("agreement"))(
+                button(cls := "button")("OK")
+              )
+            )
+          },
+          spinnerMask,
           loadScripts(moreJs, chessground)
         )
       )

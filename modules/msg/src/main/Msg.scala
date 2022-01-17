@@ -33,9 +33,9 @@ object Msg {
   }
 
   def make(text: String, user: User.ID): Option[Msg] = {
-    val cleanText = text.trim
+    val cleanText = lila.common.String.normalize(text.trim take 8_000)
     cleanText.nonEmpty option Msg(
-      text = cleanText take 10_000,
+      text = cleanText,
       user = user,
       date = DateTime.now
     )

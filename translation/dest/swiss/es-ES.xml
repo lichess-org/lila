@@ -61,7 +61,7 @@ Además, se concede un único bye de medio punto cuando un jugador se une a un t
   <string name="whatIfOneDoesntPlayA">El reloj empezará a contar, se agotará el tiempo y perderá la partida.
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.
  Podrá volver a unirse al torneo en cualquier momento.</string>
-  <string name="lateJoinQ">¿Puede un jugador unirse a un torneo empezado?</string>
+  <string name="lateJoinQ">¿Pueden unirse jugadores a un torneo empezado?</string>
   <string name="lateJoinA">Sí, hasta que se hayan iniciado más de la mitad de las rondas; por ejemplo, en un torneo suizo de 11 rondas, los jugadores pueden unirse antes de que empiece la ronda 6; en un torneo de 12 rondas, podrán unirse antes de que empiece la ronda 7.
 Los jugadores que se unan a un torneo empezado recibirán un único bye, incluso si no se presentan a varias rondas.</string>
   <string name="willSwissReplaceArenasQ">¿Reemplazarán los torneos suizos a los torneos estándar?</string>
@@ -89,8 +89,8 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="pairingSystemArena">Cualquier oponente disponible con una puntuación similar</string>
   <string name="pairingSystemSwiss">Mejor emparejamiento basado en puntos y empates</string>
   <string name="pairingWaitTime">Tiempo de espera de emparejamiento</string>
-  <string name="pairingWaitTimeFast">Rápido: no se espera a todos los jugadores</string>
-  <string name="pairingWaitTimeSlow">Lento: se espera a todos los jugadores</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rápido: no espera a todos los jugadores</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lento: espera a todos los jugadores</string>
   <string name="identicalPairing">Emparejamiento idéntico</string>
   <string name="possibleButNotConsecutive">Posible, pero no consecutivo</string>
   <string name="identicalForbidden">Prohibido</string>

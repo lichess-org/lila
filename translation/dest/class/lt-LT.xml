@@ -46,6 +46,7 @@ Slaptažodis: %3$s</string>
   <string name="createDesc2">El. pašto adresas nereikalingas. Bus sugeneruotas slaptažodis, kurį turėsite perduoti mokiniui. Šiuo slaptažodžiu jis galės prisijungti.</string>
   <string name="createDesc3">Svarbu: mokinys negali turėti kelių paskyrų.</string>
   <string name="createDesc4">Jei jis jau turi paskyrą, naudokite pakvietimo formą.</string>
+  <string name="createStudentWarning">Kurkite paskyras tik tikriems mokiniams. Nenaudokite šios funkcijos kurdami kelias paskyras sau, kitu atveju būsite užblokuoti.</string>
   <string name="lichessUsername">Lichess vartotojo vardas</string>
   <string name="generateANewUsername">Sugeneruoti naują vartotojo vardą</string>
   <string name="welcomeToClass">Sveiki atvykę į klasę: %s
@@ -58,7 +59,6 @@ Slaptažodis: %3$s</string>
     <item quantity="many">%s laukiančio kvietimo</item>
     <item quantity="other">%s laukiančių kvietimų</item>
   </plurals>
-  <string name="noPendingInvitations">Nėra laukiančių kvietimų</string>
   <string name="onlyVisibleToTeachers">Matoma tik klasės mokytojams</string>
   <string name="lastActiveDate">Aktyvus</string>
   <string name="managed">Valdoma</string>

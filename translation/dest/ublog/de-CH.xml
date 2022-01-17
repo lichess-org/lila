@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">%s\'s Blog</string>
+  <string name="newPost">Neuä Post</string>
+  <string name="editYourBlogPost">Bearbeit din Blog-Post</string>
+  <string name="saveDraft">Entwurf schpeichärä</string>
+  <string name="postTitle">Post-Titäl</string>
+  <string name="postIntro">Post-Intro</string>
+  <string name="postBody">Post-Inhalt</string>
+  <string name="drafts">Entwürf</string>
+  <string name="published">Veröffentlicht</string>
+  <string name="publishOnYourBlog">Veröffentlich i dim Blog</string>
+  <string name="publishHelp">Wänn aktiviert wird de Biitrag ih diim Blog uufgelistet. Wenn nöd wird er ih diine Entwürf privat sii</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Hät en Blog-Biitrag veröffentlicht</item>
+    <item quantity="other">Hät %s Blog-Biiträg veröffentlicht</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Eimal aagluägt</item>
+    <item quantity="other">%s-mal aagluägt</item>
+  </plurals>
+  <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
+  <string name="thisPostIsPublished">De Biitrag isch veröffentlicht worde</string>
+  <string name="thisIsADraft">Das isch än Entwurf</string>
+  <string name="moreBlogPostsBy">Meh Blog-Posts vo %s</string>
+  <string name="noPostsInThisBlogYet">No kei Posts i dem Blog.</string>
+  <string name="noDrafts">Kei Entwürf z\'zeigä.</string>
+  <string name="latestBlogPosts">Neuschti Blog-Posts</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Ein Post zeigä</item>
+    <item quantity="other">Alli %s Posts zeigä</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Äs Bild für din Post ufäladä</string>
+  <string name="imageAlt">Altärativä Bildtegscht</string>
+  <string name="imageCredit">Bildurhebärrächt</string>
+</resources>

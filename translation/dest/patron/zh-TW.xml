@@ -22,7 +22,6 @@
   <string name="contactSupport">聯絡 Lichess 支援</string>
   <string name="otherMethods">有其他的贊助方式嗎？</string>
   <string name="bankTransfers">我們也接受銀行轉帳</string>
-  <string name="bitcoin">這是我們的bitcoin連結:%s</string>
   <string name="patronFeatures">贊助者會有專屬功能嗎？</string>
   <string name="noPatronFeatures">不會，因為 Lichess 不管對任何人都是永遠免費的。這是我們的承諾。
 不過贊助者們可以炫耀自己有超酷的個人資料圖示。</string>

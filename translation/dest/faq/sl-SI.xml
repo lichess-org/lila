@@ -60,7 +60,6 @@ Opisano je v oddelku 3.7 (d) %2$s:
 
 Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="goodIntroduction">dober uvod</string>
-  <string name="officialRulesPDF">uradna pravila (PDF)</string>
   <string name="lichessTraining">Lichess usposabljanje</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
   <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. Lichess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 (d) %2$s.</string>

@@ -1,7 +1,6 @@
 import * as control from '../control';
 import * as side from './side';
 import theme from './theme';
-import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import feedbackView from './feedback';
 import { Controller } from '../interfaces';
@@ -90,7 +89,6 @@ export default function (ctrl: Controller): VNode {
           if (old.data!.gaugeOn !== gaugeOn) {
             if (ctrl.pref.coords === Prefs.Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-              changeColorHandle();
             }
             document.body.dispatchEvent(new Event('chessground.resize'));
           }
@@ -141,7 +139,12 @@ function session(ctrl: Controller) {
     current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd = round.ratingDiff ? (round.ratingDiff > 0 ? '+' + round.ratingDiff : round.ratingDiff) : null;
+      const rd =
+        round.ratingDiff && ctrl.showRatings
+          ? round.ratingDiff > 0
+            ? '+' + round.ratingDiff
+            : round.ratingDiff
+          : null;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {

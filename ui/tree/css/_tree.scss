@@ -18,6 +18,10 @@ $c-blunder: #df5353;
   move {
     @extend %move;
 
+    @media (hover: none) {
+      user-select: none;
+    }
+
     &.inaccuracy {
       color: $c-inaccuracy;
     }
@@ -54,11 +58,16 @@ $c-blunder: #df5353;
 
   move.active {
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: mix($c-primary, $c-bg-box, 25%);
+    color: $c-font-clear;
   }
 
-  &-inline move.active {
+  &-inline move.active,
+  line move.active {
     @extend %box-radius;
+    background: mix($c-primary, $c-bg-box, 40%);
+    color: $c-font-clearer;
+    outline: 1px solid mix($c-primary, $c-bg-box, 60%);
   }
 
   move.nongame {

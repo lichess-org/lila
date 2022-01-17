@@ -65,6 +65,10 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
           Json.obj(
             "user" -> getLightUser(userId)
           )
+        case KaladinDone(userId) =>
+          Json.obj(
+            "user" -> getLightUser(userId)
+          )
         case GenericLink(url, title, text, icon) =>
           Json.obj(
             "url"   -> url,

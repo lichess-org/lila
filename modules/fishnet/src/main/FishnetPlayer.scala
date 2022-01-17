@@ -1,14 +1,17 @@
 package lila.fishnet
 
+import chess.format.Uci
+import chess.{ Black, Clock, White }
 import scala.concurrent.duration._
 
-import chess.{ Black, Clock, White }
-
-import lila.common.{ Future, ThreadLocalRandom }
+import lila.common.{ Bus, Future, ThreadLocalRandom }
 import lila.game.{ Game, GameRepo, UciMemo }
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.FishnetPlay
 
 final class FishnetPlayer(
     redis: FishnetRedis,
+    openingBook: FishnetOpeningBook,
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
@@ -20,7 +23,13 @@ final class FishnetPlayer(
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
       Future.delay(delayFor(game) | 0.millis) {
-        makeWork(game, level) addEffect redis.request void
+        openingBook(game, level) flatMap {
+          case Some(move) =>
+            fuccess {
+              Bus.publish(Tell(game.id, FishnetPlay(move, game.playedTurns)), "roundSocket")
+            }
+          case None => makeWork(game, level) addEffect redis.request void
+        }
       }
     } recover { case e: Exception =>
       logger.info(e.getMessage)

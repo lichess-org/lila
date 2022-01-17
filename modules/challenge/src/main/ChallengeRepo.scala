@@ -5,8 +5,9 @@ import scala.annotation.nowarn
 
 import lila.common.config.Max
 import lila.db.dsl._
+import lila.user.User
 
-final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implicit
+final private class ChallengeRepo(colls: ChallengeColls)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -14,6 +15,8 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
   import Challenge._
 
   private val coll = colls.challenge
+
+  private val maxOutgoing = lila.game.Game.maxPlayingRealtime
 
   def byId(id: Challenge.ID) = coll.find($id(id)).one[Challenge]
 
@@ -27,26 +30,29 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.?? { challenger =>
       createdByChallengerId()(challenger.id).flatMap {
-        case challenges if challenges.sizeIs <= maxPerUser.value => funit
-        case challenges                                          => challenges.drop(maxPerUser.value).map(_.id).map(remove).sequenceFu.void
+        case challenges if challenges.sizeIs <= maxOutgoing => funit
+        case challenges                                     => challenges.drop(maxOutgoing).map(_.id).map(remove).sequenceFu.void
       }
     }
 
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 
-  def createdByChallengerId(max: Int = 100)(userId: String): Fu[List[Challenge]] =
-    coll
-      .find(selectCreated ++ $doc("challenger.id" -> userId))
-      .sort($doc("createdAt" -> 1))
-      .cursor[Challenge]()
-      .list(max)
+  private def createdList(selector: Bdoc, max: Int): Fu[List[Challenge]] =
+    coll.find(selectCreated ++ selector).sort($sort asc "createdAt").cursor[Challenge]().list(max)
 
-  def createdByDestId(max: Int = 100)(userId: String): Fu[List[Challenge]] =
-    coll
-      .find(selectCreated ++ $doc("destUser.id" -> userId))
-      .sort($doc("createdAt" -> 1))
-      .cursor[Challenge]()
-      .list(max)
+  def createdByChallengerId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+    createdList($doc("challenger.id" -> userId), max)
+
+  def createdByDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] =
+    createdList($doc("destUser.id" -> userId), max)
+
+  def createdByPopularDestId(max: Int = 50)(userId: User.ID): Fu[List[Challenge]] = for {
+    realTime <- createdList($doc("destUser.id" -> userId, "timeControl.l" $exists true), max)
+    corres <- (realTime.sizeIs < max) ?? createdList(
+      $doc($doc("destUser.id" -> userId), "timeControl.l" $exists false),
+      max - realTime.size
+    )
+  } yield realTime ::: corres
 
   def setChallenger(c: Challenge, color: Option[chess.Color]) =
     coll.update

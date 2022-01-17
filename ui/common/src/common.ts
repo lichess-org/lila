@@ -1,10 +1,10 @@
-export const defined = <A>(v: A | undefined): v is A => typeof v !== 'undefined';
+export const defined = <T>(value: T | undefined): value is T => value !== undefined;
 
 export const notNull = <T>(value: T | null | undefined): value is T => value !== null && value !== undefined;
 
-export const isEmpty = (a: any): boolean => !a || a.length === 0;
+export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
-export const notEmpty = (a: any): boolean => !isEmpty(a);
+export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
 export interface Prop<T> {
   (): T;

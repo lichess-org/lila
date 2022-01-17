@@ -18,7 +18,6 @@
     <item quantity="one">Liðleiðari</item>
     <item quantity="other">Liðleiðarar</item>
   </plurals>
-  <string name="teamBestPlayers">Bestu telvarar</string>
   <string name="teamRecentMembers">Nýggir limir</string>
   <string name="kickSomeone">Tveit onkran av liðnum</string>
   <string name="whoToKick">Hvønn vilt tú tveita av liðnum?</string>

@@ -2,17 +2,16 @@ import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { bind, onInsert } from 'common/snabbdom';
 import { player as renderPlayer } from './util';
-import { Duel, DuelPlayer, DuelTeams, TeamBattle, FeaturedGame } from '../interfaces';
+import { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
 import { teamName } from './battle';
 import TournamentController from '../ctrl';
 
-function featuredPlayer(game: FeaturedGame, color: Color) {
+function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) {
   const player = game[color];
-  const clock = game.c || game.clock; // temporary BC, remove me
   return h('span.mini-game__player', [
     h('span.mini-game__user', [
       h('strong', '#' + player.rank),
-      renderPlayer(player, true, true, false),
+      renderPlayer(player, true, opts.showRatings, false),
       player.berserk
         ? h('i', {
             attrs: {
@@ -22,10 +21,10 @@ function featuredPlayer(game: FeaturedGame, color: Color) {
           })
         : null,
     ]),
-    clock
+    game.c
       ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
           attrs: {
-            'data-time': clock[color],
+            'data-time': game.c[color],
             'data-managed': 1,
           },
         })
@@ -33,7 +32,7 @@ function featuredPlayer(game: FeaturedGame, color: Color) {
   ]);
 }
 
-function featured(game: FeaturedGame): VNode {
+function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
   return h(
     `div.tour__featured.mini-game.mini-game-${game.id}.mini-game--init.is2d`,
     {
@@ -44,22 +43,26 @@ function featured(game: FeaturedGame): VNode {
       hook: onInsert(lichess.powertip.manualUserIn),
     },
     [
-      featuredPlayer(game, opposite(game.orientation)),
+      featuredPlayer(game, opposite(game.orientation), opts),
       h('a.cg-wrap', {
         attrs: {
           href: `/${game.id}/${game.orientation}`,
         },
       }),
-      featuredPlayer(game, game.orientation),
+      featuredPlayer(game, game.orientation, opts),
     ]
   );
 }
 
-function duelPlayerMeta(p: DuelPlayer) {
-  return [h('em.rank', '#' + p.k), p.t ? h('em.utitle', p.t) : null, h('em.rating', '' + p.r)];
-}
+const duelPlayerMeta = (p: DuelPlayer, ctrl: TournamentController) => [
+  h('em.rank', '#' + p.k),
+  p.t ? h('em.utitle', p.t) : null,
+  ctrl.opts.showRatings ? h('em.rating', '' + p.r) : undefined,
+];
 
-function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
+function renderDuel(ctrl: TournamentController) {
+  const battle = ctrl.data.teamBattle,
+    duelTeams = ctrl.data.duelTeams;
   return (d: Duel) =>
     h(
       'a.glpt',
@@ -74,8 +77,8 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
               [0, 1].map(i => teamName(battle, duelTeams[d.p[i].n.toLowerCase()]))
             )
           : undefined,
-        h('line.a', [h('strong', d.p[0].n), h('span', duelPlayerMeta(d.p[1]).reverse())]),
-        h('line.b', [h('span', duelPlayerMeta(d.p[0])), h('strong', d.p[1].n)]),
+        h('line.a', [h('strong', d.p[0].n), h('span', duelPlayerMeta(d.p[1], ctrl).reverse())]),
+        h('line.b', [h('span', duelPlayerMeta(d.p[0], ctrl)), h('strong', d.p[1].n)]),
       ]
     );
 }
@@ -92,14 +95,14 @@ export default function (ctrl: TournamentController): VNode {
       },
     },
     [
-      ctrl.data.featured ? featured(ctrl.data.featured) : null,
+      ctrl.data.featured ? featured(ctrl.data.featured, ctrl.opts) : null,
       ctrl.data.duels.length
         ? h(
             'section.tour__duels',
             {
               hook: bind('click', _ => !ctrl.disableClicks),
             },
-            [h('h2', 'Top games')].concat(ctrl.data.duels.map(renderDuel(ctrl.data.teamBattle, ctrl.data.duelTeams)))
+            [h('h2', 'Top games')].concat(ctrl.data.duels.map(renderDuel(ctrl)))
           )
         : null,
     ]

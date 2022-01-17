@@ -42,11 +42,11 @@ object features {
               "Standard chess and ",
               a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
-            tr(custom("35 per day"))(
-              "Deep Stockfish 14+ server analysis"
+            tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
+              "Deep Stockfish 14.1 server analysis"
             ),
             tr(unlimited)(
-              "Instant local Stockfish 14+ analysis"
+              "Instant local Stockfish 14+ analysis (depth 99)"
             ),
             tr(unlimited)(
               a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
@@ -75,17 +75,21 @@ object features {
               a(href := routes.Puzzle.home)("Tactical puzzles from user games")
             ),
             tr(unlimited)(
-              a(href := routes.Puzzle.streak)("Puzzle Streak")
-            ),
-            tr(unlimited)(
-              a(href := routes.Storm.home)("Puzzle Storm")
-            ),
-            tr(unlimited)(
+              a(href := routes.Puzzle.streak)("Puzzle Streak"),
+              ", ",
+              a(href := routes.Storm.home)("Puzzle Storm"),
+              ", ",
               a(href := routes.Racer.home)("Puzzle Racer")
             ),
-            tr(unlimited)(
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Opening explorer"),
-              " (280 million games!)"
+            tr(check)(
+              a(href := s"${routes.UserAnalysis.index}#explorer")("Global opening explorer"),
+              " (430 million games!)"
+            ),
+            tr(check)(
+              a(href := s"${routes.UserAnalysis.index}#explorer/me")("Personal opening explorer"),
+              " (also works on ",
+              a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")("other players"),
+              ")"
             ),
             tr(unlimited)(
               a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
@@ -97,7 +101,7 @@ object features {
             ),
             tr(unlimited)(
               a(href := routes.Search.index(1))("Advanced search"),
-              " through Lichess 3 billion games"
+              " through Lichess 4 billion games"
             ),
             tr(unlimited)(
               a(href := routes.Video.index)("Chess video library")

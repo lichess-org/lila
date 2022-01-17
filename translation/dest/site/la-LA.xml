@@ -11,7 +11,6 @@
   <string name="level">Gradus</string>
   <string name="strength">Virtus</string>
   <string name="toggleTheChat">Sermonem aperire aut claudere</string>
-  <string name="toggleSound">Sonum permittere aut negare</string>
   <string name="chat">Sermo</string>
   <string name="resign">Decedere</string>
   <string name="checkmate">Mattus</string>
@@ -40,7 +39,6 @@
     <item quantity="other">tua advorsarius ludum linquit. affirmare victoriam poteris %s momentis temporum.</item>
   </plurals>
   <string name="opponentLeftChoices">Alius lusor a lusione profectus est. Sive reditum expectare, sive hunc ad decedendum cogere potes.</string>
-  <string name="makeYourOpponentResign">Aversarium ad renuntiationem conpellere</string>
   <string name="forceResignation">Victoriam asciscere</string>
   <string name="forceDraw">Agere indutiam</string>
   <string name="talkInChat">Es lepidus in sermo!</string>
@@ -49,9 +47,6 @@
   <string name="blackResigned">Ater concessit</string>
   <string name="whiteLeftTheGame">Albus ludō decessus est</string>
   <string name="blackLeftTheGame">Ater ludō decessus est</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Divide hōc URL ut sinas spectatores ludum visuros esse</string>
-  <string name="theComputerAnalysisHasFailed">Explicatio, quae ordinatrō fuit, defuit</string>
-  <string name="viewTheComputerAnalysis">Explicationem, quae ordinatrō fuit, videre</string>
   <string name="requestAComputerAnalysis">Explicatio, quae ordinatrō fuit, quaerere</string>
   <string name="computerAnalysis">Explicatio quae ordinatrō fuit</string>
   <string name="computerAnalysisAvailable">Explicatio, ordinatrō fit, praebitus est</string>
@@ -207,7 +202,6 @@
   <string name="whiteTimeOut">Tempus nullum est</string>
   <string name="blackTimeOut">Tempus nullum est</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
-  <string name="drawOfferDeclined">Recusata est pacis conditio</string>
   <string name="drawOfferAccepted">Accepta est pacis conditio</string>
   <string name="drawOfferCanceled">Sublata est pacis conditio</string>
   <string name="whiteOffersDraw">Albus terminum proponit.</string>
@@ -233,8 +227,6 @@
   <string name="thisGameIsRated">Haec est lusio censita</string>
   <string name="rematch">Iterum ludere</string>
   <string name="rematchOfferSent">Missa est novae lusionis conditio</string>
-  <string name="rematchOfferSentWhite">Albus provocationem proponit</string>
-  <string name="rematchOfferSentBlack">Niger provocationem proponit</string>
   <string name="rematchOfferAccepted">Accepta est novae lusionis conditio</string>
   <string name="rematchOfferCanceled">Sublata est novae lusionis conditio</string>
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
@@ -247,9 +239,7 @@
   <string name="youHaveBeenTimedOut">Nunc existi.</string>
   <string name="spectatorRoom">Fenestra spectatorium</string>
   <string name="composeMessage">Epistulam scribere</string>
-  <string name="noNewMessages">Non novae epistulae sunt</string>
   <string name="subject">Summarium</string>
-  <string name="recipient">Receptor</string>
   <string name="send">Mandare</string>
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
@@ -357,12 +347,12 @@
     <item quantity="one">%s amicus praesens</item>
     <item quantity="other">%s amici praesens</item>
   </plurals>
-  <string name="noFriendsOnline">Nullus amicorum conexus</string>
-  <string name="findFriends">Reperire amici</string>
   <string name="favoriteOpponents">Adversarii secundi</string>
   <string name="follow">Spectare</string>
   <string name="following">Spectans</string>
   <string name="unfollow">Non Spectare</string>
+  <string name="followX">%s sequi</string>
+  <string name="unfollowX">%s sequi desinere</string>
   <string name="block">Excludere</string>
   <string name="blocked">Clausus est</string>
   <string name="unblock">Admittere</string>
@@ -401,7 +391,6 @@
   <string name="points">Puncta</string>
   <string name="wins">Victoriae</string>
   <string name="losses">Clades</string>
-  <string name="winStreak">Victoriae perpetuae</string>
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
   <string name="youArePlaying">Ludis!</string>
@@ -412,13 +401,11 @@
   <string name="whiteWins">Est victor Albus</string>
   <string name="blackWins">Est victor Niger</string>
   <string name="draws">Indutiae</string>
-  <string name="membersOnly">Sola membra</string>
   <string name="boardEditor">Moderator tabularis</string>
   <string name="setTheBoard">Constare tabulam</string>
   <string name="popularOpenings">Frequentia initia</string>
   <string name="startPosition">Prima positio</string>
   <string name="clearBoard">Radere alveum</string>
-  <string name="savePosition">Servare positionem</string>
   <string name="loadPosition">Legere positionem</string>
   <string name="isPrivate">Privatis</string>
   <string name="reportXToModerators">Referre %s moderatoribus</string>
@@ -430,10 +417,8 @@
   <string name="biography">Biographia</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria</string>
   <string name="thankYou">Gratias tibi!</string>
-  <string name="watchLichessTV">Videre Lichess TV</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
   <string name="onlinePlayers">Lusores presentes</string>
-  <string name="activeToday">Frequentes hodie</string>
   <string name="activePlayers">Lusores frequentes</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cave, ludus ordinatus est sed tempore eget!</string>
   <string name="success">Victoria</string>
@@ -444,7 +429,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Post movendum automatice progredi ad ludum sequentem</string>
   <string name="autoSwitch">Automatice ire</string>
   <string name="puzzles">Problema</string>
-  <string name="latestUpdates">Nuntii recentissimi</string>
   <string name="tournamentWinners">Victores certaminis</string>
   <string name="name">Nomen</string>
   <string name="description">Descriptio</string>
@@ -472,9 +456,7 @@
   <string name="reportDescriptionHelp">Glutina inscriptionem lud(i/orum) et explica quid de moribus usuarii malum est.</string>
   <string name="by">ab %s</string>
   <string name="thisTopicIsNowClosed">Haec thema nunc clausa est.</string>
-  <string name="theming">Ornatus</string>
   <string name="blog">Diurnum</string>
-  <string name="questionsAndAnswers">Quaestiones et Responsa</string>
   <string name="notes">Notae</string>
   <string name="typePrivateNotesHere">Exscribere hic notas privatas</string>
   <string name="invalidUsernameOrPassword">Irritum nomen vel tessera usuarii</string>
@@ -501,13 +483,7 @@
   <string name="onSlowGames">Cum ludo lento</string>
   <string name="always">Semper</string>
   <string name="never">Numquam</string>
-  <string name="difficultyEasy">Facilis</string>
-  <string name="difficultyNormal">Medium</string>
-  <string name="difficultyHard">Difficilis</string>
   <string name="xCompetesInY">%1$s in certamen %2$s iit</string>
-  <string name="xAskedY">%1$s %2$s rogavit</string>
-  <string name="xAnsweredY">%1$s %2$s responsavit</string>
-  <string name="xCommentedY">%1$s %2$s annotavit</string>
   <string name="victory">Victoria!</string>
   <string name="defeat">Et cladem</string>
   <string name="victoryVsYInZ">%1$s adversus %2$s apud %3$s</string>
@@ -516,7 +492,6 @@
   <string name="timeline">Linea temporis</string>
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
-  <string name="yourCityRegionOrDepartment">Tua urbs, regio, an provincia.</string>
   <string name="biographyDescription">Scribere de te, dilectis initiis, ludis, lusoribus, et quae tibi in scaccis libent…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s litterae.</item>
@@ -531,13 +506,6 @@
   <string name="computer">Machina</string>
   <string name="side">Latus</string>
   <string name="clock">Horologium</string>
-  <string name="unauthorizedError">Admissio non approbata est.</string>
-  <string name="noInternetConnection">Nullus conexus. Extra systema ex apparato ludere potes.</string>
-  <string name="connectedToLichess">Conexus ad lichess.org nunc es</string>
-  <string name="signedOut">Nunc existi</string>
-  <string name="loginSuccessful">Nunc inisti</string>
-  <string name="playOnTheBoardOffline">Trans tabulam</string>
-  <string name="playOfflineComputer">Computratum</string>
   <string name="opponent">Adversarius</string>
   <string name="learnMenu">Discere</string>
   <string name="studyMenu">Stude</string>
@@ -545,15 +513,7 @@
   <string name="community">Communitas</string>
   <string name="tools">Instrumenta</string>
   <string name="increment">Incrementum</string>
-  <string name="sharePGN">Praebe PGN</string>
-  <string name="playOnline">Ludere conexus</string>
-  <string name="playOffline">Ludere extra</string>
-  <string name="allowAnalytics">Sine rationarium ignotum</string>
-  <string name="shareGameURL">Praebe URL ludi</string>
   <string name="error.required">Haec area requisita est</string>
-  <string name="error.email">Litterae electronicae irritae sunt</string>
-  <string name="error.email_acceptable">Litterae electronicae non licent</string>
-  <string name="error.email_unique">Litterae electronicae iam captae sunt</string>
   <string name="ifRatingIsPlusMinusX">Si ± %s status est</string>
   <string name="onlyFriends">Soli amici</string>
   <string name="menu">Index</string>
@@ -598,7 +558,6 @@
   <string name="simulHostExtraTime">Praebe magis temporis</string>
   <string name="lichessTournaments">Lichess certamina</string>
   <string name="tournamentFAQ">Certaminis FAQ</string>
-  <string name="tournamentOfficial">Officialis</string>
   <string name="timeBeforeTournamentStarts">Tempus ante principio certaminis</string>
   <string name="averageCentipawnLoss">Medius casus centipeditum</string>
   <string name="keyboardShortcuts">Compendiaria claviatura</string>
@@ -633,7 +592,6 @@
   <string name="downloadAnnotated">Extrahere annotata</string>
   <string name="downloadRaw">Extrahere mera</string>
   <string name="downloadImported">Descargare importari</string>
-  <string name="printFriendlyPDF">PDF imprimire</string>
   <string name="crosstable">cruces mensam</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Quoque potes supra tabula volveri ad motum in ludo.</string>
   <string name="analysisShapesHowTo">Perge shift+click aut right+click ut circulos sagittasque in tabula pingas.</string>
@@ -642,7 +600,6 @@
   <string name="withNobody">Nullus est</string>
   <string name="withFriends">Cum amicis</string>
   <string name="withEverybody">In omnibus</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>
   <string name="kidMode">Modus puerilis</string>
   <string name="enableKidMode">Modus puerilis face</string>
   <string name="disableKidMode">Modus non puerilis face</string>
@@ -669,7 +626,6 @@
   <string name="xHostsY">%1$s exercituum %2$s</string>
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
-  <string name="xCreatesStudyY">%1$s studium %2$s creavit</string>
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Praecinctio</string>
   <string name="anonymous">Sine nomine</string>
@@ -687,17 +643,11 @@
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernamePrefixInvalid">Nomen usoris cum littera coependum.</string>
   <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
-  <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">Lude scacos moris</string>
   <string name="chessBasics">Scacci fundamenta</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
   <string name="invalidFen">Invalida positio notatio</string>
-  <string name="error.minLength">Minimum est longitudinem %s</string>
-  <string name="error.maxLength">Maximum est longitudinem %s</string>
-  <string name="error.min">%s paribus maius esse</string>
-  <string name="error.max">%s paribus minor est</string>
-  <string name="error.unknown">Culpa</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
   <string name="perfRatingX">Ordo: %s</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Ахвяраваць</string>
+  <string name="donateAsX">Ахвяраваць ад імя %s</string>
   <string name="lichessPatron">Спонсар Lichess</string>
   <string name="freeAccount">Бясплатны акаўнт</string>
   <string name="becomePatron">Стаць cпонсарам Lichess</string>
@@ -45,7 +46,6 @@
   <string name="contactSupport">звязацца са службай дапамогі Lichess</string>
   <string name="otherMethods">Іншыя шляхі ахвяравання?</string>
   <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
-  <string name="bitcoin">А вось тут наш біткоін-адрас: %s</string>
   <string name="patronFeatures">Можа нейкія ўнікальныя магчымасці прыдугледжаны для спонсараў?</string>
   <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бясплатны, назаўсёды і для кожнага. Гэта абяцанне.
 Аднак, спонсары атрымліваюць цудоўную іконку да профілю.</string>
@@ -57,7 +57,7 @@
     <item quantity="other">Спонсар Lichess на працягу %s месяцаў</item>
   </plurals>
   <string name="youSupportWith">Вы ахвяруеце lichess.org %s кожны месяц.</string>
-  <string name="tyvm">Дзякуй вілікі за дапамогу! Вы неверагодны!</string>
+  <string name="tyvm">Дзякуй вялікі за дапамогу! Вы неверагодны!</string>
   <string name="currentStatus">Бягучы статус</string>
   <string name="nextPayment">Наступны плацёж</string>
   <string name="youWillBeChargedXOnY">%2$s вы заплаціце %1$s.</string>
@@ -79,5 +79,5 @@
   <string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lichess!</string>
   <string name="nowOneMonth">Вы цяпер спонсар Lichess на месяц!</string>
   <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш акаўнт на Lichess зробіцца звычайным.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Змяніць валюту</string>
+  <string name="changeCurrency">Змяніць валюту</string>
 </resources>

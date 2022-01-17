@@ -8,11 +8,10 @@ final class ChatPanic {
 
   private var until: Option[DateTime] = none
 
-  def allowed(u: User, tighter: Boolean): Boolean =
-    !(enabled || tighter) || {
+  def allowed(u: User): Boolean =
+    !enabled || {
       (u.count.gameH > 10 && u.createdSinceDays(1)) || u.isVerified
     }
-  def allowed(u: User): Boolean = allowed(u, tighter = false)
 
   def allowed(id: User.ID, fetch: User.ID => Fu[Option[User]]): Fu[Boolean] =
     if (enabled) fetch(id) dmap { _ ?? allowed }

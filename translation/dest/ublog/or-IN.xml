@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="published">ପ୍ରକାଶିତ ହୋଇଛି</string>
+  <string name="publishOnYourBlog">ଆପଣଙ୍କ ବ୍ଲଗ୍ ରେ ପ୍ରକାଶନ କରନ୍ତୁ</string>
+  <string name="publishHelp">ଯଦି ଯାଞ୍ଚ କରାଯାଏ, ତେବେ ପୋଷ୍ଟଟି ଆପଣଙ୍କ ବ୍ଲଗରେ ତାଲିକାଭୁକ୍ତ ହେବ। ଯଦି ନୁହେଁ, ତେବେ ଏହା ଆପଣଙ୍କ ଡ୍ରାଫ୍ଟ ପୋଷ୍ଟଗୁଡ଼ିକରେ ବ୍ୟକ୍ତିଗତ ରହିବ</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">ଏକ ବ୍ଲଗ୍ ପୋଷ୍ଟ ପ୍ରକାଶିତ ହୋଇଛି</item>
+    <item quantity="other">%sଟି ବ୍ଲଗ୍ ପୋଷ୍ଟ ପ୍ରକାଶିତ ହୋଇଛି</item>
+  </plurals>
+  <string name="xPublishedY">%1$s %2$s ପ୍ରକାଶ କରିଛନ୍ତି</string>
+  <string name="thisPostIsPublished">ଏହି ପୋଷ୍ଟ ପ୍ରକାଶିତ ହୋଇଛି</string>
+  <string name="imageAlt">ପ୍ରତିଛବି ବିକଳ୍ପ ପାଠ୍ୟ</string>
+  <string name="imageCredit">ପ୍ରତିଛବି କ୍ରେଡିଟ୍</string>
+</resources>

@@ -55,6 +55,8 @@ case class Activity(
 
 object Activity {
 
+  val recentNb = 7
+
   case class Id(userId: User.ID, day: Day)
   object Id {
     def today(userId: User.ID) = Id(userId, Day.today)

@@ -46,6 +46,7 @@ Passord: %3$s</string>
   <string name="createDesc2">E-post-adresse er ikke påkravd. Eit passord blir generert og det må du gje vidare til eleven.</string>
   <string name="createDesc3">Viktig: ein elev kan ikkje ha fleire konti.</string>
   <string name="createDesc4">Bruk invitasjonsskjemaet dersom dei allereie har ein brukarkonto.</string>
+  <string name="createStudentWarning">Opprett kontoar berre for reelle elevar. Ikkje opprett fleire kontoar til deg sjølv. Då vert du utestengd.</string>
   <string name="lichessUsername">Lichess-brukarnamn</string>
   <string name="generateANewUsername">Generer eit nytt brukarnamn</string>
   <string name="welcomeToClass">Velkomen til klassen din: %s.
@@ -56,7 +57,6 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
     <item quantity="one">Ein ventande invitasjon</item>
     <item quantity="other">%s ventande invitasjonar</item>
   </plurals>
-  <string name="noPendingInvitations">Ingen ventande invitasjonar</string>
   <string name="onlyVisibleToTeachers">Synleg berre for klassas lærarar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Administrert</string>
@@ -87,7 +87,7 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="overDays">Over dagar</string>
   <string name="timePlaying">Speletid</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
-  <string name="winrate">Sigersrate</string>
+  <string name="winrate">Vinstrate</string>
   <string name="na">N/A (ikkje tilgjengeleg)</string>
   <string name="news">Klassenyhende</string>
   <string name="editNews">Rediger nyhende</string>

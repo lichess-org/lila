@@ -63,7 +63,7 @@ object event {
           )
         ),
         e.description.map { d =>
-          div(cls := "desc")(markdown(d))
+          div(cls := "desc")(markdown(e, d))
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
@@ -84,7 +84,8 @@ object event {
       .expireAfterAccess(10 minutes)
       .maximumSize(64)
       .build[Int, String]()
-    def apply(text: String): Frag = raw(cache.get(text.hashCode, _ => renderer("event")(text)))
+    def apply(e: Event, text: String): Frag =
+      raw(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
   }
 
   def manager(events: List[Event])(implicit ctx: Context) = {

@@ -17,7 +17,6 @@ import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,
-    val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
     val mailer: lila.mailer.Env,
@@ -118,10 +117,20 @@ final class Env(
     text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
   )
   lazy val prizeTournamentMakers = memo.settingStore[UserIds](
-    "prizeTournamentMakers ",
+    "prizeTournamentMakers",
     default = UserIds(Nil),
     text =
       "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+  )
+  lazy val apiExplorerGamesPerSecond = memo.settingStore[Int](
+    "apiExplorerGamesPerSecond",
+    default = 300,
+    text = "Opening explorer games per second".some
+  )
+  lazy val pieceImageExternal = memo.settingStore[Boolean](
+    "pieceImageExternal",
+    default = false,
+    text = "Use external piece images".some
   )
 
   lazy val preloader     = wire[mashup.Preload]
@@ -143,52 +152,7 @@ final class Env(
 
   def scheduler = system.scheduler
 
-  def closeAccount(u: User, by: Holder): Funit =
-    for {
-      playbanned <- playban.api.hasCurrentBan(u.id)
-      selfClose = u.id == by.id
-      modClose  = !selfClose && Granter(_.CloseAccount)(by.user)
-      badApple  = u.lameOrTrollOrAlt || modClose
-      _       <- user.repo.disable(u, keepEmail = badApple || playbanned)
-      _       <- relation.api.unfollowAll(u.id)
-      _       <- user.rankingApi.remove(u.id)
-      teamIds <- team.api.quitAll(u.id)
-      _       <- challenge.api.removeByUserId(u.id)
-      _       <- tournament.api.withdrawAll(u)
-      _       <- swiss.api.withdrawAll(u, teamIds)
-      _       <- plan.api.cancel(u).recoverDefault
-      _       <- lobby.seekApi.removeByUser(u)
-      _       <- security.store.closeAllSessionsOf(u.id)
-      _       <- push.webSubscriptionApi.unsubscribeByUser(u)
-      _       <- streamer.api.demote(u.id)
-      reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
-      _       <- selfClose ?? mod.logApi.selfCloseAccount(u.id, reports)
-      _       <- appeal.api.onAccountClose(u)
-      _ <- u.marks.troll ?? relation.api.fetchFollowing(u.id).flatMap {
-        activity.write.unfollowAll(u, _)
-      }
-      _ <- !selfClose ?? mod.logApi.closeAccount(by.id, u.id)
-    } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
-
-  Bus.subscribeFun("garbageCollect") { case lila.hub.actorApi.security.GarbageCollect(userId) =>
-    // GC can be aborted by reverting the initial SB mark
-    user.repo.isTroll(userId) foreach { troll =>
-      if (troll) scheduler.scheduleOnce(1.second) {
-        lichessClose(userId).unit
-      }
-    }
-  }
-  Bus.subscribeFun("rageSitClose") { case lila.hub.actorApi.playban.RageSitClose(userId) =>
-    lichessClose(userId).unit
-  }
-  private def lichessClose(userId: User.ID) =
-    user.repo.lichessAnd(userId) flatMap {
-      _ ?? { case (lichess, user) =>
-        closeAccount(user, lichess)
-      }
-    }
-
-  system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
+  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("app.renderer.name"))
 }
 
 final class EnvBoot(
@@ -210,9 +174,6 @@ final class EnvBoot(
   def netDomain            = netConfig.domain
   def baseUrl              = netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
-
-  lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
-  lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
 
   // wire all the lila modules
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]

@@ -7,6 +7,7 @@
     <item quantity="other">%s miembros</item>
   </plurals>
   <string name="allTeams">Todos los equipos</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Equipos que lidero</string>
   <string name="newTeam">Equipo nuevo</string>
   <string name="myTeams">Mis equipos</string>
   <string name="noTeamFound">Ningún equipo encontrado</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Líder del equipo</item>
     <item quantity="other">Líderes del equipo</item>
   </plurals>
-  <string name="teamBestPlayers">Mejores jugadores</string>
   <string name="teamRecentMembers">Miembros recientes</string>
   <string name="kickSomeone">Expulsar a alguien del equipo</string>
   <string name="whoToKick">¿A quién quieres expulsar del equipo?</string>
@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
   <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
+  <string name="requestDeclined">Tu solicitud de ingreso fue rechazada por un líder del equipo.</string>
   <string name="subToTeamMessages">Suscribirse a los mensajes del equipo</string>
   <string name="teamBattle">Batalla por Equipos</string>
   <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
@@ -47,8 +48,9 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="closeTeamDescription">Da de baja el equipo definitivamente.</string>
   <string name="entryCode">Código de entrada al equipo</string>
   <string name="entryCodeDescriptionForLeader">(Opcional) Un código de entrada que los nuevos miembros deben saber para unirse a este equipo.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Código de entrada incorrecto.</string>
+  <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
   <string name="upcomingTourns">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>
+  <string name="declinedRequests">Solicitudes rechazadas</string>
 </resources>

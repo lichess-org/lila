@@ -6,6 +6,7 @@
     <item quantity="other">%s位成员</item>
   </plurals>
   <string name="allTeams">所有团队</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">领导团队</string>
   <string name="newTeam">建立团队</string>
   <string name="myTeams">我的团队</string>
   <string name="noTeamFound">你不在任何团队中</string>
@@ -16,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">领队</item>
   </plurals>
-  <string name="teamBestPlayers">本队最佳棋手</string>
   <string name="teamRecentMembers">本队新成员</string>
   <string name="kickSomeone">把一个用户退出团队</string>
   <string name="whoToKick">您想把谁退出团队？</string>
@@ -25,6 +25,7 @@
   </plurals>
   <string name="willBeReviewed">您的加入请求将由队长审查。</string>
   <string name="beingReviewed">队长正在审查您的加入请求。</string>
+  <string name="requestDeclined">您的加入请求被队长拒绝。</string>
   <string name="subToTeamMessages">订阅团队消息</string>
   <string name="teamBattle">团队战斗</string>
   <string name="teamBattleOverview">一场由多个团队组成的战斗，每个玩家都可以为其团队得分</string>
@@ -44,8 +45,9 @@
   <string name="closeTeamDescription">永远关闭团队。</string>
   <string name="entryCode">团队入场码</string>
   <string name="entryCodeDescriptionForLeader">(可选) 新成员必须提交此代码才能加入团队。</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">错误的入场码</string>
+  <string name="incorrectEntryCode">错误的入场码</string>
   <string name="teamAlreadyExists">该团队已经存在。</string>
   <string name="upcomingTourns">即将开始的锦标赛</string>
   <string name="completedTourns">已完成的锦标赛</string>
+  <string name="declinedRequests">被拒的请求</string>
 </resources>

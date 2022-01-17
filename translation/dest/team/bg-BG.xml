@@ -7,6 +7,7 @@
     <item quantity="other">%s членове</item>
   </plurals>
   <string name="allTeams">Всички отбори</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Подчинени отбори</string>
   <string name="newTeam">Нов отбор</string>
   <string name="myTeams">Моите отбори</string>
   <string name="noTeamFound">Не са намерени отбори</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Лидер на отбора</item>
     <item quantity="other">Лидери на отбора</item>
   </plurals>
-  <string name="teamBestPlayers">Най-добри играчи</string>
   <string name="teamRecentMembers">Скорошни членове</string>
   <string name="kickSomeone">Премахни някого от отбора</string>
   <string name="whoToKick">Кого искате да премахнете от отбора?</string>
@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Вашата заявка за присъединяване ще бъде прегледана от лидер на отбора.</string>
   <string name="beingReviewed">Вашата заявка за присъединяване се преглежда от лидер на отбора.</string>
+  <string name="requestDeclined">Вашата заявка за присъединяване беше отказана от лидер на отбора.</string>
   <string name="subToTeamMessages">Абонирайте се за съобщения от отбора</string>
   <string name="teamBattle">Отборна битка</string>
   <string name="teamBattleOverview">Битка между няколко отбора, всеки играч печели точки за своя отбор</string>
@@ -47,8 +48,9 @@
   <string name="closeTeamDescription">Затваря отбора завинаги.</string>
   <string name="entryCode">Код за присъединяване към отбора</string>
   <string name="entryCodeDescriptionForLeader">(По избор) Код, който новите членове трябва да знаят, за да се присъединят към този отбор.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Грешен код за включване.</string>
+  <string name="incorrectEntryCode">Грешен код за включване.</string>
   <string name="teamAlreadyExists">Този отбор вече съществува.</string>
   <string name="upcomingTourns">Предстоящи турнири</string>
   <string name="completedTourns">Завършени турнири</string>
+  <string name="declinedRequests">Отказани заявки за присъединяване</string>
 </resources>

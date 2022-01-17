@@ -85,6 +85,7 @@ final class RelayApi(
       .aggregateList(20) { framework =>
         import framework._
         Match(tourRepo.selectors.official ++ tourRepo.selectors.active) -> List(
+          Sort(Descending("tier")),
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
@@ -173,6 +174,7 @@ final class RelayApi(
             from = Study.From.Relay(none).some
           ),
           user,
+          withRatings = true,
           _.copy(members =
             lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(
               id = user.id,
@@ -215,10 +217,15 @@ final class RelayApi(
     }
   }
 
-  def reset(relay: RelayRound, by: User): Funit =
-    studyApi.deleteAllChapters(relay.studyId, by) >>-
-      multiboard.invalidate(relay.studyId) >>
-      requestPlay(relay.id, v = true)
+  def reset(old: RelayRound, by: User): Funit =
+    WithRelay(old.id) { relay =>
+      studyApi.deleteAllChapters(relay.studyId, by) >> {
+        old.hasStartedEarly ?? roundRepo.coll.update
+          .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
+          .void
+      } >>-
+        multiboard.invalidate(relay.studyId)
+    } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRound.Id): Fu[Option[RelayTour]] =
     byIdWithTour(roundId) flatMap {
@@ -256,7 +263,7 @@ final class RelayApi(
               as = "rounds",
               local = "_id",
               foreign = "tourId",
-              pipeline = List(
+              pipe = List(
                 $doc("$sort" -> $doc("startedAt" -> 1, "startsAt" -> 1, "name" -> 1))
               )
             )

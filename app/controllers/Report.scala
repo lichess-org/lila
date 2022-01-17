@@ -141,7 +141,7 @@ final class Report(
     }
 
   def currentCheatInquiry(username: String) =
-    Secure(_.Hunter) { implicit ctx => me =>
+    Secure(_.CheatHunter) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
@@ -200,7 +200,7 @@ final class Report(
             env.user.repo named data.username flatMap {
               _ ?? { user =>
                 if (user == me) BadRequest.fuccess
-                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject jsonOkResult
               }
             }
         )

@@ -13,7 +13,6 @@
   <string name="specialMoves">特殊移動</string>
   <string name="didYouLikeThisPuzzle">您喜歡這道謎題嗎？</string>
   <string name="voteToLoadNextOne">告訴我們加載下一題!</string>
-  <string name="yourPuzzleRatingX">您的解題等級：%s</string>
   <string name="findTheBestMoveForWhite">為白方找出最佳移動</string>
   <string name="findTheBestMoveForBlack">為黑方找出最佳移動</string>
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目:</string>

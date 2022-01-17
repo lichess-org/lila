@@ -26,8 +26,13 @@
   <string name="onlyAnalysed">Solo partite in cui è disponibile l\'analisi del computer</string>
   <string name="color">Colore</string>
   <string name="evaluation">Valutazione</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Numero massimo</string>
+  <string name="maxNumber">Numero massimo</string>
   <string name="maxNumberExplanation">Il numero massimo di partite da restituire</string>
   <string name="include">Includi</string>
-  <string name="generateURL">Genera URL</string>
+  <string name="descending">Decrescente</string>
+  <string name="ascending">Crescente</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s partita trovata</item>
+    <item quantity="other">%s partite trovate</item>
+  </plurals>
 </resources>

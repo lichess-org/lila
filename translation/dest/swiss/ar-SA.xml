@@ -113,8 +113,8 @@
   <string name="pairingSystemArena">أي خصم متاح حيث يكون الخصم مقارب بالتصنيف</string>
   <string name="pairingSystemSwiss">افضل ربط بين اللاعبين اعتماداً على النقاط و نتيجة كسر التعادل</string>
   <string name="pairingWaitTime">وقت انتظار الاقتران</string>
-  <string name="pairingWaitTimeFast">سريع: لا ينتظر جميع اللاعبين</string>
-  <string name="pairingWaitTimeSlow">بطيء: ينتظر جميع اللاعبين</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">سريع: لا ينتظر جميع اللاعبين</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">بطيء: ينتظر جميع اللاعبين</string>
   <string name="identicalPairing">الاقتران المتطابق</string>
   <string name="possibleButNotConsecutive">ممكن ولكن ليس على التوالي</string>
   <string name="identicalForbidden">محظور</string>

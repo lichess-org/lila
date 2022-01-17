@@ -7,46 +7,48 @@
     <item quantity="other">%s Mitglider</item>
   </plurals>
   <string name="allTeams">Alli Teams</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vo dir gleitäti Teams</string>
   <string name="newTeam">Neus Team</string>
   <string name="myTeams">Mini Teams</string>
   <string name="noTeamFound">Kais Team gfundä</string>
-  <string name="joinTeam">Tritt äm Team bii</string>
+  <string name="joinTeam">Tritt em Team bii</string>
   <string name="quitTeam">Team verloh</string>
-  <string name="manuallyReviewAdmissionRequests">Biitrittsafrogä manuäll überprüäfä</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Wenn diä Option aktiviert isch, müend Schpiller/-innä än Anfrog schriibä, zum äm Team biiztrete; du chasch si ablehnä oder akzeptierä.</string>
+  <string name="manuallyReviewAdmissionRequests">Biitrittsafrage manuell überprüefe</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wänn die Option aktiviert isch, müend d\'Schpiller e Aafrag schriibe, um em Team biizträte - wo du chasch ablähne oder akzeptiere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
   </plurals>
-  <string name="teamBestPlayers">Beschti Schpiller/-innä</string>
-  <string name="teamRecentMembers">Neuschti Teammitgliider</string>
-  <string name="kickSomeone">Öppert usm Team schmeissä</string>
-  <string name="whoToKick">Wer wottsch usm Team schmeissä?</string>
+  <string name="teamRecentMembers">Neuschti Team-Mitgliider</string>
+  <string name="kickSomeone">Eine us em Team schmeisse</string>
+  <string name="whoToKick">Wen wottsch us em Team schmeisse?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s Bitrittsafrog</item>
+    <item quantity="one">%s Biitrittsafrag</item>
     <item quantity="other">%s Biitrittsafrooge</item>
   </plurals>
-  <string name="willBeReviewed">Dini Bitrittsafrog wird bald vomänä Teamleiter überprüäft.</string>
+  <string name="willBeReviewed">Dini Biitrittsafrag wird bald vume Teamleiter prüeft.</string>
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
+  <string name="requestDeclined">Diini Biitritts-Aafrag isch vume Teamleiter abg\'lehnt worde.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
-  <string name="teamBattle">Teamfight</string>
-  <string name="teamBattleOverview">En Fight vo mehrere Teams, alli Schpiller/-innä sammläd Pünkt für ihräs Team</string>
-  <string name="teamTournament">Team-Turniär</string>
+  <string name="teamBattle">Teamkampf</string>
+  <string name="teamBattleOverview">En Kampf vu mehrere Teams, alli Schpiller sammled Pünkt für ihres Team</string>
+  <string name="teamTournament">Team-Turnier</string>
   <string name="teamTournamentOverview">Es Arenaturnier, zu däm nur Mitglieder vo dim Team biitrettä chönd</string>
   <string name="swissTournamentOverview">Es Schwiizer-System-Turnier, zu däm nur Mitglieder vo dim Team bitrettä chönd</string>
   <string name="messageAllMembers">Benochrichtigä alli Mitgliider</string>
   <string name="messageAllMembersOverview">Schick ä privati Nochricht an alli Mitgliider vom Team</string>
-  <string name="messageAllMembersLongDescription">Schick ä privati Nochricht a ALLI Mitgliider us dem Team. Du chasch diä Funktion benutzä, um Schpiller/-innä zumänä Turnier odermä Team-Fight ufzrüäfä. Schpiller/-innä, wo diä Art vo Nochrichtä nöd empfangä wönd, chönd dis Team verloh.</string>
+  <string name="messageAllMembersLongDescription">Schick e privati Nachricht an ALLI Mitgliider vu dem Team. Du chasch die Funkzion benutze, um Schpiller ufzfordere sich ame Turnier oder ame Team-Kampf z\'beteilige. Schpiller wo die Nachrichte nöd wänd empfange, chönd s\'Team verlah.</string>
   <string name="teamsIlead">Teams wonich leitä</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtisch eis vo de kommendä Turniere verlinkä?</string>
-  <string name="usersWhoCanManageThisTeam">Benutzer/-innä wo da Team verwaltä chönd</string>
+  <string name="usersWhoCanManageThisTeam">Benutzer wo das Team verwalte chönd</string>
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>
-  <string name="entryCode">Teamiigangscode</string>
-  <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Inkorräktä Iigangscode.</string>
+  <string name="entryCode">Team-Biitrittscode</string>
+  <string name="entryCodeDescriptionForLeader">(Optional) En Zuegangscode, wo noii Mitgliider känne müend, wänns dem Team wänd biiträte.</string>
+  <string name="incorrectEntryCode">Falsche Biitrittscode.</string>
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTourns">Kommendi Turnier</string>
   <string name="completedTourns">Beendeti Turnier</string>
+  <string name="declinedRequests">Abglehnti Aafrage</string>
 </resources>

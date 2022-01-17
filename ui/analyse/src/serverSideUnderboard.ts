@@ -3,7 +3,7 @@ import type Highcharts from 'highcharts';
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
 import modal from 'common/modal';
-import { formToXhr } from 'common/xhr';
+import { textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 interface HighchartsHTMLElement extends HTMLElement {
@@ -70,7 +70,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   function chartLoader() {
-    return `<div id="acpl-chart-loader"><span>Stockfish 14+<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+    return `<div id="acpl-chart-loader"><span>Stockfish 14.1<br>server analysis</span>${lichess.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
     if (lichess.advantageChart || lichess.AnalyseNVUI) return;
@@ -121,7 +121,14 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
       }
-      formToXhr(this).then(startAdvantageChart, lichess.reload);
+      xhrTextRaw(this.action, { method: this.method }).then(res => {
+        if (res.ok) startAdvantageChart();
+        else
+          res.text().then(t => {
+            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
+            lichess.reload();
+          });
+      });
       return false;
     });
   }

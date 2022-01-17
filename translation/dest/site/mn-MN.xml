@@ -10,7 +10,6 @@
   <string name="aiNameLevelAiLevel">%1$s түвшин %2$s</string>
   <string name="level">Түвшин</string>
   <string name="toggleTheChat">Чатыг нээх/хаах</string>
-  <string name="toggleSound">Дууг нээх/хаах</string>
   <string name="chat">Чат</string>
   <string name="resign">Бууж өгөх</string>
   <string name="checkmate">Шаг мад</string>
@@ -38,7 +37,6 @@
     <item quantity="other">Таны өрсөлдөгч тоглолтыг орхисон. Та %s секундын дотор ялалтыг хүсч болно.</item>
   </plurals>
   <string name="opponentLeftChoices">Таны өрсөлдөгч тоглолтыг орхисон байна. Та ялалтыг шууд авах эсвэл өрсөлдөгчөө эргэж тоглолтод орж ирэхийг хүлээж болно.</string>
-  <string name="makeYourOpponentResign">Хүчээр ялалтыг авах</string>
   <string name="forceResignation">Ялалтыг авах</string>
   <string name="forceDraw">Тэнцээгээр тооцох</string>
   <string name="talkInChat">Та чатаар соёлтой харилцаарай!</string>
@@ -47,9 +45,6 @@
   <string name="blackResigned">Хар бууж өглөө</string>
   <string name="whiteLeftTheGame">Цагаан тоглолтыг орхилоо</string>
   <string name="blackLeftTheGame">Хар тоглолтыг орхилоо</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Энэхүү холбоос хаягийг бусадтай хуваалцсанаар тэд энэ өргийг үзэх боломжтой</string>
-  <string name="theComputerAnalysisHasFailed">Компьютерийн шинжилгээний хэсэгт алдаа гарлаа</string>
-  <string name="viewTheComputerAnalysis">Компьютерийн шинжилгээг үзэх</string>
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
   <string name="computerAnalysis">Компьютерийн шинжилгээ</string>
   <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
@@ -83,10 +78,6 @@
   <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Дараагийн барьцаа эсвэл падаа %s хагас шилжих хөдөлгөөнд шилжих (50 алхам тоолуурын Zeroing руу шилжих)</item>
-    <item quantity="other">Дараагийн удаа барьцаалах буюу зээлдүүлэгчид %s хагас хөдөлгөөнд шилжих (50 шилжих тоолуурын зайнаас шилжих)</item>
-  </plurals>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
@@ -189,7 +180,6 @@
   </plurals>
   <string name="cancel">Цуцлах</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
-  <string name="drawOfferDeclined">Тэнцэх саналаас татгалзлаа</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
   <string name="drawOfferCanceled">Тэнцэх саналаа цуцаллаа</string>
   <string name="whiteOffersDraw">Цагаан тэнцэхийг санал болгож байна</string>
@@ -215,8 +205,6 @@
   <string name="thisGameIsRated">Энэ бол чансаа өөрчлөгдөх өрөг</string>
   <string name="rematch">Дахин тоглох</string>
   <string name="rematchOfferSent">Дахин тоглох хүсэлт илгээлээ</string>
-  <string name="rematchOfferSentWhite">Цагаан тэнцэхийг санал болгож байна</string>
-  <string name="rematchOfferSentBlack">Хар тэнцэхийг санал болгож байна</string>
   <string name="rematchOfferAccepted">Дахин тоглох хүсэлтийг хүлээн авлаа</string>
   <string name="rematchOfferCanceled">Дахин тоглох хүсэлтийг цуцаллаа</string>
   <string name="rematchOfferDeclined">Дахин тоглох хүсэлтээс татгалзлаа</string>
@@ -229,9 +217,7 @@
   <string name="youHaveBeenTimedOut">Таны бичих эрх хүлээлгэнд байна.</string>
   <string name="spectatorRoom">Үзэгчийн өрөө</string>
   <string name="composeMessage">Зурвас илгээх</string>
-  <string name="noNewMessages">Шинэ зурвас ирээгүй байна</string>
   <string name="subject">Гарчиг</string>
-  <string name="recipient">Хүлээн авагч</string>
   <string name="send">Илгээх</string>
   <string name="incrementInSeconds">Секундын нэмэгдэл</string>
   <string name="freeOnlineChess">Нээлттэй эхийн, үнэ төлбөргүй шатрын хуудас</string>
@@ -327,8 +313,6 @@
   <string name="blackCheckmatesInOneMove">Нэг хөдөлгөөнөөр шалгахын тулд хар</string>
   <string name="retry">Дахин оролдох</string>
   <string name="reconnecting">Эргэн холбогдох оролдлого хийж байна</string>
-  <string name="noFriendsOnline">Ямар ч найз сүлжээнд алга</string>
-  <string name="findFriends">Найзаа эрэх</string>
   <string name="favoriteOpponents">Таарах дуртай тоглогчид</string>
   <string name="follow">Дагах</string>
   <string name="following">Дагаж байгаа</string>
@@ -377,7 +361,6 @@
   <string name="points">Оноо</string>
   <string name="wins">Ялалт</string>
   <string name="losses">Ялагдал</string>
-  <string name="winStreak">Ялалтын цуврал</string>
   <string name="createdBy">Зохион байгуулагч:</string>
   <string name="tournamentIsStarting">Тэмцээний удахгүй эхэллээ</string>
   <string name="tournamentPairingsAreNowClosed">Тэмцээний оноолт хаагдсан байна.</string>
@@ -393,13 +376,11 @@
   <string name="draws">Тэнцээ</string>
   <string name="nextXTournament">Дараагийн %s тэмцээн:</string>
   <string name="averageOpponent">Өрсөлдөгчдийн дундаж чансаа</string>
-  <string name="membersOnly">Зөвхөн гишүүд</string>
   <string name="boardEditor">Өргийн байрлал өөрчлөгч</string>
   <string name="setTheBoard">Өргийн байрлалыг тохируулах</string>
   <string name="popularOpenings">Түгээмэл тоглогддог нээлтүүд</string>
   <string name="startPosition">Үндсэн байрлал</string>
   <string name="clearBoard">Өргийг хоослох</string>
-  <string name="savePosition">Өргийн байрлалыг хадгалах</string>
   <string name="loadPosition">Өрөг ачааллах</string>
   <string name="isPrivate">Урилгаар оролцох тэмцээн</string>
   <string name="reportXToModerators">%s гишүүний талаар модераторт гомдол мэдүүлэх</string>
@@ -415,10 +396,8 @@
   <string name="thankYou">Баярлалаа!</string>
   <string name="socialMediaLinks">Сошиал холбоосууд</string>
   <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
-  <string name="watchLichessTV">Личессийн суваг үзэх</string>
   <string name="previouslyOnLichessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
   <string name="onlinePlayers">Сүлжээнд байгаа гишүүд</string>
-  <string name="activeToday">Өнөөдөр хамгийн их идэвхтэй байсан гишүүдийн жагсаалт</string>
   <string name="activePlayers">Идэвхтэй гишүүд</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Энэ өрөг нь чансаа өөрчлөгдөх өрөг боловч цагын хязгаарлалтгүй болохыг анхаарна уу!</string>
   <string name="success">Зөв</string>
@@ -429,7 +408,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Нүүсний дараа дараагийн тоглолт руу шууд шилжих</string>
   <string name="autoSwitch">Автоматаар шилжих</string>
   <string name="puzzles">Таавар бодлого</string>
-  <string name="latestUpdates">Сүүлд хийгдсэн шинэчлэлтүүд</string>
   <string name="tournamentWinners">Ялагчид</string>
   <string name="name">Нэр</string>
   <string name="description">Багийн танилцуулга</string>
@@ -458,9 +436,7 @@
   <string name="error.provideOneCheatedGameLink">Тоглоомын дор хаяж нэг холбоосыг оруулна уу.</string>
   <string name="by">Бичлэг бичигч: %s</string>
   <string name="thisTopicIsNowClosed">Энэ сэдэв хэлэлцэгдээд дууссан байна.</string>
-  <string name="theming">Өргийн өнгө үзэмж, дүрс бүтэц</string>
   <string name="blog">Блог</string>
-  <string name="questionsAndAnswers">Асуулт ба хариулт</string>
   <string name="notes">Тэмдэглэл</string>
   <string name="typePrivateNotesHere">Хувийн тэмдэглэлээ энд хөтөлнө үү</string>
   <string name="invalidUsernameOrPassword">Гишүүний нэр эсвэл нэвтрэх үг буруу байна</string>
@@ -486,13 +462,7 @@
   <string name="onSlowGames">Удаан хэмнэлт өргүүдэд</string>
   <string name="always">Үргэлж</string>
   <string name="never">Хэзээ ч үгүй</string>
-  <string name="difficultyEasy">Амархан</string>
-  <string name="difficultyNormal">Дундаж</string>
-  <string name="difficultyHard">Хэцүү</string>
   <string name="xCompetesInY">%1$s дараахь тэмцээнд оролцлоо: %2$s</string>
-  <string name="xAskedY">%1$s дараахь гишүүнээс асуулт асуулаа: %2$s</string>
-  <string name="xAnsweredY">%1$s дараахь гишүүнд хариулт бичлээ: %2$s</string>
-  <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
   <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="defeat">Явагдал</string>
   <string name="victoryVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
@@ -501,7 +471,6 @@
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
   <string name="allInformationIsPublicAndOptional">Энэ хүснэгтийг бөглөх нь сайн дурын бөгөөд өгөгдсөн мэдээлэл нийтэд ил харагдана.</string>
-  <string name="yourCityRegionOrDepartment">Таны хот дүүрэг, аймаг сум</string>
   <string name="biographyDescription">Та өөрийгөө танилцуулна уу. Та шатрын юунд дуртай, таалагддаг гараанууд, тоглолтууд, тоглогчид гэх мэт…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Хамгийн ихдээ: %s тэмдэгт.</item>
@@ -516,13 +485,6 @@
   <string name="computer">Компьютер</string>
   <string name="side">Тал</string>
   <string name="clock">Цаг</string>
-  <string name="unauthorizedError">Та нэвтрэх эрхгүй байна.</string>
-  <string name="noInternetConnection">Та интернэт холболтгүй байна. Хэдий тийм ч та интернетийн орчингүй горимоор шатар тоглох боломжтой.</string>
-  <string name="connectedToLichess">Та lichess.org хуудаст холбогдлоо</string>
-  <string name="signedOut">Та бүртгэлээсээ гарсан байна</string>
-  <string name="loginSuccessful">Та бүртгэгдэн орлоо</string>
-  <string name="playOnTheBoardOffline">Нүүр тулсан өрөг</string>
-  <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
   <string name="learnMenu">Сургалт</string>
   <string name="studyMenu">Суралцах</string>
@@ -530,16 +492,7 @@
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
-  <string name="sharePGN">Тэмцээний тэмдэглэлийг бусадтай хуваалцах</string>
-  <string name="playOnline">Сүлжээний орчинд тоглох</string>
-  <string name="playOffline">Сүлжээний бус орчинд тоглох</string>
-  <string name="allowAnalytics">Програмын ашиглалтын талаарх мэдээллийг илгээхийг зөвшөөрөх</string>
-  <string name="shareGameURL">Өргийн холбоос хаягыг бусадтай хуваалцах</string>
   <string name="error.required">Энэ нүдэнд мэдээлэл оруулах заавал шаардлагатай</string>
-  <string name="error.email">Энэ электрон шуудангийн хаяг буруу байна</string>
-  <string name="error.email_acceptable">Энэ электрон шуудангийн хаягаар бүртгэл үүсгэх боломжгүй</string>
-  <string name="error.email_unique">Энэ электрон шуудангийн хаяг өмнө нь бүртгэгдсэн байна</string>
-  <string name="error.email_different">Энэ таны одоогийн ашиглаж байгаа имэйл хаяг байна</string>
   <string name="ifRatingIsPlusMinusX">Хэрвээ чансаа ± %s дотор бол</string>
   <string name="onlyFriends">Зөвхөн найзууд</string>
   <string name="menu">Цэс</string>
@@ -586,7 +539,6 @@
   <string name="simulHostExtraTime">Зэрэгцээ өрөг үүсгэгчийн нэмэлт цаг</string>
   <string name="lichessTournaments">Личессийн тэмцээнүүд</string>
   <string name="tournamentFAQ">Тэмцээний талаарх түгээмэл асуулт хариултууд</string>
-  <string name="tournamentOfficial">Албан ёсны тэмцээн</string>
   <string name="timeBeforeTournamentStarts">Тэмцээн эхлэх хүртэлх хугацаа</string>
   <string name="averageCentipawnLoss">Хүүгийн 1/100 дундаж алдагдал</string>
   <string name="keyboardShortcuts">Товчлогч</string>
@@ -619,7 +571,6 @@
   <string name="downloadAnnotated">Өргийг тэмдэглэлийн хамт татаж авах</string>
   <string name="downloadRaw">Өргийг текст хэлбэрээр татаж авах</string>
   <string name="downloadImported">Импортолж оруулсан өргийг татаж авах</string>
-  <string name="printFriendlyPDF">Өргийг хэвлэгчийн хоронд хэмнэлттэй PDF хэлбэрээр харах</string>
   <string name="crosstable">Ялалт, ялагдлын харьцаа</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Мөн тоглолтын үед та энэхүү үйлдлүүдийг хийх боломжтой.</string>
   <string name="analysisShapesHowTo">Өрөг дээр тойрог, сум зурахын тулд shift+зүүн товшилт эсвэл баруун товшилт хийнэ.</string>
@@ -628,7 +579,6 @@
   <string name="withNobody">Хэнтэй ч биш</string>
   <string name="withFriends">Найзуудтайгаа</string>
   <string name="withEverybody">Бүгдтэй</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Та дараахь цахим шуудангийн хаягаар бүртгэлтэй байна: %s</string>
   <string name="kidMode">Хүүхдийн горим</string>
   <string name="kidModeExplanation">Хамгаалалтын тухай. Хүүхдийн горимд сайтын бүх харилцааны хэсгүүд хаагдана. Бага насны болон сургуулын хүүхдүүдэд энэ горимийг идэвжүүлж интернэтийг зохисгүй хэрэглэгсдээс хамгаалана уу.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Хүүхдийн горимд сайтын лого %s болж танд мэдэгдэх болно.</string>
@@ -656,7 +606,6 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
-  <string name="xCreatesStudyY">%1$s %2$s хичээлийг үүсгэлээ</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
@@ -677,17 +626,11 @@
   <string name="usernameSuffixInvalid">Хэрэглэгчийн нэр нь үсэг эсвэл тоогоор дуусах ёстой.</string>
   <string name="usernameCharsInvalid">Хэрэглэгчийн нэр нь зөвхөн үсэг, тоо, доогуур зураас, болон зураас агуулсан байх ёстой.</string>
   <string name="usernameUnacceptable">Ийм нэртэй хэрэглэгч үүсгэж болохгүй.</string>
-  <string name="directlySupportLichess">Личессд дэмжлэг үзүүлэх</string>
   <string name="playChessInStyle">Загварлаг тоглоцгооё</string>
   <string name="chessBasics">Суурь мэдлэг</string>
   <string name="coaches">Шатрын багш</string>
   <string name="invalidPgn">Буруу PGN</string>
   <string name="invalidFen">Буруу FEN</string>
-  <string name="error.minLength">Хамгийн багадаа %s урттай</string>
-  <string name="error.maxLength">Хамгийн ихдээ %s урттай</string>
-  <string name="error.min">%s-с их буюу тэнцүү байх ёстой</string>
-  <string name="error.max">%s-с бага буюу тэнцүү байх ёстой</string>
-  <string name="error.unknown">Алдаа</string>
   <string name="custom">Өөрийнхөөр</string>
   <string name="notifications">Мэдэгдэлүүд</string>
   <string name="perfRatingX">Чансаа:%s</string>

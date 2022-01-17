@@ -67,10 +67,7 @@ case class UserRecord(
     }
 }
 
-case class TempBan(
-    date: DateTime,
-    mins: Int
-) {
+case class TempBan(date: DateTime, mins: Int) {
 
   def endsAt = date plusMinutes mins
 

@@ -50,6 +50,11 @@
         text-align: center;
         font-size: 3.5em;
       }
+      &__casual {
+        @extend %roboto;
+        font-size: 0.9em;
+        margin-top: 1em;
+      }
     }
 
     .rp {
@@ -97,8 +102,9 @@
     align-self: start;
     background: $c-bg-box;
     padding: 2vmin;
+    overflow: hidden;
 
-    &__jump {
+    &__toggle {
       @extend %flex-center-nowrap;
 
       .switch {

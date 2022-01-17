@@ -11,6 +11,5 @@
   <string name="noTeamFound">எந்த அணியும் கிட்டவில்லை</string>
   <string name="joinTeam">அணியோடு சேர்</string>
   <string name="quitTeam">அணியை விட்டுவிலகு</string>
-  <string name="teamBestPlayers">அணியின் சிறந்த விளையாடிகள்</string>
   <string name="teamRecentMembers">அணியின் அண்மை உறுப்பினர்கள்</string>
 </resources>

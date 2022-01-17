@@ -7,6 +7,7 @@
     <item quantity="other">%s members</item>
   </plurals>
   <string name="allTeams">All teams</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Teams you lead</string>
   <string name="newTeam">New team</string>
   <string name="myTeams">My teams</string>
   <string name="noTeamFound">No team found</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>
   </plurals>
-  <string name="teamBestPlayers">Best players</string>
   <string name="teamRecentMembers">Recent members</string>
   <string name="kickSomeone">Kick someone out of the team</string>
   <string name="whoToKick">Who do you want to kick out of the team?</string>
@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Your join request will be reviewed by a team leader.</string>
   <string name="beingReviewed">Your join request is being reviewed by a team leader.</string>
+  <string name="requestDeclined">Your join request was declined by a team leader.</string>
   <string name="subToTeamMessages">Subscribe to team messages</string>
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
@@ -47,8 +48,9 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
   <string name="entryCode">Team entry code</string>
   <string name="entryCodeDescriptionForLeader">(Optional) An entry code that new members must know to join this team.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Incorrect entry code.</string>
+  <string name="incorrectEntryCode">Incorrect entry code.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTourns">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
+  <string name="declinedRequests">Declined Requests</string>
 </resources>

@@ -1,8 +1,8 @@
 @include breakpoint($mq-topnav-visible) {
-  .hamburger,
-  .topnav-mask,
+  .hbg,
+  .site-title-nav .fullscreen-mask,
   .topnav-toggle {
-    display: none;
+    display: none !important;
   }
 
   #topnav {

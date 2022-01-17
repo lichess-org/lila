@@ -226,7 +226,7 @@ final class SimulApi(
   def byTeamLeaders = repo.byTeamLeaders _
 
   def idToName(id: Simul.ID): Fu[Option[String]] =
-    repo find id dmap2 { _.fullName }
+    repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
 
   def teamOf(id: Simul.ID): Fu[Option[TeamID]] =
     repo.coll.primitiveOne[TeamID]($id(id), "team")

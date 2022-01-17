@@ -60,7 +60,6 @@ Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'
 
  Mira lo capitol d\'o %3$s sobre este movimiento pa practicar un poquet con ell.</string>
   <string name="goodIntroduction">buena introducción</string>
-  <string name="officialRulesPDF">reglas oficials (pdf)</string>
   <string name="lichessTraining">Entrenamiento en Lichess</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="threefoldRepetitionExplanation">Si una mesma posición ocurre tres vegadas, los chugadors pueden reclamar un empate per %1$s. Lichess implementa las reglas oficials d\'a FIDE, d\'alcuerdo con l\'Articlo 9.2 (d) d\'o %2$s.</string>

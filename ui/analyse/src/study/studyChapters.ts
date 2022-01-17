@@ -94,7 +94,7 @@ export function view(ctrl: StudyCtrl): VNode {
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
       const makeSortable = function () {
-        vData.sortable = window['Sortable'].create(el, {
+        vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort() {
@@ -102,7 +102,7 @@ export function view(ctrl: StudyCtrl): VNode {
           },
         });
       };
-      if (window['Sortable']) makeSortable();
+      if (window.Sortable) makeSortable();
       else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }

@@ -2,6 +2,7 @@
   "extends": "../tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
-    "types": ["lichess", "cash"]
+    "outDir": "./dist",
+    "types": ["lichess", "web", "cash"]
   }
 }

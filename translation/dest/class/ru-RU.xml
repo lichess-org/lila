@@ -46,6 +46,7 @@
   <string name="createDesc2">Email адрес не требуется. Будет сгенерирован пароль, который вы передадите ученику, чтобы он мог войти в систему.</string>
   <string name="createDesc3">Важно: ученик не должен иметь несколько учётных записей.</string>
   <string name="createDesc4">Если у них уже есть, используйте форму приглашения.</string>
+  <string name="createStudentWarning">Создавайте аккаунты только для реальных учеников. Не используйте эту возможность для создания аккаунтов в личных целях, иначе вы будете заблокированы.</string>
   <string name="lichessUsername">Имя пользователя в Lichess</string>
   <string name="generateANewUsername">Создать новое имя пользователя</string>
   <string name="welcomeToClass">Добро пожаловать в ваш класс: %s.
@@ -58,7 +59,6 @@
     <item quantity="many">%s приглашений, ожидающих рассмотрения</item>
     <item quantity="other">%s приглашений, ожидающих рассмотрения</item>
   </plurals>
-  <string name="noPendingInvitations">Нет приглашений, ожидающих ответа</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>

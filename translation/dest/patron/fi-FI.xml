@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Lahjoita</string>
+  <string name="donateAsX">Lahjoita käyttäjänä %s</string>
   <string name="lichessPatron">Lichessin tukija</string>
   <string name="freeAccount">Ilmainen tunnus</string>
   <string name="becomePatron">Ryhdy Lichessin tukijaksi</string>
@@ -43,7 +44,6 @@ Tai voit %s.</string>
   <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="bankTransfers">Hyväksymme myös pankkisiirtoja</string>
-  <string name="bitcoin">Ja tässä on bitcoin-osoitteemme: %s</string>
   <string name="patronFeatures">Onko joitakin toimintoja rajattu vain tukijoille?</string>
   <string name="noPatronFeatures">Ei, koska Lichess on täysin ilmainen, aina ja kaikille. Sen lupaamme. Tukijat pääsevät kuitenkin ylpeilemään uudella hienolla profiilikuvakkeellaan.</string>
   <string name="featuresComparison">Katso toimintojen yksityiskohtainen vertailu</string>

@@ -34,8 +34,7 @@ final private[video] class Youtube(
               entry.id,
               Metadata(
                 views = ~entry.statistics.viewCount.toIntOption,
-                likes = ~entry.statistics.likeCount.toIntOption -
-                  ~entry.statistics.dislikeCount.toIntOption,
+                likes = ~entry.statistics.likeCount.toIntOption,
                 description = entry.snippet.description,
                 duration = Some(entry.contentDetails.seconds),
                 publishedAt = entry.snippet.publishedAt.flatMap { at =>
@@ -97,8 +96,7 @@ object Youtube {
 
   private[video] case class Statistics(
       viewCount: String,
-      likeCount: String,
-      dislikeCount: String
+      likeCount: String
   )
 
   private val iso8601Formatter = org.joda.time.format.ISOPeriodFormat.standard()

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Deonaigh</string>
+  <string name="donateAsX">Deonaigh mar %s</string>
   <string name="lichessPatron">Pátrún Lichess</string>
   <string name="freeAccount">Cuntas saor in aisce</string>
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
@@ -46,7 +47,6 @@ Nó is féidir leat %s.</string>
   <string name="contactSupport">déan teagmháil le tacaíocht Lichess</string>
   <string name="otherMethods">Modhanna eile deonaithe?</string>
   <string name="bankTransfers">Glacaimid le haistrithe bainc freisin</string>
-  <string name="bitcoin">Agus seo ár seoladh bitcoin: %s</string>
   <string name="patronFeatures">An gcoinnítear roinnt gnéithe do Phátrúin?</string>
   <string name="noPatronFeatures">Ní ar chor ar bith, toisc go bhfuil Lichess saor in aisce, go deo, agus do gach duine. Is gealltanas é sin.
 Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fionnuar.</string>
@@ -81,5 +81,5 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nowLifetime">Is Pátrún Lichess ar feadh an tsaoil anois thú!</string>
   <string name="nowOneMonth">Is Pátrún Lichess ar feadh mí anois thú!</string>
   <string name="downgradeNextMonth">I gceann míosa, nÍ bheadh aon táille ort arís, agus fillfidh do chuntas Lichess ar gnáth chuntas.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Athraigh airgeadra</string>
+  <string name="changeCurrency">Athraigh airgeadra</string>
 </resources>

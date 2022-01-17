@@ -1,5 +1,5 @@
 export const requestIdleCallback = (f: () => void, timeout?: number) => {
-  if (window.requestIdleCallback) window.requestIdleCallback(f, timeout && { timeout });
+  if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
   else requestAnimationFrame(f);
 };
 

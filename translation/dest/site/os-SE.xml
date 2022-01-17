@@ -11,7 +11,6 @@
   <string name="level">Бæрц</string>
   <string name="strength">Тых</string>
   <string name="toggleTheChat">Равдисын ныхас</string>
-  <string name="toggleSound">Зæл скусын/ахуыссын кæнын</string>
   <string name="chat">Фыстæг арвитын</string>
   <string name="resign">Банымайын дæрæн</string>
   <string name="checkmate">Мат</string>
@@ -39,7 +38,6 @@
     <item quantity="other">Дæ ныхмæлæууæг ныууагъта хъазт. Дæ бон у расидын дæ уæлахиз %s секундæйы фæстæ.</item>
   </plurals>
   <string name="opponentLeftChoices">Дæ ныхмæлæууæг ныууагъта хъазт. Дæ бон у расидын дæ уæлахиз, æнхъæлмæ фæкæсын, кæнæ хæрæгсаст фæуын.</string>
-  <string name="makeYourOpponentResign">Банымайын ныхмæлæууæгæн йæ дæрæн</string>
   <string name="forceResignation">Расидын уæлахиз</string>
   <string name="forceDraw">Хæрæгсаст фæуын</string>
   <string name="talkInChat">Ныхасы уæздан у!</string>
@@ -48,9 +46,6 @@
   <string name="blackResigned">Саутæ банымадтой сæ дæрæн</string>
   <string name="whiteLeftTheGame">Урсытæ ныууагътой хъазт</string>
   <string name="blackLeftTheGame">Саутæ ныууагътой хъазт</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Æрбахон кæсæджыты ацы дæнцæгæйæ</string>
-  <string name="theComputerAnalysisHasFailed">Иртасæн нæ бантысти</string>
-  <string name="viewTheComputerAnalysis">Компьютерон иртасæн бакæсын</string>
   <string name="requestAComputerAnalysis">Компьютерон иртасæн скæнын</string>
   <string name="computerAnalysis">Компьютерон иртасæн</string>
   <string name="computerAnalysisAvailable">Компьютерон иртасæнæн гæнæн ис</string>
@@ -87,10 +82,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат %s æрдæгцыды фæстæ</item>
     <item quantity="other">Мат %s æрдæгцыды фæстæ</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
-    <item quantity="other">Иннæ райст кæнæ пешкæйы цыд %s æрдæгцыды фæстæ (Дæрддзæг хынцæджы снуль кæнынмæ у 50 цыдты)</item>
   </plurals>
   <string name="noGameFound">Нæ ссардтам партитæ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Чи зоны, хъæуы бафтауын фылдæр хъæзтыты настройкæты?</string>
@@ -131,7 +122,7 @@
   </plurals>
   <string name="moveTimes">Рæстæг цыдæн</string>
   <string name="flipBoard">Фæйнæг разилын</string>
-  <string name="threefoldRepetition">Æртæхатты позицийы фæлхатын</string>
+  <string name="threefoldRepetition">Æртывæр позицийы фæлхатын</string>
   <string name="claimADraw">Æрдомын хæрæгсаст</string>
   <string name="offerDraw">Бахъарын хæрæгсаст</string>
   <string name="draw">Хæрæгсаст</string>
@@ -212,7 +203,6 @@
   <string name="whiteTimeOut">Урсытæн рæстæг фæци</string>
   <string name="blackTimeOut">Саутæн рæстæг фæци</string>
   <string name="drawOfferSent">Хæрæгсаст фæуын æнхъарæн æрвыст у</string>
-  <string name="drawOfferDeclined">Хæрæгсаст фæуын æнхъарæн райст нæ уыди</string>
   <string name="drawOfferAccepted">Хæрæгсаст фæуын æнхъарæн райст уыди</string>
   <string name="drawOfferCanceled">Хæрæгсаст фæуын æнхъарæн аивд уыди</string>
   <string name="whiteOffersDraw">Урсытæ æнхъарынц хæрæхсаст фæуын</string>
@@ -238,8 +228,6 @@
   <string name="thisGameIsRated">Ацы хъазт рейтингимæ у</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Реваншы æнхъарæн æрвыст у</string>
-  <string name="rematchOfferSentWhite">Урсытæ æнхъарынц реванш</string>
-  <string name="rematchOfferSentBlack">Саутæ æнхъарынц реванш</string>
   <string name="rematchOfferAccepted">Реваншы æнхъарæн райст уыди</string>
   <string name="rematchOfferCanceled">Реваншы æнхъарæн аивд уыди</string>
   <string name="rematchOfferDeclined">Реваншы æнхъарæн райст нæ уыди</string>
@@ -253,9 +241,7 @@
   <string name="youHaveBeenTimedOut">Ныхас дын рæстæгмæ æнæбаххæсгæ у.</string>
   <string name="spectatorRoom">Кæсджыты уат</string>
   <string name="composeMessage">Фыстæг ныффыссын</string>
-  <string name="noNewMessages">Ног уацтыты нæй</string>
   <string name="subject">Сæр</string>
-  <string name="recipient">Исæг</string>
   <string name="send">Арвитын</string>
   <string name="incrementInSeconds">Цыдæн секундæты бафтауæккаг</string>
   <string name="freeOnlineChess">Æнæфидгæ шахмæттæ онлайн</string>
@@ -368,8 +354,6 @@
     <item quantity="one">%s æмбал онлайн</item>
     <item quantity="other">%s æмбалы онлайн</item>
   </plurals>
-  <string name="noFriendsOnline">Нæй æмбæлтты онлайн</string>
-  <string name="findFriends">Ссарын æмбæлтты</string>
   <string name="favoriteOpponents">Равзаргæ ныхмæлæууæджытæ</string>
   <string name="follow">Хъус дарын</string>
   <string name="following">Хъус дарыс</string>
@@ -418,7 +402,6 @@
   <string name="points">Очкотæ</string>
   <string name="wins">Уæлахизтæ</string>
   <string name="losses">Дæрæнтæ</string>
-  <string name="winStreak">Уæлахизты къорд</string>
   <string name="createdBy">Сфæлдисæг</string>
   <string name="tournamentIsStarting">Турнир райдайы</string>
   <string name="tournamentPairingsAreNowClosed">Турниры халæппæрст фæци.</string>
@@ -434,13 +417,11 @@
   <string name="draws">Хæрæгсастыты</string>
   <string name="nextXTournament">Иннæ %s турнир:</string>
   <string name="averageOpponent">Ныхмæлæууæджыты астæуккаг рейтинг</string>
-  <string name="membersOnly">Æрмæст регистраци кæмæн и</string>
   <string name="boardEditor">Фæйнæджы редактор</string>
   <string name="setTheBoard">Æрæвæрын позици</string>
   <string name="popularOpenings">Адæмы уарзон райдайæнтæ</string>
   <string name="startPosition">Райдайæн позици</string>
   <string name="clearBoard">Фæйнæг асыгъдæг кæнын</string>
-  <string name="savePosition">Позици бафснайын</string>
   <string name="loadPosition">Позици бавгæнын</string>
   <string name="isPrivate">Æхгæд</string>
   <string name="reportXToModerators">Фехъусын кæнын %s-ы тыххæй модератортæн</string>
@@ -456,10 +437,8 @@
   <string name="thankYou">Бузныг!</string>
   <string name="socialMediaLinks">Социалон хызтæм дæнцæгтæ</string>
   <string name="inlineNotation">Рæнхъон нотаци</string>
-  <string name="watchLichessTV">Lichess TV кæсын</string>
   <string name="previouslyOnLichessTV">Раздæр Lichess TV-йы</string>
   <string name="onlinePlayers">Онлайн хъазджытæ</string>
-  <string name="activeToday">Разæнгард абон</string>
   <string name="activePlayers">Разæнгард хъазджытæ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Хъус бадар, ацы хъазт у рейтингимæ, фæлæ нæй йын рæстæджы цæстдарды!</string>
   <string name="success">Рауади</string>
@@ -470,7 +449,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Цыды фæстæ хæдархайгæ ивын иннæ хъазтмæ</string>
   <string name="autoSwitch">Хæдархайгæ ивд</string>
   <string name="puzzles">Этюдтæ</string>
-  <string name="latestUpdates">Фæстаг сногтæ</string>
   <string name="tournamentWinners">Турнирты уæлахиздзаутæ</string>
   <string name="name">Ном</string>
   <string name="description">Радзырд</string>
@@ -502,9 +480,7 @@
   <string name="error.provideOneCheatedGameLink">Табуафси, бафтау æммыст иу дæнцæг ахæм хъазтмæ, кæм, дæм кæсы, уыдысты уагты халынтæ.</string>
   <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Ацы тæрхон æхгæд у.</string>
-  <string name="theming">Темæйы ивындзинад</string>
   <string name="blog">Блог</string>
-  <string name="questionsAndAnswers">Фарстатæ æмæ дзуаппытæ</string>
   <string name="notes">Фæнысантæ</string>
   <string name="typePrivateNotesHere">Уадз ам дæ сæрмагонд фæнысантæ</string>
   <string name="invalidUsernameOrPassword">Мæнг пайдакæнæджы ном кæнæ парол</string>
@@ -533,13 +509,7 @@
   <string name="onSlowGames">Сындæг хъæзтыты</string>
   <string name="always">Æдзух</string>
   <string name="never">Никуы</string>
-  <string name="difficultyEasy">Æнцон</string>
-  <string name="difficultyNormal">Æхсæйнаг</string>
-  <string name="difficultyHard">Вазыгджын</string>
   <string name="xCompetesInY">%1$s сфæнд кодта %2$s-ы хайад исын</string>
-  <string name="xAskedY">%1$s бафæрста %2$s-ы</string>
-  <string name="xAnsweredY">%1$s дзуапп ратта %2$s-æн</string>
-  <string name="xCommentedY">%1$s комментари ратта %2$s-æн</string>
   <string name="victory">Уæлахиз</string>
   <string name="defeat">Дæрæн</string>
   <string name="victoryVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
@@ -547,12 +517,10 @@
   <string name="drawVsYInZ">%1$s %2$s-йы ныхмæ %3$s-ы</string>
   <string name="timeline">Хронологи</string>
   <string name="starting">Райдайы:</string>
-  <string name="yourCityRegionOrDepartment">Дæ горæт, регион кæнæ зылд.</string>
   <string name="human">Адæймаг</string>
   <string name="computer">Компьютер</string>
   <string name="side">Фарс</string>
   <string name="clock">Сахат</string>
-  <string name="playOfflineComputer">Компьютеримæ</string>
   <string name="opponent">Ныхмæлæууæг</string>
   <string name="learnMenu">Ахуыр</string>
   <string name="studyMenu">Студитæ</string>
@@ -560,15 +528,7 @@
   <string name="community">Æмбалад</string>
   <string name="tools">Инструментытæ</string>
   <string name="increment">Уæлæмхасæн</string>
-  <string name="sharePGN">PGN фæхай кæнын</string>
-  <string name="playOnline">Хъазын онлайн</string>
-  <string name="playOffline">Хъазын оффлайн</string>
-  <string name="allowAnalytics">Анонимон статистикæйы æмбырдæн бар раттын</string>
-  <string name="shareGameURL">Фæхай кæнын хъазтмæ дæнцæг</string>
   <string name="error.required">Уый у æнæмæнг рæнхъ</string>
-  <string name="error.email">Ацы посты адрис мæнг у</string>
-  <string name="error.email_unique">Ацы посты адрис ахст у</string>
-  <string name="error.email_different">Уый афтæмæй дæр дæ посты адрис у</string>
   <string name="ifRatingIsPlusMinusX">Кæд сæ рейтинг у ± %s</string>
   <string name="onlyExistingConversations">Æрмæст дæууон ныхæстæ</string>
   <string name="onlyFriends">Æрмæст æмбалттæ</string>

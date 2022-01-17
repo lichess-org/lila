@@ -61,4 +61,9 @@ object captcha {
         )
       }
     )
+
+  def hiddenEmpty(form: lila.common.Form.FormLike) = frag(
+    form3.hidden(form("gameId")),
+    form3.hidden(form("move"))
+  )
 }

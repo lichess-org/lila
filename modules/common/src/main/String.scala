@@ -24,53 +24,85 @@ object String {
     slug.toLowerCase
   }
 
-  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
 
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
 
   def distinctGarbageChars(str: String): Set[Char] =
     str
       .chars()
-      .filter(isGarbageChar)
+      .filter(isGarbageChar _)
       .boxed()
       .iterator()
       .asScala
       .map((i: Integer) => i.toChar)
       .toSet
 
-  def isGarbageChar(c: Int) =
+  private def removeChars(str: String, isRemoveable: Int => Boolean): String =
+    str
+      .chars()
+      .filter(c => !isRemoveable(c))
+      .boxed()
+      .iterator()
+      .asScala
+      .map((i: Integer) => i.toChar)
+      .mkString
+
+  private def isGarbageChar(c: Int) =
+    isInvisibleChar(c) ||
+      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+      // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
+      // and chess symbols https://www.compart.com/en/unicode/block/U+2600
+      (c >= '\u2100' && c <= '\u21FF') ||
+      (c >= '\u2300' && c <= '\u2653') ||
+      (c >= '\u2660' && c <= '\u2C5F') ||
+      // decorative chars ꧁ ꧂ and svastikas
+      (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
+      // pretty quranic chars ۩۞
+      (c >= '\u06d6' && c <= '\u06ff') ||
+      // phonetic extensions https://www.compart.com/en/unicode/block/U+1D00
+      (c >= '\u1d00' && c <= '\u1d7f') ||
+      // IPA extensions https://www.compart.com/en/unicode/block/U+0250
+      (c >= '\u0250' && c <= '\u02af')
+
+  private def isInvisibleChar(c: Int) =
     // invisible chars https://www.compart.com/en/unicode/block/U+2000
     (c >= '\u2000' && c <= '\u200F') ||
       // weird stuff https://www.compart.com/en/unicode/block/U+2000
       (c >= '\u2028' && c <= '\u202F') ||
-      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
-      // but keep maths operators cause maths are cool https://www.compart.com/en/unicode/block/U+2200
-      (c >= '\u2100' && c <= '\u21FF') ||
-      (c >= '\u2300' && c <= '\u2C5F') ||
-      // decorative chars ꧁ ꧂ and svastikas
-      (c == '\ua9c1' || c == '\ua9c2' || c == '\u534d' || c == '\u5350') ||
-      // pretty quranic chars ஜ۩۞۩ஜ
-      (c >= '\u06d6' && c <= '\u06ff')
+      // Hangul fillers
+      (c == '\u115f' || c == '\u1160')
 
   object normalize {
 
-    private val ordinalRegex = "[ºª]".r
+    private val ordinalRegex = "[º°ª]".r
 
     // convert weird chars into letters when possible
-    // but preserve °
+    // but preserve ordinals
     def apply(str: String): String = Normalizer
       .normalize(
         ordinalRegex.replaceAllIn(
           str,
           _.group(0)(0) match {
-            case 'º' => "°"
-            case 'ª' => '\u0001'.toString
+            case 'º' | '°' => "\u0001".toString
+            case 'ª'       => '\u0002'.toString
           }
         ),
         Normalizer.Form.NFKC
       )
-      .replace('\u0001', 'ª')
+      .replace('\u0001', 'º')
+      .replace('\u0002', 'ª')
   }
+
+  // https://www.compart.com/en/unicode/block/U+1F300
+  private val multibyteSymbolsRegex               = "\\p{So}+".r
+  def removeMultibyteSymbols(str: String): String = multibyteSymbolsRegex.replaceAllIn(str, "")
+
+  // for publicly listed text like team names, study names, forum topics...
+  def fullCleanUp(str: String) = removeMultibyteSymbols(removeChars(normalize(str.trim), isGarbageChar))
+
+  // for inner text like study move annotations, possibly forum posts and team descriptions
+  def softCleanUp(str: String) = removeChars(normalize(str.trim), isInvisibleChar)
 
   def decodeUriPath(input: String): Option[String] = {
     try {

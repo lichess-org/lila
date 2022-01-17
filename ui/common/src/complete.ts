@@ -19,12 +19,7 @@ export default function <Result>(opts: Opts<Result>) {
       if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)!), 50));
       else if (
         term.length > 3 &&
-        Array.from(
-          {
-            length: term.length - 3,
-          },
-          (_, i) => -i - 1
-        )
+        Array.from({ length: term.length - 3 }, (_, i) => -i - 1)
           .map(i => term.slice(0, i))
           .some(sub => cache.has(sub) && !cache.get(sub)!.length)
       )

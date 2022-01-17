@@ -44,7 +44,10 @@ object post {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
         (!post.erased || canModCateg) option div(
-          authorLink(post = post, cssClass = "author".some),
+          authorLink(
+            post = post,
+            cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some
+          ),
           a(href := url)(
             post.updatedAt
               .map { updatedAt =>
@@ -59,34 +62,36 @@ object post {
           ),
           (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
             button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
-          if (!post.erased && ctx.me.exists(post.canBeEditedBy))
-            postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
-              submitButton(
-                cls := "mod delete button button-empty confirm",
+          ctx.me flatMap { me =>
+            if (!post.erased && post.canBeEditedBy(me))
+              postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
+                submitButton(
+                  cls := "mod delete button button-empty confirm",
+                  dataIcon := "",
+                  title := "Delete"
+                )
+              ).some
+            else if (canModCateg)
+              a(
+                cls := "mod delete button button-empty",
+                href := routes.ForumPost.delete(categ.slug, post.id),
                 dataIcon := "",
                 title := "Delete"
-              )
-            )
-          else if (canModCateg)
-            a(
-              cls := "mod delete button button-empty",
-              href := routes.ForumPost.delete(categ.slug, post.id),
-              dataIcon := "",
-              title := "Delete"
-            )
-          else
-            post.userId map { userId =>
-              val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
-              frag(
-                nbsp,
-                a(
-                  titleOrText(trans.reportXToModerators.txt(userId)),
-                  cls := "mod report button button-empty",
-                  href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
-                  dataIcon := ""
+              ).some
+            else
+              post.userId map { userId =>
+                val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
+                frag(
+                  nbsp,
+                  a(
+                    titleOrText(trans.reportXToModerators.txt(userId)),
+                    cls := "mod report button button-empty",
+                    href := s"${routes.Report.form}?username=${userId}&postUrl=${urlencode(postUrl)}&reason=comm",
+                    dataIcon := ""
+                  )
                 )
-              )
-            },
+              }
+          },
           (canReply && !post.erased) option button(
             cls := "mod quote button button-empty text",
             tpe := "button",

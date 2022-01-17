@@ -37,7 +37,7 @@ function analysisButton(ctrl: RoundController): VNode | null {
 function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
-    disabled = !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
+    disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
     them = !!d.opponent.offeringRematch && !disabled,
     noarg = ctrl.noarg;
   return [
@@ -338,7 +338,7 @@ export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
       !d.game.rematch &&
-      (status.finished(d) || (status.aborted(d) && !(d.game.rated && ['lobby', 'pool'].includes(d.game.source)))) &&
+      (status.finished(d) || (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
       !d.tournament &&
       !d.simul &&
       !d.swiss &&

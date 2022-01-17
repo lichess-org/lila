@@ -62,6 +62,11 @@
     <item quantity="one">Rangita #%1$s (supro %2$s%%) kun %3$s ludo en %4$s</item>
     <item quantity="other">Rangita #%1$s (supro %2$s%%) kun %3$s ludoj en %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Konkuris en %s svisa turniro</item>
+    <item quantity="other">Konkuris en %s svisaj turniroj</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Rangita #%1$s en %2$s</string>
   <string name="signedUp">Subskribis al lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Aliĝis %s teamo</item>

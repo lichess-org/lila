@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Je bent nu een toeschouwer</string>
   <string name="pgnTags">PGN labels</string>
   <string name="like">Vind ik leuk</string>
+  <string name="unlike">Vind ik niet meer leuk</string>
   <string name="newTag">Nieuw label</string>
   <string name="commentThisPosition">Reageer op deze positie</string>
   <string name="commentThisMove">Reageer op deze zet</string>
@@ -155,4 +156,12 @@
   <string name="nextChapter">Volgende hoofdstuk</string>
   <string name="prevChapter">Vorige hoofdstuk</string>
   <string name="studyActions">Studie sneltoetsen</string>
+  <string name="topics">Onderwerpen</string>
+  <string name="myTopics">Mijn onderwerpen</string>
+  <string name="popularTopics">Populaire onderwerpen</string>
+  <string name="manageTopics">Onderwerpen beheren</string>
+  <string name="back">Terug</string>
+  <string name="playAgain">Opnieuw spelen</string>
+  <string name="whatWouldYouPlay">Wat zou je in deze stelling spelen?</string>
+  <string name="youCompletedThisLesson">Gefeliciteerd! Je hebt deze les voltooid.</string>
 </resources>

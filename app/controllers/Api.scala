@@ -10,6 +10,7 @@ import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.LightUser
 
 final class Api(
     env: Env,
@@ -44,8 +45,11 @@ final class Api(
 
   def user(name: String) =
     CookieBasedApiRequest { ctx =>
-      userApi.extended(name, ctx.me) map toApiResult
+      userApi.extended(name, ctx.me, userWithFollows(ctx.req)) map toApiResult
     }
+
+  private[controllers] def userWithFollows(req: RequestHeader) =
+    HTTPRequest.apiVersion(req).exists(_ < 6) && !getBool("noFollows", req)
 
   private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
     key = "users.api.ip",
@@ -62,26 +66,29 @@ final class Api(
       val cost      = usernames.size / 4
       UsersRateLimitPerIP(ip, cost = cost) {
         lila.mon.api.users.increment(cost.toLong)
-        env.user.repo enabledNameds usernames map {
-          _.map { env.user.jsonView(_, none) }
+        env.user.repo named usernames map {
+          _.map { env.user.jsonView.full(_, none, withOnline = false, withRating = true) }
         } map toApiResult map toHttp
       }(rateLimitedFu)
     }
 
   def usersStatus =
     ApiRequest { req =>
-      val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
-      env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
+      val ids = get("ids", req).??(_.split(',').take(100).toList map lila.user.User.normalize)
+      env.user.lightUserApi asyncMany ids dmap (_.flatten) flatMap { users =>
         val streamingIds = env.streamer.liveStreamApi.userIds
-        toApiResult {
-          users.map { u =>
-            lila.common.LightUser.lightUserWrites
-              .writes(u)
-              .add("online" -> env.socket.isOnline(u.id))
-              .add("playing" -> env.round.playing(u.id))
-              .add("streaming" -> streamingIds(u.id))
+        def toJson(u: LightUser) =
+          lila.common.LightUser.lightUserWrites
+            .writes(u)
+            .add("online" -> env.socket.isOnline(u.id))
+            .add("playing" -> env.round.playing(u.id))
+            .add("streaming" -> streamingIds(u.id))
+        if (getBool("withGameIds", req)) users.map { u =>
+          (env.round.playing(u.id) ?? env.game.cached.lastPlayedPlayingId(u.id)) map { gameId =>
+            toJson(u).add("playingId", gameId)
           }
-        }
+        }.sequenceFu map toApiResult
+        else fuccess(toApiResult(users map toJson))
       }
     }
 
@@ -173,7 +180,7 @@ final class Api(
       CrosstableRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         import lila.user.User.normalize
         val (u1, u2) = (normalize(name1), normalize(name2))
-        env.game.crosstableApi.fetchOrEmpty(u1, u2) flatMap { ct =>
+        env.game.crosstableApi(u1, u2) flatMap { ct =>
           (ct.results.nonEmpty && getBool("matchup", req)).?? {
             env.game.crosstableApi.getMatchup(u1, u2)
           } map { matchup =>
@@ -205,7 +212,8 @@ final class Api(
             getTeamName = env.team.getTeamName.apply,
             playerInfoExt = none,
             socketVersion = none,
-            partial = false
+            partial = false,
+            withScores = true
           )(reqLang) map some
         }
       } map toApiResult
@@ -215,6 +223,7 @@ final class Api(
     Action.async { req =>
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
+          val onlyUserId = get("player", req) map lila.user.User.normalize
           val config = GameApiV2.ByTournamentConfig(
             tournamentId = tour.id,
             format = GameApiV2.Format byRequest req,
@@ -222,7 +231,7 @@ final class Api(
             perSecond = MaxPerSecond(20)
           )
           GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-            env.api.gameApiV2.exportByTournament(config)
+            env.api.gameApiV2.exportByTournament(config, onlyUserId)
           ) { source =>
             val filename = env.api.gameApiV2.filename(tour, config.format)
             Ok.chunked(source)
@@ -266,15 +275,15 @@ final class Api(
       }
     }
 
-  def tournamentsByOwner(name: String) =
+  def tournamentsByOwner(name: String, status: List[Int]) =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      (name != "lichess") ?? env.user.repo.named(name) flatMap {
+      (name != lila.user.User.lichessId) ?? env.user.repo.named(name) flatMap {
         _ ?? { user =>
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
             env.tournament.api
-              .byOwnerStream(user, MaxPerSecond(20), nb)
+              .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
               .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           }.fuccess
         }
@@ -321,10 +330,17 @@ final class Api(
   }
 
   def gamesByUsersStream =
-    AnonOrScopedBody(parse.tolerantText)()(
-      anon = gamesByUsers(300),
-      scoped = req => u => gamesByUsers(if (u.id == "lichess4545") 900 else 500)(req)
-    )
+    AnonOrScopedBody(parse.tolerantText)() { req => me =>
+      val max = me.fold(300) { u => if (u.id == "lichess4545") 900 else 500 }
+      GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+        addKeepAlive(
+          env.game.gamesByUsersStream(
+            userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet,
+            withCurrentGames = getBool("withCurrentGames", req)
+          )
+        )
+      )(sourceToNdJsonOption).fuccess
+    }
 
   def cloudEval =
     Action.async { req =>
@@ -338,13 +354,6 @@ final class Api(
         )
       }
     }
-
-  private def gamesByUsers(max: Int)(req: Request[String]) =
-    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-      addKeepAlive(
-        env.game.gamesByUsersStream(req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet)
-      )
-    )(sourceToNdJsonOption).fuccess
 
   def eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>

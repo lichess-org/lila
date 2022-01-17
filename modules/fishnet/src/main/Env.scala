@@ -2,9 +2,11 @@ package lila.fishnet
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import io.lettuce.core._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
 import lila.common.config._
@@ -32,6 +34,8 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
+    settingStore: lila.memo.SettingStore.Builder,
+    ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit
@@ -73,6 +77,14 @@ final class Env(
     Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
+
+  lazy val openingBookDepth = settingStore[Int](
+    "fishnetOpeningBookDepth",
+    default = 0,
+    text = "Fishnet: use opening explorer until ply".some
+  ).taggedWith[FishnetOpeningBook.Depth]
+
+  private lazy val openingBook: FishnetOpeningBook = wire[FishnetOpeningBook]
 
   lazy val player = {
     def mk = (plies: Int) => wire[FishnetPlayer]

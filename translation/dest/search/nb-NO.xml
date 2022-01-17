@@ -26,8 +26,14 @@
   <string name="onlyAnalysed">Bare partier hvor maskinanalyse er tilgjengelig</string>
   <string name="color">Farge</string>
   <string name="evaluation">Evaluering</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Maksimalt antall</string>
+  <string name="maxNumber">Maksimalt antall</string>
   <string name="maxNumberExplanation">Det maksimale antallet partier i retur</string>
   <string name="include">Inkluder</string>
-  <string name="generateURL">Generer URL</string>
+  <string name="descending">Synkende</string>
+  <string name="ascending">Stigende</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s parti funnet</item>
+    <item quantity="other">%s partier funnet</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">Gjennomsnittet av begge spillernes rating</string>
 </resources>

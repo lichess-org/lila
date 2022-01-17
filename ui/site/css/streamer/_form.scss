@@ -4,7 +4,6 @@ $mq-picture: $mq-large;
 
 .streamer-edit {
   .streamer-header {
-    margin-bottom: 2em;
     flex-direction: column;
 
     @include breakpoint($mq-picture) {

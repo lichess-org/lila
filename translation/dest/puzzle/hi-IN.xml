@@ -13,9 +13,9 @@
   <string name="specialMoves">विशेष चाल</string>
   <string name="didYouLikeThisPuzzle">क्या आपको यह पहेली पसंद आई?</string>
   <string name="voteToLoadNextOne">अगले एक को लोड करने के लिए वोट दें!</string>
-  <string name="yourPuzzleRatingX">आपकी पहेली की रेटिंग:%s</string>
-  <string name="findTheBestMoveForWhite">सफेद रंग के लिए सबसे अच्छी चाल का पता लगाएं।</string>
-  <string name="findTheBestMoveForBlack">काले रंग के लिए सबसे अच्छी चाल का पता लगाएं।</string>
+  <string name="yourPuzzleRatingWillNotChange">आपकी पज़ल रेटिङ नही बदलेगी।पज़ल एक स्पर्धा नही है रेटिङ आपके अनुकुल पज़ल चुनने मे मदद करती है।</string>
+  <string name="findTheBestMoveForWhite">सफेद रंग के लिए सर्वश्रेष्ठ चाल का पता लगाएं।</string>
+  <string name="findTheBestMoveForBlack">काले रंग के लिए सर्वश्रेष्ठ चाल का पता लगाएं।</string>
   <string name="toGetPersonalizedPuzzles">वैयक्तिकृत पहेलियाँ प्राप्त करने के लिए:</string>
   <string name="puzzleId">पहेलियाँ %s</string>
   <string name="puzzleOfTheDay">आज की पहेली</string>
@@ -63,4 +63,7 @@
   <string name="streakSkipExplanation">अपने कॉम्बो को संरक्षित करने के लिए इस कदम को छोड़ दें। सम्पूर्ण पारी मे केवल एक बार काम करता है ।</string>
   <string name="continueTheStreak">श्रंखला बनाए रखें ।</string>
   <string name="newStreak">नई श्रंखला</string>
+  <string name="fromMyGames">मेरे खेलों से</string>
+  <string name="fromXGames">%s के खेलो की पज़ल​|</string>
+  <string name="searchPuzzles">पज़ल खोजे</string>
 </resources>

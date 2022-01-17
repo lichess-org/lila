@@ -48,4 +48,6 @@
   <string name="skip">lewati</string>
   <string name="skipHelp">Anda dapat melewati satu gerakan per pertandingan:</string>
   <string name="skipExplanation">Lewati gerakan ini untuk mempertahankan kombo Anda! Hanya bekerja sekali per pertandingan.</string>
+  <string name="failedPuzzles">Teka-teki yang gagal</string>
+  <string name="slowPuzzles">Teka-teki yang memakan waktu</string>
 </resources>

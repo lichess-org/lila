@@ -54,4 +54,12 @@
   <string name="skip">pomiń</string>
   <string name="skipHelp">W każdym wyścigu możesz pominąć jeden ruch:</string>
   <string name="skipExplanation">Pomiń ten ruch aby zachować serię! Działa tylko raz na wyścig.</string>
+  <string name="failedPuzzles">Zadania nieudane</string>
+  <string name="slowPuzzles">Zadania bez limitu czasu</string>
+  <string name="thisWeek">W tym tygodniu</string>
+  <string name="thisMonth">W tym miesiącu</string>
+  <string name="allTime">Od początku</string>
+  <string name="clickToReload">Kliknij, aby przeładować</string>
+  <string name="thisRunHasExpired">To uruchomienie wygasło!</string>
+  <string name="thisRunWasOpenedInAnotherTab">To uruchomienie zostało już otwarte w innej karcie!</string>
 </resources>

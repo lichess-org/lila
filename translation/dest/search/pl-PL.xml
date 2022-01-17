@@ -33,5 +33,13 @@
   <string name="maxNumber">Maksymalna liczba</string>
   <string name="maxNumberExplanation">Maksymalna liczba partii do zwrócenia</string>
   <string name="include">Dołącz</string>
-  <string name="generateURL">Generuj adres URL</string>
+  <string name="descending">Malejąco</string>
+  <string name="ascending">Rosnąco</string>
+  <plurals name="gamesFound">
+    <item quantity="one">znaleziono %s partię</item>
+    <item quantity="few">znaleziono %s partie</item>
+    <item quantity="many">znaleziono %s partii</item>
+    <item quantity="other">znaleziono %s partii</item>
+  </plurals>
+  <string name="ratingExplanation">Średni ranking obu graczy</string>
 </resources>

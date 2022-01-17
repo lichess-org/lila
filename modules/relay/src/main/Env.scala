@@ -14,6 +14,7 @@ final class Env(
     multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
+    studyPgnDump: lila.study.PgnDump,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.round.GameProxyRepo,
@@ -42,6 +43,8 @@ final class Env(
   lazy val push = wire[RelayPush]
 
   lazy val markup = wire[RelayMarkup]
+
+  lazy val pgnStream = wire[RelayPgnStream]
 
   private lazy val sync = wire[RelaySync]
 

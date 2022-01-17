@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du er nå tilskuer</string>
   <string name="pgnTags">PGN-merkelapper</string>
   <string name="like">Lik</string>
+  <string name="unlike">Slutt å like</string>
   <string name="newTag">Ny merkelapp</string>
   <string name="commentThisPosition">Kommenter denne stillingen</string>
   <string name="commentThisMove">Kommenter dette trekket</string>
@@ -155,4 +156,12 @@
   <string name="nextChapter">Neste kapittel</string>
   <string name="prevChapter">Forrige kapittel</string>
   <string name="studyActions">Studiehandlinger</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Emner</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Mine emner</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Populære emner</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Administrer emner</string>
+  <string name="back">Tilbake</string>
+  <string name="playAgain">Spill igjen</string>
+  <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
+  <string name="youCompletedThisLesson">Gratulerer! Du har fullført denne leksjonen.</string>
 </resources>

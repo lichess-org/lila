@@ -24,4 +24,5 @@
   <string name="broadcastUrl">URL d\'emissió</string>
   <string name="currentRoundUrl">URL actual de ronda</string>
   <string name="currentGameUrl">URL actual de joc</string>
+  <string name="downloadAllRounds">Baixa totes les rondes</string>
 </resources>

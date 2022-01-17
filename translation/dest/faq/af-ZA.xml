@@ -60,7 +60,6 @@ Dit word in afdeling 3.7 (d) van die %2$s beskryf:
 
 Kyk na die %3$s vir hierdie oefening vir oefening.</string>
   <string name="goodIntroduction">goeie inleiding</string>
-  <string name="officialRulesPDF">amptelike reëls (PDF)</string>
   <string name="lichessTraining">Lichess-opleiding</string>
   <string name="threefoldRepetition">Driedubbele herhaling</string>
   <string name="threefoldRepetitionExplanation">As \'n posisie drie keer voorkom, kan spelers \'n loting met %1$s eis. Lichess implementeer die amptelike FIDE-reëls, soos beskryf in artikel 9.2 (d) van die %2$s.</string>

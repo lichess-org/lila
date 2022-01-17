@@ -7,6 +7,7 @@
     <item quantity="other">%s tagok</item>
   </plurals>
   <string name="allTeams">Összes csapat</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Csapatok amiket te vezetsz</string>
   <string name="newTeam">Új csapat</string>
   <string name="myTeams">Csapataim</string>
   <string name="noTeamFound">Nem található ilyen csapat</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Csapatvezető</item>
     <item quantity="other">Csapatvezetők</item>
   </plurals>
-  <string name="teamBestPlayers">Legjobb játékosok</string>
   <string name="teamRecentMembers">Új tagok</string>
   <string name="kickSomeone">Valamelyik csapattag kizárása</string>
   <string name="whoToKick">Kit akarsz kizárni a csapatból?</string>
@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">A csatlakozási kérelmet a csapatvezető fogja elbírálni.</string>
   <string name="beingReviewed">A csatlakozási kérelem elbírálás alatt van a csapatvezetőnél.</string>
+  <string name="requestDeclined">A csatlakozási kérelmedet a csapatvezető visszautasította.</string>
   <string name="subToTeamMessages">Feliratkozás a csapat üzeneteire</string>
   <string name="teamBattle">Csapatverseny</string>
   <string name="teamBattleOverview">Csapatok közötti verseny, minden játékos a saját csapatának szerez pontokat</string>
@@ -51,4 +52,5 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
   <string name="upcomingTourns">Közelgő versenyek</string>
   <string name="completedTourns">Véget ért versenyek</string>
+  <string name="declinedRequests">Visszautasított kérelmek</string>
 </resources>

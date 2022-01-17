@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Data em que foi adicionado (mais antigo)</string>
   <string name="recentlyUpdated">Atualizado recentemente</string>
   <string name="mostPopular">Mais popular</string>
+  <string name="alphabetical">Ordem alfabética</string>
   <string name="addNewChapter">Adicionar um novo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capítulo</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">Agora és um espectador</string>
   <string name="pgnTags">Etiquetas PGN</string>
   <string name="like">Gostar</string>
+  <string name="unlike">Remover gosto</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar esta posição</string>
   <string name="commentThisMove">Comentar este lance</string>
@@ -127,7 +129,9 @@
   <string name="deleteStudy">Eliminar estudo</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Eliminar todo o estudo? Não há volta atrás! Digite o nome do estudo para confirmar: %s</string>
   <string name="whereDoYouWantToStudyThat">Onde queres estudar isso?</string>
+  <string name="goodMove">Boa jogada</string>
   <string name="mistake">Erro</string>
+  <string name="brilliantMove">Jogada brilhante</string>
   <string name="blunder">Erro grave</string>
   <string name="interestingMove">Lance interessante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lance duvidoso</string>
@@ -152,4 +156,12 @@
   <string name="nextChapter">Próximo capítulo</string>
   <string name="prevChapter">Capítulo anterior</string>
   <string name="studyActions">Opções de estudo</string>
+  <string name="topics">Tópicos</string>
+  <string name="myTopics">Os meus tópicos</string>
+  <string name="popularTopics">Tópicos populares</string>
+  <string name="manageTopics">Gerir tópicos</string>
+  <string name="back">Voltar</string>
+  <string name="playAgain">Jogar novamente</string>
+  <string name="whatWouldYouPlay">O que jogaria nessa situação?</string>
+  <string name="youCompletedThisLesson">Parabéns! Completou esta lição.</string>
 </resources>

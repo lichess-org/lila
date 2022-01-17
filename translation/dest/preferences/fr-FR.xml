@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
+  <string name="showPlayerRatings">Afficher les classements du joueur</string>
+  <string name="explainShowPlayerRatings">Cela permet de masquer tous les classements sur le site pour se concentrer sur les échecs. Les parties peuvent toujours être classées.</string>
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
@@ -30,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Annulations de coups (avec accord de l\'adversaire)</string>
   <string name="inCasualGamesOnly">Durant les parties amicales seulement</string>
   <string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
+  <string name="explainPromoteToQueenAutomatically">Maintenez la touche &lt;ctrl&gt; enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion</string>
   <string name="whenPremoving">Lors d\'un pré-coup</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>

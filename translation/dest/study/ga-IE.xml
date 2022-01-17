@@ -50,6 +50,7 @@
   <string name="youAreNowASpectator">Is lucht féachana anois tú</string>
   <string name="pgnTags">Clibeanna PGN</string>
   <string name="like">Is maith liom</string>
+  <string name="unlike">Díthogh</string>
   <string name="newTag">Clib nua</string>
   <string name="commentThisPosition">Déan trácht ar an suíomh seo</string>
   <string name="commentThisMove">Déan trácht ar an mbeart seo</string>
@@ -138,6 +139,7 @@
   <string name="clearChat">Glan comhrá</string>
   <string name="deleteTheStudyChatHistory">Scrios an stair comhrá staidéir? Níl aon dul ar ais!</string>
   <string name="deleteStudy">Scrios an staidéar</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Scrios an staidéar iomlán? Níl aon dul ar ais! Clóscríobh ainm an staidéar le deimhniú: %s</string>
   <string name="whereDoYouWantToStudyThat">Cá háit ar mhaith leat staidéar a dhéanamh air sin?</string>
   <string name="goodMove">Beart maith</string>
   <string name="mistake">Botún</string>
@@ -166,4 +168,12 @@
   <string name="nextChapter">Céad chaibidil eile</string>
   <string name="prevChapter">Caibidil roimhe seo</string>
   <string name="studyActions">Déan staidéar ar ghníomhartha</string>
+  <string name="topics">Topaicí</string>
+  <string name="myTopics">Mo thopaicí</string>
+  <string name="popularTopics">Topaicí choitianta</string>
+  <string name="manageTopics">Bainistigh topaicí</string>
+  <string name="back">Siar</string>
+  <string name="playAgain">Imir arís</string>
+  <string name="whatWouldYouPlay">Cad a dhéanfá sa suíomh seo?</string>
+  <string name="youCompletedThisLesson">Comhghairdeas! Chríochnaigh tú an ceacht seo.</string>
 </resources>

@@ -1,8 +1,7 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
-import { bind, bindNonPassive, dataIcon } from 'common/snabbdom';
+import { bind, bindNonPassive, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
-import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
@@ -216,6 +215,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
+  const notSupported = 'Browser does not support this option';
+
   const cevalConfig: MaybeVNodes =
     ceval && ceval.possible && ceval.allowed()
       ? ([h('h2', noarg('computerAnalysis'))] as MaybeVNodes)
@@ -223,7 +224,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             ctrlBoolSetting(
               {
                 name: 'enable',
-                title: mandatoryCeval ? 'Required by practice mode' : 'Stockfish',
+                title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
                 id: 'all',
                 checked: ctrl.showComputer(),
                 disabled: mandatoryCeval,
@@ -274,18 +275,19 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     },
                     ctrl
                   ),
-                  ceval.supportsNnue
-                    ? ctrlBoolSetting(
-                        {
-                          name: 'Use NNUE',
-                          title: 'Downloads 10 MB neural network evaluation file (page reload required after change)',
-                          id: 'enable-nnue',
-                          checked: ceval.enableNnue(),
-                          change: ceval.enableNnue,
-                        },
-                        ctrl
-                      )
-                    : undefined,
+                  ctrlBoolSetting(
+                    {
+                      name: 'Use NNUE',
+                      title: ceval.supportsNnue
+                        ? 'Downloads 6 MB neural network evaluation file (page reload required after change)'
+                        : notSupported,
+                      id: 'enable-nnue',
+                      checked: ceval.supportsNnue && ceval.enableNnue(),
+                      change: ceval.enableNnue,
+                      disabled: !ceval.supportsNnue,
+                    },
+                    ctrl
+                  ),
                   (id => {
                     const max = 5;
                     return h('div.setting', [
@@ -302,42 +304,42 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       h('div.range_value', ceval.multiPv() + ' / ' + max),
                     ]);
                   })('analyse-multipv'),
-                  ceval.threads
-                    ? (id => {
-                        return h('div.setting', [
-                          h('label', { attrs: { for: id } }, noarg('cpus')),
-                          h('input#' + id, {
-                            attrs: {
-                              type: 'range',
-                              min: 1,
-                              max: ceval.maxThreads,
-                              step: 1,
-                            },
-                            hook: rangeConfig(() => parseInt(ceval.threads!()), ctrl.cevalSetThreads),
-                          }),
-                          h('div.range_value', `${ceval.threads()} / ${ceval.maxThreads}`),
-                        ]);
-                      })('analyse-threads')
-                    : undefined,
-                  ceval.hashSize
-                    ? (id =>
-                        h('div.setting', [
-                          h('label', { attrs: { for: id } }, noarg('memory')),
-                          h('input#' + id, {
-                            attrs: {
-                              type: 'range',
-                              min: 4,
-                              max: Math.floor(Math.log2(ceval.maxHashSize)),
-                              step: 1,
-                            },
-                            hook: rangeConfig(
-                              () => Math.floor(Math.log2(parseInt(ceval.hashSize!()))),
-                              v => ctrl.cevalSetHashSize(Math.pow(2, v))
-                            ),
-                          }),
-                          h('div.range_value', formatHashSize(parseInt(ceval.hashSize()))),
-                        ]))('analyse-memory')
-                    : undefined,
+                  (id => {
+                    return h('div.setting', [
+                      h('label', { attrs: { for: id } }, noarg('cpus')),
+                      h('input#' + id, {
+                        attrs: {
+                          type: 'range',
+                          min: 1,
+                          max: ceval.maxThreads,
+                          step: 1,
+                          disabled: !ceval.threads,
+                          ...(ceval.threads ? null : { title: notSupported }),
+                        },
+                        hook: rangeConfig(() => (ceval.threads ? parseInt(ceval.threads()) : 1), ctrl.cevalSetThreads),
+                      }),
+                      h('div.range_value', `${ceval.threads ? ceval.threads() : 1} / ${ceval.maxThreads}`),
+                    ]);
+                  })('analyse-threads'),
+                  (id =>
+                    h('div.setting', [
+                      h('label', { attrs: { for: id } }, noarg('memory')),
+                      h('input#' + id, {
+                        attrs: {
+                          type: 'range',
+                          min: 4,
+                          max: Math.floor(Math.log2(ceval.maxHashSize)),
+                          step: 1,
+                          disabled: !ceval.hashSize,
+                          ...(ceval.hashSize ? null : { title: notSupported }),
+                        },
+                        hook: rangeConfig(
+                          () => Math.floor(Math.log2(ceval.hashSize ? parseInt(ceval.hashSize()) : 16)),
+                          v => ctrl.cevalSetHashSize(Math.pow(2, v))
+                        ),
+                      }),
+                      h('div.range_value', formatHashSize(ceval.hashSize ? parseInt(ceval.hashSize()) : 16)),
+                    ]))('analyse-memory'),
                 ]
               : []
           )

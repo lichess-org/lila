@@ -99,8 +99,8 @@
   <string name="pairingSystemArena">Любой доступный противник со схожим рейтингом</string>
   <string name="pairingSystemSwiss">Лучше подбор пар по очкам и тай-брейкам</string>
   <string name="pairingWaitTime">Ожидание подбора пар</string>
-  <string name="pairingWaitTimeFast">Быстро: не нужно ждать всех игроков</string>
-  <string name="pairingWaitTimeSlow">Медленно: ожидание всех игроков</string>
+  <string name="pairingWaitTimeArena">Быстро: не нужно ждать всех игроков</string>
+  <string name="pairingWaitTimeSwiss">Медленно: надо дождаться всех игроков</string>
   <string name="identicalPairing">Одинаковые соперники в парах</string>
   <string name="possibleButNotConsecutive">Возможно, но не подряд</string>
   <string name="identicalForbidden">Запрещено</string>

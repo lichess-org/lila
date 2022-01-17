@@ -17,6 +17,7 @@ import views._
 
 final class Setup(
     env: Env,
+    editorC: => Editor,
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)
@@ -33,6 +34,14 @@ final class Setup(
     log = false
   )
 
+  private[controllers] val AnonHookRateLimit = lila.memo.RateLimit.composite[IpAddress](
+    key = "setup.hook.anon",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 8, 1.minute),
+    ("slow", 300, 1.day)
+  )
+
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
@@ -40,7 +49,8 @@ final class Setup(
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
-            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict"))
+            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict")),
+            editorC.editorUrl
           )
         }
       } else Redirect(s"${routes.Lobby.home}#ai").fuccess
@@ -57,11 +67,11 @@ final class Setup(
         fuccess(forms friendFilled get("fen").map(FEN.clean)) flatMap { form =>
           val validFen = form("fen").value map FEN.clean flatMap ValidFen(strict = false)
           userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
+            case None => Ok(html.setup.forms.friend(form, none, none, validFen, editorC.editorUrl)).fuccess
             case Some(user) =>
               env.challenge.granter(ctx.me, user, none) map {
                 case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen))
+                case None         => Ok(html.setup.forms.friend(form, user.some, none, validFen, editorC.editorUrl))
               }
           }
         }
@@ -74,7 +84,7 @@ final class Setup(
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      PostRateLimit(HTTPRequest ipAddress ctx.req) {
+      PostRateLimit(ctx.ip) {
         forms
           .friend(ctx)
           .bindFromRequest()
@@ -164,32 +174,34 @@ final class Setup(
     OpenBody { implicit ctx =>
       NoBot {
         implicit val req = ctx.body
-        PostRateLimit(HTTPRequest ipAddress ctx.req) {
-          NoPlaybanOrCurrent {
-            forms
-              .hook(ctx)
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                userConfig =>
-                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
-                    processor.hook(
-                      userConfig withinLimits ctx.me,
-                      Sri(sri),
-                      HTTPRequest sid req,
-                      blocking
-                    ) map hookResponse
-                  }
-              )
-          }
-        }(rateLimitedFu)
+        NoPlaybanOrCurrent {
+          forms
+            .hook(ctx)
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              userConfig =>
+                PostRateLimit(ctx.ip) {
+                  AnonHookRateLimit(ctx.ip, cost = ctx.isAnon ?? 1) {
+                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                      processor.hook(
+                        userConfig withinLimits ctx.me,
+                        Sri(sri),
+                        HTTPRequest sid req,
+                        blocking
+                      ) map hookResponse
+                    }
+                  }(rateLimitedFu)
+                }(rateLimitedFu)
+            )
+        }
       }
     }
 
   def like(sri: String, gameId: String) =
     Open { implicit ctx =>
       NoBot {
-        PostRateLimit(HTTPRequest ipAddress ctx.req) {
+        PostRateLimit(ctx.ip) {
           NoPlaybanOrCurrent {
             env.game.gameRepo game gameId flatMap {
               _ ?? { game =>
@@ -278,7 +290,7 @@ final class Setup(
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
     OpenBody { implicit ctx =>
-      PostRateLimit(HTTPRequest ipAddress ctx.req) {
+      PostRateLimit(ctx.ip) {
         implicit val req = ctx.body
         form(ctx)
           .bindFromRequest()

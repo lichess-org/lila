@@ -8,8 +8,6 @@ private object BsonHandlers {
   implicit val StreamerIdBSONHandler = stringAnyValHandler[Streamer.Id](_.value, Streamer.Id.apply)
   implicit val StreamerListedBSONHandler =
     booleanAnyValHandler[Streamer.Listed](_.value, Streamer.Listed.apply)
-  implicit val StreamerPicturePathBSONHandler =
-    stringAnyValHandler[Streamer.PicturePath](_.value, Streamer.PicturePath.apply)
   implicit val StreamerNameBSONHandler = stringAnyValHandler[Streamer.Name](_.value, Streamer.Name.apply)
   implicit val StreamerHeadlineBSONHandler =
     stringAnyValHandler[Streamer.Headline](_.value, Streamer.Headline.apply)

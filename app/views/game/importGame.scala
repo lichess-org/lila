@@ -28,6 +28,7 @@ object importGame {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
+        standardFlash(),
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value flatMap { pgn =>
@@ -44,7 +45,7 @@ object importGame {
                 _ => none
               )
           },
-          form3.group(form("pgnFile"), raw("Or upload a PGN file"), klass = "upload") { f =>
+          form3.group(form("pgnFile"), trans.orUploadPgnFile(), klass = "upload") { f =>
             form3.file.pgn(f.name)
           },
           form3.checkbox(

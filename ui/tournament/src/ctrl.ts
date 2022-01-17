@@ -56,8 +56,7 @@ export default class TournamentController {
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data.private) lichess.reload();
-    this.data = { ...this.data, ...data };
-    this.data.me = data.me; // to account for removal on withdraw
+    this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
     if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
@@ -94,9 +93,11 @@ export default class TournamentController {
     if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   };
 
-  setPage = (page: number) => {
-    this.page = page;
-    xhr.loadPage(this, page);
+  setPage = (page: number | undefined) => {
+    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
+      this.page = page;
+      xhr.loadPage(this, page);
+    }
   };
 
   jumpToPageOf = (name: string) => {
@@ -160,10 +161,7 @@ export default class TournamentController {
     }
   };
 
-  scrollToMe = () => {
-    const page = myPage(this);
-    if (page && page !== this.page) this.setPage(page);
-  };
+  scrollToMe = () => this.setPage(myPage(this));
 
   toggleFocusOnMe = () => {
     if (!this.data.me) return;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">捐赠</string>
+  <string name="donateAsX">以 %s 的名义捐赠</string>
   <string name="lichessPatron">赞助 Lichess</string>
   <string name="freeAccount">免费账户</string>
   <string name="becomePatron">成为 Lichess 赞助者</string>
@@ -42,7 +43,6 @@
   <string name="contactSupport">联系 Lichess 获取帮助</string>
   <string name="otherMethods">其他捐赠方法？</string>
   <string name="bankTransfers">我们还接受银行转帐</string>
-  <string name="bitcoin">还有我们的比特币地址：%s</string>
   <string name="patronFeatures">赞助者会有特殊功能吗？</string>
   <string name="noPatronFeatures">没有，Lichess 是完全免费的。这是我们的承诺。
 当然，赞助者都说他们有一个很酷的个人资料图标。</string>
@@ -73,5 +73,5 @@
   <string name="nowLifetime">您现在是Lichess终身会员</string>
   <string name="nowOneMonth">从现在起为期一个月，您是 Lichess 的赞助者！</string>
   <string name="downgradeNextMonth">在一个月内，您将不会再次被收取费用，且您的 Lichess 账户将被降级为免费。</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">更改币种</string>
+  <string name="changeCurrency">更改币种</string>
 </resources>

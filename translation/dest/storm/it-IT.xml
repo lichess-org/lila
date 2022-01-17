@@ -32,7 +32,7 @@
   <string name="highscores">Record</string>
   <string name="viewBestRuns">Visualizza i migliori tentativi</string>
   <string name="bestRunOfDay">Migliore tentativo del giorno</string>
-  <string name="runs">Tentativo</string>
+  <string name="runs">Tentativi</string>
   <string name="getReady">Preparati!</string>
   <string name="waitingForMorePlayers">In attesa di altri giocatori...</string>
   <string name="raceComplete">Traguardo!</string>
@@ -50,4 +50,12 @@
   <string name="skip">salta</string>
   <string name="skipHelp">Puoi saltare una mossa per gara:</string>
   <string name="skipExplanation">Salta questa mossa per mantenere la combo! È possibile farlo solo una volta per gara.</string>
+  <string name="failedPuzzles">Tattiche fallite</string>
+  <string name="slowPuzzles">Rompicapi lenti</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Questa settimana</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Questo mese</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Sempre</string>
+  <string name="clickToReload">Clicca per ricaricare</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Questa serie è scaduta!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Questa serie è stata aperta in un\'altra scheda!</string>
 </resources>

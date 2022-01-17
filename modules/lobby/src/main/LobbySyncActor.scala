@@ -17,7 +17,6 @@ final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
-    maxPlaying: Max,
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
@@ -76,7 +75,7 @@ final private class LobbySyncActor(
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some) {
         gameCache.nbPlaying(user.id) foreach { nbPlaying =>
-          if (maxPlaying > nbPlaying) {
+          if (lila.game.Game.maxPlaying > nbPlaying) {
             lila.mon.lobby.seek.join.increment()
             seekApi find seekId foreach {
               _ foreach { seek =>
@@ -209,7 +208,7 @@ private object LobbySyncActor {
       makeTrouper: () => LobbySyncActor
   )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
-    Bus.subscribe(trouper, "lobbyTrouper")
+    Bus.subscribe(trouper, "lobbyActor")
     system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),

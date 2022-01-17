@@ -21,4 +21,8 @@
   <string name="credits">Creditează sursa</string>
   <string name="resetRound">Resetează această rundă</string>
   <string name="deleteRound">Șterge această rundă</string>
+  <string name="broadcastUrl">URL pentru difuzare</string>
+  <string name="currentRoundUrl">URL runda curenta</string>
+  <string name="currentGameUrl">URL-ul partidei curente</string>
+  <string name="downloadAllRounds">Descarcă toate rundele</string>
 </resources>

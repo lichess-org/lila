@@ -12,7 +12,7 @@ object header {
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context) =
     div(cls := "streamer-header")(
-      bits.pic(s.streamer, s.user),
+      picture.thumbnail(s.streamer, s.user),
       div(cls := "overview")(
         h1(dataIcon := "")(
           titleTag(s.user.title),
@@ -40,7 +40,7 @@ object header {
               a(
                 cls := List(
                   "service youTube" -> true,
-                  "live"            -> s.stream.exists(_.twitch)
+                  "live"            -> s.stream.exists(_.youTube)
                 ),
                 href := youTube.fullUrl
               )(youTube.minUrl)

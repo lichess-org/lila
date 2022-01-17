@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.common.ThreadLocalRandom
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
@@ -26,7 +27,7 @@ final private[puzzle] class DailyPuzzle(
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
 
   private def find: Fu[Option[DailyPuzzle.WithHtml]] =
-    (findCurrent orElse findNew) recover { case e: Exception =>
+    (findCurrent orElse findNewBiased()) recover { case e: Exception =>
       logger.error("find daily", e)
       none
     } flatMap { _ ?? makeDaily }
@@ -48,34 +49,39 @@ final private[puzzle] class DailyPuzzle(
         .one[Puzzle]
     }
 
+  private def findNewBiased(tries: Int = 0): Fu[Option[Puzzle]] = {
+    def tryAgainMaybe = (tries < 5) ?? findNewBiased(tries + 1)
+    import lila.common.ThreadLocalRandom.odds
+    import PuzzleTheme._
+    findNew flatMap {
+      case None                                             => tryAgainMaybe
+      case Some(p) if p.hasTheme(anastasiaMate) && !odds(3) => tryAgainMaybe dmap (_ orElse p.some)
+      case Some(p) if p.hasTheme(arabianMate) && odds(2)    => tryAgainMaybe dmap (_ orElse p.some)
+      case p                                                => fuccess(p)
+    }
+  }
+
   private def findNew: Fu[Option[Puzzle]] =
     colls
       .path {
         _.aggregateOne() { framework =>
           import framework._
-          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 2150 to 2150)) -> List(
+          Match(pathApi.select(PuzzleTheme.mix.key, PuzzleTier.Top, 2150 to 2300)) -> List(
             Sample(3),
             Project($doc("ids" -> true, "_id" -> false)),
             UnwindField("ids"),
             PipelineOperator(
-              $doc(
-                "$lookup" -> $doc(
-                  "from" -> colls.puzzle.name.value,
-                  "as"   -> "puzzle",
-                  "let"  -> $doc("id" -> "$ids"),
-                  "pipeline" -> $arr(
-                    $doc(
-                      "$match" -> $doc(
-                        "$expr" -> $doc(
-                          $doc("$eq" -> $arr("$_id", "$$id"))
-                        )
-                      )
-                    ),
-                    $doc(
-                      "$match" -> $doc(
-                        Puzzle.BSONFields.day $exists false,
-                        Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
-                      )
+              $lookup.pipeline(
+                from = colls.puzzle,
+                as = "puzzle",
+                local = "ids",
+                foreign = "_id",
+                pipe = List(
+                  $doc(
+                    "$match" -> $doc(
+                      Puzzle.BSONFields.plays $gt 5000,
+                      Puzzle.BSONFields.day $exists false,
+                      Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
                     )
                   )
                 )

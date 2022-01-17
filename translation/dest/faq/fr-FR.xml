@@ -11,7 +11,7 @@
   <string name="howCanIContributeToLichess">Comment puis-je contribuer à Lichess ?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess est financée par des dons de mécènes et maintenue par une équipe de bénévoles.</string>
   <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur comment %1$s (dont une %2$s). Si vous souhaitez aider Lichess en offrant votre temps et vos compétences, il existe de nombreuses %3$s.</string>
-  <string name="beingAPatron">devenir un mécène</string>
+  <string name="beingAPatron">être mécène</string>
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres façons d\'aider</string>
   <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autres sites web basés sur Lichess?</string>
@@ -44,7 +44,7 @@ Le coup le plus élevé de l\'ordinateur perdra zéro centipion, mais des coups 
 Cette valeur peut être utilisée comme un indicateur de la qualité du jeu. Moins on perd de centipions par coup, plus le jeu est fort.
 
 L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
-  <string name="insufficientMaterial">Pertes au temps, nulles et matériel insuffisant</string>
+  <string name="insufficientMaterial">Perte au temps, nulle et par manque de matériel</string>
   <string name="lichessFollowFIDErules">Si un joueur manque de temps, il perd généralement la partie. Toutefois, la partie est nulle si la position est telle que l\'adversaire ne peut pas mettre en échec le roi du joueur par une éventuelle série de coups légaux (%1$s).
 
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
@@ -60,7 +60,6 @@ Il est décrit dans la section 3.7 (d) des %2$s :
 
 Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="goodIntroduction">bonne introduction</string>
-  <string name="officialRulesPDF">règles officielles (pdf)</string>
   <string name="lichessTraining">Entraînement Lichess</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>

@@ -5,11 +5,11 @@
   .col1-moves {
     flex: 0 0 $col1-moves-height;
     display: flex;
+    justify-content: space-between;
 
     .fbt {
       flex: 0 0 auto;
       padding: 0 1.3em;
-      opacity: 0.7;
     }
 
     body.playing.zen & {
@@ -101,7 +101,7 @@
     }
 
     body.playing.zen & {
-      display: none;
+      visibility: hidden;
     }
   }
 

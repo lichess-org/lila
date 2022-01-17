@@ -18,7 +18,6 @@
     <item quantity="one">Lagledare</item>
     <item quantity="other">Lagledare</item>
   </plurals>
-  <string name="teamBestPlayers">Topplista</string>
   <string name="teamRecentMembers">Nya medlemmar</string>
   <string name="kickSomeone">Uteslut någon ur laget</string>
   <string name="whoToKick">Vem vill du utesluta ur laget?</string>

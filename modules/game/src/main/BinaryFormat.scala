@@ -84,7 +84,7 @@ object BinaryFormat {
     }.view.take(turns).map(Centis.apply).toVector
   }
 
-  case class clock(start: Timestamp) {
+  final class clock(start: Timestamp) {
 
     def legacyElapsed(clock: Clock, color: Color) =
       clock.limit - clock.players(color).remaining
@@ -113,7 +113,7 @@ object BinaryFormat {
 
         ia match {
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
-            val config      = Clock.Config(readClockLimit(b1), b2)
+            val config      = Clock.Config(clock.readClockLimit(b1), b2)
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
             Clock(
@@ -160,14 +160,20 @@ object BinaryFormat {
       // from 181-255, where 181 represents 0.25 and 182 represents 0.50...
       (if (limit % 60 == 0) limit / 60 else limit / 15 + 180).toByte
     }
-
-    private def readClockLimit(i: Int) = {
-      if (i < 181) i * 60 else (i - 180) * 15
-    }
   }
 
   object clock {
     def apply(start: DateTime) = new clock(Timestamp(start.getMillis))
+
+    def readConfig(ba: ByteArray): Option[Clock.Config] =
+      ba.value match {
+        case Array(b1, b2, _*) => Clock.Config(readClockLimit(b1), b2).some
+        case _                 => None
+      }
+
+    def readClockLimit(i: Int) = {
+      if (i < 181) i * 60 else (i - 180) * 15
+    }
   }
 
   object castleLastMove {

@@ -2,7 +2,6 @@
 <resources>
   <string name="didYouLikeThisPuzzle">Nagustuhan mo ba ang palaisipang ito?</string>
   <string name="voteToLoadNextOne">Bumoto ka upang mapunta ka sa susunod na palaisipan!</string>
-  <string name="yourPuzzleRatingX">Ang iyong marka sa palaisipan: %s</string>
   <string name="findTheBestMoveForWhite">Hanapin ang pinakamahusay na galaw para sa puti.</string>
   <string name="findTheBestMoveForBlack">Hanapin ang pinakamahusay na galaw para sa itim.</string>
   <string name="streakDescription">Isolba mo ng progresibo ang mga mas mahirap pang mga puzzles at makagawa ka ng win streak. Wala itong oras, kaya huwag kang magmadali. Isang maling galaw, at tapos na ang laro! Pero pwede mong laktawan ng isang galaw kada sesyon.</string>

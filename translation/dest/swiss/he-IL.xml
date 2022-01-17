@@ -7,4 +7,14 @@
     <item quantity="many">צפו בכל %s הסיבובים</item>
     <item quantity="other">צפו בכל %s הסיבובים</item>
   </plurals>
+  <string name="swissVsArenaQ">מתי להשתמש בטורנירים שוויצריים במקום טורנירי זירה?</string>
+  <string name="swissVsArenaA">בטורניר שוויצרי, כל השחקנים משחקים אותו מספר של משחקים, ויכולים לשחק אחד נגד השני פעם אחת בלבד. זאת יכולה להיות אפשרות טובה למועדונים וטורנירים רשמיים.</string>
+  <string name="willSwissReplaceArenasQ">האם טורנירים שוויצריים יחליפו את טורנירי הזירות?</string>
+  <string name="willSwissReplaceArenasA">לא. הם מאפיינים משלימים.</string>
+  <string name="tournDuration">משך הטורניר</string>
+  <string name="numberOfGames">מספר משחקים</string>
+  <string name="pairingSystemArena">כל יריב זמין עם דירוג דומה</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">מהיר: אין צורך לחכות לשאר השחקנים</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">איטי: צריך לחכות לסיום המשחקים של כל השחקנים</string>
+  <string name="streaksAndBerserk">רצפי ניצחונית ו\'אטרף\'</string>
 </resources>

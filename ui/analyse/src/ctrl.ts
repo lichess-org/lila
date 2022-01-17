@@ -6,7 +6,6 @@ import * as speech from './speech';
 import * as util from './util';
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
-import explorerCtrl from './explorer/explorerCtrl';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import makeStudy from './study/studyCtrl';
 import throttle from 'common/throttle';
@@ -17,11 +16,10 @@ import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { ActionMenuCtrl } from './actionMenu';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, EvalMeta } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop } from 'common';
 import { DrawShape } from 'chessground/draw';
-import { ExplorerCtrl } from './explorer/interfaces';
 import { ForecastCtrl } from './forecast/interfaces';
 import { lichessRules } from 'chessops/compat';
 import { make as makeEvalCache, EvalCache } from './evalCache';
@@ -42,6 +40,8 @@ import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
+import wikiTheory, { WikiTheory } from './wiki';
+import ExplorerCtrl from './explorer/explorerCtrl';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -71,6 +71,7 @@ export default class AnalyseCtrl {
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
   promotion: PromotionCtrl;
+  wiki?: WikiTheory;
 
   // state flags
   justPlayed?: string; // pos
@@ -122,6 +123,7 @@ export default class AnalyseCtrl {
     this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
+    if (this.opts.wiki) this.wiki = wikiTheory();
 
     if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
 
@@ -195,13 +197,19 @@ export default class AnalyseCtrl {
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);
-    this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
+    if (this.explorer) this.explorer.destroy();
+    this.explorer = new ExplorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath =
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
 
     lichess.sound.preloadBoardSounds();
   }
+
+  enableWiki = (v: boolean) => {
+    this.wiki = v ? wikiTheory() : undefined;
+    if (this.wiki) this.wiki(this.nodeList);
+  };
 
   private setPath = (path: Tree.Path): void => {
     this.path = path;
@@ -211,6 +219,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
+    if (this.wiki) this.wiki(this.nodeList);
   };
 
   flip = () => {
@@ -222,6 +231,7 @@ export default class AnalyseCtrl {
       this.retro = makeRetro(this, this.bottomColor());
     }
     if (this.practice) this.restartPractice();
+    this.explorer.onFlip();
     this.redraw();
   };
 
@@ -347,12 +357,11 @@ export default class AnalyseCtrl {
       isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     if (pathChanged) {
-      const playedMyself = this.playedLastMoveMyself();
-      if (this.study) this.study.setPath(path, this.node, playedMyself);
+      if (this.study) this.study.setPath(path, this.node);
       if (isForwardStep) {
         if (!this.node.uci) this.sound.move();
         // initial position
-        else if (!playedMyself) {
+        else if (!this.playedLastMoveMyself()) {
           if (this.node.san!.includes('x')) this.sound.capture();
           else this.sound.move();
         }
@@ -380,7 +389,7 @@ export default class AnalyseCtrl {
 
   userJump = (path: Tree.Path): void => {
     this.autoplay.stop();
-    this.withCg(cg => cg.selectSquare(null));
+    if (!this.gamebookPlay()) this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
@@ -587,7 +596,7 @@ export default class AnalyseCtrl {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => (n.eval ? n.eval.best : undefined));
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
   }
 
   setAutoShapes = (): void => {
@@ -598,9 +607,14 @@ export default class AnalyseCtrl {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
-        if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
-      } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
-      else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
+        const threat = ev as Tree.LocalEval;
+        if (!node.threat || isEvalBetter(threat, node.threat) || node.threat.maxDepth < threat.maxDepth)
+          node.threat = threat;
+      } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      else if (!ev.cloud) {
+        if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
+        else if (ev.maxDepth > node.ceval.maxDepth!) node.ceval.maxDepth = ev.maxDepth;
+      }
 
       if (path === this.path) {
         this.setAutoShapes();
@@ -622,7 +636,7 @@ export default class AnalyseCtrl {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
-      emit: (ev: Tree.ClientEval, work: CevalWork) => {
+      emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
@@ -659,7 +673,7 @@ export default class AnalyseCtrl {
   startCeval = throttle(800, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
+        this.ceval.start(this.path, this.nodeList, this.threatMode());
         this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
@@ -780,7 +794,8 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length);
+    if (data.analysis)
+      data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length && n.ply <= 300);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
@@ -823,7 +838,7 @@ export default class AnalyseCtrl {
   }
 
   playBestMove() {
-    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    const uci = this.node.ceval?.pvs[0].moves[0] || this.nextNodeBest();
     if (uci) this.playUci(uci);
   }
 
@@ -875,8 +890,10 @@ export default class AnalyseCtrl {
   };
 
   togglePractice = () => {
-    if (this.practice || !this.ceval.possible) this.practice = undefined;
-    else {
+    if (this.practice || !this.ceval.possible) {
+      this.practice = undefined;
+      this.showGround();
+    } else {
       if (this.retro) this.toggleRetro();
       if (this.explorer.enabled()) this.toggleExplorer();
       this.practice = makePractice(this, () => {
@@ -884,8 +901,8 @@ export default class AnalyseCtrl {
         // lower to 18 after task completion (or failure)
         return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
       });
+      this.setAutoShapes();
     }
-    this.setAutoShapes();
   };
 
   restartPractice() {

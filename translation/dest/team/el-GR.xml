@@ -7,6 +7,7 @@
     <item quantity="other">%s μέλη</item>
   </plurals>
   <string name="allTeams">Όλες οι ομάδες</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Ομάδες που είστε αρχηγός</string>
   <string name="newTeam">Νέα ομάδα</string>
   <string name="myTeams">Οι ομάδες μου</string>
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>
   </plurals>
-  <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
   <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Το αίτημα πρόσβασης θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
   <string name="beingReviewed">Το αίτημά για πρόσβαση στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
+  <string name="requestDeclined">Το αίτημα πρόσβασης απορρίφθηκε από κάποιον αρχηγό της ομάδας.</string>
   <string name="subToTeamMessages">Εγγραφείτε στα μηνύματα της ομάδας</string>
   <string name="teamBattle">Μάχη ομάδας</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
@@ -47,8 +48,9 @@
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
   <string name="entryCode">Κωδικός εισόδου ομάδας</string>
   <string name="entryCodeDescriptionForLeader">(Προαιρετικό) Ένας κωδικός εισόδου που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Λάθος κωδικός εισόδου.</string>
+  <string name="incorrectEntryCode">Λάθος κωδικός εισόδου.</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
+  <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
 </resources>

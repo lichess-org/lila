@@ -60,13 +60,14 @@ object StudyForm {
 
     lazy val form = Form(
       mapping(
-        "name"        -> cleanNonEmptyText,
-        "orientation" -> optional(nonEmptyText),
-        "variant"     -> optional(nonEmptyText),
-        "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
-        "initial"     -> boolean,
-        "sticky"      -> boolean,
-        "pgn"         -> nonEmptyText
+        "name"          -> cleanNonEmptyText,
+        "orientation"   -> optional(nonEmptyText),
+        "variant"       -> optional(nonEmptyText),
+        "mode"          -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
+        "initial"       -> boolean,
+        "sticky"        -> boolean,
+        "pgn"           -> nonEmptyText,
+        "isDefaultName" -> boolean
       )(Data.apply)(Data.unapply)
     )
 
@@ -77,7 +78,8 @@ object StudyForm {
         mode: String,
         initial: Boolean,
         sticky: Boolean,
-        pgn: String
+        pgn: String,
+        isDefaultName: Boolean
     ) {
 
       def toChapterDatas = {
@@ -90,7 +92,8 @@ object StudyForm {
             pgn = onePgn.some,
             orientation = orientationStr | "white",
             mode = mode,
-            initial = initial && index == 0
+            initial = initial && index == 0,
+            isDefaultName = index > 0 || isDefaultName
           )
         }
       }
@@ -100,5 +103,5 @@ object StudyForm {
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
-    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(", ")
+    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(",")
 }

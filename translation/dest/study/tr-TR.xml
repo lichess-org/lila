@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
   <string name="pgnTags">PGN etiketleri</string>
   <string name="like">Beğen</string>
+  <string name="unlike">Beğenmekten Vazgeç</string>
   <string name="newTag">Yeni etiket</string>
   <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
   <string name="commentThisMove">Bu hamle için yorum yap</string>
@@ -126,7 +127,7 @@
   <string name="clearChat">Sohbeti temizle</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın sohbet geçmişi silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="deleteStudy">Çalışmayı sil</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tüm çalışma silinsin mi? Bunun geri dönüşü yok! İşlemi onaylamak için çalışmanın adını yazın.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Tüm çalışma silinsin mi? Bunun geri dönüşü yok! İşlemi onaylamak için çalışmanın adını yazın: %s</string>
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
   <string name="goodMove">İyi hamle</string>
   <string name="mistake">Hata</string>
@@ -155,4 +156,12 @@
   <string name="nextChapter">Sonraki bölüm</string>
   <string name="prevChapter">Önceki bölüm</string>
   <string name="studyActions">Çalışma seçenekleri</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Konular</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Konularım</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Popüler konular</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Konuları yönet</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Baştan başlat</string>
+  <string name="playAgain">Tekrar oyna</string>
+  <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
+  <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
 </resources>

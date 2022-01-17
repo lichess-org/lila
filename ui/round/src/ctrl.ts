@@ -293,7 +293,7 @@ export default class RoundController {
     return (
       d.pref.replay === Prefs.Replay.Always ||
       (d.pref.replay === Prefs.Replay.OnlySlowGames &&
-        (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence'))
+        (d.game.speed === 'classical' || d.game.speed === 'correspondence'))
     );
   };
 
@@ -533,6 +533,14 @@ export default class RoundController {
     d.game.status = o.status;
     d.game.boosted = o.boosted;
     this.userJump(this.lastPly());
+    // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
+    if (
+      o.status.name === 'outoftime' &&
+      d.player.color !== o.winner &&
+      this.chessground.state.turnColor === d.opponent.color
+    ) {
+      this.reload(d);
+    }
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
@@ -783,6 +791,15 @@ export default class RoundController {
       speech.setup(this);
 
       wakeLock.request();
+
+      setTimeout(() => {
+        if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
+          alert('Play enhancement extensions are no longer allowed!');
+          lichess.socket.destroy();
+          this.setRedirecting();
+          location.href = '/page/play-extensions';
+        }
+      }, 1000);
 
       this.onChange();
     }, 800);

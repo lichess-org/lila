@@ -11,8 +11,8 @@
     <item quantity="other">%1$s %2$s állást gyakorolt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Megoldott %s taktikai feladványt</item>
-    <item quantity="other">Megoldott %s taktikai feladványt</item>
+    <item quantity="one">Befejezett %s taktikai feladványt</item>
+    <item quantity="other">Befejezett %s taktikai feladványt</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s %2$s partit játszott</item>

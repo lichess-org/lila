@@ -3,10 +3,28 @@ import once from './component/once';
 import { hopscotch } from './component/assets';
 
 lichess.load.then(() => {
-  $('.user-show .note-zone-toggle').each(function (this: HTMLElement) {
-    $(this).on('click', () => $('.user-show .note-zone').toggle().find('textarea')[0]?.focus());
-    if (location.search.includes('note')) $(this).trigger('click');
+  const $noteToggle = $('.user-show .note-zone-toggle').on('click', () => {
+    $('.user-show .note-zone').toggle();
+    loadNoteZone();
   });
+  if (location.search.includes('note')) $noteToggle.trigger('click');
+
+  const loadNoteZone = () => {
+    const $zone = $('.user-show .note-zone');
+    $zone.find('textarea')[0]?.focus();
+    if ($zone.hasClass('loaded')) return;
+    $zone.addClass('loaded');
+    $noteToggle.find('strong').text('' + $zone.find('.note').length);
+    console.log('load', $zone);
+    $zone.find('form').on('submit', function (this: HTMLFormElement) {
+      xhr
+        .formToXhr(this)
+        .then(html => $zone.replaceWith(html))
+        .then(() => loadNoteZone())
+        .catch(() => alert('Invalid note, is it too short or too long?'));
+      return false;
+    });
+  };
 
   $('.user-show .claim_title_zone').each(function (this: HTMLElement) {
     const $zone = $(this);

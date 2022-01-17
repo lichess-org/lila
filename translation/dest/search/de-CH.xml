@@ -26,8 +26,14 @@
   <string name="onlyAnalysed">Numä Partiiä, für diä ä Kompianalysä verfüägbar isch</string>
   <string name="color">Farb</string>
   <string name="evaluation">Uswertig</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Maximali Azahl</string>
+  <string name="maxNumber">Maximali Azahl</string>
   <string name="maxNumberExplanation">Di maximali Azahl vo az\'zeigendä Partiiä</string>
   <string name="include">devo</string>
-  <string name="generateURL">Erzüg en URL</string>
+  <string name="descending">Abstiigend</string>
+  <string name="ascending">Ufstiigend</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s Partie gfunde</item>
+    <item quantity="other">%s Partie gfunde</item>
+  </plurals>
+  <string name="ratingExplanation">Die durchschnittlich Wertig vu beide Schpiller</string>
 </resources>

@@ -18,7 +18,6 @@
     <item quantity="one">समूह का नेता</item>
     <item quantity="other">टीम के नेता</item>
   </plurals>
-  <string name="teamBestPlayers">समूह के सबसे अच्छे खिलाडी</string>
   <string name="teamRecentMembers">समूह के नए सदस्य</string>
   <string name="kickSomeone">किसी को टीम से बाहर करे</string>
   <string name="whoToKick">आप किसे टीम से बाहर करना चाहते हैं?</string>
@@ -45,5 +44,8 @@
   <string name="leadersChat">नेताओं के चैट</string>
   <string name="closeTeam">टीम को बंद करें</string>
   <string name="closeTeamDescription">टीम को हमेशा के लिए बंद कर देता है।</string>
+  <string name="incorrectEntryCode">अवैध प्रवेश कूट</string>
   <string name="teamAlreadyExists">यह टीम पहले से मौजूद है।</string>
+  <string name="upcomingTourns">आगामी प्रतियोगिता</string>
+  <string name="completedTourns">पूर्ण किए गए प्रतियोगिता</string>
 </resources>

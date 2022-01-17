@@ -55,7 +55,6 @@ Inilah tautan untuk mengakses kelas.</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s undangan tertunda</item>
   </plurals>
-  <string name="noPendingInvitations">Tidak ada undangan yang tertunda</string>
   <string name="onlyVisibleToTeachers">Hanya terlihat oleh guru kelas</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>

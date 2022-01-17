@@ -13,7 +13,7 @@
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Você gostou deste quebra-cabeças?</string>
   <string name="voteToLoadNextOne">Vote para carregar o próximo!</string>
-  <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Sua pontuação de quebra-cabeças não mudará. Note que os quebra-cabeças não são uma competição. A pontuação indica os quebra-cabeças que se adequam às suas habilidades.</string>
   <string name="findTheBestMoveForWhite">Encontre o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontre a melhor jogada para as pretas.</string>
   <string name="toGetPersonalizedPuzzles">Para obter desafios personalizados:</string>

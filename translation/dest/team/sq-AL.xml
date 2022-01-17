@@ -16,7 +16,6 @@
     <item quantity="one">Lideri i ekipit</item>
     <item quantity="other">Liderët e ekipit</item>
   </plurals>
-  <string name="teamBestPlayers">Lojtarët më të mirë të ekipit</string>
   <string name="teamRecentMembers">Anëtarët e rinj</string>
   <string name="kickSomeone">Largoni dikë nga grupi</string>
   <string name="whoToKick">Kë doni të largoni nga ekipi?</string>

@@ -122,18 +122,18 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(implicit lang: Lang): Frag = {
+  )(implicit ctx: Context): Frag = {
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level, withRating)
+            case (Some(level), _) => aiNameFrag(level, withRating && ctx.pref.showRatings)
             case (_, Some(name))  => name
             case _                => trans.anonymous.txt()
           },
-          player.rating.ifTrue(withRating) map { rating => s" ($rating)" },
+          player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>
@@ -143,8 +143,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
           )(
             withOnline option frag(lineIcon(user), " "),
-            playerUsername(player, withRating),
-            (player.ratingDiff ifTrue withDiff) map { d =>
+            playerUsername(player, withRating && ctx.pref.showRatings),
+            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
               frag(" ", showRatingDiff(d))
             },
             engine option span(
@@ -162,10 +162,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Aborted => trans.gameAborted.txt()
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
-        game.loser match {
-          case Some(p) if p.color.white => trans.whiteResigned.txt()
-          case _                        => trans.blackResigned.txt()
-        }
+        (if (game.loser.exists(_.color.white)) trans.whiteResigned else trans.blackResigned).txt()
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
       case S.Timeout =>
@@ -193,8 +190,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case (Black, None)    => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
         }
       case S.NoStart =>
-        val color = game.loser.fold(Color.white)(_.color).name.capitalize
-        s"$color didn't move"
+        (if (game.loser.exists(_.color.white)) trans.whiteDidntMove else trans.blackDidntMove).txt()
       case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {

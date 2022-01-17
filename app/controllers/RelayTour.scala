@@ -4,15 +4,17 @@ import play.api.data.Form
 import play.api.mvc._
 import scala.annotation.nowarn
 import scala.concurrent.duration._
+import scala.util.chaining._
 import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.common.{ HTTPRequest, IpAddress }
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
 
-final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
+final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env) {
 
   def index(page: Int) =
     Open { implicit ctx =>
@@ -21,6 +23,17 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
           active <- (page == 1).??(env.relay.api.officialActive)
           pager  <- env.relay.pager.inactive(page)
         } yield Ok(html.relay.tour.index(active, pager))
+      }
+    }
+
+  def calendar = page("broadcast-calendar", "calendar")
+  def help     = page("broadcasts", "help")
+
+  private def page(bookmark: String, menu: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC getBookmark bookmark) { case (doc, resolver) =>
+        html.relay.tour.page(doc, resolver, menu)
       }
     }
 
@@ -124,6 +137,21 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
     }
   }
 
+  def pgn(id: String) =
+    Action.async { req =>
+      env.relay.api tourById TourModel.Id(id) map {
+        _ ?? { tour =>
+          apiC.GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+            env.relay.pgnStream.exportFullTour(tour)
+          ) { source =>
+            asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn")(
+              Ok chunked source as pgnContentType
+            )
+          }
+        }
+      }
+    }
+
   def apiIndex =
     Action.async { implicit req =>
       apiC.jsonStream {
@@ -162,7 +190,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
     key = "broadcast.tournament.user"
   )
 
-  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 10,
     duration = 24.hour,
     key = "broadcast.tournament.ip"
@@ -180,7 +208,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(lila.common.HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
         create
       }(fail.fuccess)
     }(fail.fuccess)

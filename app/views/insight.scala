@@ -7,6 +7,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.user.User
+import play.api.i18n.Lang
 
 import controllers.routes
 
@@ -21,7 +22,7 @@ object insight {
       stale: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username}'s chess insights",
+      title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
         highchartsLatestTag,
         jsAt("javascripts/vendor/jquery.min.js"),
@@ -35,13 +36,11 @@ object insight {
               "initialQuestion" -> question,
               "i18n"            -> Json.obj(),
               "myUserId"        -> ctx.userId,
-              "user" -> Json.obj(
-                "id"      -> u.id,
-                "name"    -> u.username,
+              "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
                 "nbGames" -> cache.count,
                 "stale"   -> stale,
                 "shareId" -> prefId
-              ),
+              )),
               "pageUrl" -> routes.Insight.index(u.username).url,
               "postUrl" -> routes.Insight.json(u.username).url
             )
@@ -55,38 +54,38 @@ object insight {
 
   def empty(u: User)(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username}'s chess insights",
+      title = trans.insight.xChessInsights.txt(u.username),
       moreJs = jsTag("insight-refresh.js"),
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        h1(cls := "text", dataIcon := "")(u.username, " chess insights"),
-        p(userLink(u), " has no chess insights yet!"),
-        refreshForm(u, s"Generate ${u.username}'s chess insights")
+        h1(cls := "text", dataIcon := "")(trans.insight.xChessInsights(u.username)),
+        p(trans.insight.xHasNoChessInsights(userLink(u))),
+        refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
     )
 
   def forbidden(u: User)(implicit ctx: Context) =
     views.html.site.message(
-      title = s"${u.username}'s chess insights are protected",
+      title = trans.insight.insightsAreProtected.txt(u.username),
       back = routes.User.show(u.id).url.some
     )(
-      p("Sorry, you cannot see ", userLink(u), "'s chess insights."),
+      p(trans.insight.cantSeeInsights(userLink(u))),
       br,
       p(
-        "Maybe ask them to change their ",
-        a(cls := "button", href := routes.Pref.form("privacy"))("privacy settings"),
-        " ?"
+        trans.insight.maybeAskThemToChangeTheir(
+          a(cls := "button", href := routes.Pref.form("site"))(trans.insight.insightsSettings.txt())
+        )
       )
     )
 
-  def refreshForm(u: User, action: String) =
+  def refreshForm(u: User, action: String)(implicit lang: Lang) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
       button(dataIcon := "", cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,
         br,
-        p(strong("Now crunching data just for you!"))
+        p(strong(trans.insight.crunchingData()))
       )
     )
 }

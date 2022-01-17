@@ -73,7 +73,8 @@ object faq {
           ul(
             li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
             li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
-            li(a(href := "https://lidraughts.org")("lidraughts.org"))
+            li(a(href := "https://lidraughts.org")("lidraughts.org")),
+            li(a(href := "https://lishogi.org")("lishogi.org"))
           )
         ),
         h2(fairPlay()),
@@ -341,6 +342,19 @@ object faq {
           p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
           p(
             lichessCanOptionnalySendPopUps()
+          )
+        ),
+        question(
+          "make-a-bot",
+          "Make a Lichess bot?",
+          p(
+            "To learn how to create a ",
+            a(href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("Lichess bot"),
+            ", please read ",
+            a(href := "https://lichess.org/@/thibault/blog/how-to-create-a-lichess-bot/FuKyvDuB")(
+              "this blog post"
+            ),
+            "."
           )
         )
       )

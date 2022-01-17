@@ -60,8 +60,8 @@ case class Player(
 
   def nameSplit: Option[(String, Option[Int])] =
     name map {
-      case Player.nameSplitRegex(n, r) => n -> r.toIntOption
-      case n                           => n -> none
+      case Player.nameSplitRegex(n, r) => n.trim -> r.toIntOption
+      case n                           => n      -> none
     }
 
   def before(other: Player) =

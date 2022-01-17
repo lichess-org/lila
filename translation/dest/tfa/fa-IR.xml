@@ -2,5 +2,16 @@
 <resources>
   <string name="twoFactorAuth">احراز هویت دومرحله‌ای</string>
   <string name="twoFactorHelp">احراز هویت دو مرحله ای یک لایه امنیتی دیگر به حساب شما اضافه میکند.</string>
+  <string name="twoFactorApp">یک اپلیکیشن برای هویت‌سنجی دومرحله‌ای دریافت کنید، برای مثال andOTP برای %1$s یا Google Authenticator برای %2$s.</string>
+  <string name="scanTheCode">کد دو بعدی QR را با استفاده از اپلیکیشن اسکن نمایید.</string>
+  <string name="enterPassword">گذرواژه خود و کد هویت‌سنجی که توسط اپلیکیشن تولید شده است را وارد نمایید تا تنظیمات کامل شود. شما برای هر بار که وارد می‌شوید نیاز به یک کد هویت‌سنجی خواهید داشت.</string>
+  <string name="ifYouCannotScanEnterX">اگر نمی‌توانید کد را اسکن کنید، کد هویت‌سنجی %s را درون اپلیکیشن خود وارد نمایید.</string>
+  <string name="authenticationCode">کد هویت‌سنجی</string>
+  <string name="ifYouLoseAccess">توجه کنید: اگر که دسترسی به کدهای هویت‌سنجی دومرحله‌ای را از دست بدهید، رمز عبور را می‌توانید با استفاده از رایانامه بازنشانی و احیا نمایید.</string>
+  <string name="enableTwoFactor">هویت‌سنجی دومرحله‌ای را فعال نمایید</string>
   <string name="disableTwoFactor">غیر فعال کردن احراز هویت دو مرحله ای</string>
+  <string name="twoFactorEnabled">هویت‌سنجی دومرحله‌ای فعال شد</string>
+  <string name="twoFactorDisable">شما برای غیرفعال نمودن هویت‌سنجی دومرحله‌ای به گذرواژه خود و یک کد هویت‌سنجی که از اپلیکیشن هویت‌سنجی خود دریافت می‌کنید نیاز دارید.
+همچنین اگر که دسترسی به کدهای هویت‌سنجی دومرحله‌ای را از دست داده‌اید، رمز عبور را می‌توانید با استفاده از رایانامه بازنشانی و احیا نمایید.</string>
+  <string name="openTwoFactorApp">اپلیکیشن هویت‌سنجی دومرحله‌ای را بر روی دستگاه خود باز نمایید تا کد هویت‌سنجی را ببینید و هویت خود را تایید نمایید.</string>
 </resources>

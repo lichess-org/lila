@@ -102,7 +102,6 @@ object Work {
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
-    def weak    = copy(acquired = none)
 
     def isOutOfTries = tries >= 2
 
@@ -110,7 +109,8 @@ object Work {
 
     def nbMoves = game.moves.count(' ' ==) + 1
 
-    override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
+    override def toString =
+      s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)

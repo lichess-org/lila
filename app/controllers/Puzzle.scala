@@ -121,7 +121,7 @@ final class Puzzle(
         jsonFormError,
         data =>
           {
-            data.puzzleId match {
+            data.streakPuzzleId match {
               case Some(streakNextId) =>
                 env.puzzle.api.puzzle.find(streakNextId) flatMap {
                   case None => fuccess(Json.obj("streakComplete" -> true))
@@ -141,10 +141,10 @@ final class Puzzle(
                     }
                 }
               case None =>
-                lila.mon.puzzle.round.attempt(ctx.isAuth, theme.key.value).increment()
+                lila.mon.puzzle.round.attempt(ctx.isAuth, theme.key.value, data.rated).increment()
                 ctx.me match {
                   case Some(me) =>
-                    env.puzzle.finisher(id, theme.key, me, data.result) flatMap {
+                    env.puzzle.finisher(id, theme.key, me, data.result, data.mode) flatMap {
                       _ ?? { case (round, perf) =>
                         val newUser = me.copy(perfs = me.perfs.copy(puzzle = perf))
                         for {
@@ -342,7 +342,7 @@ final class Puzzle(
   def dashboard(days: Int, path: String = "home") =
     Auth { implicit ctx => me =>
       get("u")
-        .ifTrue(isGranted(_.Hunter))
+        .ifTrue(isGranted(_.CheatHunter))
         .??(env.user.repo.named)
         .map(_ | me)
         .flatMap { user =>
@@ -371,7 +371,7 @@ final class Puzzle(
   def history(page: Int) =
     Auth { implicit ctx => me =>
       get("u")
-        .ifTrue(isGranted(_.Hunter))
+        .ifTrue(isGranted(_.CheatHunter))
         .??(env.user.repo.named)
         .map(_ | me)
         .flatMap { user =>
@@ -443,7 +443,7 @@ final class Puzzle(
                       .map(_ -> Result(solution.win))
                   }
                   .?? { case (id, solution) =>
-                    env.puzzle.finisher(id, PuzzleTheme.mix.key, me, Result(solution.win))
+                    env.puzzle.finisher(id, PuzzleTheme.mix.key, me, Result(solution.win), chess.Mode.Rated)
                   } map {
                   case None => Ok(env.puzzle.jsonView.bc.userJson(me.perfs.puzzle.intRating))
                   case Some((round, perf)) =>

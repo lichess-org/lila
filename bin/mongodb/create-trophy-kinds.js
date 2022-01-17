@@ -91,6 +91,14 @@ db.trophyKind.insert({
   withCustomImage: false,
 });
 db.trophyKind.insert({
+  _id: 'contentTeam',
+  name: 'Lichess Content Team',
+  icon: '',
+  klass: 'icon3d',
+  order: NumberInt(103),
+  withCustomImage: false,
+});
+db.trophyKind.insert({
   _id: 'zhwc17',
   name: 'Crazyhouse champion 2017',
   url: '//lichess.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates',

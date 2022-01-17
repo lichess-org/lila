@@ -68,26 +68,23 @@ final class Account(
       negotiate(
         html = notFound,
         api = _ => {
-          env.relation.api.countFollowers(me.id) zip
-            env.pref.api.getPref(me) zip
+          env.pref.api.getPref(me) zip
             env.round.proxyRepo.urgentGames(me) zip
             env.challenge.api.countInFor.get(me.id) zip
-            env.playban.api.currentBan(me.id) map {
-              case ((((nbFollowers, prefs), povs), nbChallenges), playban) =>
-                Ok {
-                  import lila.pref.JsonView._
-                  env.user.jsonView(me) ++ Json
-                    .obj(
-                      "prefs"        -> prefs,
-                      "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                      "nbFollowers"  -> nbFollowers,
-                      "nbChallenges" -> nbChallenges
-                    )
-                    .add("kid" -> me.kid)
-                    .add("troll" -> me.marks.troll)
-                    .add("playban" -> playban)
-                    .add("announce" -> AnnounceStore.get.map(_.json))
-                }.withHeaders(CACHE_CONTROL -> s"max-age=15")
+            env.playban.api.currentBan(me.id) map { case (((prefs, povs), nbChallenges), playban) =>
+              Ok {
+                import lila.pref.JsonView._
+                env.user.jsonView.full(me, withOnline = true, withRating = ctx.pref.showRatings) ++ Json
+                  .obj(
+                    "prefs"        -> prefs,
+                    "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+                    "nbChallenges" -> nbChallenges
+                  )
+                  .add("kid" -> me.kid)
+                  .add("troll" -> me.marks.troll)
+                  .add("playban" -> playban)
+                  .add("announce" -> AnnounceStore.get.map(_.json))
+              }.withHeaders(CACHE_CONTROL -> s"max-age=15")
             }
         }
       )
@@ -102,8 +99,8 @@ final class Account(
     }
 
   def apiMe =
-    Scoped() { _ => me =>
-      env.api.userApi.extended(me, me.some) dmap { JsonOk(_) }
+    Scoped() { req => me =>
+      env.api.userApi.extended(me, me.some, withFollows = apiC.userWithFollows(req)) dmap { JsonOk(_) }
     }
 
   def apiNowPlaying =
@@ -309,7 +306,7 @@ final class Account(
           FormFuResult(form) { err =>
             fuccess(html.account.close(me, err, managed = false))
           } { _ =>
-            env.closeAccount(me, Holder(me)) inject {
+            env.api.accountClosure.close(me, Holder(me)) inject {
               Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
             }
           }

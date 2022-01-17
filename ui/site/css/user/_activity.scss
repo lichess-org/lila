@@ -5,6 +5,10 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     font-size: 1.2em;
     margin-left: 2rem;
     padding-top: 1rem;
+
+    @include breakpoint($mq-not-small) {
+      margin-right: 2em;
+    }
   }
 
   section h2 {

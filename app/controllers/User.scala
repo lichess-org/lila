@@ -119,7 +119,7 @@ final class User(
                   filter = filters.current,
                   me = ctx.me,
                   page = page
-                )(ctx.body, formBinding)
+                )(ctx.body, formBinding, reqLang)
                 _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
                 _ <- env.tournament.cached.nameCache preloadMany {
                   pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
@@ -134,7 +134,8 @@ final class User(
                     social <- env.socialInfo(u, ctx)
                     searchForm =
                       (filters.current == GameFilter.Search) option
-                        GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body, formBinding)
+                        GameFilterMenu
+                          .searchForm(userGameSearch, filters.current)(ctx.body, formBinding, reqLang)
                   } yield html.user.show.page.games(u, info, pag, filters, searchForm, social, notes)
                   else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
               } yield res,
@@ -169,7 +170,7 @@ final class User(
       OptionFuResult(env.user.repo named username) { user =>
         if (user.enabled || isGranted(_.UserModView))
           ctx.userId.?? { relationApi.fetchBlocks(user.id, _) } zip
-            ctx.userId.?? { env.game.crosstableApi.fetchOrEmpty(user.id, _) dmap some } zip
+            ctx.userId.?? { env.game.crosstableApi(user.id, _) dmap some } zip
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
             ctx.userId.?? { relationApi.fetchRelation(_, user.id) } flatMap {
               case (((blocked, crosstable), followable), relation) =>
@@ -207,7 +208,7 @@ final class User(
               Json.toJson(
                 users
                   .take(getInt("nb", req).fold(10)(_ min max))
-                  .map(env.user.jsonView(_))
+                  .map(env.user.jsonView.full(_, withOnline = false, withRating = true))
               )
             )
           }
@@ -247,7 +248,7 @@ final class User(
       filterName: String,
       page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
-    UserGamesRateLimitPerIP(HTTPRequest ipAddress ctx.req, cost = page, msg = s"on ${u.username}") {
+    UserGamesRateLimitPerIP(ctx.ip, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGamesCost.increment(page.toLong)
       for {
         pagFromDb <- env.gamePaginator(
@@ -256,7 +257,7 @@ final class User(
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
-        )(ctx.body, formBinding)
+        )(ctx.body, formBinding, reqLang)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
@@ -396,12 +397,12 @@ final class User(
           }
           .map(view.reportLog(user))
 
-        val prefs = env.pref.api.getPref(user) map view.prefs(user)
+        val prefs = isGranted(_.CheatHunter) ?? env.pref.api.getPref(user).map(view.prefs(user))
 
-        val rageSit = env.playban.api.getRageSit(user.id).map(view.showRageSit)
+        val rageSit = isGranted(_.CheatHunter) ?? env.playban.api.getRageSit(user.id).map(view.showRageSit)
 
         val actions = env.user.repo.isErased(user) map { erased =>
-          html.user.mod.actions(user, emails, erased, env.mod.presets.pmPresets.get())
+          html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(holder.user))
         }
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val others = for {
@@ -414,7 +415,12 @@ final class User(
           Granter.is(_.ViewPrintNoIP)(holder) ??
             html.user.mod.identification(holder, user, logins)
         }
-        val irwin = isGranted(_.MarkEngine) ?? env.irwin.api.reports.withPovs(user).map {
+
+        val kaladin = isGranted(_.MarkEngine) ?? env.irwin.kaladinApi.get(user).map {
+          _.flatMap(_.response) ?? html.kaladin.report
+        }
+
+        val irwin = isGranted(_.MarkEngine) ?? env.irwin.irwinApi.reports.withPovs(user).map {
           _ ?? { reps =>
             html.irwin.report(reps)
           }
@@ -439,6 +445,7 @@ final class User(
             modZoneSegment(rageSit, "rageSit", user) merge
             modZoneSegment(others, "others", user) merge
             modZoneSegment(identification, "identification", user) merge
+            modZoneSegment(kaladin, "kaladin", user) merge
             modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
             EventSource.flow
@@ -450,41 +457,48 @@ final class User(
     env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
         env.user.repo.isErased(user) map { erased =>
-          Ok(html.user.mod.actions(user, emails, erased, env.mod.presets.pmPresets.get()))
+          Ok(html.user.mod.actions(user, emails, erased, env.mod.presets.getPmPresets(ctx.me)))
         }
     }
 
   def writeNote(username: String) =
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
-        _ => user => renderShow(user, Results.BadRequest),
-        Redirect(routes.User.show(username)).flashSuccess
+        err => BadRequest(err.errors.toString).fuccess,
+        user =>
+          if (getBool("inquiry")) env.user.noteApi.byUserForMod(user.id) map { notes =>
+            Ok(views.html.mod.inquiry.noteZone(user, notes))
+          }
+          else
+            env.socialInfo.fetchNotes(user, me) map { notes =>
+              Ok(views.html.user.show.header.noteZone(user, notes))
+            }
       )(ctx.body)
     }
 
   def apiWriteNote(username: String) =
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
-        err = err => _ => jsonFormErrorDefaultLang(err),
-        suc = jsonOkResult
+        jsonFormErrorDefaultLang,
+        suc = _ => jsonOkResult.fuccess
       )
     }
 
   private def doWriteNote(
       username: String,
       me: UserModel
-  )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
+  )(err: Form[_] => Fu[Result], suc: UserModel => Fu[Result])(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note
+        lila.user.UserForm.note
           .bindFromRequest()
           .fold(
-            e => err(e)(user),
+            err,
             data =>
               {
                 val isMod = data.mod && isGranted(_.ModNote, me)
                 env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } inject suc
+              } >> suc(user)
           )
       }
     }
@@ -512,7 +526,7 @@ final class User(
               }
             }
             .sequenceFu
-      } yield html.user.opponents(me, relateds)
+      } yield html.relation.bits.opponents(me, relateds)
     }
 
   def perfStat(username: String, perfKey: String) =
@@ -576,6 +590,17 @@ final class User(
             }
             else fuccess(Json toJson userIds)
           } map JsonOk
+      }
+    }
+
+  def ratingDistribution(perfKey: lila.rating.Perf.Key) =
+    Open { implicit ctx =>
+      lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match {
+        case Some(perfType) =>
+          env.user.rankingApi.weeklyRatingDistribution(perfType) dmap { data =>
+            Ok(html.stat.ratingDistribution(perfType, data))
+          }
+        case _ => notFound
       }
     }
 

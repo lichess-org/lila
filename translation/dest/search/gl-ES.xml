@@ -26,8 +26,14 @@
   <string name="onlyAnalysed">Só partida onde a análise por ordenador estea dispoñible</string>
   <string name="color">Cor</string>
   <string name="evaluation">En avaliación</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Número máximo</string>
+  <string name="maxNumber">Número máximo</string>
   <string name="maxNumberExplanation">Número máximo de partidas a devolver</string>
   <string name="include">Incluír</string>
-  <string name="generateURL">Xera URL</string>
+  <string name="descending">Descendente</string>
+  <string name="ascending">Ascendente</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Atopáronse %s partidas</item>
+    <item quantity="other">Atopáronse %s partidas</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">A puntuación media de ambos xogadores</string>
 </resources>

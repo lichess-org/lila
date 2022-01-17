@@ -22,7 +22,8 @@ object search {
   def apply(mod: Holder, form: Form[_], users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -32,12 +33,11 @@ object search {
             input(
               name := "q",
               autofocus,
-              placeholder := "Search by IP, email, or username",
+              placeholder := "Search by IP, email, or username (exact match only)",
               value := form("q").value
-            ),
-            form3.select(form("as"), lila.mod.UserSearch.asChoices)
+            )
           ),
-          userTable(mod, users)
+          userTable(mod, users, eraseButton = isGranted(_.CloseAccount))
         )
       )
     }
@@ -51,7 +51,8 @@ object search {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Fingerprint",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -89,7 +90,8 @@ object search {
   )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = "IP address",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -121,14 +123,15 @@ object search {
   def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "IP address",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("mod.misc"),
+      moreJs = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
             h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
-            p("Teachers: ", c.teachers.toList.map(id => userIdLink(id.some)))
+            p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
           ),
           br,
           br,
@@ -137,7 +140,65 @@ object search {
       )
     }
 
-  private def userTable(mod: Holder, users: List[User.WithEmails])(implicit ctx: Context) =
+  def teacher(teacherId: User.ID, classes: List[lila.clas.Clas])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Classes",
+      moreCss = cssTag("mod.misc")
+    ) {
+      main(cls := "page-menu")(
+        views.html.mod.menu("search"),
+        div(cls := "mod-search page-menu__content box")(
+          div(cls := "box__top")(
+            h1("Classes from", userIdLink(teacherId.some))
+          ),
+          br,
+          br,
+          classes.nonEmpty option table(cls := "slist slist-pad")(
+            thead(
+              tr(
+                th("Id"),
+                th("Name"),
+                th("Created"),
+                th("Archived"),
+                th("Teachers (first is owner)")
+              )
+            ),
+            tbody(
+              classes.map(c =>
+                tr(
+                  td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
+                  td(c.name),
+                  td(momentFromNow(c.created.at)),
+                  c.archived match {
+                    case None => td("No")
+                    case Some(lila.clas.Clas.Recorded(closerId, at)) =>
+                      td(userIdLink(closerId.some), nbsp, momentFromNow(at))
+                  },
+                  td(c.teachers.toList.map(id => teacherLink(id)))
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+
+  private def teacherLink(userId: User.ID)(implicit ctx: Context) =
+    lightUser(userId).map { user =>
+      a(
+        href := routes.Clas.teacher(user.name),
+        cls := userClass(user.id, none, withOnline = true),
+        dataHref := routes.User.show(user.name)
+      )(
+        lineIcon(user),
+        titleTag(user),
+        user.name
+      )
+    }
+
+  private def userTable(mod: Holder, users: List[User.WithEmails], eraseButton: Boolean = false)(implicit
+      ctx: Context
+  ) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -146,7 +207,9 @@ object search {
           th("Marks"),
           th("Closed"),
           th("Created"),
-          th("Active")
+          th("Active"),
+          isGranted(_.CloseAccount) option th,
+          eraseButton option th
         )
       ),
       tbody(
@@ -168,7 +231,21 @@ object search {
             ),
             td(u.disabled option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
-            td(u.seenAt.map(momentFromNow(_)))
+            td(u.seenAt.map(momentFromNow(_))),
+            isGranted(_.CloseAccount) option td(
+              !u.marks.alt option button(
+                cls := "button button-empty button-thin button-red mark-alt",
+                href := routes.Mod.alt(u.id, !u.marks.alt)
+              )("ALT")
+            ),
+            eraseButton option td(
+              postForm(action := routes.Mod.gdprErase(u.username))(
+                submitButton(
+                  cls := "button button-red button-empty confirm",
+                  title := "Definitely erase everything about this user"
+                )("GDPR erasure")
+              )
+            )
           )
         }
       )

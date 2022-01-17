@@ -13,7 +13,6 @@
     <item quantity="one">একটি অনিষ্পন্ন আমন্ত্রণ</item>
     <item quantity="other">%sটি অনিষ্পন্ন আমন্ত্রণ</item>
   </plurals>
-  <string name="noPendingInvitations">কোন অনিষ্পন্ন আমন্ত্রণ নেই</string>
   <string name="onlyVisibleToTeachers">শুধু ক্লাসের শিক্ষকদের কাছেই দৃশ্যমান</string>
   <string name="lastActiveDate">সক্রিয়</string>
   <string name="managed">ম্যানেজ কৃত</string>

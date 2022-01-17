@@ -26,12 +26,12 @@ object form {
             else trans.createANewTournament()
           ),
           postForm(cls := "form3", action := routes.Tournament.create)(
+            form3.globalError(form),
             fields.name,
             form3.split(fields.rated, fields.variant),
             fields.clock,
             form3.split(fields.minutes, fields.waitMinutes),
             form3.split(fields.description(true), fields.startPosition),
-            form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
@@ -84,6 +84,9 @@ object form {
               form3.submit(trans.save(), icon = "".some)
             )
           ),
+          hr,
+          br,
+          br,
           postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
               trans.cancelTournament()

@@ -50,12 +50,5 @@ Si votre stream est en anglais, il n\'est pas nécessaire d\'inclure un tag de l
   <string name="xStreamerPicture">%s photo de streamer</string>
   <string name="changePicture">Modifier/supprimer votre photo</string>
   <string name="uploadPicture">Téléverser une image</string>
-  <string name="deletePicture">Supprimer l\'image</string>
   <string name="maxSize">Taille max : %s</string>
-  <string name="installBlocker">Installer un antivirus !</string>
-  <string name="beSafe">Pour rester bien abrité
-des traqueurs et autres publicités
-dont Youtube et Twitch sont infestés,
-uBlock Origin est recommandé
-car open-source et gratuit, il est.</string>
 </resources>

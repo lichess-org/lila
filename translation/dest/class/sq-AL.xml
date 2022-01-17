@@ -56,7 +56,6 @@ Kjo eshte adresa per tu futur ne klase.</string>
     <item quantity="one">Nje ftese ne pritje</item>
     <item quantity="other">%s ftesa ne pritje</item>
   </plurals>
-  <string name="noPendingInvitations">Ska ftesa ne pritje</string>
   <string name="onlyVisibleToTeachers">E dukshme vetem nga mesuesi i klases</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">E menaxhuar</string>

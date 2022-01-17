@@ -32,9 +32,9 @@ object mini {
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov),
+      renderPlayer(!pov, withRating = ctx.pref.showRatings),
       cgWrap,
-      renderPlayer(pov)
+      renderPlayer(pov, withRating = ctx.pref.showRatings)
     )
   }
 
@@ -47,20 +47,20 @@ object mini {
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
-      renderPlayer(!pov)(defaultLang),
+      renderPlayer(!pov, withRating = true)(defaultLang),
       cgWrap,
-      renderPlayer(pov)(defaultLang)
+      renderPlayer(pov, withRating = true)(defaultLang)
     )
   }
 
   def renderState(pov: Pov) =
     dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov)(implicit lang: Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(implicit lang: Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player, withRating = false),
-        span(cls := "rating")(lila.game.Namer ratingString pov.player)
+        withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if (pov.game.finished) renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }

@@ -31,10 +31,14 @@ object Analyser {
     Dictionary.en.map { word =>
       word + (if (word endsWith "e") "" else "e?+") + "[ds]?+"
     } ++
-      Dictionary.es ++
+      Dictionary.es.map { word =>
+        word + (if (word endsWith "e") "" else "e?+") + "s?+"
+      } ++
       Dictionary.hi ++
       Dictionary.fr ++
-      Dictionary.de ++
+      Dictionary.de.map { word =>
+        word + (if (word endsWith "e") "" else "e?+") + "[nrs]?+"
+      } ++
       Dictionary.tr ++
       Dictionary.it ++
       bannedYoutubeIds

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donér</string>
+  <string name="donateAsX">Gje som %s</string>
   <string name="lichessPatron">Bidragsytar til Lichess</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli ein bidragsytar til Lichess</string>
@@ -43,7 +44,6 @@ Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-hjelpa</string>
   <string name="otherMethods">Andre måtar å bidra på?</string>
   <string name="bankTransfers">Vi tek òg mot bankoverføringar</string>
-  <string name="bitcoin">Og her er bitcoin-adressa vår: %s</string>
   <string name="patronFeatures">Er nokre funksjonar reservert bidragsytarar?</string>
   <string name="noPatronFeatures">Nei, for Lichess er heilt gratis, for alltid og for alle. Det er ein lovnad.
 Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
@@ -75,5 +75,5 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="nowLifetime">Du er no livslang Lichess-mesen!</string>
   <string name="nowOneMonth">Du er no Lichess-mesen for ein månad!</string>
   <string name="downgradeNextMonth">Om ein månad blir du IKKJE belasta på ny, og Lichess-kontoen din blir gradert ned til gratis-nivået.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Endra valuta</string>
+  <string name="changeCurrency">Endra valuta</string>
 </resources>

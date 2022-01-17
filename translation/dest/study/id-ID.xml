@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">Sekarang Anda adalah penonton</string>
   <string name="pgnTags">Tagar PGN</string>
   <string name="like">Suka</string>
+  <string name="unlike">Batal Suka</string>
   <string name="newTag">Tagar baru</string>
   <string name="commentThisPosition">Komentar di posisi ini</string>
   <string name="commentThisMove">Komentari langkah ini</string>
@@ -122,6 +123,7 @@
   <string name="clearChat">Bersihkan obrolan</string>
   <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan studi? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="deleteStudy">Hapus studi</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Hapus seluruh studi? Tidak dapat kembal lagi! Tuliskan nama studi untuk konfirmasi: %s</string>
   <string name="whereDoYouWantToStudyThat">Dimana Anda ingin mempelajarinya?</string>
   <string name="goodMove">Langkah bagus</string>
   <string name="mistake">Kesalahan</string>
@@ -150,4 +152,8 @@
   <string name="nextChapter">Bab selanjutnya</string>
   <string name="prevChapter">Bab sebelumnya</string>
   <string name="studyActions">Pembelajaran</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Topik</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Topik populer</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Kembali</string>
+  <string name="playAgain">Main lagi</string>
 </resources>

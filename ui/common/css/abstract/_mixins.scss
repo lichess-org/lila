@@ -68,13 +68,6 @@
   }
 }
 
-/* atm only chrome supports min-content, max-content */
-@mixin proper-grid {
-  @supports (height: max-content) {
-    @content;
-  }
-}
-
 @mixin body-fixed-scroll {
   body {
     /* prevents scroll bar flicker when dragging a piece out */

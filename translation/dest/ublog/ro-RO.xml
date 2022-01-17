@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog-ul lui %s</string>
+  <string name="newPost">Postare nouă</string>
+  <string name="editYourBlogPost">Editează-ți postarea</string>
+  <string name="saveDraft">Salvează ciorna</string>
+  <string name="postTitle">Titlul mesajului</string>
+  <string name="postIntro">Introducere</string>
+  <string name="postBody">Conținut</string>
+  <string name="drafts">Ciorne</string>
+  <string name="published">Publicat</string>
+  <string name="publishOnYourBlog">Publică pe blogul tău</string>
+  <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">A publicat o postare pe blog</item>
+    <item quantity="few">A publicat %s postări pe blog</item>
+    <item quantity="other">Ai publicat %s postări pe blog</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">O vizualizare</item>
+    <item quantity="few">%s vizualizări</item>
+    <item quantity="other">%s de vizualizări</item>
+  </plurals>
+  <string name="xPublishedY">%1$s a publicat %2$s</string>
+  <string name="thisPostIsPublished">Această postare este publicată</string>
+  <string name="thisIsADraft">Aceasta este o ciornă</string>
+  <string name="moreBlogPostsBy">Vezi mai multe postări pe blog scrise de %s</string>
+  <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
+  <string name="noDrafts">Nici o ciornă de afișat.</string>
+  <string name="latestBlogPosts">Ultimele postări pe blog</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Vezi o postare</item>
+    <item quantity="few">Vezi toate cele %s postări</item>
+    <item quantity="other">Vezi toate cele %s de postări</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Încarcă o imagine pentru postarea ta</string>
+  <string name="imageAlt">Text alternativ imagine</string>
+  <string name="imageCredit">Sursa imagine</string>
+</resources>

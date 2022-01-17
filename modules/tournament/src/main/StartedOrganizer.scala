@@ -3,7 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
-import lila.common.ThreadLocalRandom
+import lila.common.LilaStream
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -13,17 +13,17 @@ final private class StartedOrganizer(
 )(implicit mat: akka.stream.Materializer)
     extends Actor {
 
-  override def preStart(): Unit = {
-    context setReceiveTimeout 120.seconds
-    scheduleNext()
-  }
-
   implicit def ec = context.dispatcher
 
-  case object Tick
+  override def preStart(): Unit = {
+    context setReceiveTimeout 60.seconds
+    context.system.scheduler.scheduleOnce(25 seconds, self, Tick(0)).unit
+  }
 
-  def scheduleNext(): Unit =
-    context.system.scheduler.scheduleOnce(2 seconds, self, Tick).unit
+  case class Tick(it: Int)
+
+  def scheduleNext(prev: Int): Unit =
+    context.system.scheduler.scheduleOnce(1 second, self, Tick(prev + 1)).unit
 
   def receive = {
 
@@ -32,8 +32,14 @@ final private class StartedOrganizer(
       pairingLogger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick =>
-      tournamentRepo.startedCursor
+    case Tick(tickIt) =>
+      val doAllTournaments = tickIt % 20 == 0
+      tournamentRepo
+        .startedCursorWithNbPlayersGte {
+          if (doAllTournaments) none // every 20s, do all tournaments
+          else if (tickIt % 2 == 0) 50.some // every 2s, do all decent tournaments
+          else 1000.some // always do massive tournaments
+        }
         .documentSource()
         .mapAsyncUnordered(4) { tour =>
           processTour(tour) recover { case e: Exception =>
@@ -41,34 +47,35 @@ final private class StartedOrganizer(
             0
           }
         }
-        .toMat(Sink.fold(0 -> 0) { case ((tours, users), tourUsers) =>
-          (tours + 1, users + tourUsers)
-        })(Keep.right)
+        .toMat(LilaStream.sinkCount)(Keep.right)
         .run()
-        .addEffect { case (tours, users) =>
-          lila.mon.tournament.started.update(tours)
-          lila.mon.tournament.waitingPlayers.record(users).unit
+        .addEffect { nb =>
+          if (doAllTournaments) lila.mon.tournament.started.update(nb).unit
         }
         .monSuccess(_.tournament.startedOrganizer.tick)
-        .addEffectAnyway(scheduleNext())
+        .addEffectAnyway(scheduleNext(tickIt))
         .unit
   }
 
-  private def processTour(tour: Tournament): Fu[Int] =
-    if (tour.secondsToFinish <= 0) api finish tour inject 0
-    else if (!tour.isScheduled && tour.nbPlayers < 30 && ThreadLocalRandom.nextInt(10) == 0) {
+  private def processTour(tour: Tournament): Funit =
+    if (tour.secondsToFinish <= 0) api finish tour
+    else if (api.killSchedule contains tour.id) {
+      api.killSchedule remove tour.id
+      api finish tour
+    } else if (tour.nbPlayers < 2) funit
+    else if (tour.nbPlayers < 30) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour)
       }
     } else startPairing(tour)
 
-  // returns number of users actively awaiting a pairing
-  private def startPairing(tour: Tournament): Fu[Int] =
+  private def startPairing(tour: Tournament): Funit =
     (!tour.pairingsClosed && tour.nbPlayers > 1) ??
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap { waiting =>
-          api.makePairings(tour, waiting) inject waiting.size
+          lila.mon.tournament.waitingPlayers(tour.id).record(waiting.size).unit
+          api.makePairings(tour, waiting)
         }
 }

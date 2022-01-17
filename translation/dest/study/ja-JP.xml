@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">観戦者になりました</string>
   <string name="pgnTags">PGN タグ</string>
   <string name="like">いいね</string>
+  <string name="unlike">いいね解除</string>
   <string name="newTag">新しいタグ</string>
   <string name="commentThisPosition">この局面にコメントする</string>
   <string name="commentThisMove">この手にコメントする</string>
@@ -151,4 +152,12 @@
   <string name="nextChapter">次の章</string>
   <string name="prevChapter">前の章</string>
   <string name="studyActions">研究の操作</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">トピック</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">自分のトピック</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">人気のトピック</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">トピックの管理</string>
+  <string name="back" comment="back&#10;&#10;As in 'return', in a study tutorial.">戻る</string>
+  <string name="playAgain">もう一度プレイ</string>
+  <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
+  <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
 </resources>

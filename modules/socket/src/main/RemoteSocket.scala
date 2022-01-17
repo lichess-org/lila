@@ -100,8 +100,8 @@ final class RemoteSocket(
       }
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
-    case Mlat(micros) =>
-      send(Out.mlat(micros))
+    case Mlat(millis) =>
+      send(Out.mlat(millis))
     case Socket.SendToFlag(flag, payload) =>
       send(Out.tellFlag(flag, payload))
     case TellSriOut(sri, payload) =>
@@ -300,8 +300,8 @@ object RemoteSocket {
         s"tell/sri $sri ${Json stringify payload}"
       def tellSris(sris: Iterable[Sri], payload: JsValue) =
         s"tell/sris ${commas(sris)} ${Json stringify payload}"
-      def mlat(micros: Int) =
-        s"mlat ${((micros / 100) / 10d)}"
+      def mlat(millis: Int) =
+        s"mlat ${millis}"
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
       def setTroll(userId: String, v: Boolean) =

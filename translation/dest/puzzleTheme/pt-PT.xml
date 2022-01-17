@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">O adversário está limitado quanto aos seus movimentos, e todas as jogadas pioram a sua posição.</string>
   <string name="healthyMix">Mistura saudável</string>
   <string name="healthyMixDescription">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
+  <string name="playerGames">Jogos de jogadores</string>
+  <string name="playerGamesDescription">Procure quebra-cabeças gerados a partir dos seus jogos ou de jogos de outro jogador.</string>
+  <string name="puzzleDownloadInformation">Esses quebra-cabeças são do domínio público e podem ser obtidos em %s.</string>
 </resources>

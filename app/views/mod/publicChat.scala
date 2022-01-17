@@ -13,7 +13,7 @@ object publicChat {
 
   def apply(
       tourChats: List[(lila.tournament.Tournament, UserChat)],
-      simulChats: List[(lila.simul.Simul, UserChat)]
+      swissChats: List[(lila.swiss.Swiss, UserChat)]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Public Chats",
@@ -28,16 +28,16 @@ object publicChat {
             div(cls := "player_chats")(
               tourChats.map { case (tournament, chat) =>
                 div(cls := "game", dataChan := "tournament", dataRoom := tournament.id)(
-                  chatOf(routes.Tournament.show(tournament.id), tournament.name, chat)
+                  chatOf(tournamentTitle(tournament), chat)
                 )
               }
             ),
             div(
-              h2("Simul Chats"),
+              h2("Swiss Chats"),
               div(cls := "player_chats")(
-                simulChats.map { case (simul, chat) =>
-                  div(cls := "game", dataChan := "simul", dataRoom := simul.id)(
-                    chatOf(routes.Simul.show(simul.id), simul.name, chat)
+                swissChats.map { case (swiss, chat) =>
+                  div(cls := "game", dataChan := "swiss", dataRoom := swiss.id.value)(
+                    chatOf(swissTitle(swiss), chat)
                   )
                 }
               )
@@ -59,9 +59,9 @@ object publicChat {
   private val dataRoom = attr("data-room")
   private val dataChan = attr("data-chan")
 
-  private def chatOf(url: Call, name: String, chat: UserChat)(implicit ctx: Context) =
+  private def chatOf(titleFragment: Frag, chat: UserChat)(implicit ctx: Context) =
     frag(
-      a(cls := "title", href := url)(name),
+      titleFragment,
       div(cls := "chat")(
         chat.lines.filter(_.isVisible).map { line =>
           div(
@@ -76,5 +76,14 @@ object publicChat {
           )
         }
       )
+    )
+
+  private def swissTitle(swiss: lila.swiss.Swiss) =
+    a(cls := "title", href := routes.Swiss.show(swiss.id.value))(swiss.name)
+
+  private def tournamentTitle(tournament: lila.tournament.Tournament) =
+    div(cls := "title-time")(
+      a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
+      span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)
     )
 }

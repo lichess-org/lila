@@ -177,10 +177,17 @@ export default class MsgCtrl {
   report = () => {
     const user = this.data.convo?.user;
     if (user) {
-      const text = this.data.convo?.msgs.find(m => m.user != this.data.me.id)?.text.slice(0, 140);
-      if (text) network.report(user.name, text).then(_ => alert('Your report has been sent.'));
+      const text = this.reportableMsg()?.text.slice(0, 140);
+      if (text)
+        network
+          .report(user.name, text)
+          .then(_ => alert('Your report has been sent.'))
+          .catch(err => alert('Failed to send report: ' + err));
     }
   };
+
+  reportableMsg = (): Msg | undefined =>
+    this.data.convo?.msgs.find(m => m.user != this.data.me.id && m.text.length > 2);
 
   block = () => {
     const userId = this.data.convo?.user.id;

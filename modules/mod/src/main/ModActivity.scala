@@ -94,16 +94,14 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
       }
       .map {
         _.foldLeft(Map.empty[String, Day]) { case (acc, (date, key, nb)) =>
-          acc.updated(
-            date, {
-              val row = acc.getOrElse(date, Day(Map.empty, Map.empty))
-              Room.byKey
-                .get(key)
-                .map(row.set(_, nb))
-                .orElse(Action.dbMap.get(key).map(row.set(_, nb)))
-                .getOrElse(row)
-            }
-          )
+          acc.updatedWith(date) { prev =>
+            val row = prev | Day(Map.empty, Map.empty)
+            Room.byKey
+              .get(key)
+              .map(row.set(_, nb))
+              .orElse(Action.dbMap.get(key).map(row.set(_, nb)))
+              .orElse(row.some)
+          }
         }
       }
       .map { data =>
@@ -170,19 +168,15 @@ object ModActivity {
     case object Appeal       extends Action
     case object SetEmail     extends Action
     case object Streamer     extends Action
+    case object Blog         extends Action
     case object ForumAdmin   extends Action
     val dbMap = Map(
       "modMessage"      -> Message,
       "engine"          -> MarkCheat,
-      "unengine"        -> MarkCheat,
       "troll"           -> MarkTroll,
-      "untroll"         -> MarkTroll,
       "booster"         -> MarkBoost,
-      "unbooster"       -> MarkBoost,
       "alt"             -> CloseAccount,
-      "unalt"           -> CloseAccount,
       "closeAccount"    -> CloseAccount,
-      "reopenAccount"   -> CloseAccount,
       "chatTimeout"     -> ChatTimeout,
       "appealPost"      -> Appeal,
       "appealClose"     -> Appeal,
@@ -191,6 +185,8 @@ object ModActivity {
       "streamerDecline" -> Streamer,
       "streamerunlist"  -> Streamer,
       "streamerTier"    -> Streamer,
+      "blogTier"        -> Blog,
+      "blogPostEdit"    -> Blog,
       "deletePost"      -> ForumAdmin,
       "closeTopic"      -> ForumAdmin
     )

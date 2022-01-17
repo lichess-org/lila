@@ -49,5 +49,13 @@
   <string name="raceYourFriends">Compite con tus amigos</string>
   <string name="skip">omitir</string>
   <string name="skipHelp">Puedes omitir un movimiento por carrera:</string>
-  <string name="skipExplanation">¡Omite este movimiento para conservar tu combo! Sólo funciona una vez por carrera.</string>
+  <string name="skipExplanation">¡Omite este movimiento para conservar tu racha! Sólo funciona una vez por carrera.</string>
+  <string name="failedPuzzles">Ejercicios fallidos</string>
+  <string name="slowPuzzles">Ejercicios lentos</string>
+  <string name="thisWeek">Esta semana</string>
+  <string name="thisMonth">Este mes</string>
+  <string name="allTime">Todo</string>
+  <string name="clickToReload">Haz clic para recargar</string>
+  <string name="thisRunHasExpired">¡Esta ronda ha caducado!</string>
+  <string name="thisRunWasOpenedInAnotherTab">¡Esta ronda fue abierta en otra pestaña!</string>
 </resources>

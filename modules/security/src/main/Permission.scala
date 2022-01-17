@@ -21,6 +21,7 @@ object Permission {
   case object GamifyView            extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case object UserModView           extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
+  case object GamesModView          extends Permission("GAMES_MOD_VIEW", "User games mod view")
   case object SendToZulip           extends Permission("NOTIFY_SLACK", List(UserModView), "Send to Zulip")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserModView, ChatTimeout), "Shadowban")
@@ -50,6 +51,7 @@ object Permission {
   case object ChangePermission      extends Permission("CHANGE_PERMISSION", "Change permissions")
   case object PublicMod             extends Permission("PUBLIC_MOD", "Mod badge")
   case object Developer             extends Permission("DEVELOPER", "Developer badge")
+  case object ContentTeam           extends Permission("CONTENT_TEAM", "Content Team badge")
   case object Coach                 extends Permission("COACH", "Is a coach")
   case object Teacher               extends Permission("TEACHER", "Is a class teacher")
   case object ModNote               extends Permission("MOD_NOTE", "Mod notes")
@@ -88,28 +90,47 @@ object Permission {
         "Timeout mod"
       )
 
-  case object Hunter
+  case object BoostHunter
       extends Permission(
-        "HUNTER",
+        "BOOST_HUNTER",
         List(
           LichessTeam,
-          ViewBlurs,
-          MarkEngine,
           MarkBooster,
           UserModView,
+          GamesModView,
           GamifyView,
-          UserEvaluate,
           SeeReport,
           ModLog,
-          SeeInsight,
-          UserSearch,
           RemoveRanking,
           ModMessage,
           ModNote,
           ViewPrintNoIP,
           SendToZulip
         ),
-        "Hunter"
+        "Boost Hunter"
+      )
+
+  case object CheatHunter
+      extends Permission(
+        "CHEAT_HUNTER",
+        List(
+          LichessTeam,
+          ViewBlurs,
+          MarkEngine,
+          UserModView,
+          GamesModView,
+          GamifyView,
+          UserEvaluate,
+          SeeReport,
+          ModLog,
+          SeeInsight,
+          UserSearch,
+          ModMessage,
+          ModNote,
+          ViewPrintNoIP,
+          SendToZulip
+        ),
+        "Cheat Hunter"
       )
 
   case object Shusher
@@ -138,7 +159,8 @@ object Permission {
       extends Permission(
         "ADMIN",
         List(
-          Hunter,
+          BoostHunter,
+          CheatHunter,
           Shusher,
           Appeals,
           IpBan,
@@ -153,7 +175,6 @@ object Permission {
           PracticeConfig,
           PuzzleCurator,
           Presets,
-          RemoveRanking,
           DisapproveCoachReview,
           Relay,
           Streamers,
@@ -246,12 +267,14 @@ object Permission {
     "Badge" -> List(
       Developer,
       PublicMod,
-      Verified
+      Verified,
+      ContentTeam
     ),
     "Package" -> List(
       LichessTeam,
       TimeoutMod,
-      Hunter,
+      BoostHunter,
+      CheatHunter,
       Shusher,
       Admin,
       SuperAdmin
@@ -263,7 +286,7 @@ object Permission {
   }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
-    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ApiHog, Relay)
+    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 

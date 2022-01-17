@@ -20,4 +20,5 @@
   <string name="broadcastUrl">Հեռարձակման URL-հասցեն</string>
   <string name="currentRoundUrl">Ընթացիկ խաղափուլի URL-հասցեն</string>
   <string name="currentGameUrl">Ընթացիկ պարտիայի URL-հասցեն</string>
+  <string name="downloadAllRounds">Բեռնել բոլոր խաղափուլերը</string>
 </resources>

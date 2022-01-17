@@ -15,8 +15,7 @@
 .puzzle__moves {
   flex: 2 1 auto;
   overflow: auto;
-  border: $border;
-  border-width: 1px 0;
+  border-bottom: $border;
   position: relative;
 
   /* required by line::before */
@@ -30,10 +29,6 @@
   }
 
   move {
-    glyph {
-      vertical-align: middle;
-    }
-
     &.fail glyph {
       color: $c-bad;
     }

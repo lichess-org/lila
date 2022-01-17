@@ -29,5 +29,11 @@
   <string name="maxNumber">Maksimalt antal</string>
   <string name="maxNumberExplanation">Det maksimale antal partier der skal returneres</string>
   <string name="include">Inkluder</string>
-  <string name="generateURL">Generer URL</string>
+  <string name="descending">Faldende</string>
+  <string name="ascending">Stigende</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s parti fundet</item>
+    <item quantity="other">%s partier fundet</item>
+  </plurals>
+  <string name="ratingExplanation">Den gennemsnitlige rating af begge spillere</string>
 </resources>

@@ -17,9 +17,9 @@
     <item quantity="other">%s попыток</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Сыграна одна серия в %2$s</item>
+    <item quantity="one">Сыграна %1$s серия в %2$s</item>
     <item quantity="few">Сыграны %1$s серии в %2$s</item>
-    <item quantity="many">Сыграно %1$s серий в %2$s</item>
+    <item quantity="many">Сыграны %1$s серий в %2$s</item>
     <item quantity="other">Сыграно %1$s серий в %2$s</item>
   </plurals>
   <string name="highscoreX">Рекорд: %s</string>
@@ -54,4 +54,12 @@
   <string name="skip">пропустить</string>
   <string name="skipHelp">НОВИНКА! Вы можете пропустить один ход за гонку:</string>
   <string name="skipExplanation">Пропустить этот ход, чтобы сохранить комбо! Только один раз за гонку.</string>
+  <string name="failedPuzzles">Нерешённые задачи</string>
+  <string name="slowPuzzles">Долго решаемые задачи</string>
+  <string name="thisWeek">На этой неделе</string>
+  <string name="thisMonth">В этом месяце</string>
+  <string name="allTime">За всё время</string>
+  <string name="clickToReload">Нажмите, чтобы перезагрузить</string>
+  <string name="thisRunHasExpired">Время этой серии истекло!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Эта серия была открыта в другой вкладке!</string>
 </resources>

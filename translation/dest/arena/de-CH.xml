@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Arena-Turniär</string>
-  <string name="isItRated">Sind d\'Partiiä gwärtät?</string>
-  <string name="willBeNotified">Du wirsch benochrichtigät, wenn das Turnier afoht. Es isch somit möglich, während de Warteziit imänä anderä Tab z\'schpilä.</string>
-  <string name="isRated">Das Turnier isch gwärtät und wird dini Wärtigszahl beiiflussä.</string>
-  <string name="isNotRated">Das Turnier isch *nöd* gwärtät und wird dini Wärtigszahl *nöd* beiiflussä.</string>
-  <string name="someRated">Gwüssi Turniere sind gwärtät und werdäd dini Wärtigszahl beiiflussä.</string>
-  <string name="howAreScoresCalculated">Wiä werdäd d\'Pünkt berächnät?</string>
-  <string name="howAreScoresCalculatedAnswer">Grundsätzlich gits fürän Siig 2 Pünkt, 1 Punkt für Remis und 0 Pünkt fürä Niderlag.
-Gwünnsch du zwei Partiiä in Folg, bechunnsch ä Strähnä mit verdopplätär Punktzahl (dargschtellt dur äs Flammäsymbol). Für di nochfolgänd Partiiä bechunnsch du solang di dopplete Punktzahl, bis du ä Partii nöd gwünnsch.
-Das bedüütät, dass du fürän Siig dänn vier, füräs Remis zwei und fürä Niderlag natürlich kei Pünkt bechunnsch.
-
-Biischpiil: Zwei Siige, gfolgt vonänä Remis sind 6 Pünkt wärt: 2 + 2 + (2 * 1)</string>
+  <string name="arenaTournaments">Arena-Turnier</string>
+  <string name="isItRated">Isch es gwertet?</string>
+  <string name="willBeNotified">Du wirsch benachrichtiget, wänns Turnier aafangt. Es isch also möglich, während de Warteziit ime andere Tab z\'schpille.</string>
+  <string name="isRated">Das Turnier isch gwertet und wird diini Wertig beiiflusse.</string>
+  <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiiflusse.</string>
+  <string name="someRated">Einigi Turnier sind gwertet und werded diini Wertig beiiflusse.</string>
+  <string name="howAreScoresCalculated">Wie werded d\'Pünkt berächnet?</string>
+  <string name="howAreScoresCalculatedAnswer">Für en Sieg gits 2 Pünkt, für es Remis 1 Punkt und für e Niderlag kein Punkt. Wänn du 2 Spiil in Folg günnsch, fangt e Serie vu dopplete Pünkt aa, was dur es Flammesymbol aazeigt wird. Die folgende Spiil sind so lang dopplet gwertet, bis es Spiil verlore wird. Das heisst, für en Sieg gits 4 Pünkt, für es Remis 2 Pünkt und für e Niderlag natürlich keine. 
+Also sind z. B. 2 Sieg, g\'folgt vu 1 Remis 6 Punkte: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Bärsärk</string>
-  <string name="berserkAnswer">Wenn du vor Partiibeginn dä \"Bärsärk\"-Chnopf drucksch, verlürsch d\'Hälfti vo diner Ziit uf de Uhr (also nünt für Berner), aber en Sieg wird mitämä zuäsätzlichä Turnierpunkt honoriärt.
+  <string name="berserkAnswer">Wänn en Schpiller, vor em Schpiil, uf \"Berserk\" klickt, halbiert er sini Bedänkziit, günnt aber - wänn er siegt - en zuesätzliche Turnier-Punkt.
 
-Imänä Ziitmodus mit Inkrement entfärnt \"Bärsärk\" s\'Inkrement. (1+2 ist eine Ausnahme, es wird zu 1+0.)
+Im Ziitmodus mit Inkrement entfernt \"Berserk\" s\'Inkrement. (1+2 isch e Usnahm, es wird zu 1+0.)
 
-Für Partiiä ohni Grundbedenkziit (0+1, 0+2) isch \"Bärsärk\" nöd verfüegbar.
+Für Partie ohni Grundbedänkziit (0+1, 0+2) isch \"Berserk\" nöd verfüegbar.
 
-Dä zuäsätzlichi Punkt für \"Bärsärk\" wird nu vergeh, wenn du mindeschtens siebä Züg ide Partii gmacht hesch.</string>
-  <string name="howIsTheWinnerDecided">Wiä wird dä Gwünner ermittlät?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Schpiller/-innä mit dä meischtä Pünkt bi Turnierschluss wärdäd als Gwünner/-innä bekanntgeh.
-
-Wenn zwei oder meh Schpiller/-innä di gliich Punktzahl bsitzäd, entscheidät d\'Turnierleischtig als Fiinwärtig.</string>
-  <string name="howDoesPairingWork">Wiä wärdäd d\'Turnierpaarigä ermittlät?</string>
-  <string name="howDoesPairingWorkAnswer">Am Afang vom Turnier wärdäd d\'Schpiller/-innä uf Grundlag vode Wärtigszahl zuäteilt.
-Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpiller/ ä Schpillerin mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller/-innä im Turnier spillsch.
-Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erziilä.</string>
-  <string name="howDoesItEnd">Wänn ändät äsTurnier?</string>
-  <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh. Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</string>
-  <string name="otherRules">Anderi wichtigi Reglä</string>
+De zuesätzlich Punkt für \"Berserk\" gits nur, wänn du i de Partie mindeschtens 7 Züg gschpillt häsch.</string>
+  <string name="howIsTheWinnerDecided">Wie wird de Sieger ermittlet?</string>
+  <string name="howIsTheWinnerDecidedAnswer">De oder die Schpiller mit de meischte Pünkt, bi Turnierschluss, werded als Sieger bekanntgeh.
+Wänn 2 oder meh Schpiller die gliich Punktzahl erreiched, entscheidet d\'Turnierleischtig.</string>
+  <string name="howDoesPairingWork">Wie werded d\'Turnierpaarige gmacht?</string>
+  <string name="howDoesPairingWorkAnswer">Am Aafang vom Turnier werded d\'Schpiller nach de Wertigszahl zueteilt. 
+Sobald du es Schpiil beändet häsch, gahsch zrugg id Turnierübersicht. Dänn wird dir en Schpiller mit ähnlichem Rang zueteilt. So wird d\'Warteziit verchürzt. Es chann aber si, dass du nöd gäge alli Schpiller im Turnier spillsch.
+Schpill schnäll und gang sofort zrugg zur Turnierübersicht, so schpillsch meh Schpiil und gwünnsch meh Pünkt.</string>
+  <string name="howDoesItEnd">Wie ändet es Turnier?</string>
+  <string name="howDoesItEndAnswer">Es Turnier hät e Turnieruhr. Hät d\'Turnierziit Null erreicht, sind alli Räng fix und de Sieger wird bekannt geh. No laufendi Schpiil müend fertig gschpillt werde, doch sie werded nümme fürs Turnier gwertet.</string>
+  <string name="otherRules">Anderi wichtigi Regle</string>
   <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Remis innerhalb vom erschtä Zug wird keim Schpiller / keinärä Schpillerin Pünkt iibringä.</item>
-    <item quantity="other">Äs Remis innerhalb vu %s Züg wird keim Schpiller / keinärä Schpillerin Pünkt iibringä.</item>
+    <item quantity="one">Es Remis innerhalb vu de erschte %s Züg git für beidi Schpiller kei Pünkt.</item>
+    <item quantity="other">Es Remis innerhalb vu %s Züg git für beidi Schpiller kei Pünkt.</item>
   </plurals>
-  <string name="thisIsPrivate">Das isch äs privats Turnier</string>
-  <string name="shareUrl">Teil diä URL, zum ander iizladä: %s</string>
-  <string name="drawStreak">Remis-Strähne: Wänn än Schpiller / ä Schpillerin mehreri ufänanderfolgendi Remis ide Arena erziilt, wird nu fürs erschte Remis än Punkt vergeh, oder aber für Remis, wo meh als %s Züg aduuräd. Ä Remis-Strähne cha nur durän Sieg brochä wärdä, nöd durä verloräni Partii oder äs Remis.</string>
-  <string name="history">Arena-Hischtoriä</string>
+  <string name="thisIsPrivate">Das isch es privats Turnier</string>
+  <string name="shareUrl">Teil die URL um anderi Lüt iizlade: %s</string>
+  <string name="drawStreak">Remis-Serie: Wänn en Schpiller ide Arena mehreri Remis nachenand spillt, wird nu fürs erschte Remis en Punkt geh, oder für Remis, wo meh als %s Züg gschpillt worde sind. So e Remis-Serie chann nur dur en Sieg underbroche werde, nöd dur e verloreni Partie oder es Remis.</string>
+  <string name="history">Arena Verlauf</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Das Team ansehen</item>
-    <item quantity="other">Alli %s Teams aluägä</item>
+    <item quantity="one">Zeig d\'Teams</item>
+    <item quantity="other">Alli %s Teams zeige</item>
   </plurals>
-  <string name="newTeamBattle">Neuä Teamfight</string>
-  <string name="customStartDate">Benutzärdefiniärts Schtartdatum</string>
-  <string name="customStartDateHelp">I dinärä eigänä, lokalä Ziitzonä. Das wird d Iischtellig \"Ziit bis s Turniär schtartät\" überschriibä</string>
-  <string name="allowBerserk">Bärsärk erlaubä</string>
-  <string name="allowBerserkHelp">Loh Schpillär/-innä ihri Bedänkziit halbiärä, zum än zuäsätzlichä Punkt überzcho</string>
-  <string name="allowChatHelp">Loh Schpillär/-innä imnä Tschättruum diskutiärä</string>
-  <string name="arenaStreaks">Arena-Schträhnä</string>
-  <string name="arenaStreaksHelp">Nach 2 Siig gänd ufänandärfolgändi Siig 4 Pünkt anstatt 2.</string>
+  <string name="newTeamBattle">Neue Team-Kampf</string>
+  <string name="customStartDate">Benutzerdefinierts Schtartdatum</string>
+  <string name="customStartDateHelp">I dinere eigene, lokale Ziitzone. Das überschriibt d\'Iischtellig \"Ziit bis s Turnierbeginn\"</string>
+  <string name="allowBerserk">Berserk erlaube</string>
+  <string name="allowBerserkHelp">Erlaubt em Schpiller sini Bedänkziit z\'halbiere, um so en Zuesatzpunkt z\'günne</string>
+  <string name="allowChatHelp">Lass d\'Schpiller ime Tschättruum diskutiere</string>
+  <string name="arenaStreaks">Arena-Sieges-Serie</string>
+  <string name="arenaStreaksHelp">Nach 2 Sieg in Folg gits 4 Pünkt anstatt 2.</string>
 </resources>

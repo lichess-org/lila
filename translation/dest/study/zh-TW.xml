@@ -29,13 +29,13 @@
   </plurals>
   <string name="inviteToTheStudy">邀請加入研究</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">只邀請你所認識的人，以及願意積極投入的人來共同研究</string>
-  <string name="searchByUsername">透過暱稱搜尋</string>
-  <string name="spectator">旁觀者</string>
+  <string name="searchByUsername">透過使用者名稱搜尋</string>
+  <string name="spectator">觀眾</string>
   <string name="contributor">共同研究者</string>
   <string name="kick">踢出</string>
   <string name="leaveTheStudy">退出研究</string>
   <string name="youAreNowAContributor">你現在是一位研究者了</string>
-  <string name="youAreNowASpectator">你現在是旁觀者了</string>
+  <string name="youAreNowASpectator">你現在是觀眾</string>
   <string name="pgnTags">PGN 標籤</string>
   <string name="like">喜歡</string>
   <string name="newTag">新標籤</string>
@@ -119,6 +119,7 @@
   <string name="goodMove">好棋</string>
   <string name="mistake">失誤</string>
   <string name="blunder">嚴重失誤</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">等著</string>
   <string name="equalPosition">勢均力敵</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
   <string name="whiteIsSlightlyBetter">白方稍占優勢</string>

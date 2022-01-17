@@ -1,14 +1,14 @@
 package views.html.streamer
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
 
-object bits extends Context.ToLang {
+object bits {
 
   import trans.streamer._
 
@@ -30,26 +30,6 @@ object bits extends Context.ToLang {
         )
       )
     )
-
-  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) =
-    s.picturePath match {
-      case Some(path) =>
-        img(
-          width := size,
-          height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${u.titleUsername} Lichess streamer picture"
-        )
-      case _ =>
-        img(
-          width := size,
-          height := size,
-          cls := "default picture",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default Lichess streamer picture"
-        )
-    }
 
   def menu(active: String, s: Option[lila.streamer.Streamer.WithUser])(implicit ctx: Context) =
     st.nav(cls := "subnav")(

@@ -1,5 +1,6 @@
 import { prop, Prop } from 'common';
-import { bind, onInsert, dataIcon } from 'common/snabbdom';
+import { textRaw as xhrTextRaw } from 'common/xhr';
+import { bind, onInsert, dataIcon, bindNonPassive } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AnalyseSocketSend } from '../socket';
 import { iconTag, scrollTo, titleNameToId } from '../util';
@@ -212,10 +213,7 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(''),
         hook: bind(
           'click',
-          _ => {
-            members.confing(members.confing() == member.user.id ? null : member.user.id);
-            console.log(members.confing(), member.user.id);
-          },
+          _ => members.confing(members.confing() == member.user.id ? null : member.user.id),
           ctrl.redraw
         ),
       });
@@ -313,20 +311,12 @@ export function view(ctrl: StudyCtrl): VNode {
             'form.admin',
             {
               key: ':admin',
-              attrs: {
-                method: 'post',
-                action: `/study/${ctrl.data.id}/admin`,
-              },
+              hook: bindNonPassive('submit', () => {
+                xhrTextRaw(`/study/${ctrl.data.id}/admin`, { method: 'post' }).then(() => location.reload());
+                return false;
+              }),
             },
-            [
-              h(
-                'button.button.button-red.button-thin',
-                {
-                  attrs: { type: 'submit' },
-                },
-                'Enter as admin'
-              ),
-            ]
+            [h('button.button.button-red.button-thin', 'Enter as admin')]
           )
         : null,
     ]

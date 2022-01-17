@@ -35,15 +35,17 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
                 )
               )
             ),
-        h(
-          'p',
-          ctrl.trans.vdom(
-            'ratingX',
-            !ctrl.streak && ctrl.vm.mode === 'play'
-              ? h('span.hidden', ctrl.trans.noarg('hidden'))
-              : h('strong', puzzle.rating)
-          )
-        ),
+        ctrl.showRatings
+          ? h(
+              'p',
+              ctrl.trans.vdom(
+                'ratingX',
+                !ctrl.streak && ctrl.vm.mode === 'play'
+                  ? h('span.hidden', ctrl.trans.noarg('hidden'))
+                  : h('strong', puzzle.rating)
+              )
+            )
+          : null,
         h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays)))),
       ]),
     ]
@@ -52,48 +54,43 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
-  return h(
-    'div.infos',
-    {
-      attrs: dataIcon(game.perf.icon),
-    },
-    [
-      h('div', [
-        h(
-          'p',
-          ctrl.trans.vdom(
-            'fromGameLink',
-            ctrl.vm.mode == 'play'
-              ? h('span', gameName)
-              : h(
-                  'a',
+  return h('div.infos', { attrs: dataIcon(game.perf.icon) }, [
+    h('div', [
+      h(
+        'p',
+        ctrl.trans.vdom(
+          'fromGameLink',
+          ctrl.vm.mode == 'play'
+            ? h('span', gameName)
+            : h(
+                'a',
+                {
+                  attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` },
+                },
+                gameName
+              )
+        )
+      ),
+      h(
+        'div.players',
+        game.players.map(p => {
+          const name = ctrl.showRatings ? p.name : p.name.split(' ')[0];
+          return h(
+            'div.player.color-icon.is.text.' + p.color,
+            p.userId != 'anon'
+              ? h(
+                  'a.user-link.ulpt',
                   {
-                    attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` },
+                    attrs: { href: '/@/' + p.userId },
                   },
-                  gameName
+                  p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + name] : name
                 )
-          )
-        ),
-        h(
-          'div.players',
-          game.players.map(p =>
-            h(
-              'div.player.color-icon.is.text.' + p.color,
-              p.userId != 'anon'
-                ? h(
-                    'a.user-link.ulpt',
-                    {
-                      attrs: { href: '/@/' + p.userId },
-                    },
-                    p.title && p.title != 'BOT' ? [h('span.utitle', p.title), ' ' + p.name] : p.name
-                  )
-                : p.name
-            )
-          )
-        ),
-      ]),
-    ]
-  );
+              : name
+          );
+        })
+      ),
+    ]),
+  ]);
 }
 
 const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
@@ -120,24 +117,45 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
   );
 
 export const userBox = (ctrl: Controller): VNode => {
-  const data = ctrl.getData();
+  const data = ctrl.getData(),
+    noarg = ctrl.trans.noarg;
   if (!data.user)
     return h('div.puzzle__side__user', [
-      h('p', ctrl.trans.noarg('toGetPersonalizedPuzzles')),
-      h('a.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
+      h('p', noarg('toGetPersonalizedPuzzles')),
+      h('a.button', { attrs: { href: '/signup' } }, noarg('signUp')),
     ]);
-  const diff = ctrl.vm.round?.ratingDiff;
+  const diff = ctrl.vm.round?.ratingDiff,
+    ratedId = 'puzzle-toggle-rated';
   return h('div.puzzle__side__user', [
+    !data.replay && !ctrl.streak && data.user
+      ? h('div.puzzle__side__config__toggle', [
+          h('div.switch', [
+            h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
+              attrs: {
+                type: 'checkbox',
+                checked: ctrl.rated(),
+                disabled: ctrl.vm.lastFeedback != 'init',
+              },
+              hook: {
+                insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
+              },
+            }),
+            h('label', { attrs: { for: ratedId } }),
+          ]),
+          h('label', { attrs: { for: ratedId } }, noarg('rated')),
+        ])
+      : undefined,
     h(
       'div.puzzle__side__user__rating',
-      ctrl.trans.vdom(
-        'yourPuzzleRatingX',
-        h('strong', [
-          data.user.rating - (diff || 0),
-          ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
-          ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
-        ])
-      )
+      ctrl.rated()
+        ? ctrl.showRatings
+          ? h('strong', [
+              data.user.rating - (diff || 0),
+              ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+              ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
+            ])
+          : null
+        : h('p.puzzle__side__user__rating__casual', noarg('yourPuzzleRatingWillNotChange'))
     ),
   ]);
 };
@@ -177,25 +195,32 @@ export function replay(ctrl: Controller): MaybeVNode {
 }
 
 export function config(ctrl: Controller): MaybeVNode {
-  const id = 'puzzle-toggle-autonext';
+  const autoNextId = 'puzzle-toggle-autonext',
+    noarg = ctrl.trans.noarg,
+    data = ctrl.getData();
   return h('div.puzzle__side__config', [
-    h('div.puzzle__side__config__jump', [
+    h('div.puzzle__side__config__toggle', [
       h('div.switch', [
-        h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+        h(`input#${autoNextId}.cmn-toggle.cmn-toggle--subtle`, {
           attrs: {
             type: 'checkbox',
             checked: ctrl.autoNext(),
           },
           hook: {
             insert: vnode =>
-              (vnode.elm as HTMLElement).addEventListener('change', () => ctrl.autoNext(!ctrl.autoNext())),
+              (vnode.elm as HTMLElement).addEventListener('change', () => {
+                ctrl.autoNext(!ctrl.autoNext());
+                if (ctrl.autoNext() && ctrl.vm.resultSent) {
+                  ctrl.nextPuzzle();
+                }
+              }),
           },
         }),
-        h('label', { attrs: { for: id } }),
+        h('label', { attrs: { for: autoNextId } }),
       ]),
-      h('label', { attrs: { for: id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately')),
+      h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
     ]),
-    !ctrl.getData().replay && !ctrl.streak && ctrl.difficulty ? renderDifficultyForm(ctrl) : null,
+    !data.replay && !ctrl.streak && ctrl.difficulty ? renderDifficultyForm(ctrl) : null,
     h('div.puzzle__side__config__toggles', [
       h(
         'a.puzzle__side__config__zen.button.button-empty',
@@ -205,7 +230,7 @@ export function config(ctrl: Controller): MaybeVNode {
             title: 'Keyboard: z',
           },
         },
-        ctrl.trans.noarg('zenMode')
+        noarg('zenMode')
       ),
       h(
         'a.puzzle__side__config__flip.button',
@@ -216,7 +241,7 @@ export function config(ctrl: Controller): MaybeVNode {
             title: 'Keyboard: f',
           },
         },
-        ctrl.trans.noarg('flipBoard')
+        noarg('flipBoard')
       ),
     ]),
   ]);

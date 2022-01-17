@@ -28,10 +28,11 @@ case class Categ(
 
   def withPost(topic: Topic, post: Post): Categ =
     copy(
-      nbTopics = if (post.troll) nbTopics else nbTopics + 1,
+      // the `Topic` object is created before adding the post, hence why nbPosts is compared to 0 and not to 1
+      nbTopics = if (post.troll || topic.nbPosts > 0) nbTopics else nbTopics + 1,
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
       lastPostId = if (post.troll || topic.isTooBig) lastPostId else post.id,
-      nbTopicsTroll = nbTopicsTroll + 1,
+      nbTopicsTroll = if (topic.nbPostsTroll == 0) nbTopicsTroll + 1 else nbTopicsTroll,
       nbPostsTroll = nbPostsTroll + 1,
       lastPostIdTroll = if (topic.isTooBig) lastPostIdTroll else post.id
     )

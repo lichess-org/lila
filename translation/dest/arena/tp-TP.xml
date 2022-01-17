@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">musi pi jan utala</string>
-  <string name="isItRated">ni li ante e nanpa wawa jan?</string>
+  <string name="isItRated">ni li ante ala ante e nanpa wawa jan?</string>
   <string name="willBeNotified">sina li sona e open musi. sina awen la sina ken musi e musi ante.</string>
   <string name="isRated">utala musi ni li ante e nanpa wawa sina.</string>
   <string name="isNotRated">utala musi ni li ante ala e nanpa wawa sina.</string>
@@ -14,7 +14,7 @@ pini pona li pana e nanpa tu tu. pini sama li pana e nanpa tu. awen la pini ike 
 sina pini ike e musi la ni li pini.
 
 pana lukin la pini pona tu en pini sama li pana e nanpa luka wan: 2 + 2 + (2 × 1)</string>
-  <string name="berserk">musi pi tenpo lili li nasin seme</string>
+  <string name="berserk">\"musi pi tenpo lili\" li nasin seme?</string>
   <string name="berserkAnswer">jan musi li pilin e nena \"musi pi tenpo lili\" lon open musi la ona li tu e tenpo ale. ona li pini pona la ona li kama jo e nanpa musi wan.
 
 tenpo tawa poka li weka. wan poka tu li kama wan poka ala.
@@ -46,4 +46,12 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
     <item quantity="one">o lukin e kulupu</item>
     <item quantity="other">o lukin e kulupu %s</item>
   </plurals>
+  <string name="newTeamBattle">utala kulupu sin</string>
+  <string name="customStartDate">o open lon tenpo ni</string>
+  <string name="customStartDateHelp">o sitelen kepeken tenpo pi ma tenpo sina. ni li lon la, nasin \"tenpo open pi utala musi li kama lon\" li suli ala.</string>
+  <string name="allowBerserk">jan musi li ken kepeken e \"musi pi tenpo lili\"</string>
+  <string name="allowBerserkHelp">\"musi pi tenpo lili\" la, jan musi li ken lili e tenpo tawa ona. ona li pali e ni la, nanpa pona pi pini musi ona li suli.</string>
+  <string name="allowChatHelp">jan musi li ken toki lon tomo toki</string>
+  <string name="arenaStreaks">nanpa pona sin pi pini pona poka</string>
+  <string name="arenaStreaksHelp">jan li pini pona lon tenpo 2, pini pona kama li pana e nanpa pona 4, li pana ala e nanpa pona 2.</string>
 </resources>

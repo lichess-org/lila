@@ -111,7 +111,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           checked,
                           value := "me"
                         ),
-                        label(`for` := "dest_me")("Donate as ", me.username)
+                        label(`for` := "dest_me")(donateAsX(me.username))
                       ),
                       div(
                         input(
@@ -313,15 +313,14 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
         ),
         dt(otherMethods()),
         dd(
-          "Lichess is registered with Benevity.",
-          br,
-          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
+          "Lichess is ",
+          a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("registered with Benevity"),
           ".",
           br,
-          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8")),
+          views.html.site.contact.contactEmailLinkEmpty(bankTransfers()),
           ".",
           br,
-          "Please note that only the donation form above will grant the Patron status."
+          strong("Please note that only the donation form above will grant the Patron status.")
         )
       ),
       dl(

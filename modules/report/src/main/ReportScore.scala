@@ -11,8 +11,7 @@ final private class ReportScore(
         impl.reporterScore(candidate.reporter) +
         impl.autoScore(candidate)
     } map
-      impl.fixedAutoCommPrintScore(candidate) map
-      impl.fixedBoostScore(candidate) map { score =>
+      impl.fixedAutoScore(candidate) map { score =>
         candidate scored Report.Score(score atLeast 5 atMost 100)
       }
 
@@ -29,15 +28,12 @@ final private class ReportScore(
 
     def autoScore(candidate: Report.Candidate) = candidate.isAutomatic ?? 25d
 
-    // https://github.com/ornicar/lila/issues/4093
     // https://github.com/ornicar/lila/issues/4587
-    def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isAutoComm) baseScore
-      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScore * 2
-      else score
-
-    def fixedBoostScore(c: Report.Candidate)(score: Double): Double =
+    def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoBoost) baseScore * 1.5
+      else if (c.isAutoComm) 42d
+      else if (c.isIrwinCheat) 60d
+      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScore * 2
       else score
   }
 }

@@ -7,6 +7,7 @@
     <item quantity="other">%s üye</item>
   </plurals>
   <string name="allTeams">Tüm takımlar</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lideri olduğun takımlar</string>
   <string name="newTeam">Yeni takım</string>
   <string name="myTeams">Takımlarım</string>
   <string name="noTeamFound">Takım bulunamadı</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
   </plurals>
-  <string name="teamBestPlayers">Takımın en iyileri</string>
   <string name="teamRecentMembers">Son katılan üyeler</string>
   <string name="kickSomeone">Birini takımdan at</string>
   <string name="whoToKick">Takımdan kimi atmak istiyorsunuz?</string>
@@ -28,9 +28,10 @@
   </plurals>
   <string name="willBeReviewed">Katılma talebiniz takım lideri tarafından incelenecek.</string>
   <string name="beingReviewed">Katılma talebiniz takım lideri tarafından inceleniyor.</string>
+  <string name="requestDeclined">Katılma talebiniz bir takım lideri tarafından reddedildi.</string>
   <string name="subToTeamMessages">Takım mesajlarına abone ol</string>
   <string name="teamBattle">Takım Çarpışması</string>
-  <string name="teamBattleOverview">Birden fazla takım mücadele eder, her oyuncu kendi takımına puan kazandırır</string>
+  <string name="teamBattleOverview">Bu birden fazla takımın mücadelesidir, her oyuncu kendi takımına puan kazandırır</string>
   <string name="teamTournament">Takım turnuvası</string>
   <string name="teamTournamentOverview">Sadece takım üyelerinizin katılabileceği bir Arena turnuvası</string>
   <string name="swissTournamentOverview">Yalnızca takım üyelerinizin katılabileceği İsviçre sistemi turnuvası</string>
@@ -51,4 +52,5 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
   <string name="upcomingTourns">Yaklaşan turnuvalar</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>
+  <string name="declinedRequests">Geri çevrilen istekler</string>
 </resources>

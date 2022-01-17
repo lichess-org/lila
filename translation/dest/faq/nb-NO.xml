@@ -60,7 +60,6 @@ Trekket står omtalt i %2$s:
 
 Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="goodIntroduction">god innføring</string>
-  <string name="officialRulesPDF">offisielle reglene (pdf)</string>
   <string name="lichessTraining">Lichess-øvelsene</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lichess implementerer de offisielle FIDE-reglene, som står omtalt i %2$s.</string>

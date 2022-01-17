@@ -41,6 +41,7 @@ final class RealPlayerApi(
                 .map(RealPlayers)
             }
           }
+          .recoverDefault
       }
   }
 

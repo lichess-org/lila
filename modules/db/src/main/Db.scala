@@ -14,17 +14,22 @@ final class AsyncDb(
     driver: AsyncDriver
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private lazy val connection =
+  private lazy val connection: Fu[(MongoConnection, Option[String])] =
     MongoConnection.fromString(uri) flatMap { parsedUri =>
       driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
     }
 
-  private def db: Future[DB] =
+  private def makeDb: Future[DB] =
     connection flatMap { case (conn, dbName) =>
       conn database dbName.getOrElse("lichess")
     }
 
-  def apply(name: CollName) = new AsyncColl(name, () => db.dmap(_(name.value)))
+  private val dbCache = new SingleFutureCache[DB](
+    compute = () => makeDb,
+    expireAfterMillis = 1000
+  )
+
+  def apply(name: CollName) = new AsyncColl(name, () => dbCache.get.dmap(_.collection(name.value)))
 }
 
 final class Db(
@@ -48,5 +53,5 @@ final class Db(
     logger.info(s"MongoDB connected to $uri in ${lap.showDuration}")
   }
 
-  def apply(name: CollName): Coll = db(name.value)
+  def apply(name: CollName): Coll = db.collection(name.value)
 }

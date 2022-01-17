@@ -2,6 +2,7 @@ package lila.tournament
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
@@ -36,7 +37,8 @@ final class Env(
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    remoteSocketApi: lila.socket.RemoteSocket,
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
@@ -93,6 +95,13 @@ final class Env(
 
   lazy val crudApi = wire[crud.CrudApi]
 
+  lazy val reloadDelaySetting = settingStore[Int](
+    "tournamentReloadDelay",
+    default = 0,
+    text =
+      "Delay in seconds between tournament XHR reloads. Set to zero for default. Set to 5 or more during intense tournaments. Tripled for spectators.".some
+  ).taggedWith[TournamentReloadDelay]
+
   lazy val jsonView: JsonView = wire[JsonView]
 
   lazy val apiJsonView = wire[ApiJsonView]
@@ -133,12 +142,16 @@ final class Env(
   def cli =
     new lila.common.Cli {
       def process = {
-        case "tournament" :: "leaderboard" :: "generate" :: Nil =>
-          leaderboardIndexer.generateAll inject "Done!"
+        // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+        //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
           api.toggleFeaturing(id, true) inject "Done!"
         case "tournament" :: "unfeature" :: id :: Nil =>
           api.toggleFeaturing(id, false) inject "Done!"
+        case "tournament" :: "recompute" :: id :: Nil =>
+          api.recomputeEntireTournament(id) inject "Done!"
       }
     }
 }
+
+trait TournamentReloadDelay

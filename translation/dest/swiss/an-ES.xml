@@ -84,8 +84,6 @@ Lo mas cercano que tiens a un torneyo de totz contra totz ye chugar un torneyo s
   <string name="pairingSystemArena">Qualsequier disponible con puntuación similar</string>
   <string name="pairingSystemSwiss">Lo millor emparellamiento basau en puntos y desempaces</string>
   <string name="pairingWaitTime">Tiempo d\'espera d\'emparellamiento</string>
-  <string name="pairingWaitTimeFast">Rapido: no aguarda a totz es chugadors</string>
-  <string name="pairingWaitTimeSlow">Lento: aguarda a totz es chugadors</string>
   <string name="identicalPairing">Emparellamientos repetius</string>
   <string name="possibleButNotConsecutive">Posibles, pero no consecutivos</string>
   <string name="identicalForbidden">Vedaus</string>

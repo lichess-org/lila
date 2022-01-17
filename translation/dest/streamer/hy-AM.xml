@@ -18,9 +18,5 @@
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Կարդացեք մեր %sները` ձեր հեռարձակումներում ազնիվ խաղի կանոններին հետևելու համար։</string>
   <string name="streamingFairplayFAQ">ՀՏՀ (հաճախ տրվող հարցեր) հեռարձակողների համար` ազնիվ խաղի վերաբերյալ</string>
   <string name="uploadPicture">Բեռնել պատկեր</string>
-  <string name="deletePicture">Հեռացնել պատկերը</string>
   <string name="maxSize">Առավելագույն չափսը` %s</string>
-  <string name="installBlocker">Տեղադրե՜ք վնասակար ծրագրերի արգելափակիչ։</string>
-  <string name="beSafe">Պայքարեք Twitch-ն ու YouTube-ը հեղեղող գովազդային սփամի և թրեքերների դեմ։
-Lichess-ը խորհուրդ է տալիս բաց նախնական կոդով անվճար uBlock Origin-ը։</string>
 </resources>

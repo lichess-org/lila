@@ -59,14 +59,14 @@ object storm {
   private def renderHigh(high: StormHigh)(implicit lang: Lang) =
     frag(
       List(
-        (high.allTime, "All-time"),
-        (high.month, "This month"),
-        (high.week, "This week"),
-        (high.day, "Today")
+        (high.allTime, trans.storm.allTime),
+        (high.month, trans.storm.thisMonth),
+        (high.week, trans.storm.thisWeek),
+        (high.day, trans.today)
       ).map { case (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
-          span(name)
+          span(name())
         )
       }
     )
@@ -163,6 +163,12 @@ object storm {
       s.youPlayTheBlackPiecesInAllPuzzles,
       s.failedPuzzles,
       s.slowPuzzles,
+      s.thisWeek,
+      s.thisMonth,
+      s.allTime,
+      s.clickToReload,
+      s.thisRunHasExpired,
+      s.thisRunWasOpenedInAnotherTab,
       trans.flipBoard
     ).map(_.key)
   }

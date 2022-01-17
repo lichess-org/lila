@@ -11,7 +11,8 @@
   <string name="pgnPieceNotation">Жүрісті жазу тәртібі</string>
   <string name="chessPieceSymbol">Тас таңбасы</string>
   <string name="pgnLetter">Әріптер (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen қалпы</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Оқшау көрініс</string>
+  <string name="showPlayerRatings">Ойыншылардың рейтингін көрсету</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
   <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
@@ -28,7 +29,7 @@
   <string name="bothClicksAndDrag">Екі әдіспен де</string>
   <string name="premovesPlayingDuringOpponentTurn">Алдын-ала жүру (қарсыластың жүру кезегі кезінде жүру)</string>
   <string name="takebacksWithOpponentApproval">Жүрісті қайтару (қарсыластың келісімі қажет)</string>
-  <string name="inCasualGamesOnly">Қалыпты ойындарда ғана</string>
+  <string name="inCasualGamesOnly">Жай ойындарда ғана</string>
   <string name="promoteToQueenAutomatically">Уәзірге автоматты түрде айналдыру</string>
   <string name="whenPremoving">Алдын-ала жүрісте</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>

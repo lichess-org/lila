@@ -56,7 +56,6 @@ Hier is die skakel om die klas te betree.</string>
     <item quantity="one">Een hangende uitnodiging</item>
     <item quantity="other">%s hangende uitnodigings</item>
   </plurals>
-  <string name="noPendingInvitations">Geen hangende uitnodigings nie</string>
   <string name="onlyVisibleToTeachers">Slegs sigbaar vir die klas onderwysers</string>
   <string name="lastActiveDate">Aktief</string>
   <string name="managed">Onder Administrasie</string>

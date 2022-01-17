@@ -58,7 +58,6 @@ Tu je link pre prístup ku kurzu.</string>
     <item quantity="many">%s čakajúcich pozvánok</item>
     <item quantity="other">%s čakajúcich pozvánok</item>
   </plurals>
-  <string name="noPendingInvitations">Žiadne čakajúce pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditeľné iba pre učiteľov kurzu</string>
   <string name="lastActiveDate">Aktívny</string>
   <string name="managed">Spravovaný</string>
@@ -69,6 +68,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
   <string name="releaseDesc2">Študent ostane v triede po uvoľnení jeho účtu.</string>
   <string name="realUniqueEmail">Skutočná, unikátna email adresa študenta. Pošleme na ňu potvrdzovací email s linkom na uvoľnenie účtu.</string>
+  <string name="closeStudent">Zrušiť účet</string>
   <string name="teachers">Učitelia</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učiteľ</item>

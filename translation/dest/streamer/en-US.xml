@@ -50,11 +50,5 @@ If your stream is in English, there is no need to include a language tag.</strin
   <string name="xStreamerPicture">%s streamer picture</string>
   <string name="changePicture">Change/delete your picture</string>
   <string name="uploadPicture">Upload a picture</string>
-  <string name="deletePicture">Delete picture</string>
   <string name="maxSize">Max size: %s</string>
-  <string name="installBlocker">Install a malware blocker!</string>
-  <string name="beSafe">Be safe from ads and trackers
-infesting Twitch and YouTube.
-Lichess recommends uBlock Origin
-which is free and open-source.</string>
 </resources>

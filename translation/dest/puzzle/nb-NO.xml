@@ -13,7 +13,7 @@
   <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
   <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
-  <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Ratingen din for sjakknøtter vil ikke endre seg. Husk at sjakknøtter ikke er en konkurranse. Ratingen din hjelper til med å finne de sjakknøttene som passer ferdighetene dine.</string>
   <string name="findTheBestMoveForWhite">Finn det beste trekket for hvit.</string>
   <string name="findTheBestMoveForBlack">Finn det beste trekket for svart.</string>
   <string name="toGetPersonalizedPuzzles">For tilpassede sjakknøtter:</string>

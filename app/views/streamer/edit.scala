@@ -8,7 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 
-object edit extends Context.ToLang {
+object edit {
 
   import trans.streamer._
 
@@ -34,7 +34,7 @@ object edit extends Context.ToLang {
                   href := routes.Streamer.picture,
                   title := changePicture.txt()
                 )(
-                  bits.pic(s.streamer, s.user)
+                  picture.thumbnail(s.streamer, s.user)
                 )
               else
                 div(cls := "picture-create")(
@@ -49,7 +49,7 @@ object edit extends Context.ToLang {
               )
             )
           else views.html.streamer.header(s),
-          div(cls := "box__pad") {
+          div(cls := "box-pad") {
             val granted = s.streamer.approval.granted
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(

@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Ikuslea zara orain</string>
   <string name="pgnTags">PGN etiketak</string>
   <string name="like">Datsegit</string>
+  <string name="unlike">Ez dut atsegin</string>
   <string name="newTag">Etiketa berria</string>
   <string name="commentThisPosition">Posizio hau komentatu</string>
   <string name="commentThisMove">Jokaldi hau komentatu</string>
@@ -126,6 +127,7 @@
   <string name="clearChat">Txata garbitu</string>
   <string name="deleteTheStudyChatHistory">Azterlaneko txata ezabatu? Ez dago atzera egiterik!</string>
   <string name="deleteStudy">Azterlana ezabatu</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Azterlan osoa ezabatu? Ez dago atzera egiterik! Idatzi azterlanaren izena baieztapena emateko: %s</string>
   <string name="whereDoYouWantToStudyThat">Non nahi duzu hori aztertu?</string>
   <string name="goodMove">Jokaldi ona</string>
   <string name="mistake">Akatsa</string>
@@ -154,4 +156,12 @@
   <string name="nextChapter">Hurrengo kapitulua</string>
   <string name="prevChapter">Aurreko kapitulua</string>
   <string name="studyActions">Azterlanen akzioak</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Gaiak</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Nire gaiak</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Gai arrakastatsuak</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Kudeatu gaiak</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Atzera joan</string>
+  <string name="playAgain">Jokatu berriz</string>
+  <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
+  <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
 </resources>

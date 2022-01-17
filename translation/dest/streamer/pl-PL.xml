@@ -51,9 +51,5 @@ Umieść go w tytule emisji na stronie Twitcha lub YouTube, a nie w ustawieniach
   <string name="xStreamerPicture">%s - zdjęcie streamera</string>
   <string name="changePicture">Zmień/usuń swoje zdjęcie</string>
   <string name="uploadPicture">Prześlij zdjęcie</string>
-  <string name="deletePicture">Usuń zdjęcie</string>
   <string name="maxSize">Maksymalny rozmiar: %s</string>
-  <string name="installBlocker">Zainstaluj blokadę złośliwego oprogramowania!</string>
-  <string name="beSafe">Uwolnij się od reklam i śledzenia przez Twitch i YouTube.
-Lichess zaleca zainstalowanie uBlock Origin, który jest darmowy i ma otwarte źródła.</string>
 </resources>

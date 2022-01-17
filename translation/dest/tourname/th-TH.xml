@@ -40,8 +40,6 @@
   <string name="classicalShield">คลาสสิกชิลด์</string>
   <string name="xShieldArena">สังเวียน %sชิลด์</string>
   <string name="xShield">%sชิลด์</string>
-  <string name="openingRapidArena">สังเวียนแรปพิด %s</string>
-  <string name="openingRapid">แรปพิด %s</string>
   <string name="xTeamBattle">การสู้เป็นทีม %s</string>
   <string name="eliteXArena">สังเวียน %sอีลิต</string>
   <string name="eliteX">%s อีลิต</string>

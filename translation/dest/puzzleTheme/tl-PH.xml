@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="endgameDescription">Isang taktika sa huling yugto ng laro.</string>
+  <string name="enPassantDescription">Isang taktika na kinasasangkutan ng en passant na panuntunan, kung saan ang isang pawn ay maaaring makuha ang isang pawn ng kalaban na na-bypass ito gamit ang paunang dalawang-parisukat na paglipat.</string>
+  <string name="exposedKing">Nakalantad na hari</string>
+  <string name="exposedKingDescription">Isang taktika na kinasasangkutan ng isang hari na may ilang mga tagapagtanggol sa paligid nito, madalas na humahantong sa checkmate.</string>
+  <string name="fork">Taktika ng fork</string>
+  <string name="forkDescription">Isang paglipat kung saan inaatake ng inilipat na piraso ang dalawang piraso ng kalaban nang sabay-sabay.</string>
+  <string name="hangingPiece">Nakabitin na piraso</string>
+</resources>

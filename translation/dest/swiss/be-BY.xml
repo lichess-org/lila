@@ -100,9 +100,9 @@
   <string name="pairingSystem">Сістэма падбору пар</string>
   <string name="pairingSystemArena">Любы даступны супернік з падобным становішчам</string>
   <string name="pairingSystemSwiss">Найлепшая пара, базуючыся на набраных балах і тай-брэйках</string>
-  <string name="pairingWaitTime">Час чакання сістэмы падбору пар</string>
-  <string name="pairingWaitTimeFast">Хутка: не чакае ўсіх гульцоў</string>
-  <string name="pairingWaitTimeSlow">Павольная: чакае ўсіх гульцоў</string>
+  <string name="pairingWaitTime">Час чакання апанентаў</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Хутка: не чакае ўсіх гульцоў</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Павольная: чакае ўсіх гульцоў</string>
   <string name="identicalPairing">Паўторныя пары</string>
   <string name="possibleButNotConsecutive">Магчама, але не запар</string>
   <string name="identicalForbidden">Забаронена</string>

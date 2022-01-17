@@ -88,8 +88,8 @@ Wat het meest in de buurt komt van een online round-robin is een Zwitsers toerno
   <string name="pairingSystemArena">Elke beschikbare tegenstander met vergelijkbare rating</string>
   <string name="pairingSystemSwiss">Beste paring gebaseerd op punten en tiebreaks</string>
   <string name="pairingWaitTime">Wachttijd voor paring</string>
-  <string name="pairingWaitTimeFast">Kort: wacht niet op alle spelers</string>
-  <string name="pairingWaitTimeSlow">Lang: wacht op alle spelers</string>
+  <string name="pairingWaitTimeArena">Snel: wacht niet op alle spelers</string>
+  <string name="pairingWaitTimeSwiss">Langzaam: wacht op alle spelers</string>
   <string name="identicalPairing">Identieke paring</string>
   <string name="possibleButNotConsecutive">Mogelijk, maar niet opeenvolgend</string>
   <string name="identicalForbidden">Niet toegestaan</string>

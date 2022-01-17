@@ -12,8 +12,6 @@
   button {
     @extend %flex-center-nowrap, %button-none;
 
-    @include transition;
-
     height: 2.3em;
     line-height: 2.3em;
     align-items: stretch;
@@ -29,8 +27,6 @@
       width: 2em;
       background: $c-bg-low;
       margin-right: 0.5em;
-
-      @include transition;
     }
 
     &:hover,

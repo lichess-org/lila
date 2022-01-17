@@ -33,6 +33,8 @@ object userAnalysisI18n {
     trans.checkmate,
     trans.whiteResigned,
     trans.blackResigned,
+    trans.whiteDidntMove,
+    trans.blackDidntMove,
     trans.stalemate,
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
@@ -112,7 +114,8 @@ object userAnalysisI18n {
     trans.goDeeper,
     trans.showThreat,
     trans.inLocalBrowser,
-    trans.toggleLocalEvaluation
+    trans.toggleLocalEvaluation,
+    trans.computerAnalysisDisabled
   ).map(_.key)
 
   private val cevalTranslations: Vector[MessageKey] = cevalWidget ++ Vector(
@@ -125,8 +128,7 @@ object userAnalysisI18n {
     trans.removesTheDepthLimit,
     trans.multipleLines,
     trans.cpus,
-    trans.memory,
-    trans.computerAnalysisDisabled
+    trans.memory
   ).map(_.key)
 
   val explorerTranslations: Vector[MessageKey] = Vector(
@@ -155,12 +157,26 @@ object userAnalysisI18n {
     trans.averageRatingX,
     trans.masterDbExplanation,
     trans.mateInXHalfMoves,
-    trans.nextCaptureOrPawnMoveInXHalfMoves,
+    trans.dtzWithRounding,
+    trans.winOr50MovesByPriorMistake,
+    trans.lossOr50MovesByPriorMistake,
+    trans.unknownDueToRounding,
     trans.noGameFound,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,
     trans.lossSavedBy50MoveRule,
-    trans.allSet
+    trans.allSet,
+    trans.study.searchByUsername,
+    trans.mode,
+    trans.rated,
+    trans.casual,
+    trans.since,
+    trans.until,
+    trans.switchSides,
+    trans.lichessDbExplanation,
+    trans.player,
+    trans.asWhite,
+    trans.asBlack
   ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(

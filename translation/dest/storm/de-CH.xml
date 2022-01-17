@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Züch zum afoh</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Du schpillsch in allnä Ufgoobä mit dä wiissä Figurä</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Du schpillsch in allnä Ufgoobä mit dä schwarzä Figurä</string>
-  <string name="puzzlesSolved">Ufgoobä glöst</string>
-  <string name="newDailyHighscore">Neuä Tagesrekord!</string>
-  <string name="newWeeklyHighscore">Neuä Wuchärekord!</string>
-  <string name="newMonthlyHighscore">Neuä Monätsrekord!</string>
-  <string name="newAllTimeHighscore">Neuä Allzyt-Rekord!</string>
-  <string name="previousHighscoreWasX">Din bishärigä Rekord isch %s gsi</string>
-  <string name="playAgain">Vo vornä</string>
+  <string name="moveToStart">Zieh zum schtarte</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du schpillsch bi allne Ufgabe mit Wiss</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du schpillsch bi allne Ufgabe mit Schwarz</string>
+  <string name="puzzlesSolved">glösti Ufgabe</string>
+  <string name="newDailyHighscore">Neue Tagesrekord!</string>
+  <string name="newWeeklyHighscore">Neue Wucherekord!</string>
+  <string name="newMonthlyHighscore">Neue Monetsrekord!</string>
+  <string name="newAllTimeHighscore">Neue Allziitrekord!</string>
+  <string name="previousHighscoreWasX">Diin bisherige Rekord isch %s gsii</string>
+  <string name="playAgain">Schpill nomal</string>
   <plurals name="xRuns">
     <item quantity="one">1 Lauf</item>
     <item quantity="other">%s Läuf</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Het en Lauf vo %2$s gschpillt</item>
-    <item quantity="other">Het %1$s Läuf vo %2$s gschpillt</item>
+    <item quantity="other">Hät %1$s Läuf vu %2$s gschpillt</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Punkteschtand</string>
   <string name="moves">Züg</string>
   <string name="accuracy">Gnauigkeit</string>
   <string name="combo">Combo</string>
-  <string name="time">Zyt</string>
-  <string name="timePerMove">Zyt pro Zug</string>
-  <string name="highestSolved">Di schwirigschte glöste Ufgoob</string>
-  <string name="puzzlesPlayed">Gschpillti Ufgoobä</string>
-  <string name="newRun">Neuä Lauf (druck: Läärtaschtä)</string>
-  <string name="endRun">Beendä dä Lauf (druck: Entertaschtä)</string>
-  <string name="highscores">Rekörd</string>
-  <string name="viewBestRuns">Beschti Läuf azeigä</string>
-  <string name="bestRunOfDay">Bescht Lauf vom Tag</string>
+  <string name="time">Ziit</string>
+  <string name="timePerMove">Ziit pro Zug</string>
+  <string name="highestSolved">Schwirigschti Lösig</string>
+  <string name="puzzlesPlayed">Gschpillti Ufgabe</string>
+  <string name="newRun">Neue Lauf (Leertaschte)</string>
+  <string name="endRun">Lauf beände (Entertaschte)</string>
+  <string name="highscores">Alli Rekörd</string>
+  <string name="viewBestRuns">Zeig die beschte Läuf</string>
+  <string name="bestRunOfDay">De bescht Lauf vum Tag</string>
   <string name="runs">Läuf</string>
   <string name="getReady">Mach di parat!</string>
-  <string name="waitingForMorePlayers">Wart uf wyteri Teilnehmer...</string>
-  <string name="raceComplete">Ränä abgschlossä!</string>
-  <string name="spectating">Zueluegä</string>
-  <string name="joinTheRace">Nimm am Ränä teil!</string>
-  <string name="startTheRace">S\'Rännä schtartä</string>
-  <string name="yourRankX">Dini Platzierig: %s</string>
-  <string name="waitForRematch">Wart uf äs neus Ränä</string>
-  <string name="nextRace">Nögschts Ränä</string>
-  <string name="joinRematch">Am nögschstä Ränä teilneh</string>
-  <string name="waitingToStart">Wart uf de Schtart</string>
-  <string name="createNewGame">Äs neus Ränä erschtelä</string>
-  <string name="joinPublicRace">Amänä öffentlichä Ränä teilneh</string>
-  <string name="raceYourFriends">Schpill äs Ränä mit dinä Fründä</string>
-  <string name="skip">überschpringä</string>
-  <string name="skipHelp">Du chasch ein Zug pro Ränä überschpringä:</string>
-  <string name="skipExplanation">Überschpring dä Zug, zum dini Kombination byzbhaltä! Du chasch das nur eimol pro Ränä machä.</string>
+  <string name="waitingForMorePlayers">Warte uf meh Schpiller wo mitmached...</string>
+  <string name="raceComplete">Ränne beändet!</string>
+  <string name="spectating">Zueluege</string>
+  <string name="joinTheRace">Mach am Ränne mit!</string>
+  <string name="startTheRace">Ränne schtarte</string>
+  <string name="yourRankX">Diini Platzierig: %s</string>
+  <string name="waitForRematch">Wart uf Revanche</string>
+  <string name="nextRace">Nächschts Ränne</string>
+  <string name="joinRematch">Mach mit bi de Revanche</string>
+  <string name="waitingToStart">Warte uf de Schtart</string>
+  <string name="createNewGame">Erschtell es neus Ränne</string>
+  <string name="joinPublicRace">Mach mit am öffentliche Ränne</string>
+  <string name="raceYourFriends">Es Ränne mit diine Fründe</string>
+  <string name="skip">überschpringe</string>
+  <string name="skipHelp">Du chasch ein Zug pro Ränne überschpringe:</string>
+  <string name="skipExplanation">Überschpring de Zug, zum diini combo b\'halte! Das chasch nur eimal pro Ränne.</string>
+  <string name="failedPuzzles">Fahlsch glösti Ufgabe</string>
+  <string name="slowPuzzles">Langsami Ufgabe</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Die Wuche</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">De Monet</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">All-Ziit</string>
+  <string name="clickToReload">Klick, zum neu lade</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">De Durchgang isch beändet!</string>
+  <string name="thisRunWasOpenedInAnotherTab">De Durchgang isch ime andere Tab göffnet worde!</string>
 </resources>

@@ -57,12 +57,6 @@ object inquiry {
         }
       )
 
-    def renderNote(r: lila.user.Note)(implicit ctx: Context) =
-      (!r.dox || isGranted(_.Admin)) option div(cls := "doc note")(
-        h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
-        p(richText(r.text, expandImg = false))
-      )
-
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
     def markButton(active: Boolean) =
@@ -108,27 +102,7 @@ object inquiry {
             )
           )
         ),
-        div(
-          cls := List(
-            "dropper counter notes" -> true,
-            "empty"                 -> in.notes.isEmpty
-          )
-        )(
-          span(
-            countTag(in.notes.size),
-            "Notes"
-          ),
-          div(
-            postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
-              textarea(name := "text", placeholder := "Write a mod note"),
-              input(tpe := "hidden", name := "mod", value := "true"),
-              div(cls := "submission")(
-                submitButton(cls := "button thin")("SEND")
-              )
-            ),
-            in.notes.map(renderNote)
-          )
-        )
+        noteZone(in.user, in.notes)
       ),
       div(cls := "links")(
         isGranted(_.MarkBooster) option {
@@ -148,7 +122,7 @@ object inquiry {
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
           iconTag(""),
           div(
-            env.mod.presets.pmPresets.get().value.map { preset =>
+            env.mod.presets.getPmPresets(ctx.me).value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
                 submitButton(cls := "fbt", title := preset.text)(preset.name),
                 autoNextInput
@@ -251,6 +225,39 @@ object inquiry {
       )
     )
   }
+
+  def noteZone(u: User, notes: List[lila.user.Note])(implicit ctx: Context) = div(
+    cls := List(
+      "dropper counter notes" -> true,
+      "empty"                 -> notes.isEmpty
+    )
+  )(
+    span(
+      countTag(notes.size),
+      "Notes"
+    ),
+    div(
+      postForm(cls := "note", action := s"${routes.User.writeNote(u.username)}?inquiry=1")(
+        form3.textarea(lila.user.UserForm.note("text"))(
+          placeholder := "Write a mod note"
+        ),
+        input(tpe := "hidden", name := "mod", value := "true"),
+        isGranted(_.Admin) option div(cls := "dox-inquiry-div")(
+          div(form3.cmnToggle("dox-inquiry", "dox", checked = false)),
+          label(`for` := "dox-inquiry")("Doxing info")
+        ),
+        div(cls := "submission")(
+          submitButton(cls := "button thin")("SEND")
+        )
+      ),
+      notes map { note =>
+        (!note.dox || isGranted(_.Admin)) option div(cls := "doc note")(
+          h3("by ", userIdLink(note.from.some, withOnline = false), ", ", momentFromNow(note.date)),
+          p(richText(note.text, expandImg = false))
+        )
+      }
+    )
+  )
 
   private def snoozeUrl(report: Report, duration: String): String =
     if (report.isAppeal) routes.Appeal.snooze(report.user, duration).url

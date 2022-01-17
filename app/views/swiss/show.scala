@@ -47,7 +47,8 @@ object show {
                   resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
                   localMod = isLocalMod
                 )
-              }
+              },
+              "showRatings" -> ctx.pref.showRatings
             )
             .add("schedule" -> hasScheduleInput)
         )})""")
@@ -82,8 +83,7 @@ object show {
   def round(s: Swiss, r: SwissRound.Number, pairings: Paginator[SwissPairing])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${fullName(s)} • Round $r/${s.round}",
-      moreCss = cssTag("swiss.show"),
-      moreJs = infiniteScrollTag
+      moreCss = cssTag("swiss.show")
     ) {
       val pager = views.html.base.bits
         .pagination(p => routes.Swiss.round(s.id.value, p).url, r.value, s.round.value, showPost = true)
@@ -94,18 +94,15 @@ object show {
         ),
         pager(cls := "pagination--top"),
         table(cls := "slist slist-pad")(
-          tbody(cls := "infinite-scroll")(
-            pairings.currentPageResults map { p =>
-              tr(cls := "paginated")(
-                td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
-                td(userIdLink(p.white.some)),
-                td(p strResultOf chess.White),
-                td(p strResultOf chess.Black),
-                td(userIdLink(p.black.some))
-              )
-            },
-            pagerNextTable(pairings, p => routes.Swiss.round(s.id.value, r.value).url)
-          )
+          pairings.currentPageResults map { p =>
+            tr(cls := "paginated")(
+              td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
+              td(userIdLink(p.white.some)),
+              td(p strResultOf chess.White),
+              td(p strResultOf chess.Black),
+              td(userIdLink(p.black.some))
+            )
+          }
         ),
         pager(cls := "pagination--bottom")
       )

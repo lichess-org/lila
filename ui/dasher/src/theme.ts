@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-import changeColorHandle from 'common/coordsColor';
 import * as xhr from 'common/xhr';
 
 import { Redraw, Open, bind, header } from './util';
@@ -79,5 +78,4 @@ function themeView(current: Theme, set: (t: Theme) => void) {
 
 function applyTheme(t: Theme, list: Theme[]) {
   $('body').removeClass(list.join(' ')).addClass(t);
-  changeColorHandle();
 }

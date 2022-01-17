@@ -83,8 +83,8 @@
   <string name="pairingSystemArena">비슷한 순위의 가능한 상대</string>
   <string name="pairingSystemSwiss">포인트와 타이 브레이크에 기반한 최적의 페어링</string>
   <string name="pairingWaitTime">페어링 대기 시간</string>
-  <string name="pairingWaitTimeFast">빠름: 모든 플레이어를 기다릴 필요 없음</string>
-  <string name="pairingWaitTimeSlow">느림: 모든 플레이어를 기다려야 함</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">빠름: 모든 플레이어를 기다릴 필요 없음</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">느림: 모든 플레이어를 기다려야 함</string>
   <string name="identicalPairing">같은 플레이어와 다시 매칭</string>
   <string name="possibleButNotConsecutive">연속되지 않으면 가능</string>
   <string name="identicalForbidden">금지</string>

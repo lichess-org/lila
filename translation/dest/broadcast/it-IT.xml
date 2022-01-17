@@ -17,11 +17,12 @@
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
   <string name="gameIdsHelp">In alternativa è possibile inserire sino a 64 ID di partite su Lichess separandoli con degli spazi.</string>
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
-  <string name="startDateHelp">Facoltativo, se sai quando l\'evento inizia</string>
+  <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
   <string name="credits">Cita la fonte</string>
   <string name="resetRound">Reimposta questo turno</string>
   <string name="deleteRound">Cancella questo turno</string>
-  <string name="broadcastUrl">Url della trasmissione</string>
+  <string name="broadcastUrl">URL della trasmissione</string>
   <string name="currentRoundUrl">URL del turno corrente</string>
   <string name="currentGameUrl">URL della partita corrente</string>
+  <string name="downloadAllRounds">Scarica tutti i round</string>
 </resources>

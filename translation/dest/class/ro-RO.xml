@@ -46,6 +46,7 @@ Parola: %3$s</string>
   <string name="createDesc2">Nu este necesară o adresă de e-mail. O parolă va fi generată și va trebui să o transmiți studentului să se poată conecta.</string>
   <string name="createDesc3">Important: un student nu trebuie să aibă mai multe conturi.</string>
   <string name="createDesc4">Dacă au deja unul, folosește în schimb formularul de invitație.</string>
+  <string name="createStudentWarning">Creează doar conturi pentru elevi reali. Nu utiliza acest lucru pentru a crea conturi multiple pentru tine. Poți fi blocat dacă faci acest lucru.</string>
   <string name="lichessUsername">Nume de utilizator Lichess</string>
   <string name="generateANewUsername">Generează un nou nume de utilizator</string>
   <string name="welcomeToClass">Bine ai venit la clasa ta: %s.
@@ -57,7 +58,6 @@ Aici este link-ul pentru a accesa clasa.</string>
     <item quantity="few">%s invitații în așteptare</item>
     <item quantity="other">%s invitații în așteptare</item>
   </plurals>
-  <string name="noPendingInvitations">Nu ai nici o invitație</string>
   <string name="onlyVisibleToTeachers">Vizibil doar profesorilor de clasă</string>
   <string name="lastActiveDate">Acrtiv</string>
   <string name="managed">Manageriat</string>

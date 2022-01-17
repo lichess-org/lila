@@ -46,6 +46,7 @@ Lösenord: %3$s</string>
   <string name="createDesc2">Ingen e-postadress krävs. Ett lösenord kommer att genereras, och du måste förmedla det till studenten, så att de kan logga in.</string>
   <string name="createDesc3">Förutsättning: en student får inte ha flera konton.</string>
   <string name="createDesc4">Om de redan har ett, använd inbjudningsformuläret istället.</string>
+  <string name="createStudentWarning">Skapa endast konto för riktiga elever. Använd inte detta för att skapa flera konton åt dig själv. Du skulle bli avstängd.</string>
   <string name="lichessUsername">Lichess-användarnamn</string>
   <string name="generateANewUsername">Skapa ett nytt användarnamn</string>
   <string name="welcomeToClass">Välkommen till din klass: %s.
@@ -56,7 +57,6 @@ Här är länken för att komma till klassen.</string>
     <item quantity="one">En väntande inbjudan</item>
     <item quantity="other">%s väntande inbjudningar</item>
   </plurals>
-  <string name="noPendingInvitations">Inga väntande inbjudningar</string>
   <string name="onlyVisibleToTeachers">Endast synlig för klasslärarna</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Hanterad</string>
@@ -69,6 +69,8 @@ Här är länken för att komma till klassen.</string>
   <string name="realUniqueEmail">Verklig, unik e-postadress som tillhör studenten. Vi kommer att skicka ett bekräftelsemejl till det, med en länk för att släppa kontot.</string>
   <string name="closeStudent">Avsluta konto</string>
   <string name="closeTheAccount">Avsluta studentkontot permanent.</string>
+  <string name="closeDesc1">Eleven kommer aldrig kunna använda detta konto igen. Avslutningen är slutgiltig. Se till att eleven förstår och samtycker.</string>
+  <string name="closeDesc2">Du kanske vill ge eleven kontroll över kontot istället, så att de kan fortsätta använda det.</string>
   <string name="teachers">Lärare</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lärare</item>

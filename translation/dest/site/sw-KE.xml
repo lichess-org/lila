@@ -11,7 +11,6 @@
   <string name="level">kiwango</string>
   <string name="strength">Kipimo cha nguvu</string>
   <string name="toggleTheChat">geuza gumzo</string>
-  <string name="toggleSound">Badili Sauti</string>
   <string name="chat">Piga Gumzo</string>
   <string name="resign">acha kucheza</string>
   <string name="checkmate">Maongezi</string>
@@ -36,7 +35,6 @@
   <string name="whitePlays">nyeupe acheza</string>
   <string name="blackPlays">nyeusi acheza</string>
   <string name="opponentLeftChoices">mchezaji ameondoka, waweza mlazimisha kujiuzulu ama umngoje</string>
-  <string name="makeYourOpponentResign">fanya mpinzani wako ajiuzulu</string>
   <string name="forceResignation">lazimisha kujiuzulu</string>
   <string name="forceDraw">Itikia Usawia</string>
   <string name="talkInChat">Kua mpole kwa mawasiliano!</string>
@@ -45,9 +43,6 @@
   <string name="blackResigned">Mwenye nyeusi ameshindwa</string>
   <string name="whiteLeftTheGame">Mwenye nyeupe aliondoka mchezo huu</string>
   <string name="blackLeftTheGame">Mwenye nyeusi aliondoka mchezo huu</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Sambaza URL hii ili watazamaji waweze kuona mchezo</string>
-  <string name="theComputerAnalysisHasFailed">Uchambuzi wa tarakilishi umeshindwa</string>
-  <string name="viewTheComputerAnalysis">Angalia uchambuzi wa tarakilishi</string>
   <string name="requestAComputerAnalysis">Itisha uchambuzi wa tarakilishi</string>
   <string name="computerAnalysis">Uchambuzi wa tarakilishi</string>
   <string name="computerAnalysisAvailable">Uchambuzi wa kompyuta zilizopo</string>
@@ -78,5 +73,19 @@
   <string name="recentGames">Michezo ya hivi karibuni</string>
   <string name="delete">Futa</string>
   <string name="realtimeReplay">Moja kwa moja</string>
+  <string name="changePassword">Badilisha nenosiri</string>
+  <string name="changeEmail">Badilisha nenosiri</string>
+  <string name="forgotPassword">Umesahau nenosiri?</string>
+  <string name="whiteTimeOut">Muda uliwakatikia weupe</string>
+  <string name="blackTimeOut">Muda uliwakatikia weusi</string>
+  <string name="whiteDeclinesDraw">Mweupe akataa sare</string>
+  <string name="blackDeclinesDraw">Mweusi akataa sare</string>
+  <string name="yourOpponentOffersADraw">Mpinzani anaomba sare</string>
+  <string name="accept">Kubali</string>
+  <string name="decline">Kataa</string>
+  <string name="playingRightNow">Inachezwa</string>
+  <string name="eventInProgress">Inaendelea</string>
+  <string name="finished">Imekamilika</string>
+  <string name="finishesX">itakamilika ndani ya %s</string>
   <string name="rematch">cheza tena</string>
 </resources>

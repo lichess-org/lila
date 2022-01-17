@@ -50,4 +50,12 @@
   <string name="skip">atla</string>
   <string name="skipHelp">Her yarışta bir hamleyi atlayabilirsin:</string>
   <string name="skipExplanation">Serini korumak için bu hamleyi atla! Her yarışta sadece bir atlama hakkın var.</string>
+  <string name="failedPuzzles">Yanlış çözülen bulmacalar</string>
+  <string name="slowPuzzles">Yavaş çözülen bulmacalar</string>
+  <string name="thisWeek">Bu hafta</string>
+  <string name="thisMonth">Bu ay</string>
+  <string name="allTime">Hep</string>
+  <string name="clickToReload">Tekrar yüklemek için tıkla</string>
+  <string name="thisRunHasExpired">Bu çalışmanın süresi doldu!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Bu çalışma başka sekmede açılmış!</string>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doação</string>
+  <string name="donateAsX">Doar como %s</string>
   <string name="lichessPatron">Apoie o Lichess</string>
   <string name="freeAccount">Conta gratuita</string>
   <string name="becomePatron">Seja um Patrono Lichess</string>
@@ -43,7 +44,6 @@ Ou você pode %s.</string>
   <string name="contactSupport">entrar em contato com o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>
-  <string name="bitcoin">E aqui está nosso endereço bitcoin: %s</string>
   <string name="patronFeatures">Alguns recursos são exclusivos para Patronos?</string>
   <string name="noPatronFeatures">Não, porque o Lichess é totalmente gratuito, para sempre e para todos. É uma promessa.
 No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil.</string>
@@ -75,5 +75,5 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nowLifetime">Você agora é um Patrono vitalício do Lichess!</string>
   <string name="nowOneMonth">Você agora é Patrono do Lichess por um mês!</string>
   <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será convertida para a versão gratuita.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Trocar de moeda</string>
+  <string name="changeCurrency">Trocar de moeda</string>
 </resources>

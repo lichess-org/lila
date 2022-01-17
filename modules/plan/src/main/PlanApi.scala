@@ -1,15 +1,15 @@
 package lila.plan
 
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.common.config.Secret
-import lila.common.Bus
+import lila.common.{ Bus, IpAddress }
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
-import lila.common.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -282,25 +282,24 @@ final class PlanApi(
       .void >> setDbUserPlanOnCharge(user, levelUp = false)
 
   def gift(from: User, to: User, money: Money): Funit =
-    !to.isPatron ?? {
-      for {
-        isLifetime <- pricingApi isLifetime money
-        _ <- patronColl.update
-          .one(
-            $id(to.id),
-            $set(
-              "lastLevelUp" -> DateTime.now,
-              "lifetime"    -> isLifetime,
-              "free"        -> Patron.Free(DateTime.now, by = from.id.some),
-              "expiresAt"   -> (!isLifetime option DateTime.now.plusMonths(1))
-            ),
-            upsert = true
-          )
-        newTo = to.mapPlan(_.incMonths)
-        _ <- setDbUserPlan(newTo)
-      } yield {
-        notifier.onGift(from, newTo, isLifetime)
-      }
+    for {
+      toPatronOpt <- userPatron(to)
+      isLifetime  <- fuccess(toPatronOpt.exists(_.isLifetime)) >>| (pricingApi isLifetime money)
+      _ <- patronColl.update
+        .one(
+          $id(to.id),
+          $set(
+            "lastLevelUp" -> DateTime.now,
+            "lifetime"    -> isLifetime,
+            "free"        -> Patron.Free(DateTime.now, by = from.id.some),
+            "expiresAt"   -> (!isLifetime option DateTime.now.plusMonths(1))
+          ),
+          upsert = true
+        )
+      newTo = to.mapPlan(p => if (toPatronOpt.exists(_.canLevelUp)) p.incMonths else p.enable)
+      _ <- setDbUserPlan(newTo)
+    } yield {
+      notifier.onGift(from, newTo, isLifetime)
     }
 
   def recentGiftFrom(from: User): Fu[Option[Patron]] =
@@ -462,7 +461,7 @@ final class PlanApi(
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))
 
-  def createSession(data: CreateStripeSession): Fu[StripeSession] =
+  def createSession(data: CreateStripeSession)(implicit lang: Lang): Fu[StripeSession] =
     data.checkout.freq match {
       case Freq.Onetime => stripeClient.createOneTimeSession(data)
       case Freq.Monthly => stripeClient.createMonthlySession(data)

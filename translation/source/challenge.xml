@@ -4,7 +4,7 @@
   <string name="challengeToPlay">Challenge to a game</string>
   <string name="challengeDeclined">Challenge declined</string>
   <string name="challengeAccepted">Challenge accepted!</string>
-  <string name="challengeCanceled">Challenge canceled.</string>
+  <string name="challengeCanceled">Challenge cancelled.</string>
   <string name="registerToSendChallenges">Please register to send challenges.</string>
   <string name="youCannotChallengeX">You cannot challenge %s.</string>
   <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>

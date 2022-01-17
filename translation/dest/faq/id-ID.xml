@@ -59,7 +59,6 @@ Gerakan ini dijelaskan dalam bagian 3.7 (d) dari %2$s:
 
 Lihat bagian %3$s mengenai gerakan ini untuk melatihnya.</string>
   <string name="goodIntroduction">pengenalan yang baik</string>
-  <string name="officialRulesPDF">peraturan resmi (PDF)</string>
   <string name="lichessTraining">latihan Lichess</string>
   <string name="threefoldRepetition">Pengulangan tiga kali</string>
   <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 (d) dari %2$s.</string>

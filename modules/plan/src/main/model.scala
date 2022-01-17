@@ -71,7 +71,8 @@ case class CreateStripeSession(
     customerId: CustomerId,
     checkout: Checkout,
     urls: NextUrls,
-    giftTo: Option[User]
+    giftTo: Option[User],
+    isLifetime: Boolean
 )
 
 case class StripeSubscription(

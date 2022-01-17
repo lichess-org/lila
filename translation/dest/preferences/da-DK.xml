@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Skakbrik-symbol</string>
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zentilstand</string>
+  <string name="showPlayerRatings">Vis spilleres ratings</string>
+  <string name="explainShowPlayerRatings">Dette gør det muligt at skjule alle ratings på hjemmesiden, så du kan fokusere på skakspillet. Partier kan stadig være ratede, det handler kun om, hvad du får at se.</string>
   <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="blindfoldChess">Blindskak</string>
@@ -30,8 +32,9 @@
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
   <string name="inCasualGamesOnly">Kun i ikke-ratede spil</string>
   <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
+  <string name="explainPromoteToQueenAutomatically">Hold &lt;ctrl&gt;-tasten nede, mens du forfremmer for midlertidigt at deaktivere auto-forfremmelse</string>
   <string name="whenPremoving">Ved forhåndstræk</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trefoldig gentagelse</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trækgentagelse</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>

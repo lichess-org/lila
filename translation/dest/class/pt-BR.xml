@@ -46,6 +46,7 @@ Senha: %3$s</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terá que transmiti-la ao aluno, para que ele possa ter acesso.</string>
   <string name="createDesc3">Importante: um aluno não deve ter várias contas.</string>
   <string name="createDesc4">Se já tiver um, utilize o formulário de convite.</string>
+  <string name="createStudentWarning">Somente crie contas para alunos de verdade. Não use isso para criar várias contas para si mesmo ou será banido.</string>
   <string name="lichessUsername">Nome de utilizador Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à sua turma: %s.
@@ -56,7 +57,6 @@ Aqui está o link para acessar a turma.</string>
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
-  <string name="noPendingInvitations">Nenhum convite pendente</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>

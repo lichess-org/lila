@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">Теперь вы зритель</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Нравится</string>
+  <string name="unlike">Не нравится</string>
   <string name="newTag">Новый тег</string>
   <string name="commentThisPosition">Комментировать эту позицию</string>
   <string name="commentThisMove">Комментировать этот ход</string>
@@ -116,7 +117,7 @@
   <string name="createStudy">Создать студию</string>
   <string name="editStudy">Изменить студию</string>
   <string name="visibility">Доступно к просмотру</string>
-  <string name="public">Публичный</string>
+  <string name="public">Публичная</string>
   <string name="unlisted">Доступ по ссылке</string>
   <string name="inviteOnly">Только по приглашению</string>
   <string name="allowCloning">Разрешить копирование</string>
@@ -163,4 +164,12 @@
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
   <string name="studyActions">Действия в студии</string>
+  <string name="topics">Темы</string>
+  <string name="myTopics">Мои темы</string>
+  <string name="popularTopics">Популярные темы</string>
+  <string name="manageTopics">Управление темами</string>
+  <string name="back">Назад</string>
+  <string name="playAgain">Сыграть снова</string>
+  <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
+  <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
 </resources>

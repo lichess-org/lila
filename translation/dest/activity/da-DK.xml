@@ -7,8 +7,8 @@
     <item quantity="other">Har støttet lichess.org i %1$s måneder som en %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Øvede %1$s position i %2$s</item>
-    <item quantity="other">Øvede %1$s positioner i %2$s</item>
+    <item quantity="one">Øvede %1$s stilling i %2$s</item>
+    <item quantity="other">Øvede %1$s stillinger i %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Løste %s taktisk opgave</item>

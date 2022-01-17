@@ -11,7 +11,7 @@
   <string name="studiesCreatedByX">Дослідження, створені %s</string>
   <string name="noneYet">Ще немає.</string>
   <string name="hot">Активні</string>
-  <string name="dateAddedNewest">Дата додавання (новіші)</string>
+  <string name="dateAddedNewest">Дата додавання (старіші)</string>
   <string name="dateAddedOldest">Дата додавання (старіші)</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
@@ -21,7 +21,7 @@
     <item quantity="one">%s розділ</item>
     <item quantity="few">%s розділи</item>
     <item quantity="many">%s розділів</item>
-    <item quantity="other">%s розділа</item>
+    <item quantity="other">%s розділи</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
@@ -37,27 +37,28 @@
     <item quantity="other">%s учасників</item>
   </plurals>
   <string name="inviteToTheStudy">Запросити до дослідження</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка, запрошуйте лише людей, яких Ви знаєте і які хочуть активно долучитися до цього дослідження.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте лише людей, яких ви знаєте, і які хочуть активно долучитися до цього дослідження.</string>
   <string name="searchByUsername">Пошук за іменем користувача</string>
   <string name="spectator">Глядач</string>
-  <string name="contributor">Редактор</string>
+  <string name="contributor">Співавтор</string>
   <string name="kick">Вигнати</string>
   <string name="leaveTheStudy">Покинути дослідження</string>
-  <string name="youAreNowAContributor">Тепер ви редактор</string>
+  <string name="youAreNowAContributor">Тепер ви співавтор</string>
   <string name="youAreNowASpectator">Тепер ви глядач</string>
   <string name="pgnTags">Теги PGN</string>
   <string name="like">Подобається</string>
+  <string name="unlike">Не подобається</string>
   <string name="newTag">Новий тег</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
   <string name="commentThisMove">Коментувати цей хід</string>
   <string name="annotateWithGlyphs">Додати символьну анотацію</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Розділ надто короткий для аналізу.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Лише редактори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Розділ занадто короткий для аналізу.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Лише співавтори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
   <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
   <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
-  <string name="shareChanges">Зберегти зміни на сервері та опублікувати для глядачів</string>
-  <string name="playing">Гра триває</string>
+  <string name="shareChanges">Поділитися змінами з глядачами та зберегти їх на сервері</string>
+  <string name="playing">Активні</string>
   <string name="first">Перша</string>
   <string name="previous">Попередня</string>
   <string name="next">Наступна</string>
@@ -73,7 +74,7 @@
   <string name="youCanPasteThisInTheForumToEmbed">Ви можете вставити цей код на форумі для вбудування</string>
   <string name="startAtInitialPosition">Старт з початкової позиції</string>
   <string name="startAtX">Почати з %s</string>
-  <string name="embedInYourWebsite">Вбудувати на своєму сайті або блозі</string>
+  <string name="embedInYourWebsite">Вбудувати на своєму сайті</string>
   <string name="readMoreAboutEmbedding">Докладніше про вбудовування</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Лише публічні дослідження можна вбудовувати!</string>
   <string name="open">Відкрити</string>
@@ -83,12 +84,12 @@
   <string name="newChapter">Новий розділ</string>
   <string name="orientation">Орієнтація</string>
   <string name="analysisMode">Режим аналізу</string>
-  <string name="pinnedChapterComment">Закріплений коментар до розділу</string>
+  <string name="pinnedChapterComment">Закріплений коментар розділу</string>
   <string name="saveChapter">Зберегти розділ</string>
   <string name="clearAnnotations">Очистити анотацію</string>
   <string name="deleteChapter">Видалити розділ</string>
   <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
-  <string name="clearAllCommentsInThisChapter">Забрати всі коментарі та позначки з цього розділу?</string>
+  <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу?</string>
   <string name="rightUnderTheBoard">Відразу під шахівницею</string>
   <string name="noPinnedComment">Немає</string>
   <string name="normalAnalysis">Звичайний аналіз</string>
@@ -112,30 +113,30 @@
   <string name="urlOfTheGame">URL-адреса гри</string>
   <string name="loadAGameFromXOrY">Завантажити гру з %1$s або %2$s</string>
   <string name="createChapter">Створити розділ</string>
-  <string name="configureLiveBroadcast">Налаштувати живу трансляцію</string>
+  <string name="configureLiveBroadcast">Налаштувати живу передачу</string>
   <string name="createStudy">Створити дослідження</string>
   <string name="editStudy">Редагування дослідження</string>
   <string name="visibility">Видимість</string>
   <string name="public">Публічне</string>
   <string name="unlisted">Поза списком</string>
   <string name="inviteOnly">Лише за запрошенням</string>
-  <string name="allowCloning">Дозволити клонування</string>
+  <string name="allowCloning">Дозволити копіювання</string>
   <string name="nobody">Ніхто</string>
   <string name="onlyMe">Лише я</string>
-  <string name="contributors">Редактори</string>
+  <string name="contributors">Співавтори</string>
   <string name="members">Учасники</string>
-  <string name="everyone">Кожний</string>
+  <string name="everyone">Всі</string>
   <string name="enableSync">Увімкнути синхронізацію</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Так: однакова позиція для всіх</string>
   <string name="noLetPeopleBrowseFreely">Ні: дозволити вільний перегляд</string>
-  <string name="pinnedStudyComment">Закріплений коментар до дослідження</string>
+  <string name="pinnedStudyComment">Закріплений коментар дослідження</string>
   <string name="start">Почати</string>
   <string name="save">Зберегти</string>
   <string name="clearChat">Очистити чат</string>
   <string name="deleteTheStudyChatHistory">Видалити історію чату дослідження? Відновити буде неможливо!</string>
   <string name="deleteStudy">Видалити дослідження</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ви дійсно бажаєте видалити все дослідження? Назад дороги немає! Введіть назву дослідження для підтвердження: %s</string>
-  <string name="whereDoYouWantToStudyThat">Де Ви хочете це дослідити?</string>
+  <string name="whereDoYouWantToStudyThat">Де ви хочете це дослідити?</string>
   <string name="goodMove">Хороший хід</string>
   <string name="mistake">Помилка</string>
   <string name="brilliantMove">Блискучий хід</string>
@@ -163,4 +164,12 @@
   <string name="nextChapter">Наступний розділ</string>
   <string name="prevChapter">Попередній розділ</string>
   <string name="studyActions">Команди дослідження</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Теми</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Мої теми</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Популярні теми</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Управління темами</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Назад</string>
+  <string name="playAgain">Грати знову</string>
+  <string name="whatWouldYouPlay">Що б ви грали в цій позиції?</string>
+  <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>
 </resources>

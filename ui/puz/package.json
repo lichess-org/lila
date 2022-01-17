@@ -20,18 +20,19 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc --incremental",
     "dev": "$npm_execpath run compile",
     "prod": "$npm_execpath run compile"
   },
   "dependencies": {
-    "chessops": "^0.10.0",
+    "chessops": "^0.10.2",
     "snabbdom": "^3.0.1",
-    "chessground": "^8.1.7",
+    "chessground": "^8.1.9",
     "common": "2.0.0"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "typescript": "^4.3.5"
+    "@types/web": "=0.0.32",
+    "typescript": "^4.4.3"
   }
 }

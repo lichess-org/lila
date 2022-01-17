@@ -46,6 +46,7 @@
   <string name="createDesc2">כתובת אימייל אינה דרושה. סיסמה תיווצר, ותצטרך להעביר זאת לתלמיד, כדי שיוכלו להתחבר.</string>
   <string name="createDesc3">חשוב: לתלמיד אסור שיהיו מספר חשבונות.</string>
   <string name="createDesc4">אם יש להם כבר אחד, השתמש במקום זאת בטופס ההזמנה.</string>
+  <string name="createStudentWarning">צור משתמשים לתלמידים אמיתיים בלבד. אל תשתמש בזה ליצירת משתמשים נוספים לעצמך. אתה תחסם.</string>
   <string name="lichessUsername">שם משתמש בליצ\'ס</string>
   <string name="generateANewUsername">צור שם משתמש חדש</string>
   <string name="welcomeToClass">ברוך הבא לכיתתך: %s.
@@ -58,7 +59,6 @@
     <item quantity="many">%s הזמנות ממתינות</item>
     <item quantity="other">%s הזמנות ממתינות</item>
   </plurals>
-  <string name="noPendingInvitations">אין הזמנות ממתינות</string>
   <string name="onlyVisibleToTeachers">נראה רק מורי הכיתה</string>
   <string name="lastActiveDate">פעיל</string>
   <string name="managed">מנוהל</string>
@@ -69,6 +69,10 @@
   <string name="releaseDesc1">חשבון ששוחרר לא יוכל להיות מנוהל שוב. התלמיד יוכל לצאת ממצב הילדים ולאפס את סיסמתו.</string>
   <string name="releaseDesc2">התלמיד ישאר בכיתה לאחר שחשבונו ישוחרר.</string>
   <string name="realUniqueEmail">כתובת דוא\"ל אמיתית וייחודית של התלמיד. אנו נשלח אליו דוא\"ל לאישור, עם קישור לשחרור החשבון.</string>
+  <string name="closeStudent">סגור את החשבון</string>
+  <string name="closeTheAccount">סגור את חשבון התלמיד לצמיתות.</string>
+  <string name="closeDesc1">התלמיד לעולם לא יוכל עוד להשתמש בחשבון זה. סגירת החשבון היא סופית. אנא וודא שהתלמיד מבין ומסכים.</string>
+  <string name="closeDesc2">אולי תרצה במקום לתת לתלמיד שליטה על החשבון, כך שיוכל להמשיך להשתמש בו.</string>
   <string name="teachers">מורים</string>
   <plurals name="nbTeachers">
     <item quantity="one">מורה</item>

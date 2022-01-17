@@ -56,7 +56,6 @@ Jen la ligo por aliri la klason.</string>
     <item quantity="one">Unu pritraktota invito</item>
     <item quantity="other">%s pritraktotaj invitoj</item>
   </plurals>
-  <string name="noPendingInvitations">Neniu pritraktota invito</string>
   <string name="onlyVisibleToTeachers">Nur videbla por la instruistoj de la klaso</string>
   <string name="lastActiveDate">Aktiva</string>
   <string name="managed">Administrita</string>

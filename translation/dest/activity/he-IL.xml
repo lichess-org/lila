@@ -75,19 +75,19 @@
     <item quantity="other">השתתף ב%s משחק ידידות</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">יצר %s ניתוח חדש</item>
-    <item quantity="two">יצר %s ניתוחים חדשים</item>
-    <item quantity="many">יצר %s ניתוחים חדשים</item>
-    <item quantity="other">יצר %s ניתוחים חדשים</item>
+    <item quantity="one">יצר לוח למידה %s חדש</item>
+    <item quantity="two">יצר %s לוחות למידה חדשים</item>
+    <item quantity="many">יצר %s לוחות למידה חדשים</item>
+    <item quantity="other">יצר %s לוחות למידה חדשים</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">התחרה בטורניר אחד</item>
-    <item quantity="two">התחרה בשני טורנירים</item>
-    <item quantity="many">התחרה ב-%s טורנירים</item>
-    <item quantity="other">התחרה ב-%s טורנירים</item>
+    <item quantity="one">התחרה בטורניר זירה %s</item>
+    <item quantity="two">התחרה ב-%s טורנירי זירה</item>
+    <item quantity="many">התחרה ב-%s טורנירי זירה</item>
+    <item quantity="other">התחרה ב-%s טורנירי זירה</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
+    <item quantity="one">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב-%4$s</item>
     <item quantity="two">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="many">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="other">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>

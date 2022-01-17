@@ -86,7 +86,7 @@ object studentDashboard {
                 withTitle = false
               )
             ),
-            td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.best3Perfs.map {
+            td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.bestAny3Perfs.map {
               showPerfRating(user, _)
             }),
             td(user.count.game.localize),

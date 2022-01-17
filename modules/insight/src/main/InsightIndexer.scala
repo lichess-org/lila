@@ -25,15 +25,11 @@ final private class InsightIndexer(
   private val workQueue =
     new lila.hub.AsyncActorSequencer(maxSize = 128, timeout = 2 minutes, name = "insightIndexer")
 
-  def all(userId: User.ID): Funit =
+  def all(user: User): Funit =
     workQueue {
-      userRepo byId userId flatMap {
-        _ ?? { user =>
-          storage.fetchLast(user.id) flatMap {
-            case None    => fromScratch(user)
-            case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
-          }
-        }
+      storage.fetchLast(user.id) flatMap {
+        case None    => fromScratch(user)
+        case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
       }
     }
 

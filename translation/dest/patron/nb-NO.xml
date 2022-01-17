@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doner</string>
+  <string name="donateAsX">Bidra som %s</string>
   <string name="lichessPatron">Lichess-patron</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli Lichess-patron</string>
@@ -12,7 +13,7 @@
   <string name="newPatrons">Nye patroner</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
-  <string name="thankYou">Takk for din donasjon!</string>
+  <string name="thankYou">Takk for bidraget ditt!</string>
   <string name="youHaveLifetime">Du har patronkonto på livstid. Det er rett og slett storartet!</string>
   <string name="patronUntil">Du har patronkonto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
@@ -43,7 +44,6 @@ Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-support</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
   <string name="bankTransfers">Vi tar også imot bankoverføringer</string>
-  <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
   <string name="patronFeatures">Er noen funksjoner forbeholdt patroner?</string>
   <string name="noPatronFeatures">Nei, Lichess er helt gratis, for alltid og for alle. Det er et løfte.
 Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>

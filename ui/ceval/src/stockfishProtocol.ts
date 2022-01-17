@@ -13,17 +13,22 @@ const evalRegex = new RegExp(
 );
 
 const minDepth = 6;
+const MAX_STOCKFISH_PLIES = 245;
 
 export default class Protocol {
   private engineNameDeferred: Deferred<string> = defer();
   public engineName: Sync<string> = sync(this.engineNameDeferred.promise);
 
-  private work: Work | undefined;
-  private currentEval: Tree.ClientEval | undefined;
-  private expectedPvs = 1;
+  private options = new Map<string, string | number>([
+    ['Threads', 1],
+    ['Hash', 16],
+    ['MultiPV', 1],
+    ['UCI_Variant', 'chess'],
+  ]);
 
-  private threads: string | number = 1;
-  private hashSize: string | number = 16;
+  private work: Work | undefined;
+  private currentEval: Tree.LocalEval | undefined;
+  private expectedPvs = 1;
 
   private nextWork: Work | undefined;
 
@@ -37,14 +42,16 @@ export default class Protocol {
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    // Handle variants ("giveaway" is antichess in old asmjs fallback).
+    // Affects notation only. Life would be easier if everyone would always
+    // unconditionally use this mode.
     this.setOption('UCI_Chess960', 'true');
-    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway');
-    else this.setOption('UCI_Variant', lichessRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
-    this.send(`setoption name ${name} value ${value}`);
+    if (this.options.get(name) !== value) {
+      this.send(`setoption name ${name} value ${value}`);
+      this.options.set(name, value);
+    }
   }
 
   received(text: string): void {
@@ -132,22 +139,20 @@ export default class Protocol {
         this.currentEval = undefined;
         this.expectedPvs = 1;
 
-        const threads = this.opts.threads ? this.opts.threads() : 1;
-        if (this.threads != threads) {
-          this.threads = threads;
-          this.setOption('Threads', threads);
-        }
-        const hashSize = this.opts.hashSize ? this.opts.hashSize() : 16;
-        if (this.hashSize != hashSize) {
-          this.hashSize = hashSize;
-          this.setOption('Hash', hashSize);
-        }
+        this.setOption(
+          'UCI_Variant',
+          this.opts.variant === 'antichess'
+            ? 'giveaway' // for old asmjs fallback
+            : lichessRules(this.opts.variant)
+        );
+        this.setOption('Threads', this.opts.threads ? this.opts.threads() : 1);
+        this.setOption('Hash', this.opts.hashSize ? this.opts.hashSize() : 16);
         this.setOption('MultiPV', this.work.multiPv);
 
         this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
         this.send(
           this.work.maxDepth >= 99
-            ? 'go depth 245' // 'go infinite' would not finish even if entire tree search completed
+            ? `go depth ${MAX_STOCKFISH_PLIES}` // 'go infinite' would not finish even if entire tree search completed
             : 'go movetime 90000'
         );
       }

@@ -6,6 +6,7 @@
     <item quantity="other">%s thành viên</item>
   </plurals>
   <string name="allTeams">Tất cả đội</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Trưởng nhóm</string>
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
   <string name="noTeamFound">không tìm thấy đội</string>
@@ -16,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">Đội trưởng</item>
   </plurals>
-  <string name="teamBestPlayers">Người giỏi nhất đội</string>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="kickSomeone">Loại ai đó ra khỏi đội</string>
   <string name="whoToKick">Ai là người bạn muốn loại khỏi đội?</string>
@@ -25,6 +25,8 @@
   </plurals>
   <string name="willBeReviewed">Yêu cầu tham gia của bạn sẽ được xem xét bởi trưởng nhóm.</string>
   <string name="beingReviewed">Yêu cầu tham gia của bạn đang được xem xét bởi trưởng nhóm.</string>
+  <string name="requestDeclined">Yêu cầu tham gia của bạn bị từ chối bởi trưởng nhóm.</string>
+  <string name="subToTeamMessages">Đăng kí nhận tin nhắn của đội</string>
   <string name="teamBattle">Trận chiến Đội</string>
   <string name="teamBattleOverview">Một trận đấu giữa nhiều đội, mỗi người chơi ghi điểm cho đội của họ</string>
   <string name="teamTournament">Giải đấu trong đội</string>
@@ -40,5 +42,10 @@ Những người chơi không muốn nhận tin nhắn của bạn có thể s�
   <string name="leadersChat">Trò chuyện của những đội trưởng</string>
   <string name="closeTeam">Giải tán đội</string>
   <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
+  <string name="entryCodeDescriptionForLeader">(Tuỳ chọn) Mật khẩu mà các thành viên mới phải nhớ để tham gia đội.</string>
+  <string name="incorrectEntryCode">Nhập mã sai.</string>
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
+  <string name="upcomingTourns">Các giải đấu sắp tới</string>
+  <string name="completedTourns">Các giải đấu đã hoàn thành</string>
+  <string name="declinedRequests">Yêu cầu bị từ chối</string>
 </resources>

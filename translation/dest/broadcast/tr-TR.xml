@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Yayın linki</string>
   <string name="currentRoundUrl">Şu anki turun linki</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
+  <string name="downloadAllRounds">Bütün maçları indir</string>
 </resources>

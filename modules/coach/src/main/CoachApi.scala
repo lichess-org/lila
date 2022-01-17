@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.db.Photographer
+import lila.memo.PicfitApi
 import lila.notify.{ Notification, NotifyApi }
 import lila.security.Granter
 import lila.user.{ Holder, User, UserRepo }
@@ -13,7 +13,7 @@ final class CoachApi(
     coachColl: Coll,
     reviewColl: Coll,
     userRepo: UserRepo,
-    photographer: Photographer,
+    picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi,
     notifyApi: NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -69,13 +69,11 @@ final class CoachApi(
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
     coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
 
-  def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded, by: User): Funit =
-    photographer(c.coach.id.value, picture, createdBy = by.id).flatMap { pic =>
-      coachColl.update.one($id(c.coach.id), $set("picturePath" -> pic.path)).void
+  def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
+    picfitApi
+      .uploadFile(s"coach:${c.coach.id}", picture, userId = c.user.id) flatMap { pic =>
+      coachColl.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
     }
-
-  def deletePicture(c: Coach.WithUser): Funit =
-    coachColl.update.one($id(c.coach.id), $unset("picturePath")).void
 
   private val languagesCache = cacheApi.unit[Set[String]] {
     _.refreshAfterWrite(1 hour)

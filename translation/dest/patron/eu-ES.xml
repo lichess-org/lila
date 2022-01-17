@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Dirua eman</string>
+  <string name="donateAsX">Egin dohaintza %s gisa</string>
   <string name="lichessPatron">Lichess babeslea</string>
   <string name="freeAccount">Doako kontua</string>
   <string name="becomePatron">Lichess Babesle bihurtu</string>
@@ -43,7 +44,6 @@ Edo %s.</string>
   <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
   <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
   <string name="bankTransfers">Banku-transferentziak ere onartzen ditugu</string>
-  <string name="bitcoin">Hauxe da gure bitcoin helbidea: %s</string>
   <string name="patronFeatures">Badago zerbait Babesleentzat bakarrik gordeta?</string>
   <string name="noPatronFeatures">Ez, Lichess osoa doakoa delako, betiko eta guztiontzat. Hori hitz ematen dugu. Hala ere, Babesleek beren profilaren orrialdean ikono berri bat jasotzen dute.</string>
   <string name="featuresComparison">Ikusi ezaugarrien alderaketa</string>

@@ -1,65 +1,35 @@
 @import 'card';
-@import 'form';
 @import 'markup';
+@import 'flash';
+@import 'topic';
+@import 'post';
 
 .ublog {
   &-index {
     .box__top__actions {
       @extend %flex-center;
+      .atom {
+        font-size: 2.6em;
+        color: $c-font-dimmer;
+        &:hover {
+          color: $c-accent;
+        }
+      }
     }
     h1 {
       .user-link {
         color: $c-link;
       }
     }
+    #form3-tier {
+      border: none;
+      background: none;
+    }
     &__posts {
       &--empty {
         margin: 20vh auto;
         text-align: center;
       }
-    }
-  }
-  &-post {
-    &__title {
-      text-align: center;
-      margin: 3rem 0 3rem;
-    }
-    &__meta {
-      text-align: center;
-      margin-bottom: 6vh;
-      > * {
-        margin: 0 1em;
-      }
-    }
-    &__image {
-      @extend %box-neat-force;
-      width: 100%;
-    }
-    &__intro {
-      font-size: 1.2em;
-      margin-bottom: 4vh;
-      display: block;
-    }
-    &__footer {
-      margin: 7em 0 0 0;
-      h2 {
-        margin-bottom: 1.5em;
-      }
-    }
-  }
-}
-
-main.page {
-  position: relative;
-  .flash {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    &.fade {
-      opacity: 0;
-      transition: 3s;
-      transition-delay: 2s;
     }
   }
 }

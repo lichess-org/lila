@@ -72,6 +72,7 @@ case class Challenge(
   def openDest = destUser.isEmpty
   def online   = status == Status.Created
   def active   = online || status == Status.Offline
+  def canceled = status == Status.Canceled
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
@@ -103,6 +104,8 @@ case class Challenge(
     status = Status.Declined,
     declineReason = reason.some
   )
+
+  def cancel = copy(status = Status.Canceled)
 
   def isBoardCompatible: Boolean = speed >= Speed.Blitz
   def isBotCompatible: Boolean   = speed >= Speed.Bullet

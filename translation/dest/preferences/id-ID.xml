@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Simbol bidak catur</string>
   <string name="pgnLetter">Huruf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Moda Zen</string>
+  <string name="showPlayerRatings">Munculkan rating pemain</string>
   <string name="displayBoardResizeHandle">Tampilkan pengubah ukuran papan catur</string>
   <string name="onlyOnInitialPosition">Hanya di posisi awal</string>
   <string name="blindfoldChess">Catur buta (buah catur disembunyikan)</string>

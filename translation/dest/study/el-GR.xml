@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
   <string name="pgnTags">PGN ετικέτες</string>
   <string name="like">Μου αρέσει</string>
+  <string name="unlike">Δε μου αρέσει</string>
   <string name="newTag">Νέα ετικέτα</string>
   <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
   <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
@@ -155,4 +156,12 @@
   <string name="nextChapter">Επόμενο κεφάλαιο</string>
   <string name="prevChapter">Προηγούμενο κεφάλαιο</string>
   <string name="studyActions">Ρυθμίσεις μελέτης</string>
+  <string name="topics">Θέματα</string>
+  <string name="myTopics">Τα θέματά μου</string>
+  <string name="popularTopics">Δημοφιλή θέματα</string>
+  <string name="manageTopics">Διαχείριση θεμάτων</string>
+  <string name="back">Πίσω</string>
+  <string name="playAgain">Παίξτε ξανά</string>
+  <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
+  <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
 </resources>

@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.EmailAddress
 import lila.plan.StripeClient.StripeException
 import lila.plan.{
   Checkout,
@@ -105,7 +105,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   private def myCurrency(implicit ctx: Context): Currency =
     get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
       env.plan.currencyApi.currencyByCountryCodeOrLang(
-        env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
+        env.security.geoIP(ctx.ip).flatMap(_.countryCode),
         ctx.lang
       )
 
@@ -164,21 +164,24 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       checkout: Checkout,
       customerId: CustomerId,
       giftTo: Option[lila.user.User]
-  ) =
-    env.plan.api
-      .createSession(
-        CreateStripeSession(
-          customerId,
-          checkout,
-          NextUrls(
-            cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-            success = s"${env.net.baseUrl}${routes.Plan.thanks}"
-          ),
-          giftTo = giftTo
+  )(implicit ctx: Context) = {
+    for {
+      isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
+      session <- env.plan.api
+        .createSession(
+          CreateStripeSession(
+            customerId,
+            checkout,
+            NextUrls(
+              cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+              success = s"${env.net.baseUrl}${routes.Plan.thanks}"
+            ),
+            giftTo = giftTo,
+            isLifetime = isLifetime
+          )
         )
-      )
-      .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
-      .recover(badStripeApiCall)
+    } yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
+  }.recover(badStripeApiCall)
 
   def switchStripePlan(user: UserModel, money: Money) =
     env.plan.api
@@ -196,7 +199,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def stripeCheckout =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      StripeRateLimit(HTTPRequest ipAddress req) {
+      StripeRateLimit(ctx.ip) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
           env.plan.checkoutForm
             .form(pricing)
@@ -209,7 +212,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               data => {
                 val checkout = data.fixFreq
                 for {
-                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.named)
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.enabledNamed)
                   customer <- env.plan.api.userCustomer(me)
                   session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>
@@ -231,7 +234,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def updatePayment =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      StripeRateLimit(HTTPRequest ipAddress req) {
+      StripeRateLimit(ctx.ip) {
         env.plan.api.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
             env.plan.api

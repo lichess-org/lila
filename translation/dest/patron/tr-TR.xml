@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Bağış yap</string>
+  <string name="donateAsX">%s olarak bağış yap</string>
   <string name="lichessPatron">Lichess Destekçisi</string>
   <string name="freeAccount">Ücretsiz Hesap</string>
   <string name="becomePatron">Lichess Destekçisi olun</string>
@@ -44,7 +45,6 @@ Veya %s.</string>
   <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
   <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
   <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>
-  <string name="bitcoin">Bitcoin adresimiz: %s</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
   <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
 
@@ -77,5 +77,5 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
   <string name="nowOneMonth">Bir aylığına Lichess Destekçisi oldunuz!</string>
   <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Para birimini değiştir</string>
+  <string name="changeCurrency">Para birimini değiştir</string>
 </resources>

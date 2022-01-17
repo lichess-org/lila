@@ -11,7 +11,6 @@
   <string name="level">Stig</string>
   <string name="strength">Styrki</string>
   <string name="toggleTheChat">Goym/Vís kjatt</string>
-  <string name="toggleSound">Slá ljóð til/frá</string>
   <string name="chat">Kjatta</string>
   <string name="resign">Legg kong</string>
   <string name="checkmate">Skák og mát</string>
@@ -39,7 +38,6 @@
     <item quantity="other">Títt mótstøðufólk fór frá talvinum. Tú kanst siga teg hava vunnið um %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Tín móttelvari er farin frá talvinum. Tú kanst antin krevja sigur, siga tað vera remis ella bíða.</string>
-  <string name="makeYourOpponentResign">Noyð tín móttelvara til at geva upp</string>
   <string name="forceResignation">Krev sigur</string>
   <string name="forceDraw">Krev remis</string>
   <string name="talkInChat">Ver vinalig/ur í kjattinum!</string>
@@ -48,9 +46,6 @@
   <string name="blackResigned">Svartur legði kong</string>
   <string name="whiteLeftTheGame">Hvítur er farin frá talvinum</string>
   <string name="blackLeftTheGame">Svartur er farin frá talvinum</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deil hesa adressuna við áskoðarar</string>
-  <string name="theComputerAnalysisHasFailed">Teldugreiningin miseydnaðist</string>
-  <string name="viewTheComputerAnalysis">Síggj teldugreiningina</string>
   <string name="requestAComputerAnalysis">Bið um eina teldugreining</string>
   <string name="computerAnalysis">Teldugreining</string>
   <string name="computerAnalysisAvailable">Teldugreining tøk</string>
@@ -87,10 +82,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Skák og mát í %s hálvum leiki</item>
     <item quantity="other">Skák og mát í %s hálvum leikum</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Næsta tøka ella næsti finnuleikur í %s hálvum leiki (Frástøða til null í 50-leika niðurteljingini)</item>
-    <item quantity="other">Næsta tøka ella næsti finnuleikur í %s hálvum leikum (Frástøða til null í 50-leika niðurteljingini)</item>
   </plurals>
   <string name="noGameFound">Einki talv funnið</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vilt tú taka fleiri talv úr tínari egnu valmynd?</string>
@@ -200,7 +191,6 @@
   <string name="whiteTimeOut">Tíð uppi hjá hvítum</string>
   <string name="blackTimeOut">Tíð uppi hjá svørtum</string>
   <string name="drawOfferSent">Tilboð um javnleik sent</string>
-  <string name="drawOfferDeclined">Tilboð um javnleik havnað</string>
   <string name="drawOfferAccepted">Tilboð um javnleik góðtikið</string>
   <string name="drawOfferCanceled">Tilboð um javnleik avlýst</string>
   <string name="whiteOffersDraw">Hvítur bjóðar javnt</string>
@@ -226,8 +216,6 @@
   <string name="thisGameIsRated">Hetta talv verður styrkimett</string>
   <string name="rematch">Umaftur</string>
   <string name="rematchOfferSent">Tilboð um nýtt talv sent</string>
-  <string name="rematchOfferSentWhite">Hvítur bjóðar nýtt talv</string>
-  <string name="rematchOfferSentBlack">Svartur bjóðar nýtt talv</string>
   <string name="rematchOfferAccepted">Tilboð um nýtt talv góðtikið</string>
   <string name="rematchOfferCanceled">Tilboð um nýtt talv avlýst</string>
   <string name="rematchOfferDeclined">Tilboð um nýtt talv afturvíst</string>
@@ -241,9 +229,7 @@
   <string name="youHaveBeenTimedOut">Tú hevur fingið leikbrá.</string>
   <string name="spectatorRoom">Áskoðararúm</string>
   <string name="composeMessage">Skriva eini boð</string>
-  <string name="noNewMessages">Eingi nýggj boð</string>
   <string name="subject">Evni</string>
-  <string name="recipient">Móttakari</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Vøkstur í sekundum</string>
   <string name="freeOnlineChess">Ókeypis talv á netinum</string>
@@ -356,8 +342,6 @@
     <item quantity="one">%s vinur á alnetinum</item>
     <item quantity="other">%s vinir á alnetinum</item>
   </plurals>
-  <string name="noFriendsOnline">Eingir vinir á netinum</string>
-  <string name="findFriends">Finn vinir</string>
   <string name="favoriteOpponents">Yndismótleikarar</string>
   <string name="follow">Fylg</string>
   <string name="following">Fylgir</string>
@@ -406,7 +390,6 @@
   <string name="points">Stig</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tapt</string>
-  <string name="winStreak">Vunnin á rað</string>
   <string name="createdBy">Stovnað hevur</string>
   <string name="tournamentIsStarting">Kappingin byrjar</string>
   <string name="tournamentPairingsAreNowClosed">Liðugt er at seta luttakararnar saman tveir og tveir.</string>
@@ -422,13 +405,11 @@
   <string name="draws">Javnleikir</string>
   <string name="nextXTournament">Næsta %s kapping:</string>
   <string name="averageOpponent">Miðalmótleikari</string>
-  <string name="membersOnly">Bert brúkarar</string>
   <string name="boardEditor">Talvborðsritil</string>
   <string name="setTheBoard">Set talvborðið upp</string>
   <string name="popularOpenings">Væl dámd byrjanartalv</string>
   <string name="startPosition">Byrjanarstøðan</string>
   <string name="clearBoard">Rudda borðið</string>
-  <string name="savePosition">Goym støðuna</string>
   <string name="loadPosition">Les støðuna inn</string>
   <string name="isPrivate">Innanhýsis</string>
   <string name="reportXToModerators">Sig fyriskiparum frá um %s</string>
@@ -444,10 +425,8 @@
   <string name="thankYou">Takk fyri!</string>
   <string name="socialMediaLinks">Leinki til sosialar miðlar</string>
   <string name="inlineNotation">Innbygd teknskipan</string>
-  <string name="watchLichessTV">Hygg at Lichess sjónvarpi</string>
   <string name="previouslyOnLichessTV">Áður víst í Lichess-sjónvarpi</string>
   <string name="onlinePlayers">Telvarar á netinum nú</string>
-  <string name="activeToday">Virknir í dag</string>
   <string name="activePlayers">Virknir telvarar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Gev gætur, at talvið verður styrkismett, men hevur onga klokku!</string>
   <string name="success">Tað eydnaðist</string>
@@ -458,7 +437,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Halt sjálvvirkið fram við næsta talvi aftaná at hava flutt</string>
   <string name="autoSwitch">Sjálvvirknisknøttur</string>
   <string name="puzzles">Uppgávur</string>
-  <string name="latestUpdates">Seinastu dagføringar</string>
   <string name="tournamentWinners">Kappingarvinnarar</string>
   <string name="name">Navn</string>
   <string name="description">Lýsing</string>
@@ -489,9 +467,7 @@
   <string name="error.provideOneCheatedGameLink">Útvega leinki til í minsta lagi eitt talv, har snýtt varð.</string>
   <string name="by">eftir %s</string>
   <string name="thisTopicIsNowClosed">Evnið er nú afturlatið.</string>
-  <string name="theming">Tema</string>
   <string name="blog">Bloggur</string>
-  <string name="questionsAndAnswers">Spurningar &amp; Svør</string>
   <string name="notes">Upprit</string>
   <string name="typePrivateNotesHere">Skriva tíni egnu upprit her</string>
   <string name="invalidUsernameOrPassword">Ógildugt brúkaranavn ella loyniorð</string>
@@ -520,13 +496,7 @@
   <string name="onSlowGames">Í seinførum talvum</string>
   <string name="always">Altíð</string>
   <string name="never">Ongantíð</string>
-  <string name="difficultyEasy">Lætt</string>
-  <string name="difficultyNormal">Vanligt</string>
-  <string name="difficultyHard">Torført</string>
   <string name="xCompetesInY">%1$s kappast í %2$s</string>
-  <string name="xAskedY">%1$s spurdi %2$s</string>
-  <string name="xAnsweredY">%1$s svaraði %2$s</string>
-  <string name="xCommentedY">%1$s viðmerkti %2$s</string>
   <string name="victory">Sigur</string>
   <string name="defeat">Tap</string>
   <string name="victoryVsYInZ">%1$s móti %2$s í %3$s</string>
@@ -535,7 +505,6 @@
   <string name="timeline">Tíðarlinja</string>
   <string name="starting">Byrjar:</string>
   <string name="allInformationIsPublicAndOptional">Allar upplýsingar eru almennar og valfríar.</string>
-  <string name="yourCityRegionOrDepartment">Tín bygd, býur ella títt øki.</string>
   <string name="biographyDescription">Greið frá um teg sjálva/n, og um tíni áhugamál, hvat tær dámar við talvi, hvørji yndisbyrjanartalv tíni eru, telvarar o.s.fr.</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Í mesta lagi: %s bókstavur.</item>
@@ -550,13 +519,6 @@
   <string name="computer">Telda</string>
   <string name="side">Litur</string>
   <string name="clock">Klokka</string>
-  <string name="unauthorizedError">Atgongd er ikki heimilað.</string>
-  <string name="noInternetConnection">Einki internetsamband. Tú kanst enn telva offline.</string>
-  <string name="connectedToLichess">Tú hevur nú samband við lichess.org</string>
-  <string name="signedOut">Tú ert útritað/ur</string>
-  <string name="loginSuccessful">Tú ert nú innritað/ur</string>
-  <string name="playOnTheBoardOffline">Uttan net, nýt sum talvborð</string>
-  <string name="playOfflineComputer">Telda</string>
   <string name="opponent">Mótleikari</string>
   <string name="learnMenu">Lær</string>
   <string name="studyMenu">Rannsókn</string>
@@ -564,16 +526,7 @@
   <string name="community">Felagsskapur</string>
   <string name="tools">Amboð</string>
   <string name="increment">Hækking</string>
-  <string name="sharePGN">Deil PGN</string>
-  <string name="playOnline">Telva á netinum</string>
-  <string name="playOffline">Telva ótongt (offline)</string>
-  <string name="allowAnalytics">Loyv ónavngivnum hagtølum</string>
-  <string name="shareGameURL">Deil talv URL</string>
   <string name="error.required">Hesin teigur er kravdur</string>
-  <string name="error.email">Hesin teldupostbústaður er ógildigur</string>
-  <string name="error.email_acceptable">Hesin teldupostbústaður verður ikki góðtikin. Kanna, um hann er rættur, og royn so aftur.</string>
-  <string name="error.email_unique">Onkur nýtir longu henda teldupostbústaðin</string>
-  <string name="error.email_different">Hetta er longu tín teldupostbústaður</string>
   <string name="ifRatingIsPlusMinusX">Um styrkitalið er ± %s</string>
   <string name="onlyExistingConversations">Einastu samrøður, ið eru til</string>
   <string name="onlyFriends">Bert vinir</string>
@@ -621,7 +574,6 @@
   <string name="simulHostExtraTime">Vertur fær eyka klokkutíð</string>
   <string name="lichessTournaments">Lichess kappingar</string>
   <string name="tournamentFAQ">Arena-kapping FAQ</string>
-  <string name="tournamentOfficial">Almennar</string>
   <string name="timeBeforeTournamentStarts">Tíð áðrenn kapping byrjar</string>
   <string name="averageCentipawnLoss">Miðal centifinnu-tap</string>
   <string name="keyboardShortcuts">Knappaborðssnarvegir</string>
@@ -659,7 +611,6 @@
   <string name="downloadAnnotated">Tak viðmerkingar niður</string>
   <string name="downloadRaw">Tak niður rátt</string>
   <string name="downloadImported">Niðurtøka innflutt</string>
-  <string name="printFriendlyPDF">Prentvinarligt PDF</string>
   <string name="crosstable">Krossborð</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Til ber eisini at skrulla yvirum borðið at flyta leikir í talvinum.</string>
   <string name="analysisShapesHowTo">Trýst shift+click ella right-click at tekna rundingar og pílar á talvborðinum.</string>
@@ -668,7 +619,6 @@
   <string name="withNobody">Við ongan</string>
   <string name="withFriends">Við vinir</string>
   <string name="withEverybody">Við øll</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Tú hevur longu skrásett teldupostin: %s</string>
   <string name="kidMode">Barnastøða</string>
   <string name="kidModeExplanation">Hetta snýr seg um trygd. Í barnastøðu er alt samskifti á síðuni óvirkið. Vel barnastøðu, soleiðis at børn tíni og skúlanæmingar ikki hava við aðrar internetbrúkarar at gera.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Í barnastøðu fær Lichess-búmerkið eina %s mynd, so tú veitst, at børn tíni eru trygg.</string>
@@ -696,7 +646,6 @@
   <string name="xHostsY">%1$s er vertur fyri %2$s</string>
   <string name="xJoinsY">%1$s fer upp í %2$s</string>
   <string name="xLikesY">%1$s dámar %2$s</string>
-  <string name="xCreatesStudyY">%1$s stovnar rannsókn %2$s</string>
   <string name="quickPairing">Skjót greiping</string>
   <string name="lobby">Salur</string>
   <string name="anonymous">Dulnevnt</string>
@@ -717,17 +666,11 @@
   <string name="usernameSuffixInvalid">Brúkaranavnið má enda við einum bókstavi ella tali.</string>
   <string name="usernameCharsInvalid">Í brúkaranavninum mugu bert vera bókstavir, tøl, undirstrikur og sambindingarstrikur.</string>
   <string name="usernameUnacceptable">Brúkaranavnið verður ikki góðtikið.</string>
-  <string name="directlySupportLichess">Stuðla Lichess beinleiðis</string>
   <string name="playChessInStyle">Telva við stíli</string>
   <string name="chessBasics">Grundleggjandi talv</string>
   <string name="coaches">Venjarar</string>
   <string name="invalidPgn">Ógildugt PGN</string>
   <string name="invalidFen">Ógildugt FEN</string>
-  <string name="error.minLength">Minsta longd er %s</string>
-  <string name="error.maxLength">Mesta longd er %s</string>
-  <string name="error.min">Má vera størri enn ella tað sum %s</string>
-  <string name="error.max">Má vera minni enn ella tað sama sum %s</string>
-  <string name="error.unknown">Feilur</string>
   <string name="custom">Tillagað</string>
   <string name="notifications">Fráboðanir</string>
   <string name="perfRatingX">Styrkital: %s</string>

@@ -3,6 +3,7 @@ import * as miniGame from './component/mini-game';
 import * as timeago from './component/timeago';
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
+import agreement from './component/agreement';
 import exportLichessGlobals from './site.lichess.globals';
 import info from './component/info';
 import loadClockWidget from './component/clock-widget';
@@ -137,7 +138,7 @@ lichess.load.then(() => {
       }, 1000);
 
     // prevent zoom when keyboard shows on iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window)) {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
@@ -155,6 +156,8 @@ lichess.load.then(() => {
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
+
+    agreement();
 
     serviceWorker();
 

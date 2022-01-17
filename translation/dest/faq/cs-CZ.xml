@@ -43,13 +43,13 @@ Nejlepší tah doporučený počítačem ztrácí 0 centipawnů (z definice). Sl
 
 Tato hodnota se používá pro ověření kvality hry. Čím nižší má hráč pěšcovou ztrátu, tím silnější tahy hraje.
 
-Počítačová analýza na Lichessu využívá program Stockfish. Hráčovi tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
+Počítačová analýza na Lichessu využívá program Stockfish. Hráčovy tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
   <string name="insufficientMaterial">Prohrávání na čas, remízování a nedostatečný materiál</string>
   <string name="lichessFollowFIDErules">Když hráči dojde čas, obvykle to znamená, že partii prohraje. Platí zde ovšem jedna výjimka, a to v případě, že je na šachovnici taková pozice, že by mu nebylo možné dát mat žádnou legální kombinací tahů. V takovém případě se bude jednat o remízu (viz %1$s).
 
 Ve vzácných případech je obtížné to rozpoznat automaticky (např. u tzv. \"fortressů\", česky \"pevností\"). Pokud si nejsme jistí, vždy upřednostňujeme výhru hráče, který na čas neprohrál.
 
-Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má kámen, který by mohl králi zatarasit únikovou cestu.</string>
+Mimochodem, mějte na paměti, že může být možné dát mat i jediným jezdcem nebo střelcem, pokud druhá strana má figuru, která by mohla králi zatarasit únikovou cestu.</string>
   <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="discoveringEnPassant">Proč může pěšák sebrat pěšáka, který už je za ním? (En passant aneb braní mimochodem)</string>
   <string name="explainingEnPassant">Tento tah je však platný a podle pravidel, a nazává se \"en passant\", neboli braní mimochodem. Můžete si přečíst tento článek na Wikipedii: %1$s.
@@ -58,7 +58,6 @@ Braní mimochodem je také popsáno v článku 3.7 (d) %2$s:
 \"Pěšec ohrožující pole, které přešel soupeřův pěšec, jenž ze základního pole postoupil jedním tahem o dvě pole, může tohoto soupeřova pěšce brát, jako by tento pěšec postoupil pouze o jedno pole. Toto braní lze provést pouze jako bezprostřední odpověď a nazývá se „braní mimochodem“.\"
 Pro procvičení můžete použít %3$s.</string>
   <string name="goodIntroduction">dobré zahájení</string>
-  <string name="officialRulesPDF">oficiální pravidla (PDF)</string>
   <string name="lichessTraining">tuto interaktivní lekci</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
   <string name="threefoldRepetitionExplanation">Pokud se jakákoliv pozice zopakuje třikrát, hráči mohou vynutit remízu podle pravidla %1$s. Lichess se řídí příslušným článek 9.2 (d) pravidel FIDE, viz %2$s.</string>
@@ -71,7 +70,7 @@ Pro procvičení můžete použít %3$s.</string>
   <string name="configure">nakonfigurovat</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Jaké tituly jsou na Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess uznává všechny tituly FIDE pro živou hru (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess uznává všechny tituly FIDE pro hru naživo (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
   <string name="showYourTitle">Jestliže máte šachový titul, který Lichess uznává, můžete vyplněním %1$s získat odznak titulovaného hráče, resp. Váš titul bude zobrazen před Vaším uživatelským jménem. 
 Jako ověřený titulovaný hráč se můžete účastnit tzv. Titled Arena turnaje na Lichess.
 
@@ -98,7 +97,7 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
 
 Systém Glicko používá při výpočtu vašeho ratingu tzv. „intervaly spolehlivosti“. Když se zaregistrujete, vaše hodnocení je rovno 1500 bodů s intervalem spolehlivosti 1000 bodů.
 
-To znamená, že systém si je na 95 % jistý, že váš rating je někde mezi 500 a 2500. To je opravdu obrovské rozpětí, a tak je normální, že při prvních pár partií rating hráče poskočí o mnoho bodů najednou, často i několik stovek. Po pár partiích proti hráčům s neprovizorním (bez otazníku) ratingem se interval spolehlivosti vašeho ratingu zúží, a počet bodů získaných/ztracený po každé partii se sníží.
+To znamená, že systém si je na 95 % jistý, že váš rating je někde mezi 500 a 2500. To je opravdu obrovské rozpětí, a tak je normální, že při prvních pár partiích rating hráče najednou poskočí o mnoho bodů, často i několik stovek. Po pár partiích proti hráčům s neprovizorním (bez otazníku) ratingem se interval spolehlivosti vašeho ratingu zúží, a počet bodů získaných/ztracený po každé partii se sníží.
 
 Dále je také nutné poznamenat, že postupem času se interval spolehlivosti zvýší, což umožňuje získat/ztratit ratingové body rychleji tak, aby odpovídaly změnám Vašich šachových schopností.</string>
   <string name="whatIsProvisionalRating">Proč mám otazník (?) vedle svého hodnocení (ratingu)?</string>
@@ -106,7 +105,7 @@ Dále je také nutné poznamenat, že postupem času se interval spolehlivosti z
   <string name="notPlayedEnoughRatedGamesAgainstX">Neodehráli jste dostatečné množství hodnocených partií proti %1$s v dané kategorii ratingu (blitz, rapid apod.)</string>
   <string name="similarOpponents">soupeřům podobné síly</string>
   <string name="notPlayedRecently">Neodehráli jste dostatečné množství partií v nedávné minulosti. V závislosti na počtu partií, které jste dříve odehráli, může trvat přibližně rok, než se Vaše hodnocení opět stane provizorním.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Konkrétně to znamená, že odchylka Glicko-2 je větší než 110. Tuto odchylka ukazuje, jak moc si je systém jistý ratingem daného hráčů. Čím menší odchylka, tím stabilnější daný rating je.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkrétně to znamená, že odchylka Glicko-2 je větší než 110. Tato odchylka ukazuje, jak moc si je systém jistý ratingem daného hráče. Čím menší odchylka, tím stabilnější daný rating je.</string>
   <string name="howDoLeaderoardsWork">Jak fungují žebříčky?</string>
   <string name="inOrderToAppearsYouMust">Chcete-li se dostat na %1$s , musíte:</string>
   <string name="ratingLeaderboards">žebříček podle ratingu</string>
@@ -116,7 +115,7 @@ Dále je také nutné poznamenat, že postupem času se interval spolehlivosti z
   <string name="beInTopTen">být v top 10 v dané časové kontrole.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhý požadavek je, aby hráči, kteří již své účty nepoužívají, přestali plnit žebříčky.</string>
   <string name="whyAreRatingHigher">Proč jsou ratingy vyšší ve srovnání s jinými stránkami a organizacemi, jako je FIDE, USCF či ICC?</string>
-  <string name="whyAreRatingHigherExplanation">Nejlepší je nemyslet na hodnocení jako absolutní čísla, nebo je porovnávat s jinými organizacemi. Různé organizace mají různé úrovně hráčů, různé systémy hodnocení (Elo, Glicko, Glicko-2 nebo upravenou verzi výše uvedených). Tyto faktory můžou drasticky ovlivnit tyto absolutní čísla (hodnocení).
+  <string name="whyAreRatingHigherExplanation">Nejlepší je nemyslet na hodnocení jako absolutní čísla, nebo je porovnávat s jinými organizacemi. Různé organizace mají různé úrovně hráčů, různé systémy hodnocení (Elo, Glicko, Glicko-2 nebo upravenou verzi výše uvedených). Tyto faktory můžou drasticky ovlivnit tato absolutní čísla (hodnocení).
 
 Je nejlepší myslet na hodnocení jako \"relativní\" údaje (na rozdíl od \"absolutních\"): V rámci skupiny hráčů, jejich relativní rozdíly v hodnocení Vám pomohou odhadnout kdo vyhraje/remízuje/prohraje a jak často. Říkat \"Mám X hodnocení\" nic neznamená, pokud neexistují další hráči, se kterými můžeme toto hodnocení porovnat.</string>
   <string name="howToHideRatingWhilePlaying">Jak skrýt rating během hraní partie?</string>

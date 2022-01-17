@@ -43,7 +43,6 @@ final class Game(
     env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
       case None => NotFound.fuccess
       case Some(game) =>
-        lila.mon.export.pgn.game.increment()
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported", req),
@@ -68,16 +67,14 @@ final class Game(
     )
 
   def apiExportByUser(username: String) =
-    AnonOrScoped()(
-      anon = req => handleExport(username, none, req, oauth = false),
-      scoped = req => me => handleExport(username, me.some, req, oauth = true)
-    )
+    AnonOrScoped() { req => me => handleExport(username, me, req, oauth = me.isDefined) }
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
-    env.user.repo named username flatMap {
+    env.user.repo enabledNamed username flatMap {
       _ ?? { user =>
         val format = GameApiV2.Format byRequest req
         WithVs(req) { vs =>
+          val finished = getBoolOpt("finished", req) | true
           val config = GameApiV2.ByUserConfig(
             user = user,
             format = format,
@@ -90,22 +87,35 @@ final class Game(
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             flags = requestPgnFlags(req, extended = false).copy(literate = false),
+            sort = if (get("sort", req) has "dateAsc") GameApiV2.DateAsc else GameApiV2.DateDesc,
             perSecond = MaxPerSecond(me match {
-              case Some(m) if m is user.id => 60
-              case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
-              case _                       => 20
+              case Some(m) if m.id == "openingexplorer" => env.apiExplorerGamesPerSecond.get()
+              case Some(m) if m is user.id              => 60
+              case Some(_) if oauth                     => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                                    => 20
             }),
-            playerFile = get("players", req)
+            playerFile = get("players", req),
+            ongoing = getBool("ongoing", req) || !finished,
+            finished = finished
           )
-          val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
-          apiC
-            .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
-              source =>
-                Ok.chunked(source)
-                  .pipe(asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}"))
-                  .as(gameContentType(config))
-            }
-            .fuccess
+          if (me.exists(_.id == "openingexplorer"))
+            Ok.chunked(env.api.gameApiV2.exportByUser(config))
+              .pipe(noProxyBuffer)
+              .as(gameContentType(config))
+              .fuccess
+          else {
+            val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
+            apiC
+              .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
+                source =>
+                  Ok.chunked(source)
+                    .pipe(
+                      asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}")
+                    )
+                    .as(gameContentType(config))
+              }
+              .fuccess
+          }
         }
       }
     }

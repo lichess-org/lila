@@ -13,7 +13,7 @@
   <string name="specialMoves">نقلات مميزة</string>
   <string name="didYouLikeThisPuzzle">هل أعجبك هذا اللغز؟</string>
   <string name="voteToLoadNextOne">صوت لتبدأ الغز التالي!</string>
-  <string name="yourPuzzleRatingX">تقييمك في حل الألغاز:%s</string>
+  <string name="yourPuzzleRatingWillNotChange">تقييم الألغاز الخاص بك لن يتغير. لاحظ أن الألغاز ليست مسابقة. التقييم يساعد على اختيار أفضل الألغاز لمهاراتك الحالية.</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض.</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود.</string>
   <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خاصة بك:</string>

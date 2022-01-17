@@ -1,4 +1,3 @@
-// import RoundController from './ctrl';
 import { RoundSocket } from './socket';
 import * as xhr from 'common/xhr';
 
@@ -26,6 +25,6 @@ export default class TransientMove {
 
   expire = () => {
     xhr.text('/statlog?e=roundTransientExpire', { method: 'post' });
-    this.socket.reload({});
+    this.socket.reload();
   };
 }

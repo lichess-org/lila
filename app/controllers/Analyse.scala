@@ -24,13 +24,15 @@ final class Analyse(
           game,
           lila.fishnet.Work.Sender(
             userId = me.id,
-            ip = HTTPRequest.ipAddress(ctx.req).some,
-            mod = isGranted(_.Hunter) || isGranted(_.Relay),
+            ip = ctx.ip.some,
+            mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
             system = false
           )
-        ) map {
-          case true  => NoContent
-          case false => Unauthorized
+        ) map { result =>
+          result.error match {
+            case None        => NoContent
+            case Some(error) => BadRequest(error)
+          }
         }
       }
     }
@@ -50,7 +52,7 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = false)
+              PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
             ) flatMap {
               case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
                 env.api.roundApi.review(
@@ -60,12 +62,13 @@ final class Analyse(
                     lila.round.OnUserTv(u.id)
                   },
                   analysis,
-                  initialFenO = initialFen.some,
+                  initialFen = initialFen,
                   withFlags = WithFlags(
                     movetimes = true,
                     clocks = true,
                     division = true,
-                    opening = true
+                    opening = true,
+                    rating = ctx.pref.showRatings
                   )
                 ) map { data =>
                   EnableSharedArrayBuffer(

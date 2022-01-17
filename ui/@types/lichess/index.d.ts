@@ -1,5 +1,5 @@
 interface Lichess {
-  load: Promise<void>; // window.onload promise
+  load: Promise<void>; // DOMContentLoaded promise
   info: any;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
@@ -102,9 +102,10 @@ interface UserCompleteOpts {
 }
 
 interface SoundI {
-  loadOggOrMp3(name: string, path: string): void;
+  loadOggOrMp3(name: string, path: string, noSoundSet?: boolean): void;
   loadStandard(name: string, soundSet?: string): void;
   play(name: string, volume?: number): void;
+  playOnce(name: string): void;
   getVolume(): number;
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
@@ -118,14 +119,6 @@ interface SoundI {
 
 interface LichessSpeech {
   step(s: { san?: San }, cut: boolean): void;
-}
-
-interface PalantirOpts {
-  uid: string;
-  redraw(): void;
-}
-interface Palantir {
-  render(h: any): any;
 }
 
 interface Cookie {
@@ -239,21 +232,35 @@ declare namespace Editor {
 interface Window {
   lichess: Lichess;
 
-  moment: any;
-  Mousetrap: any;
+  readonly chrome?: unknown;
+  readonly moment: any;
+  readonly Mousetrap: any;
   Chessground: any;
-  InfiniteScroll(selector: string): void;
-  lichessReplayMusic: () => {
+  readonly InfiniteScroll: (selector: string) => void;
+  readonly lichessReplayMusic: () => {
     jump(node: Tree.Node): void;
   };
-  hopscotch: any;
+  readonly hopscotch: any;
   LichessSpeech?: LichessSpeech;
-  LichessEditor?(element: HTMLElement, config: Editor.Config): LichessEditor;
-  palantir?: {
-    palantir(opts: PalantirOpts): Palantir;
-  };
-  LichessChat(element: Element, opts: any): unknown;
-  [key: string]: any; // TODO
+  readonly LichessEditor?: (element: HTMLElement, config: Editor.Config) => LichessEditor;
+  LichessChat: (element: Element, opts: any) => any;
+  readonly LichessFlatpickr: (element: Element, opts: any) => any;
+  readonly LichessNotify: (element: any, opts: any) => any;
+  readonly LichessChallenge: (element: any, opts: any) => any;
+  readonly LichessDasher: (element: any, opts: any) => any;
+  readonly LichessAnalyse: any;
+  readonly LichessCli: any;
+  readonly LichessRound: any;
+  readonly stripeHandler: any;
+  readonly Stripe: any;
+  readonly Textcomplete: any;
+  readonly UserComplete: any;
+  readonly Sortable: any;
+  readonly Peer: any;
+
+  readonly Palantir: unknown;
+  readonly passwordComplexity: unknown;
+  readonly Tagify: unknown;
 }
 
 interface Study {
@@ -293,7 +300,7 @@ declare type VariantKey =
   | 'racingKings'
   | 'crazyhouse';
 
-declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';
+declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
 
 declare type Perf =
   | 'bullet'
@@ -340,19 +347,26 @@ interface Paginator<A> {
 declare namespace Tree {
   export type Path = string;
 
-  export interface ClientEval {
+  interface ClientEvalBase {
     fen: Fen;
-    maxDepth: number;
     depth: number;
-    knps: number;
     nodes: number;
-    millis: number;
     pvs: PvData[];
-    cloud?: boolean;
     cp?: number;
     mate?: number;
-    retried?: boolean;
   }
+  export interface CloudEval extends ClientEvalBase {
+    cloud: true;
+    maxDepth: undefined;
+    millis: undefined;
+  }
+  export interface LocalEval extends ClientEvalBase {
+    cloud?: false;
+    maxDepth: number;
+    knps: number;
+    millis: number;
+  }
+  export type ClientEval = CloudEval | LocalEval;
 
   export interface ServerEval {
     cp?: number;
@@ -392,7 +406,7 @@ declare namespace Tree {
     dests?: string;
     drops?: string | null;
     check?: Key;
-    threat?: ClientEval;
+    threat?: LocalEval;
     ceval?: ClientEval;
     eval?: ServerEval;
     tbhit?: TablebaseHit | null;

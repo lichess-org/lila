@@ -60,7 +60,6 @@ Nota che può essere possibile dare scacco matto con un solo cavallo o alfiere s
 
 Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="goodIntroduction">buona introduzione</string>
-  <string name="officialRulesPDF">regole ufficiali (PDF)</string>
   <string name="lichessTraining">Allenamento Lichess</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
   <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>

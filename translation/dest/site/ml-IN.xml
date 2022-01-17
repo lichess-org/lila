@@ -11,7 +11,6 @@
   <string name="level">തരം</string>
   <string name="strength">ശക്തി</string>
   <string name="toggleTheChat">സംഭാഷണം തുടങ്ങുകയോ നിര്തുകയോ ചെയ്യുന്നതിന്</string>
-  <string name="toggleSound">ശബ്ദം നിർത്തുക/കേൾപ്പിക്കുക</string>
   <string name="chat">സംഭാഷണം</string>
   <string name="resign">കീഴടങ്ങുക</string>
   <string name="checkmate">ചെക്ക്മേറ്റ്</string>
@@ -25,6 +24,7 @@
   <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
+  <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
   <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
@@ -39,7 +39,6 @@
     <item quantity="other">നിങ്ങളുടെ എതിരാളി കളി ഉപേക്ഷിച്ചു. നിങ്ങള്‍ക്ക് %s സെക്ക൯കളില്‍ ജയം അവകാശപ്പെടാം.</item>
   </plurals>
   <string name="opponentLeftChoices">എതിരാളി പോയിരിക്കാം. നിങ്ങൾക്ക് വിജയിക്കുകയോ സമനില കൊടുക്കുകയോ കാത്തിരിക്കുകയോ ചെയ്യാം.</string>
-  <string name="makeYourOpponentResign">എതിരാളിയെക്കൊണ്ട് രാജി വെപ്പിക്കുക</string>
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>
   <string name="forceDraw">സമനില പ്രഖ്യാപിക്കുക</string>
   <string name="talkInChat">ദയവായി ചാറ്റില്‍ സൗമ്യമായി പെരുമാറുക!</string>
@@ -48,12 +47,12 @@
   <string name="blackResigned">കറുപ്പു തോൽവി സമ്മതിച്ചു</string>
   <string name="whiteLeftTheGame">വെള്ള കളി ഉപേക്ഷിച്ചു</string>
   <string name="blackLeftTheGame">കറുപ്പു കളി ഉപേക്ഷിച്ചു</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">കാണികളുമായി  ഈ ലിങ്ക് പങ്കിടുക</string>
-  <string name="theComputerAnalysisHasFailed">കമ്പ്യൂട്ടർ പരിശോധന പരാജയപ്പെട്ടു</string>
-  <string name="viewTheComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന കാണുക</string>
+  <string name="whiteDidntMove">വൈറ്റ് നീക്കം നടത്തിയില്ല</string>
+  <string name="blackDidntMove">ബ്ലാക്ക് നീക്കം നടത്തിയില്ല</string>
   <string name="requestAComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് കമ്പ്യൂട്ടർ വിശകലനം ലഭ്യമാണ്</string>
+  <string name="computerAnalysisDisabled">കമ്പ്യൂട്ടർ വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
   <string name="analysis">പരിശോധനാ ബോര്‍ഡ്</string>
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
@@ -88,13 +87,10 @@
     <item quantity="one">%s പകുതി-നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</item>
     <item quantity="other">%s പകുതി-നീക്കങ്ങൾക്കുള്ളിൽ ചെക്ക്മേറ്റ്</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">അടുത്തതായി %s പകുതി-നീക്കത്തിൽ എതിരാളിയുടെ കരു നേടുകയോ അല്ലെങ്കിൽ കാലാളിനെ നീക്കുകയോ ചെയ്യുക ( 50 നീക്കങ്ങളുടെ കൗണ്ടറിൽ പൂജ്യത്തിലേക്ക് പോകാനുള്ള ദൂരം)</item>
-    <item quantity="other">അടുത്തതായി %s പകുതി-നീക്കത്തിൽ എതിരാളിയുടെ കരു നേടുകയോ അല്ലെങ്കിൽ കാലാളിനെ നീക്കുകയോ ചെയ്യുക ( 50 നീക്കങ്ങളുടെ കൗണ്ടറിൽ പൂജ്യത്തിലേക്ക് പോകാനുള്ള ദൂരം)</item>
-  </plurals>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
+  <string name="openingEndgameExplorer">ഓപ്പണിങ്ങ്/എൻഡ്ഗെയിം എക്‌സ്‌പ്ലോറർ</string>
   <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>
   <string name="winPreventedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം ജയം തടയപ്പെട്ടു</string>
   <string name="lossSavedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം തോൽവി തടയപ്പെട്ടു</string>
@@ -139,6 +135,8 @@
     <item quantity="one">%s കളിക്കാർ</item>
     <item quantity="other">%s കളിക്കാർ</item>
   </plurals>
+  <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
+  <string name="fiftyMovesWithoutProgress">പുരോഗതിയില്ലാതെ 50 നീക്കങ്ങൾ</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
@@ -212,7 +210,6 @@
   <string name="whiteTimeOut">വെള്ള സമയം കഴിഞു</string>
   <string name="blackTimeOut">കറുപ്പ് സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
-  <string name="drawOfferDeclined">സമനിലാ വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
   <string name="drawOfferAccepted">സമനിലാ വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
   <string name="drawOfferCanceled">സമനിലാ വാഗ്ദാനം റദ്ദാക്കപ്പെട്ടു</string>
   <string name="whiteOffersDraw">വെള്ള സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
@@ -238,8 +235,6 @@
   <string name="thisGameIsRated">ഈ മത്സരം മൂല്യാധിഷ്ഠിതമാണ്</string>
   <string name="rematch">റീമാച്ച് (വീണ്ടും കളിക്കുക)</string>
   <string name="rematchOfferSent">റീമാച്ച് വാഗ്ദാനം അയച്ചു</string>
-  <string name="rematchOfferSentWhite">വെള്ള സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
-  <string name="rematchOfferSentBlack">കറുപ്പ് സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
   <string name="rematchOfferAccepted">റീമാച്ച് വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
   <string name="rematchOfferCanceled">വീണ്ടും കളിക്കാനുള്ള നിർദേശം നിരാകരിച്ചു</string>
   <string name="rematchOfferDeclined">റീമാച്ച് വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
@@ -253,9 +248,7 @@
   <string name="youHaveBeenTimedOut">നിങ്ങൾ ടൈംഡ്-ഔട്ട് ആയിരിക്കുന്നു.</string>
   <string name="spectatorRoom">വീക്ഷണ റൂം</string>
   <string name="composeMessage">സന്ദേശം എഴുതുക</string>
-  <string name="noNewMessages">പുതിയ സന്ദേശങ്ങള്‍ ഇല്ല</string>
   <string name="subject">വിഷയം</string>
-  <string name="recipient">സ്വീകര്‍ത്താവ്</string>
   <string name="send">അയക്കുക</string>
   <string name="incrementInSeconds">സെക്കന്‍ഡുകളുടെ വര്‍ദ്ധന</string>
   <string name="freeOnlineChess">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌</string>
@@ -368,12 +361,12 @@
     <item quantity="one">%s സുഹൃത്ത് ഓണ്‍ലൈനാണ്</item>
     <item quantity="other">%s സുഹൃത്തുക്കൾ ഓണ്‍ലൈനാണ്</item>
   </plurals>
-  <string name="noFriendsOnline">സുഹൃത്തുക്കളാരും ഓണ്‍ലൈന്‍ ഇല്ല</string>
-  <string name="findFriends">സുഹൃത്തുക്കളെ കണ്ടെത്തുക</string>
   <string name="favoriteOpponents">ഇഷ്ടപ്പെട്ട എതിരാളികള്‍</string>
   <string name="follow">പിന്തുടരുക</string>
   <string name="following">പിന്തുടരുന്നു</string>
   <string name="unfollow">പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
+  <string name="followX">%s നെ പിന്തുടരുക</string>
+  <string name="unfollowX">%s നെ പിന്തുടരുന്നത് നിര്‍ത്തുക</string>
   <string name="block">തടയുക</string>
   <string name="blocked">തടഞ്ഞു</string>
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
@@ -418,7 +411,6 @@
   <string name="points">പോയിന്റുകൾ</string>
   <string name="wins">ജയങ്ങൾ</string>
   <string name="losses">പരാജയങ്ങൾ</string>
-  <string name="winStreak">വിജയ രേഖ</string>
   <string name="createdBy">നിർമ്മാണം</string>
   <string name="tournamentIsStarting">പരമ്പര തുടങ്ങുന്നു</string>
   <string name="tournamentPairingsAreNowClosed">ടൂർണമെന്റ് പെയറിങ് കഴിഞ്ഞിരിക്കുന്നു.</string>
@@ -434,13 +426,13 @@
   <string name="draws">സമനിലകൾ</string>
   <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
-  <string name="membersOnly">അംഗങ്ങൾക്ക് മാത്രം</string>
   <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
+  <string name="endgamePositions">ഏൻഡ് ഗെയിം പൊസിഷനുകൾ</string>
+  <string name="chess960StartPosition">ചതുരംഗം960 ആരംഭ സ്ഥാനം: %s</string>
   <string name="startPosition">പ്രാരംഭ സ്ഥാനം</string>
   <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
-  <string name="savePosition">സ്ഥാനം കാത്തു വെക്കാം</string>
   <string name="loadPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="isPrivate">സ്വകാര്യം</string>
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
@@ -453,13 +445,12 @@
   <string name="firstName">നൽകിയ പേര്</string>
   <string name="lastName">അവസാന പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പതാക</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
-  <string name="watchLichessTV">കാണാം Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
-  <string name="activeToday">ഇന്ന് സജീവമായ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
   <string name="success">വിജയകരം</string>
@@ -470,7 +461,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">നീക്കത്തിന് ശേഷം അടുത്ത കളിയിലേക്ക് താനെ തുടരാം</string>
   <string name="autoSwitch">ഓട്ടോ സ്വിച്ച്</string>
   <string name="puzzles">സമസ്യകൾ</string>
-  <string name="latestUpdates">പുതിയ പരിഷ്‌കാരങ്ങൾ</string>
   <string name="tournamentWinners">പരമ്പരയിലെ ജേതാക്കൾ</string>
   <string name="name">പേര്</string>
   <string name="description">വിവരണം</string>
@@ -502,9 +492,7 @@
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>
-  <string name="theming">തീമിങ്ങ്</string>
   <string name="blog">രചന</string>
-  <string name="questionsAndAnswers">ചോദ്യങ്ങളും &amp; ഉത്തരങ്ങളും</string>
   <string name="notes">അറിയിപ്പുകൾ</string>
   <string name="typePrivateNotesHere">സ്വകാര്യ അറിയിപ്പുകൾ ഇവിടെ ടൈപ്പ് ചെയ്യുക</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
@@ -533,13 +521,7 @@
   <string name="onSlowGames">വേഗം കുറഞ്ഞ കളികളിൽ</string>
   <string name="always">നിരന്തരം</string>
   <string name="never">ഒരിക്കലും</string>
-  <string name="difficultyEasy">ലളിതം</string>
-  <string name="difficultyNormal">സ്വാഭാവികം</string>
-  <string name="difficultyHard">കഠിനം</string>
   <string name="xCompetesInY">%1$s %2$s-ൽ മത്സരിക്കുന്നു</string>
-  <string name="xAskedY">%1$sചോദിച്ചിരിക്കുന്നു %2$s</string>
-  <string name="xAnsweredY">%1$s നൽകിയ ഉത്തരം %2$s</string>
-  <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
   <string name="victory">വിജയം!</string>
   <string name="defeat">തോൽവി</string>
   <string name="victoryVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
@@ -548,7 +530,6 @@
   <string name="timeline">ജീവിതകാലം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>
-  <string name="yourCityRegionOrDepartment">നിങ്ങളുടെ നഗരം, മേഖല, അല്ലെങ്കിൽ ദേശം</string>
   <string name="biographyDescription">നിങ്ങളെ കുറിച്ച് പറയൂ, നിങ്ങൾക്ക് ചതുരംഗത്തിൽ എന്താണ് ഇഷ്ടo, നിങ്ങൾക്ക് ഇഷ്ടപ്പെട്ട തുടക്കങ്ങൾ, കളികൾ, കളിക്കാർ…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">പരമാവധി: %s അക്ഷരങ്ങള്‍</item>
@@ -563,13 +544,6 @@
   <string name="computer">കമ്പ്യൂട്ടര്‍</string>
   <string name="side">വശം</string>
   <string name="clock">ഘടികാരം</string>
-  <string name="unauthorizedError">പ്രവേശനം വിലക്കിയിരിക്കുന്നു.</string>
-  <string name="noInternetConnection">ഇന്റർനെറ്റ് കണക്ഷൻ ഇല്ല. നിങ്ങൾക്ക് ഇപ്പോഴും പട്ടികയുടെ സഹായത്തോടെ ഓഫ്‌ലൈനായി കളിക്കാവുന്നതാണ്.</string>
-  <string name="connectedToLichess">നിങ്ങൾ ഇപ്പോൾ lichess.org ആയി ബന്ധപ്പെട്ടിരിക്കുന്നു</string>
-  <string name="signedOut">നിങ്ങൾ സൈൻ ഔട്ട് ചെയ്തിരിക്കുന്നു</string>
-  <string name="loginSuccessful">നിങ്ങൾ ഇപ്പോൾ സൈൻ ഇൻ ചെയ്തു</string>
-  <string name="playOnTheBoardOffline">ചതുരംഗ പലകയിൽ</string>
-  <string name="playOfflineComputer">കമ്പ്യൂട്ടർ</string>
   <string name="opponent">എതിരാളി</string>
   <string name="learnMenu">പഠിക്കുക</string>
   <string name="studyMenu">പഠിക്കുക</string>
@@ -577,16 +551,9 @@
   <string name="community">സമാജം</string>
   <string name="tools">ഉപകരണങ്ങൾ</string>
   <string name="increment">കയറ്റം</string>
-  <string name="sharePGN">PGN പങ്കുവെക്കുക</string>
-  <string name="playOnline">ഓൺലൈൻ കളി</string>
-  <string name="playOffline">ഓഫ്‌ലൈൻ കളി</string>
-  <string name="allowAnalytics">അജ്ഞാതമായ സ്ഥിതി വിവരണാനുമതി</string>
-  <string name="shareGameURL">കളിയുടെ URL പങ്കു വെക്കൂ</string>
   <string name="error.required">ഈ ഭാഗം ആവശ്യമാണ്</string>
-  <string name="error.email">ഈ ഇമെയിൽ വിലാസം അസാധുവാണ്</string>
-  <string name="error.email_acceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല</string>
-  <string name="error.email_unique">ഈ ഇമെയിൽ വിലാസം ഇതിനു മുന്നേ എടുത്തിട്ടുണ്ട്</string>
-  <string name="error.email_different">ഇത് തന്നെയാണ് നിങ്ങളുടെ email address</string>
+  <string name="error.email">ഈ ഇമെയിൽ അഡ്രസ് സാധുവല്ല</string>
+  <string name="error.email_acceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല. പരിശോധിച്ചുറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക.</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
@@ -634,7 +601,6 @@
   <string name="simulHostExtraTime">ഹോസ്റ്റിന്റെ കൂടുതൽ ക്ലോക്ക് സമയം</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
-  <string name="tournamentOfficial">ഔദ്യോഗികമായ</string>
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
   <string name="averageCentipawnLoss">ശരാശരി centipawn നഷ്ടം</string>
   <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
@@ -672,7 +638,6 @@
   <string name="downloadAnnotated">Annotated ആയി ഡൗൺലോഡ് ചെയ്യുക</string>
   <string name="downloadRaw">അസംസ്കൃതമായി ഡൗൺലോഡ് ചെയ്യുക</string>
   <string name="downloadImported">Import ചെയ്തത് ഡൌൺലോഡ് ചെയ്യുക</string>
-  <string name="printFriendlyPDF">പ്രിന്റ് സൗഹൃദമായ PDF</string>
   <string name="crosstable">ക്രോസ്സ്‌റ്റേബിൾ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
   <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക</string>
@@ -681,7 +646,6 @@
   <string name="withNobody">ആരോടും വേണ്ട</string>
   <string name="withFriends">കൂട്ടുകാരുമൊത്ത്‌</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">നിങ്ങളുടെ ഇമെയിൽ  നേരത്തെ തന്നെ രജിസ്റ്റർ ചെയ്തിട്ടുണ്ട്: %s</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
   <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കിഡ്-മോഡിൽ എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു ഇന്റർനെറ്റ് യൂസേറുകളിൽ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">കിഡ്-മോഡിൽ lichess ലോഗോയ്ക്ക് ഒരു %s ഐക്കൺ ലഭിക്കുന്നു. അത് നിങ്ങളുടെ കുട്ടികൾ സുരക്ഷിതരാണെന്ന് നിങ്ങൾക്ക് ബോധ്യപ്പെടുത്തുന്നു.</string>
@@ -709,7 +673,6 @@
   <string name="xHostsY">%1$s %2$s host ചെയ്യുന്നു</string>
   <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
   <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടമാണ്</string>
-  <string name="xCreatesStudyY">%1$s %2$s പാഠം നിർമിച്ചിരിക്കുന്നു</string>
   <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
   <string name="lobby">ലോബി</string>
   <string name="anonymous">അജ്ഞാത</string>
@@ -730,17 +693,11 @@
   <string name="usernameSuffixInvalid">അക്ഷരങ്ങൾ, സംഖ്യകൾ തുടങ്ങിയവയിൽ മാത്രമേ യൂസർനെയിം അവസാനിക്കാൻ പാടുള്ളൂ.</string>
   <string name="usernameCharsInvalid">സംഖ്യകൾ, അക്ഷരങ്ങൾ, അണ്ടർസ്കോർ, ഹൈഫൻ തുടങ്ങിയവ മാത്രമേ യൂസർനെയിമിൽ പാടുള്ളൂ.</string>
   <string name="usernameUnacceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല.</string>
-  <string name="directlySupportLichess">നേരിട്ട് lichess -നെ പിൻതങ്ങാം</string>
   <string name="playChessInStyle">അടിപൊളി സ്റ്റൈലിൽ ചെസ്സ് കളിക്കൂ</string>
   <string name="chessBasics">ചെസ്സിന്റെ അടിസ്ഥാനം</string>
   <string name="coaches">പരിശീലകർ</string>
   <string name="invalidPgn">അസാധുവായ PGN</string>
   <string name="invalidFen">അസാധുവായ FEN</string>
-  <string name="error.minLength">ഏറ്റവും കുറഞ്ഞ നീളം %s ആണ്</string>
-  <string name="error.maxLength">ഏറ്റവും കൂടിയ നീളം %s ആണ്</string>
-  <string name="error.min">%s -നു സമമോ അതിനേക്കാൾ കൂടുതലോ ആയിരിക്കണം</string>
-  <string name="error.max">%s -നു സമമോ അതിനേക്കാൾ കുറവോ ആയിരിക്കണം</string>
-  <string name="error.unknown">തെറ്റ്</string>
   <string name="custom">ഇച്ഛാനുസൃതം</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
   <string name="perfRatingX">നിലവാരം: %s</string>

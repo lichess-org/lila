@@ -13,7 +13,7 @@
   <string name="specialMoves">Mutări speciale</string>
   <string name="didYouLikeThisPuzzle">Ți-a plăcut această problemă?</string>
   <string name="voteToLoadNextOne">Votează pentru a-l încărca pe următorul!</string>
-  <string name="yourPuzzleRatingX">Scorul tau la problemele de șah: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Evaluarea ta la puzzle-uri nu se va schimba. Iți amintim că puzzle-urile nu sunt o competiție. Evaluarea ajută la selectarea celor mai bune puzzle-uri care corespund nivelului tău.</string>
   <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb.</string>
   <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru.</string>
   <string name="toGetPersonalizedPuzzles">Pentru a primi probleme de șah personalizate:</string>
@@ -61,18 +61,19 @@
   <string name="history">Istoric probleme de șah</string>
   <string name="solved">rezolvat</string>
   <string name="failed">eșuat</string>
-  <string name="streakDescription">Rezolvă puzzle-uri din ce în ce mai grele și construiește un șir de victorii consecutive. Nu există limită de timp, deci nu te grăbi. O mișcare greșită și jocul s-a terminat! Dar poți sări peste o mutare în fiecare sesiune.</string>
-  <string name="yourStreakX">Puzzle-uri consecutive: %s</string>
-  <string name="streakSkipExplanation">Sări peste această mutare pentru a-ți păstra șirul de puzzle-uri consecutive! Funcționează o singură dată pe rulare.</string>
+  <string name="streakDescription">Rezolvă probleme din ce în ce mai grele și construiește un șir de victorii consecutive. Nu există limită de timp, deci nu te grăbi. O mișcare greșită și jocul s-a terminat! Dar poți sări peste o mutare în fiecare sesiune.</string>
+  <string name="yourStreakX">Probleme consecutive: %s</string>
+  <string name="streakSkipExplanation">Sări peste această mutare pentru a-ți păstra șirul de probleme consecutive reușite! Funcționează o singură dată pe sesiune.</string>
   <string name="continueTheStreak">Continuă secvența</string>
   <string name="newStreak">Începe o nouă secvență</string>
   <string name="fromMyGames">Din jocurile mele</string>
   <string name="lookupOfPlayer">Caută puzzle-uri din jocurile unui jucător</string>
   <string name="fromXGames">Puzzle-uri din jocurile %s</string>
   <string name="searchPuzzles">Caută puzzle-uri</string>
-  <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess încă te iubește foarte mult.
-Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle al tău adăugat!</string>
-  <string name="fromXGamesFound">%1$s puzzle-uri găsite în %2$s jocuri</string>
+  <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess tot te apreciază foarte mult.
+Joacă jocuri rapide și clasice pentru a crește șansele de a vedea adăugată o problemă extrasă din partidele tale!</string>
+  <string name="fromXGamesFound">%1$s probleme găsite în %2$s jocuri</string>
+  <string name="puzzleDashboardDescription">Antreneaza-te, analizează, fii mai bun</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s jucat</item>
     <item quantity="few">%s jucate</item>
@@ -85,4 +86,6 @@ Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle a
   </plurals>
   <string name="percentSolved">%s rezolvate</string>
   <string name="noPuzzlesToShow">Nimic de arătat, joacă mai întâi câteva puzzle-uri!</string>
+  <string name="improvementAreasDescription">Antreneaza-te pentru a-ti optimiza progresul!</string>
+  <string name="strengthDescription">Obțineți cele mai bune rezultate la aceste teme</string>
 </resources>

@@ -11,6 +11,5 @@
   <string name="noTeamFound">कुनैपनि टोली भेट्टिएनन्</string>
   <string name="joinTeam">टोलीमा सम्मिलित होऔं</string>
   <string name="quitTeam">टोली छोडौं</string>
-  <string name="teamBestPlayers">सर्वोत्कृष्ट खेलाडीहरु</string>
   <string name="teamRecentMembers">पछिल्ला सदस्हयरु</string>
 </resources>

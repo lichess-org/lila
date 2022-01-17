@@ -15,12 +15,13 @@ object create {
   def apply(
       data: lila.study.StudyForm.importGame.Data,
       owner: List[Study.IdName],
-      contrib: List[Study.IdName]
+      contrib: List[Study.IdName],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
   )(implicit ctx: Context) =
     views.html.site.message(
       title = trans.toStudy.txt(),
       icon = Some(""),
-      back = data.fen.map(f => routes.Editor.load(f.value).url),
+      back = data.fen.map(fen => editorUrl(fen, chess.variant.Variant.orDefault(~data.variantStr))),
       moreCss = cssTag("study.create").some
     ) {
       div(cls := "study-create")(

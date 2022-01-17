@@ -11,7 +11,6 @@
   <string name="level">Басамак</string>
   <string name="strength">Татаалдык</string>
   <string name="toggleTheChat">Чатты алмаштыруу</string>
-  <string name="toggleSound">хъйцукенеъяч.юбьтиимъхзъйцукУке\нду алмаштыруу</string>
   <string name="chat">Чат</string>
   <string name="resign">Баш тартуу</string>
   <string name="checkmate">Мат болуу</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Каршылаш оюндан чыкты. Сиз %s секундтан кийин жеңишти талап кылсаңар болот.</item>
   </plurals>
   <string name="opponentLeftChoices">Сиздин өнөктөшүңүз оюндан чыгып кетти, кутунуз же башка оюн тандаңыз</string>
-  <string name="makeYourOpponentResign">Атаандашка утулуш эсептелинет</string>
   <string name="forceResignation">Утушту талап кылуу</string>
   <string name="forceDraw">Барабардык сурануу</string>
   <string name="talkInChat">Чат менен суйлошүү</string>
@@ -49,9 +47,6 @@
   <string name="blackResigned">Кара түстөгү оюнчу утулду</string>
   <string name="whiteLeftTheGame">Ак түстөгү оюнчу оюндан чыгып кетти</string>
   <string name="blackLeftTheGame">Кара түстөгү оюнчу оюндан чыгып кетти</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Көрүүчүлөр бул оюнду көрүшү үчүн бул шилтемени бөлүшүңүз</string>
-  <string name="theComputerAnalysisHasFailed">Компьютердик анализ ийгиликсиз аяктады</string>
-  <string name="viewTheComputerAnalysis">Компьютердик анализди көрүү</string>
   <string name="requestAComputerAnalysis">Компьютердик анализ суроо</string>
   <string name="computerAnalysis">Компьютердик анализ</string>
   <string name="computerAnalysisAvailable">Компьютердик анализ бар</string>
@@ -128,10 +123,7 @@
   <string name="realTime">Убакыт контроль</string>
   <string name="oneDay">Бир күнү</string>
   <string name="time">Убакыт</string>
-  <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өнөктөш</string>
   <string name="community">Коом</string>
   <string name="tools">Инструменттер</string>
-  <string name="playOnline">Онлайн оноо</string>
-  <string name="playOffline">Оффлайн ойноо</string>
 </resources>

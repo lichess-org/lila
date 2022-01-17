@@ -11,7 +11,6 @@
   <string name="level">Дәрәҗә</string>
   <string name="strength">Ныгыту</string>
   <string name="toggleTheChat">Чатны ачу/ябу</string>
-  <string name="toggleSound">Аваз күчү/сүндерү</string>
   <string name="chat">Сүхбәт</string>
   <string name="resign">Җиңелү</string>
   <string name="checkmate">Мат</string>
@@ -39,7 +38,6 @@
     <item quantity="other">Ярышучыгыз уеннан чыкты. Сез җиңүегезне %s секундтан белдерә аласыз.</item>
   </plurals>
   <string name="opponentLeftChoices">Ярышучыгыз уеннан чыкты. Сез җиңүегезне я бер-берегезнең тигезлеген белдерә, я аны көтеп тора аласыз.</string>
-  <string name="makeYourOpponentResign">Җиңүегезне игълан итү</string>
   <string name="forceResignation">Җиңүегезне игълан итү</string>
   <string name="forceDraw">Тигезлек игълан итү</string>
   <string name="talkInChat">Сөйләшкәндә әдәпле булыгыз!</string>
@@ -48,9 +46,6 @@
   <string name="blackResigned">Каралар истифа итте</string>
   <string name="whiteLeftTheGame">Ак уеннан чыкты</string>
   <string name="blackLeftTheGame">Кара уеннан чыкты</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Бу сылтама белән күзәтүчеләрне чакырыгыз</string>
-  <string name="theComputerAnalysisHasFailed">Компьютер тикшерүе хата очратты</string>
-  <string name="viewTheComputerAnalysis">Компьютер тикшерүен күрү</string>
   <string name="requestAComputerAnalysis">Компьютер тикшеревен итү</string>
   <string name="computerAnalysis">Компьютер тикшереве</string>
   <string name="computerAnalysisAvailable">Компьютер тикшеревен итә аласыз</string>
@@ -86,9 +81,6 @@
   <string name="masterDbExplanation">%2$sнче елдан %3$sнче елга кадәр %1$s+ FIDE рейтинглы уенчылары тарафыннан такта артында уйналган 2 миллион уен</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s ярты-йөрүдә мат</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">Киләсе алу я пешка йөрүе %s ярты-йөрүдән (чутлау 50 йөрүдән соң нульләнә)</item>
   </plurals>
   <string name="noGameFound">Бер уен да табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Бәлки көйләүләрдә күбрәк уеннарны кабызырсыз?</string>
@@ -199,7 +191,6 @@
   <string name="whiteTimeOut">Акларның вакыты чыкты</string>
   <string name="blackTimeOut">Караларның вакыты чыкты</string>
   <string name="drawOfferSent">Тиңлек тәкъдиме җибәрелде</string>
-  <string name="drawOfferDeclined">Тиңлек тәкъдиме кире кагылды</string>
   <string name="drawOfferAccepted">Тиңлек тәкъдиме кабул ителде</string>
   <string name="drawOfferCanceled">Тиңлек тәкъдиме туктатылды</string>
   <string name="whiteOffersDraw">Аклар тиңлек тәкъдим итә</string>
@@ -225,8 +216,6 @@
   <string name="thisGameIsRated">Бу уен рейтинглы</string>
   <string name="rematch">Яңадан уйнау</string>
   <string name="rematchOfferSent">Яңадан уйнау тәкъдим ителде</string>
-  <string name="rematchOfferSentWhite">Аклар яңадан уйнарга сорый</string>
-  <string name="rematchOfferSentBlack">Каралар яңадан уйнарга сорый</string>
   <string name="rematchOfferAccepted">Яңадан уйнау кабул ителде</string>
   <string name="rematchOfferCanceled">Яңадан уйнау тәкъдиме туктатылды</string>
   <string name="rematchOfferDeclined">Яңадан уйнау кабул ителмәде</string>
@@ -240,9 +229,7 @@
   <string name="youHaveBeenTimedOut">Чаттан вакытлыча чыгарылдыгыз.</string>
   <string name="spectatorRoom">Күзәтү бүлмәсе</string>
   <string name="composeMessage">Хат язу</string>
-  <string name="noNewMessages">Яңа хатлар юк</string>
   <string name="subject">Хат темасы</string>
-  <string name="recipient">Алучы</string>
   <string name="send">Җибәрү</string>
   <string name="incrementInSeconds">Секунд кушыла</string>
   <string name="freeOnlineChess">Түләүсез Онлайн Шахмат</string>
@@ -341,8 +328,6 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s дус челтәрдә</item>
   </plurals>
-  <string name="noFriendsOnline">Челтәрдә дуслар юк</string>
-  <string name="findFriends">Дуслар эзләү</string>
   <string name="favoriteOpponents">Яраткан ярышучылар</string>
   <string name="follow">Язылу</string>
   <string name="following">Язылгансыз</string>
@@ -388,7 +373,6 @@
   <string name="points">Баллар</string>
   <string name="wins">Җиңүләр</string>
   <string name="losses">Җиңелүләр</string>
-  <string name="winStreak">Җиңүләр сериясе</string>
   <string name="createdBy">Оештыручы</string>
   <string name="tournamentIsStarting">Бәйгене башлана</string>
   <string name="tournamentPairingsAreNowClosed">Бәйге чиратлаштыруы ябылган.</string>
@@ -404,13 +388,11 @@
   <string name="draws">Тиңлекләр</string>
   <string name="nextXTournament">Киләсе %s бәйгесе:</string>
   <string name="averageOpponent">Уртача ярышучы</string>
-  <string name="membersOnly">Теркәлгәннәр генә</string>
   <string name="boardEditor">Тактаны үзгәртү</string>
   <string name="setTheBoard">Тактаны урнаштыру</string>
   <string name="popularOpenings">Популяр дебютлар</string>
   <string name="startPosition">Башлангыч позиция</string>
   <string name="clearBoard">Тактаны бушату</string>
-  <string name="savePosition">Позицияне сакларга</string>
   <string name="loadPosition">Позицияне йөкләү</string>
   <string name="isPrivate">Яшерен</string>
   <string name="reportXToModerators">%s турында модераторларга белдерү</string>
@@ -426,10 +408,8 @@
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
   <string name="inlineNotation">Кертелгән билгеләнеш</string>
-  <string name="watchLichessTV">Кара Личес ТВ</string>
   <string name="previouslyOnLichessTV">Алданлырак Личес ТВда</string>
   <string name="onlinePlayers">Юрдә уйнаучылар</string>
-  <string name="activeToday">Актив бүген</string>
   <string name="activePlayers">Актив уйнаучылар</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Сак бул, бу уен рейтинглы, әмма сәгать юк!</string>
   <string name="success">Уңышлы</string>
@@ -439,7 +419,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Тукталмыйча дәвам ит киләсе уенны алгы йөртүдә</string>
   <string name="autoSwitch">Үзе күчерә</string>
   <string name="puzzles">Башваткычлар</string>
-  <string name="latestUpdates">Соңгы яңартулар</string>
   <string name="tournamentWinners">Бәйге җиңүчеселәре</string>
   <string name="name">Исем</string>
   <string name="description">Тафсиры</string>
@@ -471,9 +450,7 @@
   <string name="error.provideOneCheatedGameLink">Зинһар, алданган уенга ким дигәндә бер сылтама бирегез.</string>
   <string name="by">%sдан</string>
   <string name="thisTopicIsNowClosed">Бу сәрхәү хәзер ябык.</string>
-  <string name="theming">Темалык</string>
   <string name="blog">Шәлкемлек</string>
-  <string name="questionsAndAnswers">Сораулар &amp; Җаваплар</string>
   <string name="notes">Искәрмәләр</string>
   <string name="typePrivateNotesHere">Шәхси язма монда калдырыгыз</string>
   <string name="invalidUsernameOrPassword">Кулланучы исеме яки серсүз яраксыз</string>
@@ -502,13 +479,7 @@
   <string name="onSlowGames">Тыныч уеннарда</string>
   <string name="always">Һәрвакыт</string>
   <string name="never">Беркачанда</string>
-  <string name="difficultyEasy">Җиңел</string>
-  <string name="difficultyNormal">Гадәттәге</string>
-  <string name="difficultyHard">Авыр</string>
   <string name="xCompetesInY">%1$s көндәшлек итә %2$s</string>
-  <string name="xAskedY">%1$s сорады %2$s</string>
-  <string name="xAnsweredY">%1$s җавап бирде %2$s</string>
-  <string name="xCommentedY">%1$s коммент калдырды %2$s</string>
   <string name="victory">Җиңү</string>
   <string name="defeat">Җиңелде</string>
   <string name="victoryVsYInZ">%3$s монда %1$s каршы %2$s</string>
@@ -517,7 +488,6 @@
   <string name="timeline">Вакыт узуы</string>
   <string name="starting">Башлануы:</string>
   <string name="allInformationIsPublicAndOptional">Барлык мәгълүмат җәмәгать һәм өстәмә.</string>
-  <string name="yourCityRegionOrDepartment">Сезнең шәһәрегез, өлкәгез, яки төбәгегез.</string>
   <string name="biographyDescription">Сөйләгез үзегез хакында, сезнең кызыксындырулар турында, Ни сез яратасыз шаһматта, сезнең яраткан ачылышыгыз, кулланучыгыз,...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Азагында %s билге.</item>
@@ -530,13 +500,6 @@
   <string name="computer">Компьютер</string>
   <string name="side">Як</string>
   <string name="clock">Сәгать</string>
-  <string name="unauthorizedError">Рөхсәт авторизациясез.</string>
-  <string name="noInternetConnection">Интернетка тоташу юк. Сез һаманда челтәрсез уйный аласыз сайламышта.</string>
-  <string name="connectedToLichess">Сез хәзер тоташкан lichess.org ка</string>
-  <string name="signedOut">Сез чыгарылдыгыз</string>
-  <string name="loginSuccessful">Сез керелгәнсез</string>
-  <string name="playOnTheBoardOffline">Такта өстендә</string>
-  <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Көндәшегез</string>
   <string name="learnMenu">Өйрәнү</string>
   <string name="studyMenu">Өйрәнү</string>
@@ -544,16 +507,7 @@
   <string name="community">Җәмәгать</string>
   <string name="tools">Кораллар</string>
   <string name="increment">Артуы</string>
-  <string name="sharePGN">Җибәрергә PGN</string>
-  <string name="playOnline">Челтәрдә уйнау</string>
-  <string name="playOffline">Уйнарга челтәрсез</string>
-  <string name="allowAnalytics">Аноним статистикага рөхсәт итегез</string>
-  <string name="shareGameURL">Җибәрергә уен URL</string>
   <string name="error.required">Бу алан кирәкле</string>
-  <string name="error.email">Бу почта адресы дөрес түгел</string>
-  <string name="error.email_acceptable">Бу электрон почта адресы кабул ителми. Зинһар, аны икеләтә тикшерегез һәм кабатлап карагыз.</string>
-  <string name="error.email_unique">Бу почта тамгасы теркәлү үткән</string>
-  <string name="error.email_different">Бу инде сезнең ел. почта адресыгыз</string>
   <string name="ifRatingIsPlusMinusX">Әгәр рейтингың ± %s</string>
   <string name="onlyExistingConversations">Бары тик сөйләшүләр генә</string>
   <string name="onlyFriends">Дустлар гына</string>
@@ -600,7 +554,6 @@
   <string name="simulHostExtraTime">Алып барырга өстәмә сәгать вакытын</string>
   <string name="lichessTournaments">Личесс бәйгеләре</string>
   <string name="tournamentFAQ">Бәйге мәйданы ЕБС</string>
-  <string name="tournamentOfficial">Төп</string>
   <string name="timeBeforeTournamentStarts">Бәйге башланыр алдындагы вакыт</string>
   <string name="averageCentipawnLoss">Уртача урнашу-матерьялы җиңүлүе</string>
   <string name="keyboardShortcuts">Керткечнең эзмәләре</string>
@@ -637,7 +590,6 @@
   <string name="downloadAnnotated">Өзешлене йөкләү</string>
   <string name="downloadRaw">Чималны иңдер</string>
   <string name="downloadImported">Импортны йөкләү</string>
-  <string name="printFriendlyPDF">Басма өчен уңайлы PDF</string>
   <string name="crosstable">Кросстабель</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сез шулай ук уенга күчү өчен такта өстенә әйләндерә аласыз.</string>
   <string name="analysisShapesHowTo">Тактада түгәрәкләр һәм уклар сызу өчен shift + чирттерү яки уң төймәгә+чирттерү.</string>
@@ -646,7 +598,6 @@
   <string name="withNobody">Беркем беләндә түгел</string>
   <string name="withFriends">Дустлар белән</string>
   <string name="withEverybody">Барысы белән</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Сезнең хәзер теркәлгән почтагыз бар: %s</string>
   <string name="kidMode">Сабыйлар осулы</string>
   <string name="kidModeExplanation">Бу куркынычсызлык турында. Балалар режимында барлык сайт элемтәләре дә сүндерелгән. Моны балаларыгыз һәм мәктәп укучылары өчен рөхсәт итегез, аларны бүтән интернет кулланучылардан саклагыз.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Балалар усулында Lichess тамгасы %s иконасын ала, шуңа күрә сез балаларыгызның куркынычсыз булуын беләсез.</string>
@@ -673,7 +624,6 @@
   <string name="xHostsY">%1$s хуҗасы %2$s</string>
   <string name="xJoinsY">%1$s Кушлады %2$s</string>
   <string name="xLikesY">%1$s ошады %2$s</string>
-  <string name="xCreatesStudyY">%1$s Ачты өйрәнеш %2$s</string>
   <string name="quickPairing">Тизкер парлаштырыш</string>
   <string name="lobby">Көндәшләр</string>
   <string name="anonymous">Билгесез</string>
@@ -694,17 +644,11 @@
   <string name="usernameSuffixInvalid">Кулланучынәмә хәреф яки сан белән тәмамланырга тиеш.</string>
   <string name="usernameCharsInvalid">Кулланучынәма фәкать харефләр, саннар, астсызыклар вә урта сызыклар гыйбәрәт булыш кирәк. Китмә-киткән астсызыклар вә урта сызыкларга юк куймайды.</string>
   <string name="usernameUnacceptable">Бу кулланучынәма макбул түгел.</string>
-  <string name="directlySupportLichess">Тугрыдан-тугры үзләштереш Lichess ны</string>
   <string name="playChessInStyle">Уйна шаһмат стиль белән</string>
   <string name="chessBasics">Шаһмат нигезләре</string>
   <string name="coaches">Тренерлар</string>
   <string name="invalidPgn">Бозык PGN</string>
   <string name="invalidFen">Бозык FEN</string>
-  <string name="error.minLength">Минималь озынлык %s</string>
-  <string name="error.maxLength">Максималь озынлык %s</string>
-  <string name="error.min">Катка яки тиң булуш кирәк %s</string>
-  <string name="error.max">%s га ким яки тиң булыш кирәк</string>
-  <string name="error.unknown">Хата</string>
   <string name="custom">Куелган</string>
   <string name="notifications">Хәбәр итүләр</string>
   <string name="perfRatingX">Рейтинг: %s</string>

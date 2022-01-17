@@ -11,18 +11,19 @@
   <string name="level">سطح</string>
   <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
-  <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>
   <string name="resign">تسلیم شوید</string>
   <string name="checkmate">کیش و مات</string>
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
   <string name="black">سیاه</string>
+  <string name="asWhite">به عنوان سفید</string>
+  <string name="asBlack">به عنوان سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
   <string name="blackIsVictorious">بازیکن سیاه برنده است</string>
-  <string name="youPlayTheWhitePieces">شما با مهری سفید بازی میکنید</string>
+  <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
@@ -40,7 +41,6 @@
     <item quantity="other">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
   </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
-  <string name="makeYourOpponentResign">شکست حریف را به دلیل ترک بازی اعلام کنید</string>
   <string name="forceResignation">ادعای برد</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
@@ -49,9 +49,8 @@
   <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">بازیکن سفید بازی را ترک کرد</string>
   <string name="blackLeftTheGame">بازیکن سیاه بازی را ترک کرد</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">این لینک را با تماشاگران به اشتراک بگذارید تا بازی را ببینند‌.</string>
-  <string name="theComputerAnalysisHasFailed">تحلیل رایانه ای با مشکل مواجه شد</string>
-  <string name="viewTheComputerAnalysis">تحلیل رایانه‌ای را ملاحظه نمایید</string>
+  <string name="whiteDidntMove">سفید تکان نخورد</string>
+  <string name="blackDidntMove">مشکی تکان نخورد</string>
   <string name="requestAComputerAnalysis">یک تحلیل رایانه‌ای درخواست بدهید</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
@@ -90,10 +89,7 @@
     <item quantity="one">در %s نیم‌حرکت مات می‌شود</item>
     <item quantity="other">در %s نیم‌حرکت مات می‌شود</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">گرفتن مهره یا حرکت پیاده در %s نیم حرکت (فاصله از قانون ۵۰ حرکت مساوی)</item>
-    <item quantity="other">گرفتن مهره حریف یا حرکت پیاده در %s نیم‌حرکت (فاصله از پنجاه حرکت برای رسیدن به ترکیب شناخته شده‌ای در بازی که قطعاً منجر به پیروزی می‌شود)</item>
-  </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">بازی‌های بیشتری از لیست ترجیحات لحاظ شوند؟</string>
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
@@ -217,7 +213,6 @@
   <string name="whiteTimeOut">زمان سفید به اتمام رسید</string>
   <string name="blackTimeOut">زمان سیاه به اتمام رسید</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
-  <string name="drawOfferDeclined">پیشنهاد تساوی پذیرفته نشد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
   <string name="drawOfferCanceled">پیشنهاد تساوی لغو شد</string>
   <string name="whiteOffersDraw">سفید پیشنهاد تساوی می دهد</string>
@@ -243,8 +238,6 @@
   <string name="thisGameIsRated">این بازی رسمی است</string>
   <string name="rematch">بازی دوباره</string>
   <string name="rematchOfferSent">درخواست بازی دوباره فرستاده شد</string>
-  <string name="rematchOfferSentWhite">سفید درخواست بازی دوباره را می دهد</string>
-  <string name="rematchOfferSentBlack">سیاه درخواست بازی دوباره را می دهد</string>
   <string name="rematchOfferAccepted">درخواست بازی دوباره پذیرفته شد</string>
   <string name="rematchOfferCanceled">پیشنهاد بازی دوباره لغو شد</string>
   <string name="rematchOfferDeclined">پیشنهاد بازی دوباره رد شد</string>
@@ -258,9 +251,7 @@
   <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاچیان</string>
   <string name="composeMessage">نوشتن پیام</string>
-  <string name="noNewMessages">پیام جدیدی نیست</string>
   <string name="subject">عنوان</string>
-  <string name="recipient">گیرنده</string>
   <string name="send">ارسال</string>
   <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
   <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
@@ -352,6 +343,7 @@
   <string name="leaderboard">بهترین بازیکنان</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
+  <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
   <string name="fromPosition">شروع از پوزیشن</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
@@ -373,12 +365,12 @@
     <item quantity="one">%s دوست آنلاین</item>
     <item quantity="other">%s دوست آنلاین</item>
   </plurals>
-  <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
-  <string name="findFriends">پیدا کردن دوست</string>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
   <string name="follow">دنبال کردن</string>
   <string name="following">افرادی که دنبال می کنید</string>
   <string name="unfollow">لغو دنبال کردن</string>
+  <string name="followX">دنبال کردن %s</string>
+  <string name="unfollowX">لغو دنبال کردن %s</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
@@ -423,7 +415,6 @@
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
   <string name="losses">باخت‌ها</string>
-  <string name="winStreak">برد متوالی</string>
   <string name="createdBy">ساخته شده توسط</string>
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
   <string name="tournamentPairingsAreNowClosed">تعین حریف به اتمام رسیده است.</string>
@@ -439,7 +430,6 @@
   <string name="draws">مساوی</string>
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
-  <string name="membersOnly">فقط اعضا</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
   <string name="setTheBoard">پوزیشن را انتخاب کنید</string>
   <string name="popularOpenings">گشایش های معروف</string>
@@ -447,7 +437,6 @@
   <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
   <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
-  <string name="savePosition">ذخیره موقعیت</string>
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
@@ -464,10 +453,8 @@
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
-  <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
-  <string name="activeToday">فعالیت امروز</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
   <string name="success">پیروزی</string>
@@ -478,7 +465,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
   <string name="puzzles">پازل ها</string>
-  <string name="latestUpdates">آخرین به روز رسانی ها</string>
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
@@ -510,9 +496,7 @@
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
-  <string name="theming">قالب</string>
   <string name="blog">بلاگ</string>
-  <string name="questionsAndAnswers">سوال و جواب</string>
   <string name="notes">یادداشت ها</string>
   <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
@@ -541,13 +525,7 @@
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
-  <string name="difficultyEasy">آسان</string>
-  <string name="difficultyNormal">متوسط</string>
-  <string name="difficultyHard">دشوار</string>
   <string name="xCompetesInY">%1$s در تورنمت %2$s رقابت می کند</string>
-  <string name="xAskedY">%1$s سوال %2$s را پرسید</string>
-  <string name="xAnsweredY">%1$s سوال  %2$s را پاسخ داد</string>
-  <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
@@ -556,7 +534,6 @@
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
-  <string name="yourCityRegionOrDepartment">شهر شما، منطقه، و یا استان.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">حداکثر: %s حرف</item>
@@ -571,13 +548,6 @@
   <string name="computer">رایانه</string>
   <string name="side">چه رنگی؟</string>
   <string name="clock">ساعت</string>
-  <string name="unauthorizedError">دسترسی مقدور نیست</string>
-  <string name="noInternetConnection">ارتباط اینترنتی قطع است. همچنان می‌توانید از طریق منو به صورت آفلاین بازی کنید.</string>
-  <string name="connectedToLichess">اکنون به lichess.org وصل شده‌اید.</string>
-  <string name="signedOut">شما بیرون رفتید</string>
-  <string name="loginSuccessful">شما وارد شدید</string>
-  <string name="playOnTheBoardOffline">آفلاین روی تخته بازی کنید</string>
-  <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
   <string name="studyMenu">مرور کردن</string>
@@ -585,16 +555,15 @@
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
-  <string name="sharePGN">به اشتراک گذاری حرکت‌ها</string>
-  <string name="playOnline">بازی آنلاین</string>
-  <string name="playOffline">بازی آفلاین</string>
-  <string name="allowAnalytics">ارسال داده‌های آماری</string>
-  <string name="shareGameURL">ارسال پیوند بازی</string>
   <string name="error.required">حتماً باید این خانه را پر کنید</string>
   <string name="error.email">آدرس ایمیل غیر معتبر است</string>
-  <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست</string>
-  <string name="error.email_unique">از این آدرس ایمیل قبلاً استفاده شده است</string>
-  <string name="error.email_different">این  که در حال حاضر آدرس ایمیل شما است:</string>
+  <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
+  <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
+  <string name="error.email_different">این آدرس ایمیل همان آدرس ایمیل قبلی شما است</string>
+  <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
+  <string name="error.maxLength">باید حداقل دارای %s حرف باشد</string>
+  <string name="error.min">باید حداقل %s باشد</string>
+  <string name="error.max">باید حداکثر %s باشد</string>
   <string name="ifRatingIsPlusMinusX">اگر ریتینگ  %s± بود</string>
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
@@ -642,7 +611,6 @@
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
   <string name="lichessTournaments">مسابقات لی چس</string>
   <string name="tournamentFAQ">سوالات متداول مسابقات</string>
-  <string name="tournamentOfficial">رسمی</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
   <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
@@ -680,7 +648,6 @@
   <string name="downloadAnnotated">دانلود محتوا</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
-  <string name="printFriendlyPDF">دانلود PDF</string>
   <string name="crosstable">تابلو امتیازات</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
@@ -691,7 +658,6 @@
   <string name="withNobody">هیچکس</string>
   <string name="withFriends">با دوستان</string>
   <string name="withEverybody">با همه</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
@@ -720,7 +686,6 @@
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
   <string name="xLikesY">%1$s می پسندد %2$s</string>
-  <string name="xCreatesStudyY">%1$s بررسی ایجاد میکند %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">لابی</string>
   <string name="anonymous">ناشناس</string>
@@ -741,17 +706,11 @@
   <string name="usernameSuffixInvalid">نام کاربری باید با حرف یا شماره خاتمه یابد.</string>
   <string name="usernameCharsInvalid">نام کاربری فقط می تواند شامل حروف،اعداد،خط فاصله یا زیر خط(under line) باشد.</string>
   <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
-  <string name="directlySupportLichess">مستقیما لیچس را حمایت کنید.</string>
   <string name="playChessInStyle">استایل شطرنج باز داشته باشید!</string>
   <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
   <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
-  <string name="error.minLength">حداقل تعداد حروف وارد شده %s است</string>
-  <string name="error.maxLength">حداکثر تعداد حروف وارد شده %s است</string>
-  <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>
-  <string name="error.max">باید کمتر یا مساوی باشه با%s</string>
-  <string name="error.unknown">خطا</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
   <string name="perfRatingX">ریتینگ. %s</string>
@@ -897,6 +856,7 @@
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
+  <string name="embedsAvailable">برای قرار دادن یک بخش جهت مطالعه یا یک بازی، پیوند آن را در زیر بنویسید (لینک مربوط به آن را کپی و پیست نمایید).</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>
@@ -922,4 +882,7 @@
   <string name="abortTheGame">انصراف از بازی</string>
   <string name="resignTheGame">تسلیم</string>
   <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
+  <string name="since">از وقتی که</string>
+  <string name="until">تا وقتی که</string>
+  <string name="switchSides">تعویض سمت</string>
 </resources>

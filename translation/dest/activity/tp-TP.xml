@@ -62,6 +62,10 @@
     <item quantity="one">ona li nanpa %1$s (%2$s%% tawa lawa) tan musi %3$s lon %4$s</item>
     <item quantity="other">ona li nanpa %1$s (%2$s%% tawa lawa) tan musi %3$s lon %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">ona li utala lon musi utala pi ma Suwasi wan</item>
+    <item quantity="other">ona li utala lon musi utala pi ma Suwasi %s</item>
+  </plurals>
   <string name="rankedInSwissTournament">nanpa li %1$s lon musi %2$s</string>
   <string name="signedUp">ona li tawa tawa lipu ni</string>
   <plurals name="joinedNbTeams">

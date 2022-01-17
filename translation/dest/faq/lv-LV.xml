@@ -60,7 +60,6 @@ Tas ir aprakstīts %2$s sadaļā 3.7 (d).
 
 Skatīt %3$s šim gājienam, lai ar to trenētos.</string>
   <string name="goodIntroduction">labu ievadu</string>
-  <string name="officialRulesPDF">oficiālajos noteikumos (PDF)</string>
   <string name="lichessTraining">Lichess treniņu</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
   <string name="threefoldRepetitionExplanation">Ja pozīcija trīsreiz atkārtojas, spēlētāji var pieprasīt %1$s neizšķirtu. Lichess izmanto oficiālos FIDE noteikumus, kas aprakstīti %2$s sadaļā 9.2 (d).</string>

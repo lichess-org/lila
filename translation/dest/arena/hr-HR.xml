@@ -41,4 +41,17 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="shareUrl">Podijeli ovaj URL da se ljudi pridruže: %s</string>
   <string name="drawStreak">Niz remija: Kad igrač ima uzastopne remije u areni, samo prvi remi rezultira bodom ili remiji koji traju više od %s poteza. Niz remija može se prekinuti samo pobjedom, a ne gubitkom ili remijem.</string>
   <string name="history">Povijest Arene</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Pogledaj tim</item>
+    <item quantity="few">Pogledaj %s tima</item>
+    <item quantity="other">Pogledajte svih %s timova</item>
+  </plurals>
+  <string name="newTeamBattle">Nova Timska Bitka</string>
+  <string name="customStartDate">Prilagođeni datum početka</string>
+  <string name="customStartDateHelp">U vlastitoj lokalnoj vremenskoj zoni. Ovo nadjačava postavku \"Vrijeme prije početka turnira\"</string>
+  <string name="allowBerserk">Dopusti Berserk</string>
+  <string name="allowBerserkHelp">Neka igrači prepolove svoje vrijeme kako bi dobili dodatni bod</string>
+  <string name="allowChatHelp">Neka igrači raspravljaju u sobi za razgovor</string>
+  <string name="arenaStreaks">Arena nizovi</string>
+  <string name="arenaStreaksHelp">Nakon 2 pobjede, uzastopne pobjede daju 4 boda umjesto 2.</string>
 </resources>

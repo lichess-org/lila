@@ -9,6 +9,7 @@ export interface Ctrl {
   update(data: ChallengeData): void;
   data(): ChallengeData;
   trans(): (key: string) => string;
+  showRatings: boolean;
   reasons(): Reasons;
   decline(id: string, reason: string): void;
   cancel(id: string): void;
@@ -49,7 +50,8 @@ export interface Challenge {
   initialFen: FEN;
   rated: boolean;
   timeControl: TimeControl;
-  color: Color;
+  color: Color | 'random';
+  finalColor: Color;
   perf: {
     icon: string;
     name: string;

@@ -63,12 +63,11 @@ Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
 
 Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</string>
   <string name="goodIntroduction">güzel bir açıklama</string>
-  <string name="officialRulesPDF">resmî kurallar (PDF)</string>
   <string name="lichessTraining">Lichess egzersizlerine</string>
   <string name="threefoldRepetition">Üç konum tekrarı</string>
   <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
   <string name="threefoldRepetitionLowerCase">üç konum tekrarı</string>
-  <string name="notRepeatedMoves">Aynı hamleleri tekrarlamadığımız hâlde oyun neden berabere bitti?</string>
+  <string name="notRepeatedMoves">Biz hamle tekrarı yapmadık. Oyun neden hamle tekrarından berabere bitti?</string>
   <string name="repeatedPositionsThatMatters">Üç konum tekrarında %1$s hesaba katılır, hamleler değil. Tekrarlamalar üst üste olmak zorunda değildir.</string>
   <string name="positions">pozisyonlar</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Oyun neden berabere bitmedi?</string>
@@ -97,48 +96,48 @@ LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
-  <string name="ownerUniqueTrophies">Lichess tarihinde bu kupanın eşi benzeri yoktur. İşbu kupanın tek sahibi %1$s isimli şahıstır.</string>
-  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için divane (berserk) açarak %s bütün oyunları kazandı.</string>
-  <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasındaki</string>
-  <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
-  <string name="lichessRatings">Lichess puanlama sistemi</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
-  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE hâlâ eski Elo puanlama sistemini kullanılır).
+  <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında hiç kimse bu kupaya sahip olamaz.</string>
+  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için berserk açarak %s oynadığı oyunlarının hepsini kazandı.</string>
+  <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasında</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün,ZugAddict canlı yayındaydı ve son 2 saatini Stockfish 8\'i 1+0 bir oyunda yenmeye çalışarak harcamıştı.Thibault, eğer Stockfish 8\'i canlı yayında yenerse sadece ona özel bir kupa vereceğine dair söz verdi.Bundan bir saat sonra ZugAddict Stockfish 8\'i yendi ve Thibault sözünü tutarak ona eşi benzeri olmayan bir kupa verdi.</string>
+  <string name="lichessRatings">Lichess derecelendirmeleri</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
+  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 puanlama sistemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hâlâ tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
 
-Glicko sistemi \"güven aralıkları\" aracılığıyla puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500, puanınızı temsil ederken 1000 de güven aralığını temsil eder.
+Temel olarak, Glicko sistemi, puanlarınızı hesaplarken ve temsil ederken \"güven aralıkları\" kullanır. Siteyi ilk kullanmaya başladığınızda, puanınız 1500 ± 1000\'de başlar. 1500 puanınızı temsil eder ve 1000 güven aralığını temsil eder.
 
-Sistem puanınızın 500 ila 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
+Temel olarak, sistem, derecelendirmenizin 500 ile 2500 arasında bir yerde olduğundan %95 emin. Bu inanılmaz derecede belirsiz. Bu nedenle, bir oyuncu yeni başladığında, derecelendirmeleri çok önemli ölçüde değişir, bir seferde potansiyel olarak birkaç yüz puan. Ancak uzun süredir oynayan oyunculara karşı bazı oyunlardan sonra güven aralığı daralır ve her oyundan sonra kazanılan/kaybedilen puan miktarı azalacaktır.
 
-Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanla artar. Böylece satranç yeteneklerinizin zaman içerisindeki değişimine göre daha hızlı puan kazanabilir veya kaybedebilirsiniz.</string>
-  <string name="whatIsProvisionalRating">Puanımın yanında neden soru işareti (?) var?</string>
-  <string name="provisionalRatingExplanation">Soru işareti, puanınızın geçici olduğunu belirtir. Bunun sebepleri şunlar olabilir:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">%1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynanmamıştır.</string>
-  <string name="similarOpponents">Benzer puanlı oyunculara</string>
-  <string name="notPlayedRecently">Yakın zamanda herhangi bir maç yapılmamıştır. Toplam maç sayınıza bağlı olarak, ilgili kategoride yaklaşık bir sene boyunca maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Glicko-2 sapması 110\'dan yüksek olursa puan geçici olarak sınıflandırılır. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük ise puan o kadar dengeli demektir.</string>
-  <string name="howDoLeaderoardsWork">Lider tablosuna nasıl girerim?</string>
-  <string name="inOrderToAppearsYouMust">%1$s girmek için ilgili kategoride:</string>
-  <string name="ratingLeaderboards">Lider tablosuna</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmalı,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Son bir hafta içinde en az bir puanlı maç yapmış olmalı,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmanız olmalı,</string>
-  <string name="beInTopTen">Puan sıralamasında ise ilk 10 içinde yer almalısınız.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların lider tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
-  <string name="whyAreRatingHigher">Bu sitedeki puanlar diğer sitelere veya FIDE, USCF ve ICC gibi kuruluşlara göre neden daha yüksek?</string>
-  <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmek ve diğer kuruluşlarla karşılaştırmak pek sağlıklı olmaz. Farklı kuruluşlarda farklı seviyede oyuncular ve farklı puan sistemleri olabilir (Elo, Glicko, Glicko-2 ve benzeri). Bu faktörler yüzünden puanlar arasında ciddi ölçüde farklar oluşabilir.
+Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının artacağıdır. Böylece satranç becerilerinizin zaman içindeki değişimine göre daha hızlı puan kazanabilir veya kaybedebilirsiniz.</string>
+  <string name="whatIsProvisionalRating">Neden puanımın yanında soru işareti(?) var?</string>
+  <string name="provisionalRatingExplanation">Soru işareti, puanınızın geçici olduğunu belirtir. Nedenleri şunlardır:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz %1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynamamıştır.</string>
+  <string name="similarOpponents">benzer puanlı oyuncular</string>
+  <string name="notPlayedRecently">Oyuncu yeterince yeni oyun oynamadı. Oynadığınız oyun sayısına bağlı olarak, ilgili kategoride puanınızın tekrar geçici hâle gelmesi yaklaşık bir yıl sürebilir.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Somut olarak açıklamak gerekirse, Glicko-2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük olursa puan da o kadar istikrarlı olur.</string>
+  <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
+  <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
+  <string name="ratingLeaderboards">Liderlik tablosuna</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmak,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Bu kategoride son bir hafta içinde en az bir puanlı maç yapmış olmak,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmasına sahip olmak,</string>
+  <string name="beInTopTen">Ve bu kategoride ilk 10 içerisinde yer almak gerekir.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların liderlik tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
+  <string name="whyAreRatingHigher">Bu sitedeki puanlarım FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>
+  <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (Elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (puanları) büyük ölçüde etkileyebilir.
 
-Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak ele almak daha doğru olur. Belirli bir oyuncu havuzunda oyuncular arasındaki göreceli puan farkları, kimin ne sıklıkta kazanacağını veya kaybedeceğini tahmin etmenize yardımcı olur. Aynı platformda puanları karşılaştıracak bir oyuncu olmadan \"benim şu kadar puanım var\" demek pek bir şey ifade etmez.</string>
+Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): Belirli bir oyuncu havuzunda, puanlardaki göreceli farklılıkları kimin kazanacağını/berabere kalacağını/kaybedeceğini ve bunların ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, puanları karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
   <string name="howToHideRatingWhilePlaying">Maç esnasında puanları nasıl gizlerim?</string>
-  <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
+  <string name="enableZenMode">%1$s veya oyun sırasındaysanız %2$s tuşuna basarak sade görünümü(Zen modunu) etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
-  <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyundayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
-  <string name="howToThreeDots">Diğer konular</string>
-  <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. Sorunun bizde olması çok nadirdir. Ayrıca Lichess yeniden başladığında veya bakıma girerse ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
+  <string name="howToThreeDots">Nasıl...</string>
+  <string name="enableDisableNotificationPopUps">Bildirimleri etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
-  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğe bağlı olarak Lichess\'ten bildirim alabilirsiniz.
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğinize bağlı olarak Lichess\'ten bildirim alabilirsiniz.
 
 Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
-Ardından site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açın veya kapatın.</string>
+Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
 </resources>

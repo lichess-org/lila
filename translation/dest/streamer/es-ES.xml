@@ -50,11 +50,5 @@ Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de
   <string name="xStreamerPicture">Imagen de presentador %s</string>
   <string name="changePicture">Cambia/elimina tu imagen</string>
   <string name="uploadPicture">Subir una foto</string>
-  <string name="deletePicture">Borrar la foto</string>
   <string name="maxSize">Tamaño máximo: %s</string>
-  <string name="installBlocker">¡Instala un bloqueador de malware!</string>
-  <string name="beSafe">Mantente a salvo de los anuncios y rastreadores
-que infestan Twitch y YouTube.
-Lichess recomienda uBlock Origin
-que es gratis y de código abierto.</string>
 </resources>

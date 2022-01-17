@@ -38,7 +38,7 @@
   th {
     @extend %roboto;
 
-    padding: 1em;
+    padding: 1em 0.7em;
 
     &.sortable {
       cursor: pointer;
@@ -52,18 +52,28 @@
     &.sort .is:before {
       opacity: 0.7;
       margin-right: 3px;
-      content: "";
+      content: '';
     }
 
     &.player {
       width: 110px;
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      padding: 1em 0.4em;
+
+      &:nth-child(3) {
+        max-width: 13vw;
+        direction: rtl;
+        text-align: left;
+      }
     }
   }
 
   td {
     @extend %nowrap-hidden;
 
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
     background: fade-out($c-bg-box, 0.5);
@@ -85,6 +95,20 @@
 
     ::before {
       opacity: 0.6;
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      padding: 0.5em 0.4em;
+
+      &:first-child {
+        padding-left: 0.7em;
+      }
+
+      // player name
+      &:nth-child(2) {
+        @include ellipsis;
+        max-width: 25vw;
+      }
     }
   }
 

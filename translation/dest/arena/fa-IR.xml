@@ -29,14 +29,25 @@
   <string name="howDoesItEnd">چگونه به پایان می رسد؟</string>
   <string name="howDoesItEndAnswer">تورنومنت یک ساعت شمارش معکوس دارد. وقتی به صفر برسد، رتبه بندی تورنومنت غیرقابل تغییر میشود، و برنده اعلام میشود. بازی های در حال اجرا باید تمام شوند، هر چند نتیجه آن بازی ها تاثیری در تورنومنت ندارد.</string>
   <string name="otherRules">قوانین مهم دیگر</string>
+  <string name="thereIsACountdown">برای اولین حرکت شما یک شمارش معکوس وجود دارد. اگر در این زمان نتوانید حرکت خود را انجام دهید، بازی برای حریف شما باطل خواهد شد.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">در صورت تساوی بازی در %s حرکت اول، به هیچکدام از بازیکنان امتیازی نخواهد رسید.</item>
+    <item quantity="other">در صورت تساوی بازی در %s حرکت اول، به هیچکدام از بازیکنان امتیازی نخواهد رسید.</item>
+  </plurals>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
+  <string name="drawStreak">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
   <string name="history">تاریخچه مسابقات</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">مشاهده تیم</item>
+    <item quantity="other">مشاهده %s تیم</item>
+  </plurals>
   <string name="newTeamBattle">مبارزه تیمی جدید</string>
   <string name="customStartDate">تنظیم تاریخ شروع</string>
   <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
   <string name="allowBerserk">مجاز کردن برسرک</string>
   <string name="allowBerserkHelp">به بازیکنان اجازه دهید تا زمان خود را نصف کنند تا یک امتیاز اضافی بگیرند</string>
   <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
+  <string name="arenaStreaks">حرکات عالی در تالار</string>
   <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی بجای 2 امتیاز 4 امتیاز می دهند.</string>
 </resources>

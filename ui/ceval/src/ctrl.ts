@@ -66,7 +66,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   // check root position
   const setup = opts.initialFen ? parseFen(opts.initialFen).unwrap() : undefined;
   const rules = lichessRules(opts.variant.key);
-  const analysable = setup ? setupPosition(rules, setup).isOk || true : true;
+  const analysable = setup ? setupPosition(rules, setup).isOk : true;
   const standardMaterial = setup
     ? COLORS.every(color => {
         const board = setup.board;
@@ -117,16 +117,20 @@ export default function (opts: CevalOpts): CevalCtrl {
     Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads)
   );
 
-  const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
+  const estimatedMinMemory = technology == 'hce' || technology == 'nnue' ? 2.0 : 0.5;
+  const maxHashSize = Math.min(
+    ((navigator.deviceMemory || estimatedMinMemory) * 1024) / 8,
+    growableSharedMem ? 1024 : 16
+  );
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
-  let curEval: Tree.ClientEval | null = null;
+  let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
   const enabled = prop(opts.possible && analysable && allowed() && enabledAfterDisable());
   const downloadProgress = prop(0);
-  let started: Started | false = false;
+  let running = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
   const pvBoard = prop<PvBoard | null>(null);
@@ -141,7 +145,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let worker: AbstractWorker<unknown> | undefined;
 
   let lastEmitFen: string | null = null;
-  const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
+  const onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     curEval = ev;
     opts.emit(ev, work);
@@ -151,6 +155,8 @@ export default function (opts: CevalOpts): CevalCtrl {
       lichess.storage.fire('ceval.fen', ev.fen);
     }
   });
+
+  const curDepth = () => (curEval ? curEval.depth : 0);
 
   const effectiveMaxDepth = () =>
     isDeeper() || infinite()
@@ -162,10 +168,9 @@ export default function (opts: CevalOpts): CevalCtrl {
       return povChances(color, b) - povChances(color, a);
     });
 
-  const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
+  const start = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
     if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
-    isDeeper(deeper);
     const maxDepth = effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
@@ -189,7 +194,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       maxDepth,
       multiPv: parseInt(multiPv()),
       threatMode,
-      emit(ev: Tree.ClientEval) {
+      emit(ev: Tree.LocalEval) {
         if (enabled()) onEmit(ev, work);
       },
       stopRequested: false,
@@ -243,7 +248,8 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     worker.start(work);
 
-    started = {
+    running = true;
+    lastStarted = {
       path,
       steps,
       threatMode,
@@ -251,23 +257,35 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
 
   function goDeeper() {
-    const s = started || lastStarted;
-    if (s) {
-      stop();
-      start(s.path, s.steps, s.threatMode, true);
+    isDeeper(true);
+    if (lastStarted) {
+      if (infinite()) {
+        if (curEval) opts.emit(curEval, lastStarted);
+      } else {
+        stop();
+        start(lastStarted.path, lastStarted.steps, lastStarted.threatMode);
+      }
     }
   }
 
   function stop() {
-    if (!enabled() || !started) return;
+    if (!enabled() || !running) return;
     worker?.stop();
-    lastStarted = started;
-    started = false;
+    running = false;
   }
+
+  const showingCloud = (): boolean => {
+    if (!lastStarted) return false;
+    const curr = lastStarted.steps[lastStarted.steps.length - 1];
+    return !!curr.ceval?.cloud;
+  };
 
   return {
     technology,
-    start,
+    start: (path, steps, threadMode) => {
+      isDeeper(false);
+      start(path, steps, !!threadMode);
+    },
     stop,
     allowed,
     possible: opts.possible,
@@ -310,13 +328,13 @@ export default function (opts: CevalOpts): CevalCtrl {
         enabled(false);
       }
     },
-    curDepth: () => (curEval ? curEval.depth : 0),
+    curDepth,
     effectiveMaxDepth,
     variant: opts.variant,
     isDeeper,
     goDeeper,
-    canGoDeeper: () => !isDeeper() && !infinite() && !worker?.isComputing(),
-    isComputing: () => !!started && !!worker?.isComputing(),
+    canGoDeeper: () => curDepth() < 99 && !isDeeper() && ((!infinite() && !worker?.isComputing()) || showingCloud()),
+    isComputing: () => !!running && !!worker?.isComputing(),
     engineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,

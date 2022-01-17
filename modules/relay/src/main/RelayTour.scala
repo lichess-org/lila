@@ -11,9 +11,9 @@ case class RelayTour(
     markup: Option[String] = None,
     ownerId: User.ID,
     createdAt: DateTime,
-    official: Boolean,
-    active: Boolean,           // a round is scheduled or ongoing
-    syncedAt: Option[DateTime] // last time a round was synced
+    tier: Option[RelayTour.Tier], // if present, it's an official broadcast
+    active: Boolean,              // a round is scheduled or ongoing
+    syncedAt: Option[DateTime]    // last time a round was synced
 ) {
   def id = _id
 
@@ -23,6 +23,8 @@ case class RelayTour(
   }
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
+
+  def official = tier.isDefined
 }
 
 object RelayTour {
@@ -30,6 +32,23 @@ object RelayTour {
   val maxRelays = 64
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  type Tier = Int
+  object Tier {
+    val NORMAL = 3
+    val HIGH   = 4
+    val BEST   = 5
+
+    val options = List(
+      ""              -> "Non official",
+      NORMAL.toString -> "Official: normal tier",
+      HIGH.toString   -> "Official: high tier",
+      BEST.toString   -> "Official: best tier"
+    )
+    def name(tier: Tier) = options.collectFirst {
+      case (t, n) if t == tier => n
+    } | "???"
+  }
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 

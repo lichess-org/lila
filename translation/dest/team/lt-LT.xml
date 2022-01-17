@@ -9,6 +9,7 @@
     <item quantity="other">%s narių</item>
   </plurals>
   <string name="allTeams">Visos komandos</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lyderių komandos</string>
   <string name="newTeam">Nauja komanda</string>
   <string name="myTeams">Mano komandos</string>
   <string name="noTeamFound">Nerasta jokia komanda</string>
@@ -22,7 +23,6 @@
     <item quantity="many">Komandos vadovo</item>
     <item quantity="other">Komandos vadovų</item>
   </plurals>
-  <string name="teamBestPlayers">Geriausi žaidėjai</string>
   <string name="teamRecentMembers">Naujausi nariai</string>
   <string name="kickSomeone">Išmesti ką nors iš komandos</string>
   <string name="whoToKick">Ką norite išmesti iš komandos?</string>
@@ -34,6 +34,7 @@
   </plurals>
   <string name="willBeReviewed">Komandos vadovas peržiūrės jūsų stojimo prašymą.</string>
   <string name="beingReviewed">Komandos vadovas peržiūri jūsų stojimo prašymą.</string>
+  <string name="requestDeclined">Komandos lyderis atsisakė jūsų prisijungimo užklausos.</string>
   <string name="subToTeamMessages">Prenumeruoti komandos žinutes</string>
   <string name="teamBattle">Komandų turnyras</string>
   <string name="teamBattleOverview">Kelių komandų kova, kiekvienas žaidėjas renka taškus savo komandai</string>
@@ -57,4 +58,5 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="teamAlreadyExists">Ši komanda jau egzistuoja.</string>
   <string name="upcomingTourns">Artėjantys turnyrai</string>
   <string name="completedTourns">Baigti turnyrai</string>
+  <string name="declinedRequests">Atsisakytos užklausos</string>
 </resources>

@@ -6,6 +6,7 @@
     <item quantity="other">멤버 %s명</item>
   </plurals>
   <string name="allTeams">모든 팀</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">당신이 이끄는 팀</string>
   <string name="newTeam">팀 만들기</string>
   <string name="myTeams">소속된 팀</string>
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
@@ -16,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
   </plurals>
-  <string name="teamBestPlayers">팀 내 최고 플레이어</string>
   <string name="teamRecentMembers">최근 가입 멤버</string>
   <string name="kickSomeone">클럽에서 누군가 제거</string>
   <string name="whoToKick">클럽에서 누구를 제외하고 싶습니까?</string>
@@ -25,6 +25,7 @@
   </plurals>
   <string name="willBeReviewed">팀 운영자가 가입 요청을 검토할 것입니다.</string>
   <string name="beingReviewed">팀 운영자가 가입 요청을 검토하고 있습니다.</string>
+  <string name="requestDeclined">당신의 가입 요청이 팀 리더에 의해 거절되었습니다.</string>
   <string name="subToTeamMessages">팀 메시지 구독하기</string>
   <string name="teamBattle">팀 배틀</string>
   <string name="teamBattleOverview">각각의 플레이어가 팀의 점수를 올리는 여러 팀간의 대결</string>
@@ -42,8 +43,9 @@
   <string name="closeTeamDescription">영구히 팀 폐쇄</string>
   <string name="entryCode">팀 가입 코드</string>
   <string name="entryCodeDescriptionForLeader">(선택) 새 멤버가 가입하기 위해서는 코드를 반드시 알아야 합니다.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">코드가 잘못되었습니다.</string>
+  <string name="incorrectEntryCode">코드가 잘못되었습니다.</string>
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTourns">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
+  <string name="declinedRequests">거절된 요청</string>
 </resources>

@@ -76,11 +76,6 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
     )
 
-  def filterEnabled(teamIds: List[Team.ID]): Fu[List[Team.ID]] =
-    coll.distinctEasy[Team.ID, Set]("_id", $inIds(teamIds) ++ $doc("enabled" -> false)) map { disabledIds =>
-      teamIds.filterNot(disabledIds.contains)
-    }
-
   def incMembers(teamId: Team.ID, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
@@ -108,13 +103,25 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match($doc("leaders" -> userId)) -> List(
+          Group(BSONNull)("ids" -> PushField("_id")),
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
-                "from"         -> requestColl.name,
-                "localField"   -> "_id",
-                "foreignField" -> "team",
-                "as"           -> "requests"
+                "from" -> requestColl.name,
+                "as"   -> "requests",
+                "let"  -> $doc("teams" -> "$ids"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$in" -> $arr("$team", "$$teams")),
+                          $doc("$ne" -> $arr("$declined", true))
+                        )
+                      )
+                    )
+                  )
+                )
               )
             )
           ),

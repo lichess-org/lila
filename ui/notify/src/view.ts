@@ -17,17 +17,21 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   const nodes: VNode[] = [];
 
-  if (pager.previousPage)
+  nodes.push(
+    h(`div.pager.prev${pager.previousPage ? '' : '.disabled'}`, {
+      attrs: { 'data-icon': '' },
+      hook: clickHook(ctrl.previousPage),
+    })
+  );
+
+  if (nb > 0)
     nodes.push(
-      h('div.pager.prev', {
-        attrs: { 'data-icon': '' },
-        hook: clickHook(ctrl.previousPage),
-      })
-    );
-  else if (pager.nextPage)
-    nodes.push(
-      h('div.pager.prev.disabled', {
-        attrs: { 'data-icon': '' },
+      h('button.delete.button.button-empty', {
+        attrs: {
+          'data-icon': '',
+          title: 'Clear',
+        },
+        hook: clickHook(ctrl.clear),
       })
     );
 

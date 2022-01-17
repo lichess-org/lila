@@ -52,4 +52,10 @@
   <string name="skipExplanation">Skip this move to preserve your combo! Only works once per race.</string>
   <string name="failedPuzzles">Failed puzzles</string>
   <string name="slowPuzzles">Slow puzzles</string>
+  <string name="thisWeek">This week</string>
+  <string name="thisMonth">This month</string>
+  <string name="allTime">All-time</string>
+  <string name="clickToReload">Click to reload</string>
+  <string name="thisRunHasExpired">This run has expired!</string>
+  <string name="thisRunWasOpenedInAnotherTab">This run was opened in another tab!</string>
 </resources>

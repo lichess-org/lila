@@ -13,10 +13,10 @@ case class Crosstable(
 
   def nonEmpty = results.nonEmpty option this
 
-  def nbGames                 = users.nbGames
-  def showScore               = users.showScore _
-  def showOpponentScore       = users.showOpponentScore _
-  def fromPov(userId: String) = copy(users = users fromPov userId)
+  def nbGames                            = users.nbGames
+  def showScore                          = users.showScore _
+  def showOpponentScore                  = users.showOpponentScore _
+  def fromPov(userId: lila.user.User.ID) = copy(users = users fromPov userId)
 
   lazy val size = results.size
 
@@ -33,19 +33,19 @@ object Crosstable {
       Nil
     )
 
-  case class User(id: String, score: Int) // score is x10
+  case class User(id: lila.user.User.ID, score: Int) // score is x10
   case class Users(user1: User, user2: User) {
 
     val nbGames = (user1.score + user2.score) / 10
 
-    def user(id: String): Option[User] =
+    def user(id: lila.user.User.ID): Option[User] =
       if (id == user1.id) Some(user1)
       else if (id == user2.id) Some(user2)
       else None
 
     def toList = List(user1, user2)
 
-    def showScore(userId: String) = {
+    def showScore(userId: lila.user.User.ID) = {
       val byTen = user(userId) ?? (_.score)
       s"${byTen / 10}${(byTen % 10 != 0).??("½")}" match {
         case "0½" => "½"
@@ -53,12 +53,12 @@ object Crosstable {
       }
     }
 
-    def showOpponentScore(userId: String) =
+    def showOpponentScore(userId: lila.user.User.ID) =
       if (userId == user1.id) showScore(user2.id).some
       else if (userId == user2.id) showScore(user1.id).some
       else none
 
-    def fromPov(userId: String) =
+    def fromPov(userId: lila.user.User.ID) =
       if (userId == user2.id) copy(user1 = user2, user2 = user1)
       else this
 
@@ -68,22 +68,23 @@ object Crosstable {
       else None
   }
 
-  case class Result(gameId: Game.ID, winnerId: Option[String])
+  case class Result(gameId: Game.ID, winnerId: Option[lila.user.User.ID])
 
   case class Matchup(users: Users) { // score is x10
-    def fromPov(userId: String) = copy(users = users fromPov userId)
-    def nonEmpty                = users.nbGames > 0
+    def fromPov(userId: lila.user.User.ID) = copy(users = users fromPov userId)
+    def nonEmpty                           = users.nbGames > 0
   }
 
   case class WithMatchup(crosstable: Crosstable, matchup: Option[Matchup]) {
-    def fromPov(userId: String) =
+    def fromPov(userId: lila.user.User.ID) =
       copy(
         crosstable fromPov userId,
         matchup map (_ fromPov userId)
       )
   }
 
-  private[game] def makeKey(u1: String, u2: String): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
+  private[game] def makeKey(u1: lila.user.User.ID, u2: lila.user.User.ID): String =
+    if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
 
   import reactivemongo.api.bson._
   import lila.db.BSON

@@ -3,8 +3,8 @@
   <string name="activity">Aktywność</string>
   <string name="hostedALiveStream">Udostępnił stream na żywo</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Wsparcie lichess.org przez miesiąc jako %2$s</item>
-    <item quantity="few">Wsparcie lichess.org przez %1$s miesiące jako %2$s</item>
+    <item quantity="one">Wspomógł lichess.org przez miesiąc jako %2$s</item>
+    <item quantity="few">Wspiera Lichess przez %1$s miesiące jako %2$s</item>
     <item quantity="many">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
     <item quantity="other">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
   </plurals>

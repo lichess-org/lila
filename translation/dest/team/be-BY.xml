@@ -9,6 +9,7 @@
     <item quantity="other">%s удзельнікаў</item>
   </plurals>
   <string name="allTeams">Усе каманды</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Каманды пад вашым лідарствам</string>
   <string name="newTeam">Новая каманда</string>
   <string name="myTeams">Мае каманды</string>
   <string name="noTeamFound">Каманда не знойдзена</string>
@@ -22,7 +23,6 @@
     <item quantity="many">Лідары каманды</item>
     <item quantity="other">Лідары каманды</item>
   </plurals>
-  <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
   <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
   <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>
@@ -34,6 +34,7 @@
   </plurals>
   <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
   <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
+  <string name="requestDeclined">Ваш запыт на далучэнне быў адхілены лідэрам каманды.</string>
   <string name="subToTeamMessages">Падпісацца на камандныя паведамленні</string>
   <string name="teamBattle">Камандная бітва</string>
   <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае балы для сваёй каманды</string>
@@ -53,8 +54,9 @@
   <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>
   <string name="entryCode">Код далучэння да каманды</string>
   <string name="entryCodeDescriptionForLeader">(Неабавязкова) Код далучэння, якія новыя ўдзельнікі павінны ведаць, каб далучыцца да каманды.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Няправільны код далучэння.</string>
+  <string name="incorrectEntryCode">Няправільны код далучэння.</string>
   <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
   <string name="upcomingTourns">Надыходзячыя турніры</string>
   <string name="completedTourns">Завершаныя турніры</string>
+  <string name="declinedRequests">Адхіленыя запыты</string>
 </resources>

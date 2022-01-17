@@ -57,7 +57,6 @@
     <item quantity="few">%s позива на чекању</item>
     <item quantity="other">%s позива на чекању</item>
   </plurals>
-  <string name="noPendingInvitations">Без позива на чекању</string>
   <string name="onlyVisibleToTeachers">Видљиво само за учитеље</string>
   <string name="lastActiveDate">Активан</string>
   <string name="managed">Под туђом управом</string>

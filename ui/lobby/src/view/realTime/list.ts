@@ -33,7 +33,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
             hook.u
           )
         : noarg('anonymous'),
-      (hook.rating ? hook.rating : '') + (hook.prov ? '?' : ''),
+      hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
       h(
         'span',

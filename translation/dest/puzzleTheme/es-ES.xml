@@ -41,7 +41,7 @@
   <string name="discoveredAttack">Ataque a la descubierta</string>
   <string name="discoveredAttackDescription">Mover una pieza que bloqueaba el ataque de otra pieza de largo alcance, como por ejemplo, quitar un caballo del camino de una torre.</string>
   <string name="doubleCheck">Jaque doble</string>
-  <string name="doubleCheckDescription">Jaque con dos piezas a la vez, como resultado de un ataque descubierto donde tanto la pieza en movimiento como la desvelada atacan al rey del oponente.</string>
+  <string name="doubleCheckDescription">Dar jaque con dos piezas a la vez, como consecuencia de una ataque a la descubierta, donde tanto la pieza movida como la revelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una táctica durante la última fase de la partida.</string>
   <string name="enPassantDescription">Una táctica que involucra la captura al paso, donde un peón puede capturar a un peón oponente que lo ha pasado por alto usando su movimiento inicial de dos casillas.</string>
@@ -50,7 +50,7 @@
   <string name="fork">Ataque doble</string>
   <string name="forkDescription">Movimiento donde la pieza movida ataca a la vez a dos piezas del oponente.</string>
   <string name="hangingPiece">Pieza colgada</string>
-  <string name="hangingPieceDescription">Una táctica que implica que una pieza del oponente no sea defendida o suficientemente defendida y quede libre para ser capturada.</string>
+  <string name="hangingPieceDescription">Una táctica que implica que una pieza del adversario no esté defendida o insuficientemente defendida y quede para ser capturada.</string>
   <string name="hookMate">Mate del gancho</string>
   <string name="hookMateDescription">Jaque mate con una torre, un caballo y un peón junto con un peón enemigo para limitar el escape del rey adversario.</string>
   <string name="interference">Interferencia</string>
@@ -88,7 +88,7 @@
   <string name="pin">Clavada</string>
   <string name="pinDescription">Una táctica donde una pieza no puede moverse sin revelar un ataque a una pieza de mayor valor.</string>
   <string name="promotion">Promoción</string>
-  <string name="promotionDescription">Un peón que se promociona o amenaza con promocionarse es clave para la táctica.</string>
+  <string name="promotionDescription">Promover uno de sus peones a una dama o una pieza menor.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final solo con damas y peones.</string>
   <string name="queenRookEndgame">Final de dama y torre</string>
@@ -96,17 +96,17 @@
   <string name="queensideAttack">Ataque en el flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque al rey del oponente, luego de haber realizado el enroque largo.</string>
   <string name="quietMove">Jugada tranquila</string>
-  <string name="quietMoveDescription">Un movimiento que no hace uno jaque o una captura, pero sí que prepara una amenaza inevitable para un movimiento posterior.</string>
+  <string name="quietMoveDescription">Un movimiento que no da jaque o captura pieza, ni amenza inmediatamente capturar una pieza, pero que prepara una amenaza inevitable más oculta para una jugada posterior.</string>
   <string name="rookEndgame">Final de torres</string>
   <string name="rookEndgameDescription">Un final solo con torres y peones.</string>
   <string name="sacrifice">Sacrificio</string>
-  <string name="sacrificeDescription">Una táctica que implica renunciar a material a corto plazo, para obtener una ventaja luego de una secuencia forzada de movimientos.</string>
+  <string name="sacrificeDescription">Una táctica que implica ceder material a corto plazo, para obtener una ventaja luego de una secuencia forzada de movimientos.</string>
   <string name="short">Ejercicio corto</string>
   <string name="shortDescription">Dos movimientos para ganar.</string>
   <string name="skewer">Pincho</string>
   <string name="skewerDescription">Un motivo que implica el ataque de una pieza de alto valor, que se aparta del camino y permite capturar o atacar una pieza de menor valor detrás de ella, lo contrario de una clavada.</string>
   <string name="smotheredMate">Mate de la coz</string>
-  <string name="smotheredMateDescription">Un jaque mate en el que el caballo ataca al rey contrario, el cual no puede moverse al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
+  <string name="smotheredMateDescription">Un jaque mate con caballo, en el cual el rey enemigo no se puede mover al encontrarse rodeado (o ahogado) por sus propias piezas.</string>
   <string name="superGM">Partidas de súper grandes maestros</string>
   <string name="superGMDescription">Ejercicios de partidas de los mejores jugadores del mundo.</string>
   <string name="trappedPiece">Pieza atrapada</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">Mezcla equilibrada</string>
   <string name="healthyMixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
   <string name="playerGames">Partidas de jugadores</string>
-  <string name="playerGamesDescription">Ejercicios generados a partir de tus partidas o de las partidas de otros jugadores.</string>
+  <string name="playerGamesDescription">Busca ejercicios generados a partir de tus partidas o de las de otros jugadores.</string>
   <string name="puzzleDownloadInformation">Estos ejercicios son de dominio público y pueden descargarse desde %s.</string>
 </resources>

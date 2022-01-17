@@ -11,13 +11,14 @@
   <string name="level">레벨</string>
   <string name="strength">강도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
-  <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
   <string name="checkmate">체크메이트</string>
   <string name="stalemate">스테일메이트</string>
   <string name="white">백색</string>
   <string name="black">흑색</string>
+  <string name="asWhite">백일때</string>
+  <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
   <string name="createAGame">새 게임 만들기</string>
   <string name="whiteIsVictorious">백색 승리</string>
@@ -39,7 +40,6 @@
     <item quantity="other">당신의 상대가 게임을 나갔습니다. %s 초 후에 승리를 주장할 수 있습니다.</item>
   </plurals>
   <string name="opponentLeftChoices">당신의 상대가 게임을 나갔습니다. 상대를 기다리거나 승리 또는 무승부 처리할 수 있습니다.</string>
-  <string name="makeYourOpponentResign">상대를 몰수패 처리합니다</string>
   <string name="forceResignation">승리 처리</string>
   <string name="forceDraw">무승부 처리</string>
   <string name="talkInChat">건전한 채팅을 해주세요!</string>
@@ -48,9 +48,8 @@
   <string name="blackResigned">흑색 기권</string>
   <string name="whiteLeftTheGame">백색이 게임을 나갔습니다</string>
   <string name="blackLeftTheGame">흑색이 게임을 나갔습니다</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">이 URL을 공유해서 관전할 수 있게 하세요.</string>
-  <string name="theComputerAnalysisHasFailed">컴퓨터 분석에 실패하였습니다</string>
-  <string name="viewTheComputerAnalysis">컴퓨터 분석 보기</string>
+  <string name="whiteDidntMove">백이 두지 않음</string>
+  <string name="blackDidntMove">흑이 두지 않음</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
@@ -87,9 +86,6 @@
   <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">다음 기물을 잡거나 폰을 움직일 때까지 %s 수 남음 (50수 룰 카운트 갱신까지)</item>
   </plurals>
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
@@ -188,9 +184,9 @@
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="rank">순위</string>
-  <string name="rankX">랭킹: %s</string>
+  <string name="rankX">순위: %s등</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="other">매 %s분 순위가 새로고침됩니다.</item>
+    <item quantity="other">순위는 매 %s분마다 갱신됩니다.</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
@@ -203,7 +199,6 @@
   <string name="whiteTimeOut">백색 시간 초과</string>
   <string name="blackTimeOut">흑색 시간 초과</string>
   <string name="drawOfferSent">무승부를 요청했습니다</string>
-  <string name="drawOfferDeclined">무승부 요청이 거절 되었습니다</string>
   <string name="drawOfferAccepted">무승부 요청이 승낙 됐습니다</string>
   <string name="drawOfferCanceled">무승부 요청을 취소했습니다</string>
   <string name="whiteOffersDraw">흰색이 무승부를 제안했습니다</string>
@@ -229,8 +224,6 @@
   <string name="thisGameIsRated">이 게임은 레이팅 게임입니다</string>
   <string name="rematch">재대결</string>
   <string name="rematchOfferSent">재대결 요청을 보냈습니다</string>
-  <string name="rematchOfferSentWhite">흰색이 재대결을 신청했습니다</string>
-  <string name="rematchOfferSentBlack">검은색이 재대결을 신청했습니다</string>
   <string name="rematchOfferAccepted">재대결 요청이 승낙됐습니다</string>
   <string name="rematchOfferCanceled">재대결 요청이 취소됐습니다</string>
   <string name="rematchOfferDeclined">재대결 요청이 거절됐습니다</string>
@@ -244,9 +237,7 @@
   <string name="youHaveBeenTimedOut">채팅에서 로그아웃 되었습니다.</string>
   <string name="spectatorRoom">관전자 채팅</string>
   <string name="composeMessage">메시지 작성</string>
-  <string name="noNewMessages">새 메시지 없음</string>
   <string name="subject">제목</string>
-  <string name="recipient">수신자</string>
   <string name="send">전송</string>
   <string name="incrementInSeconds">턴 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
@@ -326,6 +317,7 @@
   <string name="leaderboard">리더보드</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
+  <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>
@@ -345,12 +337,12 @@
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s명의 친구들이 접속중</item>
   </plurals>
-  <string name="noFriendsOnline">접속 중인 친구가 없습니다</string>
-  <string name="findFriends">친구 찾기</string>
   <string name="favoriteOpponents">관심있는 상대</string>
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>
   <string name="unfollow">팔로우 취소</string>
+  <string name="followX">%s 팔로우하기</string>
+  <string name="unfollowX">%s 팔로우 취소하기</string>
   <string name="block">차단</string>
   <string name="blocked">차단됨</string>
   <string name="unblock">차단 해제</string>
@@ -392,7 +384,6 @@
   <string name="points">포인트</string>
   <string name="wins">승리</string>
   <string name="losses">패배</string>
-  <string name="winStreak">연속 승리</string>
   <string name="createdBy">토너먼트 주최자:</string>
   <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 종료되었습니다.</string>
@@ -400,7 +391,7 @@
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="berserkRate">버서크율</string>
-  <string name="performance">승점</string>
+  <string name="performance">레이팅 점수</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">하얀 말로 우승</string>
@@ -408,7 +399,6 @@
   <string name="draws">무승부</string>
   <string name="nextXTournament">다음 %s 대회:</string>
   <string name="averageOpponent">상대의 평균 승점</string>
-  <string name="membersOnly">회원 전용</string>
   <string name="boardEditor">보드 편집기</string>
   <string name="setTheBoard">보드 세팅하기</string>
   <string name="popularOpenings">인기 있는 오프닝</string>
@@ -416,7 +406,6 @@
   <string name="chess960StartPosition">체스960 시작 포지션: %s</string>
   <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
-  <string name="savePosition">포지션 저장</string>
   <string name="loadPosition">포지션 불러오기</string>
   <string name="isPrivate">비공개</string>
   <string name="reportXToModerators">%s 신고</string>
@@ -433,10 +422,8 @@
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
-  <string name="watchLichessTV">Lichess TV 보기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
-  <string name="activeToday">오늘의 활동적인 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
   <string name="bewareTheGameIsRatedButHasNoClock">조심하세요, 레이팅 게임이며 시간 제한이 없습니다!</string>
   <string name="success">성공!</string>
@@ -446,7 +433,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">수를 둔 다음에 자동으로 다음 게임에 이동</string>
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
-  <string name="latestUpdates">최근 업데이트</string>
   <string name="tournamentWinners">토너먼트 우승자</string>
   <string name="name">이름</string>
   <string name="description">설명</string>
@@ -478,9 +464,7 @@
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
-  <string name="theming">꾸미기</string>
   <string name="blog">블로그</string>
-  <string name="questionsAndAnswers">질문 &amp; 답변</string>
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
@@ -509,13 +493,7 @@
   <string name="onSlowGames">느린 게임에서만</string>
   <string name="always">항상</string>
   <string name="never">안 함</string>
-  <string name="difficultyEasy">쉬움</string>
-  <string name="difficultyNormal">보통</string>
-  <string name="difficultyHard">어려움</string>
   <string name="xCompetesInY">%1$s가 %2$s에 참가했습니다.</string>
-  <string name="xAskedY">%1$s가 질문을 남겼습니다: %2$s</string>
-  <string name="xAnsweredY">%1$s가 답변을 남겼습니다: %2$s</string>
-  <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
   <string name="victory">승리</string>
   <string name="defeat">패배</string>
   <string name="victoryVsYInZ">%1$s: %2$s / %3$s</string>
@@ -524,7 +502,6 @@
   <string name="timeline">타임라인</string>
   <string name="starting">시작합니다:</string>
   <string name="allInformationIsPublicAndOptional">모든 정보는 공개되며 선택 사항입니다.</string>
-  <string name="yourCityRegionOrDepartment">시도급 또는 시군구급.</string>
   <string name="biographyDescription">자신을 알려주세요. 왜 체스를 좋아하는지, 좋아하는 오프닝, 게임, 선수 등등...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">최대 %s자.</item>
@@ -537,13 +514,6 @@
   <string name="computer">인공지능</string>
   <string name="side">진영</string>
   <string name="clock">시계</string>
-  <string name="unauthorizedError">접속이 불허되었습니다.</string>
-  <string name="noInternetConnection">인터넷 연결이 없습니다. 메뉴을 통해 오프라인 게임은 할 수 있습니다.</string>
-  <string name="connectedToLichess">lichess.org에 접속했습니다</string>
-  <string name="signedOut">로그아웃 되었습니다.</string>
-  <string name="loginSuccessful">로그인 성공</string>
-  <string name="playOnTheBoardOffline">오프라인, 로컬 게임</string>
-  <string name="playOfflineComputer">오프라인 컴퓨터와 대국하기</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
   <string name="studyMenu">연구</string>
@@ -551,16 +521,12 @@
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
-  <string name="sharePGN">PGN 공유</string>
-  <string name="playOnline">온라인 플레이</string>
-  <string name="playOffline">오프라인 플레이</string>
-  <string name="allowAnalytics">익명 통계 허용</string>
-  <string name="shareGameURL">게임 URL 공유</string>
   <string name="error.required">필수 기입 사항입니다.</string>
-  <string name="error.email">이메일 주소가 유효하지 않습니다.</string>
-  <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다.</string>
-  <string name="error.email_unique">이미 사용 중인 이메일 주소입니다.</string>
-  <string name="error.email_different">이미 등록된 이메일 주소입니다.</string>
+  <string name="error.email">이메일 주소가 유효하지 않습니다</string>
+  <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다. 다시 확인후 시도해주세요.</string>
+  <string name="error.email_unique">이메일 주소가 유효하지 않거나 이미 등록되었습니다</string>
+  <string name="error.minLength">최소 %s자여야 합니다.</string>
+  <string name="error.maxLength">최대 %s자여야 합니다</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
   <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
@@ -607,7 +573,6 @@
   <string name="simulHostExtraTime">호스트 연장 시간</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
-  <string name="tournamentOfficial">공식</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
   <string name="averageCentipawnLoss">평균 CP(centipawn) 손실</string>
   <string name="keyboardShortcuts">키보드 단축키</string>
@@ -644,7 +609,6 @@
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
   <string name="downloadRaw">기보 다운로드</string>
   <string name="downloadImported">불러온 기보 다운로드</string>
-  <string name="printFriendlyPDF">인쇄에 용이한 PDF 포맷으로 다운로드</string>
   <string name="crosstable">점수판</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 돌림으로써 수를 진행할 수 있습니다.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">컴퓨터 변화수를 미리보기 위해서는 커서를 올리세요.</string>
@@ -655,7 +619,6 @@
   <string name="withNobody">나만 보기</string>
   <string name="withFriends">친구들만</string>
   <string name="withEverybody">공개</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">이 계정은 이미 해당 주소로 연결 되어 있습니다: %s</string>
   <string name="kidMode">어린이 모드</string>
   <string name="kidModeExplanation">안전을 위해 그런것입니다. 아이 모드에서는 모든 통신이 비활성화됩니다. 당신의 아이들이나 학생들을 다른 인터넷 사용자들에서 보호하게 이 모드를 키십시오.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서는 lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
@@ -683,7 +646,6 @@
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
   <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
   <string name="xLikesY">%1$s(이)가 %2$s를 좋아합니다.</string>
-  <string name="xCreatesStudyY">%1$s 님이 연구 %2$s (을) 를 만들었습니다.</string>
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
@@ -704,17 +666,11 @@
   <string name="usernameSuffixInvalid">유저 이름의 끝 글자는 알파벳이나 숫자여야 합니다.</string>
   <string name="usernameCharsInvalid">유저 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
-  <string name="directlySupportLichess">Lichess 후원하기</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
   <string name="chessBasics">체스 기본</string>
   <string name="coaches">코치</string>
   <string name="invalidPgn">잘못된 PGN입니다.</string>
   <string name="invalidFen">잘못된 FEN입니다.</string>
-  <string name="error.minLength">최소 길이는 %s입니다.</string>
-  <string name="error.maxLength">최대 길이는 %s입니다.</string>
-  <string name="error.min">크기가 최소 %s이여야합니다.</string>
-  <string name="error.max">크기가 최대 %s이여야합니다.</string>
-  <string name="error.unknown">오류</string>
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
   <string name="perfRatingX">레이팅: %s</string>
@@ -884,4 +840,8 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="abortTheGame">게임 중단</string>
   <string name="resignTheGame">게임 기권</string>
   <string name="youCantStartNewGame">이 게임이 끝나기 전까지 새 게임을 시작할 수 없습니다.</string>
+  <string name="since">부터</string>
+  <string name="until">까지</string>
+  <string name="lichessDbExplanation">모든 리체스 플레이어의 레이팅 게임 샘플</string>
+  <string name="switchSides">색 바꾸기</string>
 </resources>

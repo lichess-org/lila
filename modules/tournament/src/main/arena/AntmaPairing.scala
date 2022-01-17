@@ -49,7 +49,7 @@ private object AntmaPairing {
             Nil
           },
           _ map { case (a, b) =>
-            Pairing.prepWithColor(tour, a, b)
+            Pairing.prepWithColor(a, b)
           }
         )
       }

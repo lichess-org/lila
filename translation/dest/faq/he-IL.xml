@@ -21,13 +21,13 @@
   <string name="ratingRefundExplanation">דקה לאחר סימון שחקן, 40 המשחקים האחרונים שדורגו ב -3 הימים האחרונים נלקחים. אם אתה היריב שלהם במשחקים ההם, איבדת דירוג (בגלל הפסד או תיקו), והדירוג שלך לא היה זמני, תקבל החזר דירוג. ההחזר מושבת על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
    (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל החזר או רק החזר חלקי.) ההחזר לעולם לא יעלה על 150 נקודות.</string>
   <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
-  <string name="leavingGameWithoutResigningExplanation">אם יריבך מבטל/עוזב משחקים לעתים קרובות, הוא \"יושעה ממשחקים\", מה שאומר שנאסר עליו באופן זמני לשחק. זה לא מצוין באופן ציבורי בפרופיל שלהם. אם התנהגות זו ממשיכה, אורך ההשעיה עולה - והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלהם.</string>
-  <string name="howCanIBecomeModerator">איך אני יכול להיות עורך?</string>
+  <string name="leavingGameWithoutResigningExplanation">אם יריבך מבטל/עוזב משחקים לעתים קרובות, הוא \"יושעה ממשחקים\", מה שאומר שנאסר עליו באופן זמני לשחק. זה לא מצוין באופן פומבי בפרופיל שלהם. אם התנהגות זו ממשיכה, אורך ההשעיה עולה - והתנהגות ממושכת מסוג זה עלולה להוביל לסגירת החשבון שלהם.</string>
+  <string name="howCanIBecomeModerator">איך אני יכול/ה להיות מנהל?</string>
   <string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים לשחמט התכתבויות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע בהתכתבויות, ליצ\'ס לא.</string>
   <string name="gameplay">משחק</string>
-  <string name="howBulletBlitzEtcDecided">איך בולט, בליץ, וזמני משחק אחרים מוחלטים?</string>
+  <string name="howBulletBlitzEtcDecided">איך קליע, בזק וזמני משחק אחרים מוחלטים?</string>
   <string name="basedOnGameDuration">בקרות זמן ליצ\'ס מבוססות על משך המשחק המשוער =%1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
   <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת שעון)</string>
@@ -59,25 +59,38 @@
 
 ראה את ה%3$s במהלך זה בשביל קצת אימון.</string>
   <string name="goodIntroduction">הקדמה טובה</string>
-  <string name="officialRulesPDF">חוקים רשמיים (PDF)</string>
   <string name="lichessTraining">אימון בליצ\'ס</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
   <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
   <string name="notRepeatedMoves">לא חזרנו על מהלכים, מדוע המשחק הסתיים בתיקו ע\"י חזרתיות?</string>
+  <string name="repeatedPositionsThatMatters">חזרה משולש מתיחסת ל%1$s, לא תורות. החזרות אינן חייבות להתקיים ברצף.</string>
   <string name="positions">עמדות</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="threeFoldHasToBeClaimed">חוק שלושה מסעים חוזרים חייב להידרש על ידי אחד השחקנים. ניתן לעשות זאת דרך לחיצה על הכפתור המוצג, או בהצעת תיקו לפני ביצוע המהלך הסופי שלך אשר יחזור על העמדה בפעם השלישית. זה לא ישנה אם יריבך יסרב להצעת התיקו, תיקו שלושת-המסעים יידרש בכל מקרה. ניתן גם %1$s את ליצ\'ס באופן שתיקו שלושת-המסעים יידרש באופן אוטומטי בשבילך. בנוסף, חמישה מסעים חוזרים מסיימים מיידית את המשחק.</string>
   <string name="accounts">חשבונות</string>
   <string name="titlesAvailableOnLichess">איזה תארים יש בLichess?</string>
+  <string name="showYourTitle">אם יש לך תואר OTB, תוכל להגיש בקשה להצגה בחשבונך על ידי מילוי ה-%1$s, כולל תמונה ברורה של מסמך/כרטיס מזהה וצילום סלפי שלך אוחז במסמך/כרטיס.
+
+אימות כשחקן בעל התואר בליצ\'ס נותן גישה לשחק בטורנירי זירה לשחקנים מוכתרים.
+
+לבסוף יש תואר כבוד %2$s.</string>
   <string name="verificationForm">טופס אימות</string>
   <string name="noUpperCaseDot">לא.</string>
+  <string name="guidelines">הנחיות</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
+  <string name="uniqueTrophies">גביעים ייחודיים</string>
+  <string name="wayOfBerserkExplanation">כדי להשיג זאת, הימגוסו אתגר את עצמו להיכנס ל\'אטרף\' ולנצח בכל המשחקים של %s.</string>
+  <string name="aHourlyBulletTournament">טורניר קליע באורך שעה</string>
+  <string name="goldenZeeExplanation">ZugAddict שידר במשך שעתיים וניסה ללא הצלחה להביס מחשב ברמה 8 במשחק 1+0. Thibault אמר שבמידה ויצליח זאת בזמן המשדר, הוא יקבל גביע ייחודי. לאחר שעה, הוא הביס את סטוקפיש, וקוימה ההבטחה.</string>
+  <string name="lichessRatings">דירוגי ליצ\'ס</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
   <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
+  <string name="displayPreferences">הגדרות תצוגה</string>
+  <string name="connexionLostCanIGetMyRatingBack">הפסדתי משחק עקב בעיות תקשרות/ניתוק. האם ניתן לקבל את נקודות הדירוג שלי בחזרה?</string>
   <string name="howToThreeDots">כיצד...</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 

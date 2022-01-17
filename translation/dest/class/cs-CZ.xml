@@ -46,6 +46,7 @@ Heslo: %3$s</string>
   <string name="createDesc2">Není vyžadována žádná e-mailová adresa. Bude vygenerováno heslo a budete ho muset předat studentovi, aby se mohl přihlásit.</string>
   <string name="createDesc3">Důležité: student nesmí mít více účtů.</string>
   <string name="createDesc4">Pokud již nějaký má, použijte místo toho formulář pro pozvánky.</string>
+  <string name="createStudentWarning">Vytvořte účty pouze pro skutečné studenty. Nepoužívejte je k vytváření více účtů pro sebe, jinak budete zablokováni.</string>
   <string name="lichessUsername">Lichess uživatelské jméno</string>
   <string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
   <string name="welcomeToClass">Vítejte ve vaší třídě: %s.
@@ -58,7 +59,6 @@ Zde je odkaz pro přístup ke třídě.</string>
     <item quantity="many">%s čekajících pozvánek</item>
     <item quantity="other">%s čekajících pozvánek</item>
   </plurals>
-  <string name="noPendingInvitations">Žádné čekající pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditelné pouze pro učitele třídy</string>
   <string name="lastActiveDate">Aktivní</string>
   <string name="managed">Spravovaný</string>
@@ -72,6 +72,7 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="closeStudent">Zrušit účet</string>
   <string name="closeTheAccount">Trvale zrušit účet studenta.</string>
   <string name="closeDesc1">Váš student se k tomuto účtu již nikdy nebude moc přihlásit. Uzavření účtu je konečné, proto se ujistěte, že student ví a souhlasí se zrušením účtu.</string>
+  <string name="closeDesc2">Můžete místo toho předat studentovi vlastnictví účtu, aby ho mohli i nadále používat.</string>
   <string name="teachers">Učitelé</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učitel</item>

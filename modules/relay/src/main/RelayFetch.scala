@@ -3,7 +3,7 @@ package lila.relay
 import akka.actor._
 import chess.format.pgn.Tags
 import com.github.blemale.scaffeine.LoadingCache
-import io.lemonlabs.uri.Url
+import io.mola.galimatias.URL
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
@@ -82,7 +82,7 @@ final private class RelayFetch(
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map { res =>
               res -> rt.round
-                .withSync(_ addLog SyncLog.event(res.moves, none))
+                .withSync(_ addLog SyncLog.event(res.nbMoves, none))
                 .copy(finished = games.forall(_.end.isDefined))
             }
         }
@@ -102,9 +102,10 @@ final private class RelayFetch(
 
   def afterSync(result: SyncResult, rt: RelayRound.WithTour): RelayRound =
     result match {
-      case SyncResult.Ok(0, _) => continueRelay(rt)
-      case SyncResult.Ok(nbMoves, _) =>
-        lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(nbMoves)
+      case result: SyncResult.Ok if result.nbMoves == 0 => continueRelay(rt)
+      case result: SyncResult.Ok =>
+        continueRelay(rt)
+        lila.mon.relay.moves(rt.tour.official, rt.round.slug).increment(result.nbMoves)
         continueRelay(rt.round.ensureStarted.resume withTour rt.tour)
       case _ => continueRelay(rt)
     }
@@ -116,7 +117,7 @@ final private class RelayFetch(
           rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
-            .ifTrue(rt.tour.official && rt.round.hasStarted)
+            .ifTrue(rt.tour.official && rt.round.shouldHaveStarted)
             .filterNot(_ contains "Cannot parse moves")
             .filterNot(_ contains "Found an empty PGN")
             .foreach { irc.broadcastError(rt.round.id.value, rt.fullName, _) }
@@ -216,7 +217,7 @@ final private class RelayFetch(
     } flatMap RelayFetch.multiPgnToGames.apply
   }
 
-  private def httpGet(url: Url): Fu[String] =
+  private def httpGet(url: URL): Fu[String] =
     ws.url(url.toString)
       .withRequestTimeout(4.seconds)
       .get()
@@ -225,7 +226,7 @@ final private class RelayFetch(
         case res                      => fufail(s"[${res.status}] $url")
       }
 
-  private def httpGetJson[A: Reads](url: Url): Fu[A] =
+  private def httpGetJson[A: Reads](url: URL): Fu[A] =
     for {
       str  <- httpGet(url)
       json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)

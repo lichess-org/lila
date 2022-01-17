@@ -102,8 +102,10 @@ object teamBattle {
         table(cls := "slist slist-pad")(
           tbody(
             tr(th("Players"), td(info.nbPlayers)),
-            tr(th(trans.averageElo()), td(info.avgRating)),
-            tr(th("Average performance"), td(info.avgPerf)),
+            ctx.pref.showRatings option frag(
+              tr(th(trans.averageElo()), td(info.avgRating)),
+              tr(th("Average performance"), td(info.avgPerf))
+            ),
             tr(th("Average score"), td(info.avgScore))
           )
         ),
@@ -113,7 +115,7 @@ object teamBattle {
               th(trans.rank()),
               th(trans.player()),
               th(trans.tournamentPoints()),
-              th(trans.performance())
+              ctx.pref.showRatings option th(trans.performance())
             )
           ),
           tbody(
@@ -125,7 +127,7 @@ object teamBattle {
                   userIdLink(player.userId.some)
                 ),
                 td(player.score),
-                td(player.performance)
+                ctx.pref.showRatings option td(player.performance)
               )
             }
           )

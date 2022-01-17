@@ -11,7 +11,6 @@
   <string name="level">ધોરણ</string>
   <string name="strength">શક્તિ</string>
   <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
-  <string name="toggleSound">અવાજ ટૉગલ કરો</string>
   <string name="chat">વાત ચીત</string>
   <string name="resign">રાજીનામું</string>
   <string name="checkmate">ચેકમેટ</string>
@@ -25,6 +24,9 @@
   <string name="youPlayTheWhitePieces">તમે સફેદ ટુકડાઓ સાથે રમસો</string>
   <string name="youPlayTheBlackPieces">તમે કાળા ટુકડાઓ સાથે રમસો</string>
   <string name="itsYourTurn">તમારો વારો!</string>
+  <string name="cheatDetected">આ રમત સમાપ્તિની સ્થિતિ છે, જો રમત ચાલુ હોય ત્યારે કોઈ ખેલાડી છેતરપિંડી કરે છે. રમત તરત જ સમાપ્ત થાય છે.
+
+ અનુવાદ નિષ્ક્રિય અવાજમાં હોવો જોઈએ કારણ કે ખેલાડીઓ અને દર્શકો બંને તેને જુએ છે. કૃપા કરીને શક્ય તેટલું ટૂંકું રાખો.</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ ચેક</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
@@ -39,7 +41,6 @@
     <item quantity="other">તમારી સામેના ખેલાડી એ રમત છોડી દીધી છે તો તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
   </plurals>
   <string name="opponentLeftChoices">અન્ય ખેલાડીએ રમત છોડી દીધી છે. તમે વિજયનો દાવો કરી શકો છો, તમે તેને ડ્રો કહી શકો છો અથવા તમે રાહ જોઇ શકો છો.</string>
-  <string name="makeYourOpponentResign">તમારા વિરોધી ને રાજીનામું અપાવડાવો</string>
   <string name="forceResignation">વિજયનો દાવો કરો</string>
   <string name="forceDraw">ફોર્સ ડ્રો</string>
   <string name="talkInChat">કૃપા કરીને ચેટમાં સભ્યતા રાખવી!</string>
@@ -48,12 +49,12 @@
   <string name="blackResigned">કાળા દ્વારા resign કરવામાં આવ્યું</string>
   <string name="whiteLeftTheGame">સફેદ એ ગેમ છોડી દીધી</string>
   <string name="blackLeftTheGame">કાળા એ ગેમ છોડી દીધી</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">આ url ને શેર કરો દર્શકો ની સાથે</string>
-  <string name="theComputerAnalysisHasFailed">કમ્પ્યુટર વિશ્લેષણ થયું નથી</string>
-  <string name="viewTheComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ જુઓ</string>
+  <string name="whiteDidntMove">સફેદ ચાલ ન ચાલ્યું</string>
+  <string name="blackDidntMove">કાળો ચાલ ન ચાલ્યું</string>
   <string name="requestAComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ કરો</string>
   <string name="computerAnalysis">કમ્પ્યુટર વિશ્લેષણ</string>
   <string name="computerAnalysisAvailable">કમ્પ્યુટર વિશ્લેષણ હાજર છે</string>
+  <string name="computerAnalysisDisabled">કમ્પ્યુટર વિશ્લેષણ બંધ છે</string>
   <string name="analysis">વિષ્લેષણ</string>
   <string name="depthX">ઊંડાઈ %s</string>
   <string name="usingServerAnalysis">સર્વર નું વિશ્લેષણ વપરાય છે</string>
@@ -88,12 +89,17 @@
     <item quantity="one">મેટ %s ચાલ માં</item>
     <item quantity="other">મેટ %s ચાલ માં</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' રાઉન્ડિંગ સાથે, આગામી કેપ્ચર અથવા પ્યાદાની ચાલ સુધી અર્ધ-ચાલની સંખ્યાના આધારે</string>
   <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
   <string name="openingExplorer">રમત પ્રારંભ સંશોધક</string>
+  <string name="openingEndgameExplorer">ઓપનિંગ/એન્ડગેમ એક્સપ્લોરર</string>
   <string name="xOpeningExplorer">%s રમત પ્રારંભ સંશોધક</string>
   <string name="winPreventedBy50MoveRule">જીતને 50-ચાલના નિયમ દ્વારા અટકાવવામાં આવી છે</string>
   <string name="lossSavedBy50MoveRule">50-ચાલના નિયમ દ્વારા હાર અટકાવવામાં આવી છે</string>
+  <string name="winOr50MovesByPriorMistake">અગાઉની ભૂલથી જીત અથવા 50 ચાલ</string>
+  <string name="lossOr50MovesByPriorMistake">અગાઉની ભૂલથી નુકશાન અથવા 50 ચાલ</string>
+  <string name="unknownDueToRounding">Syzygy ટેબલબેસેસમાં DTZ મૂલ્યોના સંભવિત રાઉન્ડિંગને કારણે, છેલ્લી કેપ્ચર અથવા પ્યાદાની ચાલથી ભલામણ કરેલ ટેબલબેઝ લાઇનને અનુસરવામાં આવે તો જ જીત/હારની ખાતરી આપવામાં આવે છે.</string>
   <string name="allSet">બધું સેટ છે!</string>
   <string name="importPgn">PGN આયાત કરો</string>
   <string name="delete">કાઢી નાખો</string>
@@ -127,6 +133,8 @@
   <string name="claimADraw">ડ્રો માગણું</string>
   <string name="offerDraw">ડ્રો પ્રસ્તાવો</string>
   <string name="draw">ડ્રો</string>
+  <string name="drawByMutualAgreement">પરસ્પર કરાર દ્વારા દોરો</string>
+  <string name="fiftyMovesWithoutProgress">પ્રગતિ વિના પચાસ ચાલ</string>
   <string name="currentGames">વર્તમાન રમતો</string>
   <plurals name="nbGames">
     <item quantity="one">%s રમત</item>
@@ -187,6 +195,7 @@
   <string name="cancel">રદ કરો</string>
   <string name="whiteTimeOut">સફેદની સમય મર્યાદા પૂરી</string>
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
+  <string name="drawOfferSent">ડ્રો ઓફર મોકલી</string>
   <string name="accept">સ્વીકારો</string>
   <string name="decline">નકારો</string>
   <string name="playingRightNow">અત્યારે રમાય છે</string>
@@ -205,8 +214,6 @@
   <string name="thisGameIsRated">આ રમત ક્રમિત છે</string>
   <string name="rematch">ફરીથી મેચ કરો</string>
   <string name="rematchOfferSent">ફરીથી મેચ કરવાની માગણી મોકલી</string>
-  <string name="rematchOfferSentWhite">હરીફે ફરીથી મેચ રમવાની માગણી મોકલી</string>
-  <string name="rematchOfferSentBlack">હરિફે ફરીથી મેચ રમવાની માગણી મોકલી</string>
   <string name="rematchOfferAccepted">ફરીથી મેચ રમવાની માગણી સ્વીકારાઈ</string>
   <string name="rematchOfferCanceled">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
   <string name="rematchOfferDeclined">ફરીથી મેચ રમવાની માગણી રદ કરી</string>
@@ -219,7 +226,6 @@
   <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
   <string name="spectatorRoom">દર્શકોનો ખંડ</string>
   <string name="subject">વિષય</string>
-  <string name="recipient">મેળવનાર</string>
   <string name="send">મોકલો</string>
   <string name="incrementInSeconds">સેકંડોમાં વૃદ્ધિ</string>
   <string name="freeOnlineChess">મફત ઓનલાઇન શતરંજ</string>
@@ -240,6 +246,28 @@
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>
   </plurals>
+  <string name="takeback">ચાલ પાછી લો</string>
+  <string name="proposeATakeback">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલો</string>
+  <string name="takebackPropositionSent">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલ્યો</string>
+  <string name="takebackPropositionDeclined">ચાલ પાછી લેવાનો પ્રસ્તાવ નકારાયો</string>
+  <string name="takebackPropositionAccepted">ચાલ પાછી લેવાનો પ્રસ્તાવ સ્વીકારાયો</string>
+  <string name="takebackPropositionCanceled">ચાલ પાછી લેવાનો પ્રસ્તાવ રદ કરો</string>
+  <string name="yourOpponentProposesATakeback">તમારા પ્રતિદ્વંદીએ ચાલ પાછી લેવાનો પ્રસ્તાવ કર્યો</string>
+  <string name="bookmarkThisGame">આ રમત સ્મૃતિમાં સાચવો</string>
+  <string name="tournament">પ્રતિયોગિતા</string>
+  <string name="tournaments">પ્રતિયોગિતાઓ</string>
+  <string name="tournamentPoints">પ્રતિયોગિતાના અંકો</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s પ્રતિયોગિતાનો અંક</item>
+    <item quantity="other">%s પ્રતિયોગિતાના અંકો</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%sઅભ્યાસ</item>
+    <item quantity="other">%s અભ્યાસ</item>
+  </plurals>
+  <string name="viewTournament">Pratiyogita જુઓ</string>
+  <string name="backToTournament">પ્રતિયોગિતામાં પાછા જાઓ</string>
+  <string name="thematic">વિષયલક્ષી</string>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -274,8 +302,6 @@
     <item quantity="one">%s મિત્ર ઓનલાઇન</item>
     <item quantity="other">%s મિત્રો ઓનલાઇન</item>
   </plurals>
-  <string name="noFriendsOnline">બધા મિત્રો ઑફલાઈન</string>
-  <string name="findFriends">મિત્રો શોધો</string>
   <string name="favoriteOpponents">પ્રિય વિરોધીઓ</string>
   <string name="follow">અનુસરો</string>
   <string name="following">ફોલોવિંગ</string>
@@ -283,18 +309,41 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="more">વધુ</string>
+  <string name="memberSince">સભ્ય બનવાની તારીખ</string>
+  <string name="lastSeenActive">%s સક્રિય</string>
+  <string name="player">ખેલાડી</string>
+  <string name="list">યાદી</string>
+  <string name="graph">આલેખ</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s કરતા ઓછી મિનિટ</item>
+    <item quantity="other">%s કરતા ઓછી મિનિટો</item>
+  </plurals>
+  <string name="required">જરુરી.</string>
+  <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
+  <string name="duration">અવધિ</string>
+  <string name="winner">વિજેતા</string>
+  <string name="createANewTournament">નવી પ્રતિયોગિતા બનાવો</string>
+  <string name="tournamentCalendar">પ્રતિયોગિતા કૅલેન્ડર</string>
+  <string name="conditionOfEntry">પ્રવેશ માટેની જરૂરિયાતો:</string>
+  <string name="advancedSettings">વિગતવાર સેટિંગ્સ</string>
+  <string name="safeTournamentName">પ્રતિયોગિતા માટે યોગ્ય નામ પસંદ કરો.</string>
+  <string name="join">ભાગ લો</string>
+  <string name="withdraw">છોડી દો</string>
+  <string name="points">અંકો</string>
   <string name="wins">જીત</string>
   <string name="losses">હાર</string>
+  <string name="createdBy">બનાવનાર</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
   <string name="movesPlayed">ચાલ રમ્યા</string>
   <string name="whiteWins">સફેદ ની જીત</string>
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
   <string name="thankYou">આભાર!</string>
-  <string name="watchLichessTV">Lichess TV જુઓ</string>
   <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
+  <string name="name">નામ</string>
   <string name="description">વર્ણન</string>
   <string name="no">નહીં</string>
   <string name="yes">હા</string>
@@ -303,9 +352,13 @@
   <string name="message">સંદેશ</string>
   <string name="reason">કારણ</string>
   <string name="insult">અપમાન</string>
+  <string name="blog">બ્લોગ</string>
   <string name="sound">ધ્વનિ</string>
-  <string name="difficultyNormal">સામાન્ય</string>
-  <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
+  <string name="fast">ઝડપી</string>
+  <string name="normal">સામાન્ય</string>
+  <string name="slow">ધીમું</string>
+  <string name="studyMenu">અભ્યાસ</string>
+  <string name="practice">મહાવરો</string>
   <string name="aboutX">%s વિશે</string>
   <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
   <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
@@ -320,7 +373,9 @@
   <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
   <string name="boardTheme">બોર્ડની પસંદગી</string>
   <string name="pieceSet">મહોરાંની પસંદગી</string>
+  <string name="coaches">કોચ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
+  <string name="markdownAvailable">%s અદ્યતન વાક્યરચના માટે ઉપલબ્ધ છે.</string>
 </resources>

@@ -85,8 +85,8 @@ final class SwissApi(
       cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
   }
 
-  def update(swiss: Swiss, data: SwissForm.SwissData): Funit =
-    Sequencing(swiss.id)(byId) { old =>
+  def update(swissId: Swiss.Id, data: SwissForm.SwissData): Fu[Option[Swiss]] =
+    Sequencing(swissId)(byId) { old =>
       val position =
         if (old.isCreated || old.settings.position.isDefined) data.realVariant.standard ?? data.realPosition
         else old.settings.position
@@ -124,7 +124,7 @@ final class SwissApi(
       colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >>- {
         cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
         socket.reload(swiss.id)
-      }
+      } inject swiss.some
     }
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
@@ -351,21 +351,36 @@ final class SwissApi(
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
       .flatMap { kickFromSwissIds(userId, _) }
 
-  private def kickFromSwissIds(userId: User.ID, swissIds: Seq[Swiss.Id]): Funit =
-    swissIds.map { withdraw(_, userId) }.sequenceFu.void
+  private def kickFromSwissIds(userId: User.ID, swissIds: Seq[Swiss.Id], forfeit: Boolean = false): Funit =
+    swissIds.map { withdraw(_, userId, forfeit) }.sequenceFu.void
 
-  def withdraw(id: Swiss.Id, userId: User.ID): Funit =
+  def withdraw(id: Swiss.Id, userId: User.ID, forfeit: Boolean = false): Funit =
     Sequencing(id)(notFinishedById) { swiss =>
       SwissPlayer.fields { f =>
         val selId = $id(SwissPlayer.makeId(swiss.id, userId))
         if (swiss.isStarted)
-          colls.player.updateField(selId, f.absent, true)
+          colls.player.updateField(selId, f.absent, true) >>
+            forfeit.?? { forfeitPairings(swiss, userId) }
         else
           colls.player.delete.one(selId) flatMap { res =>
             (res.n == 1) ?? colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void
           }
       }.void
     } >> recomputeAndUpdateAll(id)
+
+  private def forfeitPairings(swiss: Swiss, userId: User.ID): Funit =
+    SwissPairing.fields { F =>
+      colls.pairing
+        .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
+        .flatMap {
+          _.filter(p => p.isDraw || p.winner.has(userId))
+            .map { pairing =>
+              colls.pairing.update.one($id(pairing.id), pairing forfeit userId)
+            }
+            .sequenceFu
+            .void
+        }
+    }
 
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.map(Swiss.Id) ?? { swissId =>
@@ -587,7 +602,7 @@ final class SwissApi(
       }
 
   private def systemChat(id: Swiss.Id, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, volatile)
+    chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, isVolatile = volatile)
 
   def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
     colls.swiss
@@ -621,7 +636,7 @@ final class SwissApi(
       }
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
       .flatMap {
-        _.map { withdraw(_, user.id) }.sequenceFu.void
+        _.map { withdraw(_, user.id, forfeit = false) }.sequenceFu.void
       }
 
   def isUnfinished(id: Swiss.Id): Fu[Boolean] =

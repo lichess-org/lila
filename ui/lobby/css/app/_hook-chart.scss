@@ -7,7 +7,7 @@
 
   .label {
     color: $c-font-dim;
-    font-size: .7em;
+    font-size: 0.7em;
     position: absolute;
     left: 3px;
     bottom: 1px;
@@ -42,7 +42,7 @@
     cursor: pointer;
     z-index: 3;
     font-size: 1.6em;
-    opacity: .7;
+    opacity: 0.7;
 
     @include transition;
 
@@ -77,7 +77,7 @@
   display: none;
   background: $c-bg-box;
   position: absolute;
-  z-index: z("powertip");
+  z-index: z('powertip');
 
   .inner {
     @extend %flex-column;
@@ -94,6 +94,6 @@
     @extend %metal;
 
     min-width: 120px;
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
   }
 }

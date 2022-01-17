@@ -176,7 +176,10 @@ package timeline {
   case class BlogPost(id: String, slug: String, title: String) extends Atom("blogPost", true) {
     def userIds = Nil
   }
-  case class StreamStart(id: String, name: String) extends Atom("streamStart", true) {
+  case class UblogPostLike(userId: String, id: String, title: String) extends Atom("ublogPostLike", false) {
+    def userIds = List(userId)
+  }
+  case class StreamStart(id: String, name: String) extends Atom("streamStart", false) {
     def userIds = List(id)
   }
 
@@ -274,7 +277,7 @@ package round {
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
-  case class Mlat(micros: Int)
+  case class Mlat(millis: Int)
 }
 
 package evaluation {

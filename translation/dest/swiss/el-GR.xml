@@ -89,8 +89,8 @@
   <string name="pairingSystemArena">Οποιοσδήποτε αντίπαλος με παρόμοια κατάταξη</string>
   <string name="pairingSystemSwiss">Η καλύτερη δυνατή κλήρωση βάσει πόντων και κριτηρίων</string>
   <string name="pairingWaitTime">Χρόνος για την επόμενη κλήρωση</string>
-  <string name="pairingWaitTimeFast">Γρήγορο: δεν περιμένει όλους τους παίκτες να τελειώσουν</string>
-  <string name="pairingWaitTimeSlow">Αργό: περιμένει όλους τους παίκτες να τελειώσουν</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Γρήγορο: δεν περιμένει όλους τους παίκτες να τελειώσουν</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Αργό: περιμένει όλους τους παίκτες να τελειώσουν</string>
   <string name="identicalPairing">Ίδιες κληρώσεις</string>
   <string name="possibleButNotConsecutive">Πιθανές, αλλά όχι διαδοχικές</string>
   <string name="identicalForbidden">Απαγορευμένες</string>

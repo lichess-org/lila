@@ -39,9 +39,12 @@ export default function (ctrl: TournamentController): VNode | undefined {
           numberRow('Players', data.nbPlayers),
           ...(data.rating
             ? [
-                numberRow(noarg('averageElo'), data.rating, 'raw'),
+                ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
                 ...(data.perf
-                  ? [numberRow('Average performance', data.perf, 'raw'), numberRow('Average score', data.score, 'raw')]
+                  ? [
+                      ctrl.opts.showRatings ? numberRow('Average performance', data.perf, 'raw') : null,
+                      numberRow('Average score', data.score, 'raw'),
+                    ]
                   : []),
               ]
             : []),
@@ -72,7 +75,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
               },
               [
                 h('th', '' + (i + 1)),
-                h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
+                h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
                 h('td.total', [
                   p.fire && !ctrl.data.isFinished
                     ? h('strong.is-gold', { attrs: dataIcon('') }, '' + p.score)

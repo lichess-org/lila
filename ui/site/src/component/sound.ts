@@ -2,11 +2,24 @@ import pubsub from './pubsub';
 import { assetUrl } from './assets';
 import { storage } from './storage';
 
+declare class Howl {
+  constructor(opts: { src: string | string[] });
+  volume(vol: number): Howl;
+  play(): number;
+}
+
+interface Howler {
+  ctx: AudioContext;
+}
+
+declare const Howler: Howler;
+
 type Name = string;
 type Path = string;
 
 const sound: SoundI = new (class {
-  sounds = new Map<Name, any>(); // The loaded sounds and their instances
+  soundSetSounds = new Map<Name, Howl>(); // The loaded sounds and their instances
+  standaloneSounds = new Map<Name, Howl>(); // Sounds that are independent of the sound set
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
@@ -18,10 +31,10 @@ const sound: SoundI = new (class {
     if (this.soundSet == 'music') setTimeout(this.publish, 500);
   }
 
-  loadOggOrMp3 = (name: Name, path: Path) =>
-    this.sounds.set(
+  loadOggOrMp3 = (name: Name, path: Path, noSoundSet = false) =>
+    (noSoundSet ? this.standaloneSounds : this.soundSetSounds).set(
       name,
-      new window.Howl({
+      new Howl({
         src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`),
       })
     );
@@ -36,6 +49,15 @@ const sound: SoundI = new (class {
     if (this.soundSet !== 'music') ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
   }
 
+  private getOrLoadSound = (name: string, set: string): Howl => {
+    let s = this.soundSetSounds.get(name) ?? this.standaloneSounds.get(name);
+    if (!s) {
+      this.loadStandard(name, set);
+      s = this.soundSetSounds.get(name)!;
+    }
+    return s;
+  };
+
   play(name: string, volume?: number) {
     if (!this.enabled()) return;
     let set = this.soundSet;
@@ -43,14 +65,23 @@ const sound: SoundI = new (class {
       if (['move', 'capture', 'check'].includes(name)) return;
       set = 'standard';
     }
-    let s = this.sounds.get(name);
-    if (!s) {
-      this.loadStandard(name, set);
-      s = this.sounds.get(name);
-    }
+    const s = this.getOrLoadSound(name, set);
+
     const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
-    if (window.Howler.ctx?.state === 'suspended') window.Howler.ctx.resume().then(doPlay);
+    if (Howler.ctx?.state === 'suspended') Howler.ctx.resume().then(doPlay);
     else doPlay();
+  }
+
+  playOnce(name: string): void {
+    // increase chances that the first tab can put a local storage lock
+    const doIt = () => {
+      const storage = lichess.storage.make('just-played');
+      if (Date.now() - parseInt(storage.get()!, 10) < 1000) return;
+      storage.set('' + Date.now());
+      this.play(name);
+    };
+    if (document.hasFocus()) doIt();
+    else setTimeout(doIt, 10 + Math.random() * 500);
   }
 
   setVolume = this.volumeStorage.set;
@@ -85,7 +116,7 @@ const sound: SoundI = new (class {
 
   changeSet = (s: string) => {
     this.soundSet = s;
-    this.sounds.clear();
+    this.soundSetSounds.clear();
     this.publish();
   };
 

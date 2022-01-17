@@ -99,8 +99,8 @@ Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu ska
   <string name="pairingSystemArena">Bet koks prieinamas žaidėjas su panašiu reitingu</string>
   <string name="pairingSystemSwiss">Geriausias poravimas remiantis taškais ir išspręstomis lygiosiomis</string>
   <string name="pairingWaitTime">Suporavimo laikas</string>
-  <string name="pairingWaitTimeFast">Greitas, nelaukia visų žaidėjų</string>
-  <string name="pairingWaitTimeSlow">Lėtas: laukia visų žaidėjų</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Greitas: nelaukia visų žaidėjų</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lėtas: laukia visų žaidėjų</string>
   <string name="identicalPairing">Vienodas suporavimas</string>
   <string name="possibleButNotConsecutive">Galimas, bet ne iš karto vienas po kito</string>
   <string name="identicalForbidden">Uždraustas</string>

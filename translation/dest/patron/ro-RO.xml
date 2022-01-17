@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donează</string>
+  <string name="donateAsX">Donează ca %s</string>
   <string name="lichessPatron">Patron Lichess</string>
   <string name="freeAccount">Cont gratuit</string>
   <string name="becomePatron">Devino un Patron Lichess</string>
   <string name="xBecamePatron">%s a devenit un Patron Lichess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s este un Patron Lichess timp de %2$s lună</item>
+    <item quantity="one">%1$s este un Patron Lichess de %2$s lună</item>
     <item quantity="few">%1$s este un Patron Lichess timp de %2$s luni</item>
-    <item quantity="other">%1$s este un Patron Lichess timp de %2$s de luni</item>
+    <item quantity="other">%1$s este un Patron Lichess de %2$s luni</item>
   </plurals>
   <string name="newPatrons">Patroni noi</string>
   <string name="freeChess">Șah gratuit pentru toată lumea, pentru totdeauna!</string>
@@ -18,7 +19,7 @@
   <string name="patronUntil">Ai un cont de Patron până pe %s.</string>
   <string name="ifNotRenewed">Dacă nu e reînnoit, vă veți întoarce la stadiul gratuit.</string>
   <string name="weAreNonProfit">Suntem o asociație non-profit deoarece credem că toată lumea ar trebui să aibă acces la o platformă de șah gratuită, de talie mondială.</string>
-  <string name="weRelyOnSupport">Ne bazăm pe sprijinul din partea oamenilor ca tine pentru a face acest lucru posibil. Dacă îți place să folosești Lichess, te rugăm să ne susții donând și devenind un Patron!</string>
+  <string name="weRelyOnSupport">Ne bazăm pe sprijinul oamenilor ca tine pentru a face acest lucru posibil. Dacă îți place să folosești Lichess, te rugăm să ne susții donând și devenind un Patron!</string>
   <string name="lifetime">Pe viață</string>
   <string name="payLifetimeOnce">Plătește %s o dată. Fii un Patron Lichess pentru totdeauna!</string>
   <string name="lifetimePatron">Patron Lichess pe viață</string>
@@ -44,10 +45,9 @@ Sau poți %s.</string>
   <string name="contactSupport">cere asistență de la Lichess</string>
   <string name="otherMethods">Alte metode de donare?</string>
   <string name="bankTransfers">Acceptăm și transferuri bancare</string>
-  <string name="bitcoin">Și iată adresa noastră bitcoin: %s</string>
   <string name="patronFeatures">Sunt unele funcții rezervate Patronilor?</string>
   <string name="noPatronFeatures">Nu, deoarece Lichess e complet gratuit, pentru totdeauna, și pentru toată lumea. Asta e o promisiune.
-Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lângă profil.</string>
+Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="featuresComparison">Vezi compararea detaliată a caracteristicilor</string>
   <plurals name="patronForMonths">
     <item quantity="one">Patron Lichess timp de o lună</item>

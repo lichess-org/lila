@@ -105,7 +105,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val dev: Dev                       = wire[Dev]
   lazy val editor: Editor                 = wire[Editor]
   lazy val event: Event                   = wire[Event]
-  lazy val export: Export                 = wire[Export]
+  lazy val `export`: Export               = wire[Export]
   lazy val fishnet: Fishnet               = wire[Fishnet]
   lazy val forumCateg: ForumCateg         = wire[ForumCateg]
   lazy val forumPost: ForumPost           = wire[ForumPost]
@@ -140,7 +140,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val search: Search                 = wire[Search]
   lazy val setup: Setup                   = wire[Setup]
   lazy val simul: Simul                   = wire[Simul]
-  lazy val stat: Stat                     = wire[Stat]
   lazy val streamer: Streamer             = wire[Streamer]
   lazy val study: Study                   = wire[Study]
   lazy val team: Team                     = wire[Team]
@@ -167,6 +166,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")
-    kamon.Kamon.loadModules()
+    kamon.Kamon.init()
   }
 }

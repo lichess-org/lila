@@ -63,6 +63,10 @@ trait dsl {
   def $nor(expressions: Bdoc*): Bdoc = {
     $doc("$nor" -> expressions)
   }
+
+  def $not(expression: Bdoc): Bdoc = {
+    $doc("$not" -> expression)
+  }
   // End of Top Level Logical Operators
   //**********************************************************************************************//
 
@@ -291,13 +295,6 @@ trait dsl {
 
   }
 
-  trait LogicalOperators { self: ElementBuilder =>
-    def $not(f: String => Expression[Bdoc]): SimpleExpression[Bdoc] = {
-      val expression = f(field)
-      SimpleExpression(field, $doc("$not" -> expression.value))
-    }
-  }
-
   trait ElementOperators { self: ElementBuilder =>
     def $exists(v: Boolean): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$exists" -> v))
@@ -355,10 +352,10 @@ trait dsl {
       simple(from.name, as, local, foreign)
     def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
       simple(from.name.value, as, local, foreign)
-    def pipeline(from: Coll, as: String, local: String, foreign: String, pipeline: List[Bdoc]): Bdoc =
+    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       $doc(
         "$lookup" -> $doc(
-          "from" -> from.name,
+          "from" -> from,
           "as"   -> as,
           "let"  -> $doc("local" -> s"$$$local"),
           "pipeline" -> {
@@ -366,10 +363,14 @@ trait dsl {
               "$match" -> $doc(
                 "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
               )
-            ) :: pipeline
+            ) :: pipe
           }
         )
       )
+    def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipeline(from.name, as, local, foreign, pipe)
+    def pipeline(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipeline(from.name.value, as, local, foreign, pipe)
   }
 
   implicit class ElementBuilderLike(val field: String)
@@ -377,7 +378,6 @@ trait dsl {
       with ComparisonOperators
       with ElementOperators
       with EvaluationOperators
-      with LogicalOperators
       with ArrayOperators
 
   implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =

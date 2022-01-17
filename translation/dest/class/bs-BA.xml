@@ -57,7 +57,6 @@ Evo linka za pristup času.</string>
     <item quantity="few">%s pozivnice / pozivnica na čekanju</item>
     <item quantity="other">%s pozivnice / pozivnica na čekanju</item>
   </plurals>
-  <string name="noPendingInvitations">Nema pozivnica</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Pod nadzorom</string>

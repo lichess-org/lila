@@ -2,14 +2,34 @@
 <resources>
   <string name="lichessCoaches">مربی های لیچس</string>
   <string name="lichessCoach">مربی لیچس</string>
+  <string name="areYouCoach">آیا شما یک مربی بزرگ با یک عنوان فیده %s هستید؟</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">عنوان NM یا FIDE</string>
+  <string name="confirmTitle">اینجا عنوان خود را تایید کنید و ما پرونده شما را بررسی خواهیم کرد.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">برای ما یک رایانامه به آدرس %s ارسال کنید و ما پرونده شما را بررسی خواهیم کرد.</string>
   <string name="location">موقعیت مکانی</string>
   <string name="languages">زبان ها</string>
   <string name="rating">ریتینگ</string>
+  <string name="hourlyRate">حق‌التدریس هر ساعت</string>
+  <string name="availability">دسترس‌پذیری</string>
+  <string name="accepting">دانشجوها را قبول می‌کنم</string>
+  <string name="notAccepting">در حال حاضر پذیرای دانشجویان نیستم</string>
+  <string name="xCoachesStudents">%s مربی شطرنج دانشجویان است</string>
+  <string name="viewXProfile">پروفایل %s در Lichess را نگاه کنید</string>
+  <string name="sendPM">یک پیام خصوصی ارسال کنید</string>
   <string name="aboutMe">درباره من</string>
   <string name="playingExperience">سابقه بازی</string>
   <string name="teachingExperience">سابقه تدریس</string>
   <string name="otherExperiences">دیگر تجارب</string>
   <string name="bestSkills">بیشترین مهارت ها</string>
   <string name="teachingMethod">شیوه آموزش</string>
+  <string name="publicStudies">مطالعات عمومی</string>
   <string name="youtubeVideos">ویدیو های یوتیوب</string>
+  <plurals name="studentReviews">
+    <item quantity="one">ارزیابی یک دانشجو</item>
+    <item quantity="other">ارزیابی %s دانشجو</item>
+  </plurals>
+  <string name="thankYouForReview">از ارزیابی توسط شما سپاسگزاریم!</string>
+  <string name="xWillApproveIt">%s خیلی زود آن را تایید خواهد کرد، یا یک مدیر نگاهی به آن خواهد انداخت.</string>
+  <string name="reviewCoach">این مربی را ارزیابی کنید</string>
+  <string name="describeExperienceWith">تجربه مربی‌گری خود را با %s توصیف نمایید</string>
 </resources>

@@ -38,7 +38,8 @@ object show {
                 resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
                 localMod = ctx.userId has sim.hostId
               )
-            }
+            },
+            "showRatings" -> ctx.pref.showRatings
           )
         )})""")
       )

@@ -1,34 +1,37 @@
 import { h, VNode } from 'snabbdom';
-import GamebookPlayCtrl, { Feedback } from './gamebookPlayCtrl';
+import GamebookPlayCtrl from './gamebookPlayCtrl';
 import { bind, dataIcon } from 'common/snabbdom';
 import { iconTag, richHTML } from '../../util';
 // eslint-disable-next-line no-duplicate-imports
 import { State } from './gamebookPlayCtrl';
 
-const defaultComments: Record<Feedback, string | undefined> = {
-  play: 'What would you play in this position?',
-  end: 'Congratulations! You completed this lesson.',
-  bad: undefined,
-  good: undefined,
-};
-
 export function render(ctrl: GamebookPlayCtrl): VNode {
-  const state = ctrl.state,
-    comment = state.comment || defaultComments[state.feedback];
-
+  const state = ctrl.state;
   return h(
     'div.gamebook',
     {
       hook: { insert: _ => lichess.loadCssPath('analyse.gamebook.play') },
     },
     [
-      comment
+      state.comment || state.feedback == 'play' || state.feedback == 'end'
         ? h(
             'div.comment',
             {
               class: { hinted: state.showHint },
             },
-            [h('div.content', { hook: richHTML(comment) }), hintZone(ctrl)]
+            [
+              state.comment
+                ? h('div.content', { hook: richHTML(state.comment) })
+                : h(
+                    'div.content',
+                    state.feedback == 'play'
+                      ? ctrl.trans('whatWouldYouPlay')
+                      : state.feedback == 'end'
+                      ? ctrl.trans('youCompletedThisLesson')
+                      : undefined
+                  ),
+              hintZone(ctrl),
+            ]
           )
         : undefined,
       h('div.floor', [
@@ -52,7 +55,7 @@ function hintZone(ctrl: GamebookPlayCtrl) {
       hook: bind('click', ctrl.hint, ctrl.redraw),
     });
   if (state.showHint) return h('button', buttonData(), [h('div.hint', { hook: richHTML(state.hint!) })]);
-  if (state.hint) return h('button.hint', buttonData(), 'Get a hint');
+  if (state.hint) return h('button.hint', buttonData(), ctrl.trans.noarg('getAHint'));
   return undefined;
 }
 
@@ -66,7 +69,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
         attrs: { type: 'button' },
         hook: bind('click', ctrl.retry),
       },
-      [iconTag(''), h('span', 'Retry')]
+      [iconTag(''), h('span', ctrl.trans.noarg('retry'))]
     );
   if (fb === 'good' && state.comment)
     return h(
@@ -75,7 +78,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
         attrs: { type: 'button' },
         hook: bind('click', ctrl.next),
       },
-      [h('span.text', { attrs: dataIcon('') }, 'Next'), h('kbd', '<space>')]
+      [h('span.text', { attrs: dataIcon('') }, ctrl.trans.noarg('next')), h('kbd', '<space>')]
     );
   if (fb === 'end') return renderEnd(ctrl);
   return h(
@@ -90,7 +93,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
               h('em', ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack')),
             ]),
           ]
-        : ['Good move!']
+        : ctrl.trans.noarg('goodMove')
     )
   );
 }
@@ -108,7 +111,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
             },
             hook: bind('click', study.goToNextChapter),
           },
-          'Next chapter'
+          study.trans.noarg('nextChapter')
         )
       : undefined,
     h(
@@ -120,7 +123,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
-      'Play again'
+      study.trans.noarg('playAgain')
     ),
     h(
       'button.analyse',
@@ -131,7 +134,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         },
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
       },
-      'Analyse'
+      study.trans.noarg('analysis')
     ),
   ]);
 }

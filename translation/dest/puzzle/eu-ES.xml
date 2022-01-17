@@ -13,7 +13,7 @@
   <string name="specialMoves">Jokaldi bereziak</string>
   <string name="didYouLikeThisPuzzle">Ariketa gustukoa izan da?</string>
   <string name="voteToLoadNextOne">Eman bozka hurrengoa kargatzeko!</string>
-  <string name="yourPuzzleRatingX">Ariketen zure sailkapena: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Ariketen zure puntuazioa ez da aldatuko. Kontuan izan ariketak ez direla txapelketa bat. Puntuaziok zure gaitasunen araberako ariketak aukeratzen laguntzen du.</string>
   <string name="findTheBestMoveForWhite">Zurien jokaldi onena bilatu.</string>
   <string name="findTheBestMoveForBlack">Beltzen jokaldi onena bilatu.</string>
   <string name="toGetPersonalizedPuzzles">Ariketa pertsonalizatuak lortzeko:</string>
@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Ez duzu ariketarik datu-basean, hala ere Lichessek asko maite zaitu.
 Jokatu partida azkar eta arruntak zure partidetatik eratorritako ariketak izateko!</string>
   <string name="fromXGamesFound">%1$s ariketa aurkitu dira %2$s partidatan</string>
+  <string name="puzzleDashboardDescription">Entrenatu, aztertu, hobetu</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s jokatuta</item>
+    <item quantity="other">%s jokatuta</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s berriz egiteko</item>
+    <item quantity="other">%s berriz egiteko</item>
+  </plurals>
+  <string name="percentSolved">%s ebatzita</string>
+  <string name="noPuzzlesToShow">Ez dago ezer erakusteko, ebatzi ariketa batzuk!</string>
+  <string name="improvementAreasDescription">Entrenatu zure eboluzioa hobetzeko!</string>
+  <string name="strengthDescription">Gai hauetan zabiltza ondoen</string>
 </resources>

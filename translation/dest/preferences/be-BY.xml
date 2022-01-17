@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
   <string name="pgnLetter">Літара (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Рэжым Дзэн</string>
+  <string name="showPlayerRatings">Паказваць рэйтынг гульцоў</string>
   <string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
   <string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
   <string name="blindfoldChess">Шахматы ўсляпую (фігуры схаваныя)</string>

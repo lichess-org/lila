@@ -34,7 +34,7 @@ object presets {
               form("v"),
               raw(""),
               help = frag(
-                "First line is the preset name, next lines are the content. Separate presets with a line of 3 or more dashes: ---."
+                "First line is the permissions needed to use the preset (If a list, separated by commas is given, any user having at least one of these permissions will be able to send it), second is the preset name, next lines are the content. Separate presets with a line of 3 or more dashes: ---."
               ).some
             )(form3.textarea(_)(rows := 20)),
             form3.action(

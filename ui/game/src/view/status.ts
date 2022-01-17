@@ -69,7 +69,7 @@ export default function status(ctrl: Ctrl): string {
         d.game.winner ? '' : ` • ${noarg('draw')}`
       }`;
     case 'noStart':
-      return (d.game.winner == 'white' ? 'Black' : 'White') + " didn't move";
+      return d.game.winner == 'white' ? noarg('blackDidntMove') : noarg('whiteDidntMove');
     case 'cheat':
       return noarg('cheatDetected');
     case 'variantEnd':

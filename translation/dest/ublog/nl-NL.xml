@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog van %s</string>
+  <string name="newPost">Nieuwe blogpost</string>
+  <string name="editYourBlogPost">Bewerk je blogpost</string>
+  <string name="saveDraft">Concept opslaan</string>
+  <string name="postTitle">Titel</string>
+  <string name="postIntro">Inleiding</string>
+  <string name="postBody">Tekst</string>
+  <string name="drafts">Concepten</string>
+  <string name="published">Gepubliceerd</string>
+  <string name="publishOnYourBlog">Publiceren op blog</string>
+  <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Publiceerde een blogpost</item>
+    <item quantity="other">Publiceerde %s blogposts</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Eén weergave</item>
+    <item quantity="other">%s weergaves</item>
+  </plurals>
+  <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
+  <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
+  <string name="thisIsADraft">Dit is een concept</string>
+  <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
+  <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
+  <string name="noDrafts">Geen concepten om weer te geven.</string>
+  <string name="latestBlogPosts">Meest recente blogberichten</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Bekijk één bericht</item>
+    <item quantity="other">Bekijk alle %s berichten</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Alternatieve tekst voor afbeelding</string>
+  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Foto</string>
+</resources>

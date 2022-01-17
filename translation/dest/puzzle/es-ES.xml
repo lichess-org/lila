@@ -13,7 +13,7 @@
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
   <string name="voteToLoadNextOne">¡Vota para pasar al siguiente!</string>
-  <string name="yourPuzzleRatingX">Tu puntuación en los ejercicios: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Tu puntuación de ejercicios no cambiará. Nota que los ejercicios no son una competición. La puntuación indica los ejercicios que se adecuan a tus habilidades.</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir ejercicios personalizados:</string>
@@ -59,7 +59,7 @@
   <string name="solved">resuelto</string>
   <string name="failed">fallido</string>
   <string name="streakDescription">Resuelve ejercicios cada vez más difíciles para conseguir la racha más larga posible. No hay tiempo, así que tómatelo con calma. Un movimiento erróneo y ¡se acabó!, aunque puedes omitir un movimiento en cada sesión.</string>
-  <string name="yourStreakX">Aciertos seguidos: %s</string>
+  <string name="yourStreakX">Tu racha: %s</string>
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
   <string name="continueTheStreak">Continuar la racha</string>
   <string name="newStreak">Nueva racha</string>

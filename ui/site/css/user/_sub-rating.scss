@@ -19,7 +19,7 @@
       @include transition;
     }
 
-    &:hover {
+    &[href]:hover {
       background: mix($c-bg-box, $c-bg-page, 50%);
 
       &::before {

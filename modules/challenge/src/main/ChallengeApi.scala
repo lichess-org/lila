@@ -11,6 +11,7 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi._
+import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
@@ -20,7 +21,6 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
-    maxPlaying: Max,
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -56,12 +56,15 @@ final class ChallengeApi(
 
   def createdByChallengerId = repo.createdByChallengerId() _
 
-  def createdByDestId = repo.createdByDestId() _
+  def createdByDestId(userId: User.ID) = countInFor get userId flatMap { nb =>
+    if (nb > 5) repo.createdByPopularDestId()(userId)
+    else repo.createdByDestId()(userId)
+  }
 
   def cancel(c: Challenge) =
     repo.cancel(c) >>- {
       uncacheAndNotify(c)
-      Bus.publish(Event.Cancel(c), "challenge")
+      Bus.publish(Event.Cancel(c.cancel), "challenge")
     }
 
   private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)
@@ -89,7 +92,8 @@ final class ChallengeApi(
       color: Option[chess.Color] = None
   ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
-      if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
+      if (c.canceled) fuccess(Invalid("The challenge has been canceled."))
+      else if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
         fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
         repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)
@@ -129,7 +133,7 @@ final class ChallengeApi(
     else
       c.userIds
         .map { userId =>
-          gameCache.nbPlaying(userId) dmap (maxPlaying <=)
+          gameCache.nbPlaying(userId) dmap (lila.game.Game.maxPlaying <=)
         }
         .sequenceFu
         .dmap(_ exists identity)
@@ -147,22 +151,26 @@ final class ChallengeApi(
 
   private def uncacheAndNotify(c: Challenge): Unit = {
     c.destUserId ?? countInFor.invalidate
-    c.destUserId ?? notify
-    c.challengerUserId ?? notify
+    c.destUserId ?? notifyUser.apply
+    c.challengerUserId ?? notifyUser.apply
     socketReload(c.id)
   }
 
   private def socketReload(id: Challenge.ID): Unit =
     socket.foreach(_ reload id)
 
-  private def notify(userId: User.ID): Funit =
-    for {
-      all  <- allFor(userId)
-      lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
-    } yield Bus.publish(
-      SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
-      "socketUsers"
-    )
+  private object notifyUser {
+    private val throttler = new lila.hub.EarlyMultiThrottler(logger)
+    def apply(userId: User.ID): Unit = throttler(userId, 3.seconds) {
+      for {
+        all  <- allFor(userId)
+        lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
+      } yield Bus.publish(
+        SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
+        "socketUsers"
+      )
+    }
+  }
 
   // work around circular dependency
   private var socket: Option[ChallengeSocket] = None

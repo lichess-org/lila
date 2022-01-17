@@ -46,7 +46,8 @@
   <string name="youAreNowAContributor">Вы цяпер рэдактар</string>
   <string name="youAreNowASpectator">Вы цяпер глядач</string>
   <string name="pgnTags">Тэгі PGN</string>
-  <string name="like">Падабайка</string>
+  <string name="like">Упадабаць</string>
+  <string name="unlike">Разпадабаць</string>
   <string name="newTag">Новы тэг</string>
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
@@ -163,4 +164,12 @@
   <string name="nextChapter">Наступны раздзел</string>
   <string name="prevChapter">Папярэдні раздзел</string>
   <string name="studyActions">Дзеянні ў навучанні</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Тэмы</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Мае тэмы</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Папулярныя тэмы</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Кіраваць тэмамі</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Назад</string>
+  <string name="playAgain">Гуляць зноў</string>
+  <string name="whatWouldYouPlay">Як бы вы пахадзілі ў гэтай пазіцыі?</string>
+  <string name="youCompletedThisLesson">Віншуем! Вы прайшлі гэты ўрок.</string>
 </resources>

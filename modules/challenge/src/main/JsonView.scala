@@ -1,8 +1,10 @@
 package lila.challenge
 
-import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.libs.json._
 
+import lila.common.Json._
+import lila.game.JsonView._
 import lila.i18n.{ I18nKeys => trans }
 import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache
@@ -13,7 +15,6 @@ final class JsonView(
     isOnline: lila.socket.IsOnline
 ) {
 
-  import lila.game.JsonView._
   import Challenge._
 
   implicit private val RegisteredWrites = OWrites[Challenger.Registered] { r =>
@@ -75,7 +76,8 @@ final class JsonView(
             )
           case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
         }),
-        "color" -> c.colorChoice.toString.toLowerCase,
+        "color"      -> c.colorChoice.toString.toLowerCase,
+        "finalColor" -> c.finalColor.toString.toLowerCase,
         "perf" -> Json.obj(
           "icon" -> iconChar(c).toString,
           "name" -> c.perfType.trans

@@ -50,9 +50,7 @@ object bots {
 
   private def botTable(users: List[User])(implicit ctx: Context) = table(cls := "slist slist-pad")(
     tbody(
-      users.sortBy { u =>
-        (if (u.isVerified) -1 else 1, -u.playTime.??(_.total))
-      } map { u =>
+      users map { u =>
         tr(
           td(userLink(u)),
           u.profile
@@ -62,7 +60,7 @@ object bots {
             .map { bio =>
               td(shorten(bio, 400))
             } | td,
-          td(cls := "rating")(u.best3Perfs.map {
+          ctx.pref.showRatings option td(cls := "rating")(u.bestAny3Perfs.map {
             showPerfRating(u, _)
           }),
           u.playTime.fold(td) { playTime =>

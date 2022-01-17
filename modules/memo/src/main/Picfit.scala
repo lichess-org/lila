@@ -2,6 +2,7 @@ package lila.memo
 
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
+import com.github.blemale.scaffeine.LoadingCache
 import org.joda.time.DateTime
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -11,7 +12,6 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.config
 import lila.db.dsl._
-import com.github.blemale.scaffeine.LoadingCache
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -35,32 +35,35 @@ object PicfitImage {
   implicit val imageBSONHandler   = Macros.handler[PicfitImage]
 }
 
-final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(implicit
+final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(implicit
     ec: ExecutionContext
 ) {
 
   import PicfitApi._
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
-  def upload(rel: String, uploaded: Uploaded, userId: String): Fu[PicfitImage] =
-    if (uploaded.fileSize > uploadMaxBytes)
+  def uploadFile(rel: String, uploaded: FilePart, userId: String): Fu[PicfitImage] =
+    uploadSource(rel, uploaded.copy[ByteSource](ref = FileIO.fromPath(uploaded.ref.path)), userId)
+
+  def uploadSource(rel: String, part: SourcePart, userId: String): Fu[PicfitImage] =
+    if (part.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
-      uploaded.contentType collect {
+      part.contentType collect {
         case "image/png"  => "png"
         case "image/jpeg" => "jpg"
       } match {
-        case None => fufail(s"Invalid file type: ${uploaded.contentType | "unknown"}")
+        case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
         case Some(extension) => {
           val image = PicfitImage(
-            _id = PicfitImage.Id(s"${lila.common.ThreadLocalRandom nextString 10}.$extension"),
+            _id = PicfitImage.Id(s"$userId:$rel:${lila.common.ThreadLocalRandom nextString 8}.$extension"),
             user = userId,
             rel = rel,
-            name = uploaded.filename,
-            size = uploaded.fileSize.toInt,
+            name = part.filename,
+            size = part.fileSize.toInt,
             createdAt = DateTime.now
           )
-          picfitServer.store(image, uploaded) >>
+          picfitServer.store(image, part) >>
             deleteByRel(image.rel) >>
             coll.insert.one(image) inject image
         }
@@ -74,19 +77,12 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
 
   private object picfitServer {
 
-    def store(image: PicfitImage, from: Uploaded): Funit = {
-      type Part = MultipartFormData.FilePart[Source[ByteString, _]]
-      import WSBodyWritables._
-      val part: Part = MultipartFormData.FilePart(
-        key = "data",
-        filename = image.id.value,
-        contentType = from.contentType,
-        ref = FileIO.fromPath(from.ref.path),
-        fileSize = from.fileSize
-      )
-      val source: Source[Part, _] = Source(part :: List())
-      ws.url(s"${config.endpointPost}/upload")
-        .post(source)
+    import WSBodyWritables._
+
+    def store(image: PicfitImage, part: SourcePart): Funit =
+      ws
+        .url(s"${config.endpointPost}/upload")
+        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))
         .flatMap {
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body take 200}")
           case _ =>
@@ -94,7 +90,6 @@ final class PicfitApi(coll: Coll, ws: StandaloneWSClient, config: PicfitConfig)(
             funit
         }
         .monSuccess(_.picfit.uploadTime(image.user))
-    }
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}").delete().flatMap {
@@ -112,7 +107,9 @@ object PicfitApi {
 
   val uploadMaxMb = 4
 
-  type Uploaded = play.api.mvc.MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  type FilePart   = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  type ByteSource = Source[ByteString, _]
+  type SourcePart = MultipartFormData.FilePart[ByteSource]
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
   object WSBodyWritables {
@@ -128,7 +125,7 @@ object PicfitApi {
   }
 }
 
-final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
+final class PicfitUrl(config: PicfitConfig) {
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
@@ -155,15 +152,15 @@ final class PicfitUrl(endpoint: String, secretKey: config.Secret) {
   ) = {
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString = s"h=$height&op=$operation&path=$id&w=$width"
-    s"$endpoint/display?${signQueryString(queryString)}"
+    s"${config.endpointGet}/display?${signQueryString(queryString)}"
   }
 
   private object signQueryString {
-    private val signer = com.roundeights.hasher.Algo hmac secretKey.value
+    private val signer = com.roundeights.hasher.Algo hmac config.secretKey.value
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10 minutes)
-        .build { qs => signer.sha1(qs).hex }
+        .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
 
     def apply(qs: String) = s"$qs&sig=${cache get qs}"
   }

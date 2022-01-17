@@ -55,7 +55,6 @@ Paroli: %3$s</string>
     <item quantity="one">Bitta kutilayotgan taklif</item>
     <item quantity="other">%s kutilayotgan takliflar</item>
   </plurals>
-  <string name="noPendingInvitations">Kutilayotgan takliflar mavjud emas</string>
   <string name="onlyVisibleToTeachers">Faqat sinf oʻqituvchilariga koʻrinadi</string>
   <string name="lastActiveDate">Faol</string>
   <string name="managed">Oʻqituvchi tomonidan yaratilgan</string>

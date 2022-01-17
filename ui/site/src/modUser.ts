@@ -68,6 +68,13 @@ lichess.load.then(() => {
       });
     };
 
+    const confirmButton = (el: HTMLElement) =>
+      $(el)
+        .find('input.confirm, button.confirm')
+        .on('click', function (this: HTMLElement) {
+          return confirm(this.title || 'Confirm this action?');
+        });
+
     $('.mz-section--menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
       $(this).toggleClass('available', !!$(getLocationHash(this)).length);
     });
@@ -83,11 +90,7 @@ lichess.load.then(() => {
     });
 
     makeReady('form.xhr', (el: HTMLFormElement) => {
-      $(el)
-        .find('input.confirm, button.confirm')
-        .on('click', function (this: HTMLElement) {
-          return confirm(this.title || 'Confirm this action?');
-        });
+      confirmButton(el);
       $(el).on('submit', () => {
         $(el).addClass('ready').find('input').prop('disabled', true);
         xhr.formToXhr(el).then(html => {
@@ -97,6 +100,7 @@ lichess.load.then(() => {
         return false;
       });
     });
+    makeReady('form.gdpr-erasure', confirmButton);
 
     makeReady('form.fide-title select', el =>
       $(el).on('change', () => ($(el).parent('form')[0] as HTMLFormElement).submit())

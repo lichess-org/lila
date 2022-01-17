@@ -50,4 +50,12 @@
   <string name="skip">sauter</string>
   <string name="skipHelp">Vous pouvez sauter un coup par course :</string>
   <string name="skipExplanation">Sautez ce coup pour préserver votre combo ! Ne fonctionne qu\'une seule fois par course.</string>
+  <string name="failedPuzzles">Problèmes échoués</string>
+  <string name="slowPuzzles">Problèmes lents</string>
+  <string name="thisWeek">Cette semaine</string>
+  <string name="thisMonth">Ce mois-ci</string>
+  <string name="allTime">Depuis le début</string>
+  <string name="clickToReload">Cliquez pour recharger</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Cette série d\'essais a expirée!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet!</string>
 </resources>

@@ -11,7 +11,7 @@
   <string name="theRook">Ладдзя</string>
   <string name="itMovesInStraightLines">Рухаецца па простых лініях</string>
   <string name="rookIntro">Ладдзя — гэта цяжкая фігура. Ці гатовы вы кіраваць ёй?</string>
-  <string name="rookGoal">Пстрыкніце на ладдзю і давядзіце яе да зоркі!</string>
+  <string name="rookGoal">Націсніце на ладдзю і давядзіце яе да зорачкі!</string>
   <string name="grabAllTheStars">Збярыце ўсе зоркі!</string>
   <string name="theFewerMoves">Чым менш хадоў вы зробіце,
 тым больш балаў атрымаеце!</string>
@@ -35,7 +35,7 @@
   <string name="lastOne">І апошні!</string>
   <string name="kingComplete">Вы навучыліся хадзіць каралём!</string>
   <string name="theKnight">Конь</string>
-  <string name="itMovesInAnLShape">Ён ходзіць літарай \"Г\"</string>
+  <string name="itMovesInAnLShape">Xодзіць літарай \"Г\"</string>
   <string name="knightIntro">Асвоіць каня не так проста, бо ён — хітрая фігура.</string>
   <string name="knightsHaveAFancyWay">Коні маюць мудрагелісты спосаб пераскокваць!</string>
   <string name="knightsCanJumpOverObstacles">Коні могуць скакаць праз перашкоды!
@@ -124,9 +124,9 @@
   <string name="castlingIntro">Абараніце свайго караля і выведзіце ў бой ладдзю!</string>
   <string name="castleKingSide">Перасуньце свайго караля на дзве клеткі да ладдзі каралеўскага фланга!</string>
   <string name="castleQueenSide">Перасуньце свайго караля на дзве клеткі да ладдзі ферзевага фланга!</string>
-  <string name="theKnightIsInTheWay">Конь у дарозе! Зрабіце ход канём, потым зрабіце ракіроўку.</string>
-  <string name="castleKingSideMovePiecesFirst">Кароткая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
-  <string name="castleQueenSideMovePiecesFirst">Доўгая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
+  <string name="theKnightIsInTheWay">Конь перашкаджае! Пахадзіце канём, потым зрабіце ракіроўку.</string>
+  <string name="castleKingSideMovePiecesFirst">Кароткая ракіроўка! Спачатку вам трэба вывесці фігуры.</string>
+  <string name="castleQueenSideMovePiecesFirst">Доўгая ракіроўка! Спачатку вам трэба вывесці фігуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можаце рабіць ракіроўку,
 калі кароль ці ладдзя,
 якія ўдзельнічаюць у ракіроўцы, рабілі ход.</string>
@@ -151,7 +151,7 @@
   <string name="theGameIsADraw">Гульня з\'яўляецца нічыйнай</string>
   <string name="stalemateIntro">Калі гульцу не пастаўлены шах і няма магчымасці зрабіць ход, гэта пат. Гульня сканчаецца: без пераможцаў і пераможаных.</string>
   <string name="stalemateGoal">Пат чорным:
-- Чорныя не могуць схадзіць.
+- Чорныя не могуць пахадзіць.
 - Кароль не пад шахам.</string>
   <string name="stalemateComplete">Віншуем! Лепш атрымаць пат, чым мат!</string>
   <string name="advanced">Прасунуты этап</string>
@@ -167,12 +167,11 @@
   <string name="queenOverBishop">Атакуйце фігуры з больш высокай каштоўнасцю!
 Ферзь &gt; Слон</string>
   <string name="pieceValueExchange">Вазьміце найбольш каштоўную фігуру!
-Не разменьвайце больше каштоўную фігуру на менш каштоўную.</string>
+Не разменьвайце больш каштоўную фігуру на менш каштоўную.</string>
   <string name="pieceValueLegal">Вазьміце
 найбольш каштоўную фігуру!
 Пераканайцеся, што ход магчымы!</string>
-  <string name="takeThePieceWithTheHighestValue">Атакуйце фігуры
-з больш высокай каштоўнасцю!</string>
+  <string name="takeThePieceWithTheHighestValue">Вазьміце найкаштоўнейшую фігуру!</string>
   <string name="pieceValueComplete">Віншуем! Вы ведаеце каштоўнасць фігур!
 Ферзь = 9 пешак
 Ладдзя= 5 пешак

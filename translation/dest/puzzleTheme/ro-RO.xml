@@ -123,4 +123,5 @@
   <string name="healthyMixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
   <string name="playerGames">Partide jucători</string>
   <string name="playerGamesDescription">Caută puzzle-uri generate din partidele tale sau din partidele unui alt jucător.</string>
+  <string name="puzzleDownloadInformation">Aceste puzzle-uri sunt în domeniul public și pot fi descărcate de la %s.</string>
 </resources>

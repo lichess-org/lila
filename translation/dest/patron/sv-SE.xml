@@ -43,7 +43,6 @@ Eller så kan du %s.</string>
   <string name="contactSupport">kontakta Lichess support</string>
   <string name="otherMethods">Andra metoder för donation?</string>
   <string name="bankTransfers">Vi godtar även banköverföringar</string>
-  <string name="bitcoin">Och här är vår bitcoin-adress: %s</string>
   <string name="patronFeatures">Är vissa funktioner reserverade för Beskyddare (Patroner)?</string>
   <string name="noPatronFeatures">Nej, eftersom Lichess är helt gratis, för alltid och för alla. Det är ett löfte.
 Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
@@ -75,5 +74,5 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="nowLifetime">Du är nu en livstid Lichess-beskyddare!</string>
   <string name="nowOneMonth">Du är Lichess-beskyddare i en månad!</string>
   <string name="downgradeNextMonth">Om en månad kommer du INTE att debiteras igen, och ditt Lichess-konto kommer att nedgraderas till gratis.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Ändra valuta</string>
+  <string name="changeCurrency">Ändra valuta</string>
 </resources>

@@ -13,7 +13,7 @@
   <string name="editPage">Upravenie stránky streamera</string>
   <string name="yourPage">Vaša streamerská stránka</string>
   <string name="downloadKit">Stiahnite si streamerskú súpravu</string>
-  <string name="xIsStreaming">%s streamuje</string>
+  <string name="xIsStreaming">%s vysiela</string>
   <string name="rules">Pravidlá streamovania</string>
   <string name="rule1">Zahrňte kľúčové slovo \"lichess.org\" v názve Vášho streamu a požite kategóriu \"Šach\" keď streamujete na Lichessi.</string>
   <string name="rule2">Odstráňte kľúčové slovo keď nestreamujete z Lichessu.</string>
@@ -43,14 +43,8 @@ Ak je Váš stream v Angličtine, netreba zahrnúť označenie.</string>
   <string name="headline">Titulok</string>
   <string name="tellUsAboutTheStream">Povedzte nám o Vašom streame v jednej vete</string>
   <string name="longDescription">Dlhý popis</string>
-  <string name="xStreamerPicture">%s streamerský obrázok</string>
+  <string name="xStreamerPicture">Obrázok streamera %s</string>
   <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
   <string name="uploadPicture">Nahrať obrázok</string>
-  <string name="deletePicture">Odstrániť obrázok</string>
   <string name="maxSize">Maximálna veľkosť: %s</string>
-  <string name="installBlocker">Nainštalujte si bloker malwareov!</string>
-  <string name="beSafe">Chráňte sa pred reklamami a trackermi
-zamorujucich Twitch a YouTube.
-Lichess odporúča uBlock Origin
-ktorý je bezplatný a otvorený.</string>
 </resources>

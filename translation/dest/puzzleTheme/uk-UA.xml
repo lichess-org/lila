@@ -34,7 +34,7 @@
   <string name="kingsideAttackDescription">Атака на королівському фланзі, після короткої рокіровки суперника.</string>
   <string name="clearance">Очищення</string>
   <string name="clearanceDescription">Хід, зазвичай з темпом, що звільнює поле, лінію чи діагональ з подальшою тактичною ідеєю.</string>
-  <string name="defensiveMove">Оборонний хід</string>
+  <string name="defensiveMove">Захисний хід</string>
   <string name="defensiveMoveDescription">Точний хід або послідовність ходів, що необхідні для уникнення втрати матеріалу чи іншої переваги.</string>
   <string name="deflection">Відволікання</string>
   <string name="deflectionDescription">Хід, що відволікає фігуру суперника від іншої задачі, наприклад, захисту ключового поля.</string>
@@ -51,8 +51,8 @@
   <string name="forkDescription">Хід, при якому фігура атакує дві фігури одночасно.</string>
   <string name="hangingPiece">Незахищена фігура</string>
   <string name="hangingPieceDescription">Незахищена або недостатньо захищена фігура, що може бути атакована.</string>
-  <string name="hookMate">Hachok mat</string>
-  <string name="hookMateDescription">Мат турою, конем і пішаком разом з разом з одним ворожим пішаком, щоб обмежити втечу ворожого короля.</string>
+  <string name="hookMate">Хук-мат</string>
+  <string name="hookMateDescription">Мат турою, конем і пішаком разом з одним ворожим пішаком, щоб обмежити втечу ворожого короля.</string>
   <string name="interference">Перешкода</string>
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Хід у проміжку</string>
@@ -61,9 +61,9 @@
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>
   <string name="long">Багатоходова задача</string>
   <string name="longDescription">Перемога за три ходи.</string>
-  <string name="master">Партії майстрів</string>
+  <string name="master">Ігри майстрів</string>
   <string name="masterDescription">Задачі з ігор, які були зіграні титулованими гравцями.</string>
-  <string name="masterVsMaster">Партії майстер проти майстра</string>
+  <string name="masterVsMaster">Ігри двох майстрів</string>
   <string name="masterVsMasterDescription">Задачі з ігор, які були зіграні двома титулованими гравцями.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Виграйте гру красиво.</string>
@@ -120,5 +120,8 @@
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Суперник обмежений в своїх ходах, а кожен хід погіршує його позицію.</string>
   <string name="healthyMix">Здорова суміш</string>
-  <string name="healthyMixDescription">По трошки від усього. Ти не знаєш чого очікувати, тому будь готовим до всього! Як в справжніх партіях.</string>
+  <string name="healthyMixDescription">Всього потроху. Ви не знаєте чого очікувати, тому будьте готовими до всього! Як в справжніх партіях.</string>
+  <string name="playerGames">Ігри гравця</string>
+  <string name="playerGamesDescription">Пошук задач, згенерованих з ваших ігор або з ігор інших гравців.</string>
+  <string name="puzzleDownloadInformation">Ці задачі є у публічному домені, і можуть бути завантажені з %s.</string>
 </resources>

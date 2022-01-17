@@ -10,9 +10,10 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.common.HTTPRequest
+import lila.memo.RateLimit
 import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ User => UserModel, Holder }
-import lila.memo.RateLimit
 
 final class Team(
     env: Env,
@@ -76,7 +77,7 @@ final class Team(
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
       implicit ctx: Context
   ): Boolean =
-    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && {
+    team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       (isGranted(_.ChatTimeout) && requestModView)
@@ -92,33 +93,24 @@ final class Team(
     }
 
   def users(teamId: String) =
-    AnonOrScoped(_.Team.Read)(
-      anon = req => usersExport(teamId, none, req),
-      scoped = req => me => usersExport(teamId, me.some, req)
-    )
-
-  private def usersExport(teamId: String, me: Option[lila.user.User], req: RequestHeader) = {
-    api teamEnabled teamId flatMap {
-      _ ?? { team =>
-        val canView: Fu[Boolean] =
-          if (team.publicMembers) fuccess(true)
-          else
-            me match {
-              case Some(user) => api.belongsTo(team.id, user.id)
-              case _          => fuccess(false)
-            }
-        canView map {
-          case true =>
-            apiC.jsonStream(
-              env.team
-                .memberStream(team, MaxPerSecond(20))
-                .map(env.api.userApi.one)
-            )(req)
-          case false => Unauthorized
+    AnonOrScoped(_.Team.Read) { req => me =>
+      api teamEnabled teamId flatMap {
+        _ ?? { team =>
+          val canView: Fu[Boolean] =
+            if (team.publicMembers) fuccess(true)
+            else me.??(u => api.belongsTo(team.id, u.id))
+          canView map {
+            case true =>
+              apiC.jsonStream(
+                env.team
+                  .memberStream(team, MaxPerSecond(20))
+                  .map(env.api.userApi.one(_, withOnline = false))
+              )(req)
+            case false => Unauthorized
+          }
         }
       }
     }
-  }
 
   def tournaments(teamId: String) =
     Open { implicit ctx =>
@@ -392,9 +384,18 @@ final class Team(
           .fold(
             _ => fuccess(routes.Team.show(team.id).toString),
             { case (decision, url) =>
-              api.processRequest(team, request, decision == "accept") inject url
+              api.processRequest(team, request, decision) inject url
             }
           )
+      }
+    }
+
+  def declinedRequests(id: String, page: Int) =
+    Auth { implicit ctx => _ =>
+      WithOwnedTeamEnabled(id) { team =>
+        paginator.declinedRequests(team, page) map { requests =>
+          Ok(html.team.declinedRequest.all(team, requests))
+        }
       }
     }
 

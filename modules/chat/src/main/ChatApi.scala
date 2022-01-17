@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config.NetDomain
-import lila.common.String.noShouting
+import lila.common.String.{ fullCleanUp, noShouting }
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi._
@@ -32,9 +32,8 @@ final class ChatApi(
     // only use for public, multi-user chats - tournaments, simuls
     object cached {
 
-      private val cache = cacheApi[Chat.Id, UserChat](128, "chat.user") {
-        _.expireAfterAccess(1 minute)
-          .buildAsyncFuture(find)
+      private val cache = cacheApi[Chat.Id, UserChat](1024, "chat.user") {
+        _.expireAfterWrite(1 minute).buildAsyncFuture(find)
       }
 
       def invalidate = cache.invalidate _
@@ -162,7 +161,10 @@ final class ChatApi(
           reason = reason,
           scope = ChatTimeout.Scope.Global,
           text = data.text,
-          busChan = if (data.chan == "tournament") _.Tournament else _.Simul
+          busChan = data.chan match {
+            case "tournament" => _.Tournament
+            case _            => _.Swiss
+          }
         )
       }
 
@@ -242,7 +244,7 @@ final class ChatApi(
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
-          Writer cut t1 flatMap { t2 =>
+          Writer.preprocessUserInput(t1, user.username.some) flatMap { t2 =>
             val allow =
               if (user.isBot) !lila.common.String.hasLinks(t2)
               else flood.allowMessage(userId, t2)
@@ -251,7 +253,7 @@ final class ChatApi(
                 user.username,
                 user.title,
                 user.isPatron,
-                Writer.removeSelfMention(Writer preprocessUserInput t2, user.username),
+                t2,
                 troll = user.isTroll,
                 deleted = false
               )
@@ -288,9 +290,9 @@ final class ChatApi(
       }
 
     private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
-      Writer cut t1 flatMap { t2 =>
+      Writer.preprocessUserInput(t1, none) flatMap { t2 =>
         flood.allowMessage(s"$chatId/${color.letter}", t2) option
-          PlayerLine(color, Writer preprocessUserInput t2)
+          PlayerLine(color, t2)
       }
   }
 
@@ -323,20 +325,24 @@ final class ChatApi(
 
     import java.util.regex.{ Matcher, Pattern }
 
-    def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
+    def preprocessUserInput(in: String, username: Option[User.ID]): Option[String] = {
+      val out1 = multiline(
+        spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
+      )
+      val out2 = username.fold(out1) { removeSelfMention(out1, _) }
+      out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
+    }
 
-    def removeSelfMention(in: String, username: User.ID) =
+    private def removeSelfMention(in: String, username: User.ID) =
       if (in.contains('@'))
         ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username)
       else in
-
-    def cut(text: String) = Some(text.trim take Line.textMaxSize).filter(_.nonEmpty)
 
     private val gameUrlRegex   = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
     private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1"
 
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
-    private val multilineRegex                    = """\n\n{2,}+""".r
-    private def multiline(str: String)            = multilineRegex.replaceAllIn(str, """\n\n""")
+    private val multilineRegex                    = """\n\n{1,}+""".r
+    private def multiline(str: String)            = multilineRegex.replaceAllIn(str, " ")
   }
 }

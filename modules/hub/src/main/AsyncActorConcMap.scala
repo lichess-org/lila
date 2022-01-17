@@ -47,6 +47,18 @@ final class AsyncActorConcMap[D <: AsyncActor](
 
   def size: Int = asyncActors.size()
 
+  def loadOrTell(id: String, load: () => D, tell: D => Unit): Unit =
+    asyncActors
+      .compute(
+        id,
+        (_, a) =>
+          Option(a).fold(load()) { present =>
+            tell(present)
+            present
+          }
+      )
+      .unit
+
   def terminate(id: String, lastWill: AsyncActor => Unit): Unit =
     asyncActors
       .computeIfPresent(

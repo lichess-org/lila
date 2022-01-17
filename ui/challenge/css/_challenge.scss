@@ -1,78 +1,45 @@
 #challenge-app {
-  width: 20rem;
+  @extend %box-radius-left, %dropdown-shadow;
+  overflow: hidden;
   right: 0;
+  width: 270px;
   text-align: center;
 
   .empty {
-    @extend %dropdown-shadow;
-
     background: $c-bg-header-dropdown;
     padding: 2rem 0;
   }
 
-  &.rendered {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: 0 !important;
-  }
-
   .challenge {
-    @extend %box-radius-force, %dropdown-shadow;
-
     background: $c-bg-header-dropdown;
-    margin-bottom: 5px;
-
-    @include transition(height);
-
-    transition-delay: #{$transition-duration * 2 / 3};
-    position: relative;
-    height: 67px;
+    border-bottom: $border;
+    padding-bottom: 0.5em;
 
     &:hover {
-      transition-delay: 0ms;
-      height: 103px;
+      background: mix($c-bg-box, $c-primary, 70%);
+      padding-bottom: 0;
+      outline: 1px solid $c-primary;
 
-      > i {
-        color: $c-primary;
+      .perf {
+        color: $c-primary !important;
       }
     }
 
     &.declined {
-      height: 0;
-      padding: 0;
-      opacity: 0;
+      display: none;
     }
 
     .buttons {
-      position: absolute;
-      opacity: 0;
-      top: 62px;
-      left: 0px;
-      width: 100%;
-
-      @include transition(opacity);
-
-      transition-delay: 0ms;
+      display: none;
     }
 
-    &:hover .buttons {
-      opacity: 1;
-      transition-delay: 100ms;
+    &:hover .buttons,
+    .blind-mode & .buttons {
+      @extend %flex-between-nowrap;
     }
 
     .buttons > * {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 40%;
-    }
-
-    .buttons .decline {
-      left: 40%;
-    }
-    .buttons .decline-reason {
-      left: 80%;
-      width: 20%;
+      width: 33%;
     }
 
     button {
@@ -82,7 +49,7 @@
       display: block;
       padding: 0;
       background: transparent;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
 
       @include transition;
 
@@ -91,12 +58,12 @@
 
     button,
     .owner {
-      height: 42px;
+      height: 3rem;
     }
 
     .owner {
       color: $c-link;
-      line-height: 42px;
+      line-height: 3rem;
     }
 
     .owner .view,
@@ -115,7 +82,7 @@
     }
 
     button::before {
-      line-height: 42px;
+      line-height: 3rem;
     }
 
     button.decline {
@@ -132,33 +99,25 @@
       background: $c-bad;
     }
 
-    &:last-child {
-      border-bottom: none;
-    }
-
-    > i {
-      position: absolute;
-      top: 6px;
-      right: 1rem;
-      display: block;
-      font-size: 2.6em;
-    }
-
     .content {
-      @extend %nowrap-ellipsis;
+      @extend %flex-between-nowrap;
+      padding: 0.5em 0.8em 0em 1em;
+      &__text {
+        @extend %nowrap-ellipsis;
 
-      position: absolute;
-      top: 10px;
-      left: 16px;
-      display: block;
-      width: 196px;
-      text-align: left;
+        text-align: left;
+      }
+
+      .perf {
+        font-size: 2.5em;
+        color: $c-font-dim;
+      }
     }
 
     .head {
       display: block;
       font-weight: bold;
-      margin-bottom: 3px;
+      margin-bottom: 0.1em;
     }
 
     .head .user-link {
@@ -168,23 +127,14 @@
     .color-icon::before {
       vertical-align: text-top;
     }
-  }
 
-  .create {
-    @extend %box-radius-bottom;
+    .position {
+      display: none;
+    }
 
-    display: inline-block;
-    padding: 0 28px 3px 28px;
-    margin: auto;
-    background: rgba(56, 147, 232, 0.5);
-    color: rgba(255, 255, 255, 0.6);
-
-    @include transition;
-  }
-
-  .create:hover {
-    background: rgba(56, 147, 232, 0.9);
-    color: rgba(255, 255, 255, 0.6);
-    padding-top: 4px;
+    &:hover .position,
+    .blind-mode & .position {
+      @extend %flex-between-nowrap;
+    }
   }
 }

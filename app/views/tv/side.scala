@@ -30,8 +30,10 @@ object side {
                 champions.get(c).fold[Frag](raw(" - ")) { p =>
                   frag(
                     p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
-                    " ",
-                    p.rating
+                    ratingTag(
+                      " ",
+                      p.rating
+                    )
                   )
                 }
               )

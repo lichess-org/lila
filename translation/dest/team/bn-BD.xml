@@ -18,7 +18,6 @@
     <item quantity="one">দলনেতা</item>
     <item quantity="other">দলনেতারা</item>
   </plurals>
-  <string name="teamBestPlayers">দলের সেরা খেলোয়াড়</string>
   <string name="teamRecentMembers">দলের নবীন সদস্যগণ</string>
   <string name="kickSomeone">কাউকে দল থেকে বের করে দিন</string>
   <string name="whoToKick">কাকে দল থেকে বের করতে চান?</string>

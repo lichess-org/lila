@@ -137,7 +137,7 @@ object dashboard {
     )
 
   private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
-      lang: Lang
+      ctx: Context
   ) =
     themes.map { case (key, results) =>
       div(cls := themeClass)(
@@ -152,13 +152,13 @@ object dashboard {
     }
 
   private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(implicit
-      lang: Lang
+      ctx: Context
   ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
         trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
       ),
-      div(cls := s"$metricClass $metricClass--perf")(
+      ctx.pref.showRatings option div(cls := s"$metricClass $metricClass--perf")(
         strong(results.performance, results.unclear ?? "?"),
         span(trans.performance())
       ),

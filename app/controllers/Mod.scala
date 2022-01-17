@@ -34,7 +34,8 @@ final class Mod(
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
           _       <- modApi.setAlt(me, sus, v)
-          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user, me)
+          _       <- (v && sus.user.enabled) ?? env.api.accountClosure.close(sus.user, me)
+          _       <- (!v && sus.user.disabled) ?? modApi.reopenAccount(me.id, sus.user.id)
         } yield (inquiry, sus).some
       }
     }(ctx =>
@@ -59,8 +60,8 @@ final class Mod(
 
   def publicChat =
     Secure(_.PublicChatView) { implicit ctx => _ =>
-      env.mod.publicChat.all map { case (tournamentsAndChats, simulsAndChats) =>
-        Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
+      env.mod.publicChat.all map { case (tournamentsAndChats, swissesAndChats) =>
+        Ok(html.mod.publicChat(tournamentsAndChats, swissesAndChats))
       }
     }
 
@@ -101,13 +102,14 @@ final class Mod(
 
   def warn(username: String, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
-      env.mod.presets.pmPresets.get().named(subject) ?? { preset =>
+      env.mod.presets.getPmPresets(me.user).named(subject) ?? { preset =>
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
             suspect <- modApi.setTroll(me, prev, prev.user.marks.troll)
             _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
             _       <- env.mod.logApi.modMessage(me.id, suspect.user.id, preset.name)
+            _       <- preset.isNameClose ?? env.irc.api.nameClosePreset(username)
           } yield (inquiry, suspect).some
         }
       }
@@ -139,7 +141,7 @@ final class Mod(
     OAuthMod(_.CloseAccount) { _ => me =>
       env.user.repo named username flatMap {
         _ ?? { user =>
-          env.closeAccount(user, me) map some
+          env.api.accountClosure.close(user, me) map some
         }
       }
     }(actionResult(username))
@@ -215,24 +217,28 @@ final class Mod(
       env.report.api.inquiries ofModId me.id flatMap {
         case None => Redirect(routes.Report.list).fuccess
         case Some(report) =>
-          env.user.lightUserApi asyncFallback report.user flatMap { user =>
-            import lila.report.Room
-            import lila.irc.IrcApi.ModDomain
-            env.irc.api.inquiry(
-              user = user,
-              mod = me,
-              domain = report.room match {
-                case Room.Cheat | Room.Boost => ModDomain.Hunt
-                case Room.Comm               => ModDomain.Comm
-                // spontaneous inquiry
-                case _ if Granter(_.Admin)(me.user)   => ModDomain.Admin
-                case _ if Granter(_.Hunter)(me.user)  => ModDomain.Hunt // heuristic
-                case _ if Granter(_.Shusher)(me.user) => ModDomain.Comm
-                case _                                => ModDomain.Admin
+          env.user.repo named report.user flatMap {
+            _ ?? { user =>
+              import lila.report.Room
+              import lila.irc.IrcApi.ModDomain
+              env.irc.api.inquiry(
+                user = user,
+                mod = me,
+                domain = report.room match {
+                  case Room.Cheat => ModDomain.Cheat
+                  case Room.Boost => ModDomain.Boost
+                  case Room.Comm  => ModDomain.Comm
+                  // spontaneous inquiry
+                  case _ if Granter(_.Admin)(me.user)       => ModDomain.Admin
+                  case _ if Granter(_.CheatHunter)(me.user) => ModDomain.Cheat // heuristic
+                  case _ if Granter(_.Shusher)(me.user)     => ModDomain.Comm
+                  case _ if Granter(_.BoostHunter)(me.user) => ModDomain.Boost
+                  case _                                    => ModDomain.Admin
 
-              },
-              room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
-            ) inject NoContent
+                },
+                room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
+              ) inject NoContent
+            }
           }
       }
     }
@@ -322,7 +328,8 @@ final class Mod(
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         assessApi.refreshAssessOf(user) >>
-          env.irwin.api.requests.fromMod(Suspect(user), me) >>
+          env.irwin.irwinApi.requests.fromMod(Suspect(user), me) >>
+          env.irwin.kaladinApi.modRequest(Suspect(user), me) >>
           userC.renderModZoneActions(username)
       }
     }
@@ -393,10 +400,18 @@ final class Mod(
         )
     }
 
+  def gdprErase(username: String) =
+    Secure(_.CloseAccount) { _ => me =>
+      val res = Redirect(routes.User.show(username))
+      env.api.accountClosure.closeThenErase(username, me) map {
+        case Right(msg) => res flashSuccess msg
+        case Left(err)  => res flashFailure err
+      }
+    }
+
   protected[controllers] def searchTerm(me: Holder, q: String)(implicit ctx: Context) = {
-    val query = UserSearch exact q
-    env.mod.search(query) map { users =>
-      Ok(html.mod.search(me, UserSearch.form fill query, users))
+    env.mod.search(q) map { users =>
+      Ok(html.mod.search(me, UserSearch.form fill q, users))
     }
   }
 
@@ -489,7 +504,7 @@ final class Mod(
             .map(EmailAddress.apply) flatMap env.security.emailAddressValidator.validate
           val username = query lift 1
           def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-            env.mod.search(UserSearch.exact(q)) flatMap {
+            env.mod.search(q) flatMap {
               case List(UserModel.WithEmails(user, _)) =>
                 (!user.everLoggedIn).?? {
                   lila.mon.user.register.modConfirmEmail.increment()

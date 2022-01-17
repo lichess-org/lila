@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doar</string>
+  <string name="donateAsX">Donar por %s</string>
   <string name="lichessPatron">Patrón de Lichess</string>
   <string name="freeAccount">Conta gratuita</string>
   <string name="becomePatron">Faite patrón de Lichess</string>
@@ -43,7 +44,6 @@ Ou podes %s.</string>
   <string name="contactSupport">poñerte en contacto co soporte de Lichess</string>
   <string name="otherMethods">Hai outros métodos de donación?</string>
   <string name="bankTransfers">Tamén aceptamos trasferencias bancarias</string>
-  <string name="bitcoin">E aquí está o noso enderezo de bitcoin: %s</string>
   <string name="patronFeatures">Hai algunhas funcionalidades reservadas aos patróns?</string>
   <string name="noPatronFeatures">Non, porque Lichess é totalmente gratuíto, para sempre, para todos. Iso é unha promesa.
 Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</string>

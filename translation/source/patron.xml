@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="donate">Donate</string>
+  <string name="donateAsX">Donate as %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Free account</string>
   <string name="becomePatron">Become a Lichess Patron</string>
@@ -44,7 +45,6 @@ Or you can %s.</string>
   <string name="contactSupport">contact Lichess support</string>
   <string name="otherMethods">Other methods of donation?</string>
   <string name="bankTransfers">We also accept bank transfers</string>
-  <string name="bitcoin">And here's our bitcoin address: %s</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
   <string name="noPatronFeatures">No, because Lichess is entirely free, forever, and for everyone. That's a promise.
 However, Patrons get bragging rights with a cool new profile icon.</string>

@@ -36,6 +36,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
       }
     }
 
+  def teacher(username: String) = Secure(_.Admin) { implicit ctx => _ =>
+    env.user.repo named username flatMap {
+      _ ?? { teacher =>
+        env.clas.api.clas.of(teacher) map { classes =>
+          Ok(html.mod.search.teacher(teacher.id, classes))
+        }
+      }
+    }
+  }
+
   private def renderHome(implicit ctx: Context) =
     fuccess {
       pageHit
@@ -439,7 +449,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         WithStudent(clas, username) { s =>
           for {
             withManagingClas <- env.clas.api.student.withManagingClas(s, clas)
-            activity         <- env.activity.read.recent(s.user, 14)
+            activity         <- env.activity.read.recent(s.user)
           } yield views.html.clas.student.show(clas, students, withManagingClas, activity)
         }
       }
@@ -552,7 +562,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
         WithStudent(clas, username) { s =>
           if (s.student.managed)
             env.clas.api.student.closeAccount(s) >>
-              env.closeAccount(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
+              env.api.accountClosure.close(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
           else Redirect(routes.Clas.show(clas.id.value)).fuccess
         }
       }
@@ -573,6 +583,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
     ctx.me match {
       case None                 => fuTrue
       case Some(me) if me.isBot => fuFalse
+      case Some(me) if me.kid   => fuFalse
       case _ if ctx.hasClas     => fuTrue
       case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
     }

@@ -4,9 +4,9 @@ import { KeyboardMove } from '../keyboardMove';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
-const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
+const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
 const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqNBRQ]$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 
 interface Opts {
   input: HTMLInputElement;
@@ -31,9 +31,11 @@ lichess.keyboardMove = function (opts: Opts) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
-    if (v == 'resign') {
-      opts.ctrl.resign(true, true);
-      clear();
+    if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
+      if (v.toLowerCase() === 'resign') {
+        opts.ctrl.resign(true, true);
+        clear();
+      }
     } else if (legalSans && foundUci) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
@@ -54,9 +56,12 @@ lichess.keyboardMove = function (opts: Opts) {
       opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
-      if (v.length === 3) v = 'P' + v;
-      opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
-      clear();
+      // Incomplete crazyhouse strings such as Q@ or Q@a should do nothing.
+      if (v.length > 3 || (v.length > 2 && v.startsWith('@'))) {
+        if (v.length === 3) v = 'P' + v;
+        opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
+        clear();
+      }
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
         readClocks(opts.ctrl.clock());
@@ -160,7 +165,7 @@ function readClocks(clockCtrl: any | undefined) {
       simplePlural(date.getUTCMinutes(), 'minute') +
       ' ' +
       simplePlural(date.getUTCSeconds(), 'second');
-    return `${color}: ${msg}`;
+    return `${color} ${msg}`;
   });
   lichess.sound.say(msgs.join('. '));
 }

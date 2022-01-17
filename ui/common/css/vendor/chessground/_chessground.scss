@@ -114,7 +114,7 @@ piece {
 
   &.dragging {
     cursor: move;
-    z-index: z('cg__piece.dragging');
+    z-index: z('cg__piece.dragging') !important;
   }
 
   &.anim {

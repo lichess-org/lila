@@ -1,6 +1,5 @@
 package lila.common
 
-
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
@@ -9,6 +8,7 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
 import java.util.Arrays
 import scala.jdk.CollectionConverters._
+import lila.base.RawHtml
 
 final class Markdown(
     autoLink: Boolean = true,
@@ -51,11 +51,23 @@ final class Markdown(
 
   private val logger = lila.log("markdown")
 
+  // quick and dirty.
+  // there should be a clean way to do it:
+  // https://programming.vip/docs/flexmark-java-markdown-add-target-attribute-to-link.html
+  private def addLinkAttributes(markup: Html) =
+    markup.replace("<a href=", """<a rel="nofollow noopener noreferrer" href=""")
+
+  private def mentionsToLinks(markdown: Text): Text =
+    RawHtml.atUsernameRegex.replaceAllIn(markdown, "[$1](/@/$1)")
+
+  private val tooManyUnderscoreRegex             = """(_{4,})""".r
+  private def preventStackOverflow(text: String) = tooManyUnderscoreRegex.replaceAllIn(text, "_" * 3)
+
   def apply(key: Key)(text: Text): Html =
     Chronometer
       .sync {
         try {
-          renderer.render(parser.parse(text))
+          addLinkAttributes(renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)))))
         } catch {
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -63,6 +75,14 @@ final class Markdown(
         }
       }
       .mon(_.markdown.time)
-      .logIfSlow(100, logger.branch(key))(_ => s"slow markdown size:${text.size}")
+      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.size}")
       .result
+}
+
+object Markdown {
+
+  private val imageRegex = """!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)""".r
+
+  def imageUrls(markdown: String): List[String] =
+    imageRegex.findAllIn(markdown).matchData.map(_ group 1).toList
 }

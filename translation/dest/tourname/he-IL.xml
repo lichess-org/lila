@@ -40,10 +40,8 @@
   <string name="classicalShield">מגן קלאסי</string>
   <string name="xShieldArena">ארנת מגן %s</string>
   <string name="xShield">מגן %s</string>
-  <string name="openingRapidArena">רפיד ארנה %s</string>
-  <string name="openingRapid">רפיד %s</string>
   <string name="xTeamBattle">קרב צוותים %s</string>
   <string name="eliteXArena">ארנת %s אליטה</string>
   <string name="eliteX">אליטה %s</string>
-  <string name="xArena">ארנת %s</string>
+  <string name="xArena">%s אזורי</string>
 </resources>

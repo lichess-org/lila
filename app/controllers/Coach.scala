@@ -20,28 +20,28 @@ final class Coach(env: Env) extends LilaController(env) {
       val order   = CoachPager.Order(o)
       val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
       val country = (c != "all") ?? Countries.info(c)
-      env.coach.api.allLanguages flatMap { langCodes =>
-        env.coach.api.allCountries flatMap { countryCodes =>
-          env.coach.pager(lang, order, country, page) map { pager =>
-            Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
-          }
-        }
-      }
+      for {
+        langCodes    <- env.coach.api.allLanguages
+        countryCodes <- env.coach.api.allCountries
+        pager        <- env.coach.pager(lang, order, country, page)
+      } yield Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
     }
 
   def show(username: String) =
     Open { implicit ctx =>
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
-          env.study.api.publicByIds {
-            c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
-          } flatMap env.study.pager.withChaptersAndLiking(ctx.me, 4) flatMap { studies =>
-            api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
-              ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
-                lila.mon.coach.pageView.profile(c.coach.id.value).increment()
-                Ok(html.coach.show(c, reviews, studies, myReview))
-              }
+          for {
+            stu <- env.study.api.publicByIds {
+              c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
             }
+            studies  <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
+            posts    <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
+            reviews  <- api.reviews.approvedByCoach(c.coach)
+            myReview <- ctx.me.?? { api.reviews.mine(_, c.coach) }
+          } yield {
+            lila.mon.coach.pageView.profile(c.coach.id.value).increment()
+            Ok(html.coach.show(c, reviews, studies, posts, myReview))
           }
         }
       }
@@ -134,18 +134,11 @@ final class Coach(env: Env) extends LilaController(env) {
       OptionFuResult(api findOrInit me) { c =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>
-            api.uploadPicture(c, pic, me.user) recover { case e: lila.base.LilaException =>
+            api.uploadPicture(c, pic) recover { case e: lila.base.LilaException =>
               BadRequest(html.coach.picture(c, e.message.some))
             } inject Redirect(routes.Coach.edit)
           case None => fuccess(Redirect(routes.Coach.edit))
         }
-      }
-    }
-
-  def pictureDelete =
-    Secure(_.Coach) { implicit ctx => me =>
-      OptionFuResult(api findOrInit me) { c =>
-        api.deletePicture(c) inject Redirect(routes.Coach.edit)
       }
     }
 }

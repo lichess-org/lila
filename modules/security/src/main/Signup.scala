@@ -22,6 +22,7 @@ final class Signup(
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
     irc: lila.irc.IrcApi,
+    disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -71,7 +72,11 @@ final class Signup(
         forms.signup.website.form
           .bindFromRequest()
           .fold[Fu[Signup.Result]](
-            err => fuccess(Signup.Bad(err tap signupErrLog)),
+            err =>
+              fuccess {
+                disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
+                Signup.Bad(err tap signupErrLog)
+              },
             data =>
               signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
                 val email = emailAddressValidator
@@ -122,7 +127,11 @@ final class Signup(
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
-        err => fuccess(Signup.Bad(err tap signupErrLog)),
+        err =>
+          fuccess {
+            disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
+            Signup.Bad(err tap signupErrLog)
+          },
         data =>
           signupRateLimit(data.username, cost = 2) {
             val email = emailAddressValidator
@@ -175,13 +184,15 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
-  ) =
+  ) = {
+    disposableEmailAttempt.onSuccess(user, email, HTTPRequest ipAddress req)
     authLog(
       user.username,
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
         .??(_.value)} ip: ${HTTPRequest ipAddress req} api: ${apiVersion.??(_.value)}"
     )
+  }
 
   private def signupErrLog(err: Form[_]) =
     for {
@@ -192,7 +203,7 @@ final class Signup(
         err.errors.exists(_.messages.contains("error.email_acceptable")) &&
         err("email").value.exists(EmailAddress.isValid)
       )
-        authLog(username, email, s"Signup with unacceptable email")
+        authLog(username, email, "Signup with unacceptable email")
     }
 
   private def authLog(user: String, email: String, msg: String) =

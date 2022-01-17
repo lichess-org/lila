@@ -17,12 +17,13 @@
     "gulp-filter": "^7.0.0",
     "gulp-if": "^3.0.0",
     "gulp-rename": "^2.0.0",
-    "node-sass": "^6",
+    "node-sass": "^7",
     "gulp-sass": "^5.0.0",
     "gulp-sass-inheritance": "^1.1",
     "breakpoint-sass": "^2.7.1",
     "gulp-size": "^4.0.1",
-    "gulp-sourcemaps": "^3.0.0"
+    "gulp-sourcemaps": "^3.0.0",
+    "plugin-error": "^1.0.1"
   },
   "scripts": {
     "gulp": "gulp"

@@ -100,11 +100,15 @@ case class User(
       -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).??(_.roundSeconds))
     } take nb
 
-  def best8Perfs: List[PerfType] = bestOf(User.firstRow, 4) ::: bestOf(User.secondRow, 4)
+  def best8Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 4)
 
-  def best6Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 6)
+  def best6Perfs: List[PerfType] = User.firstRow ::: bestOf(User.secondRow, 2)
 
-  def best3Perfs: List[PerfType] = bestOf(User.firstRow, 3)
+  def best4Perfs: List[PerfType] = User.firstRow
+
+  def bestAny3Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 3)
+
+  def bestPerf: Option[PerfType] = bestOf(User.firstRow ::: User.secondRow, 1).headOption
 
   def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
@@ -170,7 +174,8 @@ object User {
   val lichessId                    = "lichess"
   val broadcasterId                = "broadcaster"
   val ghostId                      = "ghost"
-  def isOfficial(username: String) = normalize(username) == lichessId || normalize(username) == broadcasterId
+  def isLichess(username: String)  = normalize(username) == lichessId
+  def isOfficial(username: String) = isLichess(username) || normalize(username) == broadcasterId
 
   val seenRecently = 2.minutes
 
@@ -355,8 +360,9 @@ object User {
   implicit val contactHandler = reactivemongo.api.bson.Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
-    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
+    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
   private val secondRow: List[PerfType] = List(
+    PerfType.Correspondence,
     PerfType.UltraBullet,
     PerfType.Crazyhouse,
     PerfType.Chess960,

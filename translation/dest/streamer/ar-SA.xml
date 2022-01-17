@@ -53,11 +53,5 @@
   <string name="xStreamerPicture">%s صورة الستريمر</string>
   <string name="changePicture">تغيير/حذف صورتك</string>
   <string name="uploadPicture">رفع صورة</string>
-  <string name="deletePicture">حذف الصورة</string>
   <string name="maxSize">الحجم الأقصى: %s</string>
-  <string name="installBlocker">قم بتثبيت مضاد البرمجيات الخبيثة!</string>
-  <string name="beSafe">ابقى آمناً من الإعلانات والمتعقبين
-بينما تنشر على تويتش ويوتيوب.
-يوصي موقع Lichess باستخدام إضافة uBlock Origin
-المجانية والمفتوحة المصدر.</string>
 </resources>

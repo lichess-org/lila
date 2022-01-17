@@ -13,7 +13,7 @@
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
-  <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Je puzzelrating zal niet veranderen: puzzels zijn geen competitie. De rating helpt bij het selecteren van de beste puzzels voor je huidige vaardigheid.</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
   <string name="toGetPersonalizedPuzzles">Om gepersonaliseerde puzzels te krijgen:</string>
@@ -51,7 +51,7 @@
   </plurals>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
-  <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
+  <string name="jumpToNextPuzzleImmediately">Ga direct door naar volgende puzzel</string>
   <string name="puzzleDashboard">Puzzeldashboard</string>
   <string name="improvementAreas">Verbeterpunten</string>
   <string name="strengths">Sterke punten</string>
@@ -75,7 +75,7 @@ Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jou
     <item quantity="one">%s gespeeld</item>
     <item quantity="other">%s gespeeld</item>
   </plurals>
-  <plurals name="nbToReplay">
+  <plurals name="nbToReplay" comment="nbToReplay [other]&#10;&#10;In the puzzle dashboard, the title of a button. The button allows the user to replay previously failed puzzles. The variable represents how many puzzles they can practice.">
     <item quantity="one">%s om te herhalen</item>
     <item quantity="other">%s om te herhalen</item>
   </plurals>

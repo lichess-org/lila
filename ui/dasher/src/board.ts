@@ -87,8 +87,8 @@ export function view(ctrl: BoardCtrl): VNode {
             h('input.range', {
               attrs: {
                 type: 'range',
-                min: 100,
-                max: 200,
+                min: 0,
+                max: 100,
                 step: 1,
                 value: ctrl.readZoom(),
               },

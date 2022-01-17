@@ -19,17 +19,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
-import {
-  Redraw,
-  Vm,
-  Controller,
-  PuzzleOpts,
-  PuzzleData,
-  PuzzleResult,
-  MoveTest,
-  ThemeKey,
-  NvuiPlugin,
-} from './interfaces';
+import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, MoveTest, ThemeKey, NvuiPlugin } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
 
@@ -40,6 +30,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
   const hasStreak = !!opts.data.streak;
   const autoNext = storedProp(`puzzle.autoNext${hasStreak ? '.streak' : ''}`, hasStreak);
+  const rated = storedProp('puzzle.rated', true);
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
@@ -59,7 +50,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
   const loadSound = (file: string, volume?: number, delay?: number) => {
-    setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
+    setTimeout(() => lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`, true), delay || 1000);
     return () => lichess.sound.play(file, volume);
   };
   const sound = {
@@ -286,23 +277,22 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     sound.end();
   }
 
-  function sendResult(win: boolean): Promise<void> {
+  async function sendResult(win: boolean): Promise<void> {
     if (vm.resultSent) return Promise.resolve();
     vm.resultSent = true;
     session.complete(data.puzzle.id, win);
-    return xhr.complete(data.puzzle.id, data.theme.key, win, data.replay, streak).then((res: PuzzleResult) => {
-      if (res?.replayComplete && data.replay) return lichess.redirect(`/training/dashboard/${data.replay.days}`);
-      if (res?.next.user && data.user) {
-        data.user.rating = res.next.user.rating;
-        data.user.provisional = res.next.user.provisional;
-        vm.round = res.round;
-        if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
-      }
-      if (win) speech.success();
-      vm.next.resolve(res.next);
-      if (streak && win) streak.onComplete(true, res.next);
-      redraw();
-    });
+    const res = await xhr.complete(data.puzzle.id, data.theme.key, win, rated, data.replay, streak);
+    if (res.replayComplete && data.replay) return lichess.redirect(`/training/dashboard/${data.replay.days}`);
+    if (res.next.user && data.user) {
+      data.user.rating = res.next.user.rating;
+      data.user.provisional = res.next.user.provisional;
+      vm.round = res.round;
+      if (res.round?.ratingDiff) session.setRatingDiff(data.puzzle.id, res.round.ratingDiff);
+    }
+    if (win) speech.success();
+    vm.next.resolve(res.next);
+    if (streak && win) streak.onComplete(true, res.next);
+    redraw();
   }
 
   function nextPuzzle(): void {
@@ -331,8 +321,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       emit: function (ev, work) {
         tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
-            if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth) node.threat = ev;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth) node.ceval = ev;
+            const threat = ev as Tree.LocalEval;
+            if (!node.threat || node.threat.depth <= threat.depth || node.threat.maxDepth < threat.maxDepth)
+              node.threat = threat;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || (node.ceval.maxDepth ?? 0) < ev.maxDepth) node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -547,6 +539,11 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     trans: lichess.trans(opts.i18n),
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),
+    rated,
+    toggleRated: () => {
+      rated(!rated());
+      redraw();
+    },
     outcome,
     toggleCeval,
     toggleThreatMode,
@@ -581,6 +578,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     skip,
     flip,
     flipped: () => flipped,
+    showRatings: opts.showRatings,
     nvui: lichess.PuzzleNVUI ? (lichess.PuzzleNVUI(redraw) as NvuiPlugin) : undefined,
   };
 }

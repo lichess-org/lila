@@ -64,7 +64,7 @@ object side {
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         verdicts.relevant option st.section(
           dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
-                       else ""),
+                       else ""),
           cls := List(
             "conditions" -> true,
             "accepted"   -> (ctx.isAuth && verdicts.accepted),

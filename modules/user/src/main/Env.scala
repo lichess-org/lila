@@ -2,6 +2,7 @@ package lila.user
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
@@ -25,6 +26,7 @@ private class UserConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
@@ -56,10 +58,9 @@ final class Env(
 
   lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
-  lazy val rankingApi = {
-    def mk = (coll: Coll) => wire[RankingApi]
-    mk(db(config.collectionRanking))
-  }
+  private lazy val rankingColl = yoloDb(config.collectionRanking).failingSilently()
+
+  lazy val rankingApi = wire[RankingApi]
 
   lazy val cached: Cached = wire[Cached]
 

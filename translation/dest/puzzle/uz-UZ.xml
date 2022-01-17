@@ -13,7 +13,6 @@
   <string name="specialMoves">Maxsus yurishlar</string>
   <string name="didYouLikeThisPuzzle">Ushbu boshqotirma yoqdimi?</string>
   <string name="voteToLoadNextOne">Navbatdagi bittasini oʻqish uchun baholang!</string>
-  <string name="yourPuzzleRatingX">Sizning boshqotirmalardagi reytingingiz: %s</string>
   <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yurishni toping.</string>
   <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yurishni toping.</string>
   <string name="toGetPersonalizedPuzzles">Shaxsiy jumboqlarni yaratish uchun:</string>

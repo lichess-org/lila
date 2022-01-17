@@ -18,15 +18,16 @@ final class Prismic(
     }
 
   private def getDocument(id: String): Fu[Option[Document]] =
-    prismicApi flatMap { api =>
-      api
-        .forms("everything")
-        .query(s"""[[:d = at(document.id, "$id")]]""")
-        .ref(api.master.ref)
-        .submit() dmap {
-        _.results.headOption
+    lila.blog.BlogApi.looksLikePrismicId(id) ??
+      prismicApi.flatMap { api =>
+        api
+          .forms("everything")
+          .query(s"""[[:d = at(document.id, "$id")]]""")
+          .ref(api.master.ref)
+          .submit() dmap {
+          _.results.headOption
+        }
       }
-    }
 
   def getBookmark(name: String) =
     prismicApi flatMap { api =>

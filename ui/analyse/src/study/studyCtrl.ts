@@ -290,7 +290,7 @@ export default function (
 
     configurePractice();
     serverEval.reset();
-    commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node, false);
+    commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node);
 
     redraw();
     ctrl.startCeval();
@@ -637,9 +637,9 @@ export default function (
       if (practice) practice.onJump();
     },
     withPosition,
-    setPath(path, node, playedMyself) {
+    setPath(path, node) {
       onSetPath(path);
-      commentForm.onSetPath(vm.chapterId, path, node, playedMyself);
+      commentForm.onSetPath(vm.chapterId, path, node);
     },
     deleteNode(path) {
       makeChange(

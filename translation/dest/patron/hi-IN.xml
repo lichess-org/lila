@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">दान करें</string>
+  <string name="donateAsX">%s के रूप में दान करें</string>
   <string name="lichessPatron">Lichess संरक्षक</string>
   <string name="freeAccount">मुफ्त खाता</string>
   <string name="becomePatron">Lichess संरक्षक बनें</string>
@@ -26,6 +27,7 @@
   <string name="onetime">एक बार</string>
   <string name="singleDonation">एक एकल दान जो आपको एक महीने के लिए संरक्षक पंख का अनुदान देता है।</string>
   <string name="otherAmount">अन्य</string>
+  <string name="pleaseEnterAmountInX">कृपया %s में राशि दर्ज करें</string>
   <string name="withCreditCard">क्रेडिट कार्ड</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">हमारी एक छोटी टीम हैं, इसलिए आपका समर्थन हमारे लिए बहुत बड़ी बात है!</string>
@@ -42,7 +44,6 @@
   <string name="contactSupport">लिचेस समर्थन से संपर्क करें</string>
   <string name="otherMethods">दान की अन्य विधियाँ?</string>
   <string name="bankTransfers">हम बैंक हस्तांतरण को भी स्वीकार करते हैं</string>
-  <string name="bitcoin">और यहां हमारा बिटकॉइन पता है: %s</string>
   <string name="patronFeatures">क्या कुछ विशेषताएं संरक्षक के लिए आरक्षित हैं?</string>
   <string name="noPatronFeatures">नहीं, क्योंकि Lichess पूरी तरह से मुक्त है, हमेशा के लिए, और सभी के लिए। यह एक वादा है।
 हालाँकि, Patrons को एक नए आकर्षक प्रोफ़ाइल आइकन के साथ डींग मारने का अधिकार मिलता है।</string>
@@ -73,4 +74,5 @@
   <string name="nowLifetime">अब आप जीवन भर के लिए एक Lichess संरक्षक हैं!</string>
   <string name="nowOneMonth">अब आप एक महीने के लिए Lichess संरक्षक हैं!</string>
   <string name="downgradeNextMonth">एक महीने बाद, आपसे फिर से शुल्क नहीं लिया जाएगा, और आपका लाइचेस खाता सामान्य खाते में डाउनग्रेड हो जाएगा।</string>
+  <string name="changeCurrency">मुद्रा बदलें</string>
 </resources>

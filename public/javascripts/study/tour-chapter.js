@@ -1,6 +1,6 @@
 function loadShepherd(f) {
-  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
-  lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
+  var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'dark' : 'default');
+  lichess.loadCss('vendor/' + theme + '.css');
   lichess.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
     lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
       f(theme);

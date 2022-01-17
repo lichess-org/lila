@@ -30,8 +30,10 @@ object menu {
         a(cls := active.active("tour"), href := routes.TournamentCrud.index(1))("Tournaments"),
       isGranted(_.ManageEvent) option
         a(cls := active.active("event"), href := routes.Event.manager)("Events"),
-      isGranted(_.SeeReport) option
+      isGranted(_.MarkEngine) option
         a(cls := active.active("irwin"), href := routes.Irwin.dashboard)("Irwin dashboard"),
+      isGranted(_.MarkEngine) option
+        a(cls := active.active("kaladin"), href := routes.Irwin.kaladin)("Kaladin dashboard"),
       isGranted(_.Shadowban) option
         a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
           "Chat Panic: ",

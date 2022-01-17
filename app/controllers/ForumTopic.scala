@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import views._
 
 import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.IpAddress
 import lila.user.Holder
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
@@ -43,7 +43,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                       BadRequest(html.forum.topic.form(categ, err, captcha))
                     },
                   data =>
-                    CreateRateLimit(HTTPRequest ipAddress ctx.req) {
+                    CreateRateLimit(ctx.ip) {
                       topicApi.makeTopic(categ, data, me) map { topic =>
                         Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                       }

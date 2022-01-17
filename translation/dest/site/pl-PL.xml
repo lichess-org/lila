@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Zagraj ze znajomym</string>
+  <string name="playWithAFriend">Graj ze znajomym</string>
   <string name="playWithTheMachine">Graj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
@@ -11,13 +11,14 @@
   <string name="level">Poziom</string>
   <string name="strength">Siła</string>
   <string name="toggleTheChat">Pokaż/ukryj rozmowy</string>
-  <string name="toggleSound">Włącz/wyłącz dźwięk</string>
   <string name="chat">Czat</string>
   <string name="resign">Poddaj się</string>
   <string name="checkmate">Mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
+  <string name="asWhite">białymi</string>
+  <string name="asBlack">czarnymi</string>
   <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
@@ -42,7 +43,6 @@
     <item quantity="other">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
   </plurals>
   <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
-  <string name="makeYourOpponentResign">Wymuś rezygnację przeciwnika</string>
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
@@ -51,9 +51,8 @@
   <string name="blackResigned">Czarne poddały się</string>
   <string name="whiteLeftTheGame">Białe porzuciły partię</string>
   <string name="blackLeftTheGame">Czarne porzuciły partię</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Udostępnij ten adres innym, by mogli zobaczyć tę partię</string>
-  <string name="theComputerAnalysisHasFailed">Nie udało się przeanalizować tej partii</string>
-  <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
+  <string name="whiteDidntMove">Białe nie ruszyły się</string>
+  <string name="blackDidntMove">Czarne nie ruszyły się</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
   <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
@@ -94,12 +93,7 @@
     <item quantity="many">Mat w %s posunięciach</item>
     <item quantity="other">Mat w %s posunięciach</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Następne bicie lub ruch pionem w następnym posunięciu (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-    <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-  </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' - odległość do zerowania z regułą pięćdziesięciu ruchów</string>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
@@ -107,6 +101,9 @@
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
+  <string name="winOr50MovesByPriorMistake">Zwycięstwo lub 50 posunięć bez rozstrzygnięcia</string>
+  <string name="lossOr50MovesByPriorMistake">Porażka lub 50 posunięć bez rozstrzygnięcia</string>
+  <string name="unknownDueToRounding">Zwycięstwo/porażka gwarantowana tylko wtedy, gdy przestrzegano zwycięskiej linii bazy końcówek od ostatniego bicia lub posunięcia pionem.</string>
   <string name="allSet">Gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
@@ -117,11 +114,11 @@
   <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
-  <string name="evaluationGauge">Wskaźnik oszacowania</string>
+  <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
-  <string name="infiniteAnalysis">Nieograniczona analiza</string>
+  <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
   <string name="mistake">Pomyłka</string>
@@ -206,6 +203,12 @@
     <item quantity="many">%s godzin</item>
     <item quantity="other">%s godzin</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuta</item>
+    <item quantity="few">%s minuty</item>
+    <item quantity="many">%s minut</item>
+    <item quantity="other">%s minut</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Ranking</string>
   <string name="ratingStats">Statystyki rankingowe</string>
@@ -245,7 +248,6 @@
   <string name="whiteTimeOut">Upłynął czas białych</string>
   <string name="blackTimeOut">Upłynął czas czarnych</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
-  <string name="drawOfferDeclined">Odrzucono propozycję remisu</string>
   <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
   <string name="drawOfferCanceled">Wycofano propozycję remisu</string>
   <string name="whiteOffersDraw">Białe proponują remis</string>
@@ -271,8 +273,6 @@
   <string name="thisGameIsRated">Partia rankingowa</string>
   <string name="rematch">Rewanż</string>
   <string name="rematchOfferSent">Wysłano propozycję rewanżu</string>
-  <string name="rematchOfferSentWhite">Białe proponują rewanż</string>
-  <string name="rematchOfferSentBlack">Czarne proponują rewanż</string>
   <string name="rematchOfferAccepted">Przyjęto propozycję rewanżu</string>
   <string name="rematchOfferCanceled">Wycofano propozycję rewanżu</string>
   <string name="rematchOfferDeclined">Odrzucono propozycję rewanżu</string>
@@ -286,9 +286,7 @@
   <string name="youHaveBeenTimedOut">Zostałeś czasowo wyciszony.</string>
   <string name="spectatorRoom">Widzowie</string>
   <string name="composeMessage">Napisz wiadomość</string>
-  <string name="noNewMessages">Brak nowych wiadomości</string>
   <string name="subject">Temat</string>
-  <string name="recipient">Adresat</string>
   <string name="send">Wyślij</string>
   <string name="incrementInSeconds">Dodawany czas w sekundach</string>
   <string name="freeOnlineChess">Darmowe szachy online</string>
@@ -404,6 +402,7 @@
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
+  <string name="orUploadPgnFile">lub wgraj plik PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
@@ -429,12 +428,12 @@
     <item quantity="many">%s znajomych online</item>
     <item quantity="other">%s znajomych online</item>
   </plurals>
-  <string name="noFriendsOnline">Brak znajomych online</string>
-  <string name="findFriends">Znajdź znajomych</string>
   <string name="favoriteOpponents">Ulubieni przeciwnicy</string>
   <string name="follow">Obserwuj</string>
   <string name="following">Obserwowany</string>
   <string name="unfollow">Przestań obserwować</string>
+  <string name="followX">Obserwuj %s</string>
+  <string name="unfollowX">Przestań obserwować %s</string>
   <string name="block">Zablokuj</string>
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
@@ -479,13 +478,12 @@
   <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
   <string name="fewerPlayers">Ustawienie warunków wstępu sprawi, że do turnieju przystąpi mniej osób.</string>
   <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
-  <string name="makePrivateTournament">Uczyń turniej prywatnym ograniczając dostęp za pomocą hasła</string>
+  <string name="makePrivateTournament">Ustaw turniej jako prywatny i ogranicz dostęp za pomocą hasła</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
   <string name="wins">Wygrane</string>
   <string name="losses">Przegrane</string>
-  <string name="winStreak">Seria wygranych</string>
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Rozpoczęcie turnieju</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
@@ -501,7 +499,6 @@
   <string name="draws">Remisów</string>
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
-  <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
@@ -509,7 +506,6 @@
   <string name="chess960StartPosition">Pozycja startowa w Szachach 960: %s</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
-  <string name="savePosition">Zapisz pozycję</string>
   <string name="loadPosition">Wczytaj ustawienie</string>
   <string name="isPrivate">Prywatny</string>
   <string name="reportXToModerators">Zgłoś %s do moderatora</string>
@@ -525,11 +521,10 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub flaga</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
+  <string name="oneUrlPerLine">Jeden adres URL na linię.</string>
   <string name="inlineNotation">Notacja ciągła</string>
-  <string name="watchLichessTV">Oglądaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
   <string name="onlinePlayers">Gracze online</string>
-  <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Miej na uwadze, że partia jest rankingowa, ale nie ma limitu czasu!</string>
   <string name="success">Sukces</string>
@@ -542,7 +537,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
@@ -574,9 +568,7 @@
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
   <string name="by">autor %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
-  <string name="theming">Wygląd</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Pytania i odpowiedzi</string>
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Pisz tutaj notatki prywatne</string>
   <string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
@@ -605,13 +597,7 @@
   <string name="onSlowGames">W wolniejszych partiach</string>
   <string name="always">Zawsze</string>
   <string name="never">Nigdy</string>
-  <string name="difficultyEasy">Łatwy</string>
-  <string name="difficultyNormal">Normalny</string>
-  <string name="difficultyHard">Trudny</string>
   <string name="xCompetesInY">%1$s przystąpił do turnieju %2$s</string>
-  <string name="xAskedY">%1$s zapytał %2$s</string>
-  <string name="xAnsweredY">%1$s odpowiedział %2$s</string>
-  <string name="xCommentedY">%1$s skomentował %2$s</string>
   <string name="victory">Wygrana</string>
   <string name="defeat">Przegrana</string>
   <string name="victoryVsYInZ">%1$s z %2$s (%3$s)</string>
@@ -620,7 +606,6 @@
   <string name="timeline">Historia</string>
   <string name="starting">Zaczynają się:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>
-  <string name="yourCityRegionOrDepartment">Twoje miasto, region lub województwo</string>
   <string name="biographyDescription">Napisz coś o sobie: dlaczego grasz w szachy, twoje ulubione otwarcia, partie, szachiści…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksymalnie: %s znak.</item>
@@ -639,13 +624,6 @@
   <string name="computer">Komputer</string>
   <string name="side">Strona</string>
   <string name="clock">Zegar</string>
-  <string name="unauthorizedError">Brak dostępu.</string>
-  <string name="noInternetConnection">Brak połączenia z internetem. Nadal możesz wybrać z menu opcję gry offline.</string>
-  <string name="connectedToLichess">Połączono z lichess.org</string>
-  <string name="signedOut">Wylogowano</string>
-  <string name="loginSuccessful">Jesteś zalogowany</string>
-  <string name="playOnTheBoardOffline">Z człowiekiem</string>
-  <string name="playOfflineComputer">Z komputerem</string>
   <string name="opponent">Przeciwnik</string>
   <string name="learnMenu">Nauka</string>
   <string name="studyMenu">Opracowania</string>
@@ -653,16 +631,15 @@
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
-  <string name="sharePGN">Udostępnij PGN</string>
-  <string name="playOnline">Graj online</string>
-  <string name="playOffline">Graj offline</string>
-  <string name="allowAnalytics">Wysyłaj anonimowe statystyki</string>
-  <string name="shareGameURL">Udostępnij adres do partii</string>
   <string name="error.required">To pole jest wymagane</string>
-  <string name="error.email">Podany adres email jest nieprawidłowy</string>
-  <string name="error.email_acceptable">Podany adres e-mail nie został zaakceptowany</string>
-  <string name="error.email_unique">Podany adres e-mail jest już używany</string>
-  <string name="error.email_different">To już jest Twój adres e-mail</string>
+  <string name="error.email">Ten adres e-mail jest nieprawidłowy</string>
+  <string name="error.email_acceptable">Ten adres e-mail jest niedopuszczalny. Sprawdź go i spróbuj ponownie.</string>
+  <string name="error.email_unique">Adres e-mail jest nieprawidłowy lub jest już w użyciu</string>
+  <string name="error.email_different">To jest już Twój adres e-mail</string>
+  <string name="error.minLength">Minimalna długość to %s</string>
+  <string name="error.maxLength">Maksymalna długość to %s</string>
+  <string name="error.min">Musi być dłuższe lub równe %s</string>
+  <string name="error.max">Musi być krótsze lub równe %s</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
   <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
@@ -712,7 +689,6 @@
   <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
   <string name="lichessTournaments">Turnieje Lichess</string>
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
-  <string name="tournamentOfficial">Oficjalny</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
   <string name="averageCentipawnLoss">Średnia strata w centypionach</string>
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
@@ -752,7 +728,6 @@
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane</string>
-  <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
@@ -763,7 +738,6 @@
   <string name="withNobody">Nikomu</string>
   <string name="withFriends">Tylko znajomym</string>
   <string name="withEverybody">Każdemu</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Już zarejestrowałeś/aś adres %s</string>
   <string name="kidMode">Tryb dla dzieci</string>
   <string name="kidModeExplanation">Chodzi o bezpieczeństwo. W trybie dla dzieci możliwość komunikacji w serwisie jest wyłączona. Włącz go na rzecz swoich dzieci, czy uczniów, by chronić ich przed możliwymi zagrożeniami ze strony innych użytkowników internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">W trybie dla dzieci logo lichess ma dodatkową ikonę %s, byś wiedział, że dziecko jest chronione.</string>
@@ -794,7 +768,6 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
-  <string name="xCreatesStudyY">%1$s utworzył opracowanie %2$s</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
@@ -815,17 +788,11 @@
   <string name="usernameSuffixInvalid">Nazwa użytkownika musi kończyć się literą lub cyfrą.</string>
   <string name="usernameCharsInvalid">Nazwa użytkownika może zawierać tylko litery, cyfry, znaki podkreślenia i myślniki.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
-  <string name="directlySupportLichess">Wspomóż nas !</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
   <string name="chessBasics">Podstawy gry</string>
   <string name="coaches">Trenerzy</string>
   <string name="invalidPgn">Nieprawidłowy PGN</string>
   <string name="invalidFen">Nieprawidłowy FEN</string>
-  <string name="error.minLength">Minimalna długość to %s znaków</string>
-  <string name="error.maxLength">Maksymalna długość to %s znaków</string>
-  <string name="error.min">Musi być większe lub równe %s</string>
-  <string name="error.max">Musi być mniejsze lub równe %s</string>
-  <string name="error.unknown">Błąd</string>
   <string name="custom">Niestandardowa</string>
   <string name="notifications">Powiadomienia</string>
   <string name="perfRatingX">Ranking: %s</string>
@@ -978,6 +945,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="simulDescription">Opis symultany</string>
   <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
   <string name="markdownAvailable">%s jest dostępny dla bardziej zaawansowanej składni.</string>
+  <string name="embedsAvailable">Wklej adres URL partii lub adres URL rozdziału opracowania, aby go osadzć.</string>
   <string name="inYourLocalTimezone">W Twojej lokalnej strefie czasowej</string>
   <string name="tournChat">Czat turniejowy</string>
   <string name="noChat">Wyłącz czat</string>
@@ -1003,4 +971,8 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="abortTheGame">Przerwij partię</string>
   <string name="resignTheGame">Przerwij partię</string>
   <string name="youCantStartNewGame">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
+  <string name="since">Od</string>
+  <string name="until">Do</string>
+  <string name="lichessDbExplanation">Partie rankingowe pobrane od wszystkich graczy Lichess</string>
+  <string name="switchSides">Zmień kolor</string>
 </resources>

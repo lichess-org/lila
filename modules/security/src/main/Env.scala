@@ -113,6 +113,8 @@ final class Env(
 
   lazy val loginToken = new LoginToken(config.loginTokenSecret, userRepo)
 
+  lazy val disposableEmailAttempt = wire[DisposableEmailAttempt]
+
   lazy val signup = wire[Signup]
 
   private lazy val dnsApi: DnsApi = wire[DnsApi]

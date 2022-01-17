@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Spenden</string>
+  <string name="donateAsX">Spende als %s</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
@@ -25,7 +26,7 @@
   <string name="recurringBilling">Wiederkehrende Zahlung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
   <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
-  <string name="otherAmount">Anderer</string>
+  <string name="otherAmount">Anderer Betrag</string>
   <string name="pleaseEnterAmountInX">Bitte gib einen Betrag in %s ein</string>
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>
@@ -43,7 +44,6 @@ Oder du kannst %s.</string>
   <string name="contactSupport">den Lichess Support kontaktieren</string>
   <string name="otherMethods">Andere Möglichkeiten um zu spenden?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
-  <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
   <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
   <string name="noPatronFeatures">Nein, denn Lichess ist komplett kostenlos, für immer und für alle. Das ist ein Versprechen.
 Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzugeben.</string>
@@ -75,5 +75,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nowLifetime">Du bist jetzt lebenslanger Lichess-Patron!</string>
   <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung ändern</string>
+  <string name="changeCurrency">Währung ändern</string>
 </resources>

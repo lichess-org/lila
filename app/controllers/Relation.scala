@@ -60,7 +60,10 @@ final class Relation(
                 lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
               ) inject Ok
           case _ =>
-            api.follow(me.id, UserModel normalize userId).recoverDefault >> renderActions(userId, getBool("mini"))
+            api.follow(me.id, UserModel normalize userId).recoverDefault >> renderActions(
+              userId,
+              getBool("mini")
+            )
         }
       }(rateLimitedFu)
     }
@@ -82,7 +85,10 @@ final class Relation(
   def unfollow(userId: String) =
     Auth { implicit ctx => me =>
       FollowLimitPerUser(me.id) {
-        api.unfollow(me.id, UserModel normalize userId).recoverDefault >> renderActions(userId, getBool("mini"))
+        api.unfollow(me.id, UserModel normalize userId).recoverDefault >> renderActions(
+          userId,
+          getBool("mini")
+        )
       }(rateLimitedFu)
     }
 
@@ -111,8 +117,10 @@ final class Relation(
         OptionFuResult(env.user.repo named username) { user =>
           RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
             negotiate(
-              html = api countFollowers user.id map { nbFollowers =>
-                Ok(html.relation.bits.following(user, pag, nbFollowers))
+              html = {
+                if (ctx.is(user) || isGranted(_.CloseAccount))
+                  Ok(html.relation.bits.friends(user, pag)).fuccess
+                else ctx.me.fold(notFound)(me => Redirect(routes.Relation.following(me.username)).fuccess)
               },
               api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
             )
@@ -123,36 +131,24 @@ final class Relation(
 
   def followers(username: String, page: Int) =
     Open { implicit ctx =>
-      Reasonable(page, 20) {
-        OptionFuResult(env.user.repo named username) { user =>
-          RelatedPager(api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
-            negotiate(
-              html = api countFollowing user.id map { nbFollowing =>
-                Ok(html.relation.bits.followers(user, pag, nbFollowing))
-              },
-              api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
-            )
+      negotiate(
+        html = notFound,
+        api = _ =>
+          Reasonable(page, 20) {
+            RelatedPager(api.followersPaginatorAdapter(UserModel normalize username), page) flatMap { pag =>
+              Ok(jsonRelatedPaginator(pag)).fuccess
+            }
           }
-        }
-      }
+      )
     }
 
-  def apiFollowing(name: String) = apiRelation(name, Direction.Following)
-
-  def apiFollowers(name: String) = apiRelation(name, Direction.Followers)
-
-  private def apiRelation(name: String, direction: Direction) =
-    Action.async { implicit req =>
-      env.user.repo.named(name) flatMap {
-        _ ?? { user =>
-          apiC.jsonStream {
-            env.relation.stream
-              .follow(user, direction, MaxPerSecond(20))
-              .map(env.api.userApi.one)
-          }.fuccess
-        }
-      }
-    }
+  def apiFollowing = Scoped() { implicit req => me =>
+    apiC.jsonStream {
+      env.relation.stream
+        .follow(me, Direction.Following, MaxPerSecond(30))
+        .map(env.api.userApi.one(_, withOnline = false))
+    }.fuccess
+  }
 
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
     import lila.user.JsonView.nameWrites

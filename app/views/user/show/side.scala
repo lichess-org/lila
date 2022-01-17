@@ -29,36 +29,38 @@ object side {
           "empty"  -> perf.isEmpty,
           "active" -> active.has(perfType)
         ),
-        href := {
+        href := ctx.pref.showRatings.?? {
           if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
           else routes.User.perfStat(u.username, perfType.key).url.some
         },
         span(
           h3(perfType.trans),
-          if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u)) st.rating(strong("?"))
+          if (isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings) st.rating(strong("?"))
           else
             st.rating(
-              if (perf.glicko.clueless) strong("?")
-              else
-                strong(
-                  perf.glicko.intRating,
-                  perf.provisional option "?"
-                ),
-              " ",
-              ratingProgress(perf.progress),
-              " ",
+              ctx.pref.showRatings option frag(
+                if (perf.glicko.clueless) strong("?")
+                else
+                  strong(
+                    perf.glicko.intRating,
+                    perf.provisional option "?"
+                  ),
+                " ",
+                ratingProgress(perf.progress),
+                " "
+              ),
               span(
-                if (perfType.key == "puzzle") trans.nbPuzzles(perf.nb, perf.nb.localize)
-                else trans.nbGames(perf.nb, perf.nb.localize)
+                if (perfType.key == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                else trans.nbGames.plural(perf.nb, perf.nb.localize)
               )
             ),
-          rankMap get perfType map { rank =>
+          rankMap get perfType ifTrue ctx.pref.showRatings map { rank =>
             span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
               trans.rankX(rank.localize)
             )
           }
         ),
-        iconTag("")
+        ctx.pref.showRatings option iconTag("")
       )
     }
 

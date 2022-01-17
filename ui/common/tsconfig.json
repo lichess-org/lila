@@ -4,6 +4,6 @@
   "exclude": [],
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["lichess", "cash", "dom-screen-wake-lock"]
+    "types": ["lichess", "web", "cash", "dom-screen-wake-lock"]
   }
 }

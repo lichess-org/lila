@@ -40,7 +40,8 @@ object show {
                 resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
                 localMod = ctx.userId has tour.createdBy
               )
-            }
+            },
+            "showRatings" -> ctx.pref.showRatings
           )
         )})""")
       ),

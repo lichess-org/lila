@@ -11,6 +11,5 @@
   <string name="noTeamFound">Nulle equipa trovate</string>
   <string name="joinTeam">Adherer al equipa</string>
   <string name="quitTeam">Abandonar equipa</string>
-  <string name="teamBestPlayers">Le melior jocatores</string>
   <string name="teamRecentMembers">Membros recente</string>
 </resources>

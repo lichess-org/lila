@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">जोड़ा गया (सबसे पुराना)</string>
   <string name="recentlyUpdated">हाल ही में अद्यतित</string>
   <string name="mostPopular">सबसे लोकप्रिय</string>
+  <string name="alphabetical">वर्णक्रमानुसार</string>
   <string name="addNewChapter">एक नया अध्याय जोड़ें</string>
   <plurals name="nbChapters">
     <item quantity="one">%s अध्याय</item>
@@ -40,10 +41,11 @@
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
   <string name="pgnTags">PGN टैग</string>
   <string name="like">लाइक</string>
+  <string name="unlike">नापसन्द करे</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
-  <string name="annotateWithGlyphs">Glyphs के साथ टिप्पणी करे</string>
+  <string name="annotateWithGlyphs">प्रतीक के साथ टिप्पणी करें</string>
   <string name="theChapterIsTooShortToBeAnalysed">यह अध्याय विश्लेषण के लिए बहुत छोटा है</string>
   <string name="onlyContributorsCanRequestAnalysis">केवल अध्ययन योगदानकर्ता ही कंप्यूटर विश्लेषण का अनुरोध कर सकते हैं।</string>
   <string name="getAFullComputerAnalysis">मेनलाइन का पूर्ण सर्वर-साइड कंप्यूटर विश्लेषण प्राप्त करें।</string>
@@ -58,9 +60,9 @@
   <string name="shareAndExport">शेयर &amp; एक्सपोर्ट करें</string>
   <string name="cloneStudy">प्रतिलिपि</string>
   <string name="studyPgn">PGN का अध्ययन करें</string>
-  <string name="downloadAllGames">सभी गेम डाउनलोड करें</string>
+  <string name="downloadAllGames">सभी खेल नीचे लादें</string>
   <string name="chapterPgn">अध्याय PGN</string>
-  <string name="downloadGame">गेम डाउनलोड करो</string>
+  <string name="downloadGame">खेल नीचे लादें</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
@@ -81,7 +83,7 @@
   <string name="clearAnnotations">टिप्पणी मिटाएँ</string>
   <string name="deleteChapter">अध्याय हटाएं</string>
   <string name="deleteThisChapter">इस अध्याय को हटाएं? हटाने के पश्चात वापसी नहीं होगी!</string>
-  <string name="clearAllCommentsInThisChapter">इस अध्याय में सभी टिप्पणियाँ, glyphs और आकृतियाँ साफ़ करें?</string>
+  <string name="clearAllCommentsInThisChapter">इस अध्याय में सभी टिप्पणियाँ, प्रतीक, और आकृतियाँ साफ़ करें?</string>
   <string name="rightUnderTheBoard">बोर्ड के ठीक नीचे</string>
   <string name="noPinnedComment">खाली</string>
   <string name="normalAnalysis">सामान्य विश्लेषण</string>
@@ -125,5 +127,41 @@
   <string name="clearChat">बातें मिटा दे</string>
   <string name="deleteTheStudyChatHistory">क्या इस पड़ाई से सम्बन्धित बातों को मिटा देना चाहिए? इससे पीछे जाने का कोई रास्ता शेष नहीं है!</string>
   <string name="deleteStudy">अध्याय को मिटा दे</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">संपूर्ण अध्ययन हटाएं? वहां से कोई वापसी नहीं है! पुष्टि करने के लिए अध्ययन का नाम टाइप करें:%s</string>
   <string name="whereDoYouWantToStudyThat">आप इसको खा से पड़ना चाहते है</string>
+  <string name="goodMove">अच्छी चाल!</string>
+  <string name="mistake">ग़लती</string>
+  <string name="brilliantMove">अद्भुत चाल​।</string>
+  <string name="blunder">भयंकर गलती</string>
+  <string name="interestingMove">दिलचस्प चाल​ |</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">संदिग्ध चाल</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">इकलौता चाल</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">जबरन चाल</string>
+  <string name="equalPosition">बराबर स्थिति</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">अस्पष्ट स्थिति</string>
+  <string name="whiteIsSlightlyBetter">सफेद थोड़ा सा बेहतर है</string>
+  <string name="blackIsSlightlyBetter">काला थोड़ा बेहतर है</string>
+  <string name="whiteIsBetter">सफेद बेहतर है!</string>
+  <string name="blackIsBetter">काला बेहतर है।</string>
+  <string name="whiteIsWinning">सफेद जीत रहा है</string>
+  <string name="blackIsWinning">काला जीत रहा है</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">नवीनता</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">विकास</string>
+  <string name="initiative">पहल</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">आक्रमण</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">काउंटरप्ले</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">समय की समस्या</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">लग मुआवजा।</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">विचीर के साथ।</string>
+  <string name="nextChapter">अगला अध्याय।</string>
+  <string name="prevChapter">पिछला अध्याय।</string>
+  <string name="studyActions">अध्ययन क्रिया</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">विषय</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">मेरे विषय</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">लोकप्रिय विषय</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">विषय प्रबंधन</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">पीछे</string>
+  <string name="playAgain">फिर से खेलेंगे?</string>
+  <string name="whatWouldYouPlay">आप इस स्थिति में क्या खेलेंगे?</string>
+  <string name="youCompletedThisLesson">बधाई हो! आपने यह सबक पूरा कर लिया है।</string>
 </resources>

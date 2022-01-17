@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Simbol figur</string>
   <string name="pgnLetter">Črke (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen način</string>
+  <string name="showPlayerRatings">Pokaži igralčeve ratinge</string>
+  <string name="explainShowPlayerRatings">To omogoča skrivanje vseh ratingov na spletnem mestu, da se osredotočite na šah. Igre je še vedno mogoče rangirati, to je samo tisto, kar lahko vidite.</string>
   <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
   <string name="blindfoldChess">Slepi šah (nevidne figure)</string>
@@ -30,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Popravljanje potez (z dovoljenjem nasprotnika)</string>
   <string name="inCasualGamesOnly">Samo pri nerangiranih partijah</string>
   <string name="promoteToQueenAutomatically">Vedno promoviraj v damo</string>
+  <string name="explainPromoteToQueenAutomatically">Pridržite ctrl med promocijo, da začasno onemogočite samodejno promocijo</string>
   <string name="whenPremoving">Pri predpremiku poteze</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>

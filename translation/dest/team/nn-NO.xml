@@ -7,6 +7,7 @@
     <item quantity="other">%s medlemmer</item>
   </plurals>
   <string name="allTeams">Alle lag</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Lag du er leiar av</string>
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mine lag</string>
   <string name="noTeamFound">Finn ikkje noko lag</string>
@@ -18,7 +19,6 @@
     <item quantity="one">Gruppeleiar</item>
     <item quantity="other">Gruppeleiar</item>
   </plurals>
-  <string name="teamBestPlayers">Beste spelarar</string>
   <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="kickSomeone">Kast einkvan ut av laget</string>
   <string name="whoToKick">Kven vil du kaste ut av laget?</string>
@@ -26,8 +26,9 @@
     <item quantity="one">%s førespurnad om å slutte seg til</item>
     <item quantity="other">%s førespurnadar om å slutte seg til</item>
   </plurals>
-  <string name="willBeReviewed">Din førespurnad om å bli med vil bli vurdert av lagleiaren.</string>
-  <string name="beingReviewed">Din førespurnad om å slutte seg til blir vurdert av lagleiaren.</string>
+  <string name="willBeReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
+  <string name="beingReviewed">Lagleiaren vil vurdere din førespurnad om å bli med.</string>
+  <string name="requestDeclined">Lagleiaren avslo din førespurnad om å bli med.</string>
   <string name="subToTeamMessages">Abonner på lagmeldingar</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">Ein konkurranse mellom fleire lag, kvar spelar skårar poeng for sitt eige lag</string>
@@ -47,8 +48,9 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="closeTeamDescription">Steng laget for all framtid.</string>
   <string name="entryCode">Lagtilgangskode</string>
   <string name="entryCodeDescriptionForLeader">(Valfritt) Ein tilgangskode som nye medlemar må kjenne til for å bli med på dette laget.</string>
-  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Feil tilgangskode.</string>
+  <string name="incorrectEntryCode">Feil tilgangskode.</string>
   <string name="teamAlreadyExists">Dette laget finst allereie.</string>
   <string name="upcomingTourns">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>
+  <string name="declinedRequests">Avviste førespurnader</string>
 </resources>

@@ -31,5 +31,5 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
 
 case class MonthlyGoal(current: Usd, goal: Usd) {
 
-  def percent = (100 * current.value / goal.value).toInt
+  def percent = (goal.value > 0) ?? (100 * current.value / goal.value).toInt
 }

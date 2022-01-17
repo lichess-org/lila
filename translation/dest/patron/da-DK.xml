@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donér</string>
+  <string name="donateAsX">Donér som %s</string>
   <string name="lichessPatron">Lichess Protektor</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bliv Lichess Protektor</string>
@@ -43,7 +44,6 @@ Eller du kan %s.</string>
   <string name="contactSupport">kontakte Lichess-support</string>
   <string name="otherMethods">Andre måder at bidrage?</string>
   <string name="bankTransfers">Vi kan også modtage bankoverførsler</string>
-  <string name="bitcoin">Og her er vores bitcoin-adresse: %s</string>
   <string name="patronFeatures">Er nogle funktioner forbeholdt protektorer?</string>
   <string name="noPatronFeatures">Nej, for Lichess er helt gratis, for evigt og for alle. Det er et løfte.
 Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>

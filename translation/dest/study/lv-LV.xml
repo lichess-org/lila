@@ -44,6 +44,7 @@
   <string name="youAreNowASpectator">Tagad esat skatītājs</string>
   <string name="pgnTags">PGN birkas</string>
   <string name="like">Patīk</string>
+  <string name="unlike">Noņemt atzīmi \"patīk\"</string>
   <string name="newTag">Jauna birka</string>
   <string name="commentThisPosition">Komentēt šo pozīciju</string>
   <string name="commentThisMove">Komentēt šo gājienu</string>
@@ -159,4 +160,12 @@
   <string name="nextChapter">Nākamā nodaļa</string>
   <string name="prevChapter">Iepriekšējā nodaļa</string>
   <string name="studyActions">Izpētes darbības</string>
+  <string name="topics">Temati</string>
+  <string name="myTopics">Mani temati</string>
+  <string name="popularTopics">Populāri temati</string>
+  <string name="manageTopics">Pārvaldīt tematus</string>
+  <string name="back">Atpakaļ</string>
+  <string name="playAgain">Spēlēt vēlreiz</string>
+  <string name="whatWouldYouPlay">Kā jūs spēlētu šādā pozīcijā?</string>
+  <string name="youCompletedThisLesson">Apsveicam! Pabeidzāt šo nodarbību.</string>
 </resources>

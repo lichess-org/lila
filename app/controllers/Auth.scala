@@ -25,18 +25,18 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
-  private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
+  private def mobileUserOk(u: UserModel, sessionId: String)(implicit ctx: Context): Fu[Result] =
     env.round.proxyRepo urgentGames u map { povs =>
       Ok {
-        env.user.jsonView(u) ++ Json.obj(
+        env.user.jsonView.full(u, withOnline = true, withRating = ctx.pref.showRatings) ++ Json.obj(
           "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
           "sessionId"  -> sessionId
         )
       }
     }
 
-  private def getReferrer(implicit ctx: Context) =
-    get("referrer").filter(env.api.referrerRedirect.valid) orElse
+  private def getReferrer(implicit ctx: Context): String =
+    get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
       ctxReq.session.get(api.AccessUri) getOrElse
       routes.Lobby.home.url
 
@@ -79,7 +79,7 @@ final class Auth(
 
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(env.api.referrerRedirect.valid)
+      val referrer = get("referrer").flatMap(env.api.referrerRedirect.valid)
       referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess

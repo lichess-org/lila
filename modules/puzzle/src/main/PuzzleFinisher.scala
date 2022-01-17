@@ -11,6 +11,7 @@ import lila.db.dsl._
 import lila.rating.Perf
 import lila.rating.{ Glicko, PerfType }
 import lila.user.{ User, UserRepo }
+import chess.Mode
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
@@ -33,7 +34,8 @@ final private[puzzle] class PuzzleFinisher(
       id: Puzzle.Id,
       theme: PuzzleTheme.Key,
       user: User,
-      result: Result
+      result: Result,
+      mode: Mode
   ): Fu[Option[(PuzzleRound, Perf)]] =
     if (api.casual(user, id)) fuccess {
       PuzzleRound(
@@ -58,6 +60,14 @@ final private[puzzle] class PuzzleFinisher(
                     none,
                     user.perfs.puzzle
                   )
+                case None if mode.casual =>
+                  val round = PuzzleRound(
+                    id = PuzzleRound.Id(user.id, puzzle.id),
+                    win = result.win,
+                    fixedAt = none,
+                    date = DateTime.now
+                  )
+                  (round, none, user.perfs.puzzle)
                 case None =>
                   val userRating = user.perfs.puzzle.toRating
                   val puzzleRating = new Rating(

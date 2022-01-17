@@ -48,11 +48,5 @@ Esimerkiksi \"[FI]\" on suomen kielen, \"[SV]\" ruotsin kielen ja \"[DE]\" saksa
   <string name="xStreamerPicture">%s striimaajakuva</string>
   <string name="changePicture">Vaihda/poista kuva</string>
   <string name="uploadPicture">Lataa kuva</string>
-  <string name="deletePicture">Poista kuva</string>
   <string name="maxSize">Enimmäiskoko: %s</string>
-  <string name="installBlocker">Asenna virustorjuntaohjelma!</string>
-  <string name="beSafe">Välty mainoksilta ja seurantaohjelmilta
-jotka Twitchiä ja Youtubea vaivaavat.
-Lichess suosittaa uBlock Originia
-joka on ilmainen ja avointa lähdekoodia.</string>
 </resources>

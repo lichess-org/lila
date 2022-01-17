@@ -11,6 +11,5 @@
   <string name="noTeamFound">Баг олдсонгүй</string>
   <string name="joinTeam">Багт нэгдэх</string>
   <string name="quitTeam">Багаас гарах</string>
-  <string name="teamBestPlayers">Шилдэг тоглогчид</string>
   <string name="teamRecentMembers">Сүүлд элссэн гишүүд</string>
 </resources>

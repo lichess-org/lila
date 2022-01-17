@@ -102,10 +102,12 @@ object homeInner {
       )
     )
 
-  private def simHost(sim: lila.simul.Simul)(implicit lang: Lang) =
+  private def simHost(sim: lila.simul.Simul)(implicit ctx: Context) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
-      br,
-      strong(sim.hostRating)
+      ctx.pref.showRatings option frag(
+        br,
+        strong(sim.hostRating)
+      )
     )
 }

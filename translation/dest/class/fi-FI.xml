@@ -46,6 +46,7 @@ Salasana: %3$s</string>
   <string name="createDesc2">Sähköpostiosoitetta ei tarvita. Oppilaalle luodaan salasana, ja se pitää antaa hänelle, jotta hän pääsee kirjautumaan sisään.</string>
   <string name="createDesc3">Tärkeää: oppilaalla ei saa olla useita käyttäjätunnuksia.</string>
   <string name="createDesc4">Jos hänellä on jo tunnus, käytä sen sijaan kutsulomaketta.</string>
+  <string name="createStudentWarning">Luo tilejä vain todellisille oppilaille. Älä käytä tätä useiden käyttäjätunnusten luomiseen itsellesi, sillä siitä saat porttikiellon.</string>
   <string name="lichessUsername">Lichess-käyttäjänimi</string>
   <string name="generateANewUsername">Luo uusi käyttäjänimi</string>
   <string name="welcomeToClass">Tervetuloa luokkaasi: %s.
@@ -56,7 +57,6 @@ Tässä on linkki, josta pääset luokkaan.</string>
     <item quantity="one">Yksi odottava kutsu</item>
     <item quantity="other">%s odottavaa kutsua</item>
   </plurals>
-  <string name="noPendingInvitations">Ei odottavia kutsuja</string>
   <string name="onlyVisibleToTeachers">Näkyy vain luokan opettajille</string>
   <string name="lastActiveDate">Aktiivinen</string>
   <string name="managed">Hallinnoitu</string>

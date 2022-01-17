@@ -53,6 +53,12 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="forkDescription">Poteza, pri kateri figura napade dve nasprotnikovi figuri hkrati.</string>
   <string name="hangingPiece">Nezaščitena figura</string>
   <string name="hangingPieceDescription">Taktika, ki vključuje, da nasprotnikova figura ni oziroma je premalo zaščitena in jo je mogoče zajeti.</string>
+  <string name="hookMate">Kljukast mat</string>
+  <string name="hookMateDescription">Mat s trdnjavo, skakačem in kmetom ob nasprotnikovem kmetu, ki omejuje pobeg nasprotnikovega kralja.</string>
+  <string name="interference">Vpletanje</string>
+  <string name="interferenceDescription">Premik figure med dve nasprotnikovi tako, da obe nasprotnikovi figuri postaneta nebranjeni, naprimer poteza skakača na branjeno polje med dve trdnjavi.</string>
+  <string name="intermezzo">Intermezzo</string>
+  <string name="intermezzoDescription">Namesto pričakovane poteze, vrinemo drugo potezo ki predstavlja takojšnjo grožnjo na katero mora nasprotnik odgovorit. Z drugim imenom tudi kot \"Zwischenzug\" ali medpoteza.</string>
   <string name="knightEndgame">Končnica skakačev</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>

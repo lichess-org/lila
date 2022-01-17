@@ -102,8 +102,9 @@ object bits {
     baseI18nKeys ::: List(
       trans.puzzle.example,
       trans.puzzle.addAnotherTheme,
-      trans.puzzle.yourPuzzleRatingX,
       trans.puzzle.difficultyLevel,
+      trans.rated,
+      trans.puzzle.yourPuzzleRatingWillNotChange,
       trans.signUp,
       trans.puzzle.toGetPersonalizedPuzzles,
       trans.puzzle.nbPointsBelowYourPuzzleRating,

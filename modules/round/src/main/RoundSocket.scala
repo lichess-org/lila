@@ -7,7 +7,7 @@ import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ ExecutionContext, Promise }
 
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
@@ -22,6 +22,7 @@ import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, SocketVersion }
 import lila.user.User
+import reactivemongo.api.Cursor
 
 final class RoundSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -70,26 +71,30 @@ final class RoundSocket(
     }
 
   val rounds = new AsyncActorConcMap[RoundAsyncActor](
-    mkAsyncActor = id => {
-      val proxy = new GameProxy(id, proxyDependencies)
-      val asyncActor = new RoundAsyncActor(
-        dependencies = roundDependencies,
-        gameId = id,
-        socketSend = sendForGameId(id)
-      )(ec, proxy)
-      terminationDelay schedule Game.Id(id)
-      asyncActor.getGame dforeach {
-        _ foreach { game =>
-          scheduleExpiration(game)
-          goneWeightsFor(game) dforeach { w =>
-            asyncActor ! RoundAsyncActor.SetGameInfo(game, w)
-          }
-        }
-      }
-      asyncActor
-    },
+    mkAsyncActor = id =>
+      makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo game id recoverDefault none),
     initialCapacity = 65536
   )
+
+  private def makeRoundActor(id: Game.ID, version: SocketVersion, gameFu: Fu[Option[Game]]) = {
+    val proxy = new GameProxy(id, proxyDependencies, gameFu)
+    val roundActor = new RoundAsyncActor(
+      dependencies = roundDependencies,
+      gameId = id,
+      socketSend = sendForGameId(id),
+      version = version
+    )(ec, proxy)
+    terminationDelay schedule Game.Id(id)
+    gameFu dforeach {
+      _ foreach { game =>
+        scheduleExpiration(game)
+        goneWeightsFor(game) dforeach { w =>
+          roundActor ! RoundAsyncActor.SetGameInfo(game, w)
+        }
+      }
+    }
+    roundActor
+  }
 
   private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
@@ -143,11 +148,10 @@ final class RoundSocket(
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
     case RP.In.SetVersions(versions) =>
-      versions foreach { case (roomId, version) =>
-        rounds.tell(roomId, SetVersion(version))
-      }
+      preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
-    case P.In.Ping(id) => send(P.Out.pong(id))
+    case P.In.Ping(id)                 => send(P.Out.pong(id))
+    case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
       // schedule termination for all game asyncActors
@@ -211,6 +215,65 @@ final class RoundSocket(
   }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
+
+  // on startup we get all ongoing game IDs and versions from lila-ws
+  // load them into round actors with batched DB queries
+  private def preloadRoundsWithVersions(rooms: Iterable[(Game.ID, SocketVersion)]) = {
+    val bootLog = lila log "boot"
+
+    // load all actors synchronously, giving them game futures from promises we'll fulfill later
+    val gamePromises: Map[Game.ID, Promise[Option[Game]]] = rooms.view.map { case (id, version) =>
+      val promise = Promise[Option[Game]]()
+      rounds.loadOrTell(
+        id,
+        load = () => makeRoundActor(id, version, promise.future),
+        tell = _ ! SetVersion(version)
+      )
+      id -> promise
+    }.toMap
+
+    // fullfill the promises with batched DB requests
+    rooms
+      .map(_._1)
+      .grouped(1024)
+      .map { ids =>
+        roundDependencies.gameRepo
+          .byIdsCursor(ids)
+          .foldWhile[Set[Game.ID]](Set.empty[Game.ID])(
+            (ids, game) =>
+              Cursor.Cont[Set[Game.ID]] {
+                gamePromises.get(game.id).foreach(_ success game.some)
+                ids + game.id
+              },
+            Cursor.ContOnError { (_, err) => bootLog.error("Can't load round game", err) }
+          )
+          .recover { case e: Exception =>
+            bootLog.error(s"RoundSocket Can't load ${ids.size} round games", e)
+            Set.empty
+          }
+          .chronometer
+          .log(bootLog)(loadedIds => s"RoundSocket Loaded ${loadedIds.size}/${ids.size} round games")
+          .result
+      }
+      .sequenceFu
+      .map(_.flatten.toSet)
+      .andThen {
+        case scala.util.Success(loadedIds) =>
+          val missingIds = gamePromises.keySet -- loadedIds
+          if (missingIds.nonEmpty) {
+            bootLog.warn(
+              s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
+            )
+            missingIds.foreach { id =>
+              gamePromises.get(id).foreach(_ success none)
+            }
+          }
+        case scala.util.Failure(err) =>
+          bootLog.error(s"RoundSocket Can't load ${gamePromises.size} round games", err)
+      }
+      .chronometer
+      .log(bootLog)(ids => s"RoundSocket Done loading ${ids.size}/${gamePromises.size} round games")
+  }
 }
 
 object RoundSocket {
@@ -253,6 +316,7 @@ object RoundSocket {
       case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId])              extends P.In
       case class Berserk(gameId: Game.Id, userId: User.ID)                                        extends P.In
       case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String) extends P.In
+      case class WsLatency(millis: Int)                                                           extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match {
@@ -314,7 +378,8 @@ object RoundSocket {
                 Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
               }
             }
-          case _ => RP.In.reader(raw)
+          case "r/latency" => raw.args.toIntOption map WsLatency
+          case _           => RP.In.reader(raw)
         }
 
       private def centis(s: String): Option[Centis] =

@@ -6,6 +6,7 @@
     <item quantity="other">%s 人のメンバー</item>
   </plurals>
   <string name="allTeams">すべてのチーム</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">自分がリーダー</string>
   <string name="newTeam">チームを作る</string>
   <string name="myTeams">自分の所属チーム</string>
   <string name="noTeamFound">チームが見つかりませんでした</string>
@@ -16,7 +17,6 @@
   <plurals name="teamLeaders">
     <item quantity="other">チームリーダー</item>
   </plurals>
-  <string name="teamBestPlayers">チームのベストプレイヤー</string>
   <string name="teamRecentMembers">最新チームメンバー</string>
   <string name="kickSomeone">チームから追放</string>
   <string name="whoToKick">誰をチームから追放しますか？</string>
@@ -25,6 +25,7 @@
   </plurals>
   <string name="willBeReviewed">あなたの加入申請はチームリーダーが審査します。</string>
   <string name="beingReviewed">あなたの加入申請はチームリーダーが審査中です。</string>
+  <string name="requestDeclined">あなたの加入申請はチームリーダーが却下しました。</string>
   <string name="subToTeamMessages">チームメッセージを受信する</string>
   <string name="teamBattle">チームバトル</string>
   <string name="teamBattleOverview">複数チームの団体戦で、所属プレイヤーのポイント合計を争う</string>
@@ -48,4 +49,5 @@
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTourns">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
+  <string name="declinedRequests">却下した申請</string>
 </resources>

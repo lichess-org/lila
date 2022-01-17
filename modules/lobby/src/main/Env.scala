@@ -25,8 +25,6 @@ final class Env(
     idGenerator: lila.game.IdGenerator
 ) {
 
-  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
-
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
     archiveColl = db(CollName("seek_archive")),

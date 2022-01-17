@@ -66,8 +66,11 @@ export interface Controller extends KeyboardController {
   promotion: PromotionCtrl;
   autoNext: StoredBooleanProp;
   autoNexting: () => boolean;
+  rated: StoredBooleanProp;
+  toggleRated: () => void;
   session: PuzzleSession;
   allThemes?: AllThemes;
+  showRatings: boolean;
 
   streak?: PuzzleStreak;
   skip(): void;
@@ -114,6 +117,7 @@ export interface PuzzleOpts {
     dynamic: string;
     static: string;
   };
+  showRatings: boolean;
 }
 
 export interface PuzzlePrefs {

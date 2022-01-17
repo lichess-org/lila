@@ -88,8 +88,8 @@ Det tætteste du kan komme på Round Robin online er at spille en schweizisk tur
   <string name="pairingSystemArena">Enhver tilgængelig modstander med tilsvarende rating</string>
   <string name="pairingSystemSwiss">Bedste parring baseret på point og tie breaks</string>
   <string name="pairingWaitTime">Parring ventetid</string>
-  <string name="pairingWaitTimeFast">Hurtig: venter ikke på alle spillere</string>
-  <string name="pairingWaitTimeSlow">Langsomt: venter på alle spillere</string>
+  <string name="pairingWaitTimeArena">Hurtig: venter ikke på alle spillere</string>
+  <string name="pairingWaitTimeSwiss">Langsom: venter på alle spillere</string>
   <string name="identicalPairing">Identisk parring</string>
   <string name="possibleButNotConsecutive">Mulige, men ikke på hinanden følgende</string>
   <string name="identicalForbidden">Forbudt</string>

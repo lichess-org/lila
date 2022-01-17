@@ -43,5 +43,6 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="allowBerserk">Tillåt Berserk</string>
   <string name="allowBerserkHelp">Låt spelarna halvera sin klocktid för att få en extra poäng</string>
   <string name="allowChatHelp">Låt spelare diskutera i ett chattrum</string>
+  <string name="arenaStreaks">Arenavinster i rad</string>
   <string name="arenaStreaksHelp">Efter 2 vinster, ger efterföljande vinster 4 poäng i stället för 2.</string>
 </resources>

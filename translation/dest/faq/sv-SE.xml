@@ -60,7 +60,6 @@ Den beskrivs i avsnitt 3. (d) av %2$s:
 
 Se %3$s för detta drag för lite övning med det.</string>
   <string name="goodIntroduction">bra introduktion</string>
-  <string name="officialRulesPDF">officiella regler (pdf)</string>
   <string name="lichessTraining">Lichess träning</string>
   <string name="threefoldRepetition">Dragupprepning</string>
   <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>

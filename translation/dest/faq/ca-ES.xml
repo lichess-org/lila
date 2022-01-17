@@ -60,7 +60,6 @@ Es descriu en la secció 3.7 (d) de les %2$s:
 
 Veure el capítol de %3$s sobre aquest moviment per practicar-lo.</string>
   <string name="goodIntroduction">bona introducció</string>
-  <string name="officialRulesPDF">regles oficials (PDF)</string>
   <string name="lichessTraining">Entrenament de Lichess</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="threefoldRepetitionExplanation">Si una posició es dóna tres vegades, els jugadors poden reclamar taules per %1$s. Lichess implementa les regles oficials de la FIDE, d\'acord amb l\'article 9.2 (d) del %2$s.</string>

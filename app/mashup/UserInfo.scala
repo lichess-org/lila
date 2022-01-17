@@ -6,10 +6,10 @@ import play.api.data.Form
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.ublog.UblogApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
+import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Trophies, TrophyApi, User }
 
 case class UserInfo(
@@ -20,7 +20,7 @@ case class UserInfo(
     nbs: UserInfo.NbGames,
     nbFollowers: Int,
     nbForumPosts: Int,
-    nbUblogPosts: Int,
+    ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
     trophies: Trophies,
     shields: List[lila.tournament.TournamentShield.Award],
@@ -68,9 +68,7 @@ object UserInfo {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
         ctx.me.?? { me =>
-          noteApi
-            .get(u, me, Granter(_.ModNote)(me))
-            .mon(_.user segment "notes")
+          fetchNotes(u, me).mon(_.user segment "notes")
         } zip
         ctx.isAuth.?? {
           prefApi.followable(u.id).mon(_.user segment "followable")
@@ -80,6 +78,9 @@ object UserInfo {
         } dmap { case (((relation, notes), followable), blocked) =>
           Social(relation, notes, followable, blocked)
         }
+
+    def fetchNotes(u: User, me: User) =
+      noteApi.get(u, me, Granter(_.ModNote)(me))
   }
 
   case class NbGames(
@@ -131,11 +132,11 @@ object UserInfo {
       playbanApi: lila.playban.PlaybanApi
   )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
-      (ctx.noBlind ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
+      ((ctx.noBlind && ctx.pref.showRatings) ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
         !(user.is(User.lichessId) || user.isBot) ??
         postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts") zip
-        ublogApi.countLiveByUser(user).mon(_.user segment "nbUblogPosts") zip
+        ublogApi.userBlogPreviewFor(user, 3, ctx.me) zip
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
         shieldApi.active(user).mon(_.user segment "shields") zip
@@ -148,26 +149,26 @@ object UserInfo {
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
-        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
-        userCached.rankingsOf(user.id) map {
+        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
           // format: off
-          case ((((((((((((((ratingChart, nbFollowers), nbForumPosts), nbUblogPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          case (((((((((((((ratingChart, nbFollowers), nbForumPosts), ublog), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul) =>
           // format: on
           new UserInfo(
             user = user,
-            ranks = ranks,
+            ranks = userCached.rankingsOf(user.id),
             nbs = nbs,
             hasSimul = hasSimul,
             ratingChart = ratingChart,
             nbFollowers = nbFollowers,
             nbForumPosts = nbForumPosts,
-            nbUblogPosts = nbUblogPosts,
+            ublog = ublog,
             nbStudies = nbStudies,
             trophies = trophies ::: trophyApi.roleBasedTrophies(
               user,
               Granter(_.PublicMod)(user),
               Granter(_.Developer)(user),
-              Granter(_.Verified)(user)
+              Granter(_.Verified)(user),
+              Granter(_.ContentTeam)(user)
             ),
             shields = shields,
             revolutions = revols,

@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
   <string name="pgnLetter">Inicial (en inglés) de la pieza (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
+  <string name="showPlayerRatings">Mostrar las puntuaciones de los jugadores</string>
+  <string name="explainShowPlayerRatings">Esto permite ocultar todas las puntuaciones del sitio, para ayudar a centrarse en el ajedrez. Las partidas aún pueden ser por puntos, esto es sólo lo que tú puedes ver.</string>
   <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
   <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
@@ -30,6 +32,7 @@
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
+  <string name="explainPromoteToQueenAutomatically">Mantén pulsada la tecla &lt;ctrl&gt; al promocionar para desactivar temporalmente la promoción automática</string>
   <string name="whenPremoving">Con anticipadas</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>

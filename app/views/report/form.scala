@@ -26,8 +26,15 @@ object form {
           action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
-            a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
-              "Read more about Lichess reports"
+            p(
+              a(href := routes.Page.loneBookmark("report-faq"), dataIcon := "", cls := "text")(
+                "Read more about Lichess reports"
+              )
+            ),
+            ctx.req.queryString.contains("postUrl") option p(
+              "Here for DMCA or Intellectual Property Take Down Notice? ",
+              a(href := views.html.site.contact.dmcaUrl)("Complete this form instead"),
+              "."
             )
           ),
           form3.globalError(form),
@@ -57,16 +64,4 @@ object form {
         )
       )
     }
-
-  def flag(username: String, resource: String, text: String) =
-    postForm(action := routes.Report.flag, cls := "comm-flag")(
-      form3.hidden("username", username),
-      form3.hidden("resource", resource),
-      form3.hidden("text", text take 140),
-      submitButton(
-        cls := "button button-empty button-red confirm",
-        dataIcon := "",
-        title := "Report spam or offensive language"
-      )
-    )
 }

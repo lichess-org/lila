@@ -52,7 +52,8 @@ object PrefForm {
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "mention"      -> optional(booleanNumber),
-      "insightShare" -> numberIn(Set(0, 1, 2))
+      "insightShare" -> numberIn(Set(0, 1, 2)),
+      "ratings"      -> optional(booleanNumber)
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -97,7 +98,8 @@ object PrefForm {
       message: Int,
       studyInvite: Option[Int],
       mention: Option[Int],
-      insightShare: Int
+      insightShare: Int,
+      ratings: Option[Int]
   ) {
 
     def apply(pref: Pref) =
@@ -127,6 +129,7 @@ object PrefForm {
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
+        ratings = ratings | pref.ratings,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
@@ -171,7 +174,8 @@ object PrefForm {
         message = pref.message,
         studyInvite = pref.studyInvite.some,
         mention = (if (pref.mention) 1 else 0).some,
-        insightShare = pref.insightShare
+        insightShare = pref.insightShare,
+        ratings = pref.ratings.some
       )
   }
 

@@ -56,7 +56,6 @@ Aquí ye lo vinclo d\'acceso.</string>
     <item quantity="one">Una invitación pendient</item>
     <item quantity="other">%s invitacions pendients</item>
   </plurals>
-  <string name="noPendingInvitations">No i hai invitacions pendients</string>
   <string name="onlyVisibleToTeachers">Nomás visible pa los profesors d\'a clase</string>
   <string name="lastActiveDate">Zaguera visita</string>
   <string name="managed">Chestionada</string>

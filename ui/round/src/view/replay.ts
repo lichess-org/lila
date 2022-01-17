@@ -8,7 +8,7 @@ import throttle from 'common/throttle';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { h, VNode } from 'snabbdom';
-import { Step, MaybeVNodes, RoundData } from '../interfaces';
+import { Step, MaybeVNodes } from '../interfaces';
 
 const scrollMax = 99999,
   moveTag = 'u8t',
@@ -200,32 +200,31 @@ function renderButtons(ctrl: RoundController) {
   );
 }
 
-function initMessage(d: RoundData, trans: TransNoArg) {
-  return game.playable(d) && d.game.turns === 0 && !d.player.spectator
+function initMessage(ctrl: RoundController) {
+  const d = ctrl.data;
+  return (ctrl.replayEnabledByPref() || !isCol1()) && game.playable(d) && d.game.turns === 0 && !d.player.spectator
     ? h('div.message', util.justIcon(''), [
         h('div', [
-          trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
-          ...(d.player.color === 'white' ? [h('br'), h('strong', trans('itsYourTurn'))] : []),
+          ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
+          ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
         ]),
       ])
     : null;
 }
 
 function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
-  return disabled
-    ? null
-    : h('button.fbt', {
-        attrs: {
-          disabled: disabled,
-          'data-icon': icon,
-          'data-ply': ctrl.ply + dir,
-        },
-        hook: util.bind('mousedown', e => {
-          e.preventDefault();
-          ctrl.userJump(ctrl.ply + dir);
-          ctrl.redraw();
-        }),
-      });
+  return h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir,
+    },
+    hook: util.bind('mousedown', e => {
+      e.preventDefault();
+      ctrl.userJump(ctrl.ply + dir);
+      ctrl.redraw();
+    }),
+  });
 }
 
 export function render(ctrl: RoundController): VNode | undefined {
@@ -255,19 +254,18 @@ export function render(ctrl: RoundController): VNode | undefined {
         },
         renderMoves(ctrl)
       );
+  const renderMovesOrResult = moves ? moves : renderResult(ctrl);
   return ctrl.nvui
     ? undefined
     : h(rmovesTag, [
         renderButtons(ctrl),
-        initMessage(d, ctrl.trans.noarg) ||
-          (moves
-            ? isCol1()
-              ? h('div.col1-moves', [
-                  col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
-                  moves,
-                  col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
-                ])
-              : moves
-            : renderResult(ctrl)),
+        initMessage(ctrl) ||
+          (isCol1()
+            ? h('div.col1-moves', [
+                col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
+                renderMovesOrResult,
+                col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
+              ])
+            : renderMovesOrResult),
       ]);
 }

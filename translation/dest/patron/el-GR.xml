@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Κάντε δωρεά</string>
+  <string name="donateAsX">Κάντε μία δωρεά ως %s</string>
   <string name="lichessPatron">Υποστηρικτής του Lichess</string>
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
   <string name="becomePatron">Υποστηρίξτε το Lichess</string>
@@ -43,7 +44,6 @@
   <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
   <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικές μεταφορές</string>
-  <string name="bitcoin">Και εδώ είναι η διεύθυνση bitcoin μας: %s</string>
   <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Υποστηρικτές;</string>
   <string name="noPatronFeatures">Όχι, επειδή το Lichess είναι δωρεάν για πάντα και για όλους. Αυτό είναι μία υπόσχεση.
 Όμως, οι Υποστηρικτές μπορούν να καυχώνται για το υπέροχο εικονίδιο στο προφίλ τους.</string>
@@ -75,5 +75,5 @@
   <string name="nowLifetime">Είστε πλέον ένας Υποστηρικτής του Lichess για πάντα!</string>
   <string name="nowOneMonth">Είστε ένας υποστηρικτής του Lichess για αυτόν τον μήνα!</string>
   <string name="downgradeNextMonth">Σε ένα μήνα, ΔΕ θα χρεωθείτε ξανά, και ο λογαριασμός σας θα υποβαθμιστεί σε έναν κοινό λογαριασμό.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Αλλαγή νομίσματος</string>
+  <string name="changeCurrency">Αλλαγή νομίσματος</string>
 </resources>

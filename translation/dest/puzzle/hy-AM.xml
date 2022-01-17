@@ -13,7 +13,6 @@
   <string name="specialMoves">Հատուկ քայլեր</string>
   <string name="didYouLikeThisPuzzle">Հավանեցի՞ք խնդիրը։</string>
   <string name="voteToLoadNextOne">Քվեարկե՛ք և անցե՛ք հաջորդին։</string>
-  <string name="yourPuzzleRatingX">Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s</string>
   <string name="findTheBestMoveForWhite">Գտե՛ք սպիտակների լավագույն քայլը։</string>
   <string name="findTheBestMoveForBlack">Գտե՛ք սևերի լավագույն քայլը։</string>
   <string name="toGetPersonalizedPuzzles">Անհատական խնդիրներ ստանալու համար.</string>

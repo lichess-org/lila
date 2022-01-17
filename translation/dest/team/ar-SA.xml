@@ -11,6 +11,7 @@
     <item quantity="other">%s عضو</item>
   </plurals>
   <string name="allTeams">كل الفِرق</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">الفريق القائد</string>
   <string name="newTeam">فريق جديد</string>
   <string name="myTeams">فرقي</string>
   <string name="noTeamFound">لايوجد فريق</string>
@@ -26,7 +27,6 @@
     <item quantity="many">قائد للفريق</item>
     <item quantity="other">قادة الفريق</item>
   </plurals>
-  <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
   <string name="whoToKick">من تريد طرده من الفريق؟</string>
@@ -40,6 +40,7 @@
   </plurals>
   <string name="willBeReviewed">سيتم النظر في طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
+  <string name="requestDeclined">طلب انضمامك للفريق قد تم رفضه من قبل القائد.</string>
   <string name="subToTeamMessages">الاشتراك في رسائل الفريق</string>
   <string name="teamBattle">معركة الفرق</string>
   <string name="teamBattleOverview">معركة بين مجموعة فرق، كل لاعب يحرز النقاط لفريقه</string>
@@ -63,4 +64,5 @@
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
   <string name="upcomingTourns">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>
+  <string name="declinedRequests">الطلبات المرفوضة</string>
 </resources>

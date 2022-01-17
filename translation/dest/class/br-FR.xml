@@ -59,7 +59,6 @@ Amañ emañ al liamm evit mont ennañ.</string>
     <item quantity="many">%s pedadenn o c\'hortoz ur respont</item>
     <item quantity="other">%s pedadenn o c\'hortoz ur respont</item>
   </plurals>
-  <string name="noPendingInvitations">Pedadenn ebet o c\'hortoz ur respont</string>
   <string name="onlyVisibleToTeachers">Gwelet e vo gant ar gelennerien hepken</string>
   <string name="lastActiveDate">Oberiant</string>
   <string name="managed">Meret</string>

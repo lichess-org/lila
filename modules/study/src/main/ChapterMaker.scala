@@ -19,14 +19,14 @@ final private class ChapterMaker(
 
   import ChapterMaker._
 
-  def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+  def apply(study: Study, data: Data, order: Int, userId: User.ID, withRatings: Boolean): Fu[Chapter] =
     data.game.??(parseGame) flatMap {
       case None =>
         data.game ?? pgnFetch.fromUrl flatMap {
           case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
           case _         => fromFenOrPgnOrBlank(study, data, order, userId)
         }
-      case Some(game) => fromGame(study, game, data, order, userId)
+      case Some(game) => fromGame(study, game, data, order, userId, withRatings)
     } map { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
@@ -125,14 +125,15 @@ final private class ChapterMaker(
       data: Data,
       order: Int,
       userId: User.ID,
+      withRatings: Boolean,
       initialFen: Option[FEN] = None
   ): Fu[Chapter] =
     for {
       root <- game2root(game, initialFen)
-      tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
+      tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <- {
         if (data.isDefaultName)
-          Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
+          Namer.gameVsText(game, withRatings)(lightUser.async) dmap Chapter.Name.apply
         else fuccess(data.name)
       }
       _ = notifyChat(study, game, userId)
@@ -252,5 +253,7 @@ private[study] object ChapterMaker {
     def hasDescription = description.nonEmpty
   }
 
-  case class DescData(id: Chapter.Id, desc: String)
+  case class DescData(id: Chapter.Id, desc: String) {
+    lazy val clean = lila.common.String.fullCleanUp(desc)
+  }
 }

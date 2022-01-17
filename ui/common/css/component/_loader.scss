@@ -1,47 +1,64 @@
 /* circular loader */
-@keyframes spinner-rotate {
+$len1: 33.96;
+$len2: 42.6;
+$len3: 104.31;
+$total_len: $len1 + $len2 + $len3;
+
+@keyframes mask1 {
+  0% {
+    stroke-dashoffset: $total_len;
+  }
   100% {
-    transform: rotate(360deg);
+    stroke-dashoffset: -$total_len;
   }
 }
 
-@keyframes spinner-dash {
-  0%,
-  10% {
-    stroke-dasharray: 1, 270;
-    stroke-dashoffset: 0;
+@keyframes mask2 {
+  0% {
+    stroke-dashoffset: $total_len + $len1;
   }
-
-  40% {
-    stroke-dasharray: 89, 240;
-    stroke-dashoffset: 0;
-  }
-
   100% {
-    stroke-dasharray: 1, 240;
-    stroke-dashoffset: -110;
+    stroke-dashoffset: -$total_len + $len1;
+  }
+}
+
+@keyframes mask3 {
+  0% {
+    stroke-dashoffset: $total_len + $len1 + $len2;
+  }
+  100% {
+    stroke-dashoffset: -$total_len + $len1 + $len2;
   }
 }
 
 @keyframes spinner-color {
   0%,
-  20%,
+  100% {
+    stroke: $c-primary;
+  }
+  25% {
+    stroke: $c-error;
+  }
+  50% {
+    stroke: $c-secondary;
+  }
+  75% {
+    stroke: $c-brag;
+  }
+}
+
+@keyframes spinner-color {
+  0%,
   100% {
     stroke: #42a5f5;
   }
-
-  30%,
-  45% {
+  25% {
     stroke: #f44336;
   }
-
-  50%,
-  70% {
+  50% {
     stroke: #fdd835;
   }
-
-  75%,
-  95% {
+  75% {
     stroke: #4caf50;
   }
 }
@@ -51,18 +68,28 @@
   height: 70px;
   margin: auto;
 
-  svg {
-    animation: spinner-rotate 1.5s linear infinite;
+  path {
+    animation: mask1 2.75s cubic-bezier(0.49, 0.67, 0.45, 0.29) infinite;
+  }
+  path:nth-child(2) {
+    animation-name: mask2;
+  }
+  path:nth-child(3) {
+    animation-name: mask3;
   }
 
-  circle {
-    stroke: #42a5f5;
-    stroke-width: 4;
-    animation: spinner-dash 1.275s ease-in-out infinite, spinner-color 5.1s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    path {
+      animation: none !important;
+    }
   }
 
-  .white & circle {
-    animation: spinner-dash 1.275s ease-in-out infinite;
+  g {
+    animation: spinner-color 11s steps(1) infinite;
+    stroke-dasharray: $total_len $total_len;
+  }
+
+  .white & path {
     stroke: #fff;
   }
 }

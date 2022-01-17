@@ -13,7 +13,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
   <string name="declineGeneric">Я не принимаю вызовы прямо сейчас.</string>
   <string name="declineLater">Я не принимаю вызовы прямо сейчас, пожалуйста, вызовите меня позже.</string>
-  <string name="declineTooFast">Такой контроль времени слишком быстрый для меня, пожалуйста, вызовите меня на игру с контролем времени побольше.</string>
+  <string name="declineTooFast">Такой контроль слишком быстрый для меня, пожалуйста, вызовите меня с контролем времени побольше.</string>
   <string name="declineTooSlow">Такой контроль слишком медленный для меня, пожалуйста, вызовите меня с контролем времени поменьше.</string>
   <string name="declineTimeControl">Я не принимаю вызовы с таким контролем времени.</string>
   <string name="declineRated">Вызовите меня на рейтинговую игру, пожалуйста.</string>

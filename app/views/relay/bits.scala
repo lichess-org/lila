@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate._
 object bits {
 
   def howToUse(implicit ctx: Context) =
-    a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("broadcasts"))(
+    a(dataIcon := "", cls := "text", href := routes.RelayTour.help)(
       "How to use Lichess Broadcasts"
     )
 
@@ -19,6 +19,6 @@ object bits {
 
   val i18nKeys: List[lila.i18n.MessageKey] = {
     import trans.broadcast._
-    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl).map(_.key)
+    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds).map(_.key)
   }
 }

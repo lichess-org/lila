@@ -143,7 +143,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && node.ceval.millis > 7000) : false;
+    return node.ceval ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 7000) : false;
   }
 
   function checkCeval(): void {

@@ -50,4 +50,12 @@
   <string name="skip">sla over</string>
   <string name="skipHelp">Je kunt één zet per race overslaan:</string>
   <string name="skipExplanation">Sla deze zet over om je combo te behouden! Werkt maar eenmaal per race.</string>
+  <string name="failedPuzzles">Mislukte puzzels</string>
+  <string name="slowPuzzles">Trage puzzels</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Deze week</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Deze maand</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Record</string>
+  <string name="clickToReload">Klik om te herladen</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">Deze sessie is verlopen!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Deze sessie is geopend in een ander tabblad!</string>
 </resources>

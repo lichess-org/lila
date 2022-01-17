@@ -47,7 +47,7 @@ object edit {
                 href := routes.Coach.picture,
                 title := "Change/delete your profile picture"
               )(
-                widget.pic(c, 250)
+                picture.thumbnail(c, 250)
               )
             else
               div(cls := "upload_picture")(

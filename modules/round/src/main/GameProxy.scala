@@ -10,7 +10,8 @@ import lila.game.{ Game, GameRepo, Pov, Progress }
 // NOT thread safe
 final private class GameProxy(
     id: Game.ID,
-    dependencies: GameProxy.Dependencies
+    dependencies: GameProxy.Dependencies,
+    private[this] var cache: Fu[Option[Game]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import GameProxy._
@@ -94,10 +95,6 @@ final private class GameProxy(
       dirtyProgress = none
     }
   }
-
-  private[this] var cache: Fu[Option[Game]] = fetch
-
-  private[this] def fetch = gameRepo game id
 }
 
 private object GameProxy {

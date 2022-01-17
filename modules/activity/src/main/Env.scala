@@ -2,13 +2,15 @@ package lila.activity
 
 import akka.actor._
 import com.softwaremill.macwire._
+import com.softwaremill.tagging._
 import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent
 
+@Module
 final class Env(
-    db: lila.db.Db,
+    db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
     forumPostApi: lila.forum.PostApi,
@@ -24,7 +26,7 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private lazy val coll = db(CollName("activity"))
+  private lazy val coll = db(CollName("activity2")).failingSilently()
 
   lazy val write: ActivityWriteApi = wire[ActivityWriteApi]
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">פרטי</string>
-  <string name="myStudies">הלימודים שלי</string>
-  <string name="studiesIContributeTo">לימודים שתרמתי להם</string>
-  <string name="myPublicStudies">הלימודים הפומביים שלי</string>
-  <string name="myPrivateStudies">הלימודים הפרטיים שלי</string>
-  <string name="myFavoriteStudies">הלימודים המועדפים שלי</string>
-  <string name="whatAreStudies">מה הם לימודים?</string>
-  <string name="allStudies">כל הלימודים</string>
-  <string name="studiesCreatedByX">לימודים שנוצרו על ידי %s</string>
+  <string name="myStudies">לוחות הלמידה שלי</string>
+  <string name="studiesIContributeTo">לוחות למידה שתרמתי להם</string>
+  <string name="myPublicStudies">לוחות הלמידה הפומביים שלי</string>
+  <string name="myPrivateStudies">לוחות הלמידה הפרטיים שלי</string>
+  <string name="myFavoriteStudies">לוחות הלמידה המועדפים שלי</string>
+  <string name="whatAreStudies">מה הם לוחות למידה?</string>
+  <string name="allStudies">כל לוחות הלמידה</string>
+  <string name="studiesCreatedByX">לוחות למידה שנוצרו על ידי %s</string>
   <string name="noneYet">אין עדיין.</string>
   <string name="hot">הכי נצפים</string>
   <string name="dateAddedNewest">תאריך שבו הוסף (החדש ביותר)</string>
@@ -36,23 +36,24 @@
     <item quantity="many">%s משתמשים</item>
     <item quantity="other">%s משתמשים</item>
   </plurals>
-  <string name="inviteToTheStudy">הזמן לניתוח</string>
+  <string name="inviteToTheStudy">הזמן ללוח למידה</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">השתדל להזמין רק שחקנים המוכרים לך והמעונינים בניתוח זה.</string>
   <string name="searchByUsername">חפש לפי שם משתמש</string>
   <string name="spectator">צופה</string>
   <string name="contributor">תורם</string>
   <string name="kick">העף</string>
-  <string name="leaveTheStudy">צא מהמחקר</string>
+  <string name="leaveTheStudy">צא מלוח הלמידה</string>
   <string name="youAreNowAContributor">כעת אתה תורם</string>
   <string name="youAreNowASpectator">כעת אתה צופה</string>
   <string name="pgnTags">תוויות PGN</string>
   <string name="like">אהבתי</string>
+  <string name="unlike">בטל \"אהבתי\"</string>
   <string name="newTag">תג חדש</string>
   <string name="commentThisPosition">הערה לגבי המצב במשחק</string>
   <string name="commentThisMove">הערה לגבי המסע</string>
   <string name="annotateWithGlyphs">השתמש בסימנים מוסכמים</string>
   <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
-  <string name="onlyContributorsCanRequestAnalysis">רק תורמי הניתוח יכולים לבקש ניתוח מחשב.</string>
+  <string name="onlyContributorsCanRequestAnalysis">רק תורמי הלוח למידה יכולים לבקש ניתוח מחשב.</string>
   <string name="getAFullComputerAnalysis">לקבלת ניתוח-שרת מלא של הוריאנט הראשי.</string>
   <string name="makeSureTheChapterIsComplete">וודא שהפרק הוא שלם. תוכל לבקש ניתוח מחשב רק פעם אחת.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">כל חברי SYNC נשארים באותו מצב</string>
@@ -68,14 +69,17 @@
   <string name="downloadAllGames">הורד את כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
   <string name="downloadGame">הורד את המשחק</string>
-  <string name="studyUrl">כתובת האינטרנט של המחקר</string>
+  <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
   <string name="youCanPasteThisInTheForumToEmbed">אתה יכול לפרסם את זה בפורום כדי להטמיע</string>
   <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
   <string name="startAtX">מתחיל ב%s</string>
+  <string name="embedInYourWebsite">הטמע באתר שלך</string>
+  <string name="readMoreAboutEmbedding">קרא עוד אודות הטמעה</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">ניתו להטמיע אך ורק לוחות למידה פומביים!</string>
   <string name="open">פתח</string>
   <string name="xBroughtToYouByY">%1$s מוגש על ידי %2$s</string>
-  <string name="studyNotFound">המחקר לא נמצא</string>
+  <string name="studyNotFound">לוח הלמידה לא נמצא</string>
   <string name="editChapter">ערוך פרק</string>
   <string name="newChapter">פרק חדש</string>
   <string name="orientation">כיוון הלוח</string>
@@ -110,10 +114,10 @@
   <string name="loadAGameFromXOrY">טען משחק מ%1$s או מ%2$s</string>
   <string name="createChapter">צור פרק</string>
   <string name="configureLiveBroadcast">קבע שידור חי</string>
-  <string name="createStudy">צור מחקר</string>
-  <string name="editStudy">ערוך מחקר</string>
+  <string name="createStudy">צור לוח למידה</string>
+  <string name="editStudy">ערוך לוח למידה</string>
   <string name="visibility">נראות</string>
-  <string name="public">ציבורי</string>
+  <string name="public">פומבי</string>
   <string name="unlisted">לא רשום</string>
   <string name="inviteOnly">מוזמנים בלבד</string>
   <string name="allowCloning">אפשר שיבוט</string>
@@ -125,13 +129,14 @@
   <string name="enableSync">אפשר סנכרון</string>
   <string name="yesKeepEveryoneOnTheSamePosition">כן: שמור את כולם באותה העמדה</string>
   <string name="noLetPeopleBrowseFreely">לא: תן לאנשים לדפדף בחופשיות</string>
-  <string name="pinnedStudyComment">תגובת המחקר המוצמדת</string>
+  <string name="pinnedStudyComment">תגובת הלוח למידה המוצמדת</string>
   <string name="start">התחל</string>
   <string name="save">שמור</string>
   <string name="clearChat">נקה צ\'אט</string>
-  <string name="deleteTheStudyChatHistory">למחוק את ההיסטוריה של הצ\'אט של המחקר? אין דרך חזרה!</string>
-  <string name="deleteStudy">מחק מחקר</string>
-  <string name="whereDoYouWantToStudyThat">איפה אתה מעוניין לחקור זאת?</string>
+  <string name="deleteTheStudyChatHistory">למחוק את היסטוריית הצ\'אט של לוח הלמידה? אין דרך חזרה!</string>
+  <string name="deleteStudy">מחק לוח למידה</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">האם למחוק את כל לוח הלמידה? אין דרך חזרה! הקלד את שם לוח הלמידה לאישור: %s</string>
+  <string name="whereDoYouWantToStudyThat">היכן ליצור את לוח הלמידה?</string>
   <string name="goodMove">מסע טוב</string>
   <string name="mistake">טעות</string>
   <string name="brilliantMove">מסע מבריק</string>
@@ -139,10 +144,32 @@
   <string name="interestingMove">מסע מעניין</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">מסע מפוקפק</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">המסע היחיד</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">כפאי</string>
+  <string name="equalPosition">עמדה מאוזנת</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">עמדה לא ברורה</string>
+  <string name="whiteIsSlightlyBetter">יתרון קל ללבן</string>
+  <string name="blackIsSlightlyBetter">יתרון קל לשחור</string>
   <string name="whiteIsBetter">לבן יותר טוב</string>
   <string name="blackIsBetter">שחור יותר טוב</string>
   <string name="whiteIsWinning">לבן מנצח</string>
   <string name="blackIsWinning">שחור מנצח</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">חידוש</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">פיתוח</string>
+  <string name="initiative">יוזמה</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">התקפה</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">משחק נגד</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">מצוקת זמן</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">עם פיצוי</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">עם הרעיון</string>
+  <string name="nextChapter">פרק הבא</string>
+  <string name="prevChapter">הפרק הקודם</string>
+  <string name="studyActions">פעולות לוח למידה</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">נושאים</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">נושאים שלי</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">נושאים פופולריים</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">נהל נושאים</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">חזרה</string>
+  <string name="playAgain">הפעל שוב</string>
+  <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
+  <string name="youCompletedThisLesson">ברכות השיעור הסתיים בצלחה</string>
 </resources>

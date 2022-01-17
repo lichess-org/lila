@@ -13,7 +13,7 @@
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Gostaste deste problema?</string>
   <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>
-  <string name="yourPuzzleRatingX">A tua pontuação em problemas: %s</string>
+  <string name="yourPuzzleRatingWillNotChange">A sua classificação de quebra-cabeças não será alterada. Note que os quebra-cabeças não são uma competição. A classificação ajuda a selecionar os melhores quebra-cabeças para o seu nível actual.</string>
   <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontra a melhor jogada para as pretas.</string>
   <string name="toGetPersonalizedPuzzles">Para obteres problemas personalizados:</string>
@@ -68,6 +68,21 @@
   <string name="fromXGames">%s é um nome de utilizador.
 Estes desafios foram retirados dos jogos desse utilizador</string>
   <string name="searchPuzzles">Pesquisar desafios</string>
+  <string name="fromMyGamesNone">Não tens problemas na base de dados, mas Lichess adora-te muito.
+
+Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de teres um problema adicionado!</string>
   <string name="fromXGamesFound">%1$s problemas encontrados em %2$s partidas</string>
   <string name="puzzleDashboardDescription">Treinar, analisar, melhorar</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s problema feito</item>
+    <item quantity="other">%s problemas feitos</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s para repetir</item>
+    <item quantity="other">%s para repetir</item>
+  </plurals>
+  <string name="percentSolved">%s resolvido</string>
+  <string name="noPuzzlesToShow">Nada para mostrar, jogue alguns quebra-cabeças primeiro!</string>
+  <string name="improvementAreasDescription">Treine estes para optimizar o seu progresso!</string>
+  <string name="strengthDescription">Você tem melhor performance nestes temas</string>
 </resources>

@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
   <string name="pgnTags">Etiquetes PGN</string>
   <string name="like">M’agrada</string>
+  <string name="unlike">Ja no m\'agrada</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar en aquesta posició</string>
   <string name="commentThisMove">Comentar en aquest moviment</string>
@@ -126,6 +127,7 @@
   <string name="clearChat">Neteja el Chat</string>
   <string name="deleteTheStudyChatHistory">Eliminar el xat de l’estudi? No hi ha volta enrera!</string>
   <string name="deleteStudy">Eliminar estudi</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Esteu segurs que voleu eliminar el estudi? Tingues en compte que no es pot desfer. Per a confirmar-ho escriu el nom del estudi: %s</string>
   <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
   <string name="goodMove">Bona jugada</string>
   <string name="mistake">Errada</string>
@@ -153,4 +155,13 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Amb la idea</string>
   <string name="nextChapter">Capítol següent</string>
   <string name="prevChapter">Capítol Anterior</string>
+  <string name="studyActions">Acions de l\'estudi</string>
+  <string name="topics">Temes</string>
+  <string name="myTopics">Els meus temes</string>
+  <string name="popularTopics">Temes populars</string>
+  <string name="manageTopics">Gestiona els temes</string>
+  <string name="back">Enrere</string>
+  <string name="playAgain">Torna a jugar</string>
+  <string name="whatWouldYouPlay">Que jugaríeu en aquesta posició?</string>
+  <string name="youCompletedThisLesson">Enhorabona, heu completat aquesta lliçó.</string>
 </resources>

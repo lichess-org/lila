@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xBlog">Blog gracza %s</string>
+  <string name="newPost">Nowy wpis</string>
+  <string name="editYourBlogPost">Edytuj swój wpis na blogu</string>
+  <string name="saveDraft">Zapisz wersję roboczą</string>
+  <string name="postTitle">Tytuł wpisu</string>
+  <string name="postIntro">Wstęp wpisu</string>
+  <string name="postBody">Treść wpisu</string>
+  <string name="drafts">Wersje robocze</string>
+  <string name="published">Opublikowane</string>
+  <string name="publishOnYourBlog">Opublikuj na swoim blogu</string>
+  <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">Opublikowano wpis na blogu</item>
+    <item quantity="few">Opublikowano %s wpisy na blogu</item>
+    <item quantity="many">Opublikowano %s wpisów na blogu</item>
+    <item quantity="other">Opublikowano %s wpisów na blogu</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">Raz przeczytane</item>
+    <item quantity="few">%s razy przeczytane</item>
+    <item quantity="many">%s razy przeczytane</item>
+    <item quantity="other">%s razy przeczytane</item>
+  </plurals>
+  <string name="xPublishedY">%1$s opublikował %2$s</string>
+  <string name="thisPostIsPublished">Ten wpis jest opublikowany</string>
+  <string name="thisIsADraft">To jest wersja robocza</string>
+  <string name="moreBlogPostsBy">Zobacz więcej wpisów opublikowanych przez %s</string>
+  <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
+  <string name="noDrafts">Brak wersji roboczych.</string>
+  <string name="latestBlogPosts">Najnowsze wpisy na blogu</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="one">Zobacz jeden wpis</item>
+    <item quantity="few">Zobacz %s wpisy</item>
+    <item quantity="many">Zobacz %s wpisów</item>
+    <item quantity="other">Zobacz %s wpisów</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">Prześlij obraz do swojego wpisu</string>
+  <string name="imageAlt" comment="imageAlt&#10;&#10;You can add alternative text (or 'alt text') to describe an image in words, for the benefit of partially sighted or blind users.">Tekst alternatywny obrazu</string>
+  <string name="imageCredit" comment="imageCredit&#10;&#10;A field in case the image is not yours, so you can note who took the photo for example or other forms of copyright.">Prawa autorskie</string>
+</resources>

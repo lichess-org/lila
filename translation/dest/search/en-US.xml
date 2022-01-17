@@ -26,8 +26,14 @@
   <string name="onlyAnalysed">Only games where a computer analysis is available</string>
   <string name="color">Color</string>
   <string name="evaluation">Evaluation</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Maximum number</string>
+  <string name="maxNumber">Maximum number</string>
   <string name="maxNumberExplanation">The maximum number of games to return</string>
   <string name="include">Include</string>
-  <string name="generateURL">Generate URL</string>
+  <string name="descending">Descending</string>
+  <string name="ascending">Ascending</string>
+  <plurals name="gamesFound">
+    <item quantity="one">%s game found</item>
+    <item quantity="other">%s games found</item>
+  </plurals>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">The average rating of both players</string>
 </resources>

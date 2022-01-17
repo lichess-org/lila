@@ -55,13 +55,18 @@ object forms {
       )
     }
 
-  def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
+  def ai(
+      form: Form[_],
+      ratings: Map[Int, Int],
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
+  )(implicit
       ctx: Context
   ) =
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
-        fenInput(form("fen"), strict = true, validFen),
+        fenInput(form("fen"), strict = true, validFen, editorUrl),
         renderTimeMode(form, allowAnon = true),
         if (ctx.blind)
           frag(
@@ -80,7 +85,7 @@ object forms {
               div(cls := "ai_info")(
                 ratings.toList.map { case (level, _) =>
                   div(cls := s"${prefix}level_$level")(
-                    trans.aiNameLevelAiLevel("Fairy-Stockfish 13.1", level)
+                    trans.aiNameLevelAiLevel("Fairy-Stockfish 14", level)
                   )
                 }
               )
@@ -93,7 +98,8 @@ object forms {
       form: Form[_],
       user: Option[User],
       error: Option[String],
-      validFen: Option[lila.setup.ValidFen]
+      validFen: Option[lila.setup.ValidFen],
+      editorUrl: (chess.format.FEN, chess.variant.Variant) => String
   )(implicit ctx: Context) =
     layout(
       "friend",
@@ -106,7 +112,7 @@ object forms {
           userLink(u, cssClass = "target".some)
         },
         renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
-        fenInput(form("fen"), strict = false, validFen),
+        fenInput(form("fen"), strict = false, validFen, editorUrl),
         renderTimeMode(form, allowAnon = true),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)
@@ -167,14 +173,24 @@ object forms {
         div(cls := "ratings")(
           form3.hidden("rating", "?"),
           lila.rating.PerfType.nonPuzzle.map { perfType =>
-            div(cls := perfType.key)(
-              trans.perfRatingX(
-                raw(s"""<strong data-icon="${perfType.iconChar}">${me
-                  .perfs(perfType.key)
-                  .map(_.intRating)
-                  .getOrElse("?")}</strong> ${perfType.trans}""")
+            {
+              val rating = me
+                .perfs(perfType.key)
+                .map(_.intRating.toString)
+                .getOrElse("?")
+              div(cls := perfType.key)(
+                if (ctx.pref.showRatings)
+                  trans.perfRatingX(
+                    raw(s"""<strong data-icon="${perfType.iconChar}">${rating}</strong> ${perfType.trans}""")
+                  )
+                else
+                  frag(
+                    i(dataIcon := perfType.iconChar),
+                    strong(cls := "none")(rating), // To calculate rating range in JS
+                    perfType.trans
+                  )
               )
-            )
+            }
           }
         )
       }

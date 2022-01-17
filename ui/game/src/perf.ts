@@ -3,7 +3,7 @@ export const perf = {
     ultraBullet: '',
     bullet: '',
     blitz: '',
-    rapid: '',
+    rapid: '',
     classical: '',
     correspondence: '',
     chess960: '',

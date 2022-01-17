@@ -26,8 +26,13 @@
   <string name="onlyAnalysed">Միայն այն խաղերը․ որտեղ առկա է համակարգչային վերլուծություն</string>
   <string name="color">Գույն</string>
   <string name="evaluation">Գնահատական</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Առավելագույն քանակ</string>
+  <string name="maxNumber">Առավելագույն քանակ</string>
   <string name="maxNumberExplanation">Վերադարձի համար անհրաժեշտ պարտիաների առավելագույն քանակ</string>
-  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Ներառյալ</string>
-  <string name="generateURL">Գեներացնել հղում</string>
+  <string name="include">Ներառյալ</string>
+  <string name="descending">Նվազման կարգով</string>
+  <string name="ascending">Աճման կարգով</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Գտնվել է %s պարտիա</item>
+    <item quantity="other">Գտնվել է %s պարտիա</item>
+  </plurals>
 </resources>

@@ -27,10 +27,11 @@
   <string name="wantClearHistory">אני רוצה לנקות את ההיסטוריה או הדירוג שלי</string>
   <string name="cantClearHistory">לא ניתן לנקות את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
+  <string name="toReportAPlayerUseForm">כדי לדווח על שחקן, השתמש בטופס הדיווח</string>
   <string name="youCanAlsoReachReportPage">אתה יכול גם להגיע לדף זה על ידי לחיצה על כפתור הדוח %s בדף הפרופיל.</string>
   <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
   <string name="doNotSendReportEmails">אל תשלחו לנו אימיילים כדי לדווח.</string>
-  <string name="doNotMessageModerators">אל תשלח הודעות ישירות לעורכים.</string>
+  <string name="doNotMessageModerators">נא לא לשלוח הודעות ישירות למנהלים.</string>
   <string name="onlyReports">רק דיווח על שחקנים באמצעות טופס הדוח יעיל.</string>
   <string name="wantReportBug">אני רוצה לדווח על תקלה</string>
   <string name="reportBugInForum">בקטע משוב ליצ\'ס בפורום</string>
@@ -51,6 +52,7 @@
   <string name="knightMate">אפשרי לבצע מט רק אם פרש או רץ, אם ליריב יש יותר ממלך על הלוח.</string>
   <string name="noRatingPoints">נקודות מד כושר לא הוענקו</string>
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על מד הכושר.</string>
+  <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק משוחק אל מול חשבון של בוט, משחק מנוקד עשוי שלא להעניק נקודות אם יקבע שהשחקן מנצל את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, אתה יכול לדווח על זה:</string>
   <string name="banAppeal">ערער על איסור או על הגבלה בIP</string>

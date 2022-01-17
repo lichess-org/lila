@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Học cách chơi cờ vua</string>
-  <string name="byPlaying">bằng cách chơi nó!</string>
+  <string name="byPlaying">bằng cách chơi!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Tiến trình %s</string>
   <string name="resetMyProgress">Đặt lại quá trình của tôi</string>
@@ -162,6 +162,12 @@ Tốt = 1
 Quân Vua là vô giá. Mất Vua là bị thua cuộc.</string>
   <string name="queenOverBishop">Chọn quân cờ giá trị cao nhất!
 Hậu &gt; Tượng</string>
+  <string name="pieceValueExchange">Ăn quân có giá trị cao nhất!
+ Không đổi
+ quân có giá trị cao với quân có giá trị thấp.</string>
+  <string name="pieceValueLegal">Ăn quân
+có giá trị nhất!
+Đảm bảo rằng nước đi của bạn là đúng!</string>
   <string name="takeThePieceWithTheHighestValue">Hãy ăn quân
 với giá trị cao nhất!</string>
   <string name="pieceValueComplete">Chúc mừng! Bạn đã hiểu giá trị từng quân cờ!

@@ -11,7 +11,6 @@
   <string name="level">Antas</string>
   <string name="strength">Lakas</string>
   <string name="toggleTheChat">Paganahin ang chat</string>
-  <string name="toggleSound">Paganahin ang tunog</string>
   <string name="chat">Makipag-usap</string>
   <string name="resign">Magbitiw</string>
   <string name="checkmate">Checkmate</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Umalis ang kalaban mo sa laro. Puwede mo ikuha yung wagi sa %s segundo.</item>
   </plurals>
   <string name="opponentLeftChoices">Maaaring umalis na ang kalaban sa laro. Puwede mo nang angkinin ang panalo, tawagin itong draw, o maghintay.</string>
-  <string name="makeYourOpponentResign">Gawin mong magbitiw ang iyong kalaban</string>
   <string name="forceResignation">Angkinin ang tagumpay</string>
   <string name="forceDraw">Tumawag ng tabla</string>
   <string name="talkInChat">Maging magalang sa kachat!</string>
@@ -49,12 +47,12 @@
   <string name="blackResigned">Nagpatalo ang Itim</string>
   <string name="whiteLeftTheGame">Umalis sa laro ang puti</string>
   <string name="blackLeftTheGame">Umalis sa laro ang Itim</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ibahagi ang URL na ito para makita ng mga tumitingin sa laro</string>
-  <string name="theComputerAnalysisHasFailed">Nabigo ang kompyuter sa pagsuri</string>
-  <string name="viewTheComputerAnalysis">Tingnan ang pagsusuri ng kopyuter</string>
+  <string name="whiteDidntMove">Hindi gumalaw si White</string>
+  <string name="blackDidntMove">Hindi gumalaw si Black</string>
   <string name="requestAComputerAnalysis">Humingi ng pagsusuri ng kompyuter</string>
   <string name="computerAnalysis">Pagsusuri ng kompyuter</string>
   <string name="computerAnalysisAvailable">Magagamit na ang pagsusuri ng Kompyuter</string>
+  <string name="computerAnalysisDisabled">Kompyuter pagsusurì baldado</string>
   <string name="analysis">Board ng Pagsusuri</string>
   <string name="depthX">Lalim %s</string>
   <string name="usingServerAnalysis">Gamit ang pagsusuri ng server</string>
@@ -89,16 +87,17 @@
     <item quantity="one">Namate sa %s kalahating galaw</item>
     <item quantity="other">Namate sa %s kalahating mga galaw</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Ang Sunod na Pagdakip o galaw ng pawn sa %s Kalahating paggalaw ( Layu sa Pagkazero sa 50 na Tagabilang ng Galaw)</item>
-    <item quantity="other">Ang Sunod na Pagdakip o galaw ng pawn sa %s Kalahating mga paggalaw ( Layu sa Pagkazero sa 50 na Tagabilang ng Galaw)</item>
-  </plurals>
+  <string name="dtzWithRounding">DTZ50 \"na may pag-ikot, batay sa bilang ng mga kalahating ilipat hanggang sa susunod na pagkuha o paglipat ng pawn</string>
   <string name="noGameFound">Walang nakitang laro</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maaring magsama ng maraming laro mula sa ginustong menu?</string>
   <string name="openingExplorer">Pagbubukas ng tagalakbay</string>
+  <string name="openingEndgameExplorer">Pagbubukas / endgame explorer</string>
   <string name="xOpeningExplorer">%s pagbubukas ng tagalakbay</string>
   <string name="winPreventedBy50MoveRule">Nanalo na pinigilan ng 50-alituntunin ng galaw</string>
   <string name="lossSavedBy50MoveRule">Natalo naisave sa 50-alituntunin ng galaw</string>
+  <string name="winOr50MovesByPriorMistake">Manalo o 50 gumagalaw sa pamamagitan ng dating pagkakamali</string>
+  <string name="lossOr50MovesByPriorMistake">Pagkawala o 50 paggalaw sa pamamagitan ng dating pagkakamali</string>
+  <string name="unknownDueToRounding">Ginagarantiyahan lamang ang panalo / pagkawala kung ang inirekumendang linya ng baseng talahanayan ay sinundan mula pa noong huling pag-capture o pawn na paglipat, dahil sa posibleng pag-ikot ng mga halaga ng DTZ sa mga tableya ng Syzygy.</string>
   <string name="allSet">Lahat ay natakda na!</string>
   <string name="importPgn">Magluwas ng PGN</string>
   <string name="delete">Burahin</string>
@@ -128,6 +127,8 @@
     <item quantity="one">%s na manlalaro</item>
     <item quantity="other">%s na mga manlalaro</item>
   </plurals>
+  <string name="drawByMutualAgreement">Iguhit sa pamamagitan ng kasunduan sa isa\'t isa</string>
+  <string name="fiftyMovesWithoutProgress">Limampu\'t gumagalaw nang walang pag-unlad</string>
   <string name="currentGames">Mga laro ngayon</string>
   <plurals name="nbGames">
     <item quantity="one">%s na laro</item>
@@ -201,7 +202,6 @@
   <string name="whiteTimeOut">Puti oras na</string>
   <string name="blackTimeOut">Itim oras na</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
-  <string name="drawOfferDeclined">Tinanggihan ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>
   <string name="drawOfferCanceled">Kinansela ang alok na tabla</string>
   <string name="whiteOffersDraw">Ang puti ay nag-alok ng tabla</string>
@@ -227,8 +227,6 @@
   <string name="thisGameIsRated">Ang laro ay namarkahan</string>
   <string name="rematch">Mag-laro muli</string>
   <string name="rematchOfferSent">Naipadala na ang alok na makipaglabang muli</string>
-  <string name="rematchOfferSentWhite">Nag-aalok ng rematch ang Puti</string>
-  <string name="rematchOfferSentBlack">Nag-aalok ng rematch ang Itim</string>
   <string name="rematchOfferAccepted">Tinanggap ang alok na pakikibaglaban muli</string>
   <string name="rematchOfferCanceled">Nakansela ang alok ng pakikipaglabang muli</string>
   <string name="rematchOfferDeclined">Tinanggihan ang alok ng paglalabang muli</string>
@@ -242,9 +240,7 @@
   <string name="youHaveBeenTimedOut">Ikaw ay naubusan ng oras.</string>
   <string name="spectatorRoom">Silid ng tumitingin</string>
   <string name="composeMessage">Gumawa ng Mensahe</string>
-  <string name="noNewMessages">Walang bagong mensahe</string>
   <string name="subject">Paksa</string>
-  <string name="recipient">Tatanggap</string>
   <string name="send">Ipadala</string>
   <string name="incrementInSeconds">Nadadagdagn ng segundos</string>
   <string name="freeOnlineChess">Libreng Online Chess</string>
@@ -357,12 +353,12 @@
     <item quantity="one">%s kaibigan sa online</item>
     <item quantity="other">%s mga kaibigan sa online</item>
   </plurals>
-  <string name="noFriendsOnline">Walang mga kaibigang online</string>
-  <string name="findFriends">Maghanap ng Kaibigan</string>
   <string name="favoriteOpponents">Paboritong mga kalaban</string>
   <string name="follow">Sundan</string>
   <string name="following">Sinusundan</string>
   <string name="unfollow">Wag sundan</string>
+  <string name="followX">Sundin mo siya %s</string>
+  <string name="unfollowX">I-unfollow siya %s</string>
   <string name="block">Harangan</string>
   <string name="blocked">Naharangan</string>
   <string name="unblock">Huwag harangan</string>
@@ -407,7 +403,6 @@
   <string name="points">Punto</string>
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
-  <string name="winStreak">Sunod-sunod na panalo</string>
   <string name="createdBy">Ginawa ni</string>
   <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
@@ -423,13 +418,13 @@
   <string name="draws">Mga tabla</string>
   <string name="nextXTournament">Sunod na %s paligsahan:</string>
   <string name="averageOpponent">Karaniwang kalaban</string>
-  <string name="membersOnly">Mga Myembro Lang</string>
   <string name="boardEditor">Taga-edit ng board</string>
   <string name="setTheBoard">Tingnan ang board</string>
   <string name="popularOpenings">Sikat na mga bukasan</string>
+  <string name="endgamePositions">Posisyon ng Endgame</string>
+  <string name="chess960StartPosition">Posisyon ng pagsisimula ng Chess960: %s</string>
   <string name="startPosition">Simulang posisyon</string>
   <string name="clearBoard">Linisin ang board</string>
-  <string name="savePosition">I-save ang board</string>
   <string name="loadPosition">I-load ang posisyon</string>
   <string name="isPrivate">Pribado</string>
   <string name="reportXToModerators">I-report %s sa mga moderator</string>
@@ -442,13 +437,12 @@
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa O watawat</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
-  <string name="watchLichessTV">Tumingin sa Lichess TV</string>
   <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
   <string name="onlinePlayers">Mga online na manlalaro</string>
-  <string name="activeToday">Aktibo ngayon</string>
   <string name="activePlayers">Aktibong manlalaro</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Mag-ingat, ay laro ay namarkahan pero walang orasan!</string>
   <string name="success">Tagumpay</string>
@@ -459,7 +453,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Awtomatikong pumupunta sa sunod na laro pagkatapos ng paggalaw</string>
   <string name="autoSwitch">Awtomatikong paglipat</string>
   <string name="puzzles">Mga palaisipan</string>
-  <string name="latestUpdates">Pinakabagong mga update</string>
   <string name="tournamentWinners">Mga nanalo sa paligsahan</string>
   <string name="name">Pangalan</string>
   <string name="description">Paglalarawan</string>
@@ -491,9 +484,7 @@
   <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
   <string name="by">sa pamamagitan ng %s</string>
   <string name="thisTopicIsNowClosed">Ang paksang itp ay sarado na.</string>
-  <string name="theming">Pagtetema</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Mga tanong &amp; Mga sagot</string>
   <string name="notes">Mga Talaan</string>
   <string name="typePrivateNotesHere">I-type ang mga pribadong talaan dito</string>
   <string name="invalidUsernameOrPassword">Maling username o password</string>
@@ -522,13 +513,7 @@
   <string name="onSlowGames">Sa mabagal na mga laro</string>
   <string name="always">Lagi</string>
   <string name="never">Hindi Kailanman</string>
-  <string name="difficultyEasy">Madali</string>
-  <string name="difficultyNormal">Karaniwan</string>
-  <string name="difficultyHard">Mahirap</string>
   <string name="xCompetesInY">%1$s nakikipagkumpitensya sa %2$s</string>
-  <string name="xAskedY">%1$s tinanong %2$s</string>
-  <string name="xAnsweredY">%1$s nasagot %2$s</string>
-  <string name="xCommentedY">%1$s nakomentohan %2$s</string>
   <string name="victory">Tagumpay</string>
   <string name="defeat">Natalo</string>
   <string name="victoryVsYInZ">%1$s vs %2$s sa %3$s</string>
@@ -537,7 +522,6 @@
   <string name="timeline">Timeline</string>
   <string name="starting">Nagsisimula:</string>
   <string name="allInformationIsPublicAndOptional">Ang lahat ng impormasyon ay nasa publiko at opsyonal.</string>
-  <string name="yourCityRegionOrDepartment">Ang iyong lungsod, rehiyon, o probinsya.</string>
   <string name="biographyDescription">Sabihin mo ako tungkol sa iyo, ano ang gusto mo sa chess, paboritong mga pagbukas, mga laro, mga manlalaro…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Pinakamarami: %s karakter.</item>
@@ -552,13 +536,6 @@
   <string name="computer">Makina</string>
   <string name="side">Panig</string>
   <string name="clock">Orasan</string>
-  <string name="unauthorizedError">Ang pagbukas ay hindi pinapayagan.</string>
-  <string name="noInternetConnection">Walang koneksyon ng internet. Pwede ka parin maglaro ng offline galing sa menu.</string>
-  <string name="connectedToLichess">Konectado sa lichess.org</string>
-  <string name="signedOut">Ikaw ay nasign-out</string>
-  <string name="loginSuccessful">Ikaw ay nasign-in ngayon</string>
-  <string name="playOnTheBoardOffline">Sa ibabaw ng board</string>
-  <string name="playOfflineComputer">Makina</string>
   <string name="opponent">Kalaban</string>
   <string name="learnMenu">Matuto</string>
   <string name="studyMenu">Pagaralan</string>
@@ -566,16 +543,15 @@
   <string name="community">Komunidad</string>
   <string name="tools">Mga Kagamitan</string>
   <string name="increment">Pagdagdag</string>
-  <string name="sharePGN">Magbahagi ng PGN</string>
-  <string name="playOnline">Maglaro Online</string>
-  <string name="playOffline">Maglaro Offline</string>
-  <string name="allowAnalytics">Pahintulotan ang hindi kilalang istatistiks</string>
-  <string name="shareGameURL">Magbahagi ng URL ng laro</string>
   <string name="error.required">Ang patlang na ito ay kailangan</string>
-  <string name="error.email">Ang email address ay hindi balido</string>
-  <string name="error.email_acceptable">Ang email address na ito ay hindi matatanggap</string>
-  <string name="error.email_unique">Ang email address na ito ay nakuha na</string>
-  <string name="error.email_different">Ito ay email address mo na</string>
+  <string name="error.email">Ang email address na ito ay hindi wasto</string>
+  <string name="error.email_acceptable">Hindi katanggap-tanggap ang email address na ito. Mangyaring i-double check ito, at subukang muli.</string>
+  <string name="error.email_unique">Ito na ang iyong email address</string>
+  <string name="error.email_different">Ito na ang iyong email address</string>
+  <string name="error.minLength">Dapat na hindi bababa sa %s mga character ang haba</string>
+  <string name="error.maxLength">Dapat na hindi hihigit sa %s mga character ang haba</string>
+  <string name="error.min">Dapat ay hindi bababa sa %s</string>
+  <string name="error.max">Dapat nasa mos %s</string>
   <string name="ifRatingIsPlusMinusX">Kung ang marka ay ± %s</string>
   <string name="onlyExistingConversations">Mga nabubuhay na pagsasalitaan lamang</string>
   <string name="onlyFriends">Mga kaibigan lamang</string>
@@ -623,7 +599,6 @@
   <string name="simulHostExtraTime">Maghost ng sobrang oras sa orasan</string>
   <string name="lichessTournaments">Mga Paligsahan ng Lichess</string>
   <string name="tournamentFAQ">Lugar ng paligsahan na FAQ</string>
-  <string name="tournamentOfficial">Opisyal</string>
   <string name="timeBeforeTournamentStarts">Oras bago magsimula ang paligsahan</string>
   <string name="averageCentipawnLoss">Karaniwang nawawalang centipawn</string>
   <string name="keyboardShortcuts">Shortcut sa Keyboard</string>
@@ -661,22 +636,23 @@
   <string name="downloadAnnotated">I-download ang na-annotate</string>
   <string name="downloadRaw">I-download ang raw</string>
   <string name="downloadImported">Naluwas na mga nadownload</string>
-  <string name="printFriendlyPDF">Palakaibigang pagprint ng PDF</string>
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pwede kang magscroll sa ibabaw ng board upang gumalaw sa laro.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mag-scroll sa mga pagkakaiba-iba ng computer upang i-preview ang mga ito.</string>
   <string name="analysisShapesHowTo">Pindutin ang shift+click o pindutin ang kanan ng mouse upang gumawa ngcmga bilog at mga arrow sa board.</string>
   <string name="letOtherPlayersMessageYou">Hayaan ang ibang mga manlalaro na magmensahe sayo</string>
+  <string name="receiveForumNotifications">Makatanggap ng mga abiso kapag nabanggit sa forum</string>
   <string name="shareYourInsightsData">Ibahagi ang iyong mga data ng pananaw</string>
   <string name="withNobody">Walang kasama</string>
   <string name="withFriends">Kasama ang mga kaibigan</string>
   <string name="withEverybody">Kasama ang lahat</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Ikaw ay nakarehistro na sa email: %s</string>
   <string name="kidMode">Batang mode</string>
   <string name="kidModeExplanation">Ito ay tungkol sa kaligtasan. Sa batang mode, lahat ng site pangkomunikasyon ay hindi pinagana. Paganahin ito para sa iyong mga bata at mga studyante, upang maprotektahan sa ibang gumagamit ng internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Sa batang mode, ang logo ng lichess ay nakakuha ng %s icon, dapat malaman na ligtas ang iyong bata.</string>
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
+  <string name="sessions">Mga Session</string>
   <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
   <string name="asFreeAsLichess">Kasinglibre ng lichess</string>
@@ -698,7 +674,6 @@
   <string name="xHostsY">%1$s mga host %2$s</string>
   <string name="xJoinsY">%1$s mga sumali %2$s</string>
   <string name="xLikesY">%1$s mga gusto %2$s</string>
-  <string name="xCreatesStudyY">Si%1$s ay gumawa ng pag-aaral tungkol sa %2$s</string>
   <string name="quickPairing">Mabilis na pagpares</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Hindi kilala</string>
@@ -719,17 +694,11 @@
   <string name="usernameSuffixInvalid">Kailangang tapusin ang iyong pangalan gamit ang kahit anong letra o numero.</string>
   <string name="usernameCharsInvalid">Maaari lang maglaman ang iyong pangalan ng mga letra, numero, salungguhit, at gitling.</string>
   <string name="usernameUnacceptable">Ang username na ito ay hindi matatanggap.</string>
-  <string name="directlySupportLichess">Direktang sumusuporta sa Lichess</string>
   <string name="playChessInStyle">Maglaro ng chess na may istilo</string>
   <string name="chessBasics">Mga pangunahing kaalaman ng Chess</string>
   <string name="coaches">Mga Tagapagsanay</string>
   <string name="invalidPgn">Maling PGN</string>
   <string name="invalidFen">Maling FEN</string>
-  <string name="error.minLength">Pinakamaliit na haba ay %s</string>
-  <string name="error.maxLength">Pinakamalaking haba ay %s</string>
-  <string name="error.min">Dapat mas malaki o kapareha sa %s</string>
-  <string name="error.max">Dapat na maliit o kapreha sa %s</string>
-  <string name="error.unknown">Mali</string>
   <string name="custom">Pinasadya</string>
   <string name="notifications">Mga Notipikasyon</string>
   <string name="perfRatingX">Marka: %s</string>
@@ -846,5 +815,61 @@
   <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
   <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
+  <string name="clickToRevealEmailAddress">[Mag-click upang ipakita ang email address]</string>
   <string name="download">Download</string>
+  <string name="welcome">Maligayang pagdating!</string>
+  <string name="lichessPatronInfo">Ang Lichess ay isang charity at buong libre / libre open source software.
+Ang lahat ng mga gastos sa pagpapatakbo, pag-unlad, at nilalaman ay pinopondohan lamang ng mga donasyon ng gumagamit.</string>
+  <string name="coachManager">Tagapamahala ng coach</string>
+  <string name="streamerManager">Tagapamahala ng streamer</string>
+  <string name="cancelTournament">Kanselahin ang paligsahan</string>
+  <string name="tournDescription">Paglalarawan ng paligsahan</string>
+  <string name="tournDescriptionHelp">Anumang espesyal na nais mong sabihin sa mga kalahok? Sikaping gawing maikli ito. Magagamit ang mga link sa markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Na-rate ang mga laro
+at epekto sa mga rating ng mga manlalaro</string>
+  <string name="onlyMembersOfTeam">Mga miyembro lamang ng koponan</string>
+  <string name="noRestriction">Wala restriksyon</string>
+  <string name="minimumRatedGames">Minimum na na-rate na mga laro</string>
+  <string name="minimumRating">Minimum na rating</string>
+  <string name="maximumWeeklyRating">Maximum na lingguhang rating</string>
+  <string name="onlyTitled">Mga manlalaro lamang na may pamagat</string>
+  <string name="onlyTitledHelp">Humiling ng isang opisyal na pamagat upang sumali sa paligsahan</string>
+  <string name="positionInputHelp">I-paste ang isang wastong FEN upang simulan ang bawat laro mula sa isang naibigay na posisyon.
+Gumagawa lamang ito para sa karaniwang mga laro, hindi sa mga iba-iba.
+Maaari mong gamitin ang %s upang makabuo ng isang posisyon ng FEN, pagkatapos ay i-paste ito dito.
+Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang posisyon.</string>
+  <string name="cancelSimul">Kanselahin ang simul</string>
+  <string name="simulHostcolor">Kulay ng host para sa bawat laro</string>
+  <string name="estimatedStart">Tinantyang oras ng pagsisimula</string>
+  <string name="simulFeatured">Tampok sa %s</string>
+  <string name="simulFeaturedHelp">Ipakita ang iyong simul sa lahat sa %s. Huwag paganahin para sa mga pribadong simul.</string>
+  <string name="simulDescription">Simul Paglalarawan</string>
+  <string name="simulDescriptionHelp">Anumang nais mong sabihin sa mga kalahok?</string>
+  <string name="markdownAvailable">%s ay magagamit para sa mas advanced na syntax.</string>
+  <string name="embedsAvailable">I-paste ang isang URL ng laro o isang URL ng kabanata ng pag-aaral upang mai-embed ito.</string>
+  <string name="inYourLocalTimezone">Sa iyong sariling lokal na timezone</string>
+  <string name="tournChat">Chat sa paligsahan</string>
+  <string name="noChat">Walang chat</string>
+  <string name="onlyTeamLeaders">Mga namumuno lamang sa koponan</string>
+  <string name="onlyTeamMembers">Mga miyembro lamang ng koponan</string>
+  <string name="navigateMoveTree">I-navigate ang puno ng paglipat</string>
+  <string name="mouseTricks">Mga trick sa mouse</string>
+  <string name="toggleLocalAnalysis">I-toggle ang lokal na pagtatasa ng computer</string>
+  <string name="toggleAllAnalysis">I-toggle ang lahat ng pagtatasa ng computer</string>
+  <string name="playComputerMove">Maglaro ng pinakamahusay na paglipat ng computer</string>
+  <string name="analysisOptions">Mga pagpipilian sa pagtatasa</string>
+  <string name="focusChat">Pusa ng pokus</string>
+  <string name="showHelpDialog">Ipakita ang dayalogo sa tulong na ito</string>
+  <string name="reopenYourAccount">Muling buksan ang iyong account</string>
+  <string name="closedAccountChangedMind">Kung isinara mo ang iyong account, ngunit mula nang nagbago ang iyong isip, makakakuha ka ng isang pagkakataon na maibalik ang iyong account.</string>
+  <string name="onlyWorksOnce">Minsan lang ito gagana.</string>
+  <string name="cantDoThisTwice">Kung isara mo ang iyong account sa pangalawang pagkakataon, walang paraan upang mabawi ito.</string>
+  <string name="emailAssociatedToaccount">Ang email address na nauugnay sa account</string>
+  <string name="sentEmailWithLink">Nagpadala kami sa iyo ng isang email na may isang link.</string>
+  <string name="tournamentEntryCode">Code ng Entry ng Tournament</string>
+  <string name="hangOn">Tambay ka na!</string>
+  <string name="gameInProgress">Mayroon kang laro na isinasagawa %s.</string>
+  <string name="abortTheGame">I-abort ang laro</string>
+  <string name="resignTheGame">Resign ang laro</string>
+  <string name="youCantStartNewGame">Hindi ka maaaring magsimula ng isang bagong laro hanggang sa matapos ang isang ito.</string>
 </resources>

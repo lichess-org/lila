@@ -2,7 +2,6 @@ package lila.common
 
 import chess.format.FEN
 import chess.format.Forsyth
-import io.lemonlabs.uri._
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
@@ -72,6 +71,7 @@ object Form {
         .get(key)
         .map(_.trim)
         .map(String.normalize.apply)
+        .map(String.removeMultibyteSymbols)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   }
@@ -123,6 +123,56 @@ object Form {
     }
   }
 
+  object markdownImage {
+    private val allowedDomains =
+      List(
+        "imgur.com",
+        "giphy.com",
+        "wikimedia.org",
+        "creativecommons.org",
+        "pexels.com",
+        "piqsels.com",
+        "freeimages.com",
+        "unsplash.com",
+        "pixabay.com",
+        "githubusercontent.com",
+        "googleusercontent.com",
+        "i.ibb.co",
+        "i.postimg.cc",
+        "xkcd.com",
+        "lichess1.org"
+      )
+    private val imageDomainRegex = """^(?:https?://)([^/]+)/.{6,}""".r
+    sealed abstract private class Bad(val msg: String)
+    private case class BadUrl(url: String)       extends Bad(s"Invalid image URL: $url")
+    private case class BadDomain(domain: String) extends Bad(s"Disallowed image domain: $domain")
+    val constraint = V.Constraint((s: String) =>
+      Markdown
+        .imageUrls(s)
+        .map {
+          case imageDomainRegex(domain) =>
+            !allowedDomains.exists(d => domain == d || domain.endsWith(s".$d")) option BadDomain(
+              domain
+            )
+          case url => BadUrl(url).some
+        }
+        .flatten match {
+        case Nil => V.Valid
+        case bads =>
+          V.Invalid(
+            bads.map(_.msg).map(V.ValidationError(_)) ::: {
+              bads.exists {
+                case _: BadDomain => true
+                case _            => false
+              } ?? List(
+                V.ValidationError(s"Allowed domains: ${allowedDomains mkString ", "}")
+              )
+            }
+          )
+      }
+    )
+  }
+
   def stringIn(choices: Options[String]) =
     text.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
@@ -138,8 +188,6 @@ object Form {
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")
-
-  def absoluteUrl = of[AbsoluteUrl](formatter.absoluteUrlFormatter)
 
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] =
@@ -159,18 +207,6 @@ object Form {
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
-    }
-    val absoluteUrlFormatter: Formatter[AbsoluteUrl] = new Formatter[AbsoluteUrl] {
-      override val format = Some(("format.url", Nil))
-      def bind(key: String, data: Map[String, String]) =
-        data
-          .get(key)
-          .map(_.trim)
-          .toRight("error.required")
-          .flatMap(str => AbsoluteUrl.parseTry(str).toEither.left.map(_.getMessage))
-          .left
-          .map(err => (Seq(FormError(key, err.toString, Nil))))
-      def unbind(key: String, value: AbsoluteUrl) = Map(key -> value.toString)
     }
   }
 

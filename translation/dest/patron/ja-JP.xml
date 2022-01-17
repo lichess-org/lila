@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">寄付</string>
+  <string name="donateAsX">%s として寄付</string>
   <string name="lichessPatron">Lichess パトロン</string>
   <string name="freeAccount">無料アカウント</string>
   <string name="becomePatron">Lichess のパトロンになる</string>
@@ -42,7 +43,6 @@
   <string name="contactSupport">Lichess サポートに連絡</string>
   <string name="otherMethods">寄付するのにほかの方法は？</string>
   <string name="bankTransfers">銀行振込もできます</string>
-  <string name="bitcoin">Lichess のビットコインアドレスでも：%s</string>
   <string name="patronFeatures">パトロン限定の機能はありますか？</string>
   <string name="noPatronFeatures">いいえ、Lichess は誰に対しても永久に無料です。これは約束です。
 ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>
@@ -73,5 +73,5 @@
   <string name="nowLifetime">あなたは Lichess の永久パトロンです！</string>
   <string name="nowOneMonth">あなたはこれから 1 か月の間 Lichess パトロンです！</string>
   <string name="downgradeNextMonth">1 か月後にまた請求されることはなく、無料アカウントに戻ります。</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">通貨を変更</string>
+  <string name="changeCurrency">通貨を変更</string>
 </resources>

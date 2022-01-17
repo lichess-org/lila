@@ -28,8 +28,8 @@
   <string name="doubleBishopMateDescription">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
   <string name="dovetailMate">Matto a coda di rondine</string>
   <string name="dovetailMateDescription">Una donna dà matto al re in una casa adiacente, mentre le due uniche case di fuga sono occupate da suoi pezzi.</string>
-  <string name="equality">Eguaglianza</string>
-  <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione equa. (valutazione ≥ 200cp)</string>
+  <string name="equality">Parità</string>
+  <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione pari. (valutazione ≤ 200cp)</string>
   <string name="kingsideAttack">Attacco sull\'ala di re</string>
   <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato corto.</string>
   <string name="clearance">Sgombero</string>
@@ -65,7 +65,7 @@
   <string name="masterDescription">Tattiche da partite giocate da scacchisti titolati.</string>
   <string name="masterVsMaster">Partite fra Maestri</string>
   <string name="masterVsMasterDescription">Tattiche da partite giocate fra due scacchisti titolati.</string>
-  <string name="mate">Matto</string>
+  <string name="mate">Scacco matto</string>
   <string name="mateDescription">Vinci la partita con stile.</string>
   <string name="mateIn1">Matto in 1</string>
   <string name="mateIn1Description">Dai scacco matto in una mossa.</string>
@@ -119,6 +119,9 @@
   <string name="xRayAttackDescription">Un pezzo che attacca o difende una casa attraverso un pezzo nemico.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'avversario è limitato nella sua scelta della mossa, e tutte le mosse possibili peggiorano la sua posizione.</string>
-  <string name="healthyMix">Sano misto</string>
+  <string name="healthyMix">Mix generale</string>
   <string name="healthyMixDescription">Un po\' di tutto. Nessuna aspettativa, affinché si possa rimanere pronti a qualsiasi cosa! Proprio come nelle partite vere.</string>
+  <string name="playerGames">Partite tra giocatori</string>
+  <string name="playerGamesDescription">Gioca tattiche ispirate dalle tue partite o dalle partite di altri giocatori.</string>
+  <string name="puzzleDownloadInformation">Queste tattiche sono di pubblico dominio e sono scaricabili da %s.</string>
 </resources>

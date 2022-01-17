@@ -63,8 +63,8 @@ object PerfStat {
 case class ResultStreak(win: Streaks, loss: Streaks) {
   def agg(pov: Pov) =
     copy(
-      win = win(~pov.win, pov)(1),
-      loss = loss(~pov.loss, pov)(1)
+      win = win.continueOrReset(~pov.win, pov)(1),
+      loss = loss.continueOrReset(~pov.loss, pov)(1)
     )
 }
 
@@ -73,8 +73,8 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
     pov.game.durationSeconds.fold(this) { seconds =>
       val cont = seconds < 3 * 60 * 60 && isContinued(pov.game.createdAt)
       copy(
-        nb = nb(cont, pov)(1),
-        time = time(cont, pov)(seconds),
+        nb = nb.continueOrStart(cont, pov)(1),
+        time = time.continueOrStart(cont, pov)(seconds),
         lastDate = pov.game.movedAt.some
       )
     }
@@ -91,10 +91,10 @@ object PlayStreak {
 }
 
 case class Streaks(cur: Streak, max: Streak) {
-  def apply(cont: Boolean, pov: Pov)(v: Int) =
-    copy(
-      cur = cur(cont, pov)(v)
-    ).setMax
+  def continueOrReset(cont: Boolean, pov: Pov)(v: Int) =
+    copy(cur = cur.continueOrReset(cont, pov)(v)).setMax
+  def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
+    copy(cur = cur.continueOrStart(cont, pov)(v)).setMax
   def reset          = copy(cur = Streak.init)
   private def setMax = copy(max = if (cur.v >= max.v) cur else max)
 }
@@ -102,13 +102,20 @@ object Streaks {
   val init = Streaks(Streak.init, Streak.init)
 }
 case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]) {
-  def apply(cont: Boolean, pov: Pov)(v: Int) = if (cont) inc(pov, v) else Streak.init
-  private def inc(pov: Pov, by: Int) =
-    copy(
-      v = v + by,
-      from = from orElse GameAt(pov.game.createdAt, pov.gameId).some,
-      to = GameAt(pov.game.movedAt, pov.gameId).some
-    )
+  def continueOrReset(cont: Boolean, pov: Pov)(v: Int) =
+    if (cont) inc(pov, v) else Streak.init
+  def continueOrStart(cont: Boolean, pov: Pov)(v: Int) =
+    if (cont) inc(pov, v)
+    else {
+      val at  = GameAt(pov.game.createdAt, pov.gameId).some
+      val end = GameAt(pov.game.movedAt, pov.gameId).some
+      Streak(v, at, end)
+    }
+  private def inc(pov: Pov, by: Int) = {
+    val at  = GameAt(pov.game.createdAt, pov.gameId).some
+    val end = GameAt(pov.game.movedAt, pov.gameId).some
+    Streak(v + by, from orElse at, end)
+  }
   def period = new Period(v * 1000L)
 }
 object Streak {

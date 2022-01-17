@@ -3,6 +3,7 @@ package lila.coach
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.security.Permission
@@ -20,20 +21,18 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
-    imageRepo: lila.db.ImageRepo
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    picfitApi: lila.memo.PicfitApi
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
   private lazy val coachColl = db(config.coachColl)
 
-  private lazy val photographer = new lila.db.Photographer(imageRepo, "coach")
-
   lazy val api = new CoachApi(
     coachColl = coachColl,
     userRepo = userRepo,
     reviewColl = db(config.reviewColl),
-    photographer = photographer,
+    picfitApi = picfitApi,
     notifyApi = notifyApi,
     cacheApi = cacheApi
   )

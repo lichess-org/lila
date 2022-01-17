@@ -18,5 +18,5 @@ Bonnes parties sur lichess.org. Puissent vos pièces toujours trouver leur chemi
   <string name="logInToLichess">Connectez-vous à lichess.org, %s</string>
   <string name="common_orPaste">(Le lien ne fonctionne pas ? Essayez de le coller dans votre navigateur !)</string>
   <string name="common_note">Il s\'agit d\'un courriel de service lié à votre utilisation %s.</string>
-  <string name="common_contact">Pour nous contacter, veuillez consulter %s.</string>
+  <string name="common_contact">Pour nous contacter : %s</string>
 </resources>

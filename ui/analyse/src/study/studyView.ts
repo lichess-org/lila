@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import { iconTag, richHTML } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
@@ -21,7 +21,6 @@ import { view as descView } from './description';
 import { rounds as relayTourRounds } from './relay/relayTourView';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab, ToolTab } from './interfaces';
-import { MaybeVNodes } from '../interfaces';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -152,7 +151,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             'data-icon': d.liked ? '' : '',
-            title: ctrl.trans.noarg('like'),
+            title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
           },
           hook: bind('click', ctrl.toggleLike),
         },

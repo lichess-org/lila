@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">تبرع</string>
+  <string name="donateAsX">تبرع باسم%s</string>
   <string name="lichessPatron">راعي Lichess</string>
   <string name="freeAccount">حساب مجاني</string>
   <string name="becomePatron">كنّ راعياً في Lichess</string>
@@ -48,7 +49,6 @@
   <string name="contactSupport">التواصل مع فريق الدعم في Lichess</string>
   <string name="otherMethods">طرق أخرى للتبرع؟</string>
   <string name="bankTransfers">نقبل ايضاً التحويلات المصرفية</string>
-  <string name="bitcoin">وهنا عنوان البيتكوين الخاص بنا: %s</string>
   <string name="patronFeatures">هل هناك بعض الميزات المخصصة للداعمين؟</string>
   <string name="noPatronFeatures">لا، لأن ليشيس مجاني، وإلى الأبد، ولكل شخص. هذا وعد.
 ومع ذلك، يحصل الداعمون على أيقونة جديدة رائعة.</string>
@@ -84,5 +84,5 @@
   <string name="nowLifetime">أنت الآن راع لليتشس مدى الحياة!</string>
   <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>
   <string name="downgradeNextMonth">في شهر واحد، لن يتم تحميل رسوم مرة أخرى، وحساب Lichess الخاص بك سيصبح حساب عادي.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">غير العملة</string>
+  <string name="changeCurrency">غير العملة</string>
 </resources>

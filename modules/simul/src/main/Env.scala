@@ -29,7 +29,8 @@ final class Env(
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
+    isOnline: lila.socket.IsOnline
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,

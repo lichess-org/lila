@@ -29,9 +29,10 @@ object show {
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
           Json
             .obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> bits.jsI18n(streak = isStreak)
+              "data"        -> data,
+              "pref"        -> pref,
+              "i18n"        -> bits.jsI18n(streak = isStreak),
+              "showRatings" -> ctx.pref.showRatings
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
             .add("difficulty" -> difficulty.map(_.key))

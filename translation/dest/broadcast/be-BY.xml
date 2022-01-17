@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Спасылка на трансляцыю</string>
   <string name="currentRoundUrl">Спасылка на бягучы тур</string>
   <string name="currentGameUrl">Спасылка на бягучую гульню</string>
+  <string name="downloadAllRounds">Спампаваць усе туры</string>
 </resources>

@@ -49,14 +49,14 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         },
       })
     );
-  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
   return t;
 }
 
-function threatInfo(ctrl: ParentCtrl, threat?: Tree.ClientEval | false): string {
+function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
   if (!threat) return ctrl.trans.noarg('loadingEngine');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
-  if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
+  if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
   return t;
 }
 
@@ -161,7 +161,9 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client
-      ? Math.min(100, Math.round((100 * evs.client.depth) / (evs.client.maxDepth || instance.effectiveMaxDepth())))
+      ? evs.client.cloud
+        ? 100
+        : Math.min(100, Math.round((100 * evs.client.depth) / evs.client.maxDepth))
       : 0;
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
@@ -230,7 +232,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       : h(
           'div.switch',
           {
-            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' },
+            attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (L)' },
           },
           [
             h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
@@ -353,7 +355,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
               const uciList = getElUciList(e);
-              if (uciList.length > (pvIndex ?? 0)) {
+              if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
                 ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
                 e.preventDefault();
               }

@@ -52,6 +52,7 @@ object Countries {
     C("BY", "Belarus"),
     C("BZ", "Belize"),
     C("CA", "Canada"),
+    C("CA-QC", "Quebec"),
     C("CC", "Cocos (Keeling) Islands"),
     C("CD", "Congo (Democratic Rep.)"),
     C("CF", "Central African Republic"),

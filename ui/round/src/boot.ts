@@ -59,7 +59,7 @@ export default function (opts: RoundOpts): void {
   opts.element = element;
   opts.socketSend = lichess.socket.send;
 
-  const round: RoundApi = (window['LichessRound'] as RoundMain).app(opts);
+  const round: RoundApi = (window.LichessRound as RoundMain).app(opts);
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {

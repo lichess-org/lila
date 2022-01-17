@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donasi</string>
+  <string name="donateAsX">Donasi sebagai %s</string>
   <string name="lichessPatron">Penyokong Lichess</string>
   <string name="freeAccount">Akun gratis</string>
   <string name="becomePatron">Menjadi Penyokong Lichess</string>
@@ -41,7 +42,6 @@ Lalu kami membayar pengembang dengan penuh-waktu: %s, pendiri Lichess.</string>
   <string name="contactSupport">kontak dukungan Lichess</string>
   <string name="otherMethods">Metode donasi lainnya?</string>
   <string name="bankTransfers">Kami juga menerima transfer bank</string>
-  <string name="bitcoin">Dan ini alamat bitcoin kami: %s</string>
   <string name="patronFeatures">Apakah beberapa fitur disediakan untuk para Penyokong?</string>
   <string name="noPatronFeatures">Tidak, karena Lichess sepenuhnya gratis, selamanya, dan untuk semua orang. Itu janji.
 Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
@@ -72,5 +72,5 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="nowLifetime">Anda sekarang adalah penyokong lichess seumur hidup!</string>
   <string name="nowOneMonth">Sekarang Anda menjadi Penyokong Lichess selama satu bulan!</string>
   <string name="downgradeNextMonth">Dalam satu bulan, Anda TIDAK akan ditagih lagi, dan akun lichess anda akan kembali menjadi akun biasa.</string>
-  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Ubah mata uang</string>
+  <string name="changeCurrency">Ubah mata uang</string>
 </resources>

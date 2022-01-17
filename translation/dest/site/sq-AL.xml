@@ -11,7 +11,6 @@
   <string name="level">Niveli</string>
   <string name="strength">Vështirësia</string>
   <string name="toggleTheChat">Hapni bisedën</string>
-  <string name="toggleSound">Aktivizo / çaktivizo zërin</string>
   <string name="chat">Bisedo</string>
   <string name="resign">Dorëzohu</string>
   <string name="checkmate">Shah mat</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Kundërshtari juaj la lojën. Mund të kërkoni fitoren në %s sekonda.</item>
   </plurals>
   <string name="opponentLeftChoices">Kundërshtari juaj la lojën. Mund të kërkoni fitoren, ta shpallni lojën barazim, ose të prisni.</string>
-  <string name="makeYourOpponentResign">Detyrojeni kundërshtarin të dorëzohet.</string>
   <string name="forceResignation">Kërko fitoren</string>
   <string name="forceDraw">Shpalle barazim</string>
   <string name="talkInChat">Ju lutem jini të sjellshëm në bisedë!</string>
@@ -49,9 +47,6 @@
   <string name="blackResigned">I ziu u dorëzua</string>
   <string name="whiteLeftTheGame">I bardhi e la lojën</string>
   <string name="blackLeftTheGame">I ziu e la lojën</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Shpërndaje këtë link për të lejuar spektatorë të shikojnë lojën</string>
-  <string name="theComputerAnalysisHasFailed">Analiza kompjuterike ka dështuar</string>
-  <string name="viewTheComputerAnalysis">Shiko analizën e kompjuterit</string>
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="computerAnalysisAvailable">Analiza kompjuterike është e gatshme</string>
@@ -89,10 +84,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat në %s gjysmë lëvizje</item>
     <item quantity="other">Mat në %s gjysmë lëvizje</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Kapja pasuese ose lëvizja e ushtarit në %s gjysmë-lëvizje (Largësi nga Zerimi i numëratorit të 50 lëvizjeve)</item>
-    <item quantity="other">Kapja pasuese ose lëvizja e ushtarit në %s gjysmë-lëvizje (Largësi nga Zerimi i numëratorit të 50 lëvizjeve)</item>
   </plurals>
   <string name="noGameFound">S’u gjet lojë</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ndoshta të përfshihen më tepër lojëra nga menuja e parapëlqimeve?</string>
@@ -216,7 +207,6 @@
   <string name="whiteTimeOut">Të bardhit i mbaroi koha</string>
   <string name="blackTimeOut">Të ziut i mbaroi koha</string>
   <string name="drawOfferSent">U dërgua ofertë për barazim</string>
-  <string name="drawOfferDeclined">Oferta për barazim u hodh poshtë</string>
   <string name="drawOfferAccepted">Oferta për barazim u pranua</string>
   <string name="drawOfferCanceled">Oferta për barazim u anulua</string>
   <string name="whiteOffersDraw">I bardhi ofron barazim</string>
@@ -242,8 +232,6 @@
   <string name="thisGameIsRated">Kjo lojë është me vlerësësim</string>
   <string name="rematch">Revansh</string>
   <string name="rematchOfferSent">Oferta për revansh u dërgua</string>
-  <string name="rematchOfferSentWhite">I bardhi ofron revansh</string>
-  <string name="rematchOfferSentBlack">I ziu ofron revansh</string>
   <string name="rematchOfferAccepted">Oferta për revansh u pranua</string>
   <string name="rematchOfferCanceled">Oferta për revanshim u anulua</string>
   <string name="rematchOfferDeclined">Oferta për revansh u refuzua</string>
@@ -257,9 +245,7 @@
   <string name="youHaveBeenTimedOut">Ju jeni ndaluar nga chatti ne mënyrë të përkohshme.</string>
   <string name="spectatorRoom">Dhoma e shikuesve</string>
   <string name="composeMessage">Hartoni mesazh</string>
-  <string name="noNewMessages">Pa mesazhe të rinj</string>
   <string name="subject">Subjekti</string>
-  <string name="recipient">Marrësi</string>
   <string name="send">Dërgoje</string>
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
   <string name="freeOnlineChess">Shah i drejtpërdrejtë pa pagesë</string>
@@ -372,8 +358,6 @@
     <item quantity="one">%s miq në linjë</item>
     <item quantity="other">%s mik në linjë</item>
   </plurals>
-  <string name="noFriendsOnline">Asnjë mik në linje</string>
-  <string name="findFriends">Gjej miq</string>
   <string name="favoriteOpponents">Kundërshtarët e preferuar</string>
   <string name="follow">Ndiq</string>
   <string name="following">Duke ndjekur</string>
@@ -422,7 +406,6 @@
   <string name="points">Pikët</string>
   <string name="wins">Fitoret</string>
   <string name="losses">Humbjet</string>
-  <string name="winStreak">Fitore te njëpasnjëshme</string>
   <string name="createdBy">Krijuar nga</string>
   <string name="tournamentIsStarting">Turneu po fillon</string>
   <string name="tournamentPairingsAreNowClosed">Çiftimet e turnet mbaruan.</string>
@@ -438,13 +421,11 @@
   <string name="draws">Barazime</string>
   <string name="nextXTournament">Turneu %s i radhes:</string>
   <string name="averageOpponent">Kundershtari mesatar</string>
-  <string name="membersOnly">Vetëm anëtarët</string>
   <string name="boardEditor">Bordi i editorëve</string>
   <string name="setTheBoard">Rregullo fushen</string>
   <string name="popularOpenings">Hapje popullore</string>
   <string name="startPosition">Pozicioni fillestar</string>
   <string name="clearBoard">Pastro fushën</string>
-  <string name="savePosition">Ruaj pozicionin</string>
   <string name="loadPosition">Ngarko pozicionin</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raporto %s tek redaktoret</string>
@@ -461,10 +442,8 @@
   <string name="thankYou">Faleminderit!</string>
   <string name="socialMediaLinks">Lidhjet me llogaritë e mediat sociale</string>
   <string name="inlineNotation">Shenimet ne rresht</string>
-  <string name="watchLichessTV">Shiko Lichess TV</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
   <string name="onlinePlayers">Lojtarët në linjë</string>
-  <string name="activeToday">Aktiv sot</string>
   <string name="activePlayers">Lojëtarët aktivë</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Kujdes, loja është e vlerësuar por nuk ka kohë!</string>
   <string name="success">Sukses</string>
@@ -475,7 +454,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatikisht kalo në lojën tjetër pasi lëviz.</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
-  <string name="latestUpdates">Pëditësimet e fundit</string>
   <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emri</string>
   <string name="description">Përshkrimi</string>
@@ -507,9 +485,7 @@
   <string name="error.provideOneCheatedGameLink">Të lutem siguro të japësh një lidhje për një lojë të mashtruar.</string>
   <string name="by">nga %s</string>
   <string name="thisTopicIsNowClosed">Kjo temë është e mbyllur tani.</string>
-  <string name="theming">Veshja</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Pyetje &amp; Përgjigje</string>
   <string name="notes">Vërejtje</string>
   <string name="typePrivateNotesHere">Shkruani vërejtjet personale këtu</string>
   <string name="invalidUsernameOrPassword">Emri e përdoruesit ose fjalëkalim i pavlefshëm</string>
@@ -538,13 +514,7 @@
   <string name="onSlowGames">Në lojëra të ngadalshme</string>
   <string name="always">Gjithmonë</string>
   <string name="never">Kurrë</string>
-  <string name="difficultyEasy">Lehtë</string>
-  <string name="difficultyNormal">Normal</string>
-  <string name="difficultyHard">Vështirë</string>
   <string name="xCompetesInY">%1$s konkuron në %2$s</string>
-  <string name="xAskedY">%1$s pyeti %2$s</string>
-  <string name="xAnsweredY">%1$s u përgjigj %2$s</string>
-  <string name="xCommentedY">s%1$s komentoi %2$s</string>
   <string name="victory">Fitore</string>
   <string name="defeat">Humbje</string>
   <string name="victoryVsYInZ">%1$s vs %2$s në %3$s</string>
@@ -553,7 +523,6 @@
   <string name="timeline">Vija kohore</string>
   <string name="starting">Fillon:</string>
   <string name="allInformationIsPublicAndOptional">Të gjitha informacionet janë publike dhe jo të detyrueshme</string>
-  <string name="yourCityRegionOrDepartment">Qyteti juaj, rajoni, ose komuna.</string>
   <string name="biographyDescription">Tregoni për veten, çfarë ju pëlqen tek shahu, hapjet tuaja të preferuara, lojërat, lojtarët…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Më së shumti:%s karaktere.</item>
@@ -568,13 +537,6 @@
   <string name="computer">Kompjuter</string>
   <string name="side">Ngjyra</string>
   <string name="clock">Koha</string>
-  <string name="unauthorizedError">Hyrje e paautorizuar.</string>
-  <string name="noInternetConnection">Nuk ka lidhje interneti. Gjithsesi, ju mund të luani të shkëputur nga interneti nëpërmjet menusë.</string>
-  <string name="connectedToLichess">Tani jeni të lidhur me lichess.org</string>
-  <string name="signedOut">Ju keni dalë nga faqja.</string>
-  <string name="loginSuccessful">Hyrje me sukses</string>
-  <string name="playOnTheBoardOffline">Luaj i shkëputur, në ekran.</string>
-  <string name="playOfflineComputer">Luaj me kompjuterin</string>
   <string name="opponent">Kundërshtari</string>
   <string name="learnMenu">Mëso</string>
   <string name="studyMenu">Studim</string>
@@ -582,16 +544,7 @@
   <string name="community">Komuniteti</string>
   <string name="tools">Vegla</string>
   <string name="increment">Shtesa</string>
-  <string name="sharePGN">Shpërnda PGN</string>
-  <string name="playOnline">Luaj i lidhur</string>
-  <string name="playOffline">Luaj i shkëputur</string>
-  <string name="allowAnalytics">Lejo statistika anonime</string>
-  <string name="shareGameURL">Shpërnda lojën URL</string>
   <string name="error.required">Kjo pjesë është e detyrueshme</string>
-  <string name="error.email">Kjo adresë email është e pavlefshme</string>
-  <string name="error.email_acceptable">Kjo afresë email është e papranueshme</string>
-  <string name="error.email_unique">Kjo adresë email është përdorur</string>
-  <string name="error.email_different">Kjo eshte tashme adresa juaj e emailit</string>
   <string name="ifRatingIsPlusMinusX">Nëse vlerësimi është ± %s</string>
   <string name="onlyExistingConversations">Vetëm bisedat ekzistuese</string>
   <string name="onlyFriends">Vetëm miqtë</string>
@@ -639,7 +592,6 @@
   <string name="simulHostExtraTime">Kohë shtesë për pritësin</string>
   <string name="lichessTournaments">Turnetë në Lichess</string>
   <string name="tournamentFAQ">Pyetjet e turneve</string>
-  <string name="tournamentOfficial">Zyrtar</string>
   <string name="timeBeforeTournamentStarts">Koha deri sa të fillojë turneu</string>
   <string name="averageCentipawnLoss">Humbja mesatare në centiushtar</string>
   <string name="keyboardShortcuts">Shkurtesat e tastierës</string>
@@ -677,7 +629,6 @@
   <string name="downloadAnnotated">Shkarko bashkë me shënimet.</string>
   <string name="downloadRaw">Shkarko pa shënimet.</string>
   <string name="downloadImported">Shkarko importin</string>
-  <string name="printFriendlyPDF">Printo PDF</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>
@@ -688,7 +639,6 @@
   <string name="withNobody">Me asnje</string>
   <string name="withFriends">Me shoket</string>
   <string name="withEverybody">Me te gjithe</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Ju e keni regjistruar tashmë postën elektronike: %s</string>
   <string name="kidMode">Formati për fëmijë</string>
   <string name="kidModeExplanation">Kjo eshte per sigurine. Ne modalitetin per femije, te gjitha komunikimet ne faqe jane te ndaluara. Aktivizoje ket per femijet dhe studentet e shkolles, ti mbrosh ata nga perdoruesit e tjere te internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Ne modalitetin per femije, logoja e lichess merr nje ikone %s , qe ta dini se femijet tuaj jane te sigurte.</string>
@@ -717,7 +667,6 @@
   <string name="xHostsY">%1$s mirepret %2$s</string>
   <string name="xJoinsY">%1$s i bashkohet %2$s</string>
   <string name="xLikesY">%1$s pelqen %2$s</string>
-  <string name="xCreatesStudyY">%1$s krijon studim %2$s</string>
   <string name="quickPairing">Çiftim i shpejte</string>
   <string name="lobby">Holli</string>
   <string name="anonymous">Anonim</string>
@@ -738,17 +687,11 @@
   <string name="usernameSuffixInvalid">Username duhet të përfundojë me një letër ose një numër.</string>
   <string name="usernameCharsInvalid">Username duhet të përmbajë vetëm letra, numra, nënvizime dhe hyfe.</string>
   <string name="usernameUnacceptable">Emri i perdoruesit nuk eshte i pranueshem.</string>
-  <string name="directlySupportLichess">Mbeshtet Lichess ne menyre te drejtperdrejte</string>
   <string name="playChessInStyle">Luaj shah ne stil</string>
   <string name="chessBasics">Bazat e shahut</string>
   <string name="coaches">Trajnerë</string>
   <string name="invalidPgn">PGN e gabuar</string>
   <string name="invalidFen">FEN e gabuar</string>
-  <string name="error.minLength">Gjatesia minimale eshte %s</string>
-  <string name="error.maxLength">Gjatesia maksimale eshte %s</string>
-  <string name="error.min">Duhet te jete me e madhe ose e barabarte me %s</string>
-  <string name="error.max">Duhet te jete me e vogel ose e barabarte me %s</string>
-  <string name="error.unknown">Gabim</string>
   <string name="custom">te zakonshme</string>
   <string name="notifications">Njoftime</string>
   <string name="perfRatingX">Vlerësimi: %s</string>

@@ -23,6 +23,8 @@ final class PersonalDataExport(
     chatEnv: lila.chat.Env,
     relationEnv: lila.relation.Env,
     userRepo: lila.user.UserRepo,
+    ublogApi: lila.ublog.UblogApi,
+    picfitUrl: lila.memo.PicfitUrl,
     mongoCacheApi: lila.memo.MongoCache.Api
 )(implicit ec: ExecutionContext, mat: Materializer) {
 
@@ -98,13 +100,11 @@ final class PersonalDataExport(
     val privateGameChats =
       Source(List(textTitle("Private game chat messages"))) concat
         gameChatsLookup(
-          $doc(
-            "$lookup" -> $doc(
-              "from"         -> chatEnv.coll.name,
-              "as"           -> "chat",
-              "localField"   -> "_id",
-              "foreignField" -> "_id"
-            )
+          $lookup.simple(
+            from = chatEnv.coll,
+            as = "chat",
+            local = "_id",
+            foreign = "_id"
           )
         )
 
@@ -150,19 +150,40 @@ final class PersonalDataExport(
           .map { doc => ~doc.string("t") }
           .throttle(heavyPerSecond, 1 second)
 
+    val ublogPosts =
+      Source(List(textTitle("Blog posts"))) concat
+        ublogApi
+          .postCursor(user)
+          .documentSource()
+          .map { post =>
+            List(
+              "date"   -> textDate(post.created.at),
+              "title"  -> post.title,
+              "intro"  -> post.intro,
+              "body"   -> post.markdown,
+              "image"  -> post.image.??(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Large)),
+              "topics" -> post.topics.map(_.value).mkString(", ")
+            ).map { case (k, v) =>
+              s"$k: $v"
+            }.mkString("\n") + bigSep
+          }
+          .throttle(heavyPerSecond, 1 second)
+
     val outro = Source(List(textTitle("End of data export.")))
 
     List(
       intro,
       connections,
       followedUsers,
+      ublogPosts,
       forumPosts,
       privateMessages,
-      privateGameChats,
+      // privateGameChats,
       spectatorGameChats,
       gameNotes,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
+      .keepAlive(15 seconds, () => " ")
   }
 
   private val bigSep = "\n------------------------------------------\n"

@@ -46,6 +46,7 @@ Pasfhocal: %3$s</string>
   <string name="createDesc2">Níl ríomhphoist de dhith. Beidh pasfhocal cruaithe, agus beidh ort é a cur chuig an dalta, ionas gur féidir leo logáil isteach.</string>
   <string name="createDesc3">Tábhachtach: níl cead ag daltaí cuntais iolracha a bheith acu.</string>
   <string name="createDesc4">Má tá ceann acu cheana féin, bain úsáid as an bhfoirm cuireadh ina ionad.</string>
+  <string name="createStudentWarning">Ná cruthaigh ach cuntais do mhic léinn fíor. Ná húsáid é seo chun cuntais iolracha a dhéanamh duit féin. Chuirfí cosc ort.</string>
   <string name="lichessUsername">Ainm úsáideora Lichess</string>
   <string name="generateANewUsername">Cruthaigh ainm úsáideora nua</string>
   <string name="welcomeToClass">Fáilte go dtí do rang: %s.
@@ -59,7 +60,6 @@ Seo an nasc le dul isteach sa rang.</string>
     <item quantity="many">%s gcuireadh ar feitheamh</item>
     <item quantity="other">%s cuireadh ar feitheamh</item>
   </plurals>
-  <string name="noPendingInvitations">Gan cuireadh ar feitheamh</string>
   <string name="onlyVisibleToTeachers">Le feiceáil ag na múinteoirí ranga amháín</string>
   <string name="lastActiveDate">Gníomhach</string>
   <string name="managed">Faoi bhainistíocht</string>

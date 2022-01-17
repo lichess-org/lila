@@ -1,11 +1,12 @@
 import { h, VNode } from 'snabbdom';
 import { isEmpty } from 'common';
+import { MaybeVNodes } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
-import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
+import { ConcealOf, Conceal } from '../interfaces';
 import {
   nonEmpty,
   mainHook,

@@ -30,7 +30,5 @@
   <string name="longDescription">Дужи опис</string>
   <string name="changePicture">Измени/избриши своју слику</string>
   <string name="uploadPicture">Постави слику</string>
-  <string name="deletePicture">Избриши слику</string>
   <string name="maxSize">Максимална величина: %s</string>
-  <string name="installBlocker">Инсталирај блокер малвера!</string>
 </resources>

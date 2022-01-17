@@ -1,11 +1,13 @@
 .page {
   .body {
     font-size: 1.1em;
+    overflow-wrap: anywhere;
 
     h2 {
-      margin-top: 1.3em;
+      margin: 1.8em 0 0.5em 0;
       border-bottom: 1px solid $c-brag;
-      line-height: 2.5em;
+      line-height: 1.5em;
+      padding-bottom: 0.5em;
     }
 
     p,
@@ -32,7 +34,8 @@
       @extend %roboto;
 
       font-size: 1.5em;
-      line-height: 2.5em;
+      line-height: 1.5em;
+      margin-top: 1.3em;
     }
 
     h4 {
@@ -53,10 +56,11 @@
     }
 
     .block-img {
-      margin: 1em auto;
+      margin: 2em auto 1em auto;
       text-align: center;
 
       img {
+        @extend %box-neat-force;
         width: auto;
         height: auto;
       }

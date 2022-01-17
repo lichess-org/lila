@@ -3,6 +3,7 @@ package lila.mod
 import org.joda.time.DateTime
 
 import lila.db.dsl._
+import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Holder, User, UserRepo }
@@ -28,6 +29,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
   def streamerTier(mod: Mod, streamerId: User.ID, v: Int) =
     add {
       Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
+    }
+  def blogTier(mod: Mod, sus: Suspect, blogId: String, tier: String) =
+    add {
+      Modlog.make(mod, sus, Modlog.blogTier, tier.some)
+    }
+  def blogPostEdit(mod: Mod, sus: Suspect, postId: String, postName: String, action: String) =
+    add {
+      Modlog.make(mod, sus, Modlog.blogPostEdit, s"$action #$postId $postName".some)
     }
 
   def practiceConfig(mod: User.ID) =
@@ -274,10 +283,20 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: User.ID): Fu[Int] =
-    coll.countSel(
+    coll.secondaryPreferred.countSel(
       $doc(
         "user"   -> userId,
         "action" -> Modlog.cheatDetected,
+        "date" $gte DateTime.now.minusMonths(6)
+      )
+    )
+
+  def countRecentRatingManipulationsWarnings(userId: User.ID): Fu[Int] =
+    coll.secondaryPreferred.countSel(
+      $doc(
+        "user"   -> userId,
+        "action" -> Modlog.modMessage,
+        $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
         "date" $gte DateTime.now.minusMonths(6)
       )
     )
@@ -299,9 +318,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
       case M.chatTimeout                                                    => "hourglass_flowing_sand"
-      case M.closeTopic | M.disableTeam                                     => "lock"
-      case M.openTopic | M.enableTeam                                       => "unlock"
+      case M.closeTopic | M.disableTeam                                     => "locked"
+      case M.openTopic | M.enableTeam                                       => "unlocked"
       case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
+      case M.blogTier | M.blogPostEdit                                      => "note"
       case _                                                                => "gear"
     }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
@@ -309,10 +329,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       _ ?? {
         val monitorType = m.action match {
           case M.closeAccount | M.alt => None
-          case M.engine | M.unengine | M.booster | M.unbooster | M.reopenAccount | M.unalt =>
-            Some(IrcApi.ModDomain.Hunt)
+          case M.engine | M.unengine | M.reopenAccount | M.unalt =>
+            Some(IrcApi.ModDomain.Cheat)
+          case M.booster | M.unbooster => Some(IrcApi.ModDomain.Boost)
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
-              M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod =>
+              M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier |
+              M.blogPostEdit =>
             Some(IrcApi.ModDomain.Comm)
           case _ => Some(IrcApi.ModDomain.Other)
         }

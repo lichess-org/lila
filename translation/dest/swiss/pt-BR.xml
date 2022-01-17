@@ -89,8 +89,8 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="pairingSystemArena">Qualquer oponente disponível com classificação similar</string>
   <string name="pairingSystemSwiss">Melhor pareamento baseado em pontos e desempates</string>
   <string name="pairingWaitTime">Tempo de espera do pareamento</string>
-  <string name="pairingWaitTimeFast">Rápido: não espera todos os jogadores</string>
-  <string name="pairingWaitTimeSlow">Lento: espera todos os jogadores</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Rápido: não espera todos os jogadores</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lento: espera todos os jogadores</string>
   <string name="identicalPairing">Pareamento idêntico</string>
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>

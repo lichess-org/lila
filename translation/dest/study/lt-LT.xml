@@ -47,6 +47,7 @@
   <string name="youAreNowASpectator">Dabar esate žiūrovas</string>
   <string name="pgnTags">PGN žymos</string>
   <string name="like">Mėgti</string>
+  <string name="unlike">Nebemėgti</string>
   <string name="newTag">Nauja žyma</string>
   <string name="commentThisPosition">Komentuoti šią poziciją</string>
   <string name="commentThisMove">Komentuoti šį ėjimą</string>
@@ -163,4 +164,12 @@
   <string name="nextChapter">Kitas skyrius</string>
   <string name="prevChapter">Ankstenis skyrius</string>
   <string name="studyActions">Studijos veiksmai</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Temos</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Mano temos</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Populiarios temos</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Valdyti temas</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Atgal</string>
+  <string name="playAgain">Žaisti dar kartą</string>
+  <string name="whatWouldYouPlay">Ar norėtumėte žaisti nuo šios pozicijos?</string>
+  <string name="youCompletedThisLesson">Sveikiname! Jūs pabaigėte šią pamoką.</string>
 </resources>

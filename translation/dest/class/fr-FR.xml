@@ -46,6 +46,7 @@ Mot de passe : %3$s</string>
   <string name="createDesc2">Aucune adresse e-mail n\'est requise. Un mot de passe sera généré, et vous devrez le transmettre à l\'élève, afin qu\'il puisse se connecter.</string>
   <string name="createDesc3">Important : un élève ne doit pas avoir plusieurs comptes.</string>
   <string name="createDesc4">S\'ils en ont déjà un, utilisez le formulaire d\'invitation à la place.</string>
+  <string name="createStudentWarning">Créez uniquement des comptes pour de vrais élèves. Ne créez pas plusieurs comptes pour vous-même. Vous seriez banni.</string>
   <string name="lichessUsername">Nom d\'utilisateur Lichess</string>
   <string name="generateANewUsername">Générer un nouveau nom d\'utilisateur</string>
   <string name="welcomeToClass">Bienvenue dans votre classe : %s.
@@ -56,7 +57,6 @@ Voici le lien pour accéder à la classe.</string>
     <item quantity="one">Une invitation en attente</item>
     <item quantity="other">%s invitations en attente</item>
   </plurals>
-  <string name="noPendingInvitations">Pas d\'invitations en attente</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
   <string name="managed">Géré</string>

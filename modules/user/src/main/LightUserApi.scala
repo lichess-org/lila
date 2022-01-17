@@ -26,6 +26,9 @@ final class LightUserApi(
 
   def asyncMany = cache.asyncMany _
 
+  def asyncManyFallback(ids: Seq[User.ID]): Fu[Seq[LightUser]] =
+    ids.map(asyncFallback).sequenceFu
+
   def invalidate = cache invalidate _
 
   def preloadOne                     = cache preloadOne _

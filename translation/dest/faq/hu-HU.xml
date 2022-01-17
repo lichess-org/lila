@@ -60,7 +60,6 @@ A %2$s a 3.7 (d) pontban tárgyalja:
 
 Lásd még az erről készült %3$s-t.</string>
   <string name="goodIntroduction">jó bevezetés</string>
-  <string name="officialRulesPDF">hivatalos szabálykönyv (PDF)</string>
   <string name="lichessTraining">Lichess gyakorlás</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>

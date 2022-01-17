@@ -11,13 +11,14 @@
   <string name="level">Livellu</string>
   <string name="strength">Forza</string>
   <string name="toggleTheChat">Commutà versu a discursata</string>
-  <string name="toggleSound">Commutà u sonu</string>
   <string name="chat">Discursata</string>
   <string name="resign">Tralascià</string>
   <string name="checkmate">Scaccu mattu</string>
   <string name="stalemate">Pattu</string>
   <string name="white">Bianchi</string>
   <string name="black">Neri</string>
+  <string name="asWhite">cù i bianchi</string>
+  <string name="asBlack">c i neri</string>
   <string name="randomColor">Sceglie u campu à l\' imbusca</string>
   <string name="createAGame">Creà una partita</string>
   <string name="whiteIsVictorious">I bianchi anu vintu</string>
@@ -40,7 +41,6 @@
     <item quantity="other">I vostruaversariu si n\' hè andatu. Pudete dumandà a vittoria da quì à %s seconde.</item>
   </plurals>
   <string name="opponentLeftChoices">U vostru aversariu si n\' hè andatu. Pudete dumandà a vittoria, dichjarà a partita patta, o aspettà.</string>
-  <string name="makeYourOpponentResign">Fate tralascià u vostru aversariu</string>
   <string name="forceResignation">Dumandà a vittoria</string>
   <string name="forceDraw">Dichjarà a partita patta</string>
   <string name="talkInChat">Pè piace, siate curtese in a discursata!</string>
@@ -49,9 +49,8 @@
   <string name="blackResigned">I neri tralascianu</string>
   <string name="whiteLeftTheGame">I bianchi lascianu a partita</string>
   <string name="blackLeftTheGame">I neri lascianu a partita</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Carigate stu URL pè permette à i spettatori di vede a partita</string>
-  <string name="theComputerAnalysisHasFailed">L\' analisa di l\' urdinatore ùn funziona micca</string>
-  <string name="viewTheComputerAnalysis">Feghjà l\' analisa di l\' urdinatore</string>
+  <string name="whiteDidntMove">I bianchi ùn anu ghjucatu</string>
+  <string name="blackDidntMove">I neri ùn anu ghjucatu</string>
   <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
   <string name="computerAnalysis">Analisa di l\' urdinatore</string>
   <string name="computerAnalysisAvailable">L\' analisa di l\' urdinatore hè pronta</string>
@@ -89,10 +88,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Scaccu mattu in %s mezzu colpu</item>
     <item quantity="other">Scaccu mattu in %s mezzu colpi</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Prossima cattura o muvimentu d\' un pedinu in %s mezzu colpu (U numeru di colpi chì stanu siontu à a regula di i 50 colpi)</item>
-    <item quantity="other">Prossima cattura o muvimentu d\' un pedinu in %s mezzu colpi (U numeru di colpi chì stanu siontu à a regula di i 50 colpi)</item>
   </plurals>
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
@@ -217,7 +212,6 @@
   <string name="whiteTimeOut">I bianchi ùn anu più tempu</string>
   <string name="blackTimeOut">I neri ùn anu più tempu</string>
   <string name="drawOfferSent">Offerta di partita patta mandata</string>
-  <string name="drawOfferDeclined">Offerta di patta scartata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
   <string name="drawOfferCanceled">Offerta di patta annullata</string>
   <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
@@ -243,8 +237,6 @@
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
   <string name="rematchOfferSent">Offerta di rivincita mandata</string>
-  <string name="rematchOfferSentWhite">I bianchi pruponenu un altra partita</string>
-  <string name="rematchOfferSentBlack">I neri pruponenu un altra partita</string>
   <string name="rematchOfferAccepted">A pruposta d\' una altra partita hè accettata</string>
   <string name="rematchOfferCanceled">A pruposta d\' una altra partita hè annullata</string>
   <string name="rematchOfferDeclined">A pruposta d\' una altra partita hè ricusata</string>
@@ -258,9 +250,7 @@
   <string name="youHaveBeenTimedOut">U tempu hè passatu.</string>
   <string name="spectatorRoom">Salla di i spettatori</string>
   <string name="composeMessage">Scrive un missaghju</string>
-  <string name="noNewMessages">Ùn ci hè missaghju novu</string>
   <string name="subject">Sughjettu</string>
-  <string name="recipient">Destinatariu</string>
   <string name="send">Mandà</string>
   <string name="incrementInSeconds">Raghjunta in seconde</string>
   <string name="freeOnlineChess">Scacchi in Direttu di Rigalu</string>
@@ -373,12 +363,12 @@
     <item quantity="one">%s amicu in nantu à u situ</item>
     <item quantity="other">%s amichi nantu à u situ</item>
   </plurals>
-  <string name="noFriendsOnline">Ùn ci hè amicu cunnettatu nantu à u situ</string>
-  <string name="findFriends">Truvà amichi</string>
   <string name="favoriteOpponents">Avversariu prefiritu</string>
   <string name="follow">Segue</string>
   <string name="following">Seguendu</string>
   <string name="unfollow">Ùn segue</string>
+  <string name="followX">Segue à %s</string>
+  <string name="unfollowX">Ùn più segue à %s</string>
   <string name="block">Bluccà</string>
   <string name="blocked">Bluccatu</string>
   <string name="unblock">Sbluccà</string>
@@ -423,11 +413,10 @@
   <string name="points">Punti</string>
   <string name="wins">Vittorie</string>
   <string name="losses">Scunfitte</string>
-  <string name="winStreak">Seria di vittoria</string>
   <string name="createdBy">Criatu da</string>
   <string name="tournamentIsStarting">Principia a ghjustra</string>
-  <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
-  <string name="standByX">%s, avete da esse appariatu, siate prontu à ghjucà!</string>
+  <string name="tournamentPairingsAreNowClosed">L\' appaghjamentu di u turneu hè compiu avà.</string>
+  <string name="standByX">%s, avete da esse appaghjatu, siate prontu à ghjucà!</string>
   <string name="youArePlaying">Ghjucate avà!</string>
   <string name="winRate">Percentuale di vittoria</string>
   <string name="berserkRate">Percentuale di Bersek</string>
@@ -439,7 +428,6 @@
   <string name="draws">Partite patte</string>
   <string name="nextXTournament">Prossima %s ghjustra:</string>
   <string name="averageOpponent">Mezana di l\' opponenti</string>
-  <string name="membersOnly">Soltantu membri</string>
   <string name="boardEditor">Editore di scacchera</string>
   <string name="setTheBoard">Stallà a scacchera</string>
   <string name="popularOpenings">Aperture famose</string>
@@ -447,7 +435,6 @@
   <string name="chess960StartPosition">Scacchi 960 pusizione iniziale di a scacchera: %s</string>
   <string name="startPosition">Pusizione iniziale</string>
   <string name="clearBoard">Sfassà a scacchera</string>
-  <string name="savePosition">Salvà a pusizione</string>
   <string name="loadPosition">Caricà a pusizione</string>
   <string name="isPrivate">Privatu</string>
   <string name="reportXToModerators">Rapportu %s à i muderatori</string>
@@ -464,10 +451,8 @@
   <string name="thankYou">À ringrazià vi!</string>
   <string name="socialMediaLinks">Leie di e rete suciale</string>
   <string name="inlineNotation">Nutazione in linea</string>
-  <string name="watchLichessTV">Fighjulà Lichess TV</string>
   <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
   <string name="onlinePlayers">Ghjucatore nantu à u situ</string>
-  <string name="activeToday">Attivi oghje</string>
   <string name="activePlayers">Ghjucatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenti, a partita hè classificata ma ùn ci hè riloghju!</string>
   <string name="success">Successu</string>
@@ -478,7 +463,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Passà di modu automaticu à a prossima partita dopu à u colpu</string>
   <string name="autoSwitch">Auto cambiamentu</string>
   <string name="puzzles">Puzzle</string>
-  <string name="latestUpdates">Ultimi telecaricamenti</string>
   <string name="tournamentWinners">Vincitori di i turnei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizzione</string>
@@ -510,9 +494,7 @@
   <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
   <string name="by">da %s</string>
   <string name="thisTopicIsNowClosed">Stu tema hè chjosu avà.</string>
-  <string name="theming">Temi</string>
   <string name="blog">Bloggu</string>
-  <string name="questionsAndAnswers">Dumande &amp; Risposte</string>
   <string name="notes">Annutazioni</string>
   <string name="typePrivateNotesHere">Scrive annutazioni persunali quì</string>
   <string name="invalidUsernameOrPassword">Nome d\' utilizatore o parolla d\' intesa invalidi</string>
@@ -541,13 +523,7 @@
   <string name="onSlowGames">Durante e partite lente</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
-  <string name="difficultyEasy">Faciule</string>
-  <string name="difficultyNormal">Nurmale</string>
-  <string name="difficultyHard">Difficiule</string>
   <string name="xCompetesInY">%1$s rivalizeghja cù%2$s</string>
-  <string name="xAskedY">%1$s hà dumandatu%2$s</string>
-  <string name="xAnsweredY">%1$s hà rispostu %2$s</string>
-  <string name="xCommentedY">%1$s hà cummentatu %2$s</string>
   <string name="victory">Vittoria</string>
   <string name="defeat">Scunfitta</string>
   <string name="victoryVsYInZ">%1$s contru à %2$s in%3$s</string>
@@ -556,7 +532,6 @@
   <string name="timeline">Crunulugia</string>
   <string name="starting">Principiu:</string>
   <string name="allInformationIsPublicAndOptional">Tutti l\' infurmazioni sò pubblichi è uzziunali.</string>
-  <string name="yourCityRegionOrDepartment">A to cità, rughjone, o pruvincia.</string>
   <string name="biographyDescription">Parlà di tè, i to interressi, ciò chì ti piace in i scacchi, a to apertura preferita, i ghjucatori preferiti...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Massimu: %s segnu.</item>
@@ -571,13 +546,6 @@
   <string name="computer">Urdinatore</string>
   <string name="side">Campu</string>
   <string name="clock">Riloghju</string>
-  <string name="unauthorizedError">Accessu pruibitu.</string>
-  <string name="noInternetConnection">Cunessione èn ci hè. Poi ghjucà offline. ( L\' uzzione si trova in u listinu).</string>
-  <string name="connectedToLichess">Site cunnettatu à lichess.org</string>
-  <string name="signedOut">Avete chjosu a vostra sessione</string>
-  <string name="loginSuccessful">Site arrigistratu avà</string>
-  <string name="playOnTheBoardOffline">Ghjucà offline</string>
-  <string name="playOfflineComputer">Urdinatore</string>
   <string name="opponent">Aversariu</string>
   <string name="learnMenu">Amparà</string>
   <string name="studyMenu">Studià</string>
@@ -585,14 +553,9 @@
   <string name="community">Cumunità</string>
   <string name="tools">Arnese</string>
   <string name="increment">Raghjunta di tempu</string>
-  <string name="sharePGN">Caricà PGN</string>
-  <string name="playOnline">Ghjucà online</string>
-  <string name="playOffline">Ghjucà offline</string>
-  <string name="allowAnalytics">Accettà i statistichi anonimi</string>
-  <string name="shareGameURL">Caricà l\' URL d\' una partita</string>
   <string name="error.required">U duminiu hè nicissariu</string>
-  <string name="error.email">St\' indirizzu mail ùn funziona</string>
-  <string name="error.email_acceptable">St\' indirizzu mail ùn funziona. Verificheghja lu è prova da torna.</string>
+  <string name="error.email">St\' indirizzu mail ùn hè valida</string>
+  <string name="error.email_acceptable">St\' indirizzu mail ùn pò esse accettata. Verificate lu è provate da torna.</string>
   <string name="error.email_unique">St\' indirizzu mail ùn esista o hè dighjà pigliata</string>
   <string name="error.email_different">Hè dighjà u vostru indirizzu mai</string>
   <string name="ifRatingIsPlusMinusX">S\' è a classifica hè ± %s</string>
@@ -642,7 +605,6 @@
   <string name="simulHostExtraTime">Riloghju di u stratempu di l\' ostu</string>
   <string name="lichessTournaments">Ghjustre Lichess</string>
   <string name="tournamentFAQ">FAD di e ghjustre Arena</string>
-  <string name="tournamentOfficial">Ufficiale</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
   <string name="keyboardShortcuts">Accurtata di a tastera</string>
@@ -680,7 +642,6 @@
   <string name="downloadAnnotated">Telecaricamentu annutatu</string>
   <string name="downloadRaw">Telecaricamentu solu</string>
   <string name="downloadImported">Telecaricamentu impurtatu</string>
-  <string name="printFriendlyPDF">PDF adattatu pè a stampera</string>
   <string name="crosstable">Risultati</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pudete aduprà a mulletta di u topulinu nantu à a scacchera pè avanzà o riculà in a partita.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pudete aduprà a mulletta di u topulinu nantu à e variante di l\' urdinatore pè vede le.</string>
@@ -691,7 +652,6 @@
   <string name="withNobody">Cù nimu</string>
   <string name="withFriends">Cù l\' amichi</string>
   <string name="withEverybody">Cù tuttu u mondu</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Avete dighjà arrigistatu stu mail:%s</string>
   <string name="kidMode">Modu pè i zitelli</string>
   <string name="kidModeExplanation">Issu modu hè più sicuru. U modu pè i zitelli impedisce e chjachjere cù l\' altri utilizatori di u situ. Pudete aduprà stu modu cù i vostri sculari o i vostri figlioli. Hè una manera d\' assicurà u spaziu di ghjocu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In u modu pè i zitelli, si pò vede una icona %s accantu à u logo di Lichess. Cusì site sicuri chì i vostri zitelli sò in securità.</string>
@@ -720,7 +680,6 @@
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
-  <string name="xCreatesStudyY">%1$s crea un studiu%2$s</string>
   <string name="quickPairing">Ghjucà à lestru</string>
   <string name="lobby">Atriu</string>
   <string name="anonymous">Anonimu</string>
@@ -741,17 +700,11 @@
   <string name="usernameSuffixInvalid">Ci vole à aduprà una lettera o un ciffru à a fine di un nome d\' utilizatore.</string>
   <string name="usernameCharsInvalid">Un nome d\' utilizatore ùn pò cuntene chì letteren ciffri è righette. Ùn si pò scrive 2 righette cunsecutive.</string>
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
-  <string name="directlySupportLichess">Leia diretta pè l\' aiutu</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
   <string name="coaches">Intrenatori</string>
   <string name="invalidPgn">PGN invalidu</string>
   <string name="invalidFen">FEN invalidu</string>
-  <string name="error.minLength">A lughezza minima hè %s</string>
-  <string name="error.maxLength">A lunghezza massima hè %s</string>
-  <string name="error.min">Pò esse più grande chì o eguale à %s</string>
-  <string name="error.max">Pò esse menu grande chì o eguale à %s</string>
-  <string name="error.unknown">Errore</string>
   <string name="custom">Abitudine</string>
   <string name="notifications">Nutificazioni</string>
   <string name="perfRatingX">Classifica:%s</string>
@@ -897,6 +850,7 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="simulDescription">Descrizzione di a simultanea</string>
   <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>
   <string name="markdownAvailable">%s hè disponibule pè una synttax più cumplessa.</string>
+  <string name="embedsAvailable">Incollate l\' indirizzu URL di a partita o d\' un capitulu per impurtà lu.</string>
   <string name="inYourLocalTimezone">In u vostru circondu</string>
   <string name="tournChat">Chjachjera di a ghjustra</string>
   <string name="noChat">Senza chjachjera</string>
@@ -917,4 +871,13 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="emailAssociatedToaccount">Indirizzu mail liati à u contu</string>
   <string name="sentEmailWithLink">Vi avemu mandatu un mail cù una leia.</string>
   <string name="tournamentEntryCode">Codice per arregistrà si in u turneu</string>
+  <string name="hangOn">Aspettate!</string>
+  <string name="gameInProgress">Ghjuccate una partita contru à %s.</string>
+  <string name="abortTheGame">Aburtì a partita</string>
+  <string name="resignTheGame">Lascià corre a partita</string>
+  <string name="youCantStartNewGame">Ùn pudete principià una partita nova senza finì una prima.</string>
+  <string name="since">Da</string>
+  <string name="until">Sin\' à</string>
+  <string name="lichessDbExplanation">Partite classificate da tutti i Ghjucatori di Lichess</string>
+  <string name="switchSides">Invertì a scacchera</string>
 </resources>

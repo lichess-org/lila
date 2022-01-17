@@ -16,17 +16,16 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   private lazy val minifiedAssets = env.net.minifiedAssets
   lazy val vapidPublicKey         = env.push.vapidPublicKey
 
+  lazy val picfitUrl = env.memo.picfitUrl
+
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
 
   def assetVersion = AssetVersion.current
 
-  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-
-  def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
-
-  lazy val picfitUrl = new lila.memo.PicfitUrl(env.net.picfitEndpoint, env.net.picfitSecretKey)
 
   def cssTag(name: String)(implicit ctx: Context): Frag =
     cssTagWithTheme(name, ctx.currentBg)

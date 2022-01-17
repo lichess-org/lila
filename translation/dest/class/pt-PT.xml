@@ -46,6 +46,7 @@ Palavra-passe: %3$s</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terás que transmiti-la ao aluno, para que eles possam ter acesso.</string>
   <string name="createDesc3">Importante: um aluno não pode ter várias contas.</string>
   <string name="createDesc4">Se já tiveres um, utiliza o formulário de convite.</string>
+  <string name="createStudentWarning">Crie contas apenas para alunos reais. Não usar isto para criar várias contas para si próprio. Você seria banido.</string>
   <string name="lichessUsername">Nome de utilizador no Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à tua aula: %s.
@@ -56,7 +57,6 @@ Aqui está o link para acederes à aula.</string>
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
-  <string name="noPendingInvitations">Sem convites pendentes</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
@@ -67,6 +67,10 @@ Aqui está o link para acederes à aula.</string>
   <string name="releaseDesc1">Uma conta libertada não pode ser administrada novamente. O aluno será capaz de alternar o modo de criança e redefinir a palavra-passe por si mesmo.</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviar-lhe-emos um e-mail de confirmação, com um link para libertar a conta.</string>
+  <string name="closeStudent">Encerrar a conta</string>
+  <string name="closeTheAccount">Encerrar permanentemente a conta do aluno.</string>
+  <string name="closeDesc1">O aluno nunca mais vai poder usar esta conta. O encerramento é definitivo. Certifica-te que o aluno percebe e concorda.</string>
+  <string name="closeDesc2">Em vez disso, podes querer dar ao aluno controlo da sua conta, para que ele possa continuar a usá-la.</string>
   <string name="teachers">Professores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Professor(a)</item>

@@ -39,11 +39,11 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
           )
         ),
         div(cls := "page-menu__content practice-app")(
-          data.structure.sections.map { section =>
+          data.structure.sections.filter(s => !s.hide || isGranted(_.PracticeConfig)) map { section =>
             st.section(
               h2(section.name),
               div(cls := "studies")(
-                section.studies.map { stud =>
+                section.studies.filter(s => !s.hide || isGranted(_.PracticeConfig)).map { stud =>
                   val prog = data.progressOn(stud.id)
                   a(
                     cls := s"study ${if (prog.complete) "done" else "ongoing"}",

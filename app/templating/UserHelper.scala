@@ -209,7 +209,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       userRating(user, withPerfRating, withBestRating)
     )
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Frag = {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false)(implicit lang: Lang): Tag = {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     span(
@@ -260,7 +260,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang
   ): Frag =
-    if (filter == GameFilter.Search) frag(br, trans.search.advancedSearch())
+    if (filter == GameFilter.Search) frag(iconTag(""), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   private def transLocalize(key: I18nKey, number: Int)(implicit lang: Lang) =

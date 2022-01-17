@@ -50,4 +50,12 @@
   <string name="skip">skip</string>
   <string name="skipHelp">You can skip one move per race:</string>
   <string name="skipExplanation">Skip this move to preserve your combo! Only works once per race.</string>
+  <string name="failedPuzzles">Failed puzzles</string>
+  <string name="slowPuzzles">Slow puzzles</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">This week</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">This month</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">All-time</string>
+  <string name="clickToReload">Click to reload</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">This run has expired!</string>
+  <string name="thisRunWasOpenedInAnotherTab">This run was opened in another tab!</string>
 </resources>

@@ -24,4 +24,5 @@
   <string name="broadcastUrl">URL oddaje</string>
   <string name="currentRoundUrl">URL trenutnega kroga</string>
   <string name="currentGameUrl">URL trenutno igrane igre</string>
+  <string name="downloadAllRounds">Prenesite vse kroge</string>
 </resources>

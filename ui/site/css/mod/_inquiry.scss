@@ -191,6 +191,16 @@ body.no-inquiry {
       padding: 0.5em 1em;
       height: 8em;
     }
+
+    .dox-inquiry-div {
+      display: flex !important;
+      align-items: center;
+      padding: 0.5em;
+      > label {
+        margin-left: 0.5em;
+        cursor: pointer;
+      }
+    }
   }
 
   .actions,

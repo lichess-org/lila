@@ -76,7 +76,6 @@ suite. I nodaireacht fichille scríobhtar “ep”.
 
 Féach ar %3$s ar an mbeart seo le haghaidh cleachtadh leis.</string>
   <string name="goodIntroduction">réamhrá maith</string>
-  <string name="officialRulesPDF">rialacha oifigiúla (PDF)</string>
   <string name="lichessTraining">Traenáil Lichess</string>
   <string name="threefoldRepetition">Athshuíomh faoi thrí</string>
   <string name="threefoldRepetitionExplanation">Má tharlaíonn an suíomh céanna trí huaire, is féidir le himreoirí cluiche cothrom a éileamh faoi %1$s. Úsáideann Lichess rialacha oifigiúla FIDE, mar atá curtha síos in Airteagal 9.2 (d) de %2$s.</string>

@@ -9,17 +9,20 @@ object PuzzleForm {
 
   case class RoundData(
       win: Boolean,
+      rated: Boolean,
       replayDays: Option[Int],
       streakId: Option[String],
       streakScore: Option[Int]
   ) {
-    def result   = Result(win)
-    def puzzleId = streakId flatMap Puzzle.toId
+    def result         = Result(win)
+    def streakPuzzleId = streakId flatMap Puzzle.toId
+    def mode           = chess.Mode(rated)
   }
 
   val round = Form(
     mapping(
       "win"         -> boolean,
+      "rated"       -> boolean,
       "replayDays"  -> optional(numberIn(PuzzleDashboard.dayChoices)),
       "streakId"    -> optional(nonEmptyText),
       "streakScore" -> optional(number(min = 0, max = 250))
@@ -43,7 +46,7 @@ object PuzzleForm {
     val round = Form(
       mapping(
         "win" -> text
-      )(w => RoundData(w == "1" || w == "true", none, none, none))(r => none)
+      )(w => RoundData(win = w == "1" || w == "true", rated = true, none, none, none))(r => none)
     )
 
     val vote = Form(

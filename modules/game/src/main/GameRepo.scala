@@ -1,11 +1,13 @@
 package lila.game
 
+import scala.concurrent.duration._
+
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.{ ReadPreference, WriteConcern }
+import reactivemongo.api.{ Cursor, ReadPreference, WriteConcern }
 
 import lila.common.ThreadLocalRandom
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -18,6 +20,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   import BSONHandlers._
   import Game.{ ID, BSONFields => F }
   import Player.holdAlertBSONHandler
+
+  val fixedColorLobbyCache = new lila.memo.ExpireSetMemo(2 hours)
 
   def game(gameId: ID): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: ID): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
@@ -155,6 +159,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   ): AkkaStreamCursor[Game] =
     coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
 
+  def byIdsCursor(ids: Iterable[Game.ID]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
+
   def goBerserk(pov: Pov): Funit =
     coll.update
       .one(
@@ -194,7 +200,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) dmap {
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlaying + 5) dmap {
       _ flatMap { Pov(_, user) }
     }
 
@@ -397,9 +403,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
     val checkInHours =
       if (g2.isPgnImport) none
+      else if (g2.fromApi) some(24 * 7)
       else if (g2.hasClock) 1.some
-      else if (g2.hasAi) (Game.aiAbandonedHours + 1).some
-      else (24 * 10).some
+      else some(24 * 10)
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
@@ -417,17 +423,17 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     )
 
   def setCheckAt(g: Game, at: DateTime) =
-    coll.update.one($id(g.id), $set(F.checkAt -> at))
+    coll.updateField($id(g.id), F.checkAt, at).void
 
   def unsetCheckAt(id: Game.ID): Funit =
-    coll.update.one($id(id), $unset(F.checkAt)).void
+    coll.unsetField($id(id), F.checkAt).void
 
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids)).unit
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
-    coll.update.one($id(g.id), $set("pgni.ca" -> g.createdAt)).void
+    coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
   def initialFen(gameId: ID): Fu[Option[FEN]] =
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
@@ -456,7 +462,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       initialFen(game) dmap { game -> _ }
     }.sequenceFu
 
-  def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
+  def count(query: Query.type => Bdoc): Fu[Int]    = coll countSel query(Query)
+  def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondaryPreferred countSel query(Query)
 
   private[game] def favoriteOpponents(
       userId: String,

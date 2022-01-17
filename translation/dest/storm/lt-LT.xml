@@ -54,4 +54,12 @@
   <string name="skip">praleisti</string>
   <string name="skipHelp">NAUJA! Per lenktynes galite praleisti vieną ėjimą:</string>
   <string name="skipExplanation">Praleiskite ėjimą norėdami išlaikyti seką! Veikia tik kartą per lenktynes.</string>
+  <string name="failedPuzzles">Nepavykę galvosūkiai</string>
+  <string name="slowPuzzles">Lėti galvosūkiai</string>
+  <string name="thisWeek">Šią savaitę</string>
+  <string name="thisMonth">Šį mėnesį</string>
+  <string name="allTime">Visų laikų</string>
+  <string name="clickToReload">Spauskite norėdami perkrauti</string>
+  <string name="thisRunHasExpired">Ši eilė pasibaigė!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Ši eilė atidaryta kitoje kortelėje!</string>
 </resources>

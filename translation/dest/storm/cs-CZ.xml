@@ -53,4 +53,9 @@
   <string name="skip">přeskočit</string>
   <string name="skipHelp">V každém závodě můžete přeskočit jeden tah:</string>
   <string name="skipExplanation">Přeskočte tento tah pro zachování své série! Funguje pouze jednou za závod.</string>
+  <string name="failedPuzzles">Neúspěšné úlohy</string>
+  <string name="slowPuzzles">Pomalé úlohy</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Tento týden</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Tento měsíc</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Za celou dobu</string>
 </resources>

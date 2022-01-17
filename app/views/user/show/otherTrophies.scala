@@ -38,31 +38,7 @@ object otherTrophies {
           href := routes.Tournament.show(revol.tourId)
         )(revol.iconChar.toString)
       },
-      info.trophies.find(_.kind._id == TrophyKind.zugMiracle).map { t =>
-        frag(
-          styleTag("""
-.trophy.zugMiracle {
-  display: flex;
-  align-items: flex-end;
-  height: 40px;
-  margin: 0 8px!important;
-  transition: 2s;
-}
-.trophy.zugMiracle img {
-  height: 60px;
-}
-@keyframes psyche {
- 100% { filter: hue-rotate(360deg); }
-}
-.trophy.zugMiracle:hover {
-  transform: translateY(-9px);
-  animation: psyche 0.3s ease-in-out infinite alternate;
-}"""),
-          a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name))(
-            img(src := assetUrl("images/trophy/zug-trophy.png"))
-          )
-        )
-      },
+      info.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),
       info.trophies.filter(_.kind.withCustomImage).map { t =>
         a(
           awardCls(t),
@@ -70,7 +46,7 @@ object otherTrophies {
           ariaTitle(t.kind.name),
           style := "width: 65px; margin: 0 3px!important;"
         )(
-          img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
+          img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
         )
       },
       info.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
@@ -101,4 +77,24 @@ object otherTrophies {
     )
 
   private def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
+
+  private def zugMiracleTrophy(t: Trophy) = frag(
+    styleTag("""
+.trophy.zugMiracle {
+  display: flex;
+  align-items: flex-end;
+  height: 40px;
+  margin: 0 8px!important;
+  transition: 2s;
+}
+.trophy.zugMiracle img { height: 60px; }
+@keyframes psyche { 100% { filter: hue-rotate(360deg); } }
+.trophy.zugMiracle:hover {
+  transform: translateY(-9px);
+  animation: psyche 0.3s ease-in-out infinite alternate;
+}"""),
+    a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name))(
+      img(src := assetUrl("images/trophy/zug-trophy.png"))
+    )
+  )
 }

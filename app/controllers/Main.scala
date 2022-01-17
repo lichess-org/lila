@@ -7,7 +7,6 @@ import play.api.mvc._
 import scala.annotation.nowarn
 
 import lila.app._
-import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
@@ -90,7 +89,7 @@ final class Main(
     Open { ctx =>
       env.round.selfReport(
         userId = ctx.userId,
-        ip = HTTPRequest ipAddress ctx.req,
+        ip = ctx.ip,
         fullId = lila.game.Game.FullId(id),
         name = get("n", ctx.req) | "?"
       )
@@ -105,23 +104,9 @@ final class Main(
       NoContent
     }
 
-  def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
-    Action.async {
-      env.imageRepo
-        .fetch(id)
-        .map {
-          case None => NotFound
-          case Some(image) =>
-            lila.mon.http.imageBytes.record(image.size.toLong)
-            Ok(image.data).withHeaders(
-              CACHE_CONTROL -> "max-age=1209600"
-            ) as image.contentType.getOrElse("image/jpeg")
-        }
-    }
-
   val robots = Action { req =>
     Ok {
-      if (env.net.crawlable && req.domain == env.net.domain.value) """User-agent: *
+      if (env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd) """User-agent: *
 Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
@@ -164,7 +149,7 @@ Allow: /
             )
           )
         )
-      } withHeaders (CACHE_CONTROL -> "max-age=1209600")
+      }
     }
 
   def getFishnet =
@@ -226,7 +211,7 @@ Allow: /
           case 103  => s"$faq#acpl"
           case 258  => s"$faq#marks"
           case 13   => s"$faq#titles"
-          case 87   => routes.Stat.ratingDistribution("blitz").url
+          case 87   => routes.User.ratingDistribution("blitz").url
           case 110  => s"$faq#name"
           case 29   => s"$faq#titles"
           case 4811 => s"$faq#lm"

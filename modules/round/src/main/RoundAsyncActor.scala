@@ -30,7 +30,8 @@ import lila.user.User
 final private[round] class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: Game.ID,
-    socketSend: String => Unit
+    socketSend: String => Unit,
+    private var version: SocketVersion
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     proxy: GameProxy
@@ -41,8 +42,6 @@ final private[round] class RoundAsyncActor(
   import dependencies._
 
   private var takebackSituation: Option[TakebackSituation] = None
-
-  private var version = SocketVersion(0)
 
   private var mightBeSimul = true // until proven otherwise
 
@@ -233,7 +232,7 @@ final private[round] class RoundAsyncActor(
         lap => {
           p.promise.foreach(_ success {})
           lila.mon.round.move.time.record(lap.nanos)
-          MoveLatMonitor record lap.micros
+          MoveLatMonitor recordMicros lap.micros
         }
       )
 
@@ -404,7 +403,7 @@ final private[round] class RoundAsyncActor(
     case WsBoot =>
       handle { game =>
         game.playable ?? {
-          messenger.system(game, "Lichess has been updated! Sorry for the inconvenience.")
+          messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.")
           val progress = moretimer.give(game, Color.all, 20 seconds)
           proxy save progress inject progress.events
         }

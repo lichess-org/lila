@@ -134,6 +134,7 @@ object Report {
     def isAutomatic          = reporter.id == ReporterId.lichess
     def isAutoComm           = isAutomatic && isComm
     def isAutoBoost          = isAutomatic && isBoost
+    def isIrwinCheat         = reporter.id == ReporterId.irwin && isCheat
     def isCoachReview        = isOther && text.contains("COACH REVIEW")
   }
 

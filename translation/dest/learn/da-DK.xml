@@ -93,7 +93,7 @@
   <string name="boardSetup">Opstilling</string>
   <string name="howTheGameStarts">Hvordan spillet starter</string>
   <string name="boardSetupIntro">De to hære står overfor hinanden, klar til slaget.</string>
-  <string name="thisIsTheInitialPosition">Dette er udgangspositionen for alle skakspil! Lav et hvilket som helst træk for at fortsætte.</string>
+  <string name="thisIsTheInitialPosition">Dette er udgangsstillingen for alle skakpartier! Lav et hvilket som helst træk for at fortsætte.</string>
   <string name="firstPlaceTheRooks">Placer tårnene! De hører til i hjørnerne.</string>
   <string name="thenPlaceTheKnights">Placer dernæst springerne! De skal stå ved siden af tårnene.</string>
   <string name="placeTheBishops">Placer løberne! De skal stå ved siden af springerne.</string>
@@ -163,7 +163,7 @@ Bonde = 1</string>
   <string name="register">Registrer</string>
   <string name="getAFreeLichessAccount">Få en gratis Lichess konto</string>
   <string name="practice">Øvelser</string>
-  <string name="learnCommonChessPositions">Lær almindelige skakpositioner</string>
+  <string name="learnCommonChessPositions">Lær almindelige skakstillinger</string>
   <string name="puzzles">Opgaver</string>
   <string name="exerciseYourTacticalSkills">Træn dine taktiske evner</string>
   <string name="videos">Videoer</string>

@@ -14,7 +14,7 @@
   <string name="dateAddedNewest">Veröffentlichungsdatum (neueste)</string>
   <string name="dateAddedOldest">Veröffentlichungsdatum (älteste)</string>
   <string name="recentlyUpdated">Kürzlich aktualisiert</string>
-  <string name="mostPopular">Beliebteste</string>
+  <string name="mostPopular">Beliäbtischti</string>
   <string name="alphabetical">Alphabetisch</string>
   <string name="addNewChapter">Neues Kapitel hinzufügen</string>
   <plurals name="nbChapters">
@@ -41,6 +41,7 @@
   <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
   <string name="like">Gefällt mir</string>
+  <string name="unlike">Gfallt mer nüme</string>
   <string name="newTag">Neuer Tag</string>
   <string name="commentThisPosition">Kommentiere diese Stellung</string>
   <string name="commentThisMove">Kommentiere diesen Zug</string>
@@ -126,7 +127,7 @@
   <string name="clearChat">Tschätt löschä</string>
   <string name="deleteTheStudyChatHistory">Tschättverlauf vodä Schtuudiä löschä? Das chan nümä rückgängig gmacht wärdä!</string>
   <string name="deleteStudy">Schtuudiä löschä</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die gesamte Studie löschen? Es gibt kein Zurück! Gib zur Bestätigung den Namen der Studie ein.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die ganz Schtuudiä löschä? Es git käs Zrugg! Gib zur Beschtätigung dä amä vo dä Schtuudiä ii: %s</string>
   <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
   <string name="goodMove">Guätä Zug</string>
   <string name="mistake">Fähler</string>
@@ -155,4 +156,12 @@
   <string name="nextChapter">Nögschts Kapitäl</string>
   <string name="prevChapter">Vorhärigs Kapitäl</string>
   <string name="studyActions">Lärnaktionä</string>
+  <string name="topics" comment="topics&#10;&#10;On the page https://lichess.org/study/topic">Themä</string>
+  <string name="myTopics" comment="myTopics&#10;&#10;On the page https://lichess.org/study/topic">Miini Themä</string>
+  <string name="popularTopics" comment="popularTopics&#10;&#10;On the page https://lichess.org/study/topic">Beliebti Themä</string>
+  <string name="manageTopics" comment="manageTopics&#10;&#10;On the page https://lichess.org/study/topic">Themä verwaltä</string>
+  <string name="back" comment="back&#10;&#10;At the bottom of the study tutorial screen, a button for returning to the start of the chapter.">Zrugg</string>
+  <string name="playAgain">Vo vornä</string>
+  <string name="whatWouldYouPlay">Was würdisch du ih derä Stellig spiele?</string>
+  <string name="youCompletedThisLesson">Gratulation! Du häsch die Lektion abgschlosse.</string>
 </resources>

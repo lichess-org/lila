@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doniraj</string>
+  <string name="donateAsX">Donirajte kot %s</string>
   <string name="lichessPatron">Lichess pokrovitelj</string>
   <string name="freeAccount">Prost račun</string>
   <string name="becomePatron">Postani Lichess pokrovitelj</string>
@@ -45,7 +46,6 @@ Ali pa %s.</string>
   <string name="contactSupport">kontaktirajte Lichess podporo</string>
   <string name="otherMethods">Druge metode donacije?</string>
   <string name="bankTransfers">Sprejemamo tudi bančne transferje</string>
-  <string name="bitcoin">In tukaj je naš bitcoin naslov: %s</string>
   <string name="patronFeatures">Ali je kaj značilnosti rezerviranih za pokrovitelje?</string>
   <string name="noPatronFeatures">Ne, ker je Lichess popolnoma zastonj, za vedno in za vsakogar. To je obljuba. Kakorkoli, pokrovitelji dobijo pravice hvalisanja s kul novo ikono profila.</string>
   <string name="featuresComparison">Poglejte podrobno primerjavo lastnosti</string>

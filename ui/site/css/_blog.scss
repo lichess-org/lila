@@ -70,6 +70,7 @@
     margin: 0 var(--box-padding) 4em var(--box-padding);
     cursor: initial;
     line-height: 1.8;
+    overflow-wrap: anywhere;
 
     strong {
       font-weight: bold;

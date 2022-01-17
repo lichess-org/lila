@@ -56,7 +56,6 @@
     <item quantity="one">एक लंबित निमंत्रण</item>
     <item quantity="other">%s लंबित आमंत्रण</item>
   </plurals>
-  <string name="noPendingInvitations">कोई लंबित आमंत्रण नहीं</string>
   <string name="onlyVisibleToTeachers">केवल कक्षा शिक्षकों को दिखाई देगा</string>
   <string name="lastActiveDate">सक्रिय</string>
   <string name="managed">प्रबंधित</string>
@@ -67,6 +66,9 @@
   <string name="releaseDesc1">मुक्त किए गए खाते को फिर से प्रबंधित नहीं किया जा सकता है। छात्र kid-mode को टॉगल करने और पासवर्ड रीसेट करने में सक्षम होगा।</string>
   <string name="releaseDesc2">छात्र अपने खाते के मुक्त होने के बाद भी कक्षा में रहेगा।</string>
   <string name="realUniqueEmail">छात्र का वास्तविक, अद्वितीय ईमेल पता। हम खाते को मुक्त करने के लिंक के साथ इसे एक पुष्टिकरण ईमेल भेजेंगे</string>
+  <string name="closeStudent">खातें को बंद करें</string>
+  <string name="closeTheAccount">छात्र खाता हमेशा के लिए बंद करें।</string>
+  <string name="closeDesc1">छात्र इस खाते का उपयोग फिर कभी नहीं कर पायेगा। बंद करना स्थायी है। सुनिश्चित करें कि छात्र समझता है और सहमत है।</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>

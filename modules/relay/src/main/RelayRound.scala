@@ -46,7 +46,9 @@ case class RelayRound(
       startedAt = startedAt orElse DateTime.now.some
     )
 
-  def hasStarted = startedAt.isDefined
+  def hasStarted        = startedAt.isDefined
+  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter DateTime.now)
+  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore DateTime.now)
 
   def shouldGiveUp =
     !hasStarted && (startsAt match {
@@ -116,7 +118,7 @@ object RelayRound {
       def local = asUrl.fold(true)(_.isLocal)
     }
     case class UpstreamUrl(url: String) extends Upstream {
-      def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
+      def isLocal = url.contains("://127.0.0.1") || url.contains("://[::1]") || url.contains("://localhost")
       def withRound =
         url.split(" ", 2) match {
           case Array(u, round) => UpstreamUrl.WithRound(u, round.toIntOption)

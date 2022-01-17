@@ -49,11 +49,5 @@ Lichess 스트림 세팅이 아니라 트위치, 유튜브 페이지의 제목�
   <string name="xStreamerPicture">%s 스트리머 사진</string>
   <string name="changePicture">사진 변경/삭제</string>
   <string name="uploadPicture">사진 업로드</string>
-  <string name="deletePicture">사진 지우기</string>
   <string name="maxSize">최대 사이즈: %s</string>
-  <string name="installBlocker">멀웨어 차단기를 설치하세요!</string>
-  <string name="beSafe">트위치와 유튜브를 감염시키는
-광고와 트래커로부터 안전해지세요.
-Lichess는 무료 오픈 소스
-uBlock Origin을 권장합니다.</string>
 </resources>

@@ -2,13 +2,14 @@ package lila.streamer
 
 import org.joda.time.DateTime
 
+import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 
 case class Streamer(
     _id: Streamer.Id, // user ID
     listed: Streamer.Listed,
     approval: Streamer.Approval,
-    picturePath: Option[Streamer.PicturePath],
+    picture: Option[PicfitImage.Id],
     name: Streamer.Name,
     headline: Option[Streamer.Headline],
     description: Option[Streamer.Description],
@@ -26,7 +27,7 @@ case class Streamer(
 
   def is(user: User) = userId == user.id
 
-  def hasPicture = picturePath.isDefined
+  def hasPicture = picture.isDefined
 
   def isListed = listed.value && approval.granted
 
@@ -36,6 +37,8 @@ case class Streamer(
 }
 
 object Streamer {
+
+  val imageSize = 350
 
   def make(user: User) =
     Streamer(
@@ -49,7 +52,7 @@ object Streamer {
         chatEnabled = true,
         lastGrantedAt = none
       ),
-      picturePath = none,
+      picture = none,
       name = Name(user.realNameOrUsername),
       headline = none,
       description = none,
@@ -71,7 +74,6 @@ object Streamer {
       chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[DateTime]
   )
-  case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String)        extends AnyVal with StringValue
   case class Headline(value: String)    extends AnyVal with StringValue
   case class Description(value: String) extends AnyVal with StringValue
@@ -93,8 +95,8 @@ object Streamer {
   }
 
   case class YouTube(channelId: String) {
-    def fullUrl = s"https://www.youtube.com/channel/$channelId"
-    def minUrl  = s"youtube.com/channel/$channelId"
+    def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
+    def minUrl  = s"youtube.com/channel/$channelId/live"
   }
   object YouTube {
     private val ChannelIdRegex = """^([\w-]{24})$""".r

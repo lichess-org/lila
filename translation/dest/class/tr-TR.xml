@@ -46,6 +46,7 @@ Kullanıcı adı: %2$s
   <string name="createDesc2">E-posta adresine gerek yoktur. Size vereceğimiz şifreyi öğrenciye iletirseniz hesabına giriş yapabilir.</string>
   <string name="createDesc3">Önemli: Öğrencilerin birden fazla hesabı olmamalı.</string>
   <string name="createDesc4">Hâlihazırda hesabı olan öğrenciler için davet formunu kullanın.</string>
+  <string name="createStudentWarning">Yalnızca gerçek öğrenciler için hesap oluşturun. Kendi adınıza birden fazla hesap açmak için bu özelliği kullanmayın. Aksi takdirde hesabınız kapatılabilir.</string>
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="welcomeToClass">Sınıfınıza hoşgeldiniz: %s
@@ -56,7 +57,6 @@ Sınıfa erişim linki burada.</string>
     <item quantity="one">%s tane bekleyen davetiye</item>
     <item quantity="other">%s tane bekleyen davet</item>
   </plurals>
-  <string name="noPendingInvitations">Bekleyen davetiye yok</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>

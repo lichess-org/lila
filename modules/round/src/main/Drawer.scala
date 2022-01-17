@@ -22,9 +22,9 @@ final private[round] class Drawer(
         import Pref.PrefZero
         if (game.playerHasOfferedDrawRecently(pov.color)) fuccess(pov.some)
         else
-          pov.player.userId ?? prefApi.getPref map { pref =>
-            pref.autoThreefold == Pref.AutoThreefold.ALWAYS || {
-              pref.autoThreefold == Pref.AutoThreefold.TIME &&
+          pov.player.userId ?? { uid => prefApi.getPref(uid, _.autoThreefold) } map { autoThreefold =>
+            autoThreefold == Pref.AutoThreefold.ALWAYS || {
+              autoThreefold == Pref.AutoThreefold.TIME &&
               game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
             } || pov.player.userId.exists(isBotSync)
           } map (_ option pov)
@@ -37,7 +37,7 @@ final private[round] class Drawer(
       case pov if pov.game.history.threefoldRepetition =>
         finisher.other(pov.game, _.Draw, None)
       case pov if pov.opponent.isOfferingDraw =>
-        finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
+        finisher.other(pov.game, _.Draw, None, Messenger.Persistent(trans.drawOfferAccepted.txt()).some)
       case Pov(g, color) if g playerCanOfferDraw color =>
         val progress = Progress(g) map { _ offerDraw color }
         messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())

@@ -5,15 +5,15 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.db.Photographer
 import lila.memo.CacheApi._
+import lila.memo.PicfitApi
 import lila.user.{ User, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    photographer: Photographer,
+    picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -116,13 +116,11 @@ final class StreamerApi(
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
-  def uploadPicture(s: Streamer, picture: Photographer.Uploaded, by: User): Funit =
-    photographer(s.id.value, picture, createdBy = by.id).flatMap { pic =>
-      coll.update.one($id(s.id), $set("picturePath" -> pic.path)).void
+  def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
+    picfitApi
+      .uploadFile(s"streamer:${s.id}", picture, userId = by.id) flatMap { pic =>
+      coll.update.one($id(s.id), $set("picture" -> pic.id)).void
     }
-
-  def deletePicture(s: Streamer): Funit =
-    coll.update.one($id(s.id), $unset("picturePath")).void
 
   // unapprove after a week if you never streamed
   def autoDemoteFakes: Funit =

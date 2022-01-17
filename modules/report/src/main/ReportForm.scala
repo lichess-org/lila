@@ -74,5 +74,5 @@ case class ReportSetup(
 
   def suspect = SuspectId(user.id)
 
-  def export = (user.name, reason, text, gameId, move)
+  def `export` = (user.name, reason, text, gameId, move)
 }

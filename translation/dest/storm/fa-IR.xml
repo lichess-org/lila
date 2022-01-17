@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">برای شروع حرکت کنید</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">شما تمام پازل ها را با رنگ سفید بازی میکنید</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">شما تمام پازل ها را با رنگ سیاه بازی میکنید</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">شما در تمام معماها با مهره‌های سفید بازی می‌کنید</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">شما در تمام معماها با مهره‌های سیاه بازی می‌کنید</string>
   <string name="puzzlesSolved">معماها حل شد</string>
   <string name="newDailyHighscore">رکورد جدید روزانه!</string>
   <string name="newWeeklyHighscore">رکورد جدید هفتگی!</string>
   <string name="newMonthlyHighscore">رکورد جدید ماهانه!</string>
-  <string name="raceComplete">مسابقه تمام به اتمام رسید!</string>
-  <string name="startTheRace">شروع مسابقه</string>
-  <string name="nextRace">مسابقه بعدی</string>
-  <string name="waitingToStart">در حال بارگزاری</string>
-  <string name="createNewGame">ایجاد یک بازی جدید</string>
-  <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
-  <string name="raceYourFriends">با دوستان خود مسابقه دهید</string>
-  <string name="skip">رد کردن</string>
-  <string name="skipHelp">در هر مسابقه می توانید یک حرکت را رد کنید:</string>
+  <string name="newAllTimeHighscore">بالاترین امتیاز از ابتدا تا کنون!</string>
+  <string name="previousHighscoreWasX">بالاترین امتیاز پیشین %s بود</string>
+  <string name="playAgain">دوباره بازی کنید</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 دور</item>
+    <item quantity="other">%s دور</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">یک دور از %2$s بازی شد</item>
+    <item quantity="other">%1$s دور از %2$s بازی شد</item>
+  </plurals>
+  <string name="highscoreX">بالاترین امتیاز: %s</string>
+  <string name="score">امتیاز</string>
+  <string name="moves">حرکت‌ها</string>
+  <string name="accuracy">دقت</string>
+  <string name="combo">ترکیب</string>
+  <string name="time">زمان</string>
+  <string name="timePerMove">زمان برای هر حرکت</string>
+  <string name="highestSolved">سخت‌ترین معمای حل‌شده</string>
+  <string name="puzzlesPlayed">معماها بازی شدند</string>
+  <string name="newRun">دور جدید (میانبر: Space)</string>
+  <string name="endRun">پایان دور (میانبر: Enter)</string>
+  <string name="highscores">بالاترین امتیازها</string>
+  <string name="viewBestRuns">مشاهده بهترین دورها</string>
+  <string name="bestRunOfDay">بهترین دور روز</string>
+  <string name="runs">دورها</string>
+  <string name="getReady">آماده شوید!</string>
+  <string name="waitingForMorePlayers">منتظرم بازیکنان بیشتری بپیوندند...</string>
+  <string name="raceComplete">رقابت کامل شد!</string>
+  <string name="spectating">در حال تماشا</string>
+  <string name="joinTheRace">به رقابت بپیوندید!</string>
+  <string name="startTheRace">رقابت را شروع کنید</string>
+  <string name="yourRankX">جایگاه شما: %s</string>
+  <string name="waitForRematch">منتظر بمانید تا حریف دیگری برای شما پیدا کنیم</string>
+  <string name="nextRace">رقابت بعدی</string>
+  <string name="joinRematch">ورود به بازی مجدد</string>
+  <string name="waitingToStart">انتظار برای شروع</string>
+  <string name="createNewGame">یک بازی جدید ایجاد کنید</string>
+  <string name="joinPublicRace">به یک رقابت عمومی بپیوندید</string>
+  <string name="raceYourFriends">با دوستان خود رقابت کنید</string>
+  <string name="skip">ناديده گرفتن</string>
+  <string name="skipHelp">در هر رقابت می‌توانید یک حرکت را رد کنید:</string>
+  <string name="skipExplanation">از این حرکت چشم‌پوشی کنید تا ترکیب خود را حفظ نمایید! فقط یک بار در هر رقابت قابل استفاده است.</string>
+  <string name="failedPuzzles">معماهای ناموفق</string>
+  <string name="slowPuzzles">معماهای با سرعت کم</string>
 </resources>

@@ -19,7 +19,7 @@ object editor {
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafeLoadThen(
-          s"""const data=${safeJsonValue(bits.jsData(fen))};data.positions=$positionsJson;
+          s"""const data=${safeJsonValue(bits.editorJsData(fen))};data.positions=$positionsJson;
 data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),

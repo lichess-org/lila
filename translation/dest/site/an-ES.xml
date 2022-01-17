@@ -11,7 +11,6 @@
   <string name="level">Libel</string>
   <string name="strength">Fuerza</string>
   <string name="toggleTheChat">Amostrar/Amagar chat</string>
-  <string name="toggleSound">Activar/Desactivar sons</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
   <string name="checkmate">Escaque y mate</string>
@@ -40,7 +39,6 @@
     <item quantity="other">Lo tuyo oponent ha saliu d\'a partida. Podrás reclamar la victoria en %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">Lo tuyo oponent puede haber abandonau la partida. Puetz reclamar la victoria, declarar taulas u esperar.</string>
-  <string name="makeYourOpponentResign">Reclamar la victoria per abandono de l\'oponent</string>
   <string name="forceResignation">Reclamar la victoria</string>
   <string name="forceDraw">Declarar taulas</string>
   <string name="talkInChat">Per favor, sé amable en o chat</string>
@@ -49,9 +47,6 @@
   <string name="blackResigned">Las negras han abandonau</string>
   <string name="whiteLeftTheGame">Las blancas han abandonau la partida</string>
   <string name="blackLeftTheGame">Las negras han abandonau la partida</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparte este vinclo pa convidar espectadors a veyer la partida</string>
-  <string name="theComputerAnalysisHasFailed">L\'analisi de l\'ordinador ha fallau</string>
-  <string name="viewTheComputerAnalysis">Veyer l\'analisi de l\'ordinador</string>
   <string name="requestAComputerAnalysis">Solicitar una analisi de l\'ordinador</string>
   <string name="computerAnalysis">Analisi de l\'ordinador</string>
   <string name="computerAnalysisAvailable">Analisi de l\'ordinador disponible</string>
@@ -89,10 +84,6 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate en %s meyo movimiento</item>
     <item quantity="other">Mate en %s meyos movimientos</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguient captura u movimiento de peón en %s meyos movimientos (distancia a la mesa a zero d\'o contador de 50 movimientos)</item>
-    <item quantity="other">Siguient captura u movimiento de peón en %s meyos movimientos (distancia a zero d\'o contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No s\'ha trobau garra partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Preba incluyindo mas partidas dende lo menú de preferencias</string>
@@ -217,7 +208,6 @@
   <string name="whiteTimeOut">Cayida de bandera d\'as blancas</string>
   <string name="blackTimeOut">Cayida de bandera d\'as negras</string>
   <string name="drawOfferSent">Ofierta de taulas ninviada</string>
-  <string name="drawOfferDeclined">Ofierta de taulas refusada</string>
   <string name="drawOfferAccepted">Ofierta de taulas acceptada</string>
   <string name="drawOfferCanceled">Ofierta de taulas cancelada</string>
   <string name="whiteOffersDraw">Las blancas ofreixen taulas</string>
@@ -243,8 +233,6 @@
   <string name="thisGameIsRated">Esta partida ye per puntos</string>
   <string name="rematch">Reminche</string>
   <string name="rematchOfferSent">Ofierta de reminche ninviada</string>
-  <string name="rematchOfferSentWhite">Las blancas ofreixen chugar de nuevo</string>
-  <string name="rematchOfferSentBlack">Las negras ofreixen chugar de nuevo</string>
   <string name="rematchOfferAccepted">Ofierta de reminche acceptada</string>
   <string name="rematchOfferCanceled">Ofierta de reminche cancelada</string>
   <string name="rematchOfferDeclined">Ofierta de reminche refusada</string>
@@ -258,9 +246,7 @@
   <string name="youHaveBeenTimedOut">Has estau silenciau temporalment.</string>
   <string name="spectatorRoom">Chat d\'espectador</string>
   <string name="composeMessage">Escribir mensache</string>
-  <string name="noNewMessages">No i hai mensaches nuevos</string>
   <string name="subject">Afer</string>
-  <string name="recipient">Destinatario</string>
   <string name="send">Ninviar</string>
   <string name="incrementInSeconds">Segundos d\'incremento</string>
   <string name="freeOnlineChess">Escaques en linia gratis</string>
@@ -373,8 +359,6 @@
     <item quantity="one">%s amigo connectau</item>
     <item quantity="other">%s amigos connectaus</item>
   </plurals>
-  <string name="noFriendsOnline">Garra amigo connectau</string>
-  <string name="findFriends">Trobar amigos</string>
   <string name="favoriteOpponents">Oponents favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
@@ -423,7 +407,6 @@
   <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
-  <string name="winStreak">Victorias consecutivas</string>
   <string name="createdBy">Creau per</string>
   <string name="tournamentIsStarting">Lo torneyo va a empecipiar</string>
   <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
@@ -439,7 +422,6 @@
   <string name="draws">Taulas</string>
   <string name="nextXTournament">Siguient torneyo %s:</string>
   <string name="averageOpponent">Oponent meyo</string>
-  <string name="membersOnly">Nomás pa miembros</string>
   <string name="boardEditor">Editor d\'escaquero</string>
   <string name="setTheBoard">Configurar escaquero</string>
   <string name="popularOpenings">Obriduras populars</string>
@@ -447,7 +429,6 @@
   <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar lo escaquero</string>
-  <string name="savePosition">Alzar posición</string>
   <string name="loadPosition">Cargar posicion</string>
   <string name="isPrivate">Privau</string>
   <string name="reportXToModerators">Denunciar a %s a los moderadors</string>
@@ -464,10 +445,8 @@
   <string name="thankYou">Gracias!</string>
   <string name="socialMediaLinks">Vinclos a retz socials</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="watchLichessTV">Veyer Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriorment en Lichess TV</string>
   <string name="onlinePlayers">Chugadors connectaus</string>
-  <string name="activeToday">Activos hue</string>
   <string name="activePlayers">Chugadors activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Para cuenta, la partida ye per puntos pero sin limite de tiempo!</string>
   <string name="success">Exito</string>
@@ -478,7 +457,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticament a la siguient partida dimpués de mover</string>
   <string name="autoSwitch">Cambio automatico</string>
   <string name="puzzles">Problemas</string>
-  <string name="latestUpdates">Zagueras actualizacions</string>
   <string name="tournamentWinners">Ganadors de torneyos</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
@@ -510,9 +488,7 @@
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Este tema ye zarrau.</string>
-  <string name="theming">Apariencia</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Preguntas y respuestas</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe aquí las tuyas notas privadas</string>
   <string name="invalidUsernameOrPassword">Nombre d\'usuario u clau erronio</string>
@@ -541,13 +517,7 @@
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
-  <string name="difficultyEasy">Facil</string>
-  <string name="difficultyNormal">Normal</string>
-  <string name="difficultyHard">Dificil</string>
   <string name="xCompetesInY">%1$s compite en %2$s</string>
-  <string name="xAskedY">%1$s preguntó %2$s</string>
-  <string name="xAnsweredY">%1$s contestó %2$s</string>
-  <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Redota</string>
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
@@ -556,7 +526,6 @@
   <string name="timeline">Cronolochía</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Tota la información ye publica y opcional.</string>
-  <string name="yourCityRegionOrDepartment">La tuya ciudat, rechión u provincia.</string>
   <string name="biographyDescription">Conta-nos sobre tu, qué te fa goyo d\'os escaques, las tuyas obriduras favoritas, partidas, chugadors…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximo: %s caracter.</item>
@@ -571,13 +540,6 @@
   <string name="computer">Ordinador</string>
   <string name="side">Color</string>
   <string name="clock">Reloch</string>
-  <string name="unauthorizedError">Acceso no autorizau.</string>
-  <string name="noInternetConnection">No tiens connexión a Internet. Puetz chugar sin connexión dende lo menú.</string>
-  <string name="connectedToLichess">Yes connectau a lichess.org</string>
-  <string name="signedOut">Has zarrau la sesión</string>
-  <string name="loginSuccessful">Connectau</string>
-  <string name="playOnTheBoardOffline">Chugar sin connexión</string>
-  <string name="playOfflineComputer">Ordinador</string>
   <string name="opponent">Oponent</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudiar</string>
@@ -585,16 +547,7 @@
   <string name="community">Comunidat</string>
   <string name="tools">Ferramientas</string>
   <string name="increment">Incremento</string>
-  <string name="sharePGN">Compartir PGN</string>
-  <string name="playOnline">Chugar en linia</string>
-  <string name="playOffline">Chugar sin connexión</string>
-  <string name="allowAnalytics">Permitir estatisticas anonimas</string>
-  <string name="shareGameURL">Compartir lo vinclo d\'o chuego</string>
   <string name="error.required">Este campo ye obligatorio</string>
-  <string name="error.email">Este correu no ye valido</string>
-  <string name="error.email_acceptable">Este correu no ye acceptable</string>
-  <string name="error.email_unique">Este correu ya ye en uso</string>
-  <string name="error.email_different">Este ye lo mesmo correu que tiene actualment</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación ye ± %s</string>
   <string name="onlyExistingConversations">Nomás las conversas existents</string>
   <string name="onlyFriends">Nomás amigos</string>
@@ -642,7 +595,6 @@
   <string name="simulHostExtraTime">Tiempo extra de l\'anfitrión</string>
   <string name="lichessTournaments">Torneyos de Lichess</string>
   <string name="tournamentFAQ">Preguntas freqüents d\'os torneyos arena</string>
-  <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes que prencipie lo torneyo</string>
   <string name="averageCentipawnLoss">Perdua meya en centipeons</string>
   <string name="keyboardShortcuts">Alcorces d\'o teclau</string>
@@ -680,7 +632,6 @@
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar la partida sin anotar</string>
   <string name="downloadImported">Descargar la partida importada</string>
-  <string name="printFriendlyPDF">Imprentar en formato PDF</string>
   <string name="crosstable">Tabla cruciada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién puetz usar la rueda d\'o rato pa desplazar-te per la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantiene pretadas las variants d\'analisi pa previsualizar-las.</string>
@@ -691,7 +642,6 @@
   <string name="withNobody">Con dengún</string>
   <string name="withFriends">Con os míos amigos</string>
   <string name="withEverybody">Con totz</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Ya has rechistrau lo correu electronico: %s</string>
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Per seguridat, en o modo infantil se desactivan totas las comunicacions con atros usuarios. Activa esto pa protecher a los menors d\'atros usuarios d\'Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En o modo infantil, lo logo de lichess tiene un icono de %s, indicando que los ninos son seguros.</string>
@@ -720,7 +670,6 @@
   <string name="xHostsY">%1$s ha creau %2$s</string>
   <string name="xJoinsY">%1$s s\'une a %2$s</string>
   <string name="xLikesY">a %1$s le fa goyo %2$s</string>
-  <string name="xCreatesStudyY">%1$s ha creau lo estudio %2$s</string>
   <string name="quickPairing">Emparellamiento rapido</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anonimo</string>
@@ -741,17 +690,11 @@
   <string name="usernameSuffixInvalid">Lo nombre d\'usuario ha de finalizar con una letra u un numero.</string>
   <string name="usernameCharsInvalid">Lo nombre d\'usuario ha de contener nomás letras, numeros, guións baixos y guións.</string>
   <string name="usernameUnacceptable">Este nombre d\'usuario no ye valido.</string>
-  <string name="directlySupportLichess">Emparar economicament a Lichess</string>
   <string name="playChessInStyle">Chuga a los escaques con estilo</string>
   <string name="chessBasics">Fundamentos d\'escaques</string>
   <string name="coaches">Entrenadors</string>
   <string name="invalidPgn">PGN invalido</string>
   <string name="invalidFen">FEN invalido</string>
-  <string name="error.minLength">La longaria minima ye de %s</string>
-  <string name="error.maxLength">La longaria maxima ye de %s</string>
-  <string name="error.min">Ha d\'estar mayor u igual a %s</string>
-  <string name="error.max">Ha d\'estar menor u igual a %s</string>
-  <string name="error.unknown">Error</string>
   <string name="custom">Personalizada</string>
   <string name="notifications">Notificacions</string>
   <string name="perfRatingX">Puntuación: %s</string>

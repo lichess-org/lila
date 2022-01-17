@@ -7,6 +7,7 @@
   <string name="challengeCanceled">Defio nuligita.</string>
   <string name="youCannotChallengeX">Vi ne povas defii %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ne akceptas defiojn.</string>
+  <string name="yourXRatingIsTooFarFromY">Via rango por %1$s estas tro for de la rango de %2$s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nur akceptas defiojn de amikoj.</string>
   <string name="declineGeneric">Mi ne akceptas defiojn en tiu ĉi momento.</string>
   <string name="declineNoBot">Mi ne akceptas defiojn de robotoj.</string>

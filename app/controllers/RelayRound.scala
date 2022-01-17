@@ -11,11 +11,12 @@ import lila.app._
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel, RelayRoundForm }
 import lila.user.{ User => UserModel }
 import views._
+import lila.common.HTTPRequest
 
 final class RelayRound(
     env: Env,
-    studyC: => Study
-    // apiC: => Api
+    studyC: => Study,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def form(tourId: String) =
@@ -152,13 +153,34 @@ final class RelayRound(
         }
       },
       scoped = _ =>
-        me =>
-          env.relay.api.byIdAndContributor(id, me) map {
+        _ =>
+          env.relay.api.byIdWithTour(id) flatMap {
             _ ?? { rt =>
-              JsonOk(env.relay.jsonView.withUrl(rt))
+              env.study.chapterRepo orderedMetadataByStudy rt.round.studyId map { games =>
+                JsonOk(env.relay.jsonView.withUrlAndGames(rt, games))
+              }
             }
           }
     )
+
+  def pgn(ts: String, rs: String, id: String) = studyC.pgn(id)
+  def apiPgn(id: String)                      = studyC.apiPgn(id)
+
+  def stream(id: String) = AnonOrScoped() { req => me =>
+    env.relay.api.byIdWithStudy(id) flatMap {
+      _ ?? { rt =>
+        studyC.CanView(rt.study, me) {
+          apiC
+            .GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
+              env.relay.pgnStream.streamRoundGames(rt)
+            ) { source =>
+              noProxyBuffer(Ok chunked source.keepAlive(60.seconds, () => " ") as pgnContentType)
+            }
+            .fuccess
+        }(Unauthorized.fuccess, Forbidden.fuccess)
+      }
+    }
+  }
 
   def chapter(ts: String, rs: String, id: String, chapterId: String) =
     Open { implicit ctx =>
@@ -249,7 +271,7 @@ final class RelayRound(
       else if (me.hasTitle || me.isVerified) 5
       else 10
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(lila.common.HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
         create
       }(fail.fuccess)
     }(fail.fuccess)

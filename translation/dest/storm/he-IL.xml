@@ -19,6 +19,7 @@
   <string name="timePerMove">זמן לכל מהלך</string>
   <string name="highestSolved">הכי גבוה נשפתר</string>
   <string name="puzzlesPlayed">פאזלים ששוחקו</string>
+  <string name="newRun">סיבוב חדש</string>
   <string name="endRun">סיים ריצה</string>
   <string name="highscores">הניקודים הכי גבוהים</string>
   <string name="viewBestRuns">ראה את הריצות הכי טובות</string>
@@ -36,9 +37,12 @@
   <string name="joinRematch">הצטרף למשחק חוזר</string>
   <string name="waitingToStart">מחכה להתחיל</string>
   <string name="createNewGame">צור משחק חדש</string>
-  <string name="joinPublicRace">הצטרפו למירוץ ציבורי</string>
+  <string name="joinPublicRace">הצטרפו למירוץ פומבי</string>
   <string name="raceYourFriends">התחרה עם חבריך</string>
   <string name="skip">דלג</string>
   <string name="skipHelp">אתה יכול לדלג פעם אחת לכל מרוץ:</string>
   <string name="skipExplanation">דלג על מהלך זה כדי לשמור על הקומבו שלך! עובד רק פעם אחת במירוץ.</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">השבוע</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">החודש</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">אי פעם</string>
 </resources>

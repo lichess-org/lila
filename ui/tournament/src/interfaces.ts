@@ -37,6 +37,7 @@ export interface TournamentOpts {
   $faq: Cash;
   userId?: string;
   chat?: any;
+  showRatings: boolean;
 }
 
 export interface TournamentData {
@@ -101,6 +102,7 @@ export interface TournamentData {
   };
   duels: Duel[];
   duelTeams?: DuelTeams;
+  reloadDelay?: number;
 }
 
 export interface FeaturedGame {

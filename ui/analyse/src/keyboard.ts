@@ -41,6 +41,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('shift+i', () => {
       ctrl.treeView.toggle();
       ctrl.redraw();
+    })
+    .bind('z', () => {
+      ctrl.toggleComputer();
+      ctrl.redraw();
     });
 
   if (ctrl.embed) return;
@@ -48,7 +52,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
-    else if (ctrl.studyPractice) return;
+    else if (ctrl.practice || ctrl.studyPractice) return;
     else if (ctrl.ceval.enabled()) ctrl.playBestMove();
     else ctrl.toggleCeval();
   });

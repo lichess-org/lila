@@ -33,7 +33,7 @@
   <string name="privateWillNeverBeShown">Privado. Nunca se mostrará fuera de la clase. Ayuda a recordar quién es el estudiante.</string>
   <string name="addStudent">Añadir estudiante</string>
   <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
-  <string name="studentCredentials">Estudiante:  %1$s
+  <string name="studentCredentials">Estudiante: %1$s
 Nombre de usuario: %2$s
 Contraseña: %3$s</string>
   <string name="inviteALichessAccount">Invita una cuenta de Lichess</string>
@@ -46,6 +46,7 @@ Contraseña: %3$s</string>
   <string name="createDesc2">No hace falta una dirección de correo electrónico. Se generará una contraseña y se la facilitarás al estudiante para que pueda entrar.</string>
   <string name="createDesc3">Importante: un estudiante no debe tener múltiples cuentas.</string>
   <string name="createDesc4">Si ya tienen una, usa el formulario de invitación.</string>
+  <string name="createStudentWarning">Crea cuentas apenas para alumnos reales. No uses eso para crear cuentas para ti mismo, o tu cuenta será bloqueada.</string>
   <string name="lichessUsername">Nombre de usuario de Lichess</string>
   <string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
   <string name="welcomeToClass">Bienvenido a tu clase: %s.
@@ -56,7 +57,6 @@ Aquí está el enlace para acceder a la clase.</string>
     <item quantity="one">%s invitación pendiente</item>
     <item quantity="other">%s invitaciones pendientes</item>
   </plurals>
-  <string name="noPendingInvitations">No hay invitaciones pendientes</string>
   <string name="onlyVisibleToTeachers">Sólo visible para los profesores de la clase</string>
   <string name="lastActiveDate">Última visita</string>
   <string name="managed">Supervisada</string>

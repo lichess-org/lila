@@ -89,7 +89,7 @@ object bits {
         span(cls := "more")(
           trans.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
           " • ",
-          trans.join()
+          if (s.isStarted) trans.eventInProgress() else momentFromNow(s.startsAt)
         )
       )
     )

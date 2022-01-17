@@ -99,15 +99,16 @@ trait ScalatagsPrefix {
 
 // what to import in a pure scalatags template
 trait ScalatagsTemplate
-    extends Styles
-    with ScalatagsBundle
+    extends ScalatagsBundle
     with ScalatagsAttrs
     with ScalatagsExtensions
     with ScalatagsSnippets
     with ScalatagsPrefix {
 
-  val trans = lila.i18n.I18nKeys
-  def main  = scalatags.Text.tags2.main
+  val trans     = lila.i18n.I18nKeys
+  def main      = scalatags.Text.tags2.main
+  def cssWidth  = scalatags.Text.styles.width
+  def cssHeight = scalatags.Text.styles.height
 
   /* Convert play URLs to scalatags attributes with toString */
   implicit val playCallAttr = genericAttr[play.api.mvc.Call]

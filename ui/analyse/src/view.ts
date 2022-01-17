@@ -2,8 +2,15 @@ import { view as cevalView } from 'ceval';
 import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
-import changeColorHandle from 'common/coordsColor';
-import { bind, bindNonPassive, bindMobileMousedown, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
+import {
+  bind,
+  bindNonPassive,
+  bindMobileMousedown,
+  MaybeVNode,
+  MaybeVNodes,
+  onInsert,
+  dataIcon,
+} from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
@@ -56,7 +63,7 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
     const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
     return render(result, [
       statusView(ctrl),
-      winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
+      winner ? ' • ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
     ]);
   } else if (ctrl.study) {
     const result = findTag(ctrl.study.data.chapter.tags, 'result');
@@ -292,7 +299,6 @@ function controls(ctrl: AnalyseCtrl) {
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
   if (ctrl.data.pref.coords === Prefs.Coords.Outside) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
-    changeColorHandle();
   }
 }
 
@@ -300,7 +306,8 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
   return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 }
 
-function analysisDisabled(ctrl: AnalyseCtrl): VNode {
+function analysisDisabled(ctrl: AnalyseCtrl): MaybeVNode {
+  if (!ctrl.ceval.possible || !ctrl.ceval.allowed()) return;
   return h('div.comp-off__hint', [
     h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
     h(
@@ -389,6 +396,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': !!tour,
         'analyse-hunter': ctrl.opts.hunter,
+        'analyse--wiki': !!ctrl.wiki && !ctrl.study,
       },
     },
     [

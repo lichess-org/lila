@@ -48,11 +48,5 @@ Om din sändning är på engelska, behöver du inte inkludera en språktagg.</st
   <string name="xStreamerPicture">%s profilbild</string>
   <string name="changePicture">Ändra/ta bort din bild</string>
   <string name="uploadPicture">Ladda upp en bild</string>
-  <string name="deletePicture">Ta bort bild</string>
   <string name="maxSize">Max storlek: %s</string>
-  <string name="installBlocker">Installera en malware-blockerare!</string>
-  <string name="beSafe">Skydda dig mot annonser och trackers
-som översvämmar Twitch och YouTube.
-Lichess rekommenderar uBlock Origin
-som är fri och öppen källkod.</string>
 </resources>

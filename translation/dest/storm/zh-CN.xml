@@ -48,4 +48,12 @@
   <string name="skip">跳过</string>
   <string name="skipHelp">每场比赛仅能跳过一次</string>
   <string name="skipExplanation">跳过这一步来保留你的连击！每场比赛只能用一次</string>
+  <string name="failedPuzzles">失败的谜题</string>
+  <string name="slowPuzzles">慢 谜题</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">本周</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">本月</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">全部时间</string>
+  <string name="clickToReload">点击重新加载</string>
+  <string name="thisRunHasExpired" comment="thisRunHasExpired&#10;&#10;Runs of Puzzle Storm are deleted after a time.">本次冲刺已超时！</string>
+  <string name="thisRunWasOpenedInAnotherTab">本次冲刺已经在另一个标签页中打开！</string>
 </resources>

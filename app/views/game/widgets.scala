@@ -71,7 +71,7 @@ object widgets {
                   gameEndStatus(g),
                   g.winner.map { winner =>
                     frag(
-                      ", ",
+                      " • ",
                       winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
                     )
                   }
@@ -132,18 +132,22 @@ object widgets {
           userIdLink(playerUser.id.some, withOnline = false),
           br,
           player.berserk option berserkIconSpan,
-          playerUser.rating,
-          player.provisional option "?",
-          playerUser.ratingDiff map { d =>
-            frag(" ", showRatingDiff(d))
-          }
+          ctx.pref.showRatings option frag(
+            playerUser.rating,
+            player.provisional option "?",
+            playerUser.ratingDiff map { d =>
+              frag(" ", showRatingDiff(d))
+            }
+          )
         )
       } getOrElse {
         player.aiLevel map { level =>
           frag(
             span(aiName(level, withRating = false)),
-            br,
-            aiRating(level)
+            ctx.pref.showRatings option frag(
+              br,
+              aiRating(level)
+            )
           )
         } getOrElse {
           (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>

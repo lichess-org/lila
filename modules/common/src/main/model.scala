@@ -1,7 +1,9 @@
 package lila.common
 
+import io.mola.galimatias.IPv4Address.parseIPv4Address
+import io.mola.galimatias.IPv6Address.parseIPv6Address
+import scala.util.Try
 import scala.concurrent.duration._
-import io.lemonlabs.uri.{ IpV4, IpV6 }
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
@@ -32,22 +34,16 @@ sealed trait IpAddress {
   def value: String
   override def toString = value
 }
-case class IpV4Address(a: Byte, b: Byte, c: Byte, d: Byte) extends IpAddress {
-  def value = IpV4(a, b, c, d).value
-}
-case class IpV6Address(a: Char, b: Char, c: Char, d: Char, e: Char, f: Char, g: Char, h: Char)
-    extends IpAddress {
-  def value = IpV6(a, b, c, d, e, f, g, h).value.stripPrefix("[").stripSuffix("]")
-}
+case class IpV4Address(value: String) extends IpAddress
+case class IpV6Address(value: String) extends IpAddress
 
 object IpAddress {
-  def from(str: String): Option[IpAddress] =
-    IpV4.parseOption(str).map(ip => IpV4Address(ip.octet1, ip.octet2, ip.octet3, ip.octet4)) orElse IpV6
-      .parseOption(f"[$str]")
-      .map(ip =>
-        IpV6Address(ip.piece1, ip.piece2, ip.piece3, ip.piece4, ip.piece5, ip.piece6, ip.piece7, ip.piece8)
-      )
-  def unchecked(str: String): IpAddress = from(str).get
+  private def parse(str: String): Try[IpAddress] = Try {
+    if (str.contains(".")) IpV4Address(parseIPv4Address(str).toString)
+    else IpV6Address(parseIPv6Address(str).toString)
+  }
+  def from(str: String): Option[IpAddress] = parse(str).toOption
+  def unchecked(str: String): IpAddress    = parse(str).get
 }
 
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
@@ -105,6 +101,8 @@ object EmailAddress {
     isValid(str) option EmailAddress(str)
 
   private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
+
+  val clasIdRegex = """^noreply\.class\.(\w{8})\.[\w-]+@lichess\.org""".r
 }
 
 case class Domain private (value: String) extends AnyVal with StringValue {
@@ -140,3 +138,11 @@ case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal
 
 case class Template(value: String) extends AnyVal
+
+case class Preload[A](value: Option[A]) extends AnyVal {
+  def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)
+}
+object Preload {
+  def apply[A](value: A): Preload[A] = Preload(value.some)
+  def none[A]                        = Preload[A](None)
+}

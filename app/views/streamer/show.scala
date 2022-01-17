@@ -25,7 +25,7 @@ object show {
             shorten(~(s.streamer.headline.map(_.value) orElse s.streamer.description.map(_.value)), 152),
           url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
           `type` = "video",
-          image = s.streamer.picturePath.map(p => dbImageUrl(p.value))
+          image = s.streamer.hasPicture option picture.thumbnail.url(s.streamer)
         )
         .some,
       csp = defaultCsp.finalizeWithTwitch.some
@@ -75,7 +75,7 @@ object show {
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
-            a(cls := "ratings", href := routes.User.show(s.user.username))(
+            ctx.pref.showRatings option a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }
             ),
             views.html.activity(s.user, activities)

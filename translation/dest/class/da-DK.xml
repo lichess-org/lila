@@ -43,9 +43,10 @@ Adgangskode: %3$s</string>
   <string name="inviteDesc4">Send aldrig uopfordrede invitationer til tilfældige spillere.</string>
   <string name="createANewLichessAccount">Opret en ny Lichess-konto</string>
   <string name="createDesc1">Hvis eleven endnu ikke har en Lichess-konto, kan du oprette en for dem her.</string>
-  <string name="createDesc2">Ingen e-mailadresse påkrævet. En adgangskode vil blive genereret, og du vil skulle videregive den til eleven, så de kan logge ind.</string>
+  <string name="createDesc2">Ingen e-mailadresse påkrævet. En adgangskode vil blive genereret, som du skal videregive til eleven, for at denne kan logge ind.</string>
   <string name="createDesc3">Vigtigt: En elev må ikke have flere konti.</string>
   <string name="createDesc4">Brug invitationsformularen, hvis de allerede har en.</string>
+  <string name="createStudentWarning">Opret kun konti for rigtige elever. Brug ikke dette til at lave flere konti for dig selv. Du ville blive udelukket.</string>
   <string name="lichessUsername">Lichess-brugernavn</string>
   <string name="generateANewUsername">Generer et nyt brugernavn</string>
   <string name="welcomeToClass">Velkommen til din klasse: %s.
@@ -56,10 +57,9 @@ Her er linket, der giver adgang til klassen.</string>
     <item quantity="one">En afventende invitation</item>
     <item quantity="other">%s afventende invitationer</item>
   </plurals>
-  <string name="noPendingInvitations">Ingen afventende invitationer</string>
   <string name="onlyVisibleToTeachers">Kun synligt for klassens lærere</string>
   <string name="lastActiveDate">Aktive</string>
-  <string name="managed">Administreret</string>
+  <string name="managed">Under administration</string>
   <string name="thisStudentAccountIsManaged">Denne elevkonto er under administration</string>
   <string name="upgradeFromManaged">Opgrader fra administreret til selvstyret</string>
   <string name="release">Frigiv</string>

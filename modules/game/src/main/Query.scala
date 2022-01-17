@@ -122,13 +122,13 @@ object Query {
     F.variant $ne chess.variant.FromPosition.id
 
   def createdSince(d: DateTime): Bdoc =
-    F.createdAt $gt d
+    F.createdAt $gte d
 
   def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc =
     (since, until) match {
       case (Some(since), None)        => createdSince(since)
       case (None, Some(until))        => F.createdAt $lt until
-      case (Some(since), Some(until)) => F.createdAt $gt since $lt until
+      case (Some(since), Some(until)) => F.createdAt $gte since $lt until
       case _                          => $empty
     }
 

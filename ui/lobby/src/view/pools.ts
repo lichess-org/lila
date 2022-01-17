@@ -38,7 +38,7 @@ export function render(ctrl: LobbyController) {
         },
         [
           h('div.clock', pool.lim + '+' + pool.inc),
-          active && member!.range ? renderRange(member!.range!) : h('div.perf', pool.perf),
+          active && member!.range && ctrl.opts.showRatings ? renderRange(member!.range!) : h('div.perf', pool.perf),
           active ? spinner() : null,
         ]
       );

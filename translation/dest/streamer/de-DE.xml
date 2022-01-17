@@ -49,11 +49,5 @@ Falls dein Stream in Englisch ist, brauchst du keine Sprachmarkierung einfügen.
   <string name="xStreamerPicture">%s Streamerbild</string>
   <string name="changePicture">Ändere/Lösche dein Bild</string>
   <string name="uploadPicture">Lade ein Bild hoch</string>
-  <string name="deletePicture">Lösche ein Bild</string>
   <string name="maxSize">Maximale Größe: %s</string>
-  <string name="installBlocker">Installiere einen Malware-Blocker!</string>
-  <string name="beSafe">Schütze dich vor Werbung und Trackern,
-die Twitch und YouTube befallen.
-Lichess empfiehlt uBlock Origin,
-was kostenlos und quelloffen ist.</string>
 </resources>

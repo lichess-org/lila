@@ -46,6 +46,7 @@
   <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
   <string name="createDesc3">Σημαντικό: ο μαθητής δεν πρέπει να έχει πολλαπλούς λογαριασμούς.</string>
   <string name="createDesc4">Εάν έχουν ήδη έναν, χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
+  <string name="createStudentWarning">Δημιουργήστε λογαριασμούς μόνο για πραγματικούς μαθητές. Εάν δημιουργήσετε πολλούς λογαριασμούς για σας, ενδέχεται να κλείσει ο λογαριασμός σας.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
@@ -56,7 +57,6 @@
     <item quantity="one">Μία πρόσκληση εκκρεμεί</item>
     <item quantity="other">%s προσκλήσεις εκκρεμούν</item>
   </plurals>
-  <string name="noPendingInvitations">Καμία πρόσκληση δεν εκκρεμεί</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειριζόμενος</string>

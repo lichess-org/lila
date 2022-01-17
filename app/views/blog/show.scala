@@ -25,7 +25,7 @@ object show {
       csp = bits.csp
     )(
       main(cls := "page-menu page-small")(
-        bits.menu(none, hasActive = false),
+        bits.menu(none, "lichess".some),
         div(cls := s"blog page-menu__content box post ${~doc.getText("blog.cssClasses")}")(
           h1(doc.getText("blog.title")),
           bits.metas(doc),

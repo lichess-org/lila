@@ -33,7 +33,7 @@ export function input(ctrl: TournamentController): VNode {
         });
         $(el).on('keydown', e => {
           if (e.code === 'Enter') {
-            const rank = parseInt(e.target.value);
+            const rank = parseInt(e.target.value.replace('#', '').trim());
             if (rank > 0) ctrl.jumpToRank(rank);
           }
           if (e.code === 'Escape') {

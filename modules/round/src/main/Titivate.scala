@@ -3,7 +3,6 @@ package lila.round
 import akka.actor._
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-
 import scala.concurrent.duration._
 
 import lila.common.LilaStream
@@ -44,7 +43,7 @@ final private[round] class Titivate(
       throw new RuntimeException(msg)
 
     case Run =>
-      gameRepo.count(_.checkable) foreach { total =>
+      gameRepo.countSec(_.checkable) foreach { total =>
         lila.mon.round.titivate.total.record(total)
         gameRepo
           .docCursor(Query.checkable)
@@ -56,7 +55,7 @@ final private[round] class Titivate(
           .addEffect(lila.mon.round.titivate.game.record(_).unit)
           .>> {
             gameRepo
-              .count(_.checkableOld)
+              .countSec(_.checkableOld)
               .dmap(lila.mon.round.titivate.old.record(_))
           }
           .monSuccess(_.round.titivate.time)
@@ -116,11 +115,8 @@ final private[round] class Titivate(
               gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
 
             case None =>
-              val hours = game.daysPerTurn.fold(
-                if (game.hasAi) Game.aiAbandonedHours
-                else Game.abandonedDays * 24
-              )(_ * 24)
-              gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
+              val days = game.daysPerTurn | Game.abandonedDays
+              gameRepo.setCheckAt(game, DateTime.now plusDays days).void
           }
       }
   }

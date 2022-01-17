@@ -59,7 +59,6 @@ Este descris în secțiunea 3.7 (d) a %2$s:
 
 Vezi %3$s pe această mutare pentru a te putea antrena cu ea.</string>
   <string name="goodIntroduction">introducere bună</string>
-  <string name="officialRulesPDF">regulamentului (PDF)</string>
   <string name="lichessTraining">antrenamentul Lichess</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
   <string name="threefoldRepetitionExplanation">Dacă o poziție apare de trei ori, jucătorii pot cere o remiză pentru %1$s. Lichess implementează regulile oficiale FIDE, cum este descris in Articolul 9.2 (d) a %2$s.</string>

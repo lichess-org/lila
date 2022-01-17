@@ -46,6 +46,7 @@ Geslo: %3$s</string>
   <string name="createDesc2">Ne potrebuje email naslova. Ustvarjeno bo geslo in prenesti ga morate k učencu, da se lahko prijavi.</string>
   <string name="createDesc3">Pomembno: Učenec ne sme imeti več računov.</string>
   <string name="createDesc4">Če račun že imajo, uporabite obrazec za povabilo.</string>
+  <string name="createStudentWarning">Ustvarite račune samo za prave študente. Tega ne uporabljajte za ustvarjanje več računov. Dobili bi prepoved.</string>
   <string name="lichessUsername">Lichess uporabniško ime</string>
   <string name="generateANewUsername">Ustvarite novo uporabniško ime</string>
   <string name="welcomeToClass">Dobrodošli v razred: %s
@@ -58,7 +59,6 @@ Tukaj je povezava za dostop do razreda.</string>
     <item quantity="few">%s povabila na čakanju</item>
     <item quantity="other">%s povabil na čakanju</item>
   </plurals>
-  <string name="noPendingInvitations">Ni čakajočih povabil</string>
   <string name="onlyVisibleToTeachers">Vidno samo učiteljem razreda</string>
   <string name="lastActiveDate">Zadnja prijava</string>
   <string name="managed">Upravljan</string>

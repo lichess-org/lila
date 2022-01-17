@@ -190,10 +190,7 @@ object Tournament {
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate match {
-        case Some(startDate) => startDate plusSeconds ThreadLocalRandom.nextInt(60)
-        case None            => DateTime.now plusMinutes waitMinutes
-      },
+      startsAt = startDate | DateTime.now.plusMinutes(waitMinutes),
       description = description,
       hasChat = hasChat
     )

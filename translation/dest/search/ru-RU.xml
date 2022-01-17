@@ -30,8 +30,16 @@
   <string name="onlyAnalysed">Только партии, для которых выполнен компьютерный анализ</string>
   <string name="color">Цвет</string>
   <string name="evaluation">Оценка</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Максимальное число</string>
+  <string name="maxNumber">Максимальное число</string>
   <string name="maxNumberExplanation">Максимальное число партий для возврата</string>
   <string name="include">Включая</string>
-  <string name="generateURL">Сгенерировать URL</string>
+  <string name="descending">По убыванию</string>
+  <string name="ascending">По возрастанию</string>
+  <plurals name="gamesFound">
+    <item quantity="one">Найдена %s партия</item>
+    <item quantity="few">Найдены %s партии</item>
+    <item quantity="many">Найдено %s партий</item>
+    <item quantity="other">Найдено %s партий</item>
+  </plurals>
+  <string name="ratingExplanation">Средний рейтинг обоих игроков</string>
 </resources>

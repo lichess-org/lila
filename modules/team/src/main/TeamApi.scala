@@ -1,6 +1,7 @@
 package lila.team
 
 import actorApi._
+import org.joda.time.DateTime
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json }
 import reactivemongo.api.{ Cursor, ReadPreference }
@@ -40,7 +41,7 @@ final class TeamApi(
 
   def lightsByLeader = teamRepo.lightsByLeader _
 
-  def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
+  def request(id: Request.ID) = requestRepo.coll.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] = {
     val bestId = Team.nameToId(setup.name)
@@ -106,7 +107,7 @@ final class TeamApi(
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     for {
-      requests <- requestRepo findByTeam team.id
+      requests <- requestRepo findActiveByTeam team.id
       users    <- userRepo usersFromSecondary requests.map(_.user)
     } yield requests zip users map { case (request, user) =>
       RequestWithUser(request, user)
@@ -115,7 +116,7 @@ final class TeamApi(
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
     for {
       teamIds  <- teamRepo enabledTeamIdsByLeader user.id
-      requests <- requestRepo findByTeams teamIds
+      requests <- requestRepo findActiveByTeams teamIds
       users    <- userRepo usersFromSecondary requests.map(_.user)
     } yield requests zip users map { case (request, user) =>
       RequestWithUser(request, user)
@@ -159,16 +160,18 @@ final class TeamApi(
       }
     }
 
-  def processRequest(team: Team, request: Request, accept: Boolean): Funit =
-    for {
-      _ <- requestRepo.coll.delete.one(request)
-      _ = cached.nbRequests invalidate team.createdBy
+  def processRequest(team: Team, request: Request, decision: String): Funit = {
+    if (decision == "decline") requestRepo.coll.updateField($id(request.id), "declined", true).void
+    else if (decision == "accept") for {
+      _          <- requestRepo.remove(request.id)
       userOption <- userRepo byId request.user
       _ <-
-        userOption
-          .filter(_ => accept)
-          .??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
+        userOption.??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
     } yield ()
+    else funit
+  } addEffect { _ =>
+    cached.nbRequests invalidate team.createdBy
+  }
 
   def deleteRequestsByUserId(userId: User.ID) =
     requestRepo.getByUserId(userId) flatMap {
@@ -236,7 +239,7 @@ final class TeamApi(
       Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
 
   def kickMembers(team: Team, json: String, me: User) =
-    parseTagifyInput(json) map (kick(team, _, me))
+    (parseTagifyInput(json) - team.createdBy).map(kick(team, _, me))
 
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
@@ -285,6 +288,7 @@ final class TeamApi(
       lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id ||
       (team.leaders(by.id) && !team.leaders(team.createdBy))
     ) {
+      logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${by.id}")
       if (team.enabled)
         teamRepo.disable(team).void >>
           memberRepo.userIdsByTeam(team.id).map { _ foreach cached.invalidateTeamIds } >>

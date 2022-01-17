@@ -30,7 +30,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
   const pos = Chess.fromSetup(parseFen(initialNode.fen).unwrap()).unwrap();
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
-    const move = parseUci(uci)!;
+    const move = pos.normalizeMove(parseUci(uci)!);
     const san = makeSan(pos, move);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);

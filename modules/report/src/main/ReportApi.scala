@@ -242,7 +242,8 @@ final class ReportApi(
           .void
     } yield ()
 
-  def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
+  // `seriousness` depends on the number of previous warnings, and number of games throwed away
+  def autoBoostReport(winnerId: User.ID, loserId: User.ID, seriousness: Int): Funit =
     securityApi.shareAnIpOrFp(winnerId, loserId) zip
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
         case ((isSame, Some((winner, loser))), reporter) if !winner.lame && !loser.lame =>
@@ -255,12 +256,13 @@ final class ReportApi(
               suspect = Suspect(winner),
               reason = Reason.Boost,
               text = s"Boosting: farms rating points from @${loser.username} ($loginsText)"
-            )
+            ),
+            _ + Report.Score(seriousness)
           )
         case _ => funit
       }
 
-  def autoSandbagReport(winnerIds: List[User.ID], loserId: User.ID): Funit =
+  def autoSandbagReport(winnerIds: List[User.ID], loserId: User.ID, seriousness: Int): Funit =
     userRepo.byId(loserId) zip getLichessReporter flatMap {
       case (Some(loser), reporter) if !loser.lame =>
         create(
@@ -269,7 +271,8 @@ final class ReportApi(
             suspect = Suspect(loser),
             reason = Reason.Boost,
             text = s"Sandbagging: throws games to ${winnerIds.map("@" + _) mkString " "}"
-          )
+          ),
+          _ + Report.Score(seriousness)
         )
       case _ => funit
     }
@@ -324,8 +327,7 @@ final class ReportApi(
             suspect = suspect,
             reason = Reason.Comm,
             text = text
-          ),
-          _ atLeast 40
+          )
         )
       case _ => funit
     }
@@ -582,18 +584,20 @@ final class ReportApi(
       for {
         report <- coll.byId[Report](id) orElse coll.one[Report](
           $doc("user" -> id, "inquiry.mod" $exists true)
-        ) orFail s"No report $id found"
+        )
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
         _ <-
-          report.inquiry.isEmpty ?? coll
-            .updateField(
-              $id(report.id),
-              "inquiry",
-              Report.Inquiry(mod.user.id, DateTime.now)
-            )
-            .void
-      } yield (current, report.inquiry.isEmpty option report)
+          report ?? { r =>
+            r.inquiry.isEmpty ?? coll
+              .updateField(
+                $id(r.id),
+                "inquiry",
+                Report.Inquiry(mod.user.id, DateTime.now)
+              )
+              .void
+          }
+      } yield (current, report.filter(_.inquiry.isEmpty))
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {

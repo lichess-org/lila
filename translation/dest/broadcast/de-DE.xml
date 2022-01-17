@@ -24,4 +24,5 @@
   <string name="broadcastUrl">Veröffentlichungs-URL</string>
   <string name="currentRoundUrl">URL der aktuellen Runde</string>
   <string name="currentGameUrl">URL der aktuellen Partie</string>
+  <string name="downloadAllRounds">Alle Runden herunterladen</string>
 </resources>

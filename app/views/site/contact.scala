@@ -15,10 +15,10 @@ object contact {
 
   private lazy val contactEmailBase64 = lila.common.String.base64.encode(contactEmailInClear)
 
+  def contactEmailLinkEmpty =
+    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)
   def contactEmailLink(implicit ctx: Context) =
-    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)(
-      trans.clickToRevealEmailAddress()
-    )
+    contactEmailLinkEmpty(trans.clickToRevealEmailAddress())
 
   private def reopenLeaf(prefix: String)(implicit ctx: Context) =
     Leaf(
@@ -326,7 +326,7 @@ object contact {
               "gdpr",
               "GDPR",
               frag(
-                p("If you are a European citizen, you may request the deletion of your Lichess account."),
+                p("You may request the deletion of your Lichess account."),
                 p(
                   "First, ",
                   a(href := routes.Account.close)("close your account"),
@@ -337,6 +337,15 @@ object contact {
                   contactEmailLink,
                   " to request the definitive erasure of all data linked to the account."
                 )
+              )
+            ),
+            Leaf(
+              "dmca",
+              "DMCA / Intellectual Property Take Down Notice",
+              p(
+                a(href := dmcaUrl)("Complete this form"),
+                " ",
+                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
               )
             ),
             Leaf(
@@ -351,6 +360,8 @@ object contact {
         )
       )
     )
+
+  val dmcaUrl = "/dmca"
 
   def apply()(implicit ctx: Context) =
     page.layout(

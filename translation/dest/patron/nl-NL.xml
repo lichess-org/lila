@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doneer</string>
+  <string name="donateAsX">Doneren als %s</string>
   <string name="lichessPatron">Lichess Patroon</string>
   <string name="freeAccount">Gratis account</string>
   <string name="becomePatron">Word een Lichess Patroon</string>
@@ -43,7 +44,6 @@ Of u kunt %s.</string>
   <string name="contactSupport">contact opnemen met de Lichess helpdesk</string>
   <string name="otherMethods">Andere vormen van donatie?</string>
   <string name="bankTransfers">We accepteren ook bankoverschrijvingen</string>
-  <string name="bitcoin">En hier is ons bitcoinadres: %s</string>
   <string name="patronFeatures">Zijn sommige functies enkel beschikbaar voor Patronen?</string>
   <string name="noPatronFeatures">Nee, omdat Lichess altijd gratis is, en voor iedereen. Dat is een belofte.
 Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waardering.</string>

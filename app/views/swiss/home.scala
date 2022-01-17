@@ -105,8 +105,8 @@ object home {
       ),
       tr(
         th(trans.swiss.pairingWaitTime()),
-        td(trans.swiss.pairingWaitTime()),
-        td(trans.swiss.pairingWaitTime())
+        td(trans.swiss.pairingWaitTimeArena()),
+        td(trans.swiss.pairingWaitTimeSwiss())
       ),
       tr(
         th(trans.swiss.identicalPairing()),

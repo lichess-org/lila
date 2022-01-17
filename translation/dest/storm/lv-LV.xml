@@ -52,4 +52,12 @@
   <string name="skip">izlaist</string>
   <string name="skipHelp">Varat izlaist vienu gājienu katrās sacīkstēs:</string>
   <string name="skipExplanation">Izlaist gājienu, lai paturētu kombināciju! Darbojas tikai vienreiz katrās sacensībās.</string>
+  <string name="failedPuzzles">Zaudētās puzles</string>
+  <string name="slowPuzzles">Lēni atrisinātās</string>
+  <string name="thisWeek">Šonedēļ</string>
+  <string name="thisMonth">Šomēnes</string>
+  <string name="allTime">Visa laika</string>
+  <string name="clickToReload">Klikšķiniet, lai pārlādētu</string>
+  <string name="thisRunHasExpired">Šai pužļu spēlei beidzies termiņš!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Šī pužļu spēle tikusi atvērta citā cilnē!</string>
 </resources>

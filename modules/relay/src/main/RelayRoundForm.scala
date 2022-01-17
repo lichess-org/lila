@@ -1,9 +1,10 @@
 package lila.relay
 
-import io.lemonlabs.uri.AbsoluteUrl
+import io.mola.galimatias.URL
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import scala.util.Try
 import scala.util.chaining._
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText }
@@ -50,24 +51,24 @@ object RelayRoundForm {
   }
 
   private def validSource(source: String): Boolean =
-    validUrl(source) || toGameIds(source).isDefined
+    cleanUrl(source).isDefined || toGameIds(source).isDefined
 
-  private def validUrl(source: String): Boolean =
-    AbsoluteUrl.parseOption(source).exists { url =>
-      url.hostOption
-        .exists { host =>
-          host.toString != "localhost" &&
-          host.toString != "127.0.0.1" &&
-          host.apexDomain.fold(true) { apex =>
-            !blocklist.contains(apex) && (
-              // only allow public API, not arbitrary URLs
-              apex != "chess.com" || url.toString.startsWith("https://api.chess.com/pub")
-            )
-          }
-        }
-    }
+  private def cleanUrl(source: String): Option[String] =
+    for {
+      url <- Try(URL.parse(source)).toOption
+      if url.scheme == "http" || url.scheme == "https"
+      host <- Option(url.host).map(_.toString)
+      // prevent common mistakes (not for security)
+      if !blocklist.exists(subdomain(host, _))
+      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
+    } yield url.toString.stripSuffix("/")
+
+  private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 
   private val blocklist = List(
+    "localhost",
+    "127.0.0.1",
+    "::1",
     "twitch.tv",
     "twitch.com",
     "youtube.com",
@@ -75,7 +76,6 @@ object RelayRoundForm {
     "lichess.org",
     "google.com",
     "vk.com",
-    "localhost",
     "chess-results.com",
     "chessgames.com",
     "zoom.us",
@@ -95,11 +95,6 @@ object RelayRoundForm {
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
 
-    def cleanUrl: Option[String] =
-      syncUrl.filter(validUrl).map { u =>
-        u stripSuffix "/"
-      }
-
     def gameIds = syncUrl flatMap toGameIds
 
     def update(relay: RelayRound, user: User) =
@@ -114,7 +109,7 @@ object RelayRoundForm {
 
     private def makeSync(user: User) =
       RelayRound.Sync(
-        upstream = cleanUrl.map { u =>
+        upstream = syncUrl.flatMap(cleanUrl).map { u =>
           RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.??(" " +)}")
         } orElse gameIds.map { ids =>
           RelayRound.Sync.UpstreamIds(ids.ids)

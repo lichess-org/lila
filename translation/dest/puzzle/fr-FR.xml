@@ -13,7 +13,7 @@
   <string name="specialMoves">Coups spéciaux</string>
   <string name="didYouLikeThisPuzzle">Avez-vous aimé ce problème ?</string>
   <string name="voteToLoadNextOne">Votez pour afficher le suivant !</string>
-  <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
+  <string name="yourPuzzleRatingWillNotChange">Votre classement ne changera pas. Notez que les problèmes ne sont pas une compétition. Le classement aide à sélectionner les meilleurs problèmes en fonction de votre niveau.</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
   <string name="toGetPersonalizedPuzzles">Pour obtenir des problèmes personnalisés :</string>
@@ -71,6 +71,14 @@
 Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vos parties soit utilisée comme problème!</string>
   <string name="fromXGamesFound">%1$s problèmes trouvés dans %2$s parties</string>
   <string name="puzzleDashboardDescription">S\'entraîner, analyser, s\'améliorer</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s problème fait</item>
+    <item quantity="other">%s problèmes faits</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s problème à refaire</item>
+    <item quantity="other">%s problèmes à refaire</item>
+  </plurals>
   <string name="percentSolved">%s des problèmes résolus</string>
   <string name="noPuzzlesToShow">Rien à afficher - faites d\'abord quelques problèmes !</string>
   <string name="improvementAreasDescription">Faites ces problèmes pour progresser !</string>

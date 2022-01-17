@@ -44,7 +44,7 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
   <string name="tiebreaksCalculationA">A %s alapján.
-Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelek pontjainak felét.</string>
+Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelei pontjainak felét.</string>
   <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
@@ -61,6 +61,8 @@ Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki kés
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
  Bármikor újracsatlakozhatnak a versenyhez.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
+  <string name="lateJoinA">Igen, amíg nem több, mint a fordulók fele elkezdődött; például egy 11 fordulósban játékosok csatlakozhatnak a 6. forduló kezdete előtt illetve egy 12 fordulósban a 7. forduló kezdetéig.
+A későn csatlakozók egy pontot érő szabadkört kapnak akkor is, ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
   <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
   <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
@@ -69,7 +71,7 @@ Ennek az az oka, hogy nem tudjuk tisztességesen kezelni a versenyből idő elő
 Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon sok forduló van. Ilyenkor az összes lehetséges párosítást lejátsszák, mielőtt a verseny véget ér.</string>
   <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
   <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
-  <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes akinek a legtöbb pontot szerezte az összes fordulóban. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
+  <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes az, aki a legtöbb pontot szerezte a fordulókban összesen. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
   <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
 %1$s, hogy részt vehess svájci rendszerű versenyben.</string>
   <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
@@ -86,8 +88,8 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="pairingSystemArena">Bármelyik szabad játékos hasonló értékszámmal</string>
   <string name="pairingSystemSwiss">Optimális párosítás pontszámok alapján</string>
   <string name="pairingWaitTime">Párosítás üteme</string>
-  <string name="pairingWaitTimeFast">Gyors: nem vár minden játékosra</string>
-  <string name="pairingWaitTimeSlow">Lassú: minden játékosra vár</string>
+  <string name="pairingWaitTimeArena" comment="pairingWaitTimeArena&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to fast pairing wait time.">Gyors: nem vár minden játékosra</string>
+  <string name="pairingWaitTimeSwiss" comment="pairingWaitTimeSwiss&#10;&#10;Appears in a table comparing Swiss tournaments with Arena tournaments. This refers to slow pairing wait time.">Lassú: minden játékosra vár</string>
   <string name="identicalPairing">Azonos párosítás</string>
   <string name="possibleButNotConsecutive">Lehetséges, de nem egymást követően</string>
   <string name="identicalForbidden">Tiltott</string>

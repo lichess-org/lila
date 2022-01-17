@@ -48,3 +48,7 @@
 .game__meta {
   margin-bottom: $block-gap;
 }
+
+body.no-rating rating {
+  display: none;
+}

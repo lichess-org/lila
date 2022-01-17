@@ -33,9 +33,9 @@
   <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
-  <string name="whatVariantsCanIplay">Личесте қандай шахмат түрлерін ойнасам болады?</string>
-  <string name="lichessSupportChessAnd">Личесте әдеттегі шахмат пен %1$s бар.</string>
-  <string name="eightVariants">8 шахмат түрлері</string>
+  <string name="whatVariantsCanIplay">Личесте шахматтың қай түрлерін ойнасам болады?</string>
+  <string name="lichessSupportChessAnd">Личесте классикалық әрі %1$s бар.</string>
+  <string name="eightVariants">шахматтың 8 түрі</string>
   <string name="whatIsACPL">Қателіктердің орташа мәні (ACPL – average centipawn loss) деген не?</string>
   <string name="acplExplanation">Қателіктердің орташа мәнінің бірлігі сентипоун (\"centi\" - жүзден бір бөлік, \"pawn\" - сарбаз). Бұл шама ойыншының жетістік дәрежесін көрсетеді. Ойын кезінде бұл шама соншалықты маңызды емес, бірақ компьютер үшін ойын күйін бағалауда орны зор.
 
@@ -59,7 +59,6 @@
 
 Бұл тәсілді қолданып көру үшін %3$s-н қараңыз.</string>
   <string name="goodIntroduction">жақсы түсіндірме</string>
-  <string name="officialRulesPDF">ресми ережелер (PDF)</string>
   <string name="lichessTraining">Личес жаттығулары</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 (d) бабында жазылғандай, FIDE ережесін ұстанады.</string>
@@ -83,9 +82,9 @@
   <string name="canIbecomeLM">Личес Шебері (LM) атағын қалай алсам болады?</string>
   <string name="noUpperCaseDot">Ала алмайсыз.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Бұл атақ – бейресми. Оның тек Личес ішінде заңды күші бар.
-Өз қалауымызша тек аса көзге түскен ойыншыларды, Личестің жақсы азаматтарын ғана осы атақпен марапаттаймыз. Сіз Личес Шебері атағын таңдамайсыз, Личес Шебері атағы сізді таңдайды. Сіз лайықты болсаңыз, сізге растау хатын жіберетін боламыз.
+Өз қалауымызша тек аса көзге түскен ойыншыларды, Личестің жақсы азаматтарын ғана осы атақпен марапаттаймыз. Личес Шебері атағын сіз таңдамайсыз, Личес Шебері атағы сізді таңдайды. Сіз лайықты болсаңыз, біз растау хатын жібереміз.
 
-Личес Шебері атағын сұрамыңыз.</string>
+Личес Шебері атағын сұрамаңыз.</string>
   <string name="whatUsernameCanIchoose">Менің тіркелгі атым қандай болу керек?</string>
   <string name="usernamesNotOffensive">Жалпы, тіркелгі атында қорлау, басқа біреудің аты, жарнама сияқты белгілер болмау керек. %1$s туралы оқысаңыз болады.</string>
   <string name="guidelines">нұсқаулық</string>
@@ -116,7 +115,7 @@
   <string name="ratingLeaderboards">Мықтылар қатары</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">белгіленген рейтингте кем дегенде 30 бағаланатын ойын ойнау,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі аптада белгіленген рейтингте бағаланатын ойынға қатысу,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">рейтинг ауытқуы стандарт шахматта %1$s-тен кем, басқа түрлерінде %2$s-тен кем болу керек,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">рейтинг ауытқуы классикалық шахматта %1$s-тен кем, басқа түрлерінде %2$s-тен кем болу керек,</string>
   <string name="beInTopTen">белгіленген рейтингтің үздік 10 қатарында болу.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Екінші талап – өз тіркелгілерін пайдаланбайтын ойыншылар Мықтылар қатарынан шығады.</string>
   <string name="whyAreRatingHigher">Рейтинг басқа FIDE, USCF пен ICC сияқты ұйымдармен салыстырғанда неге жоғарылау болып тұр?</string>
@@ -124,7 +123,7 @@
 
 Рейтингті салыстырмалы шама деп ойлаған дұрыс: ойыншылар арасында рейтинг айырмашылығына қарап, кім жеңетінін, тең ойнайтынын не жеңілетінін бағалауға болады. \"Менің рейтингім осынша\" дегеннің ешбір мәні жоқ, тек басқа ойыншымен салыстырғаннан пайдасы болар.</string>
   <string name="howToHideRatingWhilePlaying">Рейтингті ойын кезінде қалай жасырсам болады?</string>
-  <string name="enableZenMode">%1$s-ге кіріп Zen қалпын қосыңыз немесе ойын кезінде %2$s басыңыз.</string>
+  <string name="enableZenMode">%1$s-ге кіріп Оқшау көріністі қосыңыз немесе ойын кезінде %2$s басыңыз.</string>
   <string name="displayPreferences">баптауларды көрсету</string>
   <string name="connexionLostCanIGetMyRatingBack">Желінің ажырауы/кідірісі кесірінен ойын тоқталды. Рейтинг ұпайларын қайтара аласыз ба?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Өкінішке орай, бұл ажырау не кідіріс кімнің жағынан болғанына қарамастан, біз осы жайтта ұпайды қайтара алмаймыз. Біздің жағымыздан туындаған ажырау мен кідіріс – мүлдем сирек болатын жағдай. Онымен қатар, Личес жүйесінің қайта қосылуынан сіз уақыт жоғалтсаңыз, әділсіз шығын болмағандай біз ойынды үзіп тастаймыз.</string>

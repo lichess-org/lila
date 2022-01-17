@@ -18,6 +18,5 @@
   <string name="headline">Penawd</string>
   <string name="changePicture">Newid/dileu eich llun</string>
   <string name="uploadPicture">Llwytho llun</string>
-  <string name="deletePicture">Dileu llun</string>
   <string name="maxSize">Maint mwyaf %s</string>
 </resources>

@@ -49,10 +49,10 @@ object Reason {
   def isGrantedFor(mod: Holder)(reason: Reason) = {
     import lila.security.Granter
     reason match {
-      case Cheat                    => Granter.is(_.MarkEngine)(mod)
-      case AltPrint | CheatPrint    => Granter.is(_.Admin)(mod)
-      case Comm                     => Granter.is(_.Shadowban)(mod)
-      case Boost | Playbans | Other => Granter.is(_.MarkBooster)(mod)
+      case Cheat                                    => Granter.is(_.MarkEngine)(mod)
+      case AltPrint | CheatPrint | Playbans | Other => Granter.is(_.Admin)(mod)
+      case Comm                                     => Granter.is(_.Shadowban)(mod)
+      case Boost                                    => Granter.is(_.MarkBooster)(mod)
     }
   }
 }
