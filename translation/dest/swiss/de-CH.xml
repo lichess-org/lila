@@ -39,9 +39,10 @@
   <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die gliich Aazahl Schpiil und 2 Schpiller träffed nur 1 Mal ufenand.
 Es isch e gueti Option, für Clubs und offizielli Turnier.</string>
   <string name="pointsCalculationQ">Wie werded d\'Pünkt berächnet?</string>
-  <string name="pointsCalculationA">En Sieg isch ein Punkt wärt, es Remi zwei, und wenn verlürsch bechumsch keine. Wenn du kein Gänger  hesch, bechumsch eifoch en Punkt.</string>
-  <string name="tiebreaksCalculationQ">Wie wärdäd Tie-Breaks berächnät?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger-Wärtig</string>
+  <string name="pointsCalculationA">En Sied git 1 Punkt und es Remis en halbe Punkt. 
+Hät en Schpiller mal kein Gägner, gits es Freilos d. h. 1 Gratispunkt.</string>
+  <string name="tiebreaksCalculationQ">Wie wird die sog. \"Fiinwertig\" berächnet?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger Wertig</string>
   <string name="tiebreaksCalculationA">Mit dem %s.
 Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen die der Spieler remisiert.</string>
   <string name="pairingsQ">Wiä wärdäd Paarigä entschidä?</string>
