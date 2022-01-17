@@ -602,9 +602,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="sourceCode">Quällcode</string>
   <string name="simultaneousExhibitions">Simultanschach Veraaschtaltige</string>
   <string name="host">Simultanschpiller</string>
-  <string name="hostColorX">Farb vum Simultanschpiller: %s</string>
+  <string name="hostColorX">Farb Simultanschpiller: %s</string>
   <string name="createdSimuls">Neu kreierts Simultanschach</string>
-  <string name="hostANewSimul">Es neus Simultanschach erschtelle</string>
+  <string name="hostANewSimul">Mach diir es Simultanschach</string>
   <string name="noSimulFound">Simultanschach nöd gfunde</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
   <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
@@ -617,8 +617,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="whenCreateSimul">Wänn du es Simultanschach erschtellsch, chasch du glichziitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
-  <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass mit em Simutlan zrächt chunsch.</string>
-  <string name="simulHostExtraTime">Extra Ziit vum Simultanschpiller</string>
+  <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
+  <string name="simulHostExtraTime">Extra Ziit Simultanschpiller</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turnier afangt</string>
@@ -627,10 +627,10 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
-  <string name="keyEnterOrExitVariation">wähl/verlaa Variante</string>
+  <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
   <string name="newTournament">Neus Turnier</string>
-  <string name="tournamentHomeTitle">Schachturnier mit verschidene Ziitkontrolle und Variante</string>
-  <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell dis Eigene. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfachschach und witeri Variante sind vorhande, für ändlose Schach-Spass.</string>
+  <string name="tournamentHomeTitle">Schachturnier mit verschiedene Ziitkontrolle und Variante</string>
+  <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und wiiteri Variante sind vorhande - für ändlose Schach-Spass.</string>
   <string name="tournamentNotFound">Turnier nöd gfunde</string>
   <string name="tournamentDoesNotExist">Das Turnier exischtiert nöd.</string>
   <string name="tournamentMayHaveBeenCanceled">Das Turnier wird abgseit, wänn alli Schpiller vor em Beginn weg sind.</string>
