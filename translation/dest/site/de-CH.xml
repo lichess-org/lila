@@ -607,9 +607,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="hostANewSimul">Es neus Simultanschach erschtelle</string>
   <string name="noSimulFound">Simultanschach nöd gfunde</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
-  <string name="returnToSimulHomepage">Zrugg zur Simultanschach Homepage</string>
+  <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
   <string name="aboutSimul">Bim Simultanschach schpillt 1 Simultanschpiller gliichziitig gäge beliebig vill Simultangägner.</string>
-  <string name="aboutSimulImage">Gäge 50 Schpiller hät de Bobby Fischer 47 Sieg und 2 Remis gschafft und nur 1 Partie verlore.</string>
+  <string name="aboutSimulImage">Hät de Fischer gäge 50 Gägner 47 Sieg plus 2 Remis gschafft und nur 1 Partie verlore.</string>
   <string name="aboutSimulRealLife">S\'Konzept isch wie bi reale Simultanschach-Veraschtaltige: De Simultanschpiller bewegt vu eim Simultangägner zum Nächschte und macht a jedem Brätt immer 1 Zug.</string>
   <string name="aboutSimulRules">Bim Simultanschach schpilled beliebig vill Simultangägner je 1 Partie gäge en Simultanschpiller und sGanzi ändet, wänn alli Schpiil fertig gschpillt sind.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
