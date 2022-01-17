@@ -45,24 +45,24 @@ Passwort: %3$s</string>
   <string name="createDesc1">Wänn de Schüeler no keis Lichess Konto hät, chasch du da eis für ihn b\'schtelle.</string>
   <string name="createDesc2">Es bruucht kei E-Mail-Adrässe. Es wird es Passwort generiert, das muesch em Schüeler mitteile, dass er sich aanmälde chann.</string>
   <string name="createDesc3">Wichtig: En Schüeler dörf nöd mehreri Konte bsitze.</string>
-  <string name="createDesc4">Verwende stattdessen das Einladungsformular, falls sie bereits eines besitzen.</string>
-  <string name="createStudentWarning">Erschtell nur Accounts für ächti Schüälär. Bruchs das nöd zum mehräri Accounts für dich z machä. Du würsch bannt wärdä.</string>
-  <string name="lichessUsername">Lichess Benutzernamä</string>
-  <string name="generateANewUsername">Ärschtell än neuä Benutzernamä</string>
-  <string name="welcomeToClass">Willkommen in deiner Klasse: %s.
-Hier ist der Link zum Zugriff auf die Klasse.</string>
-  <string name="invitationToClass">Du bist eingeladen, der Klasse \"%s\" als Schüler beizutreten.</string>
-  <string name="clickToViewInvitation">Klicke auf den Link, um die Einladung anzuzeigen:</string>
+  <string name="createDesc4">Wänns bereits eis händ, dänn nimmsch s\'Iiladigsformular.</string>
+  <string name="createStudentWarning">Mach nur Konti für ächti Schüeler. Benutz es nöd zum (mehreri) eigeni Konti mache! Suscht wirsch du vu Lichess uusgschlosse.</string>
+  <string name="lichessUsername">Lichess Benutzername</string>
+  <string name="generateANewUsername">Erschtell en neue Benutzername</string>
+  <string name="welcomeToClass">Willkomme i diinere Klass: %s.
+Da isch de Link für de Zuegriff uf die Klass.</string>
+  <string name="invitationToClass">Du bisch iiglade, de Klass \"%s\" als Schüeler biizträte.</string>
+  <string name="clickToViewInvitation">Klick uf de Link zum die Iiladig zeige:</string>
   <plurals name="nbPendingInvitations">
-    <item quantity="one">Eine ausstehende Einladung</item>
-    <item quantity="other">%s ausstehende Einladungen</item>
+    <item quantity="one">1 usstehendi Iiladig</item>
+    <item quantity="other">%s usstehendi Iiladige</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">Nur für die Klassenlehrer sichtbar</string>
+  <string name="onlyVisibleToTeachers">Nur für de Klasselehrer sichtbar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwaltet</string>
-  <string name="thisStudentAccountIsManaged">Dieses Schülerkonto wird verwaltet</string>
-  <string name="upgradeFromManaged">Aufwerten von verwaltet zu selbstständig</string>
-  <string name="release">Freigabe</string>
+  <string name="thisStudentAccountIsManaged">Das Schüelerkonto wird verwaltet</string>
+  <string name="upgradeFromManaged">Aufwerte vu \"verwaltet\" zu \"selbschtschtändig\"</string>
+  <string name="release">Freigab</string>
   <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
