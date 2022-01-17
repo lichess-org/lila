@@ -49,9 +49,9 @@
   <string name="castlingImported">Wänn du es Schpiil importiert häsch oder us ere beschtimmte Stellig schtartisch, stell sicher, dass du d\'Rächt für d\'Rochade richtig iigschtellt häsch.</string>
   <string name="insufficientMaterial">Nöd gnueg Material zum Matt setze</string>
   <string name="fideMate">Nach de FIDE Schachregle §6.9 isch e Partie nöd Remis, wänn es Schachmatt, mit irgend einere, legale Zugsfolg, möglich isch</string>
-  <string name="knightMate">Äs isch möglich, mit nur eim Gaul oder Läufer Matt z\'setzä, falls dä Gegner meh als nu dä König ufäm Brätt hät.</string>
-  <string name="noRatingPoints">Kei Wärtigspünkt sind vergeh wordä</string>
-  <string name="ratedGame">Schtell sicher, dass du äs gwärtäts Schpiil schpilsch. Ungwärtäti Schpiil beiiflussäd d\'Schpillerwärtigä nöd.</string>
+  <string name="knightMate">Es isch möglich - nur mit Schpringer oder Läufer - es Schachmatt z\'erreiche, wänn de Gägner meh als nur de König uf em Brätt hät.</string>
+  <string name="noRatingPoints">Es sind kei Wertigspünkt vergeh worde</string>
+  <string name="ratedGame">Schpill gwerteti Partie. Ungwerteti Schpiil verändered diini Wertig (Rating) nöd.</string>
   <string name="botRatingAbuse">Wänn än Schpiller geg än Bot schpillt, chas under Umschtände passiärä, dass än Sieg imänä gwärtätä Schpiil ekai Pünkt iibringt, wänn nämli dä Schpiller dä Bot däzuä bruucht, Wärtigspünkt aazhüüfä.</string>
   <string name="errorPage">Fählersiitä</string>
   <string name="reportErrorPage">Falls du ä Fählersiitä entdeckt häsch, chasch du si mäldä:</string>
