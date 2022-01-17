@@ -22,21 +22,21 @@
   <string name="className">Klasse Name</string>
   <string name="classDescription">Klasse Beschriibig</string>
   <string name="visibleByBothStudentsAndTeachers">Sichtbar für Lehrer und Schüeler vu de Klass</string>
-  <string name="teachersOfTheClass">Lehrer der Klasse</string>
-  <string name="addLichessUsernames">Füäg Lichess-Benutzernämä hinzuä, zum si als Lehrer iizladä. Einnä pro Ziilä.</string>
-  <string name="resetPassword">Passwort zurücksetzen</string>
-  <string name="makeSureToCopy">Stelle sicher, dass du das Passwort jetzt kopierst oder aufschreibst. Du wirst keine Möglichkeit bekommen es erneut zu sehen!</string>
+  <string name="teachersOfTheClass">Lehrer vu de Klass</string>
+  <string name="addLichessUsernames">Füeg Lichess Benutzernäme zue, um sie als Lehrer iizlade. Aber nur 1 pro Ziile.</string>
+  <string name="resetPassword">Passwort zruggsetze</string>
+  <string name="makeSureToCopy">Stell sicher, dass du das Passwort jetzt kopiersch oder ufschriibsch. Du wirsch kei Möglichkeit meh haa das Wort nomal z\'gseh!</string>
   <string name="passwordX">Passwort: %s</string>
-  <string name="generateANewPassword">Generiere ein neues Passwort für den Schüler</string>
-  <string name="invitedToXByY">Eingeladen zu %1$s von %2$s</string>
-  <string name="realName">Echter Name</string>
-  <string name="privateWillNeverBeShown">Privat. Wird niä usserhalb vodä Klass aazeigt. Hilft dir, dich z\'erinnärä, wer dä Schüaler / diä Schüälerin isch.</string>
-  <string name="addStudent">Schüler hinzufügen</string>
-  <string name="lichessProfileXCreatedForY">Lichess-Profil %1$s erstellt für %2$s.</string>
-  <string name="studentCredentials">Schüäler/-in: %1$s
-Benutzernamä: %2$s
+  <string name="generateANewPassword">Generier es neus Passwort für de Schüeler</string>
+  <string name="invitedToXByY">Iiglade zu %1$s vu %2$s</string>
+  <string name="realName">Richtige Name</string>
+  <string name="privateWillNeverBeShown">Privat. Wird nie usserhalb vu de Klass aazeigt. Das hilft dich z\'erinnere, wer de Schüeler isch.</string>
+  <string name="addStudent">Schüeler dezue neh</string>
+  <string name="lichessProfileXCreatedForY">Lichess Profil %1$s erschtellt für %2$s.</string>
+  <string name="studentCredentials">Schüeler: %1$s
+Benutzername: %2$s
 Passwort: %3$s</string>
-  <string name="inviteALichessAccount">Einen Lichess-Nutzer einladen</string>
+  <string name="inviteALichessAccount">En Lichess Nutzer iilade</string>
   <string name="inviteDesc1">Falls der Schüler bereits ein Lichess-Konto besitzt, kannst du ihn zur Klasse hinzufügen.</string>
   <string name="inviteDesc2">Er wird eine Nachricht mit einem Link zum Beitreten auf Lichess erhalten.</string>
   <string name="inviteDesc3">Wichtig: Lade nur Schüler ein, die du kennst und die aktiv der Klasse beitreten wollen.</string>
