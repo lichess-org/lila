@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Hüfig Gfrögt</string>
-  <string name="frequentlyAskedQuestions">Hüfig gschtellti Frogä</string>
-  <string name="whyIsLichessCalledLichess">Worum heisst Lichess Lichess?</string>
+  <string name="frequentlyAskedQuestions">Oft geschtellti Frage</string>
+  <string name="whyIsLichessCalledLichess">Wieso de Name Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Äs wird %1$s usgsprochä.</string>
   <string name="leechess">li-tschäss</string>
   <string name="hearItPronouncedBySpecialist">Los dir d\'Uussproch vomänä Schpezialischt aa.</string>
