@@ -54,6 +54,9 @@ final class PrefApi(
   def followable(userId: User.ID): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
 
+  def corresEmailNotifiable(userId: User.ID): Fu[Boolean] =
+    coll.primitiveOne[Boolean]($id(userId), "corresEmailNotif") map (_ | Pref.default.corresEmailNotif)
+
   private def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",

@@ -9,6 +9,8 @@ import lila.common.{ Future, LightUser }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
+import lila.mailer.Mailer
+import lila.pref.PrefApi
 import lila.user.User
 
 final private class PushApi(
@@ -17,7 +19,9 @@ final private class PushApi(
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
+    mailer: Mailer,
+    prefApi: PrefApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -72,10 +76,8 @@ final private class PushApi(
               gameRepo.countWhereUserTurn(userId) flatMap { nbMyTurn =>
                 asyncOpponentName(pov) flatMap { opponent =>
                   game.pgnMoves.lastOption ?? { sanMove =>
-                    pushToAll(
-                      userId,
-                      _.move,
-                      PushApi.Data(
+                    val data = PushApi
+                      .Data(
                         title = "It's your turn!",
                         body = s"$opponent played $sanMove",
                         stacking = Stacking.GameMove,
@@ -85,7 +87,11 @@ final private class PushApi(
                         ),
                         iosBadge = nbMyTurn.some.filter(0 <)
                       )
-                    )
+                    pushToAll(
+                      userId,
+                      _.move,
+                      data
+                    ) >> (prefApi.corresEmailNotifiable(userId) flatMap { _ ?? sendAsEmail(userId, data) })
                   }
                 }
               }
@@ -256,6 +262,19 @@ final private class PushApi(
         )
       }
     }
+
+  private def sendAsEmail(userId: User.ID, pushData: PushApi.Data): Funit = {
+    userRepo email userId flatMap {
+      _ ?? { email =>
+        mailer send Mailer.Message(
+          to = email,
+          subject = pushData.title,
+          text = pushData.body,
+          htmlBody = Mailer.html.standardEmail(pushData.body)(lila.i18n.defaultLang).some
+        )
+      }
+    }
+  }
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
