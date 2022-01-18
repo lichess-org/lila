@@ -13,11 +13,11 @@
   <string name="findMoreAndSeeHowHelp">Du chasch meh drüber erfahre, wie du %1$s wirsch und du chasch au e %2$s aaluege. Und falls du Lichess, mit freiwilliger Arbet wottsch underschtütze, gits einigi %3$s.</string>
   <string name="beingAPatron">en Gönner</string>
   <string name="breakdownOfOurCosts">Ufschlüsselig vu euse Choschte</string>
-  <string name="otherWaysToHelp">anderi Wääg z\'hälfä</string>
-  <string name="areThereWebsitesBasedOnLichess">Gits Websiitänä wo uf Lichess basiäräd?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Jawoll. Lichess hät in der Tat anderi quälloffäni Siitä inschpiriärt, wo üsän %1$s, üsäs %2$s oder üsi %3$s verwändäd.</string>
-  <string name="fairPlay">Fäärs Schpiil</string>
-  <string name="whenAmIEligibleRatinRefund">Wänn qualifiziär ich mich für di automatische Wärtigs-Rückerschtattig vo Bschiiser?</string>
+  <string name="otherWaysToHelp">anderi Wäg z\'hälfe</string>
+  <string name="areThereWebsitesBasedOnLichess">Gits Website wo uf Lichess basiered?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja - Lichess hät tatsächlich anderi quälle-offeni Site inschpiriert, wo euse %1$s, %2$s oder eusi %3$s verwänded.</string>
+  <string name="fairPlay">Fairs Schpille</string>
+  <string name="whenAmIEligibleRatinRefund">Wänn chumm ich Wertigspünkt zrugg über, wo mir en Betrüger gnah hät?</string>
   <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, sich damit deine Wertung (wegen einer Niederlage oder eines Remis\') verschlechtert hat und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung wird begrenzt durch deine Spitzenwertung und deine Wertungsfortschritte nach der Partie.
  (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
   <string name="preventLeavingGameWithoutResigning">Was geschieht mit Spielern, die Partien verlassen ohne aufzugeben?</string>
