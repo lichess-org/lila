@@ -25,7 +25,7 @@
   <string name="monthly">Monetlich</string>
   <string name="recurringBilling">Regelmässigi Zahlig, wo din Gönner Flügel jede Monet erneueret.</string>
   <string name="onetime">Eimalig</string>
-  <string name="singleDonation">Eimaligi Schpänd, wo dir en Gönner-Flügel für ein Monet verleiht.</string>
+  <string name="singleDonation">Eimaligi Schpänd, wo dir en Gönner Flügel für 1 Monet verleiht.</string>
   <string name="otherAmount">Andere</string>
   <string name="pleaseEnterAmountInX">Bitte gib en Betrag in %s ii</string>
   <string name="withCreditCard">Kreditcharte</string>
