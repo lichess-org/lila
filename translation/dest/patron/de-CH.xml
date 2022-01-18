@@ -18,33 +18,34 @@
   <string name="patronUntil">Du häsch es Gönnerkonto bis %s.</string>
   <string name="ifNotRenewed">Wänns nöd erneuerisch, wird diis Konto zum Gratiskonto zrugg g\'schtuuft.</string>
   <string name="weAreNonProfit">Mir sind e \"Non-Profit-Organisation\", will mir glaubed, dass jede sött Zuegang zu ere gratis, \"Wältklass Schach Plattform\" haa.</string>
-  <string name="weRelyOnSupport">Mir sind uf underschtützig vu Lüüt, wie du, aagwise zum das möglich z\'mache. Wänn dir Lichess g\'fallt, chasch du eus underschtütze, indem du schpändisch und so en Lichess Gönner wirsch!</string>
+  <string name="weRelyOnSupport">Mir sind uf d\'Underschtützig vu so Lüt wie du aagwise, zum das möglich z\'mache. Wänn dir Lichess g\'fallt, chasch du eus underschtütze, indem du schpändisch und so en Lichess Gönner wirsch!</string>
   <string name="lifetime">Läbeslang</string>
   <string name="payLifetimeOnce">Zall eimal %s. Wird für immer Lichess Gönner!</string>
   <string name="lifetimePatron">Läbeslange Lichess Gönner</string>
   <string name="monthly">Monetlich</string>
-  <string name="recurringBilling">Regelmässigi Zallig, wo diin Gönner-Flügel jede Monet erneueret.</string>
+  <string name="recurringBilling">Regelmässigi Zahlig, wo din Gönner Flügel jede Monet erneueret.</string>
   <string name="onetime">Eimalig</string>
   <string name="singleDonation">Eimaligi Schpänd, wo dir en Gönner-Flügel für ein Monet verleiht.</string>
   <string name="otherAmount">Andere</string>
   <string name="pleaseEnterAmountInX">Bitte gib en Betrag in %s ii</string>
   <string name="withCreditCard">Kreditcharte</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">Mir sind es chliises Team, drum macht diini Underschtützig en riese Underschied!</string>
+  <string name="weAreSmallTeam">Mir sind es chliises Team, drum macht dini Underschtützig en riese Underschied!</string>
   <string name="celebratedPatrons">Die g\'fiirete Gönner, wo Lichess möglich mached</string>
-  <string name="whereMoneyGoes">Wohi flüüst das Gäld?</string>
+  <string name="whereMoneyGoes">Wohi flüsst das Gäld?</string>
   <string name="serversAndDeveloper">Ganz zerscht i leischtigsstarchi Server. 
 Dänn zahled mir en Vollziit-Entwickler: %s, de Gründer vu Lichess.</string>
   <string name="costBreakdown">Da die detailliert Choschte Uufteilig</string>
   <string name="officialNonProfit">Isch Lichess e offizielli Non-Profit-Organisation?</string>
   <string name="actOfCreation">Ja, da isch d\'Gründigsurkund (uf französisch)</string>
-  <string name="changeMonthlySupport">Chann ich miini monetlichi Underschtützig ändere oder chünde?</string>
-  <string name="changeOrContact">Ja, jederziit vu dere Site us.
-Oder du chasch %s.</string>
+  <string name="changeMonthlySupport">Chann ich mini monetlichi Underschtützig ändere/chünde?</string>
+  <string name="changeOrContact">Ja - jederziit vu dere Site us oder
+du chasch %s.</string>
   <string name="contactSupport">de Lichess Support kontaktiere</string>
   <string name="otherMethods">Anderi Schpändemöglichkeite?</string>
-  <string name="bankTransfers">Mir akzeptiered au Überwiisige</string>
-  <string name="patronFeatures">Gits zuesätzlichi Funktione für Gönner?</string>
+  <string name="bankTransfers">Mir akzeptiered au Überwisige</string>
+  <string name="patronFeatures">Gits zuesätzlichi Funktione
+für en Gönner?</string>
   <string name="noPatronFeatures">Nei, will Lichess isch komplett gratis, für immer und für alli. Das isch es Verschpräche.
 Aber en Gönner chann sich mit dem neue, coole Profil-Flamme-Icon schmücke.</string>
   <string name="featuresComparison">Check de Detailvergliich vu de Funktione</string>
