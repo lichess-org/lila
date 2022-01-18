@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Suechi</string>
-  <string name="advancedSearch">Erwiitereti Suechi</string>
+  <string name="advancedSearch">Erwitereti Suechi</string>
   <plurals name="searchInXGames">
     <item quantity="one">Suech in %s Partie</item>
     <item quantity="other">Suech in %s Partie</item>
@@ -17,7 +17,7 @@
   <string name="humanOrComputer">Ob de Gägner en Mänsch oder en Computer gsi isch</string>
   <string name="aiLevel">K.I. Stärchi</string>
   <string name="source">Quälle</string>
-  <string name="nbTurns">Zuganzahl</string>
+  <string name="nbTurns">Aazahl Züg</string>
   <string name="result">Ergäbnis</string>
   <string name="winnerColor">Sieger Farb</string>
   <string name="date">Datum</string>
