@@ -7,8 +7,8 @@
   <string name="leechess">liitschess</string>
   <string name="hearItPronouncedBySpecialist">Los dir Usschprach Bischpiil aa.</string>
   <string name="whyLiveLightLibre">\"Live\" will Partie rund um d\'Uhr in Ächtziit gschpillt und aaglueget werde chönd und \"light + libre\", also liecht und frei, will Lichess quälle-offe isch und frei vu Müll, wo vill anderi Internetsite belaschted.</string>
-  <string name="whyIsLilaCalledLila">Ähnlich verhaltät sichs au mitäm Quällcode vo Lichess, %1$s, was für li[chess in sca]la stoht. Dä Grossteil vo Lichess isch in %2$s gschribä worde, änärä intuitivä Programmiersproch.</string>
-  <string name="howCanIContributeToLichess">Wiä chan ich zu Lichess biiträgä?</string>
+  <string name="whyIsLilaCalledLila">Ähnlich ischs mit em Quällcode vu Lichess, %1$s, was für \"li[chess in sca]la\" staht. De Grossteil vu de Plattform isch ebe i dem %2$s gschribe worde. \"Scala\" isch e intuitivi Programmierschprach. Und näbebi bemerkt, isch es au offesichtlich, dass regi, verschpillti Fantasie mit gwürkt hät.</string>
+  <string name="howCanIContributeToLichess">Wie chann ich zu Lichess öppis biiträge?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Schpändä vo Underschtützer und vodä Leischtigä vo Freiwilligä betribä.</string>
   <string name="findMoreAndSeeHowHelp">Du chasch meh drüber usäfindä, %1$s (inklusiv änärä %2$s). Falls du Lichess dur freiwilligi Arbät underschtützä wöttsch, gits vili %3$s.</string>
   <string name="beingAPatron">än Patroon z\'sii</string>
