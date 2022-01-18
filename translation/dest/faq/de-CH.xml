@@ -18,16 +18,16 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja - Lichess hät tatsächlich anderi quälle-offeni Site inschpiriert, wo euse %1$s, %2$s oder eusi %3$s verwänded.</string>
   <string name="fairPlay">Fairs Schpille</string>
   <string name="whenAmIEligibleRatinRefund">Wänn chumm ich Wertigspünkt zrugg über, wo mir en Betrüger gnah hät?</string>
-  <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, sich damit deine Wertung (wegen einer Niederlage oder eines Remis\') verschlechtert hat und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung wird begrenzt durch deine Spitzenwertung und deine Wertungsfortschritte nach der Partie.
- (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
-  <string name="preventLeavingGameWithoutResigning">Was geschieht mit Spielern, die Partien verlassen ohne aufzugeben?</string>
+  <string name="ratingRefundExplanation">1 Minute, nachedm en Schpiller markiert worde isch, werded sini 40 jüngschte Partie, vu de letschte 3 Tag aaglueget. Wänn du i dene Partie under de Gägner gsii bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsii isch, chunnsch du e Wertigsrückerstattig über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und dini Wertigsfortschritt nach dere Partie.
+(Wänn dini Wertig nach so Partie starch gschtige isch, gits möglicherwiis kei Rückerschtattig oder nur e Teil-Rückerschtattig.) E Rückerschtattig betreit nie meh als 150 Pünkt.</string>
+  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo eifach abhaued anstatt e Partie ufzgeh?</string>
   <string name="leavingGameWithoutResigningExplanation">Falls dein Gegner häufig Partien abbricht/verlässt, erhält er einen \"Spiel-Bann\", was bedeutet, dass er temporär keine Partien mehr spielen kann. Dies wird nicht öffentlich auf der Profilseite vermerkt. Falls dieses Verhalten fortbesteht, wird die Länge des Spiel-Banns verlängert. Weitere dieser Vergehen können schließlich zur Schließung des Kontos führen.</string>
-  <string name="howCanIBecomeModerator">Wiä chan ich Moderator wärdä?</string>
-  <string name="youCannotApply">Äs isch nöd möglich, sich als Moderator z\'bewärbä. Wänn mir öpper gsehnd, vo däm mir glaubäd, dass er/sie als Moderator guet wär, wärdäd mir ihn/sie direkt kontaktiärä.</string>
-  <string name="isCorrespondenceDifferent">Underscheidät sich Färnschach vo normaläm Schach?</string>
+  <string name="howCanIBecomeModerator">Wie chann ich Moderator werde?</string>
+  <string name="youCannotApply">Es isch nöd möglich sich als Moderator z\'bewerbe. Wänn mir öpper gsehnd, wo mir dänked, dass er en guete Moderator chönnt sii, kontaktiered mir ihn diräkt.</string>
+  <string name="isCorrespondenceDifferent">Underscheidet sich Fernschach vo normalem Schach?</string>
   <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtoht dä Hauptunderschiid idä Reglä für Fürnschach dodrin, dass äs Eröffnigsbuäch erlaubt isch. D\'Verwändig vo Schachkompis isch aber immer no verbotä und füährt zunärä Markiärig vom Konto wäg unerlaubter Underschtützig dur Schachkompis. Obwohl d\'ICCF d\'Verwändig vo Schachkompis in Färnschachpartiiä erlaubt, isch das uf Lichess nöd gschtattät.</string>
-  <string name="gameplay">Schpiilärläbnis</string>
-  <string name="howBulletBlitzEtcDecided">Wiä wird entschidä, was Bullet, Blitz und anderi Ziitkontrollä sind?</string>
+  <string name="gameplay">Schpiilerläbnis</string>
+  <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Ziitkontrolle sind?</string>
   <string name="basedOnGameDuration">Lichess Ziitkontrollä basiäräd uf dä erwartätä Schpillduur = %1$s
 Zum Biischpiil berächnät sich di erwartätä Schpillduur vonärä 5+3 Partii zu 5 × 60 + 40 × 3 = 420 Sekundä.</string>
   <string name="durationFormula">(Ziitguäthabä am Aafang) + 40 × (Zug-Inkremänt)</string>
