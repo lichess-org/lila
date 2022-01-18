@@ -63,8 +63,8 @@
     <item quantity="other">Hät Rang #%1$s (oberi %2$s%%) mit %3$s Schpiil in %4$s erreicht</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Hät a %s Turnier nach Schwiizer System teilgnah</item>
-    <item quantity="other">Hät a %s Turnier nach Schwiizer System teilgnah</item>
+    <item quantity="one">Hät a %s Turnier nach \"Schweizer System\" teilgnah</item>
+    <item quantity="other">Hät a %s Turnier nach \"Schweizer System\" teilgnah</item>
   </plurals>
   <string name="rankedInSwissTournament">Hät Rang #%1$s im Turnier %2$s erreicht</string>
   <string name="signedUp">Hät sich bi lichess.org aagmäldet</string>
