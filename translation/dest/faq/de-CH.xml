@@ -3,8 +3,8 @@
   <string name="faqAbbreviation">Hüfig Gfrögt</string>
   <string name="frequentlyAskedQuestions">Oft geschtellti Frage</string>
   <string name="whyIsLichessCalledLichess">Wieso de Name Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Äs wird %1$s usgsprochä.</string>
-  <string name="leechess">li-tschäss</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch e Kombinazion us live/light/libre und Schach. Uusgschproche wirds: %1$s us.</string>
+  <string name="leechess">liitschess</string>
   <string name="hearItPronouncedBySpecialist">Los dir d\'Uussproch vomänä Schpezialischt aa.</string>
   <string name="whyLiveLightLibre">Live, will Partiiä wärdäd 24/7 in Echtziit gschpillt und aagluägät; liächt und gratis ufgrund vodä Tatsach, dass Lichess quälloffä und frei vo proprietäräm Müll isch, wo anderi Internetsiitä belaschtät.</string>
   <string name="whyIsLilaCalledLila">Ähnlich verhaltät sichs au mitäm Quällcode vo Lichess, %1$s, was für li[chess in sca]la stoht. Dä Grossteil vo Lichess isch in %2$s gschribä worde, änärä intuitivä Programmiersproch.</string>
