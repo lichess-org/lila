@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="coordinates">Koordinatä</string>
-  <string name="coordinateTraining">Koordinatäträning</string>
-  <string name="averageScoreAsWhiteX">Durchschnittlichi Punktzahl mit Wiis: %s</string>
+  <string name="coordinates">Koordinate</string>
+  <string name="coordinateTraining">Koordinate Training</string>
+  <string name="averageScoreAsWhiteX">Durchschnittlichi Punktzahl mit Wiss: %s</string>
   <string name="averageScoreAsBlackX">Durchschnittlichi Punktzahl mit Schwarz: %s</string>
-  <string name="knowingTheChessBoard">D\'Koordinatä vom Schachbrätt z\'kennä isch ä wichtigi Fähigkeit:</string>
-  <string name="mostChessCourses">Di meischtä Schach-Kürs und Üäbigä verwändäd di algebraische Notazion.</string>
-  <string name="talkToYourChessFriends">Es macht es einfacher dich mit deinen Schachfreunden zu unterhalten, da ihr beide die \"Schachsprache\" versteht.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Du chasch äs Schpiil effektiver analysiärä, wänn du nöd immer noch dä Fäldbezeichnigä suächä muäsch.</string>
-  <string name="aSquareNameAppears">Dä Fäldnamä wird ufäm Brätt aazeigt und du muäsch ufs zuäghörige Fäld klickä. Du häsch 30 Sekundä, zum möglichscht vili Fälder z\'ärkännä!</string>
-  <string name="startTraining">Training beginnen</string>
+  <string name="knowingTheChessBoard">D\'Koordinate vom Schachbrätt z\'känne, isch e wichtigi Fähigkeit:</string>
+  <string name="mostChessCourses">Die meischte Schach Kürs und Üebige verwänded die algebraisch Notazion.</string>
+  <string name="talkToYourChessFriends">Es machts eifacher mit de Schachfründe rede, wänn beidi die \"Schach-Schprach\" verschtöhnd.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Du chasch es Schpiil effektiver analysiere, wänn du d\'Koordinate schnäll gsehsch.</string>
+  <string name="aSquareNameAppears">Üebig: Es erschiined Koordinate (z. B. c3) uf em Brätt und du muesch ufs entschprächendi Fäld klicke. 
+Du häsch - pro Durchgang - immer 30 Sekunde Ziit, zum möglichscht vill Fälder richtig z\'identifiziere!</string>
+  <string name="startTraining">Training schtarte</string>
 </resources>

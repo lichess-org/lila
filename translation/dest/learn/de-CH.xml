@@ -23,7 +23,7 @@ Bisch parat, ihn z\'kommandiere?</string>
   <string name="youNeedBothBishops">En wissfäldrige und en schwarzfäldrige Läufer, du bruchsch beidi!</string>
   <string name="bishopComplete">Gratuliere, du chasch jetzt de Läufer kommandiere.</string>
   <string name="theQueen">Dame oder Königin</string>
-  <string name="queenCombinesRookAndBishop">Dame = zieht wie Turm und Läufer</string>
+  <string name="queenCombinesRookAndBishop">Bewegt sich wie Turm und Läufer</string>
   <string name="queenIntro">Die stärchscht Schachfigur chunnt: 
 \"Ihre Majestät die Dame!\"!</string>
   <string name="queenComplete">Gratuliere, die Königin hät kei Gheimnis meh für dich.</string>
@@ -38,16 +38,16 @@ Bisch parat, ihn z\'kommandiere?</string>
   <string name="knightIntro">Jetzt e Useforderig für dich, de Schpringer isch e kniffligi Figur.</string>
   <string name="knightsHaveAFancyWay">Schpringer händ e usgfalleni Art umezgumpe!</string>
   <string name="knightsCanJumpOverObstacles">Schpringer chönd über Hindernis gumpe! 
-Scgpring los und triff all Stern!</string>
+Hüpf los und triff uf jede Stern!</string>
   <string name="knightComplete">Gratuliere, du beherrschisch jetzt au de Schpringer.</string>
   <string name="thePawn">De Puur</string>
   <string name="itMovesForwardOnly">Er chann sich nur vorwärts bewege</string>
   <string name="pawnIntro">Puure sind schwach, aber sie händ vill Möglichkeite.</string>
-  <string name="pawnsMoveOneSquareOnly">En Puur bewegt sich nur eis Fäld vorwärts. Aber wänn er die ander Siite vom Brätt erreicht, chann er sich in e stärcheri Figur umwandle!</string>
+  <string name="pawnsMoveOneSquareOnly">En Puur bewegt sich nur eis Fäld vorwärts. Aber wänn er die ander Siite vom Brätt erreicht, dänn chann er sich in e stärcheri Figur umwandle!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meischtens isch es s\'Bescht, e Dame z\'mache. 
 Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="pawnsMoveForward">Puure ziehnd vorwärts, aber schlah tüends diagonal!</string>
-  <string name="captureThenPromote">Zerscht schlahn und dänn umwandle!</string>
+  <string name="captureThenPromote">Zerscht schlah und nachher umwandle!</string>
   <string name="useAllThePawns">Benutz all Puure! Mer muess nöd Umwandle.</string>
   <string name="aPawnOnTheSecondRank">En Puur dörf - bim 1. Zug - grad 2 Fälder vorwärts!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir all die Stern! 
@@ -177,7 +177,7 @@ Puur = 1</string>
   <string name="practice">Training</string>
   <string name="learnCommonChessPositions">Lern mit gängige Stellige</string>
   <string name="puzzles">Ufgabe löse</string>
-  <string name="exerciseYourTacticalSkills">Tranier diini taktische Fähigkeite</string>
+  <string name="exerciseYourTacticalSkills">Trainier diini taktische Fähigkeite</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Lueg lehrriichi Schach-Videos</string>
   <string name="playPeople">Schpill online mit Lüt</string>
