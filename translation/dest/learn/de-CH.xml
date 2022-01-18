@@ -95,8 +95,8 @@ Umwandle muesch nöd.</string>
   <string name="attackYourOpponentsKing">Griif de gägnerisch König so aa, dass diin Aagriff nöd abgwehrt werde cha!</string>
   <string name="mateInOneComplete">Gratuliere, genau so günnsch du Schachschpiil!</string>
   <string name="intermediate">Mittlers Niveau</string>
-  <string name="boardSetup">Uufschtellig</string>
-  <string name="howTheGameStarts">Wie das Spiil aafangt</string>
+  <string name="boardSetup">Ufschtellig</string>
+  <string name="howTheGameStarts">Wie das Schpiil aafangt</string>
   <string name="boardSetupIntro">Die beide Armee stöhnd sich gägenüber, parat für d\'Schlacht.</string>
   <string name="thisIsTheInitialPosition">Das isch die richtig Aafangsstellig vu jedem Schachschpiil. Mach irgend en Zug zum wiiter fahre.</string>
   <string name="firstPlaceTheRooks">Stell zerscht die beide Türm uf!
@@ -112,7 +112,7 @@ Zu de Dame - zu siinere Königin.</string>
 Mach irgend en Zug zum wiiter fahre.</string>
   <string name="boardSetupComplete">Gratuliere, du weisch jetzt, wie mer all Schachfigure richtig ufschtellt.</string>
   <string name="castling">Rochade</string>
-  <string name="theSpecialKingMove">De spezielli Königszug</string>
+  <string name="theSpecialKingMove">De schpezielli Königszug</string>
   <string name="castlingIntro">Bring diin König i Sicherheit und de Turm i Agriffsposizion!</string>
   <string name="castleKingSide">Zieh de König - uf de Königssiite - zwei Fälder. 
 Das isch die churz Rochade \"0-0\"!</string>
@@ -127,7 +127,7 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
   <string name="castlingComplete">Gratuliere, mer sött im Schach fascht immer e Rochade mache.</string>
   <string name="enPassant">En passant</string>
-  <string name="theSpecialPawnMove">De speziell Puurezug</string>
+  <string name="theSpecialPawnMove">De schpezielli Puurezug</string>
   <string name="enPassantIntro">Isch en Puur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Puur 2 Fälder vor gschobe!
 Schlag de Puur \"en passant\".</string>
@@ -136,7 +136,7 @@ Schlag de Puur \"en passant\".</string>
   <string name="takeAllThePawnsEnPassant">Schlag jetzt jede Puur \"en passant\"!</string>
   <string name="enPassantComplete">Gratuliere, du weisch jetzt, wie me \"en passant\" schlaht.</string>
   <string name="stalemate">Patt Schtellig</string>
-  <string name="theGameIsADraw">Es Spiil isch Remis (unentschide)</string>
+  <string name="theGameIsADraw">Es Schpiil isch Remis (unentschide)</string>
   <string name="stalemateIntro">Wänn en Schpiller nöd im Schach staht und kein gültige Zug mache chann, dänn isch es Patt und die Partie ändet Remis: Niemer günnt und niemer verlürt.</string>
   <string name="stalemateGoal">Schwarz absichtlich Patt setze:
 - Schwarz chann kein Zug mache
@@ -175,7 +175,7 @@ Puur = 1</string>
   <string name="register">Regischtriere</string>
   <string name="getAFreeLichessAccount">Mach es choschteloses Konto bi lichess</string>
   <string name="practice">Training</string>
-  <string name="learnCommonChessPositions">Lern mit gängige Stellige</string>
+  <string name="learnCommonChessPositions">Lern mit gängige Schtellige</string>
   <string name="puzzles">Ufgabe löse</string>
   <string name="exerciseYourTacticalSkills">Trainier diini taktische Fähigkeite</string>
   <string name="videos">Videos</string>
