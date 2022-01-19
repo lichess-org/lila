@@ -60,7 +60,7 @@
   <string name="failed">unglöst</string>
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie z\'erreiche. Nimm dir Ziit, es lauft kei Uhr. Doch nur 1 falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Serie überschpringe.</string>
   <string name="yourStreakX">Dini Erfolgsserie: %s</string>
-  <string name="streakSkipExplanation">Überschpring de Zug, um diini Erfolgsserie z\'bhalte! Aber du chasch das nur 1x pro Serie mache.</string>
+  <string name="streakSkipExplanation">Überschpring de Zug, um dini Erfolgsserie z\'hebe! Aber du chasch das nur 1x pro Serie mache.</string>
   <string name="continueTheStreak">Erfolgsserie wiiterspille</string>
   <string name="newStreak">Neui Erfolgsserie</string>
   <string name="fromMyGames">Us eigene Schpiil</string>
@@ -83,5 +83,5 @@ Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufga
   <string name="percentSolved">%s glöst</string>
   <string name="noPuzzlesToShow">Es git no nüt zum zeige, lös zerscht es paar Ugabe!</string>
   <string name="improvementAreasDescription">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
-  <string name="strengthDescription">Diini Leischtig isch am beschte i dene Theme</string>
+  <string name="strengthDescription">Dini Leischtig isch am beschte i dene Theme</string>
 </resources>
