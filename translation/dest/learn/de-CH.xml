@@ -5,7 +5,7 @@
   <string name="menu">Menü</string>
   <string name="progressX">Fortschritt: %s</string>
   <string name="resetMyProgress">Min Fortschritt zruggsetze</string>
-  <string name="youWillLoseAllYourProgress">So verlürsch diin ganze Fortschritt!</string>
+  <string name="youWillLoseAllYourProgress">Aber so verlürsch du din ganze Fortschritt!</string>
   <string name="play">schpill!</string>
   <string name="chessPieces">Schachfigure</string>
   <string name="theRook">De Turm</string>
@@ -54,19 +54,19 @@ Aber mängisch isch au en Schpringer nützlich!</string>
 Umwandle muesch nöd.</string>
   <string name="pawnComplete">Gratuliere, au Puure sind keis Gheimnis meh für dich.</string>
   <string name="pawnPromotion">Puure Umwandlig</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Diin Puur hät s\'Ändi vom Brätt erreicht!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Din Puur hät s\'Ändi vom Brätt erreicht!</string>
   <string name="itNowPromotesToAStrongerPiece">Er wandlet sich jetzt in e stärcheri Figur um.</string>
   <string name="selectThePieceYouWant">Wähl die Figur wo du wottsch!</string>
   <string name="fundamentals">Grundlage</string>
   <string name="capture">Figure schlah</string>
   <string name="takeTheEnemyPieces">Schlag die feindliche Figure</string>
-  <string name="captureIntro">Entdeck ungschützti Figure vu diim Gägner und schlag sie!</string>
+  <string name="captureIntro">Entdeck ungschützti Figure vu dim Gägner und schlag sie!</string>
   <string name="takeTheBlackPieces">Schlag die schwarze Figure!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Schlag die schwarze Figure, aber verlür diini nöd.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Schlag die schwarze Figure, aber verlür dini nöd.</string>
   <string name="captureComplete">Gratuliere, du weisch jetzt, wie me mit de Schachfigure kämpft!</string>
   <string name="protection">Deckig</string>
   <string name="keepYourPiecesSafe">Beschütz dini Figure</string>
-  <string name="protectionIntro">Find use, welli Figure diin Gägner aagriift schütz sie!</string>
+  <string name="protectionIntro">Find use, welli Figure din Gägner aagriift und beschütz sie!</string>
   <string name="protectionComplete">Gratuliere, jedi Figur wo du nöd verlore häsch, isch e gunneni Figur!</string>
   <string name="escape">Du wirsch aagriffe, entchum dere Bedrohig!</string>
   <string name="noEscape">Es git e keis Entrinne, aber du chasch di verteidige!</string>
@@ -86,13 +86,13 @@ Umwandle muesch nöd.</string>
   <string name="escapeWithTheKing">Mit em König flüchte!</string>
   <string name="theKingCannotEscapeButBlock">De König chann nöd flüchte, aber du chasch de Aagriff blockiere!</string>
   <string name="youCanGetOutOfCheckByTaking">Du chunnsch us em Schach, wänn du de Aagrifer schlahsch.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">De Schpringer bütet Schach, dur diini Verteidigung!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">De Schpringer bütet Schach, dur dini Verteidigung!</string>
   <string name="escapeOrBlock">Mit em König flüchte oder de Aagriff blockiere!</string>
   <string name="outOfCheckComplete">Gratuliere, din König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
   <string name="mateInOne">Matt mit 1 Zug</string>
   <string name="defeatTheOpponentsKing">Besieg de gägnerisch König</string>
-  <string name="mateInOneIntro">Du günnsch, wänn diin Gägner diis Schachgebot nöd abwehre cha.</string>
-  <string name="attackYourOpponentsKing">Griif de gägnerisch König so aa, dass diin Aagriff nöd abgwehrt werde cha!</string>
+  <string name="mateInOneIntro">Du günnsch, wänn din Gägner dis Schachgebot nöd abwehre cha.</string>
+  <string name="attackYourOpponentsKing">Griif de gägnerisch König so aa, dass din Aagriff nöd abgwehrt werde cha!</string>
   <string name="mateInOneComplete">Gratuliere, genau so günnsch du Schachschpiil!</string>
   <string name="intermediate">Mittlers Niveau</string>
   <string name="boardSetup">Ufschtellig</string>
@@ -157,7 +157,7 @@ Dame &gt; Läufer</string>
   <string name="pieceValueExchange">Schlag d\'Figur mit em höchschte Wert!
 Aber tuusch debii kei wertvolli Figur gäge e Figur wo weniger Wert hät.</string>
   <string name="pieceValueLegal">Schlag d\'Figur mit em höchschte Wert!
-Lueg debii, dass diin Zug regelgerächt isch!</string>
+Und lueg debii, dass din Zug regulär isch!</string>
   <string name="takeThePieceWithTheHighestValue">Schlag d\'Figur mit em höchschte Wert!</string>
   <string name="pieceValueComplete">Gratuliere, du kännsch jetzt de Wert vu de Figure!
 Dam = 9
@@ -169,7 +169,7 @@ Puur = 1</string>
   <string name="twoMovesToGiveCheck">Mit 2 Züg Schach büüte</string>
   <string name="checkInTwoIntro">Find di richtig Kombination, zum de König mit 2 Züg Schach setze!</string>
   <string name="checkInTwoGoal">Bedroh de König mit 2 Züg!</string>
-  <string name="checkInTwoComplete">Gratuliere, du häsch diin Gägner Schach gsetzt und ihn zur Verteidigung vu siim König zwunge!</string>
+  <string name="checkInTwoComplete">Gratuliere, du häsch din Gägner Schach gsetzt und ihn zur Verteidigung vu sim König zwunge!</string>
   <string name="whatNext">Wie gahts wiiter?</string>
   <string name="youKnowHowToPlayChess">Gratuliere, du weisch jetzt wie me Schach schpillt! Wottsch en stärchere Schpiller werde?</string>
   <string name="register">Regischtriere</string>
@@ -183,7 +183,7 @@ Puur = 1</string>
   <string name="playPeople">Schpill online mit Lüt</string>
   <string name="opponentsFromAroundTheWorld">Gägner us de ganze Wält</string>
   <string name="playMachine">Computerschach</string>
-  <string name="testYourSkillsWithTheComputer">Erprob diis Schpiil mit em Computer</string>
+  <string name="testYourSkillsWithTheComputer">Erprob dis Schpiil mit em Computer</string>
   <string name="letsGo">Los gaht\'s!</string>
   <string name="stageX">Schtufe %s</string>
   <string name="awesome">Fantastisch!</string>
