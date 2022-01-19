@@ -52,6 +52,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .batchSize(1)
       .cursor[Tournament]()
 
+  private[tournament] def idsCursor(ids: Iterable[Tournament.ID]) =
+    coll.find($inIds(ids)).cursor[Tournament]()
+
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](
       startedSelect ++ $doc(

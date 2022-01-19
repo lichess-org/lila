@@ -85,7 +85,9 @@ case class Tournament(
       secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
     }
 
-  def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
+  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.getSeconds)
+
+  def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.getSeconds) < 15
 

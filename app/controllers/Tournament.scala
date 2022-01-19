@@ -121,7 +121,10 @@ final class Tournament(
                 }
                 streamers   <- streamerCache get tour.id
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
-              } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+              } yield {
+                env.tournament.lilaHttp.hit(tour)
+                Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+              }
             }
             .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
           api = _ =>

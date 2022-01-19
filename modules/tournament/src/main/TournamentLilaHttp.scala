@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.common.LilaStream
 import reactivemongo.api.ReadPreference
-import lila.memo.ExpireSetMemo
+import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
 final class TournamentLilaHttp(
     api: TournamentApi,
@@ -24,11 +24,13 @@ final class TournamentLilaHttp(
 )(implicit mat: akka.stream.Materializer, system: ActorSystem, ec: ExecutionContext) {
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
+  def hit(tour: Tournament)     = if (hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
 
   private val isOnLilaHttp = new ExpireSetMemo(3 hours)
+  private val hitCounter   = new FrequencyThreshold[Tournament.ID](10, 30 seconds)
 
   private val periodicSender = system.actorOf(Props(new Actor {
 
@@ -53,10 +55,10 @@ final class TournamentLilaHttp(
 
       case Tick =>
         tournamentRepo
-          .startedCursorWithNbPlayersGte(1.some)
+          .idsCursor(isOnLilaHttp.keys)
           .documentSource()
           .mapAsyncUnordered(4) { tour =>
-            isOnLilaHttp.put(tour.id)
+            if (tour.finishedSinceSeconds.exists(_ > 20)) isOnLilaHttp.remove(tour.id)
             arenaFullJson(tour)
           }
           .map { json =>
