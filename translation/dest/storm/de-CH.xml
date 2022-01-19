@@ -8,7 +8,7 @@
   <string name="newWeeklyHighscore">Neue Wucherekord!</string>
   <string name="newMonthlyHighscore">Neue Monetsrekord!</string>
   <string name="newAllTimeHighscore">Neue Allziitrekord!</string>
-  <string name="previousHighscoreWasX">Diin bisherige Rekord isch %s gsii</string>
+  <string name="previousHighscoreWasX">Din bisherige Rekord isch %s gsii</string>
   <string name="playAgain">Schpill nomal</string>
   <plurals name="xRuns">
     <item quantity="one">1 Lauf</item>
@@ -39,7 +39,7 @@
   <string name="spectating">Zueluege</string>
   <string name="joinTheRace">Mach am Ränne mit!</string>
   <string name="startTheRace">Ränne schtarte</string>
-  <string name="yourRankX">Diini Platzierig: %s</string>
+  <string name="yourRankX">Dini Platzierig: %s</string>
   <string name="waitForRematch">Wart uf Revanche</string>
   <string name="nextRace">Nächschts Ränne</string>
   <string name="joinRematch">Mach mit bi de Revanche</string>
