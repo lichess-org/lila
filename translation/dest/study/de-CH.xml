@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privaat</string>
-  <string name="myStudies">Meine Studien</string>
-  <string name="studiesIContributeTo">Studien, an denen ich mitwirke</string>
-  <string name="myPublicStudies">Meine öffentlichen Studien</string>
-  <string name="myPrivateStudies">Meine privaten Studien</string>
-  <string name="myFavoriteStudies">Meine Lieblingsstudien</string>
-  <string name="whatAreStudies">Was sind Studien?</string>
-  <string name="allStudies">Alle Studien</string>
-  <string name="studiesCreatedByX">Von %s erstellte Studien</string>
-  <string name="noneYet">Bisher keine.</string>
-  <string name="hot">Aagsait</string>
-  <string name="dateAddedNewest">Veröffentlichungsdatum (neueste)</string>
-  <string name="dateAddedOldest">Veröffentlichungsdatum (älteste)</string>
-  <string name="recentlyUpdated">Kürzlich aktualisiert</string>
-  <string name="mostPopular">Beliäbtischti</string>
+  <string name="myStudies">Mini Schtudie</string>
+  <string name="studiesIContributeTo">Schtudie, wo ich mitwürke</string>
+  <string name="myPublicStudies">Mini öffentliche Schtudie</string>
+  <string name="myPrivateStudies">Mini private Schtudie</string>
+  <string name="myFavoriteStudies">Mini liebschte Schtudie</string>
+  <string name="whatAreStudies">Was sind Schtudie?</string>
+  <string name="allStudies">All Schtudie</string>
+  <string name="studiesCreatedByX">Vu %s erschtellte Schtudie</string>
+  <string name="noneYet">No kei.</string>
+  <string name="hot">Aagseit</string>
+  <string name="dateAddedNewest">wänn zuegfüegt (neui)</string>
+  <string name="dateAddedOldest">wänn zuegfüegt (älti)</string>
+  <string name="recentlyUpdated">frisch aktualisiert</string>
+  <string name="mostPopular">beliebtschti</string>
   <string name="alphabetical">Alphabetisch</string>
   <string name="addNewChapter">Neues Kapitel hinzufügen</string>
   <plurals name="nbChapters">
