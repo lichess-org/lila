@@ -83,7 +83,7 @@ final class TournamentLilaHttp(
       .dmap(some)
     fullStanding <- playerRepo
       .sortedCursor(tour.id, 100, ReadPreference.primary)
-      .documentSource(100)
+      .documentSource()
       .zipWithIndex
       .mapAsync(16) { case (player, index) =>
         for {
