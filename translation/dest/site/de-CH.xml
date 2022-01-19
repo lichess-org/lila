@@ -115,7 +115,7 @@
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Unändlichi Analyse</string>
-  <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet diin Computer warm</string>
+  <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet din Computer warm</string>
   <string name="blunder">En grobe Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
@@ -195,7 +195,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameOrEmail">Benutzername oder E-Mail-Adrässe</string>
   <string name="changeUsername">Benutzername ändere</string>
   <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chliischriibig verändere, z. B. \"hansmuster\" in \"HansMuster\".</string>
-  <string name="changeUsernameDescription">Änder diin Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
+  <string name="changeUsernameDescription">Änder din Beutzername. Das gaht nur eimal und mer chann nur d\'Groos- und Chliischriibig verändere.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
@@ -412,7 +412,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
   <string name="advancedSettings">Erwiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
-  <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu diim Konto fühere.</string>
+  <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
@@ -568,7 +568,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="error.email">Die E-Mail-Adrässe isch ungültig</string>
   <string name="error.email_acceptable">Die E-Mail-Adrässe wird nöd akzeptiert. Bitte überprüef sie und probiers nomal.</string>
   <string name="error.email_unique">Die E-Mail-Adrässe isch ungültig oder bereits benutzt worde</string>
-  <string name="error.email_different">Das isch bereits diini E-Mail-Adrässe</string>
+  <string name="error.email_different">Das isch bereits dini E-Mail-Adrässe</string>
   <string name="error.minLength">Muess mindeschtens %s Zeiche lang sii</string>
   <string name="error.maxLength">Dörf höchschtens %s Zeiche lang sii</string>
   <string name="error.min">Muess mindeschtens %s sii</string>
@@ -603,7 +603,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="host">Simultanschpiller</string>
   <string name="hostColorX">Farb Simultanschpiller: %s</string>
   <string name="createdSimuls">Neu kreierts Simultanschach</string>
-  <string name="hostANewSimul">Mach diir es Simultanschach</string>
+  <string name="hostANewSimul">Mach dir es Simultanschach</string>
   <string name="noSimulFound">Simultanschach nöd gfunde</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
   <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
@@ -613,7 +613,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="aboutSimulRules">Wie bi reale Simultanschach Veraaschteltige, gaht de Simultanschpiller vu eim Simultangägner zum Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du diir es Simultanschach machsch, chasch glichziitig gäge mehreri Gägner schpille.</string>
+  <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch glichziitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
@@ -649,7 +649,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="checkYourEmail">Check dini E-Mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir e E-Mail gschickt: Klick de Link i de Nachricht, zum dis Konto aktiviere.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech wiiteri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
-  <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz diis Passwort zrugg.</string>
+  <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwerch-Verzögerig, zwüschet dir und Lichess (lag)</string>
@@ -663,12 +663,12 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="analysisShapesHowTo">Mit Shift plus Muusklick - rächts oder links - chasch grüeni oder roti Chreis und Pfiil ufs Brätt zeichne.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
   <string name="receiveForumNotifications">Benachrichtigt chunnt, wänn du im Forum erwähnt worde bisch</string>
-  <string name="shareYourInsightsData">Teil diini persönliche Schpilldate</string>
+  <string name="shareYourInsightsData">Teil dini persönliche Schpilldate</string>
   <string name="withNobody">Mit niemertem</string>
   <string name="withFriends">Mit Fründe</string>
   <string name="withEverybody">Mit allne</string>
   <string name="kidMode">Chinder-Modus</string>
-  <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz diini Chind vor andere Internetbenutzer.</string>
+  <string name="kidModeExplanation">Sicherheitsiischtellig: Im Chinder-Modus isch die ganzi Kommunikation deaktiviert. Aktivier de Modus und schütz dini Chind vor andere Internetbenutzer.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chinder-Modus erschint s\'Lichess-Logo mit %s-Icon, was dir zeigt, dass dini Chind gschützt sind.</string>
   <string name="enableKidMode">Chinder-Modus aktiviere</string>
   <string name="disableKidMode">Chinder-Modus deaktiviere</string>
@@ -709,7 +709,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="boardTheme">Brättdesign</string>
   <string name="boardSize">Brättgrössi</string>
   <string name="pieceSet">Figureart</string>
-  <string name="embedInYourWebsite">I diini Website integriere</string>
+  <string name="embedInYourWebsite">I dini Website integriere</string>
   <string name="usernameAlreadyUsed">De Benutzername isch bereits vergeh, bitte probier en andere.</string>
   <string name="usernamePrefixInvalid">De Benutzername muess mit eme Buechschtabe aafange.</string>
   <string name="usernameSuffixInvalid">De Benutzername muess mit eme Buechschtabe oder ere Zahl ände.</string>
@@ -847,7 +847,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="tournDescription">Turnier Beschriibig</string>
   <string name="tournDescriptionHelp">Wottsch de Teilnehmer öppis Speziells mitteile? Probier dich churz z\'fasse. Url mit Name sind möglich: [name](https://url)</string>
   <string name="ratedFormHelp">Alli Partie sind gwertet
-und beiiflussed diini Wertig</string>
+und beiiflussed dini Wertig</string>
   <string name="onlyMembersOfTeam">Nur Mitgliider vum Team</string>
   <string name="noRestriction">Kei Iischränkige</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
@@ -863,7 +863,7 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
   <string name="simulFeatured">Uf %s zeige</string>
-  <string name="simulFeaturedHelp">Zeig allne uf %s diis Simultanschach. Privats Simultanschach deaktiviert.</string>
+  <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschriibig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
   <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
@@ -882,9 +882,9 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="focusChat">Chat fokussiere</string>
   <string name="showHelpDialog">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
-  <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance diis Konto wider zrugg z\'hole.</string>
+  <string name="closedAccountChangedMind">Wänn du s\'Konto gschlosse häsch und das bereusch, dänn gits no 1 Chance dis Konto wider zrugg z\'hole.</string>
   <string name="onlyWorksOnce">Das funktioniert aber nur eimal.</string>
-  <string name="cantDoThisTwice">Wänn du diis Konto es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
+  <string name="cantDoThisTwice">Wänn du dis Konto es 2. Mal schlüssisch, gits kei Möglichkeit meh das rückgängig z\'mache.</string>
   <string name="emailAssociatedToaccount">E-Mail-Adrässe vu diim Konto</string>
   <string name="sentEmailWithLink">Mir hän dir e E-Mail mit eme Link gschickt.</string>
   <string name="tournamentEntryCode">Turnier-Biitrittscode</string>
