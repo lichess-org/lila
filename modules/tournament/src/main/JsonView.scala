@@ -391,7 +391,7 @@ final class JsonView(
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
   }
 
-  private def fetchAndRenderTeamStandingJson(max: Int)(id: Tournament.ID) =
+  private[tournament] def fetchAndRenderTeamStandingJson(max: Int)(id: Tournament.ID) =
     cached.battle.teamStanding.get(id) map { ranked =>
       JsArray(ranked take max map teamBattleRankedWrites.writes)
     }

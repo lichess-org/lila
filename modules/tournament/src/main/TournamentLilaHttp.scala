@@ -76,9 +76,11 @@ final class TournamentLilaHttp(
   }))
 
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for {
-    data         <- jsonView.cachableData get tour.id
-    stats        <- statsApi(tour)
-    teamStanding <- jsonView.getTeamStanding(tour)
+    data  <- jsonView.cachableData get tour.id
+    stats <- statsApi(tour)
+    teamStanding <- tour.isTeamBattle ?? jsonView
+      .fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
+      .dmap(some)
     fullStanding <- playerRepo
       .sortedCursor(tour.id, 100, ReadPreference.primary)
       .documentSource(100)
