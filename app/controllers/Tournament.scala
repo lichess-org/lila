@@ -114,7 +114,7 @@ final class Tournament(
                   partial = false,
                   withScores = true,
                   myInfo = Preload(myInfo)
-                )
+                ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
                 chat <- loadChat(tour, json)
                 _ <- tour.teamBattle ?? { b =>
                   env.team.cached.preloadSet(b.teams)

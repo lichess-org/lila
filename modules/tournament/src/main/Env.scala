@@ -103,6 +103,12 @@ final class Env(
       "Delay in seconds between tournament XHR reloads. Set to zero for default. Set to 5 or more during intense tournaments. Tripled for spectators.".some
   ).taggedWith[TournamentReloadDelay]
 
+  lazy val reloadEndpointSetting = settingStore[String](
+    "tournamentReloadEndpoint",
+    default = "/tournament/{id}",
+    text = "lila-http endpoint. Set to /tournament/{id} to only use lila.".some
+  ).taggedWith[TournamentReloadEndpoint]
+
   lazy val jsonView: JsonView = wire[JsonView]
 
   lazy val apiJsonView = wire[ApiJsonView]
@@ -133,7 +139,7 @@ final class Env(
   }
 
   private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
-  private val lilaHttp    = wire[TournamentLilaHttp]
+  val lilaHttp            = wire[TournamentLilaHttp]
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId)(GetVersion)
@@ -159,3 +165,4 @@ final class Env(
 }
 
 trait TournamentReloadDelay
+trait TournamentReloadEndpoint

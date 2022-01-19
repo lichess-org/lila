@@ -33,7 +33,8 @@ final class JsonView(
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
     pause: Pause,
-    reloadDelaySetting: SettingStore[Int] @@ TournamentReloadDelay
+    reloadDelaySetting: SettingStore[Int] @@ TournamentReloadDelay,
+    reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
 )(implicit ec: ExecutionContext) {
 
   import JsonView._
@@ -129,6 +130,11 @@ final class JsonView(
           .add("description" -> tour.description)
           .add("myUsername" -> me.map(_.username))
       }
+
+  def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
+    js + ("reloadEndpoint" -> JsString({
+      if (useLilaHttp(tour)) reloadEndpointSetting.get() else reloadEndpointSetting.default
+    }.replace("{id}", tour.id)))
 
   def clearCache(tour: Tournament): Unit = {
     standingApi clearCache tour

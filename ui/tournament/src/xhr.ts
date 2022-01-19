@@ -64,7 +64,7 @@ export const loadPageOf = (ctrl: TournamentController, userId: string) =>
 // TODO FIXME
 export const reloadNow = (ctrl: TournamentController): Promise<void> =>
   fetch(
-    xhr.url('http://127.0.0.1:3000/' + ctrl.data.id, {
+    xhr.url(ctrl.data.reloadEndpoint, {
       page: ctrl.focusOnMe ? undefined : ctrl.page,
       playerInfo: ctrl.playerInfo.id,
       partial: true,
