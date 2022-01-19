@@ -101,9 +101,9 @@ final class JsonView(
             "system"    -> "arena", // BC
             "fullName"  -> tour.name(),
             "minutes"   -> tour.minutes,
-            "perf"      -> full.option(tour.perfType),
-            "clock"     -> full.option(tour.clock),
-            "variant"   -> full.option(tour.variant.key)
+            "perf"      -> tour.perfType,
+            "clock"     -> tour.clock,
+            "variant"   -> tour.variant.key
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
