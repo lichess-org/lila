@@ -9,6 +9,7 @@ import * as pagination from '../pagination';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
+  values.reverse(); // in place!
   if (!streakable) return values.map(v => h('score', v));
   let nodes = [],
     streak = 0;

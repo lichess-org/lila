@@ -558,7 +558,13 @@ object JsonView {
       .add("scores", withScores option scoresToString(s))
       .add("fire", (streakable && s.isOnFire))
 
-  def scoresToString(sheet: arena.Sheet): String = sheet.scores.reverse.map(_.value).mkString
+  def scoresToString(sheet: arena.Sheet): String = {
+    val sb = new java.lang.StringBuilder(16)
+    sheet.scores foreach { score =>
+      sb append score.value
+    }
+    sb.toString
+  }
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 

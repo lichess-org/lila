@@ -10,7 +10,7 @@ export interface StandingPlayer extends SimplePlayer {
   rank: number;
   sheet: {
     fire: boolean;
-    scores: string;
+    scores: string; // in reverse chronological order
   };
   nb: Nb;
   team?: string;
