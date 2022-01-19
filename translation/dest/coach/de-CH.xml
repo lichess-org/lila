@@ -4,8 +4,8 @@
   <string name="lichessCoach">Lichess Trainer</string>
   <string name="areYouCoach">Bisch du en guete Schachtrainer miteme %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM oder FIDE-Titel</string>
-  <string name="confirmTitle">Beschtätig da diin Titel und mir prüefed diini Bewerbig.</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick eus e Mail a %s und mir prüefed diini Bewerbig.</string>
+  <string name="confirmTitle">Beschtätig da din Titel und mir prüefed dini Bewerbig.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick eus e Mail a %s und mir prüefed dini Bewerbig.</string>
   <string name="location">Ortschaft</string>
   <string name="languages">Sprache</string>
   <string name="rating">Wertigs-Zahl</string>
@@ -31,5 +31,5 @@
   <string name="thankYouForReview">Danke für dini Bewertig!</string>
   <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aaluege.</string>
   <string name="reviewCoach">De Trainer bewerte</string>
-  <string name="describeExperienceWith">Beschriib diini Traningserfahrig mit %s</string>
+  <string name="describeExperienceWith">Beschrib dini Traningserfahrig mit %s</string>
 </resources>
