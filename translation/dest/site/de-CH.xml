@@ -210,7 +210,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s Ufgab</item>
-    <item quantity="other">%s Ufgabä</item>
+    <item quantity="other">%s Ufgabe</item>
   </plurals>
   <string name="gamesPlayed">Gschpillti Partie</string>
   <plurals name="nbGamesWithYou">
@@ -363,7 +363,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach Captcha.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug - zum Bewiis das du en Mänsch bisch.</string>
-  <string name="captcha.fail">Bitte lös die Schach-Ufgab.</string>
+  <string name="captcha.fail">Bitte lös die Schach Ufgab.</string>
   <string name="notACheckmate">Das isch keis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiss setzt i eim Zug Matt</string>
   <string name="blackCheckmatesInOneMove">Schwarz setzt i eim Zug Matt</string>
