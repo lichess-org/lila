@@ -122,6 +122,6 @@
   <string name="healthyMix">En gsunde Mix</string>
   <string name="healthyMixDescription">Es bitzli vu Allem, me weiss nöd, was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiil.</string>
   <string name="playerGames">Schpiller Partie</string>
-  <string name="playerGamesDescription">Suech nach Ufgabe us diine Schpiil oder Ufgabe us Schpiil vu Andere.</string>
+  <string name="playerGamesDescription">Suech nach Ufgabe us dine Schpiil oder Ufgabe us Schpiil vu Andere.</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
 </resources>
