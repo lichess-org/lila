@@ -28,8 +28,8 @@
   <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtoht dä Hauptunderschiid idä Reglä für Fürnschach dodrin, dass äs Eröffnigsbuäch erlaubt isch. D\'Verwändig vo Schachkompis isch aber immer no verbotä und füährt zunärä Markiärig vom Konto wäg unerlaubter Underschtützig dur Schachkompis. Obwohl d\'ICCF d\'Verwändig vo Schachkompis in Färnschachpartiiä erlaubt, isch das uf Lichess nöd gschtattät.</string>
   <string name="gameplay">Schpiilerläbnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Ziitkontrolle sind?</string>
-  <string name="basedOnGameDuration">Lichess Ziitkontrollä basiäräd uf dä erwartätä Schpillduur = %1$s
-Zum Biischpiil berächnät sich di erwartätä Schpillduur vonärä 5+3 Partii zu 5 × 60 + 40 × 3 = 420 Sekundä.</string>
+  <string name="basedOnGameDuration">Lichess Ziitkontrolle basiered uf de erwartete Schpiilduur = %1$s
+Zum Bischpiil berächnet sich die erwartete Schpiilduur vonere 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunde.</string>
   <string name="durationFormula">(Ziitguäthabä am Aafang) + 40 × (Zug-Inkremänt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
