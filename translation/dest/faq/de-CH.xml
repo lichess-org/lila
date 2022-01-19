@@ -50,16 +50,16 @@ D\'Kompianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
 I sältänä Fäll chas schwirig si, das automatisch z\'entscheidä. (Erzwungäni Zugfolgä, Feschtigä)
 
 Obacht drum, dass mitämä einzälnä Gaul oder Läufer äs Matt z\'erzwingä nöd möglich isch, sötti dä Gägner ä Figur bsitzä, wo sin König blockiärä chönt.</string>
-  <string name="fideHandbookX">FIDE-Handbuäch %s</string>
-  <string name="discoveringEnPassant">Worum chan än Puur än andärä Puur schloh, wänn dä bereits vorbiizogä isch? (im Vorbigoh)</string>
-  <string name="explainingEnPassant">Das isch än regälgemäässä Zug, bekannt als \"im Vorbiigoh\". Dä Wikipedia-Artikel git än %1$s.
+  <string name="fideHandbookX">FIDE Handbuech %s</string>
+  <string name="discoveringEnPassant">Wieso chann en Puur en andere Puur schlah, wänn de bereits verbiizoge isch? (en passant)</string>
+  <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
-Das wird in Abschnitt 3.7 vum %2$s uf Hoochtüütsch beschribä.
+Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
-Tschägg %3$s für ächli Üäbig mit därä Art vo Zug.</string>
-  <string name="goodIntroduction">guätä erschtä Iidruck</string>
+Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
+  <string name="goodIntroduction">guete erschte Iidruck</string>
   <string name="lichessTraining">Lichess-Träning</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
   <string name="threefoldRepetitionExplanation">Wänn ä Schtellig drümol uftritt, chönd Schpiller/-innä äs Remis dur %1$s reklamiärä. Lichess implemäntiärt di offiziällä FIDE-Reglä, wo in Artikel 9.2 vom %2$s beschribä sind.</string>
