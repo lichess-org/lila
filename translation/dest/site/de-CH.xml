@@ -478,7 +478,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
-  <string name="descPrivateHelp">Tegscht wo nur Team-Mitgliider gsehnd. Wänn usgfüllt, ersetzt er für Team-Mitgliider de öffentlich Tegscht.</string>
+  <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie öffentlich Tegscht.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hilf:</string>
@@ -697,8 +697,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="xLikesY">%1$s gfallt %2$s</string>
   <string name="quickPairing">Schnälli Paarig</string>
   <string name="lobby">Lobby</string>
-  <string name="anonymous">Anonym schpille</string>
-  <string name="yourScore">Diin Punkteschtand: %s</string>
+  <string name="anonymous">Anonym</string>
+  <string name="yourScore">Din Punkteschtand: %s</string>
   <string name="language">Sproch</string>
   <string name="background">Hindergrund</string>
   <string name="light">Hell</string>
@@ -716,7 +716,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameCharsInvalid">De Benutzername dörf nu Buechschtabe, Zahle, Understrich und Bindestrich ha. Nach enand folgendi Understrich oder Bindestrich sind nöd erlaubt.</string>
   <string name="usernameUnacceptable">De Benutzername wird nöd akzeptiert.</string>
   <string name="playChessInStyle">Schpill Schach mit Schtiil</string>
-  <string name="chessBasics">Schach Grundlage</string>
+  <string name="chessBasics">Grundlage</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Fähler im PGN</string>
   <string name="invalidFen">Fähler im FEN</string>
@@ -740,7 +740,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="evaluatingYourMove">Din Zug wird gwertet ...</string>
   <string name="whiteWinsGame">Wiss günnt</string>
   <string name="blackWinsGame">Schwarz günnt</string>
-  <string name="learnFromYourMistakes">Lern us diine Fähler</string>
+  <string name="learnFromYourMistakes">Lern us dine Fähler</string>
   <string name="learnFromThisMistake">Lern us dem Fähler</string>
   <string name="skipThisMove">Überschpring de Zug</string>
   <string name="next">Zum Nächschte</string>
