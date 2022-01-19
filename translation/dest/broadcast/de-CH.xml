@@ -16,7 +16,7 @@
   <string name="sourceUrlOrGameIds">Quell-URL oder Partie-IDs</string>
   <string name="sourceUrlHelp">URL wo Lichess abfrögt, für PGN Aktualisierige z\'erhalte. Sie muess öffentlich im Internet zuegänglich sii.</string>
   <string name="gameIdsHelp">Alternativ chasch bis zu 64 dur Leerzeiche trännti Lichess Partie IDs iigeh.</string>
-  <string name="startDate">Startdatum in diinere eigene Ziitzone</string>
+  <string name="startDate">Startdatum in dinere eigene Ziitzone</string>
   <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis aafangt</string>
   <string name="credits">Erwähn die Quälle</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
