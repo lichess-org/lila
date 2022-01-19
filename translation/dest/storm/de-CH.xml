@@ -45,11 +45,11 @@
   <string name="joinRematch">Mach mit bi de Revanche</string>
   <string name="waitingToStart">Warte uf de Schtart</string>
   <string name="createNewGame">Erschtell es neus Ränne</string>
-  <string name="joinPublicRace">Mach mit am öffentliche Ränne</string>
-  <string name="raceYourFriends">Es Ränne mit diine Fründe</string>
+  <string name="joinPublicRace">Fahr es öffentlichs Ränne</string>
+  <string name="raceYourFriends">Fahr es Ränne mit Fründe</string>
   <string name="skip">überschpringe</string>
-  <string name="skipHelp">Du chasch ein Zug pro Ränne überschpringe:</string>
-  <string name="skipExplanation">Überschpring de Zug, zum diini combo b\'halte! Das chasch nur eimal pro Ränne.</string>
+  <string name="skipHelp">Chasch 1 Zug pro Ränne überschpringe:</string>
+  <string name="skipExplanation">Überschpring de Zug, um dini combo b\'halte! Das chasch nur 1x pro Ränne.</string>
   <string name="failedPuzzles">Falsch glösti Ufgabe</string>
   <string name="slowPuzzles">Langsami Ufgabe</string>
   <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Die Wuche</string>
