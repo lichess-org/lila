@@ -12,7 +12,7 @@
   <string name="strength">Schpiilstärchi</string>
   <string name="toggleTheChat">Chat aa und abschalte</string>
   <string name="chat">Chat</string>
-  <string name="resign">Schpiil ufgeh</string>
+  <string name="resign">Ufgeh</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Wiis</string>
@@ -28,7 +28,7 @@
   <string name="itsYourTurn">Du bisch draa!</string>
   <string name="cheatDetected">Betrug bemerkt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
-  <string name="threeChecks">3 Schachgebot</string>
+  <string name="threeChecks">Three checks</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variante ändet</string>
   <string name="newOpponent">En neue Gägner</string>
@@ -42,7 +42,7 @@
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verlah. Du chasch de Sieg beaschpruche, es Remis mache oder warte.</string>
   <string name="forceResignation">De Sieg beaschpruche</string>
-  <string name="forceDraw">Remis erchläre</string>
+  <string name="forceDraw">Remis mälde</string>
   <string name="talkInChat">Im Chat bitte nett sii!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
