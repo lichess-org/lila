@@ -7,7 +7,7 @@
   <string name="confirmTitle">Beschtätig da diin Titel und mir prüefed diini Bewerbig.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick eus e Mail a %s und mir prüefed diini Bewerbig.</string>
   <string name="location">Ortschaft</string>
-  <string name="languages">Sprochä</string>
+  <string name="languages">Sprache</string>
   <string name="rating">Wertigs-Zahl</string>
   <string name="hourlyRate">Schtundesatz</string>
   <string name="availability">Verfüegbarkeit</string>
@@ -21,14 +21,14 @@
   <string name="teachingExperience">Lehr-Erfahrig</string>
   <string name="otherExperiences">Anderi Erfahrige</string>
   <string name="bestSkills">Beschti Fähigkeite</string>
-  <string name="teachingMethod">Lehr-Methode</string>
-  <string name="publicStudies">Öffentlichi Studie</string>
-  <string name="youtubeVideos">YouTube-Videos</string>
+  <string name="teachingMethod">Lehr Methode</string>
+  <string name="publicStudies">Öffentlichi Schtudie</string>
+  <string name="youtubeVideos">YouTube Videos</string>
   <plurals name="studentReviews">
     <item quantity="one">1 Schüeler-Bewertig</item>
     <item quantity="other">%s Schüler-Bewertige</item>
   </plurals>
-  <string name="thankYouForReview">Danke villmal für diini Bewertig!</string>
+  <string name="thankYouForReview">Danke für dini Bewertig!</string>
   <string name="xWillApproveIt">%s wird das bald freischalte oder en Moderator wird\'s aaluege.</string>
   <string name="reviewCoach">De Trainer bewerte</string>
   <string name="describeExperienceWith">Beschriib diini Traningserfahrig mit %s</string>
