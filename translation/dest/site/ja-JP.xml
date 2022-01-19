@@ -34,8 +34,8 @@
   <string name="newOpponent">新しい相手</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">相手がもう一度対局したいと言っています</string>
   <string name="joinTheGame">対局に参加する</string>
-  <string name="whitePlays">白番です</string>
-  <string name="blackPlays">黒番です</string>
+  <string name="whitePlays">白の手番</string>
+  <string name="blackPlays">黒の手番</string>
   <plurals name="opponentLeftCounter">
     <item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
   </plurals>
