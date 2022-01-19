@@ -349,15 +349,6 @@ object RoundSocket {
                   MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
                 )
               }
-            } orElse raw.get(5) { case Array(fullId, uciS, blurS, lagS, mtS) =>
-              Uci(uciS) map { uci =>
-                PlayerMove(
-                  FullId(fullId),
-                  uci,
-                  P.In.boolean(blurS),
-                  MoveMetrics(centis(lagS), centis(mtS), none)
-                )
-              }
             }
           case "chat/say" =>
             raw.get(3) { case Array(roomId, author, msg) =>
