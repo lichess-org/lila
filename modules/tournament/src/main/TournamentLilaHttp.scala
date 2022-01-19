@@ -69,6 +69,7 @@ final class TournamentLilaHttp(
           .toMat(LilaStream.sinkCount)(Keep.right)
           .run()
           .monSuccess(_.tournament.lilaHttp.tick)
+          .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_).unit)
           .addEffectAnyway(scheduleNext())
           .unit
     }
