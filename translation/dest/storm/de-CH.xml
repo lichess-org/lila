@@ -50,7 +50,7 @@
   <string name="skip">überschpringe</string>
   <string name="skipHelp">Du chasch ein Zug pro Ränne überschpringe:</string>
   <string name="skipExplanation">Überschpring de Zug, zum diini combo b\'halte! Das chasch nur eimal pro Ränne.</string>
-  <string name="failedPuzzles">Fahlsch glösti Ufgabe</string>
+  <string name="failedPuzzles">Falsch glösti Ufgabe</string>
   <string name="slowPuzzles">Langsami Ufgabe</string>
   <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Die Wuche</string>
   <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">De Monet</string>
