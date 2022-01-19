@@ -10,10 +10,10 @@
   <string name="forgotUsername">Ich han miin Benutzername vergässe</string>
   <string name="youCanLoginWithEmail">Du chasch mit de E-Mail-Adrässe iilogge, wo du für d\'Regischtrierig benutzt häsch</string>
   <string name="lost2FA">Ich han de Zuegriff zu miim Zwei-Faktor-Code verloore</string>
-  <string name="doPasswordReset">Setz diis Passwort zrugg, zum de zweiti Faktor entferne</string>
+  <string name="doPasswordReset">Setz dis Passwort zrugg, zum de zweit Faktor entferne</string>
   <string name="accountSupport">Ich bruuche Konto Underschtützig</string>
   <string name="wantTitle">Ich wett, dass miin Titel uf Lichess aazeigt wird</string>
-  <string name="visitTitleConfirmation">Zum diin Titel im Profil aazeige und s\'Mitschpille bi Arena Turnier für Schpiller mit Titel, muesch uf d\'Site für Titelbeschtätigung</string>
+  <string name="visitTitleConfirmation">Um din Titel im Profil z\'gseh und s\'Rächt bi Arena Turnier für Schpiller mit Titel zerwerbe, muesch uf d\'Site für d\'Titelbeschtätigung</string>
   <string name="wantCloseAccount">Ich wott miis Konto schlüsse</string>
   <string name="closeYourAccount">Du chasch diis Konto uf däre Site schlüsse</string>
   <string name="doNotAskByEmail">Verlang nöd - per E-Mail - es Konto z\'schlüsse, mir mached das nöd.</string>
