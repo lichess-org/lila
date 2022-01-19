@@ -640,8 +640,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%1$s %2$s Schpiller i dere Wuche.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Dini %1$s-Wertig isch %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vu %2$s-Schpiller.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo %3$s-Schpiller.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vu allne %2$s-Schpiller.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo allne %3$s-Schpiller.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du häsch kei fixi %s-Wertig.</string>
   <string name="yourRating">Dini Wertig</string>
   <string name="cumulative">Summiert</string>
