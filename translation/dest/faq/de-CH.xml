@@ -52,13 +52,14 @@ I sältänä Fäll chas schwirig si, das automatisch z\'entscheidä. (Erzwungän
 Obacht drum, dass mitämä einzälnä Gaul oder Läufer äs Matt z\'erzwingä nöd möglich isch, sötti dä Gägner ä Figur bsitzä, wo sin König blockiärä chönt.</string>
   <string name="fideHandbookX">FIDE Handbuech %s</string>
   <string name="discoveringEnPassant">Wieso chann en Puur en andere Puur schlah, wänn de bereits verbiizoge isch? (en passant)</string>
-  <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
+  <string name="explainingEnPassant">Das isch en regelkonforme Zug, bekannt als \"en passant\". De Wikipedia Artikel git e %1$s.
 
-Dies wird in Abschnitt 3.7 der %2$s beschrieben.
+\"En passant\" wird im Abschnitt 3.7 vu de %2$s beschribe.
 
-\"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
+En Puur wo uf de 5. Reihe staht (Wiss Reihe 5. Schwarz Reihe 4) dörf en gägnerische Puur, wo mit 2 Züg, us sinere Aafangsschtellig, a ihm verbi zieht und sich links oder rächts näbe ihn stellt, so schlah, wie wänn de \"verbii Ziehendi\" nur 1 Fäld gfahre wär. De Sinn vu de Regle isch, dass sich en Puur, mit dere 2-Zug-Regle, nöd de Konfrontation entzieh chann.
+Wichtig isch, dass die Schlagart \"en passant\" nur diräkt nach dem Uswiichversuech erlaubt isch. 
 
-Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
+Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="goodIntroduction">guete erschte Iidruck</string>
   <string name="lichessTraining">Lichess-Träning</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
@@ -66,11 +67,11 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
   <string name="notRepeatedMoves">Mir händ kei Züge widerholt, worum isch d\'Partii trotzdäm dur Schtelligswiderholig für Remis ärchlärt wordä?</string>
   <string name="repeatedPositionsThatMatters">Bi drüfach gliicher Schtellig gohts um vollschtändig gliichi %1$s, nöd um Zugwiderholigä. Di gliichi Schtellig cha mit beliäbigä Züg ärreicht wärdä, sofärn d\'Zugmöglichkeitä i dänä Schtelligä immer gliich sind.</string>
-  <string name="positions">Schtelligä</string>
+  <string name="positions">Schtellige</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Mir händ ä Schtellig drümol ärreicht. Wieso isch d\'Partii nöd Remis ärchlärt wordä?</string>
   <string name="threeFoldHasToBeClaimed">Drüfach gliichi Schtellig muäs vo eim vo beidnä Schpiller/-innä reklamiärt wärdän. Das chasch du ärreichä, indäm du uf d\'Schaltflächi trucksch, wo aazeigt wird, oder indäm du Remis vor dim letschtä Zug aabütisch, wonä söttigi Schtellig herbiifüährt. In däm Fall wird ä berächtigti Reklamation wägä drüfach gliicher Schtellig selbscht dänn erfolgriich si, wänn din Gägner das Aagebot ablehnt. Du chasch Lichess au so %1$s, dass automatisch drüfach gliichi Schtellig für dich reklamiärt wird. Usserdäm beändät ä füüffach gliichi Schtellig mit gliichä Zugmöglichkeitä immer sofort s\'Schpiil.</string>
   <string name="configure">konfiguriärä</string>
-  <string name="accounts">Kontä</string>
+  <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Weli Titäl gits uf Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess anärkännt alli FIDE-Titel, wo am Brätt gwunnä wordä sind, äbäso %1$s. Das isch ä Liischtä vo FIDE-Titäl:</string>
   <string name="showYourTitle">Wänn du än OTB Titäl häsch, chasch du beaatragä, dass dä uf dim Konto aazeigt wird, indäm du das %1$s uusfüllsch, mitämä klaarä Bild vomänä Identifikationsuswiis oder vonärä -chaartä undämä Selfie vo dir, i däm du dä Uswiis oder d\'Chartä im Bild zeigsch.
@@ -95,7 +96,7 @@ Bitt nöd drum, dä LM-Titäl z\'bechoh.</string>
   <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
   <string name="ownerUniqueTrophies">Diä Trophä\'ä isch einzigartig idä Gschicht vo Lichess, niemärt ussertäm %1$s wird si jemols haa.</string>
   <string name="wayOfBerserkExplanation">Är hät si becho, wil är 100%% vodä Partiiä vönärä %s bärsärkt und gwunnä hät.</string>
-  <string name="aHourlyBulletTournament">schtündlichä Bullet-Arena</string>
+  <string name="aHourlyBulletTournament">e schtündlichi Bullet Arena</string>
   <string name="goldenZeeExplanation">Dä ZugAddict hät ämol gstreamt und über 2 Schtundä lang versuächt, dä Kompi uf Schtufä 8 imänä 1+0 Schpiil z\'besiigä, ohni Erfolg. Dä Thibault hätäm dänn versprochä, dasär än einzigartigi Trophä\'ä bechiäm, wänär das erfolgrich im Stream schaffä würd. Ä Schtund spöter hätär Stockfish butzt und s\'Versprächä isch iighaltä wordä.</string>
   <string name="lichessRatings">Lichess-Wärtigä</string>
   <string name="whichRatingSystemUsedByLichess">Weläs Wärtigssyschtem benutzt Lichess?</string>
