@@ -449,7 +449,7 @@
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
   <string name="xRating">%s rating</string>
-  <string name="ifNoneLeaveEmpty">Hvis ingen, efterlad tom</string>
+  <string name="ifNoneLeaveEmpty">Hvis ingen, lad den være tom</string>
   <string name="gameCompletionRate">Gennemførelsesprocent af spil: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
@@ -459,7 +459,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
-  <string name="oneUrlPerLine">En URL pr. linje.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">En URL pr. linje.</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="previouslyOnLichessTV">Tidligere på Lichess TV</string>
   <string name="onlinePlayers">Online spillere</string>

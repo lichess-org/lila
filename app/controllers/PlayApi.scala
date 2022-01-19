@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.i18n.Lang
 import play.api.mvc._
 import scala.concurrent.duration._
 import scala.util.chaining._
@@ -74,7 +73,7 @@ final class PlayApi(
   // common code for bot & board APIs
   private object impl {
 
-    def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
+    def gameStream(me: UserModel, pov: Pov)(implicit req: RequestHeader) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }
