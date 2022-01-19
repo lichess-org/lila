@@ -14,7 +14,7 @@
 Bisch parat, ihn z\'kommandiere?</string>
   <string name="rookGoal">Klick uf de Turm und beweg ihn zum Stern!</string>
   <string name="grabAllTheStars">Schnapp dir all Stern!</string>
-  <string name="theFewerMoves">Je weniger Züg du bruuchsch, je meh Pünkt günnsch!</string>
+  <string name="theFewerMoves">Je weniger Züg - je meh Pünkt!</string>
   <string name="useTwoRooks">Nimm zwei Türm, um die Sach z\'beschlünige!</string>
   <string name="rookComplete">Gratuliere, du beherrschisch jetzt de Turm.</string>
   <string name="theBishop">De Läufer</string>
@@ -53,7 +53,7 @@ Aber mängisch isch au en Schpringer nützlich!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Schnapp dir all die Stern! 
 Umwandle muesch nöd.</string>
   <string name="pawnComplete">Gratuliere, au Puure sind keis Gheimnis meh für dich.</string>
-  <string name="pawnPromotion">Puure-Umwandlig</string>
+  <string name="pawnPromotion">Puure Umwandlig</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Diin Puur hät s\'Ändi vom Brätt erreicht!</string>
   <string name="itNowPromotesToAStrongerPiece">Er wandlet sich jetzt in e stärcheri Figur um.</string>
   <string name="selectThePieceYouWant">Wähl die Figur wo du wottsch!</string>
@@ -65,7 +65,7 @@ Umwandle muesch nöd.</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Schlag die schwarze Figure, aber verlür diini nöd.</string>
   <string name="captureComplete">Gratuliere, du weisch jetzt, wie me mit de Schachfigure kämpft!</string>
   <string name="protection">Deckig</string>
-  <string name="keepYourPiecesSafe">Beschütz diini Figure</string>
+  <string name="keepYourPiecesSafe">Beschütz dini Figure</string>
   <string name="protectionIntro">Find use, welli Figure diin Gägner aagriift schütz sie!</string>
   <string name="protectionComplete">Gratuliere, jedi Figur wo du nöd verlore häsch, isch e gunneni Figur!</string>
   <string name="escape">Du wirsch aagriffe, entchum dere Bedrohig!</string>
@@ -81,14 +81,14 @@ Umwandle muesch nöd.</string>
   <string name="checkInOneGoal">Büt das \"Schach\" mit eim Zug!</string>
   <string name="checkInOneComplete">Gratuliere, du häsch dim Gägner \"Schach\" bote und en zwunge, sin König z\'verteidige!</string>
   <string name="outOfCheck">Es \"Schach\" abwehre</string>
-  <string name="defendYourKing">Verteidig diin König</string>
+  <string name="defendYourKing">Verteidig din König</string>
   <string name="outOfCheckIntro">Du stahsch im Schach, du muesch flüchte oder de Aagriff blockiere.</string>
   <string name="escapeWithTheKing">Mit em König flüchte!</string>
   <string name="theKingCannotEscapeButBlock">De König chann nöd flüchte, aber du chasch de Aagriff blockiere!</string>
   <string name="youCanGetOutOfCheckByTaking">Du chunnsch us em Schach, wänn du de Aagrifer schlahsch.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">De Schpringer bütet Schach, dur diini Verteidigung!</string>
   <string name="escapeOrBlock">Mit em König flüchte oder de Aagriff blockiere!</string>
-  <string name="outOfCheckComplete">Gratuliere, diin König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
+  <string name="outOfCheckComplete">Gratuliere, din König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
   <string name="mateInOne">Matt mit 1 Zug</string>
   <string name="defeatTheOpponentsKing">Besieg de gägnerisch König</string>
   <string name="mateInOneIntro">Du günnsch, wänn diin Gägner diis Schachgebot nöd abwehre cha.</string>
@@ -107,13 +107,13 @@ Grad näbe de Turm.</string>
 Grad nach de Schpringer.</string>
   <string name="placeTheQueen">Dänn e Dame, ufs wiss Fäld, die Wiss und ufs schwarz Fäld die Schwarz.</string>
   <string name="placeTheKing">Und dänn no de König!
-Zu de Dame - zu siinere Königin.</string>
+Zu de Dame - näbe sini Königin.</string>
   <string name="pawnsFormTheFrontLine">Puure bilded die vorderscht Linie.
 Mach irgend en Zug zum wiiter fahre.</string>
   <string name="boardSetupComplete">Gratuliere, du weisch jetzt, wie mer all Schachfigure richtig ufschtellt.</string>
   <string name="castling">Rochade</string>
   <string name="theSpecialKingMove">De schpezielli Königszug</string>
-  <string name="castlingIntro">Bring diin König i Sicherheit und de Turm i Agriffsposizion!</string>
+  <string name="castlingIntro">Bring din König i Sicherheit und de Turm i Agriffsposizion!</string>
   <string name="castleKingSide">Zieh de König - uf de Königssiite - zwei Fälder. 
 Das isch die churz Rochade \"0-0\"!</string>
   <string name="castleQueenSide">Zieh de König - uf de Damesiite - zwei Fälder.
@@ -177,7 +177,7 @@ Puur = 1</string>
   <string name="practice">Training</string>
   <string name="learnCommonChessPositions">Lern mit gängige Schtellige</string>
   <string name="puzzles">Ufgabe löse</string>
-  <string name="exerciseYourTacticalSkills">Trainier diini taktische Fähigkeite</string>
+  <string name="exerciseYourTacticalSkills">Trainier dini taktische Fähigkeite</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Lueg lehrriichi Schach-Videos</string>
   <string name="playPeople">Schpill online mit Lüt</string>
@@ -193,7 +193,7 @@ Puur = 1</string>
   <string name="outstanding">Herusragend!</string>
   <string name="wayToGo">Wiiter so!</string>
   <string name="yesYesYes">Ja - ja - ja!</string>
-  <string name="youreGoodAtThis">Du bisch guet!</string>
+  <string name="youreGoodAtThis">Du bisch guet i dem!</string>
   <string name="nailedIt">Du häsch de Nagel uf de Chopf troffe.</string>
   <string name="rightOn">Uf de Punkt!</string>
   <string name="stageXComplete">Schtufe %s beändet</string>
