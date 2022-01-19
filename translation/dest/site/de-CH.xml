@@ -43,7 +43,7 @@
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verlah. Du chasch de Sieg beaschpruche, es Remis mache oder warte.</string>
   <string name="forceResignation">De Sieg beaschpruche</string>
   <string name="forceDraw">Remis mälde</string>
-  <string name="talkInChat">Im Chat bitte nett sii!</string>
+  <string name="talkInChat">Bitte blib nett im Chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
@@ -408,9 +408,9 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="winner">Sieger</string>
   <string name="standing">Tabällä</string>
   <string name="createANewTournament">Erschtell es neus Turnier</string>
-  <string name="tournamentCalendar">Turnier-Kaländer</string>
+  <string name="tournamentCalendar">Turnier Kaländer</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
-  <string name="advancedSettings">Erwiiterti Iischtellige</string>
+  <string name="advancedSettings">Erwiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu diim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
@@ -459,11 +459,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="biography">Biografii</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
   <string name="thankYou">Ich danke dir!</string>
-  <string name="socialMediaLinks">Social-Media-Links</string>
-  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
+  <string name="socialMediaLinks">Social Media Links</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web Adrässe (URL) pro Zile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
-  <string name="onlinePlayers">Online-Schpiller</string>
+  <string name="onlinePlayers">Online Schpiller</string>
   <string name="activePlayers">Aktivi Schpiller</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung, das Schpiil isch gwertet, aber ohni Ziitlimit!</string>
   <string name="success">Korräkt</string>
@@ -474,7 +474,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners">Turnier-Sieger</string>
+  <string name="tournamentWinners">Turnier Sieger</string>
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
