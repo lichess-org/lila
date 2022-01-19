@@ -59,7 +59,7 @@
   <string name="solved">glöst</string>
   <string name="failed">unglöst</string>
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie. Es lauft kei Uhr, drum nimm dir Ziit. Ein falsche Zug und es isch verbii! Aber du chasch 1 Zug pro Serie überschpringe.</string>
-  <string name="yourStreakX">Diini Erfolgsserie: %s</string>
+  <string name="yourStreakX">Dini Erfolgsserie: %s</string>
   <string name="streakSkipExplanation">Überschpring de Zug, um diini Erfolgsserie z\'bhalte! Aber du chasch das nur 1x pro Serie mache.</string>
   <string name="continueTheStreak">Erfolgsserie wiiterspille</string>
   <string name="newStreak">Neui Erfolgsserie</string>
