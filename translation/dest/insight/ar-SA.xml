@@ -6,4 +6,6 @@
   <string name="cantSeeInsights">عذراً، لا يمكنك رؤية رؤى الشطرنج الخاصة ب %s.</string>
   <string name="generateInsights" comment="generateInsights&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.">توليد رؤى الشطرنج لـ %s.</string>
   <string name="crunchingData" comment="crunchingData&#10;&#10;For chess insights, when you ask to create a new set of chess insights based on your/another player's game history.">الآن تحطيم البيانات من أجلك فقط!</string>
+  <string name="maybeAskThemToChangeTheir" comment="maybeAskThemToChangeTheir&#10;%s is the translation for 'insights settings'.&#10;&#10;Your settings control privacy for your chess insights, and determine who can and cannot see them.">ربما نطلب منهم تغيير %s؟</string>
+  <string name="insightsSettings" comment="insightsSettings&#10;In the context of 'Maybe ask them to change their insight settings?' - separate string available for translation.">إعدادات الرؤى</string>
 </resources>
