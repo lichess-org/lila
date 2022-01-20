@@ -49,7 +49,7 @@ object bits {
         title: String,
         name: String
     ) = a(
-      cls := "variant-link",
+      cls     := "variant-link",
       st.href := href,
       targetBlank,
       st.title := title
@@ -57,11 +57,11 @@ object bits {
 
     if (variant.exotic)
       link(
-        href = (variant match {
+        href = variant match {
           case chess.variant.FromPosition =>
             s"""${routes.Editor.index}?fen=${initialFen.??(_.value.replace(' ', '_'))}"""
           case v => routes.Page.variant(v.key).url
-        }),
+        },
         title = variant.title,
         name = (if (shortName && variant == chess.variant.KingOfTheHill) variant.shortName
                 else variant.name).toUpperCase

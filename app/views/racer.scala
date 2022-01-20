@@ -54,7 +54,7 @@ object racer {
       chessground = false
     ) {
       main(
-        div(cls := "racer racer-app racer--play")(
+        div(cls   := "racer racer-app racer--play")(
           div(cls := "racer__board main-board"),
           div(cls := "racer__side")
         )

@@ -94,8 +94,8 @@ object chat {
 
   val spectatorsFrag =
     div(
-      cls := "chat__members none",
-      aria.live := "off",
+      cls           := "chat__members none",
+      aria.live     := "off",
       aria.relevant := "additions removals text"
     )
 }

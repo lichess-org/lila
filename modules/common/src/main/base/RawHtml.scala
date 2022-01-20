@@ -1,7 +1,7 @@
 package lila.base
 
 import java.lang.Character.isLetterOrDigit
-import java.lang.{ StringBuilder => jStringBuilder, Math }
+import java.lang.{ Math, StringBuilder => jStringBuilder }
 import scala.annotation.{ switch, tailrec }
 
 import lila.common.base.StringUtils.escapeHtmlRaw

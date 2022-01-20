@@ -47,18 +47,18 @@ object mobile {
             ),
             div(cls := "right-side")(
               img(
-                widthA := "437",
+                widthA  := "437",
                 heightA := "883",
-                cls := "mobile-playing",
-                src := assetUrl("images/mobile/lichesstv-mobile.png"),
-                alt := "Lichess TV on mobile"
+                cls     := "mobile-playing",
+                src     := assetUrl("images/mobile/lichesstv-mobile.png"),
+                alt     := "Lichess TV on mobile"
               ),
               img(
-                cls := "qrcode",
-                widthA := "200",
+                cls     := "qrcode",
+                widthA  := "200",
                 heightA := "200",
-                src := assetUrl("images/mobile/dynamic-qrcode.png"),
-                alt := "Download QR code"
+                src     := assetUrl("images/mobile/dynamic-qrcode.png"),
+                alt     := "Download QR code"
               )
             )
           )

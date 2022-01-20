@@ -34,7 +34,7 @@ object search {
               name := "q",
               autofocus,
               placeholder := "Search by IP, email, or username (exact match only)",
-              value := form("q").value
+              value       := form("q").value
             )
           ),
           userTable(mod, users, eraseButton = isGranted(_.CloseAccount))
@@ -186,8 +186,8 @@ object search {
   private def teacherLink(userId: User.ID)(implicit ctx: Context) =
     lightUser(userId).map { user =>
       a(
-        href := routes.Clas.teacher(user.name),
-        cls := userClass(user.id, none, withOnline = true),
+        href     := routes.Clas.teacher(user.name),
+        cls      := userClass(user.id, none, withOnline = true),
         dataHref := routes.User.show(user.name)
       )(
         lineIcon(user),
@@ -234,14 +234,14 @@ object search {
             td(u.seenAt.map(momentFromNow(_))),
             isGranted(_.CloseAccount) option td(
               !u.marks.alt option button(
-                cls := "button button-empty button-thin button-red mark-alt",
+                cls  := "button button-empty button-thin button-red mark-alt",
                 href := routes.Mod.alt(u.id, !u.marks.alt)
               )("ALT")
             ),
             eraseButton option td(
               postForm(action := routes.Mod.gdprErase(u.username))(
                 submitButton(
-                  cls := "button button-red button-empty confirm",
+                  cls   := "button button-red button-empty confirm",
                   title := "Definitely erase everything about this user"
                 )("GDPR erasure")
               )

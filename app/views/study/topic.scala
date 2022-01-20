@@ -27,7 +27,7 @@ object topic {
           myForm.map { form =>
             frag(
               h2(trans.study.myTopics()),
-              postForm(cls := "form3", action := routes.Study.topics)(
+              postForm(cls                          := "form3", action := routes.Study.topics)(
                 form3.textarea(form("topics"))(rows := 10),
                 form3.submit(trans.save())
               )

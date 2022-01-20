@@ -23,14 +23,14 @@ object actions {
           !blocked option frag(
             a(
               titleOrText(trans.challenge.challengeToPlay.txt()),
-              href := s"${routes.Lobby.home}?user=$userId#friend",
-              cls := "btn-rack__btn",
+              href     := s"${routes.Lobby.home}?user=$userId#friend",
+              cls      := "btn-rack__btn",
               dataIcon := ""
             ),
             a(
               titleOrText(trans.composeMessage.txt()),
-              href := routes.Msg.convo(userId),
-              cls := "btn-rack__btn",
+              href     := routes.Msg.convo(userId),
+              cls      := "btn-rack__btn",
               dataIcon := ""
             )
           ),
@@ -38,13 +38,13 @@ object actions {
             case None =>
               frag(
                 followable && !blocked option a(
-                  cls := "btn-rack__btn relation-button",
+                  cls  := "btn-rack__btn relation-button",
                   href := routes.Relation.follow(userId),
                   titleOrText(trans.follow.txt()),
                   dataIcon := ""
                 ),
                 a(
-                  cls := "btn-rack__btn relation-button",
+                  cls  := "btn-rack__btn relation-button",
                   href := routes.Relation.block(userId),
                   titleOrText(trans.block.txt()),
                   dataIcon := ""
@@ -53,16 +53,16 @@ object actions {
             case Some(true) =>
               a(
                 dataIcon := "",
-                cls := "btn-rack__btn relation-button text hover-text",
-                href := routes.Relation.unfollow(userId),
+                cls      := "btn-rack__btn relation-button text hover-text",
+                href     := routes.Relation.unfollow(userId),
                 titleOrText(trans.following.txt()),
                 dataHoverText := trans.unfollow.txt()
               )
             case Some(false) =>
               a(
                 dataIcon := "",
-                cls := "btn-rack__btn relation-button text hover-text",
-                href := routes.Relation.unblock(userId),
+                cls      := "btn-rack__btn relation-button text hover-text",
+                href     := routes.Relation.unblock(userId),
                 titleOrText(trans.blocked.txt()),
                 dataHoverText := trans.unblock.txt()
               )

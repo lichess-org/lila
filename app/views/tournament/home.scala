@@ -85,8 +85,8 @@ object home {
             h1(trans.tournaments()),
             ctx.isAuth option div(cls := "box__top__actions")(
               a(
-                href := routes.Tournament.form,
-                cls := "button button-green text",
+                href     := routes.Tournament.form,
+                cls      := "button button-green text",
                 dataIcon := ""
               )(trans.createANewTournament())
             )
