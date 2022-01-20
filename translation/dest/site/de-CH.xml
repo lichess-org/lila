@@ -116,11 +116,11 @@
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Unändlichi Analyse</string>
   <string name="removesTheDepthLimit">Entfernt d\'Tüfebegränzig und haltet din Computer warm</string>
-  <string name="blunder">En grobe Patzer</string>
+  <string name="blunder">En Patzer</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungnauigkeit</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s grobe Patzer</item>
+    <item quantity="one">%s Patzer</item>
     <item quantity="other">%s Patzer</item>
   </plurals>
   <plurals name="nbMistakes">
@@ -621,7 +621,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turnier afangt</string>
-  <string name="averageCentipawnLoss">Durchschnittliche Verluscht vu Hundertstel-Puure</string>
+  <string name="averageCentipawnLoss">Durchschnittliche Verluscht vo Hundertstel-Puure</string>
   <string name="keyboardShortcuts">Diräkti Taschtebefehl</string>
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
