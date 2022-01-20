@@ -272,7 +272,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s Siig</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s Niderlaag</item>
+    <item quantity="one">%s Niederlag</item>
     <item quantity="other">%s Niderlagä</item>
   </plurals>
   <plurals name="nbDraws">
@@ -422,13 +422,13 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="withdraw">Zruggzieh</string>
   <string name="points">Pünkt</string>
   <string name="wins">Sieg</string>
-  <string name="losses">Niderlaage</string>
+  <string name="losses">Niederlage</string>
   <string name="createdBy">Erschtellt vo</string>
   <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiil meh gschpillt.</string>
   <string name="standByX">Stand by %s, Paarige werded gmacht, mach dich bereit!</string>
   <string name="youArePlaying">Dis Schpiil fangt aa!</string>
-  <string name="winRate">Sieg-Rate</string>
+  <string name="winRate">Gwünn Rate</string>
   <string name="berserkRate">Bärsärkratä</string>
   <string name="performance">Leischtig</string>
   <string name="tournamentComplete">Das Turnier isch fertig</string>
