@@ -36,14 +36,14 @@ Zum Bischpiil berächnet sich die erwartete Schpiilduur vonere 5+3 Partie zu 5 �
   <string name="whatVariantsCanIplay">Weli Variantä chan ich uf Lichess schpilä?</string>
   <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvariantä</string>
-  <string name="whatIsACPL">Was isch durchschnittlichä Hundertschtälpuur-Verluscht (ACPL)?</string>
-  <string name="acplExplanation">Dä Centipuur oder Hundertschtälppur isch ä Masseinheit im Schach für dä Vorteil vomänä Schpiller / vonärä Schpillerin. Dä Centipuur entspricht äm Wärt vo 1/100 vumä regulärä Puur. Also gilt: 100 Centipuurä = 1 Puur. Diä Wärt schpiläd während dä Partii kei bsunderi Rolle, sind aber für Schpiller/-innä nützlich und schpilläd im Kompischach än essänziälli Roll bidä Bewärtig vo Schtelligä.
+  <string name="whatIsACPL">Was isch durchschnittlichä Hundertstelpuur-Verluscht (ACPL)?</string>
+  <string name="acplExplanation">Dä Centipuur oder Hundertstelpuur isch ä Masseinheit im Schach für dä Vorteil vomänä Schpiller / vonärä Schpillerin. Dä Hundertstelpuur entspricht äm Wärt vo 1/100 vomä regulärä Puur. Also gilt: 100 Hundertstelpuur = 1 Puur. Diä Wärt schpiläd während dä Partii kei bsunderi Rolle, sind aber für Schpiller/-innä nützlich und schpiläd im Compischach än essänziälli Rolle bidä Bewärtig vo Stellige.
 
-Dä bescht Kompizug verlüürt kan Centippur, schlächtäri Züg verschlächtäräd aber d\'Schtellig, was in Centipuurä gmässä wird.
+Dä bescht Kompizug verlüürt kein Hundertstelpuur, schlächtäri Züg verschlächtäräd aber d\'Schtellig, was in Hundertstelpuur gmässä wird.
 
-Dä Wärt chan als Indikator für d\'Schpiilqualität benutzt wärdä. Je wäniger Centipuurä pro Zug verlorä wärdäd, deschto grösser d\'Schpiilstärchi.
+Dä Wärt chan als Indikator für d\'Schpiilqualität benutzt wärdä. Je weniger Hundertstelpuure pro Zug verlorä werded, deschto grösser d\'Schpiilstärchi.
 
-D\'Kompianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
+D\'Compianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
   <string name="insufficientMaterial">Uf Ziit verlüürä, Remis und ungnüägänds Material</string>
   <string name="lichessFollowFIDErules">Wänn ämänä Schpiller / änärä Schpillerin kei Bedenkziit meh zur Verfüägig schtoht, verlüürt är ide Regäl d\'Partii. Allerdings wird ä Partii Remis erchläärt, falls äm Gägner dur kei legali Zugfolg meh möglich isch, äs Matt z\'erzwingä (%1$s). Schtandardmässig wird immer für däsäb Schpiller / disäb Schpillerin entschidä, dessä Bedenkziit nöd abgloffä isch.
 
