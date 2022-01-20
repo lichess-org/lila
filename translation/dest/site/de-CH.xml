@@ -804,7 +804,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="ultraBulletDesc">Wahnsinnig schnälli Schpiil: weniger als 30 Sekunde</string>
   <string name="bulletDesc">Sehr schnälli Schpiil: weniger als 3 Minute</string>
   <string name="blitzDesc">Schnälli Schpiil: 3 bis 8 Minute</string>
-  <string name="rapidDesc">Schnäll-Schach: 8 bis 25 Minute</string>
+  <string name="rapidDesc">Schnällschach: 8 bis 25 Minute</string>
   <string name="classicalDesc">Klassischi Schpiil: 25 Minute und meh</string>
   <string name="correspondenceDesc">Fernschach Partie: 1 oder mehreri Täg pro Zug</string>
   <string name="puzzleDesc">Schach-Taktik Trainer</string>
@@ -895,6 +895,6 @@ iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="youCantStartNewGame">Du chasch kei neui Partie starte, bevor die no Laufendi nöd fertig gschpillt isch.</string>
   <string name="since">Sit</string>
   <string name="until">Bis</string>
-  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess-Schpiller</string>
+  <string name="lichessDbExplanation">Gwerteti Schpiil vu allne Lichess Schpiller</string>
   <string name="switchSides">Farb wächsle</string>
 </resources>
