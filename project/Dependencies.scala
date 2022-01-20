@@ -15,7 +15,7 @@ object Dependencies {
   val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.2"  % "compile"
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.3.0"
   val galimatias  = "io.mola.galimatias"          % "galimatias"                      % "0.2.1"
-  val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.10.0"
+  val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.11.1"
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.6.RELEASE"
   val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.65.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
