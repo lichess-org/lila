@@ -181,6 +181,10 @@
     <item quantity="one">%s saat</item>
     <item quantity="other">%s saat</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s dakika</item>
+    <item quantity="other">%s dakika</item>
+  </plurals>
   <string name="time">Zaman</string>
   <string name="rating">Puan</string>
   <string name="ratingStats">Puan istatistikleri</string>
