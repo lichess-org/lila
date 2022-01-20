@@ -688,8 +688,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="viewTheSolution">Lueg d\'Lösig aa</string>
   <string name="followAndChallengeFriends">Folg Fründe und forder sie zum Schpiil</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Verfüegbar i %s Sprache!</item>
-    <item quantity="other">Verfüegbar i %s Sprache!</item>
+    <item quantity="one">Verfüegbar i %s Schprach!</item>
+    <item quantity="other">Verfüegbar i %s Schprache!</item>
   </plurals>
   <string name="gameAnalysis">Schpiil-Analyse</string>
   <string name="xHostsY">%1$s hät %2$s erschtellt</string>
