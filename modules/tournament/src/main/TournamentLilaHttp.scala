@@ -19,6 +19,7 @@ final class TournamentLilaHttp(
     duelStore: DuelStore,
     statsApi: TournamentStatsApi,
     jsonView: JsonView,
+    pause: Pause,
     lightUserApi: lila.user.LightUserApi,
     redisClient: RedisClient
 )(implicit mat: akka.stream.Materializer, system: ActorSystem, ec: ExecutionContext) {
@@ -89,6 +90,7 @@ final class TournamentLilaHttp(
         for {
           sheet <- cached.sheet(tour, player.userId)
           json <- playerJson(
+            tour,
             sheet,
             RankedPlayer(index.toInt + 1, player),
             streakable = tour.streakable
@@ -110,6 +112,7 @@ final class TournamentLilaHttp(
     .add("noStreak" -> tour.noStreak)
 
   private def playerJson(
+      tour: Tournament,
       sheet: arena.Sheet,
       rankedPlayer: RankedPlayer,
       streakable: Boolean
@@ -128,6 +131,9 @@ final class TournamentLilaHttp(
         .add("withdraw" -> p.withdraw)
         .add("team" -> p.team)
         .add("fire" -> p.fire)
+        .add("pause" -> {
+          p.withdraw ?? pause.remainingDelay(p.userId, tour).map(_.seconds)
+        })
     }
   }
 }
