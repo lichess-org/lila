@@ -24,7 +24,7 @@ final class TournamentLilaHttp(
 )(implicit mat: akka.stream.Materializer, system: ActorSystem, ec: ExecutionContext) {
 
   def handles(tour: Tournament) = isOnLilaHttp get tour.id
-  def hit(tour: Tournament)     = if (hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
+  def hit(tour: Tournament)     = if (tour.nbPlayers > 10 && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
