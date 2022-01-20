@@ -7,7 +7,7 @@
   <string name="confirmTitle">Beschtätig da din Titel und mir prüefed dini Bewerbig.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick eus e Mail a %s und mir prüefed dini Bewerbig.</string>
   <string name="location">Ortschaft</string>
-  <string name="languages">Sprache</string>
+  <string name="languages">Schprache</string>
   <string name="rating">Wertigs-Zahl</string>
   <string name="hourlyRate">Schtundesatz</string>
   <string name="availability">Verfüegbarkeit</string>
