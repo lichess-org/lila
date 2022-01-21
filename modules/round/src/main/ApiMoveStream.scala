@@ -27,7 +27,7 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
         var moves  = 0
         Source(List(gameJsonView(game, initialFen))) concat
           Source
-            .queue[JsObject](16, akka.stream.OverflowStrategy.dropHead)
+            .queue[JsObject](Game.maxPlies, akka.stream.OverflowStrategy.dropHead)
             .statefulMapConcat { () => js =>
               moves += 1
               if (game.finished || moves <= delayKeepsFirstMoves) List(js)
