@@ -6,5 +6,5 @@
   <string name="cantOpenSimilarAccount">Вы не сможете создать новый аккаунт с таким же именем, даже если регистр символов отличается.</string>
   <string name="changedMindDoNotCloseAccount">Я передумал, не закрывайте мой аккаунт</string>
   <string name="closeAccountExplanation">Вы уверены, что хотите закрыть свой аккаунт? Закрытие аккаунта необратимо. Вы никогда больше не сможете в него войти.</string>
-  <string name="thisAccountIsClosed">Этот аккаунт закрыт.</string>
+  <string name="thisAccountIsClosed" comment="thisAccountIsClosed&#10;&#10;This should be in the passive voice. It may be the player's choice to close their own account, but it is can also be Lichess moderators that close the account.">Этот аккаунт закрыт.</string>
 </resources>
