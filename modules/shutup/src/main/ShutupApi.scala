@@ -55,7 +55,7 @@ final class ShutupApi(
           case true => funit
           case false =>
             val analysed = Analyser(text)
-            val pushPublicLine = source.ifTrue(analysed.nbBadWords > 0) ?? { source =>
+            val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty) ?? { source =>
               $doc(
                 "pub" -> $doc(
                   "$each"  -> List(PublicLine.make(text, source)),
@@ -78,14 +78,15 @@ final class ShutupApi(
               )
               .flatMap {
                 case None             => fufail(s"can't find user record for $userId")
-                case Some(userRecord) => legiferate(userRecord)
+                case Some(userRecord) => legiferate(userRecord, analysed)
               }
         }
     }
 
-  private def legiferate(userRecord: UserRecord): Funit =
-    userRecord.reports.exists(_.unacceptable) ?? {
-      reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
+  private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
+    (analysed.critical || userRecord.reports.exists(_.unacceptable)) ?? {
+      val text = (analysed.critical ?? "Critical comm alert\n") ++ reportText(userRecord)
+      reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
       coll.update
         .one(
           $id(userRecord.userId),

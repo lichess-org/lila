@@ -29,11 +29,15 @@ case class TextAnalysis(
 
   lazy val nbWords = text.split("""\W+""").length
 
-  def nbBadWords = badWords.size
-
-  def ratio: Double = if (nbWords == 0) 0 else nbBadWords.toDouble / nbWords
+  def ratio: Double = {
+    if (nbWords == 0) 0 else badWords.size / nbWords
+  } * {
+    if (critical) 3 else 1
+  }
 
   def dirty = ratio > 0
+
+  lazy val critical = badWords.nonEmpty && Analyser.isCritical(text)
 }
 
 sealed abstract class TextType(
