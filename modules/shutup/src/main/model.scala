@@ -30,7 +30,7 @@ case class TextAnalysis(
   lazy val nbWords = text.split("""\W+""").length
 
   def ratio: Double = {
-    if (nbWords == 0) 0 else badWords.size / nbWords
+    if (nbWords == 0) 0 else badWords.size.toDouble / nbWords
   } * {
     if (critical) 3 else 1
   }
