@@ -17,7 +17,7 @@ object download {
       main(cls := "box page-small search")(
         h1(userLink(user), s" • ${trans.exportGames.txt()}"),
         form(
-          id := "dl-form",
+          id  := "dl-form",
           cls := "box__pad search__form"
         )(
           table(
@@ -33,11 +33,11 @@ object download {
               th(label(`for` := "dl-api-url")("API URL")),
               td(
                 input(
-                  id := "dl-api-url",
+                  id  := "dl-api-url",
                   cls := "copyable autoselect",
                   tpe := "text",
                   readonly,
-                  spellcheck := "false",
+                  spellcheck            := "false",
                   attr("data-api-path") := routes.Game.apiExportByUser(user.username)
                 )
               )
@@ -45,8 +45,8 @@ object download {
             tr(
               td(cls := "action", colspan := "2")(
                 a(
-                  id := "dl-button",
-                  cls := "button",
+                  id   := "dl-button",
+                  cls  := "button",
                   href := routes.Game.exportByUser(user.username),
                   downloadAttr
                 )(trans.download())
@@ -61,7 +61,7 @@ object download {
   private def color(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
     td(cls := "single")(
-      select(id := "dl-color", name := "color")(
+      select(id      := "dl-color", name := "color")(
         option(value := ""),
         option(value := "white")(trans.white()),
         option(value := "black")(trans.black())
@@ -95,7 +95,7 @@ object download {
   private def mode(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-rated")(trans.mode())),
     td(cls := "single")(
-      select(id := "dl-rated", name := "rated")(
+      select(id      := "dl-rated", name := "rated")(
         option(value := ""),
         option(value := "false")(trans.casual()),
         option(value := "true")(trans.rated())
@@ -112,7 +112,7 @@ object download {
       )
     ),
     td(cls := "single")(
-      select(id := "dl-analysis", name := "analysed")(
+      select(id      := "dl-analysis", name := "analysed")(
         option(value := ""),
         option(value := "true")(trans.yes()),
         option(value := "false")(trans.no())

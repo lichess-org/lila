@@ -43,7 +43,7 @@ object widget {
                 },
                 profile.countryInfo.map { c =>
                   frag(
-                    span(cls := "country")(
+                    span(cls  := "country")(
                       img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name

@@ -33,11 +33,11 @@ object checkYourEmail {
               br,
               postForm(action := routes.Auth.fixEmail)(
                 input(
-                  id := "new-email",
+                  id  := "new-email",
                   tpe := "email",
                   required,
-                  name := "email",
-                  value := form.flatMap(_("email").value).getOrElse(email.value),
+                  name    := "email",
+                  value   := form.flatMap(_("email").value).getOrElse(email.value),
                   pattern := s"^((?!^${email.value}$$).)*$$"
                 ),
                 embedJsUnsafeLoadThen("""

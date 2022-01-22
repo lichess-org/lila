@@ -15,8 +15,8 @@ case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiV
 case class AssetVersion(value: String) extends AnyVal with StringValue
 
 object AssetVersion {
-  var current = random
-  def change() = { current = random }
+  var current        = random
+  def change()       = { current = random }
   private def random = AssetVersion(SecureRandom nextString 6)
 }
 

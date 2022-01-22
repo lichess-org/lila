@@ -1,9 +1,11 @@
 package lila.shutup
 
-/** - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
-  * - words do not partial match. "anal" will NOT match "analysis".
-  * - en, es and de words are automatically pluralized. "tit" will also match "tits", "cabron" will also match "cabrones" etc.
-  * - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you suck" will also match "you sucked" but "kill you" will NOT match "killed you"
+/**   - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
+  *   - words do not partial match. "anal" will NOT match "analysis".
+  *   - en, es and de words are automatically pluralized. "tit" will also match "tits", "cabron" will also
+  *     match "cabrones" etc.
+  *   - For en only: Past tense of last word in a string matches: "cheat" will also match "cheated", "you
+  *     suck" will also match "you sucked" but "kill you" will NOT match "killed you"
   */
 private object Dictionary {
 

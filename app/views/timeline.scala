@@ -60,7 +60,7 @@ object timeline {
           trans.xPostedInForumY(
             userLink(userId),
             a(
-              href := routes.ForumPost.redirect(postId),
+              href  := routes.ForumPost.redirect(postId),
               title := topicName
             )(shorten(topicName, 30))
           )
@@ -68,7 +68,7 @@ object timeline {
           trans.ublog.xPublishedY(
             userLink(userId),
             a(
-              href := routes.Ublog.post(usernameOrId(userId), slug, id),
+              href     := routes.Ublog.post(usernameOrId(userId), slug, id),
               st.title := title
             )(shorten(title, 40))
           )
@@ -97,9 +97,9 @@ object timeline {
             case None        => trans.drawVsYInZ
           })(
             a(
-              href := routes.Round.player(playerId),
+              href     := routes.Round.player(playerId),
               dataIcon := perf.iconChar,
-              cls := "text glpt"
+              cls      := "text glpt"
             )(win match {
               case Some(true)  => trans.victory()
               case Some(false) => trans.defeat()

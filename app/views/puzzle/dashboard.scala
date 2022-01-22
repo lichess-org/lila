@@ -122,7 +122,7 @@ object dashboard {
               span(trans.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices map { d =>
                 a(
-                  cls := (d == days).option("current"),
+                  cls  := (d == days).option("current"),
                   href := s"${routes.Puzzle.dashboard(d, path)}${!(ctx is user) ?? s"?u=${user.username}"}"
                 )(trans.nbDays.pluralSame(d))
               }
@@ -163,13 +163,13 @@ object dashboard {
         span(trans.performance())
       ),
       div(
-        cls := s"$metricClass $metricClass--win",
+        cls   := s"$metricClass $metricClass--win",
         style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
       )(
         trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
       ),
       a(
-        cls := s"$metricClass $metricClass--fix",
+        cls  := s"$metricClass $metricClass--fix",
         href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(

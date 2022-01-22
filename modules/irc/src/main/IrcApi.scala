@@ -51,7 +51,7 @@ final class IrcApi(
             s"$domain discussion: $ZulipLink",
             mod.user,
             modOnly = true,
-            dox = (domain == ModDomain.Admin)
+            dox = domain == ModDomain.Admin
           )
         }
       }
