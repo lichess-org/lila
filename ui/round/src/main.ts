@@ -1,7 +1,7 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
 import LichessChat from 'chat';
-import menuHover from 'common/menuHover';
+import menuHover from '../../common/src/menuHover';
 import MoveOn from './moveOn';
 import RoundController from './ctrl';
 import { Chessground } from 'chessground';

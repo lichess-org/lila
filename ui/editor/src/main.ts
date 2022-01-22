@@ -1,6 +1,6 @@
 import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';
 import EditorCtrl from './ctrl';
-import menuHover from 'common/menuHover';
+import menuHover from '../../common/src/menuHover';
 import view from './view';
 import { Chessground } from 'chessground';
 

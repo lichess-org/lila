@@ -1,5 +1,5 @@
 import { attributesModule, classModule, init, VNode } from 'snabbdom';
-import menuHover from 'common/menuHover';
+import menuHover from '../../common/src/menuHover';
 import RacerCtrl from './ctrl';
 import { Chessground } from 'chessground';
 import { RacerOpts } from './interfaces';

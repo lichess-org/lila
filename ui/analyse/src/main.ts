@@ -1,8 +1,8 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
-import LichessChat from 'chat';
+import LichessChat from '../../chat/src/main';
 import makeCtrl from './ctrl';
-import menuHover from 'common/menuHover';
+import menuHover from '../../common/src/menuHover';
 import view from './view';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { Chessground } from 'chessground';

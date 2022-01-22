@@ -1,6 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
-import menuHover from 'common/menuHover';
+import menuHover from '../../common/src/menuHover';
 import view from './view/main';
 import { Chessground } from 'chessground';
 import { PuzzleOpts } from './interfaces';
