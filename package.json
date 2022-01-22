@@ -22,10 +22,12 @@
     "yarn": "^1"
   },
   "dependencies": {
+    "jquery": "^3.6.0",
     "prettier": "2.3.2",
     "xml2js": "0.4.23"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.13",
     "@types/web": "=0.0.32",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",

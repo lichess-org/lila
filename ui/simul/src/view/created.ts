@@ -1,10 +1,11 @@
 import { h } from 'snabbdom';
-import { bind, MaybeVNode } from 'common/snabbdom';
+import { bind, MaybeVNode } from '../../../common/src/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
-import modal from 'common/modal';
+import modal from '../../../common/src/modal';
+import * as $ from "jquery";
 
 export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
@@ -52,7 +53,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                           else {
                             modal({
                               content: $('.simul .continue-with'),
-                              onInsert($wrap) {
+                              onInsert($wrap : any) {
                                 $wrap.find('button').on('click', function (this: HTMLElement) {
                                   modal.close();
                                   xhr.join(ctrl.data.id, $(this).data('variant'));

@@ -1,7 +1,7 @@
 import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
-import * as xhr from 'common/xhr';
-import notify from 'common/notification';
+import * as xhr from '../../common/src/xhr';
+import notify from '../../common/src/notification';
 import { asText } from './view';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
