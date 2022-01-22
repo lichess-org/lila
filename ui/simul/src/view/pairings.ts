@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
+import { onInsert } from '../../../common/src/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';

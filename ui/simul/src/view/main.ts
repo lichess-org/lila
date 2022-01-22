@@ -1,11 +1,12 @@
 import { h } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
+import { onInsert } from '../../../common/src/snabbdom';
 import SimulCtrl from '../ctrl';
 import * as util from './util';
 import created from './created';
-import { richHTML } from 'common/richText';
+import { richHTML } from '../../../common/src/richText';
 import results from './results';
 import pairings from './pairings';
+import * as $ from "jquery";
 
 export default function (ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning ? started : ctrl.data.isFinished ? finished : created(showText);

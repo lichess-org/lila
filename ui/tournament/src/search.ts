@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { bind, onInsert } from 'common/snabbdom';
+import { bind, onInsert } from '../../common/src/snabbdom';
 import TournamentController from './ctrl';
 
 export function button(ctrl: TournamentController): VNode {

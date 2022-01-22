@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as $ from "jquery";
 
 import { Player } from '../interfaces';
 import SimulCtrl from '../ctrl';

@@ -1,7 +1,7 @@
 import { init, classModule, attributesModule } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { TournamentOpts } from './interfaces';
-import LichessChat from 'chat';
+import LichessChat from '../../chat/src/main';
 
 const patch = init([classModule, attributesModule]);
 

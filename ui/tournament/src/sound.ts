@@ -1,4 +1,4 @@
-import notify from 'common/notification';
+import notify from '../../common/src/notification';
 import { TournamentData } from './interfaces';
 
 let countDownTimeout: number | undefined;

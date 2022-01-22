@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
-import { bind, dataIcon } from 'common/snabbdom';
+import spinner from '../../../common/src/spinner';
+import { bind, dataIcon } from '../../../common/src/snabbdom';
 import { isIn } from '../tournament';
 import TournamentController from '../ctrl';
 

@@ -1,5 +1,5 @@
-import { throttlePromise, finallyDelay } from 'common/throttle';
-import * as xhr from 'common/xhr';
+import { throttlePromise, finallyDelay } from '../../common/src/throttle';
+import * as xhr from '../../common/src/xhr';
 import TournamentController from './ctrl';
 import { TournamentData } from './interfaces';
 

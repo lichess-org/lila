@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind } from '../../common/src/snabbdom';
 import TournamentController from './ctrl';
 import { MaybeVNodes, Pagination } from './interfaces';
 import * as search from './search';

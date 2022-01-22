@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon } from '../../../common/src/snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, playerName } from './util';
 import { teamName } from './battle';

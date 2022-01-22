@@ -27,6 +27,10 @@ export interface Standing {
 }
 
 export interface TournamentOpts {
+  opts: JQuery<HTMLElement>;
+  [x: string]: JQuery<HTMLElement>;
+  opts: JQuery<HTMLElement>;
+  opts: JQuery<HTMLElement>;
   element: HTMLElement;
   socketSend: SocketSend;
   data: TournamentData;

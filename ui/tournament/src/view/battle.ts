@@ -1,16 +1,17 @@
 import TournamentController from '../ctrl';
-import { bind } from 'common/snabbdom';
+import { bind } from '../../../common/src/snabbdom';
 import { playerName } from './util';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
-import modal, { snabModal } from 'common/modal';
+import modal, { snabModal } from '../../../common/src/modal';
+import * as $ from "jquery";
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
   return snabModal({
     class: 'team-battle__choice',
     onInsert($el) {
-      $el.on('click', '.team-picker__team', e => {
+      $el.on('click', '.team-picker__team', (e: { target: { dataset: { [x: string]: string | undefined; }; }; }) => {
         ctrl.join(e.target.dataset['id']);
         modal.close();
       });
