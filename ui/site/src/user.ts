@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import * as xhr from '../../common/src/xhr';
 import once from './component/once';
 import { hopscotch } from './component/assets';
 

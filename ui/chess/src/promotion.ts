@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { MaybeVNode, bind, onInsert } from 'common/snabbdom';
+import { MaybeVNode, bind, onInsert } from "../../common/src/snabbdom";
 import { Api as CgApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cgUtil from 'chessground/util';

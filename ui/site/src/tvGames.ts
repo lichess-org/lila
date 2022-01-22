@@ -1,4 +1,5 @@
-import * as xhr from 'common/xhr';
+import * as xhr from '../../common/src/xhr';
+import $ from "jquery";
 
 interface ReplacementResponse {
   id: string;

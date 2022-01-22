@@ -1,11 +1,12 @@
 import { h, VNode } from 'snabbdom';
-import spinner from 'common/spinner';
-import { bind, dataIcon } from 'common/snabbdom';
+import spinner from '../../../common/src/spinner';
+import { bind, dataIcon } from '../../../common/src/snabbdom';
 import { numberRow, playerName, player as renderPlayer } from './util';
 import { teamName } from './battle';
-import * as status from 'game/status';
+import * as status from '../../../game/src/status';
 import TournamentController from '../ctrl';
 import { Player } from '../interfaces';
+import * as $ from "jquery";
 
 function result(win: boolean, stat: number): string {
   switch (win) {

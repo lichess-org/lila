@@ -1,5 +1,5 @@
-import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import * as xhr from '../../common/src/xhr';
+import throttle from '../../common/src/throttle';
 
 lichess.load.then(() => {
   $('.flash').addClass('fade');

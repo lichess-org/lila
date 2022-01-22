@@ -1,4 +1,4 @@
-import { formToXhr } from 'common/xhr';
+import { formToXhr } from '../../common/src/xhr';
 
 lichess.load.then(() => {
   if ($('.nav-tree').length) location.hash = location.hash || '#help-root';

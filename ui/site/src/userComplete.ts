@@ -1,5 +1,5 @@
-import * as xhr from 'common/xhr';
-import complete from 'common/complete';
+import * as xhr from '../../common/src/xhr';
+import complete from '../../common/src/complete';
 import debounce from 'debounce-promise';
 
 export interface Result {
