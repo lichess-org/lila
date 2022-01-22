@@ -22,7 +22,7 @@
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद जीता</string>
-  <string name="blackIsVictorious">काले की जय</string>
+  <string name="blackIsVictorious">काला जीता</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
   <string name="itsYourTurn">यह आपकी बारी है!</string>
@@ -765,7 +765,7 @@
   <string name="advantage">लाभ</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंड</item>
-    <item quantity="other">%s सेकंड</item>
+    <item quantity="other">%s सेकंड समय बचे है ।</item>
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>
