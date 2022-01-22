@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
-import userLink from 'common/userLink';
+import { bind } from '../../common/src/snabbdom';
+import userLink from '../../common/src/userLink';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
-import { numberFormat } from 'common/number';
+import { numberFormat } from '../../common/src/number';
 import { userModInfo } from './xhr';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
@@ -15,7 +15,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     const username = userA.href.split('/')[4];
     if (opts.permissions.timeout) {
       loading = true;
-      userModInfo(username).then(d => {
+      userModInfo(username).then((d : any) => {
         data = { ...d, text };
         loading = false;
         opts.redraw();

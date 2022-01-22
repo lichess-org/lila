@@ -1,4 +1,4 @@
-import { Clock } from 'puz/clock';
+import { Clock } from "../../puz/src/clock"
 
 export class Countdown {
   played = new Set<number>();

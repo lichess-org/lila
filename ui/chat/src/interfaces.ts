@@ -1,8 +1,7 @@
 import { VNode } from 'snabbdom';
 import { PresetCtrl } from './preset';
-import { Prop } from 'common';
-
-import type { Palantir } from 'palantir';
+import { Prop } from '../../common/src/common';
+import type { Palantir } from '../../palantir/src/main';
 
 export interface ChatOpts {
   data: ChatData;

@@ -1,21 +1,21 @@
 import config from './config';
-import CurrentPuzzle from 'puz/current';
-import throttle from 'common/throttle';
-import * as xhr from 'common/xhr';
+import CurrentPuzzle from '../../puz/src/current';
+import throttle from '../../common/src/throttle';
+import * as xhr from '../../common/src/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
-import { Clock } from 'puz/clock';
-import { Combo } from 'puz/combo';
+import { Clock } from '../../puz/src/clock';
+import { Combo } from '../../puz/src/combo';
 import { Countdown } from './countdown';
-import { getNow, puzzlePov, sound } from 'puz/util';
-import { makeCgOpts } from 'puz/run';
+import { getNow, puzzlePov, sound } from '../../puz/src/util';
+import { makeCgOpts } from '../../puz/src/run';
 import { parseUci } from 'chessops/util';
-import { Run } from 'puz/interfaces';
-import { defined, prop, Prop } from 'common';
+import { Run } from '../../puz/src/interfaces';
+import { defined, prop, Prop } from '../../common/src/common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
-import { storedProp } from 'common/storage';
-import { PromotionCtrl } from 'chess/promotion';
+import { storedProp } from '../../common/src/storage';
+import { PromotionCtrl } from '../../chess/src/promotion';
 
 export default class RacerCtrl {
   private data: RacerData;

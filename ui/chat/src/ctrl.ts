@@ -2,7 +2,7 @@ import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCt
 import { presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop } from 'common';
+import { prop } from '../../common/src/common';
 
 export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   const data = opts.data;

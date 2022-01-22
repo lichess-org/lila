@@ -3,10 +3,9 @@ import menuHover from '../../common/src/menuHover';
 import RacerCtrl from './ctrl';
 import { Chessground } from 'chessground';
 import { RacerOpts } from './interfaces';
+import view from './view/main';
 
 const patch = init([classModule, attributesModule]);
-
-import view from './view/main';
 
 export function start(opts: RacerOpts) {
   const element = document.querySelector('.racer-app') as HTMLElement;

@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
-import debounce from 'common/debounce';
+import debounce from '../../common/src/debounce';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;
@@ -13,7 +13,7 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
     trans: opts.trans,
     text: () => text,
     fetch() {
-      xhr.getNote(opts.id).then(t => {
+      xhr.getNote(opts.id).then((t: string) => {
         text = t || '';
         opts.redraw();
       });

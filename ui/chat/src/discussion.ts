@@ -1,5 +1,5 @@
-import * as enhance from 'common/richText';
-import userLink from 'common/userLink';
+import * as enhance from '../../common/src/richText';
+import userLink from '../../common/src/userLink';
 import * as spam from './spam';
 import { Ctrl, Line } from './interfaces';
 import { flag } from './xhr';

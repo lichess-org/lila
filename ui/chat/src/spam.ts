@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import * as xhr from "../../common/src/xhr";
 
 export const skip = (txt: string) => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
 

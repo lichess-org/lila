@@ -1,5 +1,4 @@
 import { init, attributesModule, classModule } from 'snabbdom';
-
 import makeCtrl from './ctrl';
 import view from './view';
 import { ChatOpts } from './interfaces';
