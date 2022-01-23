@@ -48,6 +48,8 @@
   <string name="blackResigned">黑方認輸</string>
   <string name="whiteLeftTheGame">白方棄局</string>
   <string name="blackLeftTheGame">黑方棄局</string>
+  <string name="whiteDidntMove">白方沒有走棋</string>
+  <string name="blackDidntMove">黑方沒有走棋</string>
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
   <string name="computerAnalysisAvailable">電腦分析可用</string>
@@ -166,6 +168,9 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="other">%s小時</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s 分鐘</item>
   </plurals>
   <string name="time">時間</string>
   <string name="rating">評級</string>
@@ -315,6 +320,7 @@
   <string name="leaderboard">排行榜</string>
   <string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
   <string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
+  <string name="orUploadPgnFile">或者上傳一個PGN文件</string>
   <string name="fromPosition">自定義局面</string>
   <string name="continueFromHere">从此處繼續</string>
   <string name="toStudy">研究</string>
