@@ -6,6 +6,7 @@ import { flag } from './xhr';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction } from './moderation';
 import { presetView } from './preset';
+import * as $ from "jquery";
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 

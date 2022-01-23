@@ -1,8 +1,16 @@
 {
-  "extends": "../tsconfig.base.json",
-  "include": ["src"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "types": ["lichess", "web", "cash"]
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "target": "ES2018",
+    "module": "esnext",
+    "lib": ["ES2018"],
+    "types": ["lichess", "web"]
   }
 }

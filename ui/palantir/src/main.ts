@@ -58,10 +58,10 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
           call.answer(myStream);
         }
       })
-      .on('stream', s => {
+      .on('stream', (s: any) => {
         console.log('stream', s);
       })
-      .on('connection', c => {
+      .on('connection', (c: { peer: string; }) => {
         log('Connected to: ' + c.peer);
       })
       .on('disconnected', () => {
@@ -72,7 +72,7 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
         }
       })
       .on('close', () => log('peer.close'))
-      .on('error', err => log(`peer.error: ${err}`));
+      .on('error', (err: any) => log(`peer.error: ${err}`));
   }
 
   function startCall(call: any) {
@@ -86,7 +86,7 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
         log('call.close');
         stopCall(call);
       })
-      .on('error', e => {
+      .on('error', (e: any) => {
         log(`call.error: ${e}`);
         stopCall(call);
       });
@@ -141,26 +141,26 @@ export function palantir(opts: PalantirOpts): Palantir | undefined {
       peer = undefined;
     }
     if (myStream) {
-      myStream.getTracks().forEach(t => t.stop());
+      myStream.getTracks().forEach((t: { stop: () => any; }) => t.stop());
       myStream = undefined;
     }
     setState('off');
   }
 
-  function connectionsTo(peerId) {
+  function connectionsTo(peerId: string | number) {
     return (peer && peer.connections[peerId]) || [];
   }
-  function findOpenConnectionTo(peerId) {
-    return connectionsTo(peerId).find(c => c.open);
+  function findOpenConnectionTo(peerId: string) {
+    return connectionsTo(peerId).find((c: { open: any; }) => c.open);
   }
-  function closeOtherConnectionsTo(peerId) {
+  function closeOtherConnectionsTo(peerId: string | number) {
     const conns = connectionsTo(peerId);
     for (let i = 0; i < conns.length - 1; i++) conns[i].close();
   }
   function closeDisconnectedCalls() {
     if (peer) {
       for (const otherPeer in peer.connections) {
-        peer.connections[otherPeer].forEach(c => {
+        peer.connections[otherPeer].forEach((c: { peerConnection: { connectionState: string; }; peer: any; close: () => void; }) => {
           if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
             log(`close disconnected call to ${c.peer}`);
             c.close();

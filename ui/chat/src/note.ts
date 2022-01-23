@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
 import debounce from '../../common/src/debounce';
+import * as $ from "jquery";
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;

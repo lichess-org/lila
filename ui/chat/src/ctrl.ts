@@ -3,6 +3,7 @@ import { presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from '../../common/src/common';
+import * as $ from "jquery";
 
 export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   const data = opts.data;
