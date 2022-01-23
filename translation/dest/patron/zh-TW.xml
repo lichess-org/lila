@@ -16,7 +16,10 @@
   <string name="withCreditCard">信用卡</string>
   <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">我捐出的錢會到哪裡?</string>
+  <string name="serversAndDeveloper">首先，強大的服務器。 然後我們會再付給全職開發者：%s，Lichess 的創始人。</string>
+  <string name="costBreakdown">查看詳細的成本開支</string>
   <string name="officialNonProfit">Lichess 是一個非營利組織嗎?</string>
+  <string name="changeMonthlySupport">我可以更改/取消我的每月支持嗎？</string>
   <string name="changeOrContact">當然，您隨時可以在本頁更改。
 您也可以 %s。</string>
   <string name="contactSupport">聯絡 Lichess 支援</string>
