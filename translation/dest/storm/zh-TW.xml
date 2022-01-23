@@ -45,4 +45,8 @@
   <string name="skip">跳過</string>
   <string name="skipHelp">每場賽可略一手棋</string>
   <string name="skipExplanation">跳過這一步來維持您的連擊紀錄！每次遊玩只能使用一次。</string>
+  <string name="thisWeek" comment="thisWeek&#10;&#10;This is your best Puzzle Storm record this week.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">本星期</string>
+  <string name="thisMonth" comment="thisMonth&#10;&#10;This is your best Puzzle Storm record this month.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">本月</string>
+  <string name="allTime" comment="allTime&#10;&#10;This is your best Puzzle Storm record at any time in the history of the account.&#10;&#10;Appears in the Puzzle Storm dashboard: https://lichess.org/storm/dashboard">總計</string>
+  <string name="clickToReload">點擊以重新加載</string>
 </resources>
