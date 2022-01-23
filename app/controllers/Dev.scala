@@ -29,7 +29,6 @@ final class Dev(env: Env) extends LilaController(env) {
     env.prizeTournamentMakers,
     env.pieceImageExternal,
     env.evalCache.enable,
-    env.tournament.reloadDelaySetting,
     env.tournament.reloadEndpointSetting
   )
 

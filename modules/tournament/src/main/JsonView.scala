@@ -33,7 +33,6 @@ final class JsonView(
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
     pause: Pause,
-    reloadDelaySetting: SettingStore[Int] @@ TournamentReloadDelay,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
 )(implicit ec: ExecutionContext) {
 
@@ -476,10 +475,6 @@ final class JsonView(
       .add("stats" -> stats)
       .add("teamStanding" -> teamStanding)
       .add("duelTeams" -> data.duelTeams)
-      .add("reloadDelay" -> {
-        val d = reloadDelaySetting.get()
-        d > 0 option d
-      })
 }
 
 object JsonView {

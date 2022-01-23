@@ -96,13 +96,6 @@ final class Env(
 
   lazy val crudApi = wire[crud.CrudApi]
 
-  lazy val reloadDelaySetting = settingStore[Int](
-    "tournamentReloadDelay",
-    default = 0,
-    text =
-      "Delay in seconds between tournament XHR reloads. Set to zero for default. Set to 5 or more during intense tournaments. Tripled for spectators.".some
-  ).taggedWith[TournamentReloadDelay]
-
   lazy val reloadEndpointSetting = settingStore[String](
     "tournamentReloadEndpoint",
     default = "/tournament/{id}",

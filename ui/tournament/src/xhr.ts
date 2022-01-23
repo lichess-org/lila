@@ -79,6 +79,8 @@ export const reloadNow = (ctrl: TournamentController): Promise<void> =>
     .then(data => {
       ctrl.reload(data);
       ctrl.redraw();
+      const extraDelay = Math.floor(ctrl.nbWatchers / 2) * (data.me ? 1 : 3);
+      return new Promise(resolve => setTimeout(resolve, extraDelay));
     }, onFail);
 
 export const reloadSoon = throttlePromise(finallyDelay(() => 4000 + Math.floor(Math.random() * 1000), reloadNow));
