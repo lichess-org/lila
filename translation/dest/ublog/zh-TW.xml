@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moreBlogPostsBy">%s 的更多文章</string>
+  <string name="noPostsInThisBlogYet">此網誌中尚無文章</string>
+  <string name="noDrafts">沒有草稿</string>
+  <string name="latestBlogPosts">最新的網誌</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="other">查看所有 %s 篇文章</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">上傳一張圖片</string>
+  <string name="imageAlt">圖片備選文字</string>
+  <string name="imageCredit">圖片的來源</string>
+</resources>
