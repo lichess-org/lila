@@ -41,8 +41,8 @@ Puede ser una buena opción para torneos oficiales y de clubs.</string>
   <string name="pointsCalculationQ">¿Cómo se calculan los puntos?</string>
   <string name="pointsCalculationA">Una victoria equivale a un punto; unas tablas a medio punto; y una derrota a cero puntos.
 Si no se puede emparejar a un jugador en una ronda, recibirá un bye por valor de un punto.</string>
-  <string name="tiebreaksCalculationQ">¿Cómo se calculan los empates?</string>
-  <string name="sonnebornBergerScore">Puntuación Sonneborn-Berger</string>
+  <string name="tiebreaksCalculationQ">¿Cómo se calculan los desempates?</string>
+  <string name="sonnebornBergerScore">Puntuación Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Con la %s.
 Se suman las puntuaciones de todos los oponentes a los que haya vencido el jugador, y la mitad de las puntuaciones de todos los oponentes con los que haya hecho tablas.</string>
   <string name="pairingsQ">¿Cómo se deciden los emparejamientos?</string>
