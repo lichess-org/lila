@@ -96,11 +96,11 @@
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openingExplorer">База дебютов</string>
-  <string name="openingEndgameExplorer">Справочник начал и окончаний</string>
+  <string name="openingEndgameExplorer">База дебютов</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
-  <string name="winOr50MovesByPriorMistake">Победа или 50 ходов после последней ошибки</string>
+  <string name="winOr50MovesByPriorMistake">Победа или правило 50 ходов</string>
   <string name="lossOr50MovesByPriorMistake">Поражение или 50 ходов после последней ошибки</string>
   <string name="unknownDueToRounding">Победа/поражение гарантируется только если рекомендуемая последовательность ходов была выполнена с момента последнего взятия фигуры или хода пешки из-за возможного округления значений DTZ в базах Syzygy.</string>
   <string name="allSet">Готово!</string>
@@ -520,7 +520,7 @@
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Страна или флаг</string>
   <string name="thankYou">Спасибо!</string>
   <string name="socialMediaLinks">Ссылки на соцсети</string>
-  <string name="oneUrlPerLine">Один URL на строку.</string>
+  <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Один URL на строку.</string>
   <string name="inlineNotation">Строчная нотация</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
   <string name="onlinePlayers">Игроки в сети</string>
@@ -911,7 +911,7 @@
   <string name="resVsX">%1$s против %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Новый соискатель</string>
-  <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
+  <string name="lostAgainstTOSViolator">Вы проиграли тому, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти истекло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
