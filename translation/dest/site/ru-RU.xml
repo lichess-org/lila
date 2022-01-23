@@ -729,7 +729,7 @@
   <string name="downloadImported">Скачать в исходном виде</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Прокручивайте колесо в области компьютерных вариантов, чтобы просмотреть их.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Пролистывайте варианты для их просмотра.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="receiveForumNotifications">Получать уведомления при упоминании на форуме</string>
@@ -907,7 +907,7 @@
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
-  <string name="gameVsX">Партия против %1$s</string>
+  <string name="gameVsX">Игра против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Новый соискатель</string>
@@ -931,7 +931,7 @@
   <string name="minimumRatedGames">Минимум рейтинговых игр</string>
   <string name="minimumRating">Минимальный рейтинг</string>
   <string name="maximumWeeklyRating">Максимальный еженедельный рейтинг</string>
-  <string name="onlyTitled">Только игроки со званиями</string>
+  <string name="onlyTitled">Только титулованные игроки</string>
   <string name="onlyTitledHelp">Требует официального звания для участия в турнире</string>
   <string name="positionInputHelp">Вставьте правильную строку FEN, чтобы каждая игра начиналась с заданной позиции.
 Это работает только для стандартных игр, но не с вариантами.
