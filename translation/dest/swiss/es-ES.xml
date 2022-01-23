@@ -57,10 +57,10 @@ Creemos que es más probable que estas condiciones se cumplan en un equipo que e
   <string name="numberOfByesQ">¿Cuántos byes puede recibir un jugador?</string>
   <string name="numberOfByesA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no es capaz de asignarle un oponente.
 Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando éste ya ha empezado.</string>
-  <string name="whatIfOneDoesntPlayQ">¿Qué ocurre si un jugador no juega una partida?</string>
-  <string name="whatIfOneDoesntPlayA">El reloj empezará a contar, se agotará el tiempo y perderá la partida.
+  <string name="whatIfOneDoesntPlayQ">¿Qué pasa si un jugador no juega una partida?</string>
+  <string name="whatIfOneDoesntPlayA">Su reloj se pondrá en marcha, hasta que pierda la partida por tiempo.
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.
- Podrá volver a unirse al torneo en cualquier momento.</string>
+Podrá volver a unirse al torneo en cualquier momento.</string>
   <string name="lateJoinQ">¿Pueden unirse jugadores a un torneo empezado?</string>
   <string name="lateJoinA">Sí, hasta que se hayan iniciado más de la mitad de las rondas; por ejemplo, en un torneo suizo de 11 rondas, los jugadores pueden unirse antes de que empiece la ronda 6; en un torneo de 12 rondas, podrán unirse antes de que empiece la ronda 7.
 Los jugadores que se unan a un torneo empezado recibirán un único bye, incluso si no se presentan a varias rondas.</string>
