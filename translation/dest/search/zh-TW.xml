@@ -27,4 +27,5 @@
   <string name="maxNumber">最大值</string>
   <string name="maxNumberExplanation">回傳的最大場數</string>
   <string name="include">包含</string>
+  <string name="ratingExplanation" comment="ratingExplanation&#10;&#10;Help text for the 'Rating' field in advanced game search: https://lichess.org/games/search">兩位玩家的平均評分</string>
 </resources>
