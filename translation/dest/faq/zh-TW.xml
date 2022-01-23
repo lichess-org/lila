@@ -84,12 +84,23 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
   <string name="similarOpponents">實力相近的對手</string>
   <string name="howDoLeaderoardsWork">排名和排行榜是如何運作的?</string>
+  <string name="inOrderToAppearsYouMust">要登上 %1$s，您必須：</string>
   <string name="ratingLeaderboards">評分排行表</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">在標準國際象棋中評級偏差低於 %1$s，在變體中低於 %2$s，</string>
   <string name="beInTopTen">在此模式下得到前10的積分</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二個要求是讓不再使用其帳戶的玩家停止佔據排行榜。</string>
+  <string name="whyAreRatingHigher">為什麼 FIDE、USCF 和 ICC 等其他網站和組織相比 Lichess 的評級更高？</string>
+  <string name="whyAreRatingHigherExplanation">最好不要將評級視為絕對的數字，或將其與其他組織進行比較。不同的組織有不同級別的玩家，不同的評級系統(Elo、Glicko、Glicko-2 或上述的修改版本)。這些因素會極大地影響絕對數字(評級)。
+ 最好將評級視為“相對”數字(而不是“絕對”數字)：在一群玩家中，他們在評級上的相對差異將幫助您估計誰會贏/平手/輸，以及多久。說“我有 X 等級”並沒有任何意義，除非有其他玩家可以比較這個等級。</string>
   <string name="howToHideRatingWhilePlaying">如何在奕棋時隱藏評分?</string>
+  <string name="enableZenMode">在 %1$s 中啟用 Zen 模式，或在遊戲期間按 %2$s。</string>
   <string name="displayPreferences">隱藏積分顯示</string>
   <string name="connexionLostCanIGetMyRatingBack">我因為斷線或lag而導致我輸了。我可以加回我的分數嗎?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我們無法退還因延遲或斷開連接而丟失的遊戲評分，無論問題出在您方還是我們方。不過後者非常少見。另外請注意，當 Lichess 重新啟動並且您因此而導致棋局過時，我們會中止遊戲以防止不公平的損失。</string>
   <string name="howToThreeDots">如何...</string>
   <string name="enableDisableNotificationPopUps">啟用或禁用通知彈出窗口？</string>
+  <string name="viewSiteInformationPopUp">查看網站的信息彈出窗口</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess 可以選擇發送彈出通知，例如當輪到您進行下一步或當您收到私人消息時。
+單擊瀏覽器 URL 欄中 lichess.org 網址旁邊的鎖定圖標。
+然後選擇是否允許還是阻止來自 Lichess 的通知。</string>
 </resources>
