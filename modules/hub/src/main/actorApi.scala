@@ -52,7 +52,7 @@ package clas {
 
 package report {
   case class Cheater(userId: String, text: String)
-  case class Shutup(userId: String, text: String)
+  case class Shutup(userId: String, text: String, critical: Boolean)
   case class AutoFlag(suspectId: String, resource: String, text: String)
   case class CheatReportCreated(userId: String)
 }

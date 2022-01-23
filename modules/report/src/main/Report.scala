@@ -86,6 +86,7 @@ object Report {
 
   case class Score(value: Double) extends AnyVal {
     def +(s: Score) = Score(s.value + value)
+    def *(m: Int)   = Score(value * m)
     def color =
       if (value >= 150) "red"
       else if (value >= 100) "orange"
