@@ -82,10 +82,17 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
   <string name="lichessRatings">Lichess 評分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
+  <string name="whatIsProvisionalRating">為什麼評分旁邊有問號 (?) 在旁邊？</string>
+  <string name="provisionalRatingExplanation">那個問號表示評級是臨時的。原因包括：</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">該玩家尚未完成與評級類別中的 %1$s 的足夠多的評級遊戲。</string>
   <string name="similarOpponents">實力相近的對手</string>
+  <string name="notPlayedRecently">一個玩家最近玩的遊戲不夠多。根據您玩過的遊戲數量，您的評分可能需要大約一年不活動才能再次變為臨時評分。</string>
+  <string name="ratingDeviationMorethanOneHundredTen">具體而言，這意味著 Glicko-2 偏差大於 110。偏差是系統對評級的可信程度。偏差越小，評級越穩定。</string>
   <string name="howDoLeaderoardsWork">排名和排行榜是如何運作的?</string>
   <string name="inOrderToAppearsYouMust">要登上 %1$s，您必須：</string>
   <string name="ratingLeaderboards">評分排行表</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">至少玩過 30 場有評分的遊戲，</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">在上週內玩過一個有評分的遊戲，</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">在標準國際象棋中評級偏差低於 %1$s，在變體中低於 %2$s，</string>
   <string name="beInTopTen">在此模式下得到前10的積分</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二個要求是讓不再使用其帳戶的玩家停止佔據排行榜。</string>
