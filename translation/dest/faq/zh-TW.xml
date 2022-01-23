@@ -89,5 +89,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="howToHideRatingWhilePlaying">如何在奕棋時隱藏評分?</string>
   <string name="displayPreferences">隱藏積分顯示</string>
   <string name="connexionLostCanIGetMyRatingBack">我因為斷線或lag而導致我輸了。我可以加回我的分數嗎?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我們無法退還因延遲或斷開連接而丟失的遊戲評分，無論問題出在您方還是我們方。不過後者非常少見。另外請注意，當 Lichess 重新啟動並且您因此而導致棋局過時，我們會中止遊戲以防止不公平的損失。</string>
   <string name="howToThreeDots">如何...</string>
+  <string name="enableDisableNotificationPopUps">啟用或禁用通知彈出窗口？</string>
 </resources>
