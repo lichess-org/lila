@@ -53,7 +53,7 @@ object dailyPuzzleSlackApp {
           ),
           h2("Privacy Policy"),
           p(
-            "The app only collects and stores information necessary to deliver the service, which is limited to OAuth authentication information, Slack workspace/channel identifiers and app configuration settings. No personal information is processed expect for the username of users invoking slash commands. No personal information is stored."
+            "The app only collects and stores information necessary to deliver the service, which is limited to OAuth authentication information, Slack workspace/channel identifiers and app configuration settings. No personal information is processed except for the username of users invoking slash commands. No personal information is stored."
           ),
           h2("Support and feedback"),
           p(
