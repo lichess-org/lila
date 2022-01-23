@@ -77,6 +77,10 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="verificationForm">驗證表格</string>
   <string name="canIbecomeLM">我可以獲得 Lichess Master (LM) 頭銜嗎？</string>
   <string name="noUpperCaseDot">不行</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">這個尊稱是非官方的，只存在於 Lichess 上。
+我們很少根據自己的判斷將其授予作為 Lichess 好公民的知名玩家。你不能自行得到 LM 頭銜，是 LM 頭銜會過來給你。如果您符合條件，您將會收到我們關於它以及接受或拒絕選擇的消息。
+
+請問要求取得 LM 頭銜。</string>
   <string name="whatUsernameCanIchoose">我可以取甚麼樣的使用者名稱？</string>
   <string name="usernamesNotOffensive">一般來說，用戶名不應該是：冒犯性的、冒充他人的或含有廣告的。您可以閱讀有關 %1$s 的更多信息。</string>
   <string name="guidelines">指南</string>
