@@ -18,6 +18,7 @@
   <string name="rule1">當您在Lichess直播時,請在您的直播關鍵詞上標記\"Lichess\"和分類\"Chess\"</string>
   <string name="rule2">當您在直播與Lichess不相關的東西時,請移除這些關鍵詞</string>
   <string name="rule3">Lichess將會自動檢測您的直播並啟用以下特權：</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">閱讀我們的 %s 以確保在您的直播期間每個人都能公平競爭。</string>
   <string name="perks">使用關鍵詞直播的好處</string>
   <string name="perk1">在您的Lichess個人資料頁面上獲得一個燃燒的實況主圖示</string>
   <string name="perk2">快速到達實況主列表頂部</string>
