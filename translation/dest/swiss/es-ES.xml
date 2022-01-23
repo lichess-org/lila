@@ -42,21 +42,21 @@ Puede ser una buena opción para torneos oficiales y de clubs.</string>
   <string name="pointsCalculationA">Una victoria equivale a un punto; unas tablas a medio punto; y una derrota a cero puntos.
 Si no se puede emparejar a un jugador en una ronda, recibirá un bye por valor de un punto.</string>
   <string name="tiebreaksCalculationQ">¿Cómo se calculan los desempates?</string>
-  <string name="sonnebornBergerScore">Puntuación Sonneborn–Berger</string>
+  <string name="sonnebornBergerScore">puntuación Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Con la %s.
 Se suman las puntuaciones de todos los oponentes a los que haya vencido el jugador, y la mitad de las puntuaciones de todos los oponentes con los que haya hecho tablas.</string>
   <string name="pairingsQ">¿Cómo se deciden los emparejamientos?</string>
-  <string name="dutchSystem">Sistema holandés</string>
-  <string name="FIDEHandbook">Manual de la FIDE</string>
-  <string name="pairingsA">Con %1$s, implementada mediante %2$s, de conformidad con %3$s.</string>
-  <string name="moreRoundsThanPlayersQ">¿Qué ocurre si el torneo tiene más rondas que jugadores?</string>
-  <string name="moreRoundsThanPlayersA">Cuando se hayan jugado todos los emparejamientos posibles, el torneo finalizará y se declarará un ganador.</string>
+  <string name="dutchSystem">sistema holandés</string>
+  <string name="FIDEHandbook">manual de la FIDE</string>
+  <string name="pairingsA">Con el %1$s, implementado usando %2$s, de acuerdo con el %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">¿Qué pasa si el torneo tiene más rondas que jugadores?</string>
+  <string name="moreRoundsThanPlayersA">Cuando se hayan jugado todos los emparejamientos posibles, el torneo se acaba y proclama el ganador.</string>
   <string name="restrictedToTeamsQ">¿Por qué está limitado a los equipos?</string>
   <string name="restrictedToTeamsA">Los torneos suizos no se diseñaron para el ajedrez en línea. Exigen puntualidad, dedicación y paciencia por parte de los jugadores.
-Creemos que es más probable que estas condiciones se cumplan en un equipo que en torneos globales.</string>
+Creemos que es más probable que estas condiciones se cumplan en un equipo que en torneos abiertos.</string>
   <string name="numberOfByesQ">¿Cuántos byes puede recibir un jugador?</string>
-  <string name="numberOfByesA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no puede encontrar a un oponente válido.
-Además, se concede un único bye de medio punto cuando un jugador se une a un torneo ya empezado.</string>
+  <string name="numberOfByesA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no es capaz de asignarle un oponente.
+Además, se concede un único bye de medio punto cuando un jugador se une a un torneo cuando éste ya ha empezado.</string>
   <string name="whatIfOneDoesntPlayQ">¿Qué ocurre si un jugador no juega una partida?</string>
   <string name="whatIfOneDoesntPlayA">El reloj empezará a contar, se agotará el tiempo y perderá la partida.
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.
