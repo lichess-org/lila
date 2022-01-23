@@ -30,13 +30,20 @@
   <string name="currentStatus">目前狀態</string>
   <string name="nextPayment">下次付款</string>
   <string name="update">更新</string>
+  <string name="changeMonthlyAmount">更改每月的金額 (%s)</string>
   <string name="cancelSupport">取消贊助</string>
   <string name="xOrY">%1$s 或 %2$s</string>
+  <string name="decideHowMuch">決定 Lichess 對你來說有什麼價值：</string>
+  <string name="stopPayments">提取您的信用卡並停止付款：</string>
   <string name="noLongerSupport">不再贊助 Lichess</string>
   <string name="viewOthers">查看其他 Lichess 贊助者</string>
   <string name="date">日期</string>
   <string name="amount">金額</string>
   <string name="transactionCompleted">您的交易已完成，您的贊助收據已透過電子郵件發送給您。</string>
+  <string name="permanentPatron">您現在有一個永久的讚助者帳戶。</string>
   <string name="checkOutProfile">請確認您的個人資料頁面!</string>
+  <string name="nowLifetime">您現在是終生的 Lichess 贊助者！</string>
+  <string name="nowOneMonth">您現在是一個月的 Lichess 贊助者！</string>
+  <string name="downgradeNextMonth">一個月後，您不會再被收取費用，您的 Lichess 賬戶將恢復為普通賬戶。</string>
   <string name="changeCurrency">換算貨幣</string>
 </resources>
