@@ -27,8 +27,12 @@
 不過贊助者們可以炫耀自己有超酷的個人資料圖示。</string>
   <string name="featuresComparison">查看詳細的功能比較</string>
   <string name="youSupportWith">你贊助lichess.org每個月 %s美元</string>
+  <string name="tyvm">非常感謝您的幫助。</string>
   <string name="currentStatus">目前狀態</string>
   <string name="nextPayment">下次付款</string>
+  <string name="youWillBeChargedXOnY">您將會在%2$s被收取 %1$s。</string>
+  <string name="makeAdditionalDonation">進行額外的捐贈</string>
+  <string name="giftPatronWings">將贊助者翅膀贈送給玩家</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">更改每月的金額 (%s)</string>
   <string name="cancelSupport">取消贊助</string>
