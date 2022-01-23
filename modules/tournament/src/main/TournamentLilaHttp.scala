@@ -30,7 +30,8 @@ final class TournamentLilaHttp(
   def onlyId                    = lilaHttpTourId.get().some.filter(_.nonEmpty)
   def handles(tour: Tournament) = onlyId.fold(isOnLilaHttp get tour.id)(tour.id ==)
   def handledIds                = onlyId.fold(isOnLilaHttp.keys)(_ :: Nil)
-  def hit(tour: Tournament)     = if (tour.nbPlayers > 10 && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
+  def hit(tour: Tournament) =
+    if (tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)) isOnLilaHttp.put(tour.id)
 
   private val isOnLilaHttp = new ExpireSetMemo(3 hours)
   private val hitCounter   = new FrequencyThreshold[Tournament.ID](10, 30 seconds)
