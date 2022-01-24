@@ -103,7 +103,7 @@
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
   <string name="winOr50MovesByPriorMistake">Перемога або 50 ходiв за попередньою помилкою</string>
   <string name="lossOr50MovesByPriorMistake">Програш або 50 ходiв за попередньою помилкою</string>
-  <string name="unknownDueToRounding">Перемога/програш гарантуються лише в тому випадку, якщо з моменту останнього захоплення або ходу пішака, відстежується рекомендована базова лінія, через можливе заокруглення значень DTZ в систематичних табличних базах.</string>
+  <string name="unknownDueToRounding">Перемога/поразка гарантовані лише в тому випадку, якщо з моменту останнього взяття або ходу пішака відстежується рекомендована базова лінія, через можливе заокруглення значень DTZ в систематичних табличних базах.</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Імпорт PGN</string>
   <string name="delete">Видалити</string>
