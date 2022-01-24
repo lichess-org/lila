@@ -68,4 +68,9 @@
   <string name="mate">कोड्याचा विषय: मात देणारे कोडे</string>
   <string name="mateDescription">शैलीबद्ध खेळ जिंका.</string>
   <string name="mateIn1">एक चालीत मात</string>
+  <string name="mateIn1Description">एका चालीत मात द्या.</string>
+  <string name="mateIn2">दोन चालीत मात</string>
+  <string name="mateIn2Description">दोन चालीत मात द्या.</string>
+  <string name="mateIn3">तीन चालीत मात</string>
+  <string name="mateIn3Description">तीन चालीत मात द्या.</string>
 </resources>
