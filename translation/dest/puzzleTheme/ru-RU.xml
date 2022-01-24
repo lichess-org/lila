@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Продвинутая пешка</string>
-  <string name="advancedPawnDescription">Тактика связанная с превращением пешки или угрозой превращения пешки.</string>
+  <string name="advancedPawnDescription">Одна из Ваших пешек далеко продвинута, есть шанс превращения.</string>
   <string name="advantage">Преимущество</string>
   <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
   <string name="anastasiaMate">Мат Анастасии</string>
@@ -9,7 +9,7 @@
   <string name="arabianMate">Арабский мат</string>
   <string name="arabianMateDescription">Конь и ладья матуют вражеского короля в углу доски.</string>
   <string name="attackingF2F7">Атака f2 или f7</string>
-  <string name="attackingF2F7Description">Атака, направленная на пешки f2 или f7, например, в дебюте жареной печени.</string>
+  <string name="attackingF2F7Description">Атака, направленная на пешки f2 или f7, например, в атаке Фегателло.</string>
   <string name="attraction">Завлечение</string>
   <string name="attractionDescription">Размен или жертва, вынуждающая или подталкивающая фигуру противника занять поле, после чего становится возможен последующий тактический приём.</string>
   <string name="backRankMate">Мат на последней горизонтали</string>
