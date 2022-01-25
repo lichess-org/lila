@@ -43,6 +43,7 @@
   </plurals>
   <string name="newTeamBattle">新團隊戰</string>
   <string name="customStartDate">自定義開始日期</string>
+  <string name="customStartDateHelp">在您的當地時區，這將會覆蓋在 \"比賽準備時間\" 選項</string>
   <string name="allowBerserk">允許啟用狂暴模式</string>
   <string name="allowBerserkHelp">讓玩家將時間減半以獲得額外積分</string>
   <string name="allowChatHelp">讓玩家在聊天室討論</string>
