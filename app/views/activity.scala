@@ -252,7 +252,8 @@ object activity {
                     " simul by ",
                     userIdLink(s.hostId.some)
                   ),
-                  scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  if (isHost) scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  else scoreFrag(Score(s.wins(u.id), s.losses(u.id), s.draws(u.id), none))
                 )
               }
             )
