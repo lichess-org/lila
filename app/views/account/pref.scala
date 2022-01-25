@@ -145,6 +145,10 @@ object pref {
               radios(form("behavior.rookCastle"), translatedRookCastleChoices)
             ),
             setting(
+              correspondenceEmailNotification(),
+              radios(form("behavior.corresEmailNotif"), booleanChoices)
+            ),
+            setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
             ),
