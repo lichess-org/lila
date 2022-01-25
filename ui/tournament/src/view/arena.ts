@@ -11,9 +11,9 @@ const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
   values.reverse(); // in place!
   if (!streakable) return values.map(v => h('score', v));
-  let nodes = [],
-    streak = 0;
-  for (let v of values) {
+  const nodes = [];
+  let streak = 0;
+  for (const v of values) {
     const win = v == 2 ? streak < 2 : v > 2;
     const tag = streak > 1 && v > 1 ? 'double' : win ? 'streak' : 'score';
     if (win) {

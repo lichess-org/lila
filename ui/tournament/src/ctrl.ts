@@ -28,7 +28,7 @@ export default class TournamentController {
   searching = false;
   joinWithTeamSelector = false;
   redraw: () => void;
-  nbWatchers: number = 0;
+  nbWatchers = 0;
 
   private lastStorage = lichess.storage.make('last-redirect');
 
