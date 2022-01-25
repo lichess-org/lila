@@ -246,6 +246,7 @@ object activity {
             else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
             subTag(
               simuls.map { s =>
+                val win = s.pairingOf(u.id).flatMap(_.wins)
                 div(
                   a(href := routes.Simul.show(s.id))(
                     s.name,
@@ -253,7 +254,7 @@ object activity {
                     userIdLink(s.hostId.some)
                   ),
                   if (isHost) scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                  else scoreFrag(Score(s.wins(u.id), s.losses(u.id), s.draws(u.id), none))
+                  else scoreFrag(Score(win.has(true) ?? 1, win.has(false) ?? 1, win.isEmpty ?? 1, none))
                 )
               }
             )
