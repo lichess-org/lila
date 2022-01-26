@@ -10,6 +10,9 @@ lichess.load.then(() => {
   usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
 
+  // FIXME: Temporary hack until e4ba2de6f914a6e68c29242496de90a599b4adcf is live
+  $('#inquiry .actions.close button[disabled]').removeAttr('disabled');
+
   $('#inquiry .notes').on('mouseenter', () => {
     noteTextArea.focus();
     noteTextArea.value = noteStore.get() || '';
