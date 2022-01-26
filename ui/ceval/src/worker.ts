@@ -152,7 +152,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
 
   destroy() {
     // Terminated instances to not get freed reliably
-    // (https://github.com/ornicar/lila/issues/7334). So instead of
+    // (https://github.com/lichess-org/lila/issues/7334). So instead of
     // destroying, just stop instances and keep them around for reuse.
     this.protocol.sync?.stop();
   }

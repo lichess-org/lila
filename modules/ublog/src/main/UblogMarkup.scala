@@ -45,7 +45,7 @@ final class UblogMarkup(baseUrl: config.BaseUrl, assetBaseUrl: config.AssetBaseU
 
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
-  // https://github.com/ornicar/lila/issues/9767
+  // https://github.com/lichess-org/lila/issues/9767
   // toastui editor escapes `_` as `\_` and it breaks autolinks
   private[ublog] object unescapeUnderscoreInLinks {
     private val hrefRegex    = """href="([^"]+)"""".r

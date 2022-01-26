@@ -11,7 +11,7 @@ case class Appeal(
     createdAt: DateTime,
     updatedAt: DateTime,
     // date of first player message without a mod reply
-    // https://github.com/ornicar/lila/issues/7564
+    // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: DateTime
 ) {
   def id       = _id

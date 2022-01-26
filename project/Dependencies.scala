@@ -3,7 +3,7 @@ import sbt._, Keys._
 
 object Dependencies {
 
-  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
+  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
 
   val scalalib    = "com.github.ornicar"         %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"            %% "hasher"                          % "1.2.1"

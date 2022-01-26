@@ -479,7 +479,7 @@ export default class RoundController {
     if (!this.replaying() && playedColor != d.player.color) {
       // atrocious hack to prevent race condition
       // with explosions and premoves
-      // https://github.com/ornicar/lila/issues/343
+      // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
         if (!this.chessground.playPremove() && !this.playPredrop()) {
