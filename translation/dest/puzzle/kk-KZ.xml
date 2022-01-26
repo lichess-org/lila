@@ -59,4 +59,7 @@
   <string name="lookupOfPlayer">Бір ойыншының ойындарынан жұмбақ іздеу</string>
   <string name="fromXGames">%s ойындарынан жұмбақтар</string>
   <string name="searchPuzzles">Жұмбақ іздеу</string>
+  <string name="fromMyGamesNone">Дерекқорыңызда жұмбақ жоқ (бірақ сізге деген құрметіміз одан азайған емес).
+Жүйрік әрі классикалық ойын ойнап, жұмбақ құрылуына себепші болыңыз!</string>
+  <string name="fromXGamesFound">%2$s ойында %1$s жұмбақ табылды</string>
 </resources>
