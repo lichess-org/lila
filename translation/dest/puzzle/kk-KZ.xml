@@ -13,6 +13,7 @@
   <string name="specialMoves">Ерекше жүрістер</string>
   <string name="didYouLikeThisPuzzle">Бұл жұмбақ ұнай ма?</string>
   <string name="voteToLoadNextOne">Келесін ашу үшін дауыс беріңіз!</string>
+  <string name="yourPuzzleRatingWillNotChange">Сіздің жұмбақ шешу рейтингіңіз өзгермейді. Жұмбақтар жарыс емес екенін ескеріңіз. Мұндағы рейтинг сіздің деңгейіңізге сәйкес жұмбақты іздеу үшін ғана қолданылады.</string>
   <string name="findTheBestMoveForWhite">Ақтың пайдасына ең тиімді жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қараның пайдасына ең тиімді жүрісті табыңыз.</string>
   <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
