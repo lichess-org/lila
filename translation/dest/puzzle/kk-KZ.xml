@@ -39,8 +39,16 @@
   <string name="normal">Қалыпты</string>
   <string name="easier">Жеңілдеу</string>
   <string name="easiest">Ең жеңілі</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Жұмбақ рейтингіңізден төмен бір ұпай</item>
+    <item quantity="other">Жұмбақ рейтингіңізден төмен %s ұпай</item>
+  </plurals>
   <string name="harder">Қиындау</string>
   <string name="hardest">Ең қиыны</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Жұмбақ рейтингіңізден жоғары бір ұпай</item>
+    <item quantity="other">Жұмбақ рейтингіңізден жоғары %s ұпай</item>
+  </plurals>
   <string name="example">Мысал</string>
   <string name="addAnotherTheme">Басқа тақырып қосу</string>
   <string name="jumpToNextPuzzleImmediately">Келесі жұмбаққа бірден өту</string>
@@ -73,4 +81,6 @@
   </plurals>
   <string name="percentSolved">%s шешілді</string>
   <string name="noPuzzlesToShow">Мәлімет жоқ. Алдымен жұмбақ шешіп көріңіз!</string>
+  <string name="improvementAreasDescription">Жетістігіңізді арттыру үшін осыны көріңіз!</string>
+  <string name="strengthDescription">Осы тақырыпта сізде үздік нәтиже</string>
 </resources>
