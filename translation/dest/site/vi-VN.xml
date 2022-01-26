@@ -753,7 +753,7 @@
   <string name="rapidDesc">Cờ nhanh: 8 tới 25 phút</string>
   <string name="classicalDesc">Cờ chậm: Nhiều hơn hoặc bằng 25 phút</string>
   <string name="correspondenceDesc">Đánh cờ qua thư: Một hoặc vài ngày cho mỗi nước</string>
-  <string name="puzzleDesc">Huấn luyện viên cờ thế</string>
+  <string name="puzzleDesc">Luyện cờ thế</string>
   <string name="important">Chú ý</string>
   <string name="yourQuestionMayHaveBeenAnswered">Vấn đề của bạn có thể được giải đáp %1$s</string>
   <string name="inTheFAQ">tại F.A.Q.</string>
