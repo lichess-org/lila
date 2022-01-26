@@ -121,12 +121,12 @@
     <item quantity="other">%s nước đi sai</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="other">%s nước đi không chính xác</item>
+    <item quantity="other">%s nước đi lỗi</item>
   </plurals>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ</string>
-  <string name="claimADraw">Buộc hòa do lặp cờ</string>
+  <string name="claimADraw">Buộc hòa</string>
   <string name="offerDraw">Xin hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">
@@ -134,7 +134,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
-  <string name="currentGames">Những ván cờ đang diễn ra</string>
+  <string name="currentGames">Những trận đang chơi</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>
@@ -146,7 +146,7 @@
   <string name="signIn">Đăng nhập</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều này</string>
   <string name="signUp">Đăng kí</string>
-  <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và việc gian lận quá nhiều sẽ dẫn đến bị cấm.</string>
+  <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, kho dữ liệu, hoặc từ những người chơi khác khi chơi. Lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn sẽ bị cấm cửa nếu tạo quá nhiều tài khoản.</string>
   <string name="games">Các ván đấu</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s có viết trong diễn đàn %2$s</string>
@@ -170,8 +170,11 @@
   <plurals name="nbHours">
     <item quantity="other">%s giờ</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="other">%s phút</item>
+  </plurals>
   <string name="time">Thời gian</string>
-  <string name="rating">Hệ số Elo</string>
+  <string name="rating">Điểm Elo</string>
   <string name="ratingStats">Thống kê Elo</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
