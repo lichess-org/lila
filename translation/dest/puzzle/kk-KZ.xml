@@ -50,7 +50,13 @@
   <string name="history">Жұмбақ журналы</string>
   <string name="solved">шешілді</string>
   <string name="failed">шешілмеді</string>
-  <string name="streakDescription">Қиындай беретін жұмбақтарды шешіп, жеңістер тізбегін құрыңыз. Уақытта шектеу жоқ. Бір бұрыс қадам болса, ойын бітті! Бірақ бір ойында бір жүрісті өткізіп жібере аласыз.</string>
+  <string name="streakDescription">Қиындай беретін жұмбақтарды шешіп, жеңістер тізбегін құрыңыз. Уақытта шектеу жоқ. Бір бұрыс қадам болса, ойын бітті! Бірақ бір бәйгеде бір жүрісті өткізіп жібере аласыз.</string>
   <string name="yourStreakX">Жеңістер тізбегі: %s</string>
   <string name="streakSkipExplanation">Тізбегіңіз үзілмес үшін бұл жүрісті өткізіп жіберіңіз. Әр бәйгеде бір рет қана жасауға болады.</string>
+  <string name="continueTheStreak">Тізбекті жалғастыру</string>
+  <string name="newStreak">Жаңа тізбек</string>
+  <string name="fromMyGames">Менің ойындарымнан</string>
+  <string name="lookupOfPlayer">Бір ойыншының ойындарынан жұмбақ іздеу</string>
+  <string name="fromXGames">%s ойындарынан жұмбақтар</string>
+  <string name="searchPuzzles">Жұмбақ іздеу</string>
 </resources>
