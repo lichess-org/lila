@@ -76,7 +76,7 @@ export default rollupProject({
         values: {
           __info__: JSON.stringify({
             date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-            commit: execSync('git rev-parse -q --short HEAD', { encoding: 'utf-8' }).trim(),
+            commit: execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim(),
             message: execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
           }),
         },
