@@ -24,4 +24,5 @@
   <string name="sortBy">Сұрыптау шарты</string>
   <string name="analysis">Талдау</string>
   <string name="onlyAnalysed">Тек компьютерлік талдауға бейім ойындар</string>
+  <string name="color">Түсі</string>
 </resources>
