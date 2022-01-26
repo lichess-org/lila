@@ -17,6 +17,8 @@
   <string name="stalemate">Hòa pat</string>
   <string name="white">Trắng</string>
   <string name="black">Đen</string>
+  <string name="asWhite">khi chơi trắng</string>
+  <string name="asBlack">khi chơi đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo ván cờ mới</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
@@ -109,9 +111,9 @@
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
   <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
-  <string name="blunder">Sai lầm</string>
+  <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Lỗi</string>
-  <string name="inaccuracy">Thiếu chính xác</string>
+  <string name="inaccuracy">Lỗi</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s sai lầm nghiêm trọng</item>
   </plurals>
