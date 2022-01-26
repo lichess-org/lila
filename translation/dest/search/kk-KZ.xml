@@ -25,4 +25,9 @@
   <string name="analysis">Талдау</string>
   <string name="onlyAnalysed">Тек компьютерлік талдауға бейім ойындар</string>
   <string name="color">Түсі</string>
+  <string name="evaluation">Бағалау</string>
+  <string name="maxNumber">Ойын саны</string>
+  <string name="maxNumberExplanation">Іздеу нәтижесінде қанша ойын көрсету</string>
+  <string name="include">Құрамы</string>
+  <string name="descending">Азаю бойымен</string>
 </resources>
