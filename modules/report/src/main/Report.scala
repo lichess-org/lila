@@ -36,7 +36,7 @@ case class Report(
             atoms = {
               existing.copy(
                 at = atom.at,
-                score = atom.score,
+                score = atom.score atLeast existing.score,
                 text = s"${existing.text}\n\n${atom.text}"
               ) :: atoms.toList.filterNot(_.by == atom.by)
             }.toNel | atoms
@@ -92,7 +92,8 @@ object Report {
       else if (value >= 100) "orange"
       else if (value >= 50) "yellow"
       else "green"
-    def atLeast(v: Int) = Score(value atLeast v)
+    def atLeast(v: Int)   = Score(value atLeast v)
+    def atLeast(s: Score) = Score(value atLeast s.value)
   }
   implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
