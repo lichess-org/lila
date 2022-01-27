@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import com.softwaremill.macwire._
 import com.softwaremill.tagging._
+import io.lettuce.core.{ RedisClient, RedisURI }
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
@@ -95,12 +96,18 @@ final class Env(
 
   lazy val crudApi = wire[crud.CrudApi]
 
-  lazy val reloadDelaySetting = settingStore[Int](
-    "tournamentReloadDelay",
-    default = 0,
+  lazy val reloadEndpointSetting = settingStore[String](
+    "tournamentReloadEndpoint",
+    default = "/tournament/{id}",
+    text = "lila-http endpoint. Set to /tournament/{id} to only use lila.".some
+  ).taggedWith[TournamentReloadEndpoint]
+
+  lazy val lilaHttpTourIdSetting = settingStore[Tournament.ID](
+    "lilaHttpTourId",
+    default = "none",
     text =
-      "Delay in seconds between tournament XHR reloads. Set to zero for default. Set to 5 or more during intense tournaments. Tripled for spectators.".some
-  ).taggedWith[TournamentReloadDelay]
+      "Which single tournament ID to send to lila-http. Empty = all tournaments. Random = no tournament.".some
+  ).taggedWith[LilaHttpTourId]
 
   lazy val jsonView: JsonView = wire[JsonView]
 
@@ -131,6 +138,9 @@ final class Env(
     tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }
   }
 
+  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
+  val lilaHttp            = wire[TournamentLilaHttp]
+
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId)(GetVersion)
 
@@ -155,3 +165,5 @@ final class Env(
 }
 
 trait TournamentReloadDelay
+trait TournamentReloadEndpoint
+trait LilaHttpTourId

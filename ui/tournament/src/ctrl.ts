@@ -28,6 +28,7 @@ export default class TournamentController {
   searching = false;
   joinWithTeamSelector = false;
   redraw: () => void;
+  nbWatchers = 0;
 
   private lastStorage = lichess.storage.make('last-redirect');
 
@@ -46,6 +47,9 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
+    lichess.pubsub.on('socket.in.crowd', data => {
+      this.nbWatchers = data.nb;
+    });
   }
 
   askReload = (): void => {

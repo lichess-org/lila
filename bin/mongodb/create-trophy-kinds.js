@@ -68,7 +68,7 @@ db.trophyKind.insert({
   _id: 'developer',
   name: 'Lichess developer',
   icon: '',
-  url: 'https://github.com/ornicar/lila/graphs/contributors',
+  url: 'https://github.com/lichess-org/lila/graphs/contributors',
   klass: 'icon3d',
   order: NumberInt(100),
   withCustomImage: false,

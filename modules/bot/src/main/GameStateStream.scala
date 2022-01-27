@@ -21,6 +21,8 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
+import play.api.mvc.RequestHeader
+import lila.common.HTTPRequest
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -35,7 +37,8 @@ final class GameStateStream(
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
   def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(implicit
-      lang: Lang
+      lang: Lang,
+      req: RequestHeader
   ): Source[Option[JsObject], _] = {
 
     // terminate previous one if any
@@ -52,14 +55,15 @@ final class GameStateStream(
     }
   }
 
-  private def uniqChan(pov: Pov) = s"gameStreamFor:${pov.fullId}"
+  private def uniqChan(pov: Pov)(implicit req: RequestHeader) =
+    s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
 
   private def mkActor(
       init: Game.WithInitialFen,
       as: chess.Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
-  )(implicit lang: Lang) =
+  )(implicit lang: Lang, req: RequestHeader) =
     new Actor {
 
       val id = init.game.id

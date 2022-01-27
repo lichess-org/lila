@@ -71,9 +71,9 @@ object chat {
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
-          .obj("local" -> localMod)
-          .add("timeout" -> isGranted(_.ChatTimeout))
-          .add("shadowban" -> isGranted(_.Shadowban))
+          .obj("local" -> (public && localMod))
+          .add("timeout" -> (public && isGranted(_.ChatTimeout)))
+          .add("shadowban" -> (public && isGranted(_.Shadowban)))
       )
       .add("kobold" -> ctx.troll)
       .add("blind" -> ctx.blind)

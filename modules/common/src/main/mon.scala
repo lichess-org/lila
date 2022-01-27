@@ -391,6 +391,11 @@ object mon {
     object createdOrganizer {
       val tick = future("tournament.createdOrganizer.tick")
     }
+    object lilaHttp {
+      val tick     = future("tournament.lilaHttp.tick")
+      val fullSize = histogram("tournament.lilaHttp.fullSize").withoutTags()
+      val nbTours  = gauge("tournament.lilaHttp.nbTours").withoutTags()
+    }
     def standingOverload = counter("tournament.standing.overload").withoutTags()
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(

@@ -412,8 +412,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
   <string name="advancedSettings">Erwiiterti Iischtellige</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
-  <string name="inappropriateNameWarning">Alles - au nu liecht Unagmässes - chann zur Schlüssig vu diim Konto fühere. 
-(... die \"Sunntigschuel-Lehrer\" schpilled uf dem Server \"heili Wält\").</string>
+  <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu diim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
   <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
   <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
@@ -460,7 +459,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="biography">Biografii</string>
   <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
   <string name="thankYou">Ich danke dir!</string>
-  <string name="socialMediaLinks">Soziali-Medie-Links</string>
+  <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="oneUrlPerLine" comment="oneUrlPerLine&#10;&#10;Appears in the 'Social media links' section for when you edit your profile, to display URLs associated with you: https://lichess.org/account/profile">Nur 1 Web-Adrässe (URL) pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
@@ -579,8 +578,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="onlyFriends">Nur Fründe</string>
   <string name="menu">Menü</string>
   <string name="castling">Rochade</string>
-  <string name="whiteCastlingKingside">Wiss O - O</string>
-  <string name="blackCastlingKingside">Schwarz O - O</string>
+  <string name="whiteCastlingKingside">Wiss 0-0</string>
+  <string name="blackCastlingKingside">Schwarz 0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum-Biitrag</item>
     <item quantity="other">%s Forum-Biiträg</item>
@@ -602,23 +601,23 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="sourceCode">Quällcode</string>
   <string name="simultaneousExhibitions">Simultanschach Veraaschtaltige</string>
   <string name="host">Simultanschpiller</string>
-  <string name="hostColorX">Farb vum Simultanschpiller: %s</string>
+  <string name="hostColorX">Farb Simultanschpiller: %s</string>
   <string name="createdSimuls">Neu kreierts Simultanschach</string>
-  <string name="hostANewSimul">Es neus Simultanschach erschtelle</string>
+  <string name="hostANewSimul">Mach diir es Simultanschach</string>
   <string name="noSimulFound">Simultanschach nöd gfunde</string>
   <string name="noSimulExplanation">Das Simultanschach exischtiert nöd.</string>
-  <string name="returnToSimulHomepage">Zrugg zur Simultanschach Homepage</string>
+  <string name="returnToSimulHomepage">Zrugg zur Simultanschach Startsite</string>
   <string name="aboutSimul">Bim Simultanschach schpillt 1 Simultanschpiller gliichziitig gäge beliebig vill Simultangägner.</string>
-  <string name="aboutSimulImage">Gäge 50 Schpiller hät de Bobby Fischer 47 Sieg und 2 Remis gschafft und nur 1 Partie verlore.</string>
-  <string name="aboutSimulRealLife">S\'Konzept isch wie bi reale Simultanschach-Veraschtaltige: De Simultanschpiller bewegt vu eim Simultangägner zum Nächschte und macht a jedem Brätt immer 1 Zug.</string>
-  <string name="aboutSimulRules">Bim Simultanschach schpilled beliebig vill Simultangägner je 1 Partie gäge en Simultanschpiller und sGanzi ändet, wänn alli Schpiil fertig gschpillt sind.</string>
+  <string name="aboutSimulImage">Hät de Fischer gäge 50 Gägner 47 Sieg plus 2 Remis gschafft und nur 1 Partie verlore.</string>
+  <string name="aboutSimulRealLife">Bim Simultanschach schpillt 1 Simultanschpiller gliichziitig gäge beliebig vill Simultangägner und das so lang, bis all Partie fertig gschpillt sind.</string>
+  <string name="aboutSimulRules">Wie bi reale Simultanschach Veraaschteltige, gaht de Simultanschpiller vu eim Simultangägner zum Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Simultanschach isch immer ungwertet. Revanche, Zugsrücknahme oder zuesätzlichi Ziit gits nöd.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du es Simultanschach erschtellsch, chasch du glichziitig gäge mehreri Gägner schpille.</string>
+  <string name="whenCreateSimul">Wänn du diir es Simultanschach machsch, chasch glichziitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
-  <string name="simulClockHint">Fischer Uhr-Iistellig. Je meh Gägner du häsch, umso meh Ziit bruchsch wahrschinli.</string>
-  <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass mit em Simutlan zrächt chunsch.</string>
-  <string name="simulHostExtraTime">Extra Ziit vum Simultanschpiller</string>
+  <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Ziit bruchsch wahrschinlich.</string>
+  <string name="simulAddExtraTime">Du chasch dir extra Ziit gäh, dass du z\'rächt chunsch.</string>
+  <string name="simulHostExtraTime">Extra Ziit Simultanschpiller</string>
   <string name="lichessTournaments">Lichess Turnier</string>
   <string name="tournamentFAQ">Arena Turnier - hüfigi Frage (FAQ)</string>
   <string name="timeBeforeTournamentStarts">Ziit bis s\'Turnier afangt</string>
@@ -627,10 +626,10 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="keyMoveBackwardOrForward">zieh zrugg/vorwärts</string>
   <string name="keyGoToStartOrEnd">gang zum Afang/Änd</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
-  <string name="keyEnterOrExitVariation">wähl/verlaa Variante</string>
+  <string name="keyEnterOrExitVariation">wähl/verlah Variante</string>
   <string name="newTournament">Neus Turnier</string>
-  <string name="tournamentHomeTitle">Schachturnier mit verschidene Ziitkontrolle und Variante</string>
-  <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell dis Eigene. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfachschach und witeri Variante sind vorhande, für ändlose Schach-Spass.</string>
+  <string name="tournamentHomeTitle">Schachturnier mit verschiedene Ziitkontrolle und Variante</string>
+  <string name="tournamentHomeDescription">Schpill rasanti Turnier! Mach bi plante Turnier mit oder erschtell es Eiges. Bullet, Blitz, Klassisch, Schach960, König uf em Hügel, Drüfach-Schach und wiiteri Variante sind vorhande - für ändlose Schach-Spass.</string>
   <string name="tournamentNotFound">Turnier nöd gfunde</string>
   <string name="tournamentDoesNotExist">Das Turnier exischtiert nöd.</string>
   <string name="tournamentMayHaveBeenCanceled">Das Turnier wird abgseit, wänn alli Schpiller vor em Beginn weg sind.</string>
@@ -716,8 +715,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="usernameSuffixInvalid">De Benutzername muess mit eme Buechschtabe oder ere Zahl ände.</string>
   <string name="usernameCharsInvalid">De Benutzername dörf nu Buechschtabe, Zahle, Understrich und Bindestrich ha. Nach enand folgendi Understrich oder Bindestrich sind nöd erlaubt.</string>
   <string name="usernameUnacceptable">De Benutzername wird nöd akzeptiert.</string>
-  <string name="playChessInStyle">Schpill Schach mit Stil</string>
-  <string name="chessBasics">Schach-Grundlage</string>
+  <string name="playChessInStyle">Schpill Schach mit Schtiil</string>
+  <string name="chessBasics">Schach Grundlage</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Fähler im PGN</string>
   <string name="invalidFen">Fähler im FEN</string>
@@ -796,7 +795,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="currentMatchScore">Aktuelle Schpiilschtand</string>
   <string name="agreementAssistance">Ich schtimme zue, dass ich zum Schpille, kei Hilfe nutze - wie z. B. Schach-Computer, Büecher, Datäbanke oder Drittpersone.</string>
   <string name="agreementNice">Ich schtimme zue, dass ich mit andere Schpiller immer reschpäktvoll umgang.</string>
-  <string name="agreementAccount">Ich schtimme zue, dass ich nöd mehreri Kontoi erschtelle.</string>
+  <string name="agreementAccount">Ich schtimme zue, dass ich nöd mehreri Konti erschtelle.</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui aa</string>
   <string name="edit">Bearbeite</string>
@@ -856,10 +855,10 @@ und beiiflussed diini Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
   <string name="onlyTitled">Nur für Schpiller mit Titel</string>
   <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel haa</string>
-  <string name="positionInputHelp">Füeg en gültige FEN ii, zum jedi Partie ab ere beschtimmte Schtellig z\'schtarte.
-Das funktioniert nur für Standardschpiil und nöd für Variante.
-Du chasch de %s verwende, um e FEN-Schtelliig z\'generiere und die dänn da iizfüege.
-Leer lah, um d\'Partie vu de normale Usgangsschtellig us z\'schtarte.</string>
+  <string name="positionInputHelp">E gültigi FEN startet jedes Schpiil ab ere beschtimmte Schtellig. 
+Das funktioniert nur für Standardschpiil und nöd für Variante!
+Chasch mit %s so e FEN-Schtelliig generiere und sie dänn im Fäld 
+iifüege oder das Fäld leer lah und all Schpiil normal schtarte.</string>
   <string name="cancelSimul">Simultanschach abbräche</string>
   <string name="simulHostcolor">Farb vom Simultanschpiller, für jedi Partie</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>

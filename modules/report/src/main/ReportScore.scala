@@ -28,7 +28,7 @@ final private class ReportScore(
 
     def autoScore(candidate: Report.Candidate) = candidate.isAutomatic ?? 25d
 
-    // https://github.com/ornicar/lila/issues/4587
+    // https://github.com/lichess-org/lila/issues/4587
     def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoBoost) baseScore * 1.5
       else if (c.isAutoComm) 42d

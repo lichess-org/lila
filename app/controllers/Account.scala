@@ -302,15 +302,17 @@ final class Account(
     AuthBody { implicit ctx => me =>
       NotManaged {
         implicit val req = ctx.body
-        env.security.forms closeAccount me flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.close(me, err, managed = false))
-          } { _ =>
-            env.api.accountClosure.close(me, Holder(me)) inject {
-              Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
+        auth.HasherRateLimit(me.username, ctx.req) { _ =>
+          env.security.forms closeAccount me flatMap { form =>
+            FormFuResult(form) { err =>
+              fuccess(html.account.close(me, err, managed = false))
+            } { _ =>
+              env.api.accountClosure.close(me, Holder(me)) inject {
+                Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
+              }
             }
           }
-        }
+        }(rateLimitedFu)
       }
     }
 

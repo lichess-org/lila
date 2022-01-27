@@ -220,7 +220,7 @@ object inquiry {
           title := "Cancel the inquiry, re-instore the report",
           cls := "cancel"
         )(
-          submitButton(dataIcon := "", cls := "fbt")
+          submitButton(dataIcon := "", cls := "fbt")(in.alreadyMarked option disabled)
         )
       )
     )
