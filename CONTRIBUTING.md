@@ -3,7 +3,7 @@
 ## I want to contribute code to Lichess
 
 - [Set up your development environment](https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding).
-- [Pick a GitHub issue to work on](https://github.com/lichess-org/lila/issues). The [good first issue](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [no scala](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
+- [Pick a GitHub issue to work on](https://github.com/lichess-org/lila/issues). The [good first issue](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [no scala](https://github.com/lichess-org/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
 - Communicate with other devs on [Discord](https://discord.gg/lichess).
 
 ## I want to report a bug or a problem about Lichess
